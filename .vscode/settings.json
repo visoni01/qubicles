@@ -1,0 +1,71 @@
+{
+  "todohighlight.isEnable": true,
+  "todohighlight.isCaseSensitive": true,
+  "material-icon-theme.showUpdateMessage": false,
+  "window.zoomLevel": 0,
+  // "workbench.iconTheme": "material-icon-theme",
+  "workbench.statusBar.visible": true,
+  "workbench.activityBar.visible": true,
+  "workbench.sideBar.location": "left",
+  "files.autoSave": "onFocusChange",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "editor.tabSize": 2,
+  "editor.renderWhitespace": "all",
+  "editor.minimap.enabled": true,
+  "editor.renderControlCharacters": false,
+  "editor.renderFinalNewline": true,
+  "editor.rulers": [
+    120
+  ],
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.autoIndent": "full",
+  "editor.detectIndentation": false,
+  "editor.formatOnSave": true,
+  "javascript.implicitProjectConfig.experimentalDecorators": true,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+  "javascript.format.insertSpaceAfterConstructor": true,
+  "standard.autoFixOnSave": true,
+  "breadcrumbs.enabled": true,
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  },
+  "standard.validate": [
+    {
+      "language": "javascript",
+      "autoFix": true
+    },
+    {
+      "language": "javascriptreact",
+      "autoFix": true
+    }
+  ],
+  "standard.options": {
+    "parser": "babel-eslint",
+    "env": {
+      "jest": true,
+      "browser": true,
+      "node": true
+    },
+    "globals": [
+      "before",
+      "assert",
+      "after"
+    ]
+  },
+  "todohighlight.defaultStyle": {
+    "color": "red",
+    "backgroundColor": "rgba(0,0,0,.2)",
+    "overviewRulerColor": "rgba(0,0,0,.2)",
+    "cursor": "pointer",
+    "border": "1px solid red",
+    "borderRadius": "5px",
+    "isWholeLine": true,
+  },
+  "todohighlight.keywords": [
+    "TODO",
+    "FIXME"
+  ]
+}
