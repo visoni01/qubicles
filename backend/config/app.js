@@ -32,11 +32,11 @@ const config = convict({
       env: 'DB_NAME'
     },
     user: {
-      default: 'postgres',
+      default: 'root',
       env: 'DB_USER'
     },
     password: {
-      default: 'postgres',
+      default: 'root',
       env: 'DB_PASSWORD'
     },
     host: {

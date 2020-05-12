@@ -6,6 +6,7 @@ import bodyParser from 'body-parser'
 import compression from 'compression'
 import routesInitiator from '../routes'
 import expressBoom from 'express-boom'
+import db from '../app/db/models'
 
 // Initialize express app
 const app = express()
@@ -32,12 +33,23 @@ function initMiddleware () {
   app.use(compression())
 }
 
+function initDatabase () {
+  db
+  .sequelize
+  .sync({ force: false })
+  .then(function() {
+    console.log('You are connected to the database successfully.');
+  });
+}
+
 export function init () {
   // Initialize Express middleware
   initMiddleware()
 
   // Initialize modules server routes
   routesInitiator(app)
+
+  initDatabase()
 
   return app
 }

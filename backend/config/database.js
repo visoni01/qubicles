@@ -6,7 +6,10 @@ module.exports = {
     password: config.get('sequelize.password'),
     database: config.get('sequelize.name'),
     host: config.get('sequelize.host'),
-    dialect: 'postgres'
+    dialect: 'mariadb',
+    define: {
+      underscored: true
+    }
   },
   test: {
     username: config.get('sequelize.user'),
