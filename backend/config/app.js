@@ -60,7 +60,21 @@ const config = convict({
     callbackURL: {
       default: 'http://127.0.0.1:4000/api/v1/auth/twitter/callback',
       env: 'TWITTER_CALLBACK_URL'
+    }
+  },
+  facebook: {
+    appId: {
+      default: '504642537099415',
+      env: 'FACEBOOK_APP_ID'
     },
+    appSecret: {
+      default: '978eda810fafbb84f7d81a7520b3a558',
+      env: 'FACEBOOK_APP_SECRET'
+    },
+    callbackURL: {
+      default: 'https://localhost:4000/api/v1/auth/facebook/callback',
+      env: 'FACEBOOK_CALLBACK_URL'
+    }
   }
 })
 

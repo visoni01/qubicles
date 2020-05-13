@@ -5,10 +5,12 @@ const args = { mergeParams: true }
 const authRouter = express.Router(args)
 
 authRouter.route('/facebook')
-  .get(passport.authenticate('facebook', {}))
+  .get(passport.authenticate('facebook', { scope: ['email'] }))
 
 authRouter.route('/facebook/callback')
-  .get(passport.authenticate('facebook', { failureRedirect: '/'}))
+  .get(passport.authenticate('facebook', { failureRedirect: '/' }), (req, res) => {
+    res.send('Home');
+  })
 
 authRouter.route('/twitter')
   .get(passport.authenticate('twitter'))
