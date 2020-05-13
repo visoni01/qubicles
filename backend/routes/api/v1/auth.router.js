@@ -10,4 +10,12 @@ authRouter.route('/facebook')
 authRouter.route('/facebook/callback')
   .get(passport.authenticate('facebook', { failureRedirect: '/'}))
 
+authRouter.route('/twitter')
+  .get(passport.authenticate('twitter'))
+
+authRouter.route('/twitter/callback')
+  .get(passport.authenticate('twitter', { failureRedirect: '/'}), function(req, res) {
+    res.render('home', { user: req.user })
+  })  
+
 export { authRouter }

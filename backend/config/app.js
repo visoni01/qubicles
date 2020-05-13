@@ -47,6 +47,20 @@ const config = convict({
       default: 5432,
       env: 'DB_PORT'
     }
+  },
+  twitter: {
+    consumerKey: {
+      default: 'Xk2LguhNG6bdgITIWtjyMtTaX',
+      env: 'TWITTER_CONSUMER_KEY'
+    },
+    consumerSecret: {
+      default: 'YU0Cdnf7qUYSSQTBZxuYron58jaWNSEuqxMGtLxzKvgzfA1wfH',
+      env: 'TWITTER_CONSUMER_SECRET'
+    },
+    callbackURL: {
+      default: 'http://127.0.0.1:4000/api/v1/auth/twitter/callback',
+      env: 'TWITTER_CALLBACK_URL'
+    },
   }
 })
 
