@@ -7,6 +7,7 @@ import compression from 'compression'
 import routesInitiator from '../routes'
 import expressBoom from 'express-boom'
 import db from '../app/db/models'
+import initPassport from  '../app/middlewares/passport'
 
 // Initialize express app
 const app = express()
@@ -45,6 +46,9 @@ function initDatabase () {
 export function init () {
   // Initialize Express middleware
   initMiddleware()
+
+  // Initialize Passport
+  initPassport();
 
   // Initialize modules server routes
   routesInitiator(app)
