@@ -1,6 +1,7 @@
 import passport from 'passport'
 import TwitterStrategy from 'passport-twitter'
 import { Strategy as FacebookStrategy } from 'passport-facebook'
+import { Strategy as LinkedInStrategy } from 'passport-linkedin-oauth2'
 import config from '../../config/app'
 
 function initPassport() {
@@ -21,7 +22,20 @@ function initPassport() {
     profileFields: ['email', 'name']
 
   }, function (accessToken, refreshToken, profile, done) {
-    return done(null, profile);
+    return done(null, profile)
+  }
+  ))
+
+  passport.use(new LinkedInStrategy({
+    clientID: config.get('linkedin.apiKey'),
+    clientSecret: config.get('linkedin.secretkey'),
+    callbackURL: config.get('linkedin.callbackURL'),
+    scope: ['r_emailaddress', 'r_liteprofile'],
+  }, function(accessToken, refreshToken, profile, done) {
+    // asynchronous verification, for effect...
+    process.nextTick(function () {
+      return done(null, profile)
+    })
   }
   ))
 

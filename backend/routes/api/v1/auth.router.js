@@ -16,8 +16,15 @@ authRouter.route('/twitter')
   .get(passport.authenticate('twitter'))
 
 authRouter.route('/twitter/callback')
-  .get(passport.authenticate('twitter', { failureRedirect: '/'}), function(req, res) {
+  .get(passport.authenticate('twitter', { failureRedirect: '/' }), function (req, res) {
     res.render('home', { user: req.user })
-  })  
+  })
+
+authRouter.route('/linkedin')
+  .get(passport.authenticate('linkedin', { state: 'SOME STATE' }))
+
+authRouter.route('/linkedin/callback')
+  .get(passport.authenticate('linkedin', { successRedirect: '/', failureRedirect: '/login' }), (req, res) => {
+  })
 
 export { authRouter }

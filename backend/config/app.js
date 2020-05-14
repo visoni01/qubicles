@@ -75,6 +75,20 @@ const config = convict({
       default: 'https://localhost:4000/api/v1/auth/facebook/callback',
       env: 'FACEBOOK_CALLBACK_URL'
     }
+  },
+  linkedin: {
+    apiKey: {
+      default: '86s2vtt5wz7q8h',
+      env: 'LINKEDIN_ID'
+    },
+    secretkey: {
+      default: 'mXUWVEc2q14spFXe',
+      env: 'LINKEDIN_SECRET'
+    },
+    callbackURL: {
+      default: 'https://localhost:4000/api/v1/auth/linkedin/callback',
+      env: 'LINKEDIN_CALLBACK_URL'
+    }
   }
 })
 
