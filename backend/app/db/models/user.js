@@ -7,6 +7,18 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
+    facebookId: {
+      type: DataTypes.STRING,
+      unique: true
+    },
+    twitterId: {
+      type: DataTypes.STRING,
+      unique: true
+    },
+    linkedInId: {
+      type: DataTypes.STRING,
+      unique: true
+    },
     user: {
       type: DataTypes.STRING
     },

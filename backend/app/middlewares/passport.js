@@ -3,6 +3,7 @@ import TwitterStrategy from 'passport-twitter'
 import { Strategy as FacebookStrategy } from 'passport-facebook'
 import { Strategy as LinkedInStrategy } from 'passport-linkedin-oauth2'
 import config from '../../config/app'
+import SocialSignup from '../services/signup/socialSignup'
 
 function initPassport() {
   passport.use(new TwitterStrategy({
@@ -11,6 +12,12 @@ function initPassport() {
     callbackURL: config.get('twitter.callbackURL'),
     proxy: false
   }, function(token, tokenSecret, profile, done) {
+     SocialSignup.execute({
+       type: 'twitterId',
+       full_name: profile.displayName,
+       id: profile.id,
+       email: 'shivam@quibicle.io'
+     })
      return done(null, profile)
   } 
   ))
