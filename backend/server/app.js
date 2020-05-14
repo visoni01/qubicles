@@ -1,6 +1,10 @@
 import config from '../config/app'
 import * as express from './express'
 import logger from '../app/common/logger'
+import passport from 'passport'
+import fs from 'fs'
+import https from 'https'
+
 // import '../app/workers'
 
 const start = async () => {
@@ -13,9 +17,17 @@ const start = async () => {
     logger.info(`App Port : ${port}`)
     logger.info(`Process Id : ${process.pid}`)
   }
-
   const app = express.init()
-  app.listen(port, appStartMessage)
+
+  //https server with self signed ssl certificate
+  const httpsOptions = {
+    cert: fs.readFileSync('./ssl/localhost.crt'),
+    key: fs.readFileSync('./ssl/localhost.key')
+  };
+  const httpsServer = https.createServer(httpsOptions, app);
+  
+  httpsServer.listen(port, appStartMessage);
+  //app.listen(port, appStartMessage)
 }
 
 export default start

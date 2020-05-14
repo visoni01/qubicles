@@ -24,7 +24,6 @@ export default class SocialSignupService extends ServiceBase {
   async run() {
     const whereCond = {}
     whereCond[this.type] = this.id
-    const user = await User.findOrCreate({ where: whereCond})
-    return
+    const user = await User.findOrCreate({ where: whereCond, defaults: { full_name: this.full_name, email: this.email }} )
   }
 }
