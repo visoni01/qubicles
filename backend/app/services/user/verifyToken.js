@@ -18,14 +18,20 @@ export default class VerifyTokenService extends ServiceBase {
       if (err) {
         this.addError('verifyTokenError', 'Verification link is expired or invalid')
       }
-      if (jwtVerified) {
-        const verifiedEmail = jwtVerified.email
+      if (!(await this.checkIfEmailAlreadyVerified(jwtVerified.email))) {
         const user = await User.update(
           { email_verified: true },
-          { where: { email: verifiedEmail } }
+          { where: { email: jwtVerified.email } }
         )
         return 'Email Verified Successfully!!'
+      } else {
+        return 'Email already verified Successfully!!'
       }
     })
+  }
+
+  async checkIfEmailAlreadyVerified (email) {
+    const user = await User.findOne({ where: { email }, raw: true })
+    return user.email_verified
   }
 }
