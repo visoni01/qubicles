@@ -89,6 +89,24 @@ const config = convict({
       default: 'https://localhost:4000/api/v1/auth/linkedin/callback',
       env: 'LINKEDIN_CALLBACK_URL'
     }
+  },
+  mailgun: {
+    user: {
+      default: 'postmaster@sandbox21f43ee694564675a8a008fc90465f04.mailgun.org',
+      env: 'MAILGUN_USER'
+    },
+    password: {
+      default: '29eldds1uri6',
+      env: 'MAILGUN_PASSWORD'
+    },
+    apiKey: {
+      default: 'key-3246bb46991293703fae15ce860f8da3',
+      env: 'MAILGUN_APIKEY'
+    },
+    domain: {
+      default: 'messenger.qubicles.io',
+      env: 'MAILGUN_DOMAIN'
+    }
   }
 })
 

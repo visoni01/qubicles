@@ -6,7 +6,7 @@ import config from '../../config/app'
 import SocialSignup from '../services/signup/socialSignup'
 
 
-function initPassport() {
+function initPassport () {
   passport.use(new TwitterStrategy({
     consumerKey: config.get('twitter.consumerKey'),
     consumerSecret: config.get('twitter.consumerSecret'),
@@ -24,9 +24,6 @@ function initPassport() {
       SocialSignup.execute(user)
       return done(null, profile)
     }
-    else {
-
-    }
   }
   ))
 
@@ -35,7 +32,6 @@ function initPassport() {
     clientSecret: config.get('facebook.appSecret'),
     callbackURL: config.get('facebook.callbackURL'),
     profileFields: ['email', 'name']
-
   }, function (accessToken, refreshToken, profile, done) {
     if (profile) {
       if (profile._json) {
@@ -49,9 +45,6 @@ function initPassport() {
         SocialSignup.execute(user)
         return (null, done);
       }
-    }
-    else {
-
     }
   }
   ))
@@ -73,9 +66,6 @@ function initPassport() {
         }
         SocialSignup.execute(user)
         return done(null, done)
-      }
-      else {
-
       }
     })
   }

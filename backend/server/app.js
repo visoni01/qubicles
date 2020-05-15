@@ -19,15 +19,7 @@ const start = async () => {
   }
   const app = express.init()
 
-  //https server with self signed ssl certificate
-  const httpsOptions = {
-    cert: fs.readFileSync('./ssl/localhost.crt'),
-    key: fs.readFileSync('./ssl/localhost.key')
-  };
-  const httpsServer = https.createServer(httpsOptions, app);
-  
-  httpsServer.listen(port, appStartMessage);
-  //app.listen(port, appStartMessage)
+  app.listen(port, appStartMessage)
 }
 
 export default start

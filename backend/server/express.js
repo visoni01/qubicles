@@ -8,7 +8,7 @@ import compression from 'compression'
 import routesInitiator from '../routes'
 import expressBoom from 'express-boom'
 import db from '../app/db/models'
-import initPassport from  '../app/middlewares/passport'
+import initPassport from '../app/middlewares/passport'
 import passport from 'passport'
 
 // Initialize express app
@@ -43,18 +43,18 @@ function initMiddleware () {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  app.get('/', function(req, res) {
+  app.get('/', function (req, res) {
     res.render('login');
   });
 }
 
 function initDatabase () {
   db
-  .sequelize
-  .sync({ force: true })
-  .then(function() {
-    console.log('You are connected to the database successfully.');
-  });
+    .sequelize
+    .sync({ force: true })
+    .then(function () {
+      console.log('You are connected to the database successfully.');
+    });
 }
 
 export function init () {

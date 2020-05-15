@@ -87,6 +87,7 @@ module.exports = (sequelize, DataTypes) => {
     export_reports: DataTypes.TEXT,
     delete_from_dnc: DataTypes.TEXT,
     email: DataTypes.TEXT,
+    email_verified: DataTypes.BOOLEAN,
     user_code: DataTypes.TEXT,
     territory: DataTypes.TEXT,
     allow_alerts: DataTypes.TEXT,
@@ -107,13 +108,6 @@ module.exports = (sequelize, DataTypes) => {
     agentcall_email: DataTypes.TEXT,
     modify_email_accounts: DataTypes.TEXT
   }, { tableName: 'x_users' })
-
-  // User.sync({force: true}).then(() => {
-  //   return User.create({
-  //     firstName: 'John',
-  //     lastName: 'Hancock'
-  //   });
-  // });
 
   User.associate = function (models) {
   }
