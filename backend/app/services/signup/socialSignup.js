@@ -26,19 +26,29 @@ export default class SocialSignupService extends ServiceBase {
 
   async run () {
     const whereCond = { email: this.email }
-    whereCond[this.type] = this.id
-
-    const user = await User.findOrCreate({
-      where: whereCond,
-      defaults: { full_name: this.full_name, email: this.email, email_verified: false }
-    }).spread(function (user, created) {
-      return user.get({
-        plain: true
-      })
-    })
-    if (!user.email_verified) {
+    const updateObj = {}
+    updateObj[this.type] = this.id
+    const existingUser = await User.findOne({ where: { email: this.email }, raw: true })
+    if (existingUser !== null && existingUser[this.type] !== null) {
+      const updatedUser = await this.updateUserIfAlreadyExist(this.email, updateObj)
+    } else {
+      const userObj = {
+        full_name: this.full_name,
+        email: this.email,
+        email_verified: false
+      }
+      userObj[this.type] = this.id
+      const createdUser = await User.create(userObj)
       const token = jwt.sign({ email: this.email }, 'secret', { expiresIn: TOKEN_EXPIRY_TIME })
       await SendEmailVerificationMail.execute({ token, email: this.email })
     }
+  }
+
+  async updateUserIfAlreadyExist (email, updateObj) {
+    return await User.update(updateObj, {
+      where: {
+        email
+      }
+    })
   }
 }
