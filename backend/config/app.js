@@ -107,6 +107,12 @@ const config = convict({
       default: 'messenger.qubicles.io',
       env: 'MAILGUN_DOMAIN'
     }
+  },
+  webApp: {
+    baseUrl: {
+      default: 'https://localhost:4000/api/v1',
+      env: 'WEB_APP_BASE_URL'
+    }
   }
 })
 

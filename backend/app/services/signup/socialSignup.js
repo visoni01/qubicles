@@ -1,6 +1,7 @@
 import ServiceBase from '../../common/serviceBase'
 import { User } from '../../db/models'
 import SendEmailVerificationMail from '../email/sendEmailVerificationMail'
+import jwt from 'jsonwebtoken'
 
 const constraints = {
   'type': {
@@ -17,12 +18,13 @@ const constraints = {
   }
 }
 
+const TOKEN_EXPIRY_TIME = 300
 export default class SocialSignupService extends ServiceBase {
-  get constraints() {
+  get constraints () {
     return constraints
   }
 
-  async run() {
+  async run () {
     const whereCond = { email: this.email }
     whereCond[this.type] = this.id
 
@@ -35,7 +37,8 @@ export default class SocialSignupService extends ServiceBase {
       })
     })
     if (!user.email_verified) {
-      await SendEmailVerificationMail.execute(this)
+      const token = jwt.sign({ email: this.email }, 'secret', { expiresIn: TOKEN_EXPIRY_TIME })
+      await SendEmailVerificationMail.execute({ token, email: this.email })
     }
   }
 }

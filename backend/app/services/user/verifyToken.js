@@ -9,13 +9,14 @@ const constraints = {
 }
 
 export default class VerifyTokenService extends ServiceBase {
-  get constraints() {
+  get constraints () {
     return constraints
   }
 
-  async run() {
-    jwt.verify(this.args.token, "secret", async (err, jwtVerified) => {
+  async run () {
+    return await jwt.verify(this.args.token, "secret", async (err, jwtVerified) => {
       if (err) {
+        this.addError('verifyTokenError', 'Verification link is expired or invalid')
       }
       if (jwtVerified) {
         const verifiedEmail = jwtVerified.email
@@ -23,6 +24,7 @@ export default class VerifyTokenService extends ServiceBase {
           { email_verified: true },
           { where: { email: verifiedEmail } }
         )
+        return 'Email Verified Successfully!!'
       }
     })
   }

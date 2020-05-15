@@ -3,11 +3,11 @@ import Responder from '../../server/expressResponder'
 
 export default class AuthController {
   static async verifyToken (req, res) {
-    const exampleResult = await VerifyTokenMethod.execute(req.params)
-    if (exampleResult.successful) {
-      Responder.success(res, exampleResult.result)
+    const verifyTokenResult = await VerifyTokenMethod.execute(req.params)
+    if (verifyTokenResult.successful) {
+      Responder.success(res, verifyTokenResult.result)
     } else {
-      res.boom.badRequest('Validation didn\'t succeed', exampleResult.errors)
+      res.boom.badRequest('Validation didn\'t succeed', verifyTokenResult.errors)
     }
   }
 }
