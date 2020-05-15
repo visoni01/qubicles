@@ -18,11 +18,11 @@ const constraints = {
 }
 
 export default class SocialSignupService extends ServiceBase {
-  get constraints () {
+  get constraints() {
     return constraints
   }
 
-  async run () {
+  async run() {
     const whereCond = { email: this.email }
     whereCond[this.type] = this.id
 
@@ -35,7 +35,7 @@ export default class SocialSignupService extends ServiceBase {
       })
     })
     if (!user.email_verified) {
-      await SendEmailVerificationMail.execute()
+      await SendEmailVerificationMail.execute(this)
     }
   }
 }

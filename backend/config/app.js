@@ -58,7 +58,7 @@ const config = convict({
       env: 'TWITTER_CONSUMER_SECRET'
     },
     callbackURL: {
-      default: 'http://127.0.0.1:4000/api/v1/auth/twitter/callback',
+      default: 'https://localhost:4000/api/v1/auth/twitter/callback',
       env: 'TWITTER_CALLBACK_URL'
     }
   },

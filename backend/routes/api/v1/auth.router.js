@@ -1,6 +1,6 @@
 import express from 'express'
 import passport from 'passport'
-
+import authController from '../../../app/controllers/auth.controller'
 const args = { mergeParams: true }
 const authRouter = express.Router(args)
 
@@ -9,7 +9,7 @@ authRouter.route('/facebook')
 
 authRouter.route('/facebook/callback')
   .get(passport.authenticate('facebook', { failureRedirect: '/' }), (req, res) => {
-    res.send('Home');
+    res.render('home', { user: req.user });
   })
 
 authRouter.route('/twitter')
@@ -24,7 +24,11 @@ authRouter.route('/linkedin')
   .get(passport.authenticate('linkedin', { state: 'SOME STATE' }))
 
 authRouter.route('/linkedin/callback')
-  .get(passport.authenticate('linkedin', { successRedirect: '/', failureRedirect: '/login' }), (req, res) => {
+  .get(passport.authenticate('linkedin', { failureRedirect: '/' }), (req, res) => {
+    res.render('home', { user: req.user })
   })
+
+authRouter.route('/verifyToken/:token')
+  .get(authController.verifyToken)
 
 export { authRouter }

@@ -51,7 +51,7 @@ function initMiddleware () {
 function initDatabase () {
   db
     .sequelize
-    .sync({ force: true })
+    .sync({ force: false })
     .then(function () {
       console.log('You are connected to the database successfully.');
     });
