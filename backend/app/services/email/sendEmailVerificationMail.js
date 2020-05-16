@@ -5,10 +5,10 @@ import mg from 'nodemailer-mailgun-transport'
 import logger from '../../common/logger'
 
 const constraints = {
-  'email': {
+  email: {
     presence: { allowEmpty: false }
   },
-  'token': {
+  token: {
     presence: { allowEmpty: false }
   }
 }
@@ -26,7 +26,7 @@ export default class SendEmailVerificationMailService extends ServiceBase {
     }
     const verifyEmailPageUrl = `${config.get('webApp.baseUrl')}/auth/verifyToken/${this.token}`
 
-    const nodemailerMailgun = nodemailer.createTransport(mg(auth));
+    const nodemailerMailgun = nodemailer.createTransport(mg(auth))
 
     nodemailerMailgun.sendMail({
       from: 'Qubicles <notifications@qubicles.io>',
@@ -38,10 +38,9 @@ export default class SendEmailVerificationMailService extends ServiceBase {
     }, (error, info) => {
       if (error) {
         logger.error(`Error in sending verification mail: ${error}`)
+      } else {
+        logger.info(`Verification email sent succesfully!! => ${JSON.stringify(info)}`)
       }
-      else {
-        logger.info(`Verification email sent succesfully!! => ${JSON.stringify(info)}`);
-      }
-    });
+    })
   }
 }

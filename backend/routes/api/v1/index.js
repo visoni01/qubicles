@@ -11,5 +11,4 @@ router.use(`/${NAMESPACE}`, exampleRouter)
 router.use(`/${NAMESPACE}/agent`, userAgentRouter)
 router.use(`/${NAMESPACE}/auth`, authRouter)
 
-
 export default router

@@ -5,18 +5,17 @@ import { Strategy as LinkedInStrategy } from 'passport-linkedin-oauth2'
 import config from '../../config/app'
 import SocialSignup from '../services/signup/socialSignup'
 
-
 function initPassport () {
   passport.use(new TwitterStrategy({
     consumerKey: config.get('twitter.consumerKey'),
     consumerSecret: config.get('twitter.consumerSecret'),
     callbackURL: config.get('twitter.callbackURL'),
-    userProfileURL: "https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true",
+    userProfileURL: 'https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true',
     proxy: false
   }, function (token, tokenSecret, profile, done) {
     if (profile) {
-      let userDetailsJson = profile._json
-      let user = {
+      const userDetailsJson = profile._json
+      const user = {
         type: 'twitter_id',
         full_name: userDetailsJson.screen_name,
         id: userDetailsJson.id,
@@ -36,15 +35,15 @@ function initPassport () {
   }, function (accessToken, refreshToken, profile, done) {
     if (profile) {
       if (profile._json) {
-        let userDetailsJson = profile._json
-        let user = {
+        const userDetailsJson = profile._json
+        const user = {
           type: 'facebook_id',
           full_name: userDetailsJson.first_name + ' ' + userDetailsJson.last_name,
           id: userDetailsJson.id,
           email: userDetailsJson.email
         }
         SocialSignup.execute(user)
-        return (null, profile);
+        return (null, profile)
       }
     }
   }
@@ -54,12 +53,12 @@ function initPassport () {
     clientID: config.get('linkedin.apiKey'),
     clientSecret: config.get('linkedin.secretkey'),
     callbackURL: config.get('linkedin.callbackURL'),
-    scope: ['r_emailaddress', 'r_liteprofile'],
+    scope: ['r_emailaddress', 'r_liteprofile']
   }, function (req, accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
     process.nextTick(function () {
       if (profile) {
-        let user = {
+        const user = {
           type: 'linked_in_id',
           full_name: profile.displayName,
           id: profile.id,

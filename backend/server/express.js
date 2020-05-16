@@ -5,11 +5,13 @@ import cors from 'cors'
 import morgan from 'morgan'
 import bodyParser from 'body-parser'
 import compression from 'compression'
-import routesInitiator from '../routes'
 import expressBoom from 'express-boom'
+import passport from 'passport'
+
+import routesInitiator from '../routes'
 import db from '../app/db/models'
 import initPassport from '../app/middlewares/passport'
-import passport from 'passport'
+import logger from '../app/common/logger'
 
 // Initialize express app
 const app = express()
@@ -21,8 +23,8 @@ function initMiddleware () {
   app.set('showStackError', true)
 
   // Configure view engine to render EJS templates.
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'ejs');
+  app.set('views', __dirname + '/views')
+  app.set('view engine', 'ejs')
 
   app.use(expressBoom())
 
@@ -39,13 +41,13 @@ function initMiddleware () {
   // To optimize the response performance
   app.use(compression())
 
-  app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
-  app.use(passport.initialize());
-  app.use(passport.session());
+  app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }))
+  app.use(passport.initialize())
+  app.use(passport.session())
 
   app.get('/', function (req, res) {
-    res.render('login');
-  });
+    res.render('login')
+  })
 }
 
 function initDatabase () {
@@ -53,8 +55,8 @@ function initDatabase () {
     .sequelize
     .sync({ force: false })
     .then(function () {
-      console.log('You are connected to the database successfully.');
-    });
+      logger.info('You are connected to the database successfully.')
+    })
 }
 
 export function init () {
@@ -62,7 +64,7 @@ export function init () {
   initMiddleware()
 
   // Initialize Passport
-  initPassport();
+  initPassport()
 
   // Initialize modules server routes
   routesInitiator(app)

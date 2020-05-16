@@ -5,13 +5,13 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 const constraints = {
-  'email': {
+  email: {
     presence: { allowEmpty: false }
   },
-  'pass': {
+  pass: {
     presence: { allowEmpty: false }
   },
-  'full_name': {
+  full_name: {
     presence: { allowEmpty: false }
   }
 }
@@ -24,7 +24,7 @@ export default class CreateUsersAgentService extends ServiceBase {
 
   async run () {
     const newUserAgent = this.args
-    const salt = bcrypt.genSaltSync(10);
+    const salt = bcrypt.genSaltSync(10)
     newUserAgent.pass = bcrypt.hashSync(newUserAgent.pass, salt)
     newUserAgent.email_verified = false
     const user = await User.create(newUserAgent)

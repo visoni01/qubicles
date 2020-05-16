@@ -23,7 +23,7 @@ function asyncMiddleware (afunc) {
 
 // Convert all async methods to asyncMiddleware
 methods.forEach((method) => {
-  let origMethod = Route.prototype[method]
+  const origMethod = Route.prototype[method]
   Route.prototype[method] = function (func, ...args) {
     // Convert async functions to async middleware to pass all unhandled errors to next
 

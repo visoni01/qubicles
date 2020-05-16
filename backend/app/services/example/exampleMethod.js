@@ -1,7 +1,7 @@
 import ServiceBase from '../../common/serviceBase'
 
 const constraints = {
-  'id': {
+  id: {
     presence: { allowEmpty: false }
   }
 }
@@ -11,7 +11,7 @@ export default class ExampleService extends ServiceBase {
     return constraints
   }
 
-  async run() {
+  async run () {
     return 'okay'
   }
 }

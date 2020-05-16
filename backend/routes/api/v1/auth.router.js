@@ -9,7 +9,7 @@ authRouter.route('/facebook')
 
 authRouter.route('/facebook/callback')
   .get(passport.authenticate('facebook', { failureRedirect: '/' }), (req, res) => {
-    res.render('home', { user: req.user });
+    res.render('home', { user: req.user })
   })
 
 authRouter.route('/twitter')

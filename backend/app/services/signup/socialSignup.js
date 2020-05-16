@@ -4,16 +4,16 @@ import SendEmailVerificationMail from '../email/sendEmailVerificationMail'
 import jwt from 'jsonwebtoken'
 
 const constraints = {
-  'type': {
+  type: {
     presence: { allowEmpty: false }
   },
-  'id': {
+  id: {
     presence: { allowEmpty: false }
   },
-  'full_name': {
+  full_name: {
     presence: { allowEmpty: false }
   },
-  'email': {
+  email: {
     presence: { allowEmpty: false }
   }
 }
@@ -25,7 +25,6 @@ export default class SocialSignupService extends ServiceBase {
   }
 
   async run () {
-    const whereCond = { email: this.email }
     const updateObj = {}
     updateObj[this.type] = this.id
     const existingUser = await User.findOne({ where: { email: this.email }, raw: true })
