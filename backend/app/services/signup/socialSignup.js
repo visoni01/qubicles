@@ -25,29 +25,38 @@ export default class SocialSignupService extends ServiceBase {
   }
 
   async run () {
-    const updateObj = {}
-    updateObj[this.type] = this.id
     const existingUser = await User.findOne({ where: { email: this.email }, raw: true })
-    if (existingUser !== null && existingUser[this.type] !== null) {
-      const updatedUser = await this.updateUserIfAlreadyExist(this.email, updateObj)
-    } else {
+    if (Object.is(existingUser, null)) {
       const userObj = {
         full_name: this.full_name,
         email: this.email,
         email_verified: false
       }
       userObj[this.type] = this.id
-      const createdUser = await User.create(userObj)
-      const token = jwt.sign({ email: this.email }, 'secret', { expiresIn: TOKEN_EXPIRY_TIME })
-      await SendEmailVerificationMail.execute({ token, email: this.email })
+      await User.create(userObj)
+      this.generateAndSendToken(userObj.email)
+    } else {
+      if (!Object.is(existingUser[this.id], null)) {
+        const updateObj = {}
+        updateObj[this.type] = this.id
+        await this.updateUserIfAlreadyExist(this.email, updateObj)
+      }
+      if (!existingUser.email_verified) {
+        this.generateAndSendToken(this.email)
+      }
     }
   }
 
   async updateUserIfAlreadyExist (email, updateObj) {
-    return await User.update(updateObj, {
+    await User.update(updateObj, {
       where: {
         email
       }
     })
+  }
+
+  async generateAndSendToken (email) {
+    const token = jwt.sign({ email }, 'secret', { expiresIn: TOKEN_EXPIRY_TIME })
+    await SendEmailVerificationMail.execute({ token, email })
   }
 }
