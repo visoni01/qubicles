@@ -1,7 +1,7 @@
 import ServiceBase from '../../common/serviceBase'
 import jwt from 'jsonwebtoken'
 import { User } from '../../db/models'
-
+import CreateUserGroup from '../user/createUserGroup'
 const constraints = {
   token: {
     presence: { allowEmpty: false }
@@ -14,25 +14,34 @@ export default class VerifyTokenService extends ServiceBase {
   }
 
   async run () {
-    return await jwt.verify(this.args.token, 'secret', async (err, jwtVerified) => {
+    return jwt.verify(this.args.token, 'secret', async (err, jwtVerified) => {
       if (err) {
         this.addError('verifyTokenError', 'Verification link is expired or invalid')
         return
       }
-      if (!(await this.checkIfEmailAlreadyVerified(jwtVerified.email))) {
-        await User.update(
-          { email_verified: true },
-          { where: { email: jwtVerified.email } }
-        )
-        return 'Email Verified Successfully!!'
-      } else {
-        return 'Email already verified Successfully!!'
+      if (jwtVerified) {
+        const user = await this.checkIfEmailAlreadyVerified(jwtVerified.email)
+        if (!(user.email_verified)) {
+          // Create User Group
+          const newUserGroup = await CreateUserGroup.execute({
+            id: user.user_id,
+            full_name: user.full_name
+          })
+          await User.update({
+            email_verified: true,
+            user_group: newUserGroup.user_group
+          },
+          { where: { email: jwtVerified.email } })
+          return 'Email Verified Successfully!!'
+        } else {
+          return 'Email already verified Successfully!!'
+        }
       }
     })
   }
 
   async checkIfEmailAlreadyVerified (email) {
-    const user = await User.findOne({ where: { email }, raw: true })
-    return user.email_verified
+    const user = User.findOne({ where: { email }, raw: true })
+    return user
   }
 }

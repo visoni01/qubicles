@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       unique: true
     },
-    linked_in_id: {
+    linkedin_id: {
       type: DataTypes.STRING,
       unique: true
     },
@@ -107,7 +107,8 @@ module.exports = (sequelize, DataTypes) => {
     agent_lead_search_override: DataTypes.TEXT,
     agentcall_email: DataTypes.TEXT,
     modify_email_accounts: DataTypes.TEXT
-  }, { tableName: 'x_users' })
+  },
+  { tableName: 'x_users' })
 
   User.associate = function (models) {
   }

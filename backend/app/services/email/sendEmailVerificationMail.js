@@ -30,11 +30,11 @@ export default class SendEmailVerificationMailService extends ServiceBase {
 
     nodemailerMailgun.sendMail({
       from: 'Qubicles <notifications@qubicles.io>',
-      to: 'sjaiswal@qubicles.io',
+      to: 'davidfincher06@gmail.com',
       subject: 'Please confirm your email',
       html: `<p>Hello, Welcome to Qubicles! We are excited to have you on-board and there's just one step to verify if it's actually your e-mail address: </p>
       <p> <a href="${verifyEmailPageUrl}">Click Here</a> to verify your email address. </p>
-      <p>Or, alternatively </br> aste the following link in your browser </br> ${verifyEmailPageUrl}</p>`
+      <p>Or, alternatively </br> paste the following link in your browser </br> ${verifyEmailPageUrl}</p>`
     }, (error, info) => {
       if (error) {
         logger.error(`Error in sending verification mail: ${error}`)
