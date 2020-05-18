@@ -12,6 +12,7 @@ import routesInitiator from '../routes'
 import db from '../app/db/models'
 import initPassport from '../app/middlewares/passport'
 import logger from '../app/common/logger'
+import path from 'path'
 
 // Initialize express app
 const app = express()
@@ -23,7 +24,7 @@ function initMiddleware () {
   app.set('showStackError', true)
 
   // Configure view engine to render EJS templates.
-  app.set('views', __dirname + '/views')
+  app.set('views', path.join(__dirname, 'views'))
   app.set('view engine', 'ejs')
 
   app.use(expressBoom())
