@@ -17,7 +17,7 @@ function initPassport () {
       const userDetailsJson = profile._json
       const user = {
         type: 'twitter_id',
-        full_name: userDetailsJson.screen_name,
+        full_name: userDetailsJson.name,
         id: userDetailsJson.id,
         email: userDetailsJson.email
       }
@@ -59,7 +59,7 @@ function initPassport () {
     process.nextTick(function () {
       if (profile) {
         const user = {
-          type: 'linked_in_id',
+          type: 'linkedin_id',
           full_name: profile.displayName,
           id: profile.id,
           email: profile.emails[0].value

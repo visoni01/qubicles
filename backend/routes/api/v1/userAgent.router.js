@@ -7,4 +7,7 @@ const userAgentRouter = express.Router(args)
 userAgentRouter.route('/create')
   .post(userAgentController.createUsersAgent)
 
+userAgentRouter.route('/postSignup')
+  .post(userAgentController.postSignupAgent)
+
 export { userAgentRouter }
