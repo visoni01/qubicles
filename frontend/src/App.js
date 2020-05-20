@@ -1,15 +1,20 @@
-import React from 'react'
-import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom'
-import Signup from './container/User/Signup/'
+import React from "react";
+import { Provider } from "react-redux";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+import Signup from "./container/User/Signup/";
+import store from "./redux-saga/store";
 
 function App() {
   return (
-    <BrowserRouter>
+    <Provider store={store}>
+      <Router>
         <Switch>
-            <Route exact path='/signup' component={ Signup } />
+          <Route exact path="/signup" component={Signup} />
         </Switch>
-    </BrowserRouter>
-  )
+      </Router>
+    </Provider>
+  );
 }
 
-export default App
+export default App;
