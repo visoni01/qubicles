@@ -3,12 +3,14 @@ import { exampleRouter } from './example.router'
 import { userAgentRouter } from './userAgent.router'
 import { userEmployerRouter } from './userEmployer.router'
 import { authRouter } from './auth.router'
+import { userRouter } from './user.router'
 
 const router = express.Router()
 const NAMESPACE = 'v1'
 
 // Example API
 router.use(`/${NAMESPACE}`, exampleRouter)
+router.use(`/${NAMESPACE}/user`, userRouter)
 router.use(`/${NAMESPACE}/agent`, userAgentRouter)
 router.use(`/${NAMESPACE}/employer`, userEmployerRouter)
 router.use(`/${NAMESPACE}/auth`, authRouter)

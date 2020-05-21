@@ -17,17 +17,17 @@ const constraints = {
 }
 
 const TOKEN_EXPIRY_TIME = 300
-export default class CreateUsersAgentService extends ServiceBase {
+export default class CreateUserService extends ServiceBase {
   get constraints () {
     return constraints
   }
 
   async run () {
-    const newUserAgent = this.args
+    const newUser = this.args
     const salt = bcrypt.genSaltSync(10)
-    newUserAgent.pass = bcrypt.hashSync(newUserAgent.pass, salt)
-    newUserAgent.email_verified = false
-    const user = await User.create(newUserAgent)
+    newUser.pass = bcrypt.hashSync(newUser.pass, salt)
+    newUser.email_verified = false
+    const user = await User.create(newUser)
     const token = jwt.sign({ email: this.email }, 'secret', { expiresIn: TOKEN_EXPIRY_TIME })
     await SendEmailVerificationMail.execute({ token, email: this.email })
     return user
