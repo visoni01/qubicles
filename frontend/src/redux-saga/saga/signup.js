@@ -1,4 +1,5 @@
 import { takeEvery, put } from 'redux-saga/effects'
+import apiClient from '../../utils/requests'
 import { userSignupStart, userSignupFailure, userSignupSuccessful } from '../redux/signup'
 
 function* signupWatcher() {
@@ -7,10 +8,11 @@ function* signupWatcher() {
 
 function* signupWorker(action) {
   try {
-    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2222", action)
-    // yield put(userSignupSuccessful)
+    const data = yield apiClient.signup(action.payload)
+    yield put(userSignupSuccessful())
   } catch(e) {
-    console.log("=======EEEE", e)
+    console.log("===", e)
+    yield put(userSignupFailure())
   }
 }
 
