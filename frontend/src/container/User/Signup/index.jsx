@@ -11,10 +11,10 @@ import QubiclesLogo from "../../../assets/images/qbe-dark.png";
 import "./style.scss";
 
 const schema = yup.object().shape({
-  firstName: yup.string().required("*Required"),
-  lastName: yup.string().required("*Required"),
+  first_name: yup.string().required("*Required"),
+  last_name: yup.string().required("*Required"),
   email: yup.string().email().required("*Required"),
-  password: yup.string().required("*Required")
+  pass: yup.string().required("*Required"),
 });
 
 const SignUp = () => {
@@ -22,7 +22,7 @@ const SignUp = () => {
     validationSchema: schema,
   });
   const dispatch = useDispatch();
-  const onSubmit = (data) =>dispatch(userSignupStart(data));
+  const onSubmit = (data) => dispatch(userSignupStart(data));
   const { error, isLoading, success } = useSelector((state) => state.signup);
 
   const inputField = (
@@ -46,7 +46,9 @@ const SignUp = () => {
       <span className="icon is-medium is-right">
         <FontAwesomeIcon icon={icon} />
       </span>
-      {errors && errors[name] && (<div className="error-message"> {errors[name]["message"]}</div>)}
+      {errors && errors[name] && (
+        <div className="error-message"> {errors[name]["message"]}</div>
+      )}
     </div>
   );
 
@@ -90,19 +92,19 @@ const SignUp = () => {
                       "email"
                     )}
                     {inputField(
-                      "firstName",
+                      "first_name",
                       "firstName",
                       "Enter your first name",
                       faPaperPlane
                     )}
                     {inputField(
-                      "lastName",
+                      "last_name",
                       "lastName",
                       "Enter your last name",
                       faPaperPlane
                     )}
                     {inputField(
-                      "password",
+                      "pass",
                       "password",
                       "Enter your password",
                       faPaperPlane,
@@ -115,7 +117,7 @@ const SignUp = () => {
                       id="sendVerificationCode"
                       className="button button-cta secondary-btn btn-align-lg btn-outlined is-bold is-fullwidth rounded raised no-lh"
                     >
-                      Next
+                      Sign Up
                     </button>
                   </p>
                 </div>
