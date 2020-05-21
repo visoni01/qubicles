@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 
 import { userSignupStart } from "../../../redux-saga/redux/signup";
-import QubiclesLogo from "../../../qbe-dark.png";
+import QubiclesLogo from "../../../assets/images/qbe-dark.png";
 import "./style.scss";
 
 const schema = yup.object().shape({
