@@ -23,6 +23,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     pass: DataTypes.TEXT,
+    first_name: DataTypes.STRING,
+    last_name: DataTypes.STRING,
     full_name: DataTypes.TEXT,
     user_level: DataTypes.INTEGER,
     user_group: DataTypes.TEXT,
@@ -108,7 +110,7 @@ module.exports = (sequelize, DataTypes) => {
     agentcall_email: DataTypes.TEXT,
     modify_email_accounts: DataTypes.TEXT
   },
-  { tableName: 'x_users' })
+    { tableName: 'x_users' })
 
   User.associate = function (models) {
   }

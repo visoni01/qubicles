@@ -11,7 +11,10 @@ const constraints = {
   pass: {
     presence: { allowEmpty: false }
   },
-  full_name: {
+  first_name: {
+    presence: { allowEmpty: false }
+  },
+  last_name: {
     presence: { allowEmpty: false }
   }
 }
