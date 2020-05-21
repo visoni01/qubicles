@@ -35,10 +35,10 @@ module.exports = (sequelize, DataTypes) => {
     rebuild_conf_files: DataTypes.TEXT,
     outbound_calls_per_second: DataTypes.INTEGER,
     sysload: DataTypes.INTEGER,
-    sysload_desc: DataTypes.TEXT, // custom
+    // sysload_desc: DataTypes.TEXT, // custom
     channels_total: DataTypes.TEXT,
     cpu_idle_percent: DataTypes.TEXT,
-    cpu_idle_percent_desc: DataTypes.TEXT, // custom
+    // cpu_idle_percent_desc: DataTypes.TEXT, // custom
     disk_usage: DataTypes.TEXT,
     sounds_update: DataTypes.TEXT,
     vicidial_recording_limit: DataTypes.INTEGER,
@@ -51,9 +51,9 @@ module.exports = (sequelize, DataTypes) => {
     custom_dialplan_entry: DataTypes.TEXT,
     active_twin_server_ip: DataTypes.TEXT
   },
-  {
-    tableName: 'servers'
-  })
+    {
+      tableName: 'servers'
+    })
   Server.associate = function (models) {
   }
   return Server

@@ -23,7 +23,7 @@ const constraints = {
   zip: {
     presence: { allowEmpty: false }
   },
-  contact_phone: {
+  phone_number: {
     presence: { allowEmpty: false }
   },
   company_ein: {
@@ -39,31 +39,35 @@ export default class PostSignupEmployerService extends ServiceBase {
   async run () {
     const clientObject = {
       client_name: this.company_name,
-      client_address: this.company_address,
+      address1: this.company_address,
       city: this.city,
       state: this.state,
       zip: this.zip,
-      contact_phone: this.contact_phone,
+      phone_number: this.phone_number,
       client_ein: this.company_ein
     }
     // Generate Company Id here
-    clientObject.client_id = generateID(this.args.company_name, 20)
+    clientObject.client_username = generateID(this.company_name, 20)
 
     // Creating client in x_clients
-    await XClient.create(
+    const xClient = await XClient.create(
       clientObject
     )
+    const xClientData = xClient.get({ plain: true })
+
     // Generating client-user association in x_client_users
     await XClientUser.create({
-      user_id: this.args.user_id,
-      client_id: clientObject.client_id
+      user_id: this.user_id,
+      client_id: xClientData.client_id
     })
+
     // Assigning client to a telephone server and saving association in x_client_servers
     const leastClientServer = await getServerWithLeastClients()
-    XClientServer.create({
-      client_id: clientObject.client_id,
+    await XClientServer.create({
+      client_id: xClientData.client_id,
       server_ip: leastClientServer.server_ip
     })
+    return `Post signup for user ${this.user_id} is completed`
   }
 }
 
@@ -81,11 +85,12 @@ function generateID (text, maxLength) {
   const sliced = joinedWords.slice(0, maxLength + 1)
   return sliced
 }
+
 async function getServerWithLeastClients () {
   let agentLoginServers = await getServersByAgentLoginServers()
   agentLoginServers = agentLoginServers.filter(server => server.active_twin_server_ip !== 'DEDICATED')
   let lowUsageServer = agentLoginServers[0]
-  const clientServers = getClientServers()
+  const clientServers = await getClientServers()
   let leastClients = clientServers.filter(cs => cs.server_ip === lowUsageServer.server_ip).length
   agentLoginServers.forEach(server => {
     const totalCurrentClients = clientServers.filter(cs => cs.server_ip === server.server_ip).length
@@ -98,9 +103,9 @@ async function getServerWithLeastClients () {
 }
 
 async function getServersByAgentLoginServers () {
-  return Server.findAll({ where: { active: 'Y', active_agent_login_server: 'Y' } })
+  return Server.findAll({ where: { active: 'Y', active_agent_login_server: 'Y' }, raw: true })
 }
 
 async function getClientServers () {
-  return XClientServer.findAll()
+  return XClientServer.findAll({ raw: true })
 }

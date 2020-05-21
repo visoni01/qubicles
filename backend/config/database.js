@@ -8,7 +8,8 @@ module.exports = {
     host: config.get('sequelize.host'),
     dialect: 'mariadb',
     define: {
-      underscored: true
+      timestamps: false
+      // underscored: true
     }
   },
   test: {

@@ -10,9 +10,10 @@ module.exports = (sequelize, DataTypes) => {
     server_ip: DataTypes.TEXT,
     client_id: DataTypes.INTEGER
   },
-  {
-    tableName: 'x_client_servers'
-  })
+    {
+      tableName: 'x_client_servers',
+      timestamps: false
+    })
   XClientServer.associate = function (models) {
   }
   return XClientServer
