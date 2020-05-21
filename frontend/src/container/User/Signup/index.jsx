@@ -83,43 +83,56 @@ const SignUp = () => {
             <div className="container">
               <div className="columns">
                 <div className="column is-8 is-offset-2">
-                  <div className="field pb-10">
-                    {inputField(
-                      "email",
-                      "signupEmail",
-                      "Enter your email address",
-                      faPaperPlane,
-                      "email"
-                    )}
-                    {inputField(
-                      "first_name",
-                      "firstName",
-                      "Enter your first name",
-                      faPaperPlane
-                    )}
-                    {inputField(
-                      "last_name",
-                      "lastName",
-                      "Enter your last name",
-                      faPaperPlane
-                    )}
-                    {inputField(
-                      "pass",
-                      "password",
-                      "Enter your password",
-                      faPaperPlane,
-                      "password"
+                  {!success && (
+                    <>
+                      
+                      <div className="field pb-10">
+                        {inputField(
+                          "email",
+                          "signupEmail",
+                          "Enter your email address",
+                          faPaperPlane,
+                          "email"
+                        )}
+                        {inputField(
+                          "first_name",
+                          "firstName",
+                          "Enter your first name",
+                          faPaperPlane
+                        )}
+                        {inputField(
+                          "last_name",
+                          "lastName",
+                          "Enter your last name",
+                          faPaperPlane
+                        )}
+                        {inputField(
+                          "pass",
+                          "password",
+                          "Enter your password",
+                          faPaperPlane,
+                          "password"
+                        )}
+                      </div>
+                      <p className="control login">
+                        <button
+                          onClick={handleSubmit(onSubmit)}
+                          id="sendVerificationCode"
+                          className="button button-cta secondary-btn btn-align-lg btn-outlined is-bold is-fullwidth rounded raised no-lh"
+                        >
+                          Sign Up
+                        </button>
+                      </p>
+                    </>
+                  )}
+                  <div>
+                    {success && (
+                      <>
+                        You've succesfully registered. Please check your inbox
+                        to verify your email !!
+                      </>
                     )}
                   </div>
-                  <p className="control login">
-                    <button
-                      onClick={handleSubmit(onSubmit)}
-                      id="sendVerificationCode"
-                      className="button button-cta secondary-btn btn-align-lg btn-outlined is-bold is-fullwidth rounded raised no-lh"
-                    >
-                      Sign Up
-                    </button>
-                  </p>
                 </div>
               </div>
             </div>
