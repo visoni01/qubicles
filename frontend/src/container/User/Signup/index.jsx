@@ -11,10 +11,10 @@ import QubiclesLogo from "../../../qbe-dark.png";
 import "./style.scss";
 
 const schema = yup.object().shape({
-  firstName: yup.string().required(),
-  lastName: yup.string().required(),
-  email: yup.string().email().required(),
-  password: yup.string().required()
+  firstName: yup.string().required("*Required"),
+  lastName: yup.string().required("*Required"),
+  email: yup.string().email().required("*Required"),
+  password: yup.string().required("*Required")
 });
 
 const SignUp = () => {
@@ -46,6 +46,7 @@ const SignUp = () => {
       <span className="icon is-medium is-right">
         <FontAwesomeIcon icon={icon} />
       </span>
+      {errors && errors[name] && (<div className="error-message"> {errors[name]["message"]}</div>)}
     </div>
   );
 
