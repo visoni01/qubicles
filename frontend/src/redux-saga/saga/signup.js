@@ -1,5 +1,5 @@
 import { takeEvery, put } from 'redux-saga/effects'
-import apiClient from '../../utils/requests'
+import apiClient from '../../utils/apiClient'
 import { userSignupStart, userSignupFailure, userSignupSuccessful } from '../redux/signup'
 
 function* signupWatcher() {
