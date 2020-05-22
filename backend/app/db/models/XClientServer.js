@@ -7,13 +7,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       primaryKey: true
     },
-    server_ip: DataTypes.TEXT,
-    client_id: DataTypes.INTEGER
+    server_ip: DataTypes.INTEGER(11),
+    client_id: DataTypes.STRING
   },
-    {
-      tableName: 'x_client_servers',
-      timestamps: false
-    })
+  {
+    tableName: 'x_client_servers',
+    timestamps: false
+  })
   XClientServer.associate = function (models) {
   }
   return XClientServer

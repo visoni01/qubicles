@@ -9,7 +9,6 @@ module.exports = {
     dialect: 'mariadb',
     define: {
       timestamps: false
-      // underscored: true
     }
   },
   test: {

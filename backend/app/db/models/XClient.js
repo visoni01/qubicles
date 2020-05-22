@@ -8,25 +8,48 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       primaryKey: true
     },
-    client_name: DataTypes.TEXT,
-    client_username: DataTypes.TEXT,
-    address1: DataTypes.TEXT,
-    address2: DataTypes.TEXT,
-    city: DataTypes.TEXT,
-    state: DataTypes.TEXT,
-    zip: DataTypes.TEXT,
-    phone_number: DataTypes.TEXT,
-    email: DataTypes.TEXT,
-    website: DataTypes.TEXT,
-    active: DataTypes.INTEGER,
+    client_name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    active: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1
+    },
+    client_username: DataTypes.STRING,
+    address1: DataTypes.STRING,
+    address2: DataTypes.STRING,
+    city: DataTypes.STRING,
+    state: DataTypes.STRING,
+    zip: DataTypes.STRING,
+    phone_number: DataTypes.STRING,
+    email: DataTypes.STRING,
+    website: DataTypes.STRING,
+    minutes_overflow: {
+      type: DataTypes.INTEGER,
+      defaultValue: 200
+    },
     registration_date: DataTypes.DATE,
-    source: DataTypes.TEXT,
-    intended_use: DataTypes.TEXT,
-    interactions_per_month: DataTypes.TEXT,
-    rate: DataTypes.DECIMAL,
-    flow_rate: DataTypes.DECIMAL,
-    webphone_rate: DataTypes.DECIMAL,
-    gmt_offset_now: DataTypes.DECIMAL,
+    source: DataTypes.STRING,
+    intended_use: DataTypes.STRING,
+    interactions_per_month: DataTypes.STRING,
+    rate: {
+      type: DataTypes.DECIMAL,
+      defaultValue: 0.002
+    },
+    flow_rate: {
+      type: DataTypes.DECIMAL,
+      defaultValue: 0.005
+    },
+    webphone_rate: {
+      type: DataTypes.DECIMAL,
+      defaultValue: 0.005
+    },
+    gmt_offset_now: {
+      type: DataTypes.DECIMAL,
+      allowNull: false,
+      defaultValue: -5.00
+    },
     client_ein: DataTypes.STRING
   },
     {

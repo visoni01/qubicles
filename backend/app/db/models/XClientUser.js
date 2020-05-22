@@ -7,8 +7,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       primaryKey: true
     },
-    user_id: DataTypes.STRING,
-    client_id: DataTypes.STRING
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    client_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    }
   },
     {
       tableName: 'x_client_users',
