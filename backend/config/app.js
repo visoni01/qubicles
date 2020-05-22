@@ -50,61 +50,61 @@ const config = convict({
   },
   twitter: {
     consumerKey: {
-      default: 'Xk2LguhNG6bdgITIWtjyMtTaX',
+      default: '',
       env: 'TWITTER_CONSUMER_KEY'
     },
     consumerSecret: {
-      default: 'YU0Cdnf7qUYSSQTBZxuYron58jaWNSEuqxMGtLxzKvgzfA1wfH',
+      default: '',
       env: 'TWITTER_CONSUMER_SECRET'
     },
     callbackURL: {
-      default: 'https://localhost:4000/api/v1/auth/twitter/callback',
+      default: '',
       env: 'TWITTER_CALLBACK_URL'
     }
   },
   facebook: {
     appId: {
-      default: '504642537099415',
+      default: '',
       env: 'FACEBOOK_APP_ID'
     },
     appSecret: {
-      default: '978eda810fafbb84f7d81a7520b3a558',
+      default: '',
       env: 'FACEBOOK_APP_SECRET'
     },
     callbackURL: {
-      default: 'https://localhost:4000/api/v1/auth/facebook/callback',
+      default: '',
       env: 'FACEBOOK_CALLBACK_URL'
     }
   },
   linkedin: {
     apiKey: {
-      default: '86s2vtt5wz7q8h',
+      default: '',
       env: 'LINKEDIN_ID'
     },
     secretkey: {
-      default: 'mXUWVEc2q14spFXe',
+      default: '',
       env: 'LINKEDIN_SECRET'
     },
     callbackURL: {
-      default: 'https://localhost:4000/api/v1/auth/linkedin/callback',
+      default: '',
       env: 'LINKEDIN_CALLBACK_URL'
     }
   },
   mailgun: {
     user: {
-      default: 'postmaster@sandbox21f43ee694564675a8a008fc90465f04.mailgun.org',
+      default: '',
       env: 'MAILGUN_USER'
     },
     password: {
-      default: '29eldds1uri6',
+      default: '',
       env: 'MAILGUN_PASSWORD'
     },
     apiKey: {
-      default: 'key-3246bb46991293703fae15ce860f8da3',
+      default: '',
       env: 'MAILGUN_APIKEY'
     },
     domain: {
-      default: 'messenger.qubicles.io',
+      default: '',
       env: 'MAILGUN_DOMAIN'
     }
   },

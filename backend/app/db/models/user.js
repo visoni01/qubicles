@@ -110,7 +110,7 @@ module.exports = (sequelize, DataTypes) => {
     agentcall_email: DataTypes.TEXT,
     modify_email_accounts: DataTypes.TEXT
   },
-    { tableName: 'x_users' })
+  { tableName: 'x_users' })
 
   User.associate = function (models) {
   }
