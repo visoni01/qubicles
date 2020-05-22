@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import * as yup from "yup";
 import classNames from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane, faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 
 import { userSignupStart } from "../../../../redux-saga/redux/signup";
 import QubiclesLogo from "../../../../assets/images/qbe-dark.png";
@@ -97,19 +97,19 @@ const SignUp = () => {
                           "first_name",
                           "firstName",
                           "Enter your first name",
-                          faPaperPlane
+                          faUser
                         )}
                         {inputField(
                           "last_name",
                           "lastName",
                           "Enter your last name",
-                          faPaperPlane
+                          faUser
                         )}
                         {inputField(
                           "pass",
                           "password",
                           "Enter your password",
-                          faPaperPlane,
+                          faLock,
                           "password"
                         )}
                       </div>
