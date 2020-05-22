@@ -1,5 +1,5 @@
 import { takeEvery, put } from 'redux-saga/effects'
-import apiClient from '../../utils/requests'
+import apiClient from '../../utils/apiClient'
 import { emailVerificationStart, emailVerificationFailure, emailVerificationSuccessful } from '../redux/emailVerification'
 
 function* emailVerificationWatcher() {
@@ -8,7 +8,6 @@ function* emailVerificationWatcher() {
 
 function* emailVerificationWorker(action) {
   try {
-    console.log("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCcccc", action)
     const data = yield apiClient.emailVerification(action.payload)
     yield put(emailVerificationSuccessful())
   } catch(e) {
