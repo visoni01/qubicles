@@ -2,10 +2,37 @@ import passport from 'passport'
 import TwitterStrategy from 'passport-twitter'
 import { Strategy as FacebookStrategy } from 'passport-facebook'
 import { Strategy as LinkedInStrategy } from 'passport-linkedin-oauth2'
+import { Strategy as LocalStrategy } from 'passport-local'
+import jwt from 'jsonwebtoken'
+import { User } from '../db/models'
 import config from '../../config/app'
 import SocialSignup from '../services/signup/socialSignup'
 
 function initPassport () {
+  passport.use('login', new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    session: false
+  },
+  async function (email, password, done) {
+    const user = await User.findOne({ where: { email } })
+    if (user == null) {
+      done('Email not registered!')
+    } else {
+      if (!await user.comparePassword(password)) {
+        done('Incorrect Password')
+      } else {
+        const userObj = user.get({ plain: true })
+        const jwtToken = await jwt.sign({ email, user_id: userObj.user_id },
+          config.get('jwt.loginTokenSecret'), {
+            expiresIn: config.get('jwt.loginTokenExpiry')
+          })
+        userObj.accessToken = jwtToken
+        return done(null, userObj)
+      }
+    }
+  }))
+
   passport.use(new TwitterStrategy({
     consumerKey: config.get('twitter.consumerKey'),
     consumerSecret: config.get('twitter.consumerSecret'),

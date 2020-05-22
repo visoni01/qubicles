@@ -30,6 +30,7 @@ const MAX_USER_CREDIT = config.get('invite.max_user_credit')
 const USER_CREDIT = config.get('invite.user_credit')
 const REFERREL_CREDIT = config.get('invite.referral_credit')
 const TOKEN_EXPIRY_TIME = 300
+
 export default class CreateUserService extends ServiceBase {
   get constraints () {
     return constraints

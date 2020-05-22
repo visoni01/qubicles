@@ -1,4 +1,6 @@
 'use strict'
+import bcrypt from 'bcrypt'
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     user_id: {
@@ -418,7 +420,12 @@ module.exports = (sequelize, DataTypes) => {
   },
   { tableName: 'x_users' })
 
-  User.associate = function (models) {
+  User.prototype.comparePassword = async function (password) {
+    if (!password) {
+      return false
+    }
+    const result = await bcrypt.compare(password, this.pass)
+    return result
   }
   return User
 }
