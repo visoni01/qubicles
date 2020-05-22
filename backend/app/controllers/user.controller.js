@@ -1,6 +1,5 @@
 import Responder from '../../server/expressResponder'
 import CreateUser from '../services/user/createUser'
-import PostUsersAgent from '../services/user/postSignupAgent'
 
 export default class UserController {
   static async signUp (req, res) {

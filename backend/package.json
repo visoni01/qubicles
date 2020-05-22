@@ -7,8 +7,8 @@
     "start": "./node_modules/.bin/nodemon --inspect=0.0.0.0:9229 ./bin/dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Shivam Jaiswal",
-  "license": "ISC",
+  "author": "Qubicles",
+  "license": "Copyright @ 2020 Qubicles, Inc. All rights reserved.",
   "engines": {
     "node": "12.13.1"
   },
