@@ -110,7 +110,7 @@ const config = convict({
   },
   webApp: {
     baseUrl: {
-      default: 'https://localhost:4000/api/v1',
+      default: 'http://localhost:4000/api/v1',
       env: 'WEB_APP_BASE_URL'
     }
   }

@@ -8,7 +8,7 @@ import compression from 'compression'
 import expressBoom from 'express-boom'
 import passport from 'passport'
 
-import routesInitiator from '../routes'
+import initRoutes from '../routes'
 import db from '../app/db/models'
 import initPassport from '../app/middlewares/passport'
 import logger from '../app/common/logger'
@@ -68,7 +68,7 @@ export function init () {
   initPassport()
 
   // Initialize modules server routes
-  routesInitiator(app)
+  initRoutes(app)
 
   // Initialize db
   initDatabase()

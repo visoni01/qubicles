@@ -2,8 +2,9 @@
 module.exports = (sequelize, DataTypes) => {
   const UserDetails = sequelize.define('UserDetails', {
     user_id: {
+      allowNull: false,
       primaryKey: true,
-      type: DataTypes.STRING
+      type: DataTypes.INTEGER
     },
     first_name: DataTypes.STRING,
     last_name: DataTypes.STRING,
@@ -16,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     zip: DataTypes.STRING,
     home_phone: DataTypes.STRING,
     mobile_phone: DataTypes.STRING,
-    years_of_expirience: DataTypes.STRING,
+    years_of_experience: DataTypes.STRING,
     highest_education: DataTypes.STRING,
     primary_language: DataTypes.STRING,
     other_languages: DataTypes.STRING,
