@@ -1,6 +1,4 @@
-![](RackMultipart20200525-4-q05oc0_html_d4ca7b3ece1f100d.png)
-
-![](RackMultipart20200525-4-q05oc0_html_9aab7eef339a48bd.png) ![](RackMultipart20200525-4-q05oc0_html_8534933ee41a8db5.jpg)
+# Qubicles Whitepaper
 
 [Registered trademark](https://fenero.io/trademark) with [patent pending](https://fenero.io/patent)
 
