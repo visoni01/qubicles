@@ -114,6 +114,12 @@ const config = convict({
       default: 'http://localhost:4000/api/v1',
       env: 'WEB_APP_BASE_URL'
     }
+  },
+  qubiclesMailIds: {
+    sales: {
+      default: '',
+      env: 'QUBICLE_MAIL_ID_SALES'
+    }
   }
 })
 

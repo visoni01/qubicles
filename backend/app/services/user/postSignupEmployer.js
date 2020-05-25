@@ -1,6 +1,7 @@
 import ServiceBase from '../../common/serviceBase'
-import { XClient, XClientUser, Server, XClientServer } from '../../db/models'
+import { XClient, XClientUser, Server, XClientServer, User } from '../../db/models'
 import { findUniqueID, generateID } from '../../utils/generateId'
+import SendEmailNotificationMail from '../email/sendEmailNotificationMail'
 
 const constraints = {
   user_id: {
@@ -28,6 +29,15 @@ const constraints = {
     presence: { allowEmpty: false }
   },
   client_ein: {
+    presence: { allowEmpty: false }
+  },
+  source: {
+    presence: { allowEmpty: false }
+  },
+  interactions_per_month: {
+    presence: { allowEmpty: false }
+  },
+  website: {
     presence: { allowEmpty: false }
   }
 }
@@ -91,8 +101,12 @@ export default class PostSignupEmployerService extends ServiceBase {
       state: this.state,
       zip: this.zip,
       phone_number: this.phone_number,
-      client_ein: this.client_ein
+      client_ein: this.client_ein,
+      source: this.source,
+      interactions_per_month: this.interactions_per_month,
+      website: this.website
     }
+
     // Generate client Id here
     clientObject.client_username = await generateClientUserName({ name: this.client_name, maxLength: 100 })
 
@@ -109,11 +123,25 @@ export default class PostSignupEmployerService extends ServiceBase {
     })
 
     // Assigning client to a telephone server and saving association in x_client_servers
+    let serverPrivateIP = ''
+    let serverPublicIP = ''
     const leastClientServer = await getServerWithLeastClients()
-    await XClientServer.create({
-      client_id: xClientData.client_id,
-      server_ip: leastClientServer.server_ip
-    })
+    if (leastClientServer !== null) {
+      serverPrivateIP = leastClientServer.server_ip
+      serverPublicIP = leastClientServer.external_server_ip
+      await XClientServer.create({
+        client_id: xClientData.client_id,
+        server_ip: leastClientServer.server_ip
+      })
+    }
+    if (leastClientServer === null || leastClientServer === '') {
+      serverPrivateIP = 'ALERT!!! Client was not assigned to a telephony server. Something is wrong - please check it out.'
+      serverPublicIP = 'ALERT!!!ALERT!!!ALERT'
+    }
+    // Send Email Notification for new Client Registration
+    const { email } = await User.findOne({ where: { user_id: this.user_id }, raw: true })
+    await SendEmailNotificationMail.execute({ ...clientObject, email, serverPrivateIP, serverPublicIP })
+
     return `Post signup for user ${this.user_id} is completed`
   }
 }
