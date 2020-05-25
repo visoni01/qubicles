@@ -188,9 +188,9 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: ''
     }
   },
-    {
-      tableName: 'servers'
-    })
+  {
+    tableName: 'servers'
+  })
   Server.associate = function (models) {
   }
   return Server

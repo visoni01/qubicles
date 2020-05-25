@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     group_name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     allowed_campaigns: DataTypes.TEXT,
     qc_allowed_campaigns: DataTypes.TEXT,
@@ -93,9 +93,9 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'Y'
     }
   },
-    {
-      tableName: 'x_user_groups'
-    })
+  {
+    tableName: 'x_user_groups'
+  })
   UserGroup.associate = function (models) {
   }
   return UserGroup

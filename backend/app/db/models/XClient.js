@@ -52,10 +52,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     client_ein: DataTypes.STRING
   },
-    {
-      tableName: 'x_clients',
-      timestamps: false
-    })
+  {
+    tableName: 'x_clients',
+    timestamps: false
+  })
   XClient.associate = function (models) {
   }
   return XClient

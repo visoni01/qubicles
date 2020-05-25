@@ -16,10 +16,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   },
-    {
-      tableName: 'x_client_users',
-      timestamps: false
-    })
+  {
+    tableName: 'x_client_users',
+    timestamps: false
+  })
   XClientUser.associate = function (models) {
   }
   return XClientUser

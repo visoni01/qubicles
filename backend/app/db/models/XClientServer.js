@@ -7,8 +7,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       primaryKey: true
     },
-    server_ip: DataTypes.INTEGER(11),
-    client_id: DataTypes.STRING
+    server_ip: DataTypes.STRING,
+    client_id: DataTypes.INTEGER
   },
   {
     tableName: 'x_client_servers',
