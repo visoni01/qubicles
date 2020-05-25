@@ -1,68 +1,75 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import { useSelector, useDispatch } from "react-redux";
-import * as yup from "yup";
-import classNames from "classnames";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane, faUser, faLock } from "@fortawesome/free-solid-svg-icons";
+import React from 'react'
+import { useForm } from 'react-hook-form'
+import { useSelector, useDispatch } from 'react-redux'
+import * as yup from 'yup'
+import classNames from 'classnames'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faPaperPlane,
+  faUser,
+  faLock,
+} from '@fortawesome/free-solid-svg-icons'
 
-import { userSignupStart } from "../../../../redux-saga/redux/signup";
-import QubiclesLogo from "../../../../assets/images/qbe-dark.png";
-import "./style.scss";
+import { userSignupStart } from '../../../../redux-saga/redux/signup'
+import QubiclesLogo from '../../../../assets/images/qbe-dark.png'
+import './style.scss'
 
-const schema = yup.object().shape({
-  first_name: yup.string().required("*Required"),
-  last_name: yup.string().required("*Required"),
-  email: yup.string().email().required("*Required"),
-  pass: yup.string().required("*Required"),
-});
+const schema = yup.object().shape( {
+  first_name: yup.string().required( '*Required' ),
+  last_name: yup.string().required( '*Required' ),
+  email: yup.string().email().required( '*Required' ),
+  pass: yup.string().required( '*Required' ),
+} )
 
 const SignUp = () => {
-  const { register, errors, handleSubmit } = useForm({
+  const { register, errors, handleSubmit } = useForm( {
     validationSchema: schema,
-  });
-  const dispatch = useDispatch();
-  const onSubmit = (data) => dispatch(userSignupStart(data));
-  const { error, isLoading, success } = useSelector((state) => state.signup);
+  } )
+  const dispatch = useDispatch()
+  const onSubmit = ( data ) => dispatch( userSignupStart( data ) )
+  const { error, isLoading, success } = useSelector( ( state ) => state.signup )
 
   const inputField = (
     name,
     id,
     placeholder,
     icon = faPaperPlane,
-    type = "text"
+    type = 'text',
   ) => (
     <div
-      className={classNames("control has-icons-right required", "input-fields")}
+      className={ classNames( 'control has-icons-right required', 'input-fields' ) }
     >
       <input
         className="input"
-        type={type}
-        id={id}
-        name={name}
-        ref={register}
-        placeholder={placeholder}
+        type={ type }
+        id={ id }
+        name={ name }
+        ref={ register }
+        placeholder={ placeholder }
       />
       <span className="icon is-medium is-right">
-        <FontAwesomeIcon icon={icon} />
+        <FontAwesomeIcon icon={ icon } />
       </span>
-      {errors && errors[name] && (
-        <div className="error-message"> {errors[name]["message"]}</div>
+      {errors && errors[ name ] && (
+        <div className="error-message">
+          {' '}
+          {errors[ name ].message}
+        </div>
       )}
     </div>
-  );
+  )
 
   return (
     <div className="login-wrapper columns is-gapless">
       <div className="column login-column is-8 is-hidden-mobile hero-banner">
         <div
-          className={classNames(
-            "hero login-hero is-fullheight has-background-image",
-            "side-cover"
-          )}
+          className={ classNames(
+            'hero login-hero is-fullheight has-background-image',
+            'side-cover',
+          ) }
         >
           <div className="columns has-text-centered">
-            <div className="column"></div>
+            <div className="column" />
           </div>
         </div>
       </div>
@@ -73,7 +80,7 @@ const SignUp = () => {
               <a href="/">
                 <img
                   className="top-logo"
-                  src={QubiclesLogo}
+                  src={ QubiclesLogo }
                   alt="Qubicles logo"
                 />
               </a>
@@ -87,35 +94,36 @@ const SignUp = () => {
                     <>
                       <div className="field pb-10">
                         {inputField(
-                          "email",
-                          "signupEmail",
-                          "Enter your email address",
+                          'email',
+                          'signupEmail',
+                          'Enter your email address',
                           faPaperPlane,
-                          "email"
+                          'email',
                         )}
                         {inputField(
-                          "first_name",
-                          "firstName",
-                          "Enter your first name",
-                          faUser
+                          'first_name',
+                          'firstName',
+                          'Enter your first name',
+                          faUser,
                         )}
                         {inputField(
-                          "last_name",
-                          "lastName",
-                          "Enter your last name",
-                          faUser
+                          'last_name',
+                          'lastName',
+                          'Enter your last name',
+                          faUser,
                         )}
                         {inputField(
-                          "pass",
-                          "password",
-                          "Enter your password",
+                          'pass',
+                          'password',
+                          'Enter your password',
                           faLock,
-                          "password"
+                          'password',
                         )}
                       </div>
                       <p className="control login">
                         <button
-                          onClick={handleSubmit(onSubmit)}
+                          type="button"
+                          onClick={ handleSubmit( onSubmit ) }
                           id="sendVerificationCode"
                           className="button btn-outlined is-bold is-fullwidth rounded raised no-lh"
                         >
@@ -127,7 +135,7 @@ const SignUp = () => {
                   <div>
                     {success && (
                       <>
-                        You've succesfully registered. Please check your inbox
+                        You have succesfully registered. Please check your inbox
                         to verify your email !!
                       </>
                     )}
@@ -139,7 +147,7 @@ const SignUp = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SignUp;
+export default SignUp

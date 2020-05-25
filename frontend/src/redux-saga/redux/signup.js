@@ -1,32 +1,32 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   loading: null,
   error: null,
   success: false,
-};
+}
 
 const {
   actions: { userSignupStart, userSignupSuccessful, userSignupFailure },
   reducer,
-} = createSlice({
-  name: "signup",
+} = createSlice( {
+  name: 'signup',
   initialState,
   reducers: {
-    userSignupStart: () => ({
+    userSignupStart: () => ( {
       ...initialState,
       isLoading: true,
-    }),
-    userSignupSuccessful: (state, action) => ({
+    } ),
+    userSignupSuccessful: ( state, action ) => ( {
       ...initialState,
       success: true,
-    }),
-    userSignupFailure: (state, action) => ({
+    } ),
+    userSignupFailure: ( state, action ) => ( {
       ...initialState,
       error: true,
-    }),
+    } ),
   },
-});
+} )
 
 export default reducer
 export { userSignupStart, userSignupSuccessful, userSignupFailure }
