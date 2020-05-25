@@ -1,8 +1,8 @@
-![](RackMultipart20200521-4-7r0fvm_html_d4ca7b3ece1f100d.png)
+![](RackMultipart20200525-4-q05oc0_html_d4ca7b3ece1f100d.png)
 
-![](RackMultipart20200521-4-7r0fvm_html_9aab7eef339a48bd.png) ![](RackMultipart20200521-4-7r0fvm_html_8534933ee41a8db5.jpg)
+![](RackMultipart20200525-4-q05oc0_html_9aab7eef339a48bd.png) ![](RackMultipart20200525-4-q05oc0_html_8534933ee41a8db5.jpg)
 
-[Patent pending](https://fenero.io/patent)
+[Registered trademark](https://fenero.io/trademark) with [patent pending](https://fenero.io/patent)
 
 _The Contact Center of the Future_
 
@@ -265,7 +265,7 @@ Identifying this as a major opportunity to make an impact on the industry, and w
 
 ## Industry Awards
 
-![](RackMultipart20200521-4-7r0fvm_html_4bdf67ca89d14483.png)
+![](RackMultipart20200525-4-q05oc0_html_4bdf67ca89d14483.png)
 
 ## Key Members
 
@@ -285,13 +285,13 @@ _Kate Conlon, Director of Marketing_
 
 Kate has extensive experience in traditional and digital marketing strategies and leads all of the marketing efforts for the company. She holds a Bachelor&#39;s in Magazine Journalism with a minor in International Political Science from the University of Georgia, where she was a writer and copyeditor for The Red &amp; Black student newspaper.
 
-_Albert Li, Software Developer_
+_Nitin V., Software Developer_
 
-Albert is an experienced business software developer playing a critical role in the development of Qubicles and porting old Fenero systems to the Qubicles/Telos technology stack.
+Nitin is an experienced business software developer playing a critical role in the development of Qubicles and porting old Fenero systems to the Qubicles/Telos technology stack.
 
-_Shivam Jaiswal, Software Developer_
+_Shivam Jaiswal, Lead Software Developer_
 
-Like Albert, Shivam is an experienced software developer on the Qubicles team. His past projects include working on Ethereum-based solutions for wallets and blockchain companies.
+Like Nitin, Shivam is an experienced software developer on the Qubicles team. His past projects include working on Ethereum-based solutions for wallets and blockchain companies.
 
 _Warren Whitlock, CMO_
 
@@ -360,6 +360,6 @@ Sources:
 
 4. [https://www.csmonitor.com/World/Asia-Pacific/2011/0419/World-s-leading-location-for-call-centers-It-s-not-India](https://www.csmonitor.com/World/Asia-Pacific/2011/0419/World-s-leading-location-for-call-centers-It-s-not-India)
 
-![](RackMultipart20200521-4-7r0fvm_html_a6b14873f279a790.png)
+![](RackMultipart20200525-4-q05oc0_html_a6b14873f279a790.png)
 
-![](RackMultipart20200521-4-7r0fvm_html_d4ca7b3ece1f100d.png)
+![](RackMultipart20200525-4-q05oc0_html_d4ca7b3ece1f100d.png)
