@@ -1,5 +1,6 @@
 import ServiceBase from '../../common/serviceBase'
-import { UserDetails } from '../../db/models'
+import { XClient, XClientUser, Server, XClientServer } from '../../db/models'
+import { findUniqueID, generateID } from '../../utils/generateId'
 
 const constraints = {
   user_id: {
@@ -8,10 +9,10 @@ const constraints = {
   user_code: {
     presence: { allowEmpty: false }
   },
-  company_name: {
+  client_name: {
     presence: { allowEmpty: false }
   },
-  company_address: {
+  address1: {
     presence: { allowEmpty: false }
   },
   city: {
@@ -23,12 +24,58 @@ const constraints = {
   zip: {
     presence: { allowEmpty: false }
   },
-  contact_phone: {
+  phone_number: {
     presence: { allowEmpty: false }
   },
-  company_ein: {
+  client_ein: {
     presence: { allowEmpty: false }
   }
+}
+
+async function generateClientUserName ({ name, maxLength }) {
+  let isUnique = false
+  let id = await generateID(name, maxLength)
+  let chkID = id
+  let appendCount = 0
+  const allUsernames = await XClient.findAll({ attributes: ['client_username'], raw: true })
+  while (!isUnique) {
+    const current = allUsernames.find(obj => obj.client_username !== null && obj.client_username.toLowerCase() === chkID.toLowerCase())
+    if (current === undefined || current === null) {
+      // We have no existing username with same id
+      id = chkID
+      isUnique = true
+    } else {
+      // We have an existing username with same id
+      appendCount += 1
+      chkID = await findUniqueID(id, appendCount, maxLength)
+    }
+  }
+  return id
+}
+
+async function getServerWithLeastClients () {
+  let agentLoginServers = await getServersByAgentLoginServers()
+  agentLoginServers = agentLoginServers.filter(server => server.active_twin_server_ip !== 'DEDICATED')
+  let lowUsageServer = agentLoginServers[0]
+  const clientServers = await getClientServers()
+  let leastClients = clientServers.filter(cs => cs.server_ip === lowUsageServer.server_ip).length
+  agentLoginServers = agentLoginServers.filter(server => server.server_ip !== lowUsageServer.server_ip)
+  agentLoginServers.forEach(server => {
+    const totalCurrentClients = clientServers.filter(cs => cs.server_ip === server.server_ip).length
+    if (totalCurrentClients < leastClients) {
+      leastClients = totalCurrentClients
+      lowUsageServer = server
+    }
+  })
+  return lowUsageServer
+}
+
+async function getServersByAgentLoginServers () {
+  return Server.findAll({ where: { active: 'Y', active_agent_login_server: 'Y' }, raw: true })
+}
+
+async function getClientServers () {
+  return XClientServer.findAll({ raw: true })
 }
 
 export default class PostSignupEmployerService extends ServiceBase {
@@ -37,8 +84,36 @@ export default class PostSignupEmployerService extends ServiceBase {
   }
 
   async run () {
-    await UserDetails.create(
-      this.filteredArgs
+    const clientObject = {
+      client_name: this.client_name,
+      address1: this.address1,
+      city: this.city,
+      state: this.state,
+      zip: this.zip,
+      phone_number: this.phone_number,
+      client_ein: this.client_ein
+    }
+    // Generate client Id here
+    clientObject.client_username = await generateClientUserName({ name: this.client_name, maxLength: 100 })
+
+    // Creating client in x_clients
+    const xClient = await XClient.create(
+      clientObject
     )
+    const xClientData = xClient.get({ plain: true })
+
+    // Generating client-user association in x_client_users
+    await XClientUser.create({
+      user_id: this.user_id,
+      client_id: xClientData.client_id
+    })
+
+    // Assigning client to a telephone server and saving association in x_client_servers
+    const leastClientServer = await getServerWithLeastClients()
+    await XClientServer.create({
+      client_id: xClientData.client_id,
+      server_ip: leastClientServer.server_ip
+    })
+    return `Post signup for user ${this.user_id} is completed`
   }
 }
