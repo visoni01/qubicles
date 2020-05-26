@@ -1,5 +1,7 @@
 import ServiceBase from '../../common/serviceBase'
-import { UserDetails } from '../../db/models'
+import { UserDetails, User } from '../../db/models'
+import { generateUserWalletId } from '../../utils/generateWalletId'
+import { CreateUserWallet } from '../wallet/createUserWallet'
 
 const constraints = {
   user_id: {
@@ -70,5 +72,14 @@ export default class PostSignupAgentService extends ServiceBase {
     await UserDetails.create(
       this.filteredArgs
     )
+    const { full_name } = await User.findOne({ where: { user_id: this.user_id }, raw: true })
+
+    const walletId = (await generateUserWalletId(full_name)).toLowerCase() + '.qbe'
+
+    await CreateUserWallet.execute({ walletId })
+    await User.update({
+      user: walletId
+    },
+      { where: { user_id: this.user_id } })
   }
 }
