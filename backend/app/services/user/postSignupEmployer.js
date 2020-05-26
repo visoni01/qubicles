@@ -2,6 +2,8 @@ import ServiceBase from '../../common/serviceBase'
 import { XClient, XClientUser, Server, XClientServer, User } from '../../db/models'
 import { findUniqueID, generateID } from '../../utils/generateId'
 import SendEmailNotificationMail from '../email/sendEmailNotificationMail'
+import CreateUserWallet from '../wallet/createUserWallet'
+import { generateUserWalletId } from '../../utils/generateWalletId'
 
 const constraints = {
   user_id: {
@@ -139,9 +141,16 @@ export default class PostSignupEmployerService extends ServiceBase {
       serverPublicIP = 'ALERT!!!ALERT!!!ALERT'
     }
     // Send Email Notification for new Client Registration
-    const { email } = await User.findOne({ where: { user_id: this.user_id }, raw: true })
-    await SendEmailNotificationMail.execute({ ...clientObject, email, serverPrivateIP, serverPublicIP })
+    const { email, full_name } = await User.findOne({ where: { user_id: this.user_id }, raw: true })
+    const walletId = (await generateUserWalletId(full_name)).toLowerCase() + '.qbe'
 
+    await CreateUserWallet.execute({ walletId })
+    await User.update({
+      user: walletId
+    },
+      { where: { user_id: this.user_id } })
+
+    await SendEmailNotificationMail.execute({ ...clientObject, email, serverPrivateIP, serverPublicIP })
     return `Post signup for user ${this.user_id} is completed`
   }
 }

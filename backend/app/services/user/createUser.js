@@ -30,6 +30,7 @@ export default class CreateUserService extends ServiceBase {
     const salt = bcrypt.genSaltSync(10)
     newUser.pass = bcrypt.hashSync(newUser.pass, salt)
     newUser.email_verified = false
+    newUser.full_name = newUser.first_name + ' ' + newUser.last_name
     const user = await User.create(newUser)
     const token = jwt.sign({ email: this.email }, 'secret', { expiresIn: TOKEN_EXPIRY_TIME })
     await SendEmailVerificationMail.execute({ token, email: this.email })
