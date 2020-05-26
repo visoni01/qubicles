@@ -1,3 +1,4 @@
-import CircularLoader from "./circularLoader";
+import CircularLoader from './circularLoader'
 
-export { CircularLoader };
+/* eslint-disable import/prefer-default-export */
+export { CircularLoader }
