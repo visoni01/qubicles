@@ -7,7 +7,11 @@ const initialState = {
 };
 
 const {
-  actions: { emailVerificationStart, emailVerificationSuccessful, emailVerificationFailure },
+  actions: {
+    emailVerificationStart,
+    emailVerificationSuccessful,
+    emailVerificationFailure,
+  },
   reducer,
 } = createSlice({
   name: "signup",
@@ -20,13 +24,19 @@ const {
     emailVerificationSuccessful: (state, action) => ({
       ...initialState,
       success: true,
+      isLoading: false,
     }),
     emailVerificationFailure: (state, action) => ({
       ...initialState,
       error: true,
+      isLoading: false,
     }),
   },
 });
 
-export default reducer
-export { emailVerificationStart, emailVerificationSuccessful, emailVerificationFailure }
+export default reducer;
+export {
+  emailVerificationStart,
+  emailVerificationSuccessful,
+  emailVerificationFailure,
+};
