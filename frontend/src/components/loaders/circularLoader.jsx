@@ -3,9 +3,9 @@ import { ClipLoader } from 'react-spinners'
 import PropTypes from 'prop-types'
 
 const Loader = ( {
-  size, color, isLoading, optionalStyle,
+  size, color, isLoading, className,
 } ) => (
-  <div className={ optionalStyle }>
+  <div className={ className }>
     <ClipLoader size={ size } color={ color } loading={ isLoading } />
   </div>
 )
@@ -14,14 +14,14 @@ Loader.defaultProps = {
   size: 150,
   color: '#123abc',
   isLoading: true,
-  optionalStyle: {},
+  className: {},
 }
 
 Loader.propTypes = {
   size: PropTypes.number,
   color: PropTypes.string,
   isLoading: PropTypes.bool,
-  optionalStyle: PropTypes.shape( {} ),
+  className: PropTypes.shape( {} ),
 }
 
 export default Loader
