@@ -120,6 +120,20 @@ const config = convict({
       default: '',
       env: 'QUBICLE_MAIL_ID_SALES'
     }
+  },
+  qbeCreatorPermission: {
+    apinode: {
+      default: '',
+      env: 'TELOSAPINODE'
+    },
+    qbe: {
+      default: '',
+      env: 'SQRLQBEACTIVE'
+    },
+    owner: {
+      default: '',
+      env: 'SQRLOWNERKEY'
+    }
   }
 })
 

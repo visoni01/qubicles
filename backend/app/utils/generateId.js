@@ -21,7 +21,7 @@ export function generateID (text, maxLength) { // string GenerateID(string text,
 }
 
 export function findUniqueID (id, appendCount, maxLength) {
-  return new Promise(async (resolve, reject) => {
+  return new Promise((resolve, reject) => {
     try {
       const n = appendCount
       let chkID = id + n.toString()// append number after id from 1, 2, ...
@@ -37,7 +37,7 @@ export function findUniqueID (id, appendCount, maxLength) {
   })
 }
 
-function upperCaseFirst (s) { // UppercaseFirst(string s)
+export function upperCaseFirst (s) { // UppercaseFirst(string s)
   if (!s || s === null || s === '') {
     return ''
   }

@@ -1,5 +1,7 @@
 import ServiceBase from '../../common/serviceBase'
-import { UserDetails } from '../../db/models'
+import { UserDetail, User } from '../../db/models'
+import { generateUserWalletId } from '../../utils/generateWalletId'
+import { CreateUserWallet } from '../wallet/createUserWallet'
 
 const constraints = {
   user_id: {
@@ -41,7 +43,7 @@ const constraints = {
   mobile_phone: {
     presence: { allowEmpty: false }
   },
-  years_of_expirience: {
+  years_of_experience: {
     presence: { allowEmpty: false }
   },
   highest_education: {
@@ -67,8 +69,34 @@ export default class PostSignupAgentService extends ServiceBase {
   }
 
   async run () {
-    await UserDetails.create(
-      this.filteredArgs
-    )
+    const { full_name } = await User.findOne({ where: { user_id: this.user_id }, raw: true })
+    const walletAddress = (await generateUserWalletId(full_name)).toLowerCase() + '.qbe'
+
+    await CreateUserWallet.execute({ walletAddress })
+    await User.update({
+      user: walletAddress,
+      user_code: this.user_code
+    }, { where: { user_id: this.user_id } })
+
+    await UserDetail.update({
+      first_name: this.first_name,
+      last_name: this.last_name,
+      wallet_address: walletAddress,
+      dob: this.dob,
+      ssn: this.ssn,
+      gender: this.gender,
+      street_address: this.street_address,
+      city: this.city,
+      state: this.state,
+      zip: this.zip,
+      home_phone: this.home_phone,
+      mobile_phone: this.mobile_phone,
+      years_of_experience: this.years_of_experience,
+      highest_education: this.highest_education,
+      primary_language: this.primary_language,
+      other_languages: this.other_languages,
+      source: this.source,
+      service: this.service
+    }, { where: { user_id: this.user_id } })
   }
 }
