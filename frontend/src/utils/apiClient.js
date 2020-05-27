@@ -8,17 +8,19 @@ class ApiClient {
     this.localStorageInst = window.localStorage
   }
 
-  makeRequest = ( url, method, data = {} ) => this.axios( { url, method, data } )
+  makeRequest = ( url, method, data = {} ) => this.axios( { url, method, data } );
 
-  getRequest = ( url, config ) => this.makeRequest( url, 'get', config )
+  getRequest = ( url, config ) => this.makeRequest( url, 'get', config );
 
-  putRequest = ( url, config ) => this.makeRequest( url, 'put', config )
+  putRequest = ( url, config ) => this.makeRequest( url, 'put', config );
 
-  postRequest = ( url, config ) => this.makeRequest( url, 'post', config )
+  postRequest = ( url, config ) => this.makeRequest( url, 'post', config );
 
-  deleteRequest = ( url, config ) => this.makeRequest( url, 'delete', config )
+  deleteRequest = ( url, config ) => this.makeRequest( url, 'delete', config );
 
-  signup = ( body ) => this.postRequest( '/user/signup', body )
+  signup = ( body ) => this.postRequest( '/user/signup', body );
+
+  emailVerification = ( token ) => this.getRequest( `/auth/verifyToken/${ token }` );
 }
 
 const axiosInst = axios.create( { baseURL } )
