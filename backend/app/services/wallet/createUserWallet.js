@@ -7,7 +7,7 @@ import ServiceBase from '../../common/serviceBase'
 import config from '../../../config/app'
 
 const constraints = {
-  walletId: {
+  walletAddress: {
     presence: { allowEmpty: false }
   }
 }
@@ -29,7 +29,7 @@ export default class CreateUserWalletService extends ServiceBase {
       authorization: [{ actor: QBEACCOUNTNAME, permission: 'active' }],
       data: {
         creator: QBEACCOUNTNAME,
-        name: this.walletId,
+        name: this.walletAddress,
         owner: {
           threshold: 1,
           keys: [{ key: config.get('qbeCreatorPermission.owner'), weight: 1 }],
@@ -49,7 +49,7 @@ export default class CreateUserWalletService extends ServiceBase {
       authorization: [{ actor: QBEACCOUNTNAME, permission: 'active' }],
       data: {
         payer: QBEACCOUNTNAME,
-        receiver: this.walletId,
+        receiver: this.walletAddress,
         bytes: 3072
       }
     }, {
@@ -58,7 +58,7 @@ export default class CreateUserWalletService extends ServiceBase {
       authorization: [{ actor: QBEACCOUNTNAME, permission: 'active' }],
       data: {
         from: QBEACCOUNTNAME,
-        receiver: this.walletId,
+        receiver: this.walletAddress,
         stake_net_quantity: '0.0001 TLOS',
         stake_cpu_quantity: '0.0001 TLOS',
         transfer: false

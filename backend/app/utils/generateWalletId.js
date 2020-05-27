@@ -15,12 +15,13 @@ export async function generateUserWalletId (text, maxLength = 8) {
       isUnique = true
     } else {
       // We have an existing wallet with same id
-
-      /* Unique ID must only contain a-z in lowercase and numbers from 1-5
+      /**
+        Unique ID must only contain a-z in lowercase and numbers from 1-5
         We will increment the count in such a way that on converting appendCount into base(6)
         it will result a series like 1, 2, 3, 4, 5, 11, 12, 13, 14, 15, 21, 22 ...and so on
         the last two digit number of this series is 55 because it is the last two-digit number
-        in base(6) number system. The next produced number would be 111, 112, 113 ...and so on */
+        in base(6) number system. The next produced number would be 111, 112, 113 ...and so on
+       **/
 
       appendCount += 1
       if (appendCount % 6 === 0) {

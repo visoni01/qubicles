@@ -1,6 +1,6 @@
 'use strict'
 module.exports = (sequelize, DataTypes) => {
-  const UserDetails = sequelize.define('UserDetails', {
+  const UserDetail = sequelize.define('UserDetail', {
     user_id: {
       allowNull: false,
       primaryKey: true,
@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     first_name: DataTypes.STRING,
     last_name: DataTypes.STRING,
+    wallet_address: DataTypes.STRING,
     dob: DataTypes.DATEONLY,
     ssn: DataTypes.STRING,
     gender: DataTypes.STRING,
@@ -20,15 +21,9 @@ module.exports = (sequelize, DataTypes) => {
     years_of_experience: DataTypes.STRING,
     highest_education: DataTypes.STRING,
     primary_language: DataTypes.STRING,
-    other_languages: DataTypes.STRING,
-    company_name: DataTypes.STRING,
-    company_ein: DataTypes.STRING,
-    company_id: DataTypes.STRING
+    other_languages: DataTypes.STRING
   },
-  {
-    tableName: 'x_user_details'
-  })
-  UserDetails.associate = function (models) {
-  }
-  return UserDetails
+    { tableName: 'x_user_details' })
+
+  return UserDetail
 }

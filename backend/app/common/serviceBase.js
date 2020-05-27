@@ -67,7 +67,6 @@ export default class ServiceBase {
   }
 
   addError (attribute, errorMessage, responseStatusCode = null) {
-    if (attribute !== _.camelCase(attribute)) throw new Error(`${attribute} should be camel cased in addError()`)
     Log.debug('Custom Validation Failed', { klass: this.constructor, message: errorMessage, context: { attribute }, userCtx: this.context, fault: this.errors })
     responseStatusCode && this.setResponseStatusCode(responseStatusCode)
     const errors = this._errors[this.constructor.name] = this._errors[this.constructor.name] || {}
