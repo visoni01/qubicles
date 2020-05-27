@@ -148,7 +148,7 @@ export default class PostSignupEmployerService extends ServiceBase {
     await User.update({
       user: walletId
     },
-      { where: { user_id: this.user_id } })
+    { where: { user_id: this.user_id } })
 
     await SendEmailNotificationMail.execute({ ...clientObject, email, serverPrivateIP, serverPublicIP })
     return `Post signup for user ${this.user_id} is completed`

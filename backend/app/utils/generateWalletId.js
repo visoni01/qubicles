@@ -15,6 +15,13 @@ export async function generateUserWalletId (text, maxLength = 8) {
       isUnique = true
     } else {
       // We have an existing wallet with same id
+
+      /* Unique ID must only contain a-z in lowercase and numbers from 1-5
+        We will increment the count in such a way that on converting appendCount into base(6)
+        it will result a series like 1, 2, 3, 4, 5, 11, 12, 13, 14, 15, 21, 22 ...and so on
+        the last two digit number of this series is 55 because it is the last two-digit number
+        in base(6) number system. The next produced number would be 111, 112, 113 ...and so on */
+
       appendCount += 1
       if (appendCount % 6 === 0) {
         let appendCountBase6 = Math.floor(getBaseLog(6, appendCount))
@@ -30,7 +37,7 @@ export async function generateUserWalletId (text, maxLength = 8) {
 }
 
 function generateUniqueWalletId (text, maxLength = 8) { // string generateWalletID(string text, int maxLength)
-  text = text.replace(/[^a-z1-5]/g, ' ')
+  text = text.replace(/[^A-Za-z1-5]/g, ' ')
   const words = text.split(' ')
   const wordLength = words[0].length < maxLength ? words[0].length : maxLength // First word
   let remainingLength = maxLength - wordLength // Length we have left after appending first word
