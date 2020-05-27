@@ -12,10 +12,9 @@ function* emailVerificationWatcher() {
 
 function* emailVerificationWorker( action ) {
   try {
-    const data = yield apiClient.emailVerification( action.payload )
+    yield apiClient.emailVerification( action.payload )
     yield put( emailVerificationSuccessful() )
   } catch ( e ) {
-    console.log( '===', e )
     yield put( emailVerificationFailure() )
   }
 }

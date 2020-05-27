@@ -12,10 +12,9 @@ function* signupWatcher() {
 
 function* signupWorker( action ) {
   try {
-    const data = yield apiClient.signup( action.payload )
+    yield apiClient.signup( action.payload )
     yield put( userSignupSuccessful() )
   } catch ( e ) {
-    console.log( '===', e )
     yield put( userSignupFailure() )
   }
 }
