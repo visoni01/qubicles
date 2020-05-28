@@ -57,9 +57,6 @@ const constraints = {
   },
   source: {
     presence: { allowEmpty: false }
-  },
-  service: {
-    presence: { allowEmpty: false }
   }
 }
 
@@ -95,8 +92,7 @@ export default class PostSignupAgentService extends ServiceBase {
       highest_education: this.highest_education,
       primary_language: this.primary_language,
       other_languages: this.other_languages,
-      source: this.source,
-      service: this.service
+      source: this.source
     }, { where: { user_id: this.user_id } })
   }
 }
