@@ -1,5 +1,6 @@
 import Responder from '../../server/expressResponder'
 import { PostSignupEmployerStep1Service, PostSignupEmployerStep2Service, PostSignupEmployerStep3Service, PostSignupEmployerStep4Service } from '../services/user/employer/postSignupEmployer'
+import InviteFriends from '../services/user/inviteFriends'
 
 export default class UserEmployerController {
   static async postSignupEmployer (req, res) {
@@ -22,6 +23,15 @@ export default class UserEmployerController {
       Responder.success(res, postSignupEmployerResult.result)
     } else {
       res.boom.badRequest('Validation didn\'t succeed', postSignupEmployerResult.errors)
+    }
+  }
+
+  static async inviteFriends (req, res) {
+    const inviteFriendsResult = await InviteFriends.execute(req.body)
+    if (inviteFriendsResult.successful) {
+      Responder.success(res, inviteFriendsResult.result)
+    } else {
+      res.boom.badRequest('Validation didn\'t succeed', inviteFriendsResult.errors)
     }
   }
 }

@@ -133,6 +133,19 @@ const config = convict({
     owner: {
       default: '',
       env: 'QBENEWACCTKEY'
+    },
+  google: {
+    clientId: {
+      default: '989208622298-8u5dqebfoh6uq3d40fu551kavl9rla7q.apps.googleusercontent.com',
+      env: 'GOOGLE_CLIENT_ID'
+    },
+    clientSecret: {
+      default: 'RzpAJlduKEFB2FW2TbCb2Rlx',
+      env: 'GOOGLE_CLIENT_SECRET'
+    },
+    callbackURL: {
+      default: 'http://localhost:4000/api/v1/home',
+      env: 'GOOGLE_CALLBACK_URL'
     }
   },
   activeCampaign: {
