@@ -25,13 +25,4 @@ export default class UserEmployerController {
       res.boom.badRequest('Validation didn\'t succeed', postSignupEmployerResult.errors)
     }
   }
-
-  static async inviteFriends (req, res) {
-    const inviteFriendsResult = await InviteFriends.execute(req.body)
-    if (inviteFriendsResult.successful) {
-      Responder.success(res, inviteFriendsResult.result)
-    } else {
-      res.boom.badRequest('Validation didn\'t succeed', inviteFriendsResult.errors)
-    }
-  }
 }

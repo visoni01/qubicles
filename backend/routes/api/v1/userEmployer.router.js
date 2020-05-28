@@ -7,7 +7,4 @@ const userEmployerRouter = express.Router(args)
 userEmployerRouter.route('/postSignup/:step')
   .post(userEmployerController.postSignupEmployer)
 
-userEmployerRouter.route('/invite')
-  .post(userEmployerController.inviteFriends)
-
 export { userEmployerRouter }
