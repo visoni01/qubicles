@@ -128,11 +128,11 @@ const config = convict({
     },
     qbe: {
       default: '',
-      env: 'SQRLQBEACTIVE'
+      env: 'QBEACCOUNTKEY'
     },
     owner: {
       default: '',
-      env: 'SQRLOWNERKEY'
+      env: 'QBENEWACCTKEY'
     }
   }
 })

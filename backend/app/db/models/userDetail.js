@@ -21,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
     years_of_experience: DataTypes.STRING,
     highest_education: DataTypes.STRING,
     primary_language: DataTypes.STRING,
-    other_languages: DataTypes.STRING
+    other_languages: DataTypes.STRING,
+    source: DataTypes.STRING
   },
     { tableName: 'x_user_details' })
 

@@ -1,14 +1,14 @@
 import { findUniqueID, upperCaseFirst } from './generateId'
-import { User } from '../db/models'
+import { UserDetail } from '../db/models'
 
 export async function generateUserWalletId (text, maxLength = 8) {
   let isUnique = false
   let id = await generateUniqueWalletId(text, maxLength)
   let chkID = id
   let appendCount = 0
-  const allWallets = await User.findAll({ attributes: ['user'], raw: true })
+  const allWallets = await UserDetail.findAll({ attributes: ['wallet_address'], raw: true })
   while (!isUnique) {
-    const current = allWallets.find(obj => obj.user !== null && obj.user.toLowerCase() === chkID.toLowerCase() + '.qbe')
+    const current = allWallets.find(obj => obj.wallet_address !== null && obj.wallet_address.toLowerCase() === chkID.toLowerCase() + '.qbe')
     if (current === undefined || current === null) {
       // We have no existing wallet with same id
       id = chkID
