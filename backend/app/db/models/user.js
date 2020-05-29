@@ -416,7 +416,7 @@ module.exports = (sequelize, DataTypes) => {
       values: ['0', '1']
     }
   },
-    { tableName: 'x_users' })
+  { tableName: 'x_users' })
 
   User.associate = function (models) {
   }

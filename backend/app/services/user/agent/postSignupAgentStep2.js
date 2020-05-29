@@ -25,7 +25,7 @@ const constraints = {
   }
 }
 
-export default class PostSignupAgentStep1Service extends ServiceBase {
+export default class PostSignupAgentStep2Service extends ServiceBase {
   get constraints () {
     return constraints
   }

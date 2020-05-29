@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     other_languages: DataTypes.STRING,
     source: DataTypes.STRING
   },
-    { tableName: 'x_user_details' })
+  { tableName: 'x_user_details' })
 
   return UserDetail
 }
