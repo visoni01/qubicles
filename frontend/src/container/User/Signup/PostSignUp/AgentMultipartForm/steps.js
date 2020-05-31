@@ -43,6 +43,26 @@ const steps = {
       other_language: yup.string(),
     } ),
   },
+  5: {
+    fields: [ [ 'How did you hear about us?', 'checkbox', 'info', [
+      [ 'Search Engine', 'search_engine', 'Search Engine' ],
+      [ 'Ad', 'ad', 'Ad' ],
+      [ 'Referral', 'referral', 'Referral' ],
+      [ 'Direct Mail', 'mail', 'Direct Mail' ],
+      [ 'Email', 'email', 'Email' ],
+      [ 'Article/Blog', 'article-blog', 'Article/Blog' ],
+    ] ],
+    [ 'How do you intend on using the service?', 'checkbox', 'use_service', [
+      [ 'As an agent', 'agenr', 'As an agent' ],
+      [ 'Trainer', 'trainer', 'Trainer' ],
+      [ 'Supervisor', 'supervisor', 'Supervisor' ],
+      [ 'QA or support', 'qa-support', 'QA or support' ],
+    ] ] ],
+    schema: yup.object().shape( {
+      info: yup.string(),
+      use_service: yup.string(),
+    } ),
+  },
 }
 
 export default steps
