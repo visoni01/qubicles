@@ -29,6 +29,20 @@ const steps = {
       mobile_phone: yup.string(),
     }),
   },
+  3: {
+    fields: [
+      ['Years of Experience', 'text', 'experience'],
+      ['Highest Level of Education', 'text', 'education'],
+      ['Primary Language', 'text', 'primary_language'],
+      ['Other Languages Spoken', 'text', 'other_language']
+    ],
+    schema: yup.object().shape({
+      experience: yup.string(),
+      education: yup.string(),
+      primary_language: yup.string(),
+      other_language: yup.string(),
+    }),
+  },
 }
 
 export default steps
