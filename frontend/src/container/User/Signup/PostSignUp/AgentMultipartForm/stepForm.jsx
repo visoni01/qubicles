@@ -1,6 +1,8 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import PropTypes from 'prop-types'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import steps from './steps'
 
 const StepForm = ( { step, onNext, onBack } ) => {
@@ -16,7 +18,13 @@ const StepForm = ( { step, onNext, onBack } ) => {
           {checkTypes
             && checkTypes.map( ( [ inputName, value, inputLabel ] ) => (
               <div key={ `${ inputName }` } className="check-box-div">
-                <input type="radio" id={ inputName } name={ inputName } value={ value } ref={ register } />
+                <input
+                  type="radio"
+                  id={ inputName }
+                  name={ inputName }
+                  value={ value }
+                  ref={ register }
+                />
                 <label htmlFor={ value } className="checkbox-label">
                   {inputLabel}
                 </label>
@@ -38,19 +46,40 @@ const StepForm = ( { step, onNext, onBack } ) => {
     </div>
   )
 
-  const fields = () => (
-    steps
-      && steps[ step ]
-      && steps[ step ].fields.map( ( field ) => inputField( ...field ) )
-  )
+  const fields = () => steps
+    && steps[ step ]
+    && steps[ step ].fields.map( ( field ) => inputField( ...field ) )
 
   return (
     <>
-      <div
-        id="signup-panel"
-        className="process-panel-wrap is-narrow is-active"
-      >
-        <div className="form-panel">{fields()}</div>
+      <div id="signup-panel" className="process-panel-wrap is-narrow is-active">
+        <div className="form-panel">
+          {step === 4 ? (
+            <div className="photo-upload">
+              <div className="preview">
+                <a className="upload-button">
+                  <FontAwesomeIcon icon={ faPlus } />
+                </a>
+                <img
+                  id="upload-preview"
+                  src="https://via.placeholder.com/150x150"
+                  data-demo-src="assets/img/avatars/avatar-w.png"
+                  alt=""
+                />
+                <form
+                  id="profile-pic-dz"
+                  className="dropzone is-hidden"
+                  action="/"
+                />
+              </div>
+              <div className="limitation">
+                <small>Upload copy of government identification card</small>
+              </div>
+            </div>
+          ) : (
+            fields()
+          )}
+        </div>
 
         <div className="buttons">
           <button
