@@ -5,7 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import steps from './steps'
 
-const StepForm = ( { step, onNext, onBack } ) => {
+const StepForm = ( {
+  step, onNext, onBack, onSubmit,
+} ) => {
   const { register, errors, handleSubmit } = useForm( {
     validationSchema: steps[ step ] && steps[ step ].schema,
   } )
@@ -94,9 +96,9 @@ const StepForm = ( { step, onNext, onBack } ) => {
             className="button is-rounded process-button is-next"
             data-step="step-dot-3"
             type="button"
-            onClick={ handleSubmit( onNext ) }
+            onClick={ handleSubmit( step === 5 ? onSubmit : onNext ) }
           >
-            Next
+            {step === 5 ? 'Submit' : 'Next'}
           </button>
         </div>
       </div>
@@ -108,12 +110,14 @@ StepForm.propTypes = {
   step: PropTypes.number,
   onNext: PropTypes.func,
   onBack: PropTypes.func,
+  onSubmit: PropTypes.func,
 }
 
 StepForm.defaultProps = {
   step: 1,
   onNext: () => {},
   onBack: () => {},
+  onSubmit: () => {},
 }
 
 export default StepForm
