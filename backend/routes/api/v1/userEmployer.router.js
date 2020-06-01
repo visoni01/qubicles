@@ -4,7 +4,7 @@ import userEmployerController from '../../../app/controllers/userEmployer.contro
 const args = { mergeParams: true }
 const userEmployerRouter = express.Router(args)
 
-userEmployerRouter.route('/postSignup')
+userEmployerRouter.route('/postSignup/:step')
   .post(userEmployerController.postSignupEmployer)
 
 export { userEmployerRouter }
