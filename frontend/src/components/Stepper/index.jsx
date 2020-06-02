@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import {
   Container, Stepper, Step, StepLabel,
 } from '@material-ui/core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useStepperStyles, ColorlibConnector } from './styles'
 
 const StepperComponent = ( { activeStep, steps } ) => {
@@ -15,7 +16,7 @@ const StepperComponent = ( { activeStep, steps } ) => {
         [ classes.stepIconCompleted ]: completed,
       } ) }
     >
-      <Icon className={ classes.stepIcon } />
+      <FontAwesomeIcon icon={ Icon } className={ classes.stepIcon } />
     </div>
   )
 
