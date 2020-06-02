@@ -2,7 +2,7 @@ import * as yup from 'yup'
 
 const steps = {
   1: {
-    fields: [ [ 'Date of Birth', 'date', 'birth_date' ], [ 'Gender', 'checkbox', 'gender', [
+    fields: [ [ 'Date of Birth', 'date', 'birth_date' ], [ 'Gender', 'radio', 'gender', [
       [ 'Male', 'male', 'Male' ], [ 'Female', 'female', 'Female' ], [ 'Others', 'others', 'Others' ],
     ] ], [ 'SSN', 'text', 'ssn' ] ],
     schema: yup.object().shape( {
