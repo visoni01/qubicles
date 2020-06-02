@@ -13,15 +13,16 @@ const StepForm = ( {
   } )
 
   const inputField = ( label, type, name, checkTypes ) => (
-    <div className="field" key={ `${ name }${ label }` }>
-      <label>{label}</label>
-      {type === 'checkbox' ? (
-        <div className="control">
-          {checkTypes
+    <div className="form-field">
+      <div className="field" key={ `${ name }${ label }` }>
+        <label>{label}</label>
+        {type === 'radio' || type === 'checkbox' ? (
+          <div className="control">
+            {checkTypes
             && checkTypes.map( ( [ inputName, value, inputLabel ] ) => (
               <div key={ `${ inputName }` } className="check-box-div">
                 <input
-                  type="radio"
+                  type={ type }
                   id={ inputName }
                   name={ inputName }
                   value={ value }
@@ -33,15 +34,15 @@ const StepForm = ( {
                 <br />
               </div>
             ) )}
-        </div>
-      ) : (
-        <div className="control">
-          <input type={ type } className="input" name={ name } ref={ register } />
-        </div>
-      )}
+          </div>
+        ) : (
+          <div className="control">
+            <input type={ type } className="input" name={ name } ref={ register } />
+          </div>
+        )}
+      </div>
       {errors && errors[ name ] && (
         <div className="error-message">
-          {' '}
           {errors[ name ].message}
         </div>
       )}
@@ -54,12 +55,12 @@ const StepForm = ( {
 
   return (
     <>
-      <div id="signup-panel" className="process-panel-wrap is-narrow is-active">
+      <div id="signup-panel" className="process-panel-wrap is-narrow is-active agent-form">
         <div className="form-panel">
           {step === 4 ? (
             <div className="photo-upload">
               <div className="preview">
-                <a className="upload-button">
+                <a className="upload-button" href="/">
                   <FontAwesomeIcon icon={ faPlus } />
                 </a>
                 <img
