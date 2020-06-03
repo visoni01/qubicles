@@ -16,7 +16,7 @@ function App() {
             path="/verifyToken/:token"
             component={ EmailVerification }
           />
-          <Route exact path="/postSignup" component={ PostSignUp } />
+          <Route exact path="/post-signup" component={ PostSignUp } />
         </Switch>
       </Router>
     </Provider>
