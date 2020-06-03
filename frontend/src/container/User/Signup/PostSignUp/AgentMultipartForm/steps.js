@@ -2,23 +2,28 @@ import * as yup from 'yup'
 
 const steps = {
   1: {
-    fields: [ [ 'Date of Birth', 'date', 'birth_date' ], [ 'Gender', 'radio', 'gender', [
-      [ 'Male', 'male', 'Male' ], [ 'Female', 'female', 'Female' ], [ 'Others', 'others', 'Others' ],
-    ] ], [ 'SSN', 'text', 'ssn' ] ],
+    fields: [ { label: 'Date of Birth', type: 'date', name: 'birth_date' }, {
+      label: 'Gender',
+      type: 'radio',
+      name: 'gender',
+      options: [
+        [ 'Male', 'male', 'Male' ], [ 'Female', 'female', 'Female' ], [ 'Others', 'others', 'Others' ],
+      ],
+    }, { label: 'SSN', type: 'number', name: 'ssn' } ],
     schema: yup.object().shape( {
-      birth_date: yup.date().required( '*Required' ),
-      ssn: yup.string().required( '*Required' ),
+      birth_date: yup.date(),
+      ssn: yup.string(),
       gender: yup.string(),
     } ),
   },
   2: {
     fields: [
-      [ 'Street Address', 'text', 'street_address' ],
-      [ 'City', 'text', 'city' ],
-      [ 'State', 'text', 'state' ],
-      [ 'Zip', 'text', 'zip' ],
-      [ 'Home Phone', 'text', 'home_phone' ],
-      [ 'Mobile Phone', 'text', 'mobile_phone' ],
+      { label: 'Street Address', type: 'text', name: 'street_address' },
+      { label: 'City', type: 'text', name: 'city' },
+      { label: 'State', type: 'text', name: 'state' },
+      { label: 'Zip', type: 'text', name: 'zip' },
+      { label: 'Home Phone', type: 'text', name: 'home_phone' },
+      { label: 'Mobile Phone', type: 'text', name: 'mobile_phone' },
     ],
     schema: yup.object().shape( {
       street_address: yup.string(),
@@ -31,10 +36,12 @@ const steps = {
   },
   3: {
     fields: [
-      [ 'Years of Experience', 'text', 'experience' ],
-      [ 'Highest Level of Education', 'text', 'education' ],
-      [ 'Primary Language', 'text', 'primary_language' ],
-      [ 'Other Languages Spoken', 'text', 'other_language' ],
+      { label: 'Years of Experience', type: 'text', name: 'experience' },
+      { label: 'Highest Level of Education', type: 'text', name: 'education' },
+      {
+        label: 'Primary Language', type: 'select', name: 'primary_language', options: [ { label: 'English', value: 'English' }, { label: 'French', value: 'French' }, { label: 'Spanish', value: 'Spanish' } ],
+      },
+      { label: 'Other Languages Spoken', type: 'text', name: 'other_language' },
     ],
     schema: yup.object().shape( {
       experience: yup.string(),
@@ -44,20 +51,30 @@ const steps = {
     } ),
   },
   5: {
-    fields: [ [ 'How did you hear about us?', 'checkbox', 'info', [
-      [ 'Search Engine', 'search_engine', 'Search Engine' ],
-      [ 'Ad', 'ad', 'Ad' ],
-      [ 'Referral', 'referral', 'Referral' ],
-      [ 'Direct Mail', 'mail', 'Direct Mail' ],
-      [ 'Email', 'email', 'Email' ],
-      [ 'Article/Blog', 'article-blog', 'Article/Blog' ],
-    ] ],
-    [ 'How do you intend on using the service?', 'checkbox', 'use_service', [
-      [ 'As an agent', 'agenr', 'As an agent' ],
-      [ 'Trainer', 'trainer', 'Trainer' ],
-      [ 'Supervisor', 'supervisor', 'Supervisor' ],
-      [ 'QA or support', 'qa-support', 'QA or support' ],
-    ] ] ],
+    fields: [ {
+      label: 'How did you hear about us?',
+      type: 'checkbox',
+      name: 'info',
+      options: [
+        [ 'Search Engine', 'search_engine', 'Search Engine' ],
+        [ 'Ad', 'ad', 'Ad' ],
+        [ 'Referral', 'referral', 'Referral' ],
+        [ 'Direct Mail', 'mail', 'Direct Mail' ],
+        [ 'Email', 'email', 'Email' ],
+        [ 'Article/Blog', 'article-blog', 'Article/Blog' ],
+      ],
+    },
+    {
+      label: 'How do you intend on using the service?',
+      type: 'checkbox',
+      name: 'use_service',
+      options: [
+        [ 'As an agent', 'agenr', 'As an agent' ],
+        [ 'Trainer', 'trainer', 'Trainer' ],
+        [ 'Supervisor', 'supervisor', 'Supervisor' ],
+        [ 'QA or support', 'qa-support', 'QA or support' ],
+      ],
+    } ],
     schema: yup.object().shape( {
       info: yup.string(),
       use_service: yup.string(),
