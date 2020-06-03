@@ -3,12 +3,12 @@ import * as yup from 'yup'
 const steps = {
   1: {
     fields: [
-      [ 'Company Name', 'text', 'company_name' ],
-      [ 'Company Address', 'text ', 'company_address' ],
-      [ 'City', 'text', 'city' ],
-      [ 'State', 'text', 'state' ],
-      [ 'Zip', 'text', 'zip' ],
-      [ 'Contact Phone', 'text', 'contact_phone' ],
+      { label: 'Company Name', type: 'text', name: 'company_name' },
+      { label: 'Company Address', type: 'text', name: 'company_address' },
+      { label: 'City', type: 'text', name: 'city' },
+      { label: 'State', type: 'text', name: 'state' },
+      { label: 'Zip', type: 'text', name: 'zip' },
+      { label: 'Contact Phone', type: 'text', name: 'contact_phone' },
     ],
     schema: yup.object().shape( {
       company_name: yup.string(),
@@ -21,7 +21,7 @@ const steps = {
   },
   2: {
     fields: [
-      [ 'Company EIN (Employer ID Number)', 'text', 'company_ein' ],
+      { label: 'Company EIN (Employer ID Number)', type: 'text', name: 'company_ein' },
     ],
     schema: yup.object().shape( {
       company_ein: yup.string(),
@@ -29,16 +29,21 @@ const steps = {
   },
   3: {
     fields: [
-      [ 'How did you hear about us?', 'checkbox', 'info', [
-        [ 'Search Engine', 'search_engine', 'Search Engine' ],
-        [ 'Ad', 'ad', 'Ad' ],
-        [ 'Referral', 'referral', 'Referral' ],
-        [ 'Direct Mail', 'mail', 'Direct Mail' ],
-        [ 'Email', 'email', 'Email' ],
-        [ 'Article/Blog', 'article-blog', 'Article/Blog' ],
-      ] ],
-      [ 'Number of employees', 'text', 'number_of_employees' ],
-      [ 'Website', 'text', 'website' ],
+      {
+        label: 'How did you hear about us?',
+        type: 'radio',
+        name: 'info',
+        checkTypes: [
+          [ 'Search Engine', 'search_engine', 'Search Engine' ],
+          [ 'Ad', 'ad', 'Ad' ],
+          [ 'Referral', 'referral', 'Referral' ],
+          [ 'Direct Mail', 'mail', 'Direct Mail' ],
+          [ 'Email', 'email', 'Email' ],
+          [ 'Article/Blog', 'article-blog', 'Article/Blog' ],
+        ],
+      },
+      { label: 'Number of employees', type: 'text', name: 'number_of_employees' },
+      { label: 'Website', type: 'text', name: 'website' },
     ],
     schema: yup.object().shape( {
       info: yup.string(),
