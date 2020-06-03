@@ -125,6 +125,7 @@ const StepForm = ( {
         </div>
 
         <div className="buttons">
+          { step > 1 && (
           <button
             className="button is-rounded process-button"
             data-step="step-dot-1"
@@ -133,6 +134,7 @@ const StepForm = ( {
           >
             Back
           </button>
+          ) }
           <button
             className="button is-rounded process-button is-next"
             data-step="step-dot-3"

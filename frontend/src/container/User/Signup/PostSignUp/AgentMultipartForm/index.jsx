@@ -15,12 +15,11 @@ const AgentMultipartForm = () => {
     { icon: faCog },
     { icon: faCog },
     { icon: faCog },
-    { icon: faCog },
   ]
 
   return (
     <>
-      <StepperComponent steps={ steps } activeStep={ step } />
+      <StepperComponent steps={ steps } activeStep={ step - 1 } />
       <MutlipartForm step={ step } onNext={ handleOnNext } onBack={ handleOnBack } />
     </>
   )
