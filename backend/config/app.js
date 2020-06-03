@@ -134,6 +134,16 @@ const config = convict({
       default: '',
       env: 'QBENEWACCTKEY'
     }
+  },
+  activeCampaign: {
+    baseUrl: {
+      default: '',
+      env: 'ACTIVE_CAMPAIGN_BASE_URL'
+    },
+    apiToken: {
+      default: '',
+      env: 'ACTIVE_CAMPAIGN_API_TOKEN'
+    }
   }
 })
 

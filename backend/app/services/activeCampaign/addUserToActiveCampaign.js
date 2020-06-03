@@ -12,7 +12,7 @@ const constraints = {
   phone_number: {
     presence: { allowEmpty: false }
   },
-  client_name: {
+  name: {
     presence: { allowEmpty: false }
   },
   list_id: {
@@ -37,7 +37,7 @@ export default class AddUserToActiveCampaignService extends ServiceBase {
     const contactId = leadData.id
     if (accountId == null || accountId === '0' || accountId === '') {
       // Add account, associate with contact
-      let accData = await ActiveCampaign.addAccount({ name: clientInfo.client_name })
+      let accData = await ActiveCampaign.addAccount({ name: clientInfo.name })
       if (accData !== null) {
         accData = accData.body.account
         logger.info('Account data is added successfully')
