@@ -1,28 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { Select, MenuItem } from '@material-ui/core/'
 import steps from './steps'
 
 const StepForm = ( {
   step, onNext, onBack, onSubmit,
 } ) => {
+  const [ formValues, setValues ] = useState( {} )
   const { register, errors, handleSubmit } = useForm( {
     validationSchema: steps[ step ] && steps[ step ].schema,
   } )
 
-  const inputField = ( label, type, name, checkTypes ) => (
-    <div className="form-field">
-      <div className="field" key={ `${ name }${ label }` }>
-        <label>{label}</label>
-        {type === 'radio' || type === 'checkbox' ? (
-          <div className="control">
-            {checkTypes
-            && checkTypes.map( ( [ inputName, value, inputLabel ] ) => (
+  const handleValueChange = ( name ) => ( event ) => {
+
+  }
+
+  const inputField = ( {
+    label, type, name, options, multi,
+  } ) => {
+    if ( type === 'radio' || type === 'checkbox' ) {
+      return (
+        <div className="control">
+          {options
+            && options.map( ( [ inputName, value, inputLabel ] ) => (
               <div key={ `${ inputName }` } className="check-box-div">
                 <input
-                  type="checkbox"
+                  onChange={ handleValueChange( name ) }
+                  type={ type }
                   id={ inputName }
                   name={ name }
                   value={ value }
@@ -34,24 +41,57 @@ const StepForm = ( {
                 <br />
               </div>
             ) )}
-          </div>
-        ) : (
-          <div className="control">
-            <input type={ type } className="input" name={ name } ref={ register } />
-          </div>
-        )}
-      </div>
-      {errors && errors[ name ] && (
-        <div className="error-message">
-          {errors[ name ].message}
         </div>
-      )}
-    </div>
-  )
+      )
+    } if ( type === 'select' ) {
+      return (
+        <div className="control">
+          <Select
+            MenuProps={ {
+              getContentAnchorEl: null,
+              anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'left',
+              },
+            } }
+            name={ name }
+            id={ name }
+            value={ formValues[ name ] || [] }
+            multiple
+            onChange={ handleValueChange( name ) }
+            className="dropdown"
+          >
+            {options && options.map( ( { label: optionLabel, value } ) => (
+              <MenuItem key={ value } value={ value }>
+                {optionLabel}
+              </MenuItem>
+            ) )}
+          </Select>
+        </div>
+      )
+    }
+    return (
+      <div className="control">
+        <input onChange={ handleValueChange( name ) } type={ type } className="input" name={ name } ref={ register } />
+      </div>
+    )
+  }
 
   const fields = () => steps
     && steps[ step ]
-    && steps[ step ].fields.map( ( field ) => inputField( ...field ) )
+    && steps[ step ].fields.map( ( { name, label, ...rest } ) => (
+      <div className="form-field" key={ `${ name }${ label }` }>
+        <div className="field">
+          <label>{label}</label>
+          {inputField( { name, label, ...rest } ) }
+          {errors && errors[ name ] && (
+          <div className="error-message">
+            {errors[ name ].message}
+          </div>
+          )}
+        </div>
+      </div>
+    ) )
 
   return (
     <>
