@@ -17,7 +17,7 @@ const EmailVerification = () => {
   return (
     <>
       <CircularLoader isLoading={ isLoading } className="clip-loader-css" />
-      {success && <> You are email has been verified </>}
+      {success && <> Your email has been verified </>}
       {error && <> An unexpected error occured </>}
     </>
   )

@@ -2,8 +2,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-import Signup from './container/User/Signup/SignUp'
-import EmailVerification from './container/User/Signup/EmailVerification'
+import { Signup, EmailVerification, PostSignUp } from './container/User/Signup'
 import store from './redux-saga/store'
 
 function App() {
@@ -17,6 +16,7 @@ function App() {
             path="/verifyToken/:token"
             component={ EmailVerification }
           />
+          <Route exact path="/post-signup" component={ PostSignUp } />
         </Switch>
       </Router>
     </Provider>
