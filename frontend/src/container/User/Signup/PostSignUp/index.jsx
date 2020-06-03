@@ -35,7 +35,7 @@ const PostSignUp = () => {
                       type="button"
                       className="button is-fullwidth is-rounded process-button"
                       data-step="step-dot-2"
-                      onClick={ () => setRole( 'contact' ) }
+                      onClick={ () => setRole( 'employer' ) }
                     >
                       Continue
                     </button>
@@ -64,8 +64,8 @@ const PostSignUp = () => {
         </div>
       </>
       )}
-      { role === 'agent' && <AgentMultipartForm />}
-      { role === 'contact' && <ContactCenterMultipartForm />}
+      { role === 'agent' && <AgentMultipartForm role={ role } />}
+      { role === 'employer' && <ContactCenterMultipartForm role={ role } />}
     </div>
   )
 }
