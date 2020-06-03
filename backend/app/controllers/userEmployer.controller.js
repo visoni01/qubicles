@@ -1,24 +1,21 @@
 import Responder from '../../server/expressResponder'
-import PostUsersEmployerStep1 from '../services/user/employer/postSignupEmployerStep1'
-import PostUsersEmployerStep2 from '../services/user/employer/postSignupEmployerStep2'
-import PostUsersEmployerStep3 from '../services/user/employer/postSignupEmployerStep3'
-import PostUsersEmployerStep4 from '../services/user/employer/postSignupEmployerStep4'
+import { PostSignupEmployerStep1Service, PostSignupEmployerStep2Service, PostSignupEmployerStep3Service, PostSignupEmployerStep4Service } from '../services/user/employer/postSignupEmployer'
 
 export default class UserEmployerController {
   static async postSignupEmployer (req, res) {
     let postSignupEmployerResult
     switch (req.params.step) {
       case 'step1':
-        postSignupEmployerResult = await PostUsersEmployerStep1.execute(req.body)
+        postSignupEmployerResult = await PostSignupEmployerStep1Service.execute(req.body)
         break
       case 'step2':
-        postSignupEmployerResult = await PostUsersEmployerStep2.execute(req.body)
+        postSignupEmployerResult = await PostSignupEmployerStep2Service.execute(req.body)
         break
       case 'step3':
-        postSignupEmployerResult = await PostUsersEmployerStep3.execute(req.body)
+        postSignupEmployerResult = await PostSignupEmployerStep3Service.execute(req.body)
         break
       case 'step4':
-        postSignupEmployerResult = await PostUsersEmployerStep4.execute(req.body)
+        postSignupEmployerResult = await PostSignupEmployerStep4Service.execute(req.body)
         break
     }
     if (postSignupEmployerResult.successful) {
