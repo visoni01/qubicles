@@ -2,6 +2,7 @@ import ServiceBase from '../../../common/serviceBase'
 import { UserDetail, User, Server, Phone } from '../../../db/models'
 import CreateUserWallet from '../../wallet/createUserWallet'
 import { generateUserWalletId } from '../../../utils/generateWalletId'
+import AddUserToActiveCampaign from '../../activeCampaign/addUserToActiveCampaign'
 import { Op } from 'sequelize'
 
 const constraintsStep1 = {
@@ -202,6 +203,17 @@ export class PostSignupAgentStep5Service extends ServiceBase {
       await UserDetail.update({
         wallet_address: walletAddress
       }, { where: { user_id: this.user_id } })
+
+      // Add user to Active Campaign
+      const xUserDetails = await UserDetail.findOne({ where: { user_id: this.user_id }, raw: true })
+      await AddUserToActiveCampaign.execute(
+        {
+          user_id: this.user_id,
+          email: xUser.email,
+          phone_number: xUserDetails.mobile_phone,
+          name: xUser.full_name,
+          list_id: 18
+        })
     } catch (e) {
       this.addError(e.message, e.json || e.errors[0].message)
     }

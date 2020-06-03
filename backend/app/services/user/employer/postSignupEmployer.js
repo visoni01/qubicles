@@ -4,6 +4,8 @@ import CreateUserWallet from '../../wallet/createUserWallet'
 import { findUniqueID, generateID } from '../../../utils/generateId'
 import { generateUserWalletId } from '../../../utils/generateWalletId'
 import SendEmailNotificationMail from '../../email/sendEmailNotificationMail'
+import AddUserToActiveCampaign from '../../activeCampaign/addUserToActiveCampaign'
+
 import { Op } from 'sequelize'
 
 const constraintsStep1 = {
@@ -239,6 +241,16 @@ export class PostSignupEmployerStep4Service extends ServiceBase {
         await UserDetail.update({
           wallet_address: walletAddress
         }, { where: { user_id: this.user_id } })
+
+        // Add user to active campaign
+        await AddUserToActiveCampaign.execute(
+          {
+            user_id: this.user_id,
+            email,
+            phone_number: clientInfo.phone_number,
+            name: clientInfo.client_name,
+            list_id: 19
+          })
 
         return `Post signup step 4 for user ${this.user_id} is completed. Assigned telephone server, Sent email notification, Created wallet, `
       } catch (e) {
