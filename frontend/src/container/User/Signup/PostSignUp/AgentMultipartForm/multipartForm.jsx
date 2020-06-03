@@ -22,9 +22,9 @@ const StepForm = ( {
             && checkTypes.map( ( [ inputName, value, inputLabel ] ) => (
               <div key={ `${ inputName }` } className="check-box-div">
                 <input
-                  type={ type }
+                  type="checkbox"
                   id={ inputName }
-                  name={ inputName }
+                  name={ name }
                   value={ value }
                   ref={ register }
                 />

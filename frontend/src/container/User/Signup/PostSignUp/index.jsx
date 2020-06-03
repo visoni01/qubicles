@@ -1,68 +1,25 @@
 import React, { useState } from 'react'
 import './style.scss'
 
+import qubiclesLogo from '../../../../assets/images/qbe-dark.png'
 import logo from '../../../../assets/images/logo.svg'
 import AgentMultipartForm from './AgentMultipartForm'
-import ContactCenterMultipartForm from './ContactCenterMultipartForm'
+// import ContactCenterMultipartForm from './ContactCenterMultipartForm'
 
 const PostSignUp = () => {
   const [ role, setRole ] = useState( null )
   return (
     <div className="signup-wrapper">
       <div className="fake-nav">
-        <a
-          href="/"
-          className="logo"
-        >
-          <img src={ logo } width={ 112 } height={ 28 } alt="" />
-        </a>
+        <img className="qubicles-logo" src={ qubiclesLogo } width={ 180 } height={ 28 } alt="" />
       </div>
       {( !role ) && (
       <>
-        <div className="process-bar-wrap">
-          <div className="process-bar">
-            <div className="progress-wrap">
-              <div className="track" />
-              <div className="bar" />
-              <div
-                id="step-dot-1"
-                className="dot is-first is-active is-current"
-                data-step={ 0 }
-              >
-                <img alt="1" src={ logo } />
-              </div>
-              <div id="step-dot-2" className="dot is-second" data-step={ 25 }>
-                <img alt="2" src={ logo } />
-              </div>
-              <div id="step-dot-3" className="dot is-third" data-step={ 50 }>
-                <img alt="3" src={ logo } />
-              </div>
-              <div id="step-dot-4" className="dot is-fourth" data-step={ 75 }>
-                <img alt="4" src={ logo } />
-              </div>
-              <div id="step-dot-5" className="dot is-fifth" data-step={ 100 }>
-                <img alt="5" src={ logo } />
-              </div>
-            </div>
-          </div>
-        </div>
         <div className="outer-panel">
           <div className="outer-panel-inner">
             <div className="process-title">
               <h2 id="step-title-1" className="step-title is-active">
-                Welcome, %first_name%. How do you intend on using Qubicles?
-              </h2>
-              <h2 id="step-title-2" className="step-title">
-                Tell us more about you.
-              </h2>
-              <h2 id="step-title-3" className="step-title">
-                Upload a profile picture.
-              </h2>
-              <h2 id="step-title-4" className="step-title">
-                Secure your account.
-              </h2>
-              <h2 id="step-title-5" className="step-title">
-                You are all set. Ready?
+                Welcome. How do you intend on using Qubicles?
               </h2>
             </div>
             <div id="signup-panel-1" className="process-panel-wrap is-active">
@@ -108,7 +65,7 @@ const PostSignUp = () => {
       </>
       )}
       { role === 'agent' && <AgentMultipartForm />}
-      { role === 'contact' && <ContactCenterMultipartForm />}
+      {/* { role === 'contact' && <ContactCenterMultipartForm />} */}
     </div>
   )
 }

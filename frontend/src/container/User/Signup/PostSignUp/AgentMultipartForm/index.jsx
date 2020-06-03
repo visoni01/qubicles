@@ -16,7 +16,6 @@ const AgentMultipartForm = () => {
     { icon: faCog },
     { icon: faCog },
     { icon: faCog },
-    { icon: faCog },
   ]
 
   return (

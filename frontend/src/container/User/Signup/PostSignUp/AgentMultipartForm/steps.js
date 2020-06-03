@@ -6,9 +6,9 @@ const steps = {
       [ 'Male', 'male', 'Male' ], [ 'Female', 'female', 'Female' ], [ 'Others', 'others', 'Others' ],
     ] ], [ 'SSN', 'text', 'ssn' ] ],
     schema: yup.object().shape( {
-      birth_date: yup.string().required( '*Required' ),
+      birth_date: yup.date().required( '*Required' ),
       ssn: yup.string().required( '*Required' ),
-      gender: yup.bool(),
+      gender: yup.string(),
     } ),
   },
   2: {
