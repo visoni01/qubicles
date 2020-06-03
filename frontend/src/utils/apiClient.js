@@ -21,6 +21,8 @@ class ApiClient {
   signup = ( body ) => this.postRequest( '/user/signup', body );
 
   emailVerification = ( token ) => this.getRequest( `/auth/verifyToken/${ token }` );
+
+  postSignUp = ( userType, step, body ) => this.postRequest( `/${ userType }/postSignup/step${ step }`, body );
 }
 
 const axiosInst = axios.create( { baseURL } )
