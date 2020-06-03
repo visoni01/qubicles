@@ -10,7 +10,9 @@ const Form = ( {
     validationSchema: steps[ step ] && steps[ step ].schema,
   } )
 
-  const inputField = ( label, type, name, checkTypes ) => (
+  const inputField = ( {
+    label, type, name, checkTypes,
+  } ) => (
     <div className="field" key={ `${ name }${ label }` }>
       <label>{label}</label>
       {type === 'checkbox' ? (
@@ -38,17 +40,17 @@ const Form = ( {
         </div>
       )}
       {errors && errors[ name ] && (
-        <div className="error-message">
-          {' '}
-          {errors[ name ].message}
-        </div>
+      <div className="error-message">
+        {' '}
+        {errors[ name ].message}
+      </div>
       )}
     </div>
   )
 
   const fields = () => steps
     && steps[ step ]
-    && steps[ step ].fields.map( ( field ) => inputField( ...field ) )
+    && steps[ step ].fields.map( ( field ) => inputField( field ) )
 
   return (
     <>
