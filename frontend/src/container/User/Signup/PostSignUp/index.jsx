@@ -4,7 +4,7 @@ import './style.scss'
 import qubiclesLogo from '../../../../assets/images/qbe-dark.png'
 import logo from '../../../../assets/images/logo.svg'
 import AgentMultipartForm from './AgentMultipartForm'
-// import ContactCenterMultipartForm from './ContactCenterMultipartForm'
+import ContactCenterMultipartForm from './ContactCenterMultipartForm'
 
 const PostSignUp = () => {
   const [ role, setRole ] = useState( null )
@@ -65,7 +65,7 @@ const PostSignUp = () => {
       </>
       )}
       { role === 'agent' && <AgentMultipartForm />}
-      {/* { role === 'contact' && <ContactCenterMultipartForm />} */}
+      { role === 'contact' && <ContactCenterMultipartForm />}
     </div>
   )
 }
