@@ -42,7 +42,7 @@ const steps = {
           [ 'Article/Blog', 'article-blog', 'Article/Blog' ],
         ],
       },
-      { label: 'Number of employees', type: 'text', name: 'number_of_employees' },
+      { label: 'Number of Employees', type: 'text', name: 'number_of_employees' },
       { label: 'Website', type: 'text', name: 'website' },
     ],
     schema: yup.object().shape( {

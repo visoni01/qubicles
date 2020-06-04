@@ -7,7 +7,7 @@ const steps = {
       type: 'radio',
       name: 'gender',
       options: [
-        [ 'Male', 'male', 'Male' ], [ 'Female', 'female', 'Female' ], [ 'Others', 'others', 'Others' ],
+        [ 'Male', 'male', 'Male' ], [ 'Female', 'female', 'Female' ], [ 'Other', 'other', 'Other' ],
       ],
     }, { label: 'SSN', type: 'text', name: 'ssn' } ],
     schema: yup.object().shape( {
@@ -82,10 +82,10 @@ const steps = {
       type: 'checkbox',
       name: 'use_service',
       options: [
-        [ 'As an agent', 'agenr', 'As an agent' ],
+        [ 'As an agent', 'agent', 'As an agent' ],
         [ 'Trainer', 'trainer', 'Trainer' ],
         [ 'Supervisor', 'supervisor', 'Supervisor' ],
-        [ 'QA or support', 'qa-support', 'QA or support' ],
+        [ 'QA or Support', 'qa-support', 'QA or Support' ],
       ],
     } ],
     schema: yup.object().shape( {
