@@ -7,10 +7,16 @@ const userRouter = express.Router(args)
 userRouter.route('/signup')
   .post(userController.signUp)
 
-userRouter.route('/invite')
-  .get(userController.invite)
+userRouter.route('/inviteWithGoogle')
+  .get(userController.inviteWithGoogle)
 
 userRouter.route('/invite/callback')
-  .get(userController.inviteResponse)
+  .get(userController.inviteWithGoogleCallback)
+
+userRouter.route('/inviteManual')
+  .post(userController.inviteManual)
+
+userRouter.route('/invite/:walletId')
+  .get(userController.handleInviteLink)
 
 export { userRouter }

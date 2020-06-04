@@ -19,6 +19,12 @@ module.exports = (sequelize, DataTypes) => {
     referral_credit: {
       defaultValue: 0,
       type: DataTypes.INTEGER
+    },
+    sent: {
+      type: DataTypes.DATE
+    },
+    created_on: {
+      type: DataTypes.DATE
     }
   },
   {

@@ -133,18 +133,19 @@ const config = convict({
     owner: {
       default: '',
       env: 'QBENEWACCTKEY'
-    },
+    }
+  },
   google: {
     clientId: {
-      default: '263377639966-dagsh81b8av03qeogdtmifvtphui00fl.apps.googleusercontent.com',
+      default: '',
       env: 'GOOGLE_CLIENT_ID'
     },
     clientSecret: {
-      default: '_kqwR9Ykz4K6C2n9LXJB0D4O',
+      default: '',
       env: 'GOOGLE_CLIENT_SECRET'
     },
     callbackURL: {
-      default: 'http://localhost:4000/api/v1/user/invite/callback',
+      default: '',
       env: 'GOOGLE_CALLBACK_URL'
     }
   },
@@ -157,9 +158,30 @@ const config = convict({
       default: '',
       env: 'ACTIVE_CAMPAIGN_API_TOKEN'
     }
+  },
+  invite: {
+    baseUrl: {
+      default: '',
+      env: 'INVITE_BASE_URL'
+    },
+    secret: {
+      default: '',
+      env: 'INVITE_SECRET'
+    },
+    user_credit: {
+      default: '',
+      env: 'INVITE_USER_CREDIT'
+    },
+    referral_credit: {
+      default: '',
+      env: 'INVITE_REFERRAL_CREDIT'
+    },
+    max_user_credit: {
+      default: '',
+      env: 'INVITE_MAX_USER_CREDIT'
+    }
   }
 })
-
 config.validate({ allowed: 'strict' })
 
 module.exports = config
