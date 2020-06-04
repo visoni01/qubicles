@@ -2,6 +2,8 @@ import ServiceBase from '../../common/serviceBase'
 import jwt from 'jsonwebtoken'
 import { User } from '../../db/models'
 import CreateUserGroup from '../user/createUserGroup'
+import config from '../../../config/app'
+
 const constraints = {
   token: {
     presence: { allowEmpty: false }
@@ -31,8 +33,16 @@ export default class VerifyTokenService extends ServiceBase {
             email_verified: true,
             user_group: newUserGroup.user_group
           },
-          { where: { email: jwtVerified.email } })
-          return 'Email Verified Successfully!!'
+            { where: { email: jwtVerified.email } })
+
+          const jwtToken = await jwt.sign({ email: jwtVerified.email, user_id: user.user_id },
+            config.get('jwt.loginTokenSecret'), {
+            expiresIn: config.get('jwt.loginTokenExpiry')
+          })
+          return {
+            message: 'Email Verified Successfully!!',
+            accessToken: jwtToken
+          }
         } else {
           return 'Email already verified Successfully!!'
         }
