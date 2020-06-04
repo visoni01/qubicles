@@ -212,7 +212,9 @@ export class PostSignupAgentStep5Service extends ServiceBase {
           email: xUser.email,
           phone_number: xUserDetails.mobile_phone,
           name: xUser.full_name,
-          list_id: 18
+          list_id: 18,
+          first_name: xUserDetails.first_name,
+          last_name: xUserDetails.last_name
         })
     } catch (e) {
       this.addError(e.message, e.json || e.errors[0].message)
