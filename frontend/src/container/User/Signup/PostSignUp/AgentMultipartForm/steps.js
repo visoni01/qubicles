@@ -2,7 +2,7 @@ import * as yup from 'yup'
 
 const steps = {
   1: {
-    fields: [ { label: 'Date of Birth', type: 'date', name: 'birth_date' }, {
+    fields: [ { label: 'Date of Birth', type: 'date', name: 'dob' }, {
       label: 'Gender',
       type: 'radio',
       name: 'gender',
@@ -36,8 +36,8 @@ const steps = {
   },
   3: {
     fields: [
-      { label: 'Years of Experience', type: 'text', name: 'experience' },
-      { label: 'Highest Level of Education', type: 'text', name: 'education' },
+      { label: 'Years of Experience', type: 'text', name: 'years_of_experience' },
+      { label: 'Highest Level of Education', type: 'text', name: 'highest_education' },
       {
         label: 'Primary Language',
         type: 'radio',
@@ -49,10 +49,13 @@ const steps = {
         ],
       },
       {
-        label: 'Other Languages Spoken', type: 'select', name: 'other_language', options: [
+        label: 'Other Languages Spoken',
+        type: 'select',
+        name: 'other_languages',
+        options: [
           { label: 'English', value: 'English' },
           { label: 'French', value: 'French' },
-          { label: 'Spanish', value: 'Spanish' }
+          { label: 'Spanish', value: 'Spanish' },
         ],
       },
     ],
@@ -67,7 +70,7 @@ const steps = {
     fields: [ {
       label: 'How did you hear about us?',
       type: 'checkbox',
-      name: 'info',
+      name: 'source',
       options: [
         [ 'Search Engine', 'search_engine', 'Search Engine' ],
         [ 'Ad', 'ad', 'Ad' ],
@@ -80,7 +83,7 @@ const steps = {
     {
       label: 'How do you intend on using the service?',
       type: 'checkbox',
-      name: 'use_service',
+      name: 'service',
       options: [
         [ 'As an agent', 'agent', 'As an agent' ],
         [ 'Trainer', 'trainer', 'Trainer' ],
