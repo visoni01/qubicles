@@ -39,9 +39,22 @@ const steps = {
       { label: 'Years of Experience', type: 'text', name: 'experience' },
       { label: 'Highest Level of Education', type: 'text', name: 'education' },
       {
-        label: 'Primary Language', type: 'select', name: 'primary_language', options: [ { label: 'English', value: 'English' }, { label: 'French', value: 'French' }, { label: 'Spanish', value: 'Spanish' } ],
+        label: 'Primary Language',
+        type: 'radio',
+        name: 'primary_language',
+        options: [
+          [ 'English', 'english', 'English' ],
+          [ 'French', 'french', 'French' ],
+          [ 'Spanish', 'spanish', 'Spanish' ],
+        ],
       },
-      { label: 'Other Languages Spoken', type: 'text', name: 'other_language' },
+      {
+        label: 'Other Languages Spoken', type: 'select', name: 'other_language', options: [
+          { label: 'English', value: 'English' },
+          { label: 'French', value: 'French' },
+          { label: 'Spanish', value: 'Spanish' }
+        ],
+      },
     ],
     schema: yup.object().shape( {
       experience: yup.string(),
