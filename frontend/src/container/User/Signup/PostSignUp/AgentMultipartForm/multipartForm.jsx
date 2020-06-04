@@ -7,9 +7,9 @@ import { Select, MenuItem } from '@material-ui/core/'
 import steps from './steps'
 
 const StepForm = ( {
-  step, onNext, onBack, onSubmit,
+  step, onNext, onBack, onSubmit, stepData,
 } ) => {
-  const [ formValues, setValues ] = useState( {} )
+  const [ formValues, setValues ] = useState( stepData || {} )
   const { register, errors, handleSubmit } = useForm( {
     validationSchema: steps[ step ] && steps[ step ].schema,
   } )
