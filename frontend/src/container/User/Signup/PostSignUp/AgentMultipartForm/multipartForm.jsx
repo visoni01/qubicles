@@ -109,7 +109,7 @@ const StepForm = ( {
           {step === 4 ? (
             <div className="photo-upload">
               <div className="preview">
-                <a className="upload-button" href="/">
+                <a className="upload-button" href="">
                   <FontAwesomeIcon icon={ faPlus } />
                 </a>
                 <img

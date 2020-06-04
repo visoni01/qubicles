@@ -15,7 +15,7 @@ const ContactCenterMultiPartForm = ( { role } ) => {
   )
 
   const handleOnNext = ( data ) => {
-    dispatch( postSignUpStepStart( { type: role, currentStep, data } ) )
+    dispatch( postSignUpStepStart( { type: role, step: currentStep, data } ) )
   }
   const handleOnBack = () => dispatch( handleBackStep() )
   const handleSubmit = () => {}

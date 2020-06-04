@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const baseURL = process.env.REACT_APP_NODE_BASE_URL
 
-const token = localStorage.getItem('token')
+const authToken = localStorage.getItem( 'token' )
 
 class ApiClient {
   constructor( axiosInst ) {
@@ -25,7 +25,7 @@ class ApiClient {
   emailVerification = async ( token ) => {
     const { data } = await this.getRequest( `/auth/verifyToken/${ token }` )
     const { accessToken } = data.result
-    this.localStorageInst.setItem('token', accessToken)
+    this.localStorageInst.setItem( 'token', accessToken )
   };
 
   postSignUp = ( userType, step, body ) => this.postRequest( `/${ userType }/postSignup/step${ step }`, body );
@@ -34,8 +34,8 @@ class ApiClient {
 const axiosInst = axios.create( {
   baseURL,
   headers: {
-    Authorization: `Bearer ${token}`
-  }
+    Authorization: `Bearer ${ authToken }`,
+  },
 } )
 
 export default new ApiClient( axiosInst )
