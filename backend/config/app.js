@@ -135,6 +135,20 @@ const config = convict({
       env: 'QBENEWACCTKEY'
     }
   },
+  google: {
+    clientId: {
+      default: '',
+      env: 'GOOGLE_CLIENT_ID'
+    },
+    clientSecret: {
+      default: '',
+      env: 'GOOGLE_CLIENT_SECRET'
+    },
+    callbackURL: {
+      default: '',
+      env: 'GOOGLE_CALLBACK_URL'
+    }
+  },
   activeCampaign: {
     baseUrl: {
       default: '',
@@ -144,9 +158,30 @@ const config = convict({
       default: '',
       env: 'ACTIVE_CAMPAIGN_API_TOKEN'
     }
+  },
+  invite: {
+    baseUrl: {
+      default: '',
+      env: 'INVITE_BASE_URL'
+    },
+    secret: {
+      default: '',
+      env: 'INVITE_SECRET'
+    },
+    user_credit: {
+      default: '',
+      env: 'INVITE_USER_CREDIT'
+    },
+    referral_credit: {
+      default: '',
+      env: 'INVITE_REFERRAL_CREDIT'
+    },
+    max_user_credit: {
+      default: '',
+      env: 'INVITE_MAX_USER_CREDIT'
+    }
   }
 })
-
 config.validate({ allowed: 'strict' })
 
 module.exports = config

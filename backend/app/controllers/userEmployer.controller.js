@@ -1,5 +1,6 @@
 import Responder from '../../server/expressResponder'
 import { PostSignupEmployerStep1Service, PostSignupEmployerStep2Service, PostSignupEmployerStep3Service, PostSignupEmployerStep4Service } from '../services/user/employer/postSignupEmployer'
+import InviteFriends from '../services/user/inviteFriends'
 
 export default class UserEmployerController {
   static async postSignupEmployer (req, res) {
