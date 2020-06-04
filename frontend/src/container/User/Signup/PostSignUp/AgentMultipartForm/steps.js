@@ -9,7 +9,7 @@ const steps = {
       options: [
         [ 'Male', 'male', 'Male' ], [ 'Female', 'female', 'Female' ], [ 'Others', 'others', 'Others' ],
       ],
-    }, { label: 'SSN', type: 'number', name: 'ssn' } ],
+    }, { label: 'SSN', type: 'text', name: 'ssn' } ],
     schema: yup.object().shape( {
       birth_date: yup.date(),
       ssn: yup.string(),

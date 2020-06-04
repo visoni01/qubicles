@@ -15,7 +15,7 @@ const StepForm = ( {
   } )
 
   const handleValueChange = ( name ) => ( event ) => {
-
+    setValues({...formValues, [name]: event.target.value })
   }
 
   const inputField = ( {
