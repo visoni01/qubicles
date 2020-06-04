@@ -13,7 +13,8 @@ function* postSignupStepWatcher() {
 function* postSignupStepWorker( action ) {
   try {
     const { type, step, data } = action.payload
-    // yield apiClient.postSignUp( type, step, data ) Will uncomment when BE will ready.
+    if ( step === 1 ) data.user_code = type
+    yield apiClient.postSignUp( type, step, data )
     yield put( postSignUpStepSuccessful( { step, data } ) )
   } catch ( e ) {
     yield put( postSignUpStepFailure() )
