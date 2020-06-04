@@ -7,16 +7,17 @@ import { Select, MenuItem } from '@material-ui/core/'
 import steps from './steps'
 
 const StepForm = ( {
-  step, onNext, onBack, onSubmit,
+  step, onNext, onBack, onSubmit, stepData,
 } ) => {
-  const [ formValues, setValues ] = useState( {} )
+  const [ formValues, setValues ] = useState( stepData || {} )
   const { register, errors, handleSubmit } = useForm( {
     validationSchema: steps[ step ] && steps[ step ].schema,
   } )
 
   const handleValueChange = ( name ) => ( event ) => {
-
+    setValues( { ...formValues, [ name ]: event.target.value } )
   }
+  const isChecked = ( name, value ) => formValues[ name ] && formValues[ name ] === value
 
   const inputField = ( {
     label, type, name, options, multi,
@@ -34,6 +35,7 @@ const StepForm = ( {
                   name={ name }
                   value={ value }
                   ref={ register }
+                  checked={ isChecked( name, value ) }
                 />
                 <label htmlFor={ value } className="checkbox-label">
                   {inputLabel}
@@ -72,7 +74,14 @@ const StepForm = ( {
     }
     return (
       <div className="control">
-        <input onChange={ handleValueChange( name ) } type={ type } className="input" name={ name } ref={ register } />
+        <input
+          onChange={ handleValueChange( name ) }
+          value={ formValues[ name ] }
+          type={ type }
+          className="input"
+          name={ name }
+          ref={ register }
+        />
       </div>
     )
   }
@@ -100,7 +109,7 @@ const StepForm = ( {
           {step === 4 ? (
             <div className="photo-upload">
               <div className="preview">
-                <a className="upload-button" href="/">
+                <a className="upload-button" href="">
                   <FontAwesomeIcon icon={ faPlus } />
                 </a>
                 <img

@@ -3,12 +3,12 @@ import * as yup from 'yup'
 const steps = {
   1: {
     fields: [
-      { label: 'Company Name', type: 'text', name: 'company_name' },
-      { label: 'Company Address', type: 'text', name: 'company_address' },
+      { label: 'Company Name', type: 'text', name: 'client_name' },
+      { label: 'Company Address', type: 'text', name: 'address1' },
       { label: 'City', type: 'text', name: 'city' },
       { label: 'State', type: 'text', name: 'state' },
       { label: 'Zip', type: 'text', name: 'zip' },
-      { label: 'Contact Phone', type: 'text', name: 'contact_phone' },
+      { label: 'Contact Phone', type: 'text', name: 'phone_number' },
     ],
     schema: yup.object().shape( {
       company_name: yup.string(),
@@ -21,7 +21,7 @@ const steps = {
   },
   2: {
     fields: [
-      { label: 'Company EIN (Employer ID Number)', type: 'text', name: 'company_ein' },
+      { label: 'Company EIN (Employer ID Number)', type: 'text', name: 'client_ein' },
     ],
     schema: yup.object().shape( {
       company_ein: yup.string(),
@@ -32,7 +32,7 @@ const steps = {
       {
         label: 'How did you hear about us?',
         type: 'radio',
-        name: 'info',
+        name: 'source',
         checkTypes: [
           [ 'Search Engine', 'search_engine', 'Search Engine' ],
           [ 'Ad', 'ad', 'Ad' ],
@@ -42,7 +42,7 @@ const steps = {
           [ 'Article/Blog', 'article-blog', 'Article/Blog' ],
         ],
       },
-      { label: 'Number of employees', type: 'text', name: 'number_of_employees' },
+      { label: 'Number of Employees', type: 'text', name: 'interactions_per_month' },
       { label: 'Website', type: 'text', name: 'website' },
     ],
     schema: yup.object().shape( {

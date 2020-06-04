@@ -2,14 +2,14 @@ import * as yup from 'yup'
 
 const steps = {
   1: {
-    fields: [ { label: 'Date of Birth', type: 'date', name: 'birth_date' }, {
+    fields: [ { label: 'Date of Birth', type: 'date', name: 'dob' }, {
       label: 'Gender',
       type: 'radio',
       name: 'gender',
       options: [
-        [ 'Male', 'male', 'Male' ], [ 'Female', 'female', 'Female' ], [ 'Others', 'others', 'Others' ],
+        [ 'Male', 'male', 'Male' ], [ 'Female', 'female', 'Female' ], [ 'Other', 'other', 'Other' ],
       ],
-    }, { label: 'SSN', type: 'number', name: 'ssn' } ],
+    }, { label: 'SSN', type: 'text', name: 'ssn' } ],
     schema: yup.object().shape( {
       birth_date: yup.date(),
       ssn: yup.string(),
@@ -36,12 +36,28 @@ const steps = {
   },
   3: {
     fields: [
-      { label: 'Years of Experience', type: 'text', name: 'experience' },
-      { label: 'Highest Level of Education', type: 'text', name: 'education' },
+      { label: 'Years of Experience', type: 'text', name: 'years_of_experience' },
+      { label: 'Highest Level of Education', type: 'text', name: 'highest_education' },
       {
-        label: 'Primary Language', type: 'select', name: 'primary_language', options: [ { label: 'English', value: 'English' }, { label: 'French', value: 'French' }, { label: 'Spanish', value: 'Spanish' } ],
+        label: 'Primary Language',
+        type: 'radio',
+        name: 'primary_language',
+        options: [
+          [ 'English', 'english', 'English' ],
+          [ 'French', 'french', 'French' ],
+          [ 'Spanish', 'spanish', 'Spanish' ],
+        ],
       },
-      { label: 'Other Languages Spoken', type: 'text', name: 'other_language' },
+      {
+        label: 'Other Languages Spoken',
+        type: 'select',
+        name: 'other_languages',
+        options: [
+          { label: 'English', value: 'English' },
+          { label: 'French', value: 'French' },
+          { label: 'Spanish', value: 'Spanish' },
+        ],
+      },
     ],
     schema: yup.object().shape( {
       experience: yup.string(),
@@ -54,7 +70,7 @@ const steps = {
     fields: [ {
       label: 'How did you hear about us?',
       type: 'checkbox',
-      name: 'info',
+      name: 'source',
       options: [
         [ 'Search Engine', 'search_engine', 'Search Engine' ],
         [ 'Ad', 'ad', 'Ad' ],
@@ -67,12 +83,12 @@ const steps = {
     {
       label: 'How do you intend on using the service?',
       type: 'checkbox',
-      name: 'use_service',
+      name: 'service',
       options: [
-        [ 'As an agent', 'agenr', 'As an agent' ],
+        [ 'As an agent', 'agent', 'As an agent' ],
         [ 'Trainer', 'trainer', 'Trainer' ],
         [ 'Supervisor', 'supervisor', 'Supervisor' ],
-        [ 'QA or support', 'qa-support', 'QA or support' ],
+        [ 'QA or Support', 'qa-support', 'QA or Support' ],
       ],
     } ],
     schema: yup.object().shape( {
