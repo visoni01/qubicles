@@ -15,8 +15,9 @@ const StepForm = ( {
   } )
 
   const handleValueChange = ( name ) => ( event ) => {
-    setValues({...formValues, [name]: event.target.value })
+    setValues( { ...formValues, [ name ]: event.target.value } )
   }
+  const isChecked = ( name, value ) => formValues[ name ] && formValues[ name ] === value
 
   const inputField = ( {
     label, type, name, options, multi,
@@ -34,6 +35,7 @@ const StepForm = ( {
                   name={ name }
                   value={ value }
                   ref={ register }
+                  checked={ isChecked( name, value ) }
                 />
                 <label htmlFor={ value } className="checkbox-label">
                   {inputLabel}
@@ -72,7 +74,14 @@ const StepForm = ( {
     }
     return (
       <div className="control">
-        <input onChange={ handleValueChange( name ) } type={ type } className="input" name={ name } ref={ register } />
+        <input
+          onChange={ handleValueChange( name ) }
+          value={ formValues[ name ] }
+          type={ type }
+          className="input"
+          name={ name }
+          ref={ register }
+        />
       </div>
     )
   }

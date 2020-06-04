@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import steps from './steps'
 
 const Form = ( {
-  step, onNext, onBack, onSubmit, stepData
+  step, onNext, onBack, onSubmit, stepData,
 } ) => {
   const [ formValues, setValues ] = useState( stepData || {} )
   const { register, errors, handleSubmit } = useForm( {
@@ -12,15 +12,17 @@ const Form = ( {
   } )
 
   const handleValueChange = ( name ) => ( event ) => {
-    setValues({...formValues, [name]: event.target.value })
+    setValues( { ...formValues, [ name ]: event.target.value } )
   }
+
+  const isChecked = ( name, value ) => formValues[ name ] && formValues[ name ] === value
 
   const inputField = ( {
     label, type, name, checkTypes,
   } ) => (
     <div className="field" key={ `${ name }${ label }` }>
       <label>{label}</label>
-      { (type === 'radio' || type === 'checkbox') ? (
+      { ( type === 'radio' || type === 'checkbox' ) ? (
         <div className="control">
           {checkTypes
             && checkTypes.map( ( [ inputName, value, inputLabel ] ) => (
@@ -30,8 +32,9 @@ const Form = ( {
                   onChange={ handleValueChange( name ) }
                   id={ inputName }
                   name={ inputName }
-                  value={ formValues[ name ] }
+                  value={ value }
                   ref={ register }
+                  checked={ isChecked( name, value ) }
                 />
                 <label htmlFor={ value } className="checkbox-label">
                   {inputLabel}
