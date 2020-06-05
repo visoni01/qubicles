@@ -19,7 +19,7 @@ const AgentMultipartForm = () => {
     ( state ) => state.postSignUp,
   )
   const handleOnNext = ( data ) => {
-    if ( stepsData[ currentStep ] ) {
+    if ( stepsData[ currentStep ] || currentStep === 4 ) {
       return dispatch( handleNextStep() )
     }
     return dispatch( postSignUpStepStart( { type: 'agent', step: currentStep, data } ) )
