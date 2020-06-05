@@ -1,8 +1,7 @@
 import ServiceBase from '../../common/serviceBase'
 import config from '../../../config/app'
-import nodemailer from 'nodemailer'
-import mg from 'nodemailer-mailgun-transport'
 import logger from '../../common/logger'
+import getNodeMailerObject from '../../utils/getNodeMailer'
 
 const constraints = {
   email: {
@@ -18,15 +17,8 @@ export default class SendEmailVerificationMailService extends ServiceBase {
   }
 
   async run () {
-    const auth = {
-      auth: {
-        api_key: config.get('mailgun.apiKey'),
-        domain: config.get('mailgun.domain')
-      }
-    }
-    const verifyEmailPageUrl = `${config.get('webApp.baseUrl')}/auth/verify-token/${this.token}`
-
-    const nodemailerMailgun = nodemailer.createTransport(mg(auth))
+    const verifyEmailPageUrl = `${config.get('webApp.baseUrl')}/auth/verifyToken/${this.token}`
+    const nodemailerMailgun = getNodeMailerObject()
 
     nodemailerMailgun.sendMail({
       from: 'Qubicles <notifications@qubicles.io>',
