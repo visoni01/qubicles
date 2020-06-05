@@ -42,7 +42,7 @@ export default class SendEmailInvitationMailService extends ServiceBase {
       nodemailerMailgun.sendMail({
         from: 'Qubicles <invitaions@qubicles.io>',
         to: contact.email,
-        subject: 'Invitation from Qubicles',
+        subject: `${user.split(' ')[0]} has invited you to join Qubicles!`,
         html: getHtml({ inviteUrl: inviteLink, name: contact.name, user })
       }, (error, info) => {
         if (error) {
@@ -53,10 +53,9 @@ export default class SendEmailInvitationMailService extends ServiceBase {
       })
       // Update x_user_contacts for invite
       if (updateSent) {
-        console.log('UPDATING SENT========')
         await UserContact.update(
           { sent: Date.now() },
-          { where: { user_id, contact_email: contact.email } })
+          { where: { user_id, referral_email: contact.email } })
       }
     }
   }
@@ -67,14 +66,14 @@ function getHtml ({ inviteUrl, name, user }) {
   const EMAIL_TEMPLATE_BODY = `
   ${user} has invited you to join Qubicles!
   <br />
-  You can earn $5 in free Qubicle (QBE) token credits just for signing up!”
+  You can earn $5 in free Qubicle (QBE) tokens just for signing up!”
   <br />
-  Click the below link to Register
+  Click the link below to Register
   <br />
   ${inviteUrl}
   <br /><br />
   *********************************************************************
   `
-  const EMAIL_TEMPLATE_CLOSING = 'Go ahead - free Rewards are waiting for you ;)'
+  const EMAIL_TEMPLATE_CLOSING = 'What are you waiting for? Collect your free $5 in cryptocurrency tokens now!'
   return notificationEmailTemplate(EMAIL_TEMPLATE_GREETING, EMAIL_TEMPLATE_BODY, EMAIL_TEMPLATE_CLOSING)
 }

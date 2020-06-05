@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.INTEGER
     },
-    contact_email: DataTypes.STRING,
+    referral_email: DataTypes.STRING,
     user_credit: {
       defaultValue: 0,
       type: DataTypes.INTEGER

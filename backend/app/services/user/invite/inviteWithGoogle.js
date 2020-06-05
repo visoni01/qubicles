@@ -10,6 +10,10 @@ const constraintsAuth = {
     presence: { allowEmpty: false }
   }
 }
+const baseInviteUrl = config.get('invite.baseUrl')
+const clientId = config.get('google.clientId')
+const clientSecret = config.get('google.clientSecret')
+const redirectUri = config.get('google.callbackURL')
 
 export class InviteWithGoogleAuthService extends ServiceBase {
   get constraints () {
@@ -18,9 +22,6 @@ export class InviteWithGoogleAuthService extends ServiceBase {
 
   async run () {
     const scopes = ['https://www.googleapis.com/auth/contacts.readonly']
-    const clientId = config.get('google.clientId')
-    const clientSecret = config.get('google.clientSecret')
-    const redirectUri = config.get('google.callbackURL')
 
     // User id embedded in the OAuth state
     const stateToken = jwt.sign({ user_id: this.args.user_id }, config.get('invite.secret'))
@@ -51,11 +52,6 @@ const constraintsCallback = {
     presence: { allowEmpty: false }
   }
 }
-
-const baseInviteUrl = config.get('invite.baseUrl')
-const clientId = config.get('google.clientId')
-const clientSecret = config.get('google.clientSecret')
-const redirectUri = config.get('google.callbackURL')
 
 export class InviteWithGoogleCallbackService extends ServiceBase {
   get constraints () {
@@ -129,11 +125,12 @@ export class InviteWithGoogleCallbackService extends ServiceBase {
 }
 
 async function addEmailToContacts ({ email, user_id }) {
-  const contactAlreadyExist = await UserContact.findOne({ where: { user_id, contact_email: email } })
+  const contactAlreadyExist = await UserContact.findOne({ where: { user_id, referral_email: email } })
   if (contactAlreadyExist === null) {
     await UserContact.create({
       user_id,
-      contact_email: email
+      referral_email: email,
+      created_on: Date.now()
     })
   }
 }
