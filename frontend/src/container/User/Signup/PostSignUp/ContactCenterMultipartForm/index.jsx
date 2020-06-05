@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
-import {Redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom'
 
 import Form from './multipartForm'
 import StepperComponent from '../../../../../components/Stepper'
 import {
   postSignUpStepStart,
   handleBackStep,
-  handleNextStep
+  handleNextStep,
 } from '../../../../../redux-saga/redux/postSignup'
 
-const ContactCenterMultiPartForm = ( { role } ) => {
+const ContactCenterMultiPartForm = () => {
   const dispatch = useDispatch()
   const {
     stepsData, currentStep,
@@ -20,10 +20,10 @@ const ContactCenterMultiPartForm = ( { role } ) => {
   )
 
   const handleOnNext = ( data ) => {
-    if ( stepsData[currentStep] ) {
-      return dispatch(handleNextStep)
+    if ( stepsData[ currentStep ] ) {
+      return dispatch( handleNextStep )
     }
-    dispatch( postSignUpStepStart( { type: role, step: currentStep, data } ) )
+    return dispatch( postSignUpStepStart( { type: 'employer', step: currentStep, data } ) )
   }
   const handleOnBack = () => dispatch( handleBackStep() )
 
@@ -39,7 +39,7 @@ const ContactCenterMultiPartForm = ( { role } ) => {
         onSubmit={ handleOnNext }
         stepData={ stepsData && stepsData[ currentStep ] }
       />
-      {currentStep === 4 && <Redirect to='/dashboard' />}
+      {currentStep === 4 && <Redirect to="/dashboard" />}
     </>
   )
 }

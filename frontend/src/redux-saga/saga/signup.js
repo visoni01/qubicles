@@ -12,12 +12,12 @@ function* signupWatcher() {
 
 function* signupWorker( action ) {
   try {
-    let data = action && action.payload
-    const inviteData = { //Temperary hard coded invite data, Will refactor it when invite functionaliy added to FE.
+    const data = action && action.payload
+    const inviteData = { // Temperary hard coded invite data, Will refactor it when invite functionaliy added to FE.
       with_invite: true,
-      inviter_id: 1
+      inviter_id: 1,
     }
-    Object.assign(data, inviteData)
+    Object.assign( data, inviteData )
     yield apiClient.signup( data )
     yield put( userSignupSuccessful() )
   } catch ( e ) {

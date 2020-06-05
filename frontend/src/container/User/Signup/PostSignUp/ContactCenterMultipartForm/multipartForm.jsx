@@ -103,6 +103,7 @@ Form.propTypes = {
   onNext: PropTypes.func,
   onBack: PropTypes.func,
   onSubmit: PropTypes.func,
+  stepData: PropTypes.instanceOf( {} ),
 }
 
 Form.defaultProps = {
@@ -110,6 +111,7 @@ Form.defaultProps = {
   onNext: () => {},
   onBack: () => {},
   onSubmit: () => {},
+  stepData: {},
 }
 
 export default Form

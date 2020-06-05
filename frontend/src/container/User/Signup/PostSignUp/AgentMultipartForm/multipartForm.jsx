@@ -20,7 +20,7 @@ const StepForm = ( {
   const isChecked = ( name, value ) => formValues[ name ] && formValues[ name ] === value
 
   const inputField = ( {
-    label, type, name, options, multi,
+    type, name, options,
   } ) => {
     if ( type === 'radio' || type === 'checkbox' ) {
       return (
@@ -62,7 +62,7 @@ const StepForm = ( {
             multiple
             onChange={ handleValueChange( name ) }
             className="dropdown"
-            inputRef={ (ref) => register({name, value: formValues[ name ] && (formValues[ name ]).toString()}) }
+            inputRef={ ( ref ) => register( { name, value: formValues[ name ] && ( formValues[ name ] ).toString() } ) }
           >
             {options && options.map( ( { label: optionLabel, value } ) => (
               <MenuItem key={ value } value={ value }>
@@ -110,9 +110,9 @@ const StepForm = ( {
           {step === 4 ? (
             <div className="photo-upload">
               <div className="preview">
-                <a className="upload-button" href="">
+                <span className="upload-button">
                   <FontAwesomeIcon icon={ faPlus } />
-                </a>
+                </span>
                 <img
                   id="upload-preview"
                   src="https://via.placeholder.com/150x150"
@@ -164,6 +164,7 @@ StepForm.propTypes = {
   onNext: PropTypes.func,
   onBack: PropTypes.func,
   onSubmit: PropTypes.func,
+  stepData: PropTypes.instanceOf( {} ),
 }
 
 StepForm.defaultProps = {
@@ -171,6 +172,7 @@ StepForm.defaultProps = {
   onNext: () => {},
   onBack: () => {},
   onSubmit: () => {},
+  stepData: {},
 }
 
 export default StepForm
