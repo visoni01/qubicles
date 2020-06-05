@@ -1,7 +1,8 @@
 import ServiceBase from '../../../common/serviceBase'
 import config from '../../../../config/app'
-import { UserContact, UserDetail } from '../../../db/models'
+import { UserDetail } from '../../../db/models'
 import SendEmailInvitationMail from '../../email/sendEmailInvitationMail'
+import AddUserContact from '../addUserContact'
 
 const constraints = {
   user_id: {
@@ -32,7 +33,7 @@ export default class InviteManualService extends ServiceBase {
 
       for (const contact of contacts) {
         // Add contactEmails to x_user_contacts
-        await addEmailToContacts({ email: contact.email, user_id })
+        await AddUserContact.execute({ email: contact.email, user_id })
       }
       // Send Invitation link to contactEmails
       await SendEmailInvitationMail.execute({ contacts, inviteLink, user: userDetails.full_name, updateSent: true, user_id })
@@ -40,16 +41,5 @@ export default class InviteManualService extends ServiceBase {
     } catch (err) {
       this.addError('error', err)
     }
-  }
-}
-
-async function addEmailToContacts ({ email, user_id }) {
-  const contactAlreadyExist = await UserContact.findOne({ where: { user_id, referral_email: email } })
-  if (contactAlreadyExist === null) {
-    await UserContact.create({
-      user_id,
-      referral_email: email,
-      created_on: Date.now()
-    })
   }
 }

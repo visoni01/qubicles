@@ -2,8 +2,9 @@ import ServiceBase from '../../../common/serviceBase'
 import config from '../../../../config/app'
 import { google } from 'googleapis'
 import jwt from 'jsonwebtoken'
-import { UserContact, UserDetail } from '../../../db/models'
+import { UserDetail } from '../../../db/models'
 import SendEmailInvitationMail from '../../email/sendEmailInvitationMail'
+import AddUserContact from '../addUserContact'
 
 const constraintsAuth = {
   user_id: {
@@ -114,23 +115,12 @@ export class InviteWithGoogleCallbackService extends ServiceBase {
     }
     // Add contactEmails to x_user_contacts
     for (const contact of contacts) {
-      await addEmailToContacts({ email: contact.email, user_id })
+      await AddUserContact.execute({ email: contact.email, user_id })
     }
 
     // Send Invitation link to contactEmails
     const inviteLink = `${baseInviteUrl}/${walletAddress}`
     await SendEmailInvitationMail.execute({ contacts, inviteLink, user: userDetails.full_name, user_id, updateSent: true })
     return 'Contacts invited successfully'
-  }
-}
-
-async function addEmailToContacts ({ email, user_id }) {
-  const contactAlreadyExist = await UserContact.findOne({ where: { user_id, referral_email: email } })
-  if (contactAlreadyExist === null) {
-    await UserContact.create({
-      user_id,
-      referral_email: email,
-      created_on: Date.now()
-    })
   }
 }
