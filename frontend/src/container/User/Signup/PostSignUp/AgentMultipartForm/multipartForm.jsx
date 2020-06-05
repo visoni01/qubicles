@@ -62,6 +62,7 @@ const StepForm = ( {
             multiple
             onChange={ handleValueChange( name ) }
             className="dropdown"
+            inputRef={ (ref) => register({name, value: formValues[ name ] && (formValues[ name ]).toString()}) }
           >
             {options && options.map( ( { label: optionLabel, value } ) => (
               <MenuItem key={ value } value={ value }>

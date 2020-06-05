@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import {Redirect} from 'react-router-dom';
 import { emailVerificationStart } from '../../../../redux-saga/redux/emailVerification'
 import { CircularLoader } from '../../../../components/loaders'
 import './style.scss'
@@ -17,7 +18,7 @@ const EmailVerification = () => {
   return (
     <>
       <CircularLoader isLoading={ isLoading } className="clip-loader-css" />
-      {success && <> Your email has been verified </>}
+      {success && <Redirect to='/post-signup' />}
       {error && <> An unexpected error occured </>}
     </>
   )
