@@ -17,6 +17,12 @@ const constraints = {
   },
   list_id: {
     presence: { allowEmpty: false }
+  },
+  first_name: {
+    presence: { allowEmpty: false }
+  },
+  last_name: {
+    presence: { allowEmpty: false }
   }
 }
 
@@ -28,7 +34,12 @@ export default class AddUserToActiveCampaignService extends ServiceBase {
   async run () {
     // 1. Add contact, retrieve result
     const clientInfo = this.filteredArgs
-    let leadData = await ActiveCampaign.addContact({ email: clientInfo.email, phone: clientInfo.phone_number })
+    let leadData = await ActiveCampaign.addContact({
+      email: clientInfo.email,
+      phone: clientInfo.phone_number,
+      firstName: clientInfo.first_name,
+      lastName: clientInfo.last_name
+    })
     if (leadData !== null) {
       leadData = leadData.body.contact
       logger.info('Lead data is added successfully')
@@ -39,17 +50,18 @@ export default class AddUserToActiveCampaignService extends ServiceBase {
       // Add account, associate with contact
       let accData = await ActiveCampaign.addAccount({ name: clientInfo.name })
       if (accData !== null) {
-        accData = accData.body.account
+        accData = accData.body.organization
         logger.info('Account data is added successfully')
       }
       accountId = accData.id
     }
-    // 2. Update list for lead
+    // 2. Update lead Account
+    await ActiveCampaign.updateLead({ email: clientInfo.email, orgid: accountId })
+
+    // 3. Update list for lead
     if (contactId !== null) {
       await ActiveCampaign.updateList({ list: clientInfo.list_id, contact: contactId, status: 1 })
     }
-    // 3. Update lead Account
-    await ActiveCampaign.updateLead({ email: clientInfo.email, orgid: accountId })
     return `User with id ${this.user_id} added to active campaign Successfully`
   }
 }

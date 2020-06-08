@@ -8,11 +8,13 @@ class ActiveCampaign {
     this.client = new Request(url, headers)
   }
 
-  async addContact ({ email, phone }) {
+  async addContact ({ email, phone, firstName, lastName }) {
     const body = {
       contact: {
         email,
-        phone
+        phone,
+        firstName,
+        lastName
       }
     }
     const result = await this.client.post('/contact/sync', body)
@@ -21,11 +23,11 @@ class ActiveCampaign {
 
   async addAccount ({ name }) {
     const body = {
-      account: {
+      organization: {
         name
       }
     }
-    const result = await this.client.post('/accounts', body)
+    const result = await this.client.post('/organizations', body)
     return result
   }
 

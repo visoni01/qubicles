@@ -249,7 +249,9 @@ export class PostSignupEmployerStep4Service extends ServiceBase {
             email,
             phone_number: clientInfo.phone_number,
             name: clientInfo.client_name,
-            list_id: 19
+            list_id: 19,
+            first_name: full_name.split(' ')[0],
+            last_name: full_name.split(' ')[1]
           })
 
         return `Post signup step 4 for user ${this.user_id} is completed. Assigned telephone server, Sent email notification, Created wallet, `
