@@ -7,6 +7,7 @@ const Form = ( {
   step, onNext, onBack, onSubmit, stepData,
 } ) => {
   const [ formValues, setValues ] = useState( stepData || {} )
+
   const { register, errors, handleSubmit } = useForm( {
     validationSchema: steps[ step ] && steps[ step ].schema,
   } )
@@ -31,7 +32,7 @@ const Form = ( {
                   type={ type }
                   onChange={ handleValueChange( name ) }
                   id={ inputName }
-                  name={ inputName }
+                  name={ name }
                   value={ value }
                   ref={ register }
                   checked={ isChecked( name, value ) }
@@ -102,6 +103,7 @@ Form.propTypes = {
   onNext: PropTypes.func,
   onBack: PropTypes.func,
   onSubmit: PropTypes.func,
+  stepData: PropTypes.instanceOf( {} ),
 }
 
 Form.defaultProps = {
@@ -109,6 +111,7 @@ Form.defaultProps = {
   onNext: () => {},
   onBack: () => {},
   onSubmit: () => {},
+  stepData: {},
 }
 
 export default Form

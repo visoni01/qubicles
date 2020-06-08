@@ -85,7 +85,7 @@ const steps = {
       type: 'checkbox',
       name: 'service',
       options: [
-        [ 'As an agent', 'agent', 'As an agent' ],
+        [ 'As an Agent', 'agent', 'As an Agent' ],
         [ 'Trainer', 'trainer', 'Trainer' ],
         [ 'Supervisor', 'supervisor', 'Supervisor' ],
         [ 'QA or Support', 'qa-support', 'QA or Support' ],

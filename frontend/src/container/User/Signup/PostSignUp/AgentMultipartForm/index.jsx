@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 import StepperComponent from '../../../../../components/Stepper'
 import MutlipartForm from './multipartForm'
-import { postSignUpStepStart, handleBackStep } from '../../../../../redux-saga/redux/postSignup'
+import {
+  postSignUpStepStart,
+  handleBackStep,
+  handleNextStep,
+} from '../../../../../redux-saga/redux/postSignup'
 
-const AgentMultipartForm = ( { role } ) => {
+const AgentMultipartForm = () => {
   const dispatch = useDispatch()
   const {
     stepsData, currentStep,
@@ -14,10 +19,12 @@ const AgentMultipartForm = ( { role } ) => {
     ( state ) => state.postSignUp,
   )
   const handleOnNext = ( data ) => {
-    dispatch( postSignUpStepStart( { type: role, currentStep, data } ) )
+    if ( stepsData[ currentStep ] || currentStep === 4 ) {
+      return dispatch( handleNextStep() )
+    }
+    return dispatch( postSignUpStepStart( { type: 'agent', step: currentStep, data } ) )
   }
   const handleOnBack = () => dispatch( handleBackStep() )
-  const handleSubmit = () => {}
 
   const steps = [
     { icon: faCog },
@@ -34,9 +41,10 @@ const AgentMultipartForm = ( { role } ) => {
         step={ currentStep }
         onNext={ handleOnNext }
         onBack={ handleOnBack }
-        onSubmit={ handleSubmit }
+        onSubmit={ handleOnNext }
         stepData={ stepsData && stepsData[ currentStep ] }
       />
+      {currentStep === 6 && <Redirect to="/dashboard" />}
     </>
   )
 }

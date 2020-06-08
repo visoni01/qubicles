@@ -14,6 +14,7 @@ const {
     postSignUpStepSuccessful,
     postSignUpStepFailure,
     handleBackStep,
+    handleNextStep,
   },
   reducer,
 } = createSlice( {
@@ -48,6 +49,10 @@ const {
       ...state,
       currentStep: state.currentStep - 1,
     } ),
+    handleNextStep: ( state ) => ( {
+      ...state,
+      currentStep: state.currentStep + 1,
+    } ),
   },
 } )
 
@@ -57,4 +62,5 @@ export {
   postSignUpStepSuccessful,
   postSignUpStepFailure,
   handleBackStep,
+  handleNextStep,
 }
