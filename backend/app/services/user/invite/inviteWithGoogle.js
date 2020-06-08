@@ -67,7 +67,6 @@ export class InviteWithGoogleCallbackService extends ServiceBase {
     // Fetch wallet address from User
     const userDetails = await UserDetail.findOne({ where: { user_id }, raw: true })
     const walletAddress = userDetails.wallet_address
-    userDetails.full_name = `${userDetails.first_name} ${userDetails.last_name}`
 
     const oauth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectUri)
     const emails = new Set()
@@ -120,7 +119,14 @@ export class InviteWithGoogleCallbackService extends ServiceBase {
 
     // Send Invitation link to contactEmails
     const inviteLink = `${baseInviteUrl}/${walletAddress}`
-    await SendEmailInvitationMail.execute({ contacts, inviteLink, user: userDetails.full_name, user_id, updateSent: true })
+    await SendEmailInvitationMail.execute({ 
+      contacts,
+      inviteLink,
+      inviter_first_name: userDetails.first_name,
+      inviter_last_name: userDetails.last_name,
+      user_id,
+      updateSent: true
+    })
     return 'Contacts invited successfully'
   }
 }

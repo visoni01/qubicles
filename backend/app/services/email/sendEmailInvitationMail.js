@@ -13,7 +13,10 @@ const constraints = {
   inviteLink: {
     presence: { allowEmpty: false }
   },
-  user: {
+  inviter_first_name: {
+    presence: { allowEmpty: false }
+  },
+  inviter_last_name: {
     presence: { allowEmpty: false }
   },
   updateSent: {
@@ -36,14 +39,14 @@ export default class SendEmailInvitationMailService extends ServiceBase {
       }
     }
     const nodemailerMailgun = nodemailer.createTransport(mg(auth))
-    const { inviteLink, user_id, updateSent, contacts, user } = this.args
+    const { inviteLink, user_id, updateSent, contacts, inviter_first_name, inviter_last_name } = this.args
 
     for (const contact of contacts) {
       nodemailerMailgun.sendMail({
         from: 'Qubicles <invitaions@qubicles.io>',
         to: contact.email,
-        subject: `${user.split(' ')[0]} has invited you to join Qubicles!`,
-        html: getHtml({ inviteUrl: inviteLink, name: contact.name, user })
+        subject: `${inviter_first_name} has invited you to join Qubicles!`,
+        html: getHtml({ inviteUrl: inviteLink, name: contact.name, inviter_first_name, inviter_last_name })
       }, (error, info) => {
         if (error) {
           logger.error(`Error in sending Invitation mail: ${error}`)
@@ -61,10 +64,10 @@ export default class SendEmailInvitationMailService extends ServiceBase {
   }
 }
 
-function getHtml ({ inviteUrl, name, user }) {
+function getHtml ({ inviteUrl, name, inviter_first_name, inviter_last_name }) {
   const EMAIL_TEMPLATE_GREETING = `Hi ${name}`
   const EMAIL_TEMPLATE_BODY = `
-  ${user} has invited you to join Qubicles!
+  ${inviter_first_name} ${inviter_last_name} has invited you to join Qubicles!
   <br />
   You can earn $5 in free Qubicle (QBE) tokens just for signing up!”
   <br />

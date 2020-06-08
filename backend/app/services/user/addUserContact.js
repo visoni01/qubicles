@@ -20,8 +20,7 @@ export default class AddUserContactService extends ServiceBase {
     if (contactAlreadyExist === null) {
       await UserContact.create({
         user_id: this.user_id,
-        referral_email: this.email,
-        created_on: Date.now()
+        referral_email: this.email
       })
       return 'Contact created successfully'
     } else return `Contact already exist with contact_user_id ${contactAlreadyExist.user_contact_id}`

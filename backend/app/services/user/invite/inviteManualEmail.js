@@ -28,7 +28,7 @@ export default class InviteManualService extends ServiceBase {
       // Fetch User details
       const userDetails = await UserDetail.findOne({ where: { user_id }, raw: true, attributes: ['wallet_address', 'first_name', 'last_name'] })
       const walletAddress = userDetails.wallet_address
-      userDetails.full_name = `${userDetails.first_name} ${userDetails.last_name}`
+      
       const inviteLink = `${baseInviteUrl}/${walletAddress}`
 
       for (const contact of contacts) {
@@ -36,7 +36,14 @@ export default class InviteManualService extends ServiceBase {
         await AddUserContact.execute({ email: contact.email, user_id })
       }
       // Send Invitation link to contactEmails
-      await SendEmailInvitationMail.execute({ contacts, inviteLink, user: userDetails.full_name, updateSent: true, user_id })
+      await SendEmailInvitationMail.execute({
+        contacts,
+        inviteLink,
+        inviter_first_name: userDetails.first_name,
+        inviter_last_name: userDetails.last_name,
+        updateSent: true,
+        user_id
+      })
       return 'Sent Invitations successfully'
     } catch (err) {
       this.addError('error', err)
