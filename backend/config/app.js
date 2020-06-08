@@ -180,6 +180,24 @@ const config = convict({
       default: '',
       env: 'INVITE_MAX_USER_CREDIT'
     }
+  },
+  jwt: {
+    loginTokenSecret: {
+      default: 'secret',
+      env: 'JWT_LOGIN_SECRET'
+    },
+    loginTokenExpiry: {
+      default: '2d',
+      env: 'JWT_LOGIN_TOKEN_EXPIRY'
+    },
+    emailVerificationTokenSecret: {
+      default: 'secret',
+      env: 'JWT_EMAIL_VERIFICATION_SECRET'
+    },
+    emailVerificationTokenExpiry: {
+      default: '1d',
+      enc: 'JWT_EMAIL_VERIFICATION_EXPIRY'
+    }
   }
 })
 config.validate({ allowed: 'strict' })
