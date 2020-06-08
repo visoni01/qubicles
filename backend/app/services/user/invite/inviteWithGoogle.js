@@ -2,14 +2,19 @@ import ServiceBase from '../../../common/serviceBase'
 import config from '../../../../config/app'
 import { google } from 'googleapis'
 import jwt from 'jsonwebtoken'
-import { UserContact, UserDetail } from '../../../db/models'
+import { UserDetail } from '../../../db/models'
 import SendEmailInvitationMail from '../../email/sendEmailInvitationMail'
+import AddUserContact from '../addUserContact'
 
 const constraintsAuth = {
   user_id: {
     presence: { allowEmpty: false }
   }
 }
+const baseInviteUrl = config.get('invite.baseUrl')
+const clientId = config.get('google.clientId')
+const clientSecret = config.get('google.clientSecret')
+const redirectUri = config.get('google.callbackURL')
 
 export class InviteWithGoogleAuthService extends ServiceBase {
   get constraints () {
@@ -18,9 +23,6 @@ export class InviteWithGoogleAuthService extends ServiceBase {
 
   async run () {
     const scopes = ['https://www.googleapis.com/auth/contacts.readonly']
-    const clientId = config.get('google.clientId')
-    const clientSecret = config.get('google.clientSecret')
-    const redirectUri = config.get('google.callbackURL')
 
     // User id embedded in the OAuth state
     const stateToken = jwt.sign({ user_id: this.args.user_id }, config.get('invite.secret'))
@@ -52,11 +54,6 @@ const constraintsCallback = {
   }
 }
 
-const baseInviteUrl = config.get('invite.baseUrl')
-const clientId = config.get('google.clientId')
-const clientSecret = config.get('google.clientSecret')
-const redirectUri = config.get('google.callbackURL')
-
 export class InviteWithGoogleCallbackService extends ServiceBase {
   get constraints () {
     return constraintsCallback
@@ -70,7 +67,6 @@ export class InviteWithGoogleCallbackService extends ServiceBase {
     // Fetch wallet address from User
     const userDetails = await UserDetail.findOne({ where: { user_id }, raw: true })
     const walletAddress = userDetails.wallet_address
-    userDetails.full_name = `${userDetails.first_name} ${userDetails.last_name}`
 
     const oauth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectUri)
     const emails = new Set()
@@ -118,22 +114,19 @@ export class InviteWithGoogleCallbackService extends ServiceBase {
     }
     // Add contactEmails to x_user_contacts
     for (const contact of contacts) {
-      await addEmailToContacts({ email: contact.email, user_id })
+      await AddUserContact.execute({ email: contact.email, user_id })
     }
 
     // Send Invitation link to contactEmails
     const inviteLink = `${baseInviteUrl}/${walletAddress}`
-    await SendEmailInvitationMail.execute({ contacts, inviteLink, user: userDetails.full_name, user_id, updateSent: true })
-    return 'Contacts invited successfully'
-  }
-}
-
-async function addEmailToContacts ({ email, user_id }) {
-  const contactAlreadyExist = await UserContact.findOne({ where: { user_id, contact_email: email } })
-  if (contactAlreadyExist === null) {
-    await UserContact.create({
+    await SendEmailInvitationMail.execute({ 
+      contacts,
+      inviteLink,
+      inviter_first_name: userDetails.first_name,
+      inviter_last_name: userDetails.last_name,
       user_id,
-      contact_email: email
+      updateSent: true
     })
+    return 'Contacts invited successfully'
   }
 }

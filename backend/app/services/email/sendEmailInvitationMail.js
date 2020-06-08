@@ -13,7 +13,10 @@ const constraints = {
   inviteLink: {
     presence: { allowEmpty: false }
   },
-  user: {
+  inviter_first_name: {
+    presence: { allowEmpty: false }
+  },
+  inviter_last_name: {
     presence: { allowEmpty: false }
   },
   updateSent: {
@@ -36,14 +39,14 @@ export default class SendEmailInvitationMailService extends ServiceBase {
       }
     }
     const nodemailerMailgun = nodemailer.createTransport(mg(auth))
-    const { inviteLink, user_id, updateSent, contacts, user } = this.args
+    const { inviteLink, user_id, updateSent, contacts, inviter_first_name, inviter_last_name } = this.args
 
     for (const contact of contacts) {
       nodemailerMailgun.sendMail({
         from: 'Qubicles <invitaions@qubicles.io>',
         to: contact.email,
-        subject: 'Invitation from Qubicles',
-        html: getHtml({ inviteUrl: inviteLink, name: contact.name, user })
+        subject: `${inviter_first_name} has invited you to join Qubicles!`,
+        html: getHtml({ inviteUrl: inviteLink, name: contact.name, inviter_first_name, inviter_last_name })
       }, (error, info) => {
         if (error) {
           logger.error(`Error in sending Invitation mail: ${error}`)
@@ -53,28 +56,27 @@ export default class SendEmailInvitationMailService extends ServiceBase {
       })
       // Update x_user_contacts for invite
       if (updateSent) {
-        console.log('UPDATING SENT========')
         await UserContact.update(
           { sent: Date.now() },
-          { where: { user_id, contact_email: contact.email } })
+          { where: { user_id, referral_email: contact.email } })
       }
     }
   }
 }
 
-function getHtml ({ inviteUrl, name, user }) {
+function getHtml ({ inviteUrl, name, inviter_first_name, inviter_last_name }) {
   const EMAIL_TEMPLATE_GREETING = `Hi ${name}`
   const EMAIL_TEMPLATE_BODY = `
-  ${user} has invited you to join Qubicles!
+  ${inviter_first_name} ${inviter_last_name} has invited you to join Qubicles!
   <br />
-  You can earn $5 in free Qubicle (QBE) token credits just for signing up!”
+  You can earn $5 in free Qubicle (QBE) tokens just for signing up!”
   <br />
-  Click the below link to Register
+  Click the link below to Register
   <br />
   ${inviteUrl}
   <br /><br />
   *********************************************************************
   `
-  const EMAIL_TEMPLATE_CLOSING = 'Go ahead - free Rewards are waiting for you ;)'
+  const EMAIL_TEMPLATE_CLOSING = 'What are you waiting for? Collect your free $5 in cryptocurrency tokens now!'
   return notificationEmailTemplate(EMAIL_TEMPLATE_GREETING, EMAIL_TEMPLATE_BODY, EMAIL_TEMPLATE_CLOSING)
 }

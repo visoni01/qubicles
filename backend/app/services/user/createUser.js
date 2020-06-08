@@ -26,9 +26,9 @@ const constraints = {
   }
 }
 
-const MAX_USER_CREDIT = config.get('invite.max_user_credit')
-const USER_CREDIT = config.get('invite.user_credit')
-const REFERREL_CREDIT = config.get('invite.referral_credit')
+const MAX_USER_CREDIT = parseInt(config.get('invite.max_user_credit'))
+const USER_CREDIT = parseInt(config.get('invite.user_credit'))
+const REFERREL_CREDIT = parseInt(config.get('invite.referral_credit'))
 const TOKEN_EXPIRY_TIME = 300
 
 export default class CreateUserService extends ServiceBase {
@@ -58,9 +58,9 @@ export default class CreateUserService extends ServiceBase {
       if (this.with_invite) {
         const { inviter_id } = this.args
         // Check for existing contact
-        await findOrCreateContact({ user_id: inviter_id, contact_email: this.email })
+        await findOrCreateContact({ user_id: inviter_id, referral_email: this.email })
         // Assign User and Referrel Credits rewards
-        await assignCredits({ user_id: inviter_id, contact_email: this.email })
+        await assignCredits({ user_id: inviter_id, referral_email: this.email })
       }
       return user
     } catch (e) {
@@ -69,23 +69,20 @@ export default class CreateUserService extends ServiceBase {
   }
 }
 
-async function findOrCreateContact ({ user_id, contact_email }) {
-  const contact = await UserContact.findOne({ where: { user_id, contact_email }, raw: true })
+async function findOrCreateContact ({ user_id, referral_email }) {
+  const contact = await UserContact.findOne({ where: { user_id, referral_email }, raw: true })
   if (contact === null) {
     // Create new Contact
-    await UserContact.create({ user_id, contact_email, created_on: Date.now() })
-  } else {
-    // Update Existing Contact for created on
-    await UserContact.update({ created_on: Date.now() }, { where: { user_contact_id: contact.user_contact_id } })
+    await UserContact.create({ user_id, referral_email, created_on: Date.now() })
   }
 }
 
-async function assignCredits ({ user_id, contact_email }) {
+async function assignCredits ({ user_id, referral_email }) {
   const currentUserCredit = await getCurrentUserCredit({ user_id })
   // Check for maximum user_credit
   const newUserCredit = currentUserCredit + USER_CREDIT > MAX_USER_CREDIT ? (MAX_USER_CREDIT - currentUserCredit) : USER_CREDIT
-  // Update user_credit and referrel_credit
-  await UserContact.update({ user_credit: newUserCredit, referral_credit: REFERREL_CREDIT, sent: Date.now() }, { where: { user_id, contact_email } })
+  // Update user_credit and referral_credit
+  await UserContact.update({ user_credit: newUserCredit, referral_credit: REFERREL_CREDIT }, { where: { user_id, referral_email } })
 }
 
 async function getCurrentUserCredit ({ user_id }) {
