@@ -22,7 +22,7 @@
 
 .background-image-div {
   height: 50%;
-  min-height: 400px;
+  min-height: 436px;
   background-color: #adabab;
 }
 
@@ -42,16 +42,17 @@
 }
 
 .div2-steps {
-  margin-top: 15%;
+  margin-top: 12%;
+  margin-bottom: 4%;
 }
 
 .div3-paper {
   min-height: 200px;
   min-width: 300px;
   position: absolute;
-  top: calc(60% - 100px);
+  top: calc(60% - 125px);
   left: calc(50% - 415px);
-  padding: 2% 4%;
+  padding: 3%;
 }
 
 .shareModal-span {
@@ -72,6 +73,7 @@
 .sharemodal-buttons {
   height: 40px;
   padding: 20px !important;
+  text-transform: none !important;
 }
 
 .shareModal-add-email-span {
@@ -92,4 +94,10 @@
 
 .shareModal-invite-fb {
   margin-right: 25px !important;
+}
+
+.shareModal-social-h4 {
+  margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: 500;
 }

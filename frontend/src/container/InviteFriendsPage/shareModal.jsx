@@ -7,7 +7,7 @@ const shareModal = () => {
       <div className="shareModal-email-div">
         <Button
           variant="contained"
-          color="primary"
+          color="secondary"
           className="sharemodal-buttons"
         >
           Invite Gmail Contacts
@@ -37,7 +37,7 @@ const shareModal = () => {
       <Divider className="shareModal-divider" />
       <div className="shareModal-email-div">
         <div>
-          <h4>Your Invite Link</h4>
+          <h4 className="shareModal-social-h4">Your Invite Link</h4>
           <div>
             <TextField
               id="outlined-password-input"
@@ -49,19 +49,19 @@ const shareModal = () => {
                 readOnly: true,
               }}
             />
-            <Button variant="contained" color="primary" className="sharemodal-buttons">
-              Send
+            <Button variant="contained" className="sharemodal-buttons">
+              Copy
             </Button>
           </div>
         </div>
         <div className="shareModal-invite-link">
-          <h4>Share Via Social</h4>
+          <h4 className="shareModal-social-h4">Share Via Social</h4>
           <div>
-            <Button variant="contained" color="primary" className="sharemodal-buttons shareModal-invite-fb" >
-              Send
+            <Button variant="outlined" color="primary" className="sharemodal-buttons shareModal-invite-fb" >
+              Facebook
             </Button>
-            <Button variant="contained" color="primary" className="sharemodal-buttons">
-              Send
+            <Button variant="outlined" color="primary" className="sharemodal-buttons">
+              Twitter
             </Button>
           </div>
         </div>
