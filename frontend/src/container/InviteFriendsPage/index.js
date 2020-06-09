@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Paper } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faComment, faAddressBook, faMoneyBill, faMoneyBillWave } from '@fortawesome/free-solid-svg-icons'
 import ShareModal from './shareModal'
 import './style.scss'
 
@@ -20,19 +20,19 @@ const InviteFriends = () => {
       </h1>
       <Grid container spacing={6} className="grid-container">
         <Grid item xs={4}>
-          <FontAwesomeIcon icon={faPlus} className="steps-icons" />
+          <FontAwesomeIcon icon={faComment} className="steps-icons" />
           <h3 className="step-heading">
             Spread the word by email or with your link via social sharing.
           </h3>
         </Grid>
         <Grid item xs={4}>
-          <FontAwesomeIcon icon={faPlus} className="steps-icons" />
+          <FontAwesomeIcon icon={faAddressBook} className="steps-icons" />
           <h3 className="step-heading" >
             Your friend signs up and gets $5 credit to use toward the service.
           </h3>
         </Grid>
         <Grid item xs={4}>
-          <FontAwesomeIcon icon={faPlus} className="steps-icons" />
+          <FontAwesomeIcon accentHeight={40} icon={faMoneyBillWave} className="steps-icons" />
           <h3 className="step-heading" >
             You get $5 credit plus 1 free QBE token, up to $100.
           </h3>

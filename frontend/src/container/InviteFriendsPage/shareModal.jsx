@@ -1,5 +1,7 @@
 import React from "react";
 import { Button, TextField, Divider } from "@material-ui/core";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 
 const shareModal = () => {
   return (
@@ -9,6 +11,7 @@ const shareModal = () => {
           variant="contained"
           color="secondary"
           className="sharemodal-buttons"
+          startIcon={<FontAwesomeIcon icon={faEnvelope}/>}
         >
           Invite Gmail Contacts
         </Button>
@@ -57,7 +60,11 @@ const shareModal = () => {
         <div className="shareModal-invite-link">
           <h4 className="shareModal-social-h4">Share Via Social</h4>
           <div>
-            <Button variant="outlined" color="primary" className="sharemodal-buttons shareModal-invite-fb" >
+            <Button
+            variant="outlined"
+            color="primary"
+            className="sharemodal-buttons shareModal-invite-fb"
+            >
               Facebook
             </Button>
             <Button variant="outlined" color="primary" className="sharemodal-buttons">
