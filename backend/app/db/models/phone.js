@@ -2,103 +2,103 @@
 module.exports = (sequelize, DataTypes) => {
   const Phone = sequelize.define('Phone', {
     phone_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER(11),
       autoIncrement: true,
       primaryKey: true,
       allowNull: false
     },
     extension: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(100),
       allowNull: false
     },
-    dialplan_number: DataTypes.STRING,
-    voicemail_id: DataTypes.STRING,
-    phone_ip: DataTypes.STRING,
-    computer_ip: DataTypes.STRING,
-    server_ip: DataTypes.STRING,
-    login: DataTypes.STRING,
-    pass: DataTypes.STRING,
-    status: DataTypes.STRING,
+    dialplan_number: DataTypes.STRING(100),
+    voicemail_id: DataTypes.STRING(10),
+    phone_ip: DataTypes.STRING(15),
+    computer_ip: DataTypes.STRING(15),
+    server_ip: DataTypes.STRING(15),
+    login: DataTypes.STRING(100),
+    pass: DataTypes.STRING(100),
+    status: DataTypes.STRING(10),
     active: {
       type: DataTypes.ENUM,
       values: ['Y', 'N']
     },
-    phone_type: DataTypes.STRING,
-    fullname: DataTypes.STRING,
-    company: DataTypes.STRING,
-    picture: DataTypes.STRING,
-    messages: DataTypes.INTEGER,
-    old_messages: DataTypes.INTEGER,
+    phone_type: DataTypes.STRING(50),
+    fullname: DataTypes.STRING(50),
+    company: DataTypes.STRING(10),
+    picture: DataTypes.STRING(19),
+    messages: DataTypes.INTEGER(4),
+    old_messages: DataTypes.INTEGER(4),
     protocol: {
       type: DataTypes.ENUM,
       values: ['SIP', 'Zap', 'IAX2', 'EXTERNAL'],
       defaultValue: 'SIP'
     },
     local_gmt: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(6),
       defaultValue: '-5'
     },
     ASTmgrUSERNAME: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(20),
       defaultValue: 'cron'
     },
     ASTmgrSECRET: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(20),
       defaultValue: '1234'
     },
-    login_user: DataTypes.STRING,
-    login_pass: DataTypes.STRING,
-    login_campaign: DataTypes.STRING,
+    login_user: DataTypes.STRING(100),
+    login_pass: DataTypes.STRING(100),
+    login_campaign: DataTypes.STRING(10),
     park_on_extension: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(10),
       defaultValue: '8301'
     },
     conf_on_extension: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(10),
       defaultValue: '8302'
     },
     VICIDIAL_park_on_extension: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(10),
       defaultValue: '8301'
     },
     VICIDIAL_park_on_filename: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(10),
       defaultValue: 'park'
     },
     monitor_prefix: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(10),
       defaultValue: '8512'
     },
     recording_exten: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(10),
       defaultValue: '8309'
     },
     voicemail_exten: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(10),
       defaultValue: '8501'
     },
     voicemail_dump_exten: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(20),
       defaultValue: '85026666666666'
     },
     ext_context: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(50),
       defaultValue: 'default'
     },
     dtmf_send_extension: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(100),
       defaultValue: 'local/8500998@default'
     },
     call_out_number_group: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(100),
       defaultValue: ''
     },
     client_browser: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(100),
       defaultValue: ''
     },
     install_directory: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(100),
       defaultValue: ''
     },
     local_web_callerID_URL: {
@@ -171,7 +171,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: '0'
     },
     fast_refresh_rate: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER(5),
       defaultValue: '1000'
     },
     enable_persistant_mysql: {
@@ -190,55 +190,55 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: '1'
     },
     DBX_server: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING(15)
     },
     DBX_database: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(15),
       defaultValue: 'asterisk'
     },
     DBX_user: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(15),
       defaultValue: 'cron'
     },
     DBX_pass: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(15),
       defaultValue: '1234'
     },
     DBX_port: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER(6),
       defaultValue: '3306'
     },
-    DBY_server: DataTypes.STRING,
+    DBY_server: DataTypes.STRING(15),
     DBY_database: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(15),
       defaultValue: 'asterisk'
     },
     DBY_user: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(15),
       defaultValue: 'cron'
     },
     DBY_pass: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(15),
       defaultValue: '1234'
     },
     DBY_port: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER(6),
       defaultValue: '3306'
     },
-    outbound_cid: DataTypes.STRING,
+    outbound_cid: DataTypes.STRING(20),
     enable_sipsak_messages: {
       type: DataTypes.ENUM,
       values: ['0', '1'],
       defaultValue: '0'
     },
-    email: DataTypes.STRING,
+    email: DataTypes.STRING(100),
     template_id: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING(15)
       // allowNull: false
     },
     conf_override: DataTypes.TEXT,
     phone_context: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(50),
       defaultValue: 'default'
     },
     phone_ring_timeout: {
@@ -246,7 +246,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: '60'
     },
     conf_secret: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(20),
       defaultValue: 'test'
     },
     delete_vm_after_email: {
@@ -265,7 +265,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'N'
     },
     codecs_list: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(100),
       defaultValue: ''
     },
     codecs_with_template: {

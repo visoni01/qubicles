@@ -119,7 +119,7 @@ export class InviteWithGoogleCallbackService extends ServiceBase {
 
     // Send Invitation link to contactEmails
     const inviteLink = `${baseInviteUrl}/${walletAddress}`
-    await SendEmailInvitationMail.execute({ 
+    await SendEmailInvitationMail.execute({
       contacts,
       inviteLink,
       inviter_first_name: userDetails.first_name,

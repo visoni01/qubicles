@@ -10,33 +10,33 @@ import config from '../../config/app'
 import SocialSignup from '../services/signup/socialSignup'
 
 function initPassport () {
-  let opts = {}
-  opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-  opts.secretOrKey = config.get('jwt.loginTokenSecret');
+  const opts = {}
+  opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken()
+  opts.secretOrKey = config.get('jwt.loginTokenSecret')
 
   passport.use('login', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
     session: false
   },
-    async function (email, password, done) {
-      const user = await User.findOne({ where: { email } })
-      if (user == null) {
-        done('Email not registered!')
+  async function (email, password, done) {
+    const user = await User.findOne({ where: { email } })
+    if (user == null) {
+      done('Email not registered!')
+    } else {
+      if (!await user.comparePassword(password)) {
+        done('Incorrect Password')
       } else {
-        if (!await user.comparePassword(password)) {
-          done('Incorrect Password')
-        } else {
-          const userObj = user.get({ plain: true })
-          const jwtToken = await jwt.sign({ email, user_id: userObj.user_id },
-            config.get('jwt.loginTokenSecret'), {
+        const userObj = user.get({ plain: true })
+        const jwtToken = await jwt.sign({ email, user_id: userObj.user_id },
+          config.get('jwt.loginTokenSecret'), {
             expiresIn: config.get('jwt.loginTokenExpiry')
           })
-          userObj.accessToken = jwtToken
-          return done(null, userObj)
-        }
+        userObj.accessToken = jwtToken
+        return done(null, userObj)
       }
-    })
+    }
+  })
   )
 
   passport.use(new JwtStrategy(opts, async function (jwt_payload, done) {

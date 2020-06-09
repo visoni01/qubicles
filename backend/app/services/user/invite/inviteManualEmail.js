@@ -28,7 +28,7 @@ export default class InviteManualService extends ServiceBase {
       // Fetch User details
       const userDetails = await UserDetail.findOne({ where: { user_id }, raw: true, attributes: ['wallet_address', 'first_name', 'last_name'] })
       const walletAddress = userDetails.wallet_address
-      
+
       const inviteLink = `${baseInviteUrl}/${walletAddress}`
 
       for (const contact of contacts) {

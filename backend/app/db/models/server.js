@@ -2,19 +2,18 @@
 module.exports = (sequelize, DataTypes) => {
   const Server = sequelize.define('Server', {
     server_id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: DataTypes.STRING(10),
       allowNull: false,
       primaryKey: true
     },
     server_description: DataTypes.STRING,
-    server_ip: DataTypes.STRING,
+    server_ip: DataTypes.STRING(15),
     active: {
       type: DataTypes.ENUM,
       values: ['Y', 'N']
     },
     asterisk_version: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(20),
       defaultValue: '1.2.9'
     },
     max_vicidial_trunks: {
@@ -22,56 +21,56 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 23
     },
     telnet_host: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(20),
       allowNull: false,
       defaultValue: 'localhost'
     },
     telnet_port: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER(5),
       allowNull: false,
       defaultValue: 5038
     },
     ASTmgrUSERNAME: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(20),
       allowNull: false,
       defaultValue: 'cron'
     },
     ASTmgrSECRET: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(20),
       allowNull: false,
       defaultValue: '1234'
     },
     ASTmgrUSERNAMEupdate: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(20),
       allowNull: false,
       defaultValue: 'updatecron'
     },
     ASTmgrUSERNAMElisten: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(20),
       allowNull: false,
       defaultValue: 'listencron'
     },
     ASTmgrUSERNAMEsend: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(20),
       allowNull: false,
       defaultValue: 'sendcron'
     },
     local_gmt: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(6),
       defaultValue: '-5'
     },
     voicemail_dump_exten: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(20),
       allowNull: false,
       defaultValue: '85026666666666'
     },
     answer_transfer_agent: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(20),
       allowNull: false,
       defaultValue: '8365'
     },
     ext_context: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(20),
       allowNull: false,
       defaultValue: 'default'
     },
@@ -105,7 +104,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'SERVER_IP'
     },
     alt_server_ip: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(100),
       defaultValue: ''
     },
     active_asterisk_server: {
@@ -124,7 +123,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'N'
     },
     outbound_calls_per_second: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER.UNSIGNED,
       defaultValue: 20
     },
     sysload: {
@@ -134,11 +133,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     // sysload_desc: DataTypes.TEXT, // custom
     channels_total: {
-      type: DataTypes.INTEGER(4),
+      type: DataTypes.INTEGER(4).UNSIGNED,
       defaultValue: 0
     },
     cpu_idle_percent: {
-      type: DataTypes.INTEGER(3),
+      type: DataTypes.INTEGER(3).UNSIGNED,
       defaultValue: 0
     },
     // cpu_idle_percent_desc: DataTypes.TEXT, // custom
@@ -152,7 +151,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'N'
     },
     vicidial_recording_limit: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER(8),
       defaultValue: 60
     },
     carrier_logging_active: {
@@ -161,7 +160,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'Y'
     },
     vicidial_balance_rank: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.INTEGER(3).UNSIGNED,
       defaultValue: 0
     },
     rebuild_music_on_hold: {
@@ -175,16 +174,16 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'Y'
     },
     conf_secret: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(20),
       defaultValue: 'test'
     },
     external_server_ip: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(100),
       defaultValue: ''
     },
     custom_dialplan_entry: DataTypes.TEXT,
     active_twin_server_ip: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(4000),
       defaultValue: ''
     }
   },

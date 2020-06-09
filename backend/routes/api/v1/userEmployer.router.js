@@ -5,7 +5,7 @@ import { isAuthenticated } from './../../../app/middlewares/isAuthenticated'
 const args = { mergeParams: true }
 const userEmployerRouter = express.Router(args)
 
-userEmployerRouter.route('/postSignup/:step')
+userEmployerRouter.route('/post-signup/:step')
   .post(isAuthenticated, userEmployerController.postSignupEmployer)
 
 export { userEmployerRouter }

@@ -2,17 +2,17 @@
 module.exports = (sequelize, DataTypes) => {
   const XClientUser = sequelize.define('XClientUser', {
     client_user_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER(11),
       autoIncrement: true,
       allowNull: false,
       primaryKey: true
     },
     user_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER(9).UNSIGNED,
       allowNull: false
     },
     client_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER(11),
       allowNull: false
     }
   },

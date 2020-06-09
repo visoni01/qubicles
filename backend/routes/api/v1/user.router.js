@@ -8,13 +8,13 @@ const userRouter = express.Router(args)
 userRouter.route('/signup')
   .post(userController.signUp)
 
-userRouter.route('/inviteWithGoogle')
+userRouter.route('/invite-with-google')
   .get(userController.inviteWithGoogle)
 
 userRouter.route('/invite/callback')
   .get(userController.inviteWithGoogleCallback)
 
-userRouter.route('/inviteManual')
+userRouter.route('/invite-manual')
   .post(userController.inviteManual)
 
 userRouter.route('/invite/:walletId')
