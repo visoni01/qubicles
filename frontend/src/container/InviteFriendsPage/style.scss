@@ -53,3 +53,43 @@
   left: calc(50% - 415px);
   padding: 2% 4%;
 }
+
+.shareModal-span {
+  margin: 12px 20px;
+  font-size: 14px;
+}
+
+.shareModal-email-div {
+  display: inline-flex;
+  width: 100%;
+}
+
+.shareModal-add-email {
+  display: grid;
+  margin-right: 20px;
+}
+
+.sharemodal-buttons {
+  height: 40px;
+  padding: 20px !important;
+}
+
+.shareModal-add-email-span {
+  font-size: 12px;
+}
+
+.shareModal-add-email-textbox {
+  min-width: 425px !important;
+}
+
+.shareModal-divider {
+  margin: 20px 0 !important;
+}
+
+.shareModal-invite-link {
+  margin-left: 8%;
+}
+
+.shareModal-invite-fb {
+  margin-right: 25px !important;
+}
