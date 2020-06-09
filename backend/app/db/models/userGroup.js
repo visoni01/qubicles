@@ -2,12 +2,12 @@
 module.exports = (sequelize, DataTypes) => {
   const UserGroup = sequelize.define('UserGroup', {
     user_group: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(20),
       allowNull: false,
       primaryKey: true
     },
     group_name: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(40),
       allowNull: false
     },
     allowed_campaigns: DataTypes.TEXT,
@@ -71,7 +71,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'Y'
     },
     allowed_reports: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING(2000),
       defaultValue: 'ALL REPORTS'
     },
     webphone_url_override: {
@@ -79,7 +79,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: ''
     },
     webphone_systemkey_override: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(100),
       defaultValue: ''
     },
     webphone_dialpad_override: {

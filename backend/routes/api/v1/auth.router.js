@@ -28,7 +28,7 @@ authRouter.route('/linkedin/callback')
     res.render('home', { user: req.user })
   })
 
-authRouter.route('/verifyToken/:token')
+authRouter.route('/verify-token/:token')
   .get(authController.verifyToken)
 
 export { authRouter }

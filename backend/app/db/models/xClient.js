@@ -3,50 +3,50 @@ module.exports = (sequelize, DataTypes) => {
   const XClient = sequelize.define('XClient', {
 
     client_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER(11),
       autoIncrement: true,
       allowNull: false,
       primaryKey: true
     },
     client_name: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(45),
       allowNull: false
     },
     active: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER(1),
       defaultValue: 1
     },
-    client_username: DataTypes.STRING,
-    address1: DataTypes.STRING,
-    address2: DataTypes.STRING,
-    city: DataTypes.STRING,
-    state: DataTypes.STRING,
-    zip: DataTypes.STRING,
-    phone_number: DataTypes.STRING,
-    email: DataTypes.STRING,
-    website: DataTypes.STRING,
+    client_username: DataTypes.STRING(100),
+    address1: DataTypes.STRING(100),
+    address2: DataTypes.STRING(100),
+    city: DataTypes.STRING(100),
+    state: DataTypes.STRING(2),
+    zip: DataTypes.STRING(10),
+    phone_number: DataTypes.STRING(15),
+    email: DataTypes.STRING(100),
+    website: DataTypes.STRING(100),
     minutes_overflow: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER(11),
       defaultValue: 200
     },
     registration_date: DataTypes.DATE,
-    source: DataTypes.STRING,
-    intended_use: DataTypes.STRING,
-    interactions_per_month: DataTypes.STRING,
+    source: DataTypes.STRING(100),
+    intended_use: DataTypes.STRING(100),
+    interactions_per_month: DataTypes.STRING(100),
     rate: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(10, 3),
       defaultValue: 0.002
     },
     flow_rate: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(10, 3),
       defaultValue: 0.005
     },
     webphone_rate: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(10, 3),
       defaultValue: 0.005
     },
     gmt_offset_now: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(4, 2),
       allowNull: false,
       defaultValue: -5.00
     },

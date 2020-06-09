@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER(9)
     },
     facebook_id: {
       type: DataTypes.STRING,
@@ -22,20 +22,20 @@ module.exports = (sequelize, DataTypes) => {
       unique: true
     },
     user: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING(100)
     },
     pass: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING(20),
       allowNull: false
     },
-    full_name: DataTypes.STRING,
+    full_name: DataTypes.STRING(100),
     user_level: {
       type: DataTypes.INTEGER,
       defaultValue: 1
     },
-    user_group: DataTypes.STRING,
-    phone_login: DataTypes.STRING,
-    phone_pass: DataTypes.STRING,
+    user_group: DataTypes.STRING(20),
+    phone_login: DataTypes.STRING(20),
+    phone_pass: DataTypes.STRING(20),
     delete_users: {
       type: DataTypes.ENUM,
       defaultValue: '0',
@@ -112,7 +112,7 @@ module.exports = (sequelize, DataTypes) => {
       values: ['0', '1']
     },
     closer_campaigns: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(16000),
       defaultValue: ''
     },
     scheduled_callbacks: {
@@ -231,7 +231,7 @@ module.exports = (sequelize, DataTypes) => {
       values: ['0', '1']
     },
     qc_user_level: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER(2),
       defaultValue: 1
     },
     qc_pass: {
@@ -325,17 +325,17 @@ module.exports = (sequelize, DataTypes) => {
       values: ['0', '1']
     },
     email: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(100),
       unique: true,
       allowNull: false
     },
     email_verified: DataTypes.BOOLEAN,
     user_code: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(100),
       defaultValue: ''
     },
     territory: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(100),
       defaultValue: ''
     },
     allow_alerts: {
@@ -349,7 +349,7 @@ module.exports = (sequelize, DataTypes) => {
       values: ['0', '1']
     },
     custom_one: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(100),
       defaultValue: ''
     },
     custom_two: {
@@ -357,19 +357,19 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: ''
     },
     custom_three: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(100),
       defaultValue: ''
     },
     custom_four: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(100),
       defaultValue: ''
     },
     custom_five: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(100),
       defaultValue: ''
     },
     voicemail_id: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(10),
       defaultValue: ''
     },
     agent_call_log_view_override: {
