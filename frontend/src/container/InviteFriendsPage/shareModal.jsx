@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from 'react-redux'
 import { Button, TextField, Divider } from "@material-ui/core";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { inviteRequestStart } from "../../redux-saga/redux/invitePage";
 
-const shareModal = () => {
+const ShareModal = () => {
+  const dispatch = useDispatch()
+  const inviteReducerStore = useSelector((state) => state.invitePage)
+  const [manualEmails, setManualEmails] = useState();
+
+  const handleManualEmails = () => {
+    const emails = manualEmails.split(',')
+    dispatch(inviteRequestStart({type: 'manualInvites', emails }))
+  }
+
   return (
     <>
       <div className="shareModal-email-div">
@@ -11,7 +22,7 @@ const shareModal = () => {
           variant="contained"
           color="secondary"
           className="sharemodal-buttons"
-          startIcon={<FontAwesomeIcon icon={faEnvelope}/>}
+          startIcon={<FontAwesomeIcon icon={faEnvelope} />}
         >
           Invite Gmail Contacts
         </Button>
@@ -24,6 +35,9 @@ const shareModal = () => {
             variant="outlined"
             size="small"
             className="shareModal-add-email-textbox"
+            onChange={(event) =>
+              setManualEmails(event.target && event.target.value)
+            }
           />
           <span className="shareModal-add-email-span">
             Separate emails with commas
@@ -33,6 +47,7 @@ const shareModal = () => {
           variant="contained"
           color="primary"
           className="sharemodal-buttons"
+          onClick={handleManualEmails}
         >
           Send
         </Button>
@@ -61,13 +76,17 @@ const shareModal = () => {
           <h4 className="shareModal-social-h4">Share Via Social</h4>
           <div>
             <Button
-            variant="outlined"
-            color="primary"
-            className="sharemodal-buttons shareModal-invite-fb"
+              variant="outlined"
+              color="primary"
+              className="sharemodal-buttons shareModal-invite-fb"
             >
               Facebook
             </Button>
-            <Button variant="outlined" color="primary" className="sharemodal-buttons">
+            <Button
+              variant="outlined"
+              color="primary"
+              className="sharemodal-buttons"
+            >
               Twitter
             </Button>
           </div>
@@ -77,4 +96,4 @@ const shareModal = () => {
   );
 };
 
-export default shareModal;
+export default ShareModal;
