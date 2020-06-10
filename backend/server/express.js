@@ -13,13 +13,23 @@ import db from '../app/db/models'
 import initPassport from '../app/middlewares/passport'
 import logger from '../app/common/logger'
 import path from 'path'
+import config from '../config'
 
 // Initialize express app
 const app = express()
+const allowCorsURLs = [/\.fenero\.com$/, /\.qubicles\.io$/]
+
+// Check CORS URLs if environment is not development
+const corsConfiguration = {
+  origin: config.get('env') === 'development' ? '*' : allowCorsURLs,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+}
 
 function initMiddleware () {
   // Enable cors
-  app.use(cors())
+  app.use(cors(corsConfiguration))
   // Showing stack errors
   app.set('showStackError', true)
 
