@@ -13,7 +13,7 @@ function* signupWatcher() {
 function* signupWorker( action ) {
   try {
     const data = action && action.payload
-    const inviteData = { // Temperary hard coded invite data, Will refactor it when invite functionaliy added to FE.
+    const inviteData = { // Temporary hard coded invite data, Will refactor it when invite functionaliy added to FE.
       with_invite: true,
       inviter_id: 1,
     }
