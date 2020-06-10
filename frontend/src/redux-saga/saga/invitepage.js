@@ -16,12 +16,13 @@ function* inviteRequestWorker( action ) {
     let result
     switch (payload.type) {
       case 'inviteManual':
-        const { data } = yield apiClient.inviteRequest('post', payload)
+        result = yield apiClient.inviteRequest('post', payload)
         break;
+      case 'inviteWithGoogle':
+        result = yield apiClient.inviteRequest('get', payload)
       default:
         break;
     }
-    yield apiClient.inviteRequest( payload )
     yield put( inviteRequestSuccessful() )
   } catch ( e ) {
     yield put( inviteRequestFailure() )

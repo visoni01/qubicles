@@ -11,8 +11,13 @@ const ShareModal = () => {
   const [manualEmails, setManualEmails] = useState();
 
   const handleManualEmails = () => {
+    if(!manualEmails) return
     const emails = manualEmails.split(',')
     dispatch(inviteRequestStart({ type: 'inviteManual', body: { emails } }))
+  }
+
+  const handleInviteWithGoogle = () => {
+    dispatch(inviteRequestStart({ type: 'inviteWithGoogle' }))
   }
 
   return (
@@ -23,6 +28,7 @@ const ShareModal = () => {
           color="secondary"
           className="sharemodal-buttons"
           startIcon={<FontAwesomeIcon icon={faEnvelope} />}
+          onClick={handleInviteWithGoogle}
         >
           Invite Gmail Contacts
         </Button>
