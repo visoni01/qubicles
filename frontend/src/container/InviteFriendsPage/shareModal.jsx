@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button, TextField, Divider } from "@material-ui/core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { inviteRequestStart } from "../../redux-saga/redux/invitePage";
+import { Button, TextField, Divider } from '@material-ui/core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { inviteRequestStart } from '../../redux-saga/redux/invitePage'
 
 const ShareModal = () => {
   const dispatch = useDispatch()
-  const inviteReducerStore = useSelector((state) => state.invitePage)
-  const [manualEmails, setManualEmails] = useState();
+  const inviteReducerStore = useSelector( ( state ) => state.invitePage )
+  const [ manualEmails, setManualEmails ] = useState()
 
   const handleManualEmails = () => {
     if(!manualEmails) return
@@ -16,11 +16,9 @@ const ShareModal = () => {
     dispatch(inviteRequestStart({ type: 'inviteManual', body: { emails } }))
   }
 
-  const handleInviteWithGoogle = () => {
-    dispatch(inviteRequestStart({ type: 'inviteWithGoogle' }))
-  }
+  const handleInviteWithGoogle = () => dispatch(inviteRequestStart({ type: 'inviteWithGoogle' }))
 
-  const handleCopyToClipboard = () => navigator.clipboard.writeText('invite link')
+  const handleCopyToClipboard = () => navigator.clipboard.writeText( 'invite link' ) // Has to set invite link.
 
   return (
     <>
@@ -29,8 +27,8 @@ const ShareModal = () => {
           variant="contained"
           color="secondary"
           className="sharemodal-buttons"
-          startIcon={<FontAwesomeIcon icon={faEnvelope} />}
-          onClick={handleInviteWithGoogle}
+          startIcon={ <FontAwesomeIcon icon={ faEnvelope } /> }
+          onClick={ handleInviteWithGoogle }
         >
           Invite Gmail Contacts
         </Button>
@@ -43,9 +41,7 @@ const ShareModal = () => {
             variant="outlined"
             size="small"
             className="shareModal-add-email-textbox"
-            onChange={(event) =>
-              setManualEmails(event.target && event.target.value)
-            }
+            onChange={ ( event ) => setManualEmails( event.target && event.target.value ) }
           />
           <span className="shareModal-add-email-span">
             Separate emails with commas
@@ -55,7 +51,7 @@ const ShareModal = () => {
           variant="contained"
           color="primary"
           className="sharemodal-buttons"
-          onClick={handleManualEmails}
+          onClick={ handleManualEmails }
         >
           Send
         </Button>
@@ -71,11 +67,11 @@ const ShareModal = () => {
               variant="outlined"
               size="small"
               value="invite link"
-              InputProps={{
+              InputProps={ {
                 readOnly: true,
-              }}
+              } }
             />
-            <Button variant="contained" className="sharemodal-buttons" onClick={handleCopyToClipboard}>
+            <Button variant="contained" className="sharemodal-buttons" onClick={ handleCopyToClipboard }>
               Copy
             </Button>
           </div>
@@ -101,7 +97,7 @@ const ShareModal = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default ShareModal;
+export default ShareModal

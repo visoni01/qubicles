@@ -13,33 +13,33 @@ const {
     inviteRequestFailure,
   },
   reducer,
-} = createSlice({
+} = createSlice( {
   name: 'invitePage',
   initialState,
   reducers: {
-    inviteRequestStart: (state) => ({
+    inviteRequestStart: ( state ) => ( {
       ...state,
       isLoading: true,
       success: false,
-    }),
-    inviteRequestSuccessful: (state, action) => {
+    } ),
+    inviteRequestSuccessful: ( state, action ) => {
       const { result } = action.payload
       return {
         ...state,
         success: true,
         isLoading: false,
-        result
+        result,
       }
     },
-    inviteRequestFailure: (state) => ({
+    inviteRequestFailure: ( state ) => ( {
       ...state,
       error: true,
       isLoading: false,
       success: false,
-      result: null
-    }),
+      result: null,
+    } ),
   },
-})
+} )
 
 export default reducer
 export {
