@@ -15,10 +15,10 @@ function* inviteRequestWorker( action ) {
     const { payload } = action
     let result
     switch ( payload.type ) {
-      case 'inviteManual':
+      case 'invite-manual':
         result = yield apiClient.inviteRequest( 'post', payload )
         break
-      case 'inviteWithGoogle':
+      case 'invite-with-google':
         result = yield apiClient.inviteRequest( 'get', payload )
         break
       default:
