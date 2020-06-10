@@ -29,6 +29,8 @@ class ApiClient {
   };
 
   postSignUp = ( userType, step, body ) => this.postRequest( `/${ userType }/postSignup/step${ step }`, body );
+
+  inviteRequest = ( methodType, { type, body } ) => this.makeRequest( `/user/${ type }`, methodType, body )
 }
 
 const axiosInst = axios.create( {
