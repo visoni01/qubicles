@@ -23,12 +23,12 @@ class ApiClient {
   signup = ( body ) => this.postRequest( '/user/signup', body );
 
   emailVerification = async ( token ) => {
-    const { data } = await this.getRequest( `/auth/verifyToken/${ token }` )
+    const { data } = await this.getRequest( `/auth/verify-token/${ token }` )
     const { accessToken } = data.result
     this.localStorageInst.setItem( 'token', accessToken )
   };
 
-  postSignUp = ( userType, step, body ) => this.postRequest( `/${ userType }/postSignup/step${ step }`, body );
+  postSignUp = ( userType, step, body ) => this.postRequest( `/${ userType }/post-signup/step${ step }`, body );
 
   inviteRequest = ( methodType, { type, body } ) => this.makeRequest( `/user/${ type }`, methodType, body )
 }

@@ -13,10 +13,10 @@ const ShareModal = () => {
   const handleManualEmails = () => {
     if(!manualEmails) return
     const emails = manualEmails.split(',')
-    dispatch(inviteRequestStart({ type: 'inviteManual', body: { emails } }))
+    dispatch(inviteRequestStart({ type: 'invite-manual', body: { emails } }))
   }
 
-  const handleInviteWithGoogle = () => dispatch(inviteRequestStart({ type: 'inviteWithGoogle' }))
+  const handleInviteWithGoogle = () => dispatch(inviteRequestStart({ type: 'invite-with-google' }))
 
   const handleCopyToClipboard = () => navigator.clipboard.writeText( 'invite link' ) // Has to set invite link.
 
