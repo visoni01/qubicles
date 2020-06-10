@@ -12,7 +12,7 @@ const ShareModal = () => {
 
   const handleManualEmails = () => {
     const emails = manualEmails.split(',')
-    dispatch(inviteRequestStart({type: 'manualInvites', emails }))
+    dispatch(inviteRequestStart({ type: 'inviteManual', body: { emails } }))
   }
 
   return (

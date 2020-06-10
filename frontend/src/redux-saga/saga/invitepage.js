@@ -4,7 +4,7 @@ import {
   inviteRequestStart,
   inviteRequestSuccessful,
   inviteRequestFailure,
-} from '../redux/emailVerification'
+} from '../redux/invitePage'
 
 function* inviteRequestWatcher() {
   yield takeEvery( inviteRequestStart.type, inviteRequestWorker )
@@ -13,6 +13,14 @@ function* inviteRequestWatcher() {
 function* inviteRequestWorker( action ) {
   try {
     const { payload } = action
+    let result
+    switch (payload.type) {
+      case 'inviteManual':
+        const { data } = yield apiClient.inviteRequest('post', payload)
+        break;
+      default:
+        break;
+    }
     yield apiClient.inviteRequest( payload )
     yield put( inviteRequestSuccessful() )
   } catch ( e ) {
