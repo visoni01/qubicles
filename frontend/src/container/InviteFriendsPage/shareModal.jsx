@@ -20,6 +20,8 @@ const ShareModal = () => {
     dispatch(inviteRequestStart({ type: 'inviteWithGoogle' }))
   }
 
+  const handleCopyToClipboard = () => navigator.clipboard.writeText('invite link')
+
   return (
     <>
       <div className="shareModal-email-div">
@@ -35,7 +37,7 @@ const ShareModal = () => {
         <span className="shareModal-span">Or</span>
         <div className="shareModal-add-email">
           <TextField
-            id="outlined-password-input"
+            id="add-email-input"
             label="Add Email"
             type="text"
             variant="outlined"
@@ -64,7 +66,7 @@ const ShareModal = () => {
           <h4 className="shareModal-social-h4">Your Invite Link</h4>
           <div>
             <TextField
-              id="outlined-password-input"
+              id="invite-link-input"
               type="text"
               variant="outlined"
               size="small"
@@ -73,7 +75,7 @@ const ShareModal = () => {
                 readOnly: true,
               }}
             />
-            <Button variant="contained" className="sharemodal-buttons">
+            <Button variant="contained" className="sharemodal-buttons" onClick={handleCopyToClipboard}>
               Copy
             </Button>
           </div>
