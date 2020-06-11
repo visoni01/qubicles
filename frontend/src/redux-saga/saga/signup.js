@@ -14,8 +14,8 @@ function* signupWorker( action ) {
   try {
     const data = action && action.payload
     const inviteData = { // Temporary hard coded invite data, Will refactor it when invite functionaliy added to FE.
-      with_invite: true,
-      inviter_id: 1,
+      with_invite: false,
+      inviter_id: '',
     }
     Object.assign( data, inviteData )
     yield apiClient.signup( data )

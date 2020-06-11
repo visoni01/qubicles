@@ -2,7 +2,7 @@ import React from 'react'
 import { Grid, Paper } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faComment, faAddressBook, faMoneyBillWave } from '@fortawesome/free-solid-svg-icons'
-import ShareModal from './shareModal'
+import ShareModal from './shareOptions'
 import './style.scss'
 
 const InviteFriends = () => (
