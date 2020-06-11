@@ -1,6 +1,6 @@
 'use strict'
 module.exports = (sequelize, DataTypes) => {
-  const FlowFields = sequelize.define('FlowFields', {
+  const FlowField = sequelize.define('FlowField', {
     field_id: {
       allowNull: false,
       autoIncrement: true,
@@ -81,6 +81,6 @@ module.exports = (sequelize, DataTypes) => {
     field_validations: DataTypes.STRING(50)
   },
   { tableName: 'x_flow_fields' })
-  FlowFields.associate = function (models) {}
-  return FlowFields
+  FlowField.associate = function (models) {}
+  return FlowField
 }
