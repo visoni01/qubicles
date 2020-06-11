@@ -51,7 +51,7 @@
   min-height: 200px;
   min-width: 300px;
   position: absolute;
-  top: calc(60% - 125px);
+  top: 286px;
   left: calc(50% - 415px);
   padding: 3%;
 }
@@ -101,4 +101,13 @@
   margin-bottom: 10px;
     font-size: 15px;
     font-weight: 500;
+}
+
+.snackbar-div {
+  padding: 15px;
+  background-color: #adabab;
+  color: white;
+  border-radius: 4px;
+  position: relative;
+  left: 0;
 }

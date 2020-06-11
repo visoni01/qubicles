@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button, TextField, Divider } from '@material-ui/core'
+import { Button, TextField, Divider, Snackbar } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { inviteRequestStart } from '../../redux-saga/redux/invitePage'
@@ -9,11 +9,15 @@ const ShareModal = () => {
   const dispatch = useDispatch()
   const inviteReducerStore = useSelector( ( state ) => state.invitePage )
   const [ manualEmails, setManualEmails ] = useState()
+  const [ openSnackbar, setOpenSnackbar ] = useState()
   const {isLoading, success, result, type} = inviteReducerStore
 
   useEffect(() => {
     if (type === 'invite-with-google' && !isLoading && success) {
       window.open(result.message, '_blank');
+    }
+    if(success) {
+      setOpenSnackbar(success)
     }
   }, [ isLoading ] )
 
@@ -103,6 +107,14 @@ const ShareModal = () => {
           </div>
         </div>
       </div>
+      {/**
+       * Temporary implemented the success message, will remove it when success message general component will ready.
+       */}
+      <Snackbar open={openSnackbar} autoHideDuration={5000} >
+        <div className="snackbar-div">
+          Successfully Invited
+        </div>
+      </Snackbar>
     </>
   )
 }
