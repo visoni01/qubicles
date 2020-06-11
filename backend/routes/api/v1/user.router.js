@@ -1,5 +1,6 @@
 import express from 'express'
 import userController from '../../../app/controllers/user.controller'
+import { isAuthenticated } from './../../../app/middlewares/isAuthenticated'
 import passport from 'passport'
 
 const args = { mergeParams: true }
@@ -9,13 +10,13 @@ userRouter.route('/signup')
   .post(userController.signUp)
 
 userRouter.route('/invite-with-google')
-  .get(userController.inviteWithGoogle)
+  .get(isAuthenticated, userController.inviteWithGoogle)
 
 userRouter.route('/invite/callback')
   .get(userController.inviteWithGoogleCallback)
 
 userRouter.route('/invite-manual')
-  .post(userController.inviteManual)
+  .post(isAuthenticated, userController.inviteManual)
 
 userRouter.route('/invite/:walletId')
   .get(userController.handleInviteLink)
