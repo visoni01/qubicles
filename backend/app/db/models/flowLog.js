@@ -17,11 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     lead_id: DataTypes.INTEGER(9).UNSIGNED,
     list_id: DataTypes.BIGINT(14).UNSIGNED,
-    call_date: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: '0000-00-00 00:00:00'
-    },
+    call_date: DataTypes.DATE,
     cost: {
       type: DataTypes.STRING(10),
       defaultValue: '$0.000'
