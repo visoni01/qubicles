@@ -13,7 +13,7 @@ import db from '../app/db/models'
 import initPassport from '../app/middlewares/passport'
 import logger from '../app/common/logger'
 import path from 'path'
-import config from '../config'
+import config from '../config/app'
 
 // Initialize express app
 const app = express()

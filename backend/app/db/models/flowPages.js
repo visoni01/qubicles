@@ -1,6 +1,6 @@
 'use strict'
 module.exports = (sequelize, DataTypes) => {
-  const FlowPages = sequelize.define('FlowPages', {
+  const FlowPage = sequelize.define('FlowPage', {
     page_id: {
       allowNull: false,
       autoIncrement: true,
@@ -29,6 +29,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   },
   { tableName: 'x_flow_pages' })
-  FlowPages.associate = function (models) {}
-  return FlowPages
+  FlowPage.associate = function (models) {}
+  return FlowPage
 }
