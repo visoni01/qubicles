@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, TextField, Divider } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -9,6 +9,13 @@ const ShareModal = () => {
   const dispatch = useDispatch()
   const inviteReducerStore = useSelector( ( state ) => state.invitePage )
   const [ manualEmails, setManualEmails ] = useState()
+  const {isLoading, success, result, type} = inviteReducerStore
+
+  useEffect(() => {
+    if (type === 'invite-with-google' && !isLoading && success) {
+      window.open(result.message, '_blank');
+    }
+  }, [ isLoading ] )
 
   const handleManualEmails = () => {
     if(!manualEmails) return

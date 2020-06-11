@@ -23,12 +23,13 @@ const {
       success: false,
     } ),
     inviteRequestSuccessful: ( state, action ) => {
-      const { result } = action.payload
+      const { result, type } = action.payload
       return {
         ...state,
         success: true,
         isLoading: false,
         result,
+        type,
       }
     },
     inviteRequestFailure: ( state ) => ( {
