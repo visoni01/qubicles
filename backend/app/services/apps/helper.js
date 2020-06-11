@@ -32,10 +32,10 @@ export async function getAppUsersByUser ({ user_id }) {
 }
 
 export async function getAppsUser ({ user_id, user_level }) {
-  let apps = await getAppUsersByUser({ user_id })
+  let apps = await getAppsByUser({ user_id })
   if (apps.length === 0) {
     const allApps = await getApps()
     apps = allApps.filter(app => user_level >= app.min_userlevel)
   }
-  return apps.sort((a, b) => { return a.min_userlevel > b.min_userlevel })
+  return apps.sort((a, b) => { return (a.sortorder - b.sortorder) })
 }
