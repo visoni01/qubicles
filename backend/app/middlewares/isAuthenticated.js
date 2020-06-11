@@ -9,6 +9,7 @@ export function isAuthenticated (req, res, next) {
       if (loginErr) {
         return res.status(401).send(loginErr)
       }
+      req.body.user = user
       req.body.user_id = user.user_id
       next()
     })

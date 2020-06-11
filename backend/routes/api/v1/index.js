@@ -4,6 +4,7 @@ import { userAgentRouter } from './userAgent.router'
 import { userEmployerRouter } from './userEmployer.router'
 import { authRouter } from './auth.router'
 import { userRouter } from './user.router'
+import { flowRouter } from './flow.router'
 
 const router = express.Router()
 const NAMESPACE = 'v1'
@@ -14,5 +15,6 @@ router.use(`/${NAMESPACE}/user`, userRouter)
 router.use(`/${NAMESPACE}/agent`, userAgentRouter)
 router.use(`/${NAMESPACE}/employer`, userEmployerRouter)
 router.use(`/${NAMESPACE}/auth`, authRouter)
+router.use(`/${NAMESPACE}/flows`, flowRouter)
 
 export default router
