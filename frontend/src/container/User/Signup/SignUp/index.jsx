@@ -22,10 +22,11 @@ const schema = yup.object().shape( {
   pass: yup.string().required( '*Required' ),
 } )
 
-const SignUp = () => {
+const SignUp = ({location}) => {
   const { register, errors, handleSubmit } = useForm( {
     validationSchema: schema,
   } )
+  const isSocialSignup = location.search && location.search.split('?')[1] === 'with_social=true' // Temporary set up.
   const dispatch = useDispatch()
   const onSubmit = ( data ) => dispatch( userSignupStart( data ) )
   const { error, isLoading, success } = useSelector( ( state ) => state.signup )
@@ -61,7 +62,7 @@ const SignUp = () => {
   )
 
   const handleSocialSignup = (method) => {
-    dispatch( userSignupStart( { type: 'social', method } ) )
+    window.open(`${process.env.REACT_APP_NODE_BASE_URL}/auth/${method}`)
   }
 
   const SocialSignupButton = (buttonName) => (
@@ -108,7 +109,7 @@ const SignUp = () => {
             <div className="container">
               <div className="columns">
                 <div className="column is-8 is-offset-2">
-                  {!success && (
+                  {(!success && !isSocialSignup) && (
                     <>
                       <div>
                       {SocialSignupButton('facebook')}
@@ -157,7 +158,7 @@ const SignUp = () => {
                     </>
                   )}
                   <div>
-                    {success && (
+                    {(success || isSocialSignup) && (
                       <>
                         You have succesfully registered. Please check your inbox
                         to verify your email !!
