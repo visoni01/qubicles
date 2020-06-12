@@ -33,9 +33,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   },
-    {
-      tableName: 'x_apps'
-    })
+  {
+    tableName: 'x_apps'
+  })
   XApp.associate = function (models) {
     XApp.hasMany(models.XAppUser, { foreignKey: 'app_id' })
   }

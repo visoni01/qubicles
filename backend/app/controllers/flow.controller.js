@@ -6,16 +6,26 @@ import {
   UpdateFlowPageService,
   DeleteFlowPageService,
   GetFlowsService,
-  GetEmailTemplatesService
+  GetEmailTemplatesService,
+  CheckAuthorizationService
 } from '../services/flow'
 
 export default class FlowController {
+  static async checkAuthorization (req, res) {
+    const CheckAuthorizationResult = await CheckAuthorizationService.execute({ userId: req.body.user_id })
+    if (CheckAuthorizationResult.successful) {
+      Responder.success(res, CheckAuthorizationResult.result)
+    } else {
+      res.boom.badRequest('User authorization check operation failed', CheckAuthorizationResult.errors)
+    }
+  }
+
   static async deleteFlowField (req, res) {
     const deleteFlowFieldResult = await DeleteFlowFieldService.execute(req.params)
     if (deleteFlowFieldResult.successful) {
       Responder.success(res, deleteFlowFieldResult.result)
     } else {
-      res.boom.badRequest('Validation didn\'t succeed', deleteFlowFieldResult.errors)
+      res.boom.badRequest('Delete Flow field Operation failed', deleteFlowFieldResult.errors)
     }
   }
 
@@ -24,7 +34,7 @@ export default class FlowController {
     if (saveFlowFieldResult.successful) {
       Responder.success(res, saveFlowFieldResult.result)
     } else {
-      res.boom.badRequest('Invitation Failed', saveFlowFieldResult.errors)
+      res.boom.badRequest('Save Flow field Operation failed', saveFlowFieldResult.errors)
     }
   }
 
@@ -33,7 +43,7 @@ export default class FlowController {
     if (addFlowPageResult.successful) {
       Responder.success(res, addFlowPageResult.result)
     } else {
-      res.boom.badRequest('Invitation Failed', addFlowPageResult.errors)
+      res.boom.badRequest('Add Flow page Operation failed', addFlowPageResult.errors)
     }
   }
 
@@ -42,7 +52,7 @@ export default class FlowController {
     if (updateFlowPageResult.successful) {
       Responder.success(res, updateFlowPageResult.result)
     } else {
-      res.boom.badRequest('Invitation Failed', updateFlowPageResult.errors)
+      res.boom.badRequest('Update Flow page Operation failed', updateFlowPageResult.errors)
     }
   }
 
@@ -51,7 +61,7 @@ export default class FlowController {
     if (deleteFlowPageResult.successful) {
       Responder.success(res, deleteFlowPageResult.result)
     } else {
-      res.boom.badRequest('Invitation Failed', deleteFlowPageResult.errors)
+      res.boom.badRequest('Delete Flow page Operation failed', deleteFlowPageResult.errors)
     }
   }
 
@@ -60,7 +70,7 @@ export default class FlowController {
     if (getFlowsResult.successful) {
       Responder.success(res, getFlowsResult.result)
     } else {
-      res.boom.badRequest('Invitation Failed', getFlowsResult.errors)
+      res.boom.badRequest('Get Flows Operation failed', getFlowsResult.errors)
     }
   }
 
@@ -69,7 +79,7 @@ export default class FlowController {
     if (getEmailTemplatesResult.successful) {
       Responder.success(res, getEmailTemplatesResult.result)
     } else {
-      res.boom.badRequest('Invitation Failed', getEmailTemplatesResult.errors)
+      res.boom.badRequest('Get Email templates Operation failed', getEmailTemplatesResult.errors)
     }
   }
 }
