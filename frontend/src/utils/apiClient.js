@@ -10,7 +10,14 @@ class ApiClient {
     this.localStorageInst = window.localStorage
   }
 
-  makeRequest = ( url, method, data = {} ) => this.axios( { url, method, data } );
+  makeRequest = ( url, method, data = {} ) => this.axios( {
+    url,
+    method,
+    data,
+    headers: {
+      Authorization: `Bearer ${ authToken }`,
+    },
+  } );
 
   getRequest = ( url, config ) => this.makeRequest( url, 'get', config );
 
@@ -35,9 +42,6 @@ class ApiClient {
 
 const axiosInst = axios.create( {
   baseURL,
-  headers: {
-    Authorization: `Bearer ${ authToken }`,
-  },
 } )
 
 export default new ApiClient( axiosInst )
