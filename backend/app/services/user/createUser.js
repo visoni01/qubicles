@@ -28,7 +28,7 @@ const constraints = {
 
 const MAX_USER_CREDIT = parseInt(config.get('invite.max_user_credit'))
 const USER_CREDIT = parseInt(config.get('invite.user_credit'))
-const REFERREL_CREDIT = parseInt(config.get('invite.referral_credit'))
+const REFERRAL_CREDIT = parseInt(config.get('invite.referral_credit'))
 const TOKEN_EXPIRY_TIME = 300
 
 export default class CreateUserService extends ServiceBase {
@@ -82,7 +82,7 @@ async function assignCredits ({ user_id, referral_email }) {
   // Check for maximum user_credit
   const newUserCredit = currentUserCredit + USER_CREDIT > MAX_USER_CREDIT ? (MAX_USER_CREDIT - currentUserCredit) : USER_CREDIT
   // Update user_credit and referral_credit
-  await UserContact.update({ user_credit: newUserCredit, referral_credit: REFERREL_CREDIT }, { where: { user_id, referral_email } })
+  await UserContact.update({ user_credit: newUserCredit, referral_credit: REFERRAL_CREDIT }, { where: { user_id, referral_email } })
 }
 
 async function getCurrentUserCredit ({ user_id }) {

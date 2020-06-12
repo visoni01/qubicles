@@ -70,9 +70,10 @@ export class PostSignupEmployerStep1Service extends ServiceBase {
         client_id: xClient.client_id
       })
 
-      // Update user code in User model
+      // Update user code and set user_level = 8 for Employer in User model
       await User.update({
-        user_code: this.user_code
+        user_code: this.user_code,
+        user_level: 8
       }, { where: { user_id: this.user_id } })
 
       return `Post Signup Step 1 for user ${this.user_id} is completed`

@@ -36,9 +36,10 @@ export class PostSignupAgentStep1Service extends ServiceBase {
       gender: this.gender
     }, { where: { user_id: this.user_id } })
 
-    // Update user code in User model
+    // Update user code and set user_level = 2 for Agent in User model
     await User.update({
-      user_code: this.user_code
+      user_code: this.user_code,
+      user_level: 2
     }, { where: { user_id: this.user_id } })
 
     // Verify SSN here

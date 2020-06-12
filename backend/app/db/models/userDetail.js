@@ -22,7 +22,15 @@ module.exports = (sequelize, DataTypes) => {
     highest_education: DataTypes.STRING,
     primary_language: DataTypes.STRING,
     other_languages: DataTypes.STRING,
-    source: DataTypes.STRING
+    source: DataTypes.STRING,
+    notify_email: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    },
+    notify_sms: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    }
   },
   { tableName: 'x_user_details' })
 
