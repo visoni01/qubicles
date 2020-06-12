@@ -8,25 +8,30 @@ authRouter.route('/facebook')
   .get(passport.authenticate('facebook', { scope: ['email'] }))
 
 authRouter.route('/facebook/callback')
-  .get(passport.authenticate('facebook', { failureRedirect: '/' }), (req, res) => {
-    res.render('home', { user: req.user })
-  })
+  .get(passport.authenticate('facebook', {
+    successRedirect: 'http://localhost:3000/signup?with_social=true',
+    failureRedirect: 'http://localhost:3000/signup'
+  }))
 
 authRouter.route('/twitter')
   .get(passport.authenticate('twitter'))
 
 authRouter.route('/twitter/callback')
-  .get(passport.authenticate('twitter', { failureRedirect: '/' }), function (req, res) {
-    res.render('home', { user: req.user })
-  })
+  .get(passport.authenticate('twitter', {
+    successRedirect: 'http://localhost:3000/signup?with_social=true',
+    failureRedirect: 'http://localhost:3000/signup'
+  }))
 
 authRouter.route('/linkedin')
-  .get(passport.authenticate('linkedin', { state: 'SOME STATE' }))
+  .get(passport.authenticate('linkedin', {
+    state: 'SOME STATE'
+  }))
 
 authRouter.route('/linkedin/callback')
-  .get(passport.authenticate('linkedin', { failureRedirect: '/' }), (req, res) => {
-    res.render('home', { user: req.user })
-  })
+  .get(passport.authenticate('linkedin', {
+    successRedirect: 'http://localhost:3000/signup?with_social=true',
+    failureRedirect: 'http://localhost:3000/signup'
+  }))
 
 authRouter.route('/verify-token/:token')
   .get(authController.verifyToken)
