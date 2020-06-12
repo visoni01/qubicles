@@ -11,9 +11,9 @@ const steps = {
       ],
     }, { label: 'SSN', type: 'text', name: 'ssn' } ],
     schema: yup.object().shape( {
-      birth_date: yup.date(),
-      ssn: yup.string(),
-      gender: yup.string(),
+      dob: yup.date().required( '*Required' ),
+      gender: yup.string().required( '*Required' ),
+      ssn: yup.string().required( '*Required' ),
     } ),
   },
   2: {
@@ -26,12 +26,12 @@ const steps = {
       { label: 'Mobile Phone', type: 'text', name: 'mobile_phone' },
     ],
     schema: yup.object().shape( {
-      street_address: yup.string(),
-      city: yup.string(),
-      state: yup.string(),
-      zip: yup.string(),
-      home_phone: yup.string(),
-      mobile_phone: yup.string(),
+      street_address: yup.string().required( '*Required' ),
+      city: yup.string().required( '*Required' ),
+      state: yup.string().required( '*Required' ),
+      zip: yup.string().required( '*Required' ),
+      home_phone: yup.string().required( '*Required' ),
+      mobile_phone: yup.string().required( '*Required' ),
     } ),
   },
   3: {
@@ -60,16 +60,16 @@ const steps = {
       },
     ],
     schema: yup.object().shape( {
-      experience: yup.string(),
-      education: yup.string(),
-      primary_language: yup.string(),
-      other_language: yup.string(),
+      years_of_experience: yup.string().required( '*Required' ),
+      highest_education: yup.string().required( '*Required' ),
+      primary_language: yup.string().required( '*Required' ),
+      other_languages: yup.string().required( '*Required' ),
     } ),
   },
   5: {
     fields: [ {
       label: 'How did you hear about us?',
-      type: 'checkbox',
+      type: 'radio',
       name: 'source',
       options: [
         [ 'Search Engine', 'search_engine', 'Search Engine' ],
@@ -82,7 +82,7 @@ const steps = {
     },
     {
       label: 'How do you intend on using the service?',
-      type: 'checkbox',
+      type: 'radio',
       name: 'service',
       options: [
         [ 'As an Agent', 'agent', 'As an Agent' ],
@@ -92,8 +92,8 @@ const steps = {
       ],
     } ],
     schema: yup.object().shape( {
-      info: yup.string(),
-      use_service: yup.string(),
+      source: yup.string().required( '*Required' ),
+      service: yup.string().required( '*Required' ),
     } ),
   },
 }
