@@ -9,6 +9,7 @@ import {
   faUser,
   faLock,
 } from '@fortawesome/free-solid-svg-icons'
+import { Button, Divider } from '@material-ui/core'
 
 import { userSignupStart } from '../../../../redux-saga/redux/signup'
 import QubiclesLogo from '../../../../assets/images/qbe-dark.png'
@@ -59,6 +60,23 @@ const SignUp = () => {
     </div>
   )
 
+  const handleSocialSignup = (method) => {
+    dispatch( userSignupStart( { type: 'social', method } ) )
+  }
+
+  const SocialSignupButton = (buttonName) => (
+    <Button
+      variant="outlined"
+      size="medium"
+      color="primary"
+      className="social-sigup-buttons"
+      onClick={handleSocialSignup}
+      onClick={() => handleSocialSignup(buttonName)}
+    >
+      {buttonName}
+    </Button>
+  )
+
   return (
     <div className="login-wrapper columns is-gapless">
       <div className="column login-column is-8 is-hidden-mobile hero-banner">
@@ -92,6 +110,12 @@ const SignUp = () => {
                 <div className="column is-8 is-offset-2">
                   {!success && (
                     <>
+                      <div>
+                      {SocialSignupButton('facebook')}
+                      {SocialSignupButton('twitter')}
+                      {SocialSignupButton('linkedin')}
+                      </div>
+                      <Divider className="divider-margin" />
                       <div className="field pb-10">
                         {inputField(
                           'email',
