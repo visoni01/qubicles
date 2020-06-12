@@ -37,4 +37,16 @@ flowRouter.route('/')
 flowRouter.route('/email-templates')
   .get(isAuthenticated, flowController.getEmailTemplates)
 
+// Section-3.8, REQ-11
+flowRouter.route('/create')
+  .post(isAuthenticated, flowController.addFlow)
+
+// Section-3.8, REQ-12
+flowRouter.route('/update')
+  .post(isAuthenticated, flowController.updateFlow)
+
+// Section-3.8, REQ-14
+flowRouter.route('/delete/:flowId')
+  .post(isAuthenticated, flowController.deleteFlow)
+
 export { flowRouter }

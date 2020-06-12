@@ -7,7 +7,10 @@ import {
   DeleteFlowPageService,
   GetFlowsService,
   GetEmailTemplatesService,
-  CheckAuthorizationService
+  CheckAuthorizationService,
+  AddFlowService,
+  UpdateFlowService,
+  DeleteFlowService
 } from '../services/flow'
 
 export default class FlowController {
@@ -80,6 +83,33 @@ export default class FlowController {
       Responder.success(res, getEmailTemplatesResult.result)
     } else {
       res.boom.badRequest('Get Email templates Operation failed', getEmailTemplatesResult.errors)
+    }
+  }
+
+  static async addFlow (req, res) {
+    const addFlowResult = await AddFlowService.execute(req.body)
+    if (addFlowResult.successful) {
+      Responder.success(res, addFlowResult.result)
+    } else {
+      res.boom.badRequest('Add Flow Operation failed', addFlowResult.errors)
+    }
+  }
+
+  static async updateFlow (req, res) {
+    const updateFlowResult = await UpdateFlowService.execute(req.body)
+    if (updateFlowResult.successful) {
+      Responder.success(res, updateFlowResult.result)
+    } else {
+      res.boom.badRequest('Update Flow Operation failed', updateFlowResult.errors)
+    }
+  }
+
+  static async deleteFlow (req, res) {
+    const deleteFlowResult = await DeleteFlowService.execute(req.params)
+    if (deleteFlowResult.successful) {
+      Responder.success(res, deleteFlowResult.result)
+    } else {
+      res.boom.badRequest('Delete Flow Operation failed', deleteFlowResult.errors)
     }
   }
 }
