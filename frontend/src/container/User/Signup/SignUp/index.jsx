@@ -10,6 +10,7 @@ import {
   faLock,
 } from '@fortawesome/free-solid-svg-icons'
 import { Button, Divider } from '@material-ui/core'
+import PropTypes from 'prop-types'
 
 import { userSignupStart } from '../../../../redux-saga/redux/signup'
 import QubiclesLogo from '../../../../assets/images/qbe-dark.png'
@@ -22,11 +23,11 @@ const schema = yup.object().shape( {
   pass: yup.string().required( '*Required' ),
 } )
 
-const SignUp = ({location}) => {
+const SignUp = ( { location } ) => {
   const { register, errors, handleSubmit } = useForm( {
     validationSchema: schema,
   } )
-  const isSocialSignup = location.search && location.search.split('?')[1] === 'with_social=true' // Temporary set up.
+  const isSocialSignup = location.search && location.search.split( '?' )[ 1 ] === 'with_social=true' // Temporary set up.
   const dispatch = useDispatch()
   const onSubmit = ( data ) => dispatch( userSignupStart( data ) )
   const { error, isLoading, success } = useSelector( ( state ) => state.signup )
@@ -61,18 +62,17 @@ const SignUp = ({location}) => {
     </div>
   )
 
-  const handleSocialSignup = (method) => {
-    window.open(`${process.env.REACT_APP_NODE_BASE_URL}/auth/${method}`)
+  const handleSocialSignup = ( method ) => {
+    window.open( `${ process.env.REACT_APP_NODE_BASE_URL }/auth/${ method }` )
   }
 
-  const SocialSignupButton = (buttonName) => (
+  const SocialSignupButton = ( buttonName ) => (
     <Button
       variant="outlined"
       size="medium"
       color="primary"
       className="social-sigup-buttons"
-      onClick={handleSocialSignup}
-      onClick={() => handleSocialSignup(buttonName)}
+      onClick={ () => handleSocialSignup( buttonName ) }
     >
       {buttonName}
     </Button>
@@ -107,12 +107,12 @@ const SignUp = ({location}) => {
             <div className="container">
               <div className="columns">
                 <div className="column is-8 is-offset-2">
-                  {(!success && !isSocialSignup) && (
+                  {( !success && !isSocialSignup ) && (
                     <>
                       <div>
-                      {SocialSignupButton('facebook')}
-                      {SocialSignupButton('twitter')}
-                      {SocialSignupButton('linkedin')}
+                        {SocialSignupButton( 'facebook' )}
+                        {SocialSignupButton( 'twitter' )}
+                        {SocialSignupButton( 'linkedin' )}
                       </div>
                       <Divider className="divider-margin" />
                       <div className="field pb-10">
@@ -156,7 +156,7 @@ const SignUp = ({location}) => {
                     </>
                   )}
                   <div>
-                    {(success || isSocialSignup) && (
+                    {( success || isSocialSignup ) && (
                       <>
                         You have succesfully registered. Please check your inbox
                         to verify your email !!
@@ -171,6 +171,18 @@ const SignUp = ({location}) => {
       </div>
     </div>
   )
+}
+
+SignUp.propTypes = {
+  location: PropTypes.instanceOf( {
+    search: PropTypes.string,
+  } ),
+}
+
+SignUp.defaultProps = {
+  location: {
+    search: '',
+  },
 }
 
 export default SignUp
