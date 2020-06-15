@@ -2,20 +2,20 @@ import axios from 'axios'
 
 const baseURL = process.env.REACT_APP_NODE_BASE_URL
 
-const authToken = localStorage.getItem( 'token' )
-
 class ApiClient {
   constructor( axiosInst ) {
     this.axios = axiosInst
     this.localStorageInst = window.localStorage
   }
 
+  authToken = () =>  this.localStorageInst.getItem( 'token' )
+
   makeRequest = ( url, method, data = {} ) => this.axios( {
     url,
     method,
     data,
     headers: {
-      Authorization: `Bearer ${ authToken }`,
+      Authorization: `Bearer ${ this.authToken() }`,
     },
   } );
 
