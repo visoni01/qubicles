@@ -9,6 +9,8 @@ import {
   faUser,
   faLock,
 } from '@fortawesome/free-solid-svg-icons'
+import { Button, Divider } from '@material-ui/core'
+import PropTypes from 'prop-types'
 
 import { userSignupStart } from '../../../../redux-saga/redux/signup'
 import QubiclesLogo from '../../../../assets/images/qbe-dark.png'
@@ -21,10 +23,11 @@ const schema = yup.object().shape( {
   pass: yup.string().required( '*Required' ),
 } )
 
-const SignUp = () => {
+const SignUp = ( { location } ) => {
   const { register, errors, handleSubmit } = useForm( {
     validationSchema: schema,
   } )
+  const isSocialSignup = location.search && location.search.split( '?' )[ 1 ] === 'with_social=true' // Temporary set up.
   const dispatch = useDispatch()
   const onSubmit = ( data ) => dispatch( userSignupStart( data ) )
   const { error, isLoading, success } = useSelector( ( state ) => state.signup )
@@ -59,6 +62,22 @@ const SignUp = () => {
     </div>
   )
 
+  const handleSocialSignup = ( method ) => {
+    window.open( `${ process.env.REACT_APP_NODE_BASE_URL }/auth/${ method }` )
+  }
+
+  const SocialSignupButton = ( buttonName ) => (
+    <Button
+      variant="outlined"
+      size="medium"
+      color="primary"
+      className="social-sigup-buttons"
+      onClick={ () => handleSocialSignup( buttonName ) }
+    >
+      {buttonName}
+    </Button>
+  )
+
   return (
     <div className="login-wrapper columns is-gapless">
       <div className="column login-column is-8 is-hidden-mobile hero-banner">
@@ -77,21 +96,25 @@ const SignUp = () => {
         <div className="hero is-fullheight">
           <div className="hero-heading">
             <div className="section has-text-centered">
-              <a href="/">
-                <img
-                  className="top-logo"
-                  src={ QubiclesLogo }
-                  alt="Qubicles logo"
-                />
-              </a>
+              <img
+                className="top-logo"
+                src={ QubiclesLogo }
+                alt="Qubicles logo"
+              />
             </div>
           </div>
           <div className="hero-body">
             <div className="container">
               <div className="columns">
                 <div className="column is-8 is-offset-2">
-                  {!success && (
+                  {( !success && !isSocialSignup ) && (
                     <>
+                      <div>
+                        {SocialSignupButton( 'facebook' )}
+                        {SocialSignupButton( 'twitter' )}
+                        {SocialSignupButton( 'linkedin' )}
+                      </div>
+                      <Divider className="divider-margin" />
                       <div className="field pb-10">
                         {inputField(
                           'email',
@@ -133,7 +156,7 @@ const SignUp = () => {
                     </>
                   )}
                   <div>
-                    {success && (
+                    {( success || isSocialSignup ) && (
                       <>
                         You have succesfully registered. Please check your inbox
                         to verify your email !!
@@ -148,6 +171,18 @@ const SignUp = () => {
       </div>
     </div>
   )
+}
+
+SignUp.propTypes = {
+  location: PropTypes.instanceOf( {
+    search: PropTypes.string,
+  } ),
+}
+
+SignUp.defaultProps = {
+  location: {
+    search: '',
+  },
 }
 
 export default SignUp
