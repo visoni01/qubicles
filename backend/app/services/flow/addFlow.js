@@ -26,7 +26,7 @@ export class AddFlowService extends ServiceBase {
       flow_name: this.flowName,
       flow_description: this.flowDescription,
       flow_changed: 'N',
-      currentClientId: currentClientId
+      client_id: currentClientId
     }
 
     await Flow.create(newFlowData)

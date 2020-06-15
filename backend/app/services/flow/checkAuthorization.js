@@ -1,5 +1,6 @@
 import ServiceBase from '../../common/serviceBase'
 import { getAppsByUser } from '../apps/helper'
+import config from '../../../config/app'
 
 const constraints = {
   userId: {
@@ -14,7 +15,7 @@ export class CheckAuthorizationService extends ServiceBase {
 
   async run () {
     const apps = await getAppsByUser({ user_id: this.userId })
-    const flowPath = '/Flow'
+    const flowPath = config.get('flow.path')
 
     const filteredApps = apps.find((app) => app.controllerpath.toLowerCase().includes(flowPath.toLowerCase()))
     if (!(filteredApps && filteredApps.length)) {
