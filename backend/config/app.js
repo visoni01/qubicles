@@ -198,6 +198,12 @@ const config = convict({
       default: '1d',
       enc: 'JWT_EMAIL_VERIFICATION_EXPIRY'
     }
+  },
+  flow: {
+    path: {
+      default: '/Flow',
+      env: 'FLOW_PATH'
+    }
   }
 })
 config.validate({ allowed: 'strict' })

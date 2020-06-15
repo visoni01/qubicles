@@ -1,6 +1,6 @@
 import ServiceBase from '../../common/serviceBase'
 import { EmailTemplate } from '../../db/models'
-import GetUserDetailsService, { USER_LEVEL } from '../user/getUserDetails'
+import GetSecurityContextService, { USER_LEVEL } from '../user/getSecurityContext'
 
 const constraints = {
   user: {
@@ -15,14 +15,10 @@ export class GetEmailTemplatesService extends ServiceBase {
 
   async run () {
     let query = {}
-    let currentClientId = 0
 
     // We'll get details i.e userRef, username, clientsData
     // and clientIds
-    const { clientIds } = await GetUserDetailsService.run({ user: this.user })
-    if (clientIds && clientIds.length) {
-      currentClientId = clientIds[0]
-    }
+    const { currentClientId } = await GetSecurityContextService.run({ user: this.user })
 
     if (this.user.user_level < USER_LEVEL.SYSTEM) {
       query = {

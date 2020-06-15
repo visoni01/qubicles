@@ -10,7 +10,7 @@ flowRouter.route('/auth')
   .post(isAuthenticated, flowController.checkAuthorization)
 
 // Section-3.8, REQ-3
-flowRouter.route('/field/delete/:flowFieldId')
+flowRouter.route('/field/delete/:fieldId')
   .post(isAuthenticated, flowController.deleteFlowField)
 
 // Section-3.8, REQ-4
@@ -22,15 +22,15 @@ flowRouter.route('/page/create')
   .post(isAuthenticated, flowController.addFlowPage)
 
 // Section-3.8, REQ-6
-flowRouter.route('/page/update')
-  .post(isAuthenticated, flowController.updateFlowPage)
+flowRouter.route('/page/edit')
+  .post(isAuthenticated, flowController.editFlowPage)
 
 // Section-3.8, REQ-7
 flowRouter.route('/page/delete/:pageId')
   .post(isAuthenticated, flowController.deleteFlowPage)
 
 // Section-3.8, REQ-8
-flowRouter.route('/')
+flowRouter.route('list')
   .get(isAuthenticated, flowController.getFlows)
 
 // Section-3.8, REQ-9
@@ -42,8 +42,8 @@ flowRouter.route('/create')
   .post(isAuthenticated, flowController.addFlow)
 
 // Section-3.8, REQ-12
-flowRouter.route('/update')
-  .post(isAuthenticated, flowController.updateFlow)
+flowRouter.route('/edit')
+  .post(isAuthenticated, flowController.editFlow)
 
 // Section-3.8, REQ-14
 flowRouter.route('/delete/:flowId')

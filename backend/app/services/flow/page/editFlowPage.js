@@ -25,7 +25,7 @@ const constraints = {
   }
 }
 
-export class UpdateFlowPageService extends ServiceBase {
+export class EditFlowPageService extends ServiceBase {
   get constraints () {
     return constraints
   }
@@ -35,7 +35,7 @@ export class UpdateFlowPageService extends ServiceBase {
     const flowPageData = await FlowPage.findOne({ where: { page_id: this.pageId }, raw: true })
 
     if (!(flowPageData && flowPageData['page_id'])) {
-      this.addError('InvalidField', '\'page_id\' is not valid')
+      this.addError('InvalidField', 'Flow page does not exist')
       return
     }
 

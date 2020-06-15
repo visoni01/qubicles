@@ -3,19 +3,21 @@ import {
   DeleteFlowFieldService,
   SaveFlowFieldService,
   AddFlowPageService,
-  UpdateFlowPageService,
+  EditFlowPageService,
   DeleteFlowPageService,
   GetFlowsService,
   GetEmailTemplatesService,
   CheckAuthorizationService,
   AddFlowService,
-  UpdateFlowService,
+  EditFlowService,
   DeleteFlowService
 } from '../services/flow'
+import config from '../../config/app'
 
 export default class FlowController {
   static async checkAuthorization (req, res) {
-    const CheckAuthorizationResult = await CheckAuthorizationService.execute({ userId: req.body.user_id })
+    const appPath = config.get('flow.path')
+    const CheckAuthorizationResult = await CheckAuthorizationService.execute({ userId: req.body.user_id, appPath })
     if (CheckAuthorizationResult.successful) {
       Responder.success(res, CheckAuthorizationResult.result)
     } else {
@@ -50,12 +52,12 @@ export default class FlowController {
     }
   }
 
-  static async updateFlowPage (req, res) {
-    const updateFlowPageResult = await UpdateFlowPageService.execute(req.body)
-    if (updateFlowPageResult.successful) {
-      Responder.success(res, updateFlowPageResult.result)
+  static async editFlowPage (req, res) {
+    const editFlowPageResult = await EditFlowPageService.execute(req.body)
+    if (editFlowPageResult.successful) {
+      Responder.success(res, editFlowPageResult.result)
     } else {
-      res.boom.badRequest('Update Flow page Operation failed', updateFlowPageResult.errors)
+      res.boom.badRequest('Edit Flow page Operation failed', editFlowPageResult.errors)
     }
   }
 
@@ -95,12 +97,12 @@ export default class FlowController {
     }
   }
 
-  static async updateFlow (req, res) {
-    const updateFlowResult = await UpdateFlowService.execute(req.body)
-    if (updateFlowResult.successful) {
-      Responder.success(res, updateFlowResult.result)
+  static async editFlow (req, res) {
+    const editFlowResult = await EditFlowService.execute(req.body)
+    if (editFlowResult.successful) {
+      Responder.success(res, editFlowResult.result)
     } else {
-      res.boom.badRequest('Update Flow Operation failed', updateFlowResult.errors)
+      res.boom.badRequest('Edit Flow Operation failed', editFlowResult.errors)
     }
   }
 

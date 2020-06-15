@@ -84,7 +84,7 @@ export class SaveFlowFieldService extends ServiceBase {
       const flowData = await Flow.findOne({ where: { flow_id: this.flow_id }, raw: true })
 
       if (!(flowData && flowData['flow_id'])) {
-        this.addError('InvalidField', '\'flow_id\' is not valid')
+        this.addError('InvalidField', 'Flow does not exist')
         return
       }
 
