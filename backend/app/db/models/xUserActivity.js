@@ -21,6 +21,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     activity_value: DataTypes.STRING,
     activity_custom: DataTypes.STRING,
+    activity_permission: {
+      type: DataTypes.ENUM,
+      values: ['public', 'followers', 'company', 'admins', 'managers'],
+      defaultValue: 'public'
+    },
     created_on: {
       type: DataTypes.DATE,
       allowNull: false,
