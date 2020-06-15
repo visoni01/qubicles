@@ -24,7 +24,7 @@ export default class SendEmailVerificationMailService extends ServiceBase {
         domain: config.get('mailgun.domain')
       }
     }
-    const verifyEmailPageUrl = `${config.get('webApp.baseUrl')}/auth/verifyToken/${this.token}`
+    const verifyEmailPageUrl = `${config.get('webApp.baseUrl')}/auth/verify-token/${this.token}`
 
     const nodemailerMailgun = nodemailer.createTransport(mg(auth))
 

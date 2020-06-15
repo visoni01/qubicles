@@ -14,7 +14,7 @@ function App() {
           <Route exact path="/signup" component={ Signup } />
           <Route
             exact
-            path="/verifyToken/:token"
+            path="/verify-token/:token"
             component={ EmailVerification }
           />
           <Route exact path="/post-signup" component={ PostSignUp } />
