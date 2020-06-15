@@ -21,6 +21,7 @@ const ShareModal = () => {
       window.open( result.message, '_blank' )
     }
     if ( success ) {
+      setManualEmails('')
       setOpenSnackbar( success )
     }
   }, [ isLoading ] )
@@ -56,6 +57,7 @@ const ShareModal = () => {
             variant="outlined"
             size="small"
             className="shareModal-add-email-textbox"
+            value={ manualEmails }
             onChange={ ( event ) => setManualEmails( event.target && event.target.value ) }
           />
           <span className="shareModal-add-email-span">
