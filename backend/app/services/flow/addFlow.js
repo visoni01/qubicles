@@ -1,6 +1,6 @@
 import ServiceBase from '../../common/serviceBase'
 import { Flow } from '../../db/models'
-import GetUserDetailsService from '../../services/user/getUserDetails'
+import GetSecurityContextService from '../user/getSecurityContext'
 
 const constraints = {
   flowName: {
@@ -20,16 +20,13 @@ export class AddFlowService extends ServiceBase {
   }
 
   async run () {
-    const { clientIds } = await GetUserDetailsService.run({ user: this.user })
+    const { currentClientId } = await GetSecurityContextService.run({ user: this.user })
 
     const newFlowData = {
       flow_name: this.flowName,
       flow_description: this.flowDescription,
-      flow_changed: 'N'
-    }
-
-    if (clientIds && clientIds.length) {
-      newFlowData['client_id'] = clientIds[0]
+      flow_changed: 'N',
+      currentClientId: currentClientId
     }
 
     await Flow.create(newFlowData)

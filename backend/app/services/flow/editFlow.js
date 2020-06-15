@@ -13,7 +13,7 @@ const constraints = {
   }
 }
 
-export class UpdateFlowService extends ServiceBase {
+export class EditFlowService extends ServiceBase {
   get constraints () {
     return constraints
   }
@@ -23,7 +23,7 @@ export class UpdateFlowService extends ServiceBase {
     const flowData = await Flow.findOne({ where: { flow_id: this.flowId }, raw: true })
 
     if (!(flowData && flowData['flow_id'])) {
-      this.addError('InvalidField', '\'flow_id\' is not valid')
+      this.addError('InvalidField', 'Flow does not exist')
       return
     }
 

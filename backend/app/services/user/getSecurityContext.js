@@ -18,7 +18,7 @@ export const USER_LEVEL = {
 
 // This service will work same as security context constructor mentioned in
 // https://github.com/qubicles/manager/blob/master/FC2.Library/SecurityContext.cs#L15
-export default class GetUserDetailsService extends ServiceBase {
+export default class GetSecurityContextService extends ServiceBase {
   get constraints () {
     return constraints
   }
@@ -34,7 +34,8 @@ export default class GetUserDetailsService extends ServiceBase {
     return {
       userRef: this.user,
       username: this.user.user,
-      clientsData: clients,
+      clients: clients,
+      currentClientId: (clients && clients.length) ? clients[0].client_id : 0,
       clientIds: clientIds
     }
   }

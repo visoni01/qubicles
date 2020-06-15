@@ -18,7 +18,7 @@ export class CheckAuthorizationService extends ServiceBase {
 
     const filteredApps = apps.find((app) => app.controllerpath.toLowerCase().includes(flowPath.toLowerCase()))
     if (!(filteredApps && filteredApps.length)) {
-      this.addError('PermissionDenied', 'You don\'t have enough permission')
+      this.addError('PermissionDenied', 'You don\'t have permission to access this page')
       return
     }
 
