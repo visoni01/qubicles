@@ -96,13 +96,11 @@ const SignUp = ({location}) => {
         <div className="hero is-fullheight">
           <div className="hero-heading">
             <div className="section has-text-centered">
-              <a href="/">
-                <img
-                  className="top-logo"
-                  src={ QubiclesLogo }
-                  alt="Qubicles logo"
-                />
-              </a>
+              <img
+                className="top-logo"
+                src={ QubiclesLogo }
+                alt="Qubicles logo"
+              />
             </div>
           </div>
           <div className="hero-body">
