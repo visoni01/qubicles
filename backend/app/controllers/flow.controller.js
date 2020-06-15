@@ -12,10 +12,12 @@ import {
   EditFlowService,
   DeleteFlowService
 } from '../services/flow'
+import config from '../../config/app'
 
 export default class FlowController {
   static async checkAuthorization (req, res) {
-    const CheckAuthorizationResult = await CheckAuthorizationService.execute({ userId: req.body.user_id })
+    const appPath = config.get('flow.path')
+    const CheckAuthorizationResult = await CheckAuthorizationService.execute({ userId: req.body.user_id, appPath })
     if (CheckAuthorizationResult.successful) {
       Responder.success(res, CheckAuthorizationResult.result)
     } else {
