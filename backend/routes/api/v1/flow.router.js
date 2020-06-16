@@ -37,6 +37,10 @@ flowRouter.route('list')
 flowRouter.route('/email-templates')
   .get(isAuthenticated, flowController.getEmailTemplates)
 
+// Section-3.8, REQ-10
+flowRouter.route('/acd-queues')
+  .get(isAuthenticated, flowController.getACDQueues)
+
 // Section-3.8, REQ-11
 flowRouter.route('/create')
   .post(isAuthenticated, flowController.addFlow)
