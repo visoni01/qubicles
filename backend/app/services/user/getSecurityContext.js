@@ -1,5 +1,6 @@
 import ServiceBase from '../../common/serviceBase'
 import GetClientsService from './getClients'
+import { getInboundGroupsByClient } from '../../services/helper/group'
 
 const constraints = {
   user: {
@@ -26,17 +27,19 @@ export default class GetSecurityContextService extends ServiceBase {
   async run () {
     // fetching the clients and clientIds
     const { clients, clientIds } = await GetClientsService.run({ userId: this.user.user_id })
+    let clientIngroups = []
     // TODO: Below implementation will be done when we start work on campaign
-    // if (ClientIdsRef.Count > 0) {
-    //   CampaignsRef = mf.GetCampaigns (ClientIdsRef [0]).ToList ();
-    //   IngroupsRef = mf.GetInboundGroups (ClientIdsRef [0]).ToList ();
-    // }
+    if (clientIds && clientIds.length > 0) {
+      // CampaignsRef = mf.GetCampaigns (ClientIdsRef [0]).ToList ();
+      clientIngroups = await getInboundGroupsByClient({ clientId: clientIds[0] })
+    }
     return {
       userRef: this.user,
       username: this.user.user,
       clients: clients,
       currentClientId: (clients && clients.length) ? clients[0].client_id : 0,
-      clientIds: clientIds
+      clientIds: clientIds,
+      clientIngroups: clientIngroups
     }
   }
 }
