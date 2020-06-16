@@ -12,9 +12,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER(9).UNSIGNED
     }
   },
-    {
-      tableName: 'x_apps_user'
-    })
+  {
+    tableName: 'x_apps_user'
+  })
   XAppUser.associate = function (models) {
     XAppUser.belongsTo(models.XApp, { foreignKey: 'app_id', targetKey: 'app_id' })
   }

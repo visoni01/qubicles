@@ -28,28 +28,5 @@
   "breadcrumbs.enabled": true,
   "emmet.includeLanguages": {
     "javascript": "javascriptreact"
-  },
-  "standard.validate": [
-    {
-      "language": "javascript",
-      "autoFix": true
-    },
-    {
-      "language": "javascriptreact",
-      "autoFix": true
-    }
-  ],
-  "standard.options": {
-    "parser": "babel-eslint",
-    "env": {
-      "jest": true,
-      "browser": true,
-      "node": true
-    },
-    "globals": [
-      "before",
-      "assert",
-      "after"
-    ]
   }
 }
