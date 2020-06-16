@@ -4,6 +4,10 @@ const QueryMethods = {
   getGroupsByClient: (args) => {
     const { tableName, clientId } = args
     return `SELECT t.* FROM ${tableName} t JOIN qubiclesapp.x_client_ingroups x ON t.group_id = x.group_id WHERE x.client_id =${clientId}`
+  },
+  getById: (args) => {
+    const { sourceTable, columnName, columnValue } = args
+    return `SELECT * FROM ${sourceTable} WHERE ${columnName} = '${columnValue}'`
   }
 }
 

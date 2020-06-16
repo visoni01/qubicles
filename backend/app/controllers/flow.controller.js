@@ -11,7 +11,7 @@ import {
   AddFlowService,
   EditFlowService,
   DeleteFlowService,
-  GetACDQueuesService
+  GetACDQueueService
 } from '../services/flow'
 import config from '../../config/app'
 
@@ -117,11 +117,11 @@ export default class FlowController {
   }
 
   static async getACDQueues (req, res) {
-    const acdQueueResult = await GetACDQueuesService.execute(req.body)
+    const acdQueueResult = await GetACDQueueService.execute(req.body)
     if (acdQueueResult.successful) {
       Responder.success(res, acdQueueResult.result)
     } else {
-      res.boom.badRequest('Get ACD Queues Operation failed', acdQueueResult.errors)
+      res.boom.badRequest('Get ACD Queue Operation failed', acdQueueResult.errors)
     }
   }
 }

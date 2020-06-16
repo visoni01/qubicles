@@ -9,20 +9,20 @@ const constraints = {
   }
 }
 
-export class GetACDQueuesService extends ServiceBase {
+export class GetACDQueueService extends ServiceBase {
   get constraints () {
     return constraints
   }
 
   async run () {
     let queues = []
-    const liveAgentData = await getLiveAgentByUser({ user: this.user.user })
-    const { clientIngroups: clientInboundGroups, currentClientId: clientId } = await GetSecurityContextService.run({ user: this.user })
+    const { clientIngroups, currentClientId, clients } = await GetSecurityContextService.run({ user: this.user })
+    const liveAgentData = await getLiveAgentByUser({ user: this.user.user, clients })
 
     if (liveAgentData) {
-      queues = await getXferInboundGroups({ compaignId: liveAgentData.campaign_id, clientInboundGroups })
+      queues = await getXferInboundGroups({ campaignId: liveAgentData.campaign_id, clientIngroups })
     } else {
-      queues = await getInboundGroupsByUser({ user: this.user, clientId, clientInboundGroups })
+      queues = await getInboundGroupsByUser({ user: this.user, currentClientId, clientIngroups })
     }
 
     queues = queues.map((queueData) => {
