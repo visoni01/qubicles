@@ -1,6 +1,6 @@
 import ServiceBase from '../../common/serviceBase'
 import { getLiveAgentByUser, getXferInboundGroups, getInboundGroupsByUser } from '../helper'
-import GetSecurityContextService from '../../services/user/getSecurityContext'
+import GetSecurityContextService from '../user/getSecurityContext'
 import _ from 'lodash'
 
 const constraints = {
