@@ -152,9 +152,11 @@ export class PostSignupAgentStep4Service extends ServiceBase {
       source: this.source
     }, { where: { user_id: this.user_id } })
 
-    // Update user_code using service attribute
+    // Update user_code and user level using service attribute
+    
     await User.update({
-      user_code: this.service
+      user_code: this.service,
+      user_level: this.service === 'Agent' ? 2 : 7
     }, { where: { user_id: this.user_id } })
 
     // Background check using Authenticating API
