@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   },
   {
-    tableName: 'x_forum_topic'
+    tableName: 'x_forum_topics'
   })
   XForumTopic.associate = function (models) {
   }
