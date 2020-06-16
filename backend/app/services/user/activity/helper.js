@@ -1,24 +1,26 @@
-import { XUserActivity, User, XClientUser } from '../../../db/models'
+import { XUserActivity, User, XClientUser, sequelize } from '../../../db/models'
 import { Op } from 'sequelize'
 
 /* Client Activity Methods */
 // Rating Methods
+
 export async function getClientRating ({ client_id }) {
-  const allRatings = await XUserActivity.findAll({
+  const ratingAggregate = await XUserActivity.findOne({
     where: {
       record_type: 'client',
       record_id: client_id,
       activity_type: 'rating'
     },
-    attributes: ['activity_value'],
+    attributes: [
+      [sequelize.fn('sum', sequelize.col('activity_value')), 'sumRating'],
+      [sequelize.fn('count', sequelize.col('activity_value')), 'totalRaters']
+    ],
     raw: true
   })
-  const totalRaters = allRatings.length
+  const { sumRating, totalRaters } = ratingAggregate
   if (totalRaters === 0) {
     return { rating: 0, raters: 0 }
-  }
-  const sumRating = allRatings.reduce((a, b) => (a + parseInt(b.activity_value)), 0)
-  return { rating: (sumRating / totalRaters), raters: totalRaters }
+  } else return { rating: (sumRating / totalRaters), raters: totalRaters }
 }
 
 export async function rateClient ({ user_id, client_id, rating, ratingComment, activity_permission }) {
@@ -34,8 +36,8 @@ export async function rateClient ({ user_id, client_id, rating, ratingComment, a
   return rateActivity.get({ plain: true })
 }
 
-export async function getClientRatingsList ({ client_id, accessing_user_id }) {
-  const clientRatingsList = await XUserActivity.findAll({
+export async function getClientRaters ({ client_id, accessing_user_id }) {
+  const clientRaters = await XUserActivity.findAll({
     where: {
       record_type: 'client',
       record_id: client_id,
@@ -45,7 +47,7 @@ export async function getClientRatingsList ({ client_id, accessing_user_id }) {
     raw: true
   })
   const ratingsList = []
-  for (const rating of clientRatingsList) {
+  for (const rating of clientRaters) {
     const visible = await checkVisibility({
       accessing_user_id,
       activity_permission: rating.activity_permission,
@@ -78,22 +80,20 @@ export async function likeClient ({ user_id, client_id, activity_permission }) {
   return likeActivity.get({ plain: true })
 }
 
-export async function getClientLikes ({ client_id }) {
-  const clientLikes = await XUserActivity.findAll({
+export async function getClientLikesCount ({ client_id }) {
+  const totalLikes = await XUserActivity.sum('activity_value', {
     where: {
       record_type: 'client',
       record_id: client_id,
       activity_type: 'like'
     },
-    attributes: ['activity_value'],
     raw: true
   })
-  const totalLikes = clientLikes.reduce((a, b) => (a + parseInt(b.activity_value)), 0)
   return { likes: totalLikes }
 }
 
-export async function getClientLikesList ({ client_id, accessing_user_id }) {
-  const clientLikesList = await XUserActivity.findAll({
+export async function getClientLikers ({ client_id, accessing_user_id }) {
+  const clientLikers = await XUserActivity.findAll({
     where: {
       record_type: 'client',
       record_id: client_id,
@@ -103,7 +103,7 @@ export async function getClientLikesList ({ client_id, accessing_user_id }) {
     raw: true
   })
   const userIds = []
-  for (const activity of clientLikesList) {
+  for (const activity of clientLikers) {
     const visible = await checkVisibility({
       accessing_user_id,
       activity_permission: activity.activity_permission,
@@ -129,22 +129,20 @@ export async function subscribeClient ({ user_id, client_id, activity_permission
   return subscribeActivity.get({ plain: true })
 }
 
-export async function getClientSubscribers ({ client_id }) {
-  const clientSubscribers = await XUserActivity.findAll({
+export async function getClientSubscribersCount ({ client_id }) {
+  const totalSubscribers = await XUserActivity.sum('activity_value', {
     where: {
       record_type: 'client',
       record_id: client_id,
       activity_type: 'subscribe'
     },
-    attributes: ['activity_value'],
     raw: true
   })
-  const totalSubscribers = clientSubscribers.reduce((a, b) => (a + parseInt(b.activity_value)), 0)
   return { subscribers: totalSubscribers }
 }
 
-export async function getClientSubscribersList ({ client_id, accessing_user_id }) {
-  const clientSubscribersList = await XUserActivity.findAll({
+export async function getClientSubscribers ({ client_id, accessing_user_id }) {
+  const clientSubscribers = await XUserActivity.findAll({
     where: {
       record_type: 'client',
       record_id: client_id,
@@ -154,7 +152,7 @@ export async function getClientSubscribersList ({ client_id, accessing_user_id }
     raw: true
   })
   const userIds = []
-  for (const activity of clientSubscribersList) {
+  for (const activity of clientSubscribers) {
     const visible = await checkVisibility({
       accessing_user_id,
       activity_permission: activity.activity_permission,
