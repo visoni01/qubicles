@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
-import { faCog } from '@fortawesome/free-solid-svg-icons'
+import React from 'react'
+import {
+  faCheck, faVenusMars, faBriefcase, faIdCard, faPoll, faAddressCard,
+} from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
@@ -27,16 +29,20 @@ const AgentMultipartForm = () => {
   const handleOnBack = () => dispatch( handleBackStep() )
 
   const steps = [
-    { icon: faCog },
-    { icon: faCog },
-    { icon: faCog },
-    { icon: faCog },
-    { icon: faCog },
-  ]
+    { icon: faCheck },
+    { icon: faVenusMars },
+    { icon: faAddressCard },
+    { icon: faBriefcase },
+    { icon: faIdCard },
+    { icon: faPoll },
+  ].map( ( step, index ) => {
+    if ( index < currentStep ) return { icon: faCheck }
+    return step
+  } )
 
   return (
     <>
-      <StepperComponent steps={ steps } activeStep={ currentStep - 1 } />
+      <StepperComponent steps={ steps } activeStep={ currentStep } />
       <MutlipartForm
         step={ currentStep }
         onNext={ handleOnNext }
