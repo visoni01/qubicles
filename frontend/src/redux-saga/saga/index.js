@@ -4,7 +4,8 @@ import signup from './signup'
 import emailVerification from './emailVerification'
 import postSignup from './postSignup'
 import inviteRequest from './invitepage'
+import login from './login'
 
 export default function* rootSaga() {
-  yield all( [ signup(), emailVerification(), postSignup(), inviteRequest() ] )
+  yield all( [ signup(), emailVerification(), postSignup(), inviteRequest(), login() ] )
 }
