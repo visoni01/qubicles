@@ -21,7 +21,7 @@ const ShareModal = () => {
       window.open( result.message, '_blank' )
     }
     if ( success ) {
-      setManualEmails('')
+      setManualEmails( '' )
       setOpenSnackbar( success )
     }
   }, [ isLoading ] )
