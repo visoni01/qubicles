@@ -38,6 +38,13 @@ class ApiClient {
   postSignUp = ( userType, step, body ) => this.postRequest( `/${ userType }/post-signup/step${ step }`, body );
 
   inviteRequest = ( methodType, { type, body } ) => this.makeRequest( `/user/${ type }`, methodType, body )
+
+  login = async ( body ) => {
+    const { data, status } = await this.axios( { url: '/user/login', method: 'post', data: body } )
+    const { accessToken } = data
+    this.localStorageInst.setItem( 'token', accessToken )
+    return status
+  };
 }
 
 const axiosInst = axios.create( {

@@ -6,32 +6,28 @@ import classNames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faPaperPlane,
-  faUser,
   faLock,
 } from '@fortawesome/free-solid-svg-icons'
 import { Button } from '@material-ui/core'
-import PropTypes from 'prop-types'
+import { Redirect } from 'react-router-dom'
 
-import { userSignupStart } from '../../../../redux-saga/redux/signup'
-import QubiclesLogo from '../../../../assets/images/qbe-dark.png'
+import { userLoginStart } from '../../redux-saga/redux/login'
+import QubiclesLogo from '../../assets/images/qbe-dark.png'
 import './style.scss'
 
 const schema = yup.object().shape( {
-  first_name: yup.string().required( '*Required' ),
-  last_name: yup.string().required( '*Required' ),
-  email: yup.string().email().required( '*Required' ),
-  pass: yup.string().required( '*Required' ),
+  email: yup.string().required( '*Required' ),
+  password: yup.string().required( '*Required' ),
 } )
 
-const SignUp = ( { location } ) => {
+const Login = () => {
   const { register, errors, handleSubmit } = useForm( {
     validationSchema: schema,
   } )
-  const [ isSocialSignup, setIsSocialSignup ] = useState( true )
-  const isSocialSignupSuccess = location.search && location.search.split( '?' )[ 1 ] === 'with_social=true' // Temporary set up.
+  const [ isSocialLogin, setIsSocialLogin ] = useState( true )
   const dispatch = useDispatch()
-  const onSubmit = ( data ) => dispatch( userSignupStart( data ) )
-  const { error, isLoading, success } = useSelector( ( state ) => state.signup )
+  const onSubmit = ( data ) => dispatch( userLoginStart( data ) )
+  const { error, isLoading, success } = useSelector( ( state ) => state.login )
 
   const inputField = (
     name,
@@ -64,17 +60,17 @@ const SignUp = ( { location } ) => {
     </div>
   )
 
-  const handleSocialSignup = ( method ) => {
+  const handleSocialLogin = ( method ) => {
     window.open( `${ process.env.REACT_APP_NODE_BASE_URL }/auth/${ method }` )
   }
 
-  const SocialSignupButton = ( buttonName, type ) => (
+  const SocialLoginButton = ( buttonName, type ) => (
     <Button
       variant="contained"
       size="large"
       color="primary"
-      className={ `social-sigup-buttons ${ type }` }
-      onClick={ () => handleSocialSignup( type ) }
+      className={ `social-login-buttons ${ type }` }
+      onClick={ () => handleSocialLogin( type ) }
     >
       {buttonName}
     </Button>
@@ -109,39 +105,27 @@ const SignUp = ( { location } ) => {
             <div className="container">
               <div className="columns">
                 <div className="column is-8 is-offset-2">
-                  {( !success && !isSocialSignupSuccess ) && (
+                  {( !success ) && (
                     <>
-                      {isSocialSignup && (
+                      {isSocialLogin && (
                       <div className="margin-bottom-30">
-                        {SocialSignupButton( 'Sign up with Facebook', 'facebook' )}
-                        {SocialSignupButton( 'Sign up with Twitter', 'twitter' )}
-                        {SocialSignupButton( 'Sign up with LinkedIn', 'linkedin' )}
+                        {SocialLoginButton( 'Log in with Facebook', 'facebook' )}
+                        {SocialLoginButton( 'Log in with Twitter', 'twitter' )}
+                        {SocialLoginButton( 'Log in with LinkedIn', 'linkedin' )}
                       </div>
                       )}
-                      {!isSocialSignup && (
+                      {!isSocialLogin && (
                       <div className="margin-bottom-30">
                         <div className="field pb-10">
                           {inputField(
                             'email',
-                            'signupEmail',
+                            'loginEmail',
                             'Enter your email address',
                             faPaperPlane,
                             'email',
                           )}
                           {inputField(
-                            'first_name',
-                            'firstName',
-                            'Enter your first name',
-                            faUser,
-                          )}
-                          {inputField(
-                            'last_name',
-                            'lastName',
-                            'Enter your last name',
-                            faUser,
-                          )}
-                          {inputField(
-                            'pass',
+                            'password',
                             'password',
                             'Enter your password',
                             faLock,
@@ -155,53 +139,34 @@ const SignUp = ( { location } ) => {
                             id="sendVerificationCode"
                             className="button btn-outlined is-bold is-fullwidth rounded raised no-lh"
                           >
-                            Sign Up
+                            Log in
                           </button>
                         </p>
                       </div>
                       )}
-                      <a onClick={ () => setIsSocialSignup( !isSocialSignup ) }>
-                        {isSocialSignup && (
+                      <a onClick={ () => setIsSocialLogin( !isSocialLogin ) }>
+                        {isSocialLogin && (
                         <span className="options-span-1">
-                          Sign up with Email
+                          Log in with Email
                         </span>
                         )}
-                        {!isSocialSignup && (
+                        {!isSocialLogin && (
                         <span className="options-span-2">
-                          Back to social sign up options
+                          Back to social log in options
                         </span>
                         )}
                       </a>
                     </>
                   )}
-                  <div>
-                    {( success || isSocialSignupSuccess ) && (
-                      <>
-                        You have succesfully registered. Please check your inbox
-                        to verify your email !!
-                      </>
-                    )}
-                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      {success && <Redirect to="/dashboard" />}
     </div>
   )
 }
 
-SignUp.propTypes = {
-  location: PropTypes.instanceOf( {
-    search: PropTypes.string,
-  } ),
-}
-
-SignUp.defaultProps = {
-  location: {
-    search: '',
-  },
-}
-
-export default SignUp
+export default Login
