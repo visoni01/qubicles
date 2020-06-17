@@ -8,7 +8,6 @@ import {
   faPaperPlane,
   faUser,
   faLock,
-
 } from '@fortawesome/free-solid-svg-icons'
 import { Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
@@ -114,9 +113,9 @@ const SignUp = ( { location } ) => {
                     <>
                       {isSocialSignup && (
                       <div className="margin-bottom-30">
-                        {SocialSignupButton( 'Signup with Facebook', 'facebook' )}
-                        {SocialSignupButton( 'Signup with Twitter', 'twitter' )}
-                        {SocialSignupButton( 'Signup with LinkedIn', 'linkedin' )}
+                        {SocialSignupButton( 'Sign up with Facebook', 'facebook' )}
+                        {SocialSignupButton( 'Sign up with Twitter', 'twitter' )}
+                        {SocialSignupButton( 'Sign up with LinkedIn', 'linkedin' )}
                       </div>
                       )}
                       {!isSocialSignup && (
@@ -164,12 +163,12 @@ const SignUp = ( { location } ) => {
                       <a onClick={ () => setIsSocialSignup( !isSocialSignup ) }>
                         {isSocialSignup && (
                         <span className="options-span-1">
-                          Signup with Email
+                          Sign up with Email
                         </span>
                         )}
                         {!isSocialSignup && (
                         <span className="options-span-2">
-                          Back to social signup options
+                          Back to social sign up options
                         </span>
                         )}
                       </a>

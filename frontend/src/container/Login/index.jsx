@@ -68,7 +68,7 @@ const Login = () => {
       variant="contained"
       size="large"
       color="primary"
-      className={ `social-sigup-buttons ${ type }` }
+      className={ `social-login-buttons ${ type }` }
       onClick={ () => handleSocialLogin( type ) }
     >
       {buttonName}
