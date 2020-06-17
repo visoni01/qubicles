@@ -16,19 +16,19 @@ const {
     userLoginStart: ( state ) => ( {
       ...state,
       isLoading: true,
-      success:false,
-      error: null
+      success: false,
+      error: null,
     } ),
     userLoginSuccessful: ( state ) => ( {
       ...state,
       success: true,
       isLoading: false,
-      error: null
+      error: null,
     } ),
     userLoginFailure: ( state ) => ( {
       ...state,
       error: true,
-      isLoading:false,
+      isLoading: false,
       success: true,
     } ),
   },

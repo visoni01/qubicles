@@ -13,8 +13,8 @@ function* loginWatcher() {
 function* loginWorker( action ) {
   try {
     const data = action && action.payload
-    yield apiClient.login( data )
-    yield put( userLoginSuccessful() )
+    const response = yield apiClient.login( data )
+    if ( response === 200 ) yield put( userLoginSuccessful() )
   } catch ( e ) {
     yield put( userLoginFailure() )
   }
