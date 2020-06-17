@@ -1,0 +1,86 @@
+/*! _dropdowns.scss | Dashkit | CSS Ninja */
+
+/* ==========================================================================
+Dropdown styles
+========================================================================== */
+
+/***
+TABLE OF CONTENTS
+=============================================================================
+0. Styled Dropdowns
+=============================================================================
+***/
+
+
+/* ==========================================================================
+0. Styled Dropdowns
+========================================================================== */
+
+//Dropdowns
+.styled-dropdown {
+    height: 36px;
+    width: 36px;
+    &.is-round {
+        > .button {
+            border-radius: 50%;
+        }
+    }
+
+    //Trigger
+    > .button {
+        height: 36px;
+        width: 36px;
+
+        i {
+            padding: 0;
+            color: $muted-grey;
+        }
+
+        &:hover {
+            background: lighten($fade-grey, 4%) !important;
+
+            i {
+                color: $blue-grey;
+            }
+        }
+    }
+
+    //Dropdown menu
+    .dropdown-menu {
+        width: 280px;
+        box-shadow: $light-box-shadow;
+
+        .dropdown-content {
+            .dropdown-item {
+                display: flex;
+                align-items: center;
+                width: 100%;
+
+                span {
+                    display: block;
+                    margin: 0 10px;
+                    line-height: 1.2;
+
+                    span {
+                        &:first-child {
+                            font-size: 1rem;
+                            font-weight: 500;
+                        }
+
+                        &:nth-child(2) {
+                            font-size: .9rem;
+                            font-weight: 400;
+                            font-family: "Segoe UI", sans-serif;
+                            color: $muted-grey;
+                        }
+                    }
+                }
+
+                i {
+                    font-size: 16px;
+                    color: $muted-grey;
+                }
+            }
+        }
+    }
+}
