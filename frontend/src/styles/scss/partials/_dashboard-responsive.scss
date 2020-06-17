@@ -1,0 +1,500 @@
+/*! _dashboard-responsive.scss | Bulkit | CSS Ninja */
+
+/* ==========================================================================
+Dashboard responsive styles
+========================================================================== */
+
+/***
+TABLE OF CONTENTS
+=============================================================================
+0. Mobile
+1. Portrait Tablet
+2. Landscape Tablet
+=============================================================================
+***/
+
+/* ==========================================================================
+0. Mobile
+========================================================================== */
+
+//Mobile media queries
+@media (max-width: 767px) {
+    //Main sidebar
+    .main-menu {
+        width: 60px;
+    }
+
+    //Push sidebar
+    .child-menu {
+        left: 60px;
+    }
+
+    //Navbar
+    .dashboard-nav {
+        margin-left: 60px;
+        max-width: calc(100% - 60px);
+        padding: 0;
+        background: $white !important;
+
+        .navbar-brand {
+            height: 60px;
+        }
+
+        .navbar-subnav {
+            display: none !important;
+        }
+    }
+
+    #dashboard-wrapper {
+        margin-left: 60px;
+        width: calc(100% - 60px);
+    }
+
+    .dashboard-outer {
+        padding-left: 16px;
+        padding-right: 16px;
+        padding-top: 80px !important;
+
+        &.is-docked {
+            padding: 0 !important;
+        }
+
+        .dashboard-inner {
+            .dashboard-wrapper {
+                .dashboard-tiles {
+                    padding-top: 20px;
+                }
+            }
+        }
+    }
+
+    //Profile
+    .fab {
+        left: 6px !important;
+    }
+
+    .profile-container {
+        .inner {
+            margin-left: 60px;
+            width: calc(100% - 60px);
+
+            .profile-cover {
+                //Profile overlay & content
+                .profile-heading {
+                    text-align: center;
+
+                    .left-side {
+                        flex-direction: column;
+                    }
+
+                    .avatar {
+                        max-height: 90px;
+                        max-width: 90px;
+                        margin-bottom: 12px !important;
+
+                        img, .avatar-overlay {
+                            max-height: 90px;
+                            max-width: 90px;
+                        }
+                    }
+                }
+            }
+
+            .profile-sections-outer {
+                padding: 0;
+
+                .profile-details {
+                    margin-top: 6px;
+
+                    .profile-view {
+                        padding: 0.75rem 1rem;
+                    }
+                }
+
+                .profile-notifications {
+                    margin-top: 6px;
+                    padding: 0.75rem 1rem;
+                }
+
+                .profile-team {
+                    margin-top: 6px;
+                    padding: 0.75rem 1rem;
+
+                    .team-number {
+                        text-align: center;
+                    }
+
+                    .team-avatars {
+                        span {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //profile notifications
+    .notifications-center {
+        li {
+            margin-bottom: 10px;
+
+            .description {
+                margin-right: 0;
+            }
+        }
+    }
+
+    //Quickview
+    .quickview.is-active {
+        min-width: 100%;
+        z-index: 1001;
+
+        .user-list {
+            max-height: 346px !important;
+        }
+    }
+
+    .chat-quickview.is-active {
+        min-width: 100%;
+        z-index: 1002 !important;
+    }
+
+    // Reader mode (only mobile)
+    body.reader-mode {
+        .main-menu {
+            transform: translateX(-60px);
+        }
+
+        .child-menu {
+            transform: translateX(-311px);
+        }
+
+        nav.dashboard-nav {
+            margin-left: 0;
+            max-width: 100%;
+        }
+
+        #dashboard-wrapper {
+            margin-left: 0;
+            width: 100%;
+        }
+    }
+
+    //Posts
+    .featured-feed-post {
+        margin-top: 10px !important;
+
+        .image {
+            .author-avatar {
+                img {
+                    width: 60px !important;
+                    height: 60px !important;
+                    bottom: -75px !important;
+                }
+            }
+        }
+    }
+
+    //cards
+    .card-body {
+        &.is-responsive {
+            padding: 10px !important;
+        }
+    }
+
+    //Typography
+    .responsive-title {
+        font-size: 1.35rem !important;
+    }
+
+    //Invoice
+    .is-invoice {
+        padding: 40px 20px !important;
+    }
+
+    //Contact tabs
+    .is-contact-info .single-contact-tabs {
+        padding: 20px 16px 40px 16px !important;
+
+        .navtab-content {
+            padding: 16px 0 0 0 !important;
+        }
+
+        .lifetime-won {
+            width: 80% !important;
+        }
+    }
+
+    //Kanban
+    .boards-wrapper {
+        padding: 0 4px !important;
+    }
+
+    .board {
+        max-width: 100% !important;
+    }
+
+    //Boards
+    .boards-grid {
+        .board-meta {
+            flex-direction: column;
+
+            label {
+                margin-bottom: 20px !important;
+            }
+
+            .board-assignees {
+                width: 100% !important;
+            }
+        }
+    }
+
+    //Projects
+    .projects-wrapper {
+        .project-header-wrap {
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+
+    //Invoice
+    .invoice-wrapper {
+        padding: 0 !important;
+    }
+
+    //Contacts
+    .contact-profile-wrap {
+        padding: 0 !important;
+    }
+
+    //Helpers
+    .is-hidden-phones {
+        display: none !important;
+    }
+
+    //Support
+    .support-dashboard {
+        .support-box {
+            .channels {
+                left: -6px !important;
+                max-width: 210px !important;
+            }
+        }
+    }
+
+    //Login
+    .login-form-wrapper {
+        padding: 0 !important;
+    }
+}
+
+/* ==========================================================================
+1. Portrait Tablet
+========================================================================== */
+
+//repositionning chat quickview button on tablets with portrait orientation
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+    .dashboard-nav {
+        background: $white !important;
+        padding: 0 0 0 40px !important;
+
+        .navbar-brand {
+            height: 60px;
+        }
+    }
+
+    .dashboard-outer {
+        padding-top: 80px !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+
+        &.is-docked {
+            padding: 0 !important;
+        }
+    }
+
+    .mobile-nav {
+        margin-left: 80px !important;
+        width: 100%;
+        max-width: calc(100% - 80px) !important;
+    }
+
+    //Reader switch
+    .reader-switch {
+        display: none !important;
+    }
+
+    //Projects
+    .projects-wrapper {
+        .project-header-wrap {
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+
+    //Kanban
+    .board {
+        max-width: 100% !important;
+    }
+
+    //Invoice
+    .invoice-wrapper {
+        padding: 0 !important;
+    }
+
+    //Support
+    .support-dashboard {
+        .support-box {
+            .channels {
+                left: -6px !important;
+                max-width: 560px !important;
+            }
+        }
+    }
+}
+
+/* ==========================================================================
+2. Landscape Tablet
+========================================================================== */
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+    .dashboard-outer {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+
+        &.is-docked {
+            padding: 0 !important;
+        }
+    }
+
+    .dashboard-wrapper {
+        margin-left: 0 !important;
+    }
+
+    //Dashboard nav
+    .dashboard-nav {
+        padding: 0 20px !important;
+    }
+
+    //Mobile Nav
+    .mobile-nav {
+        display: none !important;
+    }
+
+    .quickview {
+        .user-list {
+            max-height: 500px !important;
+        }
+    }
+
+    //Dashboard
+    .dashboard-tiles {
+        padding-top: 20px !important;
+
+        .dashboard-tile {
+            .icon-header i {
+                top: -10px !important;
+                left: -12px !important;
+                padding: 16px !important;
+                font-size: 20px !important;
+            }
+
+            .tile-content {
+                margin-left: 40px !important;
+
+                h3 {
+                    font-size: 1.2rem !important;
+                }
+
+                p {
+                    span {
+                        &:first-child {
+                            font-size: 1.3rem !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //Dashboard map
+    .map-card {
+        svg {
+            position: relative;
+            left: -50px;
+            transform: scale(0.6) !important;
+        }
+    }
+
+    //Kanban
+    .board, .is-create-board {
+        max-width: 235px !important;
+
+        .placeholder-image {
+            max-width: 145px !important;
+        }
+
+        .assignees img {
+            height: 32px !important;
+            width: 32px !important;
+        }
+    }
+
+    .kanban-box {
+        .deal-value {
+            display: none !important;
+        }
+    }
+
+    //Boards
+    .boards-grid {
+        .column.is-4 {
+            width: 50% !important;
+        }
+
+        .board-meta {
+            flex-direction: column;
+
+            label {
+                margin-bottom: 20px !important;
+            }
+
+            .board-assignees {
+                width: 100% !important;
+            }
+        }
+
+        .footer-block {
+            height: 65px !important;
+        }
+    }
+
+    .is-not-supported {
+        display: none !important;
+    }
+
+    //Support
+    .support-dashboard {
+        .support-box {
+            .channels {
+                left: -10px !important;
+                max-width: 230px !important;
+            }
+        }
+    }
+}
+
+/* ==========================================================================
+3. Desktop screens
+========================================================================== */
+
+@media only screen and (min-device-width: 1025px) {
+    .dashboard-wrapper {
+        margin-left: 0 !important;
+    }
+
+    .board {
+        max-width: 352px !important;
+    }
+}

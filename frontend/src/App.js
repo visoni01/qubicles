@@ -1,7 +1,7 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-
+import Dashboard from './container/Dashboard'
 import { Signup, EmailVerification, PostSignUp } from './container/User/Signup'
 import InviteFriends from './container/InviteFriendsPage'
 import Login from './container/Login'
@@ -19,6 +19,7 @@ function App() {
             path="/verify-token/:token"
             component={ EmailVerification }
           />
+          <Route exact path="/dashboard" component={ Dashboard } />
           <Route exact path="/post-signup" component={ PostSignUp } />
           <Route exact path="/invite-friends" component={ InviteFriends } />
         </Switch>
