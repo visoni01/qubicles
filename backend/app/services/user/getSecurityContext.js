@@ -31,7 +31,7 @@ export default class GetSecurityContextService extends ServiceBase {
     // TODO: Below implementation will be done when we start work on campaign
     if (clientIds && clientIds.length > 0) {
       // CampaignsRef = mf.GetCampaigns (ClientIdsRef [0]).ToList ();
-      clientIngroups = await getInboundGroupsByClient({ currentClientId: clientIds[0] })
+      clientIngroups = await getInboundGroupsByClient({ clientId: clientIds[0] })
     }
     return {
       userRef: this.user,

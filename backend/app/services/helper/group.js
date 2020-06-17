@@ -42,10 +42,10 @@ export const parseInboundGroupsFromField = async ({ inboundGroupsFieldValue, cli
   return inboundGroups
 }
 
-export const getInboundGroupsByClient = async ({ currentClientId }) => {
+export const getInboundGroupsByClient = async ({ clientId }) => {
   const xInboundGroupData = await executeSelectQuery({
     method: 'getGroupsByClient',
-    clientId: currentClientId,
+    clientId: clientId,
     tableName: XInboundGroup.tableName
   })
   return xInboundGroupData
@@ -61,22 +61,22 @@ export const getXferInboundGroups = async ({ campaignId, clientIngroups }) => {
   return getXferInboundGroupsByCampaignData({ campaign, clientIngroups })
 }
 
-export const getInboundGroups = async ({ user, currentClientId }) => {
+export const getInboundGroups = async ({ user, clientId }) => {
   let inboundGroups = []
   if (user.user_level < USER_LEVEL.SYSTEM) {
-    inboundGroups = await getInboundGroupsByClient({ currentClientId })
+    inboundGroups = await getInboundGroupsByClient({ clientId })
   } else {
     inboundGroups = await XInboundGroup.findAll({ raw: true })
   }
   return inboundGroups
 }
 
-export const getInboundGroupsByUser = async ({ user, currentClientId, clientIngroups }) => {
+export const getInboundGroupsByUser = async ({ user, clientId, clientIngroups }) => {
   let inboundGroups = []
   if (user.user_level < USER_LEVEL.SYSTEM) {
     inboundGroups = parseInboundGroupsFromField({ inboundGroupsFieldValue: user.closer_campaigns, clientIngroups })
   } else {
-    inboundGroups = await getInboundGroups({ user, currentClientId })
+    inboundGroups = await getInboundGroups({ user, clientId })
   }
   return inboundGroups
 }
