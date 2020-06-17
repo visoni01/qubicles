@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useSelector, useDispatch } from 'react-redux'
 import * as yup from 'yup'
@@ -8,8 +8,9 @@ import {
   faPaperPlane,
   faUser,
   faLock,
+
 } from '@fortawesome/free-solid-svg-icons'
-import { Button, Divider } from '@material-ui/core'
+import { Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 
 import { userSignupStart } from '../../../../redux-saga/redux/signup'
@@ -27,7 +28,8 @@ const SignUp = ( { location } ) => {
   const { register, errors, handleSubmit } = useForm( {
     validationSchema: schema,
   } )
-  const isSocialSignup = location.search && location.search.split( '?' )[ 1 ] === 'with_social=true' // Temporary set up.
+  const [ isSocialSignup, setIsSocialSignup ] = useState( true )
+  const isSocialSignupSuccess = location.search && location.search.split( '?' )[ 1 ] === 'with_social=true' // Temporary set up.
   const dispatch = useDispatch()
   const onSubmit = ( data ) => dispatch( userSignupStart( data ) )
   const { error, isLoading, success } = useSelector( ( state ) => state.signup )
@@ -49,6 +51,7 @@ const SignUp = ( { location } ) => {
         name={ name }
         ref={ register }
         placeholder={ placeholder }
+        size="medium"
       />
       <span className="icon is-medium is-right">
         <FontAwesomeIcon icon={ icon } />
@@ -66,13 +69,13 @@ const SignUp = ( { location } ) => {
     window.open( `${ process.env.REACT_APP_NODE_BASE_URL }/auth/${ method }` )
   }
 
-  const SocialSignupButton = ( buttonName ) => (
+  const SocialSignupButton = ( buttonName, type ) => (
     <Button
-      variant="outlined"
-      size="medium"
+      variant="contained"
+      size="large"
       color="primary"
-      className="social-sigup-buttons"
-      onClick={ () => handleSocialSignup( buttonName ) }
+      className={ `social-sigup-buttons ${ type }` }
+      onClick={ () => handleSocialSignup( type ) }
     >
       {buttonName}
     </Button>
@@ -107,56 +110,73 @@ const SignUp = ( { location } ) => {
             <div className="container">
               <div className="columns">
                 <div className="column is-8 is-offset-2">
-                  {( !success && !isSocialSignup ) && (
+                  {( !success && !isSocialSignupSuccess ) && (
                     <>
-                      <div>
-                        {SocialSignupButton( 'facebook' )}
-                        {SocialSignupButton( 'twitter' )}
-                        {SocialSignupButton( 'linkedin' )}
+                      {isSocialSignup && (
+                      <div className="margin-bottom-30">
+                        {SocialSignupButton( 'Signup with Facebook', 'facebook' )}
+                        {SocialSignupButton( 'Signup with Twitter', 'twitter' )}
+                        {SocialSignupButton( 'Signup with LinkedIn', 'linkedin' )}
                       </div>
-                      <Divider className="divider-margin" />
-                      <div className="field pb-10">
-                        {inputField(
-                          'email',
-                          'signupEmail',
-                          'Enter your email address',
-                          faPaperPlane,
-                          'email',
-                        )}
-                        {inputField(
-                          'first_name',
-                          'firstName',
-                          'Enter your first name',
-                          faUser,
-                        )}
-                        {inputField(
-                          'last_name',
-                          'lastName',
-                          'Enter your last name',
-                          faUser,
-                        )}
-                        {inputField(
-                          'pass',
-                          'password',
-                          'Enter your password',
-                          faLock,
-                          'password',
-                        )}
+                      )}
+                      {!isSocialSignup && (
+                      <div className="margin-bottom-30">
+                        <div className="field pb-10">
+                          {inputField(
+                            'email',
+                            'signupEmail',
+                            'Enter your email address',
+                            faPaperPlane,
+                            'email',
+                          )}
+                          {inputField(
+                            'first_name',
+                            'firstName',
+                            'Enter your first name',
+                            faUser,
+                          )}
+                          {inputField(
+                            'last_name',
+                            'lastName',
+                            'Enter your last name',
+                            faUser,
+                          )}
+                          {inputField(
+                            'pass',
+                            'password',
+                            'Enter your password',
+                            faLock,
+                            'password',
+                          )}
+                        </div>
+                        <p className="control login">
+                          <button
+                            type="button"
+                            onClick={ handleSubmit( onSubmit ) }
+                            id="sendVerificationCode"
+                            className="button btn-outlined is-bold is-fullwidth rounded raised no-lh"
+                          >
+                            Sign Up
+                          </button>
+                        </p>
                       </div>
-                      <p className="control login">
-                        <button
-                          type="button"
-                          onClick={ handleSubmit( onSubmit ) }
-                          id="sendVerificationCode"
-                          className="button btn-outlined is-bold is-fullwidth rounded raised no-lh"
-                        >
-                          Sign Up
-                        </button>
-                      </p>
+                      )}
+                      <a onClick={ () => setIsSocialSignup( !isSocialSignup ) }>
+                        {isSocialSignup && (
+                        <span className="options-span-1">
+                          Signup with Email
+                        </span>
+                        )}
+                        {!isSocialSignup && (
+                        <span className="options-span-2">
+                          Back to social signup options
+                        </span>
+                        )}
+                      </a>
                     </>
                   )}
                   <div>
-                    {( success || isSocialSignup ) && (
+                    {( success || isSocialSignupSuccess ) && (
                       <>
                         You have succesfully registered. Please check your inbox
                         to verify your email !!

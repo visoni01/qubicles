@@ -11,12 +11,12 @@ const steps = {
       { label: 'Contact Phone', type: 'text', name: 'phone_number' },
     ],
     schema: yup.object().shape( {
-      client_name: yup.string().max(45).required( '*Required' ),
-      address1: yup.string().max(100).required( '*Required' ),
-      city: yup.string().max(100).required( '*Required' ),
-      state: yup.string().max(100).required( '*Required' ),
-      zip: yup.string().max(10).required( '*Required' ),
-      phone_number: yup.string().max(15).required( '*Required' ),
+      client_name: yup.string().max( 45 ).required( '*Required' ),
+      address1: yup.string().max( 100 ).required( '*Required' ),
+      city: yup.string().max( 100 ).required( '*Required' ),
+      state: yup.string().max( 100 ).required( '*Required' ),
+      zip: yup.string().max( 10 ).required( '*Required' ),
+      phone_number: yup.string().max( 15 ).required( '*Required' ),
     } ),
   },
   2: {
@@ -46,9 +46,9 @@ const steps = {
       { label: 'Website', type: 'text', name: 'website' },
     ],
     schema: yup.object().shape( {
-      source: yup.string().max(100).required( '*Required' ),
-      interactions_per_month: yup.string().max(100).required( '*Required' ),
-      website: yup.string().max(100).required( '*Required' ),
+      source: yup.string().max( 100 ).required( '*Required' ),
+      interactions_per_month: yup.string().max( 100 ).required( '*Required' ),
+      website: yup.string().max( 100 ).required( '*Required' ),
     } ),
   },
 }

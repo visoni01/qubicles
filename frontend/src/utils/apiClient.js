@@ -8,7 +8,7 @@ class ApiClient {
     this.localStorageInst = window.localStorage
   }
 
-  authToken = () =>  this.localStorageInst.getItem( 'token' )
+  authToken = () => this.localStorageInst.getItem( 'token' )
 
   makeRequest = ( url, method, data = {} ) => this.axios( {
     url,
