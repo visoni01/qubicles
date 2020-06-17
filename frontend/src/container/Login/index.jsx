@@ -9,14 +9,15 @@ import {
   faLock,
 } from '@fortawesome/free-solid-svg-icons'
 import { Button } from '@material-ui/core'
+import { Redirect } from 'react-router-dom'
 
 import { userLoginStart } from '../../redux-saga/redux/login'
 import QubiclesLogo from '../../assets/images/qbe-dark.png'
 import './style.scss'
 
 const schema = yup.object().shape( {
-  first_name: yup.string().required( '*Required' ),
-  pass: yup.string().required( '*Required' ),
+  email: yup.string().required( '*Required' ),
+  password: yup.string().required( '*Required' ),
 } )
 
 const Login = () => {
@@ -124,7 +125,7 @@ const Login = () => {
                             'email',
                           )}
                           {inputField(
-                            'pass',
+                            'password',
                             'password',
                             'Enter your password',
                             faLock,
@@ -163,6 +164,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+      {success && <Redirect to="/dashboard" />}
     </div>
   )
 }
