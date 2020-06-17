@@ -68,13 +68,35 @@ select {
 
 .social-sigup-buttons {
   width: 100%;
-  margin-bottom: 10px !important;
-}
-
-.is-fullheight {
-  min-height: 100% !important;
+  margin-bottom: 15px !important;
+  border-radius: 25px !important;
+  text-transform: none !important;
 }
 
 .section {
   padding: 2rem 1.5rem !important;
+}
+
+.facebook {
+  background-color: #3B5998 !important;
+}
+
+.twitter {
+  background-color: #1dcaff !important;
+}
+
+.linkedin {
+  background-color: #007bb6 !important;
+}
+
+.options-span-1 {
+  margin-left: calc(50% - 63px);
+}
+
+.options-span-2 {
+  margin-left: calc(50% - 104px);
+}
+
+.margin-bottom-30 {
+  margin-bottom: 30px;
 }
