@@ -1,8 +1,8 @@
 import ServiceBase from '../../common/serviceBase'
-import config from '../../../config/app'
-import nodemailer from 'nodemailer'
-import mg from 'nodemailer-mailgun-transport'
 import logger from '../../common/logger'
+import NodeMailer from '../../utils/getNodeMailer'
+import { notificationEmailTemplate } from '../../templates/notificationEmailTemplate'
+import config from '../../../config/app'
 
 const constraints = {
   email: {
@@ -18,23 +18,13 @@ export default class SendEmailVerificationMailService extends ServiceBase {
   }
 
   async run () {
-    const auth = {
-      auth: {
-        api_key: config.get('mailgun.apiKey'),
-        domain: config.get('mailgun.domain')
-      }
-    }
-    const verifyEmailPageUrl = `${config.get('webApp.baseUrl')}/auth/verify-token/${this.token}`
+    const verifyEmailPageUrl = `${config.get('webApp.baseUrl')}/verify-token/${this.token}`
 
-    const nodemailerMailgun = nodemailer.createTransport(mg(auth))
-
-    nodemailerMailgun.sendMail({
+    NodeMailer.sendMail({
       from: 'Qubicles <notifications@qubicles.io>',
       to: this.email,
       subject: 'Please confirm your email',
-      html: `<p>Hello, Welcome to Qubicles! We are excited to have you on-board and there's just one step to verify if it's actually your e-mail address: </p>
-      <p> <a href="${verifyEmailPageUrl}">Click Here</a> to verify your email address. </p>
-      <p>Or, alternatively </br> paste the following link in your browser </br> ${verifyEmailPageUrl}</p>`
+      html: getHtml({ verifyEmailPageUrl })
     }, (error, info) => {
       if (error) {
         logger.error(`Error in sending verification mail: ${error}`)
@@ -43,4 +33,27 @@ export default class SendEmailVerificationMailService extends ServiceBase {
       }
     })
   }
+}
+
+function getHtml ({ verifyEmailPageUrl }) {
+  const EMAIL_TEMPLATE_GREETING = 'Hello'
+  const EMAIL_TEMPLATE_BODY = `
+  Welcome to Qubicles! 
+  <br />
+  <br />
+  We are excited to have you on-board and there's just one step to verify if it's actually your email address
+  <br />
+  <a href=${verifyEmailPageUrl}>Click Here</a> to verify your email
+  <br />
+  *********************************************************************
+  <br />
+  Or Copy the link below and paste it in your browser to verify your email
+  <br />
+  <br />
+  ${verifyEmailPageUrl}
+  <br /><br />
+  *********************************************************************
+  `
+  const EMAIL_TEMPLATE_CLOSING = ''
+  return notificationEmailTemplate(EMAIL_TEMPLATE_GREETING, EMAIL_TEMPLATE_BODY, EMAIL_TEMPLATE_CLOSING)
 }

@@ -1,9 +1,8 @@
 import ServiceBase from '../../common/serviceBase'
 import config from '../../../config/app'
-import nodemailer from 'nodemailer'
-import mg from 'nodemailer-mailgun-transport'
 import logger from '../../common/logger'
 import { notificationEmailTemplate } from '../../templates/notificationEmailTemplate'
+import NodeMailer from '../../utils/getNodeMailer'
 
 const constraints = {
   client_name: {
@@ -42,15 +41,8 @@ export default class SendEmailNotificationMailService extends ServiceBase {
 
   async run () {
     const clientInfo = this.filteredArgs
-    const auth = {
-      auth: {
-        api_key: config.get('mailgun.apiKey'),
-        domain: config.get('mailgun.domain')
-      }
-    }
-    const nodemailerMailgun = nodemailer.createTransport(mg(auth))
 
-    nodemailerMailgun.sendMail({
+    NodeMailer.sendMail({
       from: 'Qubicles <notifications@qubicles.io>',
       to: config.get('qubiclesMailIds.sales'),
       subject: 'New Client Registration',

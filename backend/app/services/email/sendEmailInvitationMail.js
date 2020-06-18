@@ -1,10 +1,8 @@
 import ServiceBase from '../../common/serviceBase'
-import config from '../../../config/app'
-import nodemailer from 'nodemailer'
-import mg from 'nodemailer-mailgun-transport'
 import logger from '../../common/logger'
 import { notificationEmailTemplate } from '../../templates/notificationEmailTemplate'
 import { UserContact } from '../../db/models'
+import NodeMailer from '../../utils/getNodeMailer'
 
 const constraints = {
   contacts: {
@@ -32,17 +30,10 @@ export default class SendEmailInvitationMailService extends ServiceBase {
   }
 
   async run () {
-    const auth = {
-      auth: {
-        api_key: config.get('mailgun.apiKey'),
-        domain: config.get('mailgun.domain')
-      }
-    }
-    const nodemailerMailgun = nodemailer.createTransport(mg(auth))
     const { inviteLink, user_id, updateSent, contacts, inviter_first_name, inviter_last_name } = this.args
 
     for (const contact of contacts) {
-      nodemailerMailgun.sendMail({
+      NodeMailer.sendMail({
         from: 'Qubicles <invitaions@qubicles.io>',
         to: contact.email,
         subject: `${inviter_first_name} has invited you to join Qubicles!`,
