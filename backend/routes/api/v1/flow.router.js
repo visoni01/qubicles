@@ -49,6 +49,10 @@ flowRouter.route('/create')
 flowRouter.route('/edit')
   .post(isAuthenticated, flowController.editFlow)
 
+// Section-3.8, REQ-13
+flowRouter.route('/copy')
+  .post(isAuthenticated, flowController.copyFlow)  
+
 // Section-3.8, REQ-14
 flowRouter.route('/delete/:flowId')
   .post(isAuthenticated, flowController.deleteFlow)

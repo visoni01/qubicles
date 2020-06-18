@@ -11,3 +11,8 @@ export const splitCombinedFieldValuesForGroup = (combinedFieldValues) => {
   }
   return values
 }
+
+export const createNewEntity = async ({ model, data }) => {
+  const dataValues = await model.create(data)
+  return dataValues.get({ plain: true })
+}

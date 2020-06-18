@@ -11,7 +11,8 @@ import {
   AddFlowService,
   EditFlowService,
   DeleteFlowService,
-  GetACDQueueService
+  GetACDQueueService,
+  CopyFlowService
 } from '../services/flow'
 import config from '../../config/app'
 
@@ -122,6 +123,15 @@ export default class FlowController {
       Responder.success(res, acdQueueResult.result)
     } else {
       res.boom.badRequest('Get ACD Queue Operation failed', acdQueueResult.errors)
+    }
+  }
+
+  static async copyFlow (req, res) {
+    const copyFlowResult = await CopyFlowService.execute(req.body)
+    if (copyFlowResult.successful) {
+      Responder.success(res, copyFlowResult.result)
+    } else {
+      res.boom.badRequest('Copy Flow Operation failed', copyFlowResult.errors)
     }
   }
 }
