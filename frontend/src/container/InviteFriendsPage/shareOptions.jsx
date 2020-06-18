@@ -4,8 +4,14 @@ import {
   Button, TextField, Divider, Snackbar,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FacebookShareButton, TwitterShareButton, LinkedinShareButton } from 'react-share'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { inviteRequestStart } from '../../redux-saga/redux/invitePage'
+import {
+  FacebookIcon,
+  LinkedinIcon,
+  TwitterIcon,
+} from "react-share";
 
 const ShareModal = () => {
   const dispatch = useDispatch()
@@ -96,20 +102,41 @@ const ShareModal = () => {
         <div className="shareModal-invite-link">
           <h4 className="shareModal-social-h4">Share Via Social</h4>
           <div>
-            <Button
-              variant="outlined"
-              color="primary"
-              className="sharemodal-buttons shareModal-invite-fb"
+            <FacebookShareButton
+              url="invite link" // Hard coded temporary, BE is not ready yet.
+              quote="Qubicles invite link"
             >
-              Facebook
-            </Button>
-            <Button
-              variant="outlined"
-              color="primary"
-              className="sharemodal-buttons"
+              <Button
+                variant="contained"
+                color="primary"
+                className="sharemodal-buttons shareModal-invite-fb facebook"
+              >
+                Facebook
+              </Button>
+            </FacebookShareButton>
+            <TwitterShareButton
+              url="Invite link" // Hard coded temporary, BE is not ready yet.
+              title="Invite link"
             >
-              Twitter
-            </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                className="sharemodal-buttons shareModal-invite-fb twitter"
+              >
+                Twitter
+              </Button>
+            </TwitterShareButton>
+            <LinkedinShareButton
+              url="Invite Link" // Hard coded temporary, BE is not ready yet.
+            >
+              <Button
+                variant="contained"
+                color="primary"
+                className="sharemodal-buttons linkedin"
+              >
+                LinkedIn
+              </Button>
+            </LinkedinShareButton>
           </div>
         </div>
       </div>
