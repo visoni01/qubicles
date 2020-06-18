@@ -7,6 +7,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FacebookShareButton, TwitterShareButton, LinkedinShareButton } from 'react-share'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { inviteRequestStart } from '../../redux-saga/redux/invitePage'
+import {
+  FacebookIcon,
+  LinkedinIcon,
+  TwitterIcon,
+} from "react-share";
 
 const ShareModal = () => {
   const dispatch = useDispatch()
@@ -102,9 +107,9 @@ const ShareModal = () => {
               quote="Qubicles invite link"
             >
               <Button
-                variant="outlined"
+                variant="contained"
                 color="primary"
-                className="sharemodal-buttons shareModal-invite-fb"
+                className="sharemodal-buttons shareModal-invite-fb facebook"
               >
                 Facebook
               </Button>
@@ -114,9 +119,9 @@ const ShareModal = () => {
               title="Invite link"
             >
               <Button
-                variant="outlined"
+                variant="contained"
                 color="primary"
-                className="sharemodal-buttons shareModal-invite-fb"
+                className="sharemodal-buttons shareModal-invite-fb twitter"
               >
                 Twitter
               </Button>
@@ -125,9 +130,9 @@ const ShareModal = () => {
               url="Invite Link" // Hard coded temporary, BE is not ready yet.
             >
               <Button
-                variant="outlined"
+                variant="contained"
                 color="primary"
-                className="sharemodal-buttons"
+                className="sharemodal-buttons linkedin"
               >
                 LinkedIn
               </Button>
