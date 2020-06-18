@@ -8,7 +8,5 @@ const auth = {
     domain: config.get('mailgun.domain')
   }
 }
-export default function getNodeMailerObject () {
-  const nodemailerMailgun = nodemailer.createTransport(mg(auth))
-  return nodemailerMailgun
-}
+
+export default nodemailer.createTransport(mg(auth))

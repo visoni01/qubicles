@@ -2,7 +2,7 @@ import ServiceBase from '../../common/serviceBase'
 import logger from '../../common/logger'
 import { notificationEmailTemplate } from '../../templates/notificationEmailTemplate'
 import { UserContact } from '../../db/models'
-import getNodeMailerObject from '../../utils/getNodeMailer'
+import NodeMailer from '../../utils/getNodeMailer'
 
 const constraints = {
   contacts: {
@@ -30,11 +30,10 @@ export default class SendEmailInvitationMailService extends ServiceBase {
   }
 
   async run () {
-    const { inviteLink, user_id, updateSent, contacts, user } = this.args
-    const nodemailerMailgun = getNodeMailerObject()
+    const { inviteLink, user_id, updateSent, contacts, inviter_first_name, inviter_last_name } = this.args
 
     for (const contact of contacts) {
-      nodemailerMailgun.sendMail({
+      NodeMailer.sendMail({
         from: 'Qubicles <invitaions@qubicles.io>',
         to: contact.email,
         subject: `${inviter_first_name} has invited you to join Qubicles!`,

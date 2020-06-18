@@ -2,7 +2,7 @@ import ServiceBase from '../../common/serviceBase'
 import config from '../../../config/app'
 import logger from '../../common/logger'
 import { notificationEmailTemplate } from '../../templates/notificationEmailTemplate'
-import getNodeMailerObject from '../../utils/getNodeMailer'
+import NodeMailer from '../../utils/getNodeMailer'
 
 const constraints = {
   client_name: {
@@ -41,9 +41,8 @@ export default class SendEmailNotificationMailService extends ServiceBase {
 
   async run () {
     const clientInfo = this.filteredArgs
-    const nodemailerMailgun = getNodeMailerObject()
 
-    nodemailerMailgun.sendMail({
+    NodeMailer.sendMail({
       from: 'Qubicles <notifications@qubicles.io>',
       to: config.get('qubiclesMailIds.sales'),
       subject: 'New Client Registration',
