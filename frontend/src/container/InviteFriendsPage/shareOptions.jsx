@@ -4,6 +4,7 @@ import {
   Button, TextField, Divider, Snackbar,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FacebookShareButton } from 'react-share'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { inviteRequestStart } from '../../redux-saga/redux/invitePage'
 
@@ -96,13 +97,18 @@ const ShareModal = () => {
         <div className="shareModal-invite-link">
           <h4 className="shareModal-social-h4">Share Via Social</h4>
           <div>
-            <Button
-              variant="outlined"
-              color="primary"
-              className="sharemodal-buttons shareModal-invite-fb"
+            <FacebookShareButton
+              url={"invite link"} //Hard coded temporary, BE is not ready yet.
+              quote="Qubicles invite link"
             >
-              Facebook
-            </Button>
+              <Button
+                variant="outlined"
+                color="primary"
+                className="sharemodal-buttons shareModal-invite-fb"
+              >
+                Facebook
+              </Button>
+            </FacebookShareButton>
             <Button
               variant="outlined"
               color="primary"
