@@ -3,14 +3,15 @@ import SideBar from '../../components/Dashboard/sideBar'
 import Announcement from '../../components/Dashboard/announcement'
 import ActivityPosting from '../../components/Dashboard/activityPosting'
 import Overview from '../../components/Dashboard/overview'
+import ActivityDetail from '../../components/Dashboard/activityDetail'
 import profileLogo1 from '../../assets/images/ray.jpg'
 import profileLogo2 from '../../assets/images/helen.jpg'
 import demoPic from '../../assets/images/demo-pic.jpeg'
 
 const Dashboard = () => (
   <div>
-    <SideBar /> 
     <div id="dashboard-wrapper" className={'dashboard-outer'}>
+      <SideBar />
       <div className={'dashboard-heading'}> Welcome to the Floor, Marlon </div>
 
       <div id="main-dashboard" className={'section-wrapper'}>
@@ -106,61 +107,18 @@ const Dashboard = () => (
             </div>
           </div>      
           <div className={'column is-4'}>
-            <div className={'feed-card is-users'}>
-              <h3 className={'card-heading'}>Active users</h3>
-                <ul className={'user-list'}>
-                  <li>
-                    <div className={'user-list-avatar'}>
-                      <img src={profileLogo2} />
-                    </div>
-                    <div className={'user-list-info'}>
-                      <div className={'name'}>Terry Daniels</div>
-                      <div className={'position'}>CEO</div>
-                    </div>
-                    <div className={'user-list-status is-online'}></div>
-                  </li>
-                  <li>
-                    <div className={'user-list-avatar'}>
-                      <img src={profileLogo2} />
-                    </div>
-                    <div className={'user-list-info'}>
-                      <div className={'name'}>Marjory Cambell</div>
-                      <div className={'position'}>CFO</div>
-                    </div>
-                    <div className={'user-list-status is-busy'}></div>
-                  </li>
-                  <li>
-                    <div className={'user-list-avatar'}>
-                      <img src={profileLogo2} />
-                    </div>
-                    <div className={'user-list-info'}>
-                      <div className={'name'}>Kevin Smith</div>
-                      <div className={'position'}>Software Engineer</div>
-                    </div>
-                    <div className={'user-list-status is-offline'}></div>
-                  </li>
-                  <li>
-                    <div className={'user-list-avatar'}>
-                      <img src={profileLogo2} />
-                    </div>
-                    <div className={'user-list-info'}>
-                      <div className={'name'}>Melany Wright</div>
-                      <div className={'position'}>Sales Manager</div>
-                    </div>
-                    <div className={'user-list-status is-online'}></div>
-                  </li>
-                  <li>
-                    <div className={'user-list-avatar'}>
-                    <img src={profileLogo2} />
-                    </div>
-                    <div className={'user-list-info'}>
-                      <div className={'name'}>Helen Miller</div>
-                      <div className={'position'}>Sales Manager</div>
-                    </div>
-                    <div className={'user-list-status is-online'}></div>
-                  </li>
-                </ul>
-              </div>
+              {/* Today's activity */ }
+              <ActivityDetail 
+                title={`Today's activity`}
+                data={[
+                  { color: '#ffffff' },
+                  { color: '#92c47d' },
+                  { color: '#fed965' },
+                  { color: '#cccccc' },
+                  { color: '#6ea8dc' },
+                  { color: '#419e16' }
+                ]}
+              />
 
               {/* Overview  */}
 
