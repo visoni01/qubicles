@@ -4,7 +4,7 @@ import {
   Button, TextField, Divider, Snackbar,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { FacebookShareButton } from 'react-share'
+import { FacebookShareButton, TwitterShareButton, LinkedinShareButton } from 'react-share'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { inviteRequestStart } from '../../redux-saga/redux/invitePage'
 
@@ -98,7 +98,7 @@ const ShareModal = () => {
           <h4 className="shareModal-social-h4">Share Via Social</h4>
           <div>
             <FacebookShareButton
-              url={"invite link"} //Hard coded temporary, BE is not ready yet.
+              url="invite link" // Hard coded temporary, BE is not ready yet.
               quote="Qubicles invite link"
             >
               <Button
@@ -109,13 +109,29 @@ const ShareModal = () => {
                 Facebook
               </Button>
             </FacebookShareButton>
-            <Button
-              variant="outlined"
-              color="primary"
-              className="sharemodal-buttons"
+            <TwitterShareButton
+              url="Invite link" // Hard coded temporary, BE is not ready yet.
+              title="Invite link"
             >
-              Twitter
-            </Button>
+              <Button
+                variant="outlined"
+                color="primary"
+                className="sharemodal-buttons shareModal-invite-fb"
+              >
+                Twitter
+              </Button>
+            </TwitterShareButton>
+            <LinkedinShareButton
+              url="Invite Link" // Hard coded temporary, BE is not ready yet.
+            >
+              <Button
+                variant="outlined"
+                color="primary"
+                className="sharemodal-buttons"
+              >
+                LinkedIn
+              </Button>
+            </LinkedinShareButton>
           </div>
         </div>
       </div>
