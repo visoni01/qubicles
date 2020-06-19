@@ -29,15 +29,16 @@ export const generateUUID = () => {
   return uuid
 }
 
-export const isInvalidClientIdAndUserLevel = ({ clients, flowClientId,  user_level }) => {
+export const isAuthorizedForClient = ({ clients, client_id,  user_level }) => {
   let isClientIdMatched = false
-  // here we're checking if flowClientId matches with any clients client_id or not
+  // here we're checking if client_id matches with any clients client_id or not
   for (let index = 0; index < clients.length; index++) {
-    if (clients[index].client_id == flowClientId) {
+    if (clients[index].client_id == client_id) {
       isClientIdMatched = true
       break
     }
   }
   
-  return ( !isClientIdMatched && user_level != USER_LEVEL.SYSTEM)
+  // user must be part of client or be a system user to be authorized for client
+  return ( isClientIdMatched && user_level == USER_LEVEL.SYSTEM)
 }

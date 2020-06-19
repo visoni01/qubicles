@@ -1,6 +1,6 @@
 import ServiceBase from '../../common/serviceBase'
 import { Flow } from '../../db/models'
-import { getUserById, getFlowPagesByFlowId, generateUUID, isInvalidClientIdAndUserLevel } from '../helper'
+import { getUserById, getFlowPagesByFlowId, generateUUID, isAuthorizedForClient } from '../helper'
 import GetClientsService from '../user/getClients'
 import _ from 'lodash'
 
@@ -30,9 +30,9 @@ export class GetFlowPagesByFlowIdService extends ServiceBase {
       const currentUser = await getUserById({ userId: this.userId })
 
       const { clients } = await GetClientsService.run({ userId: this.userId })
-      const isInvalid = isInvalidClientIdAndUserLevel({ 
+      const isInvalid = !isAuthorizedForClient({ 
         clients, 
-        flowClientId: flow.client_id, 
+        client_id: flow.client_id, 
         user_level:  currentUser.user_level
       })
 
