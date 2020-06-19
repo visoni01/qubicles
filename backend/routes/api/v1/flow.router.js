@@ -67,6 +67,6 @@ flowRouter.route('/pages/:flowId')
 
 // Section-3.8, REQ-17
 flowRouter.route('/fields/:flowId')
-  .get(isAuthenticated, flowController.getFlowFieldsByFlowId)    
+  .get(flowController.getFlowFieldsByFlowId)    
 
   export { flowRouter }

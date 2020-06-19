@@ -1,8 +1,7 @@
 import ServiceBase from '../../common/serviceBase'
 import { Flow } from '../../db/models'
-import { getUserById, getFlowPagesByFlowId, generateUUID } from '../helper'
+import { getUserById, getFlowPagesByFlowId, generateUUID, isInvalidClientIdAndUserLevel } from '../helper'
 import GetClientsService from '../user/getClients'
-import { USER_LEVEL } from '../user/getSecurityContext'
 import _ from 'lodash'
 
 const constraints = {
@@ -31,9 +30,13 @@ export class GetFlowPagesByFlowIdService extends ServiceBase {
       const currentUser = await getUserById({ userId: this.userId })
 
       const { clients } = await GetClientsService.run({ userId: this.userId })
-      const firstClient = (clients && clients.length) ? clients[0] : ''
+      const isInvalid = isInvalidClientIdAndUserLevel({ 
+        clients, 
+        flowClientId: flow.client_id, 
+        user_level:  currentUser.user_level
+      })
 
-      if (flow.client_id != firstClient.client_id && currentUser.user_level != USER_LEVEL.SYSTEM) {
+      if (isInvalid) {
         this.addError('Unauthorized', 'Not authorized')
         return
       }
