@@ -155,15 +155,6 @@ export default class FlowController {
     }
   }
 
-  static async getFlowPagesByFlowId (req, res) {
-    const getFlowPagesByFlowIdResult = await GetFlowPagesByFlowIdService.execute({...req.body, ...req.params })
-    if (getFlowPagesByFlowIdResult.successful) {
-      Responder.success(res, getFlowPagesByFlowIdResult.result)
-    } else {
-      res.boom.badRequest('Get Flow pages by Flow Id Operation failed', getFlowPagesByFlowIdResult.errors)
-    }
-  }
-
   static async getFlowFieldsByFlowId (req, res) {
     const getFlowFieldsByFlowIdResult = await GetFlowFieldsByFlowIdService.execute({
       ...req.params, 
