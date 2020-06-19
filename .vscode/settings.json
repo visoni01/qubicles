@@ -13,13 +13,11 @@
   "editor.minimap.enabled": false,
   "editor.renderControlCharacters": false,
   "editor.renderFinalNewline": true,
-  "editor.rulers": [
-    120
-  ],
-  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.rulers": [120],
+  "editor.multiCursorModifier": "alt",
   "editor.autoIndent": "full",
   "editor.detectIndentation": false,
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "javascript.implicitProjectConfig.experimentalDecorators": true,
   "javascript.updateImportsOnFileMove.enabled": "always",
   "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
@@ -28,5 +26,14 @@
   "breadcrumbs.enabled": true,
   "emmet.includeLanguages": {
     "javascript": "javascriptreact"
-  }
+  },
+"eslint.alwaysShowStatus": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.lintTask.enable": true,
+  "eslint.workingDirectories": [
+    "./backend",
+    "./frontend"
+  ],
 }
