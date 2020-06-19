@@ -57,4 +57,16 @@ flowRouter.route('/copy')
 flowRouter.route('/delete/:flowId')
   .post(isAuthenticated, flowController.deleteFlow)
 
-export { flowRouter }
+// Section-3.8, REQ-15
+flowRouter.route('/user-id')
+  .get(isAuthenticated, flowController.getCurrentUserId)
+
+// Section-3.8, REQ-16
+flowRouter.route('/pages/:flowId')
+  .get(flowController.getFlowPagesByFlowId)
+
+// Section-3.8, REQ-17
+flowRouter.route('/fields/:flowId')
+  .get(isAuthenticated, flowController.getFlowFieldsByFlowId)    
+
+  export { flowRouter }
