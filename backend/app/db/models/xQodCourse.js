@@ -20,18 +20,18 @@ module.exports = (sequelize, DataTypes) => {
       values: ['english', 'spanish', 'french']
     },
     token_price: DataTypes.DOUBLE,
-    updated_on: {
-      type: DataTypes.DATE,
-      allowNull: false
+    createdAt: {
+      field: 'created_on',
+      type: DataTypes.DATE
     },
-    created_on: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW
+    updatedAt: {
+      field: 'updated_on',
+      type: DataTypes.DATE
     }
   },
   {
-    tableName: 'x_qod_courses'
+    tableName: 'x_qod_courses',
+    timestamps: true
   })
   XQodCourse.associate = function (models) {
   }
