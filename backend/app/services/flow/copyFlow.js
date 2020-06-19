@@ -158,7 +158,7 @@ export class CopyFlowService extends ServiceBase {
 
           conditions.forEach((condition) => {
             if (!string.IsNullOrEmpty (condition)) {
-              const conditionParts = condition.Split ('|')
+              const conditionParts = condition.split ('|')
 
               if (conditionParts.Length > 6) {
                 const goToField = parseInt(conditionParts[6])
@@ -179,9 +179,8 @@ export class CopyFlowService extends ServiceBase {
               }
 
               if (conditionParts.Length > 3) {
-                const goToField = parseInt(conditionParts[3])
-                // goToField can have field_id
-                if (!isNaN(goToField) && goToField > 0) {
+                const goToPage = parseInt(conditionParts[3])
+                if (!isNaN(goToPage) && goToPage > 0) {
                   conditionParts[3] = pagesMap[goToPage].toString()
                   conditionsUpdated = true;
                 }
