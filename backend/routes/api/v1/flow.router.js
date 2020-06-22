@@ -51,7 +51,7 @@ flowRouter.route('/edit')
 
 // Section-3.8, REQ-13
 flowRouter.route('/copy')
-  .post(isAuthenticated, flowController.copyFlow)  
+  .post(isAuthenticated, flowController.copyFlow)
 
 // Section-3.8, REQ-14
 flowRouter.route('/delete/:flowId')
@@ -71,6 +71,6 @@ flowRouter.route('/fields/:flowId')
 
 // Section-3.8, REQ-18
 flowRouter.route('/dispositions')
-  .get(flowController.getDispositions)  
+  .get(flowController.getDispositions)
 
-  export { flowRouter }
+export { flowRouter }

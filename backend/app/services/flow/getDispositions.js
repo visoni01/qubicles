@@ -1,9 +1,9 @@
 import ServiceBase from '../../common/serviceBase'
-import { 
-  getListByListId, 
-  getCampaignStatusesByCampaignId, 
-  getCampaignById, 
-  getStatuses 
+import {
+  getListByListId,
+  getCampaignStatusesByCampaignId,
+  getCampaignById,
+  getStatuses
 } from '../helper'
 import _ from 'lodash'
 
@@ -29,13 +29,13 @@ export class GetDispositionsService extends ServiceBase {
 
     // Fetching list by listId
     const list = await getListByListId({ listId: this.listId })
-    
+
     if (list && list['list_id']) {
       let campaignId = list.campaign_id
       if (this.queueId) {
         campaignId = this.queueId
       }
-      
+
       let allCampStatuses = await getCampaignStatusesByCampaignId({ campaignId })
       // no IB dispos, pull from campaign
       if (this.queueId && !(allCampStatuses && allCampStatuses.length)) {
@@ -51,13 +51,13 @@ export class GetDispositionsService extends ServiceBase {
           status: campStatus.status,
           status_name: campStatus.status_name,
           category: campStatus.category
-        }  
+        }
 
         // outbound-only dispos
         if (campStatus.category === 'UNDEFINED' || !campStatus.category) {
-          campStatuses.push({ ...statusObj, campaign_id: campStatus.campaign_id})
+          campStatuses.push({ ...statusObj, campaign_id: campStatus.campaign_id })
         } else {
-          //inbound dispos
+          // inbound dispos
           campIBStatuses.push(statusObj)
         }
       })

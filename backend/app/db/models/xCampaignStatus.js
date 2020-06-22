@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'N'
     },
     category: {
-      type:  DataTypes.STRING(20),
+      type: DataTypes.STRING(20),
       defaultValue: 'UNDEFINED'
     },
     sale: {

@@ -24,12 +24,12 @@ export const generateUUID = () => {
   const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
     const number = (time + Math.random() * 16) % 16 | 0
     time = Math.floor(time / 16)
-    return (c == 'x' ? number : (number&0x3|0x8)).toString(16)
+    return (c == 'x' ? number : (number & 0x3 | 0x8)).toString(16)
   })
   return uuid
 }
 
-export const isAuthorizedForClient = ({ clients, client_id,  user_level }) => {
+export const isAuthorizedForClient = ({ clients, client_id, user_level }) => {
   let isClientIdMatched = false
   // here we're checking if client_id matches with any clients client_id or not
   for (let index = 0; index < clients.length; index++) {
@@ -38,7 +38,7 @@ export const isAuthorizedForClient = ({ clients, client_id,  user_level }) => {
       break
     }
   }
-  
+
   // user must be part of client or be a system user to be authorized for client
-  return ( isClientIdMatched || user_level == USER_LEVEL.SYSTEM)
+  return (isClientIdMatched || user_level == USER_LEVEL.SYSTEM)
 }

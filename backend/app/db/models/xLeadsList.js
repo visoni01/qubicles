@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       primaryKey: true
     },
-    list_name:  DataTypes.STRING(30),
+    list_name: DataTypes.STRING(30),
     campaign_id: DataTypes.STRING(8),
     active: {
       type: DataTypes.ENUM,
@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     web_form_address_two: DataTypes.STRING(512),
     time_zone_setting: {
       type: DataTypes.ENUM,
-      values: ['COUNTRY_AND_AREA_CODE','POSTAL_CODE','NANPA_PREFIX','OWNER_TIME_ZONE_CODE'],
+      values: ['COUNTRY_AND_AREA_CODE', 'POSTAL_CODE', 'NANPA_PREFIX', 'OWNER_TIME_ZONE_CODE'],
       defaultValue: 'COUNTRY_AND_AREA_CODE'
     },
     total_records: {
@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 0
     },
     list_startdate: DataTypes.DATE,
-    list_stopdate: DataTypes.DATE,
+    list_stopdate: DataTypes.DATE
   },
   {
     tableName: 'x_leads_lists',

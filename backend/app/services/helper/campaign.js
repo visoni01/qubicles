@@ -6,5 +6,5 @@ export const getCampaignById = async ({ campaignId }) => {
 }
 
 export const getCampaignStatusesByCampaignId = async ({ campaignId }) => {
-  return XCampaignStatus.findAll({ where: { campaign_id: campaignId }, raw: true})
+  return XCampaignStatus.findAll({ where: { campaign_id: campaignId }, raw: true })
 }

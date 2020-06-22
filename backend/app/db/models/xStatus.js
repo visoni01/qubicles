@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'N'
     },
     category: {
-      type:  DataTypes.STRING(20),
+      type: DataTypes.STRING(20),
       defaultValue: 'UNDEFINED'
     },
     sale: {
@@ -50,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
       values: ['Y', 'N'],
       defaultValue: 'N'
     },
-    custom_code: DataTypes.STRING(45)    
+    custom_code: DataTypes.STRING(45)
   },
   {
     tableName: 'x_statuses',
