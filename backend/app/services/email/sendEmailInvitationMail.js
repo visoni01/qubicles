@@ -34,7 +34,7 @@ export default class SendEmailInvitationMailService extends ServiceBase {
 
     for (const contact of contacts) {
       NodeMailer.sendMail({
-        from: 'Qubicles <invitaions@qubicles.io>',
+        from: 'Qubicles <invitations@qubicles.io>',
         to: contact.email,
         subject: `${inviter_first_name} has invited you to join Qubicles!`,
         html: getHtml({ inviteUrl: inviteLink, name: contact.name, inviter_first_name, inviter_last_name })

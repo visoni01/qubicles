@@ -29,9 +29,9 @@ export default class SendForumInvitationMailService extends ServiceBase {
     const { invitationLink, inviter_first_name, recipient_first_name, forum_object_type, email } = this.args
 
     NodeMailer.sendMail({
-      from: 'Qubicles <invitaions@qubicles.io>',
+      from: 'Qubicles <invitations@qubicles.io>',
       to: email,
-      subject: `${inviter_first_name} has invited you to join private discussion`,
+      subject: `${inviter_first_name} has invited you to join a private discussion`,
       html: getHtml({ invitationLink, inviter_first_name, recipient_first_name, forum_object_type })
     }, (error, info) => {
       if (error) {
@@ -46,7 +46,7 @@ export default class SendForumInvitationMailService extends ServiceBase {
 function getHtml ({ invitationLink, inviter_first_name, recipient_first_name, forum_object_type }) {
   const EMAIL_TEMPLATE_GREETING = `Hi ${recipient_first_name}`
   const EMAIL_TEMPLATE_BODY = `
-  ${inviter_first_name} has invited you to join private discussion ${forum_object_type} in Qubicles!
+  ${inviter_first_name} has invited you to join a private discussion ${forum_object_type} in Qubicles!
   <br />
   Click <a href="${invitationLink}">here</a> to go there now.
   <br /><br />
