@@ -67,6 +67,10 @@ flowRouter.route('/pages/:flowId')
 
 // Section-3.8, REQ-17
 flowRouter.route('/fields/:flowId')
-  .get(flowController.getFlowFieldsByFlowId)    
+  .get(flowController.getFlowFieldsByFlowId)
+
+// Section-3.8, REQ-18
+flowRouter.route('/dispositions')
+  .get(flowController.getDispositions)  
 
   export { flowRouter }

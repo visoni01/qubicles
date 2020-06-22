@@ -14,7 +14,8 @@ import {
   GetACDQueueService,
   CopyFlowService,
   GetFlowPagesByFlowIdService,
-  GetFlowFieldsByFlowIdService
+  GetFlowFieldsByFlowIdService,
+  GetDispositionsService
 } from '../services/flow'
 import config from '../../config/app'
 
@@ -164,6 +165,15 @@ export default class FlowController {
       Responder.success(res, getFlowFieldsByFlowIdResult.result)
     } else {
       res.boom.badRequest('Get Flow fields by Flow Id Operation failed', getFlowFieldsByFlowIdResult.errors)
+    }
+  }
+
+  static async getDispositions (req, res) {
+    const getDispositionsResult = await GetDispositionsService.execute(req.body)
+    if (getDispositionsResult.successful) {
+      Responder.success(res, getDispositionsResult.result)
+    } else {
+      res.boom.badRequest('Get Dispositions Operation failed', getDispositionsResult.errors)
     }
   }
 }
