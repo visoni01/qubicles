@@ -7,12 +7,12 @@ import {
   UserDetail,
   User,
   XClientUser,
-  XUserActivity
+  XUserActivity,
+  XQodApplication
 } from '../../db/models'
 import { Op } from 'sequelize'
 import config from '../../../config/app'
 import SendForumInvitationMail from '../email/sendForumInvitationMail'
-import xQodJob from '../../ db/models/xQodJob'
 import { createNewEntity } from '../helper/common'
 
 export async function addCategory ({ category_title, owner_id, is_public }) {
@@ -44,12 +44,13 @@ export async function addTopic ({ topic_title, owner_id, channel_id, client_id, 
     const clientUsers = await XClientUser.findAll({ where: { client_id }, raw: true, attributes: ['user_id'] })
     clientUsers.map(user => userIds.add(user.user_id))
 
-    const activeJobs = await xQodJob.findAll({ where: { client_id, is_active: true }, raw: true, attributes: ['user_id'] })
+    const activeJobs = await XQodApplication.findAll({ where: { client_id, status: 'hired' }, raw: true, attributes: ['user_id'] })
     activeJobs.map(user => userIds.add(user.user_id))
 
     // Send user notification for new accouncement channel
     const newTopicLink = `${config.get('webApp.baseUrl')}/forum/topic/${newTopic.topic_id}`
-    const notice = `<span><a href="${newTopicLink}">New Company Announcement</a>Expecting high call volume on Friday...</span>`
+    const topicTitle = topic_title.slice(0, 50)
+    const notice = `<span><a href="${newTopicLink}">New Company Announcement</a>${topicTitle}...</span>`
     for (const user_id of userIds) {
       await addUserNotification({ notice, user_id })
     }

@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true
     },
     user_id: DataTypes.INTEGER(11),
+    client_id: DataTypes.INTEGER(11),
     job_id: DataTypes.INTEGER(11),
     cover_letter: DataTypes.STRING,
     video_pitch_url: DataTypes.STRING(100),
@@ -29,9 +30,9 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.NOW
     }
   },
-  {
-    tableName: 'x_qod_applications'
-  })
+    {
+      tableName: 'x_qod_applications'
+    })
   XQodApplication.associate = function (models) {
   }
   return XQodApplication
