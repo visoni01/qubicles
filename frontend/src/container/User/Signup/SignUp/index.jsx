@@ -137,7 +137,19 @@ const SignUp = ( { location, history } ) => {
                       </div>
                       <button type="button" className="text-button" onClick={ () => history.push( '/login' ) }>
                         <span className="options-span-2">
-                          Back to social log in options
+                          Social log in options
+                        </span>
+                      </button>
+                      <button
+                        type="button"
+                        className="text-button"
+                        onClick={ () => history.push( {
+                          pathname: '/login',
+                          state: { isEmail: true },
+                        } ) }
+                      >
+                        <span className="options-span-2">
+                          Log in with Email
                         </span>
                       </button>
                     </>
