@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useSelector, useDispatch } from 'react-redux'
 import * as yup from 'yup'
@@ -26,10 +26,14 @@ const Login = ( { history } ) => {
     validationSchema: schema,
   } )
   const isManualLogin = history.location.state && history.location.state.isEmail
-  const [ isSocialLogin, setIsSocialLogin ] = useState( !isManualLogin || true )
+  const [ isSocialLogin, setIsSocialLogin ] = useState( true )
   const dispatch = useDispatch()
   const onSubmit = ( data ) => dispatch( userLoginStart( data ) )
   const { error, isLoading, success } = useSelector( ( state ) => state.login )
+
+  useEffect( () => {
+    setIsSocialLogin( !isManualLogin )
+  }, [ isManualLogin ] )
 
   const inputField = (
     name,
@@ -146,7 +150,11 @@ const Login = ( { history } ) => {
                         </p>
                       </div>
                       )}
-                      <a onClick={ () => setIsSocialLogin( !isSocialLogin ) }>
+                      <button
+                        type="button"
+                        className="text-button"
+                        onClick={ () => setIsSocialLogin( !isSocialLogin ) }
+                      >
                         {isSocialLogin && (
                         <span className="options-span-1">
                           Log in with Email
@@ -157,11 +165,11 @@ const Login = ( { history } ) => {
                           Back to social log in options
                         </span>
                         )}
-                      </a>
+                      </button>
                       <br />
-                      <a onClick={ () => history.push( '/signup' ) }>
+                      <button type="button" className="text-button" onClick={ () => history.push( '/signup' ) }>
                         <span className="options-span-1">Signup with email</span>
-                      </a>
+                      </button>
                     </>
                   )}
                 </div>
