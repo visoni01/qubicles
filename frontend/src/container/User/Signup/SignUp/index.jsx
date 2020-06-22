@@ -23,7 +23,7 @@ const schema = yup.object().shape( {
   pass: yup.string().required( '*Required' ),
 } )
 
-const SignUp = ( { location } ) => {
+const SignUp = ( { location, history } ) => {
   const { register, errors, handleSubmit } = useForm( {
     validationSchema: schema,
   } )
@@ -64,22 +64,6 @@ const SignUp = ( { location } ) => {
     </div>
   )
 
-  const handleSocialSignup = ( method ) => {
-    window.open( `${ process.env.REACT_APP_NODE_BASE_URL }/auth/${ method }` )
-  }
-
-  const SocialSignupButton = ( buttonName, type ) => (
-    <Button
-      variant="contained"
-      size="large"
-      color="primary"
-      className={ `social-sigup-buttons ${ type }` }
-      onClick={ () => handleSocialSignup( type ) }
-    >
-      {buttonName}
-    </Button>
-  )
-
   return (
     <div className="login-wrapper columns is-gapless">
       <div className="column login-column is-8 is-hidden-mobile hero-banner">
@@ -111,14 +95,6 @@ const SignUp = ( { location } ) => {
                 <div className="column is-8 is-offset-2">
                   {( !success && !isSocialSignupSuccess ) && (
                     <>
-                      {isSocialSignup && (
-                      <div className="margin-bottom-30">
-                        {SocialSignupButton( 'Sign up with Facebook', 'facebook' )}
-                        {SocialSignupButton( 'Sign up with Twitter', 'twitter' )}
-                        {SocialSignupButton( 'Sign up with LinkedIn', 'linkedin' )}
-                      </div>
-                      )}
-                      {!isSocialSignup && (
                       <div className="margin-bottom-30">
                         <div className="field pb-10">
                           {inputField(
@@ -159,19 +135,19 @@ const SignUp = ( { location } ) => {
                           </button>
                         </p>
                       </div>
-                      )}
-                      <a onClick={ () => setIsSocialSignup( !isSocialSignup ) }>
-                        {isSocialSignup && (
-                        <span className="options-span-1">
-                          Sign up with Email
-                        </span>
-                        )}
-                        {!isSocialSignup && (
-                        <span className="options-span-2">
-                          Back to social sign up options
-                        </span>
-                        )}
-                      </a>
+                      <button type="button" className="text-button" onClick={ () => history.push( '/login' ) }>
+                        Social log in options
+                      </button>
+                      <button
+                        type="button"
+                        className="text-button"
+                        onClick={ () => history.push( {
+                          pathname: '/login',
+                          state: { isEmail: true },
+                        } ) }
+                      >
+                        Log in with Email
+                      </button>
                     </>
                   )}
                   <div>
@@ -196,6 +172,9 @@ SignUp.propTypes = {
   location: PropTypes.instanceOf( {
     search: PropTypes.string,
   } ),
+  history: PropTypes.instanceOf( {
+    push: PropTypes.func,
+  } ).isRequired,
 }
 
 SignUp.defaultProps = {

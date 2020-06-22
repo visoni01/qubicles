@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useSelector, useDispatch } from 'react-redux'
 import * as yup from 'yup'
@@ -10,6 +10,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { Button } from '@material-ui/core'
 import { Redirect } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import { userLoginStart } from '../../redux-saga/redux/login'
 import QubiclesLogo from '../../assets/images/qbe-dark.png'
@@ -20,14 +21,21 @@ const schema = yup.object().shape( {
   password: yup.string().required( '*Required' ),
 } )
 
-const Login = () => {
+const Login = ( { history } ) => {
   const { register, errors, handleSubmit } = useForm( {
     validationSchema: schema,
   } )
+  const isManualLogin = history.location.state && history.location.state.isEmail
   const [ isSocialLogin, setIsSocialLogin ] = useState( true )
   const dispatch = useDispatch()
   const onSubmit = ( data ) => dispatch( userLoginStart( data ) )
   const { error, isLoading, success } = useSelector( ( state ) => state.login )
+
+  useEffect( () => {
+    if ( isManualLogin ) {
+      setIsSocialLogin( !isManualLogin )
+    }
+  }, [ isManualLogin ] )
 
   const inputField = (
     name,
@@ -144,18 +152,26 @@ const Login = () => {
                         </p>
                       </div>
                       )}
-                      <a onClick={ () => setIsSocialLogin( !isSocialLogin ) }>
+                      <button
+                        type="button"
+                        className="text-button"
+                        onClick={ () => setIsSocialLogin( !isSocialLogin ) }
+                      >
                         {isSocialLogin && (
-                        <span className="options-span-1">
+                        <span>
                           Log in with Email
                         </span>
                         )}
                         {!isSocialLogin && (
-                        <span className="options-span-2">
+                        <span>
                           Back to social log in options
                         </span>
                         )}
-                      </a>
+                      </button>
+                      <br />
+                      <button type="button" className="text-button" onClick={ () => history.push( '/signup' ) }>
+                        Signup with Email
+                      </button>
                     </>
                   )}
                 </div>
@@ -167,6 +183,22 @@ const Login = () => {
       {success && <Redirect to="/dashboard" />}
     </div>
   )
+}
+
+Login.propTypes = {
+  history: PropTypes.instanceOf( {
+    location: PropTypes.instanceOf( {
+      state: PropTypes.instanceOf( {} ),
+    } ),
+  } ),
+}
+
+Login.defaultProps = {
+  history: {
+    location: {
+      state: { isEmail: false },
+    },
+  },
 }
 
 export default Login
