@@ -13,23 +13,30 @@ import { Op } from 'sequelize'
 import config from '../../../config/app'
 import SendForumInvitationMail from '../email/sendForumInvitationMail'
 import xQodJob from '../../ db/models/xQodJob'
+import { createNewEntity } from '../helper/common'
 
 export async function addCategory ({ category_title, owner_id, is_public }) {
-  const newCategory = await XForumCategory.create({
-    category_title,
-    owner_id,
-    is_public
+  const newCategory = await createNewEntity({
+    model: XForumCategory,
+    data: {
+      category_title,
+      owner_id,
+      is_public
+    }
   })
-  return newCategory.get({ plain: true })
+  return newCategory
 }
 
 export async function addTopic ({ topic_title, owner_id, channel_id, client_id, is_public, is_flagged }) {
-  const newTopic = await XForumTopic.create({
-    topic_title,
-    owner_id,
-    channel_id,
-    is_public,
-    is_flagged
+  const newTopic = await createNewEntity({
+    model: XForumTopic,
+    data: {
+      topic_title,
+      owner_id,
+      channel_id,
+      is_public,
+      is_flagged
+    }
   })
   const announcementChannel = await getCompanyAnnouncementChannel({ client_id })
   if (announcementChannel.channel_id === channel_id) {
@@ -47,29 +54,35 @@ export async function addTopic ({ topic_title, owner_id, channel_id, client_id, 
       await addUserNotification({ notice, user_id })
     }
   }
-  return newTopic.get({ plain: true })
+  return newTopic
 }
 
 export async function addChannel ({ channel_title, owner_id, category_id, client_id, is_public, is_company_ann }) {
-  const newChannel = await XForumChannel.create({
-    channel_title,
-    owner_id,
-    client_id,
-    category_id,
-    is_public,
-    is_company_ann
+  const newChannel = await createNewEntity({
+    model: XForumChannel,
+    data: {
+      channel_title,
+      owner_id,
+      client_id,
+      category_id,
+      is_public,
+      is_company_ann
+    }
   })
-  return newChannel.get({ plain: true })
+  return newChannel
 }
 
 export async function addForumUser ({ user_id, forum_object_type, forum_object_id, is_moderator }) {
-  const newUser = await XForumUser.create({
-    user_id,
-    forum_object_type,
-    forum_object_id,
-    is_moderator
+  const newUser = await createNewEntity({
+    model: XForumUser,
+    data: {
+      user_id,
+      forum_object_type,
+      forum_object_id,
+      is_moderator
+    }
   })
-  return newUser.get({ plain: true })
+  return newUser
 }
 
 export async function getCategories ({ user_id }) {
@@ -176,25 +189,31 @@ export async function inviteUser ({ forum_object_id, forum_object_type, user_id,
 }
 
 export async function commentTopic ({ user_id, topic_id, comment }) {
-  const commentTopicActivity = await XUserActivity.create({
-    user_id,
-    record_type: 'topic',
-    record_id: topic_id,
-    activity_type: 'comment',
-    activity_value: comment
+  const commentTopicActivity = await createNewEntity({
+    model: XUserActivity,
+    data: {
+      user_id,
+      record_type: 'topic',
+      record_id: topic_id,
+      activity_type: 'comment',
+      activity_value: comment
+    }
   })
-  return commentTopicActivity.get({ plain: true })
+  return commentTopicActivity
 }
 
 export async function likeTopic ({ user_id, topic_id }) {
-  const topicLikeActivity = await XUserActivity.create({
-    user_id,
-    record_type: 'topic',
-    record_id: topic_id,
-    activity_type: 'like',
-    activity_value: '1'
+  const topicLikeActivity = await createNewEntity({
+    model: XUserActivity,
+    data: {
+      user_id,
+      record_type: 'topic',
+      record_id: topic_id,
+      activity_type: 'like',
+      activity_value: '1'
+    }
   })
-  return topicLikeActivity.get({ plain: true })
+  return topicLikeActivity
 }
 
 export async function getTopicComments ({ topic_id }) {
@@ -222,8 +241,14 @@ export async function getTopicLikesCount ({ topic_id }) {
 }
 
 async function addUserNotification ({ user_id, notice }) {
-  const notification = await XUserNotification.create({ user_id, notice })
-  return notification.get({ plain: true })
+  const notification = await createNewEntity({
+    model: XUserNotification,
+    data: {
+      user_id,
+      notice
+    }
+  })
+  return notification
 }
 
 export async function getCompanyAnnouncementChannel ({ client_id }) {
