@@ -10,11 +10,11 @@ const steps = {
         [ 'Male', 'male', 'Male' ], [ 'Female', 'female', 'Female' ], [ 'Other', 'other', 'Other' ],
       ],
     }, { label: 'SSN', type: 'text', name: 'ssn' } ],
-    schema: yup.object().shape( {
-      dob: yup.date().required( '*Required' ),
-      gender: yup.string().required( '*Required' ),
-      ssn: yup.string().required( '*Required' ),
-    } ),
+    schema: yup.object().shape({
+      dob: yup.date().required('*Required'),
+      gender: yup.string().required('*Required'),
+      ssn: yup.string().required('*Required'),
+    }),
   },
   2: {
     fields: [
@@ -25,14 +25,14 @@ const steps = {
       { label: 'Home Phone', type: 'text', name: 'home_phone' },
       { label: 'Mobile Phone', type: 'text', name: 'mobile_phone' },
     ],
-    schema: yup.object().shape( {
-      street_address: yup.string().required( '*Required' ),
-      city: yup.string().required( '*Required' ),
-      state: yup.string().required( '*Required' ),
-      zip: yup.string().required( '*Required' ),
-      home_phone: yup.string().required( '*Required' ),
-      mobile_phone: yup.string().required( '*Required' ),
-    } ),
+    schema: yup.object().shape({
+      street_address: yup.string().required('*Required'),
+      city: yup.string().required('*Required'),
+      state: yup.string().required('*Required'),
+      zip: yup.string().required('*Required'),
+      home_phone: yup.string().required('*Required'),
+      mobile_phone: yup.string().required('*Required'),
+    }),
   },
   3: {
     fields: [
@@ -59,12 +59,12 @@ const steps = {
         ],
       },
     ],
-    schema: yup.object().shape( {
-      years_of_experience: yup.string().required( '*Required' ),
-      highest_education: yup.string().required( '*Required' ),
-      primary_language: yup.string().required( '*Required' ),
-      other_languages: yup.string().required( '*Required' ),
-    } ),
+    schema: yup.object().shape({
+      years_of_experience: yup.string().required('*Required'),
+      highest_education: yup.string().required('*Required'),
+      primary_language: yup.string().required('*Required'),
+      other_languages: yup.string().required('*Required'),
+    }),
   },
   5: {
     fields: [ {
@@ -91,10 +91,10 @@ const steps = {
         [ 'QA or Support', 'qa-support', 'QA or Support' ],
       ],
     } ],
-    schema: yup.object().shape( {
-      source: yup.string().required( '*Required' ),
-      service: yup.string().required( '*Required' ),
-    } ),
+    schema: yup.object().shape({
+      source: yup.string().required('*Required'),
+      service: yup.string().required('*Required'),
+    }),
   },
 }
 

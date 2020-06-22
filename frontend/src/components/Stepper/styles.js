@@ -1,7 +1,7 @@
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import StepConnector from '@material-ui/core/StepConnector'
 
-const useStepperStyles = makeStyles( {
+const useStepperStyles = makeStyles({
   container: {
     width: '50%',
   },
@@ -29,9 +29,9 @@ const useStepperStyles = makeStyles( {
   stepIcon: {
     color: '#5b8be4bf',
   },
-} )
+})
 
-const ColorlibConnector = withStyles( {
+const ColorlibConnector = withStyles({
   alternativeLabel: {
     top: 22,
   },
@@ -51,6 +51,6 @@ const ColorlibConnector = withStyles( {
     backgroundColor: 'white',
     borderRadius: 1,
   },
-} )( StepConnector )
+})(StepConnector)
 
 export { useStepperStyles, ColorlibConnector }

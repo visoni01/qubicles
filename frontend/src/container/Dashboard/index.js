@@ -13,9 +13,9 @@ import { dashboardDataFetchingStart } from '../../redux-saga/redux/actions'
 const Dashboard = () => {
   const dispatch = useDispatch()
   // Fetching dashboard data
-  useEffect( () => {
-    dispatch( dashboardDataFetchingStart() )
-  }, [dispatch] )
+  useEffect(() => {
+    dispatch(dashboardDataFetchingStart())
+  }, [ dispatch ])
 
   return (
     <div>

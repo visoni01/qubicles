@@ -7,13 +7,13 @@ import AgentMultipartForm from './AgentMultipartForm'
 import ContactCenterMultipartForm from './ContactCenterMultipartForm'
 
 const PostSignUp = () => {
-  const [ role, setRole ] = useState( null )
+  const [ role, setRole ] = useState(null)
   return (
     <div className="signup-wrapper">
       <div className="fake-nav">
         <img className="qubicles-logo" src={ qubiclesLogo } width={ 180 } height={ 28 } alt="" />
       </div>
-      {( !role ) && (
+      {(!role) && (
       <>
         <div className="outer-panel">
           <div className="outer-panel-inner">
@@ -35,7 +35,7 @@ const PostSignUp = () => {
                       type="button"
                       className="button is-fullwidth is-rounded process-button"
                       data-step="step-dot-2"
-                      onClick={ () => setRole( 'employer' ) }
+                      onClick={ () => setRole('employer') }
                     >
                       Continue
                     </button>
@@ -52,7 +52,7 @@ const PostSignUp = () => {
                       type="button"
                       className="button is-fullwidth is-rounded process-button"
                       data-step="step-dot-2"
-                      onClick={ () => setRole( 'agent' ) }
+                      onClick={ () => setRole('agent') }
                     >
                       Continue
                     </button>

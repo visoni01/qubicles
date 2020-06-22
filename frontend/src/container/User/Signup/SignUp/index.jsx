@@ -16,22 +16,22 @@ import { userSignupStart } from '../../../../redux-saga/redux/signup'
 import QubiclesLogo from '../../../../assets/images/qbe-dark.png'
 import './style.scss'
 
-const schema = yup.object().shape( {
-  first_name: yup.string().required( '*Required' ),
-  last_name: yup.string().required( '*Required' ),
-  email: yup.string().email().required( '*Required' ),
-  pass: yup.string().required( '*Required' ),
-} )
+const schema = yup.object().shape({
+  first_name: yup.string().required('*Required'),
+  last_name: yup.string().required('*Required'),
+  email: yup.string().email().required('*Required'),
+  pass: yup.string().required('*Required'),
+})
 
-const SignUp = ( { location, history } ) => {
-  const { register, errors, handleSubmit } = useForm( {
+const SignUp = ({ location, history }) => {
+  const { register, errors, handleSubmit } = useForm({
     validationSchema: schema,
-  } )
-  const [ isSocialSignup, setIsSocialSignup ] = useState( true )
-  const isSocialSignupSuccess = location.search && location.search.split( '?' )[ 1 ] === 'with_social=true' // Temporary set up.
+  })
+  const [ isSocialSignup, setIsSocialSignup ] = useState(true)
+  const isSocialSignupSuccess = location.search && location.search.split('?')[ 1 ] === 'with_social=true' // Temporary set up.
   const dispatch = useDispatch()
-  const onSubmit = ( data ) => dispatch( userSignupStart( data ) )
-  const { error, isLoading, success } = useSelector( ( state ) => state.signup )
+  const onSubmit = (data) => dispatch(userSignupStart(data))
+  const { error, isLoading, success } = useSelector((state) => state.signup)
 
   const inputField = (
     name,
@@ -41,7 +41,7 @@ const SignUp = ( { location, history } ) => {
     type = 'text',
   ) => (
     <div
-      className={ classNames( 'control has-icons-right required', 'input-fields' ) }
+      className={ classNames('control has-icons-right required', 'input-fields') }
     >
       <input
         className="input"
@@ -93,7 +93,7 @@ const SignUp = ( { location, history } ) => {
             <div className="container">
               <div className="columns">
                 <div className="column is-8 is-offset-2">
-                  {( !success && !isSocialSignupSuccess ) && (
+                  {(!success && !isSocialSignupSuccess) && (
                     <>
                       <div className="margin-bottom-30">
                         <div className="field pb-10">
@@ -127,7 +127,7 @@ const SignUp = ( { location, history } ) => {
                         <p className="control login">
                           <button
                             type="button"
-                            onClick={ handleSubmit( onSubmit ) }
+                            onClick={ handleSubmit(onSubmit) }
                             id="sendVerificationCode"
                             className="button btn-outlined is-bold is-fullwidth rounded raised no-lh"
                           >
@@ -135,23 +135,25 @@ const SignUp = ( { location, history } ) => {
                           </button>
                         </p>
                       </div>
-                      <button type="button" className="text-button" onClick={ () => history.push( '/login' ) }>
-                        Social log in options
+                      <button type="button" className="text-button" onClick={ () => history.push('/login') }>
+                        <span className="options-span-2">
+                          Social log in options
+                        </span>
                       </button>
                       <button
                         type="button"
                         className="text-button"
-                        onClick={ () => history.push( {
+                        onClick={ () => history.push({
                           pathname: '/login',
                           state: { isEmail: true },
-                        } ) }
+                        }) }
                       >
                         Log in with Email
                       </button>
                     </>
                   )}
                   <div>
-                    {( success || isSocialSignupSuccess ) && (
+                    {(success || isSocialSignupSuccess) && (
                       <>
                         You have succesfully registered. Please check your inbox
                         to verify your email !!
@@ -169,12 +171,12 @@ const SignUp = ( { location, history } ) => {
 }
 
 SignUp.propTypes = {
-  location: PropTypes.instanceOf( {
+  location: PropTypes.instanceOf({
     search: PropTypes.string,
-  } ),
-  history: PropTypes.instanceOf( {
+  }),
+  history: PropTypes.instanceOf({
     push: PropTypes.func,
-  } ).isRequired,
+  }).isRequired,
 }
 
 SignUp.defaultProps = {

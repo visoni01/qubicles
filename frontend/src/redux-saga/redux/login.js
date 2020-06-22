@@ -9,30 +9,30 @@ const initialState = {
 const {
   actions: { userLoginStart, userLoginSuccessful, userLoginFailure },
   reducer,
-} = createSlice( {
+} = createSlice({
   name: 'login',
   initialState,
   reducers: {
-    userLoginStart: ( state ) => ( {
+    userLoginStart: (state) => ({
       ...state,
       isLoading: true,
       success: false,
       error: null,
-    } ),
-    userLoginSuccessful: ( state ) => ( {
+    }),
+    userLoginSuccessful: (state) => ({
       ...state,
       success: true,
       isLoading: false,
       error: null,
-    } ),
-    userLoginFailure: ( state ) => ( {
+    }),
+    userLoginFailure: (state) => ({
       ...state,
       error: true,
       isLoading: false,
       success: true,
-    } ),
+    }),
   },
-} )
+})
 
 export default reducer
 export { userLoginStart, userLoginSuccessful, userLoginFailure }

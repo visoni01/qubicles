@@ -4,43 +4,45 @@ import {
   Button, TextField, Divider, Snackbar,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { FacebookShareButton, TwitterShareButton, LinkedinShareButton } from 'react-share'
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
-import { inviteRequestStart } from '../../redux-saga/redux/invitePage'
 import {
+  FacebookShareButton,
+  TwitterShareButton,
+  LinkedinShareButton,
   FacebookIcon,
   LinkedinIcon,
   TwitterIcon,
-} from "react-share";
+} from 'react-share'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { inviteRequestStart } from '../../redux-saga/redux/invitePage'
 
 const ShareModal = () => {
   const dispatch = useDispatch()
-  const inviteReducerStore = useSelector( ( state ) => state.invitePage )
+  const inviteReducerStore = useSelector((state) => state.invitePage)
   const [ manualEmails, setManualEmails ] = useState()
   const [ openSnackbar, setOpenSnackbar ] = useState()
   const {
     isLoading, success, result, type,
   } = inviteReducerStore
 
-  useEffect( () => {
-    if ( type === 'invite-with-google' && !isLoading && success ) {
-      window.open( result.message, '_blank' )
+  useEffect(() => {
+    if (type === 'invite-with-google' && !isLoading && success) {
+      window.open(result.message, '_blank')
     }
-    if ( success ) {
-      setManualEmails( '' )
-      setOpenSnackbar( success )
+    if (success) {
+      setManualEmails('')
+      setOpenSnackbar(success)
     }
-  }, [ isLoading ] )
+  }, [ isLoading ])
 
   const handleManualEmails = () => {
-    if ( !manualEmails ) return
-    const emails = manualEmails.split( ',' )
-    dispatch( inviteRequestStart( { type: 'invite-manual', body: { emails } } ) )
+    if (!manualEmails) return
+    const emails = manualEmails.split(',')
+    dispatch(inviteRequestStart({ type: 'invite-manual', body: { emails } }))
   }
 
-  const handleInviteWithGoogle = () => dispatch( inviteRequestStart( { type: 'invite-with-google' } ) )
+  const handleInviteWithGoogle = () => dispatch(inviteRequestStart({ type: 'invite-with-google' }))
 
-  const handleCopyToClipboard = () => navigator.clipboard.writeText( 'invite link' ) // Has to set invite link.
+  const handleCopyToClipboard = () => navigator.clipboard.writeText('invite link') // Has to set invite link.
 
   return (
     <>
@@ -64,7 +66,7 @@ const ShareModal = () => {
             size="small"
             className="shareModal-add-email-textbox"
             value={ manualEmails }
-            onChange={ ( event ) => setManualEmails( event.target && event.target.value ) }
+            onChange={ (event) => setManualEmails(event.target && event.target.value) }
           />
           <span className="shareModal-add-email-span">
             Separate emails with commas

@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const ActivityPosting = ( { title, data } ) => (
+const ActivityPosting = ({ title, data }) => (
   <div className="feed-channels">
     <div className="custom-header">
       {title}
     </div>
     {
-      data.map( ( { icon, heading, subHeading } ) => (
+      data.map(({ icon, heading, subHeading }) => (
         <div className="menu-items" key={ `${ heading }-${ title }` }>
           <div className="card-background-color">
             <div className="mb-4 pd-11">
@@ -27,7 +27,7 @@ const ActivityPosting = ( { title, data } ) => (
             </div>
           </div>
         </div>
-      ) )
+      ))
     }
   </div>
 )

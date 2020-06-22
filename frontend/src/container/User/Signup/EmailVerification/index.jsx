@@ -9,11 +9,11 @@ import './style.scss'
 const EmailVerification = () => {
   const { token } = useParams()
   const dispatch = useDispatch()
-  useEffect( () => {
-    dispatch( emailVerificationStart( token ) )
-  }, [] )
+  useEffect(() => {
+    dispatch(emailVerificationStart(token))
+  }, [])
   const { error, isLoading, success } = useSelector(
-    ( state ) => state.emailVerification,
+    (state) => state.emailVerification,
   )
   return (
     <>

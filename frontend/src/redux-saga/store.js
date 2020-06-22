@@ -9,13 +9,13 @@ import reducer from './redux'
 import saga from './saga'
 
 const sagaMiddleware = createSagaMiddleware()
-const middleware = [ ...getDefaultMiddleware( { thunk: false } ), sagaMiddleware ]
+const middleware = [ ...getDefaultMiddleware({ thunk: false }), sagaMiddleware ]
 
-const store = configureStore( {
+const store = configureStore({
   reducer,
   middleware,
-} )
+})
 
-sagaMiddleware.run( saga )
+sagaMiddleware.run(saga)
 
 export default store

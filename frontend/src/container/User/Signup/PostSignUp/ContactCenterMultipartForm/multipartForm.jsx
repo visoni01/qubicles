@@ -3,51 +3,51 @@ import { useForm } from 'react-hook-form'
 import PropTypes from 'prop-types'
 import steps from './steps'
 
-const Form = ( {
+const Form = ({
   step, onNext, onBack, onSubmit, stepData,
-} ) => {
-  const [ formValues, setValues ] = useState( stepData || {} )
+}) => {
+  const [ formValues, setValues ] = useState(stepData || {})
 
-  const { register, errors, handleSubmit } = useForm( {
+  const { register, errors, handleSubmit } = useForm({
     validationSchema: steps[ step ] && steps[ step ].schema,
-  } )
+  })
 
-  const handleValueChange = ( name ) => ( event ) => {
-    setValues( { ...formValues, [ name ]: event.target.value } )
+  const handleValueChange = (name) => (event) => {
+    setValues({ ...formValues, [ name ]: event.target.value })
   }
 
-  const isChecked = ( name, value ) => formValues[ name ] && formValues[ name ] === value
+  const isChecked = (name, value) => formValues[ name ] && formValues[ name ] === value
 
-  const inputField = ( {
+  const inputField = ({
     label, type, name, checkTypes,
-  } ) => (
+  }) => (
     <div className="field" key={ `${ name }${ label }` }>
       <label>{label}</label>
-      { ( type === 'radio' || type === 'checkbox' ) ? (
+      { (type === 'radio' || type === 'checkbox') ? (
         <div className="control">
           {checkTypes
-            && checkTypes.map( ( [ inputName, value, inputLabel ] ) => (
+            && checkTypes.map(([ inputName, value, inputLabel ]) => (
               <div key={ `${ inputName }` } className="check-box-div">
                 <input
                   type={ type }
-                  onChange={ handleValueChange( name ) }
+                  onChange={ handleValueChange(name) }
                   id={ inputName }
                   name={ name }
                   value={ value }
                   ref={ register }
-                  checked={ isChecked( name, value ) }
+                  checked={ isChecked(name, value) }
                 />
                 <label htmlFor={ value } className="checkbox-label">
                   {inputLabel}
                 </label>
                 <br />
               </div>
-            ) )}
+            ))}
         </div>
       ) : (
         <div className="control">
           <input
-            onChange={ handleValueChange( name ) }
+            onChange={ handleValueChange(name) }
             type={ type }
             className="input"
             name={ name }
@@ -67,7 +67,7 @@ const Form = ( {
 
   const fields = () => steps
     && steps[ step ]
-    && steps[ step ].fields.map( ( field ) => inputField( field ) )
+    && steps[ step ].fields.map((field) => inputField(field))
 
   return (
     <>
@@ -88,7 +88,7 @@ const Form = ( {
             className="button is-rounded process-button is-next"
             data-step="step-dot-3"
             type="button"
-            onClick={ handleSubmit( step === 5 ? onSubmit : onNext ) }
+            onClick={ handleSubmit(step === 5 ? onSubmit : onNext) }
           >
             {step === 3 ? 'Submit' : 'Next'}
           </button>
@@ -103,7 +103,7 @@ Form.propTypes = {
   onNext: PropTypes.func,
   onBack: PropTypes.func,
   onSubmit: PropTypes.func,
-  stepData: PropTypes.instanceOf( {} ),
+  stepData: PropTypes.instanceOf({}),
 }
 
 Form.defaultProps = {

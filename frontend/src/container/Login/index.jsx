@@ -16,26 +16,26 @@ import { userLoginStart } from '../../redux-saga/redux/login'
 import QubiclesLogo from '../../assets/images/qbe-dark.png'
 import './style.scss'
 
-const schema = yup.object().shape( {
-  email: yup.string().required( '*Required' ),
-  password: yup.string().required( '*Required' ),
-} )
+const schema = yup.object().shape({
+  email: yup.string().required('*Required'),
+  password: yup.string().required('*Required'),
+})
 
-const Login = ( { history } ) => {
-  const { register, errors, handleSubmit } = useForm( {
+const Login = ({ history }) => {
+  const { register, errors, handleSubmit } = useForm({
     validationSchema: schema,
-  } )
+  })
   const isManualLogin = history.location.state && history.location.state.isEmail
-  const [ isSocialLogin, setIsSocialLogin ] = useState( true )
+  const [ isSocialLogin, setIsSocialLogin ] = useState(true)
   const dispatch = useDispatch()
-  const onSubmit = ( data ) => dispatch( userLoginStart( data ) )
-  const { error, isLoading, success } = useSelector( ( state ) => state.login )
+  const onSubmit = (data) => dispatch(userLoginStart(data))
+  const { error, isLoading, success } = useSelector((state) => state.login)
 
-  useEffect( () => {
-    if ( isManualLogin ) {
-      setIsSocialLogin( !isManualLogin )
+  useEffect(() => {
+    if (isManualLogin) {
+      setIsSocialLogin(!isManualLogin)
     }
-  }, [ isManualLogin ] )
+  }, [ isManualLogin ])
 
   const inputField = (
     name,
@@ -45,7 +45,7 @@ const Login = ( { history } ) => {
     type = 'text',
   ) => (
     <div
-      className={ classNames( 'control has-icons-right required', 'input-fields' ) }
+      className={ classNames('control has-icons-right required', 'input-fields') }
     >
       <input
         className="input"
@@ -68,17 +68,17 @@ const Login = ( { history } ) => {
     </div>
   )
 
-  const handleSocialLogin = ( method ) => {
-    window.open( `${ process.env.REACT_APP_NODE_BASE_URL }/auth/${ method }` )
+  const handleSocialLogin = (method) => {
+    window.open(`${ process.env.REACT_APP_NODE_BASE_URL }/auth/${ method }`)
   }
 
-  const SocialLoginButton = ( buttonName, type ) => (
+  const SocialLoginButton = (buttonName, type) => (
     <Button
       variant="contained"
       size="large"
       color="primary"
       className={ `social-login-buttons ${ type }` }
-      onClick={ () => handleSocialLogin( type ) }
+      onClick={ () => handleSocialLogin(type) }
     >
       {buttonName}
     </Button>
@@ -113,13 +113,13 @@ const Login = ( { history } ) => {
             <div className="container">
               <div className="columns">
                 <div className="column is-8 is-offset-2">
-                  {( !success ) && (
+                  {(!success) && (
                     <>
                       {isSocialLogin && (
                       <div className="margin-bottom-30">
-                        {SocialLoginButton( 'Log in with Facebook', 'facebook' )}
-                        {SocialLoginButton( 'Log in with Twitter', 'twitter' )}
-                        {SocialLoginButton( 'Log in with LinkedIn', 'linkedin' )}
+                        {SocialLoginButton('Log in with Facebook', 'facebook')}
+                        {SocialLoginButton('Log in with Twitter', 'twitter')}
+                        {SocialLoginButton('Log in with LinkedIn', 'linkedin')}
                       </div>
                       )}
                       {!isSocialLogin && (
@@ -143,7 +143,7 @@ const Login = ( { history } ) => {
                         <p className="control login">
                           <button
                             type="button"
-                            onClick={ handleSubmit( onSubmit ) }
+                            onClick={ handleSubmit(onSubmit) }
                             id="sendVerificationCode"
                             className="button btn-outlined is-bold is-fullwidth rounded raised no-lh"
                           >
@@ -155,7 +155,7 @@ const Login = ( { history } ) => {
                       <button
                         type="button"
                         className="text-button"
-                        onClick={ () => setIsSocialLogin( !isSocialLogin ) }
+                        onClick={ () => setIsSocialLogin(!isSocialLogin) }
                       >
                         {isSocialLogin && (
                         <span>
@@ -169,7 +169,7 @@ const Login = ( { history } ) => {
                         )}
                       </button>
                       <br />
-                      <button type="button" className="text-button" onClick={ () => history.push( '/signup' ) }>
+                      <button type="button" className="text-button" onClick={ () => history.push('/signup') }>
                         Signup with Email
                       </button>
                     </>
@@ -186,11 +186,11 @@ const Login = ( { history } ) => {
 }
 
 Login.propTypes = {
-  history: PropTypes.instanceOf( {
-    location: PropTypes.instanceOf( {
-      state: PropTypes.instanceOf( {} ),
-    } ),
-  } ),
+  history: PropTypes.instanceOf({
+    location: PropTypes.instanceOf({
+      state: PropTypes.instanceOf({}),
+    }),
+  }),
 }
 
 Login.defaultProps = {

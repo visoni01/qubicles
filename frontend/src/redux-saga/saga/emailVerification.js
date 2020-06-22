@@ -7,15 +7,15 @@ import {
 } from '../redux/emailVerification'
 
 function* emailVerificationWatcher() {
-  yield takeEvery( emailVerificationStart.type, emailVerificationWorker )
+  yield takeEvery(emailVerificationStart.type, emailVerificationWorker)
 }
 
-function* emailVerificationWorker( action ) {
+function* emailVerificationWorker(action) {
   try {
-    yield apiClient.emailVerification( action.payload )
-    yield put( emailVerificationSuccessful() )
-  } catch ( e ) {
-    yield put( emailVerificationFailure() )
+    yield apiClient.emailVerification(action.payload)
+    yield put(emailVerificationSuccessful())
+  } catch (e) {
+    yield put(emailVerificationFailure())
   }
 }
 

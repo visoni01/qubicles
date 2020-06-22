@@ -7,16 +7,16 @@ import {
 } from '../redux/login'
 
 function* loginWatcher() {
-  yield takeEvery( userLoginStart.type, loginWorker )
+  yield takeEvery(userLoginStart.type, loginWorker)
 }
 
-function* loginWorker( action ) {
+function* loginWorker(action) {
   try {
     const data = action && action.payload
-    const responseStatus = yield apiClient.login( data )
-    if ( responseStatus === 200 ) yield put( userLoginSuccessful() )
-  } catch ( e ) {
-    yield put( userLoginFailure() )
+    const responseStatus = yield apiClient.login(data)
+    if (responseStatus === 200) yield put(userLoginSuccessful())
+  } catch (e) {
+    yield put(userLoginFailure())
   }
 }
 
