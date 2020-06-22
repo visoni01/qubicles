@@ -10,6 +10,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { Button } from '@material-ui/core'
 import { Redirect } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import { userLoginStart } from '../../redux-saga/redux/login'
 import QubiclesLogo from '../../assets/images/qbe-dark.png'
@@ -20,11 +21,12 @@ const schema = yup.object().shape( {
   password: yup.string().required( '*Required' ),
 } )
 
-const Login = () => {
+const Login = ( { history } ) => {
   const { register, errors, handleSubmit } = useForm( {
     validationSchema: schema,
   } )
-  const [ isSocialLogin, setIsSocialLogin ] = useState( true )
+  const isManualLogin = history.location.state && history.location.state.isEmail
+  const [ isSocialLogin, setIsSocialLogin ] = useState( !isManualLogin || true )
   const dispatch = useDispatch()
   const onSubmit = ( data ) => dispatch( userLoginStart( data ) )
   const { error, isLoading, success } = useSelector( ( state ) => state.login )
@@ -156,6 +158,10 @@ const Login = () => {
                         </span>
                         )}
                       </a>
+                      <br />
+                      <a onClick={ () => history.push( '/signup' ) }>
+                        <span className="options-span-1">Signup with email</span>
+                      </a>
                     </>
                   )}
                 </div>
@@ -167,6 +173,22 @@ const Login = () => {
       {success && <Redirect to="/dashboard" />}
     </div>
   )
+}
+
+Login.propTypes = {
+  history: PropTypes.instanceOf( {
+    location: PropTypes.instanceOf( {
+      state: PropTypes.instanceOf( {} ),
+    } ),
+  } ),
+}
+
+Login.defaultProps = {
+  history: {
+    location: {
+      state: { isEmail: false },
+    },
+  },
 }
 
 export default Login
