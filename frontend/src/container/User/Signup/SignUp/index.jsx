@@ -136,9 +136,7 @@ const SignUp = ( { location, history } ) => {
                         </p>
                       </div>
                       <button type="button" className="text-button" onClick={ () => history.push( '/login' ) }>
-                        <span className="options-span-2">
-                          Social log in options
-                        </span>
+                        Social log in options
                       </button>
                       <button
                         type="button"
@@ -148,9 +146,7 @@ const SignUp = ( { location, history } ) => {
                           state: { isEmail: true },
                         } ) }
                       >
-                        <span className="options-span-2">
-                          Log in with Email
-                        </span>
+                        Log in with Email
                       </button>
                     </>
                   )}

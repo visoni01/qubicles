@@ -32,7 +32,9 @@ const Login = ( { history } ) => {
   const { error, isLoading, success } = useSelector( ( state ) => state.login )
 
   useEffect( () => {
-    setIsSocialLogin( !isManualLogin )
+    if ( isManualLogin ) {
+      setIsSocialLogin( !isManualLogin )
+    }
   }, [ isManualLogin ] )
 
   const inputField = (
@@ -156,19 +158,19 @@ const Login = ( { history } ) => {
                         onClick={ () => setIsSocialLogin( !isSocialLogin ) }
                       >
                         {isSocialLogin && (
-                        <span className="options-span-1">
+                        <span>
                           Log in with Email
                         </span>
                         )}
                         {!isSocialLogin && (
-                        <span className="options-span-2">
+                        <span>
                           Back to social log in options
                         </span>
                         )}
                       </button>
                       <br />
                       <button type="button" className="text-button" onClick={ () => history.push( '/signup' ) }>
-                        <span className="options-span-1">Signup with email</span>
+                        Signup with Email
                       </button>
                     </>
                   )}
