@@ -1,47 +1,88 @@
-import { XForumCategory, XForumTopic, XForumChannel, XForumUser, XUserNotification, UserDetail } from '../../db/models'
+import {
+  XForumCategory,
+  XForumTopic,
+  XForumChannel,
+  XForumUser,
+  XUserNotification,
+  UserDetail,
+  User,
+  XClientUser,
+  XUserActivity
+} from '../../db/models'
 import { Op } from 'sequelize'
 import config from '../../../config/app'
+import SendForumInvitationMail from '../email/sendForumInvitationMail'
+import xQodJob from '../../ db/models/xQodJob'
+import { createNewEntity } from '../helper/common'
 
 export async function addCategory ({ category_title, owner_id, is_public }) {
-  const newCategory = await XForumCategory.create({
-    category_title,
-    owner_id,
-    is_public
+  const newCategory = await createNewEntity({
+    model: XForumCategory,
+    data: {
+      category_title,
+      owner_id,
+      is_public
+    }
   })
-  return newCategory.get({ plain: true })
+  return newCategory
 }
 
-export async function addTopic ({ topic_title, owner_id, channel_id, is_public, is_flagged }) {
-  const newTopic = await XForumTopic.create({
-    topic_title,
-    owner_id,
-    channel_id,
-    is_public,
-    is_flagged
+export async function addTopic ({ topic_title, owner_id, channel_id, client_id, is_public, is_flagged }) {
+  const newTopic = await createNewEntity({
+    model: XForumTopic,
+    data: {
+      topic_title,
+      owner_id,
+      channel_id,
+      is_public,
+      is_flagged
+    }
   })
-  return newTopic.get({ plain: true })
+  const announcementChannel = await getCompanyAnnouncementChannel({ client_id })
+  if (announcementChannel.channel_id === channel_id) {
+    const userIds = new Set()
+    const clientUsers = await XClientUser.findAll({ where: { client_id }, raw: true, attributes: ['user_id'] })
+    clientUsers.map(user => userIds.add(user.user_id))
+
+    const activeJobs = await xQodJob.findAll({ where: { client_id, is_active: true }, raw: true, attributes: ['user_id'] })
+    activeJobs.map(user => userIds.add(user.user_id))
+
+    // Send user notification for new accouncement channel
+    const newTopicLink = `${config.get('webApp.baseUrl')}/forum/topic/${newTopic.topic_id}`
+    const notice = `<span><a href="${newTopicLink}">New Company Announcement</a>Expecting high call volume on Friday...</span>`
+    for (const user_id of userIds) {
+      await addUserNotification({ notice, user_id })
+    }
+  }
+  return newTopic
 }
 
 export async function addChannel ({ channel_title, owner_id, category_id, client_id, is_public, is_company_ann }) {
-  const newChannel = await XForumChannel.create({
-    channel_title,
-    owner_id,
-    client_id,
-    category_id,
-    is_public,
-    is_company_ann
+  const newChannel = await createNewEntity({
+    model: XForumChannel,
+    data: {
+      channel_title,
+      owner_id,
+      client_id,
+      category_id,
+      is_public,
+      is_company_ann
+    }
   })
-  return newChannel.get({ plain: true })
+  return newChannel
 }
 
 export async function addForumUser ({ user_id, forum_object_type, forum_object_id, is_moderator }) {
-  const newUser = await XForumUser.create({
-    user_id,
-    forum_object_type,
-    forum_object_id,
-    is_moderator
+  const newUser = await createNewEntity({
+    model: XForumUser,
+    data: {
+      user_id,
+      forum_object_type,
+      forum_object_id,
+      is_moderator
+    }
   })
-  return newUser.get({ plain: true })
+  return newUser
 }
 
 export async function getCategories ({ user_id }) {
@@ -86,11 +127,6 @@ export async function getTopics ({ user_id }) {
   return topics
 }
 
-export async function getCompanyAnnouncementChannel ({ client_id }) {
-  const announcementChannel = await XForumChannel.findOne({ where: { client_id } })
-  return announcementChannel
-}
-
 export async function getRecentTopics ({ client_id, limit = 5 }) {
   const { channel_id } = await getCompanyAnnouncementChannel({ client_id })
   const topics = await XForumTopic.findAll({
@@ -105,9 +141,25 @@ export async function getRecentTopics ({ client_id, limit = 5 }) {
 }
 
 export async function inviteUser ({ forum_object_id, forum_object_type, user_id, inviter_id }) {
-  const { first_name, wallet_address } = await UserDetail.findOne({ where: { user_id: inviter_id }, raw: true })
-  const { notify_email, notify_sms } = await UserDetail.findOne({ where: { user_id }, raw: true })
-
+  let inviter_first_name, recipient_first_name, wallet_address, notify_email, notify_sms
+  const userDetails = await UserDetail.findAll({
+    where: { user_id: [user_id, inviter_id] },
+    raw: true,
+    attributes: ['first_name', 'wallet_address', 'notify_email', 'notify_sms']
+  })
+  if (userDetails[0].user_id === user_id) {
+    recipient_first_name = userDetails[0].first_name
+    notify_email = userDetails[0].notify_email
+    notify_sms = userDetails[0].notify_sms
+    inviter_first_name = userDetails[1].first_name
+    wallet_address = userDetails[1].wallet_address
+  } else {
+    recipient_first_name = userDetails[1].first_name
+    notify_email = userDetails[1].notify_email
+    notify_sms = userDetails[1].notify_sms
+    inviter_first_name = userDetails[0].first_name
+    wallet_address = userDetails[0].wallet_address
+  }
   // Create user access to private discussion
   await addForumUser({ user_id, forum_object_type, forum_object_id, is_moderator: false })
 
@@ -115,36 +167,91 @@ export async function inviteUser ({ forum_object_id, forum_object_type, user_id,
   const invitationLink = `${config.get('webApp.baseUrl')}/forum/${forum_object_type}/${forum_object_id}`
 
   // Add user notification
-  await addUserNotification({ user_id, forum_object_id, forum_object_type, first_name, wallet_address })
+  const notice = `<span><a href="/user/${wallet_address}">${inviter_first_name}</a> invited you to <a href="${invitationLink}">join a private discussion ${forum_object_type}</a>.</span>`
+  await addUserNotification({ user_id, notice })
 
   // Send Email and SMS notification
   if (notify_email) {
+    const { email } = await User.findOne({ where: { user_id }, raw: true })
+
     // Send email notification
+    await SendForumInvitationMail.execute({
+      invitationLink,
+      inviter_first_name,
+      recipient_first_name,
+      forum_object_type,
+      email
+    })
   }
   if (notify_sms) {
     // Send sms notification
   }
 }
 
-async function addUserNotification ({ user_id, forum_object_id, forum_object_type, first_name, wallet_address }) {
-  let forumObject = {}
-  let title
-  switch (forum_object_type) {
-    case 'category':
-      forumObject = await XForumCategory.findOne({ where: { category_id: forum_object_id }, raw: true })
-      title = forumObject.category_title
-      break
+export async function commentTopic ({ user_id, topic_id, comment }) {
+  const commentTopicActivity = await createNewEntity({
+    model: XUserActivity,
+    data: {
+      user_id,
+      record_type: 'topic',
+      record_id: topic_id,
+      activity_type: 'comment',
+      activity_value: comment
+    }
+  })
+  return commentTopicActivity
+}
 
-    case 'channel':
-      forumObject = await XForumChannel.findOne({ where: { channel_id: forum_object_id }, raw: true })
-      title = forumObject.channel_title
-      break
+export async function likeTopic ({ user_id, topic_id }) {
+  const topicLikeActivity = await createNewEntity({
+    model: XUserActivity,
+    data: {
+      user_id,
+      record_type: 'topic',
+      record_id: topic_id,
+      activity_type: 'like',
+      activity_value: '1'
+    }
+  })
+  return topicLikeActivity
+}
 
-    case 'topic':
-      forumObject = await XForumTopic.findOne({ where: { topic_id: forum_object_id }, raw: true })
-      title = topic_title
-  }
-  const notice = `<span><a href="/user/${wallet_address}">${first_name}</a> invited you to <a href="/forums/${forum_object_type}/${title}">join a private discussion ${object_type}</a>.</span>`
-  const notification = await XUserNotification.create({ user_id, notice })
+export async function getTopicComments ({ topic_id }) {
+  const topicComments = await XUserActivity.findAll({
+    where: {
+      record_type: 'topic',
+      record_id: topic_id,
+      activity_type: 'comment'
+    },
+    order: [['created_on', 'DESC']],
+    raw: true
+  })
+  return topicComments
+}
+
+export async function getTopicLikesCount ({ topic_id }) {
+  const topicLikesCount = await XUserActivity.sum('activity_value', {
+    where: {
+      record_type: 'topic',
+      record_id: topic_id,
+      activity_type: 'like'
+    }
+  })
+  return topicLikesCount
+}
+
+async function addUserNotification ({ user_id, notice }) {
+  const notification = await createNewEntity({
+    model: XUserNotification,
+    data: {
+      user_id,
+      notice
+    }
+  })
   return notification
+}
+
+export async function getCompanyAnnouncementChannel ({ client_id }) {
+  const announcementChannel = await XForumChannel.findOne({ where: { client_id, is_company_ann: true }, raw: true })
+  return announcementChannel
 }
