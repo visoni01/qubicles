@@ -40,5 +40,5 @@ export const isAuthorizedForClient = ({ clients, client_id,  user_level }) => {
   }
   
   // user must be part of client or be a system user to be authorized for client
-  return ( isClientIdMatched && user_level == USER_LEVEL.SYSTEM)
+  return ( isClientIdMatched || user_level == USER_LEVEL.SYSTEM)
 }
