@@ -12,7 +12,9 @@ import {
   EditFlowService,
   DeleteFlowService,
   GetACDQueueService,
-  CopyFlowService
+  CopyFlowService,
+  GetFlowPagesByFlowIdService,
+  GetFlowFieldsByFlowIdService
 } from '../services/flow'
 import config from '../../config/app'
 
@@ -132,6 +134,36 @@ export default class FlowController {
       Responder.success(res, copyFlowResult.result)
     } else {
       res.boom.badRequest('Copy Flow Operation failed', copyFlowResult.errors)
+    }
+  }
+
+  static async getCurrentUserId (req, res) {
+    const user_id = req.body.user_id
+    if (user_id) {
+      Responder.success(res, {user_id})
+    } else {
+      res.boom.badRequest('Get Current User Id Operation failed')
+    }
+  }
+
+  static async getFlowPagesByFlowId (req, res) {
+    const getFlowPagesByFlowIdResult = await GetFlowPagesByFlowIdService.execute({...req.body, ...req.params })
+    if (getFlowPagesByFlowIdResult.successful) {
+      Responder.success(res, getFlowPagesByFlowIdResult.result)
+    } else {
+      res.boom.badRequest('Get Flow pages by Flow Id Operation failed', getFlowPagesByFlowIdResult.errors)
+    }
+  }
+
+  static async getFlowFieldsByFlowId (req, res) {
+    const getFlowFieldsByFlowIdResult = await GetFlowFieldsByFlowIdService.execute({
+      ...req.params, 
+      userId: req.body.user_id 
+    })
+    if (getFlowFieldsByFlowIdResult.successful) {
+      Responder.success(res, getFlowFieldsByFlowIdResult.result)
+    } else {
+      res.boom.badRequest('Get Flow fields by Flow Id Operation failed', getFlowFieldsByFlowIdResult.errors)
     }
   }
 }
