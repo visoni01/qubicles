@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     token_price: DataTypes.DOUBLE,
     updated_on: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: false
     },
     created_on: {
       type: DataTypes.DATE,

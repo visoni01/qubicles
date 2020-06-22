@@ -37,16 +37,16 @@ export class CopyFlowService extends ServiceBase {
 
       // Adding new flow
       const addedFlowData = await createNewEntity({ model: Flow, data: newFlowData })
-      
+
       // Adding previous flow pages and fields
       if (addedFlowData.flow_id > 0) {
         // Get existing pages
-        const flowPages = await FlowPage.findAll({ 
+        const flowPages = await FlowPage.findAll({
           where: { flow_id: existingFlow.flow_id },
-          order: [['page_id', 'ASC']], 
-          raw: true 
+          order: [['page_id', 'ASC']],
+          raw: true
         })
-        
+
         if (flowPages && flowPages.length) {
           const addFlowPageAndFieldPromises = []
 
@@ -78,10 +78,9 @@ export class CopyFlowService extends ServiceBase {
           return newFlowData
         }
       }
-    } catch(err) {
+    } catch (err) {
       console.log('Error while executing the service CopyFlowService', err)
       this.addError('Error', 'Error occuring while copy the flow')
-      return
     }
   }
 
@@ -120,10 +119,10 @@ export class CopyFlowService extends ServiceBase {
             promises.push(() => this.createFlowField({ existingField, flowField, fieldsMap }))
           })
 
-          // Parallelly adding all the fields 
+          // Parallelly adding all the fields
           await Promise.all(promises.map((promise) => promise()))
         }
-      } 
+      }
       resolve()
     })
   }
@@ -140,12 +139,12 @@ export class CopyFlowService extends ServiceBase {
 
       // fields..
       if (field.goto_field && field.goto_field.trim()) {
-        // goto_field can have field_id    
-        const goto_field = parseInt(field.goto_field) 
+        // goto_field can have field_id
+        const goto_field = parseInt(field.goto_field)
 
         if (!isNaN(goto_field) && goto_field > 0) {
-          field.goto_field = fieldsMap[goto_field].toString();
-          fieldUpdated = true;
+          field.goto_field = fieldsMap[goto_field].toString()
+          fieldUpdated = true
         }
       }
 
@@ -157,15 +156,15 @@ export class CopyFlowService extends ServiceBase {
           field.field_options = ''
 
           conditions.forEach((condition) => {
-            if (!string.IsNullOrEmpty (condition)) {
-              const conditionParts = condition.split ('|')
+            if (!string.IsNullOrEmpty(condition)) {
+              const conditionParts = condition.split('|')
 
               if (conditionParts.Length > 6) {
                 const goToField = parseInt(conditionParts[6])
-                // goToField can have field_id    
+                // goToField can have field_id
                 if (!isNaN(goToField) && goToField > 0) {
                   conditionParts[6] = fieldsMap[goToField].toString()
-                  conditionsUpdated = true;
+                  conditionsUpdated = true
                 }
               }
 
@@ -174,7 +173,7 @@ export class CopyFlowService extends ServiceBase {
                 // goToField can have field_id
                 if (!isNaN(goToField) && goToField > 0) {
                   conditionParts[4] = fieldsMap[goToField].toString()
-                  conditionsUpdated = true;
+                  conditionsUpdated = true
                 }
               }
 
@@ -182,7 +181,7 @@ export class CopyFlowService extends ServiceBase {
                 const goToPage = parseInt(conditionParts[3])
                 if (!isNaN(goToPage) && goToPage > 0) {
                   conditionParts[3] = pagesMap[goToPage].toString()
-                  conditionsUpdated = true;
+                  conditionsUpdated = true
                 }
               }
 
@@ -190,11 +189,11 @@ export class CopyFlowService extends ServiceBase {
                 if (conditionParts.Length > 6) {
                   field.field_options += `${conditionParts[0]}|${conditionParts[1]}|${conditionParts[2]}|${conditionParts[3]}|${conditionParts[4]}|${conditionParts[5]}|${conditionParts[6]}\n`
                 } else if (conditionParts.Length > 5) {
-                    field.field_options += `${conditionParts[0]}|${conditionParts[1]}|${conditionParts[2]}|${conditionParts[3]}|${conditionParts[4]}|${conditionParts[5]}\n`
+                  field.field_options += `${conditionParts[0]}|${conditionParts[1]}|${conditionParts[2]}|${conditionParts[3]}|${conditionParts[4]}|${conditionParts[5]}\n`
                 } else {
                   field.field_options += `${conditionParts[0]}|${conditionParts[1]}|${conditionParts[2]}|${conditionParts[3]}|${conditionParts[4]}\n`
                 }
-                fieldUpdated = true;
+                fieldUpdated = true
               }
             }
           })
@@ -202,14 +201,14 @@ export class CopyFlowService extends ServiceBase {
       }
 
       if (fieldUpdated) {
-        await FlowField.update(field, { where: { field_id: field['field_id']} })
-      } 
+        await FlowField.update(field, { where: { field_id: field['field_id'] } })
+      }
 
       resolve()
     })
   }
 
-  async createFlowField({ existingField, flowField, fieldsMap}) {
+  async createFlowField ({ existingField, flowField, fieldsMap }) {
     return new Promise(async (resolve) => {
       const newField = await createNewEntity({ model: FlowField, data: flowField })
       fieldsMap[existingField.field_id] = newField.field_id

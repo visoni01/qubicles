@@ -27,8 +27,8 @@ export class GetACDQueueService extends ServiceBase {
 
     queues = queues.map((queueData) => {
       return {
-        group_id: queueData['group_id'], 
-        group_name: queueData['group_name'] 
+        group_id: queueData['group_id'],
+        group_name: queueData['group_name']
       }
     })
 

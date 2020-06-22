@@ -19,8 +19,8 @@ export class GetFlowPagesByFlowIdService extends ServiceBase {
   }
 
   async run () {
-    const flow = await Flow.findOne({ where: {flow_id: this.flowId }, raw: true} ) 
-    
+    const flow = await Flow.findOne({ where: { flow_id: this.flowId }, raw: true })
+
     if (!(flow && flow['flow_id'])) {
       this.addError('InvalidField', 'Flow does not exist')
       return
@@ -30,10 +30,10 @@ export class GetFlowPagesByFlowIdService extends ServiceBase {
       const currentUser = await getUserById({ userId: this.userId })
 
       const { clients } = await GetClientsService.run({ userId: this.userId })
-      const isInvalid = !isAuthorizedForClient({ 
-        clients, 
-        client_id: flow.client_id, 
-        user_level:  currentUser.user_level
+      const isInvalid = !isAuthorizedForClient({
+        clients,
+        client_id: flow.client_id,
+        user_level: currentUser.user_level
       })
 
       if (isInvalid) {
@@ -56,14 +56,13 @@ export class GetFlowPagesByFlowIdService extends ServiceBase {
       }
     })
 
-
     // always put non-randomized pages first, already sorted
     nonRandomizedPages = _.orderBy(nonRandomizedPages, 'page_id', 'ASC')
-    
+
     if (nonRandomizedPages && nonRandomizedPages.length) {
       sortPages.push(nonRandomizedPages)
     }
-    
+
     // only pull randomized pages if turned on the Flow level
     // generating random order
     // As mentioned in https://github.com/qubicles/manager/blob/master/FC2.Web/Controllers/FlowController.cs#L492

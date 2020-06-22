@@ -31,7 +31,7 @@ userRouter.route('/login')
         if (loginErr) {
           return res.status(401).send(loginErr)
         }
-        return res.status(200).json({ 'accessToken': req.user.accessToken, message: 'User logged in Successfully!!' })
+        return res.status(200).json({ accessToken: req.user.accessToken, message: 'User logged in Successfully!!' })
       })
     })(req, res)
   })

@@ -14,7 +14,8 @@ import {
   GetACDQueueService,
   CopyFlowService,
   GetFlowPagesByFlowIdService,
-  GetFlowFieldsByFlowIdService
+  GetFlowFieldsByFlowIdService,
+  GetDispositionsService
 } from '../services/flow'
 import config from '../../config/app'
 
@@ -140,14 +141,14 @@ export default class FlowController {
   static async getCurrentUserId (req, res) {
     const user_id = req.body.user_id
     if (user_id) {
-      Responder.success(res, {user_id})
+      Responder.success(res, { user_id })
     } else {
       res.boom.badRequest('Get Current User Id Operation failed')
     }
   }
 
   static async getFlowPagesByFlowId (req, res) {
-    const getFlowPagesByFlowIdResult = await GetFlowPagesByFlowIdService.execute({...req.body, ...req.params })
+    const getFlowPagesByFlowIdResult = await GetFlowPagesByFlowIdService.execute({ ...req.body, ...req.params })
     if (getFlowPagesByFlowIdResult.successful) {
       Responder.success(res, getFlowPagesByFlowIdResult.result)
     } else {
@@ -157,13 +158,22 @@ export default class FlowController {
 
   static async getFlowFieldsByFlowId (req, res) {
     const getFlowFieldsByFlowIdResult = await GetFlowFieldsByFlowIdService.execute({
-      ...req.params, 
-      userId: req.body.user_id 
+      ...req.params,
+      userId: req.body.user_id
     })
     if (getFlowFieldsByFlowIdResult.successful) {
       Responder.success(res, getFlowFieldsByFlowIdResult.result)
     } else {
       res.boom.badRequest('Get Flow fields by Flow Id Operation failed', getFlowFieldsByFlowIdResult.errors)
+    }
+  }
+
+  static async getDispositions (req, res) {
+    const getDispositionsResult = await GetDispositionsService.execute(req.body)
+    if (getDispositionsResult.successful) {
+      Responder.success(res, getDispositionsResult.result)
+    } else {
+      res.boom.badRequest('Get Dispositions Operation failed', getDispositionsResult.errors)
     }
   }
 }
