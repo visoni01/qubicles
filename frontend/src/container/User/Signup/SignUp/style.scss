@@ -100,3 +100,15 @@ select {
 .margin-bottom-30 {
   margin-bottom: 30px;
 }
+
+.text-button {
+  width: 100%;
+  padding: 0px;
+  border: none;
+  background: #f4f4f4;
+  color: #7f00ff;
+  font-size: 15px;
+  outline: none;
+} :hover {
+  color: black
+}

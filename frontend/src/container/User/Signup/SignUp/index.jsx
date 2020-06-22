@@ -23,7 +23,7 @@ const schema = yup.object().shape( {
   pass: yup.string().required( '*Required' ),
 } )
 
-const SignUp = ( { location } ) => {
+const SignUp = ( { location, history } ) => {
   const { register, errors, handleSubmit } = useForm( {
     validationSchema: schema,
   } )
@@ -135,18 +135,11 @@ const SignUp = ( { location } ) => {
                           </button>
                         </p>
                       </div>
-                      {/* <a >
-                        {isSocialSignup && (
-                        <span className="options-span-1">
-                          Sign up with Email
-                        </span>
-                        )}
-                        {!isSocialSignup && (
+                      <button type="button" className="text-button" onClick={ () => history.push( '/login' ) }>
                         <span className="options-span-2">
-                          Back to social sign up options
+                          Back to social log in options
                         </span>
-                        )}
-                      </a> */}
+                      </button>
                     </>
                   )}
                   <div>
@@ -171,6 +164,9 @@ SignUp.propTypes = {
   location: PropTypes.instanceOf( {
     search: PropTypes.string,
   } ),
+  history: PropTypes.instanceOf( {
+    push: PropTypes.func,
+  } ).isRequired,
 }
 
 SignUp.defaultProps = {
