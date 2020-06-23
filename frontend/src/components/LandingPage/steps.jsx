@@ -142,6 +142,67 @@ const Steps = ({ history }) => (
       </div>
     </section>
     {/* /Video section */}
+    {/* Feature highlight */}
+    <div className="section section-feature-grey is-medium">
+      <div className="container">
+        {/* Title */}
+        <div className="section-title-wrapper">
+          <div className="bg-number">3</div>
+          <h2 className="title section-title has-text-centered dark-text">
+            A world without boundaries
+          </h2>
+          <div className="subtitle has-text-centered is-tablet-padded">
+            Empowering businesses to provide better service by connecting them
+            with millions of talented agents worldwide.
+          </div>
+        </div>
+        <div className="content-wrapper">
+          {/* Row */}
+          <div className="columns is-vcentered">
+            {/* Featured image */}
+            <div className="column is-7">
+              <div>
+                <figure className="image is-4-by-3">
+                  <img
+                    className="first"
+                    src="img/illustrations/UI/global-network.png"
+                    alt=""
+                  />
+                </figure>
+              </div>
+            </div>
+            {/* Content */}
+            <div className="column is-4 is-offset-1">
+              <div className="icon-subtitle">
+                <i className="im im-icon-Geo-Love" />
+              </div>
+              <h2 className="title section-subtitle dark-text text-bold is-2">
+                ...and without middlemen
+              </h2>
+              <span className="section-feature-description">
+                Whether you're looking for work in a contact center, seeking
+                cloud-based contact center software or you're in the market
+                for talent, we've got you covered. Powered by blockchain smart
+                contracts with no middlemen involved, our patent-pending
+                technology ensures the right agent is matched to the right
+                position at the right time.
+              </span>
+              <div className="pt-10 pb-10" style={ { display: 'none' } }>
+                <a
+                  href="#"
+                  className="button btn-align btn-more is-link color-primary is-title-reveal"
+                >
+                  Learn more
+                  <i className="sl sl-icon-arrow-right" />
+                </a>
+              </div>
+            </div>
+          </div>
+          {/* /Row */}
+        </div>
+      </div>
+    </div>
+    {/* /Feature highlight */}
   </>
 )
 
