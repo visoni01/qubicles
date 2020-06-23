@@ -1,176 +1,19 @@
 import React from 'react'
+import Slider from './slider'
 
 const IndexPage = () => (
   <div>
-    &lt;% layout('layout') -%&gt;
+    {/* &lt;% layout('layout') -%&gt; */}
     {/* Hero and nav */}
     <div className="hero is-cover is-relative is-fullheight is-default is-bold">
-      &lt;% include partials/header %&gt;
+      {/* &lt;% include partials/header %&gt; */}
       {/* Hero Wallop Slider */}
       <div className="Wallop Wallop--fade">
-        <div className="Wallop-list">
-          {/* Slide */}
-          <div
-            className="Wallop-item Wallop-item--current has-background-image"
-            data-background="img/bg/global-network.jpg"
-          >
-            <div className="Wallop-overlay" />
-            <div className="Wallop-caption-wrapper">
-              <div className="container">
-                <div className="columns is-gapless is-vcentered">
-                  <div className="column is-5">
-                    <div className="caption-inner">
-                      <h1>
-                        World's first contact center powered by blockchain
-                      </h1>
-                      <div className="caption-divider" />
-                      <div className="caption-text">
-                        <span>
-                          Where talented customer service, sales and support
-                          agents connect directly with contact centers for
-                          work. No middlemen involved.
-                        </span>
-                        <div className="action">
-                          <a
-                            href="/signup"
-                            className="button button-cta primary-btn rounded"
-                          >
-                            Sign Up for Free
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* Slide */}
-          <div
-            className="Wallop-item has-background-image"
-            data-background="img/bg/work-at-home-lady.jpg"
-          >
-            <div className="Wallop-overlay" />
-            <div className="Wallop-caption-wrapper">
-              <div className="container">
-                <div className="columns is-gapless is-vcentered">
-                  <div className="column is-5">
-                    <div className="caption-inner">
-                      <h1>
-                        Run your contact center from anywhere in the world
-                      </h1>
-                      <div className="caption-divider" />
-                      <div className="caption-text">
-                        <span>
-                          Welcome to the future - where you are the boss with
-                          a more flexible schedule and working from the
-                          comfort of your own home.
-                        </span>
-                        <div className="action">
-                          <a
-                            href="#services"
-                            className="button button-cta primary-btn rounded"
-                          >
-                            Sign Up for FREE
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* Slide */}
-          <div
-            className="Wallop-item has-background-image"
-            data-background="img/bg/qbe-rewards.jpg"
-          >
-            <div className="Wallop-overlay" />
-            <div className="Wallop-caption-wrapper">
-              <div className="container">
-                <div className="columns is-gapless is-vcentered">
-                  <div className="column is-5">
-                    <div className="caption-inner">
-                      <h1>
-                        Earn Qubicle cryptocurrency rewards for a job well
-                        done
-                      </h1>
-                      <div className="caption-divider" />
-                      <div className="caption-text">
-                        <span>
-                          We utilize blockchain technology to create a unique
-                          reward-based economy, where users earn
-                          cryptocurrency for meeting program KPIs.
-                        </span>
-                        <div className="action">
-                          <a
-                            href="/pricing"
-                            className="button button-cta primary-btn rounded"
-                          >
-                            Sign Up for FREE
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* Slide */}
-          <div
-            className="Wallop-item has-background-image"
-            data-background="img/bg/all-in-one.jpg"
-          >
-            <div className="Wallop-overlay" />
-            <div className="Wallop-caption-wrapper">
-              <div className="container">
-                <div className="columns is-gapless is-vcentered">
-                  <div className="column is-5">
-                    <div className="caption-inner">
-                      <h1>
-                        All-in-one cloud contact center software at your
-                        fingertips
-                      </h1>
-                      <div className="caption-divider" />
-                      <div className="caption-text">
-                        <span>
-                          Designed to meet the needs of small, mid-sized, and
-                          enterprise contact centers alike, we scale as your
-                          business grows.
-                        </span>
-                        <div className="action">
-                          <a
-                            href="#services"
-                            className="button button-cta primary-btn rounded"
-                          >
-                            Sign Up for FREE
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* Pagination dots */}
-        <div className="Wallop-pagination">
-          <button className="Wallop-dot Wallop-dot--current">
-            contact center powered by blockchain
-          </button>
-          <button className="Wallop-dot">earn qbe tokens</button>
-          <button className="Wallop-dot">work at home contact center</button>
-          <button className="Wallop-dot">
-            all-in-one contact center software
-          </button>
-        </div>
+        <Slider />
       </div>
     </div>
     {/* Clients */}
-    <div className="hero-foot is-pulled">
+    <div className="hero-foot">
       <div className="container">
         <div className="tabs partner-tabs is-centered">
           <ul>
@@ -213,7 +56,7 @@ const IndexPage = () => (
             <li>
               <a>
                 <img
-                  className="partner-logo"
+                  className="partner-logo "
                   src="img/logos/custom/cio2016.png"
                   alt=""
                 />
@@ -902,7 +745,7 @@ const IndexPage = () => (
       </div>
     </section>
     {/* /Static Testimonials */}
-    &lt;% include partials/footer %&gt;
+    {/* &lt;% include partials/footer %&gt; */}
   </div>
 )
 
