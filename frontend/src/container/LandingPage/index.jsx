@@ -1,5 +1,6 @@
 import React from 'react'
 import Slider from './slider'
+import Clients from '../../components/LandingPage/clients'
 
 const IndexPage = () => (
   <div>
@@ -13,84 +14,7 @@ const IndexPage = () => (
       </div>
     </div>
     {/* Clients */}
-    <div className="hero-foot">
-      <div className="container">
-        <div className="tabs partner-tabs is-centered">
-          <ul>
-            <li>
-              <a>
-                <img
-                  className="partner-logo"
-                  src="img/logos/custom/cea2019.png"
-                  alt=""
-                />
-              </a>
-            </li>
-            <li>
-              <a>
-                <img
-                  className="partner-logo"
-                  src="img/logos/custom//miamiherald.png"
-                  alt=""
-                />
-              </a>
-            </li>
-            <li>
-              <a>
-                <img
-                  className="partner-logo"
-                  src="img/logos/custom/crm2017.png"
-                  alt=""
-                />
-              </a>
-            </li>
-            <li>
-              <a>
-                <img
-                  className="partner-logo"
-                  src="img/logos/custom/poty2016.png"
-                  alt=""
-                />
-              </a>
-            </li>
-            <li>
-              <a>
-                <img
-                  className="partner-logo "
-                  src="img/logos/custom/cio2016.png"
-                  alt=""
-                />
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.getapp.com/it-communications-software/a/fenero/reviews/"
-                target="_blank"
-              >
-                <img
-                  className="partner-logo"
-                  alt="Read Fenero Reviews on GetApp.com"
-                  src="https://www.getapp.com/ext/reviews_widget/v1/dark/fenero-application"
-                  srcSet="https://www.getapp.com/ext/reviews_widget/v1/dark/fenero-application, https://www.getapp.com/ext/reviews_widget/v1/dark/fenero-application@2x 2x, https://www.getapp.com/ext/reviews_widget/v1/dark/fenero-application@3x 3x"
-                  title="Read Qubicles Reviews on GetApp.com"
-                />
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.capterra.com/reviews/161183/Fenero?utm_source=vendor&utm_medium=badge&utm_campaign=capterra_reviews_badge"
-                target="_blank"
-              >
-                <img
-                  className="partner-logo"
-                  src="https://assets.capterra.com/badge/54c78f6565f4030db187353d12a99c33.png?v=2112709&p=161183"
-                />
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    <Clients />
     {/* Services */}
     <div id="services" className="section is-medium">
       <div className="container">
