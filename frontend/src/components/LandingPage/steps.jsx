@@ -1,6 +1,11 @@
 import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faChartBar, faCoins, faUniversity, faTabletAlt,
+} from '@fortawesome/free-solid-svg-icons'
+import PropTypes from 'prop-types'
 
-const Steps = () => (
+const Steps = ({ history }) => (
   <>
     {/* Services */}
     <div id="services" className="section is-medium">
@@ -23,7 +28,7 @@ const Steps = () => (
             <div className="column is-3">
               <div className="startup-icon-box">
                 <div className="is-icon-reveal">
-                  <i className="im im-icon-Bar-Chart2" />
+                  <FontAwesomeIcon icon={ faChartBar } className="LP-step-1-icons" />
                 </div>
                 <div className="box-title">On-Demand Staffing</div>
                 <p className="box-content is-tablet-padded">
@@ -36,7 +41,7 @@ const Steps = () => (
             <div className="column is-3">
               <div className="startup-icon-box">
                 <div className="is-icon-reveal">
-                  <i className="im im-icon-Coins-3" />
+                  <FontAwesomeIcon icon={ faCoins } className="LP-step-1-icons" />
                 </div>
                 <div className="box-title">Cryptocurrency Rewards</div>
                 <p className="box-content is-tablet-padded">
@@ -49,7 +54,7 @@ const Steps = () => (
             <div className="column is-3">
               <div className="startup-icon-box">
                 <div className="is-icon-reveal">
-                  <i className="im im-icon-Students" />
+                  <FontAwesomeIcon icon={ faUniversity } className="LP-step-1-icons mt-10 mb-10" />
                 </div>
                 <div className="box-title">Contact Center Univeristy</div>
                 <p className="box-content is-tablet-padded">
@@ -62,7 +67,7 @@ const Steps = () => (
             <div className="column is-3">
               <div className="startup-icon-box">
                 <div className="is-icon-reveal">
-                  <i className="im im-icon-Sidebar-Window" />
+                  <FontAwesomeIcon icon={ faTabletAlt } className="LP-step-1-icons mt-10 mb-10" />
                 </div>
                 <div className="box-title">Contact Center Software</div>
                 <p className="box-content is-tablet-padded">
@@ -73,23 +78,31 @@ const Steps = () => (
             </div>
           </div>
           <div className="has-text-centered is-title-reveal pt-20 pb-20">
-            <a
-              href="/agents"
-              className="button button-cta primary-btn rounded raised mb-10 mr-20"
+            <button
+              type="button"
+              className="button button-cta primary-btn rounded raised mb-10 mr-20 steps-button-color"
+              onClick={ () => history.push('/agents') }
             >
               For Independent Agents
-            </a>
-            <a
-              href="/contactcenters"
-              className="button button-cta primary-btn rounded raised"
+            </button>
+            <button
+              type="button"
+              className="button button-cta primary-btn rounded raised steps-button-color"
+              onClick={ () => history.push('/contactcenters') }
             >
               For Contact Centers
-            </a>
+            </button>
           </div>
         </div>
       </div>
     </div>
   </>
 )
+
+Steps.propTypes = {
+  history: PropTypes.instanceOf({
+    push: PropTypes.func,
+  }).isRequired,
+}
 
 export default Steps

@@ -1,8 +1,10 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Slider from './slider'
 import { Clients, Steps } from '../../components/LandingPage'
+import './style.scss'
 
-const IndexPage = () => (
+const IndexPage = ({ history }) => (
   <div>
     {/* &lt;% layout('layout') -%&gt; */}
     {/* Hero and nav */}
@@ -13,7 +15,7 @@ const IndexPage = () => (
     </div>
     {/* Clients */}
     <Clients />
-    <Steps />
+    <Steps history={ history } />
     {/* /Services */}
     {/* Video section */}
     <section className="section section-light-grey is-medium">
@@ -584,5 +586,9 @@ const IndexPage = () => (
     {/* &lt;% include partials/footer %&gt; */}
   </div>
 )
+
+Steps.propTypes = {
+  history: PropTypes.instanceOf({}).isRequired,
+}
 
 export default IndexPage
