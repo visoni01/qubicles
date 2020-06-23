@@ -25,14 +25,14 @@ const Slider = () => {
   )
 
   return (
-    <>
+    <div className="Wallop Wallop--fade">
       <div className="Wallop-list">
         <SliderComponent { ...sliderData[ currentSlide ] } />
       </div>
       <div className="Wallop-pagination">
         { sliderData.map((element, index) => (dotButton(element.dotName, index)))}
       </div>
-    </>
+    </div>
   )
 }
 

@@ -9,9 +9,7 @@ const IndexPage = () => (
     <div className="hero is-cover is-relative is-fullheight is-default is-bold">
       {/* &lt;% include partials/header %&gt; */}
       {/* Hero Wallop Slider */}
-      <div className="Wallop Wallop--fade">
-        <Slider />
-      </div>
+      <Slider />
     </div>
     {/* Clients */}
     <Clients />
