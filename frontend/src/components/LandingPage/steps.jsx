@@ -96,6 +96,52 @@ const Steps = ({ history }) => (
         </div>
       </div>
     </div>
+    {/* /Services */}
+    {/* Video section */}
+    <section className="section section-light-grey is-medium">
+      <div className="container">
+        {/* Title */}
+        <div className="section-title-wrapper">
+          <div className="bg-number">2</div>
+          <h2 className="title section-title has-text-centered dark-text">
+            {' '}
+            Customers are always right
+          </h2>
+          <div className="subtitle has-text-centered is-tablet-padded">
+            Learn how we are re-defining the contact center and pioneering a
+            future of excellent customer experiences for everyone.
+          </div>
+        </div>
+        <div className="content-wrapper">
+          <div className="columns">
+            {/* Youtube Video player */}
+            <div
+              id="video"
+              className="column is-6 is-offset-3 animated preFadeInUp fadeInUp is-hidden pb-20"
+            >
+              <div className="side-block">
+                <div className="background-wrapper">
+                  <div
+                    id="video-embed"
+                    className="video-wrapper"
+                    data-url="https://www.youtube.com/watch?v=GioazWxrSnM"
+                  >
+                    <div className="video-overlay" />
+                    <div className="playbutton">
+                      <div className="icon-play">
+                        <i className="im im-icon-Play-Music" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* /Youtube Video player */}
+          </div>
+        </div>
+      </div>
+    </section>
+    {/* /Video section */}
   </>
 )
 
