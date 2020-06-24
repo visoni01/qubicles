@@ -8,6 +8,7 @@ import {
   faUsers,
   faAngleRight,
 } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
   globalNetworkImage, qbeTeam, userSnapshot, projectUi, ipads, lifeSaver, wallet, building, chatUser,
@@ -94,20 +95,18 @@ const Steps = ({ history }) => (
             </div>
           </div>
           <div className="has-text-centered is-title-reveal pt-20 pb-20">
-            <button
-              type="button"
+            <Link
               className="button button-cta primary-btn rounded raised mb-10 mr-20 steps-button-color"
-              onClick={ () => history.push('/agents') }
+              to="/agents"
             >
               For Independent Agents
-            </button>
-            <button
-              type="button"
+            </Link>
+            <Link
               className="button button-cta primary-btn rounded raised steps-button-color"
-              onClick={ () => history.push('/contactcenters') }
+              to="/contactcenters"
             >
               For Contact Centers
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -422,13 +421,12 @@ const Steps = ({ history }) => (
           </div>
           {/* /Feature */}
           <h2 className="title has-text-centered is-title-reveal">
-            <button
-              type="button"
+            <Link
               className="button button-cta btn-align rounded raised primary-btn steps-button-color"
-              onClick={ () => history.push('/signup') }
+              to="/signup"
             >
               Get Started for Free
-            </button>
+            </Link>
           </h2>
         </div>
       </div>
@@ -632,13 +630,12 @@ const Steps = ({ history }) => (
           </div>
         </div>
         <h2 className="title has-text-centered is-title-reveal pt-80">
-          <button
-            type="button"
+          <Link
             className="button button-cta btn-align rounded raised primary-btn steps-button-color"
-            onClick={ () => history.push('/signup') }
+            to="/signup"
           >
             Get Started for Free
-          </button>
+          </Link>
         </h2>
       </div>
     </section>
