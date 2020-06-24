@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Divider } from '@material-ui/core'
+import { Link } from 'react-router-dom'
 import Slider from './slider'
 import { Clients, Steps } from '../../components/LandingPage'
 import './style.scss'
@@ -17,6 +18,7 @@ const IndexPage = ({ history }) => (
     {/* Clients */}
     <Clients />
     <Divider variant="middle" />
+    {/* Info steps */}
     <Steps history={ history } />
     {/* &lt;% include partials/footer %&gt; */}
   </div>

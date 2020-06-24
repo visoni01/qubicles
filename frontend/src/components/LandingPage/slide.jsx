@@ -1,10 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classNames from 'classnames'
 
-const Slide = ({ heading, detail, buttonName }) => (
+const Slide = ({
+  heading, detail, buttonName, bgImage,
+}) => (
   <div
     className="Wallop-item Wallop-item--current has-background-image"
-    data-background="img/bg/global-network.jpg"
+    style={ { backgroundImage: `url(${ bgImage })` } }
   >
     <div className="Wallop-overlay" />
     <div className="Wallop-caption-wrapper">
@@ -41,6 +44,7 @@ Slide.propTypes = {
   heading: PropTypes.string.isRequired,
   detail: PropTypes.string.isRequired,
   buttonName: PropTypes.string.isRequired,
+  bgImage: PropTypes.string.isRequired,
 }
 
 export default Slide

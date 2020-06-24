@@ -34,7 +34,7 @@ const clients = [
   },
   {
     source: 'https://www.getapp.com/ext/reviews_widget/v1/dark/fenero-application',
-    alt: 'Read Fenero Reviews on GetApp.com',
+    alt: 'GetApp',
     href: 'https://www.getapp.com/it-communications-software/a/fenero/reviews/',
   },
   {
