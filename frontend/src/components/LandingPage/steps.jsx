@@ -1,7 +1,10 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faChartBar, faCoins, faUniversity, faTabletAlt,
+  faChartBar,
+  faCoins,
+  faUniversity,
+  faTabletAlt,
 } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 
@@ -28,7 +31,10 @@ const Steps = ({ history }) => (
             <div className="column is-3">
               <div className="startup-icon-box">
                 <div className="is-icon-reveal">
-                  <FontAwesomeIcon icon={ faChartBar } className="LP-step-1-icons" />
+                  <FontAwesomeIcon
+                    icon={ faChartBar }
+                    className="LP-step-1-icons"
+                  />
                 </div>
                 <div className="box-title">On-Demand Staffing</div>
                 <p className="box-content is-tablet-padded">
@@ -45,8 +51,8 @@ const Steps = ({ history }) => (
                 </div>
                 <div className="box-title">Cryptocurrency Rewards</div>
                 <p className="box-content is-tablet-padded">
-                  Agents earn passive income in the form of Qubicle (QBE)
-                  crypto tokens by exceeding performance goals.
+                  Agents earn passive income in the form of Qubicle (QBE) crypto
+                  tokens by exceeding performance goals.
                 </p>
               </div>
             </div>
@@ -54,12 +60,15 @@ const Steps = ({ history }) => (
             <div className="column is-3">
               <div className="startup-icon-box">
                 <div className="is-icon-reveal">
-                  <FontAwesomeIcon icon={ faUniversity } className="LP-step-1-icons mt-10 mb-10" />
+                  <FontAwesomeIcon
+                    icon={ faUniversity }
+                    className="LP-step-1-icons mt-10 mb-10"
+                  />
                 </div>
                 <div className="box-title">Contact Center Univeristy</div>
                 <p className="box-content is-tablet-padded">
-                  Our built-in university offers candidates support, service
-                  and sales training to help them qualify for open positions.
+                  Our built-in university offers candidates support, service and
+                  sales training to help them qualify for open positions.
                 </p>
               </div>
             </div>
@@ -67,7 +76,10 @@ const Steps = ({ history }) => (
             <div className="column is-3">
               <div className="startup-icon-box">
                 <div className="is-icon-reveal">
-                  <FontAwesomeIcon icon={ faTabletAlt } className="LP-step-1-icons mt-10 mb-10" />
+                  <FontAwesomeIcon
+                    icon={ faTabletAlt }
+                    className="LP-step-1-icons mt-10 mb-10"
+                  />
                 </div>
                 <div className="box-title">Contact Center Software</div>
                 <p className="box-content is-tablet-padded">
@@ -115,27 +127,14 @@ const Steps = ({ history }) => (
         <div className="content-wrapper">
           <div className="columns">
             {/* Youtube Video player */}
-            <div
-              id="video"
-              className="column is-6 is-offset-3 animated preFadeInUp fadeInUp is-hidden pb-20"
-            >
-              <div className="side-block">
-                <div className="background-wrapper">
-                  <div
-                    id="video-embed"
-                    className="video-wrapper"
-                    data-url="https://www.youtube.com/watch?v=GioazWxrSnM"
-                  >
-                    <div className="video-overlay" />
-                    <div className="playbutton">
-                      <div className="icon-play">
-                        <i className="im im-icon-Play-Music" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <iframe
+              frameBorder="0"
+              height="350px"
+              width="600px"
+              src="https://www.youtube.com/embed/GioazWxrSnM"
+              title="Qubicles"
+              className="youtube-video"
+            />
             {/* /Youtube Video player */}
           </div>
         </div>
@@ -181,15 +180,16 @@ const Steps = ({ history }) => (
               </h2>
               <span className="section-feature-description">
                 Whether you're looking for work in a contact center, seeking
-                cloud-based contact center software or you're in the market
-                for talent, we've got you covered. Powered by blockchain smart
+                cloud-based contact center software or you're in the market for
+                talent, we've got you covered. Powered by blockchain smart
                 contracts with no middlemen involved, our patent-pending
                 technology ensures the right agent is matched to the right
                 position at the right time.
               </span>
               <div className="pt-10 pb-10" style={ { display: 'none' } }>
                 <a
-                  href="#"
+                  href="/about"
+                  target="blank"
                   className="button btn-align btn-more is-link color-primary is-title-reveal"
                 >
                   Learn more
