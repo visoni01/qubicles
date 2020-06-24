@@ -178,7 +178,7 @@ export class SaveLeadService extends ServiceBase {
           }
         } catch (error) {
           logger.error(`Error in save lead service: ${error}`)
-          this.addError('Error', 'Error occuring while processing this request!')
+          this.addError('Error', 'Error occurred while saving lead')
         }
       } else {
         this.addError('InvalidUser', 'User is invalid')
