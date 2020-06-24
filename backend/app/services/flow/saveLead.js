@@ -1,81 +1,15 @@
 import ServiceBase from '../../common/serviceBase'
 import {
   getUserById,
-  getListByLeadId,
-  updateList,
+  getLeadByLeadId,
+  updateLead,
   updateLeadInCustomTable
 } from '../helper'
 import GetClientsService from '../user/getClients'
 import logger from '../../common/logger'
 
 const constraints = {
-  user_id: {
-    presence: false
-  },
-  user: {
-    presence: false
-  },
-  lead_id: {
-    presence: false
-  },
-  vendor_lead_code: {
-    presence: false
-  },
-  source_id: {
-    presence: false
-  },
-  phone_number: {
-    presence: false
-  },
-  alt_phone: {
-    presence: false
-  },
-  security_phrase: {
-    presence: false
-  },
-  owner: {
-    presence: false
-  },
-  rank: {
-    presence: false
-  },
-  title: {
-    presence: false
-  },
-  first_name: {
-    presence: false
-  },
-  last_name: {
-    presence: false
-  },
-  address1: {
-    presence: false
-  },
-  address2: {
-    presence: false
-  },
-  address3: {
-    presence: false
-  },
-  city: {
-    presence: false
-  },
-  state: {
-    presence: false
-  },
-  postal_code: {
-    presence: false
-  },
-  country_code: {
-    presence: false
-  },
-  gender: {
-    presence: false
-  },
-  email: {
-    presence: false
-  },
-  comments: {
+  lead: {
     presence: false
   }
 }
@@ -87,16 +21,16 @@ export class SaveLeadService extends ServiceBase {
 
   async run () {
     // Check if user_id and lead_id is valid or not
-    if (this.user_id > 0 && this.lead_id > 0) {
-      const currentUser = await getUserById({ userId: this.user_id })
+    if (this.lead && this.lead.user_id > 0 && this.lead.lead_id > 0) {
+      const currentUser = await getUserById({ userId: this.lead.user_id })
 
       if (currentUser && currentUser['user_id']) {
         try {
           const { clients } = await GetClientsService.run({ userId: currentUser.user_id })
 
-          let standardLead = await getListByLeadId({
-            leadId: this.lead_id,
-            user: currentUser.user_id,
+          let standardLead = await getLeadByLeadId({
+            leadId: this.lead.lead_id,
+            user: currentUser,
             clients
           })
 
@@ -109,7 +43,7 @@ export class SaveLeadService extends ServiceBase {
             security_phrase,
             owner,
             rank
-          } = this.args
+          } = this.lead
 
           if (standardLead && standardLead['lead_id']) {
             standardLead = {
@@ -120,44 +54,44 @@ export class SaveLeadService extends ServiceBase {
               phone_number
             }
 
-            if (this.title) {
-              standardLead.title = this.title
+            if (this.lead.title) {
+              standardLead.title = this.lead.title
             }
-            if (this.first_name) {
-              standardLead.first_name = this.first_name
+            if (this.lead.first_name) {
+              standardLead.first_name = this.lead.first_name
             }
-            if (this.last_name) {
-              standardLead.last_name = this.last_name
+            if (this.lead.last_name) {
+              standardLead.last_name = this.lead.last_name
             }
-            if (this.address1) {
-              standardLead.address1 = this.address1
+            if (this.lead.address1) {
+              standardLead.address1 = this.lead.address1
             }
-            if (this.address2) {
-              standardLead.address2 = this.address2
+            if (this.lead.address2) {
+              standardLead.address2 = this.lead.address2
             }
-            if (this.address3) {
-              standardLead.address3 = this.address3
+            if (this.lead.address3) {
+              standardLead.address3 = this.lead.address3
             }
-            if (this.city) {
-              standardLead.city = this.city
+            if (this.lead.city) {
+              standardLead.city = this.lead.city
             }
-            if (this.state) {
-              standardLead.state = this.state
+            if (this.lead.state) {
+              standardLead.state = this.lead.state
             }
-            if (this.postal_code) {
-              standardLead.postal_code = this.postal_code
+            if (this.lead.postal_code) {
+              standardLead.postal_code = this.lead.postal_code
             }
-            if (this.country_code) {
-              standardLead.country_code = this.country_code
+            if (this.lead.country_code) {
+              standardLead.country_code = this.lead.country_code
             }
-            if (this.gender) {
-              standardLead.gender = this.gender
+            if (this.lead.gender) {
+              standardLead.gender = this.lead.gender
             }
-            if (this.email) {
-              standardLead.email = this.email
+            if (this.lead.email) {
+              standardLead.email = this.lead.email
             }
-            if (this.comments) {
-              standardLead.comments = this.comments
+            if (this.lead.comments) {
+              standardLead.comments = this.lead.comments
             }
 
             standardLead.alt_phone = alt_phone
@@ -166,11 +100,11 @@ export class SaveLeadService extends ServiceBase {
             standardLead.rank = rank
             standardLead.modify_date = new Date()
 
-            // Update List
-            await updateList({ list: standardLead, user, clients })
+            // Update Lead
+            await updateLead({ lead: standardLead, user, clients })
 
             // Update Lead in custom table
-            await updateLeadInCustomTable({ lead: this.args })
+            await updateLeadInCustomTable({ lead: this.lead })
 
             return standardLead
           } else {

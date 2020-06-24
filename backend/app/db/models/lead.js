@@ -79,11 +79,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BIGINT(14).UNSIGNED,
       allowNull: false,
       defaultValue: 0
-    },
-    created_on: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW
     }
   },
   { tableName: 'x_leads' })
