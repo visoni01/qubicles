@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Divider } from '@material-ui/core'
 import Slider from './slider'
 import { Clients, Steps } from '../../components/LandingPage'
 import './style.scss'
@@ -15,12 +16,13 @@ const IndexPage = ({ history }) => (
     </div>
     {/* Clients */}
     <Clients />
+    <Divider variant="middle" />
     <Steps history={ history } />
     {/* &lt;% include partials/footer %&gt; */}
   </div>
 )
 
-Steps.propTypes = {
+IndexPage.propTypes = {
   history: PropTypes.instanceOf({}).isRequired,
 }
 
