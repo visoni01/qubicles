@@ -4,7 +4,7 @@ import { executeSelectQuery } from '../../utils/queryManager'
 export async function getLiveAgentByUser ({ user, clients }) {
   const sourceTable = getLiveAgentsTableName({ user, clients })
   const liveAgent = await executeSelectQuery({
-    method: 'getById',
+    method: 'getDataByColumnName',
     sourceTable,
     columnName: 'user',
     columnValue: user

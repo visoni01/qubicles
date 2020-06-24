@@ -2,6 +2,7 @@ import { USER_LEVEL } from '../../services/user/getSecurityContext'
 import config from '../../../config/app'
 import { SqlHelper } from '../../utils/sql'
 import _ from 'lodash'
+import moment from 'moment'
 
 // Here we are separating the combined values
 // Input example: ' AGENTDIRECT LeadCrowdInbound NewTFNInboundQueue UveaousTechInbound -'
@@ -56,4 +57,8 @@ export const listsFieldsColumnExists = async ({ listId, columnName }) => {
   const data = await SqlHelper.select(sql)
   const isColumnExist = !_.isEmpty(data)
   return isColumnExist
+}
+
+export const formatDate = (date) => {
+  return moment(date).format('YYYY-MM-DD HH:mm:ss')
 }
