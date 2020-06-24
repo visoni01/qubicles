@@ -74,7 +74,7 @@ flowRouter.route('/dispositions')
   .get(flowController.getDispositions)
 
 // Section-3.8, REQ-20
-flowRouter.route('/lead/save')
+flowRouter.route('/savelead')
   .post(flowController.saveLead)
 
 export { flowRouter }

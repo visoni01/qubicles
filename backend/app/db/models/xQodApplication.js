@@ -30,9 +30,9 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.NOW
     }
   },
-    {
-      tableName: 'x_qod_applications'
-    })
+  {
+    tableName: 'x_qod_applications'
+  })
   XQodApplication.associate = function (models) {
   }
   return XQodApplication

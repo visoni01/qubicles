@@ -37,7 +37,7 @@ const QueryMethods = {
         // If we have multiple primary keys (composite key) then we also need
         // to use AND in the where clause
         if (hasWhereClause) {
-          whereClause += `AND \`${property}\` = '${data[property]}'`
+          whereClause += ` AND \`${property}\` = '${data[property]}'`
         } else {
           whereClause = ` WHERE \`${property}\` = '${data[property]}'`
         }
