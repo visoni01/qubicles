@@ -11,6 +11,10 @@ import cia2016 from './cio2016.png'
 import crm2017 from './crm2017.png'
 import miamiherald from './miamiherald.png'
 import poty2016 from './poty2016.png'
+import bgAllInOne from './bg-all-in-one.jpg'
+import bgGlobalNetwork from './bg-global-network.jpg'
+import bgQbeRewards from './bg-qbe-rewards.jpg'
+import bgWorkAtHome from './bg-work-at-home-lady.jpg'
 
 export {
   globalNetworkImage,
@@ -26,4 +30,8 @@ export {
   crm2017,
   miamiherald,
   poty2016,
+  bgAllInOne,
+  bgGlobalNetwork,
+  bgQbeRewards,
+  bgWorkAtHome,
 }
