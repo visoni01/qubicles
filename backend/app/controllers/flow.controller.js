@@ -179,7 +179,7 @@ export default class FlowController {
   }
 
   static async saveLead (req, res) {
-    const saveLeadResult = await SaveLeadService.execute(req.body)
+    const saveLeadResult = await SaveLeadService.execute({ ...req.body.lead })
     if (saveLeadResult.successful) {
       Responder.success(res, saveLeadResult.result)
     } else {
