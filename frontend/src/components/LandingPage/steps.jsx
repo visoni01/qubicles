@@ -8,7 +8,9 @@ import {
   faUsers,
 } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
-import { globalNetworkImage, qbeTeam, userSnapshot } from '../../assets/images/landingPage'
+import {
+  globalNetworkImage, qbeTeam, userSnapshot, projectUi, ipads,
+} from '../../assets/images/landingPage'
 
 const Steps = ({ history }) => (
   <>
@@ -293,15 +295,11 @@ const Steps = ({ history }) => (
               <div className="title-divider" />
               <span className="section-feature-description">
                 Our global reach allows
-                {' '}
                 <b>businesses</b>
-                {' '}
                 seeking customer
                 service, sales and support talent to find resources to meet
                 their specific needs, while
-                {' '}
                 <b>millions of workers</b>
-                {' '}
                 can
                 access training, development, and staffing services without
                 traditional intermediaries.
@@ -315,7 +313,6 @@ const Steps = ({ history }) => (
               <div className="pt-10 pb-10">
                 <a href="/agents" className="btn-more is-link color-primary">
                   Learn more
-                  {' '}
                   <i className="sl sl-icon-arrow-right" />
                 </a>
               </div>
@@ -331,8 +328,8 @@ const Steps = ({ history }) => (
             >
               <img
                 className="featured-svg"
-                src="img/illustrations/mockups/startup/project-ui.png"
-                alt=""
+                src={ projectUi }
+                alt="Project UI"
               />
             </div>
             {/* Content */}
@@ -361,7 +358,6 @@ const Steps = ({ history }) => (
               <div className="pt-10 pb-10">
                 <a href="/agents" className="btn-more is-link color-primary">
                   Learn more
-                  {' '}
                   <i className="sl sl-icon-arrow-right" />
                 </a>
               </div>
@@ -370,9 +366,9 @@ const Steps = ({ history }) => (
               {/* Featured image (this is a mobile only image to make feature alternate properly on small screens) */}
               <img
                 className="featured-svg"
-                src="img/illustrations/mockups/startup/project-ui.png"
+                src={ projectUi }
+                alt="Project UI"
                 style={ { opacity: '.5' } }
-                alt=""
               />
             </div>
           </div>
@@ -383,9 +379,9 @@ const Steps = ({ history }) => (
             <div className="column is-7 has-text-centered">
               <img
                 className="featured-svg"
-                src="img/illustrations/mockups/startup/ipads.png"
+                src={ ipads }
                 style={ { opacity: '.5' } }
-                alt=""
+                alt="ipads"
               />
             </div>
             {/* Content */}
@@ -418,7 +414,6 @@ const Steps = ({ history }) => (
                   className="btn-more is-link color-primary"
                 >
                   Learn more
-                  {' '}
                   <i className="sl sl-icon-arrow-right" />
                 </a>
               </div>
@@ -426,12 +421,13 @@ const Steps = ({ history }) => (
           </div>
           {/* /Feature */}
           <h2 className="title has-text-centered is-title-reveal">
-            <a
-              href="/signup"
-              className="button button-cta btn-align rounded raised primary-btn"
+            <button
+              type="button"
+              className="button button-cta btn-align rounded raised primary-btn steps-button-color"
+              onClick={ () => history.push('/signup') }
             >
               Get Started for Free
-            </a>
+            </button>
           </h2>
         </div>
       </div>
