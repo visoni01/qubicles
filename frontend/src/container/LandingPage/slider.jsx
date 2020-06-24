@@ -16,7 +16,7 @@ const Slider = () => {
   }
   const dotButton = (name, index) => (
     <button
-      type="button"
+      type='button'
       className={ classNames('Wallop-dot', index === currentSlide ? 'Wallop-dot--current bg-color-blue' : '') }
       onClick={ () => handlebuttonCLick(index) }
     >
@@ -25,11 +25,11 @@ const Slider = () => {
   )
 
   return (
-    <div className="Wallop Wallop--fade">
-      <div className="Wallop-list">
+    <div className='Wallop Wallop--fade'>
+      <div className='Wallop-list'>
         <SliderComponent { ...sliderData[ currentSlide ] } />
       </div>
-      <div className="Wallop-pagination">
+      <div className='Wallop-pagination'>
         { sliderData.map((element, index) => (dotButton(element.dotName, index)))}
       </div>
     </div>

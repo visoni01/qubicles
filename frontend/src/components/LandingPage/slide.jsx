@@ -7,27 +7,27 @@ const Slide = ({
   heading, detail, buttonName, bgImage,
 }) => (
   <div
-    className="Wallop-item Wallop-item--current has-background-image"
+    className='Wallop-item Wallop-item--current has-background-image'
     style={ { backgroundImage: `url(${ bgImage })` } }
   >
-    <div className="Wallop-overlay" />
-    <div className="Wallop-caption-wrapper">
-      <div className="container">
-        <div className="columns is-gapless is-vcentered">
-          <div className="column is-5">
-            <div className="caption-inner">
+    <div className='Wallop-overlay' />
+    <div className='Wallop-caption-wrapper'>
+      <div className='container'>
+        <div className='columns is-gapless is-vcentered'>
+          <div className='column is-5'>
+            <div className='caption-inner'>
               <h1>
                 {heading}
               </h1>
-              <div className="caption-divider" />
-              <div className="caption-text">
+              <div className='caption-divider' />
+              <div className='caption-text'>
                 <span>
                   {detail}
                 </span>
-                <div className="action">
+                <div className='action'>
                   <Link
-                    to="/signup"
-                    className="button button-cta primary-btn rounded steps-button-color"
+                    to='/signup'
+                    className='button button-cta primary-btn rounded steps-button-color'
                   >
                     {buttonName}
                   </Link>

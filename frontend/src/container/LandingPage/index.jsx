@@ -10,14 +10,14 @@ const IndexPage = ({ history }) => (
   <div>
     {/* &lt;% layout('layout') -%&gt; */}
     {/* Hero and nav */}
-    <div className="hero is-cover is-relative is-fullheight is-default is-bold">
+    <div className='hero is-cover is-relative is-fullheight is-default is-bold'>
       {/* &lt;% include partials/header %&gt; */}
       {/* Hero Wallop Slider */}
       <Slider />
     </div>
     {/* Clients */}
     <Clients />
-    <Divider variant="middle" />
+    <Divider variant='middle' />
     {/* Info steps */}
     <Steps history={ history } />
     {/* &lt;% include partials/footer %&gt; */}
