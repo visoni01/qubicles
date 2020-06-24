@@ -44,20 +44,19 @@ const SignUp = ({ location, history }) => {
       className={ classNames('control has-icons-right required', 'input-fields') }
     >
       <input
-        className="input"
+        className='input'
         type={ type }
         id={ id }
         name={ name }
         ref={ register }
         placeholder={ placeholder }
-        size="medium"
+        size='medium'
       />
-      <span className="icon is-medium is-right">
+      <span className='icon is-medium is-right'>
         <FontAwesomeIcon icon={ icon } />
       </span>
       {errors && errors[ name ] && (
-        <div className="error-message">
-          {' '}
+        <div className='error-message'>
           {errors[ name ].message}
         </div>
       )}
@@ -65,38 +64,38 @@ const SignUp = ({ location, history }) => {
   )
 
   return (
-    <div className="login-wrapper columns is-gapless">
-      <div className="column login-column is-8 is-hidden-mobile hero-banner">
+    <div className='login-wrapper columns is-gapless'>
+      <div className='column login-column is-8 is-hidden-mobile hero-banner'>
         <div
           className={ classNames(
             'hero login-hero is-fullheight has-background-image',
             'side-cover',
           ) }
         >
-          <div className="columns has-text-centered">
-            <div className="column" />
+          <div className='columns has-text-centered'>
+            <div className='column' />
           </div>
         </div>
       </div>
-      <div className="column is-4">
-        <div className="hero is-fullheight">
-          <div className="hero-heading">
-            <div className="section has-text-centered">
+      <div className='column is-4'>
+        <div className='hero is-fullheight'>
+          <div className='hero-heading'>
+            <div className='section has-text-centered'>
               <img
-                className="top-logo"
+                className='top-logo'
                 src={ QubiclesLogo }
-                alt="Qubicles logo"
+                alt='Qubicles logo'
               />
             </div>
           </div>
-          <div className="hero-body">
-            <div className="container">
-              <div className="columns">
-                <div className="column is-8 is-offset-2">
+          <div className='hero-body'>
+            <div className='container'>
+              <div className='columns'>
+                <div className='column is-8 is-offset-2'>
                   {(!success && !isSocialSignupSuccess) && (
                     <>
-                      <div className="margin-bottom-30">
-                        <div className="field pb-10">
+                      <div className='margin-bottom-30'>
+                        <div className='field pb-10'>
                           {inputField(
                             'email',
                             'signupEmail',
@@ -124,25 +123,25 @@ const SignUp = ({ location, history }) => {
                             'password',
                           )}
                         </div>
-                        <p className="control login">
+                        <p className='control login'>
                           <button
-                            type="button"
+                            type='button'
                             onClick={ handleSubmit(onSubmit) }
-                            id="sendVerificationCode"
-                            className="button btn-outlined is-bold is-fullwidth rounded raised no-lh"
+                            id='sendVerificationCode'
+                            className='button btn-outlined is-bold is-fullwidth rounded raised no-lh'
                           >
                             Sign Up
                           </button>
                         </p>
                       </div>
-                      <button type="button" className="text-button" onClick={ () => history.push('/login') }>
-                        <span className="options-span-2">
+                      <button type='button' className='text-button' onClick={ () => history.push('/login') }>
+                        <span className='options-span-2'>
                           Social log in options
                         </span>
                       </button>
                       <button
-                        type="button"
-                        className="text-button"
+                        type='button'
+                        className='text-button'
                         onClick={ () => history.push({
                           pathname: '/login',
                           state: { isEmail: true },
@@ -155,8 +154,8 @@ const SignUp = ({ location, history }) => {
                   <div>
                     {(success || isSocialSignupSuccess) && (
                       <>
-                        You have succesfully registered. Please check your inbox
-                        to verify your email !!
+                        {'You have succesfully registered. Please check your inbox'}
+                        {'to verify your email !!'}
                       </>
                     )}
                   </div>

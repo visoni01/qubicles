@@ -48,20 +48,19 @@ const Login = ({ history }) => {
       className={ classNames('control has-icons-right required', 'input-fields') }
     >
       <input
-        className="input"
+        className='input'
         type={ type }
         id={ id }
         name={ name }
         ref={ register }
         placeholder={ placeholder }
-        size="medium"
+        size='medium'
       />
-      <span className="icon is-medium is-right">
+      <span className='icon is-medium is-right'>
         <FontAwesomeIcon icon={ icon } />
       </span>
       {errors && errors[ name ] && (
-        <div className="error-message">
-          {' '}
+        <div className='error-message'>
           {errors[ name ].message}
         </div>
       )}
@@ -74,9 +73,9 @@ const Login = ({ history }) => {
 
   const SocialLoginButton = (buttonName, type) => (
     <Button
-      variant="contained"
-      size="large"
-      color="primary"
+      variant='contained'
+      size='large'
+      color='primary'
       className={ `social-login-buttons ${ type }` }
       onClick={ () => handleSocialLogin(type) }
     >
@@ -85,46 +84,46 @@ const Login = ({ history }) => {
   )
 
   return (
-    <div className="login-wrapper columns is-gapless">
-      <div className="column login-column is-8 is-hidden-mobile hero-banner">
+    <div className='login-wrapper columns is-gapless'>
+      <div className='column login-column is-8 is-hidden-mobile hero-banner'>
         <div
           className={ classNames(
             'hero login-hero is-fullheight has-background-image',
             'side-cover',
           ) }
         >
-          <div className="columns has-text-centered">
-            <div className="column" />
+          <div className='columns has-text-centered'>
+            <div className='column' />
           </div>
         </div>
       </div>
-      <div className="column is-4">
-        <div className="hero is-fullheight">
-          <div className="hero-heading">
-            <div className="section has-text-centered">
+      <div className='column is-4'>
+        <div className='hero is-fullheight'>
+          <div className='hero-heading'>
+            <div className='section has-text-centered'>
               <img
-                className="top-logo"
+                className='top-logo'
                 src={ QubiclesLogo }
-                alt="Qubicles logo"
+                alt='Qubicles logo'
               />
             </div>
           </div>
-          <div className="hero-body">
-            <div className="container">
-              <div className="columns">
-                <div className="column is-8 is-offset-2">
+          <div className='hero-body'>
+            <div className='container'>
+              <div className='columns'>
+                <div className='column is-8 is-offset-2'>
                   {(!success) && (
                     <>
                       {isSocialLogin && (
-                      <div className="margin-bottom-30">
+                      <div className='margin-bottom-30'>
                         {SocialLoginButton('Log in with Facebook', 'facebook')}
                         {SocialLoginButton('Log in with Twitter', 'twitter')}
                         {SocialLoginButton('Log in with LinkedIn', 'linkedin')}
                       </div>
                       )}
                       {!isSocialLogin && (
-                      <div className="margin-bottom-30">
-                        <div className="field pb-10">
+                      <div className='margin-bottom-30'>
+                        <div className='field pb-10'>
                           {inputField(
                             'email',
                             'loginEmail',
@@ -140,12 +139,12 @@ const Login = ({ history }) => {
                             'password',
                           )}
                         </div>
-                        <p className="control login">
+                        <p className='control login'>
                           <button
-                            type="button"
+                            type='button'
                             onClick={ handleSubmit(onSubmit) }
-                            id="sendVerificationCode"
-                            className="button btn-outlined is-bold is-fullwidth rounded raised no-lh"
+                            id='sendVerificationCode'
+                            className='button btn-outlined is-bold is-fullwidth rounded raised no-lh'
                           >
                             Log in
                           </button>
@@ -153,8 +152,8 @@ const Login = ({ history }) => {
                       </div>
                       )}
                       <button
-                        type="button"
-                        className="text-button"
+                        type='button'
+                        className='text-button'
                         onClick={ () => setIsSocialLogin(!isSocialLogin) }
                       >
                         {isSocialLogin && (
@@ -169,7 +168,7 @@ const Login = ({ history }) => {
                         )}
                       </button>
                       <br />
-                      <button type="button" className="text-button" onClick={ () => history.push('/signup') }>
+                      <button type='button' className='text-button' onClick={ () => history.push('/signup') }>
                         Signup with Email
                       </button>
                     </>
@@ -180,7 +179,7 @@ const Login = ({ history }) => {
           </div>
         </div>
       </div>
-      {success && <Redirect to="/dashboard" />}
+      {success && <Redirect to='/dashboard' />}
     </div>
   )
 }
