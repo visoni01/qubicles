@@ -1,6 +1,7 @@
 import { XUserActivity, XClientUser } from '../../db/models'
 import { createNewEntity } from './common'
 import { getUserById } from './user'
+import { USER_LEVEL } from '../user/getSecurityContext'
 import { Op } from 'sequelize'
 
 export async function postStatusUpdate ({ user_id, activity_value, activity_custom, activity_permission }) {
@@ -116,32 +117,30 @@ export async function checkVisibility ({ activity_permission, user_id, owner_id 
           activity_value: { [Op.in]: ['following', 'connected'] }
         }
       })
-      if (activity !== null) {
-        permission = true
-      }
+      permission = (activity && activity.user_activity_id)
       break
     case 'company':
       // Check if current user and status owner belongs to same company
       owner = await XClientUser.findOne({ where: { user_id: owner_id }, raw: true, attributes: ['client_id'] })
       userClient = await XClientUser.findOne({ where: { user_id, client_id: owner.client_id } })
-      if (userClient !== null) permission = true
+      permission = (userClient && userClient.client_user_id)
       break
     case 'admins':
       // company constraint with user-level greater and equal to 8
       owner = await XClientUser.findOne({ where: { user_id: owner_id }, raw: true, attributes: ['client_id'] })
       userClient = await XClientUser.findOne({ where: { user_id, client_id: owner.client_id } })
-      if (userClient !== null) {
+      if (userClient && userClient.client_user_id) {
         user = await getUserById({ userId: user_id })
-        if (user.user_level >= 8) permission = true
+        permission = (user.user_level >= USER_LEVEL.ADMIN)
       }
       break
     case 'managers':
       // company constraint with user-level greater and equal to 7
       owner = await XClientUser.findOne({ where: { user_id: owner_id }, raw: true, attributes: ['client_id'] })
       userClient = await XClientUser.findOne({ where: { user_id, client_id: owner.client_id } })
-      if (userClient !== null) {
+      if (userClient && userClient.client_user_id) {
         user = await getUserById({ userId: user_id })
-        if (user.user_level >= 7) permission = true
+        permission = (user.user_level >= USER_LEVEL.SUPERVISOR)
       }
       break
   }
