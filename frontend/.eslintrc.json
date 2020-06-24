@@ -58,6 +58,7 @@
     "jsx-quotes": ["error", "prefer-single"],
     "react/jsx-props-no-spreading": "off",
     "react/jsx-no-target-blank": "off",
+    "react/no-unescaped-entities": "off",
     //css
     "css-modules/no-unused-class": [2, { "camelCase": true }],
     "css-modules/no-undef-class": [2, { "camelCase": true }]
