@@ -5,8 +5,10 @@ import {
   faCoins,
   faUniversity,
   faTabletAlt,
+  faUsers,
 } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
+import { globalNetworkImage, qbeTeam } from '../../assets/images/landingPage'
 
 const Steps = ({ history }) => (
   <>
@@ -164,8 +166,8 @@ const Steps = ({ history }) => (
                 <figure className="image is-4-by-3">
                   <img
                     className="first"
-                    src="img/illustrations/UI/global-network.png"
-                    alt=""
+                    src={ globalNetworkImage }
+                    alt="Global Network"
                   />
                 </figure>
               </div>
@@ -189,7 +191,7 @@ const Steps = ({ history }) => (
               <div className="pt-10 pb-10" style={ { display: 'none' } }>
                 <a
                   href="/about"
-                  target="blank"
+                  target="_blank"
                   className="button btn-align btn-more is-link color-primary is-title-reveal"
                 >
                   Learn more
@@ -203,6 +205,62 @@ const Steps = ({ history }) => (
       </div>
     </div>
     {/* /Feature highlight */}
+    {/* Team section */}
+    <section className="section is-medium no-padding-bottom">
+      <div className="container">
+        {/* Title */}
+        <div className="section-title-wrapper">
+          <div className="bg-number">4</div>
+          <h2 className="title section-title has-text-centered dark-text">
+            {' '}
+            A wealth of knowledge
+          </h2>
+          <div className="subtitle has-text-centered is-tablet-padded">
+            Our team consists of contact center and technology professionals
+            with decades of experience in the industry.
+          </div>
+        </div>
+        <div className="content-wrapper">
+          <div className="columns">
+            {/* Image */}
+            <div className="column is-7">
+              <img
+                className="is-block img-border img-rounded"
+                alt="Team"
+                src={ qbeTeam }
+              />
+            </div>
+            {/* Content */}
+            <div className="column is-4 is-offset-1 pt-80 pb-80 mobile-padding-20  mt-50">
+              <div className="icon-subtitle">
+                <FontAwesomeIcon icon={ faUsers } className="LP-step-1-icons" />
+              </div>
+              <h2 className="title section-subtitle dark-text text-bold s-2">
+                From the frontlines
+              </h2>
+              <span className="section-feature-description">
+                Members of our team have been on the battlefield as agents,
+                supervisors and executives. We know firsthand how irate
+                customers respond, what makes employees happy, the key
+                performance metrics for contact centers, and how the right
+                technology can make a difference.
+              </span>
+              <div className="pt-10 pb-10">
+                <a
+                  href="/about"
+                  className="btn-more is-link color-primary is-title-reveal"
+                >
+                  Learn more about us
+                  {' '}
+                  <i className="sl sl-icon-arrow-right" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    {/* /Team section */}
   </>
 )
 

@@ -16,62 +16,6 @@ const IndexPage = ({ history }) => (
     {/* Clients */}
     <Clients />
     <Steps history={ history } />
-    {/* Team section */}
-    <section className="section is-medium no-padding-bottom">
-      <div className="container">
-        {/* Title */}
-        <div className="section-title-wrapper">
-          <div className="bg-number">4</div>
-          <h2 className="title section-title has-text-centered dark-text">
-            {' '}
-            A wealth of knowledge
-          </h2>
-          <div className="subtitle has-text-centered is-tablet-padded">
-            Our team consists of contact center and technology professionals
-            with decades of experience in the industry.
-          </div>
-        </div>
-        <div className="content-wrapper">
-          <div className="columns">
-            {/* Image */}
-            <div className="column is-7">
-              <img
-                className="is-block img-border img-rounded"
-                alt=""
-                src="img/bg/qbe-team.jpg"
-              />
-            </div>
-            {/* Content */}
-            <div className="column is-4 is-offset-1 pt-80 pb-80 mobile-padding-20">
-              <div className="icon-subtitle">
-                <i className="im im-icon-Mens" />
-              </div>
-              <h2 className="title section-subtitle dark-text text-bold s-2">
-                From the frontlines
-              </h2>
-              <span className="section-feature-description">
-                Members of our team have been on the battlefield as agents,
-                supervisors and executives. We know firsthand how irate
-                customers respond, what makes employees happy, the key
-                performance metrics for contact centers, and how the right
-                technology can make a difference.
-              </span>
-              <div className="pt-10 pb-10">
-                <a
-                  href="/about"
-                  className="btn-more is-link color-primary is-title-reveal"
-                >
-                  Learn more about us
-                  {' '}
-                  <i className="sl sl-icon-arrow-right" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    {/* /Team section */}
     {/* Features section */}
     <section className="section section-feature-grey is-medium">
       <div className="container">
