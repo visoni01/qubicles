@@ -117,13 +117,13 @@ export async function checkVisibility ({ activity_permission, user_id, owner_id 
           activity_value: { [Op.in]: ['following', 'connected'] }
         }
       })
-      permission = (activity && activity.user_activity_id)
+      permission = !!(activity && activity.user_activity_id)
       break
     case 'company':
       // Check if current user and status owner belongs to same company
       owner = await XClientUser.findOne({ where: { user_id: owner_id }, raw: true, attributes: ['client_id'] })
       userClient = await XClientUser.findOne({ where: { user_id, client_id: owner.client_id } })
-      permission = (userClient && userClient.client_user_id)
+      permission = !!(userClient && userClient.client_user_id)
       break
     case 'admins':
       // company constraint with user-level greater and equal to 8
