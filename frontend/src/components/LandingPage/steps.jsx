@@ -9,7 +9,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import {
-  globalNetworkImage, qbeTeam, userSnapshot, projectUi, ipads,
+  globalNetworkImage, qbeTeam, userSnapshot, projectUi, ipads, lifeSaver, wallet, building,
 } from '../../assets/images/landingPage'
 
 const Steps = ({ history }) => (
@@ -433,6 +433,98 @@ const Steps = ({ history }) => (
       </div>
     </section>
     {/* /Features section */}
+    {/* Support cards section */}
+    <section className="section section-light-grey is-medium">
+      <div className="container">
+        {/* Title */}
+        <div className="section-title-wrapper">
+          <div className="bg-number">6</div>
+          <h2 className="title section-title has-text-centered dark-text">
+            We are here to help
+          </h2>
+          <div className="subtitle has-text-centered is-tablet-padded">
+            We understand the critical nature of the contact center business.
+            That's why our support staff is always here to help.
+          </div>
+        </div>
+        <div className="content-wrapper">
+          <div className="columns">
+            {/* Card */}
+            <div className="column is-one-third">
+              <div
+                className="feature-card card-md is-startup light-bordered hover-inset has-text-centered is-card-reveal"
+              >
+                {/* Card icon */}
+                <div className="card-icon">
+                  <img src={ lifeSaver } alt="" />
+                </div>
+                {/* Content */}
+                <div className="card-title">
+                  <h4>Support Portal</h4>
+                </div>
+                <div className="card-feature-description">
+                  <span className>
+                    Our support portal is a combination of ticketing system,
+                    knowledgebase, and self-service tools.
+                  </span>
+                </div>
+                <a
+                  href="https://support.fenero.com"
+                  className="button btn-align btn-more is-link color-primary mt-10 mb-10"
+                  style={ { display: 'none' } }
+                >
+                  Visit
+                  <i className="sl sl-icon-arrow-right" />
+                </a>
+              </div>
+            </div>
+            {/* Card */}
+            <div className="column">
+              <div
+                className="feature-card card-md is-startup light-bordered hover-inset has-text-centered is-card-reveal"
+              >
+                {/* Card icon */}
+                <div className="card-icon">
+                  <img src={ wallet } alt="" />
+                </div>
+                {/* Content */}
+                <div className="card-title">
+                  <h4>Ongoing Updates</h4>
+                </div>
+                <div className="card-feature-description">
+                  <span className>
+                    We provide frequent updates to our software and systems to
+                    deliver reliable services for our global audience.
+                  </span>
+                </div>
+              </div>
+            </div>
+            {/* Card */}
+            <div className="column">
+              <div
+                className="feature-card card-md is-startup light-bordered hover-inset has-text-centered is-card-reveal"
+              >
+                {/* Card icon */}
+                <div className="card-icon">
+                  <img src={ building } alt="" />
+                </div>
+                {/* Content */}
+                <div className="card-title">
+                  <h4>Unlimited Use</h4>
+                </div>
+                <div className="card-feature-description">
+                  <span className>
+                    With no limitations on use, agents and contact centers can
+                    scale services up or down to meet their needs.
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    {/* /Support cards section */}
   </>
 )
 
