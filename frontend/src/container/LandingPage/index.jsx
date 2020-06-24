@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Divider } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import Slider from './slider'
-import { Clients, Steps } from '../../components/LandingPage'
+import { Clients, Steps, Header } from '../../components/LandingPage'
 import './style.scss'
 
 const IndexPage = ({ history }) => (
@@ -11,7 +11,7 @@ const IndexPage = ({ history }) => (
     {/* &lt;% layout('layout') -%&gt; */}
     {/* Hero and nav */}
     <div className='hero is-cover is-relative is-fullheight is-default is-bold'>
-      {/* &lt;% include partials/header %&gt; */}
+      <Header />
       {/* Hero Wallop Slider */}
       <Slider />
     </div>
