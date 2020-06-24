@@ -6,6 +6,7 @@ import {
   faUniversity,
   faTabletAlt,
   faUsers,
+  faAngleRight,
 } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import {
@@ -195,7 +196,7 @@ const Steps = ({ history }) => (
                   className="button btn-align btn-more is-link color-primary is-title-reveal"
                 >
                   Learn more
-                  <i className="sl sl-icon-arrow-right" />
+                  <FontAwesomeIcon icon={ faAngleRight } className="LP-step-1-icons" />
                 </a>
               </div>
             </div>
@@ -248,10 +249,10 @@ const Steps = ({ history }) => (
                 <a
                   href="/about"
                   target="_blank"
-                  className="btn-more is-link color-primary is-title-reveal"
+                  className="btn-more is-link color-primary is-title-reveal color-blue"
                 >
                   Learn more about us
-                  <i className="sl sl-icon-arrow-right" />
+                  <FontAwesomeIcon icon={ faAngleRight } className="ml-5" />
                 </a>
               </div>
             </div>
@@ -292,7 +293,7 @@ const Steps = ({ history }) => (
               <h2 className="title feature-title bordered dark-text">
                 On-demand agents from countries across the globe
               </h2>
-              <div className="title-divider" />
+              <div className="title-divider bg-color-blue" />
               <span className="section-feature-description">
                 Our global reach allows
                 <b>businesses</b>
@@ -311,9 +312,9 @@ const Steps = ({ history }) => (
                 smart contracts and blockchain technology.
               </span>
               <div className="pt-10 pb-10">
-                <a href="/agents" className="btn-more is-link color-primary">
+                <a href="/agents" className="btn-more is-link color-primary color-blue">
                   Learn more
-                  <i className="sl sl-icon-arrow-right" />
+                  <FontAwesomeIcon icon={ faAngleRight } className="ml-5" />
                 </a>
               </div>
             </div>
@@ -340,7 +341,7 @@ const Steps = ({ history }) => (
               <h2 className="title feature-title bordered dark-text">
                 Applying technology objectively for career advancements
               </h2>
-              <div className="title-divider is-right" />
+              <div className="title-divider is-right bg-color-blue" />
               <span className="section-feature-description">
                 Training and professional development is critical to
                 individual growth in the contact center. That's why our online
@@ -356,9 +357,9 @@ const Steps = ({ history }) => (
                 hello to a new future.
               </span>
               <div className="pt-10 pb-10">
-                <a href="/agents" className="btn-more is-link color-primary">
+                <a href="/agents" className="btn-more is-link color-primary color-blue">
                   Learn more
-                  <i className="sl sl-icon-arrow-right" />
+                  <FontAwesomeIcon icon={ faAngleRight } className="ml-5" />
                 </a>
               </div>
             </div>
@@ -392,7 +393,7 @@ const Steps = ({ history }) => (
               <h2 className="title feature-title bordered dark-text">
                 Forget about contact center software
               </h2>
-              <div className="title-divider" />
+              <div className="title-divider bg-color-blue" />
               <span className="section-feature-description">
                 With so many contact center software vendors in the market
                 today, where does one begin? It quickly gets confusing, even
@@ -411,10 +412,10 @@ const Steps = ({ history }) => (
               <div className="pt-10 pb-10">
                 <a
                   href="/contactcenters"
-                  className="btn-more is-link color-primary"
+                  className="btn-more is-link color-primary color-blue"
                 >
                   Learn more
-                  <i className="sl sl-icon-arrow-right" />
+                  <FontAwesomeIcon icon={ faAngleRight } className="ml-5" />
                 </a>
               </div>
             </div>
@@ -474,7 +475,7 @@ const Steps = ({ history }) => (
                   style={ { display: 'none' } }
                 >
                   Visit
-                  <i className="sl sl-icon-arrow-right" />
+                  <FontAwesomeIcon icon={ faAngleRight } className="ml-5" />
                 </a>
               </div>
             </div>
