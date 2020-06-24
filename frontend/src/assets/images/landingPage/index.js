@@ -15,6 +15,7 @@ import bgAllInOne from './bg-all-in-one.jpg'
 import bgGlobalNetwork from './bg-global-network.jpg'
 import bgQbeRewards from './bg-qbe-rewards.jpg'
 import bgWorkAtHome from './bg-work-at-home-lady.jpg'
+import chatUser from './chat-user.png'
 
 export {
   globalNetworkImage,
@@ -34,4 +35,5 @@ export {
   bgGlobalNetwork,
   bgQbeRewards,
   bgWorkAtHome,
+  chatUser,
 }
