@@ -10,7 +10,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import {
-  globalNetworkImage, qbeTeam, userSnapshot, projectUi, ipads, lifeSaver, wallet, building,
+  globalNetworkImage, qbeTeam, userSnapshot, projectUi, ipads, lifeSaver, wallet, building, chatUser,
 } from '../../assets/images/landingPage'
 
 const Steps = ({ history }) => (
@@ -555,7 +555,7 @@ const Steps = ({ history }) => (
                 <div className="column is-6">
                   {/* Testimonial item */}
                   <div className="flex-card testimonial-card light-bordered light-raised padding-20 mb-20">
-                    <div className="testimonial-title">
+                    <div className="testimonial-title color-blue">
                       My experience has been great
                     </div>
                     <div className="testimonial-text">
@@ -564,7 +564,7 @@ const Steps = ({ history }) => (
                       customer service. Exactly what I was looking for.
                     </div>
                     <div className="user-id">
-                      <img className src="img/icons/chat-user.png" alt="" />
+                      <img className src={ chatUser } alt="" />
                       <div className="info">
                         <div className="name">Jennifer Thorne</div>
                         <div className="position">COO</div>
@@ -573,14 +573,14 @@ const Steps = ({ history }) => (
                   </div>
                   {/* Testimonial item */}
                   <div className="flex-card testimonial-card light-bordered light-raised padding-20">
-                    <div className="testimonial-title">User friendly UI</div>
+                    <div className="testimonial-title color-blue">User friendly UI</div>
                     <div className="testimonial-text">
                       Per minute billing and easy to set up. User friendly UI,
                       takes just one sys-admin on our end to manage the
                       software.
                     </div>
                     <div className="user-id">
-                      <img className src="img/icons/chat-user.png" alt="" />
+                      <img className src={ chatUser } alt="" />
                       <div className="info">
                         <div className="name">Abhishek Verma</div>
                         <div className="position">IT Manager</div>
@@ -591,7 +591,7 @@ const Steps = ({ history }) => (
                 <div className="column is-6">
                   {/* Testimonial item */}
                   <div className="flex-card testimonial-card light-bordered light-raised padding-20 mb-20">
-                    <div className="testimonial-title">
+                    <div className="testimonial-title color-blue">
                       Easy to use and very affordable
                     </div>
                     <div className="testimonial-text">
@@ -599,7 +599,7 @@ const Steps = ({ history }) => (
                       friendly. It was easy to use and very affordable.
                     </div>
                     <div className="user-id">
-                      <img className src="img/icons/chat-user.png" alt="" />
+                      <img className src={ chatUser } alt="" />
                       <div className="info">
                         <div className="name">Bella Martin</div>
                         <div className="position">Appointment Setter</div>
@@ -608,7 +608,7 @@ const Steps = ({ history }) => (
                   </div>
                   {/* Testimonial item */}
                   <div className="flex-card testimonial-card light-bordered light-raised padding-20">
-                    <div className="testimonial-title">
+                    <div className="testimonial-title color-blue">
                       The support is awesome!
                     </div>
                     <div className="testimonial-text">
@@ -617,7 +617,7 @@ const Steps = ({ history }) => (
                       stations and users, ...everything!
                     </div>
                     <div className="user-id">
-                      <img className src="img/icons/chat-user.png" alt="" />
+                      <img className src={ chatUser } alt="" />
                       <div className="info">
                         <div className="name">Carlo Angelo Pablo</div>
                         <div className="position">Sr. Project Manager</div>

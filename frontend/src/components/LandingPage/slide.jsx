@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
+import { Link } from 'react-router-dom'
 
 const Slide = ({
   heading, detail, buttonName, bgImage,
@@ -24,12 +25,12 @@ const Slide = ({
                   {detail}
                 </span>
                 <div className="action">
-                  <a
-                    href="/signup"
-                    className="button button-cta primary-btn rounded"
+                  <Link
+                    to="/signup"
+                    className="button button-cta primary-btn rounded steps-button-color"
                   >
                     {buttonName}
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
