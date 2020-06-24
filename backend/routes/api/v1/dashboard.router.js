@@ -1,19 +1,20 @@
 import express from 'express'
+import { isAuthenticated } from './../../../app/middlewares/isAuthenticated'
 import dashboardController from '../../../app/controllers/dashboard.controller'
 
 const args = { mergeParams: true }
 const dashboardRouter = express.Router(args)
 
 dashboardRouter.route('/community-rep')
-  .get(dashboardController.getCommunityRep)
+  .get(isAuthenticated, dashboardController.getCommunityRep)
 
 dashboardRouter.route('/latest-announcements')
-  .get(dashboardController.getLatestAnnouncements)
+  .get(isAuthenticated, dashboardController.getLatestAnnouncements)
 
 dashboardRouter.route('/job-postings')
-  .get(dashboardController.getJobPostings)
+  .get(isAuthenticated, dashboardController.getJobPostings)
 
 dashboardRouter.route('/active-users')
-  .get(dashboardController.getActiveUsers)
+  .get(isAuthenticated, dashboardController.getActiveUsers)
 
 export { dashboardRouter }
