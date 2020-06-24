@@ -1,27 +1,35 @@
+import {
+  cea2019,
+  cia2016,
+  crm2017,
+  miamiherald,
+  poty2016,
+} from '../../assets/images/landingPage'
+
 const clients = [
   {
-    source: 'img/logos/custom/cea2019.png',
-    alt: 'N/A',
+    source: cea2019,
+    alt: 'cea2019',
     href: '',
   },
   {
-    source: 'img/logos/custom//miamiherald.png',
-    alt: 'N/A',
+    source: miamiherald,
+    alt: 'miamiherald',
     href: '',
   },
   {
-    source: 'img/logos/custom/crm2017.png',
-    alt: 'N/A',
+    source: crm2017,
+    alt: 'crm2017',
     href: '',
   },
   {
-    source: 'img/logos/custom/poty2016.png',
-    alt: 'N/A',
+    source: poty2016,
+    alt: 'poty2016',
     href: '',
   },
   {
-    source: 'img/logos/custom/cio2016.png',
-    alt: 'N/A',
+    source: cia2016,
+    alt: 'cia2016',
     href: '',
   },
   {
