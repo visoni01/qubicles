@@ -257,7 +257,7 @@ export class PostSignupEmployerStep4Service extends ServiceBase {
 
         return `Post signup step 4 for user ${this.user_id} is completed. Assigned telephone server, Sent email notification, Created wallet, `
       } catch (e) {
-        this.addError(e.message, e.json || e.errors[0].message)
+        this.addError('Error', 'Error in employer post signup')
       }
     } else {
       this.addError('xClient', 'Client does not exist for this user, Please complete step 1 First')

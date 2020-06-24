@@ -220,7 +220,7 @@ export class PostSignupAgentStep5Service extends ServiceBase {
           last_name: xUserDetails.last_name
         })
     } catch (e) {
-      this.addError(e.message, e.json || e.errors[0].message)
+      this.addError('Error', 'Error in agent post signup')
     }
     return 'User Updated Successfully'
   }
