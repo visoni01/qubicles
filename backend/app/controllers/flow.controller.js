@@ -15,7 +15,8 @@ import {
   CopyFlowService,
   GetFlowPagesByFlowIdService,
   GetFlowFieldsByFlowIdService,
-  GetDispositionsService
+  GetDispositionsService,
+  SaveLeadService
 } from '../services/flow'
 import config from '../../config/app'
 
@@ -174,6 +175,15 @@ export default class FlowController {
       Responder.success(res, getDispositionsResult.result)
     } else {
       res.boom.badRequest('Get Dispositions Operation failed', getDispositionsResult.errors)
+    }
+  }
+
+  static async saveLead (req, res) {
+    const saveLeadResult = await SaveLeadService.execute({ ...req.body.lead })
+    if (saveLeadResult.successful) {
+      Responder.success(res, saveLeadResult.result)
+    } else {
+      res.boom.badRequest('Save Lead Operation failed', saveLeadResult.errors)
     }
   }
 }

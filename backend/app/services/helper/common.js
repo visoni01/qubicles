@@ -1,4 +1,8 @@
 import { USER_LEVEL } from '../../services/user/getSecurityContext'
+import config from '../../../config/app'
+import { SqlHelper } from '../../utils/sql'
+import _ from 'lodash'
+import moment from 'moment'
 
 // Here we are separating the combined values
 // Input example: ' AGENTDIRECT LeadCrowdInbound NewTFNInboundQueue UveaousTechInbound -'
@@ -24,7 +28,7 @@ export const generateUUID = () => {
   const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
     const number = (time + Math.random() * 16) % 16 | 0
     time = Math.floor(time / 16)
-    return (c == 'x' ? number : (number & 0x3 | 0x8)).toString(16)
+    return (c === 'x' ? number : (number & 0x3 | 0x8)).toString(16)
   })
   return uuid
 }
@@ -33,12 +37,28 @@ export const isAuthorizedForClient = ({ clients, client_id, user_level }) => {
   let isClientIdMatched = false
   // here we're checking if client_id matches with any clients client_id or not
   for (let index = 0; index < clients.length; index++) {
-    if (clients[index].client_id == client_id) {
+    if (clients[index].client_id === client_id) {
       isClientIdMatched = true
       break
     }
   }
 
   // user must be part of client or be a system user to be authorized for client
-  return (isClientIdMatched || user_level == USER_LEVEL.SYSTEM)
+  return (isClientIdMatched || user_level === USER_LEVEL.SYSTEM)
+}
+
+export const listsFieldsColumnExists = async ({ listId, columnName }) => {
+  const dbName = config.get('sequelize.name')
+  const sql = `SELECT * from INFORMATION_SCHEMA.COLUMNS \
+              WHERE TABLE_SCHEMA = '${dbName}' AND \
+              TABLE_NAME='x_leads_custom_${listId}' AND \
+              COLUMN_NAME='${columnName}' LIMIT 1;`
+
+  const data = await SqlHelper.select(sql)
+  const isColumnExist = !_.isEmpty(data)
+  return isColumnExist
+}
+
+export const formatDate = (date) => {
+  return moment(date).format('YYYY-MM-DD HH:mm:ss')
 }
