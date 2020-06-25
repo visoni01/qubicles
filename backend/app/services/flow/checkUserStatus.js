@@ -52,7 +52,7 @@ export class CheckUserStatusService extends ServiceBase {
                             this.uniqueId == '0' ||
                             !this.uniqueId)
         if (isLiveCall) {
-          const liveCall = await getCallByCallerId({ calledId: liveAgent.callerid })
+          const liveCall = await getCallByCallerId({ callerId: liveAgent.callerid })
 
           if (liveCall && liveCall.auto_call_id) {
             const leadData = await getLeadByLeadId({ leadId: liveAgent.lead_id })
