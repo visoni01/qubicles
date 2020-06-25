@@ -1,6 +1,15 @@
 import { USER_LEVEL } from '../../services/user/getSecurityContext'
 import { executeSelectQuery } from '../../utils/queryManager'
 
+export const LIVE_AGENT_STATUS = {
+  READY: 'READY',
+  QUEUE: 'QUEUE',
+  INCALL: 'INCALL',
+  PAUSED: 'PAUSED',
+  CLOSER: 'CLOSER',
+  MQUEUE: 'MQUEUE'
+}
+
 export async function getLiveAgentByUser ({ user, clients }) {
   const sourceTable = getLiveAgentsTableName({ user, clients })
   const liveAgent = await executeSelectQuery({
