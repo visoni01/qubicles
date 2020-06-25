@@ -69,7 +69,8 @@ const Login = ({ history }) => {
   )
 
   const handleSocialLogin = (method) => {
-    window.open(`${ config.NODE_BASE_URL }/auth/${ method }`)
+    window.open(`${ config.NODE_BASE_URL }/auth/${ method }`, '',
+      'height=400,top=200,left=400,width=500,scrollbars=no,menubar=no,resizable=yes,toolbar=no,location=no,status=no')
   }
 
   const SocialLoginButton = (buttonName, type) => (

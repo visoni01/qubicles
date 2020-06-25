@@ -8,6 +8,7 @@ import {
 } from '../container/Home'
 import CommunicationForum from '../container/CommunicationForums'
 import Login from '../container/Login'
+import Auth from '../components/User/Auth'
 import { CircularLoader } from '../components/loaders'
 import CustomSnackbar from '../components/snackbar'
 
@@ -29,6 +30,7 @@ const Routes = () => (
       <Route exact path='/post-signup' component={ PostSignUp } />
       <Route exact path='/invite-friends' component={ InviteFriends } />
       <Route exact path='/group' component={ CommunicationForum } />
+      <Route exact path='/auth' render={ (props) => <Auth { ...props } /> } />
     </Switch>
     <CircularLoader />
     <CustomSnackbar />

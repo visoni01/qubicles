@@ -33,8 +33,9 @@ export default class SocialSignupService extends ServiceBase {
         email_verified: false
       }
       userObj[this.type] = this.id
-      await User.create(userObj)
+      const user = await User.create(userObj)
       this.generateAndSendToken(userObj.email)
+      return user.get({ plain: true })
     } else {
       if (!Object.is(existingUser[this.id], null)) {
         const updateObj = {}
@@ -44,6 +45,7 @@ export default class SocialSignupService extends ServiceBase {
       if (!existingUser.email_verified) {
         this.generateAndSendToken(this.email)
       }
+      return existingUser
     }
   }
 
