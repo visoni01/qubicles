@@ -8,15 +8,14 @@ import ActivityDetail from '../../components/Dashboard/activityDetail'
 import profileLogo1 from '../../assets/images/ray.jpg'
 import profileLogo2 from '../../assets/images/helen.jpg'
 import demoPic from '../../assets/images/demo-pic.jpeg'
-import { dashboardDataFechingStart } from '../../redux-saga/redux/actions'
+import { dashboardDataFetchingStart } from '../../redux-saga/redux/actions'
 
 const Dashboard = () => {
-  
   const dispatch = useDispatch()
   // Fetching dashboard data
   useEffect( () => {
-    dispatch( dashboardDataFechingStart() )
-  }, [] )
+    dispatch( dashboardDataFetchingStart() )
+  }, [dispatch] )
 
   return (
     <div>
@@ -33,7 +32,7 @@ const Dashboard = () => {
                 </div>
                 <div className="menu-items">
                   <div className="mb-4 font-size-custom"> 285 People like your company </div>
-                  <div className="font-size-custom"> 111k People are following you company </div>
+                  <div className="font-size-custom"> 111k People are following your company </div>
                 </div>
               </div>
 
@@ -65,7 +64,7 @@ const Dashboard = () => {
                   <img
                     className="img-circle"
                     src={ profileLogo2 }
-                    alt=""
+                    alt="profile-logo-2"
                   />
                 </figure>
                 <div className="status-wrapper">
@@ -84,10 +83,11 @@ const Dashboard = () => {
                   <img
                     className="feed-avatar"
                     src={ profileLogo1 }
+                    alt="feed-avatar"
                   />
                   <div className="item-title full-width">
                     <span> Posted by </span>
-                    <a href="#" className="ml-5">Ray O'Driscol</a>
+                    <span>Ray O&apos;Driscol</span>
                     <span className="feed-time-small float-right">45 minutes ago</span>
                     <br />
                   </div>
@@ -97,9 +97,9 @@ const Dashboard = () => {
                     <span
                       className="post-title"
                     >
-                      <a href="#">
+                      <span>
                         How team building boosts productivity
-                      </a>
+                      </span>
                     </span>
                     <br />
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem
@@ -110,7 +110,7 @@ const Dashboard = () => {
                 <div className="is-flex is-start is-vcenter">
                   <div className="feed-image-container">
                     <div className="soft-overlay" />
-                    <img src={ demoPic } />
+                    <img src={ demoPic } alt="demo-pic" />
                   </div>
                 </div>
               </div>

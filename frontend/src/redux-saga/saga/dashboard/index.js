@@ -1,24 +1,24 @@
 import { takeEvery, put } from 'redux-saga/effects'
 import {
-  dashboardDataFechingStart,
-  dashboardDataFechingFailure,
-  dashboardDataFechingSuccessful,
-  announcementDataFechingStart,
+  dashboardDataFetchingStart,
+  dashboardDataFetchingFailure,
+  dashboardDataFetchingSuccessful,
+  announcementDataFetchingStart,
 } from '../../redux/actions'
 
 function* dashboardWatcher() {
-  yield takeEvery( dashboardDataFechingStart.type, dashboardWorker )
+  yield takeEvery( dashboardDataFetchingStart.type, dashboardWorker )
 }
 
 function* dashboardWorker( action ) {
   try {
     // Fetching announcements data
-    yield put( announcementDataFechingStart() )
+    yield put( announcementDataFetchingStart() )
     // TODO: Call action for fetching job posting data
     // TODO: Call action for fetching active users data
-    yield put( dashboardDataFechingSuccessful() )
+    yield put( dashboardDataFetchingSuccessful() )
   } catch ( e ) {
-    yield put( dashboardDataFechingFailure() )
+    yield put( dashboardDataFetchingFailure() )
   }
 }
 

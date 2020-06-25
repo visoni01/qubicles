@@ -7,11 +7,11 @@ const Announcement = () => {
   return (
     <div className="feed-channels card-background-color">
       <div className="custom-header">
-        Latest annoucements
+        Latest announcements
       </div>
       {
-        !isLoading && announcements.length && announcements.map( ( { date, data }, index ) => (
-          <div className="menu-items" key={ `${ date }-${ index }` }>
+        !isLoading && announcements.length && announcements.map( ( { date, data } ) => (
+          <div className="menu-items" key={ `${ date }` }>
             <div className="mb-22">
               <div className="mb-4">
                 {date}

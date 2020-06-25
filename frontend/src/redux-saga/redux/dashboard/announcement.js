@@ -9,26 +9,26 @@ const initialState = {
 
 const {
   actions: {
-    announcementDataFechingStart,
-    announcementDataFechingSuccessful,
-    announcementDataFechingFailure,
+    announcementDataFetchingStart,
+    announcementDataFetchingSuccessful,
+    announcementDataFetchingFailure,
   },
   reducer,
 } = createSlice( {
   name: 'announcement',
   initialState,
   reducers: {
-    announcementDataFechingStart: () => ( {
+    announcementDataFetchingStart: () => ( {
       ...initialState,
       isLoading: true,
     } ),
-    announcementDataFechingSuccessful: ( state, action ) => ( {
+    announcementDataFetchingSuccessful: ( state, action ) => ( {
       ...initialState,
       success: true,
       isLoading: false,
       announcements: action.payload.announcements,
     } ),
-    announcementDataFechingFailure: ( state, action ) => ( {
+    announcementDataFetchingFailure: ( state, action ) => ( {
       ...initialState,
       error: true,
       isLoading: false,
@@ -38,7 +38,7 @@ const {
 
 export default reducer
 export {
-  announcementDataFechingStart,
-  announcementDataFechingSuccessful,
-  announcementDataFechingFailure,
+  announcementDataFetchingStart,
+  announcementDataFetchingSuccessful,
+  announcementDataFetchingFailure,
 }

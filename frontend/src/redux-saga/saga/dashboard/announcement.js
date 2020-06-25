@@ -1,22 +1,22 @@
 import { takeEvery, put } from 'redux-saga/effects'
 import {
-  announcementDataFechingStart,
-  announcementDataFechingSuccessful,
-  announcementDataFechingFailure,
+  announcementDataFetchingStart,
+  announcementDataFetchingSuccessful,
+  announcementDataFetchingFailure,
 } from '../../redux/actions'
 import Dashboard from '../../service/dashboard'
 
-function* announcementDataFechingWatcherStart() {
-  yield takeEvery( announcementDataFechingStart.type, announcementDataFechingWorker )
+function* announcementDataFetchingWatcherStart() {
+  yield takeEvery( announcementDataFetchingStart.type, announcementDataFetchingWorker )
 }
 
-function* announcementDataFechingWorker( action ) {
+function* announcementDataFetchingWorker( action ) {
   try {
     const announcements = yield Dashboard.fetchAnnouncement()
-    yield put( announcementDataFechingSuccessful( { announcements } ) )
+    yield put( announcementDataFetchingSuccessful( { announcements } ) )
   } catch ( e ) {
-    yield put( announcementDataFechingFailure() )
+    yield put( announcementDataFetchingFailure() )
   }
 }
 
-export default announcementDataFechingWatcherStart
+export default announcementDataFetchingWatcherStart
