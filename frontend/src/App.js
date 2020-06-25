@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Dashboard from './container/Dashboard'
 import { Signup, EmailVerification, PostSignUp } from './container/User/Signup'
 import InviteFriends from './container/InviteFriendsPage'
-import Intro from './container/LandingPage'
+import Home from './container/LandingPage'
 import Login from './container/Login'
 import store from './redux-saga/store'
 
@@ -13,7 +13,7 @@ function App() {
     <Provider store={ store }>
       <Router>
         <Switch>
-          <Route exact path='/' component={ Intro } />
+          <Route exact path='/' component={ Home } />
           <Route exact path='/signup' component={ Signup } />
           <Route exact path='/login' component={ Login } />
           <Route
