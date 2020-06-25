@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { qbeDark, qbeLight } from '../../assets/images/landingPage'
 
 const Header = () => (
@@ -32,37 +33,33 @@ const Header = () => (
           {/* Navbar Start */}
           <div className='navbar-start'>
             {/* Navbar item */}
-            <a className='navbar-item is-slide' href='/agents'>
+            <Link className='navbar-item is-slide' to='/agents'>
               For Agents
-            </a>
+            </Link>
             {/* Navbar item */}
-            <a className='navbar-item is-slide' href='/contactcenters'>
+            <Link className='navbar-item is-slide' to='/contactcenters'>
               For Contact Centers
-            </a>
-            {/* Navbar item
-        <a class="navbar-item is-slide" href="https://medium.com/@qubicles" target="_blank">
-            Blog
-        </a> */}
+            </Link>
             {/* Navbar item */}
-            <a className='navbar-item is-slide' href='/about'>
+            <Link className='navbar-item is-slide' to='/about'>
               About
-            </a>
+            </Link>
             {/* Navbar item */}
-            <a className='navbar-item is-slide' href='/contactus'>
+            <Link className='navbar-item is-slide' to='/contactus'>
               Contact Us
-            </a>
+            </Link>
           </div>
           {/* Navbar end */}
           <div className='navbar-end'>
             {/* Navbar item */}
-            <a className='navbar-item is-slide' href='/login'>
+            <Link className='navbar-item is-slide' to='/login'>
               Login
-            </a>
+            </Link>
             {/* Sign in button */}
             <div className='navbar-item'>
-              <a id='#signup-btn' href='/login' className='button button-signup btn-outlined is-bold btn-align light-btn rounded raised'>
+              <Link to='/signup' className='button button-signup btn-outlined is-bold btn-align light-btn rounded raised'>
                 Sign Up
-              </a>
+              </Link>
             </div>
           </div>
         </div>
