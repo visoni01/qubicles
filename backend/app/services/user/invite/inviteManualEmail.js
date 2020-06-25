@@ -13,7 +13,7 @@ const constraints = {
   }
 }
 
-const baseInviteUrl = config.get('invite.baseUrl')
+const baseInviteUrl = `${config.get('webApp.baseUrl')}/invite`
 
 export default class InviteManualService extends ServiceBase {
   get constraints () {

@@ -11,7 +11,7 @@ const constraintsAuth = {
     presence: { allowEmpty: false }
   }
 }
-const baseInviteUrl = config.get('invite.baseUrl')
+const baseInviteUrl = `${config.get('webApp.baseUrl')}/invite`
 const clientId = config.get('google.clientId')
 const clientSecret = config.get('google.clientSecret')
 const redirectUri = config.get('google.callbackURL')

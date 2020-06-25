@@ -12,9 +12,7 @@ export default class UserEmployerController {
         postSignupEmployerResult = await PostSignupEmployerStep2Service.execute(req.body)
         break
       case 'step3':
-        postSignupEmployerResult = await PostSignupEmployerStep3Service.execute(req.body)
-        break
-      case 'step4':
+        await PostSignupEmployerStep3Service.execute(req.body)
         postSignupEmployerResult = await PostSignupEmployerStep4Service.execute(req.body)
         break
     }
