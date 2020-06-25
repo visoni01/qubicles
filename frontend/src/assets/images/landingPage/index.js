@@ -16,6 +16,8 @@ import bgGlobalNetwork from './bg-global-network.jpg'
 import bgQbeRewards from './bg-qbe-rewards.jpg'
 import bgWorkAtHome from './bg-work-at-home-lady.jpg'
 import chatUser from './chat-user.png'
+import qbeLight from './qbe-light.png'
+import qbeDark from './qbe-dark.png'
 
 export {
   globalNetworkImage,
@@ -36,4 +38,6 @@ export {
   bgQbeRewards,
   bgWorkAtHome,
   chatUser,
+  qbeLight,
+  qbeDark,
 }

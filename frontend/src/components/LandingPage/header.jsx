@@ -1,14 +1,15 @@
 import React from 'react'
+import { qbeDark, qbeLight } from '../../assets/images/landingPage'
 
 const Header = () => (
   <div className='navbar-placeholder'>
-    <nav className='navbar navbar-wrapper navbar-fade navbar-light is-transparent'>
+    <nav className='navbar navbar-wrapper navbar-fade navbar-light'>
       <div className='container'>
         {/* Brand */}
         <div className='navbar-brand'>
           <a className='navbar-item' href='/'>
-            <img className='light-logo' src='img/logos/qbe-light.png' alt='' />
-            <img className='dark-logo' src='img/logos/qbe-dark.png' alt='' />
+            <img className='light-logo logo-height' src={ qbeLight } alt='' />
+            <img className='dark-logo logo-height' src={ qbeDark } alt='' />
           </a>
           {/* Responsive toggle */}
           <div className='custom-burger' data-target='is-cloned'>
