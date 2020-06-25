@@ -4,11 +4,10 @@ import classNames from 'classnames'
 import { Link } from 'react-router-dom'
 
 const Slide = ({
-  heading, detail, buttonName, bgImage,
+  heading, detail, buttonName, slideBg,
 }) => (
   <div
-    className='Wallop-item Wallop-item--current has-background-image'
-    style={ { backgroundImage: `url(${ bgImage })` } }
+    className={ `Wallop-item Wallop-item--current has-background-image slide-bg-${ slideBg }` }
   >
     <div className='Wallop-overlay' />
     <div className='Wallop-caption-wrapper'>
@@ -45,7 +44,7 @@ Slide.propTypes = {
   heading: PropTypes.string.isRequired,
   detail: PropTypes.string.isRequired,
   buttonName: PropTypes.string.isRequired,
-  bgImage: PropTypes.string.isRequired,
+  slideBg: PropTypes.number.isRequired,
 }
 
 export default Slide

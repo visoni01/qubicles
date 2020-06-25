@@ -7,7 +7,7 @@ const Slider = () => {
   const [ currentSlide, setCurrentSlide ] = useState(0)
   let interval
   useEffect(() => {
-    interval = setTimeout(() => setCurrentSlide((currentSlide + 1) % 4), 10000)
+    interval = setTimeout(() => setCurrentSlide((currentSlide + 1) % 4), 5000)
   }, [ currentSlide ])
 
   const handlebuttonCLick = (index) => {
@@ -27,7 +27,7 @@ const Slider = () => {
   return (
     <div className='Wallop Wallop--fade'>
       <div className='Wallop-list'>
-        <SliderComponent { ...sliderData[ currentSlide ] } />
+        <SliderComponent { ...sliderData[ currentSlide ] } slideBg={ currentSlide + 1 } />
       </div>
       <div className='Wallop-pagination'>
         { sliderData.map((element, index) => (dotButton(element.dotName, index)))}
