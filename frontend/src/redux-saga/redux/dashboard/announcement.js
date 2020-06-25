@@ -14,27 +14,27 @@ const {
     announcementDataFetchingFailure,
   },
   reducer,
-} = createSlice( {
+} = createSlice({
   name: 'announcement',
   initialState,
   reducers: {
-    announcementDataFetchingStart: () => ( {
+    announcementDataFetchingStart: () => ({
       ...initialState,
       isLoading: true,
-    } ),
-    announcementDataFetchingSuccessful: ( state, action ) => ( {
+    }),
+    announcementDataFetchingSuccessful: (state, action) => ({
       ...initialState,
       success: true,
       isLoading: false,
       announcements: action.payload.announcements,
-    } ),
-    announcementDataFetchingFailure: ( state, action ) => ( {
+    }),
+    announcementDataFetchingFailure: (state, action) => ({
       ...initialState,
       error: true,
       isLoading: false,
-    } ),
+    }),
   },
-} )
+})
 
 export default reducer
 export {

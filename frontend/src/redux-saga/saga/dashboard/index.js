@@ -7,18 +7,18 @@ import {
 } from '../../redux/actions'
 
 function* dashboardWatcher() {
-  yield takeEvery( dashboardDataFetchingStart.type, dashboardWorker )
+  yield takeEvery(dashboardDataFetchingStart.type, dashboardWorker)
 }
 
-function* dashboardWorker( action ) {
+function* dashboardWorker(action) {
   try {
     // Fetching announcements data
-    yield put( announcementDataFetchingStart() )
+    yield put(announcementDataFetchingStart())
     // TODO: Call action for fetching job posting data
     // TODO: Call action for fetching active users data
-    yield put( dashboardDataFetchingSuccessful() )
-  } catch ( e ) {
-    yield put( dashboardDataFetchingFailure() )
+    yield put(dashboardDataFetchingSuccessful())
+  } catch (e) {
+    yield put(dashboardDataFetchingFailure())
   }
 }
 
