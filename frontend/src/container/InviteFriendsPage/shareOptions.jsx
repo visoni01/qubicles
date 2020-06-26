@@ -18,6 +18,7 @@ import { inviteRequestStart } from '../../redux-saga/redux/invitePage'
 const ShareModal = () => {
   const dispatch = useDispatch()
   const inviteReducerStore = useSelector((state) => state.invitePage)
+  const { inviteLink } = useSelector((state) => state.postSignUp)
   const [ manualEmails, setManualEmails ] = useState()
   const [ snackbar, setSnackbar ] = useState({
     isOpen: false,
@@ -54,7 +55,7 @@ const ShareModal = () => {
       isOpen: true,
       message: 'Link copied',
     })
-    navigator.clipboard.writeText('invite link') // Has to set invite link.
+    navigator.clipboard.writeText(inviteLink || 'invite link') // Has to set invite link.
   }
 
   return (
@@ -104,7 +105,7 @@ const ShareModal = () => {
               type='text'
               variant='outlined'
               size='small'
-              value='invite link'
+              value={ inviteLink || 'Invite Link' }
               InputProps={ {
                 readOnly: true,
               } }
@@ -123,7 +124,7 @@ const ShareModal = () => {
           <h4 className='shareModal-social-h4'>Share Via Social</h4>
           <div>
             <FacebookShareButton
-              url='invite link' // Hard coded temporary, BE is not ready yet.
+              url={ inviteLink || 'Invite Link' } // Temporary setup.
               quote='Qubicles invite link'
             >
               <Button
@@ -135,7 +136,7 @@ const ShareModal = () => {
               </Button>
             </FacebookShareButton>
             <TwitterShareButton
-              url='Invite link' // Hard coded temporary, BE is not ready yet.
+              url={ inviteLink || 'Invite Link' } // Temporary setup.
               title='Invite link'
             >
               <Button
@@ -147,7 +148,7 @@ const ShareModal = () => {
               </Button>
             </TwitterShareButton>
             <LinkedinShareButton
-              url='Invite Link' // Hard coded temporary, BE is not ready yet.
+              url={ inviteLink || 'invite link' } // Temporary setup.
             >
               <Button
                 variant='contained'
