@@ -7,17 +7,17 @@ import {
 } from '../redux/postSignup'
 
 function* postSignupStepWatcher() {
-  yield takeEvery( postSignUpStepStart.type, postSignupStepWorker )
+  yield takeEvery(postSignUpStepStart.type, postSignupStepWorker)
 }
 
-function* postSignupStepWorker( action ) {
+function* postSignupStepWorker(action) {
   try {
     const { type, step, data } = action.payload
-    if ( step === 1 ) data.user_code = type
-    yield apiClient.postSignUp( type, step, data )
-    yield put( postSignUpStepSuccessful( { step, data } ) )
-  } catch ( e ) {
-    yield put( postSignUpStepFailure() )
+    if (step === 1) data.user_code = type
+    yield apiClient.postSignUp(type, step, data)
+    yield put(postSignUpStepSuccessful({ step, data }))
+  } catch (e) {
+    yield put(postSignUpStepFailure())
   }
 }
 

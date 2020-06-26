@@ -3,52 +3,52 @@ import axios from 'axios'
 const baseURL = process.env.REACT_APP_NODE_BASE_URL
 
 class ApiClient {
-  constructor( axiosInst ) {
+  constructor(axiosInst) {
     this.axios = axiosInst
     this.localStorageInst = window.localStorage
   }
 
-  authToken = () => this.localStorageInst.getItem( 'token' )
+  authToken = () => this.localStorageInst.getItem('token')
 
-  makeRequest = ( url, method, data = {} ) => this.axios( {
+  makeRequest = (url, method, data = {}) => this.axios({
     url,
     method,
     data,
     headers: {
       Authorization: `Bearer ${ this.authToken() }`,
     },
-  } );
+  });
 
-  getRequest = ( url, config ) => this.makeRequest( url, 'get', config );
+  getRequest = (url, config) => this.makeRequest(url, 'get', config);
 
-  putRequest = ( url, config ) => this.makeRequest( url, 'put', config );
+  putRequest = (url, config) => this.makeRequest(url, 'put', config);
 
-  postRequest = ( url, config ) => this.makeRequest( url, 'post', config );
+  postRequest = (url, config) => this.makeRequest(url, 'post', config);
 
-  deleteRequest = ( url, config ) => this.makeRequest( url, 'delete', config );
+  deleteRequest = (url, config) => this.makeRequest(url, 'delete', config);
 
-  signup = ( body ) => this.postRequest( '/user/signup', body );
+  signup = (body) => this.postRequest('/user/signup', body);
 
-  emailVerification = async ( token ) => {
-    const { data } = await this.getRequest( `/auth/verify-token/${ token }` )
+  emailVerification = async (token) => {
+    const { data } = await this.getRequest(`/auth/verify-token/${ token }`)
     const { accessToken } = data.result
-    this.localStorageInst.setItem( 'token', accessToken )
+    this.localStorageInst.setItem('token', accessToken)
   };
 
-  postSignUp = ( userType, step, body ) => this.postRequest( `/${ userType }/post-signup/step${ step }`, body );
+  postSignUp = (userType, step, body) => this.postRequest(`/${ userType }/post-signup/step${ step }`, body);
 
-  inviteRequest = ( methodType, { type, body } ) => this.makeRequest( `/user/${ type }`, methodType, body )
+  inviteRequest = (methodType, { type, body }) => this.makeRequest(`/user/${ type }`, methodType, body)
 
-  login = async ( body ) => {
-    const { data, status } = await this.axios( { url: '/user/login', method: 'post', data: body } )
+  login = async (body) => {
+    const { data, status } = await this.axios({ url: '/user/login', method: 'post', data: body })
     const { accessToken } = data
-    this.localStorageInst.setItem( 'token', accessToken )
+    this.localStorageInst.setItem('token', accessToken)
     return status
   };
 }
 
-const axiosInst = axios.create( {
+const axiosInst = axios.create({
   baseURL,
-} )
+})
 
-export default new ApiClient( axiosInst )
+export default new ApiClient(axiosInst)

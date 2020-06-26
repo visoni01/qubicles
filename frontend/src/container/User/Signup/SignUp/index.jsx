@@ -16,22 +16,22 @@ import { userSignupStart } from '../../../../redux-saga/redux/signup'
 import QubiclesLogo from '../../../../assets/images/qbe-dark.png'
 import './style.scss'
 
-const schema = yup.object().shape( {
-  first_name: yup.string().required( '*Required' ),
-  last_name: yup.string().required( '*Required' ),
-  email: yup.string().email().required( '*Required' ),
-  pass: yup.string().required( '*Required' ),
-} )
+const schema = yup.object().shape({
+  first_name: yup.string().required('*Required'),
+  last_name: yup.string().required('*Required'),
+  email: yup.string().email().required('*Required'),
+  pass: yup.string().required('*Required'),
+})
 
-const SignUp = ( { location, history } ) => {
-  const { register, errors, handleSubmit } = useForm( {
+const SignUp = ({ location, history }) => {
+  const { register, errors, handleSubmit } = useForm({
     validationSchema: schema,
-  } )
-  const [ isSocialSignup, setIsSocialSignup ] = useState( true )
-  const isSocialSignupSuccess = location.search && location.search.split( '?' )[ 1 ] === 'with_social=true' // Temporary set up.
+  })
+  const [ isSocialSignup, setIsSocialSignup ] = useState(true)
+  const isSocialSignupSuccess = location.search && location.search.split('?')[ 1 ] === 'with_social=true' // Temporary set up.
   const dispatch = useDispatch()
-  const onSubmit = ( data ) => dispatch( userSignupStart( data ) )
-  const { error, isLoading, success } = useSelector( ( state ) => state.signup )
+  const onSubmit = (data) => dispatch(userSignupStart(data))
+  const { error, isLoading, success } = useSelector((state) => state.signup)
 
   const inputField = (
     name,
@@ -41,23 +41,22 @@ const SignUp = ( { location, history } ) => {
     type = 'text',
   ) => (
     <div
-      className={ classNames( 'control has-icons-right required', 'input-fields' ) }
+      className={ classNames('control has-icons-right required', 'input-fields') }
     >
       <input
-        className="input"
+        className='input'
         type={ type }
         id={ id }
         name={ name }
         ref={ register }
         placeholder={ placeholder }
-        size="medium"
+        size='medium'
       />
-      <span className="icon is-medium is-right">
+      <span className='icon is-medium is-right'>
         <FontAwesomeIcon icon={ icon } />
       </span>
       {errors && errors[ name ] && (
-        <div className="error-message">
-          {' '}
+        <div className='error-message'>
           {errors[ name ].message}
         </div>
       )}
@@ -65,38 +64,38 @@ const SignUp = ( { location, history } ) => {
   )
 
   return (
-    <div className="login-wrapper columns is-gapless">
-      <div className="column login-column is-8 is-hidden-mobile hero-banner">
+    <div className='login-wrapper columns is-gapless'>
+      <div className='column login-column is-8 is-hidden-mobile hero-banner'>
         <div
           className={ classNames(
             'hero login-hero is-fullheight has-background-image',
             'side-cover',
           ) }
         >
-          <div className="columns has-text-centered">
-            <div className="column" />
+          <div className='columns has-text-centered'>
+            <div className='column' />
           </div>
         </div>
       </div>
-      <div className="column is-4">
-        <div className="hero is-fullheight">
-          <div className="hero-heading">
-            <div className="section has-text-centered">
+      <div className='column is-4'>
+        <div className='hero is-fullheight'>
+          <div className='hero-heading'>
+            <div className='section has-text-centered'>
               <img
-                className="top-logo"
+                className='top-logo'
                 src={ QubiclesLogo }
-                alt="Qubicles logo"
+                alt='Qubicles logo'
               />
             </div>
           </div>
-          <div className="hero-body">
-            <div className="container">
-              <div className="columns">
-                <div className="column is-8 is-offset-2">
-                  {( !success && !isSocialSignupSuccess ) && (
+          <div className='hero-body'>
+            <div className='container'>
+              <div className='columns'>
+                <div className='column is-8 is-offset-2'>
+                  {(!success && !isSocialSignupSuccess) && (
                     <>
-                      <div className="margin-bottom-30">
-                        <div className="field pb-10">
+                      <div className='margin-bottom-30'>
+                        <div className='field pb-10'>
                           {inputField(
                             'email',
                             'signupEmail',
@@ -124,37 +123,39 @@ const SignUp = ( { location, history } ) => {
                             'password',
                           )}
                         </div>
-                        <p className="control login">
+                        <p className='control login'>
                           <button
-                            type="button"
-                            onClick={ handleSubmit( onSubmit ) }
-                            id="sendVerificationCode"
-                            className="button btn-outlined is-bold is-fullwidth rounded raised no-lh"
+                            type='button'
+                            onClick={ handleSubmit(onSubmit) }
+                            id='sendVerificationCode'
+                            className='button btn-outlined is-bold is-fullwidth rounded raised no-lh'
                           >
                             Sign Up
                           </button>
                         </p>
                       </div>
-                      <button type="button" className="text-button" onClick={ () => history.push( '/login' ) }>
-                        Social log in options
+                      <button type='button' className='text-button' onClick={ () => history.push('/login') }>
+                        <span className='options-span-2'>
+                          Social log in options
+                        </span>
                       </button>
                       <button
-                        type="button"
-                        className="text-button"
-                        onClick={ () => history.push( {
+                        type='button'
+                        className='text-button'
+                        onClick={ () => history.push({
                           pathname: '/login',
                           state: { isEmail: true },
-                        } ) }
+                        }) }
                       >
                         Log in with Email
                       </button>
                     </>
                   )}
                   <div>
-                    {( success || isSocialSignupSuccess ) && (
+                    {(success || isSocialSignupSuccess) && (
                       <>
-                        You have succesfully registered. Please check your inbox
-                        to verify your email !!
+                        {'You have succesfully registered. Please check your inbox'}
+                        {'to verify your email !!'}
                       </>
                     )}
                   </div>
@@ -169,12 +170,12 @@ const SignUp = ( { location, history } ) => {
 }
 
 SignUp.propTypes = {
-  location: PropTypes.instanceOf( {
+  location: PropTypes.instanceOf({
     search: PropTypes.string,
-  } ),
-  history: PropTypes.instanceOf( {
+  }),
+  history: PropTypes.instanceOf({
     push: PropTypes.func,
-  } ).isRequired,
+  }).isRequired,
 }
 
 SignUp.defaultProps = {

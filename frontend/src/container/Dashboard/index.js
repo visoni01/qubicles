@@ -13,26 +13,26 @@ import { dashboardDataFetchingStart } from '../../redux-saga/redux/actions'
 const Dashboard = () => {
   const dispatch = useDispatch()
   // Fetching dashboard data
-  useEffect( () => {
-    dispatch( dashboardDataFetchingStart() )
-  }, [dispatch] )
+  useEffect(() => {
+    dispatch(dashboardDataFetchingStart())
+  }, [ dispatch ])
 
   return (
     <div>
-      <div id="dashboard-wrapper" className="dashboard-outer">
+      <div id='dashboard-wrapper' className='dashboard-outer'>
         <SideBar />
-        <div className="dashboard-heading"> Welcome to the Floor, Marlon </div>
+        <div className='dashboard-heading'> Welcome to the Floor, Marlon </div>
 
-        <div id="main-dashboard" className="section-wrapper">
-          <div id="basic-layout" className="columns dashboard-columns">
-            <div className="column is-3">
-              <div className="feed-channels">
-                <div className="custom-header">
+        <div id='main-dashboard' className='section-wrapper'>
+          <div id='basic-layout' className='columns dashboard-columns'>
+            <div className='column is-3'>
+              <div className='feed-channels'>
+                <div className='custom-header'>
                   Your Community rep
                 </div>
-                <div className="menu-items">
-                  <div className="mb-4 font-size-custom"> 285 People like your company </div>
-                  <div className="font-size-custom"> 111k People are following your company </div>
+                <div className='menu-items'>
+                  <div className='mb-4 font-size-custom'> 285 People like your company </div>
+                  <div className='font-size-custom'> 111k People are following your company </div>
                 </div>
               </div>
 
@@ -42,7 +42,7 @@ const Dashboard = () => {
               {/* Posting  */}
 
               <ActivityPosting
-                title="Job posting"
+                title='Job posting'
                 data={ [
                   { heading: 'Customer Specialist', subHeading: '16 applications receive' },
                   { heading: 'Call center supervisors', subHeading: '71 applications receive' },
@@ -50,7 +50,7 @@ const Dashboard = () => {
               />
 
               <ActivityPosting
-                title="Active users"
+                title='Active users'
                 data={ [
                   { heading: 'Marlon Mars', subHeading: 'Offline' },
                   { heading: 'Shivam Moneyheis', subHeading: 'Offline' },
@@ -58,44 +58,44 @@ const Dashboard = () => {
               />
 
             </div>
-            <div className="column is-5">
-              <div className="compose-card is-flex is-start is-vcenter">
-                <figure className="avatar image is-hidden-mobile">
+            <div className='column is-5'>
+              <div className='compose-card is-flex is-start is-vcenter'>
+                <figure className='avatar image is-hidden-mobile'>
                   <img
-                    className="img-circle"
+                    className='img-circle'
                     src={ profileLogo2 }
-                    alt="profile-logo-2"
+                    alt='profile-logo-2'
                   />
                 </figure>
-                <div className="status-wrapper">
+                <div className='status-wrapper'>
                   <textarea
-                    className="textarea is-grow"
-                    rows="5"
-                    placeholder="Write something ..."
+                    className='textarea is-grow'
+                    rows='5'
+                    placeholder='Write something ...'
                   />
                 </div>
-                <div className="icon-button">
-                  <i data-feather="upload-cloud" />
+                <div className='icon-button'>
+                  <i data-feather='upload-cloud' />
                 </div>
               </div>
-              <div className="post-item animated preFadeInLeft fadeInLeft">
-                <div className="is-flex is-start is-vcenter padding-10">
+              <div className='post-item animated preFadeInLeft fadeInLeft'>
+                <div className='is-flex is-start is-vcenter padding-10'>
                   <img
-                    className="feed-avatar"
+                    className='feed-avatar'
                     src={ profileLogo1 }
-                    alt="feed-avatar"
+                    alt='feed-avatar'
                   />
-                  <div className="item-title full-width">
+                  <div className='item-title full-width'>
                     <span> Posted by </span>
                     <span>Ray O&apos;Driscol</span>
-                    <span className="feed-time-small float-right">45 minutes ago</span>
+                    <span className='feed-time-small float-right'>45 minutes ago</span>
                     <br />
                   </div>
                 </div>
-                <div className="is-flex is-start is-vcenter">
+                <div className='is-flex is-start is-vcenter'>
                   <p>
                     <span
-                      className="post-title"
+                      className='post-title'
                     >
                       <span>
                         How team building boosts productivity
@@ -107,15 +107,15 @@ const Dashboard = () => {
                     dummy text Lorem Ipsum ...
                   </p>
                 </div>
-                <div className="is-flex is-start is-vcenter">
-                  <div className="feed-image-container">
-                    <div className="soft-overlay" />
-                    <img src={ demoPic } alt="demo-pic" />
+                <div className='is-flex is-start is-vcenter'>
+                  <div className='feed-image-container'>
+                    <div className='soft-overlay' />
+                    <img src={ demoPic } alt='demo-pic' />
                   </div>
                 </div>
               </div>
             </div>
-            <div className="column is-4">
+            <div className='column is-4'>
               {/* Today's activity */ }
               <ActivityDetail
                 title={ 'Today\'s activity' }
@@ -132,7 +132,7 @@ const Dashboard = () => {
               {/* Overview  */}
 
               <Overview
-                title="Customer service overview"
+                title='Customer service overview'
                 data={ [
                   { number: '0.20', heading: 'Average speed of answer' },
                   { number: '2.45', heading: 'Marlon Mars' },
@@ -140,7 +140,7 @@ const Dashboard = () => {
               />
 
               <Overview
-                title="Staff productivity highlights"
+                title='Staff productivity highlights'
                 data={ [
                   { number: '76', heading: 'Calls per agent' },
                   { number: '2:45', heading: 'Average talk time' },

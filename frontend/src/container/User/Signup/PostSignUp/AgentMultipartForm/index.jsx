@@ -18,15 +18,15 @@ const AgentMultipartForm = () => {
   const {
     stepsData, currentStep,
   } = useSelector(
-    ( state ) => state.postSignUp,
+    (state) => state.postSignUp,
   )
-  const handleOnNext = ( data ) => {
-    if ( stepsData[ currentStep ] || currentStep === 4 ) {
-      return dispatch( handleNextStep() )
+  const handleOnNext = (data) => {
+    if (stepsData[ currentStep ] || currentStep === 4) {
+      return dispatch(handleNextStep())
     }
-    return dispatch( postSignUpStepStart( { type: 'agent', step: currentStep, data } ) )
+    return dispatch(postSignUpStepStart({ type: 'agent', step: currentStep, data }))
   }
-  const handleOnBack = () => dispatch( handleBackStep() )
+  const handleOnBack = () => dispatch(handleBackStep())
 
   const steps = [
     { icon: faCheck },
@@ -35,10 +35,10 @@ const AgentMultipartForm = () => {
     { icon: faBriefcase },
     { icon: faIdCard },
     { icon: faPoll },
-  ].map( ( step, index ) => {
-    if ( index < currentStep ) return { icon: faCheck }
+  ].map((step, index) => {
+    if (index < currentStep) return { icon: faCheck }
     return step
-  } )
+  })
 
   return (
     <>
@@ -50,7 +50,7 @@ const AgentMultipartForm = () => {
         onSubmit={ handleOnNext }
         stepData={ stepsData && stepsData[ currentStep ] }
       />
-      {currentStep === 6 && <Redirect to="/invite-friends" />}
+      {currentStep === 6 && <Redirect to='/invite-friends' />}
     </>
   )
 }

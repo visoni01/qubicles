@@ -9,24 +9,24 @@ const initialState = {
 const {
   actions: { userSignupStart, userSignupSuccessful, userSignupFailure },
   reducer,
-} = createSlice( {
+} = createSlice({
   name: 'signup',
   initialState,
   reducers: {
-    userSignupStart: () => ( {
+    userSignupStart: () => ({
       ...initialState,
       isLoading: true,
-    } ),
-    userSignupSuccessful: ( state, action ) => ( {
+    }),
+    userSignupSuccessful: (state, action) => ({
       ...initialState,
       success: true,
-    } ),
-    userSignupFailure: ( state, action ) => ( {
+    }),
+    userSignupFailure: (state, action) => ({
       ...initialState,
       error: true,
-    } ),
+    }),
   },
-} )
+})
 
 export default reducer
 export { userSignupStart, userSignupSuccessful, userSignupFailure }

@@ -10,22 +10,22 @@ const steps = {
       { label: 'Zip', type: 'text', name: 'zip' },
       { label: 'Contact Phone', type: 'text', name: 'phone_number' },
     ],
-    schema: yup.object().shape( {
-      client_name: yup.string().max( 45 ).required( '*Required' ),
-      address1: yup.string().max( 100 ).required( '*Required' ),
-      city: yup.string().max( 100 ).required( '*Required' ),
-      state: yup.string().max( 100 ).required( '*Required' ),
-      zip: yup.string().max( 10 ).required( '*Required' ),
-      phone_number: yup.string().max( 15 ).required( '*Required' ),
-    } ),
+    schema: yup.object().shape({
+      client_name: yup.string().max(45).required('*Required'),
+      address1: yup.string().max(100).required('*Required'),
+      city: yup.string().max(100).required('*Required'),
+      state: yup.string().max(100).required('*Required'),
+      zip: yup.string().max(10).required('*Required'),
+      phone_number: yup.string().max(15).required('*Required'),
+    }),
   },
   2: {
     fields: [
       { label: 'Company EIN (Employer ID Number)', type: 'text', name: 'client_ein' },
     ],
-    schema: yup.object().shape( {
-      client_ein: yup.string().required( '*Required' ),
-    } ),
+    schema: yup.object().shape({
+      client_ein: yup.string().required('*Required'),
+    }),
   },
   3: {
     fields: [
@@ -45,11 +45,11 @@ const steps = {
       { label: 'Number of Employees', type: 'text', name: 'interactions_per_month' },
       { label: 'Website', type: 'text', name: 'website' },
     ],
-    schema: yup.object().shape( {
-      source: yup.string().max( 100 ).required( '*Required' ),
-      interactions_per_month: yup.string().max( 100 ).required( '*Required' ),
-      website: yup.string().max( 100 ).required( '*Required' ),
-    } ),
+    schema: yup.object().shape({
+      source: yup.string().max(100).required('*Required'),
+      interactions_per_month: yup.string().max(100).required('*Required'),
+      website: yup.string().max(100).required('*Required'),
+    }),
   },
 }
 

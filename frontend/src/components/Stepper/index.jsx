@@ -7,14 +7,14 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useStepperStyles, ColorlibConnector } from './styles'
 
-const StepperComponent = ( { activeStep, steps } ) => {
+const StepperComponent = ({ activeStep, steps }) => {
   const classes = useStepperStyles()
-  const StepIcon = ( active, completed, Icon ) => (
+  const StepIcon = (active, completed, Icon) => (
     <div
-      className={ classNames( classes.stepIconRoot, {
+      className={ classNames(classes.stepIconRoot, {
         [ classes.stepIconActive ]: active,
         [ classes.stepIconCompleted ]: completed,
-      } ) }
+      }) }
     >
       <FontAwesomeIcon icon={ Icon } className={ classes.stepIcon } />
     </div>
@@ -28,13 +28,13 @@ const StepperComponent = ( { activeStep, steps } ) => {
         activeStep={ activeStep }
         connector={ <ColorlibConnector /> }
       >
-        {steps.map( ( { label, icon } ) => (
+        {steps.map(({ label, icon }) => (
           <Step key={ label }>
             <StepLabel
-              StepIconComponent={ ( { active, completed } ) => StepIcon( active, completed, icon ) }
+              StepIconComponent={ ({ active, completed }) => StepIcon(active, completed, icon) }
             />
           </Step>
-        ) )}
+        ))}
       </Stepper>
     </Container>
   )
@@ -43,7 +43,7 @@ const StepperComponent = ( { activeStep, steps } ) => {
 StepperComponent.propTypes = {
   activeStep: PropTypes.number.isRequired,
   steps: PropTypes.arrayOf(
-    PropTypes.shape( { icon: PropTypes.node, label: PropTypes.string } ),
+    PropTypes.shape({ icon: PropTypes.node, label: PropTypes.string }),
   ).isRequired,
 }
 

@@ -24,7 +24,7 @@
     "indent": [2],
 
     // spacing
-    "space-in-parens": [2, "always"],
+    "space-in-parens": [2, "never"],
     "template-curly-spacing": [2, "always"],
     "array-bracket-spacing": [2, "always"],
     "object-curly-spacing": [2, "always"],
@@ -53,6 +53,9 @@
     "react/jsx-indent": [2],
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
+    "react/jsx-curly-brace-presence": [2, { "props": "never", "children": "never" }],
+    "react/jsx-child-element-spacing": "off",
+    "jsx-quotes": ["error", "prefer-single"],
     //css
     "css-modules/no-unused-class": [2, { "camelCase": true }],
     "css-modules/no-undef-class": [2, { "camelCase": true }]

@@ -18,21 +18,21 @@ const ContactCenterMultiPartForm = () => {
   const {
     stepsData, currentStep,
   } = useSelector(
-    ( state ) => state.postSignUp,
+    (state) => state.postSignUp,
   )
 
-  const handleOnNext = ( data ) => {
-    if ( stepsData[ currentStep ] ) {
-      return dispatch( handleNextStep )
+  const handleOnNext = (data) => {
+    if (stepsData[ currentStep ]) {
+      return dispatch(handleNextStep)
     }
-    return dispatch( postSignUpStepStart( { type: 'employer', step: currentStep, data } ) )
+    return dispatch(postSignUpStepStart({ type: 'employer', step: currentStep, data }))
   }
-  const handleOnBack = () => dispatch( handleBackStep() )
+  const handleOnBack = () => dispatch(handleBackStep())
 
-  const steps = [ { icon: faCheck }, { icon: faAddressBook }, { icon: faBuilding }, { icon: faPoll } ].map( ( step, index ) => {
-    if ( index < currentStep ) return { icon: faCheck }
+  const steps = [ { icon: faCheck }, { icon: faAddressBook }, { icon: faBuilding }, { icon: faPoll } ].map((step, index) => {
+    if (index < currentStep) return { icon: faCheck }
     return step
-  } )
+  })
 
   return (
     <>
@@ -44,7 +44,7 @@ const ContactCenterMultiPartForm = () => {
         onSubmit={ handleOnNext }
         stepData={ stepsData && stepsData[ currentStep ] }
       />
-      {currentStep === 4 && <Redirect to="/invite-friends" />}
+      {currentStep === 4 && <Redirect to='/invite-friends' />}
     </>
   )
 }

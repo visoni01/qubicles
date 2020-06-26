@@ -7,7 +7,7 @@ import loginReducer from './login'
 import announcementReducer from './dashboard/announcement'
 import dashboardReducer from './dashboard'
 
-const rootReducer = combineReducers( {
+const rootReducer = combineReducers({
   signup: signupReducer,
   emailVerification: emailVerificationReducer,
   postSignUp: postSignUpReducer,
@@ -15,6 +15,6 @@ const rootReducer = combineReducers( {
   login: loginReducer,
   dashboad: dashboardReducer,
   announcement: announcementReducer,
-} )
+})
 
 export default rootReducer

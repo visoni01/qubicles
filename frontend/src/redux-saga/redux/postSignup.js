@@ -17,17 +17,17 @@ const {
     handleNextStep,
   },
   reducer,
-} = createSlice( {
+} = createSlice({
   name: 'postSignUp',
   initialState,
   reducers: {
-    postSignUpStepStart: ( state, action ) => ( {
+    postSignUpStepStart: (state, action) => ({
       ...state,
       isLoading: true,
       success: false,
       error: false,
-    } ),
-    postSignUpStepSuccessful: ( state, action ) => {
+    }),
+    postSignUpStepSuccessful: (state, action) => {
       const { step, data } = action.payload
       return {
         ...state,
@@ -40,21 +40,21 @@ const {
         currentStep: state.currentStep + 1,
       }
     },
-    postSignUpStepFailure: ( state, action ) => ( {
+    postSignUpStepFailure: (state, action) => ({
       ...state,
       error: true,
       isLoading: false,
-    } ),
-    handleBackStep: ( state ) => ( {
+    }),
+    handleBackStep: (state) => ({
       ...state,
       currentStep: state.currentStep - 1,
-    } ),
-    handleNextStep: ( state ) => ( {
+    }),
+    handleNextStep: (state) => ({
       ...state,
       currentStep: state.currentStep + 1,
-    } ),
+    }),
   },
-} )
+})
 
 export default reducer
 export {

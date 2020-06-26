@@ -9,7 +9,7 @@ import dashboard from './dashboard'
 import announcement from './dashboard/announcement'
 
 export default function* rootSaga() {
-  yield all( [
+  yield all([
     signup(),
     emailVerification(),
     postSignup(),
@@ -17,5 +17,5 @@ export default function* rootSaga() {
     login(),
     dashboard(),
     announcement(),
-  ] )
+  ])
 }

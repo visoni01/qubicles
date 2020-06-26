@@ -7,17 +7,17 @@ import PropTypes from 'prop-types'
 
 const defaultColor = '#ffffff'
 
-const ActivityDetail = ( { title, data } ) => (
-  <div className="feed-channels">
-    <div className="activity-root">
-      <div className="custom-header">
+const ActivityDetail = ({ title, data }) => (
+  <div className='feed-channels'>
+    <div className='activity-root'>
+      <div className='custom-header'>
         {title}
       </div>
       <div>
         <FormControl>
-          <InputLabel id="filter">Filter</InputLabel>
+          <InputLabel id='filter'>Filter</InputLabel>
           <Select
-            labelId="filter"
+            labelId='filter'
             displayEmpty
             inputProps={ { 'aria-label': 'Without label' } }
           >
@@ -29,15 +29,15 @@ const ActivityDetail = ( { title, data } ) => (
       </div>
     </div>
     {
-      data.map( ( { color }, index ) => (
+      data.map(({ color }, index) => (
         <div
           key={ `${ title } ${ color }` }
-          className="activity-circle"
+          className='activity-circle'
           style={ { background: color || defaultColor } }
         >
           <div>text</div>
         </div>
-      ) )
+      ))
     }
   </div>
 )
