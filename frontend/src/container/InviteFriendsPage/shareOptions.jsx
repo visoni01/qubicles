@@ -12,17 +12,24 @@ import {
   LinkedinIcon,
   TwitterIcon,
 } from 'react-share'
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faTimes, faCopy } from '@fortawesome/free-solid-svg-icons'
 import { inviteRequestStart } from '../../redux-saga/redux/invitePage'
 
 const ShareModal = () => {
   const dispatch = useDispatch()
   const inviteReducerStore = useSelector((state) => state.invitePage)
   const [ manualEmails, setManualEmails ] = useState()
-  const [ openSnackbar, setOpenSnackbar ] = useState()
+  const [ snackbar, setSnackbar ] = useState({
+    isOpen: false,
+    message: '',
+  })
   const {
     isLoading, success, result, type,
   } = inviteReducerStore
+  const closeSnackBar = () => setSnackbar({
+    isOpen: false,
+    message: '',
+  })
 
   useEffect(() => {
     if (type === 'invite-with-google' && !isLoading && success) {
@@ -30,7 +37,7 @@ const ShareModal = () => {
     }
     if (success) {
       setManualEmails('')
-      setOpenSnackbar(success)
+      setSnackbar({ isOpen: success, message: 'Successfully Invited' })
     }
   }, [ isLoading ])
 
@@ -42,7 +49,13 @@ const ShareModal = () => {
 
   const handleInviteWithGoogle = () => dispatch(inviteRequestStart({ type: 'invite-with-google' }))
 
-  const handleCopyToClipboard = () => navigator.clipboard.writeText('invite link') // Has to set invite link.
+  const handleCopyToClipboard = () => {
+    setSnackbar({
+      isOpen: true,
+      message: 'Link copied',
+    })
+    navigator.clipboard.writeText('invite link') // Has to set invite link.
+  }
 
   return (
     <>
@@ -96,7 +109,12 @@ const ShareModal = () => {
                 readOnly: true,
               } }
             />
-            <Button variant='contained' className='sharemodal-buttons' onClick={ handleCopyToClipboard }>
+            <Button
+              variant='contained'
+              className='sharemodal-buttons'
+              onClick={ handleCopyToClipboard }
+              startIcon={ <FontAwesomeIcon icon={ faCopy } /> }
+            >
               Copy
             </Button>
           </div>
@@ -145,9 +163,18 @@ const ShareModal = () => {
       {/**
        * Temporary implemented the success message, will remove it when success message general component will ready.
        */}
-      <Snackbar open={ openSnackbar } autoHideDuration={ 5000 }>
+      <Snackbar
+        open={ snackbar.isOpen }
+        autoHideDuration={ 3000 }
+        onClose={ closeSnackBar }
+      >
         <div className='snackbar-div'>
-          Successfully Invited
+          {snackbar.message}
+          <FontAwesomeIcon
+            icon={ faTimes }
+            onClick={ closeSnackBar }
+            className='ml-10 danger-text'
+          />
         </div>
       </Snackbar>
     </>
