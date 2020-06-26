@@ -115,104 +115,233 @@ body {
     src: url("./fonts/text/nexa/NexaBold.woff") format("woff"), url("./fonts/text/nexa/NexaBold.ttf") format("truetype");
 }
 
-#dashboard-wrapper {
-    .custom-header {
-        font-size: 18px;
-        margin-bottom: 9px;
-        font-weight: 500;
-    }
 
-    .mb-4 {
-        margin-bottom: 4px;
-    }
-
-    .font-size-custom {
-        font-size: 15px;
-    }
-
-    .mb-22 {
-        margin-bottom: 22px;
-    }
-
-    .card-background-color {
-        background-color: #dddddd;
-    }
-
-    .custom-icon {
-        width: 40px;
-        height: 40px;
-        float: left;
-    }
-
-    .custom-text {
-        width: 40px;
-        height: 40px;
-        float: left;
-    }
-
-    .sub-heading-size {
-        font-size: 12px;
-    }
-
-    .pd-11 {
-        padding: 11px;
-    }
-
-    .full-width {
-        display: block;
+.dashboard-container{
+    .dashboard-header {
         width: 100%;
-    }
+        height: 60px;
+        background-color: white;
+        z-index: 1000;
+        position: fixed;
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+        
+        .left {
+            padding: 0px;
 
-    .float-right {
-        float: right;
-    }
+            .header-logo {
+                width: 60px;
+                height: 60px;
+                margin-top: 2px;
+                margin-left: 10px;
+            }
+        }
+        .center {
+            float: left;
+            padding: 0px;
+            padding-top: 4px;
+            margin-top: 4px;
+            text-align: center;
+            .MuiTextField-root {
+                width: 83%;
+                float: right;
+                .MuiInputBase-input {
+                    padding: 13px;
+                    text-align: center;
+                }
+            }
+        } 
+        
+        .right { 
+            .icons {
+                float: right;
+                .header-fa-icon {
+                    color: white;
+                    stroke: #bdbdbd;
+                    stroke-width: 20px;
+                    width: 26px;
+                    height: 26px;
+                    margin-left: 5px;
+                    margin-right: 6px;
+                    margin-top: 7px;
+                    cursor: pointer;
+                }
+                .profile-menu-container {
+                    position: relative;
+                    display: inline;
+                    float: right;
+                    margin-left: 6px;
+                    cursor: pointer;
 
-    .dashboard-heading {
-        text-align: center;
-        margin-bottom: 6px;
-        font-weight: 600;
-        font-size: 23px;
-    }
-
-    .activity-circle {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        font-size: 50px;
-        color: #fff;
-        line-height: 500px;
-        text-align: center;
-        float: left;
-        margin-right: 8px;
-        margin-top: 10px;
-        border: 1px solid #ccc;
-    }
-
-    .activity-root {
-        .MuiInput-root {
-            width: 86px;
+                    .MuiAvatar-circle {
+                        &.avatar {
+                            background-color: $sidebar;
+                        }
+                    }
+    
+                    .dot {
+                        position: absolute;
+                        top: 24px;
+                        width: 12px;
+                        height: 12px;
+                        border-radius: 100px;
+                        background: #00D1B2;
+                        transform: scale(1);
+                        transition: transform .4s;
+        
+                        //Scale out state
+                        &.vanish {
+                            transform: scale(0);
+                        }
+        
+                        //Busy status color
+                        &.is-busy {
+                            background: $orange;
+                        }
+                    }
+                }
+            }
         }
     }
-
-    .side-icon {
-        color: aquamarine
-    }
-
-    .side-bar-container {
-        .sub-text {
-            text-align: center;
+    
+    #dashboard-wrapper {
+        padding-top: 73px;
+    
+        .custom-header {
+            font-size: 18px;
+            margin-bottom: 9px;
+            font-weight: 500;
+        }
+    
+        .mb-4 {
+            margin-bottom: 4px;
+        }
+    
+        .font-size-custom {
+            font-size: 15px;
+        }
+    
+        .mb-22 {
+            margin-bottom: 22px;
+        }
+    
+        .card-background-color {
+            background-color: #dddddd;
+        }
+    
+        .custom-icon {
+            width: 40px;
+            height: 40px;
+            float: left;
+        }
+    
+        .custom-text {
+            width: 40px;
+            height: 40px;
+            float: left;
+        }
+    
+        .sub-heading-size {
+            font-size: 12px;
+        }
+    
+        .pd-11 {
+            padding: 11px;
+        }
+    
+        .full-width {
+            display: block;
             width: 100%;
-            display: inline-block;
-            color: white;
-            font-size: 13px;
-            margin-bottom: 16px;
+        }
+    
+        .float-right {
+            float: right;
+        }
+    
+        .dashboard-heading {
+            text-align: center;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 23px;
         }
 
-        .li-custom {
-            width: 30px;
-            height: 30px;
-            text-align: center;
-            display: contents;
+        .article-circle-container {
+            width: 100px;
+            height: 136px;
+            display: inline-block;
+            margin-right: 8px;
+            float: left;
+            margin-top: 10px;
+
+            .activity-circle {
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                font-size: 50px;
+                color: #fff;
+                text-align: center;
+                float: left;
+                margin-right: 8px;
+                margin-top: 10px;
+                border: 1px solid #ccc;
+    
+                .circle-text {
+                    color: black;
+                    vertical-align: middle;
+                    font-size: 19px;
+                    margin-top: 31px;
+                }
+            }
+
+            .article-circle-label {
+                display: inline-block;
+                width: 100%;
+                text-align: center;
+                margin-top: 4px;
+            }
+        }
+    
+        .activity-root {
+            .MuiInput-root {
+                width: 86px;
+            }
+        }
+    
+        .side-icon {
+            color: aquamarine;
+        }
+    
+        .side-bar-container {
+            margin-top: 60px;
+            .main-menu-inner {
+                ul {
+                    margin-top: 14px;
+                }
+            }
+
+            .profile-trigger {
+                margin-top: 15px;
+            }
+
+            .sub-text {
+                text-align: center;
+                width: 100%;
+                display: inline-block;
+                color: white;
+                font-size: 13px;
+                margin-bottom: 13px;
+            }
+    
+            .li-custom {
+                width: 30px;
+                height: 30px;
+                text-align: center;
+                display: contents;
+
+                .steps-icons {
+                    width: 26px !important;
+                    display: block;
+                }
+            }
         }
     }
 }

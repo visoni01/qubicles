@@ -9,17 +9,19 @@ import profileLogo1 from '../../assets/images/ray.jpg'
 import profileLogo2 from '../../assets/images/helen.jpg'
 import demoPic from '../../assets/images/demo-pic.jpeg'
 import { dashboardDataFetchingStart } from '../../redux-saga/redux/actions'
+import DashboardHeader from '../../components/Dashboard/dashboardHeader'
 
 const Dashboard = () => {
   const dispatch = useDispatch()
   // Fetching dashboard data
-  useEffect(() => {
-    dispatch(dashboardDataFetchingStart())
-  }, [ dispatch ])
+  useEffect( () => {
+    dispatch( dashboardDataFetchingStart() )
+  }, [ dispatch ] )
 
   return (
-    <div>
-      <div id='dashboard-wrapper' className='dashboard-outer'>
+    <div className="dashboard-container">
+      <DashboardHeader />
+      <div id="dashboard-wrapper" className="dashboard-outer">
         <SideBar />
         <div className='dashboard-heading'> Welcome to the Floor, Marlon </div>
 
@@ -120,12 +122,12 @@ const Dashboard = () => {
               <ActivityDetail
                 title={ 'Today\'s activity' }
                 data={ [
-                  { color: '#ffffff' },
-                  { color: '#92c47d' },
-                  { color: '#fed965' },
-                  { color: '#cccccc' },
-                  { color: '#6ea8dc' },
-                  { color: '#419e16' },
+                  { color: '#ffffff', number: '3,283', label: 'Calls' },
+                  { color: '#92c47d', number: '3,283', label: 'Sales' },
+                  { color: '#fed965', number: '3,283', label: 'Live' },
+                  { color: '#cccccc', number: '3,283', label: 'Logged In' },
+                  { color: '#6ea8dc', number: '3,283', label: 'Working' },
+                  { color: '#419e16', number: '3,283', label: 'On a call' },
                 ] }
               />
 
