@@ -7,15 +7,15 @@ import {
 import Dashboard from '../../service/dashboard'
 
 function* announcementDataFetchingWatcherStart() {
-  yield takeEvery( announcementDataFetchingStart.type, announcementDataFetchingWorker )
+  yield takeEvery(announcementDataFetchingStart.type, announcementDataFetchingWorker)
 }
 
-function* announcementDataFetchingWorker( action ) {
+function* announcementDataFetchingWorker(action) {
   try {
     const announcements = yield Dashboard.fetchAnnouncement()
-    yield put( announcementDataFetchingSuccessful( { announcements } ) )
-  } catch ( e ) {
-    yield put( announcementDataFetchingFailure() )
+    yield put(announcementDataFetchingSuccessful({ announcements }))
+  } catch (e) {
+    yield put(announcementDataFetchingFailure())
   }
 }
 

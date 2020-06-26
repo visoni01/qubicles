@@ -13,26 +13,26 @@ const {
     dashboardDataFetchingFailure,
   },
   reducer,
-} = createSlice( {
+} = createSlice({
   name: 'dashboard',
   initialState,
   reducers: {
-    dashboardDataFetchingStart: () => ( {
+    dashboardDataFetchingStart: () => ({
       ...initialState,
       isLoading: true,
-    } ),
-    dashboardDataFetchingSuccessful: ( state, action ) => ( {
+    }),
+    dashboardDataFetchingSuccessful: (state, action) => ({
       ...initialState,
       success: true,
       isLoading: false,
-    } ),
-    dashboardDataFetchingFailure: ( state, action ) => ( {
+    }),
+    dashboardDataFetchingFailure: (state, action) => ({
       ...initialState,
       error: true,
       isLoading: false,
-    } ),
+    }),
   },
-} )
+})
 
 export default reducer
 export {
