@@ -4,6 +4,7 @@ import CreateUserWallet from '../../wallet/createUserWallet'
 import { generateUserWalletId } from '../../../utils/generateWalletId'
 import AddUserToActiveCampaign from '../../activeCampaign/addUserToActiveCampaign'
 import { Op } from 'sequelize'
+import config from '../../../../config/app'
 
 const constraintsStep1 = {
   user_id: {
@@ -132,6 +133,22 @@ export class PostSignupAgentStep3Service extends ServiceBase {
 const constraintsStep4 = {
   user_id: {
     presence: { allowEmpty: false }
+  }
+}
+
+export class PostSignupAgentStep4Service extends ServiceBase {
+  get constraints () {
+    return constraintsStep4
+  }
+
+  async run () {
+    // TODO: Upload copy of governmentID
+  }
+}
+
+const constraintsStep5 = {
+  user_id: {
+    presence: { allowEmpty: false }
   },
   source: {
     presence: { allowEmpty: false }
@@ -141,9 +158,9 @@ const constraintsStep4 = {
   }
 }
 
-export class PostSignupAgentStep4Service extends ServiceBase {
+export class PostSignupAgentStep5Service extends ServiceBase {
   get constraints () {
-    return constraintsStep4
+    return constraintsStep5
   }
 
   async run () {
@@ -165,24 +182,26 @@ export class PostSignupAgentStep4Service extends ServiceBase {
   }
 }
 
-const constraintsStep5 = {
+const constraintsStep6 = {
   user_id: {
     presence: { allowEmpty: false }
   }
 }
 
-export class PostSignupAgentStep5Service extends ServiceBase {
+export class PostSignupAgentStep6Service extends ServiceBase {
   get constraints () {
-    return constraintsStep5
+    return constraintsStep6
   }
 
   async run () {
+    const baseInviteUrl = `${config.get('webApp.baseUrl')}/invite`
     try {
       const xUser = await User.findOne({ where: { user_id: this.user_id }, raw: true })
 
       // Create wallet for user
       const walletAddress = (await generateUserWalletId(xUser.full_name)).toLowerCase() + '.qbe'
       await CreateUserWallet.execute({ walletAddress })
+      const inviteLink = `${baseInviteUrl}/${walletAddress}`
 
       // Assign SIP phone server to Agent
       const leastUsedPhoneServer = await getServerWithLeastPhones()
@@ -219,10 +238,14 @@ export class PostSignupAgentStep5Service extends ServiceBase {
           first_name: xUserDetails.first_name,
           last_name: xUserDetails.last_name
         })
+      return {
+        successful: true,
+        message: `Post Signup Completed for user ${this.user_id}`,
+        inviteLink
+      }
     } catch (e) {
-      this.addError(e.message, e.json || e.errors[0].message)
+      this.addError('Error', 'Error in agent post signup')
     }
-    return 'User Updated Successfully'
   }
 }
 

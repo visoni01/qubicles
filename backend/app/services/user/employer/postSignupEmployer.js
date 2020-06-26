@@ -7,6 +7,7 @@ import SendEmailNotificationMail from '../../email/sendEmailNotificationMail'
 import AddUserToActiveCampaign from '../../activeCampaign/addUserToActiveCampaign'
 
 import { Op } from 'sequelize'
+import config from '../../../../config/app'
 
 const constraintsStep1 = {
   user_id: {
@@ -51,12 +52,6 @@ export class PostSignupEmployerStep1Service extends ServiceBase {
     }
     // Generate Client username here
     clientObject.client_username = await generateClientUserName({ name: clientObject.client_name, maxLength: 100 })
-
-    const xClientUserData = await XClientUser.findOne({ where: { user_id: this.user_id }, raw: true })
-    if (xClientUserData) {
-      this.addError('xClient', 'Client Already Exist for this User, You have already completed Step 1')
-      return
-    }
 
     try {
       // Creating client in x_clients
@@ -206,6 +201,7 @@ export class PostSignupEmployerStep4Service extends ServiceBase {
   }
 
   async run () {
+    const baseInviteUrl = `${config.get('webApp.baseUrl')}/invite`
     const xClientUserData = await XClientUser.findOne({ where: { user_id: this.user_id }, raw: true })
     if (xClientUserData) {
       const clientInfo = await XClient.findOne({ where: { client_id: xClientUserData.client_id }, raw: true })
@@ -234,6 +230,7 @@ export class PostSignupEmployerStep4Service extends ServiceBase {
         // Create Wallet for user
         const walletAddress = (await generateUserWalletId(full_name)).toLowerCase() + '.qbe'
         await CreateUserWallet.execute({ walletAddress })
+        const inviteLink = `${baseInviteUrl}/${walletAddress}`
 
         // Update User and UserDetails for wallet
         await User.update({
@@ -255,9 +252,13 @@ export class PostSignupEmployerStep4Service extends ServiceBase {
             last_name: full_name.split(' ')[1]
           })
 
-        return `Post signup step 4 for user ${this.user_id} is completed. Assigned telephone server, Sent email notification, Created wallet, `
+        return {
+          successful: true,
+          message: `Post signup step 4 for user ${this.user_id} is completed. Assigned telephone server, Sent email notification, Created wallet, `,
+          inviteLink
+        }
       } catch (e) {
-        this.addError(e.message, e.json || e.errors[0].message)
+        this.addError('Error', 'Error in employer post signup')
       }
     } else {
       this.addError('xClient', 'Client does not exist for this user, Please complete step 1 First')

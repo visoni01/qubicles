@@ -1,5 +1,12 @@
 import Responder from '../../server/expressResponder'
-import { PostSignupAgentStep1Service, PostSignupAgentStep2Service, PostSignupAgentStep3Service, PostSignupAgentStep4Service, PostSignupAgentStep5Service } from '../services/user/agent/postSignupAgent'
+import {
+  PostSignupAgentStep1Service,
+  PostSignupAgentStep2Service,
+  PostSignupAgentStep3Service,
+  PostSignupAgentStep4Service,
+  PostSignupAgentStep5Service,
+  PostSignupAgentStep6Service
+} from '../services/user/agent/postSignupAgent'
 
 export default class UserAgentController {
   static async postSignupAgent (req, res) {
@@ -18,7 +25,8 @@ export default class UserAgentController {
         postSignupAgentResult = await PostSignupAgentStep4Service.execute(req.body)
         break
       case 'step5':
-        postSignupAgentResult = await PostSignupAgentStep5Service.execute(req.body)
+        await PostSignupAgentStep5Service.execute(req.body)
+        postSignupAgentResult = await PostSignupAgentStep6Service.execute(req.body)
         break
     }
     if (postSignupAgentResult.successful) {

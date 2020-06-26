@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     dialplan_number: DataTypes.STRING(100),
-    voicemail_id: DataTypes.STRING(10),
+    voicemail_id: DataTypes.STRING(12),
     phone_ip: DataTypes.STRING(15),
     computer_ip: DataTypes.STRING(15),
     server_ip: DataTypes.STRING(15),
@@ -233,8 +233,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     email: DataTypes.STRING(100),
     template_id: {
-      type: DataTypes.STRING(15)
-      // allowNull: false
+      type: DataTypes.STRING(15),
+      defaultValue: ''
     },
     conf_override: DataTypes.TEXT,
     phone_context: {
@@ -246,7 +246,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: '60'
     },
     conf_secret: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING(30),
       defaultValue: 'test'
     },
     delete_vm_after_email: {
