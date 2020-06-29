@@ -22,14 +22,14 @@ export class SaveLeadService extends ServiceBase {
   async run () {
     // Check if user_id and lead_id is valid or not
     if (this.lead && this.lead.user_id > 0 && this.lead.lead_id > 0) {
-      const currentUser = await getUserById({ userId: this.lead.user_id })
+      const currentUser = await getUserById({ user_id: this.lead.user_id })
 
       if (currentUser && currentUser['user_id']) {
         try {
-          const { clients } = await GetClientsService.run({ userId: currentUser.user_id })
+          const { clients } = await GetClientsService.run({ user_id: currentUser.user_id })
 
           let standardLead = await getLeadByLeadId({
-            leadId: this.lead.lead_id,
+            lead_id: this.lead.lead_id,
             user: currentUser,
             clients
           })

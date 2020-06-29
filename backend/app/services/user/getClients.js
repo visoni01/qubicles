@@ -2,7 +2,7 @@ import ServiceBase from '../../common/serviceBase'
 import { XClient, XClientUser } from '../../db/models'
 
 const constraints = {
-  userId: {
+  user_id: {
     presence: { allowEmpty: false }
   }
 }
@@ -14,7 +14,7 @@ export default class GetClientsService extends ServiceBase {
 
   async run () {
     const clientIdsData = await XClientUser.findAll({
-      where: { user_id: this.userId },
+      where: { user_id: this.user_id },
       attributes: ['client_id'],
       raw: true
     })

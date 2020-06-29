@@ -7,13 +7,13 @@ import { USER_LEVEL } from '../user/getSecurityContext'
 import { executeSelectQuery, executeUpdateQuery } from '../../utils/queryManager'
 import { Lead } from '../../db/models'
 
-export const getLeadByLeadId = async ({ leadId, user, clients }) => {
+export const getLeadByLeadId = async ({ lead_id, user, clients }) => {
   const sourceTable = getLeadsTableName({ user, clients })
   const lead = await executeSelectQuery({
     method: 'getDataByColumnName',
     sourceTable,
     columnName: 'lead_id',
-    columnValue: leadId
+    columnValue: lead_id
   })
   return lead
 }
@@ -37,15 +37,15 @@ export const updateLead = async ({ lead, user, clients }) => {
 }
 
 export const updateLeadInCustomTable = async ({ lead }) => {
-  const listId = lead['list_id']
+  const list_id = lead['list_id']
   // send custom fields update
   let onDuplicateUpdateSQL = ' ON DUPLICATE KEY UPDATE '
-  const insertSql = `INSERT INTO x_leads_custom_${listId} SET `
+  const insertSql = `INSERT INTO x_leads_custom_${list_id} SET `
   let sql
 
   // get all fields in this list to aide with data type checks
-  const leadList = await getListByListId({ listId })
-  const flowFields = await getEditableFlowFieldsByFlowId({ flowId: leadList.flow_id })
+  const leadList = await getListByListId({ list_id })
+  const flowFields = await getEditableFlowFieldsByFlowId({ flow_id: leadList.flow_id })
 
   // build dynamic SQL to do so
   let customFieldValuesSet = false
@@ -61,7 +61,7 @@ export const updateLeadInCustomTable = async ({ lead }) => {
                       flowFieldDefinition
 
     if (isKeyValid) {
-      isKeyValid = await listsFieldsColumnExists(lead['list_id'], key)
+      isKeyValid = await listsFieldsColumnExists({ list_id: lead['list_id'], columnName: key })
     }
 
     if (isKeyValid) {

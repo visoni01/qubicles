@@ -28,18 +28,18 @@ export class GetDispositionsService extends ServiceBase {
     const dispositions = []
 
     // Fetching list by listId
-    const list = await getListByListId({ listId: this.listId })
+    const list = await getListByListId({ list_id: this.listId })
 
     if (list && list['list_id']) {
-      let campaignId = list.campaign_id
+      let campaign_id = list.campaign_id
       if (this.queueId) {
-        campaignId = this.queueId
+        campaign_id = this.queueId
       }
 
-      let allCampStatuses = await getCampaignStatusesByCampaignId({ campaignId })
+      let allCampStatuses = await getCampaignStatusesByCampaignId({ campaign_id })
       // no IB dispos, pull from campaign
       if (this.queueId && !(allCampStatuses && allCampStatuses.length)) {
-        allCampStatuses = await getCampaignStatusesByCampaignId({ campaignId: list.campaign_id })
+        allCampStatuses = await getCampaignStatusesByCampaignId({ campaign_id: list.campaign_id })
       }
 
       // if (allCampStatuses && allCampStatuses.length)
@@ -65,7 +65,7 @@ export class GetDispositionsService extends ServiceBase {
       let mergedStatuses = []
 
       // do we need system dispositions as well?
-      const campaign = await getCampaignById({ campaignId: list.campaign_id })
+      const campaign = await getCampaignById({ campaign_id: list.campaign_id })
       if (campaign && campaign.custom_status_only === 'N') {
         const systemStatuses = await getStatuses({ selectable: 'Y' })
         mergedStatuses = [...campStatuses, ...campIBStatuses, ...systemStatuses]

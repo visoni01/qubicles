@@ -20,9 +20,9 @@ export class GetACDQueueService extends ServiceBase {
     const liveAgentData = await getLiveAgentByUser({ user: this.user.user, clients })
 
     if (liveAgentData) {
-      queues = await getXferInboundGroups({ campaignId: liveAgentData.campaign_id, clientIngroups })
+      queues = await getXferInboundGroups({ campaign_id: liveAgentData.campaign_id, clientIngroups })
     } else {
-      queues = await getInboundGroupsByUser({ user: this.user, clientId: currentClientId, clientIngroups })
+      queues = await getInboundGroupsByUser({ user: this.user, client_id: currentClientId, clientIngroups })
     }
 
     queues = queues.map((queueData) => {

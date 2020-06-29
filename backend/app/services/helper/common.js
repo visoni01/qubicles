@@ -47,11 +47,11 @@ export const isAuthorizedForClient = ({ clients, client_id, user_level }) => {
   return (isClientIdMatched || user_level === USER_LEVEL.SYSTEM)
 }
 
-export const listsFieldsColumnExists = async ({ listId, columnName }) => {
+export const listsFieldsColumnExists = async ({ list_id, columnName }) => {
   const dbName = config.get('sequelize.name')
   const sql = `SELECT * from INFORMATION_SCHEMA.COLUMNS \
               WHERE TABLE_SCHEMA = '${dbName}' AND \
-              TABLE_NAME='x_leads_custom_${listId}' AND \
+              TABLE_NAME='x_leads_custom_${list_id}' AND \
               COLUMN_NAME='${columnName}' LIMIT 1;`
 
   const data = await SqlHelper.select(sql)

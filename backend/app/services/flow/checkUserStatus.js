@@ -24,8 +24,8 @@ export class CheckUserStatusService extends ServiceBase {
   }
 
   async run () {
-    const user = await getUserById({ userId: this.userId })
-    const { clients } = await GetClientsService.run({ userId: this.userId })
+    const user = await getUserById({ user_id: this.userId })
+    const { clients } = await GetClientsService.run({ user_id: this.userId })
     const liveAgent = await getLiveAgentByUser({ user, clients })
 
     const statusResponse = {
@@ -52,13 +52,13 @@ export class CheckUserStatusService extends ServiceBase {
                             this.uniqueId == '0' ||
                             !this.uniqueId)
         if (isLiveCall) {
-          const liveCall = await getCallByCallerId({ callerId: liveAgent.callerid })
+          const liveCall = await getCallByCallerId({ callerid: liveAgent.callerid })
 
           if (liveCall && liveCall.auto_call_id) {
-            const leadData = await getLeadByLeadId({ leadId: liveAgent.lead_id })
+            const leadData = await getLeadByLeadId({ lead_id: liveAgent.lead_id })
 
             if (leadData && leadData.list_id > 999) {
-              const leadList = await getListByListId({ listId: leadData.list_id })
+              const leadList = await getListByListId({ list_id: leadData.list_id })
 
               if (leadList && leadList.list_id) {
                 statusResponse.flowId = leadList.flow_id

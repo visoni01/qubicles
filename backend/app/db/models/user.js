@@ -417,7 +417,7 @@ module.exports = (sequelize, DataTypes) => {
       values: ['0', '1']
     }
   },
-    { tableName: 'x_users' })
+  { tableName: 'x_users' })
 
   User.prototype.comparePassword = async function (password) {
     if (!password) {
