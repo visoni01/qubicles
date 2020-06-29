@@ -1,6 +1,5 @@
 export * from './dashboard'
 export * from './dashboard/announcement'
-export * from './dashboard/activityPosting'
 export * from './loader'
 export * from './snackbar'
 export * from './dashboard/communityRep'
