@@ -29,15 +29,15 @@ const ActivityDetail = ({ title, data }) => (
       </div>
     </div>
     {
-      data.map( ( { color, number, label }, index ) => (
-        <div className="article-circle-container" key={ `${ title } ${ color }` }>
+      data.map(({ color, number, label }, index) => (
+        <div className='article-circle-container' key={ `${ title } ${ color }` }>
           <div
-            className="activity-circle"
+            className='activity-circle'
             style={ { background: color || defaultColor } }
           >
-            <div className="circle-text">{number}</div>
+            <div className='circle-text'>{number}</div>
           </div>
-          <div className="article-circle-label">{label}</div>
+          <div className='article-circle-label'>{label}</div>
         </div>
       ))
     }

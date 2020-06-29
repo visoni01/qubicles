@@ -14,14 +14,14 @@ import DashboardHeader from '../../components/Dashboard/dashboardHeader'
 const Dashboard = () => {
   const dispatch = useDispatch()
   // Fetching dashboard data
-  useEffect( () => {
-    dispatch( dashboardDataFetchingStart() )
-  }, [ dispatch ] )
+  useEffect(() => {
+    dispatch(dashboardDataFetchingStart())
+  }, [ dispatch ])
 
   return (
-    <div className="dashboard-container">
+    <div className='dashboard-container'>
       <DashboardHeader />
-      <div id="dashboard-wrapper" className="dashboard-outer">
+      <div id='dashboard-wrapper' className='dashboard-outer'>
         <SideBar />
         <div className='dashboard-heading'> Welcome to the Floor, Marlon </div>
 
