@@ -6,6 +6,8 @@ import invitePageReducer from './invitePage'
 import loginReducer from './login'
 import announcementReducer from './dashboard/announcement'
 import dashboardReducer from './dashboard'
+import loaderReducer from './loader'
+import snackbarReducer from './snackbar'
 
 const rootReducer = combineReducers({
   signup: signupReducer,
@@ -15,6 +17,8 @@ const rootReducer = combineReducers({
   login: loginReducer,
   dashboad: dashboardReducer,
   announcement: announcementReducer,
+  loader: loaderReducer,
+  snackbar: snackbarReducer,
 })
 
 export default rootReducer
