@@ -27,9 +27,9 @@ export class GetFlowPagesByFlowIdService extends ServiceBase {
     }
 
     if (this.userId) {
-      const currentUser = await getUserById({ userId: this.userId })
+      const currentUser = await getUserById({ user_id: this.userId })
 
-      const { clients } = await GetClientsService.run({ userId: this.userId })
+      const { clients } = await GetClientsService.run({ user_id: this.userId })
       const isInvalid = !isAuthorizedForClient({
         clients,
         client_id: flow.client_id,
@@ -42,7 +42,7 @@ export class GetFlowPagesByFlowIdService extends ServiceBase {
       }
     }
 
-    const allFlowPages = await getFlowPagesByFlowId({ flowId: flow.flow_id })
+    const allFlowPages = await getFlowPagesByFlowId({ flow_id: flow.flow_id })
     const sortPages = []
 
     let nonRandomizedPages = []

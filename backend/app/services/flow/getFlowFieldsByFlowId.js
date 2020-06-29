@@ -27,8 +27,8 @@ export class GetFlowFieldsByFlowIdService extends ServiceBase {
     }
 
     if (this.userId) {
-      const currentUser = await getUserById({ userId: this.userId })
-      const { clients } = await GetClientsService.run({ userId: this.userId })
+      const currentUser = await getUserById({ user_id: this.userId })
+      const { clients } = await GetClientsService.run({ user_id: this.userId })
       const isInvalid = !isAuthorizedForClient({
         clients,
         client_id: flow.client_id,
@@ -41,7 +41,7 @@ export class GetFlowFieldsByFlowIdService extends ServiceBase {
       }
     }
 
-    let fields = await getFlowFieldsByFlowId({ flowId: flow.flow_id })
+    let fields = await getFlowFieldsByFlowId({ flow_id: flow.flow_id })
     fields = _.orderBy(fields, 'page', 'ASC')
     fields = _.sortBy(fields, 'field_rank')
     fields = _.sortBy(fields, 'field_id')
