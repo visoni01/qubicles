@@ -41,7 +41,7 @@ export const getLiveAgentsTableNameByClient = ({ clientUserName, clientId }) => 
 }
 
 export const updateLiveAgent = async ({ liveAgent, user, clients }) => {
-  const sourceTable = getLiveAgentsTableName({ liveAgent, user, clients })
+  const sourceTable = getLiveAgentsTableName({ user, clients })
   await executeUpdateQuery({
     method: 'update',
     sourceTable,

@@ -1,6 +1,6 @@
 import { getListByListId } from './list'
 import { getEditableFlowFieldsByFlowId } from './flow'
-import { listsFieldsColumnExists, formatDate } from './common'
+import { listsFieldsColumnExists, listsFieldsTableExists, formatDate } from './index'
 import moment from 'moment'
 import { SqlHelper } from '../../utils/sql'
 import { USER_LEVEL } from '../user/getSecurityContext'
@@ -47,21 +47,29 @@ export const deleteLead = async ({ lead, user, clients }) => {
 }
 
 export const getLeadCustomData = async ({ listId, leadId }) => {
-  const lead = await executeSelectQuery({
-    method: 'getLeadCustomData',
-    sourceTable: `x_leads_custom_${listId}`,
-    leadId
-  })
-  return lead
+  let lead = {}
+  const isTableExist = await listsFieldsTableExists({ listId })
+  if (isTableExist) {
+    lead = await executeSelectQuery({
+      method: 'getLeadCustomData',
+      sourceTable: `x_leads_custom_${listId}`,
+      leadId
+    })
+    return lead
+  }
 }
 
 export const deleteLeadCustomData = async ({ listId, leadId }) => {
-  const lead = await executeDeleteQuery({
-    method: 'deleteLeadCustomData',
-    sourceTable: `x_leads_custom_${listId}`,
-    leadId
-  })
-  return lead
+  const lead = {}
+  const isTableExist = await listsFieldsTableExists({ listId })
+  if (isTableExist) {
+    const lead = await executeDeleteQuery({
+      method: 'deleteLeadCustomData',
+      sourceTable: `x_leads_custom_${listId}`,
+      leadId
+    })
+    return lead
+  }
 }
 
 export const updateLeadInCustomTable = async ({ lead }) => {
@@ -84,9 +92,9 @@ export const updateLeadInCustomTable = async ({ lead }) => {
     const flowFieldDefinition = flowFields.find((f) => f.field_label.toLowerCase() === keyInLowerCase)
     // save this field to our custom table
     let isKeyValid = !fieldsProcessed.includes(keyInLowerCase) &&
-                      key !== 'lead_id' &&
-                      lead[key] &&
-                      flowFieldDefinition
+      key !== 'lead_id' &&
+      lead[key] &&
+      flowFieldDefinition
 
     if (isKeyValid) {
       isKeyValid = await listsFieldsColumnExists({ list_id: lead['list_id'], columnName: key })
