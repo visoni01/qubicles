@@ -4,7 +4,7 @@ import { listsFieldsColumnExists, formatDate } from './common'
 import moment from 'moment'
 import { SqlHelper } from '../../utils/sql'
 import { USER_LEVEL } from '../user/getSecurityContext'
-import { executeSelectQuery, executeUpdateQuery } from '../../utils/queryManager'
+import { executeSelectQuery, executeUpdateQuery, executeDeleteQuery } from '../../utils/queryManager'
 import { Lead } from '../../db/models'
 
 export const getLeadByLeadId = async ({ lead_id, user, clients }) => {
@@ -34,6 +34,34 @@ export const updateLead = async ({ lead, user, clients }) => {
     model: Lead,
     data: lead
   })
+}
+
+export const deleteLead = async ({ lead, user, clients }) => {
+  const sourceTable = getLeadsTableName({ user, clients })
+  await executeDeleteQuery({
+    method: 'delete',
+    sourceTable,
+    model: Lead,
+    data: lead
+  })
+}
+
+export const getLeadCustomData = async ({ listId, leadId }) => {
+  const lead = await executeSelectQuery({
+    method: 'getLeadCustomData',
+    sourceTable: `x_leads_custom_${listId}`,
+    leadId
+  })
+  return lead
+}
+
+export const deleteLeadCustomData = async ({ listId, leadId }) => {
+  const lead = await executeDeleteQuery({
+    method: 'deleteLeadCustomData',
+    sourceTable: `x_leads_custom_${listId}`,
+    leadId
+  })
+  return lead
 }
 
 export const updateLeadInCustomTable = async ({ lead }) => {

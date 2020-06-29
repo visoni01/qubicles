@@ -8,6 +8,15 @@ const QueryMethods = {
   getDataByColumnName: ({ sourceTable, columnName, columnValue }) => {
     return `SELECT * FROM ${sourceTable} WHERE ${columnName} = '${columnValue}'`
   },
+  getLeadCustomData: ({ sourceTable, leadId }) => {
+    return `SELECT * FROM ${sourceTable} WHERE lead_id='${leadId}' LIMIT 1`
+  },
+  deleteLeadCustomData: ({ sourceTable, leadId }) => {
+    return `DELETE FROM ${sourceTable} WHERE lead_id='${leadId}' LIMIT 1`
+  },
+  getCampaignsByClientId: ({ sourceTable, clientId }) => {
+    return `SELECT t.* FROM ${sourceTable} t JOIN x_client_campaigns x ON t.campaign_id = x.campaign_id WHERE x.client_id = '${clientId}'`
+  },
   update: ({ sourceTable, model, data }) => {
     // get sourceTable from model if sourceTable property is empty
     if (sourceTable) {
@@ -57,6 +66,36 @@ const QueryMethods = {
     // remove trailing comma before appending where clause
     sql = sql.substring(0, sql.length - 1) + whereClause
     return sql
+  },
+  delete: ({ sourceTable, model, data }) => {
+    if (sourceTable) {
+      sourceTable = model.tableName
+    }
+
+    const modelProperties = model.rawAttributes
+    let sql = `DELETE FROM ${sourceTable}`
+    let whereClause = ''
+    let hasWhereClause = false
+
+    const objProperties = Object.keys(data)
+
+    objProperties.forEach((property) => {
+      // Check if primaryKey attribute is set to true for the property
+      if (modelProperties[property] && modelProperties[property].primaryKey) {
+        // If we have multiple primary keys (composite key) then we also need
+        // to use AND in the where clause
+        if (hasWhereClause) {
+          whereClause += ` AND \`${property}\` = '${data[property]}'`
+        } else {
+          whereClause = ` WHERE \`${property}\` = '${data[property]}'`
+        }
+
+        hasWhereClause = true
+      }
+    })
+
+    sql = sql + whereClause
+    return sql
   }
 }
 
@@ -70,4 +109,8 @@ export const executeSelectQuery = ({ method, ...restArgs }) => {
 
 export const executeUpdateQuery = ({ method, ...restArgs }) => {
   return SqlHelper.update(QueryMethods[method](restArgs))
+}
+
+export const executeDeleteQuery = ({ method, ...restArgs }) => {
+  return SqlHelper.delete(QueryMethods[method](restArgs))
 }
