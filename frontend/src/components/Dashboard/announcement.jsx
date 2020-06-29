@@ -5,19 +5,21 @@ const Announcement = () => {
   const { isLoading, announcements } = useSelector((state) => state.announcement)
 
   return (
-    <div className='feed-channels card-background-color'>
+    <div className='feed-channels'>
       <div className='custom-header'>
         Latest announcements
       </div>
       {
-        !isLoading && announcements.length && announcements.map(({ date, data }) => (
-          <div className='menu-items' key={ `${ date }` }>
-            <div className='mb-22'>
-              <div className='mb-4'>
-                {date}
-              </div>
-              <div className='mb-4 font-size-custom'>
-                {data}
+        !isLoading && announcements.length && announcements.map(({ date, title, id }, index) => (
+          <div className='menu-items' key={ `${ id }` }>
+            <div className='card-background-color'>
+              <div className='mb-4 pd-11'>
+                <span className='custom-date'>
+                  {date}
+                </span>
+                <div className='custom-title'>
+                  {title}
+                </div>
               </div>
             </div>
           </div>

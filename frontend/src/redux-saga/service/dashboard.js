@@ -5,9 +5,11 @@ class Dashboard {
     const { data } = await apiClient.getAnnouncements()
     const announcements = data.result.map((record) => {
       const dateObj = new Date(record.date)
+      const dateString = dateObj.toDateString().split(' ')
       return {
-        date: `${ dateObj.toDateString() }`,
-        data: record.title,
+        id: record.id,
+        date: `${ dateString[ 1 ] } ${ dateString[ 2 ] }, ${ dateString[ 3 ] }`,
+        title: record.title,
       }
     })
     return announcements
