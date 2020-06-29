@@ -7,6 +7,9 @@ import inviteRequest from './invitepage'
 import login from './login'
 import dashboard from './dashboard'
 import announcement from './dashboard/announcement'
+import communityRep from './dashboard/communityRep'
+import jobPosting from './dashboard/jobPosting'
+import activeUser from './dashboard/activeUser'
 
 export default function* rootSaga() {
   yield all([
@@ -17,5 +20,8 @@ export default function* rootSaga() {
     login(),
     dashboard(),
     announcement(),
+    communityRep(),
+    jobPosting(),
+    activeUser(),
   ])
 }
