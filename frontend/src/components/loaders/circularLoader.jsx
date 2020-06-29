@@ -22,7 +22,7 @@ const Loader = ({
           <>
             <div className={ enableOverlay && 'overlay' } />
             <div className={ className || 'loader-container' }>
-              <ClipLoader size={ size } color={ color } loading={ loading } />
+              <ClipLoader size={ size } color={ color } loading={true} />
             </div>
           </>
         )

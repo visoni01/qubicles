@@ -8,7 +8,8 @@ const initialState = {
 
 const {
   actions: {
-    showMessage,
+    showSuccessMessage,
+    showErrorMessage,
     hideMessage,
   },
   reducer,
@@ -16,18 +17,21 @@ const {
   name: 'snackbar',
   initialState,
   reducers: {
-    showMessage: (state, action) => {
-      const { error, msg } = action.payload
-      const defaultSuccessMsg = (!error && !msg)
-        ? 'Request has been successfully performed!'
-        : msg
-      const defaultErrorMsg = (error && !msg) ? 'Something Went Wrong!' : msg
-
+    showSuccessMessage: (state, action) => {
+      const msg = action && action.payload && action.payload.msg
       return {
-        ...state,
+        ...initialState,
         open: true,
-        msg: error ? defaultErrorMsg : defaultSuccessMsg,
-        error: !!error,
+        msg: msg || 'Request has been successfully performed!'
+      }
+    },
+    showErrorMessage: (state, action) => {
+      const msg = action && action.payload && action.payload.msg
+      return {
+        ...initialState,
+        open: true,
+        error: true,
+        msg: msg || 'Something Went Wrong!'
       }
     },
     hideMessage: (state) => ({
@@ -39,6 +43,7 @@ const {
 
 export default reducer
 export {
-  showMessage,
+  showSuccessMessage,
+  showErrorMessage,
   hideMessage,
 }
