@@ -10,15 +10,15 @@ export const getFlowFieldsByFlowAndPageId = async ({ page, flow_id }) => {
   return FlowFields
 }
 
-export const getFlowPagesByFlowId = ({ flowId }) => {
-  return FlowPage.findAll({ where: { flow_id: flowId }, raw: true })
+export const getFlowPagesByFlowId = ({ flow_id }) => {
+  return FlowPage.findAll({ where: { flow_id }, raw: true })
 }
 
-export const getFlowFieldsByFlowId = ({ flowId }) => {
-  return FlowField.findAll({ where: { flow_id: flowId }, raw: true })
+export const getFlowFieldsByFlowId = ({ flow_id }) => {
+  return FlowField.findAll({ where: { flow_id }, raw: true })
 }
 
-export const getEditableFlowFieldsByFlowId = ({ flowId }) => {
+export const getEditableFlowFieldsByFlowId = ({ flow_id }) => {
   const excludedFieldTypes = [
     'NAVIGATION',
     'SCRIPT',
@@ -31,7 +31,7 @@ export const getEditableFlowFieldsByFlowId = ({ flowId }) => {
   ]
 
   return FlowField.findAll({
-    where: { flow_id: flowId, field_type: { [Op.notIn]: excludedFieldTypes } },
+    where: { flow_id, field_type: { [Op.notIn]: excludedFieldTypes } },
     raw: true
   })
 }

@@ -1,5 +1,5 @@
 import { XLeadsList } from '../../db/models'
 
-export const getListByListId = ({ listId }) => {
-  return XLeadsList.findOne({ where: { list_id: listId }, raw: true })
+export const getListByListId = ({ list_id }) => {
+  return XLeadsList.findOne({ where: { list_id }, raw: true })
 }

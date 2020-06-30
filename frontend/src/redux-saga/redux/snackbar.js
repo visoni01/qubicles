@@ -22,7 +22,7 @@ const {
       return {
         ...initialState,
         open: true,
-        msg: msg || 'Request has been successfully performed!',
+        msg: msg || 'Request has been processed successfully.',
       }
     },
     showErrorMessage: (state, action) => {
@@ -31,7 +31,7 @@ const {
         ...initialState,
         open: true,
         error: true,
-        msg: msg || 'Something Went Wrong!',
+        msg: msg || 'An error occurred while processing your request. Please try again later.',
       }
     },
     hideMessage: (state) => ({

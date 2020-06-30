@@ -2,7 +2,9 @@ import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import SideBar from '../../components/Dashboard/sideBar'
 import Announcement from '../../components/Dashboard/announcement'
-import ActivityPosting from '../../components/Dashboard/activityPosting'
+import CommunityRep from '../../components/Dashboard/communityRep'
+import JobPosting from '../../components/Dashboard/jobPosting'
+import ActiveUser from '../../components/Dashboard/activeUser'
 import Overview from '../../components/Dashboard/overview'
 import ActivityDetail from '../../components/Dashboard/activityDetail'
 import profileLogo1 from '../../assets/images/ray.jpg'
@@ -10,6 +12,7 @@ import profileLogo2 from '../../assets/images/helen.jpg'
 import demoPic from '../../assets/images/demo-pic.jpeg'
 import { dashboardDataFetchingStart } from '../../redux-saga/redux/actions'
 import DashboardHeader from '../../components/Dashboard/dashboardHeader'
+import './style.scss'
 
 const Dashboard = () => {
   const dispatch = useDispatch()
@@ -28,36 +31,17 @@ const Dashboard = () => {
         <div id='main-dashboard' className='section-wrapper'>
           <div id='basic-layout' className='columns dashboard-columns'>
             <div className='column is-3'>
-              <div className='feed-channels'>
-                <div className='custom-header'>
-                  Your Community rep
-                </div>
-                <div className='menu-items'>
-                  <div className='mb-4 font-size-custom'> 285 People like your company </div>
-                  <div className='font-size-custom'> 111k People are following your company </div>
-                </div>
-              </div>
+              {/* Community Reputation  */}
+              <CommunityRep />
 
               {/* Announcement  */}
               <Announcement />
 
               {/* Posting  */}
+              <JobPosting />
 
-              <ActivityPosting
-                title='Job posting'
-                data={ [
-                  { heading: 'Customer Specialist', subHeading: '16 applications receive' },
-                  { heading: 'Call center supervisors', subHeading: '71 applications receive' },
-                ] }
-              />
-
-              <ActivityPosting
-                title='Active users'
-                data={ [
-                  { heading: 'Marlon Mars', subHeading: 'Offline' },
-                  { heading: 'Shivam Moneyheis', subHeading: 'Offline' },
-                ] }
-              />
+              {/* Active Users  */}
+              <ActiveUser />
 
             </div>
             <div className='column is-5'>

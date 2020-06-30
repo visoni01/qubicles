@@ -14,8 +14,8 @@ export default class JobPostings extends ServiceBase {
   }
 
   async run () {
-    const userClientId = await getClientIdByUserId({ userId: this.user_id })
-    const recentJobs = await getRecentJobsByClient({ client_id: userClientId })
+    const { client_id } = await getClientIdByUserId({ userId: this.user_id })
+    const recentJobs = await getRecentJobsByClient({ client_id })
     return recentJobs
   }
 }

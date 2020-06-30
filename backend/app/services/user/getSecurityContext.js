@@ -26,12 +26,12 @@ export default class GetSecurityContextService extends ServiceBase {
 
   async run () {
     // fetching the clients and clientIds
-    const { clients, clientIds } = await GetClientsService.run({ userId: this.user.user_id })
+    const { clients, clientIds } = await GetClientsService.run({ user_id: this.user.user_id })
     let clientIngroups = []
     // TODO: Below implementation will be done when we start work on campaign
     if (clientIds && clientIds.length > 0) {
       // CampaignsRef = mf.GetCampaigns (ClientIdsRef [0]).ToList ();
-      clientIngroups = await getInboundGroupsByClient({ clientId: clientIds[0] })
+      clientIngroups = await getInboundGroupsByClient({ client_id: clientIds[0] })
     }
     return {
       userRef: this.user,

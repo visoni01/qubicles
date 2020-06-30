@@ -4,6 +4,10 @@ import {
   dashboardDataFetchingFailure,
   dashboardDataFetchingSuccessful,
   announcementDataFetchingStart,
+  communityRepDataFechingStart,
+  jobPostingDataFetchingStart,
+  activeUserDataFetchingStart,
+
 } from '../../redux/actions'
 
 function* dashboardWatcher() {
@@ -14,8 +18,13 @@ function* dashboardWorker(action) {
   try {
     // Fetching announcements data
     yield put(announcementDataFetchingStart())
+    // TODO: Call action for fetching community reputation data
+    yield put(communityRepDataFechingStart())
     // TODO: Call action for fetching job posting data
+    yield put(jobPostingDataFetchingStart())
     // TODO: Call action for fetching active users data
+    yield put(activeUserDataFetchingStart())
+
     yield put(dashboardDataFetchingSuccessful())
   } catch (e) {
     yield put(dashboardDataFetchingFailure())

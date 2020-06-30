@@ -30,6 +30,6 @@ export function getLiveAgentsTableName ({ user, clients }) {
   }
 }
 
-export function getLiveAgentsTableNameByClient ({ clientUserName, clientId }) {
-  return `x_live_agents_${clientUserName}_${clientId}`
+export function getLiveAgentsTableNameByClient ({ clientUserName, client_id }) {
+  return `x_live_agents_${clientUserName}_${client_id}`
 }
