@@ -173,3 +173,16 @@ export async function getSkills () {
   const skills = await XQodSkill.findAll({ raw: true })
   return skills
 }
+
+export async function getHiredUserIdsByClientId ({ client_id }) {
+  const hiredUsers = XQodApplication.findAll({
+    where: {
+      client_id,
+      status: 'hired'
+    },
+    raw: true,
+    attributes: ['user_id']
+  })
+  const hiredUserIds = hiredUsers.map(user => user.user_id)
+  return hiredUserIds
+}
