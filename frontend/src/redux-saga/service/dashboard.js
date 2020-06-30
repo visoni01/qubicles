@@ -1,13 +1,38 @@
+import apiClient from '../../utils/apiClient'
+
 class Dashboard {
   static async fetchAnnouncement() {
-    return new Promise((resolve, reject) => {
-      // TODO: Call API
+    const { data } = await apiClient.getRequest('/dashboard/latest-announcements')
+    return (data && data.result)
+  }
 
-      resolve([
-        { date: 'Jun 9, 2020', data: 'Certificate will be email to qualifying participants by Friday July, 2020' },
-        { date: 'Oct 5, 2020', data: 'Certificate will be email to qualifying participants by Friday Oct, 2020' },
-      ])
-    })
+  static async fetchCommunityRep() {
+    const { data } = await apiClient.getRequest('/dashboard/community-rep')
+    return (data && data.result)
+  }
+
+  static async fetchJobPostings() {
+    return [ {
+      jobTitle: 'Customer Specialist',
+      applicants: 34,
+    },
+    {
+      jobTitle: 'Call Center Supervisor',
+      applicants: 7,
+    },
+    ]
+  }
+
+  static async fetchActiveUsers() {
+    return [ {
+      userName: 'Robert Downy',
+      status: 'offline',
+    },
+    {
+      userName: 'Johnny Depp',
+      status: 'online',
+    },
+    ]
   }
 }
 

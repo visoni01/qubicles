@@ -14,14 +14,18 @@ export default class CommunityRep extends ServiceBase {
   }
 
   async run () {
-    const userClientId = await getClientIdByUserId({ userId: this.user_id })
-    const totalRating = await getClientRating({ client_id: userClientId })
-    const totalLikes = await getClientLikesCount({ client_id: userClientId })
-    const totalSubscribers = await getClientSubscribersCount({ client_id: userClientId })
+    const { client_id } = await getClientIdByUserId({ userId: this.user_id })
+    const promises = [
+      () => getClientRating({ client_id }),
+      () => getClientLikesCount({ client_id }),
+      () => getClientSubscribersCount({ client_id })
+    ]
+    const [{ rating, raters }, { likes }, { subscribers }] = await Promise.all(promises.map(promise => promise()))
     return {
-      rating: totalRating.rating,
-      likes: totalLikes.likes,
-      subscribers: totalSubscribers.subscribers
+      rating,
+      raters,
+      likes,
+      subscribers
     }
   }
 }

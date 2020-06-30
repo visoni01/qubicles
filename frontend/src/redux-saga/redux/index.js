@@ -5,6 +5,9 @@ import postSignUpReducer from './postSignup'
 import invitePageReducer from './invitePage'
 import loginReducer from './login'
 import announcementReducer from './dashboard/announcement'
+import communityRepReducer from './dashboard/communityRep'
+import jobPostingReducer from './dashboard/jobPosting'
+import activeUserReducer from './dashboard/activeUser'
 import dashboardReducer from './dashboard'
 import loaderReducer from './loader'
 import snackbarReducer from './snackbar'
@@ -19,6 +22,9 @@ const rootReducer = combineReducers({
   announcement: announcementReducer,
   loader: loaderReducer,
   snackbar: snackbarReducer,
+  communityRep: communityRepReducer,
+  jobPosting: jobPostingReducer,
+  activeUser: activeUserReducer,
 })
 
 export default rootReducer
