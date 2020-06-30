@@ -2,30 +2,13 @@ import apiClient from '../../utils/apiClient'
 
 class Dashboard {
   static async fetchAnnouncement() {
-    const { data } = await apiClient.getAnnouncements()
-    const announcements = data.result.map((record) => {
-      const dateObj = new Date(record.date)
-      const dateString = dateObj.toDateString().split(' ')
-      return {
-        id: record.id,
-        date: `${ dateString[ 1 ] } ${ dateString[ 2 ] }, ${ dateString[ 3 ] }`,
-        title: record.title,
-      }
-    })
-    return announcements
+    const { data } = await apiClient.getRequest('/dashboard/latest-announcements')
+    return (data && data.result)
   }
 
   static async fetchCommunityRep() {
-    const { data } = await apiClient.getCommunityRep()
-    const {
-      rating, likes, subscribers, raters,
-    } = data.result
-    return [ {
-      rating,
-      likes,
-      followers: subscribers,
-      raters,
-    } ]
+    const { data } = await apiClient.getRequest('/dashboard/community-rep')
+    return (data && data.result)
   }
 
   static async fetchJobPostings() {

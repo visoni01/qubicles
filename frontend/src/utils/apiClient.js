@@ -45,12 +45,6 @@ class ApiClient {
     this.localStorageInst.setItem('token', accessToken)
     return status
   };
-
-  getAnnouncements = () => this.getRequest('/dashboard/latest-announcements')
-
-  getCommunityRep = () => this.getRequest('/dashboard/community-rep')
-
-  getJobPostings = () => this.getRequest('/dashboard/job-postings')
 }
 
 const axiosInst = axios.create({

@@ -4,7 +4,7 @@ const initialState = {
   isLoading: null,
   error: null,
   success: false,
-  communityRep: [],
+  communityRep: {},
 }
 
 const {
@@ -26,7 +26,7 @@ const {
       ...state,
       success: true,
       isLoading: false,
-      communityRep: action.payload.communityRep,
+      communityRep: (action && action.payload && action.payload.communityRep) || {},
     }),
     communityRepDataFechingFailure: (state, action) => ({
       ...state,
