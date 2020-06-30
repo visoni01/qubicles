@@ -8,9 +8,9 @@ import './style.scss'
 
 // Note: Component for displaying the message on top right corner
 // This component will only be called through the redux action
-// For example: 
+// For example:
 // 1) Success: showMessage({ msg: '' })
-// 2) Error: showMessage({ msg: '', error: true }) 
+// 2) Error: showMessage({ msg: '', error: true })
 
 const CustomSnackbar = () => {
   const { open, msg, error } = useSelector((state) => state.snackbar)
