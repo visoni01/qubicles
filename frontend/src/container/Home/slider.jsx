@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import classNames from 'classnames'
-import SliderComponent from '../../components/LandingPage/slide'
+import SliderComponent from '../../components/Home/slide'
 import sliderData from './data'
 
 const Slider = () => {
