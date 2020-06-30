@@ -1,20 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
-import { Select } from '@material-ui/core'
 import Channel from './ForumChannel'
 import Info from './ForumInfo'
-import DropDown from './actionDropdown'
 
 const ForumWrap = ({ title, channels }) => {
   const [ showInfo, setShowInfo ] = useState(false)
+  const setShowInfoCB = useCallback(() => {
+    setShowInfo((showInfo) => !showInfo)
+  }, [ setShowInfo ])
+
   return (
     <div className='forum-wrap'>
       <div className='forum-container'>
         {/* toggle button to show group info */}
         <div className='toggle-button'>
-          <FontAwesomeIcon icon={ showInfo ? faChevronUp : faChevronDown } onClick={ () => setShowInfo(!showInfo) } />
+          <FontAwesomeIcon icon={ showInfo ? faChevronUp : faChevronDown } onClick={ setShowInfoCB } />
         </div>
         {/* Heading */}
         <div className='channel-heading'>
