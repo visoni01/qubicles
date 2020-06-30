@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux'
 import './style.scss'
 
 // Note: Generic component for displaying the loader in the center of the screen
-// enableOverlay: Used for display the background color with medium opacity 
-//                and to control the pointer event 
+// enableOverlay: Used for display the background color with medium opacity
+//                and to control the pointer event
 // displayLoaderManually: Show loader when this property is set to true.
 
 const Loader = ({
@@ -22,7 +22,7 @@ const Loader = ({
           <>
             <div className={ enableOverlay && 'overlay' } />
             <div className={ className || 'loader-container' }>
-              <ClipLoader size={ size } color={ color } loading={true} />
+              <ClipLoader size={ size } color={ color } loading />
             </div>
           </>
         )

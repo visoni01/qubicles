@@ -4,10 +4,10 @@ import { Divider } from '@material-ui/core'
 import Slider from './slider'
 import {
   Clients, Steps, Header, Footer,
-} from '../../components/LandingPage'
+} from '../../components/Home'
 import './style.scss'
 
-const IndexPage = ({ history }) => (
+const Home = ({ history }) => (
   <div>
     {/* &lt;% layout('layout') -%&gt; */}
     {/* Hero and nav */}
@@ -25,8 +25,8 @@ const IndexPage = ({ history }) => (
   </div>
 )
 
-IndexPage.propTypes = {
+Home.propTypes = {
   history: PropTypes.instanceOf({}).isRequired,
 }
 
-export default IndexPage
+export default Home
