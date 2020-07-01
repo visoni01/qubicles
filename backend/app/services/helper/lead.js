@@ -46,27 +46,27 @@ export const deleteLead = async ({ lead, user, clients }) => {
   })
 }
 
-export const getLeadCustomData = async ({ listId, leadId }) => {
+export const getLeadCustomData = async ({ list_id, lead_id }) => {
   let lead = {}
-  const isTableExist = await listsFieldsTableExists({ listId })
+  const isTableExist = await listsFieldsTableExists({ list_id })
   if (isTableExist) {
     lead = await executeSelectQuery({
       method: 'getLeadCustomData',
-      sourceTable: `x_leads_custom_${listId}`,
-      leadId
+      sourceTable: `x_leads_custom_${list_id}`,
+      lead_id
     })
-    return lead
   }
+  return lead
 }
 
-export const deleteLeadCustomData = async ({ listId, leadId }) => {
-  const lead = {}
-  const isTableExist = await listsFieldsTableExists({ listId })
+export const deleteLeadCustomData = async ({ list_id, lead_id }) => {
+  let lead = {}
+  const isTableExist = await listsFieldsTableExists({ list_id })
   if (isTableExist) {
-    const lead = await executeDeleteQuery({
+    lead = await executeDeleteQuery({
       method: 'deleteLeadCustomData',
-      sourceTable: `x_leads_custom_${listId}`,
-      leadId
+      sourceTable: `x_leads_custom_${list_id}`,
+      lead_id
     })
     return lead
   }

@@ -14,8 +14,21 @@ const QueryMethods = {
   deleteLeadCustomData: ({ sourceTable, leadId }) => {
     return `DELETE FROM ${sourceTable} WHERE lead_id='${leadId}' LIMIT 1`
   },
-  getCampaignsByClientId: ({ sourceTable, clientId }) => {
-    return `SELECT t.* FROM ${sourceTable} t JOIN x_client_campaigns x ON t.campaign_id = x.campaign_id WHERE x.client_id = '${clientId}'`
+  getCampaignsByClientId: ({ sourceTable, clientId, orderByColumnName }) => {
+    let query = `SELECT t.* FROM ${sourceTable} t JOIN x_client_campaigns x ON t.campaign_id = x.campaign_id WHERE x.client_id = '${clientId}'`
+    if (orderByColumnName) {
+      query = `${query} ORDER BY ${orderByColumnName}`
+    }
+    return query
+  },
+  getLogForContactByDates: ({ sourceTable, lead_id, startDate, endDate }) => {
+    return `SELECT * FROM ${sourceTable} WHERE lead_id='${lead_id}' AND call_date >= '${startDate}' AND call_date <= '${endDate}' UNION SELECT * FROM x_log_outbound_archive WHERE lead_id='${lead_id}' AND call_date >= '${startDate}' AND call_date <= '${endDate}' UNION SELECT * FROM x_log_outbound_historical WHERE lead_id='${lead_id}' AND call_date >= '${startDate}' AND call_date <= '${endDate}' ORDER BY call_date desc Limit 500`
+  },
+  getCloserLogForContactByDates: ({ sourceTable, lead_id, startDate, endDate }) => {
+    return `SELECT * FROM ${sourceTable} WHERE lead_id='${lead_id}' AND call_date >= '${startDate}' AND call_date <= '${endDate}' UNION SELECT * FROM ${sourceTable}_archive WHERE lead_id='${lead_id}' AND call_date >= '${startDate}' AND call_date <= '${endDate}' UNION SELECT * FROM ${sourceTable}_historical WHERE lead_id='${lead_id}' AND call_date >= '${startDate}' AND call_date <= '${endDate}' ORDER BY call_date desc Limit 500`
+  },
+  getListsByCampaignID: ({ sourceTable, campaign_id }) => {
+    return `SELECT * FROM ${sourceTable} WHERE campaign_id = '${campaign_id}'`
   },
   update: ({ sourceTable, model, data }) => {
     // get sourceTable from model if sourceTable property is empty

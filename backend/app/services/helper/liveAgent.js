@@ -31,17 +31,12 @@ export const getLiveAgentsTableName = ({ user, clients }) => {
   }
 }
 
-<<<<<<< 89b53daea18fb901e809559419c6a94db2ac9ae9
 export function getLiveAgentsTableNameByClient ({ clientUserName, client_id }) {
   return `x_live_agents_${clientUserName}_${client_id}`
-=======
-export const getLiveAgentsTableNameByClient = ({ clientUserName, clientId }) => {
-  return `x_live_agents_${clientUserName}_${clientId}`
->>>>>>> WIP - added performAction initial changes.
 }
 
 export const updateLiveAgent = async ({ liveAgent, user, clients }) => {
-  const sourceTable = getLiveAgentsTableName({ user, clients })
+  const sourceTable = getLiveAgentsTableName({ liveAgent, user, clients })
   await executeUpdateQuery({
     method: 'update',
     sourceTable,
