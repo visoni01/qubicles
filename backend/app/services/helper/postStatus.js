@@ -1,8 +1,6 @@
-import { XUserActivity, XClientUser } from '../../db/models'
-import { createNewEntity } from './common'
-import { getUserById, getUserIdsByClientId, getClientIdByUserId } from './user'
+import { XUserActivity } from '../../db/models'
+import { createNewEntity, getUserById, getClientUsers, getClientIdByUserId, getXQodApplications } from '../helper'
 import { USER_LEVEL } from '../user/getSecurityContext'
-import { getHiredUserIdsByClientId } from './job'
 import { Op } from 'sequelize'
 
 export async function postStatusUpdate ({ user_id, activity_value, activity_custom, activity_permission }) {
@@ -146,9 +144,19 @@ export async function checkVisibility ({ activity_permission, user_id, owner_id 
 
 export async function isUserBelongsToCompany ({ user_id, client_id }) {
   // Check for hired users and client users for a client_id
+  const hiredUsers = await getXQodApplications({
+    where: {
+      client_id,
+      status: 'hired'
+    },
+    attribute: ['user_id']
+  })
 
-  const hiredUserIds = getHiredUserIdsByClientId({ client_id })
-  const clientUsersIds = getUserIdsByClientId({ client_id })
-  const allUsers = new Set([...hiredUserIds, ...clientUsersIds])
-  return allUsers.has(user_id)
+  let isUserBelongsToCompany = hiredUsers.find((hiredUser) => hiredUser.user_id === user_id)
+  if (!isUserBelongsToCompany) {
+    const clientUsers = await getClientUsers({ client_id })
+    isUserBelongsToCompany = clientUsers.find((clientUser) => clientUser.user_id === user_id)
+  }
+
+  return !!isUserBelongsToCompany
 }

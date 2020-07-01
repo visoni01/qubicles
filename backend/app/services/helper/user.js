@@ -8,10 +8,9 @@ export const getClientIdByUserId = ({ user_id }) => {
   return XClientUser.findOne({ where: { user_id }, raw: true })
 }
 
-export const getUserIdsByClientId = async ({ client_id }) => {
-  const clientUsers = await XClientUser.findAll({
+export const getClientUsers = ({ client_id }) => {
+  return XClientUser.findAll({
     where: { client_id },
     raw: true
   })
-  return clientUsers.map(user => user.user_id)
 }
