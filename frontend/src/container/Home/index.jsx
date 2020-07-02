@@ -5,6 +5,7 @@ import Slider from './slider'
 import {
   Clients, Steps, Header, Footer,
 } from '../../components/Home'
+import Agents from '../../components/Home/agents'
 import './style.scss'
 
 const Home = ({ history }) => (
@@ -29,4 +30,4 @@ Home.propTypes = {
   history: PropTypes.instanceOf({}).isRequired,
 }
 
-export default Home
+export { Home, Agents }
