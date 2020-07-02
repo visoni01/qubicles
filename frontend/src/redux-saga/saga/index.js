@@ -10,6 +10,7 @@ import announcement from './dashboard/announcement'
 import communityRep from './dashboard/communityRep'
 import jobPosting from './dashboard/jobPosting'
 import activeUser from './dashboard/activeUser'
+import categories from './forum/category'
 
 export default function* rootSaga() {
   yield all([
@@ -23,5 +24,6 @@ export default function* rootSaga() {
     communityRep(),
     jobPosting(),
     activeUser(),
+    categories(),
   ])
 }

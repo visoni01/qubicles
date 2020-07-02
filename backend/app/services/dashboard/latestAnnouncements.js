@@ -1,5 +1,5 @@
 import ServiceBase from '../../common/serviceBase'
-import { getRecentTopics } from '../forum/helper'
+import { getRecentTopics } from '../helper/forum'
 import { getClientIdByUserId } from '../helper/user'
 
 const constraints = {

@@ -13,7 +13,7 @@ import {
 import { Op } from 'sequelize'
 import config from '../../../config/app'
 import SendForumInvitationMail from '../email/sendForumInvitationMail'
-import { createNewEntity } from '../helper/common'
+import { createNewEntity } from './common'
 
 export async function addCategory ({ category_title, owner_id, is_public }) {
   const newCategory = await createNewEntity({

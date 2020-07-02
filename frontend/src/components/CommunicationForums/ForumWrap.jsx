@@ -5,10 +5,10 @@ import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import Channel from './ForumChannel'
 import Info from './ForumInfo'
 
-const ForumWrap = ({ title, channels }) => {
+const ForumWrap = ({ id, title, channels }) => {
   const [ showInfo, setShowInfo ] = useState(false)
   const setShowInfoCB = useCallback(() => {
-    setShowInfo((showInfo) => !showInfo)
+    setShowInfo((currentState) => !currentState)
   }, [ setShowInfo ])
 
   return (
@@ -23,7 +23,7 @@ const ForumWrap = ({ title, channels }) => {
           <h3>{ title }</h3>
         </div>
         {/* channels */}
-        {channels.map((channel) => <Channel { ...channel } key={ `${ channel.title }-${ channel.description }` } />)}
+        {channels.map((channel) => <Channel { ...channel } key={ `${ channel.id }-${ channel.description }` } />)}
       </div>
       {showInfo && <Info /> }
     </div>
@@ -31,8 +31,9 @@ const ForumWrap = ({ title, channels }) => {
 }
 
 ForumWrap.propTypes = {
+  id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  channels: PropTypes.arrayOf.isRequired,
+  channels: PropTypes.arrayOf(PropTypes.oneOfType([ PropTypes.object ])).isRequired,
 }
 
 export default ForumWrap
