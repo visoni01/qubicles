@@ -6,6 +6,7 @@ import { authRouter } from './auth.router'
 import { userRouter } from './user.router'
 import { flowRouter } from './flow.router'
 import { dashboardRouter } from './dashboard.router'
+import { forumRouter } from './forum.router'
 
 const router = express.Router()
 const NAMESPACE = 'v1'
@@ -18,5 +19,6 @@ router.use(`/${NAMESPACE}/employer`, userEmployerRouter)
 router.use(`/${NAMESPACE}/auth`, authRouter)
 router.use(`/${NAMESPACE}/flows`, flowRouter)
 router.use(`/${NAMESPACE}/dashboard`, dashboardRouter)
+router.use(`/${NAMESPACE}/forum`, forumRouter)
 
 export default router
