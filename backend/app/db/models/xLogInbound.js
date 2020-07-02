@@ -58,8 +58,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   },
   {
-    tableName: 'x_log_inbound',
-    timestamps: false
+    tableName: 'x_log_inbound'
   })
   XLogInbound.associate = function (models) {
   }

@@ -37,8 +37,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   },
   {
-    tableName: 'x_log_outbound',
-    timestamps: false
+    tableName: 'x_log_outbound'
   })
   XLogOutbound.associate = function (models) { }
   return XLogOutbound
