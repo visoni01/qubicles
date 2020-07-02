@@ -2,20 +2,20 @@ import { SqlHelper } from './sql'
 import { formatDate } from '../services/helper'
 
 const QueryMethods = {
-  getGroupsByClient: ({ tableName, clientId }) => {
-    return `SELECT t.* FROM ${tableName} t JOIN x_client_ingroups x ON t.group_id = x.group_id WHERE x.client_id =${clientId}`
+  getGroupsByClient: ({ tableName, client_id }) => {
+    return `SELECT t.* FROM ${tableName} t JOIN x_client_ingroups x ON t.group_id = x.group_id WHERE x.client_id =${client_id}`
   },
   getDataByColumnName: ({ sourceTable, columnName, columnValue }) => {
     return `SELECT * FROM ${sourceTable} WHERE ${columnName} = '${columnValue}'`
   },
-  getLeadCustomData: ({ sourceTable, leadId }) => {
-    return `SELECT * FROM ${sourceTable} WHERE lead_id='${leadId}' LIMIT 1`
+  getLeadCustomData: ({ sourceTable, lead_id }) => {
+    return `SELECT * FROM ${sourceTable} WHERE lead_id='${lead_id}' LIMIT 1`
   },
-  deleteLeadCustomData: ({ sourceTable, leadId }) => {
-    return `DELETE FROM ${sourceTable} WHERE lead_id='${leadId}' LIMIT 1`
+  deleteLeadCustomData: ({ sourceTable, lead_id }) => {
+    return `DELETE FROM ${sourceTable} WHERE lead_id='${lead_id}' LIMIT 1`
   },
-  getCampaignsByClientId: ({ sourceTable, clientId, orderByColumnName }) => {
-    let query = `SELECT t.* FROM ${sourceTable} t JOIN x_client_campaigns x ON t.campaign_id = x.campaign_id WHERE x.client_id = '${clientId}'`
+  getCampaignsByClientId: ({ sourceTable, client_id, orderByColumnName }) => {
+    let query = `SELECT t.* FROM ${sourceTable} t JOIN x_client_campaigns x ON t.campaign_id = x.campaign_id WHERE x.client_id = '${client_id}'`
     if (orderByColumnName) {
       query = `${query} ORDER BY ${orderByColumnName}`
     }

@@ -49,9 +49,10 @@ export class GetFlowPagesByFlowIdService extends ServiceBase {
     let randomizedPages = []
 
     allFlowPages.forEach((flowPage) => {
-      if (flowPage.randomize_pages_off == 'True' || flowPage.randomize_pages_off == '') {
+      // eslint-disable-next-line eqeqeq
+      if (flowPage.randomize_pages_off === 'True' || flowPage.randomize_pages_off == '') {
         nonRandomizedPages.push(flowPage)
-      } else if (flowPage.randomize_pages_off == 'False') {
+      } else if (flowPage.randomize_pages_off === 'False') {
         randomizedPages.push(flowPage)
       }
     })

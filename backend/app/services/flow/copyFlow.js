@@ -85,6 +85,7 @@ export class CopyFlowService extends ServiceBase {
   }
 
   async addFlowPageAndField ({ existingPage, newFlowId, pagesMap, fieldsMap }) {
+    // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve, reject) => {
       const newPage = {
         flow_id: newFlowId,
@@ -128,6 +129,7 @@ export class CopyFlowService extends ServiceBase {
   }
 
   async updateFlowField ({ field, pagesMap, fieldsMap }) {
+    // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve, reject) => {
       let fieldUpdated = false
 
@@ -149,14 +151,14 @@ export class CopyFlowService extends ServiceBase {
       }
 
       // and conditions
-      if (field.field_type == 'CONDITION') {
+      if (field.field_type === 'CONDITION') {
         if (field.field_options && field.field_options.trim()) {
           let conditionsUpdated = false
           const conditions = field.field_options.split('\n')
           field.field_options = ''
 
           conditions.forEach((condition) => {
-            if (!string.IsNullOrEmpty(condition)) {
+            if (condition && condition.trim()) {
               const conditionParts = condition.split('|')
 
               if (conditionParts.Length > 6) {
@@ -209,6 +211,7 @@ export class CopyFlowService extends ServiceBase {
   }
 
   async createFlowField ({ existingField, flowField, fieldsMap }) {
+    // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve) => {
       const newField = await createNewEntity({ model: FlowField, data: flowField })
       fieldsMap[existingField.field_id] = newField.field_id

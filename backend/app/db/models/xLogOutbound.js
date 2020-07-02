@@ -10,9 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER(9).UNSIGNED,
       allowNull: false
     },
-    list_id: {
-      type: DataTypes.INTEGER(14).UNSIGNED
-    },
+    list_id: DataTypes.BIGINT(14).UNSIGNED,
     campaign_id: DataTypes.STRING(8),
     call_date: DataTypes.DATE,
     start_epoch: DataTypes.INTEGER(10).UNSIGNED,

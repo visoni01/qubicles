@@ -48,8 +48,8 @@ export class CheckUserStatusService extends ServiceBase {
       if (isValidLiveAgent) {
         // make sure this is still a live call
         const isLiveCall = liveAgent.callerid &&
-                            (liveAgent.uniqueid != this.uniqueId ||
-                            this.uniqueId == '0' ||
+                            (liveAgent.uniqueid != this.uniqueId || // eslint-disable-line eqeqeq
+                            this.uniqueId == '0' || // eslint-disable-line eqeqeq
                             !this.uniqueId)
         if (isLiveCall) {
           const liveCall = await getCallByCallerId({ callerid: liveAgent.callerid })

@@ -14,7 +14,8 @@ import {
   getContactOutboundCallLog,
   updateOutboundLog,
   getContactInboundCallLog,
-  updateInboundLog
+  updateInboundLog,
+  getFirstElement
 } from '../helper'
 
 import getSecurityContext from '../user/getSecurityContext'
@@ -101,62 +102,122 @@ export class PerformActionService extends ServiceBase {
                 }
               }
             }
-          } else if (this.leadId && this.value) {
-            const lead = await getLeadByLeadId({ lead_id: this.leadId, user, clients })
-            if (lead) {
-              lead.status = this.value
-              lead.modify_date = new Date()
-              await updateLead({ lead })
+          }
+        } else if (this.leadId && this.value) {
+          const lead = await getLeadByLeadId({ lead_id: this.leadId, user, clients })
+          if (lead) {
+            lead.status = this.value
+            lead.modify_date = new Date()
+            await updateLead({ lead })
 
-              // full day's range from last call time to make sure we update the very last call log(s) for this lead
-              const callStart = moment(lead.last_local_call_time.Value).add(-1, 'day')
-              const callEnd = moment(lead.last_local_call_time.Value).add(1, 'day')
+            // full day's range from last call time to make sure we update the very last call log(s) for this lead
+            const callStart = moment(lead.last_local_call_time.Value).add(-1, 'day')
+            const callEnd = moment(lead.last_local_call_time.Value).add(1, 'day')
 
-              // Since in both the below methods i.e getContactOutboundCallLog
-              // & getContactInboundCallLog we need campaigns and lists.
-              // So for reducing the database query fetching, we're fetching the
-              // respective details in the service.
+            // Since in both the below methods i.e getContactOutboundCallLog
+            // & getContactInboundCallLog we need campaigns and lists.
+            // So for reducing the database query fetching, we're fetching the
+            // respective details in the service.
 
-              const campaigns = await getCampaigns({ user, clients, client_id: currentClientId })
-              const lists = await getLists({ campaigns })
+            const campaigns = await getCampaigns({ user, clients, client_id: currentClientId })
+            const lists = await getLists({ campaigns })
 
-              // change the disposition on the call logs (in/out) as well
-              const lastOBLog = await getContactOutboundCallLog({
-                lead_id: lead.lead_id,
-                startDate: callStart,
-                endDate: callEnd,
-                user,
-                clients,
-                clientId: currentClientId,
-                campaigns,
-                lists
-              })
+            // change the disposition on the call logs (in/out) as well
+            const lastOBLogs = await getContactOutboundCallLog({
+              lead_id: lead.lead_id,
+              startDate: callStart,
+              endDate: callEnd,
+              user,
+              clients,
+              client_id: currentClientId,
+              campaigns,
+              lists
+            })
 
-              if (lastOBLog) {
-                lastOBLog.status = this.value
-                await updateOutboundLog({ lastOBLog, user, clients })
-              }
+            const OBLog = getFirstElement(lastOBLogs)
 
-              const lastIBLog = await getContactInboundCallLog({
-                lead_id: lead.lead_id,
-                startDate: callStart,
-                endDate: callEnd,
-                user,
-                clients,
-                clientId: currentClientId,
-                campaigns,
-                lists
-              })
+            if (OBLog) {
+              OBLog.status = this.value
+              await updateOutboundLog({ log: OBLog, user, clients })
+            }
 
-              if (lastIBLog) {
-                lastIBLog.status = this.value
-                await updateInboundLog({ lastIBLog, user, clients })
-              }
+            const lastIBLogs = await getContactInboundCallLog({
+              lead_id: lead.lead_id,
+              startDate: callStart,
+              endDate: callEnd,
+              user,
+              clients,
+              client_id: currentClientId,
+              campaigns,
+              lists
+            })
+
+            const IBLog = getFirstElement(lastIBLogs)
+
+            if (IBLog) {
+              IBLog.status = this.value
+              await updateInboundLog({ log: IBLog, user, clients })
             }
           }
         }
         break
       }
+
+      case 'ENDCALL': {
+        const liveAgent = await getLiveAgentByUser({ user, clients })
+        if (liveAgent) {
+          liveAgent.external_hangup = this.value
+          await updateLiveAgent({ liveAgent })
+        }
+        break
+      }
+
+      case 'SENDDTMF': {
+        const liveAgent = await getLiveAgentByUser({ user, clients })
+        if (liveAgent) {
+          liveAgent.external_dtmf = this.value
+          await updateLiveAgent({ liveAgent, user, clients })
+        }
+        break
+      }
+
+      case 'HANGUP_XFER':
+      case 'HANGUP_BOTH':
+      case 'LEAVE_3WAY_CALL': {
+        const liveAgent = await getLiveAgentByUser({ user, clients })
+        if (liveAgent) {
+          liveAgent.external_transferconf = `${this.action}------------`
+          await updateLiveAgent({ liveAgent, user, clients })
+        }
+        break
+      }
+
+      case 'XFERCALL': {
+        const liveAgent = await getLiveAgentByUser({ user, clients })
+        if (liveAgent) {
+          const xferOpts = this.value && this.value.split('~')
+          switch (xferOpts[0]) {
+            case 'BlindXfer':
+              xferOpts[0] = 'BLIND_TRANSFER'
+              break
+            case 'InternalXfer':
+              xferOpts[0] = 'LOCAL_CLOSER'
+              break
+            case 'WarmXfer':
+              xferOpts[0] = 'DIAL_WITH_CUSTOMER'
+              break
+            case 'HoldDialXfer':
+              xferOpts[0] = 'PARK_CUSTOMER_DIAL'
+              break
+          }
+
+          liveAgent.external_transferconf = `${xferOpts[0]}---${xferOpts[2]}---${xferOpts[1]}---NO---`
+          await updateLiveAgent({ liveAgent, user, clients })
+        }
+        break
+      }
+
+      // TODO: In progress
     }
   }
 

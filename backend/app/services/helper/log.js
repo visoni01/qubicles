@@ -57,7 +57,7 @@ export const updateInLog = async ({ log, sourceTable }) => {
 
 export function getOBLogTableName ({ user, clients }) {
   if (user.user_level < USER_LEVEL.SYSTEM) {
-    return `x_log_outbound_${clients.clientUserName}_${clients.clientId}`
+    return `x_log_outbound_${clients[0].client_username}_${clients[0].client_id}`
   } else {
     return 'x_log_outbound_fenero_1'
   }
