@@ -18,6 +18,9 @@ import bgWorkAtHome from './bg-work-at-home-lady.jpg'
 import chatUser from './chat-user.png'
 import qbeLight from './qbe-light.png'
 import qbeDark from './qbe-dark.png'
+import bgForAgents from './bg-for-agents.jpg'
+import qubiclesAgent from './qubiclesagent.png'
+import agentWorkFlow from './agentworkflow.png'
 
 export {
   globalNetworkImage,
@@ -40,4 +43,7 @@ export {
   chatUser,
   qbeLight,
   qbeDark,
+  bgForAgents,
+  qubiclesAgent,
+  agentWorkFlow,
 }
