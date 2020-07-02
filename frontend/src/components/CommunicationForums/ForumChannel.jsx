@@ -1,13 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBell } from '@fortawesome/free-solid-svg-icons'
 
 const Channel = ({
-  icon, notifications, title, description, noOfTopics, contributors,
+  notifications, title, description, noOfTopics,
 }) => (
   <div className='forum-channel'>
     <div className='channel-icon'>
-      <FontAwesomeIcon icon={ icon } />
+      <FontAwesomeIcon icon={ faBell } />
       {/* New Topics */}
       <div className='new-indicator'>
         <span>{notifications}</span>
@@ -21,27 +22,25 @@ const Channel = ({
       <span>Topics</span>
       <span>{noOfTopics}</span>
     </div>
-    <div className='top-contributors'>
+    {/* TODO: Contributors functionality not ready at backend yet */}
+    {/* <div className='top-contributors'>
       {contributors.map(({ img }) => (
         <img src='https://via.placeholder.com/150x150' alt='' data-demo-src={ img } key={ img } />
       ))}
-    </div>
+    </div> */}
   </div>
 )
 
 Channel.defaultProps = {
-  notifications: 0,
+  notifications: 3,
   noOfTopics: 0,
-  contributors: [],
 }
 
 Channel.propTypes = {
-  icon: PropTypes.string.isRequired,
   notifications: PropTypes.number,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   noOfTopics: PropTypes.number,
-  contributors: PropTypes.arrayOf,
 }
 
 export default Channel

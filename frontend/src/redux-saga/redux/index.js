@@ -11,6 +11,7 @@ import activeUserReducer from './dashboard/activeUser'
 import dashboardReducer from './dashboard'
 import loaderReducer from './loader'
 import snackbarReducer from './snackbar'
+import categoryReducer from './forum/category'
 
 const rootReducer = combineReducers({
   signup: signupReducer,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   communityRep: communityRepReducer,
   jobPosting: jobPostingReducer,
   activeUser: activeUserReducer,
+  category: categoryReducer,
 })
 
 export default rootReducer

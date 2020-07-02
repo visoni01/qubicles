@@ -14,7 +14,6 @@ const Info = () => (
       <div className='latest-meta'>
         <span>
           <a>Elie</a>
-          ,
           {' '}
           <a>Helen</a>
           {' '}
