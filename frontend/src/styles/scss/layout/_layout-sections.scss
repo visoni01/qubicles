@@ -61,7 +61,10 @@ TABLE OF CONTENTS
     //Slanted section
     &.is-skewed-sm {
         transform: skew(0deg,-3deg) translate(0,-45px);
-        padding-top: 140px;
+        padding-top: 140px !important;
+    &.is-medium {
+      padding: 9rem 1.5rem !important
+    }
     }
     //Reverse slant on container
     .container {
@@ -236,7 +239,7 @@ TABLE OF CONTENTS
         img {
             width: 23%;
         }
-    } 
+    }
 }
 
 /* ==========================================================================
@@ -273,7 +276,3 @@ TABLE OF CONTENTS
         color: $placeholder;
     }
 }
-
-
-
-
