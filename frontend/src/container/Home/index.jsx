@@ -6,6 +6,7 @@ import {
   Clients, Steps, Header, Footer,
 } from '../../components/Home'
 import Agents from '../../components/Home/agents'
+import ContactCenter from '../../components/Home/contactCenter'
 import './style.scss'
 
 const Home = ({ history }) => (
@@ -30,4 +31,4 @@ Home.propTypes = {
   history: PropTypes.instanceOf({}).isRequired,
 }
 
-export { Home, Agents }
+export { Home, Agents, ContactCenter }
