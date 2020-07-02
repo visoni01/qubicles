@@ -64,7 +64,7 @@ export class PerformActionService extends ServiceBase {
           liveAgent.external_status = this.value
           liveAgent.external_timer_action_destination = 'Flow'
 
-          if (this.goToPause) {
+          if (!!this.goToPause) {
             liveAgent.external_pause = 'PAUSE'
           }
 
