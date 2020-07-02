@@ -1,6 +1,5 @@
-import { XUserActivity, XClientUser } from '../../db/models'
-import { createNewEntity } from './common'
-import { getUserById } from './user'
+import { XUserActivity } from '../../db/models'
+import { createNewEntity, getUserById, getClientUsers, getClientIdByUserId, getXQodApplications } from '../helper'
 import { USER_LEVEL } from '../user/getSecurityContext'
 import { Op } from 'sequelize'
 
@@ -101,7 +100,7 @@ export async function getStatusUpdates ({ user_id }) {
 
 export async function checkVisibility ({ activity_permission, user_id, owner_id }) {
   let permission = false
-  let activity, owner, user, userClient
+  let activity, owner, user, userBelongstoCompany
   switch (activity_permission) {
     case 'public':
       permission = true
@@ -121,28 +120,43 @@ export async function checkVisibility ({ activity_permission, user_id, owner_id 
       break
     case 'company':
       // Check if current user and status owner belongs to same company
-      owner = await XClientUser.findOne({ where: { user_id: owner_id }, raw: true, attributes: ['client_id'] })
-      userClient = await XClientUser.findOne({ where: { user_id, client_id: owner.client_id } })
-      permission = !!(userClient && userClient.client_user_id)
+      owner = await getClientIdByUserId({ user_id: owner_id })
+      userBelongstoCompany = await isUserBelongsToCompany({ user_id, client_id: owner.client_id })
+      permission = userBelongstoCompany
       break
     case 'admins':
       // company constraint with user-level greater and equal to 8
-      owner = await XClientUser.findOne({ where: { user_id: owner_id }, raw: true, attributes: ['client_id'] })
-      userClient = await XClientUser.findOne({ where: { user_id, client_id: owner.client_id } })
-      if (userClient && userClient.client_user_id) {
-        user = await getUserById({ userId: user_id })
-        permission = (user.user_level >= USER_LEVEL.ADMIN)
-      }
+      owner = await getClientIdByUserId({ user_id: owner_id })
+      userBelongstoCompany = await isUserBelongsToCompany({ user_id, client_id: owner.client_id })
+      user = await getUserById({ userId: user_id })
+      permission = userBelongstoCompany && (user.user_level >= USER_LEVEL.ADMIN)
       break
     case 'managers':
       // company constraint with user-level greater and equal to 7
-      owner = await XClientUser.findOne({ where: { user_id: owner_id }, raw: true, attributes: ['client_id'] })
-      userClient = await XClientUser.findOne({ where: { user_id, client_id: owner.client_id } })
-      if (userClient && userClient.client_user_id) {
-        user = await getUserById({ userId: user_id })
-        permission = (user.user_level >= USER_LEVEL.SUPERVISOR)
-      }
+      owner = await getClientIdByUserId({ user_id: owner_id })
+      userBelongstoCompany = await isUserBelongsToCompany({ user_id, client_id: owner.client_id })
+      user = await getUserById({ userId: user_id })
+      permission = userBelongstoCompany && (user.user_level >= USER_LEVEL.SUPERVISOR)
       break
   }
   return permission
+}
+
+export async function isUserBelongsToCompany ({ user_id, client_id }) {
+  // Check for hired users and client users for a client_id
+  const hiredUsers = await getXQodApplications({
+    where: {
+      client_id,
+      status: 'hired'
+    },
+    attribute: ['user_id']
+  })
+
+  let isUserBelongsToCompany = hiredUsers.find((hiredUser) => hiredUser.user_id === user_id)
+  if (!isUserBelongsToCompany) {
+    const clientUsers = await getClientUsers({ client_id })
+    isUserBelongsToCompany = clientUsers.find((clientUser) => clientUser.user_id === user_id)
+  }
+
+  return !!isUserBelongsToCompany
 }

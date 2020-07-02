@@ -6,7 +6,7 @@ import {
   XQodJobSkill,
   XQodSkill
 } from '../../db/models'
-import { createNewEntity } from '../helper/common'
+import { createNewEntity } from '../helper'
 
 export async function getRecentJobsByClient ({ client_id, limit = 5 }) {
   const jobDetails = []
@@ -172,4 +172,12 @@ export async function getJobSkills () {
 export async function getSkills () {
   const skills = await XQodSkill.findAll({ raw: true })
   return skills
+}
+
+export async function getXQodApplications (queryObj) {
+  let query = { raw: true }
+  if (queryObj) {
+    query = { ...query, ...queryObj }
+  }
+  return XQodApplication.findAll(query)
 }
