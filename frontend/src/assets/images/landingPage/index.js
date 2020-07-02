@@ -21,6 +21,10 @@ import qbeDark from './qbe-dark.png'
 import bgForAgents from './bg-for-agents.jpg'
 import qubiclesAgent from './qubiclesagent.png'
 import agentWorkFlow from './agentworkflow.png'
+import bgForCenter from './bg-for-centers.jpg'
+import centerDash from './centerdash.png'
+import bars from './bars.png'
+import idleUsage from './idleusage.png'
 
 export {
   globalNetworkImage,
@@ -46,4 +50,8 @@ export {
   bgForAgents,
   qubiclesAgent,
   agentWorkFlow,
+  bgForCenter,
+  centerDash,
+  bars,
+  idleUsage,
 }
