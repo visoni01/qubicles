@@ -43,7 +43,9 @@ const Footer = () => (
                 <img
                   alt='Read Fenero Reviews on GetApp.com'
                   src='https://www.getapp.com/ext/reviews_widget/v1/dark/fenero-application'
-                  srcSet='https://www.getapp.com/ext/reviews_widget/v1/dark/fenero-application, https://www.getapp.com/ext/reviews_widget/v1/dark/fenero-application@2x 2x, https://www.getapp.com/ext/reviews_widget/v1/dark/fenero-application@3x 3x'
+                  srcSet={ `https://www.getapp.com/ext/reviews_widget/v1/dark/fenero-application, https://www.getapp
+                    .com/ext/reviews_widget/v1/dark/fenero-application@2x 2x, https://www.getapp.com/ext/reviews_widget/
+                    v1/dark/fenero-application@3x 3x` }
                   title='Read Qubicles Reviews on GetApp.com'
                 />
               </a>
@@ -62,7 +64,8 @@ const Footer = () => (
             </ul>
             <div style={ { marginTop: '5px' } }>
               <a
-                href='https://www.capterra.com/reviews/161183/Fenero?utm_source=vendor&utm_medium=badge&utm_campaign=capterra_reviews_badge'
+                href={ `https://www.capterra.com/reviews/161183/Fenero?utm_source=vendor&utm_medium=badge
+                &utm_campaign=capterra_reviews_badge` }
                 target='_blank'
               >
                 <img

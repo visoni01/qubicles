@@ -30,7 +30,8 @@ const PostSignUp = () => {
                     <img src={ centerLogo } alt='Center logo' className='intro-logo' />
                     <h3>For a Contact Center</h3>
                     <p>
-                      Operating inbound, outbound,  blended or multi-channel programs for a new or existing contact center
+                      Operating inbound, outbound,  blended or multi-channel programs for a new or existing contact
+                      center
                     </p>
                     <button
                       type='button'

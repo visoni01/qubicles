@@ -18,14 +18,16 @@ const Form = ({
 
   const isChecked = (name, value) => formValues[ name ] && formValues[ name ] === value
 
-  const inputField = ({
-    label, type, name, checkTypes,
-  }) => (
-    <div className='field' key={ `${ name }${ label }` }>
-      <label>{label}</label>
-      { (type === 'radio' || type === 'checkbox') ? (
-        <div className='control'>
-          {checkTypes
+  const inputField = (fieldData) => {
+    const {
+      label, type, name, checkTypes,
+    } = fieldData
+    return (
+      <div className='field' key={ `${ name }${ label }` }>
+        <label>{label}</label>
+        { (type === 'radio' || type === 'checkbox') ? (
+          <div className='control'>
+            {checkTypes
             && checkTypes.map(([ inputName, value, inputLabel ]) => (
               <div key={ `${ inputName }` } className='check-box-div'>
                 <input
@@ -43,26 +45,27 @@ const Form = ({
                 <br />
               </div>
             ))}
+          </div>
+        ) : (
+          <div className='control'>
+            <input
+              onChange={ handleValueChange(name) }
+              type={ type }
+              className='input'
+              name={ name }
+              ref={ register }
+              value={ formValues[ name ] }
+            />
+          </div>
+        )}
+        {errors && errors[ name ] && (
+        <div className='error-message'>
+          {errors[ name ].message}
         </div>
-      ) : (
-        <div className='control'>
-          <input
-            onChange={ handleValueChange(name) }
-            type={ type }
-            className='input'
-            name={ name }
-            ref={ register }
-            value={ formValues[ name ] }
-          />
-        </div>
-      )}
-      {errors && errors[ name ] && (
-      <div className='error-message'>
-        {errors[ name ].message}
+        )}
       </div>
-      )}
-    </div>
-  )
+    )
+  }
 
   const fields = () => steps
     && steps[ step ]

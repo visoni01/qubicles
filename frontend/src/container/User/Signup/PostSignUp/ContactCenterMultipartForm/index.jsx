@@ -29,7 +29,11 @@ const ContactCenterMultiPartForm = () => {
   }
   const handleOnBack = () => dispatch(handleBackStep())
 
-  const steps = [ { icon: faCheck }, { icon: faAddressBook }, { icon: faBuilding }, { icon: faPoll } ].map((step, index) => {
+  const steps = [
+    { icon: faCheck },
+    { icon: faAddressBook },
+    { icon: faBuilding },
+    { icon: faPoll } ].map((step, index) => {
     if (index < currentStep) return { icon: faCheck }
     return step
   })

@@ -14,7 +14,7 @@ const Header = () => (
           </a>
           {/* Responsive toggle */}
           <div className='custom-burger' data-target='is-cloned'>
-            <a id className='responsive-btn' href='javascript:void(0);'>
+            <span className='responsive-btn'>
               <span className='menu-toggle'>
                 <span className='icon-box-toggle'>
                   <span className='rotate'>
@@ -24,7 +24,7 @@ const Header = () => (
                   </span>
                 </span>
               </span>
-            </a>
+            </span>
           </div>
           {/* /Responsive toggle */}
         </div>
@@ -57,7 +57,10 @@ const Header = () => (
             </Link>
             {/* Sign in button */}
             <div className='navbar-item'>
-              <Link to='/signup' className='button button-signup btn-outlined is-bold btn-align light-btn rounded raised'>
+              <Link
+                to='/signup'
+                className='button button-signup btn-outlined is-bold btn-align light-btn rounded raised'
+              >
                 Sign Up
               </Link>
             </div>
