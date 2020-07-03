@@ -35,3 +35,7 @@ export const getEditableFlowFieldsByFlowId = ({ flow_id }) => {
     raw: true
   })
 }
+
+export const getFlowPageByPageId = ({ page_id }) => {
+  return FlowPage.findOne({ where: { page_id }, raw: true })
+}

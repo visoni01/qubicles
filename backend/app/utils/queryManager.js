@@ -2,15 +2,39 @@ import { SqlHelper } from './sql'
 import { formatDate } from '../services/helper'
 
 const QueryMethods = {
-  getGroupsByClient: ({ tableName, clientId }) => {
-    return `SELECT t.* FROM ${tableName} t JOIN x_client_ingroups x ON t.group_id = x.group_id WHERE x.client_id =${clientId}`
+  getGroupsByClient: ({ tableName, client_id }) => {
+    return `SELECT t.* FROM ${tableName} t JOIN x_client_ingroups x ON t.group_id = x.group_id WHERE x.client_id =${client_id}`
   },
   getDataByColumnName: ({ sourceTable, columnName, columnValue }) => {
     return `SELECT * FROM ${sourceTable} WHERE ${columnName} = '${columnValue}'`
   },
+  getLeadCustomData: ({ sourceTable, lead_id }) => {
+    return `SELECT * FROM ${sourceTable} WHERE lead_id='${lead_id}' LIMIT 1`
+  },
+  deleteLeadCustomData: ({ sourceTable, lead_id }) => {
+    return `DELETE FROM ${sourceTable} WHERE lead_id='${lead_id}' LIMIT 1`
+  },
+  getCampaignsByClientId: ({ sourceTable, client_id, orderByColumnName }) => {
+    let query = `SELECT t.* FROM ${sourceTable} t JOIN x_client_campaigns x ON t.campaign_id = x.campaign_id WHERE x.client_id = '${client_id}'`
+    if (orderByColumnName) {
+      query = `${query} ORDER BY ${orderByColumnName}`
+    }
+    return query
+  },
+  // baseTable parameter is optional here and it is used for figuring out
+  // the historical and archive table name
+  getLogForContactByDates: ({ sourceTable, lead_id, startDate, endDate, baseTable }) => {
+    const archiveTable = baseTable ? `${baseTable}_archive` : `${sourceTable}_archive`
+    const historicalTable = baseTable ? `${baseTable}_historical` : `${sourceTable}_historical`
+
+    return `SELECT * FROM ${sourceTable} WHERE lead_id='${lead_id}' AND call_date >= '${startDate}' AND call_date <= '${endDate}' UNION SELECT * FROM ${archiveTable} WHERE lead_id='${lead_id}' AND call_date >= '${startDate}' AND call_date <= '${endDate}' UNION SELECT * FROM ${historicalTable} WHERE lead_id='${lead_id}' AND call_date >= '${startDate}' AND call_date <= '${endDate}' ORDER BY call_date desc Limit 500`
+  },
+  getListsByCampaignId: ({ sourceTable, campaign_id }) => {
+    return `SELECT * FROM ${sourceTable} WHERE campaign_id = '${campaign_id}'`
+  },
   update: ({ sourceTable, model, data }) => {
     // get sourceTable from model if sourceTable property is empty
-    if (sourceTable) {
+    if (!sourceTable) {
       sourceTable = model.tableName
     }
 
@@ -57,6 +81,36 @@ const QueryMethods = {
     // remove trailing comma before appending where clause
     sql = sql.substring(0, sql.length - 1) + whereClause
     return sql
+  },
+  delete: ({ sourceTable, model, data }) => {
+    if (!sourceTable) {
+      sourceTable = model.tableName
+    }
+
+    const modelProperties = model.rawAttributes
+    let sql = `DELETE FROM ${sourceTable}`
+    let whereClause = ''
+    let hasWhereClause = false
+
+    const objProperties = Object.keys(data)
+
+    objProperties.forEach((property) => {
+      // Check if primaryKey attribute is set to true for the property
+      if (modelProperties[property] && modelProperties[property].primaryKey) {
+        // If we have multiple primary keys (composite key) then we also need
+        // to use AND in the where clause
+        if (hasWhereClause) {
+          whereClause += ` AND \`${property}\` = '${data[property]}'`
+        } else {
+          whereClause = ` WHERE \`${property}\` = '${data[property]}'`
+        }
+
+        hasWhereClause = true
+      }
+    })
+
+    sql = sql + whereClause
+    return sql
   }
 }
 
@@ -70,4 +124,8 @@ export const executeSelectQuery = ({ method, ...restArgs }) => {
 
 export const executeUpdateQuery = ({ method, ...restArgs }) => {
   return SqlHelper.update(QueryMethods[method](restArgs))
+}
+
+export const executeDeleteQuery = ({ method, ...restArgs }) => {
+  return SqlHelper.delete(QueryMethods[method](restArgs))
 }

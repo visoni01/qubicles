@@ -1,10 +1,10 @@
 import { getListByListId } from './list'
 import { getEditableFlowFieldsByFlowId } from './flow'
-import { listsFieldsColumnExists, formatDate } from './common'
+import { listsFieldsColumnExists, listsFieldsTableExists, formatDate } from './index'
 import moment from 'moment'
 import { SqlHelper } from '../../utils/sql'
 import { USER_LEVEL } from '../user/getSecurityContext'
-import { executeSelectQuery, executeUpdateQuery } from '../../utils/queryManager'
+import { executeSelectQuery, executeUpdateQuery, executeDeleteQuery } from '../../utils/queryManager'
 import { Lead } from '../../db/models'
 
 export const getLeadByLeadId = async ({ lead_id, user, clients }) => {
@@ -22,7 +22,7 @@ export const getLeadsTableName = ({ user, clients }) => {
   if (user && user.user_level < USER_LEVEL.SYSTEM) {
     return `x_leads_${clients[0].client_username}_${clients[0].client_id}`
   } else {
-    return 'x_leads_fenero_1'
+    return 'x_leads_qubicles_1'
   }
 }
 
@@ -34,6 +34,42 @@ export const updateLead = async ({ lead, user, clients }) => {
     model: Lead,
     data: lead
   })
+}
+
+export const deleteLead = async ({ lead, user, clients }) => {
+  const sourceTable = getLeadsTableName({ user, clients })
+  await executeDeleteQuery({
+    method: 'delete',
+    sourceTable,
+    model: Lead,
+    data: lead
+  })
+}
+
+export const getLeadCustomData = async ({ list_id, lead_id }) => {
+  let lead = {}
+  const isTableExist = await listsFieldsTableExists({ list_id })
+  if (isTableExist) {
+    lead = await executeSelectQuery({
+      method: 'getLeadCustomData',
+      sourceTable: `x_leads_custom_${list_id}`,
+      lead_id
+    })
+  }
+  return lead
+}
+
+export const deleteLeadCustomData = async ({ list_id, lead_id }) => {
+  let lead = {}
+  const isTableExist = await listsFieldsTableExists({ list_id })
+  if (isTableExist) {
+    lead = await executeDeleteQuery({
+      method: 'deleteLeadCustomData',
+      sourceTable: `x_leads_custom_${list_id}`,
+      lead_id
+    })
+    return lead
+  }
 }
 
 export const updateLeadInCustomTable = async ({ lead }) => {
@@ -56,9 +92,9 @@ export const updateLeadInCustomTable = async ({ lead }) => {
     const flowFieldDefinition = flowFields.find((f) => f.field_label.toLowerCase() === keyInLowerCase)
     // save this field to our custom table
     let isKeyValid = !fieldsProcessed.includes(keyInLowerCase) &&
-                      key !== 'lead_id' &&
-                      lead[key] &&
-                      flowFieldDefinition
+      key !== 'lead_id' &&
+      lead[key] &&
+      flowFieldDefinition
 
     if (isKeyValid) {
       isKeyValid = await listsFieldsColumnExists({ list_id: lead['list_id'], columnName: key })

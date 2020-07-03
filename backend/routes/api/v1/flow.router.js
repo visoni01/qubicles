@@ -73,6 +73,10 @@ flowRouter.route('/fields/:flowId')
 flowRouter.route('/dispositions')
   .get(flowController.getDispositions)
 
+// Section-3.8, REQ-19
+flowRouter.route('/perform-action')
+  .post(flowController.performAction)
+
 // Section-3.8, REQ-20
 flowRouter.route('/savelead')
   .post(flowController.saveLead)

@@ -17,7 +17,8 @@ import {
   GetFlowFieldsByFlowIdService,
   GetDispositionsService,
   SaveLeadService,
-  CheckUserStatusService
+  CheckUserStatusService,
+  PerformActionService
 } from '../services/flow'
 import config from '../../config/app'
 
@@ -194,6 +195,15 @@ export default class FlowController {
       Responder.success(res, checkUserStatusResult.result)
     } else {
       res.boom.badRequest('Check User Status Operation failed', checkUserStatusResult.errors)
+    }
+  }
+
+  static async performAction (req, res) {
+    const performActionResult = await PerformActionService.execute(req.body)
+    if (performActionResult.successful) {
+      Responder.success(res, performActionResult.result)
+    } else {
+      res.boom.badRequest('Perform Action Operation failed', performActionResult.errors)
     }
   }
 }

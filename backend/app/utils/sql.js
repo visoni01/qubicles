@@ -36,5 +36,18 @@ export const SqlHelper = {
     logger.info('Insert query ' + queryString)
     return sequelize.query(queryString,
       { raw: true, type: sequelize.QueryTypes.INSERT })
+  },
+
+  delete: async (queryString) => {
+    logger.info('Delete query ' + queryString)
+    return sequelize.query(queryString,
+      { raw: true, type: sequelize.QueryTypes.DELETE })
+  },
+
+  showTables: async (queryString) => {
+    logger.info('Show tables query ' + queryString)
+    return sequelize.query(queryString,
+      { raw: true, type: sequelize.QueryTypes.SHOWTABLES })
   }
+
 }
