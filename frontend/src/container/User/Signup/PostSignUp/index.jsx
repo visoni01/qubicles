@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './style.scss'
 
 import qubiclesLogo from '../../../../assets/images/qbe-dark.png'
-import agentsLogo from '../../../../assets/images/steps-as-an-agent.jpg'
+import agentLogo from '../../../../assets/images/steps-as-an-agent.jpg'
 import centerLogo from '../../../../assets/images/steps-for-a-contact-center.jpg'
 import AgentMultipartForm from './AgentMultipartForm'
 import ContactCenterMultipartForm from './ContactCenterMultipartForm'
@@ -45,7 +45,7 @@ const PostSignUp = () => {
                 </div>
                 <div className='column is-4'>
                   <div className='account-type'>
-                    <img src={ agentsLogo } alt='Agent logo' className='intro-logo' />
+                    <img src={ agentLogo } alt='Agent logo' className='intro-logo' />
                     <h3>As an Agent or Manager</h3>
                     <p>
                       Handle customer interactions, quality assurance, training or support for contact centers
