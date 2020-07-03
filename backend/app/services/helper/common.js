@@ -67,3 +67,11 @@ export const getFirstElement = (input) => {
   const isArray = Object.prototype.toString.call(input) === '[object Array]'
   return (isArray && input[0]) || ''
 }
+
+export const getArchiveTableName = (model) => {
+  return `${model.tableName}_archive`
+}
+
+export const getHistoricalTableName = (model) => {
+  return `${model.tableName}_historical`
+}

@@ -22,7 +22,7 @@ export const getLeadsTableName = ({ user, clients }) => {
   if (user && user.user_level < USER_LEVEL.SYSTEM) {
     return `x_leads_${clients[0].client_username}_${clients[0].client_id}`
   } else {
-    return 'x_leads_fenero_1'
+    return 'x_leads_qubicles_1'
   }
 }
 

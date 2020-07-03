@@ -1,5 +1,6 @@
-import { XLeadsList, XLeadsListsArchive } from '../../db/models'
+import { XLeadsList } from '../../db/models'
 import { SqlHelper } from '../../utils/sql'
+import { getArchiveTableName } from './common'
 import { executeSelectQuery } from '../../utils/queryManager'
 import _ from 'lodash'
 
@@ -37,7 +38,7 @@ export const getLists = async ({ campaigns }) => {
 export const getAllLists = async ({ campaign_id }) => {
   let lists = await executeSelectQuery({
     method: 'getListsByCampaignId',
-    sourceTable: XLeadsListsArchive.tableName,
+    sourceTable: getArchiveTableName(XLeadsList),
     campaign_id
   })
 

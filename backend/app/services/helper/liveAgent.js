@@ -27,7 +27,7 @@ export const getLiveAgentsTableName = ({ user, clients }) => {
   if (user.user_level < USER_LEVEL.SYSTEM) {
     return getLiveAgentsTableNameByClient({ clientUserName: clients[0].client_username, clientId: clients[0].client_id })
   } else {
-    return 'x_live_agents_fenero_1'
+    return 'x_live_agents_qubicles_1'
   }
 }
 

@@ -7,7 +7,7 @@ export const getCampaignById = async ({ campaign_id }) => {
   return campaignData
 }
 
-export const getAllCampaign = async () => {
+export const getAllCampaigns = async () => {
   return Campaign.findAll({ raw: true })
 }
 
@@ -30,6 +30,6 @@ export const getCampaigns = async ({ user, clients, client_id }) => {
   if (user && clients.length > 0 && user.user_level < USER_LEVEL.SYSTEM) {
     return getCampaignsByClientId({ client_id })
   } else {
-    return getAllCampaign()
+    return getAllCampaigns()
   }
 }

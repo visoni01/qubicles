@@ -5,7 +5,7 @@ import { getCampaigns } from './campaign'
 import { getInboundGroups } from './group'
 import moment from 'moment'
 import { XLogOutbound, XLogInbound } from '../../db/models'
-import { formatDate } from './common'
+import { formatDate, getArchiveTableName, getHistoricalTableName } from './common'
 
 export const updateOutboundLog = async ({ log, user, clients }) => {
   const currentDate = moment()
@@ -14,9 +14,9 @@ export const updateOutboundLog = async ({ log, user, clients }) => {
   let sourceTable = getOBLogTableName({ user, clients })
 
   if (daysPast > 59) {
-    sourceTable = 'x_log_outbound_historical'
+    sourceTable = getHistoricalTableName(XLogOutbound)
   } else if (daysPast > 1) {
-    sourceTable = 'x_log_outbound_archive'
+    sourceTable = getArchiveTableName(XLogOutbound)
   }
 
   await updateOutLog({ log, sourceTable })
@@ -29,9 +29,9 @@ export const updateInboundLog = async ({ log }) => {
   let sourceTable = 'x_log_inbound'
 
   if (daysPast > 59) {
-    sourceTable = 'x_log_inbound_historical'
+    sourceTable = getHistoricalTableName(XLogInbound)
   } else if (daysPast > 1) {
-    sourceTable = 'x_log_inbound_archive'
+    sourceTable = getArchiveTableName(XLogInbound)
   }
 
   await updateInLog({ log, sourceTable })
@@ -59,7 +59,7 @@ export function getOBLogTableName ({ user, clients }) {
   if (user.user_level < USER_LEVEL.SYSTEM) {
     return `x_log_outbound_${clients[0].client_username}_${clients[0].client_id}`
   } else {
-    return 'x_log_outbound_fenero_1'
+    return 'x_log_outbound_qubicles_1'
   }
 }
 
@@ -80,21 +80,29 @@ export const getContactOutboundCallLog = async ({ lead_id, campaigns, lists, sta
   listIds.unshift(DEFAULT_SYSTEM_LIST_IB)
 
   const sourceTable = getOBLogTableName({ user, clients })
-  const log = await getLogForContactByDates({ lead_id, startDate, endDate, sourceTable })
+  const log = await getLogForContactByDates({ 
+    lead_id, 
+    startDate, 
+    endDate, 
+    sourceTable,
+    baseTable: XLogOutbound.tableName
+  })
 
   return log.filter((data) => {
     return (data.list_id && listIds.includes(data.list_id) && campaignIds.includes(data.campaign_id.toLowerCase()))
   })
 }
 
-export const getLogForContactByDates = async ({ lead_id, startDate, endDate, sourceTable }) => {
+export const getLogForContactByDates = async ({ lead_id, startDate, endDate, sourceTable, baseTable }) => {
   const logForContactByDates = await executeSelectQuery({
     method: 'getLogForContactByDates',
     sourceTable,
     lead_id,
     startDate: formatDate(startDate),
-    endDate: formatDate(endDate)
+    endDate: formatDate(endDate),
+    baseTable
   })
+
   return logForContactByDates
 }
 
@@ -120,21 +128,14 @@ export const getContactInboundCallLog = async ({ lead_id, campaigns, lists, star
   listIds.unshift(DEFAULT_SYSTEM_LIST_OB)
   listIds.unshift(DEFAULT_SYSTEM_LIST_IB)
 
-  const logs = await getCloserLogForContactByDates({ lead_id, startDate, endDate })
+  const logs = await getLogForContactByDates({ 
+    lead_id, 
+    startDate, 
+    endDate, 
+    sourceTable: XLogInbound.tableName
+  })
 
   return logs.filter((log) => {
     return (log.list_id && listIds.includes(log.list_id) && queues.includes(log.campaign_id.toLowerCase()))
   })
-}
-
-export const getCloserLogForContactByDates = async ({ lead_id, startDate, endDate }) => {
-  const closerLogForContactByDates = await executeSelectQuery({
-    method: 'getCloserLogForContactByDates',
-    sourceTable: XLogInbound.tableName,
-    lead_id,
-    startDate: formatDate(startDate),
-    endDate: formatDate(endDate)
-  })
-
-  return closerLogForContactByDates
 }

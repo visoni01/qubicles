@@ -21,18 +21,20 @@ const QueryMethods = {
     }
     return query
   },
-  getLogForContactByDates: ({ sourceTable, lead_id, startDate, endDate }) => {
-    return `SELECT * FROM ${sourceTable} WHERE lead_id='${lead_id}' AND call_date >= '${startDate}' AND call_date <= '${endDate}' UNION SELECT * FROM x_log_outbound_archive WHERE lead_id='${lead_id}' AND call_date >= '${startDate}' AND call_date <= '${endDate}' UNION SELECT * FROM x_log_outbound_historical WHERE lead_id='${lead_id}' AND call_date >= '${startDate}' AND call_date <= '${endDate}' ORDER BY call_date desc Limit 500`
-  },
-  getCloserLogForContactByDates: ({ sourceTable, lead_id, startDate, endDate }) => {
-    return `SELECT * FROM ${sourceTable} WHERE lead_id='${lead_id}' AND call_date >= '${startDate}' AND call_date <= '${endDate}' UNION SELECT * FROM ${sourceTable}_archive WHERE lead_id='${lead_id}' AND call_date >= '${startDate}' AND call_date <= '${endDate}' UNION SELECT * FROM ${sourceTable}_historical WHERE lead_id='${lead_id}' AND call_date >= '${startDate}' AND call_date <= '${endDate}' ORDER BY call_date desc Limit 500`
+  // baseTable parameter is optional here and it is used for figuring out
+  // the historical and archive table name
+  getLogForContactByDates: ({ sourceTable, lead_id, startDate, endDate, baseTable }) => {
+    const archiveTable = baseTable ? `${baseTable}_archive` : `${sourceTable}_archive`
+    const historicalTable = baseTable ? `${baseTable}_historical` : `${sourceTable}_historical`
+
+    return `SELECT * FROM ${sourceTable} WHERE lead_id='${lead_id}' AND call_date >= '${startDate}' AND call_date <= '${endDate}' UNION SELECT * FROM ${archiveTable} WHERE lead_id='${lead_id}' AND call_date >= '${startDate}' AND call_date <= '${endDate}' UNION SELECT * FROM ${historicalTable} WHERE lead_id='${lead_id}' AND call_date >= '${startDate}' AND call_date <= '${endDate}' ORDER BY call_date desc Limit 500`
   },
   getListsByCampaignID: ({ sourceTable, campaign_id }) => {
     return `SELECT * FROM ${sourceTable} WHERE campaign_id = '${campaign_id}'`
   },
   update: ({ sourceTable, model, data }) => {
     // get sourceTable from model if sourceTable property is empty
-    if (sourceTable) {
+    if (!sourceTable) {
       sourceTable = model.tableName
     }
 
@@ -81,7 +83,7 @@ const QueryMethods = {
     return sql
   },
   delete: ({ sourceTable, model, data }) => {
-    if (sourceTable) {
+    if (!sourceTable) {
       sourceTable = model.tableName
     }
 
