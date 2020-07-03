@@ -29,7 +29,7 @@ const QueryMethods = {
 
     return `SELECT * FROM ${sourceTable} WHERE lead_id='${lead_id}' AND call_date >= '${startDate}' AND call_date <= '${endDate}' UNION SELECT * FROM ${archiveTable} WHERE lead_id='${lead_id}' AND call_date >= '${startDate}' AND call_date <= '${endDate}' UNION SELECT * FROM ${historicalTable} WHERE lead_id='${lead_id}' AND call_date >= '${startDate}' AND call_date <= '${endDate}' ORDER BY call_date desc Limit 500`
   },
-  getListsByCampaignID: ({ sourceTable, campaign_id }) => {
+  getListsByCampaignId: ({ sourceTable, campaign_id }) => {
     return `SELECT * FROM ${sourceTable} WHERE campaign_id = '${campaign_id}'`
   },
   update: ({ sourceTable, model, data }) => {
