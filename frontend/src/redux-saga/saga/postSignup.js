@@ -16,7 +16,7 @@ function* postSignupStepWorker(action) {
     if (step === 1) data.user_code = type
     const response = yield apiClient.postSignUp(type, step, data)
     const inviteLink = response.data && response.data.result && response.data.result.inviteLink // temporary set up.
-    yield put(postSignUpStepSuccessful({ step, data }))
+    yield put(postSignUpStepSuccessful({ step, data, inviteLink }))
   } catch (e) {
     yield put(postSignUpStepFailure())
   }
