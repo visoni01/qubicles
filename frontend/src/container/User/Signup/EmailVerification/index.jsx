@@ -17,7 +17,6 @@ const EmailVerification = () => {
   )
   return (
     <>
-      <CircularLoader isLoading={ isLoading } className='clip-loader-css' />
       {success && <Redirect to='/post-signup' />}
       {error && <>{' An unexpected error occured '}</>}
     </>

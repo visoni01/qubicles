@@ -14,23 +14,16 @@ import {
 } from 'react-share'
 import { faEnvelope, faTimes, faCopy } from '@fortawesome/free-solid-svg-icons'
 import { inviteRequestStart } from '../../redux-saga/redux/invitePage'
+import { showSuccessMessage } from '../../redux-saga/redux/snackbar'
 
 const ShareModal = () => {
   const dispatch = useDispatch()
   const inviteReducerStore = useSelector((state) => state.invitePage)
   const { inviteLink } = useSelector((state) => state.postSignUp)
   const [ manualEmails, setManualEmails ] = useState()
-  const [ snackbar, setSnackbar ] = useState({
-    isOpen: false,
-    message: '',
-  })
   const {
     isLoading, success, result, type,
   } = inviteReducerStore
-  const closeSnackBar = () => setSnackbar({
-    isOpen: false,
-    message: '',
-  })
 
   useEffect(() => {
     if (type === 'invite-with-google' && !isLoading && success) {
@@ -38,7 +31,7 @@ const ShareModal = () => {
     }
     if (success) {
       setManualEmails('')
-      setSnackbar({ isOpen: success, message: 'Successfully Invited' })
+      dispatch(showSuccessMessage({ msg: 'Successfully Invited' }))
     }
   }, [ isLoading ])
 
@@ -51,11 +44,8 @@ const ShareModal = () => {
   const handleInviteWithGoogle = () => dispatch(inviteRequestStart({ type: 'invite-with-google' }))
 
   const handleCopyToClipboard = () => {
-    setSnackbar({
-      isOpen: true,
-      message: 'Link copied',
-    })
-    navigator.clipboard.writeText(inviteLink || 'invite link') // Has to set invite link.
+    dispatch(showSuccessMessage({ msg: 'Link copied' }))
+    navigator.clipboard.writeText(inviteLink || 'invite link')
   }
 
   return (
@@ -161,23 +151,6 @@ const ShareModal = () => {
           </div>
         </div>
       </div>
-      {/**
-       * Temporary implemented the success message, will remove it when success message general component will ready.
-       */}
-      <Snackbar
-        open={ snackbar.isOpen }
-        autoHideDuration={ 3000 }
-        onClose={ closeSnackBar }
-      >
-        <div className='snackbar-div'>
-          {snackbar.message}
-          <FontAwesomeIcon
-            icon={ faTimes }
-            onClick={ closeSnackBar }
-            className='ml-10 danger-text'
-          />
-        </div>
-      </Snackbar>
     </>
   )
 }
