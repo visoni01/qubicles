@@ -3,7 +3,7 @@ import TwitterStrategy from 'passport-twitter'
 import { Strategy as FacebookStrategy } from 'passport-facebook'
 import { Strategy as LinkedInStrategy } from 'passport-linkedin-oauth2'
 import { Strategy as LocalStrategy } from 'passport-local'
-import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
+import { Strategy as JwtStrategy } from 'passport-jwt'
 import jwt from 'jsonwebtoken'
 import { User } from '../db/models'
 import config from '../../config/app'
@@ -11,7 +11,7 @@ import SocialSignup from '../services/signup/socialSignup'
 
 function initPassport () {
   const opts = {}
-  opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken()
+  opts.jwtFromRequest = cookieExtractor
   opts.secretOrKey = config.get('jwt.loginTokenSecret')
 
   passport.use('login', new LocalStrategy({
@@ -40,7 +40,7 @@ function initPassport () {
   )
 
   passport.use(new JwtStrategy(opts, async function (jwt_payload, done) {
-    const user = await User.findOne({ where: { user_id: jwt_payload.user_id } })
+    const user = await User.findOne({ where: { user_id: jwt_payload.user_id }, raw: true })
     if (user) {
       return done(null, user)
     } else {
@@ -120,6 +120,14 @@ function initPassport () {
   passport.deserializeUser(function (obj, done) {
     done(null, obj)
   })
+}
+
+const cookieExtractor = function (req) {
+  let accessToken = null
+  if (req && req.cookies) {
+    accessToken = req.cookies['access_token']
+  }
+  return accessToken
 }
 
 module.exports = initPassport

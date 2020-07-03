@@ -7,6 +7,7 @@ import bodyParser from 'body-parser'
 import compression from 'compression'
 import expressBoom from 'express-boom'
 import passport from 'passport'
+import cookieParser from 'cookie-parser'
 
 import initRoutes from '../routes'
 import db from '../app/db/models'
@@ -21,15 +22,17 @@ const allowCorsURLs = [/\.fenero\.com$/, /\.qubicles\.io$/]
 
 // Check CORS URLs if environment is not development
 const corsConfiguration = {
-  origin: config.get('env') === 'development' ? '*' : allowCorsURLs,
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  origin: config.get('env') === 'development' ? config.get('webApp.baseUrl') : allowCorsURLs,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE, OPTIONS',
   preflightContinue: false,
-  optionsSuccessStatus: 204
+  optionsSuccessStatus: 204,
+  credentials: true
 }
 
 function initMiddleware () {
   // Enable cors
   app.use(cors(corsConfiguration))
+  app.use(cookieParser())
   // Showing stack errors
   app.set('showStackError', true)
 

@@ -14,7 +14,7 @@ export default class LatestAnnouncements extends ServiceBase {
   }
 
   async run () {
-    const { client_id } = await getClientIdByUserId({ userId: this.user_id })
+    const { client_id } = await getClientIdByUserId({ user_id: this.user_id })
     const recentTopics = await getRecentTopics({ client_id })
     const latestAnnouncements = recentTopics.map(topic => {
       return {
