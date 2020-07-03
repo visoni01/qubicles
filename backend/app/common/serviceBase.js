@@ -1,6 +1,7 @@
 import validate from 'validate.js'
 import _ from 'lodash'
 import Log from './logger'
+import { ERRORS } from '../utils/errors'
 
 export default class ServiceBase {
   constructor () {
@@ -66,13 +67,25 @@ export default class ServiceBase {
     this._failed = !!_.size(this.errors)
   }
 
+
   addError (attribute, errorMessage, responseStatusCode = null) {
     Log.debug('Custom Validation Failed', { klass: this.constructor, message: errorMessage, context: { attribute }, userCtx: this.context, fault: this.errors })
-    responseStatusCode && this.setResponseStatusCode(responseStatusCode)
-    const errors = this._errors[this.constructor.name] = this._errors[this.constructor.name] || {}
-    if (!errors[attribute]) return _.extend(errors, { [attribute]: `${_.startCase(attribute)} ${errorMessage}` })
-    errors[attribute] = errors[attribute] instanceof Array ? errors[attribute] : [errors[attribute]]
-    errors[attribute].push(`${_.startCase(attribute)} ${errorMessage}`)
+    
+    // overwriting the previous error if error is already set
+    if (!_.isEmpty(this._errors)) {
+      this._errors = {
+        [attribute]: errorMessage
+      }  
+    } else {
+      this._errors[attribute] = errorMessage
+    }
+
+    // Old Code: We will remove this later
+    // const errors = this._errors[this.constructor.name] = this._errors[this.constructor.name] || {}
+    // if (!errors[attribute]) return _.extend(errors, { [attribute]: `${_.startCase(attribute)} ${errorMessage}` })
+    // errors[attribute] = errors[attribute] instanceof Array ? errors[attribute] : [errors[attribute]]
+    // console.log('errors[attribute] weljhfkwjehf=====>', errors[attribute])
+    // errors[attribute].push(`${_.startCase(attribute)} ${errorMessage}`)  
   }
 
   mergeErrors (errors) {
@@ -91,10 +104,11 @@ export default class ServiceBase {
     const validationErrors = validate(this._args, this.constraints)
     const errors = {}
     _.forEach(validationErrors, (error, key) => {
-      errors[key] = error[0]
+      errors[ERRORS.BAD_DATA] = error[0]
     })
+ 
     if (_.size(errors)) {
-      _.extend(this.errors, { [this.constructor.name]: errors })
+      _.extend(this.errors, { ...errors })
       Log.debug('Service input Validation Failed', { klass: this.constructor, message: 'Validation Failed', context: this.args, userCtx: this.context, fault: this.errors })
     }
   }
