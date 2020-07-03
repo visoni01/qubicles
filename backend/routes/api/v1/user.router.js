@@ -31,7 +31,11 @@ userRouter.route('/login')
         if (loginErr) {
           return res.status(401).send(loginErr)
         }
-        return res.status(200).json({ accessToken: req.user.accessToken, message: 'User logged in Successfully!!' })
+        res.cookie('access_token', req.user.accessToken, {
+          maxAge: 1000 * 60 * 15,
+          httpOnly: true
+        })
+        return res.status(200).json({ message: 'User logged in Successfully!!' })
       })
     })(req, res)
   })
