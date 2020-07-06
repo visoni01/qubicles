@@ -37,9 +37,10 @@ export const getLists = async ({ campaigns }) => {
 
 export const getAllLists = async ({ campaign_id }) => {
   let lists = await executeSelectQuery({
-    method: 'getListsByCampaignId',
+    method: 'getDataByColumnName',
     sourceTable: getArchiveTableName(XLeadsList),
-    campaign_id
+    columnName: 'campaign_id',
+    columnValue: campaign_id
   })
 
   const listByCampaignId = await getListsByCampaignId({ campaign_id })
@@ -52,9 +53,10 @@ export const getAllLists = async ({ campaign_id }) => {
 
 export const getListsByCampaignId = async ({ campaign_id }) => {
   const lists = await executeSelectQuery({
-    method: 'getListsByCampaignId',
+    method: 'getDataByColumnName',
     sourceTable: XLeadsList.tableName,
-    campaign_id
+    columnName: 'campaign_id',
+    columnValue: campaign_id
   })
 
   return lists

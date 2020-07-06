@@ -80,10 +80,10 @@ export const getContactOutboundCallLog = async ({ lead_id, campaigns, lists, sta
   listIds.unshift(DEFAULT_SYSTEM_LIST_IB)
 
   const sourceTable = getOBLogTableName({ user, clients })
-  const log = await getLogForContactByDates({ 
-    lead_id, 
-    startDate, 
-    endDate, 
+  const log = await getLogForContactByDates({
+    lead_id,
+    startDate,
+    endDate,
     sourceTable,
     baseTable: XLogOutbound.tableName
   })
@@ -128,10 +128,10 @@ export const getContactInboundCallLog = async ({ lead_id, campaigns, lists, star
   listIds.unshift(DEFAULT_SYSTEM_LIST_OB)
   listIds.unshift(DEFAULT_SYSTEM_LIST_IB)
 
-  const logs = await getLogForContactByDates({ 
-    lead_id, 
-    startDate, 
-    endDate, 
+  const logs = await getLogForContactByDates({
+    lead_id,
+    startDate,
+    endDate,
     sourceTable: XLogInbound.tableName
   })
 

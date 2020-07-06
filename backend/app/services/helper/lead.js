@@ -4,7 +4,12 @@ import { listsFieldsColumnExists, listsFieldsTableExists, formatDate } from './i
 import moment from 'moment'
 import { SqlHelper } from '../../utils/sql'
 import { USER_LEVEL } from '../user/getSecurityContext'
-import { executeSelectQuery, executeUpdateQuery, executeDeleteQuery } from '../../utils/queryManager'
+import {
+  executeSelectQuery,
+  executeUpdateQuery,
+  executeDeleteQuery,
+  executeInsertQuery
+} from '../../utils/queryManager'
 import { Lead } from '../../db/models'
 
 export const getLeadByLeadId = async ({ lead_id, user, clients }) => {
@@ -51,9 +56,11 @@ export const getLeadCustomData = async ({ list_id, lead_id }) => {
   const isTableExist = await listsFieldsTableExists({ list_id })
   if (isTableExist) {
     lead = await executeSelectQuery({
-      method: 'getLeadCustomData',
+      method: 'getDataByColumnName',
       sourceTable: `x_leads_custom_${list_id}`,
-      lead_id
+      columnName: 'lead_id',
+      columnValue: lead_id,
+      extraQueryAttributes: 'LIMIT 1'
     })
   }
   return lead
@@ -70,6 +77,18 @@ export const deleteLeadCustomData = async ({ list_id, lead_id }) => {
     })
     return lead
   }
+}
+
+export const getLeadByPhone = async ({ phone_number, user, clients }) => {
+  const sourceTable = getLeadsTableName({ user, clients })
+  const lead = await executeSelectQuery({
+    method: 'getDataByColumnName',
+    sourceTable,
+    columnName: 'phone_number',
+    columnValue: phone_number,
+    extraQueryAttributes: 'LIMIT 100'
+  })
+  return lead
 }
 
 export const updateLeadInCustomTable = async ({ lead }) => {
@@ -125,5 +144,39 @@ export const updateLeadInCustomTable = async ({ lead }) => {
     onDuplicateUpdateSQL += 'lead_id = VALUES(lead_id)'
     const fullQuery = insertSql + sql + onDuplicateUpdateSQL
     await SqlHelper.insert(fullQuery)
+  }
+}
+
+export const createClientLeadTable = ({ client_id }) => {
+  return SqlHelper.callProcedure({
+    procedure: 'process_create_client_leadtable (:var_client_id)',
+    replacements: { var_client_id: client_id }
+  })
+}
+
+export const addListLead = async ({ list, user, clients, client_id }) => {
+  // make sure client's lead table exists
+  if (user && user.user_level < USER_LEVEL.SYSTEM) {
+    await createClientLeadTable({ client_id })
+  }
+
+  const sourceTable = getLeadsTableName({ user, clients })
+  return executeInsertQuery({
+    method: 'insert',
+    model: Lead,
+    sourceTable,
+    data: list
+  })
+}
+
+export const addLeadToCustomTable = async ({ list_id, lead_id }) => {
+  const isTableExist = await listsFieldsTableExists({ list_id })
+
+  if (isTableExist) {
+    return executeInsertQuery({
+      method: 'addLeadToCustomTable',
+      lead_id,
+      list_id
+    })
   }
 }
