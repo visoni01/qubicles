@@ -28,7 +28,7 @@ const Routes = () => (
       <Route exact path='/dashboard' component={ Dashboard } />
       <Route exact path='/post-signup' component={ PostSignUp } />
       <Route exact path='/invite-friends' component={ InviteFriends } />
-      <Route exact path='/communication' component={ CommunicationForum } />
+      <Route exact path='/group' component={ CommunicationForum } />
     </Switch>
     <CircularLoader />
     <CustomSnackbar />
