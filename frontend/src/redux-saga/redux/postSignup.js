@@ -28,7 +28,7 @@ const {
       error: false,
     }),
     postSignUpStepSuccessful: (state, action) => {
-      const { step, data } = action.payload
+      const { step, data, inviteLink } = action.payload
       return {
         ...state,
         success: true,
@@ -38,6 +38,7 @@ const {
           [ step ]: data,
         },
         currentStep: state.currentStep + 1,
+        inviteLink, // Temporary setup.
       }
     },
     postSignUpStepFailure: (state, action) => ({

@@ -6,6 +6,7 @@ import InviteFriends from '../container/InviteFriendsPage'
 import {
   Home, Agents, ContactCenter, ContactUs,
 } from '../container/Home'
+import CommunicationForum from '../container/CommunicationForums'
 import Login from '../container/Login'
 import { CircularLoader } from '../components/loaders'
 import CustomSnackbar from '../components/snackbar'
@@ -27,6 +28,7 @@ const Routes = () => (
       <Route exact path='/dashboard' component={ Dashboard } />
       <Route exact path='/post-signup' component={ PostSignUp } />
       <Route exact path='/invite-friends' component={ InviteFriends } />
+      <Route exact path='/group' component={ CommunicationForum } />
     </Switch>
     <CircularLoader />
     <CustomSnackbar />

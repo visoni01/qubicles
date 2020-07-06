@@ -12,14 +12,15 @@ import {
   LinkedinIcon,
   TwitterIcon,
 } from 'react-share'
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faTimes, faCopy } from '@fortawesome/free-solid-svg-icons'
 import { inviteRequestStart } from '../../redux-saga/redux/invitePage'
+import { showSuccessMessage } from '../../redux-saga/redux/snackbar'
 
 const ShareModal = () => {
   const dispatch = useDispatch()
   const inviteReducerStore = useSelector((state) => state.invitePage)
+  const { inviteLink } = useSelector((state) => state.postSignUp)
   const [ manualEmails, setManualEmails ] = useState()
-  const [ openSnackbar, setOpenSnackbar ] = useState()
   const {
     isLoading, success, result, type,
   } = inviteReducerStore
@@ -30,7 +31,7 @@ const ShareModal = () => {
     }
     if (success) {
       setManualEmails('')
-      setOpenSnackbar(success)
+      dispatch(showSuccessMessage({ msg: 'Successfully Invited' }))
     }
   }, [ isLoading ])
 
@@ -42,7 +43,10 @@ const ShareModal = () => {
 
   const handleInviteWithGoogle = () => dispatch(inviteRequestStart({ type: 'invite-with-google' }))
 
-  const handleCopyToClipboard = () => navigator.clipboard.writeText('invite link') // Has to set invite link.
+  const handleCopyToClipboard = () => {
+    dispatch(showSuccessMessage({ msg: 'Link copied' }))
+    navigator.clipboard.writeText(inviteLink || 'invite link')
+  }
 
   return (
     <>
@@ -91,12 +95,17 @@ const ShareModal = () => {
               type='text'
               variant='outlined'
               size='small'
-              value='invite link'
+              value={ inviteLink || 'Invite Link' }
               InputProps={ {
                 readOnly: true,
               } }
             />
-            <Button variant='contained' className='sharemodal-buttons' onClick={ handleCopyToClipboard }>
+            <Button
+              variant='contained'
+              className='sharemodal-buttons'
+              onClick={ handleCopyToClipboard }
+              startIcon={ <FontAwesomeIcon icon={ faCopy } /> }
+            >
               Copy
             </Button>
           </div>
@@ -105,7 +114,7 @@ const ShareModal = () => {
           <h4 className='shareModal-social-h4'>Share Via Social</h4>
           <div>
             <FacebookShareButton
-              url='invite link' // Hard coded temporary, BE is not ready yet.
+              url={ inviteLink || 'Invite Link' } // Temporary setup.
               quote='Qubicles invite link'
             >
               <Button
@@ -117,7 +126,7 @@ const ShareModal = () => {
               </Button>
             </FacebookShareButton>
             <TwitterShareButton
-              url='Invite link' // Hard coded temporary, BE is not ready yet.
+              url={ inviteLink || 'Invite Link' } // Temporary setup.
               title='Invite link'
             >
               <Button
@@ -129,7 +138,7 @@ const ShareModal = () => {
               </Button>
             </TwitterShareButton>
             <LinkedinShareButton
-              url='Invite Link' // Hard coded temporary, BE is not ready yet.
+              url={ inviteLink || 'invite link' } // Temporary setup.
             >
               <Button
                 variant='contained'
@@ -142,14 +151,6 @@ const ShareModal = () => {
           </div>
         </div>
       </div>
-      {/**
-       * Temporary implemented the success message, will remove it when success message general component will ready.
-       */}
-      <Snackbar open={ openSnackbar } autoHideDuration={ 5000 }>
-        <div className='snackbar-div'>
-          Successfully Invited
-        </div>
-      </Snackbar>
     </>
   )
 }

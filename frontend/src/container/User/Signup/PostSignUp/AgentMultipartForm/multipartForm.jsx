@@ -19,9 +19,10 @@ const StepForm = ({
   }
   const isChecked = (name, value) => formValues[ name ] && formValues[ name ] === value
 
-  const inputField = ({
-    type, name, options,
-  }) => {
+  const inputField = (fieldData) => {
+    const {
+      type, name, options,
+    } = fieldData
     if (type === 'radio' || type === 'checkbox') {
       return (
         <div className='control'>
