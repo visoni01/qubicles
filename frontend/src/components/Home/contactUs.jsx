@@ -5,6 +5,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import GoogleMapReact from 'google-map-react'
 import { Header, Footer } from './index'
+import config from '../../utils/config'
 
 const ContactUs = () => (
   <div>
@@ -167,12 +168,12 @@ const ContactUs = () => (
       </div>
     </div>
     {/* Map */}
-    <div style={ { height: '80vh', width: '100%' } }>
+    <div className='google-map-contact'>
       <GoogleMapReact
-        bootstrapURLKeys={ { key: process.env.REACT_APP_GOOGLE_API_KEY } }
+        bootstrapURLKeys={ { key: config.GOOGLE_API_KEY } }
         defaultCenter={ {
-          lat: 33.748997,
-          lng: -84.387985,
+          lat: config.MAP_LATITUDE,
+          lng: config.MAP_LONGITUDE,
         } }
         defaultZoom={ 13 }
       />

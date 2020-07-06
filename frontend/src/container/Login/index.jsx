@@ -15,6 +15,7 @@ import PropTypes from 'prop-types'
 import { userLoginStart } from '../../redux-saga/redux/login'
 import QubiclesLogo from '../../assets/images/qbe-dark.png'
 import './style.scss'
+import config from '../../utils/config'
 
 const schema = yup.object().shape({
   email: yup.string().required('*Required'),
@@ -68,7 +69,7 @@ const Login = ({ history }) => {
   )
 
   const handleSocialLogin = (method) => {
-    window.open(`${ process.env.REACT_APP_NODE_BASE_URL }/auth/${ method }`)
+    window.open(`${ config.NODE_BASE_URL }/auth/${ method }`)
   }
 
   const SocialLoginButton = (buttonName, type) => (
