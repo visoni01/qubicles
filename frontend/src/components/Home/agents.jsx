@@ -173,8 +173,7 @@ const Agents = () => (
     {/* Slanted feature Section */}
     <div
       id='business-types'
-      className={ `skewed-class-margin section  bg-color-blue section-primary is-small is-skewed-sm is-relative huge-pb
-        mt-20` }
+      className='section  bg-color-blue section-primary is-small is-skewed-sm is-relative huge-pb mt-20'
     >
       <div className='container slanted-container is-reverse-skewed-sm'>
         <div className='columns is-vcentered'>

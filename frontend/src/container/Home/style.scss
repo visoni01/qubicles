@@ -41,11 +41,16 @@
   background-color: #000;
 }
 
-.skewed-class-margin {
-  margin: 9rem 0 1.5rem 0 !important;
-}
 
 .bg-for-center {
   background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url('../../assets/images/landingPage/bg-for-centers.jpg');
-  background-color: #000;
+}
+
+.bg-for-contact-us {
+  background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url('../../assets/images/landingPage/powered-by-blockchain.jpg');
+
+}
+.contact-us-icon {
+  width: auto !important;
+  height: auto !important;
 }
