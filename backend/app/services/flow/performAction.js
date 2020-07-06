@@ -442,6 +442,8 @@ export class PerformActionService extends ServiceBase {
             }
           }
         }
+
+        break
       }
 
       // TODO: In progress
