@@ -27,7 +27,7 @@ const Agents = () => (
               <br />
               <Link
                 to='/signup'
-                className='button btn-align secondary-btn raised steps-button-color'
+                className='button btn-align secondary-btn raised'
               >
                 Join for Free
               </Link>

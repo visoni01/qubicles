@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Dashboard from '../container/Dashboard'
 import { Signup, EmailVerification, PostSignUp } from '../container/User/Signup'
 import InviteFriends from '../container/InviteFriendsPage'
-import { Home, Agents, ContactCenter } from '../container/Home'
+import {
+  Home, Agents, ContactCenter, ContactUs,
+} from '../container/Home'
 import Login from '../container/Login'
 import { CircularLoader } from '../components/loaders'
 import CustomSnackbar from '../components/snackbar'
@@ -14,6 +16,7 @@ const Routes = () => (
       <Route exact path='/' component={ Home } />
       <Route exact path='/agents' component={ Agents } />
       <Route exact path='/contactcenters' component={ ContactCenter } />
+      <Route exact path='/contactus' component={ ContactUs } />
       <Route exact path='/signup' component={ Signup } />
       <Route exact path='/login' component={ Login } />
       <Route
