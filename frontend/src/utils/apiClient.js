@@ -1,6 +1,7 @@
 import axios from 'axios'
+import configEnv from './config'
 
-const baseURL = process.env.REACT_APP_NODE_BASE_URL
+const baseURL = configEnv.NODE_BASE_URL
 
 class ApiClient {
   constructor(axiosInst) {

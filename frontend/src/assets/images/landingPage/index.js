@@ -25,6 +25,7 @@ import bgForCenter from './bg-for-centers.jpg'
 import centerDash from './centerdash.png'
 import bars from './bars.png'
 import idleUsage from './idleusage.png'
+import poweredByBlockchain from './powered-by-blockchain.jpg'
 
 export {
   globalNetworkImage,
@@ -54,4 +55,5 @@ export {
   centerDash,
   bars,
   idleUsage,
+  poweredByBlockchain,
 }

@@ -80,7 +80,7 @@ const SignUp = ({ location, history }) => {
       <div className='column is-4'>
         <div className='hero is-fullheight'>
           <div className='hero-heading'>
-            <div className='section has-text-centered'>
+            <div className='section has-text-centered section-signup'>
               <img
                 className='top-logo'
                 src={ QubiclesLogo }
