@@ -23,9 +23,44 @@ Responder.sendJSONResponse = (res, obj) => {
   return sendResponse(res, 200, obj)
 }
 
-Responder.success = (res, message) => {
-  message = _.isString(message) ? { message } : message
-  return sendResponse(res, 200, { result: message })
+Responder.success = (res, data) => {
+  // we can have different types of data
+  // Case 1: [{app: 'qubicle'}] (array)
+  // Case 2: {app: 'qubicle'} (object) or {app: 'qubicle', message: 'custom message'}
+  // Case 3: Any message like 'Record has been successfully deleted'
+  // Case 4: Data types other than above mentioned cases i.e boolean, null
+
+  // In every case, we're sending the response in the below format
+  // {
+  //   data: [] or any data
+  //   message: Custom message or default message as mentioned below  
+  // }
+  
+  let message = 'Request has been processed successfully.'
+  if (_.isString(data)) {
+    message = data
+  } else if (_.isObject(data) && data['message']) {
+    message = data['message']
+  } 
+
+  if (data && data['message']) {
+    delete data['message']
+  }
+
+  return sendResponse(res, 200, { data: data || [], message })
+}
+
+Responder.failed = (errorObj, res) => {
+  // get the error key 
+  const keys = Object.keys(errorObj)
+  const errorName = (keys && keys.length && keys[0])
+
+  if (errorName && _.isFunction(res.boom[errorName])) {
+    const errorMessage = errorObj[errorName]
+    res.boom[errorName](errorMessage)
+  } else {
+    res.boom.internal('An error occurred while processing your request. Please try again later.')
+  }
 }
 
 export default Responder
