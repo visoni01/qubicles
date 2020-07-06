@@ -84,7 +84,6 @@ export default class ServiceBase {
     // const errors = this._errors[this.constructor.name] = this._errors[this.constructor.name] || {}
     // if (!errors[attribute]) return _.extend(errors, { [attribute]: `${_.startCase(attribute)} ${errorMessage}` })
     // errors[attribute] = errors[attribute] instanceof Array ? errors[attribute] : [errors[attribute]]
-    // console.log('errors[attribute] weljhfkwjehf=====>', errors[attribute])
     // errors[attribute].push(`${_.startCase(attribute)} ${errorMessage}`)  
   }
 
