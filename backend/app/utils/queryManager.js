@@ -5,11 +5,12 @@ const QueryMethods = {
   getGroupsByClient: ({ tableName, client_id }) => {
     return `SELECT t.* FROM ${tableName} t JOIN x_client_ingroups x ON t.group_id = x.group_id WHERE x.client_id =${client_id}`
   },
-  getDataByColumnName: ({ sourceTable, columnName, columnValue }) => {
-    return `SELECT * FROM ${sourceTable} WHERE ${columnName} = '${columnValue}'`
-  },
-  getLeadCustomData: ({ sourceTable, lead_id }) => {
-    return `SELECT * FROM ${sourceTable} WHERE lead_id='${lead_id}' LIMIT 1`
+  getDataByColumnName: ({ sourceTable, columnName, columnValue, extraQueryAttributes }) => {
+    let query = `SELECT * FROM ${sourceTable} WHERE ${columnName} = '${columnValue}'`
+    if (extraQueryAttributes) {
+      query = `${query} ${extraQueryAttributes}`
+    }
+    return query
   },
   deleteLeadCustomData: ({ sourceTable, lead_id }) => {
     return `DELETE FROM ${sourceTable} WHERE lead_id='${lead_id}' LIMIT 1`
@@ -29,8 +30,8 @@ const QueryMethods = {
 
     return `SELECT * FROM ${sourceTable} WHERE lead_id='${lead_id}' AND call_date >= '${startDate}' AND call_date <= '${endDate}' UNION SELECT * FROM ${archiveTable} WHERE lead_id='${lead_id}' AND call_date >= '${startDate}' AND call_date <= '${endDate}' UNION SELECT * FROM ${historicalTable} WHERE lead_id='${lead_id}' AND call_date >= '${startDate}' AND call_date <= '${endDate}' ORDER BY call_date desc Limit 500`
   },
-  getListsByCampaignId: ({ sourceTable, campaign_id }) => {
-    return `SELECT * FROM ${sourceTable} WHERE campaign_id = '${campaign_id}'`
+  addLeadToCustomTable: ({ list_id, lead_id }) => {
+    return `INSERT INTO x_leads_custom_${list_id} (lead_id) VALUES ('${lead_id}');`
   },
   update: ({ sourceTable, model, data }) => {
     // get sourceTable from model if sourceTable property is empty
@@ -111,6 +112,38 @@ const QueryMethods = {
 
     sql = sql + whereClause
     return sql
+  },
+  insert: ({ sourceTable, model, data }) => {
+    if (!sourceTable) {
+      sourceTable = model.tableName
+    }
+
+    let sql = `INSERT INTO ${sourceTable} (`
+    let values = ') VALUES ('
+    const modelProperties = model.rawAttributes
+    const objProperties = Object.keys(data)
+
+    objProperties.forEach((property, index) => {
+      if (modelProperties[property]) {
+        sql += `\`${property}\``
+
+        // Check if model field type is DATE
+        if (modelProperties[property].type.key === 'DATE' || modelProperties[property].type === 'TIMESTAMP') {
+          values += `'${formatDate(data[property])}'`
+        } else {
+          values += `'${data[property]}'`
+        }
+
+        if (index !== (objProperties.length - 1)) {
+          sql += ','
+          values += ','
+        }
+      }
+    })
+
+    sql = `${sql}${values});`
+
+    return sql
   }
 }
 
@@ -124,6 +157,10 @@ export const executeSelectQuery = ({ method, ...restArgs }) => {
 
 export const executeUpdateQuery = ({ method, ...restArgs }) => {
   return SqlHelper.update(QueryMethods[method](restArgs))
+}
+
+export const executeInsertQuery = ({ method, ...restArgs }) => {
+  return SqlHelper.insert(QueryMethods[method](restArgs))
 }
 
 export const executeDeleteQuery = ({ method, ...restArgs }) => {
