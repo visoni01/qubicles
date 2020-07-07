@@ -12,6 +12,7 @@ import dashboardReducer from './dashboard'
 import loaderReducer from './loader'
 import snackbarReducer from './snackbar'
 import categoryReducer from './forum/category'
+import channelReducer from './forum/channel'
 
 const rootReducer = combineReducers({
   signup: signupReducer,
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   jobPosting: jobPostingReducer,
   activeUser: activeUserReducer,
   category: categoryReducer,
+  channel: channelReducer,
 })
 
 export default rootReducer

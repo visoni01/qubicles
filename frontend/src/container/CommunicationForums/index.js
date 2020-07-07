@@ -5,7 +5,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import ForumWrap from '../../components/CommunicationForums/ForumWrap'
 import { categoryDataFetchingStart } from '../../redux-saga/redux/actions'
 
-const Forum = () => {
+const ForumGroup = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(categoryDataFetchingStart())
@@ -22,12 +22,12 @@ const Forum = () => {
             <div id='forum-home' className='dashboard-columns'>
               {/* Page title */}
               <div className='control forum-search'>
-                <input type='text' className='input is-rounded' placeholder='Search Forum...' />
+                <input type='text' className='input is-rounded' placeholder='Search Groups...' />
                 <div className='search-icon'>
                   <FontAwesomeIcon icon={ faSearch } />
                 </div>
               </div>
-              {/* Forum Category */}
+              {/* ForumGroup Category */}
               { !isLoading
               && categories.map((category) => <ForumWrap { ...category } key={ category.id } />)}
             </div>
@@ -38,4 +38,4 @@ const Forum = () => {
   )
 }
 
-export default Forum
+export default ForumGroup
