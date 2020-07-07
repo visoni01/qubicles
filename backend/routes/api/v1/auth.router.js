@@ -2,6 +2,7 @@ import express from 'express'
 import passport from 'passport'
 import authController from '../../../app/controllers/auth.controller'
 import config from '../../../config/app'
+import { handleSocialLogin } from '../../../app/middlewares/handleSocialLogin'
 
 const args = { mergeParams: true }
 const authRouter = express.Router(args)
@@ -11,18 +12,16 @@ authRouter.route('/facebook')
 
 authRouter.route('/facebook/callback')
   .get(passport.authenticate('facebook', {
-    successRedirect: `${config.get('webApp.baseUrl')}/signup?with_social=true`,
     failureRedirect: `${config.get('webApp.baseUrl')}/signup`
-  }))
+  }), handleSocialLogin)
 
 authRouter.route('/twitter')
   .get(passport.authenticate('twitter'))
 
 authRouter.route('/twitter/callback')
   .get(passport.authenticate('twitter', {
-    successRedirect: `${config.get('webApp.baseUrl')}/signup?with_social=true`,
     failureRedirect: `${config.get('webApp.baseUrl')}/signup`
-  }))
+  }), handleSocialLogin)
 
 authRouter.route('/linkedin')
   .get(passport.authenticate('linkedin', {
@@ -31,9 +30,8 @@ authRouter.route('/linkedin')
 
 authRouter.route('/linkedin/callback')
   .get(passport.authenticate('linkedin', {
-    successRedirect: `${config.get('webApp.baseUrl')}/signup?with_social=true`,
     failureRedirect: `${config.get('webApp.baseUrl')}/signup`
-  }))
+  }), handleSocialLogin)
 
 authRouter.route('/verify-token/:token')
   .get(authController.verifyToken)

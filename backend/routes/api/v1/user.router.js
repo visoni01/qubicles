@@ -2,6 +2,8 @@ import express from 'express'
 import userController from '../../../app/controllers/user.controller'
 import { isAuthenticated } from './../../../app/middlewares/isAuthenticated'
 import passport from 'passport'
+import config from '../../../config/app'
+import Responder from '../../../server/expressResponder'
 
 const args = { mergeParams: true }
 const userRouter = express.Router(args)
@@ -32,12 +34,17 @@ userRouter.route('/login')
           return res.status(401).send(loginErr)
         }
         res.cookie('access_token', req.user.accessToken, {
-          maxAge: 1000 * 60 * 15,
+          maxAge: config.get('cookieMaxAge'),
           httpOnly: true
         })
-        return res.status(200).json({ message: 'User logged in Successfully!!' })
+        Responder.success(res, 'User logged in Successfully!!')
       })
     })(req, res)
+  })
+
+userRouter.route('/profile')
+  .get(isAuthenticated, (req, res) => {
+    res.status(200).json(req.user)
   })
 
 export { userRouter }

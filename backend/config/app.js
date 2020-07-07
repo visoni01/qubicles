@@ -204,6 +204,10 @@ const config = convict({
       default: '/Flow',
       env: 'FLOW_PATH'
     }
+  },
+  cookieMaxAge: {
+    default: 1000 * 60 * 60 * 24,
+    env: 'COOKIE_MAX_AGE'
   }
 })
 config.validate({ allowed: 'strict' })

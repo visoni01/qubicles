@@ -11,7 +11,7 @@ import SocialSignup from '../services/signup/socialSignup'
 
 function initPassport () {
   const opts = {}
-  opts.jwtFromRequest = cookieExtractor
+  opts.jwtFromRequest = getAccessTokenFromCookie
   opts.secretOrKey = config.get('jwt.loginTokenSecret')
 
   passport.use('login', new LocalStrategy({
@@ -54,17 +54,22 @@ function initPassport () {
     callbackURL: config.get('twitter.callbackURL'),
     userProfileURL: 'https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true',
     proxy: false
-  }, function (token, tokenSecret, profile, done) {
+  }, async function (token, tokenSecret, profile, done) {
     if (profile) {
       const userDetailsJson = profile._json
-      const user = {
+      const userObj = {
         type: 'twitter_id',
         full_name: userDetailsJson.name,
         id: userDetailsJson.id,
         email: userDetailsJson.email
       }
-      SocialSignup.execute(user)
-      return done(null, profile)
+      const user = await SocialSignup.run(userObj)
+      const jwtToken = await jwt.sign({ email: user.email, user_id: user.user_id },
+        config.get('jwt.loginTokenSecret'), {
+          expiresIn: config.get('jwt.loginTokenExpiry')
+        })
+      user.accessToken = jwtToken
+      return done(null, user)
     }
   }
   ))
@@ -122,7 +127,7 @@ function initPassport () {
   })
 }
 
-const cookieExtractor = function (req) {
+const getAccessTokenFromCookie = function (req) {
   let accessToken = null
   if (req && req.cookies) {
     accessToken = req.cookies['access_token']
