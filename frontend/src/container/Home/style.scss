@@ -3,6 +3,16 @@
   background-color: #3573db !important;
 }
 
+.button-color-blue-hover {
+  border-color: #3573db !important;
+
+}
+
+.button-color-blue-hover:hover {
+  background-color: #3573db !important;
+  color: white !important
+}
+
 .youtube-video {
   border-radius: 13px;
   margin: auto;
@@ -58,4 +68,23 @@
 .google-map-contact {
   height: 80vh;
   width: 100%;
+}
+
+.bg-for-about-us {
+  background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url('../../assets/images/landingPage/qbe-team.jpg');
+  background-color: #000;
+}
+
+.social-icons-about-us {
+  width: 49px;
+  height: 49px;
+  border-radius: 50%;
+}
+
+.width-full {
+  width: 100%;
+}
+
+.review-low-opacity {
+  opacity: 0.2;
 }

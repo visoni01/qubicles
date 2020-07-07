@@ -8,6 +8,7 @@ import {
 import Agents from '../../components/Home/agents'
 import ContactCenter from '../../components/Home/contactCenter'
 import ContactUs from '../../components/Home/contactUs'
+import AboutUs from '../../components/Home/aboutUs'
 import './style.scss'
 
 const Home = ({ history }) => (
@@ -33,5 +34,5 @@ Home.propTypes = {
 }
 
 export {
-  Home, Agents, ContactCenter, ContactUs,
+  Home, Agents, ContactCenter, ContactUs, AboutUs,
 }

@@ -26,6 +26,13 @@ import centerDash from './centerdash.png'
 import bars from './bars.png'
 import idleUsage from './idleusage.png'
 import poweredByBlockchain from './powered-by-blockchain.jpg'
+import marlonJudWarren from './marlon-jud-warren.jpg'
+import teamJudson from './team-judson.jpg'
+import teamMarlon from './team-marlon.jpg'
+import teamMorgan from './team-morgan.png'
+import teamRob from './team-rob.png'
+import teamTerpin from './team-terpin.jpg'
+import teamWarren from './team-warren.jpeg'
 
 export {
   globalNetworkImage,
@@ -56,4 +63,11 @@ export {
   bars,
   idleUsage,
   poweredByBlockchain,
+  marlonJudWarren,
+  teamMorgan,
+  teamMarlon,
+  teamJudson,
+  teamRob,
+  teamWarren,
+  teamTerpin,
 }
