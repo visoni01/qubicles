@@ -234,7 +234,7 @@ export class PerformActionService extends ServiceBase {
             const records = await getLeadByPhone({ phone_number: lead.phone_number, user, clients })
 
             const allRecords = []
-            const noCurrentLeadRecords = []
+            const leadRecords = []
 
             // The below loop is used for optimizing the re-iteration
             // https://github.com/qubicles/manager/blob/master/FC2.Web/Controllers/FlowController.cs#L728
@@ -246,7 +246,7 @@ export class PerformActionService extends ServiceBase {
                 allRecords.push(record)
                 // do we have any other records that doesn't match the current lead?
                 if (record.lead_id !== lead.lead_id) {
-                  noCurrentLeadRecords.push(record)
+                  leadRecords.push(record)
                 }
               }
             })
@@ -256,10 +256,11 @@ export class PerformActionService extends ServiceBase {
             let isNewLead = true
 
             if (leadList) {
-              if (noCurrentLeadRecords.length > 0) {
+              if (leadRecords.length > 0) {
                 // get our list of non-finalized dispositions and match the leads against those
                 const callableStatuses = await getCampaignStatusesByCampaignId({ campaign_id: leadList.campaign_id })
-                  .filter(campaign => (!campaign.category || campaign.category === 'UNDEFINED') && campaign.unworkable === 'N')
+                  .filter(campaign => (!campaign.category || campaign.category === 'UNDEFINED'))
+                  .filter(status => status.unworkable === 'N')
                   .map((s) => s.status)
 
                 // add system NEW as callable
@@ -270,7 +271,7 @@ export class PerformActionService extends ServiceBase {
                 callableStatuses.push('N')
 
                 // do we have one of these leads in a call-able disposition status?
-                const callableLead = this.findCallableLead(noCurrentLeadRecords, callableStatuses)
+                const callableLead = leadRecords.find((record) => callableStatuses.includes(record.status))
 
                 if (callableLead) {
                   isNewLead = false
@@ -452,9 +453,5 @@ export class PerformActionService extends ServiceBase {
 
   isValidLead (lead) {
     return _.has(lead, 'sys_repeat_new') && _.has(lead, 'sys_repeat_existing')
-  }
-
-  findCallableLead (noCurrentLeadRecords, callableStatuses) {
-    return noCurrentLeadRecords.find((record) => callableStatuses.includes(record.status))
   }
 }
