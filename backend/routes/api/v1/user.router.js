@@ -3,6 +3,7 @@ import userController from '../../../app/controllers/user.controller'
 import { isAuthenticated } from './../../../app/middlewares/isAuthenticated'
 import passport from 'passport'
 import config from '../../../config/app'
+import Responder from '../../../server/expressResponder'
 
 const args = { mergeParams: true }
 const userRouter = express.Router(args)
@@ -36,7 +37,7 @@ userRouter.route('/login')
           maxAge: config.get('cookieMaxAge'),
           httpOnly: true
         })
-        return res.status(200).json({ message: 'User logged in Successfully!!' })
+        Responder.success(res, 'User logged in Successfully!!')
       })
     })(req, res)
   })

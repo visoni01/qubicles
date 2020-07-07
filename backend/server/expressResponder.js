@@ -33,15 +33,16 @@ Responder.success = (res, data) => {
   // In every case, we're sending the response in the below format
   // {
   //   data: [] or any data
-  //   message: Custom message or default message as mentioned below  
+  //   message: Custom message or default message as mentioned below
   // }
-  
+
   let message = 'Request has been processed successfully.'
   if (_.isString(data)) {
     message = data
+    data = ''
   } else if (_.isObject(data) && data['message']) {
     message = data['message']
-  } 
+  }
 
   if (data && data['message']) {
     delete data['message']
@@ -51,7 +52,7 @@ Responder.success = (res, data) => {
 }
 
 Responder.failed = (errorObj, res) => {
-  // get the error key 
+  // get the error key
   const keys = Object.keys(errorObj)
   const errorName = (keys && keys.length && keys[0])
 

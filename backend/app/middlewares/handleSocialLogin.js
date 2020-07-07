@@ -6,9 +6,8 @@ export function handleSocialLogin (req, res) {
       maxAge: config.get('cookieMaxAge'),
       httpOnly: true
     })
-    res.redirect(`${config.get('webApp.baseUrl')}/auth`)
   } else {
     res.cookie('is_email_verified', false)
-    res.redirect(`${config.get('webApp.baseUrl')}/auth`)
   }
+  res.redirect(`${config.get('webApp.baseUrl')}/auth`)
 }
