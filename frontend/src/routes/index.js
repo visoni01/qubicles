@@ -4,7 +4,7 @@ import Dashboard from '../container/Dashboard'
 import { Signup, EmailVerification, PostSignUp } from '../container/User/Signup'
 import InviteFriends from '../container/InviteFriendsPage'
 import {
-  Home, Agents, ContactCenter, ContactUs,
+  Home, Agents, ContactCenter, ContactUs, AboutUs,
 } from '../container/Home'
 import CommunicationForum from '../container/CommunicationForums'
 import Login from '../container/Login'
@@ -18,6 +18,7 @@ const Routes = () => (
       <Route exact path='/agents' component={ Agents } />
       <Route exact path='/contactcenters' component={ ContactCenter } />
       <Route exact path='/contactus' component={ ContactUs } />
+      <Route exact path='/about' component={ AboutUs } />
       <Route exact path='/signup' component={ Signup } />
       <Route exact path='/login' component={ Login } />
       <Route
