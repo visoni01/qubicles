@@ -5,6 +5,9 @@ import jwt from 'jsonwebtoken'
 import { UserDetail } from '../../../db/models'
 import SendEmailInvitationMail from '../../email/sendEmailInvitationMail'
 import AddUserContact from '../addUserContact'
+import { ERRORS } from '../../../utils/errors'
+import logger from '../../../common/logger'
+import { getErrorMessageForService } from '../../helper'
 
 const constraintsAuth = {
   user_id: {
@@ -40,7 +43,8 @@ export class InviteWithGoogleAuthService extends ServiceBase {
 
       return authUrl
     } catch (err) {
-      this.addError('error', err)
+      logger.error(getErrorMessageForService('InviteWithGoogleAuthService'), err)
+      this.addError(ERRORS.INTERNAL)
     }
   }
 }
@@ -110,7 +114,8 @@ export class InviteWithGoogleCallbackService extends ServiceBase {
         }
       }
     } catch (err) {
-      this.addError('error', err)
+      logger.error(getErrorMessageForService('InviteWithGoogleCallbackService'), err)
+      this.addError(ERRORS.INTERNAL)
     }
     // Add contactEmails to x_user_contacts
     for (const contact of contacts) {

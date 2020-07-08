@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 import { User } from '../../db/models'
 import CreateUserGroup from '../user/createUserGroup'
 import config from '../../../config/app'
+import { ERRORS } from '../../utils/errors'
 
 const constraints = {
   token: {
@@ -18,7 +19,7 @@ export default class VerifyTokenService extends ServiceBase {
   async run () {
     return jwt.verify(this.args.token, 'secret', async (err, jwtVerified) => {
       if (err) {
-        this.addError('verifyTokenError', 'Verification link is expired or invalid')
+        this.addError(ERRORS.BAD_REQUEST, 'Verification link is expired or invalid')
         return
       }
       if (jwtVerified) {

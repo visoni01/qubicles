@@ -29,7 +29,7 @@ export default class FlowController {
     if (CheckAuthorizationResult.successful) {
       Responder.success(res, CheckAuthorizationResult.result)
     } else {
-      res.boom.badRequest('User authorization check operation failed', CheckAuthorizationResult.errors)
+      Responder.failed(res, CheckAuthorizationResult.errors)
     }
   }
 
@@ -38,7 +38,7 @@ export default class FlowController {
     if (deleteFlowFieldResult.successful) {
       Responder.success(res, deleteFlowFieldResult.result)
     } else {
-      res.boom.badRequest('Delete Flow field Operation failed', deleteFlowFieldResult.errors)
+      Responder.failed(res, deleteFlowFieldResult.errors)
     }
   }
 
@@ -47,7 +47,7 @@ export default class FlowController {
     if (saveFlowFieldResult.successful) {
       Responder.success(res, saveFlowFieldResult.result)
     } else {
-      res.boom.badRequest('Save Flow field Operation failed', saveFlowFieldResult.errors)
+      Responder.failed(res, saveFlowFieldResult.errors)
     }
   }
 
@@ -56,7 +56,7 @@ export default class FlowController {
     if (addFlowPageResult.successful) {
       Responder.success(res, addFlowPageResult.result)
     } else {
-      res.boom.badRequest('Add Flow page Operation failed', addFlowPageResult.errors)
+      Responder.failed(res, addFlowPageResult.errors)
     }
   }
 
@@ -65,7 +65,7 @@ export default class FlowController {
     if (editFlowPageResult.successful) {
       Responder.success(res, editFlowPageResult.result)
     } else {
-      res.boom.badRequest('Edit Flow page Operation failed', editFlowPageResult.errors)
+      Responder.failed(res, editFlowPageResult.errors)
     }
   }
 
@@ -74,7 +74,7 @@ export default class FlowController {
     if (deleteFlowPageResult.successful) {
       Responder.success(res, deleteFlowPageResult.result)
     } else {
-      res.boom.badRequest('Delete Flow page Operation failed', deleteFlowPageResult.errors)
+      Responder.failed(res, deleteFlowPageResult.errors)
     }
   }
 
@@ -83,7 +83,7 @@ export default class FlowController {
     if (getFlowsResult.successful) {
       Responder.success(res, getFlowsResult.result)
     } else {
-      res.boom.badRequest('Get Flows Operation failed', getFlowsResult.errors)
+      Responder.failed(res, getFlowsResult.errors)
     }
   }
 
@@ -92,7 +92,7 @@ export default class FlowController {
     if (getEmailTemplatesResult.successful) {
       Responder.success(res, getEmailTemplatesResult.result)
     } else {
-      res.boom.badRequest('Get Email templates Operation failed', getEmailTemplatesResult.errors)
+      Responder.failed(res, getEmailTemplatesResult.errors)
     }
   }
 
@@ -101,7 +101,7 @@ export default class FlowController {
     if (addFlowResult.successful) {
       Responder.success(res, addFlowResult.result)
     } else {
-      res.boom.badRequest('Add Flow Operation failed', addFlowResult.errors)
+      Responder.failed(res, addFlowResult.errors)
     }
   }
 
@@ -110,7 +110,7 @@ export default class FlowController {
     if (editFlowResult.successful) {
       Responder.success(res, editFlowResult.result)
     } else {
-      res.boom.badRequest('Edit Flow Operation failed', editFlowResult.errors)
+      Responder.failed(res, editFlowResult.errors)
     }
   }
 
@@ -119,7 +119,7 @@ export default class FlowController {
     if (deleteFlowResult.successful) {
       Responder.success(res, deleteFlowResult.result)
     } else {
-      res.boom.badRequest('Delete Flow Operation failed', deleteFlowResult.errors)
+      Responder.failed(res, deleteFlowResult.errors)
     }
   }
 
@@ -128,7 +128,7 @@ export default class FlowController {
     if (acdQueueResult.successful) {
       Responder.success(res, acdQueueResult.result)
     } else {
-      res.boom.badRequest('Get ACD Queue Operation failed', acdQueueResult.errors)
+      Responder.failed(res, acdQueueResult.errors)
     }
   }
 
@@ -137,7 +137,7 @@ export default class FlowController {
     if (copyFlowResult.successful) {
       Responder.success(res, copyFlowResult.result)
     } else {
-      res.boom.badRequest('Copy Flow Operation failed', copyFlowResult.errors)
+      Responder.failed(res, copyFlowResult.errors)
     }
   }
 
@@ -146,7 +146,7 @@ export default class FlowController {
     if (user_id) {
       Responder.success(res, { user_id })
     } else {
-      res.boom.badRequest('Get Current User Id Operation failed')
+      Responder.failed(res)
     }
   }
 
@@ -155,7 +155,7 @@ export default class FlowController {
     if (getFlowPagesByFlowIdResult.successful) {
       Responder.success(res, getFlowPagesByFlowIdResult.result)
     } else {
-      res.boom.badRequest('Get Flow pages by Flow Id Operation failed', getFlowPagesByFlowIdResult.errors)
+      Responder.failed(res, getFlowPagesByFlowIdResult.errors)
     }
   }
 
@@ -167,7 +167,7 @@ export default class FlowController {
     if (getFlowFieldsByFlowIdResult.successful) {
       Responder.success(res, getFlowFieldsByFlowIdResult.result)
     } else {
-      res.boom.badRequest('Get Flow fields by Flow Id Operation failed', getFlowFieldsByFlowIdResult.errors)
+      Responder.failed(res, getFlowFieldsByFlowIdResult.errors)
     }
   }
 
@@ -176,7 +176,7 @@ export default class FlowController {
     if (getDispositionsResult.successful) {
       Responder.success(res, getDispositionsResult.result)
     } else {
-      res.boom.badRequest('Get Dispositions Operation failed', getDispositionsResult.errors)
+      Responder.failed(res, getDispositionsResult.errors)
     }
   }
 
@@ -185,7 +185,7 @@ export default class FlowController {
     if (saveLeadResult.successful) {
       Responder.success(res, saveLeadResult.result)
     } else {
-      res.boom.badRequest('Save Lead Operation failed', saveLeadResult.errors)
+      Responder.failed(res, saveLeadResult.errors)
     }
   }
 
@@ -194,7 +194,7 @@ export default class FlowController {
     if (checkUserStatusResult.successful) {
       Responder.success(res, checkUserStatusResult.result)
     } else {
-      res.boom.badRequest('Check User Status Operation failed', checkUserStatusResult.errors)
+      Responder.failed(res, checkUserStatusResult.errors)
     }
   }
 
@@ -203,7 +203,7 @@ export default class FlowController {
     if (performActionResult.successful) {
       Responder.success(res, performActionResult.result)
     } else {
-      res.boom.badRequest('Perform Action Operation failed', performActionResult.errors)
+      Responder.failed(res, performActionResult.errors)
     }
   }
 }

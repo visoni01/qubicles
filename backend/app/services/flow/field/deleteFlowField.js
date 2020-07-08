@@ -1,5 +1,6 @@
 import ServiceBase from '../../../common/serviceBase'
 import { FlowField } from '../../../db/models'
+import { ERRORS, MESSAGES } from '../../../utils/errors'
 
 const constraints = {
   fieldId: {
@@ -17,7 +18,7 @@ export class DeleteFlowFieldService extends ServiceBase {
     const flowFieldData = await FlowField.findOne({ where: { field_id: this.fieldId }, raw: true })
 
     if (!(flowFieldData && flowFieldData.field_id)) {
-      this.addError('InvalidField', 'Flow field does not exist')
+      this.addError(ERRORS.NOT_FOUND, MESSAGES.FLOW_FIELD_NOT_EXIST)
       return
     }
 

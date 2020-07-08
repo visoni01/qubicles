@@ -1,5 +1,6 @@
 import logger from '../app/common/logger'
 import _ from 'lodash'
+import { MESSAGES, ERRORS } from '../app/utils/errors'
 
 function Responder () { }
 
@@ -51,16 +52,21 @@ Responder.success = (res, data) => {
   return sendResponse(res, 200, { data: data || [], message })
 }
 
-Responder.failed = (errorObj, res) => {
+Responder.failed = (res, errorObj) => {
   // get the error key
   const keys = Object.keys(errorObj)
   const errorName = (keys && keys.length && keys[0])
 
   if (errorName && _.isFunction(res.boom[errorName])) {
-    const errorMessage = errorObj[errorName]
+    let errorMessage
+    if (errorName === ERRORS.INTERNAL) {
+      errorMessage = MESSAGES.SERVER_ERROR
+    } else {
+      errorMessage = errorObj[errorName]
+    }
     res.boom[errorName](errorMessage)
   } else {
-    res.boom.internal('An error occurred while processing your request. Please try again later.')
+    res.boom.internal(MESSAGES.SERVER_ERROR)
   }
 }
 

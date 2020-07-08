@@ -10,7 +10,7 @@ export default class UserController {
     if (createUserResult.successful) {
       Responder.success(res, createUserResult.result)
     } else {
-      res.boom.badRequest('Validation didn\'t succeed', createUserResult.errors)
+      Responder.failed(res, createUserResult.errors)
     }
   }
 
@@ -19,7 +19,7 @@ export default class UserController {
     if (inviteWithGoogleResult.successful) {
       Responder.success(res, inviteWithGoogleResult.result)
     } else {
-      res.boom.badRequest('Invitation Failed', inviteWithGoogleResult.errors)
+      Responder.failed(res, inviteWithGoogleResult.errors)
     }
   }
 
@@ -28,7 +28,7 @@ export default class UserController {
     if (inviteWithGoogleCbResult.successful) {
       Responder.success(res, inviteWithGoogleCbResult.result)
     } else {
-      res.boom.badRequest('Invitation Response Failed', inviteWithGoogleCbResult.errors)
+      Responder.failed(res, inviteWithGoogleCbResult.errors)
     }
   }
 
@@ -37,7 +37,7 @@ export default class UserController {
     if (handleInviteLinkResult.successful) {
       Responder.success(res, handleInviteLinkResult.result)
     } else {
-      res.boom.badRequest('Invitation Response Failed', handleInviteLinkResult.errors)
+      Responder.failed(res, handleInviteLinkResult.errors)
     }
   }
 
@@ -46,7 +46,7 @@ export default class UserController {
     if (inviteManualResult.successful) {
       Responder.success(res, inviteManualResult.result)
     } else {
-      res.boom.badRequest('Invitation Response Failed', inviteManualResult.errors)
+      Responder.failed(res, inviteManualResult.errors)
     }
   }
 }
