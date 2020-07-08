@@ -119,6 +119,7 @@ export class PostSignupEmployerStep2Service extends ServiceBase {
       }
     } else {
       this.addError(ERRORS.NOT_FOUND, MESSAGES.CLIENT_NOT_FOUND)
+      return
     }
   }
 }
@@ -169,6 +170,7 @@ export class PostSignupEmployerStep3Service extends ServiceBase {
       }
     } else {
       this.addError(ERRORS.NOT_FOUND, MESSAGES.CLIENT_NOT_FOUND)
+      return
     }
   }
 }
@@ -268,6 +270,7 @@ export class PostSignupEmployerStep4Service extends ServiceBase {
       }
     } else {
       this.addError(ERRORS.NOT_FOUND, MESSAGES.CLIENT_NOT_FOUND)
+      return
     }
   }
 }

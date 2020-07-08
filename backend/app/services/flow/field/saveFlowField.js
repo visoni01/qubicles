@@ -132,6 +132,7 @@ export class SaveFlowFieldService extends ServiceBase {
       return flowData
     } catch (e) {
       logger.error(getErrorMessageForService('SaveFlowFieldService'), e)
+      this.addError(ERRORS.INTERNAL)
     }
   }
 }

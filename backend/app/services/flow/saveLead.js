@@ -111,16 +111,17 @@ export class SaveLeadService extends ServiceBase {
             return standardLead
           } else {
             this.addError(ERRORS.NOT_FOUND, 'Standard Lead not found')
+            return
           }
         } catch (error) {
           logger.error(getErrorMessageForService('SaveLeadService'), error)
           this.addError(ERRORS.INTERNAL)
         }
       } else {
-        this.addError(ERRORS.BAD_REQUEST, 'User is invalid')
+        return this.addError(ERRORS.BAD_REQUEST, 'User is invalid')
       }
     } else {
-      this.addError(ERRORS.BAD_REQUEST, 'User or Lead Id is missing')
+      return this.addError(ERRORS.BAD_REQUEST, 'User or Lead Id is missing')
     }
   }
 }
