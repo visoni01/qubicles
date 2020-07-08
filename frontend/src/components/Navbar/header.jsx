@@ -9,7 +9,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import headerLogo from '../../assets/images/qbe-header-logo.png'
 
-const DashboardHeader = () => (
+const Header = () => (
   <div className='dashboard-header'>
     <div className='left column is-1 pull-left'>
       <img
@@ -41,4 +41,4 @@ const DashboardHeader = () => (
   </div>
 )
 
-export default DashboardHeader
+export default Header
