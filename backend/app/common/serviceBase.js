@@ -67,15 +67,14 @@ export default class ServiceBase {
     this._failed = !!_.size(this.errors)
   }
 
-
   addError (attribute, errorMessage, responseStatusCode = null) {
     Log.debug('Custom Validation Failed', { klass: this.constructor, message: errorMessage, context: { attribute }, userCtx: this.context, fault: this.errors })
-    
+
     // overwriting the previous error if error is already set
     if (!_.isEmpty(this._errors)) {
       this._errors = {
         [attribute]: errorMessage
-      }  
+      }
     } else {
       this._errors[attribute] = errorMessage
     }
@@ -84,7 +83,7 @@ export default class ServiceBase {
     // const errors = this._errors[this.constructor.name] = this._errors[this.constructor.name] || {}
     // if (!errors[attribute]) return _.extend(errors, { [attribute]: `${_.startCase(attribute)} ${errorMessage}` })
     // errors[attribute] = errors[attribute] instanceof Array ? errors[attribute] : [errors[attribute]]
-    // errors[attribute].push(`${_.startCase(attribute)} ${errorMessage}`)  
+    // errors[attribute].push(`${_.startCase(attribute)} ${errorMessage}`)
   }
 
   mergeErrors (errors) {
@@ -105,7 +104,7 @@ export default class ServiceBase {
     _.forEach(validationErrors, (error, key) => {
       errors[ERRORS.BAD_DATA] = error[0]
     })
- 
+
     if (_.size(errors)) {
       _.extend(this.errors, { ...errors })
       Log.debug('Service input Validation Failed', { klass: this.constructor, message: 'Validation Failed', context: this.args, userCtx: this.context, fault: this.errors })

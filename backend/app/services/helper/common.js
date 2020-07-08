@@ -75,3 +75,7 @@ export const getArchiveTableName = (model) => {
 export const getHistoricalTableName = (model) => {
   return `${model.tableName}_historical`
 }
+
+export const getErrorMessageForService = (serviceName) => {
+  return `Error while executing the service ${serviceName} =====>`
+}

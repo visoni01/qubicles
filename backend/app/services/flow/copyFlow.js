@@ -1,6 +1,12 @@
 import ServiceBase from '../../common/serviceBase'
 import { Flow, FlowPage, FlowField } from '../../db/models'
-import { createNewEntity, getFlowFieldsByFlowAndPageId } from '../helper'
+import {
+  createNewEntity,
+  getFlowFieldsByFlowAndPageId,
+  getErrorMessageForService
+} from '../helper'
+import { ERRORS, MESSAGES } from '../../utils/errors'
+import logger from '../../common/logger'
 
 const constraints = {
   flowId: {
@@ -25,7 +31,7 @@ export class CopyFlowService extends ServiceBase {
       const existingFlow = await Flow.findOne({ where: { flow_id: this.flowId }, raw: true })
 
       if (!(existingFlow && existingFlow['flow_id'])) {
-        this.addError('InvalidFlow', 'Flow does not exist')
+        this.addError(ERRORS.NOT_FOUND, MESSAGES.FLOW_NOT_EXIST)
         return
       }
 
@@ -79,8 +85,8 @@ export class CopyFlowService extends ServiceBase {
         }
       }
     } catch (err) {
-      console.log('Error while executing the service CopyFlowService', err)
-      this.addError('Error', 'Error occuring while copy the flow')
+      logger.error(getErrorMessageForService('CopyFlowService'), err)
+      this.addError(ERRORS.INTERNAL)
     }
   }
 

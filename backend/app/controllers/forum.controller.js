@@ -7,7 +7,7 @@ export default class ForumController {
     if (forumCategories.successful) {
       Responder.success(res, forumCategories.result)
     } else {
-      res.boom.badRequest('Error in forumCategories Service', forumCategories.errors)
+      Responder.failed(res, forumCategories.errors)
     }
   }
 }

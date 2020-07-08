@@ -5,6 +5,9 @@ import { generateUserWalletId } from '../../../utils/generateWalletId'
 import AddUserToActiveCampaign from '../../activeCampaign/addUserToActiveCampaign'
 import { Op } from 'sequelize'
 import config from '../../../../config/app'
+import { ERRORS } from '../../../utils/errors'
+import logger from '../../../common/logger'
+import { getErrorMessageForService } from '../../helper'
 
 const constraintsStep1 = {
   user_id: {
@@ -244,7 +247,8 @@ export class PostSignupAgentStep6Service extends ServiceBase {
         inviteLink
       }
     } catch (e) {
-      this.addError('Error', 'Error in agent post signup')
+      logger.error(getErrorMessageForService('PostSignupAgentStep6Service'), e)
+      this.addError(ERRORS.INTERNAL)
     }
   }
 }

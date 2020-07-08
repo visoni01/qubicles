@@ -1,5 +1,6 @@
 import ServiceBase from '../../../common/serviceBase'
 import { FlowPage } from '../../../db/models'
+import { ERRORS, MESSAGES } from '../../../utils/errors'
 
 const constraints = {
   pageId: {
@@ -17,7 +18,7 @@ export class DeleteFlowPageService extends ServiceBase {
     const flowPageData = await FlowPage.findOne({ where: { page_id: this.pageId }, raw: true })
 
     if (!(flowPageData && flowPageData['page_id'])) {
-      this.addError('InvalidField', 'Flow page does not exist')
+      this.addError(ERRORS.NOT_FOUND, MESSAGES.FLOW_PAGE_NOT_EXIST)
       return
     }
 

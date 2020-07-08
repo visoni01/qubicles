@@ -3,6 +3,9 @@ import config from '../../../../config/app'
 import { UserDetail } from '../../../db/models'
 import SendEmailInvitationMail from '../../email/sendEmailInvitationMail'
 import AddUserContact from '../addUserContact'
+import { ERRORS } from '../../../utils/errors'
+import logger from '../../../common/logger'
+import { getErrorMessageForService } from '../../helper'
 
 const constraints = {
   user_id: {
@@ -46,7 +49,8 @@ export default class InviteManualService extends ServiceBase {
       })
       return 'Sent Invitations successfully'
     } catch (err) {
-      this.addError('error', err)
+      logger.error(getErrorMessageForService('InviteManualService'), err)
+      this.addError(ERRORS.INTERNAL)
     }
   }
 }

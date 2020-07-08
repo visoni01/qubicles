@@ -19,7 +19,7 @@ export default class UserEmployerController {
     if (postSignupEmployerResult.successful) {
       Responder.success(res, postSignupEmployerResult.result)
     } else {
-      res.boom.badRequest('Validation didn\'t succeed', postSignupEmployerResult.errors)
+      Responder.failed(res, postSignupEmployerResult.errors)
     }
   }
 }

@@ -7,7 +7,7 @@ export default class ExampleController {
     if (exampleResult.successful) {
       Responder.success(res, exampleResult.result)
     } else {
-      res.boom.badRequest('Validation didn\'t succeed', exampleResult.errors)
+      Responder.failed(res, exampleResult.errors)
     }
   }
 }
