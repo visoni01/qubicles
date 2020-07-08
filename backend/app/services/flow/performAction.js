@@ -32,6 +32,7 @@ import moment from 'moment'
 import _ from 'lodash'
 import ical from 'ical-generator'
 import NodeMailer from '../../utils/getNodeMailer'
+import logger from '../../common/logger'
 
 const constraints = {
   userId: {
@@ -611,9 +612,9 @@ export class PerformActionService extends ServiceBase {
 
               try {
                 const info = await NodeMailer.sendMail(emailObj)
-                console.info(`Email sent succesfully!! => ${JSON.stringify(info)}`)
+                logger.info(`Email sent succesfully!! => ${JSON.stringify(info)}`)
               } catch (error) {
-                console.error(`Error in sending mail: ${error}`)
+                logger.error(`Error in sending mail: ${error}`)
               }
             }
           }
