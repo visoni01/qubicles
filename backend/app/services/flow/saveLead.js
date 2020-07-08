@@ -3,10 +3,12 @@ import {
   getUserById,
   getLeadByLeadId,
   updateLead,
-  updateLeadInCustomTable
+  updateLeadInCustomTable,
+  getErrorMessageForService
 } from '../helper'
 import GetClientsService from '../user/getClients'
 import logger from '../../common/logger'
+import { ERRORS } from '../../utils/errors'
 
 const constraints = {
   lead: {
@@ -108,17 +110,17 @@ export class SaveLeadService extends ServiceBase {
 
             return standardLead
           } else {
-            this.addError('InvalidLead', 'Standard Lead not found')
+            this.addError(ERRORS.NOT_FOUND, 'Standard Lead not found')
           }
         } catch (error) {
-          logger.error(`Error in save lead service: ${error}`)
-          this.addError('Error', 'Error occurred while saving lead')
+          logger.error(getErrorMessageForService('SaveLeadService'), error)
+          this.addError(ERRORS.INTERNAL)
         }
       } else {
-        this.addError('InvalidUser', 'User is invalid')
+        this.addError(ERRORS.BAD_REQUEST, 'User is invalid')
       }
     } else {
-      this.addError('InvalidUserOrLeadId', 'User or Lead Id is missing')
+      this.addError(ERRORS.BAD_REQUEST, 'User or Lead Id is missing')
     }
   }
 }

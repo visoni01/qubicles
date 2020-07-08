@@ -1,5 +1,8 @@
 import ServiceBase from '../../../common/serviceBase'
 import { FlowField, Flow } from '../../../db/models'
+import { ERRORS, MESSAGES } from '../../../utils/errors'
+import logger from '../../../common/logger'
+import { getErrorMessageForService } from '../../helper'
 
 const constraints = {
   field_id: {
@@ -84,7 +87,7 @@ export class SaveFlowFieldService extends ServiceBase {
       const flowData = await Flow.findOne({ where: { flow_id: this.flow_id }, raw: true })
 
       if (!(flowData && flowData['flow_id'])) {
-        this.addError('InvalidField', 'Flow does not exist')
+        this.addError(ERRORS.NOT_FOUND, MESSAGES.FLOW_NOT_EXIST)
         return
       }
 
@@ -128,7 +131,7 @@ export class SaveFlowFieldService extends ServiceBase {
 
       return flowData
     } catch (e) {
-      this.addError('Error', 'Error occuring while processing the request!')
+      logger.error(getErrorMessageForService('SaveFlowFieldService'), e)
     }
   }
 }

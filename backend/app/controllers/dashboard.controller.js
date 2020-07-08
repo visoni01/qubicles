@@ -10,7 +10,7 @@ export default class DashboardController {
     if (communityRep.successful) {
       Responder.success(res, communityRep.result)
     } else {
-      res.boom.badRequest('Error in CommunityRep Service', communityRep.errors)
+      Responder.failed(res, communityRep.errors)
     }
   }
 
@@ -19,7 +19,7 @@ export default class DashboardController {
     if (latestAnnouncements.successful) {
       Responder.success(res, latestAnnouncements.result)
     } else {
-      res.boom.badRequest('Error in LatestAnnouncements Service', latestAnnouncements.errors)
+      Responder.failed(res, latestAnnouncements.errors)
     }
   }
 
@@ -28,7 +28,7 @@ export default class DashboardController {
     if (latestJobs.successful) {
       Responder.success(res, latestJobs.result)
     } else {
-      res.boom.badRequest('Error in JobPostings Service', latestJobs.errors)
+      Responder.failed(res, latestJobs.errors)
     }
   }
 
@@ -37,7 +37,7 @@ export default class DashboardController {
     if (activeUsers.successful) {
       Responder.success(res, activeUsers.result)
     } else {
-      res.boom.badRequest('Error in ActiveUsers service', activeUsers.errors)
+      Responder.failed(res, activeUsers.errors)
     }
   }
 }

@@ -1,5 +1,6 @@
 import ServiceBase from '../../common/serviceBase'
 import { getAppsByUser } from '../apps/helper'
+import { ERRORS, MESSAGES } from '../../utils/errors'
 
 const constraints = {
   userId: {
@@ -20,7 +21,7 @@ export class CheckAuthorizationService extends ServiceBase {
 
     const filteredApps = apps.find((app) => app.controllerpath.toLowerCase().includes(this.appPath.toLowerCase()))
     if (!(filteredApps && filteredApps.length)) {
-      this.addError('PermissionDenied', 'You don\'t have permission to access this page')
+      this.addError(ERRORS.UNAUTHORIZED, MESSAGES.UNAUTHORIZED)
       return
     }
 

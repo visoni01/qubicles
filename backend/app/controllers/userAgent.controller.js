@@ -32,7 +32,7 @@ export default class UserAgentController {
     if (postSignupAgentResult.successful) {
       Responder.success(res, postSignupAgentResult.result)
     } else {
-      res.boom.badRequest('Validation didn\'t succeed', postSignupAgentResult.errors)
+      Responder.failed(res, postSignupAgentResult.errors)
     }
   }
 }

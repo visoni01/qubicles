@@ -5,7 +5,9 @@ import { findUniqueID, generateID } from '../../../utils/generateId'
 import { generateUserWalletId } from '../../../utils/generateWalletId'
 import SendEmailNotificationMail from '../../email/sendEmailNotificationMail'
 import AddUserToActiveCampaign from '../../activeCampaign/addUserToActiveCampaign'
-
+import { ERRORS, MESSAGES } from '../../../utils/errors'
+import { getErrorMessageForService } from '../../helper'
+import logger from '../../../common/logger'
 import { Op } from 'sequelize'
 import config from '../../../../config/app'
 
@@ -73,7 +75,8 @@ export class PostSignupEmployerStep1Service extends ServiceBase {
 
       return `Post Signup Step 1 for user ${this.user_id} is completed`
     } catch (e) {
-      this.addError(e.message, e.json || e.errors[0].message)
+      logger.error(getErrorMessageForService('PostSignupEmployerStep1Service'), e)
+      this.addError(ERRORS.INTERNAL)
     }
   }
 }
@@ -111,10 +114,11 @@ export class PostSignupEmployerStep2Service extends ServiceBase {
 
         return `Post signup step 2 for user ${this.user_id} is completed. Added EIN`
       } catch (e) {
-        this.addError(e.message, e.json || e.errors[0].message)
+        logger.error(getErrorMessageForService('PostSignupEmployerStep2Service'), e)
+        this.addError(ERRORS.INTERNAL)
       }
     } else {
-      this.addError('xClient', 'Client does not exist for this user, Please complete step 1 First')
+      this.addError(ERRORS.NOT_FOUND, MESSAGES.CLIENT_NOT_FOUND)
     }
   }
 }
@@ -160,10 +164,11 @@ export class PostSignupEmployerStep3Service extends ServiceBase {
 
         return `Post signup step 3 for user ${this.user_id} is completed`
       } catch (e) {
-        this.addError(e.message, e.json || e.errors[0].message)
+        logger.error(getErrorMessageForService('PostSignupEmployerStep3Service'), e)
+        this.addError(ERRORS.INTERNAL)
       }
     } else {
-      this.addError('xClient', 'Client does not exist for this user, Please complete step 1 First')
+      this.addError(ERRORS.NOT_FOUND, MESSAGES.CLIENT_NOT_FOUND)
     }
   }
 }
@@ -258,10 +263,11 @@ export class PostSignupEmployerStep4Service extends ServiceBase {
           inviteLink
         }
       } catch (e) {
-        this.addError('Error', 'Error in employer post signup')
+        logger.error(getErrorMessageForService('PostSignupEmployerStep4Service'), e)
+        this.addError(ERRORS.INTERNAL)
       }
     } else {
-      this.addError('xClient', 'Client does not exist for this user, Please complete step 1 First')
+      this.addError(ERRORS.NOT_FOUND, MESSAGES.CLIENT_NOT_FOUND)
     }
   }
 }
