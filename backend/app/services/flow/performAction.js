@@ -259,8 +259,7 @@ export class PerformActionService extends ServiceBase {
               if (leadRecords.length > 0) {
                 // get our list of non-finalized dispositions and match the leads against those
                 const callableStatuses = await getCampaignStatusesByCampaignId({ campaign_id: leadList.campaign_id })
-                  .filter(campaign => (!campaign.category || campaign.category === 'UNDEFINED'))
-                  .filter(status => status.unworkable === 'N')
+                  .filter(status => (!status.category || status.category === 'UNDEFINED') && status.unworkable === 'N')
                   .map((s) => s.status)
 
                 // add system NEW as callable
