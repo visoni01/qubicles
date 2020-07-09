@@ -85,4 +85,8 @@ flowRouter.route('/savelead')
 flowRouter.route('/check-user-status')
   .get(flowController.checkUserStatus)
 
+// Section-3.8, REQ-22
+flowRouter.route('/dispo-house-holding-records')
+  .post(flowController.dispoHouseholdingRecord)
+
 export { flowRouter }
