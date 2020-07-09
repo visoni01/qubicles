@@ -49,6 +49,5 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('x_forum_channels')
-    // await queryInterface.bulkDelete('x_forum_channels', null, {})
   }
 }

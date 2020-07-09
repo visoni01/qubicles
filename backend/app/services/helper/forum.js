@@ -280,17 +280,3 @@ export async function getOneForumUser (queryObj = {}) {
   query = { where: { ...queryObj }, ...query }
   return XForumUser.findOne(query)
 }
-
-// export async function checkForumVisibility ({ user_id, forum_object_id, forum_object_type }) {
-//   let visibility = false
-//   switch (forum_object_type) {
-//     case 'topic':
-
-//   }
-//   const forumUser = await getOneForumUser({
-//     forum_object_id,
-//     forum_object_type,
-//     user_id
-//   })
-
-// }

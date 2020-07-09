@@ -24,7 +24,7 @@ export default class ForumChannel extends ServiceBase {
       () => getTopics({ user_id })
     ]
     const [channel, topics] = await Promise.all(promises.map(promise => promise()))
-    if (channel === null) {
+    if (!channel) {
       this.addError(ERRORS.NOT_FOUND, `Channel with channel_id ${channel_id} does not exist`)
       return
     }
@@ -37,14 +37,13 @@ export async function getChannelPage ({ channel, topics }) {
   const filteredTopics = getFilteredTopics({ channel_id: channel.channel_id, topics })
   const totalMembers = await getChannelUsersCount({ channel_id: channel.channel_id })
   const { channelTopics, totalTopicComments } = await getTopicsSubDetails({ topics: filteredTopics })
-  const totalReplies = totalTopicComments
   const moderators = await getChannelModerators({ channel_id: channel.channel_id })
   const channelInfo = {
     channelId: channel.channel_id,
     channelTitle: channel.channel_title,
     channelDescription: channel.channel_description,
     totalMembers,
-    totalReplies,
+    totalReplies: totalTopicComments,
     topicsCount: filteredTopics.length,
     moderators
   }
@@ -74,11 +73,7 @@ export async function getChannelModerators ({ channel_id }) {
     forum_object_id: channel_id,
     is_moderator: true
   })
-  const userSubProfiles = []
-  for (const user of channelModerators) {
-    const userSubProfile = await getUserSubProfile({ user_id: user.user_id })
-    userSubProfiles.push(userSubProfile)
-  }
+  const userSubProfiles = await Promise.all(channelModerators.map(user => getUserSubProfile({ user_id: user.user_id })))
   return userSubProfiles
 }
 
