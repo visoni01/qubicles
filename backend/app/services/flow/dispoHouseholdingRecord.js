@@ -12,10 +12,10 @@ import GetClientsService from '../user/getClients'
 
 const constraints = {
   leadId: {
-    presence: { allowEmpty: false }
+    presence: false
   },
   userId: {
-    presence: { allowEmpty: false }
+    presence: false
   },
   flowLeadId: {
     presence: false

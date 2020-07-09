@@ -19,7 +19,8 @@ import {
   SaveLeadService,
   CheckUserStatusService,
   PerformActionService,
-  DispoHouseholdingRecordService
+  DispoHouseholdingRecordService,
+  HouseholdingRecordsService
 } from '../services/flow'
 import config from '../../config/app'
 
@@ -214,6 +215,15 @@ export default class FlowController {
       Responder.success(res, dispoHouseholdingRecordResult.result)
     } else {
       Responder.failed(res, dispoHouseholdingRecordResult.errors)
+    }
+  }
+
+  static async householdingRecords (req, res) {
+    const householdingRecordsResult = await HouseholdingRecordsService.execute(req.body)
+    if (householdingRecordsResult.successful) {
+      Responder.success(res, householdingRecordsResult.result)
+    } else {
+      Responder.failed(res, householdingRecordsResult.errors)
     }
   }
 }
