@@ -71,9 +71,11 @@ export const deleteLeadCustomData = async ({ list_id, lead_id }) => {
   const isTableExist = await listsFieldsTableExists({ list_id })
   if (isTableExist) {
     lead = await executeDeleteQuery({
-      method: 'deleteLeadCustomData',
+      method: 'deleteRecordByColumnName',
       sourceTable: `x_leads_custom_${list_id}`,
-      lead_id
+      columnName: 'lead_id',
+      columnValue: lead_id,
+      extraQueryAttributes: 'LIMIT 1'
     })
     return lead
   }
@@ -179,4 +181,39 @@ export const addLeadToCustomTable = async ({ list_id, lead_id }) => {
       list_id
     })
   }
+}
+
+export const deleteLeadFromLeadQueue = async ({ lead_id, user, clients }) => {
+  const sourceTable = getQueueTableName({ user, clients })
+  await executeDeleteQuery({
+    method: 'deleteRecordByColumnName',
+    sourceTable,
+    columnName: 'lead_id',
+    columnValue: lead_id
+  })
+}
+
+export function getQueueTableName ({ user, clients }) {
+  if (user && user.user_level < USER_LEVEL.SYSTEM) {
+    return `x_leads_queue_${clients[0].client_username}_${clients[0].client_id}`
+  } else {
+    return 'x_leads_qubicles_1'
+  }
+}
+
+export const getLeadCustomDataByColumn = async ({ list_id, columnName, columnValue, user, clients }) => {
+  let lead = {}
+  const isTableExist = await listsFieldsTableExists({ list_id })
+  const isColumnExist = await listsFieldsColumnExists({ list_id, columnName })
+  const sourceTable = getLeadsTableName({ user, clients })
+  if (isTableExist && isColumnExist) {
+    lead = await executeSelectQuery({
+      method: 'getLeadCustomDataByColumn',
+      sourceTable,
+      columnName,
+      columnValue,
+      list_id
+    })
+  }
+  return lead
 }
