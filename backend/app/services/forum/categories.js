@@ -41,7 +41,7 @@ export function getFilteredChannels ({ topics, channels, category_id }) {
       filteredChannels.push({
         id: channel.channel_id,
         title: channel.channel_title,
-        description: 'no description',
+        description: channel.channel_description,
         noOfTopics: getFilteredTopicsCount({ topics, channel_id: channel.channel_id })
       })
     }

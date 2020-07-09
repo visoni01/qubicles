@@ -6,7 +6,8 @@ module.exports = {
     await queryInterface.bulkInsert('x_forum_topics', [
       {
         topic_title: 'New schedule during covid-19 pandemic',
-        owner_id: 5,
+        tags: 'Company&&Internal',
+        owner_id: 1,
         channel_id: 1,
         is_public: true,
         is_flagged: true,
@@ -14,7 +15,8 @@ module.exports = {
       },
       {
         topic_title: 'Welcome our new director of changing the world',
-        owner_id: 5,
+        tags: 'Partnership&&Global',
+        owner_id: 2,
         channel_id: 1,
         is_public: true,
         is_flagged: true,

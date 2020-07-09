@@ -12,7 +12,7 @@ const getAvatarAndProfilesData = ({ users, bubbles }) => {
   return data
 }
 
-const Contributors = ({ users, bubbles, message }) => {
+const Contributors = ({ users=[], bubbles, message }) => {
   const { avatars, usernames } = getAvatarAndProfilesData({ users, bubbles })
   return (
     <div className='latest-posts'>

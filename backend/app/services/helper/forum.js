@@ -256,3 +256,41 @@ export async function getCompanyAnnouncementChannel ({ client_id }) {
   const announcementChannel = await XForumChannel.findOne({ where: { client_id, is_company_ann: true }, raw: true })
   return announcementChannel
 }
+
+export async function getOneChannel (queryObj = {}) {
+  let query = { raw: true }
+  query = { where: { ...queryObj }, ...query }
+  return XForumChannel.findOne(query)
+}
+
+export async function getAllTopics (queryObj = {}) {
+  let query = { raw: true }
+  query = { where: { ...queryObj }, ...query }
+  return XForumTopic.findAll(query)
+}
+
+export async function getAllForumUsers (queryObj = {}) {
+  let query = { raw: true }
+  query = { where: { ...queryObj }, ...query }
+  return XForumUser.findAll(query)
+}
+
+export async function getOneForumUser (queryObj = {}) {
+  let query = { raw: true }
+  query = { where: { ...queryObj }, ...query }
+  return XForumUser.findOne(query)
+}
+
+// export async function checkForumVisibility ({ user_id, forum_object_id, forum_object_type }) {
+//   let visibility = false
+//   switch (forum_object_type) {
+//     case 'topic':
+
+//   }
+//   const forumUser = await getOneForumUser({
+//     forum_object_id,
+//     forum_object_type,
+//     user_id
+//   })
+
+// }

@@ -6,8 +6,9 @@ module.exports = {
     await queryInterface.bulkInsert('x_forum_channels', [
       {
         channel_title: 'General Announcements',
-        owner_id: 5,
-        client_id: 12,
+        channel_description: 'This channel is used to create posts about various company announcements. From new hires, to new policies or related topics. Find them all here, and participate!',
+        owner_id: 1,
+        client_id: 1,
         category_id: 1,
         is_public: true,
         is_company_ann: true,
@@ -15,8 +16,9 @@ module.exports = {
       },
       {
         channel_title: 'Hiring the Right People',
-        owner_id: 5,
-        client_id: 12,
+        channel_description: "Let's talk about how hiring the right people is a best practice for having delivering a great customer Service!",
+        owner_id: 1,
+        client_id: 1,
         category_id: 2,
         is_public: true,
         is_company_ann: true,
@@ -24,8 +26,9 @@ module.exports = {
       },
       {
         channel_title: 'Managing Customer Expectations',
-        owner_id: 5,
-        client_id: 12,
+        channel_description: "Just as in our personal life, managing expectations is a critical part of customer service. Don't agree ? Let's talk about it.",
+        owner_id: 1,
+        client_id: 1,
         category_id: 2,
         is_public: true,
         is_company_ann: true,
@@ -33,8 +36,9 @@ module.exports = {
       },
       {
         channel_title: 'Perfecting First Impressions',
-        owner_id: 5,
-        client_id: 12,
+        channel_description: '',
+        owner_id: 1,
+        client_id: 1,
         category_id: 2,
         is_public: true,
         is_company_ann: true,

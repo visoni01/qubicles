@@ -22,6 +22,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       defaultValue: 0
     },
+    tags: {
+      type: DataTypes.STRING(100)
+    },
     is_public: {
       type: DataTypes.BOOLEAN
     },

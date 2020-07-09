@@ -231,3 +231,9 @@ async function checkVisibility ({ activity_permission, record_id, accessing_user
   }
   return result
 }
+
+export async function getAllUserActivities (queryObj = {}) {
+  let query = { raw: true }
+  query = { where: { ...queryObj }, ...query }
+  return XUserActivity.findAll(query)
+}

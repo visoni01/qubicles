@@ -30,7 +30,9 @@ module.exports = (sequelize, DataTypes) => {
     notify_sms: {
       type: DataTypes.BOOLEAN,
       defaultValue: true
-    }
+    },
+    is_online: DataTypes.BOOLEAN,
+    profile_image: DataTypes.STRING
   },
   { tableName: 'x_user_details' })
 
