@@ -5,6 +5,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import ForumWrap from '../../components/CommunicationForums/ForumWrap'
 import { categoryDataFetchingStart } from '../../redux-saga/redux/actions'
 
+
 const ForumGroup = () => {
   const dispatch = useDispatch()
   useEffect(() => {

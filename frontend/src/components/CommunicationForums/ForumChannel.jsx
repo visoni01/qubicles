@@ -7,10 +7,6 @@ import { Redirect, useHistory, Link } from 'react-router-dom'
 const Channel = ({
   notifications, title, description, noOfTopics, id,
 }) => {
-  const history = useHistory()
-  const handleChannelClick = () => {
-
-  }
   return (
     <a href={ `/group/channels/${ id }` }>
       <div className='forum-channel'>

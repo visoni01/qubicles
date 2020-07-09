@@ -1,36 +1,45 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Contributors = ({ users, message, bubbles }) => (
-  // bubbles are number of face icons
-  <>
+const getAvatarAndProfilesData = ({ users, bubbles }) => {
+  const usersData = users.slice(0, bubbles)
+  const data = { avatars: [], usernames: [] }
+  usersData.forEach((user, index) => {
+    data.avatars.push(<img key={ user.user_id } className='avatar' src={ user.profile_photo } alt='' />)
+    data.usernames.push(<a key={ user.user_id }>{user.user_name}{index < bubbles-1 && <nobr>, </nobr>}</a>)
+  })
+
+  return data
+}
+
+const Contributors = ({ users, bubbles, message }) => {
+  const { avatars, usernames } = getAvatarAndProfilesData({ users, bubbles })
+  return (
     <div className='latest-posts'>
       <div className='avatars'>
-        { users.slice(0, bubbles).map((user) => (
-          <img key={ user.user_id } className='avatar' src={ user.profile_photo } alt='' />
-        ))}
-        {users.length > 3 && (
+        {avatars}
+        {users.length > bubbles && (
           <div className='avatar'>
-            <span>{`+${ users.length - bubbles }` }</span>
+            <span>{` +${ users.length - bubbles }` }</span>
           </div>
         )}
       </div>
       <div className='latest-meta'>
         <span>
-          {users.slice(0, bubbles).map((user, index) => (
-            <a key={ user.user_id }>{user.user_name}{index < bubbles-1 && <nobr>, </nobr>}</a>
-          ))
-          }
-          {users.length > 3 && <nobr> and <a>{users.length - bubbles} more</a> </nobr>}
+          {usernames}
+          {users.length > bubbles && <nobr> and <a>{users.length - bubbles} more</a> </nobr>}
         </span>
         <span>{message}</span>
       </div>
     </div>
-  </>
-)
+  )
+}
+
+
 
 Contributors.defaultProps = {
   bubbles: 3,
+  message: 'are moderating this channel'
 }
 
 Contributors.propTypes = {

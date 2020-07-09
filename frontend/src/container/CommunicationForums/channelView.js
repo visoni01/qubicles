@@ -5,6 +5,7 @@ import ChannelHeader from '../../components/CommunicationForums/ChannelHeader'
 import TopicList from '../../components/CommunicationForums/TopicList'
 import { channelDataFetchingStart } from '../../redux-saga/redux/actions'
 import { isEmptyObject } from '../../utils/common'
+import './style.scss'
 
 const ForumChannel = () => {
   const { channelId } = useParams()
@@ -24,7 +25,7 @@ const ForumChannel = () => {
               {/* Channel Header */}
               {!isLoading && !isEmptyObject(channelDetails) && <ChannelHeader { ...channelDetails.channelInfo } />}
             </div>
-            {!isLoading && !isEmptyObject(channelDetails) && <TopicList { ...channelDetails.channelInfo } />}
+            {!isLoading && !isEmptyObject(channelDetails) && <TopicList {...channelDetails} />}
           </div>
         </div>
       </div>

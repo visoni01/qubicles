@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import {getDataForReducer} from '../../../utils/common'
 
 const initialState = {
   isLoading: null,
@@ -26,7 +27,7 @@ const {
       ...state,
       success: true,
       isLoading: false,
-      channelDetails: action.payload.channelDetails,
+      channelDetails: getDataForReducer(action, initialState.channelDetails, 'channelDetails')
     }),
     channelDataFetchingFailure: (state, action) => ({
       ...state,

@@ -2,20 +2,19 @@ import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import Contributors from './Contributors'
 import Topic from './Topic'
-import channelData from '../../container/CommunicationForums/channelData'
 
-const TopicList = ({ topicsCount, moderators }) => (
+const TopicList = ({ channelInfo, channelTopics }) => (
   <div className='forum-wrap'>
     <div className='forum-container'>
       {/* Heading */}
       <div className='channel-heading'>
         <h3>
-          {`${ topicsCount } topics`}
+          {`${ channelInfo.topicsCount } topics`}
         </h3>
-        <Contributors users={ moderators } message='are moderating this channel'/>
+        <Contributors users={ channelInfo.moderators } message='are moderating this channel'/>
       </div>
       <div className='topic-list'>
-        {channelData.topics.map((topic) => <Topic { ...topic } key={ `${ topic.topicId }` } />)}
+        {channelTopics.map((topic) => <Topic { ...topic } key={ `${ topic.topicId }` } />)}
       </div>
     </div>
   </div>

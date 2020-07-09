@@ -11,30 +11,30 @@ const ChannelHeader = ({
   <div>
     <div className='forum-title-wrapper is-mobile'>
       <img className='forum-image' src='https://via.placeholder.com/150x150' alt='' />
-      <div className='inner-wrap'>
-        <h3 className='forum-title'>{channelTitle}</h3>
+      <div className='inner-wrap channel-head'>
+        <h3 className='channel-title'>{channelTitle}</h3>
         <div className='title-meta'>
           {/* {Total Members} */}
           <div className='meta'>
-            <FontAwesomeIcon icon={ faUsers } />
+            <FontAwesomeIcon icon={ faUsers } className='total-members'/>
             <span>{totalMembers}</span>
           </div>
           {/* {Total Replies} */}
           <div className='meta'>
-            <FontAwesomeIcon icon={ faCommentDots } />
+            <FontAwesomeIcon icon={ faCommentDots } className='total-comments' />
             <span>{totalReplies}</span>
           </div>
         </div>
       </div>
       {/* {Channel Search Bar} */}
-      <div className='control forum-search'>
+      <div className='control channel-search'>
         <input type='text' className='input is-rounded' placeholder='Search Channel...' />
         <div className='search-icon'>
           <i className='sl sl-icon-magnifier' />
         </div>
       </div>
-      <div className='actions'>
-        <div className='forum-back'>
+      <div className='actions channel-actions'>
+        <div className='forum-back home-button'>
           <i><FontAwesomeIcon icon={ faHome } /></i>
           <i><FontAwesomeIcon icon={ faArrowLeft } /></i>
         </div>

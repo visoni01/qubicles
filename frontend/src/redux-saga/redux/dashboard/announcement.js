@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { getDataForReducer } from '../../../utils/common'
+
 
 const initialState = {
   loading: null,
@@ -26,7 +28,7 @@ const {
       ...initialState,
       success: true,
       isLoading: false,
-      announcements: action.payload.announcements,
+      announcements: getDataForReducer(action, initialState.announcements, 'announcements')
     }),
     announcementDataFetchingFailure: (state, action) => ({
       ...initialState,

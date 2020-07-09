@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLightbulb } from '@fortawesome/free-solid-svg-icons'
+import { getTimeFromNow } from '../../utils/common'
 
 const Topic = ({
-  topicTitle, tags, time, topicOwner, totalReplies, lastReply,
+  topicTitle, tags, dateCreatedOn, topicOwner, totalReplies, dateLastReplied,
 }) => (
   <div className='topic-card is-sticky'>
     <div className='topic-owner'>
@@ -16,7 +17,7 @@ const Topic = ({
     <div className='topic-meta'>
       <a className='topic-title'>{topicTitle}</a>
       <div className='flex-block'>
-        <span>{time}{', by '}
+        <span>{getTimeFromNow(dateCreatedOn)}{', by '}
           <a>{topicOwner}</a>
         </span>
         <div className='tags'>
@@ -36,7 +37,7 @@ const Topic = ({
         <img src='https://via.placeholder.com/150x150' alt='' data-demo-src='assets/images/avatars/helen.jpg' />
         <div className='last-reply-meta'>
           <span>Last reply</span>
-          <span>{lastReply}</span>
+          <span>{getTimeFromNow(dateLastReplied)}</span>
         </div>
       </div>
     </div>
@@ -45,10 +46,10 @@ const Topic = ({
 Topic.propTypes = {
   topicTitle: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,
-  time: PropTypes.string.isRequired,
+  dateCreatedOn: PropTypes.string.isRequired,
   topicOwner: PropTypes.string.isRequired,
   totalReplies: PropTypes.number.isRequired,
-  lastReply: PropTypes.string.isRequired,
+  dateLastReplied: PropTypes.string.isRequired,
 }
 
 export default Topic
