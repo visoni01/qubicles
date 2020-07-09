@@ -201,14 +201,14 @@ export function getQueueTableName ({ user, clients }) {
   }
 }
 
-export const getLeadCustomDataByColumn = async ({ list_id, columnName, columnValue, user, clients }) => {
+export const getLeadCustomDataByColumnName = async ({ list_id, columnName, columnValue, user, clients }) => {
   let lead = {}
   const isTableExist = await listsFieldsTableExists({ list_id })
   const isColumnExist = await listsFieldsColumnExists({ list_id, columnName })
   const sourceTable = getLeadsTableName({ user, clients })
   if (isTableExist && isColumnExist) {
     lead = await executeSelectQuery({
-      method: 'getLeadCustomDataByColumn',
+      method: 'deleteRecordByColumnName',
       sourceTable,
       columnName,
       columnValue,
