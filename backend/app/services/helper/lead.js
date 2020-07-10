@@ -74,8 +74,7 @@ export const deleteLeadCustomData = async ({ list_id, lead_id }) => {
       method: 'deleteRecordByColumnName',
       sourceTable: `x_leads_custom_${list_id}`,
       columnName: 'lead_id',
-      columnValue: lead_id,
-      extraQueryAttributes: 'LIMIT 1'
+      columnValue: lead_id
     })
     return lead
   }
@@ -208,7 +207,7 @@ export const getLeadCustomDataByColumnName = async ({ list_id, columnName, colum
   const sourceTable = getLeadsTableName({ user, clients })
   if (isTableExist && isColumnExist) {
     lead = await executeSelectQuery({
-      method: 'deleteRecordByColumnName',
+      method: 'getLeadCustomDataByColumnName',
       sourceTable,
       columnName,
       columnValue,

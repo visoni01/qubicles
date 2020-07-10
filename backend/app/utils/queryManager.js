@@ -12,12 +12,8 @@ const QueryMethods = {
     }
     return query
   },
-  deleteRecordByColumnName: ({ sourceTable, columnName, columnValue, extraQueryAttributes }) => {
-    let query = `DELETE FROM ${sourceTable} WHERE ${columnName} = '${columnValue}'`
-    if (extraQueryAttributes) {
-      query = `${query} ${extraQueryAttributes}`
-    }
-    return query
+  deleteRecordByColumnName: ({ sourceTable, columnName, columnValue }) => {
+    return `DELETE FROM ${sourceTable} WHERE ${columnName} = '${columnValue}' LIMIT 1`
   },
   getCampaignsByClientId: ({ sourceTable, client_id, orderByColumnName }) => {
     let query = `SELECT t.* FROM ${sourceTable} t JOIN x_client_campaigns x ON t.campaign_id = x.campaign_id WHERE x.client_id = '${client_id}'`
@@ -26,7 +22,7 @@ const QueryMethods = {
     }
     return query
   },
-  getLeadCustomDataByColumn: ({ list_id, sourceTable, columnName, columnValue }) => {
+  getLeadCustomDataByColumnName: ({ list_id, sourceTable, columnName, columnValue }) => {
     return `SELECT c.*,l.status \`internal_sys_status\` FROM x_leads_custom_${list_id} c JOIN ${sourceTable} l ON c.lead_id=l.lead_id WHERE c.\`${columnName}\`='${columnValue}'`
   },
   // baseTable parameter is optional here and it is used for figuring out

@@ -86,11 +86,11 @@ flowRouter.route('/check-user-status')
   .get(flowController.checkUserStatus)
 
 // Section-3.8, REQ-22
-flowRouter.route('/dispo-house-holding-record')
+flowRouter.route('/dispo-householding-record')
   .post(flowController.dispoHouseholdingRecord)
 
 // Section-3.8, REQ-23
-flowRouter.route('/house-holding-records')
+flowRouter.route('/householding-records')
   .get(flowController.dispoHouseholdingRecord)
 
 export { flowRouter }
