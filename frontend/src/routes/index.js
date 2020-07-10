@@ -7,6 +7,7 @@ import {
   Home, Agents, ContactCenter, ContactUs, AboutUs,
 } from '../container/Home'
 import CommunicationForum from '../container/CommunicationForums'
+import People from '../container/People'
 import Login from '../container/Login'
 import Auth from '../components/User/Auth'
 import { CircularLoader } from '../components/loaders'
@@ -35,6 +36,7 @@ const Routes = () => (
       <Route exact path='/auth' render={ (props) => <Auth { ...props } /> } />
       <Route exact path='/group' component={ ForumGroup } />
       <Route exact path='/group/channels/:channelId' component={ ForumChannel } />
+      <Route exact path='/people' component={ People } />
     </Switch>
     <CircularLoader />
     <CustomSnackbar />
