@@ -11,8 +11,12 @@ export const getAllCampaigns = async () => {
   return Campaign.findAll({ raw: true })
 }
 
-export const getCampaignStatusesByCampaignId = async ({ campaign_id }) => {
-  return XCampaignStatus.findAll({ where: { campaign_id }, raw: true })
+export const getCampaignStatusesByCampaignId = async (queryObj) => {
+  let query = { where: { campaign_id: queryObj['campaign_id'] }, raw: true }
+  if (queryObj['extraQueryAttributes']) {
+    query = { ...query, ...queryObj['extraQueryAttributes'] }
+  }
+  return XCampaignStatus.findAll(query)
 }
 
 export const getCampaignsByClientId = async ({ client_id }) => {

@@ -18,18 +18,20 @@ import {
   GetDispositionsService,
   SaveLeadService,
   CheckUserStatusService,
-  PerformActionService
+  PerformActionService,
+  DispoHouseholdingRecordService,
+  HouseholdingRecordsService
 } from '../services/flow'
 import config from '../../config/app'
 
 export default class FlowController {
   static async checkAuthorization (req, res) {
     const appPath = config.get('flow.path')
-    const CheckAuthorizationResult = await CheckAuthorizationService.execute({ userId: req.body.user_id, appPath })
-    if (CheckAuthorizationResult.successful) {
-      Responder.success(res, CheckAuthorizationResult.result)
+    const checkAuthorizationResult = await CheckAuthorizationService.execute({ userId: req.body.user_id, appPath })
+    if (checkAuthorizationResult.successful) {
+      Responder.success(res, checkAuthorizationResult.result)
     } else {
-      Responder.failed(res, CheckAuthorizationResult.errors)
+      Responder.failed(res, checkAuthorizationResult.errors)
     }
   }
 
@@ -204,6 +206,24 @@ export default class FlowController {
       Responder.success(res, performActionResult.result)
     } else {
       Responder.failed(res, performActionResult.errors)
+    }
+  }
+
+  static async dispoHouseholdingRecord (req, res) {
+    const dispoHouseholdingRecordResult = await DispoHouseholdingRecordService.execute(req.body)
+    if (dispoHouseholdingRecordResult.successful) {
+      Responder.success(res, dispoHouseholdingRecordResult.result)
+    } else {
+      Responder.failed(res, dispoHouseholdingRecordResult.errors)
+    }
+  }
+
+  static async householdingRecords (req, res) {
+    const householdingRecordsResult = await HouseholdingRecordsService.execute(req.body)
+    if (householdingRecordsResult.successful) {
+      Responder.success(res, householdingRecordsResult.result)
+    } else {
+      Responder.failed(res, householdingRecordsResult.errors)
     }
   }
 }
