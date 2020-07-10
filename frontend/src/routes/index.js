@@ -11,6 +11,8 @@ import Login from '../container/Login'
 import Auth from '../components/User/Auth'
 import { CircularLoader } from '../components/loaders'
 import CustomSnackbar from '../components/snackbar'
+import ForumGroup from '../container/CommunicationForums'
+import ForumChannel from '../container/CommunicationForums/channelView'
 
 const Routes = () => (
   <Router>
@@ -30,8 +32,9 @@ const Routes = () => (
       <Route exact path='/dashboard' component={ Dashboard } />
       <Route exact path='/post-signup' component={ PostSignUp } />
       <Route exact path='/invite-friends' component={ InviteFriends } />
-      <Route exact path='/group' component={ CommunicationForum } />
       <Route exact path='/auth' render={ (props) => <Auth { ...props } /> } />
+      <Route exact path='/group' component={ ForumGroup } />
+      <Route exact path='/group/channels/:channelId' component={ ForumChannel } />
     </Switch>
     <CircularLoader />
     <CustomSnackbar />

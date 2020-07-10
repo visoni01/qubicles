@@ -1,0 +1,44 @@
+.home-button {
+  margin: auto;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.new-topic-button {
+ margin: auto;
+}
+.channel-title {
+  font-size: 1.4rem;
+  font-family: 'Nexa Bold', sans-serif;
+  color: #444F60;
+  min-width: 300px;
+  max-width: 400px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: auto;
+  margin-right: 10px;
+}
+.total-members {
+  margin: 5px;
+  color: gray;
+}
+.total-comments {
+  margin: 5px;
+  color: gray;
+}
+
+.channel-search {
+  width: 100%;
+  margin: 15px;
+  position: relative;
+  transition: all .3s;
+}
+
+.channel-head {
+  margin-top: 10px;
+}
+
+.channel-actions {
+  margin: auto;
+  justify-content: center;
+}

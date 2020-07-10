@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { getDataForReducer } from '../../../utils/common'
 
 const initialState = {
   isLoading: null,
@@ -26,7 +27,7 @@ const {
       ...state,
       isLoading: false,
       success: true,
-      activeUsers: action.payload.activeUsers,
+      activeUsers: getDataForReducer(action, initialState.activeUsers, 'activeUsers'),
     }),
     activeUserDataFetchingFailure: (state) => ({
       ...state,

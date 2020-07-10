@@ -8,3 +8,9 @@ export const isEmptyObject = (input) => {
 
   return !(isObject && objKeys && objKeys.length)
 }
+
+export const getDataForReducer = (action, initialValue, dataKey) => {
+  return ((action && action.payload && action.payload[dataKey]) || initialValue )
+}
+
+export const getTimeFromNow = (date) => moment(date).fromNow()

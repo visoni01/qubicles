@@ -7,6 +7,9 @@ module.exports = {
     database: config.get('sequelize.name'),
     host: config.get('sequelize.host'),
     dialect: 'mariadb',
+    dialectOptions: {
+      timezone: 'Etc/GMT0'
+    },
     define: {
       timestamps: false
     }

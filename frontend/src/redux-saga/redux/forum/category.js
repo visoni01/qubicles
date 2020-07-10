@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { getDataForReducer } from '../../../utils/common'
 
 const initialState = {
   isLoading: null,
@@ -26,7 +27,7 @@ const {
       ...initialState,
       success: true,
       isLoading: false,
-      categories: action.payload.categories,
+      categories: getDataForReducer(action, initialState.categories, 'categories')
     }),
     categoryDataFetchingFailure: (state, action) => ({
       ...initialState,
