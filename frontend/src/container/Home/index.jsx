@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Divider } from '@material-ui/core'
 import Slider from './slider'
@@ -11,23 +11,47 @@ import ContactUs from '../../components/Home/contactUs'
 import AboutUs from '../../components/Home/aboutUs'
 import './style.scss'
 
-const Home = ({ history }) => (
-  <div>
-    {/* &lt;% layout('layout') -%&gt; */}
-    {/* Hero and nav */}
-    <div className='hero is-cover is-relative is-fullheight is-default is-bold'>
-      <Header />
-      {/* Hero Wallop Slider */}
-      <Slider />
+const Home = ({ history }) => {
+  useEffect(() => {
+    const script = document.createElement('script')
+    const eventListener = document.createElement('script')
+
+    script.src = '//static.leadpages.net/leadboxes/current/embed.js'
+    script.async = true
+    script.defer = true
+
+    eventListener.innerHTML = `window.addEventListener('LPLeadboxesReady', () => {
+      LPLeadboxes.addDelayedLeadbox('kNzQaTguSZNBfdEwN6QFH2', {
+        delay: '20s', views: 0, dontShowFor: '1d', domain: 'go.fenero.io',
+      })
+    })`
+
+    document.body.appendChild(script)
+    document.body.appendChild(eventListener)
+    return () => {
+      document.body.removeChild(script)
+      document.body.removeChild(eventListener)
+    }
+  }, [])
+
+  return (
+    <div>
+      {/* &lt;% layout('layout') -%&gt; */}
+      {/* Hero and nav */}
+      <div className='hero is-cover is-relative is-fullheight is-default is-bold'>
+        <Header />
+        {/* Hero Wallop Slider */}
+        <Slider />
+      </div>
+      {/* Clients */}
+      <Clients />
+      <Divider variant='middle' />
+      {/* Info steps */}
+      <Steps history={ history } />
+      <Footer />
     </div>
-    {/* Clients */}
-    <Clients />
-    <Divider variant='middle' />
-    {/* Info steps */}
-    <Steps history={ history } />
-    <Footer />
-  </div>
-)
+  )
+}
 
 Home.propTypes = {
   history: PropTypes.instanceOf({}).isRequired,

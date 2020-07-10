@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import ForumWrap from '../../components/CommunicationForums/ForumWrap'
 import { categoryDataFetchingStart } from '../../redux-saga/redux/actions'
+import withNavBar from '../../Hoc/navbar'
 
 
 const ForumGroup = () => {
@@ -33,9 +34,12 @@ const ForumGroup = () => {
               && categories.map((category) => <ForumWrap { ...category } key={ category.id } />)}
             </div>
           </div>
+          {/* Forum Category */}
+          { !isLoading
+              && categories.map((category) => <ForumWrap { ...category } key={ category.id } />)}
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

@@ -93,11 +93,11 @@ const ContactUs = () => (
                     <div className='contact-details'>
                       <span className='details-text'>
                         <b>
-                          400 West Peachtree St. NW
+                          3343 Peachtree Road
                           <br />
-                          Suite #4-1150
+                          Suite #180-1150
                           <br />
-                          Atlanta, GA 30308
+                          Atlanta, GA 30326
                         </b>
                       </span>
                     </div>

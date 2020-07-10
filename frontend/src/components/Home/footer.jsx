@@ -41,7 +41,7 @@ const Footer = () => (
                 target='_blank'
               >
                 <img
-                  alt='Read Fenero Reviews on GetApp.com'
+                  alt='Read Qubicles Reviews on GetApp.com'
                   src='https://www.getapp.com/ext/reviews_widget/v1/dark/fenero-application'
                   srcSet={ `https://www.getapp.com/ext/reviews_widget/v1/dark/fenero-application, https://www.getapp
                     .com/ext/reviews_widget/v1/dark/fenero-application@2x 2x, https://www.getapp.com/ext/reviews_widget/
