@@ -8,4 +8,7 @@ const forumRouter = express.Router(args)
 forumRouter.route('/')
   .get(isAuthenticated, forumController.getCategories)
 
+forumRouter.route('/channel/:channel_id')
+  .get(isAuthenticated, forumController.getChannel)
+
 export { forumRouter }

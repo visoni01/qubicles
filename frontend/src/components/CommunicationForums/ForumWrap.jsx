@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import Channel from './ForumChannel'
-import Info from './ForumInfo'
+import Info from './Contributors'
 
 const ForumWrap = ({ id, title, channels }) => {
   const [ showInfo, setShowInfo ] = useState(false)

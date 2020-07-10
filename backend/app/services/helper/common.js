@@ -75,3 +75,11 @@ export const getArchiveTableName = (model) => {
 export const getHistoricalTableName = (model) => {
   return `${model.tableName}_historical`
 }
+
+export const getErrorMessageForService = (serviceName) => {
+  return `Error while executing the service ${serviceName} =====>`
+}
+
+export const createDate = ({ year, month, day, hours, minutes, seconds }) => {
+  return moment(`${month}/${day}/${year} ${hours}:${minutes}:${seconds}`, 'MM/DD/YYYY HH:mm:ss A')
+}

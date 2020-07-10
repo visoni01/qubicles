@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { getDataForReducer } from '../../../utils/common'
 
 const initialState = {
   isLoading: null,
@@ -26,7 +27,7 @@ const {
       ...state,
       isLoading: false,
       success: true,
-      jobPostings: action.payload.jobPostings,
+      jobPostings: getDataForReducer(action, initialState.jobPostings, 'jobPostings')
     }),
     jobPostingDataFetchingFailure: (state) => ({
       ...state,

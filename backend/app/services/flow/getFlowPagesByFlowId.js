@@ -3,6 +3,7 @@ import { Flow } from '../../db/models'
 import { getUserById, getFlowPagesByFlowId, generateUUID, isAuthorizedForClient } from '../helper'
 import GetClientsService from '../user/getClients'
 import _ from 'lodash'
+import { ERRORS, MESSAGES } from '../../utils/errors'
 
 const constraints = {
   flowId: {
@@ -22,7 +23,7 @@ export class GetFlowPagesByFlowIdService extends ServiceBase {
     const flow = await Flow.findOne({ where: { flow_id: this.flowId }, raw: true })
 
     if (!(flow && flow['flow_id'])) {
-      this.addError('InvalidField', 'Flow does not exist')
+      this.addError(ERRORS.NOT_FOUND, MESSAGES.FLOW_NOT_EXIST)
       return
     }
 
@@ -37,7 +38,7 @@ export class GetFlowPagesByFlowIdService extends ServiceBase {
       })
 
       if (isInvalid) {
-        this.addError('Unauthorized', 'Not authorized')
+        this.addError(ERRORS.UNAUTHORIZED)
         return
       }
     }

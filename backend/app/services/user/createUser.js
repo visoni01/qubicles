@@ -4,6 +4,9 @@ import SendEmailVerificationMail from '../email/sendEmailVerificationMail'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import config from '../../../config/app'
+import { ERRORS } from '../../utils/errors'
+import logger from '../../common/logger'
+import { getErrorMessageForService } from '../helper'
 
 const constraints = {
   email: {
@@ -64,7 +67,8 @@ export default class CreateUserService extends ServiceBase {
       }
       return user
     } catch (e) {
-      this.addError(e.message, e.errors[0].message)
+      logger.error(getErrorMessageForService('CreateUserService'), e)
+      this.addError(ERRORS.INTERNAL)
     }
   }
 }

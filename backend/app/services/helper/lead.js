@@ -154,7 +154,7 @@ export const createClientLeadTable = ({ client_id }) => {
   })
 }
 
-export const addListLead = async ({ list, user, clients, client_id }) => {
+export const addListLead = async ({ lead, user, clients, client_id }) => {
   // make sure client's lead table exists
   if (user && user.user_level < USER_LEVEL.SYSTEM) {
     await createClientLeadTable({ client_id })
@@ -165,7 +165,7 @@ export const addListLead = async ({ list, user, clients, client_id }) => {
     method: 'insert',
     model: Lead,
     sourceTable,
-    data: list
+    data: lead
   })
 }
 

@@ -1,6 +1,7 @@
 import ServiceBase from '../../common/serviceBase'
 import { User } from '../../db/models'
 import SendEmailVerificationMail from '../email/sendEmailVerificationMail'
+import { createNewEntity } from '../helper'
 import jwt from 'jsonwebtoken'
 
 const constraints = {
@@ -30,11 +31,12 @@ export default class SocialSignupService extends ServiceBase {
       const userObj = {
         full_name: this.full_name,
         email: this.email,
-        email_verified: false
+        email_verified: false,
+        [this.type]: this.id
       }
-      userObj[this.type] = this.id
-      await User.create(userObj)
+      const user = await createNewEntity({ model: User, data: userObj })
       this.generateAndSendToken(userObj.email)
+      return user
     } else {
       if (!Object.is(existingUser[this.id], null)) {
         const updateObj = {}
@@ -44,6 +46,7 @@ export default class SocialSignupService extends ServiceBase {
       if (!existingUser.email_verified) {
         this.generateAndSendToken(this.email)
       }
+      return existingUser
     }
   }
 

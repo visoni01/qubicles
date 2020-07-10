@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { getDataForReducer } from '../../../utils/common'
 
 const initialState = {
   isLoading: null,
@@ -26,7 +27,7 @@ const {
       ...state,
       success: true,
       isLoading: false,
-      communityRep: (action && action.payload && action.payload.communityRep) || {},
+      communityRep: getDataForReducer(action, initialState.communityRep, 'communityRep')
     }),
     communityRepDataFechingFailure: (state, action) => ({
       ...state,

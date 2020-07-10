@@ -22,12 +22,17 @@ import {
   getCampaignStatusesByCampaignId,
   addLeadToCustomTable,
   updateLeadInCustomTable,
-  getEditableFlowFieldsByFlowId
+  getEditableFlowFieldsByFlowId,
+  getEmailTemplateByTemplateId,
+  createDate
 } from '../helper'
 
 import getSecurityContext from '../user/getSecurityContext'
 import moment from 'moment'
 import _ from 'lodash'
+import ical from 'ical-generator'
+import NodeMailer from '../../utils/getNodeMailer'
+import logger from '../../common/logger'
 
 const constraints = {
   userId: {
@@ -71,7 +76,7 @@ export class PerformActionService extends ServiceBase {
           liveAgent.external_status = this.value
           liveAgent.external_timer_action_destination = 'Flow'
 
-          if (!!this.goToPause) {
+          if (this.goToPause) {
             liveAgent.external_pause = 'PAUSE'
           }
 
@@ -234,7 +239,7 @@ export class PerformActionService extends ServiceBase {
             const records = await getLeadByPhone({ phone_number: lead.phone_number, user, clients })
 
             const allRecords = []
-            const noCurrentLeadRecords = []
+            const leadRecords = []
 
             // The below loop is used for optimizing the re-iteration
             // https://github.com/qubicles/manager/blob/master/FC2.Web/Controllers/FlowController.cs#L728
@@ -246,7 +251,7 @@ export class PerformActionService extends ServiceBase {
                 allRecords.push(record)
                 // do we have any other records that doesn't match the current lead?
                 if (record.lead_id !== lead.lead_id) {
-                  noCurrentLeadRecords.push(record)
+                  leadRecords.push(record)
                 }
               }
             })
@@ -256,10 +261,10 @@ export class PerformActionService extends ServiceBase {
             let isNewLead = true
 
             if (leadList) {
-              if (noCurrentLeadRecords.length > 0) {
+              if (leadRecords.length > 0) {
                 // get our list of non-finalized dispositions and match the leads against those
                 const callableStatuses = await getCampaignStatusesByCampaignId({ campaign_id: leadList.campaign_id })
-                  .filter(campaign => (!campaign.category || campaign.category === 'UNDEFINED') && campaign.unworkable === 'N')
+                  .filter(status => (!status.category || status.category === 'UNDEFINED') && status.unworkable === 'N')
                   .map((s) => s.status)
 
                 // add system NEW as callable
@@ -270,7 +275,7 @@ export class PerformActionService extends ServiceBase {
                 callableStatuses.push('N')
 
                 // do we have one of these leads in a call-able disposition status?
-                const callableLead = this.findCallableLead(noCurrentLeadRecords, callableStatuses)
+                const callableLead = leadRecords.find((record) => callableStatuses.includes(record.status))
 
                 if (callableLead) {
                   isNewLead = false
@@ -446,15 +451,186 @@ export class PerformActionService extends ServiceBase {
         break
       }
 
-      // TODO: In progress
+      case 'SENDEMAIL': {
+        if (this.value && this.leadId) {
+          // possible email opts: 0=templateId; 1=appt date; 2=appt time; 3=reply-to
+          const emailOptions = this.value.split('~')
+          const emailTemplate = await getEmailTemplateByTemplateId({ email_template_id: emailOptions[0] })
+
+          const customLead = this.leadData
+          if (customLead && emailTemplate.body) {
+            let emailBody = emailTemplate.body
+            let emailAddress = ''
+            let gmtOffset = '-5.00'
+
+            for (const fieldName in customLead) {
+              let variableName = `@${fieldName}@`
+              if (!emailBody.includes(variableName)) {
+                variableName = `@${fieldName} `
+              }
+
+              const customLeadFieldValue = customLead[fieldName].toString()
+              const fieldNameInLowerCase = fieldName.toLowerCase()
+
+              if (emailBody.includes(variableName)) {
+                try {
+                  emailBody = emailBody.replace(new RegExp(variableName, 'g'), customLeadFieldValue)
+                } catch (Error) { // simply remove var
+                  emailBody = emailBody.replace(new RegExp(variableName, 'g'), '')
+                }
+              }
+
+              const isValidEmailField = fieldNameInLowerCase === 'email' ||
+                                        fieldNameInLowerCase === 'emailaddress' ||
+                                        fieldNameInLowerCase === 'email_address'
+
+              // check for email address
+              if (isValidEmailField && customLeadFieldValue && !emailAddress) {
+                emailAddress = customLeadFieldValue
+              }
+
+              // check for gmt offset
+              if (fieldNameInLowerCase === 'gmt_offset_now' && customLeadFieldValue) {
+                gmtOffset = customLeadFieldValue
+              }
+            }
+
+            // if template has an email address, use that!
+            if (emailTemplate.toAddress) {
+              emailAddress = emailTemplate.toAddress
+            }
+
+            // let's connect and submit!
+            if (emailAddress) {
+              // do we have an appt date and/or time? if so, prepare ics attachment
+              let icsCalendar = false
+              const cal = ical()
+              if (emailOptions && emailOptions.length === 3) {
+                const apptDateString = emailOptions[1]
+                const apptTimeString = emailOptions[2]
+
+                let apptDate, apptTime
+
+                if (apptDateString && apptDateString !== 'undefined') {
+                  apptDate = new Date(apptDateString)
+                }
+
+                if (apptTimeString && apptTimeString !== 'undefined') {
+                  apptTime = new Date(apptTimeString)
+                }
+
+                // if valid, build ics!
+                if (apptDate && apptTime) {
+                  const apptStartDate = createDate({
+                    year: apptDate.getFullYear(),
+                    month: apptDate.getMonth(),
+                    day: apptDate.getDate(),
+                    hours: apptTime.getHours(),
+                    minutes: apptTime.getMinutes(),
+                    seconds: apptTime.getSeconds()
+                  })
+
+                  const apptEndDate = moment(apptStartDate).add(1, 'hour')
+
+                  // adjust based on TZ
+                  let isDaylightSavings = false
+                  // system timezone
+                  const currentTimezone = moment.tz.guess()
+
+                  if (currentTimezone === 'America/New_York' || currentTimezone === 'Eastern Standard Time') {
+                    isDaylightSavings = moment().isDST()
+                  }
+
+                  let offset = parseFloat(gmtOffset)
+                  if (isDaylightSavings) {
+                    offset = offset + 1
+                  }
+
+                  cal.createEvent({
+                    domain: 'messenger.qubicles.io',
+                    start: moment(apptStartDate),
+                    end: moment(apptEndDate),
+                    summary: emailTemplate.subject
+                  })
+
+                  // Reference link: https://github.com/sebbo2002/ical-generator
+                  switch (offset.toFixed(2)) {
+                    case '-10.00':
+                      cal.timezone('US/Samoa')
+                      break
+                    case '-9.00':
+                      cal.timezone('US/Hawaii')
+                      break
+                    case '-8.00':
+                      cal.timezone('US/Alaska')
+                      break
+                    case '-7.00':
+                      cal.timezone('US/Pacific')
+                      break
+                    case '-6.00':
+                      cal.timezone('US/Mountain')
+                      break
+                    case '-5.00':
+                      cal.timezone('US/Central')
+                      break
+                    case '-4.00':
+                      cal.timezone('US/Eastern')
+                      break
+                    default:
+                      cal.timezone('America/New_York')
+                      break
+                  }
+
+                  icsCalendar = true
+                }
+              }
+
+              // check which from address to use
+              let fromAddress = emailTemplate.fromAddress
+              if (emailOptions && emailOptions.length === 4 && emailOptions[3] && emailOptions[3] === 'USER' && user.email) {
+                fromAddress = user.email
+              }
+
+              const emailObj = {
+                from: fromAddress,
+                to: emailAddress,
+                subject: emailTemplate.subject,
+                html: emailBody
+              }
+
+              if (emailTemplate.cc) {
+                emailObj['cc'] = emailTemplate.cc
+              }
+
+              if (icsCalendar) {
+                emailObj['attachments'] = [{
+                  // utf-8 string as an attachment
+                  filename: 'invite.ics',
+                  content: cal.toString()
+                }]
+              }
+
+              try {
+                const info = await NodeMailer.sendMail(emailObj)
+                logger.info(`Email sent succesfully!! => ${JSON.stringify(info)}`)
+              } catch (error) {
+                logger.error(`Error in sending mail: ${error}`)
+              }
+            }
+          }
+        }
+
+        break
+      }
+    }
+
+    return {
+      leadId: 0,
+      isNewLead: true
     }
   }
 
   isValidLead (lead) {
     return _.has(lead, 'sys_repeat_new') && _.has(lead, 'sys_repeat_existing')
-  }
-
-  findCallableLead (noCurrentLeadRecords, callableStatuses) {
-    return noCurrentLeadRecords.find((record) => callableStatuses.includes(record.status))
   }
 }

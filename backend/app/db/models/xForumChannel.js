@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(100),
       allowNull: false
     },
+    channel_description: {
+      type: DataTypes.STRING
+    },
     owner_id: {
       type: DataTypes.INTEGER(11),
       allowNull: false
