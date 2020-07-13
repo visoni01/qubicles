@@ -142,13 +142,12 @@ export const getContactInboundCallLog = async ({ lead_id, campaigns, lists, star
 }
 
 export const getLiveRecordingLog = ({ lead_id, user }) => {
-  const userInLowerCase = user.toLowerCase()
   const query = {
     raw: true,
     order: [['start_time', 'DESC']],
     where: {
       user: {
-        [Op.like]: userInLowerCase
+        [Op.like]: user.toLowerCase()
       },
       lead_id
     }
