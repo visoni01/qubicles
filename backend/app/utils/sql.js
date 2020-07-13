@@ -65,7 +65,7 @@ export const SqlHelper = {
       // For reference: https://sequelize.readthedocs.io/en/latest/docs/raw-queries/
       try {
         sequelize.query(query).spread((results, metadata) => {
-          resolve({ results, metadata })
+          resolve(results)
         })
       } catch (err) {
         logger.error('Error while executing the method runQuery ====>', err)
