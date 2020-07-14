@@ -1,4 +1,6 @@
 import moment from 'moment'
+import Cookies from 'js-cookie'
+import jwt from 'jsonwebtoken'
 
 export const formatDate = (date) => moment(date).format('MMMM DD, YYYY')
 
@@ -14,3 +16,18 @@ export const getDataForReducer = (action, initialValue, dataKey) => {
 }
 
 export const getTimeFromNow = (date) => moment(date).fromNow()
+
+export const getUserDetails = () => {
+  const token = Cookies.get('access_token')
+  let userDetails
+  if (token) {
+    const { user, user_id, email } = jwt.decode(token)
+    userDetails = {
+      user, 
+      user_id, 
+      email
+    }
+  }
+  
+  return userDetails
+}
