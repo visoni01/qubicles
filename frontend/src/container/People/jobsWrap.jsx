@@ -14,7 +14,7 @@ const JobsWrapper = () => (
         <JobDescription
           { ...job }
           jobsWrap
-          key={ `${ job.id }-${ job.description }` }
+          key={ `${ job.title }-${ job.description }` }
         />
       ))}
     </div>

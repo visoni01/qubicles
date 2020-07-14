@@ -2,7 +2,7 @@ import React from 'react'
 import UserDescription from './talent'
 import { talentData } from './data'
 
-const Wrap = () => (
+const TalentWrapper = () => (
   talentData.map(({ title, users }) => (
     <div className='forum-container mt-10' key={ title }>
       {/* Heading */}
@@ -13,10 +13,10 @@ const Wrap = () => (
       {users.map((user) => (
         <UserDescription
           { ...user }
-          key={ `${ user.id }-${ user.description }` }
+          key={ `${ user.title }-${ user.description }` }
         />
       ))}
     </div>
   )))
 
-export default Wrap
+export default TalentWrapper

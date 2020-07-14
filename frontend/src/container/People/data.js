@@ -13,13 +13,13 @@ const jobsData = [ {
     },
     {
       notifications: 43,
-      title: 'Company Annoucements',
+      title: 'Company Annoucements-2',
       description: 'Dedicated channel for company annoucements and heads up.',
       noOfApplications: 49,
     },
     {
       notifications: 43,
-      title: 'Company Annoucements',
+      title: 'Company Annoucements-3',
       description: 'Dedicated channel for company annoucements and heads up.',
       noOfApplications: 49,
     },
@@ -44,7 +44,7 @@ const talentData = [ {
       hasBackgroundCheck: false,
     },
     {
-      title: 'React Developer',
+      title: 'Angular Developer',
       description: 'Front-end Developer',
       name: 'John',
       joinedSince: '2 june 2003',

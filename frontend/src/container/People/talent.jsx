@@ -52,11 +52,11 @@ const UserDescription = ({
               <span className='is-size-7'>Jobs</span>
             </div>
             <div className='mr-20 background-check-div'>
-              <input type='checkbox' checked={ hasPhone } className='text-align-center checkbox-style' />
+              <input type='checkbox' checked={ hasPhone } readOnly className='text-align-center checkbox-style' />
               <span className='is-size-7'>Phone</span>
             </div>
             <div className='mr-20'>
-              <input type='checkbox' checked={ hasBackgroundCheck } className='text-align-center checkbox-style' />
+              <input type='checkbox' checked={ hasBackgroundCheck } readOnly className='text-align-center checkbox-style' />
               <span className='is-size-7'>Background</span>
             </div>
           </div>
