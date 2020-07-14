@@ -6,6 +6,7 @@ import TopicList from '../../components/CommunicationForums/TopicList'
 import { channelDataFetchingStart } from '../../redux-saga/redux/actions'
 import { isEmptyObject } from '../../utils/common'
 import './style.scss'
+import withNavBar from '../../Hoc/navbar'
 
 const ForumChannel = () => {
   const { channelId } = useParams()
@@ -17,7 +18,6 @@ const ForumChannel = () => {
   return (
     <div>
       {/* Main dashboard container */}
-      <div id='dashboard-wrapper' className='dashboard-outer'>
         <div className='dashboard-inner'>
           {/* Dashboard Wrapper */}
           <div className='dashboard-wrapper'>
@@ -28,9 +28,8 @@ const ForumChannel = () => {
             {!isLoading && !isEmptyObject(channelDetails) && <TopicList {...channelDetails} />}
           </div>
         </div>
-      </div>
     </div>
   )
 }
 
-export default ForumChannel
+export default withNavBar(ForumChannel)

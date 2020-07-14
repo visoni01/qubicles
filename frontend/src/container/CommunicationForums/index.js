@@ -6,7 +6,6 @@ import ForumWrap from '../../components/CommunicationForums/ForumWrap'
 import { categoryDataFetchingStart } from '../../redux-saga/redux/actions'
 import withNavBar from '../../Hoc/navbar'
 
-
 const ForumGroup = () => {
   const dispatch = useDispatch()
   useEffect(() => {
@@ -15,7 +14,7 @@ const ForumGroup = () => {
   const { categories, isLoading } = useSelector((state) => state.category)
   // categories = []
   return (
-    <div id='dashboard-wrapper' className='dashboard-outer'>
+    <>
       <div className='dashboard-inner'>
         {/* Dashboard Wrapper */}
         <div className='dashboard-wrapper'>
@@ -43,4 +42,4 @@ const ForumGroup = () => {
   )
 }
 
-export default ForumGroup
+export default withNavBar(ForumGroup)
