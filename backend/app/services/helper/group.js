@@ -80,3 +80,12 @@ export const getInboundGroupsByUser = async ({ user, client_id, clientIngroups }
   }
   return inboundGroups
 }
+
+export const getInboundGroupById = async ({ group_id }) => {
+  return executeSelectQuery({
+    method: 'getDataByColumnName',
+    sourceTable: XInboundGroup.tableName,
+    columnName: 'group_id',
+    columnValue: group_id
+  })
+}

@@ -3,6 +3,7 @@ import config from '../../../config/app'
 import { SqlHelper } from '../../utils/sql'
 import _ from 'lodash'
 import moment from 'moment'
+import { executeUpdateQuery } from '../../utils/queryManager'
 
 // Here we are separating the combined values
 // Input example: ' AGENTDIRECT LeadCrowdInbound NewTFNInboundQueue UveaousTechInbound -'
@@ -20,6 +21,14 @@ export const splitCombinedFieldValuesForGroup = (combinedFieldValues) => {
 export const createNewEntity = async ({ model, data }) => {
   const dataValues = await model.create(data)
   return dataValues.get({ plain: true })
+}
+
+export const updateEntity = async ({ model, data }) => {
+  return executeUpdateQuery({
+    method: 'update',
+    model,
+    data
+  })
 }
 
 export const generateUUID = () => {
@@ -82,4 +91,8 @@ export const getErrorMessageForService = (serviceName) => {
 
 export const createDate = ({ year, month, day, hours, minutes, seconds }) => {
   return moment(`${month}/${day}/${year} ${hours}:${minutes}:${seconds}`, 'MM/DD/YYYY HH:mm:ss A')
+}
+
+export const fixDigits = (input, digit) => {
+  return Number(parseFloat(input)).toFixed(digit)
 }

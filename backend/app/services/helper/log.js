@@ -4,8 +4,9 @@ import { getLists, DEFAULT_SYSTEM_LIST_IB, DEFAULT_SYSTEM_LIST_OB } from './list
 import { getCampaigns } from './campaign'
 import { getInboundGroups } from './group'
 import moment from 'moment'
-import { XLogOutbound, XLogInbound } from '../../db/models'
+import { XLogOutbound, XLogInbound, RecordingLog, XLogDID } from '../../db/models'
 import { formatDate, getArchiveTableName, getHistoricalTableName } from './common'
+import { Op } from 'sequelize'
 
 export const updateOutboundLog = async ({ log, user, clients }) => {
   const currentDate = moment()
@@ -138,4 +139,21 @@ export const getContactInboundCallLog = async ({ lead_id, campaigns, lists, star
   return logs.filter((log) => {
     return (log.list_id && listIds.includes(log.list_id) && queues.includes(log.campaign_id.toLowerCase()))
   })
+}
+
+export const getLiveRecordingLog = ({ lead_id, user }) => {
+  const query = {
+    raw: true,
+    order: [['start_time', 'DESC']],
+    where: {
+      user,
+      lead_id
+    }
+  }
+
+  return RecordingLog.findOne(query)
+}
+
+export const getAgentDIDCallLog = ({ uniqueid }) => {
+  return XLogDID.findOne({ where: { uniqueid }, raw: true })
 }

@@ -1,6 +1,6 @@
 import { USER_LEVEL } from '../../services/user/getSecurityContext'
 import { executeSelectQuery, executeUpdateQuery } from '../../utils/queryManager'
-import { LiveAgent } from '../../db/models'
+import { LiveAgent, XLogInbound } from '../../db/models'
 
 export const LIVE_AGENT_STATUS = {
   READY: 'READY',
@@ -43,4 +43,8 @@ export const updateLiveAgent = async ({ liveAgent, user, clients }) => {
     model: LiveAgent,
     data: liveAgent
   })
+}
+
+export const getAgentInboundCallLogByUniqueId = ({ uniqueid, user }) => {
+  return XLogInbound.findOne({ where: { user, uniqueid }, raw: true })
 }

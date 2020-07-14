@@ -58,5 +58,19 @@ export const SqlHelper = {
     }
     logger.info(`Procedure call ---> ${procedure} replacements ---> ${replacements}`)
     return sequelize.query(`CALL ${procedure}`, query)
+  },
+
+  runQuery: ({ query }) => {
+    return new Promise((resolve, reject) => {
+      // For reference: https://sequelize.readthedocs.io/en/latest/docs/raw-queries/
+      try {
+        sequelize.query(query).spread((results, metadata) => {
+          resolve(results)
+        })
+      } catch (err) {
+        logger.error('Error while executing the method runQuery ====>', err)
+        reject(err)
+      }
+    })
   }
 }
