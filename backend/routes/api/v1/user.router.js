@@ -34,13 +34,15 @@ userRouter.route('/login')
           return res.status(401).send(loginErr)
         }
         res.cookie('access_token', req.user.accessToken, {
-          maxAge: config.get('cookieMaxAge'),
-          httpOnly: true
+          maxAge: config.get('cookieMaxAge')
         })
         Responder.success(res, 'User logged in Successfully!!')
       })
     })(req, res)
   })
+
+userRouter.route('/logout')
+  .post(userController.logout)
 
 userRouter.route('/profile')
   .get(isAuthenticated, (req, res) => {

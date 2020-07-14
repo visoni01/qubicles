@@ -35,7 +35,7 @@ export default class SocialSignupService extends ServiceBase {
         [this.type]: this.id
       }
       const user = await createNewEntity({ model: User, data: userObj })
-      this.generateAndSendToken(userObj.email)
+      this.generateAndSendToken(userObj.email, this.full_name, user.user_id)
       return user
     } else {
       if (!Object.is(existingUser[this.id], null)) {
@@ -44,7 +44,7 @@ export default class SocialSignupService extends ServiceBase {
         await this.updateUserIfAlreadyExist(this.email, updateObj)
       }
       if (!existingUser.email_verified) {
-        this.generateAndSendToken(this.email)
+        this.generateAndSendToken(this.email, this.full_name, this.id)
       }
       return existingUser
     }
@@ -58,8 +58,8 @@ export default class SocialSignupService extends ServiceBase {
     })
   }
 
-  async generateAndSendToken (email) {
-    const token = jwt.sign({ email }, 'secret', { expiresIn: TOKEN_EXPIRY_TIME })
+  async generateAndSendToken (email, full_name, user_id) {
+    const token = jwt.sign({ email, user: full_name, user_id }, 'secret', { expiresIn: TOKEN_EXPIRY_TIME })
     await SendEmailVerificationMail.execute({ token, email })
   }
 }

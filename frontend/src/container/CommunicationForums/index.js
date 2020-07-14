@@ -38,7 +38,7 @@ const ForumGroup = () => {
               && categories.map((category) => <ForumWrap { ...category } key={ category.id } />)}
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

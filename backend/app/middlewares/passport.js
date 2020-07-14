@@ -28,7 +28,7 @@ function initPassport () {
         done('Incorrect Password')
       } else {
         const userObj = user.get({ plain: true })
-        const jwtToken = await jwt.sign({ email, user_id: userObj.user_id },
+        const jwtToken = await jwt.sign({ email, user: user.user, user_id: user.user_id },
           config.get('jwt.loginTokenSecret'), {
             expiresIn: config.get('jwt.loginTokenExpiry')
           })
@@ -64,7 +64,7 @@ function initPassport () {
         email: userDetailsJson.email
       }
       const user = await SocialSignup.run(userObj)
-      const jwtToken = await jwt.sign({ email: user.email, user_id: user.user_id },
+      const jwtToken = await jwt.sign({ email: user.email, user: user.user, user_id: user.user_id },
         config.get('jwt.loginTokenSecret'), {
           expiresIn: config.get('jwt.loginTokenExpiry')
         })
