@@ -2,10 +2,9 @@ import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
-import Channel from './ForumChannel'
-import Info from './Contributors'
+import ChannelListItem from './ChannelListItem'
 
-const ForumWrap = ({ id, title, channels }) => {
+const CategoryWrap = ({ id, title, channels }) => {
   const [ showInfo, setShowInfo ] = useState(false)
   const setShowInfoCB = useCallback(() => {
     setShowInfo((currentState) => !currentState)
@@ -22,18 +21,17 @@ const ForumWrap = ({ id, title, channels }) => {
         <div className='channel-heading'>
           <h3>{ title }</h3>
         </div>
-        {/* channels */}
-        {channels.map((channel) => <Channel { ...channel } key={ `${ channel.id }-${ channel.description }` } />)}
+        {/* Channels list */}
+        {channels.map((channel) => <ChannelListItem { ...channel } key={ `${ channel.id }` } />)}
       </div>
-      {showInfo && <Info /> }
     </div>
   )
 }
 
-ForumWrap.propTypes = {
+CategoryWrap.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   channels: PropTypes.arrayOf(PropTypes.oneOfType([ PropTypes.object ])).isRequired,
 }
 
-export default ForumWrap
+export default CategoryWrap

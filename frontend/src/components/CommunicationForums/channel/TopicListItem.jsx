@@ -1,11 +1,14 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLightbulb } from '@fortawesome/free-solid-svg-icons'
-import { getTimeFromNow } from '../../utils/common'
+import { Link } from 'react-router-dom'
+import { getTimeFromNow } from '../../../utils/common'
+import { ownerDetails } from '../forumValidators'
+import { getUserRoute, getTopicPage } from '../../../routes/forumRoutes'
 
-const Topic = ({
-  topicTitle, tags, dateCreatedOn, topicOwner, totalReplies, dateLastReplied,
+const TopicListItem = ({
+  topicTitle, tags, dateCreatedOn, topicOwner, totalReplies, dateLastReplied, topicId,
 }) => (
   <div className='topic-card is-sticky'>
     <div className='topic-owner'>
@@ -15,10 +18,12 @@ const Topic = ({
       </div>
     </div>
     <div className='topic-meta'>
-      <a className='topic-title'>{topicTitle}</a>
+      <Link to={ getTopicPage({ topicId }) } className='topic-title'>{topicTitle}</Link>
       <div className='flex-block'>
-        <span>{getTimeFromNow(dateCreatedOn)}{', by '}
-          <a>{topicOwner}</a>
+        <span>
+          {getTimeFromNow(dateCreatedOn)}
+          {', by '}
+          <Link to={ getUserRoute({ userId: topicOwner.userId }) }>{topicOwner.userName}</Link>
         </span>
         <div className='tags'>
           {tags.map((tag) => (
@@ -34,7 +39,7 @@ const Topic = ({
         <span>{totalReplies}</span>
       </div>
       <div className='last-reply'>
-        <img src='https://via.placeholder.com/150x150' alt='' data-demo-src='assets/images/avatars/helen.jpg' />
+        <img src='https://via.placeholder.com/150x150' alt='' />
         <div className='last-reply-meta'>
           <span>Last reply</span>
           <span>{getTimeFromNow(dateLastReplied)}</span>
@@ -43,13 +48,15 @@ const Topic = ({
     </div>
   </div>
 )
-Topic.propTypes = {
+
+TopicListItem.propTypes = {
+  topicId: PropTypes.number.isRequired,
   topicTitle: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,
   dateCreatedOn: PropTypes.string.isRequired,
-  topicOwner: PropTypes.string.isRequired,
+  topicOwner: ownerDetails.isRequired,
   totalReplies: PropTypes.number.isRequired,
   dateLastReplied: PropTypes.string.isRequired,
 }
 
-export default Topic
+export default TopicListItem

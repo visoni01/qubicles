@@ -12,6 +12,7 @@ import jobPosting from './dashboard/jobPosting'
 import activeUser from './dashboard/activeUser'
 import categories from './forum/category'
 import channel from './forum/channel'
+import topic from './forum/topic'
 
 export default function* rootSaga() {
   yield all([
@@ -27,5 +28,6 @@ export default function* rootSaga() {
     activeUser(),
     categories(),
     channel(),
+    topic(),
   ])
 }

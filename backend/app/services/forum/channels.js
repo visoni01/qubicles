@@ -61,9 +61,9 @@ export async function getChannelUsersCount ({ channel_id }) {
 export async function getUserSubProfile ({ user_id }) {
   const userDetails = await getUserDetails({ user_id })
   return {
-    user_id,
-    user_name: userDetails.first_name,
-    profile_photo: 'https://via.placeholder.com/150x150'
+    userId: user_id,
+    userName: userDetails.first_name,
+    profileImage: 'https://via.placeholder.com/150x150'
   }
 }
 
@@ -91,7 +91,7 @@ export async function getTopicsSubDetails ({ topics }) {
     channelTopics.push({
       topicId: topic.topic_id,
       topicTitle: topic.topic_title,
-      topicOwner: userSubProfile.user_name,
+      topicOwner: userSubProfile,
       tags: topic.tags.split('&&'),
       dateCreatedOn: topic.created_on,
       totalReplies,

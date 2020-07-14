@@ -13,6 +13,7 @@ const ROUTE_PATHS = {
   AUTH: '/auth',
   GROUP: '/group',
   GROUP_CHANNEL: '/group/channels/:channelId',
+  GROUP_TOPIC: '/group/topics/:topicId',
   PEOPLE: '/people',
 }
 

@@ -27,7 +27,7 @@ const {
       ...initialState,
       success: true,
       isLoading: false,
-      categories: getDataForReducer(action, initialState.categories, 'categories')
+      categories: getDataForReducer(action, initialState.categories, 'categories'),
     }),
     categoryDataFetchingFailure: (state, action) => ({
       ...initialState,

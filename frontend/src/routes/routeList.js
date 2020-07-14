@@ -9,7 +9,8 @@ import People from '../container/People'
 import Login from '../container/Login'
 import Auth from '../components/User/Auth'
 import ForumGroup from '../container/CommunicationForums'
-import ForumChannel from '../container/CommunicationForums/channelView'
+import ForumChannel from '../container/CommunicationForums/forumChannel'
+import ForumTopic from '../container/CommunicationForums/forumTopic'
 import ROUTE_PATHS from './routesPath'
 
 const routes = [
@@ -74,6 +75,11 @@ const routes = [
   {
     path: ROUTE_PATHS.GROUP_CHANNEL,
     component: ForumChannel,
+    auth: true,
+  },
+  {
+    path: ROUTE_PATHS.GROUP_TOPIC,
+    component: ForumTopic,
     auth: true,
   },
   {

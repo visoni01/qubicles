@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 
 const RouteValidator = (routeData) => {
   const token = Cookies.get('access_token')
-  return (token ? <Route { ...routeData } /> : <Redirect to='login' exact />)
+  return (token ? <Route { ...routeData } /> : <Redirect to='/login' exact />)
 }
 
 export default RouteValidator

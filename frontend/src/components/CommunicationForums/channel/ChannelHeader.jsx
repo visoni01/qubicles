@@ -16,7 +16,7 @@ const ChannelHeader = ({
         <div className='title-meta'>
           {/* {Total Members} */}
           <div className='meta'>
-            <FontAwesomeIcon icon={ faUsers } className='total-members'/>
+            <FontAwesomeIcon icon={ faUsers } className='total-members' />
             <span>{totalMembers}</span>
           </div>
           {/* {Total Replies} */}
@@ -39,10 +39,10 @@ const ChannelHeader = ({
           <i><FontAwesomeIcon icon={ faArrowLeft } /></i>
         </div>
         {/* Forum main dropdown */}
-        <a className='button btn-dash secondary-btn btn-dash raised ripple has-icon' data-ripple-color>
+        <div className='button btn-dash secondary-btn btn-dash raised ripple has-icon' data-ripple-color>
           <i><FontAwesomeIcon icon={ faPlus } /></i>
-          New Topic
-        </a>
+          {' New Topic '}
+        </div>
       </div>
     </div>
     <span className='channel-description'>{channelDescription}</span>

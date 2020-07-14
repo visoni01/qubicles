@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import ForumWrap from '../../components/CommunicationForums/ForumWrap'
+import CategoryWrap from '../../components/CommunicationForums/groups/CategoryWrap'
 import { categoryDataFetchingStart } from '../../redux-saga/redux/actions'
 import withNavBar from '../../Hoc/navbar'
 
@@ -12,7 +12,7 @@ const ForumGroup = () => {
     dispatch(categoryDataFetchingStart())
   }, [])
   const { categories, isLoading } = useSelector((state) => state.category)
-  
+
   return (
     <div className='dashboard-inner'>
       {/* Dashboard Wrapper */}
@@ -29,12 +29,9 @@ const ForumGroup = () => {
             </div>
             {/* ForumGroup Category */}
             { !isLoading
-            && categories.map((category) => <ForumWrap { ...category } key={ category.id } />)}
+            && categories.map((category) => <CategoryWrap { ...category } key={ category.id } />)}
           </div>
         </div>
-        {/* Forum Category */}
-        { !isLoading
-            && categories.map((category) => <ForumWrap { ...category } key={ category.id } />)}
       </div>
     </div>
   )

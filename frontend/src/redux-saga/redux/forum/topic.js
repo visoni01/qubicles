@@ -5,31 +5,31 @@ const initialState = {
   isLoading: null,
   error: null,
   success: false,
-  channelDetails: {},
+  topicDetails: {},
 }
 
 const {
   actions: {
-    channelDataFetchingStart,
-    channelDataFetchingSuccessful,
-    channelDataFetchingFailure,
+    topicDataFetchingStart,
+    topicDataFetchingSuccessful,
+    topicDataFetchingFailure,
   },
   reducer,
 } = createSlice({
-  name: 'channel',
+  name: 'topic',
   initialState,
   reducers: {
-    channelDataFetchingStart: (state) => ({
+    topicDataFetchingStart: (state) => ({
       ...state,
       isLoading: true,
     }),
-    channelDataFetchingSuccessful: (state, action) => ({
+    topicDataFetchingSuccessful: (state, action) => ({
       ...state,
       success: true,
       isLoading: false,
-      channelDetails: getDataForReducer(action, initialState.channelDetails, 'channelDetails'),
+      topicDetails: getDataForReducer(action, initialState.topicDetails, 'topicDetails'),
     }),
-    channelDataFetchingFailure: (state, action) => ({
+    topicDataFetchingFailure: (state, action) => ({
       ...state,
       error: true,
       isLoading: false,
@@ -39,7 +39,7 @@ const {
 
 export default reducer
 export {
-  channelDataFetchingStart,
-  channelDataFetchingSuccessful,
-  channelDataFetchingFailure,
+  topicDataFetchingStart,
+  topicDataFetchingSuccessful,
+  topicDataFetchingFailure,
 }

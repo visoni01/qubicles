@@ -3,7 +3,7 @@ import config from '../utils/config'
 import Cookies from 'js-cookie'
 import jwt from 'jsonwebtoken'
 
-export const formatDate = (date) => moment(date).format('MMMM DD, YYYY')
+export const formatDate = (date, format = 'MMMM DD, YYYY') => moment(date).format(format)
 
 export const isEmptyObject = (input) => {
   const isObject = Object.prototype.toString.call(input) === '[object Object]'
@@ -12,9 +12,8 @@ export const isEmptyObject = (input) => {
   return !(isObject && objKeys && objKeys.length)
 }
 
-export const getDataForReducer = (action, initialValue, dataKey) => {
-  return ((action && action.payload && action.payload[dataKey]) || initialValue )
-}
+export const getDataForReducer = (action, initialValue, dataKey) => ((action && action.payload
+  && action.payload[ dataKey ]) || initialValue)
 
 export const getTimeFromNow = (date) => moment(date).fromNow()
 

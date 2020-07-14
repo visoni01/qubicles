@@ -8,16 +8,13 @@ import RouteValidator from './RouteValidator'
 const Routes = () => (
   <Router>
     <Switch>
-    {
-      routes.map(({ auth, ...rest }) => {
-        return (
-          auth ? <RouteValidator { ...rest } key={ rest.path } />
+      {
+      routes.map(({ auth, ...rest }) => (
+        auth ? <RouteValidator { ...rest } key={ rest.path } />
           : <Route { ...rest } key={ rest.path } exact />
-        )
-        
-      })
+      ))
     }
-    </Switch>  
+    </Switch>
     <CircularLoader />
     <CustomSnackbar />
   </Router>

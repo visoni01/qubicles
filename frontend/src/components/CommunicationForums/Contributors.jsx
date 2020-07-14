@@ -1,18 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
+import { getUserRoute } from '../../routes/forumRoutes'
+import { ownerDetails } from './forumValidators'
 
 const getAvatarAndProfilesData = ({ users, bubbles }) => {
   const usersData = users.slice(0, bubbles)
   const data = { avatars: [], usernames: [] }
   usersData.forEach((user, index) => {
-    data.avatars.push(<img key={ user.user_id } className='avatar' src={ user.profile_photo } alt='' />)
-    data.usernames.push(<a key={ user.user_id }>{user.user_name}{index < bubbles-1 && <nobr>, </nobr>}</a>)
+    data.avatars.push(<img key={ user.userId } className='avatar' src={ user.profileImage } alt='' />)
+    data.usernames.push(
+      <Link to={ getUserRoute({ userId: user.userId }) } key={ user.userId }>
+        {user.userName}
+        {index < bubbles - 2 && <nobr>, </nobr>}
+      </Link>,
+    )
   })
-
   return data
 }
 
-const Contributors = ({ users=[], bubbles, message }) => {
+const Contributors = ({ users, bubbles, message }) => {
   const { avatars, usernames } = getAvatarAndProfilesData({ users, bubbles })
   return (
     <div className='latest-posts'>
@@ -27,7 +34,15 @@ const Contributors = ({ users=[], bubbles, message }) => {
       <div className='latest-meta'>
         <span>
           {usernames}
-          {users.length > bubbles && <nobr> and <a>{users.length - bubbles} more</a> </nobr>}
+          {users.length > bubbles && (
+          <nobr>
+            and
+            <div>
+              {users.length - bubbles}
+              more
+            </div>
+          </nobr>
+          )}
         </span>
         <span>{message}</span>
       </div>
@@ -35,21 +50,15 @@ const Contributors = ({ users=[], bubbles, message }) => {
   )
 }
 
-
-
 Contributors.defaultProps = {
   bubbles: 3,
-  message: 'are moderating this channel'
+  message: 'are moderating this channel',
 }
 
 Contributors.propTypes = {
   bubbles: PropTypes.number,
-  message: PropTypes.string.isRequired,
-  users: PropTypes.arrayOf(PropTypes.shape({
-    user_id: PropTypes.number.isRequired,
-    user_name: PropTypes.string.isRequired,
-    profile_photo: PropTypes.string,
-  })).isRequired,
+  message: PropTypes.string,
+  users: PropTypes.arrayOf(ownerDetails).isRequired,
 }
 
 export default Contributors
