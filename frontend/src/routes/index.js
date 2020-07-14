@@ -6,7 +6,6 @@ import InviteFriends from '../container/InviteFriendsPage'
 import {
   Home, Agents, ContactCenter, ContactUs, AboutUs,
 } from '../container/Home'
-import CommunicationForum from '../container/CommunicationForums'
 import People from '../container/People'
 import Login from '../container/Login'
 import Auth from '../components/User/Auth'

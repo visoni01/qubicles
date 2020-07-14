@@ -7,6 +7,7 @@ import {
   faSearch, faPlus, faEllipsisV,
 } from '@fortawesome/free-solid-svg-icons'
 import JobsWrap from './jobsWrap'
+import TalentWrap from './talentWrap'
 import withNavBar from '../../Hoc/navbar'
 import './style.scss'
 
@@ -59,7 +60,8 @@ const People = () => {
           </div>
           {/* Forum Category */}
           <div className='forum-wrap'>
-            <JobsWrap />
+            { activeTab === 0 && <JobsWrap />}
+            { activeTab === 1 && <TalentWrap />}
           </div>
         </div>
       </div>
