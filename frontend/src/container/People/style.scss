@@ -41,3 +41,35 @@
   margin-top: 7px !important;
 
 }
+
+.display-inline-grid {
+  display: inline-grid;
+}
+
+.display-inline-flex {
+  display: inline-flex;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.user-info {
+  width: calc(100% - 185px);
+}
+
+.menu-icon-button {
+  width: 26px;
+  height: 26px;
+  position: absolute !important;
+  right: 50px;
+}
+
+.background-check-div {
+  margin-left: calc(100% - 500px);
+}
+
+.checkbox-style {
+  margin: auto;
+  width: 100%;
+}
