@@ -146,9 +146,7 @@ export const getLiveRecordingLog = ({ lead_id, user }) => {
     raw: true,
     order: [['start_time', 'DESC']],
     where: {
-      user: {
-        [Op.like]: user.toLowerCase()
-      },
+      user,
       lead_id
     }
   }
