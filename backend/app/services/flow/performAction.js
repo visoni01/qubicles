@@ -532,14 +532,9 @@ export class PerformActionService extends ServiceBase {
 
                   const apptEndDate = moment(apptStartDate).add(1, 'hour')
 
-                  // adjust based on TZ
-                  let isDaylightSavings = false
-                  // system timezone
-                  const currentTimezone = moment.tz.guess()
-
-                  if (currentTimezone === 'America/New_York' || currentTimezone === 'Eastern Standard Time') {
-                    isDaylightSavings = moment().isDST()
-                  }
+                  // timezone
+                  const currentTimezone = moment().tz('America/New_York')
+                  const isDaylightSavings = currentTimezone.isDST()
 
                   let offset = parseFloat(gmtOffset)
                   if (isDaylightSavings) {
@@ -575,6 +570,60 @@ export class PerformActionService extends ServiceBase {
                       break
                     case '-4.00':
                       cal.timezone('US/Eastern')
+                      break
+                    case '-3.50':
+                      cal.timezone('America/St_Johns')
+                      break
+                    case '-3.00':
+                      cal.timezone('America/Argentina/Buenos_Aires')
+                      break
+                    case '-2.00':
+                      cal.timezone('Etc/GMT+2')
+                      break
+                    case '-1.00':
+                      cal.timezone('Atlantic/Cape_Verde')
+                      break
+                    case '0.00':
+                      cal.timezone('Etc/UTC')
+                      break
+                    case '1.00':
+                      cal.timezone('Europe/Berlin')
+                      break
+                    case '2.00':
+                      cal.timezone('Asia/Beirut')
+                      break
+                    case '3.00':
+                      cal.timezone('Asia/Baghdad')
+                      break
+                    case '3.50':
+                      cal.timezone('Asia/Tehran')
+                      break
+                    case '4.00':
+                      cal.timezone('Asia/Dubai')
+                      break
+                    case '4.50':
+                      cal.timezone('Asia/Kabul')
+                      break
+                    case '5.00':
+                      cal.timezone('Asia/Karachi')
+                      break
+                    case '5.50':
+                      cal.timezone('Asia/Kolkata')
+                      break
+                    case '5.75':
+                      cal.timezone('Asia/Kathmandu')
+                      break
+                    case '6.00':
+                      cal.timezone('Asia/Dhaka')
+                      break
+                    case '7.00':
+                      cal.timezone('Asia/Jakarta')
+                      break
+                    case '8.00':
+                      cal.timezone('Asia/Shanghai')
+                      break
+                    case '9.00':
+                      cal.timezone('Asia/Tokyo')
                       break
                     default:
                       cal.timezone('America/New_York')
