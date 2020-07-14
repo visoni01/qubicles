@@ -1,6 +1,6 @@
 import React from 'react'
 import JobDescription from '../../components/CommunicationForums/ForumChannel'
-import jobsData from './data'
+import { jobsData } from './data'
 
 const JobsWrapper = () => (
   jobsData.map(({ title, jobs }) => (
