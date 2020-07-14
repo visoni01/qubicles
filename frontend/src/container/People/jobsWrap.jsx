@@ -2,7 +2,7 @@ import React from 'react'
 import JobDescription from '../../components/CommunicationForums/ForumChannel'
 import jobsData from './data'
 
-const Wrap = () => (
+const JobsWrapper = () => (
   jobsData.map(({ title, jobs }) => (
     <div className='forum-container mt-10' key={ title }>
       {/* Heading */}
@@ -20,4 +20,4 @@ const Wrap = () => (
     </div>
   )))
 
-export default Wrap
+export default JobsWrapper

@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
   Button, Tab, Tabs, Divider, IconButton,
 } from '@material-ui/core'
-import { useSelector, useDispatch } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faSearch, faPlus, faPlusCircle, faEllipsisV,
+  faSearch, faPlus, faEllipsisV,
 } from '@fortawesome/free-solid-svg-icons'
 import JobsWrap from './jobsWrap'
-import { categoryDataFetchingStart } from '../../redux-saga/redux/actions'
 import withNavBar from '../../Hoc/navbar'
-import jobsData from './data'
 import './style.scss'
 
 const People = () => {
