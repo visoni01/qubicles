@@ -29,10 +29,10 @@ import poweredByBlockchain from './powered-by-blockchain.jpg'
 import marlonJudWarren from './marlon-jud-warren.jpg'
 import teamJudson from './team-judson.jpg'
 import teamMarlon from './team-marlon.jpg'
-import teamMorgan from './team-morgan.png'
 import teamRob from './team-rob.png'
 import teamTerpin from './team-terpin.jpg'
 import teamWarren from './team-warren.jpeg'
+import teamKate from './Kate.jpg'
 
 export {
   globalNetworkImage,
@@ -64,10 +64,10 @@ export {
   idleUsage,
   poweredByBlockchain,
   marlonJudWarren,
-  teamMorgan,
   teamMarlon,
   teamJudson,
   teamRob,
   teamWarren,
   teamTerpin,
+  teamKate,
 }
