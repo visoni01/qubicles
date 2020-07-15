@@ -21,9 +21,9 @@ export const getUserDetails = () => {
   const token = Cookies.get('access_token')
   let userDetails
   if (token) {
-    const { user, user_id, email } = jwt.decode(token)
+    const { full_name, user_id, email } = jwt.decode(token)
     userDetails = {
-      user, 
+      full_name, 
       user_id, 
       email
     }

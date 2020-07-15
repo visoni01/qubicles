@@ -59,7 +59,7 @@ export default class SocialSignupService extends ServiceBase {
   }
 
   async generateAndSendToken (email, full_name, user_id) {
-    const token = jwt.sign({ email, user: full_name, user_id }, 'secret', { expiresIn: TOKEN_EXPIRY_TIME })
+    const token = jwt.sign({ email, full_name, user_id }, 'secret', { expiresIn: TOKEN_EXPIRY_TIME })
     await SendEmailVerificationMail.execute({ token, email })
   }
 }

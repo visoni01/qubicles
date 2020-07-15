@@ -17,7 +17,7 @@ export default class UserController {
   static async logout (req, res) {
     try {
       res.clearCookie()
-      Responder.success(res)
+      Responder.success(res, 'User logged out successfully!!')
     } catch(err) {
       Responder.failed(res)
     }
