@@ -8,8 +8,6 @@ import {
 import People from '../container/People'
 import Login from '../container/Login'
 import Auth from '../components/User/Auth'
-import { CircularLoader } from '../components/loaders'
-import CustomSnackbar from '../components/snackbar'
 import ForumGroup from '../container/CommunicationForums'
 import ForumChannel from '../container/CommunicationForums/channelView'
 
@@ -58,16 +56,19 @@ const routes = [
     path: '/dashboard',
     component: Dashboard,
     exact: true,
+    auth: true,
   },
   {
     path: '/post-signup',
     component: PostSignUp,
     exact: true,
+    auth: true,
   },
   {
     path: '/invite-friends',
     component: InviteFriends,
     exact: true,
+    auth: true,
   },
   {
     path: '/auth',
@@ -79,16 +80,19 @@ const routes = [
     path: '/group',
     component: ForumGroup,
     exact: true,
+    auth: true,
   },
   {
     path: '/group/channels/:channelId',
     component: ForumChannel,
     exact: true,
+    auth: true,
   },
   {
     path: '/people',
     component: People,
     exact: true,
+    auth: true,
   },
 ]
 
