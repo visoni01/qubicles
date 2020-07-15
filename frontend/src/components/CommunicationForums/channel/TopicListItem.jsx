@@ -5,7 +5,7 @@ import { faLightbulb } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import { getTimeFromNow } from '../../../utils/common'
 import { ownerDetails } from '../forumValidators'
-import { getUserRoute, getTopicPage } from '../../../routes/forumRoutes'
+import PATHS from '../../../routes/routePaths'
 
 const TopicListItem = ({
   topicTitle, tags, dateCreatedOn, topicOwner, totalReplies, dateLastReplied, topicId,
@@ -18,12 +18,12 @@ const TopicListItem = ({
       </div>
     </div>
     <div className='topic-meta'>
-      <Link to={ getTopicPage({ topicId }) } className='topic-title'>{topicTitle}</Link>
+      <Link to={ `${ PATHS.FORUM_TOPICS }/${ topicId }` } className='topic-title'>{topicTitle}</Link>
       <div className='flex-block'>
         <span>
           {getTimeFromNow(dateCreatedOn)}
           {', by '}
-          <Link to={ getUserRoute({ userId: topicOwner.userId }) }>{topicOwner.userName}</Link>
+          <Link to={ `${ PATHS.USER_ROUTE }/${ topicOwner.userId }` }>{topicOwner.userName}</Link>
         </span>
         <div className='tags'>
           {tags.map((tag) => (

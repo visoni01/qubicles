@@ -12,7 +12,6 @@ const ForumGroup = () => {
     dispatch(categoryDataFetchingStart())
   }, [])
   const { categories, isLoading } = useSelector((state) => state.category)
-
   return (
     <div className='dashboard-inner'>
       {/* Dashboard Wrapper */}
