@@ -1,4 +1,5 @@
 import moment from 'moment'
+import config from '../utils/config'
 
 export const formatDate = (date) => moment(date).format('MMMM DD, YYYY')
 
@@ -14,3 +15,7 @@ export const getDataForReducer = (action, initialValue, dataKey) => {
 }
 
 export const getTimeFromNow = (date) => moment(date).fromNow()
+
+export const isProductionEnvironment = () => {
+  return config.NODE_ENV === 'production'
+}
