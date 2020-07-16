@@ -6,13 +6,13 @@ import routes from './routeList'
 
 const RouteValidator = (routeData) => {
   const token = Cookies.get('access_token')
-  return (token ? <Route { ...routeData } /> : <Redirect to='login' />)
+  return (token ? <Route { ...routeData } /> : <Redirect to='login' exact />)
 }
 
 const CustomRoutes = () => (
   routes.map(({ auth, ...rest }) => (
     auth ? <RouteValidator { ...rest } key={ rest.path } />
-      : <Route { ...rest } key={ rest.path } />
+      : <Route { ...rest } key={ rest.path } exact />
   ))
 )
 

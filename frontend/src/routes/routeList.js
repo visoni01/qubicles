@@ -10,88 +10,75 @@ import Login from '../container/Login'
 import Auth from '../components/User/Auth'
 import ForumGroup from '../container/CommunicationForums'
 import ForumChannel from '../container/CommunicationForums/channelView'
+import ROUTE_PATHS from './routesPath'
 
 const routes = [
   {
-    path: '/',
+    path: ROUTE_PATHS.Home,
     component: Home,
-    exact: true,
   },
   {
-    path: '/agents',
+    path: ROUTE_PATHS.AGENTS,
     component: Agents,
-    exact: true,
   },
   {
-    path: '/contactcenters',
+    path: ROUTE_PATHS.CONTACT_CENTERS,
     component: ContactCenter,
-    exact: true,
   },
   {
-    path: '/contactus',
+    path: ROUTE_PATHS.CONTACT_US,
     component: ContactUs,
-    exact: true,
   },
   {
-    path: '/about',
+    path: ROUTE_PATHS.ABOUT,
     component: AboutUs,
-    exact: true,
   },
   {
-    path: '/signup',
+    path: ROUTE_PATHS.SIGN_UP,
     component: Signup,
-    exact: true,
+
   },
   {
-    path: '/login',
+    path: ROUTE_PATHS.LOG_IN,
     component: Login,
-    exact: true,
   },
   {
-    path: '/verify-token/:token',
+    path: ROUTE_PATHS.VERIFY_TOKEN,
     component: EmailVerification,
-    exact: true,
   },
   {
-    path: '/dashboard',
+    path: ROUTE_PATHS.DASHBOARD,
     component: Dashboard,
-    exact: true,
     auth: true,
   },
   {
-    path: '/post-signup',
+    path: ROUTE_PATHS.POST_SIGN_UP,
     component: PostSignUp,
-    exact: true,
     auth: true,
   },
   {
-    path: '/invite-friends',
+    path: ROUTE_PATHS.INVITE_FRIEND,
     component: InviteFriends,
-    exact: true,
     auth: true,
   },
   {
-    path: '/auth',
+    path: ROUTE_PATHS.AUTH,
     // eslint-disable-next-line react/display-name
     render: (props) => <Auth { ...props } />,
-    exact: true,
   },
   {
-    path: '/group',
+    path: ROUTE_PATHS.GROUP,
     component: ForumGroup,
-    exact: true,
     auth: true,
   },
   {
-    path: '/group/channels/:channelId',
+    path: ROUTE_PATHS.GROUP_CHANNEL,
     component: ForumChannel,
-    exact: true,
     auth: true,
   },
   {
-    path: '/people',
+    path: ROUTE_PATHS.PEOPLE,
     component: People,
-    exact: true,
     auth: true,
   },
 ]
