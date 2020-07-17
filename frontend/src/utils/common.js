@@ -12,8 +12,9 @@ export const isEmptyObject = (input) => {
   return !(isObject && objKeys && objKeys.length)
 }
 
-export const getDataForReducer = (action, initialValue, dataKey) => ((action && action.payload
-  && action.payload[ dataKey ]) || initialValue)
+export const getDataForReducer = (action, initialValue, dataKey) => (
+  (action && action.payload && action.payload[ dataKey ]) || initialValue
+)
 
 export const getTimeFromNow = (date) => moment(date).fromNow()
 
@@ -23,6 +24,7 @@ export const getUserDetails = () => {
   const token = Cookies.get('access_token')
   let userDetails
   if (token) {
+    // eslint-disable-next-line camelcase
     const { full_name, user_id, email } = jwt.decode(token)
     userDetails = {
       full_name,
@@ -33,3 +35,5 @@ export const getUserDetails = () => {
 
   return userDetails
 }
+
+export const getToken = () => Cookies.get('access_token')

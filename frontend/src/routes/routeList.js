@@ -37,15 +37,17 @@ const routes = [
   {
     path: ROUTE_PATHS.SIGN_UP,
     component: Signup,
-
+    redirectToDashboard: true,
   },
   {
     path: ROUTE_PATHS.LOG_IN,
     component: Login,
+    redirectToDashboard: true,
   },
   {
     path: ROUTE_PATHS.VERIFY_TOKEN,
     component: EmailVerification,
+    redirectToDashboard: true,
   },
   {
     path: ROUTE_PATHS.DASHBOARD,
