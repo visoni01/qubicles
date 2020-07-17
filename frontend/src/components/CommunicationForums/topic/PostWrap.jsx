@@ -13,10 +13,6 @@ const PostWrap = ({
 }) => (
   <div className='forum-wrap'>
     <div className='forum-container'>
-      {/* Heading */}
-      <div className='channel-heading'>
-        <h3>{topicTitle}</h3>
-      </div>
       {/* Topic stats */}
       <div className='topic-stats'>
         {/* Created */}

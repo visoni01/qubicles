@@ -1,7 +1,7 @@
 import moment from 'moment'
-import config from '../utils/config'
 import Cookies from 'js-cookie'
 import jwt from 'jsonwebtoken'
+import config from './config'
 
 export const formatDate = (date, format = 'MMMM DD, YYYY') => moment(date).format(format)
 
@@ -17,9 +17,7 @@ export const getDataForReducer = (action, initialValue, dataKey) => ((action && 
 
 export const getTimeFromNow = (date) => moment(date).fromNow()
 
-export const isProductionEnvironment = () => {
-  return config.NODE_ENV === 'production'
-}
+export const isProductionEnvironment = () => config.NODE_ENV === 'production'
 
 export const getUserDetails = () => {
   const token = Cookies.get('access_token')
@@ -27,11 +25,11 @@ export const getUserDetails = () => {
   if (token) {
     const { full_name, user_id, email } = jwt.decode(token)
     userDetails = {
-      full_name, 
-      user_id, 
-      email
+      full_name,
+      user_id,
+      email,
     }
   }
-  
+
   return userDetails
 }
