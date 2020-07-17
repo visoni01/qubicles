@@ -1,9 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { getUserDetails } from '../../utils/common'
 
 const initialState = {
   loading: null,
   error: null,
   success: false,
+  // Setting the state when app render and user refresh the page
+  userDetails: getUserDetails()
 }
 
 const {
@@ -19,11 +22,12 @@ const {
       success: false,
       error: null,
     }),
-    userLoginSuccessful: (state) => ({
+    userLoginSuccessful: (state, action) => ({
       ...state,
       success: true,
       isLoading: false,
       error: null,
+      userDetails: action.payload.userDetails
     }),
     userLoginFailure: (state) => ({
       ...state,

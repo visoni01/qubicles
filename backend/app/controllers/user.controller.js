@@ -14,6 +14,15 @@ export default class UserController {
     }
   }
 
+  static async logout (req, res) {
+    try {
+      res.clearCookie()
+      Responder.success(res, 'User logged out successfully!!')
+    } catch(err) {
+      Responder.failed(res)
+    }
+  }
+
   static async inviteWithGoogle (req, res) {
     const inviteWithGoogleResult = await InviteWithGoogleAuthService.execute(req.body)
     if (inviteWithGoogleResult.successful) {

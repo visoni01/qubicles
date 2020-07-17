@@ -12,33 +12,31 @@ const ForumGroup = () => {
     dispatch(categoryDataFetchingStart())
   }, [])
   const { categories, isLoading } = useSelector((state) => state.category)
-  // categories = []
+  
   return (
-    <>
-      <div className='dashboard-inner'>
-        {/* Dashboard Wrapper */}
-        <div className='dashboard-wrapper'>
-          <div id='main-dashboard' className='section-wrapper'>
-            {/* Dashboard content */}
-            <div id='forum-home' className='dashboard-columns'>
-              {/* Page title */}
-              <div className='control forum-search'>
-                <input type='text' className='input is-rounded' placeholder='Search Groups...' />
-                <div className='search-icon'>
-                  <FontAwesomeIcon icon={ faSearch } />
-                </div>
+    <div className='dashboard-inner'>
+      {/* Dashboard Wrapper */}
+      <div className='dashboard-wrapper'>
+        <div id='main-dashboard' className='section-wrapper'>
+          {/* Dashboard content */}
+          <div id='forum-home' className='dashboard-columns'>
+            {/* Page title */}
+            <div className='control forum-search'>
+              <input type='text' className='input is-rounded' placeholder='Search Groups...' />
+              <div className='search-icon'>
+                <FontAwesomeIcon icon={ faSearch } />
               </div>
-              {/* ForumGroup Category */}
-              { !isLoading
-              && categories.map((category) => <ForumWrap { ...category } key={ category.id } />)}
             </div>
+            {/* ForumGroup Category */}
+            { !isLoading
+            && categories.map((category) => <ForumWrap { ...category } key={ category.id } />)}
           </div>
-          {/* Forum Category */}
-          { !isLoading
-              && categories.map((category) => <ForumWrap { ...category } key={ category.id } />)}
         </div>
+        {/* Forum Category */}
+        { !isLoading
+            && categories.map((category) => <ForumWrap { ...category } key={ category.id } />)}
       </div>
-    </>
+    </div>
   )
 }
 
