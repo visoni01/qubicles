@@ -115,6 +115,12 @@ const config = convict({
       env: 'WEB_APP_BASE_URL'
     }
   },
+  flowApp: {
+    baseUrl: {
+      default: 'http://localhost',
+      env: 'FLOW_APP_BASE_URL'
+    }
+  },
   qubiclesMailIds: {
     sales: {
       default: '',

@@ -22,7 +22,7 @@ const allowCorsURLs = [/\.fenero\.com$/, /\.qubicles\.io$/]
 
 // Check CORS URLs if environment is not development
 const corsConfiguration = {
-  origin: config.get('env') === 'development' ? config.get('webApp.baseUrl') : allowCorsURLs,
+  origin: config.get('env') === 'development' ? [config.get('webApp.baseUrl'), config.get('flowApp.baseUrl')] : allowCorsURLs,
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE, OPTIONS',
   preflightContinue: false,
   optionsSuccessStatus: 204,
