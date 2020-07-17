@@ -1,0 +1,15 @@
+﻿<md-content flex layout-padding layout-align="center center">
+    <md-input-container class="md-block">
+        <label>Width: (specify in pixels, e.g. "100")</label>
+        <input type="text" data-ng-model="field.field_size" required>
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm>
+        <label>{{field.field_name}} Default Value:</label>
+        <input ng-model="field.field_default">
+    </md-input-container>
+    <md-input-container class="md-block">
+        <md-checkbox aria-label="Checkbox" layout="column" ng-model="field.field_options">
+            Make this field read-only
+        </md-checkbox>
+     </md-input-container>
+</md-content>

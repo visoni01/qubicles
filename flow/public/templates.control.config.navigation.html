@@ -1,0 +1,19 @@
+﻿<md-content flex layout-padding layout-align="center center">
+    <md-input-container class="md-block">
+        <label>Width: (specify in pixels, e.g. "100")</label>
+        <input type="text" data-ng-model="field.field_size" required>
+    </md-input-container>
+    <md-input-container class="md-block">
+        <md-checkbox aria-label="Checkbox" layout="column" ng-model="field.field_pattern">
+            Do not check conditions on navigation
+        </md-checkbox>
+    </md-input-container>
+    <md-input-container class="md-block">
+        <md-checkbox aria-label="Checkbox" layout="column" ng-model="field.field_options" ng-show="field.field_pattern == true">
+            Refresh lead data on navigation
+        </md-checkbox>
+    </md-input-container>
+    <md-button class="md-raised md-primary" style="width:{{field.field_size}}">
+        {{field.field_name}}
+    </md-button>
+</md-content>

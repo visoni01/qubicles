@@ -1,0 +1,42 @@
+﻿<md-dialog aria-label="Edit Flow"  ng-cloak style="width:56%;height:56%">
+  <form name="editFlowDialog" novalidate>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Flow Settings</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          X
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <md-content flex layout-padding layout-align="center center">
+            <div  class="md-whiteframe-z2">
+                <input type="hidden" data-ng-model="flow_id" name="flow_id" value="" required>
+                 <md-input-container class="md-block">
+                    <label>Name:</label>
+                    <input type="text" data-ng-model="flow_name" name="flow_name" required>
+                 </md-input-container>
+                 <md-input-container class="md-block">
+                    <label>Description:</label>
+                    <input type="text" data-ng-model="flow_description" name="flow_description">
+                 </md-input-container>
+                 <md-input-container class="md-block">
+                    <label>Flow URL:</label>
+                    <input type="text" select-on-click readonly value="https://manager.fenero.com/Flow/view/{{flow_id}}/@user_id/@lead_id/@list_id">
+                 </md-input-container>
+            </div>
+        </md-content>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button class="md-primary md-raised" ng-click="continue(flow_name, flow_description)" ng-disabled="!flow_name">
+       Save
+      </md-button>
+      <md-button class="md-warn md-raised" ng-click="cancel()">
+        Close
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

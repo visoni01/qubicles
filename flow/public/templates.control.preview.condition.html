@@ -1,0 +1,11 @@
+﻿<md-content flex layout="column" layout-align="start start">
+    <div style="text-align:{{field.name_position|lowercase}}!important" ng-repeat="condition in field.conditions">
+        <p>
+        <b>if</b>: <i>{{condition.field_label}}</i> {{condition.operator}} <i>{{condition.value}}</i>, 
+        <b>go to</b> Page <i>{{condition.goto_page_name}}</i> 
+        or Field <i>{{condition.goto_field_name}}</i> if True, 
+        <i>{{condition.goto_field_else_name}}</i> if False<br />or
+        make {{condition.make_field_required}} field <b>required</b>
+        </p>
+    </div>
+</md-content>

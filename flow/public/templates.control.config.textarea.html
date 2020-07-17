@@ -1,0 +1,14 @@
+﻿<md-content flex layout-padding layout-align="center center">
+    <md-input-container class="md-block">
+        <label>Number of Columns:</label>
+        <input type="text" data-ng-model="field.field_size" required>
+    </md-input-container>
+    <md-input-container class="md-block">
+        <label>Number of Rows:</label>
+        <input type="text" data-ng-model="field.field_options" required>
+    </md-input-container>
+    <md-input-container class="md-block">
+        <label>{{field.field_name}}</label>
+        <textarea rows="{{field.field_max}}" cols="{{field.field_size}}" md-select-on-focus ng-model="field.field_default"></textarea>
+    </md-input-container>
+</md-content>

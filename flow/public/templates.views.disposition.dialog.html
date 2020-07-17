@@ -1,0 +1,45 @@
+﻿<md-dialog aria-label="Select Disposition"  ng-cloak style="width:50%;height:42%">
+  <form name="selectDisposition" novalidate>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Select Disposition</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          X
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <md-content class="md-padding" layout="column">
+            <h3>Select a Disposition</h3>
+            <br />
+            <p>
+                Please choose a disposition from the options below:
+            </p>
+            <md-input-container style="margin: 0px;margin-top:25px;">
+                <label>Click here to view dispositions:</label>
+                <md-select ng-model="disposition" style="font-size:14pt">
+                    <md-optgroup label="dispositions">
+                        <md-option ng-value="disposition.status" ng-repeat="disposition in dispositions">
+                            {{disposition.status_name}}
+                        </md-option>
+                    </md-optgroup>
+                </md-select>
+            </md-input-container>
+			<md-checkbox style="margin: 0px;margin-top:15px;" aria-label="Checkbox" layout="column" ng-model="goToPause">
+                Put me in Pause after dispositioning
+            </md-checkbox>
+        </md-content>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button class="md-primary md-raised" ng-click="continue(disposition, goToPause)" ng-disabled="!disposition">
+       Save and Continue
+      </md-button>
+      <md-button class="md-warn md-raised" ng-click="cancel()">
+        Close
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

@@ -1,0 +1,21 @@
+﻿<md-content flex layout-padding layout-align="center center">
+    <div class="md-whiteframe-z2">
+        <md-input-container class="md-block">
+            <label>Fully Qualified URL (including protocol prefix):</label>
+            <input type="url" data-ng-model="field.field_default" required>
+         </md-input-container>
+         <md-input-container class="md-block">
+            <label>Width: (specify in pixels, e.g. "800")</label>
+            <input type="text" data-ng-model="field.field_size" required>
+         </md-input-container>
+         <md-input-container class="md-block">
+            <label>Height: (specify in pixels, e.g. "600")</label>
+            <input type="text" data-ng-model="field.field_max" required>
+         </md-input-container>
+         <md-input-container  style="margin:0px 0px 0px 18px">
+            <md-checkbox aria-label="Checkbox" layout="column" ng-model="field.field_options">
+                Open in separate window/tab
+            </md-checkbox>
+         </md-input-container>
+    </div>
+</md-content>

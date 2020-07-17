@@ -1,0 +1,10 @@
+﻿<md-content flex> 
+    <div flex="100" layout="row" style="margin-top:20px;text-align:{{field.name_position|lowercase}}!important">
+        <md-inputcontainer>
+            <md-checkbox aria-label="Checkbox" style="width:300px" layout-align="start start" 
+                ng-repeat="item in field.field_options">
+                {{item.text}}
+            </md-checkbox>
+        </md-inputcontainer>
+    </div>
+</md-content>

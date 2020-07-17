@@ -1,0 +1,12 @@
+﻿<md-content flex layout="row" layout-align="start center">
+    <div style="text-align:{{field.name_position|lowercase}}!important">
+        <md-input-container>
+            <label>Click to view options</label>
+            <md-select ng-model="field.nothing" multiple>
+                <md-option ng-repeat="item in field.field_options">
+                    {{item.text}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+</md-content>

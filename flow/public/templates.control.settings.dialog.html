@@ -1,0 +1,84 @@
+﻿<md-dialog aria-label="Field Settings"  ng-cloak>
+  <form name="controlSettingsDialog" novalidate>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Settings</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          X
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <md-tabs md-dynamic-height md-border-bottom>
+          <md-tab label="General">
+            <md-content class="md-padding">
+              <control-shared-config ng-show="true" field="field" flowController="flowController"></control-shared-config>
+            </md-content>
+          </md-tab>
+          <md-tab label="{{field.field_type}} Options">
+          <md-content class="md-padding">
+               <control-config field="field" type="{{field.field_type}}"></control-config>
+          </md-content>
+          </md-tab>
+          <md-tab label="Validation" ng-if="field.showValidationOpts==true">
+            <md-content class="md-padding" layout="column">
+                <p>
+                    Apply the following validation(s) to this field upon data entry:
+                </p>
+                <md-input-container style="margin-right: 10px;">
+                    <label>Validations:</label>
+                    <md-select ng-model="field.field_validations" multiple>
+                        <md-optgroup label="validations">
+                            <md-option ng-selected="field.field_validations.indexOf(validation.value)>-1" ng-value="validation.value" ng-repeat="validation in flowController.fieldValidations">
+                                {{validation.text}}
+                            </md-option>
+                        </md-optgroup>
+                    </md-select>
+                </md-input-container>
+                <md-input-container style="margin-right: 10px;" ng-show="field.field_validations && field.field_validations.indexOf('MinLength')>-1">
+                    <label>Minimum Length:</label>
+                    <input type="text" ng-model="field.field_min"/>
+                </md-input-container>
+                <md-input-container style="margin-right: 10px;" ng-show="field.field_validations && field.field_validations.indexOf('MaxLength')>-1">
+                    <label>Maximum Length:</label>
+                    <input type="text" ng-model="field.field_max" />
+                </md-input-container>
+                <md-input-container style="margin-right: 10px;" ng-show="field.field_validations && field.field_validations.indexOf('RegEx')>-1">
+                    <label>Regular Expression:</label>
+                    <input type="text" ng-model="field.field_pattern" />
+                </md-input-container>
+                <md-input-container style="margin-right: 10px;" ng-show="((field.field_type | lowercase) =='multiselection') && field.field_validations && field.field_validations.indexOf('OptionLimit')>-1">
+                    <label>Option Limit:</label>
+                    <input type="text" ng-model="field.field_max" />
+                </md-input-container>
+            </md-content>
+          </md-tab>
+          <md-tab label="Navigation"  ng-if="field.showNavigationOpts==true">
+            <md-content class="md-padding">
+              <md-input-container style="margin-right: 10px;">
+                <label>On Selection Go To:</label>
+                <md-select ng-model="field.goto_page">
+                    <md-option ng-value="scriptPage.page_id" ng-repeat="scriptPage in flowController.scriptPages">{{scriptPage.page_name}}</md-option>
+                </md-select>
+            </md-input-container>
+            </md-content>
+          </md-tab>
+        </md-tabs>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button class="md-primary md-raised" ng-click="saveSettings()"
+         ng-disabled="controlSettingsDialog.$invalid">
+       Save Settings
+      </md-button>
+      <md-button class="md-primary md-raised" ng-click="cancel()">
+        Close
+      </md-button>
+      <md-button class="md-warn md-raised" ng-click="delete()">
+        Delete
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

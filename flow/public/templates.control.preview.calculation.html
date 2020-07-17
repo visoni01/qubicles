@@ -1,0 +1,7 @@
+﻿<md-content flex layout="column" layout-align="start start">
+    <div style="text-align:{{field.name_position|lowercase}}!important" ng-repeat="calculation in field.calculations">
+        <p>
+        {{$index > 0 ? "AND ":"" }}<i>{{calculation.field_label}}</i> {{calculation.operator}} <i>{{calculation.value}}</i>
+        </p>
+    </div>
+</md-content>
