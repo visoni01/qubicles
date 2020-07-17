@@ -13,11 +13,11 @@ const constraints = {
   }
 }
 export default class SendEmailVerificationMailService extends ServiceBase {
-  get constraints () {
+  get constraints() {
     return constraints
   }
 
-  async run () {
+  async run() {
     const verifyEmailPageUrl = `${config.get('webApp.baseUrl')}/verify-token/${this.token}`
 
     NodeMailer.sendMail({
@@ -35,7 +35,7 @@ export default class SendEmailVerificationMailService extends ServiceBase {
   }
 }
 
-function getHtml ({ verifyEmailPageUrl }) {
+function getHtml({ verifyEmailPageUrl }) {
   const EMAIL_TEMPLATE_GREETING = 'Hello'
   const EMAIL_TEMPLATE_BODY = `
   Welcome to Qubicles! 
