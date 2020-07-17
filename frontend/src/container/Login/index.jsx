@@ -7,11 +7,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faPaperPlane,
   faLock,
+  faEnvelope,
 } from '@fortawesome/free-solid-svg-icons'
 import { Button } from '@material-ui/core'
 import { Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
-
+import {
+  FacebookIcon,
+  LinkedinIcon,
+  TwitterIcon,
+} from 'react-share'
 import { userLoginStart } from '../../redux-saga/redux/login'
 import QubiclesLogo from '../../assets/images/qbe-dark.png'
 import './style.scss'
@@ -73,17 +78,20 @@ const Login = ({ history }) => {
       'height=400,top=200,left=400,width=500,scrollbars=no,menubar=no,resizable=yes,toolbar=no,location=no,status=no')
   }
 
-  const SocialLoginButton = (buttonName, type) => (
+  const SocialLoginButton = (buttonName, type, Icon) => (
     <Button
       variant='contained'
       size='large'
       color='primary'
       className={ `social-login-buttons ${ type }` }
       onClick={ () => handleSocialLogin(type) }
+      startIcon={ <Icon className='social-login-icons' /> }
     >
       {buttonName}
     </Button>
   )
+
+  const handleCreateAccountLink = () => (isSocialLogin ? history.push('/signup') : setIsSocialLogin(!isSocialLogin))
 
   return (
     <div className='login-wrapper columns is-gapless'>
@@ -118,9 +126,20 @@ const Login = ({ history }) => {
                     <>
                       {isSocialLogin && (
                       <div className='margin-bottom-30'>
-                        {SocialLoginButton('Log in with Facebook', 'facebook')}
-                        {SocialLoginButton('Log in with Twitter', 'twitter')}
-                        {SocialLoginButton('Log in with LinkedIn', 'linkedin')}
+                        {SocialLoginButton('Login with Facebook', 'facebook', FacebookIcon)}
+                        {SocialLoginButton('Login with Twitter', 'twitter', TwitterIcon)}
+                        {SocialLoginButton('Login with LinkedIn', 'linkedin', LinkedinIcon)}
+                        <Button
+                          type='button'
+                          variant='contained'
+                          size='large'
+                          color='primary'
+                          className='social-login-buttons'
+                          onClick={ () => setIsSocialLogin(!isSocialLogin) }
+                          startIcon={ <FontAwesomeIcon className='social-login-icons mr-10' icon={ faEnvelope } /> }
+                        >
+                          Login with Email
+                        </Button>
                       </div>
                       )}
                       {!isSocialLogin && (
@@ -148,30 +167,14 @@ const Login = ({ history }) => {
                             id='sendVerificationCode'
                             className='button btn-outlined is-bold is-fullwidth rounded raised no-lh'
                           >
-                            Log in
+                            Login
                           </button>
                         </p>
                       </div>
                       )}
-                      <button
-                        type='button'
-                        className='text-button'
-                        onClick={ () => setIsSocialLogin(!isSocialLogin) }
-                      >
-                        {isSocialLogin && (
-                        <span>
-                          Log in with Email
-                        </span>
-                        )}
-                        {!isSocialLogin && (
-                        <span>
-                          Back to social log in options
-                        </span>
-                        )}
-                      </button>
-                      <br />
-                      <button type='button' className='text-button' onClick={ () => history.push('/signup') }>
-                        Signup with Email
+                      <button type='button' className='text-button' onClick={ handleCreateAccountLink }>
+                        {isSocialLogin ? 'Don\'t have a social account? Sign up using an email instead'
+                          : 'Don\'t have an account? Create one now using your email or social media account' }
                       </button>
                     </>
                   )}

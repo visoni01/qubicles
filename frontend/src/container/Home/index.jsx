@@ -10,27 +10,30 @@ import ContactCenter from '../../components/Home/contactCenter'
 import ContactUs from '../../components/Home/contactUs'
 import AboutUs from '../../components/Home/aboutUs'
 import './style.scss'
+import { isProductionEnvironment } from '../../utils/common'
 
 const Home = ({ history }) => {
   useEffect(() => {
-    const script = document.createElement('script')
-    const eventListener = document.createElement('script')
+    if (isProductionEnvironment()) {
+      const script = document.createElement('script')
+      const eventListener = document.createElement('script')
 
-    script.src = '//static.leadpages.net/leadboxes/current/embed.js'
-    script.async = true
-    script.defer = true
+      script.src = '//static.leadpages.net/leadboxes/current/embed.js'
+      script.async = true
+      script.defer = true
 
-    eventListener.innerHTML = `window.addEventListener('LPLeadboxesReady', () => {
-      LPLeadboxes.addDelayedLeadbox('kNzQaTguSZNBfdEwN6QFH2', {
-        delay: '20s', views: 0, dontShowFor: '1d', domain: 'go.fenero.io',
-      })
-    })`
+      eventListener.innerHTML = `window.addEventListener('LPLeadboxesReady', () => {
+        LPLeadboxes.addDelayedLeadbox('kNzQaTguSZNBfdEwN6QFH2', {
+          delay: '20s', views: 0, dontShowFor: '1d', domain: 'go.fenero.io',
+        })
+      })`
 
-    document.body.appendChild(script)
-    document.body.appendChild(eventListener)
-    return () => {
-      document.body.removeChild(script)
-      document.body.removeChild(eventListener)
+      document.body.appendChild(script)
+      document.body.appendChild(eventListener)
+      return () => {
+        document.body.removeChild(script)
+        document.body.removeChild(eventListener)
+      }
     }
   }, [])
 

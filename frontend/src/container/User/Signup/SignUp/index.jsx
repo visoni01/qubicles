@@ -68,7 +68,7 @@ const SignUp = ({ location, history }) => {
       <div className='column login-column is-8 is-hidden-mobile hero-banner'>
         <div
           className={ classNames(
-            'hero login-hero is-fullheight has-background-image',
+            'hero login-hero is-fullheight has-background-image height-full-cover',
             'side-cover',
           ) }
         >
@@ -94,7 +94,17 @@ const SignUp = ({ location, history }) => {
                 <div className='column is-8 is-offset-2'>
                   {(!success && !isSocialSignupSuccess) && (
                     <>
-                      <div className='margin-bottom-30'>
+                      <>
+                        <button
+                          type='button'
+                          className='text-button mb-20'
+                          onClick={ () => history.push({
+                            pathname: '/login',
+                            state: { isEmail: true },
+                          }) }
+                        >
+                          Already have an account? Click here to login
+                        </button>
                         <div className='field pb-10'>
                           {inputField(
                             'email',
@@ -133,21 +143,11 @@ const SignUp = ({ location, history }) => {
                             Sign Up
                           </button>
                         </p>
-                      </div>
-                      <button type='button' className='text-button' onClick={ () => history.push('/login') }>
+                      </>
+                      <button type='button' className='text-button mt-20' onClick={ () => history.push('/login') }>
                         <span className='options-span-2'>
-                          Social log in options
+                          Or sign up faster using your Facebook, Twitter or linkedIn account
                         </span>
-                      </button>
-                      <button
-                        type='button'
-                        className='text-button'
-                        onClick={ () => history.push({
-                          pathname: '/login',
-                          state: { isEmail: true },
-                        }) }
-                      >
-                        Log in with Email
                       </button>
                     </>
                   )}

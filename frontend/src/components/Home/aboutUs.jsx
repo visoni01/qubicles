@@ -7,12 +7,12 @@ import { Link } from 'react-router-dom'
 import { TwitterIcon, LinkedinIcon } from 'react-share'
 import {
   marlonJudWarren,
-  teamMorgan,
   teamMarlon,
   teamJudson,
   teamRob,
   teamWarren,
   teamTerpin,
+  teamKate,
 } from '../../assets/images/landingPage'
 import { Header, Footer, ClientReviews } from './index'
 
@@ -276,14 +276,14 @@ const AboutUs = () => (
             <article className='modern-team-item circle-mask zoom-effect'>
               <div className='item-wrapper'>
                 <div className='item-img'>
-                  <img className='member-avatar' alt='' src={ teamMorgan } />
+                  <img className='member-avatar' alt='' src={ teamKate } />
                 </div>
                 <div className='overlay-wrapper'>
                   <div>
-                    <a target='_blank' href='https://twitter.com/MorganJamesFC2' className='mr-10'>
+                    <a target='_blank' href='https://twitter.com/katecroberts' className='mr-10'>
                       <TwitterIcon className='social-icons-about-us' />
                     </a>
-                    <a target='_blank' href='https://www.linkedin.com/in/morgan-james-672b23131'>
+                    <a target='_blank' href='https://www.linkedin.com/in/kateconlonroberts'>
                       <LinkedinIcon className='social-icons-about-us' />
                     </a>
                   </div>
@@ -291,8 +291,8 @@ const AboutUs = () => (
               </div>
               <div className='member-info'>
                 <h3 className='member-name'>
-                  Morgan
-                  <strong> James</strong>
+                  Kate
+                  <strong> Roberts </strong>
                 </h3>
                 <span className='member-position color-blue'>Growth Marketing</span>
               </div>
