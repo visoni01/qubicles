@@ -18,7 +18,7 @@ export default class UserController {
     try {
       res.clearCookie()
       Responder.success(res, 'User logged out successfully!!')
-    } catch(err) {
+    } catch (err) {
       Responder.failed(res)
     }
   }

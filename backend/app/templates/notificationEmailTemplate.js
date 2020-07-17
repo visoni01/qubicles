@@ -1,4 +1,4 @@
-export function notificationEmailTemplate(EMAIL_TEMPLATE_GREETING, EMAIL_TEMPLATE_BODY, EMAIL_TEMPLATE_CLOSING) {
+export function notificationEmailTemplate (EMAIL_TEMPLATE_GREETING, EMAIL_TEMPLATE_BODY, EMAIL_TEMPLATE_CLOSING) {
   const template = `
   <html>
   <head>
