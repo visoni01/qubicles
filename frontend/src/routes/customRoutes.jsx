@@ -19,15 +19,11 @@ const CustomRoutes = (routeData) => (
   </Switch>
 )
 
-const Validator = ({ component: Component }) => {
-  const token = getToken()
-  return (token ? <Component /> : <Redirect to='/login' />)
-}
+const Validator = ({ component: Component }) => (getToken() ? <Component /> : <Redirect to='/login' />)
 
-const Redirector = ({ component: Component, redirectToDashboard }) => {
-  const token = getToken()
-  return ((token && redirectToDashboard) ? <Redirect to='/dashboard' /> : <Component />)
-}
+const Redirector = ({ component: Component, redirectToDashboard }) => (
+  (getToken() && redirectToDashboard) ? <Redirect to='/dashboard' /> : <Component />
+)
 
 Validator.propTypes = {
   component: PropTypes.func.isRequired,

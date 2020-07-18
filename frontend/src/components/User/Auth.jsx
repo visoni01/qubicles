@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import apiClient from '../../utils/apiClient'
 import config from '../../utils/config'
 
-const Auth = (props) => {
+const Auth = () => {
   useEffect(() => {
     const isEmailVerified = Cookies.get('is_email_verified')
     if (isEmailVerified === 'false' && window.opener) {
@@ -30,18 +30,6 @@ const Auth = (props) => {
   return (
     <></>
   )
-}
-
-Auth.propTypes = {
-  location: PropTypes.instanceOf({
-    search: PropTypes.string,
-  }),
-}
-
-Auth.defaultProps = {
-  location: {
-    search: '',
-  },
 }
 
 export default Auth

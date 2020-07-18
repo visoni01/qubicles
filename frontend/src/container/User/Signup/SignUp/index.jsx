@@ -12,6 +12,7 @@ import {
 import { Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 
+import { useHistory, useLocation } from 'react-router-dom'
 import { userSignupStart } from '../../../../redux-saga/redux/signup'
 import QubiclesLogo from '../../../../assets/images/qbe-dark.png'
 import './style.scss'
@@ -23,10 +24,12 @@ const schema = yup.object().shape({
   pass: yup.string().required('*Required'),
 })
 
-const SignUp = ({ location, history }) => {
+const SignUp = () => {
   const { register, errors, handleSubmit } = useForm({
     validationSchema: schema,
   })
+  const history = useHistory()
+  const location = useLocation()
   const [ isSocialSignup, setIsSocialSignup ] = useState(true)
   const isSocialSignupSuccess = location.search && location.search.split('?')[ 1 ] === 'with_social=true' // Temporary set up.
   const dispatch = useDispatch()
@@ -167,21 +170,6 @@ const SignUp = ({ location, history }) => {
       </div>
     </div>
   )
-}
-
-SignUp.propTypes = {
-  location: PropTypes.instanceOf({
-    search: PropTypes.string,
-  }),
-  history: PropTypes.instanceOf({
-    push: PropTypes.func,
-  }).isRequired,
-}
-
-SignUp.defaultProps = {
-  location: {
-    search: '',
-  },
 }
 
 export default SignUp

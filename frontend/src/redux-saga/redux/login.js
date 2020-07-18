@@ -6,7 +6,7 @@ const initialState = {
   error: null,
   success: false,
   // Setting the state when app render and user refresh the page
-  userDetails: getUserDetails()
+  userDetails: getUserDetails(),
 }
 
 const {
@@ -27,7 +27,7 @@ const {
       success: true,
       isLoading: false,
       error: null,
-      userDetails: action.payload.userDetails
+      userDetails: action.payload.userDetails,
     }),
     userLoginFailure: (state) => ({
       ...state,
