@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Announcement from '../../components/Dashboard/announcement'
 import CommunityRep from '../../components/Dashboard/communityRep'
 import JobPosting from '../../components/Dashboard/jobPosting'
@@ -15,6 +15,8 @@ import withNavBar from '../../Hoc/navbar'
 
 const Dashboard = () => {
   const dispatch = useDispatch()
+  const { userDetails } = useSelector((state) => state.login)
+
   // Fetching dashboard data
   useEffect(() => {
     dispatch(dashboardDataFetchingStart())
@@ -22,7 +24,9 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className='dashboard-heading'> Welcome to the Floor, Marlon </div>
+      <div className='dashboard-heading'>
+        { `Welcome to the Floor, ${ userDetails && userDetails.full_name } `}
+      </div>
       <div id='main-dashboard' className='section-wrapper'>
         <div id='basic-layout' className='columns dashboard-columns'>
           <div className='column is-3'>

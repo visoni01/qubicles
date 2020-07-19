@@ -8,11 +8,13 @@ import {
   faBell,
 } from '@fortawesome/free-solid-svg-icons'
 import { IconButton } from '@material-ui/core'
+import { useSelector } from 'react-redux'
 import headerLogo from '../../assets/images/qbe-header-logo.png'
 import UserAccount from './account'
 
 const Header = () => {
   const [ isDropdownOpen, setIsDropdownOpen ] = useState(false)
+  const { userDetails } = useSelector((state) => state.login)
   return (
     <div className='dashboard-header'>
       <div className='left column is-1 pull-left'>
@@ -40,7 +42,9 @@ const Header = () => {
             onClick={ () => setIsDropdownOpen(!isDropdownOpen) }
           >
             {/* TODO: Add first letter of user name */}
-            <Avatar className='avatar'>M</Avatar>
+            <Avatar className='avatar'>
+              {userDetails && userDetails.full_name && userDetails.full_name[ 0 ].toUpperCase()}
+            </Avatar>
           </IconButton>
         </div>
       </div>
