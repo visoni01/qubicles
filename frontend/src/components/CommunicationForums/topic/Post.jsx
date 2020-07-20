@@ -8,39 +8,42 @@ import { formatDate, getTimeFromNow } from '../../../utils/common'
 import TopAction from '../TopAction'
 import { ownerDetails } from '../forumValidators'
 
-const Post = ({ postMeta, postBody }) => (
-  <div className='post'>
-    <div className='post-meta'>
-      <div className='post-owner'>
-        <img className='avatar' src={ postMeta.ownerDetails.profilePhoto } alt='' />
-        <div className='badge'>
-          <i className='material-icons'><FontAwesomeIcon icon={ faLightbulb } /></i>
+const Post = ({ postMeta, postBody }) => {
+  const isEdited = !!postMeta.updatedAt
+  return (
+    <div className='post'>
+      <div className='post-meta'>
+        <div className='post-owner'>
+          <img className='avatar' src={ postMeta.ownerDetails.profilePhoto } alt='' />
+          <div className='badge'>
+            <i className='material-icons'><FontAwesomeIcon icon={ faLightbulb } /></i>
+          </div>
         </div>
       </div>
-    </div>
-    <div className='post-content'>
-      <div className='top-wrap'>
-        <div className='name-wrap'>
-          <div className='name'>{postMeta.ownerDetails.userName}</div>
-          <span>
-            {`${ formatDate(postMeta.createdAt, 'DD MMMM YY,') } at
+      <div className='post-content'>
+        <div className='top-wrap'>
+          <div className='name-wrap'>
+            <div className='name'>{`@${ postMeta.ownerDetails.userName }`}</div>
+            <span>
+              {`${ formatDate(postMeta.createdAt, 'DD MMMM YY,') } at
           ${ formatDate(postMeta.createdAt, 'hh:mma') }`}
-          </span>
+            </span>
+          </div>
+          <div className='top-actions'>
+            <span>{postMeta.totalLikes}</span>
+            <TopAction icon={ faHeart } />
+            <TopAction icon={ faReply } />
+            <TopAction icon={ faShareAlt } />
+          </div>
         </div>
-        <div className='top-actions'>
-          <span>{postMeta.totalLikes}</span>
-          <TopAction icon={ faHeart } />
-          <TopAction icon={ faReply } />
-          <TopAction icon={ faShareAlt } />
+        <div className='post-body content'>
+          {postBody.content}
         </div>
+        {isEdited && <div className='edited-text'>{`Edited ${ getTimeFromNow(postMeta.updatedAt) }`}</div>}
       </div>
-      <div className='post-body content'>
-        {postBody.content}
-      </div>
-      <div className='edited-text'>{`Edited ${ getTimeFromNow(postMeta.updatedAt) }`}</div>
     </div>
-  </div>
-)
+  )
+}
 
 Post.propTypes = {
   postMeta: PropTypes.shape({

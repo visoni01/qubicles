@@ -15,7 +15,7 @@ module.exports = {
         created_on: date
       },
       {
-        user_id: 6,
+        user_id: 2,
         record_type: 'client',
         record_id: 1,
         activity_type: 'rating',
@@ -25,7 +25,7 @@ module.exports = {
         created_on: date
       },
       {
-        user_id: 7,
+        user_id: 1,
         record_type: 'client',
         record_id: 1,
         activity_type: 'like',
@@ -35,7 +35,7 @@ module.exports = {
         created_on: date
       },
       {
-        user_id: 5,
+        user_id: 1,
         record_type: 'client',
         record_id: 1,
         activity_type: 'subscribe',
@@ -45,7 +45,7 @@ module.exports = {
         created_on: date
       },
       {
-        user_id: 6,
+        user_id: 1,
         record_type: 'client',
         record_id: 1,
         activity_type: 'subscribe',
@@ -55,7 +55,7 @@ module.exports = {
         created_on: date
       },
       {
-        user_id: 7,
+        user_id: 2,
         record_type: 'client',
         record_id: 1,
         activity_type: 'subscribe',
@@ -65,31 +65,24 @@ module.exports = {
         created_on: date
       },
       {
-        user_id: 7,
-        record_type: 'client',
-        record_id: 1,
-        activity_type: 'like',
-        activity_value: '1',
-        activity_custom: '',
-        activity_permission: 'public',
-        created_on: date
-      },
-      {
-        user_id: 7,
+        user_id: 1,
         record_type: 'topic',
         record_id: 1,
         activity_type: 'comment',
-        activity_value: 'Dummy comment',
+        activity_value: `Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi quidem, suscipit labo
+        riosam cumque aut dolores perspiciatis voluptatem voluptatibus consequatur obcaecati, molestias vero. Nes
+        ciunt voluptates quae minima optio quo saepe necessitatibus.`,
         activity_custom: '',
         activity_permission: 'public',
         created_on: date
       },
       {
-        user_id: 12,
+        user_id: 2,
         record_type: 'topic',
-        record_id: 2,
+        record_id: 1,
         activity_type: 'comment',
-        activity_value: 'Dummy comment',
+        activity_value: `Welcome All !! Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit vero rem quod ullam
+        facilis distinctio hic sint optio saepe doloribus. Eum, dignissimos explicabo! Non, vel eaque corrupti odit doloremque reiciendis.`,
         activity_custom: '',
         activity_permission: 'public',
         created_on: date

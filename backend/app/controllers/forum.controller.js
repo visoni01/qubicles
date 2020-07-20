@@ -1,6 +1,7 @@
 import Responder from '../../server/expressResponder'
 import ForumCategories from '../services/forum/categories'
 import ForumChannel from '../services/forum/channels'
+import ForumTopic from '../services/forum/topic'
 
 export default class ForumController {
   static async getCategories (req, res) {
@@ -18,6 +19,15 @@ export default class ForumController {
       Responder.success(res, forumChannel.result)
     } else {
       Responder.failed(res, forumChannel.errors)
+    }
+  }
+
+  static async getTopic (req, res) {
+    const forumTopic = await ForumTopic.execute({ ...req.body, ...req.params })
+    if (forumTopic.successful) {
+      Responder.success(res, forumTopic.result)
+    } else {
+      Responder.failed(res, forumTopic.errors)
     }
   }
 }

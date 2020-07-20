@@ -37,3 +37,5 @@ export const getUserDetails = () => {
 }
 
 export const getToken = () => Cookies.get('access_token')
+
+export const isEmptyArray = (arr) => !(arr.length > 0)

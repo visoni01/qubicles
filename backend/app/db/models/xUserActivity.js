@@ -26,10 +26,13 @@ module.exports = (sequelize, DataTypes) => {
       values: ['public', 'followers', 'company', 'admins', 'managers'],
       defaultValue: 'public'
     },
-    created_on: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW
+    createdAt: {
+      field: 'created_on',
+      type: DataTypes.DATE
+    },
+    updatedAt: {
+      field: 'updated_on',
+      type: DataTypes.DATE
     }
   },
   {

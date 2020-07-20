@@ -1,5 +1,4 @@
 import apiClient from '../../utils/apiClient'
-import topicData from '../../components/CommunicationForums/topicData'
 
 class Forum {
   static async fetchCategories() {
@@ -13,7 +12,8 @@ class Forum {
   }
 
   static async fetchTopic({ topicId }) {
-    return topicData
+    const { data } = await apiClient.getRequest(`/forum/topic/${ topicId }`)
+    return data.data
   }
 }
 
