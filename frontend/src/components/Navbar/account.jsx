@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import './style.scss'
 import User from '../../redux-saga/service/user'
 import { showSuccessMessage, showErrorMessage } from '../../redux-saga/redux/snackbar'
+import { userLogoutSuccessful } from '../../redux-saga/redux/login'
 
 const UserAccount = ({ isOpen, toggleIsOpen }) => {
   const history = useHistory()
@@ -15,6 +16,7 @@ const UserAccount = ({ isOpen, toggleIsOpen }) => {
     const responseStatus = await User.logout()
     if (responseStatus === 200) {
       history.push('/login')
+      dispatch(userLogoutSuccessful())
       return dispatch(showSuccessMessage({ msg: 'Successfully logged out' }))
     }
     return dispatch(showErrorMessage())

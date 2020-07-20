@@ -16,7 +16,7 @@ import {
   LinkedinIcon,
   TwitterIcon,
 } from 'react-share'
-import { userLoginStart } from '../../redux-saga/redux/login'
+import { userLoginStart, clearStore } from '../../redux-saga/redux/login'
 import QubiclesLogo from '../../assets/images/qbe-dark.png'
 import './style.scss'
 import config from '../../utils/config'
@@ -38,6 +38,7 @@ const Login = () => {
   const { error, isLoading, success } = useSelector((state) => state.login)
 
   useEffect(() => {
+    dispatch(clearStore())
     if (isManualLogin) {
       setIsSocialLogin(!isManualLogin)
     }
