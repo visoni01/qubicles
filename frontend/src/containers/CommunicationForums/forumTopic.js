@@ -5,7 +5,7 @@ import { isEmptyObject } from '../../utils/common'
 import { topicDataFetchingStart } from '../../redux-saga/redux/actions'
 import TopicHeader from '../../components/CommunicationForums/topic/TopicHeader'
 import PostWrap from '../../components/CommunicationForums/topic/PostWrap'
-import withNavBar from '../../Hoc/navbar'
+import withNavBar from '../../hoc/navbar'
 import './style.scss'
 
 const ForumTopic = () => {

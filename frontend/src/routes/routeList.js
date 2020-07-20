@@ -3,13 +3,13 @@ import { Signup, EmailVerification, PostSignUp } from '../container/User/Signup'
 import InviteFriends from '../container/InviteFriendsPage'
 import {
   Home, Agents, ContactCenter, ContactUs, AboutUs,
-} from '../container/Home'
-import People from '../container/People'
-import Login from '../container/Login'
+} from '../containers/Home'
+import People from '../containers/People'
+import Login from '../containers/Login'
 import Auth from '../components/User/Auth'
-import ForumGroup from '../container/CommunicationForums'
-import ForumChannel from '../container/CommunicationForums/forumChannel'
-import ForumTopic from '../container/CommunicationForums/forumTopic'
+import ForumGroup from '../containers/CommunicationForums'
+import ForumChannel from '../containers/CommunicationForums/forumChannel'
+import ForumTopic from '../containers/CommunicationForums/forumTopic'
 import ROUTE_PATHS from './routesPath'
 
 const routes = [

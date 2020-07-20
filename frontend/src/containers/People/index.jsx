@@ -8,7 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import JobsWrap from './jobsWrap'
 import TalentWrap from './talentWrap'
-import withNavBar from '../../Hoc/navbar'
+import withNavBar from '../../hoc/navbar'
 import './style.scss'
 
 const People = () => {

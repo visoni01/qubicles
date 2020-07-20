@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import CategoryWrap from '../../components/CommunicationForums/groups/CategoryWrap'
 import { categoryDataFetchingStart } from '../../redux-saga/redux/actions'
-import withNavBar from '../../Hoc/navbar'
+import withNavBar from '../../hoc/navbar'
 
 const ForumGroup = () => {
   const dispatch = useDispatch()

@@ -11,7 +11,7 @@ import profileLogo2 from '../../assets/images/helen.jpg'
 import demoPic from '../../assets/images/demo-pic.jpeg'
 import { dashboardDataFetchingStart } from '../../redux-saga/redux/actions'
 import './style.scss'
-import withNavBar from '../../Hoc/navbar'
+import withNavBar from '../../hoc/navbar'
 
 const Dashboard = () => {
   const dispatch = useDispatch()

@@ -6,7 +6,7 @@ import TopicList from '../../components/CommunicationForums/channel/TopicWrap'
 import { channelDataFetchingStart } from '../../redux-saga/redux/actions'
 import { isEmptyObject } from '../../utils/common'
 import './style.scss'
-import withNavBar from '../../Hoc/navbar'
+import withNavBar from '../../hoc/navbar'
 
 const ForumChannel = () => {
   const { channelId } = useParams()
