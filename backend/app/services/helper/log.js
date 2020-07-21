@@ -6,7 +6,6 @@ import { getInboundGroups } from './group'
 import moment from 'moment'
 import { XLogOutbound, XLogInbound, RecordingLog, XLogDID } from '../../db/models'
 import { formatDate, getArchiveTableName, getHistoricalTableName } from './common'
-import { Op } from 'sequelize'
 
 export const updateOutboundLog = async ({ log, user, clients }) => {
   const currentDate = moment()
