@@ -5,7 +5,7 @@ import {
   userLoginFailure,
 } from '../redux/login'
 import User from '../service/user'
-import { getUserDetails } from "../../utils/common";
+import { getUserDetails } from '../../utils/common'
 
 function* loginWatcher() {
   yield takeEvery(userLoginStart.type, loginWorker)

@@ -10,14 +10,13 @@ import {
   faEnvelope,
 } from '@fortawesome/free-solid-svg-icons'
 import { Button } from '@material-ui/core'
-import { Redirect } from 'react-router-dom'
-import PropTypes from 'prop-types'
+import { Redirect, useHistory } from 'react-router-dom'
 import {
   FacebookIcon,
   LinkedinIcon,
   TwitterIcon,
 } from 'react-share'
-import { userLoginStart } from '../../redux-saga/redux/login'
+import { userLoginStart, clearStore } from '../../redux-saga/redux/login'
 import QubiclesLogo from '../../assets/images/qbe-dark.png'
 import './style.scss'
 import config from '../../utils/config'
@@ -27,10 +26,11 @@ const schema = yup.object().shape({
   password: yup.string().required('*Required'),
 })
 
-const Login = ({ history }) => {
+const Login = () => {
   const { register, errors, handleSubmit } = useForm({
     validationSchema: schema,
   })
+  const history = useHistory()
   const isManualLogin = history.location.state && history.location.state.isEmail
   const [ isSocialLogin, setIsSocialLogin ] = useState(true)
   const dispatch = useDispatch()
@@ -38,6 +38,7 @@ const Login = ({ history }) => {
   const { error, isLoading, success } = useSelector((state) => state.login)
 
   useEffect(() => {
+    dispatch(clearStore())
     if (isManualLogin) {
       setIsSocialLogin(!isManualLogin)
     }
@@ -187,22 +188,6 @@ const Login = ({ history }) => {
       {success && <Redirect to='/dashboard' />}
     </div>
   )
-}
-
-Login.propTypes = {
-  history: PropTypes.instanceOf({
-    location: PropTypes.instanceOf({
-      state: PropTypes.instanceOf({}),
-    }),
-  }),
-}
-
-Login.defaultProps = {
-  history: {
-    location: {
-      state: { isEmail: false },
-    },
-  },
 }
 
 export default Login

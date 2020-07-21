@@ -6,11 +6,13 @@ const initialState = {
   error: null,
   success: false,
   // Setting the state when app render and user refresh the page
-  userDetails: getUserDetails()
+  userDetails: getUserDetails(),
 }
 
 const {
-  actions: { userLoginStart, userLoginSuccessful, userLoginFailure },
+  actions: {
+    userLoginStart, userLoginSuccessful, userLoginFailure, userLogoutSuccessful, clearStore,
+  },
   reducer,
 } = createSlice({
   name: 'login',
@@ -27,7 +29,7 @@ const {
       success: true,
       isLoading: false,
       error: null,
-      userDetails: action.payload.userDetails
+      userDetails: action.payload.userDetails,
     }),
     userLoginFailure: (state) => ({
       ...state,
@@ -35,8 +37,23 @@ const {
       isLoading: false,
       success: true,
     }),
+    userLogoutSuccessful: (state) => ({
+      ...state,
+      error: false,
+      isLoading: false,
+      success: true,
+      userDetails: null,
+    }),
+    clearStore: (state) => ({
+      ...state,
+      error: false,
+      isLoading: false,
+      success: false,
+    }),
   },
 })
 
 export default reducer
-export { userLoginStart, userLoginSuccessful, userLoginFailure }
+export {
+  userLoginStart, userLoginSuccessful, userLoginFailure, userLogoutSuccessful, clearStore,
+}

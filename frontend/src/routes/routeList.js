@@ -66,8 +66,7 @@ const routes = [
   },
   {
     path: ROUTE_PATHS.AUTH,
-    // eslint-disable-next-line react/display-name
-    render: (props) => <Auth { ...props } />,
+    component: Auth,
   },
   {
     path: ROUTE_PATHS.GROUP,
