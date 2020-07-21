@@ -1,0 +1,94 @@
+﻿<md-content flex layout-padding layout-align="center center">
+    <md-content layout="row">
+        <md-list ng-cloak style="width: 99%;">
+              <md-list-item ng-repeat="condition in field.conditions" ng-click="null" class="noright" style="height:100px">
+
+                 <md-input-container class="md-block" style="width:20%">
+                    <label>{{$index > 0 ? "ELSE ":"" }}IF:</label>
+                     <md-select ng-model="condition.field_label" placeholder="If this field">
+                        <md-option value="">None</md-option>
+                        <md-option ng-value="fld.field_label" ng-repeat="fld in flowController.fields | filter: flowController.filterPageFields | orderBy:'field_label'">{{fld.field_label}}</md-option>
+                     </md-select>
+                 </md-input-container>
+
+                  <md-input-container class="md-block" style="width:15%">
+                    <label></label>
+                     <md-select ng-model="condition.operator">
+                        <md-option value="Equals">= Equals</md-option>
+                        <md-option value="NotEquals">!= Not Equal</md-option>
+                        <md-option value="Contains">~ Contains</md-option>
+                        <md-option value="NotContains">!~ Not Contains</md-option>
+                        <md-option value="LessThan">< Less Than</md-option>
+                        <md-option value="GreaterThan">> Greater Than</md-option>
+                     </md-select>
+                 </md-input-container>
+
+                 <md-input-container class="md-block" ng-show="flowController.fieldHasOptions(condition.field_label)" style="width:20%">
+                    <label>This Value:</label>
+                    <md-select ng-model="condition.value" placeholder="This value">
+                        <md-option ng-value="item.value" ng-repeat="item in flowController.getFieldOptions(condition.field_label)">
+                            {{item.text}}
+                        </md-option>
+                    </md-select>
+                 </md-input-container>
+
+                 <md-input-container class="md-block" ng-show="!flowController.fieldHasOptions(condition.field_label)" style="height:20px;width:20%">
+                    <label>This Value:</label>
+                    <input ng-model="condition.value">
+                 </md-input-container>
+
+                 <md-input-container style="margin-right: 10px;width:20%">
+                    <label>Go To Page:</label>
+                    <md-select ng-model="condition.goto_page">
+                        <md-option value="_blank_">None</md-option>
+                        <md-option ng-value="scriptPage.page_id" ng-repeat="scriptPage in flowController.scriptPages">{{scriptPage.page_name}}</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container style="margin-right: 10px;width:20%">
+                    <label>Or Go To Field (True):</label>
+                    <md-select ng-model="condition.goto_field">
+                        <md-option value="_blank_">None</md-option>
+                        <md-option ng-value="fld.field_label" ng-repeat="fld in flowController.fields | filter: flowController.filterPageFields | orderBy:'field_label'">{{fld.field_label}}</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container style="margin-right: 10px;width:20%">
+                    <label>Or Go To Field (False):</label>
+                    <md-select ng-model="condition.goto_field_else">
+                        <md-option value="_blank_">None</md-option>
+                        <md-option ng-value="fld.field_label" ng-repeat="fld in flowController.fields | filter: flowController.filterPageFields | orderBy:'field_label'">{{fld.field_label}}</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container style="margin-right: 10px;width:20%">
+                    <label>Make Field Required:</label>
+                    <md-select ng-model="condition.make_field_required">
+                        <md-option value="_blank_">None</md-option>
+                        <md-option ng-value="fld.field_label" ng-repeat="fld in flowController.fields | filter: flowController.filterPageFields | orderBy:'field_label'">{{fld.field_label}}</md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-button class="md-icon-button" style="width:8%" ng-class="{{$index == 0 ? 'firstCondition' : ''}}" aria-label="Add" ng-click="flowController.addCondition(field)">
+                    <i class="material-icons">add_circle</i>
+                    <md-tooltip direction="bottom">
+                        Add
+                    </md-tooltip>
+                </md-button>
+
+                <md-button class="md-icon-button" style="width:8%" aria-label="Delete" ng-show="$index > 0 || field.conditions.length > 1" ng-click="flowController.deleteCondition(field,condition)">
+                    <i class="material-icons">delete</i>
+                    <md-tooltip direction="bottom">
+                        Remove {{$index}}
+                    </md-tooltip>
+                </md-button>
+
+			    <md-checkbox aria-label="Scroll" style="width:20%" layout="column" ng-model="condition.check_page_load_only">
+                    Onload
+                </md-checkbox>
+			
+                <md-checkbox aria-label="Scroll" layout="column" ng-model="condition.scrollto_field">
+                    Scroll
+                </md-checkbox>
+
+              </md-list-item>
+            </md-list>
+    </md-content>
+</md-content>

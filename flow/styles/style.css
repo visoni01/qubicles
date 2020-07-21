@@ -1,0 +1,262 @@
+﻿html, body {
+  font-family: 'Roboto', sans-serif;
+  font-size:14px;
+  height:100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+h5 {
+    font-size: 13pt;
+    color: #fff;
+}
+
+md-tooltip {
+    font-size:10pt;
+}
+
+md-content md-tabs {
+    background: #f6f6f6;
+    border: 1px solid #e1e1e1; 
+}
+
+md-content md-tabs md-tabs-wrapper {
+    background: white; 
+}
+
+md-dialog {
+    max-width: 80%;
+    max-height: 92%;
+    width: 75%;
+    height: 92%;
+    border-radius: 0;
+}
+
+md-input-container > md-select {
+    min-width:100px;
+}
+
+.md-dialog-content {
+    padding-top:5px !important;
+    padding-bottom:5px !important;
+}
+
+md-toolbar {
+    min-height:30px;
+    height:45px;
+}
+
+md-input-container {
+    margin: 18px 0 0 5px;
+}
+
+md-input-container label {
+    text-align: left;
+}
+
+.draggableControl {
+    z-index:100000 !important;
+    position:relative;
+    min-height:40px !important;
+    height:40px !important;
+    cursor: move;
+}
+
+.draggableControl.ui-draggable-dragging { 
+    background: #ccc;
+    -moz-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+    -webkit-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+    box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+    margin-top:-50px;
+}
+
+.draggableControl .md-list-item-text{
+    max-height: 40px;
+}
+
+.dropZone {
+    border: 1px dashed #ccc;
+    min-height:8px!important;
+}
+
+.dropZone.hovered {
+  background: #8DC2E6;
+}
+
+.deletePage {
+    margin-top:50px;
+}
+
+md-toolbar h3 {
+  margin: auto;
+  font-weight: 500;
+}
+
+md-sidenav {
+    overflow:visible;
+}
+
+md-list {
+    padding:0px;
+}
+
+md-list-item > button {
+    width:100%;
+    text-align:left !important;
+}
+
+.md-button {
+    height:44px;
+}
+
+md-select[multiple] ._md-container{
+    display: inline-block;
+}
+
+.firstCondition {
+    width: 12%;
+    text-align: left;
+}
+
+#content  {
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+}
+
+#content h2 {
+    text-align:inherit;
+    margin-left:inherit;
+    margin-top:15px;
+}
+
+.scriptVerbiage p {
+    line-height:1.2;
+    margin-top:10px;
+}
+
+@media (min-width: 600px)
+{
+    md-sidenav {
+        width:250px;
+        max-width:250px;
+    }
+}
+
+@media (min-width: 1168px)
+{
+    #newPageNameContainer {
+        width:20%;
+    }    
+}
+
+.md-padding {
+    padding:5px!important;
+}
+
+md-list-item.md-3-line {
+    max-width: 218px;
+}
+
+md-list-item.md-3-line>.md-avatar{
+    margin-top:5px;
+}
+
+.md-avatar {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    display: inline-block;
+    overflow: hidden;
+    margin: 0px;
+    vertical-align: middle;
+    zoom:0.70;
+    transform: translateZ(0);
+    -webkit-transform: scale(0.70);
+    -moz-transform:scale(0.70);
+}
+
+md-progress-linear {
+    width: 99%;
+    /* padding-top: 0!important; */
+    margin-bottom: 0!important;
+    padding: 5px!important;
+}
+
+md-list {
+    display: inline-table;
+    width: 100%;
+}
+
+.md-subheader {
+    border: 1px solid #ccc;
+    border-radius:5px;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+}
+
+.md-subheader ._md-subheader-inner {
+    padding:0px;
+}
+
+.md-subheader h3 {
+    padding:20px 0px 0px 15px;
+}
+
+/**** Prevent cascading from master theme ****/
+input[type="text"], input[type="password"] {
+    font-size:inherit;
+    text-shadow:inherit;
+    outline:inherit;
+    border: 0px 0px 1px solid;
+    box-shadow:inherit;
+    -webkit-box-shadow:inherit;
+    -moz-box-shadow:inherit;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    box-shadow:inherit;
+    -webkit-box-shadow:inherit;
+    -moz-box-shadow:inherit;
+}
+
+.md-toolbar-tools h2 {
+    color: #fff;
+}
+
+md-input-container.md-input-focused label:not(.md-no-float), 
+md-input-container.md-input-has-placeholder label:not(.md-no-float), 
+md-input-container.md-input-has-value label:not(.md-no-float) {
+    -webkit-transform: translate3d(0,6px,0) scale(.90);
+    transform: translate3d(0,6px,0) scale(0.90);
+    transition: -webkit-transform cubic-bezier(.25,.8,.25,1) .4s,
+    width cubic-bezier(.25,.8,.25,1) .4s;
+    transition: transform cubic-bezier(.25,.8,.25,1) .4s,
+    width cubic-bezier(.25,.8,.25,1) .4s;
+    width: calc((100% - 18px) / .85);
+}
+
+#flowToolbar, #scriptControlsToolbar, #scriptFieldsToolbar{
+    border-radius:3px;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+}
+
+#flowToolbar {
+    padding:10px;
+    width:99%;
+}
+
+.has-error {
+  color: #d9534f;
+  border-color: #d9534f;
+  background-color: #fdf7f7;
+}
+
+.error-block {
+    color: #d9534f;
+    font-weight:bold;
+    margin:10px 0px 0px 10px;
+}

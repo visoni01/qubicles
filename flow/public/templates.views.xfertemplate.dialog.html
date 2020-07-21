@@ -1,0 +1,52 @@
+﻿<md-dialog aria-label="Specify Transfer Options"  ng-cloak style="width:50%;height:52%">
+  <form name="xferOptions" novalidate>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Transfer Options</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          X
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <md-content class="md-padding" layout="column">
+            <h3>Specify Transfer Options</h3>
+            <md-input-container style="margin: 0px;margin-top:15px;">
+                <label>Transfer Type:</label>
+                <md-select ng-model="xferType">
+                    <md-option value="BlindXfer">Blind Transfer</md-option>
+                    <md-option value="WarmXfer">Warm Transfer</md-option>
+                    <md-option value="HoldDialXfer">Hold and Dial</md-option>            
+                    <md-option value="InternalXfer">Internal Transfer</md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container style="margin: 0px;margin-top:15px;">
+                <label>Transfer Number:</label>
+                <input type="text" ng-model="xferNumber">
+            </md-input-container>
+			<md-input-container style="margin: 0px;margin-top:5px;">
+                <label>Transfer to Queue:</label>
+                <md-select ng-model="xferQueue">
+                    <md-optgroup label="Available Queues">
+                        <md-option value="">None</md-option>
+                        <md-option ng-value="acd.group_id" ng-repeat="acd in acdQueues">
+                            {{acd.group_name}}
+                        </md-option>
+                    </md-optgroup>
+                </md-select>
+            </md-input-container>
+        </md-content>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button class="md-primary md-raised" ng-click="continue(xferType, xferNumber, xferQueue)">
+       Transfer
+      </md-button>
+      <md-button class="md-warn md-raised" ng-click="cancel()">
+        Close
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

@@ -1,0 +1,42 @@
+﻿<md-dialog aria-label="Select Email"  ng-cloak style="width:50%;height:52%">
+  <form name="selectEmail" novalidate>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Select Email</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          X
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <md-content class="md-padding" layout="column">
+            <h3>Select an Email Template</h3>
+            <br />
+            <p>
+                Please select an email from the list below:
+            </p>
+            <md-input-container style="margin: 0px;margin-top:25px;">
+                <label>Emails:</label>
+                <md-select ng-model="emailTemplateId">
+                    <md-optgroup label="Available Emails">
+                        <md-option ng-value="emailTemplate.email_template_id" ng-repeat="emailTemplate in emailTemplates">
+                            {{emailTemplate.description}}
+                        </md-option>
+                    </md-optgroup>
+                </md-select>
+            </md-input-container>
+        </md-content>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button class="md-primary md-raised" ng-click="continue(emailTemplateId)">
+       Save and Continue
+      </md-button>
+      <md-button class="md-warn md-raised" ng-click="cancel()">
+        Close
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

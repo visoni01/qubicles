@@ -1,0 +1,63 @@
+﻿<md-content flex layout-padding layout-align="center center">
+    <div  class="md-whiteframe-z2">
+        <md-input-container class="md-block" style="margin:10px 0px 0px 0px;">
+            <label>Label:</label>
+            <input type="text" data-ng-model="field.field_label" name="field_label" ng-disabled="field.field_id > 0" ng-pattern="/^[a-zA-Z0-9_]+$/" required labelname>
+         </md-input-container>
+
+         <md-input-container class="md-block" style="margin:0px;">
+            <label>Name:</label>
+            <input type="text" data-ng-model="field.field_name" name="field_name">
+         </md-input-container>
+
+         <md-input-container class="md-block" style="margin:0px;">
+            <label>Description:</label>
+            <input type="text" data-ng-model="field.field_description" name="field_description">
+         </md-input-container>
+
+         <md-input-container  style="margin:0px 0px 30px 0px;" class="md-block" ng-show="{{(field.field_type | lowercase) !='script' && (field.field_type | lowercase) !='condition' && (field.field_type | lowercase) !='space' && (field.field_type | lowercase) !='calculation'}}">
+            <label>Align Position:</label>
+            <md-select ng-model="field.name_position" name="name_position">
+                <md-option value="LEFT">Align Left</md-option>
+                <md-option value="CENTER">Center Align</md-option>
+                <md-option value="RIGHT">Align Right</md-option>
+                <md-option value="BLOCK">Block Align</md-option>
+             </md-select>
+         </md-input-container>
+
+         <md-input-container class="md-block" style="margin:0px 0px 30px 0px;">
+            <label>Script Page:</label>
+            <md-select ng-model="field.page">
+                <md-option ng-value="scriptPage.page_id" ng-repeat="scriptPage in flowController.scriptPages">{{scriptPage.page_name}}</md-option>
+            </md-select>
+        </md-input-container>
+
+         <md-input-container class="md-block" style="margin:10px 0px 0px 0px;">
+            <label>Field Order:</label>
+             <input type="text" ng-model="field.field_order" name="field_order">
+         </md-input-container>
+
+         <md-input-container class="md-block" ng-show="(field.field_type | lowercase) =='navigation' || (field.field_type | lowercase) =='action' || (field.field_type | lowercase) =='textfield' || (field.field_type | lowercase) =='radiobutton' || (field.field_type | lowercase) =='multiselection' || (field.field_type | lowercase) =='checkbox' || (field.field_type | lowercase) =='dropdown' || (field.field_type | lowercase) =='textarea' || (field.field_type | lowercase) =='datepicker' || (field.field_type | lowercase) =='timepicker' || (field.field_type | lowercase) =='script' || (field.field_type | lowercase) =='action' || (field.field_type | lowercase) =='navigation'">
+            <md-checkbox aria-label="Checkbox" layout="column" ng-model="field.field_hidden">
+                Make this a hidden field
+            </md-checkbox>
+         </md-input-container>
+
+         <md-input-container class="md-block" ng-show="(field.field_type | lowercase) =='textfield' || (field.field_type | lowercase) =='radiobutton' || (field.field_type | lowercase) =='multiselection' || (field.field_type | lowercase) =='checkbox' || (field.field_type | lowercase) =='dropdown' || (field.field_type | lowercase) =='textarea' || (field.field_type | lowercase) =='datepicker' || (field.field_type | lowercase) =='timepicker'">
+            <md-checkbox aria-label="Checkbox" layout="column" ng-model="field.goto_field">
+                Copy Data on Repeat w/ New Contact
+            </md-checkbox>
+         </md-input-container>
+
+         <md-inputcontainer class="md-block" style="margin:0px 0px 0px 5px;" ng-show="(field.field_type | lowercase) =='textfield' || (field.field_type | lowercase) =='radiobutton' || (field.field_type | lowercase) =='multiselection' || (field.field_type | lowercase) =='checkbox' || (field.field_type | lowercase) =='dropdown' || (field.field_type | lowercase) =='textarea' || (field.field_type | lowercase) =='datepicker' || (field.field_type | lowercase) =='timepicker' || (field.field_type | lowercase) =='script' || (field.field_type | lowercase) =='action' || (field.field_type | lowercase) =='navigation'">
+            <md-radio-group aria-label="Radio" style="margin-top:20px;" ng-model="field.field_help">
+                <md-radio-button ng-model="field.field_help" value="SHOW_ON_REPEAT" style="margin-left:7px">
+                    Show on Repeat w/ New Contact
+                </md-radio-button>
+                <md-radio-button ng-model="field.field_help" value="HIDE_ON_REPEAT" style="margin-left:7px">
+                    Hide on Repeat w/ New Contact
+                </md-radio-button>
+            </md-radio-group>
+        </md-inputcontainer>
+    </div>
+</md-content>

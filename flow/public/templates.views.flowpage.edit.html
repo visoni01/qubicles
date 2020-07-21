@@ -1,0 +1,55 @@
+﻿<md-dialog aria-label="Edit Flow"  ng-cloak style="width:40%;height:62%">
+  <form name="editFlowPageDialog" novalidate>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Flow Page Settings</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          X
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <md-content flex layout-padding layout-align="center center">
+            <div  class="md-whiteframe-z2">
+                <input type="hidden" data-ng-model="page_id" name="page_id" value="" required>
+                 <md-input-container class="md-block">
+                    <label>Page Name:</label>
+                    <input type="text" data-ng-model="page_name" name="page_name" required>
+                 </md-input-container>
+                 <md-input-container class="md-block">
+                    <label>Page Description:</label>
+                    <input type="text" data-ng-model="page_description" name="page_description">
+                 </md-input-container>
+                 <md-input-container class="md-block">
+                    <label>Default Disposition Code:</label>
+                    <input type="text" data-ng-model="default_disposition" name="default_disposition">
+                 </md-input-container>
+                 <md-input-container class="md-block">
+                    <label>Default Disposition Code (for Repeat Contacts):</label>
+                    <input type="text" data-ng-model="default_disposition_sdr" name="default_disposition_sdr">
+                 </md-input-container>
+                 <md-input-container class="md-block">
+                    <label>BG Color:</label>
+                    <input type="text" data-ng-model="page_bg_color" name="page_bg_color">
+                 </md-input-container>
+                <md-input-container class="md-block">
+                    <md-checkbox aria-label="Checkbox" layout="column" data-ng-model="randomize_pages_off" name="randomize_pages_off">
+                        Exclude From Randomization
+                    </md-checkbox>
+                </md-input-container>
+            </div>
+        </md-content>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button class="md-primary md-raised" ng-click="continue(page_name, page_description, default_disposition, page_bg_color, default_disposition_sdr, randomize_pages_off)" ng-disabled="!page_name">
+       Save
+      </md-button>
+      <md-button class="md-warn md-raised" ng-click="cancel()">
+        Close
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

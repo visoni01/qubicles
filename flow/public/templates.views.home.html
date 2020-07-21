@@ -1,0 +1,73 @@
+﻿<div flex layout="row" >
+    <md-list ng-cloak style="width: 99%;margin-top: 5px;">
+      <md-subheader class="md-no-sticky noright">
+        <div layout="row" >
+            <div class="flex-66">
+                <h4 style="padding:0px 0px 0px 15px;">List of Flow Scripts</h4>
+            </div>
+            <div class="flex-33">
+                <md-button style="float:right" class="md-primary md-raised" aria-label="New" ng-click="homeController.addFlow()">
+                Add New Flow
+            </md-button>
+            </div>
+        </div>
+      </md-subheader>
+      <md-progress-linear md-mode="indeterminate" ng-show="homeController.isLoading"></md-progress-linear>
+      <md-list-item ng-repeat="flow in homeController.flowsCurrentPage" ng-click="null" ng-dblclick="homeController.editFlowDesign(flow.flow_id)" class="noright">
+        <p>{{ flow.flow_name }}</p>
+
+        <md-button class="md-icon-button" aria-label="Edit Design" ng-click="homeController.editFlowDesign(flow.flow_id)">
+            <i class="material-icons">apps</i>
+            <md-tooltip direction="bottom">
+                Edit Flow Design
+            </md-tooltip>
+        </md-button>
+
+        <md-button class="md-icon-button" aria-label="Edit" ng-click="homeController.editFlow(flow.flow_id)">
+            <i class="material-icons">mode_edit</i>
+            <md-tooltip direction="bottom">
+                Edit Flow
+            </md-tooltip>
+        </md-button>
+
+        <md-button class="md-icon-button" aria-label="Copy" ng-click="homeController.copyFlow(flow.flow_id)">
+            <i class="material-icons">content_copy</i>
+            <md-tooltip direction="buttom">
+                Copy Flow
+            </md-tooltip>
+        </md-button>
+
+        <md-button class="md-icon-button" aria-label="Delete" ng-click="homeController.deleteFlow(flow.flow_id)">
+            <i class="material-icons">delete_forever</i>
+            <md-tooltip direction="bottom">
+                Delete Flow
+            </md-tooltip>
+        </md-button>
+
+      </md-list-item>
+      <md-progress-linear md-mode="indeterminate" ng-show="homeController.isLoading"></md-progress-linear>
+
+	    <div layout="row" >
+            <div class="flex-100" style="text-align:center">
+                <!-- pager -->
+                <ul ng-if="homeController.flowPager.pages.length" class="pagination">
+                    <li ng-class="{disabled:homeController.flowPager.currentPage === 1}" style="cursor:pointer">
+                        <a ng-click="homeController.flowSetCurrentPage(1)">First</a>
+                        </li>
+                    <li ng-class="{disabled:homeController.flowPager.currentPage === 1}" style="cursor:pointer">
+                        <a ng-click="homeController.flowSetCurrentPage(homeController.flowPager.currentPage - 1)">Previous</a>
+                    </li>
+                    <li ng-repeat="page in homeController.flowPager.pages" ng-class="{active:homeController.flowPager.currentPage === page}" style="cursor:pointer">
+                        <a ng-click="homeController.flowSetCurrentPage(page)">{{page}}</a>
+                    </li>
+                    <li ng-class="{disabled:homeController.flowPager.currentPage === homeController.flowPager.totalPages}" style="cursor:pointer">
+                        <a ng-click="homeController.flowSetCurrentPage(homeController.flowPager.currentPage + 1)">Next</a>
+                    </li>
+                    <li ng-class="{disabled:homeController.flowPager.currentPage === homeController.flowPager.totalPages}" style="cursor:pointer">
+                        <a ng-click="homeController.flowSetCurrentPage(homeController.flowPager.totalPages)">Last</a>
+                    </li>
+                </ul>      
+            </div>
+        </div>
+    </md-list>
+</div>

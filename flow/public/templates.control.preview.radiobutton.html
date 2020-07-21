@@ -1,0 +1,13 @@
+﻿<md-content flex layout="row" layout-align="start center"> 
+    <div layout="row" style="text-align:{{field.name_position|lowercase}}!important">
+        <md-inputcontainer>
+            <md-radio-group aria-label="Radio" style="margin-top:20px;">
+                <div ng-repeat="item in field.field_options">
+                    <md-radio-button value="{{item.value}}">
+                        {{item.text}}
+                    </md-radio-button>
+                </div>
+            </md-radio-group>
+        </md-inputcontainer>
+    </div>
+</md-content>

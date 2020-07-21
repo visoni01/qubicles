@@ -1,0 +1,56 @@
+﻿<md-content flex layout-padding layout-align="center center">
+    <md-content layout="row">
+        <md-list ng-cloak style="width: 99%;">
+              <md-list-item ng-repeat="calculation in field.calculations" ng-click="null" class="noright" style="height:100px">
+                <md-input-container class="md-block">
+                    <label>{{$index > 0 ? "AND ":"" }}Field:</label>
+                     <md-select ng-model="calculation.field_label" placeholder="Select a field">
+                        <md-option ng-value="fld.field_label" ng-repeat="fld in flowController.fields | filter: flowController.filterPageFields | orderBy:'field_label'">{{fld.field_label}}</md-option>
+                     </md-select>
+                 </md-input-container>
+                 <md-input-container class="md-block">
+                    <label>Operator:</label>
+                     <md-select ng-model="calculation.operator" placeholder="Operator">
+                        <md-option value="+">+ Plus</md-option>
+                        <md-option value="-">- Minus</md-option>
+                        <md-option value="/">/ Divided By</md-option>
+                        <md-option value="*">* Multiplied By</md-option>
+                        <md-option value="LessThan">< Less Than</md-option>
+                        <md-option value="GreaterThan">> Greater Than</md-option>
+                        <md-option value="Equals">= Equals</md-option>
+                        <md-option value="NotEquals">!= Not Equal</md-option>
+                        <md-option value="Contains">~ Contains</md-option>
+                        <md-option value="NotContains">!~ Not Contains</md-option>
+                     </md-select>
+                 </md-input-container>
+                 <md-input-container class="md-block" ng-show="flowController.fieldHasOptions(calculation.field_label)" style="width:20%">
+                    <label>Value:</label>
+                    <md-select ng-model="calculation.value" placeholder="This value">
+                        <md-option ng-value="item.value" ng-repeat="item in flowController.getFieldOptions(calculation.field_label)">
+                            {{item.text}}
+                        </md-option>
+                    </md-select>
+                 </md-input-container>
+
+                 <md-input-container class="md-block" ng-show="!flowController.fieldHasOptions(calculation.field_label)" style="height:20px;width:20%">
+                    <label>Value:</label>
+                    <input ng-model="calculation.value">
+                 </md-input-container>
+
+                <md-button class="md-icon-button" ng-class="{{$index == 0 ? 'firstCondition' : ''}}" aria-label="Add" ng-click="flowController.addCalculation(field)">
+                    <i class="material-icons">add_circle</i>
+                    <md-tooltip direction="bottom">
+                        Add
+                    </md-tooltip>
+                </md-button>
+
+                <md-button class="md-icon-button" aria-label="Delete" ng-show="$index > 0 || field.calculations.length > 1" ng-click="flowController.deleteCalculation(field,calculation)">
+                    <i class="material-icons">delete</i>
+                    <md-tooltip direction="bottom">
+                        Remove {{$index}}
+                    </md-tooltip>
+                </md-button>
+          </md-list-item>
+        </md-list>
+    </md-content>
+</md-content>

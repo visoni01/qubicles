@@ -30,7 +30,7 @@ flowRouter.route('/page/delete/:pageId')
   .post(isAuthenticated, flowController.deleteFlowPage)
 
 // Section-3.8, REQ-8
-flowRouter.route('list')
+flowRouter.route('/list')
   .get(isAuthenticated, flowController.getFlows)
 
 // Section-3.8, REQ-9

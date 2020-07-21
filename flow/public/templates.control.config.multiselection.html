@@ -1,0 +1,42 @@
+﻿<md-content flex layout-padding layout-align="center center">
+    <md-input-container>
+        <md-checkbox aria-label="Checkbox" layout="column" ng-model="field.multi_position">
+            Randomize options when presented
+        </md-checkbox>
+     </md-input-container>
+    <div class="md-whiteframe-z2">
+        <form name="cbOptions" novalidate>
+            <md-input-container class="md-block">
+                <label>Display Text:</label>
+                <input type="text" data-ng-model="fieldText" ng-enter="flowController.addFieldOption(field.internal_id, fieldText, fieldValue);fieldText='';fieldValue='';" name="fieldText">
+             </md-input-container>
+             <md-input-container class="md-block">
+                <label>Value:</label>
+                <input type="text" data-ng-model="fieldValue" ng-enter="flowController.addFieldOption(field.internal_id, fieldText, fieldValue);fieldText='';fieldValue='';" name="fieldValue">
+             </md-input-container>
+             <md-button class="md-raised md-primary" name="btnAdd" ng-disabled="!fieldText || !fieldValue"
+                ng-click="flowController.addFieldOption(field.internal_id, fieldText, fieldValue);fieldText='';fieldValue='';">
+                Add
+            </md-button>
+        </form>
+    </div>
+    <md-input-container>
+        <label>Click to view options</label>
+        <md-select ng-model="field.field_options" multiple>
+            <md-option value="item" ng-repeat="item in field.field_options">
+                <div md-swipe-left="flowController.removeFieldOption(field.internal_id,item)" 
+                 md-swipe-right="flowController.removeFieldOption(field.internal_id,item)">
+                    {{item.text}} ({{item.value}})
+                </div>
+            </md-option>
+        </md-select>
+    </md-input-container>
+    <md-input-container class="md-block">
+        <label>Manual Values/Display Text Entry:</label>
+        <textarea rows="20" cols="50" ng-model="field.field_options_freeform"></textarea>
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm>
+        <label>{{field.field_name}} Default Value:</label>
+        <input ng-model="field.field_default">
+    </md-input-container>
+</md-content>

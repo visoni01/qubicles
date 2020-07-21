@@ -1,0 +1,139 @@
+﻿<md-content flex layout-padding layout-align="center center"> 
+    <div class="md-whiteframe-z2">
+        <label>Perform the Following Action</label>
+        <md-select ng-model="field.field_options">
+			<md-option value="WEBSERVICE">Call a Web Service</md-option>
+            <md-option value="DISPOSITION">Disposition Call</md-option>
+            <md-option value="ENDCALL">End Call</md-option>
+			<md-option value="HOUSEHOLD">Household Search</md-option>
+            <md-option value="NEWLEAD">Repeat w/ New Contact</md-option>
+            <md-option value="SENDEMAIL">Send Email</md-option>
+            <md-option value="XFERCALL">Transfer Call</md-option>
+            <md-option value="HANGUP_XFER">Hangup 3rd Party Transfer</md-option>
+            <md-option value="HANGUP_BOTH">Hangup Both Transfer</md-option>
+            <md-option value="LEAVE_3WAY_CALL">Leave 3-Way Transfer</md-option>
+         </md-select>
+         <md-input-container class="md-block" ng-show="field.field_options=='DISPOSITION'">
+            <label>Default Disposition Code:</label>
+            <input type="text" data-ng-model="field.field_default">
+         </md-input-container>
+		<md-input-container class="md-block" style="width:30%" ng-show="field.field_options=='XFERCALL'">
+            <label>Select a Default Transfer Type:</label>
+             <md-select ng-model="field.xfer_default_type">
+                <md-option value="">None</md-option>
+                <md-option value="BlindXfer">Blind Transfer</md-option>
+                <md-option value="WarmXfer">Warm Transfer</md-option>
+                <md-option value="HoldDialXfer">Hold and Dial</md-option>            
+                <md-option value="InternalXfer">Internal Transfer</md-option>
+             </md-select>
+         </md-input-container>
+		<md-input-container class="md-block" style="width:20%" ng-show="field.field_options=='XFERCALL'">
+            <label>Default Transfer Number:</label>
+            <input type="text" data-ng-model="field.xfer_default_number">
+         </md-input-container>
+		<md-input-container class="md-block" style="width:20%" ng-show="field.field_options=='XFERCALL'">
+            <label>Send Transfer Digits:</label>
+            <input type="text" data-ng-model="field.xfer_send_dtmf">
+         </md-input-container>
+		<md-input-container class="md-block" style="width:30%" ng-show="field.field_options=='XFERCALL'">
+            <label>Select a Default Transfer Queue:</label>
+             <md-select ng-model="field.xfer_default_queue">
+				<md-option value="">None</md-option>
+                <md-option ng-value="acd.group_id" ng-repeat="acd in flowController.acdQueues">{{acd.group_name}}</md-option>
+             </md-select>
+         </md-input-container>
+         <md-input-container class="md-block" style="width:40%" ng-show="field.field_options=='SENDEMAIL'">
+            <label>Select an Email Template for this Action:</label>
+             <md-select ng-model="field.email_template_id">
+                <md-option value="">None</md-option>
+                <md-option ng-value="tmpl.email_template_id" ng-repeat="tmpl in flowController.emailTemplates">{{tmpl.description}}</md-option>
+             </md-select>
+         </md-input-container>
+		<md-input-container class="md-block" style="width:40%" ng-show="field.field_options=='SENDEMAIL'">
+            <label>Appointment Date Field:</label>
+             <md-select ng-model="field.email_appt_date_field" placeholder="Appointment Date Field">
+                <md-option value="">None</md-option>
+                <md-option ng-value="fld.field_label" ng-repeat="fld in flowController.fields | filter: flowController.filterPageFields | orderBy:'field_label'">{{fld.field_label}}</md-option>
+             </md-select>
+         </md-input-container>
+		<md-input-container class="md-block" style="width:40%" ng-show="field.field_options=='SENDEMAIL'">
+            <label>Appointment Time Field:</label>
+             <md-select ng-model="field.email_appt_time_field" placeholder="Appointment Time Field">
+                <md-option value="">None</md-option>
+                <md-option ng-value="fld.field_label" ng-repeat="fld in flowController.fields | filter: flowController.filterPageFields | orderBy:'field_label'">{{fld.field_label}}</md-option>
+             </md-select>
+        </md-input-container>
+        <md-input-container class="md-block" style="width:40%" ng-show="field.field_options=='SENDEMAIL'">
+            <label>Email From Field:</label>
+            <md-select ng-model="field.email_reply_to_field" placeholder="Email From Field">
+                <md-option value="TEMPLATE">Use Email Address From Template</md-option>
+                <md-option value="USER">Use Email Address From Agent</md-option>
+            </md-select>
+        </md-input-container>
+         <md-input-container class="md-block" style="width:20%" ng-show="field.field_options=='HOUSEHOLD'">
+            <label>Householding Field Lookup:</label>
+             <md-select ng-model="field.field_default" placeholder="Available Lookup Fields">
+                <md-option value="">None</md-option>
+                <md-option ng-value="fld.field_label" ng-repeat="fld in flowController.fields | filter: flowController.filterPageFields | orderBy:'field_label'">{{fld.field_label}}</md-option>
+             </md-select>
+         </md-input-container>
+         <md-input-container class="md-block" style="width:20%" ng-show="field.field_options=='HOUSEHOLD'">
+            <label>Scope of Lookup:</label>
+             <md-select ng-model="field.household_scope">
+                <md-option value="LIST">Search within List</md-option>
+                <md-option value="CAMPAIGN">Search within Campaign</md-option>
+             </md-select>
+         </md-input-container>
+         <md-input-container class="md-block" style="width:20%" ng-show="field.field_options=='HOUSEHOLD'">
+            <label># of Results per Page:</label>
+             <md-select ng-model="field.household_itemsperpage">
+                <md-option value="1">1 Record per Page</md-option>
+                <md-option value="2">2 Records per Page</md-option>
+                <md-option value="3">3 Records per Page</md-option>
+                <md-option value="4">4 Records per Page</md-option>
+                <md-option value="5">5 Records per Page</md-option>
+                <md-option value="10">10 Records per Page</md-option>
+                <md-option value="15">15 Records per Page</md-option>
+                <md-option value="20">20 Records per Page</md-option>
+             </md-select>
+         </md-input-container>
+         <md-input-container class="md-block" style="width:20%" ng-show="field.field_options=='HOUSEHOLD'">
+            <label>Disposition Method:</label>
+             <md-select ng-model="field.household_dispo" style="width:300px">
+                <md-option value="SINGLE">Disposition individual records</md-option>
+                <md-option value="ALL">Disposition all matching records</md-option>
+             </md-select>
+         </md-input-container>
+         <md-input-container class="md-block" ng-show="field.field_options=='WEBSERVICE'">
+            <label>Web Service URL:</label>
+            <input type="text" data-ng-model="field.web_service_url">
+         </md-input-container>
+         <md-input-container class="md-block" ng-show="field.field_options=='WEBSERVICE'">
+            <label>Web Service Parameters (e.g. field=value&amp;field=value):</label>
+            <textarea rows="20" cols="50" ng-model="field.web_service_params"></textarea>
+         </md-input-container>
+         <md-input-container class="md-block" style="width:20%" ng-show="field.field_options=='WEBSERVICE'">
+            <label>Web Service Method:</label>
+             <md-select ng-model="field.web_service_method">
+                <md-option value="HTTP_POST">HTTP POST</md-option>
+                <md-option value="HTTP_GET">HTTP GET</md-option>
+             </md-select>
+         </md-input-container>
+         <md-input-container class="md-block" style="width:20%" ng-show="field.field_options=='WEBSERVICE'">
+            <label>Store Result in Field:</label>
+             <md-select ng-model="field.web_service_var_result">
+                <md-option value="">None</md-option>
+                <md-option ng-value="fld.field_label" ng-repeat="fld in flowController.fields | filter: flowController.filterPageFields | orderBy:'field_label'">{{fld.field_label}}</md-option>
+             </md-select>
+         </md-input-container>
+         <md-input-container class="md-block">
+            <md-checkbox aria-label="Checkbox" layout="column" ng-model="field.field_pattern">
+                Do not check conditions on navigation
+            </md-checkbox>
+        </md-input-container>
+         <md-input-container class="md-block">
+            <label>Width: (specify in pixels, e.g. "100")</label>
+            <input type="text" data-ng-model="field.field_size" required>
+        </md-input-container>
+     </div>
+</md-content>
