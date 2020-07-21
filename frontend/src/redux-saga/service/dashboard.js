@@ -3,12 +3,12 @@ import apiClient from '../../utils/apiClient'
 class Dashboard {
   static async fetchAnnouncement() {
     const { data } = await apiClient.getRequest('/dashboard/latest-announcements')
-    return (data && data.data)
+    return data
   }
 
   static async fetchCommunityRep() {
     const { data } = await apiClient.getRequest('/dashboard/community-rep')
-    return (data && data.data)
+    return data
   }
 
   static async fetchJobPostings() {

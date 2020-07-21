@@ -2,7 +2,10 @@ import { axiosInst } from './apiClient'
 import { showErrorMessage } from '../redux-saga/redux/snackbar'
 
 export const interceptors = (history, dispatch) => {
-  axiosInst.interceptors.response.use((response) => response, (error) => {
+  axiosInst.interceptors.response.use((response) => {
+    response.data = response.data.data
+    return response
+  }, (error) => {
     const { response } = error
     const { status, statusText, data } = response
     switch (status) {
