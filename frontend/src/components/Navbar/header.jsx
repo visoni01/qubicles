@@ -9,7 +9,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { IconButton } from '@material-ui/core'
 import { useSelector } from 'react-redux'
-import headerLogo from '../../assets/images/qbe-header-logo.png'
+import headerLogo from '../../assets/images/qbe-logo-dark.png'
 import UserAccount from './account'
 
 const Header = () => {
