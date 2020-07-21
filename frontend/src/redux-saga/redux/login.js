@@ -41,7 +41,7 @@ const {
       ...state,
       error: false,
       isLoading: false,
-      success: true,
+      success: false,
       userDetails: null,
     }),
     clearStore: (state) => ({

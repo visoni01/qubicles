@@ -10,7 +10,7 @@ import {
   faEnvelope,
 } from '@fortawesome/free-solid-svg-icons'
 import { Button } from '@material-ui/core'
-import { Redirect, useHistory } from 'react-router-dom'
+import { Redirect, useHistory, useLocation } from 'react-router-dom'
 import {
   FacebookIcon,
   LinkedinIcon,
@@ -31,6 +31,8 @@ const Login = () => {
     validationSchema: schema,
   })
   const history = useHistory()
+  const location = useLocation()
+  const hasReturnTo = location.search.split('?return_to=')
   const isManualLogin = history.location.state && history.location.state.isEmail
   const [ isSocialLogin, setIsSocialLogin ] = useState(true)
   const dispatch = useDispatch()
@@ -189,7 +191,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-      {success && <Redirect to='/dashboard' />}
+      {success && <Redirect to={ (hasReturnTo && hasReturnTo[ 1 ]) || '/dashboard' } />}
     </div>
   )
 }

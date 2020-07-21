@@ -20,7 +20,7 @@ const CustomRoutes = (routeData) => {
           path={ path }
           key={ path }
           exact
-          render={ () => (auth ? <Validator { ...rest } /> : <Redirector { ...rest } />) }
+          render={ () => (auth ? <Validator { ...rest } path={ path } /> : <Redirector { ...rest } />) }
         />
       ))
     }
@@ -28,7 +28,9 @@ const CustomRoutes = (routeData) => {
   )
 }
 
-const Validator = ({ component: Component }) => (getToken() ? <Component /> : <Redirect to='/login' />)
+const Validator = ({ component: Component, path }) => (
+  getToken() ? <Component /> : <Redirect to={ `/login?return_to=${ path }` } />
+)
 
 const Redirector = ({ component: Component, redirectToDashboard }) => (
   (getToken() && redirectToDashboard) ? <Redirect to='/dashboard' /> : <Component />
@@ -36,6 +38,7 @@ const Redirector = ({ component: Component, redirectToDashboard }) => (
 
 Validator.propTypes = {
   component: PropTypes.func.isRequired,
+  path: PropTypes.func.isRequired,
 }
 
 Redirector.propTypes = {
