@@ -1,6 +1,5 @@
 ;(function() {
   'use strict';
-  // let cookieValid;
   const root = Function('return this')();
   
   function getCookie(name) {
