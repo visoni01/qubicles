@@ -6,6 +6,7 @@ import {
 } from '../redux/login'
 import User from '../service/user'
 import { getUserDetails } from '../../utils/common'
+import { showSuccessMessage } from '../redux/snackbar'
 
 function* loginWatcher() {
   yield takeEvery(userLoginStart.type, loginWorker)
@@ -15,10 +16,9 @@ function* loginWorker(action) {
   try {
     const data = action && action.payload
     const responseStatus = yield User.login(data)
-    if (responseStatus === 200) {
-      const userDetails = getUserDetails()
-      yield put(userLoginSuccessful({ userDetails }))
-    }
+    const userDetails = getUserDetails()
+    yield put(showSuccessMessage({ msg: 'Successfully Logged in' }))
+    yield put(userLoginSuccessful({ userDetails }))
   } catch (e) {
     yield put(userLoginFailure())
   }

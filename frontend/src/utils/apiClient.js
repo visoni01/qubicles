@@ -48,7 +48,7 @@ class ApiClient {
   }
 }
 
-const axiosInst = axios.create({
+export const axiosInst = axios.create({
   baseURL,
 })
 axiosInst.defaults.withCredentials = true

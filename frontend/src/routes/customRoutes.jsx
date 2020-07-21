@@ -1,12 +1,20 @@
 import React from 'react'
-import { Route, Redirect, Switch } from 'react-router-dom'
+import {
+  Route, Redirect, Switch, useHistory,
+} from 'react-router-dom'
 import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
 import routes from './routeList'
 import { getToken } from '../utils/common'
+import axiosInterceptors from '../utils/interceptors'
 
-const CustomRoutes = (routeData) => (
-  <Switch>
-    {
+const CustomRoutes = (routeData) => {
+  const history = useHistory()
+  const dispatch = useDispatch()
+  axiosInterceptors(history, dispatch)
+  return (
+    <Switch>
+      {
       routes.map(({ path, auth, ...rest }) => (
         <Route
           path={ path }
@@ -16,8 +24,9 @@ const CustomRoutes = (routeData) => (
         />
       ))
     }
-  </Switch>
-)
+    </Switch>
+  )
+}
 
 const Validator = ({ component: Component }) => (getToken() ? <Component /> : <Redirect to='/login' />)
 
