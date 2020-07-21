@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
   },
   {
     tableName: 'x_user_activities',
-    timestamps: false
+    timestamps: true
   })
   XUserActivity.associate = function (models) {
   }

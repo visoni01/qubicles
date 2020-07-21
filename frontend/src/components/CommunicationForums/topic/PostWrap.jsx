@@ -9,10 +9,11 @@ import { getTimeFromNow, isEmptyArray } from '../../../utils/common'
 import { ownerDetails, dateWithUser, postShape } from '../forumValidators'
 
 const PostWrap = ({
-  createdAt, totalReplies, totalLikes, totalViews, posts,
+  createdAt, totalLikes, totalViews, posts,
 }) => {
   const isPosts = !isEmptyArray(posts)
   const lastReply = isPosts && posts.slice(-1)[ 0 ].postMeta
+  const totalReplies = posts.length
   return (
     <div className='forum-wrap'>
       <div className='forum-container'>

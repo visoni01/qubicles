@@ -14,7 +14,7 @@ const Post = ({ postMeta, postBody }) => {
     <div className='post'>
       <div className='post-meta'>
         <div className='post-owner'>
-          <img className='avatar' src={ postMeta.ownerDetails.profilePhoto } alt='' />
+          <img className='avatar' src={ postMeta.ownerDetails.profileImage } alt='' />
           <div className='badge'>
             <i className='material-icons'><FontAwesomeIcon icon={ faLightbulb } /></i>
           </div>

@@ -3,6 +3,10 @@ import { getDataForReducer } from '../../../utils/common'
 
 const initialState = {
   isLoading: null,
+  newReplyLoading: false,
+  newReplyError: null,
+  newReplySuccess: null,
+  newReply: {},
   error: null,
   success: false,
   topicDetails: {},
@@ -13,6 +17,9 @@ const {
     topicDataFetchingStart,
     topicDataFetchingSuccessful,
     topicDataFetchingFailure,
+    topicActivityDataPostingStart,
+    topicReplyActivitySuccessful,
+    topicReplyActivityFailure,
   },
   reducer,
 } = createSlice({
@@ -34,6 +41,25 @@ const {
       error: true,
       isLoading: false,
     }),
+    topicActivityDataPostingStart: (state, action) => ({
+      ...state,
+      newReplyLoading: true,
+    }),
+    topicReplyActivitySuccessful: (state, action) => {
+      const newReply = getDataForReducer(action, initialState.newReply, 'newReply')
+      return ({
+        ...state,
+        newReplySuccess: true,
+        newReplyLoading: false,
+        newReply,
+        topicDetails: { ...state.topicDetails, posts: [ newReply, ...state.topicDetails.posts ] },
+      })
+    },
+    topicReplyActivityFailure: (state, action) => ({
+      ...state,
+      newReplyError: true,
+      isLoading: false,
+    }),
   },
 })
 
@@ -42,4 +68,7 @@ export {
   topicDataFetchingStart,
   topicDataFetchingSuccessful,
   topicDataFetchingFailure,
+  topicActivityDataPostingStart,
+  topicReplyActivitySuccessful,
+  topicReplyActivityFailure,
 }

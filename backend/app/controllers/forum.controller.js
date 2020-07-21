@@ -2,6 +2,7 @@ import Responder from '../../server/expressResponder'
 import ForumCategories from '../services/forum/categories'
 import ForumChannel from '../services/forum/channels'
 import ForumTopic from '../services/forum/topic'
+import ForumTopicActivity from '../services/forum/topicActivity'
 
 export default class ForumController {
   static async getCategories (req, res) {
@@ -28,6 +29,15 @@ export default class ForumController {
       Responder.success(res, forumTopic.result)
     } else {
       Responder.failed(res, forumTopic.errors)
+    }
+  }
+
+  static async postTopicActivity (req, res) {
+    const topicActivity = await ForumTopicActivity.execute({ ...req.body, ...req.params })
+    if (topicActivity.successful) {
+      Responder.success(res, topicActivity.result)
+    } else {
+      Responder.failed(res, topicActivity.errors)
     }
   }
 }
