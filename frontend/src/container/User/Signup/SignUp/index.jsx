@@ -140,7 +140,6 @@ const SignUp = () => {
                           <p className='control login'>
                             <button
                               type='submit'
-                              // onClick={ handleSubmit(onSubmit) }
                               id='sendVerificationCode'
                               className='button btn-outlined is-bold is-fullwidth rounded raised no-lh'
                             >

@@ -32,7 +32,7 @@ const Login = () => {
   })
   const history = useHistory()
   const isManualLogin = history.location.state && history.location.state.isEmail
-  const [isSocialLogin, setIsSocialLogin] = useState(true)
+  const [ isSocialLogin, setIsSocialLogin ] = useState(true)
   const dispatch = useDispatch()
   const onSubmit = (data) => dispatch(userLoginStart(data))
   const { error, isLoading, success } = useSelector((state) => state.login)
@@ -42,7 +42,7 @@ const Login = () => {
     if (isManualLogin) {
       setIsSocialLogin(!isManualLogin)
     }
-  }, [isManualLogin])
+  }, [ isManualLogin ])
 
   const inputField = (
     name,
@@ -52,32 +52,32 @@ const Login = () => {
     type = 'text',
     autocomplete = 'on',
   ) => (
-      <div
-        className={classNames('control has-icons-right required', 'input-fields')}
-      >
-        <input
-          className='input'
-          type={type}
-          id={id}
-          name={name}
-          ref={register}
-          autoComplete={autocomplete}
-          placeholder={placeholder}
-          size='medium'
-        />
-        <span className='icon is-medium is-right'>
-          <FontAwesomeIcon icon={icon} />
-        </span>
-        {errors && errors[name] && (
-          <div className='error-message'>
-            {errors[name].message}
-          </div>
-        )}
+    <div
+      className={ classNames('control has-icons-right required', 'input-fields') }
+    >
+      <input
+        className='input'
+        type={ type }
+        id={ id }
+        name={ name }
+        ref={ register }
+        autoComplete={ autocomplete }
+        placeholder={ placeholder }
+        size='medium'
+      />
+      <span className='icon is-medium is-right'>
+        <FontAwesomeIcon icon={ icon } />
+      </span>
+      {errors && errors[ name ] && (
+      <div className='error-message'>
+        {errors[ name ].message}
       </div>
-    )
+      )}
+    </div>
+  )
 
   const handleSocialLogin = (method) => {
-    window.open(`${config.NODE_BASE_URL}/auth/${method}`, '',
+    window.open(`${ config.NODE_BASE_URL }/auth/${ method }`, '',
       'height=400,top=200,left=400,width=500,scrollbars=no,menubar=no,resizable=yes,toolbar=no,location=no,status=no')
   }
 
@@ -86,9 +86,9 @@ const Login = () => {
       variant='contained'
       size='large'
       color='primary'
-      className={`social-login-buttons ${type}`}
-      onClick={() => handleSocialLogin(type)}
-      startIcon={<Icon className='social-login-icons' />}
+      className={ `social-login-buttons ${ type }` }
+      onClick={ () => handleSocialLogin(type) }
+      startIcon={ <Icon className='social-login-icons' /> }
     >
       {buttonName}
     </Button>
@@ -100,10 +100,10 @@ const Login = () => {
     <div className='login-wrapper columns is-gapless'>
       <div className='column login-column is-8 is-hidden-mobile hero-banner'>
         <div
-          className={classNames(
+          className={ classNames(
             'hero login-hero is-fullheight has-background-image',
             'side-cover',
-          )}
+          ) }
         >
           <div className='columns has-text-centered'>
             <div className='column' />
@@ -116,7 +116,7 @@ const Login = () => {
             <div className='section has-text-centered section-login'>
               <img
                 className='top-logo'
-                src={QubiclesLogo}
+                src={ QubiclesLogo }
                 alt='Qubicles logo'
               />
             </div>
@@ -138,8 +138,8 @@ const Login = () => {
                             size='large'
                             color='primary'
                             className='social-login-buttons'
-                            onClick={() => setIsSocialLogin(!isSocialLogin)}
-                            startIcon={<FontAwesomeIcon className='social-login-icons mr-10' icon={faEnvelope} />}
+                            onClick={ () => setIsSocialLogin(!isSocialLogin) }
+                            startIcon={ <FontAwesomeIcon className='social-login-icons mr-10' icon={ faEnvelope } /> }
                           >
                             Login with Email
                           </Button>
@@ -147,7 +147,7 @@ const Login = () => {
                       )}
                       {!isSocialLogin && (
                         <div className='margin-bottom-30'>
-                          <form onSubmit={handleSubmit(onSubmit)} noValidate>
+                          <form onSubmit={ handleSubmit(onSubmit) } noValidate>
                             <div className='field pb-10'>
                               {inputField(
                                 'email',
@@ -177,7 +177,7 @@ const Login = () => {
                           </form>
                         </div>
                       )}
-                      <button type='button' className='text-button' onClick={handleCreateAccountLink}>
+                      <button type='button' className='text-button' onClick={ handleCreateAccountLink }>
                         {isSocialLogin ? 'Don\'t have a social account? Sign up using an email instead'
                           : 'Don\'t have an account? Create one now using your email or social media account'}
                       </button>
