@@ -1,6 +1,7 @@
 import ServiceBase from '../../common/serviceBase'
 import { Flow } from '../../db/models'
 import GetSecurityContextService from '../user/getSecurityContext'
+import { createNewEntity } from '../helper'
 
 const constraints = {
   flowName: {
@@ -29,8 +30,7 @@ export class AddFlowService extends ServiceBase {
       client_id: currentClientId
     }
 
-    await Flow.create(newFlowData)
-
-    return newFlowData
+    const flowData = await createNewEntity({ model: Flow, data: newFlowData })
+    return flowData.flow_id
   }
 }

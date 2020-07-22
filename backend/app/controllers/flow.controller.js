@@ -37,7 +37,7 @@ export default class FlowController {
   }
 
   static async deleteFlowField (req, res) {
-    const deleteFlowFieldResult = await DeleteFlowFieldService.execute(req.params)
+    const deleteFlowFieldResult = await DeleteFlowFieldService.execute({ ...req.query, ...req.body })
     if (deleteFlowFieldResult.successful) {
       Responder.success(res, deleteFlowFieldResult.result)
     } else {
@@ -154,7 +154,7 @@ export default class FlowController {
   }
 
   static async getFlowPagesByFlowId (req, res) {
-    const getFlowPagesByFlowIdResult = await GetFlowPagesByFlowIdService.execute({ ...req.body, ...req.params })
+    const getFlowPagesByFlowIdResult = await GetFlowPagesByFlowIdService.execute({ ...req.body, ...req.query })
     if (getFlowPagesByFlowIdResult.successful) {
       Responder.success(res, getFlowPagesByFlowIdResult.result)
     } else {
@@ -164,7 +164,7 @@ export default class FlowController {
 
   static async getFlowFieldsByFlowId (req, res) {
     const getFlowFieldsByFlowIdResult = await GetFlowFieldsByFlowIdService.execute({
-      ...req.params,
+      ...req.query,
       userId: req.body.user_id
     })
     if (getFlowFieldsByFlowIdResult.successful) {

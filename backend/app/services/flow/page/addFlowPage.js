@@ -1,6 +1,7 @@
 import ServiceBase from '../../../common/serviceBase'
 import { FlowPage, Flow } from '../../../db/models'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
+import { createNewEntity, getFlowPagesByFlowId, getFirstElement } from '../../helper'
 
 const constraints = {
   flowId: {
@@ -29,20 +30,22 @@ export class AddFlowPageService extends ServiceBase {
     }
 
     // Check if flow_page for same pageName exist or not
-    const flowPageDataData = await FlowPage.findOne({ where: { page_name: this.pageName }, raw: true })
-
-    let flowPageData
+    const flowPagesData = await getFlowPagesByFlowId({ flow_id: this.flowId, page_name: this.pageName })
+    const flowPageData = getFirstElement(flowPagesData)
+    let flowPage
 
     // Creating flowPage if pageName is not exist
-    if (!(flowPageDataData && flowPageDataData['page_id'])) {
-      flowPageData = {
+    if (!(flowPageData && flowPageData['page_id'])) {
+      flowPage = {
         flow_id: this.flowId,
         page_name: this.pageName,
         page_description: this.pageDescription,
         randomize_pages_off: 'True'
       }
-      await FlowPage.create(flowPageData)
+
+      flowPage = await createNewEntity({ model: FlowPage, data: flowPage })
     }
-    return flowPageData
+
+    return flowPage
   }
 }

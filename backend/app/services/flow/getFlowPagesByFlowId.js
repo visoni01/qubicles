@@ -44,7 +44,7 @@ export class GetFlowPagesByFlowIdService extends ServiceBase {
     }
 
     const allFlowPages = await getFlowPagesByFlowId({ flow_id: flow.flow_id })
-    const sortPages = []
+    let sortPages = []
 
     let nonRandomizedPages = []
     let randomizedPages = []
@@ -62,7 +62,7 @@ export class GetFlowPagesByFlowIdService extends ServiceBase {
     nonRandomizedPages = _.orderBy(nonRandomizedPages, 'page_id', 'ASC')
 
     if (nonRandomizedPages && nonRandomizedPages.length) {
-      sortPages.push(nonRandomizedPages)
+      sortPages = [...nonRandomizedPages]
     }
 
     // only pull randomized pages if turned on the Flow level
@@ -71,7 +71,7 @@ export class GetFlowPagesByFlowIdService extends ServiceBase {
     randomizedPages = _.orderBy(randomizedPages, () => generateUUID())
 
     if (randomizedPages && randomizedPages.length) {
-      sortPages.push(randomizedPages)
+      sortPages = [...sortPages, ...randomizedPages]
     }
 
     return sortPages
