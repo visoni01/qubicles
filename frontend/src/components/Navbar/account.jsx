@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import './style.scss'
 import User from '../../redux-saga/service/user'
-import { showSuccessMessage, showErrorMessage } from '../../redux-saga/redux/snackbar'
+import { showErrorMessage } from '../../redux-saga/redux/snackbar'
 import { userLogoutSuccessful } from '../../redux-saga/redux/login'
 
 const UserAccount = ({ isOpen, toggleIsOpen }) => {
@@ -16,8 +16,7 @@ const UserAccount = ({ isOpen, toggleIsOpen }) => {
     const { status } = await User.logout()
     if (status === 200) {
       dispatch(userLogoutSuccessful())
-      history.push('/login')
-      return dispatch(showSuccessMessage({ msg: 'Successfully logged out' }))
+      return history.push('/login')
     }
     return dispatch(showErrorMessage())
   }

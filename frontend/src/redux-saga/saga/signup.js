@@ -5,6 +5,7 @@ import {
   userSignupFailure,
   userSignupSuccessful,
 } from '../redux/signup'
+import { showErrorMessage } from '../redux/snackbar'
 
 function* signupWatcher() {
   yield takeEvery(userSignupStart.type, signupWorker)
@@ -21,6 +22,7 @@ function* signupWorker(action) {
     yield apiClient.signup(data)
     yield put(userSignupSuccessful())
   } catch (e) {
+    yield put(showErrorMessage())
     yield put(userSignupFailure())
   }
 }

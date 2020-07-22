@@ -6,6 +6,7 @@ import {
 } from '../../redux/actions'
 
 import Forum from '../../service/forum'
+import { showErrorMessage } from '../../redux/snackbar'
 
 function* topicDataFetchingWatcherStart() {
   yield takeEvery(topicDataFetchingStart.type, topicDataFetchingWorker)
@@ -17,6 +18,7 @@ function* topicDataFetchingWorker(action) {
     const topicDetails = yield Forum.fetchTopic({ topicId })
     yield put(topicDataFetchingSuccessful({ topicDetails }))
   } catch (e) {
+    yield put(showErrorMessage())
     yield put(topicDataFetchingFailure())
   }
 }

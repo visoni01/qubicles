@@ -5,6 +5,7 @@ import {
   inviteRequestSuccessful,
   inviteRequestFailure,
 } from '../redux/invitePage'
+import { showErrorMessage } from '../redux/snackbar'
 
 function* inviteRequestWatcher() {
   yield takeEvery(inviteRequestStart.type, inviteRequestWorker)
@@ -27,6 +28,7 @@ function* inviteRequestWorker(action) {
     const { data } = result
     yield put(inviteRequestSuccessful({ result: data && data.result, type: payload.type }))
   } catch (e) {
+    yield put(showErrorMessage())
     yield put(inviteRequestFailure())
   }
 }

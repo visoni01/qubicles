@@ -6,6 +6,7 @@ import {
   postSignUpStepFailure,
 } from '../redux/postSignup'
 import { startLoader, stopLoader } from '../redux/loader'
+import { showErrorMessage } from '../redux/snackbar'
 
 function* postSignupStepWatcher() {
   yield takeEvery(postSignUpStepStart.type, postSignupStepWorker)
@@ -21,6 +22,7 @@ function* postSignupStepWorker(action) {
     yield put(postSignUpStepSuccessful({ step, data, inviteLink }))
     yield put(stopLoader())
   } catch (e) {
+    yield put(showErrorMessage())
     yield put(postSignUpStepFailure())
     yield put(stopLoader())
   }

@@ -6,6 +6,7 @@ import {
   emailVerificationSuccessful,
 } from '../redux/emailVerification'
 import { startLoader, stopLoader } from '../redux/loader'
+import { showErrorMessage } from '../redux/snackbar'
 
 function* emailVerificationWatcher() {
   yield takeEvery(emailVerificationStart.type, emailVerificationWorker)
@@ -18,6 +19,7 @@ function* emailVerificationWorker(action) {
     yield put(emailVerificationSuccessful())
     yield put(stopLoader())
   } catch (e) {
+    yield put(showErrorMessage())
     yield put(emailVerificationFailure())
     yield put(stopLoader())
   }

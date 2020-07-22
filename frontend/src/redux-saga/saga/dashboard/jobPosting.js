@@ -5,6 +5,7 @@ import {
   jobPostingDataFetchingSuccessful,
 } from '../../redux/actions'
 import Dashboard from '../../service/dashboard'
+import { showErrorMessage } from '../../redux/snackbar'
 
 function* jobPostingDataFetchingWatcherStart() {
   yield takeEvery(jobPostingDataFetchingStart.type, jobPostingDataFetchingWorker)
@@ -15,6 +16,7 @@ function* jobPostingDataFetchingWorker() {
     const jobPostings = yield Dashboard.fetchJobPostings()
     yield put(jobPostingDataFetchingSuccessful({ jobPostings }))
   } catch (e) {
+    yield put(showErrorMessage())
     yield put(jobPostingDataFetchingFailure())
   }
 }

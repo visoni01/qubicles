@@ -5,6 +5,7 @@ import {
   activeUserDataFetchingSuccessful,
 } from '../../redux/actions'
 import Dashboard from '../../service/dashboard'
+import { showErrorMessage } from '../../redux/snackbar'
 
 function* activeUserDataFetchingWatcherStart() {
   yield takeEvery(activeUserDataFetchingStart.type, activeUserDataFetchingWorker)
@@ -15,6 +16,7 @@ function* activeUserDataFetchingWorker() {
     const activeUsers = yield Dashboard.fetchActiveUsers()
     yield put(activeUserDataFetchingSuccessful({ activeUsers }))
   } catch (e) {
+    yield put(showErrorMessage())
     yield put(activeUserDataFetchingFailure())
   }
 }

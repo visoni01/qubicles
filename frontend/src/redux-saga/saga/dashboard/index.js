@@ -9,6 +9,7 @@ import {
   activeUserDataFetchingStart,
 
 } from '../../redux/actions'
+import { showErrorMessage } from '../../redux/snackbar'
 
 function* dashboardWatcher() {
   yield takeEvery(dashboardDataFetchingStart.type, dashboardWorker)
@@ -27,6 +28,7 @@ function* dashboardWorker(action) {
 
     yield put(dashboardDataFetchingSuccessful())
   } catch (e) {
+    yield put(showErrorMessage())
     yield put(dashboardDataFetchingFailure())
   }
 }
