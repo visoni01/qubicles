@@ -8,6 +8,7 @@ const Slider = () => {
   const interval = useRef(null)
   useEffect(() => {
     interval.current = setTimeout(() => setCurrentSlide((currentSlide + 1) % 4), 5000)
+    return () => clearTimeout(interval.current)
   }, [ currentSlide ])
 
   const handlebuttonCLick = (index) => {
@@ -19,6 +20,7 @@ const Slider = () => {
       type='button'
       className={ classNames('Wallop-dot', index === currentSlide ? 'Wallop-dot--current bg-color-blue' : '') }
       onClick={ () => handlebuttonCLick(index) }
+      key={ name }
     >
       {name}
     </button>

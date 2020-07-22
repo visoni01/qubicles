@@ -44,9 +44,6 @@ const Footer = () => (
                 <img
                   alt='Read Qubicles Reviews on GetApp.com'
                   src='https://www.getapp.com/ext/reviews_widget/v1/dark/fenero-application'
-                  srcSet={ `https://www.getapp.com/ext/reviews_widget/v1/dark/fenero-application, https://www.getapp
-                    .com/ext/reviews_widget/v1/dark/fenero-application@2x 2x, https://www.getapp.com/ext/reviews_widget/
-                    v1/dark/fenero-application@3x 3x` }
                   title='Read Qubicles Reviews on GetApp.com'
                 />
               </a>

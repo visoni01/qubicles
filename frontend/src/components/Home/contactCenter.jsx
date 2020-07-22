@@ -219,7 +219,7 @@ const ContactCenter = () => (
           <div className='columns is-vcentered'>
             {/* Image */}
             <div className='column is-7'>
-              <div className>
+              <div>
                 <figure className='image is-4-by-3'>
                   <img className='first' src={ idleUsage } alt='Idle usage' />
                 </figure>

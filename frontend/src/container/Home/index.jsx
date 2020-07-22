@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
 import { Divider } from '@material-ui/core'
+import { useHistory } from 'react-router-dom'
 import Slider from './slider'
 import {
   Clients, Steps, Header, Footer,
@@ -12,7 +12,8 @@ import AboutUs from '../../components/Home/aboutUs'
 import './style.scss'
 import { isProductionEnvironment } from '../../utils/common'
 
-const Home = ({ history }) => {
+const Home = () => {
+  const history = useHistory()
   // eslint-disable-next-line
   useEffect(() => {
     if (isProductionEnvironment()) {
@@ -55,10 +56,6 @@ const Home = ({ history }) => {
       <Footer />
     </div>
   )
-}
-
-Home.propTypes = {
-  history: PropTypes.instanceOf({}).isRequired,
 }
 
 export {

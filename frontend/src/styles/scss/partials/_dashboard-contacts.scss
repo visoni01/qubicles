@@ -118,7 +118,7 @@ TABLE OF CONTENTS
         .contact-block {
             display: flex;
             justify-content: flex-start;
-            align-items: start;
+            align-items: flex-start;
             margin-top: 16px;
 
             img {
@@ -849,7 +849,7 @@ TABLE OF CONTENTS
             .event-block {
                 position: relative;
                 display: flex;
-                align-items: start;
+                align-items: flex-start;
                 border-bottom: 1px solid $fade-grey;
                 padding-top: 16px;
 
