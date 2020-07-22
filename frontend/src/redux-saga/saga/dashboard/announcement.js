@@ -12,8 +12,8 @@ function* announcementDataFetchingWatcherStart() {
 
 function* announcementDataFetchingWorker(action) {
   try {
-    const announcements = yield Dashboard.fetchAnnouncement()
-    yield put(announcementDataFetchingSuccessful({ announcements }))
+    const { data } = yield Dashboard.fetchAnnouncement()
+    yield put(announcementDataFetchingSuccessful({ announcements: data }))
   } catch (e) {
     yield put(announcementDataFetchingFailure())
   }

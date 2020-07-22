@@ -12,8 +12,8 @@ function* communityRepDataFechingWatcherStart() {
 
 function* communityRepDataFechingWorker(action) {
   try {
-    const communityRep = yield Dashboard.fetchCommunityRep()
-    yield put(communityRepDataFechingSuccessful({ communityRep }))
+    const { data } = yield Dashboard.fetchCommunityRep()
+    yield put(communityRepDataFechingSuccessful({ communityRep: data }))
   } catch (e) {
     yield put(communityRepDataFechingFailure())
   }

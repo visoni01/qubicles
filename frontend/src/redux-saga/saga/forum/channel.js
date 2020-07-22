@@ -14,8 +14,8 @@ function* channelDataFetchingWatcherStart() {
 function* channelDataFetchingWorker(action) {
   try {
     const { channelId } = action.payload
-    const channelDetails = yield Forum.fetchChannel({ channelId })
-    yield put(channelDataFetchingSuccessful({ channelDetails }))
+    const { data } = yield Forum.fetchChannel({ channelId })
+    yield put(channelDataFetchingSuccessful({ channelDetails: data }))
   } catch (e) {
     yield put(channelDataFetchingFailure())
   }

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import configEnv from './config'
+import { handleResponse, handleReponseError } from './interceptors'
 
 const baseURL = configEnv.NODE_BASE_URL
 
@@ -52,5 +53,6 @@ export const axiosInst = axios.create({
   baseURL,
 })
 axiosInst.defaults.withCredentials = true
+axiosInst.interceptors.response.use(handleResponse, handleReponseError)
 
 export default new ApiClient(axiosInst)

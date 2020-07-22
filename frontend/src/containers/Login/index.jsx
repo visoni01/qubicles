@@ -32,7 +32,7 @@ const Login = () => {
   })
   const history = useHistory()
   const location = useLocation()
-  const hasReturnTo = location.search.split('?return_to=')
+  const isReturnTo = location.search.split('?return_url=')
   const isManualLogin = history.location.state && history.location.state.isEmail
   const [ isSocialLogin, setIsSocialLogin ] = useState(true)
   const dispatch = useDispatch()
@@ -191,7 +191,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-      {success && <Redirect to={ (hasReturnTo && hasReturnTo[ 1 ]) || '/dashboard' } />}
+      {success && <Redirect to={ (isReturnTo && isReturnTo[ 1 ]) || '/dashboard' } />}
     </div>
   )
 }

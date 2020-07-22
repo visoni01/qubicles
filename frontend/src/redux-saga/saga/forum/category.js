@@ -13,8 +13,8 @@ function* categoryDataFetchingWatcherStart() {
 
 function* categoryDataFetchingWorker(action) {
   try {
-    const categories = yield Forum.fetchCategories()
-    yield put(categoryDataFetchingSuccessful({ categories }))
+    const { data } = yield Forum.fetchCategories()
+    yield put(categoryDataFetchingSuccessful({ categories: data }))
   } catch (e) {
     yield put(categoryDataFetchingFailure())
   }

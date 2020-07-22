@@ -1,30 +1,15 @@
-import { axiosInst } from './apiClient'
-import { showErrorMessage } from '../redux-saga/redux/snackbar'
-
-export const interceptors = (history, dispatch) => {
-  axiosInst.interceptors.response.use((response) => {
-    response.data = response.data.data
-    return response
-  }, (error) => {
-    const { response } = error
-    const { status, statusText, data } = response
-    switch (status) {
-      case 401:
-        history.push('/login')
-        dispatch(showErrorMessage({ msg: `${ statusText }: ${ data && data.message }` || 'You are not authorised' }))
-        break
-      case 404:
-        history.push('/login')
-        dispatch(showErrorMessage({ msg: 'Page not found' }))
-        break
-      case 500:
-        dispatch(showErrorMessage({ msg: 'Internal server error' }))
-        break
-      default:
-        dispatch(showErrorMessage({ msg: statusText }))
-    }
-    return Promise.reject(error)
-  })
+export const handleResponse = (response) => {
+  response.data = response.data.data
+  response.message = response.data.message
+  return response
 }
 
-export default interceptors
+export const handleReponseError = (error) => {
+  const { response } = error
+  const { status, statusText, data } = response
+  let errMsg
+  if (data && data.message) {
+    errMsg = response.data.message
+  }
+  return Promise.reject(errMsg)
+}

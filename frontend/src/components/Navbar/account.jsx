@@ -13,8 +13,8 @@ const UserAccount = ({ isOpen, toggleIsOpen }) => {
   const dispatch = useDispatch()
 
   const logOut = async () => {
-    const responseStatus = await User.logout()
-    if (responseStatus === 200) {
+    const { status } = await User.logout()
+    if (status === 200) {
       dispatch(userLogoutSuccessful())
       history.push('/login')
       return dispatch(showSuccessMessage({ msg: 'Successfully logged out' }))
