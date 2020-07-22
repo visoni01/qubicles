@@ -3,7 +3,6 @@ import { useParams, Redirect } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { emailVerificationStart } from '../../../../redux-saga/redux/emailVerification'
-import { CircularLoader } from '../../../../components/loaders'
 import './style.scss'
 
 const EmailVerification = () => {
@@ -11,8 +10,9 @@ const EmailVerification = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(emailVerificationStart(token))
-  }, [])
-  const { error, isLoading, success } = useSelector(
+    // eslint-disable-next-line
+  }, [ dispatch ])
+  const { error, success } = useSelector(
     (state) => state.emailVerification,
   )
   return (

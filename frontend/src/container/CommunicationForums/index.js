@@ -10,7 +10,7 @@ const ForumGroup = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(categoryDataFetchingStart())
-  }, [])
+  }, [ dispatch ])
   const { categories, isLoading } = useSelector((state) => state.category)
   return (
     <div className='dashboard-inner'>

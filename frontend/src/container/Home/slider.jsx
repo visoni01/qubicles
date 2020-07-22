@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import classNames from 'classnames'
 import SliderComponent from '../../components/Home/slide'
 import sliderData from './data'
 
 const Slider = () => {
   const [ currentSlide, setCurrentSlide ] = useState(0)
-  let interval
+  const interval = useRef(null)
   useEffect(() => {
-    interval = setTimeout(() => setCurrentSlide((currentSlide + 1) % 4), 5000)
+    interval.current = setTimeout(() => setCurrentSlide((currentSlide + 1) % 4), 5000)
   }, [ currentSlide ])
 
   const handlebuttonCLick = (index) => {
-    clearTimeout(interval)
+    clearTimeout(interval.current)
     setCurrentSlide(index)
   }
   const dotButton = (name, index) => (

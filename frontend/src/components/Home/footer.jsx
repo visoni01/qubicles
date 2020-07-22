@@ -39,6 +39,7 @@ const Footer = () => (
               <a
                 href='https://www.getapp.com/it-communications-software/a/fenero/reviews/'
                 target='_blank'
+                rel='noopener noreferrer'
               >
                 <img
                   alt='Read Qubicles Reviews on GetApp.com'
@@ -58,7 +59,7 @@ const Footer = () => (
               <h3>Resources</h3>
             </div>
             <ul className='link-list'>
-              <li><a to='http://support.fenero.com'>Support</a></li>
+              <li><a href='http://support.fenero.com'>Support</a></li>
               <li><Link to='/termsofuse'>Terms of Use</Link></li>
               <li><Link to='/privacypolicy'>Privacy Policy</Link></li>
             </ul>
@@ -67,6 +68,7 @@ const Footer = () => (
                 href={ `https://www.capterra.com/reviews/161183/Fenero?utm_source=vendor&utm_medium=badge
                 &utm_campaign=capterra_reviews_badge` }
                 target='_blank'
+                rel='noopener noreferrer'
               >
                 <img
                   border={ 0 }
@@ -85,13 +87,28 @@ const Footer = () => (
             <div className='footer-header'>
               <nav className='level is-mobile'>
                 <div className='level-left level-social'>
-                  <a target='_blank' className='level-item' href='https://www.facebook.com/Qubicles.io'>
+                  <a
+                    target='_blank'
+                    className='level-item'
+                    href='https://www.facebook.com/Qubicles.io'
+                    rel='noopener noreferrer'
+                  >
                     <span className='icon'><FacebookIcon /></span>
                   </a>
-                  <a target='_blank' className='level-item' href='https://twitter.com/Qubicles'>
+                  <a
+                    target='_blank'
+                    className='level-item'
+                    href='https://twitter.com/Qubicles'
+                    rel='noopener noreferrer'
+                  >
                     <span className='icon'><TwitterIcon /></span>
                   </a>
-                  <a target='_blank' className='level-item' href='https://www.linkedin.com/company/qubiclesio'>
+                  <a
+                    target='_blank'
+                    className='level-item'
+                    href='https://www.linkedin.com/company/qubiclesio'
+                    rel='noopener noreferrer'
+                  >
                     <span className='icon'><LinkedinIcon /></span>
                   </a>
                 </div>

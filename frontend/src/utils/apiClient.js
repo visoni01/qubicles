@@ -33,7 +33,7 @@ class ApiClient {
   inviteRequest = (methodType, { type, body }) => this.makeRequest(`/user/${ type }`, methodType, body)
 
   login = async (body) => {
-    const { data, status } = await this.axios({
+    const { status } = await this.axios({
       url: '/user/login', method: 'post', data: body, withCredentials: true,
     })
     return status

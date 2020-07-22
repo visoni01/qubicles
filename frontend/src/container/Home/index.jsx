@@ -13,6 +13,7 @@ import './style.scss'
 import { isProductionEnvironment } from '../../utils/common'
 
 const Home = ({ history }) => {
+  // eslint-disable-next-line
   useEffect(() => {
     if (isProductionEnvironment()) {
       const script = document.createElement('script')

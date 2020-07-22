@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useSelector, useDispatch } from 'react-redux'
 import * as yup from 'yup'
@@ -9,8 +9,6 @@ import {
   faUser,
   faLock,
 } from '@fortawesome/free-solid-svg-icons'
-import { Button } from '@material-ui/core'
-import PropTypes from 'prop-types'
 
 import { useHistory, useLocation } from 'react-router-dom'
 import { userSignupStart } from '../../../../redux-saga/redux/signup'
@@ -30,11 +28,10 @@ const SignUp = () => {
   })
   const history = useHistory()
   const location = useLocation()
-  const [ isSocialSignup, setIsSocialSignup ] = useState(true)
   const isSocialSignupSuccess = location.search && location.search.split('?')[ 1 ] === 'with_social=true' // Temporary set up.
   const dispatch = useDispatch()
   const onSubmit = (data) => dispatch(userSignupStart(data))
-  const { error, isLoading, success } = useSelector((state) => state.signup)
+  const { success } = useSelector((state) => state.signup)
 
   const inputField = (
     name,

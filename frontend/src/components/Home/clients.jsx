@@ -8,7 +8,7 @@ const Clients = () => (
         <ul>
           {clients.map(({ source, alt, href }) => (
             <li key={ `${ alt }-${ href }` }>
-              <a href={ href } target='_blank'>
+              <a href={ href } target='_blank' rel='noopener noreferrer'>
                 <img
                   className='partner-logo'
                   src={ source }

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import Cookies from 'js-cookie'
-import PropTypes from 'prop-types'
 
 import apiClient from '../../utils/apiClient'
 import config from '../../utils/config'
@@ -19,7 +18,7 @@ const Auth = () => {
 
     async function getUser(token) {
       // user object will be stored in redux store or localstorage
-      const user = await apiClient.getUser()
+      await apiClient.getUser()
       if (window.opener) {
         window.opener.focus()
         window.opener.location.href = `${ config.APP_BASE_URL }/dashboard`

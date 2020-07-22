@@ -79,7 +79,7 @@ const AboutUs = () => (
                 <br />
                 <br />
                 Today, as Chief Executive of Qubicles and Founding Member of the
-                <a href='https://telos.net' target='_blank'> Telos </a>
+                <a href='https://telos.net' target='_blank' rel='noopener noreferrer'> Telos </a>
                 blockchain,
                 we're bringing extensive experience in contact center services and blockchain to usher in a new phase
                 for our industry: a trusted network for contact center professionals to find or create jobs, network
@@ -180,10 +180,15 @@ const AboutUs = () => (
                 </div>
                 <div className='overlay-wrapper'>
                   <div>
-                    <a target='_blank' href='https://twitter.com/MarlonWilliams' className='mr-10'>
+                    <a
+                      target='_blank'
+                      href='https://twitter.com/MarlonWilliams'
+                      className='mr-10'
+                      rel='noopener noreferrer'
+                    >
                       <TwitterIcon className='social-icons-about-us' />
                     </a>
-                    <a target='_blank' href='https://linkedin.com/in/marlonwilliams'>
+                    <a target='_blank' href='https://linkedin.com/in/marlonwilliams' rel='noopener noreferrer'>
                       <LinkedinIcon className='social-icons-about-us' />
                     </a>
                   </div>
@@ -205,10 +210,20 @@ const AboutUs = () => (
                 </div>
                 <div className='overlay-wrapper'>
                   <div>
-                    <a target='_blank' href='https://twitter.com/WarrenWhitlock' className='mr-10'>
+                    <a
+                      target='_blank'
+                      href='https://twitter.com/WarrenWhitlock'
+                      className='mr-10'
+                      rel='noopener noreferrer'
+                    >
                       <TwitterIcon className='social-icons-about-us' />
                     </a>
-                    <a target='_blank' href='https://www.linkedin.com/in/books' className='mr-10'>
+                    <a
+                      target='_blank'
+                      href='https://www.linkedin.com/in/books'
+                      className='mr-10'
+                      rel='noopener noreferrer'
+                    >
                       <LinkedinIcon className='social-icons-about-us' />
                     </a>
                   </div>
@@ -230,10 +245,19 @@ const AboutUs = () => (
                 </div>
                 <div className='overlay-wrapper'>
                   <div>
-                    <a target='_blank' href='https://twitter.com/JudNoel01' className='mr-10'>
+                    <a
+                      target='_blank'
+                      href='https://twitter.com/JudNoel01'
+                      className='mr-10'
+                      rel='noopener noreferrer'
+                    >
                       <TwitterIcon className='social-icons-about-us' />
                     </a>
-                    <a target='_blank' href='https://www.linkedin.com/in/judson-noel-11a53667'>
+                    <a
+                      target='_blank'
+                      href='https://www.linkedin.com/in/judson-noel-11a53667'
+                      rel='noopener noreferrer'
+                    >
                       <LinkedinIcon className='social-icons-about-us' />
                     </a>
                   </div>
@@ -255,10 +279,19 @@ const AboutUs = () => (
                 </div>
                 <div className='overlay-wrapper'>
                   <div>
-                    <a target='_blank' href='https://twitter.com/michaelterpin' className='mr-10'>
+                    <a
+                      target='_blank'
+                      href='https://twitter.com/michaelterpin'
+                      className='mr-10'
+                      rel='noopener noreferrer'
+                    >
                       <TwitterIcon className='social-icons-about-us' />
                     </a>
-                    <a target='_blank' href='https://www.linkedin.com/in/michaelterpin'>
+                    <a
+                      target='_blank'
+                      href='https://www.linkedin.com/in/michaelterpin'
+                      rel='noopener noreferrer'
+                    >
                       <LinkedinIcon className='social-icons-about-us' />
                     </a>
                   </div>
@@ -280,10 +313,19 @@ const AboutUs = () => (
                 </div>
                 <div className='overlay-wrapper'>
                   <div>
-                    <a target='_blank' href='https://twitter.com/katecroberts' className='mr-10'>
+                    <a
+                      target='_blank'
+                      href='https://twitter.com/katecroberts'
+                      className='mr-10'
+                      rel='noopener noreferrer'
+                    >
                       <TwitterIcon className='social-icons-about-us' />
                     </a>
-                    <a target='_blank' href='https://www.linkedin.com/in/kateconlonroberts'>
+                    <a
+                      target='_blank'
+                      href='https://www.linkedin.com/in/kateconlonroberts'
+                      rel='noopener noreferrer'
+                    >
                       <LinkedinIcon className='social-icons-about-us' />
                     </a>
                   </div>
@@ -305,10 +347,19 @@ const AboutUs = () => (
                 </div>
                 <div className='overlay-wrapper'>
                   <div>
-                    <a target='_blank' href='https://twitter.com/omniinteraction' className='mr-10'>
+                    <a
+                      target='_blank'
+                      href='https://twitter.com/omniinteraction'
+                      className='mr-10'
+                      rel='noopener noreferrer'
+                    >
                       <TwitterIcon className='social-icons-about-us' />
                     </a>
-                    <a target='_blank' href='https://www.linkedin.com/in/rob-duncan-7059291'>
+                    <a
+                      target='_blank'
+                      href='https://www.linkedin.com/in/rob-duncan-7059291'
+                      rel='noopener noreferrer'
+                    >
                       <LinkedinIcon className='social-icons-about-us' />
                     </a>
                   </div>
