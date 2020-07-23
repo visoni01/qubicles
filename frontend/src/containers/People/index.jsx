@@ -13,7 +13,7 @@ import withNavBar from '../../hoc/navbar'
 import './style.scss'
 
 const People = () => {
-  const [ activeTab, setActivetab ] = useState(2)
+  const [ activeTab, setActivetab ] = useState(0)
   return (
     <>
       <div id='main-dashboard' className='section-wrapper'>

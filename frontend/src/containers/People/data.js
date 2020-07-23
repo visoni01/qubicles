@@ -60,4 +60,35 @@ const talentData = [ {
 },
 ]
 
-export { jobsData, talentData }
+const trainingData = [ {
+  title: 'Announcements',
+  users: [
+    {
+      title: 'React Developer Course',
+      description: 'Front-end Developer',
+      trainingRate: 1000,
+      lessons: 12,
+      students: 551,
+      rating: 4.5,
+      category: 'Develpment',
+      language: 'English',
+      trainer: 'John Nash',
+      videoLink: 'https://www.youtube.com/embed/GioazWxrSnM',
+    },
+    {
+      title: 'Node Developer Course',
+      description: 'Front-end Developer',
+      trainingRate: 2000,
+      lessons: 15,
+      students: 1054,
+      rating: 4.8,
+      category: 'Develpment',
+      language: 'English',
+      trainer: 'John Nash',
+      videoLink: 'https://www.youtube.com/embed/GioazWxrSnM',
+    },
+  ],
+},
+]
+
+export { jobsData, talentData, trainingData }

@@ -73,3 +73,29 @@
   margin: auto;
   width: 100%;
 }
+
+.training-title-info-div {
+  width: calc(100% - 90px);
+}
+
+.training-qubicles-logo {
+  width: 20px;
+  height: 20px;
+}
+
+.training-tag-type-style {
+  padding: 6px 18px;
+  background: #f2f2f2;
+  border-radius: 25px;
+}
+
+.training-by-span {
+  position: absolute;
+  right: 5%;
+  margin-top: 6px;
+}
+
+.training-video {
+  border-radius: 8px;
+  margin: auto;
+}
