@@ -1,12 +1,12 @@
 import Responder from '../../server/expressResponder'
-import ForumCategories from '../services/forum/categories'
-import ForumChannel from '../services/forum/channels'
-import ForumTopic from '../services/forum/topic'
-import ForumTopicActivity from '../services/forum/topicActivity'
+import ForumCategoriesService from '../services/forum/categories'
+import ForumChannelService from '../services/forum/channels'
+import ForumTopicService from '../services/forum/topic'
+import ForumTopicActivityService from '../services/forum/topicActivity'
 
 export default class ForumController {
   static async getCategories (req, res) {
-    const forumCategories = await ForumCategories.execute(req.body)
+    const forumCategories = await ForumCategoriesService.execute(req.body)
     if (forumCategories.successful) {
       Responder.success(res, forumCategories.result)
     } else {
@@ -15,7 +15,7 @@ export default class ForumController {
   }
 
   static async getChannel (req, res) {
-    const forumChannel = await ForumChannel.execute({ ...req.body, ...req.params })
+    const forumChannel = await ForumChannelService.execute({ ...req.body, ...req.params })
     if (forumChannel.successful) {
       Responder.success(res, forumChannel.result)
     } else {
@@ -24,7 +24,7 @@ export default class ForumController {
   }
 
   static async getTopic (req, res) {
-    const forumTopic = await ForumTopic.execute({ ...req.body, ...req.params })
+    const forumTopic = await ForumTopicService.execute({ ...req.body, ...req.params })
     if (forumTopic.successful) {
       Responder.success(res, forumTopic.result)
     } else {
@@ -33,7 +33,7 @@ export default class ForumController {
   }
 
   static async postTopicActivity (req, res) {
-    const topicActivity = await ForumTopicActivity.execute({ ...req.body, ...req.params })
+    const topicActivity = await ForumTopicActivityService.execute({ ...req.body, ...req.params })
     if (topicActivity.successful) {
       Responder.success(res, topicActivity.result)
     } else {

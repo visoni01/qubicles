@@ -1,3 +1,8 @@
+export const USER_ROUTE = '/users/'
+export const GROUP = '/group/'
+export const GROUP_CHANNEL = '/group/channels/'
+export const GROUP_TOPIC = '/group/topics/'
+
 const ROUTE_PATHS = {
   Home: '/',
   AGENTS: '/agents',
@@ -11,9 +16,9 @@ const ROUTE_PATHS = {
   POST_SIGN_UP: '/post-signup',
   INVITE_FRIEND: '/invite-friends',
   AUTH: '/auth',
-  GROUP: '/group',
-  GROUP_CHANNEL: '/group/channels/:channelId',
-  GROUP_TOPIC: '/group/topics/:topicId',
+  GROUP,
+  GROUP_CHANNEL: `${ GROUP_CHANNEL }:channelId`,
+  GROUP_TOPIC: `${ GROUP_TOPIC }:topicId`,
   PEOPLE: '/people',
 }
 

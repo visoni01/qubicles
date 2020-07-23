@@ -9,7 +9,7 @@ import TopAction from '../TopAction'
 import { ownerDetails } from '../forumValidators'
 
 const Post = ({ postMeta, postBody }) => {
-  const isEdited = !!postMeta.updatedAt
+  const isEdited = !postMeta.updatedAt === postMeta.createdAt
   return (
     <div className='post'>
       <div className='post-meta'>
@@ -33,7 +33,6 @@ const Post = ({ postMeta, postBody }) => {
             <span>{postMeta.totalLikes}</span>
             <TopAction icon={ faHeart } />
             <TopAction icon={ faReply } />
-            <TopAction icon={ faShareAlt } />
           </div>
         </div>
         <div className='post-body content'>

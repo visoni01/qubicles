@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle,
@@ -15,7 +15,8 @@ const TopicHeader = ({ topicTitle, topicId }) => {
   const dispatch = useDispatch()
   const [ open, setOpen ] = useState(false)
   const [ comment, setComment ] = useState('')
-  const handleSubmit = () => {
+
+  const handleSubmit = useCallback(() => {
     const payload = {
       data: {
         comment,
@@ -25,15 +26,16 @@ const TopicHeader = ({ topicTitle, topicId }) => {
     dispatch(topicActivityDataPostingStart({ payload, activityType: 'reply' }))
     setOpen(false)
     setComment('')
-  }
+  }, [ comment ])
 
-  const handleClickOpen = () => {
+  const handleClickOpen = useCallback(() => {
     setOpen(true)
-  }
+  }, [])
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setOpen(false)
-  }
+  }, [])
+
   return (
     <div className='forum-title-wrapper is-mobile'>
       <img className='forum-image' src='https://via.placeholder.com/150x150' alt='' />

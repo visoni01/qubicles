@@ -1,6 +1,8 @@
 import ServiceBase from '../../common/serviceBase'
-import { commentTopic, likeTopic } from '../helper'
+import { commentTopic, likeTopic, getErrorMessageForService } from '../helper'
 import { getUserSubProfile } from './channels'
+import { ERRORS } from '../../utils/errors'
+import logger from '../../common/logger'
 
 const constraints = {
   user_id: {
@@ -14,7 +16,7 @@ const constraints = {
   }
 }
 
-export default class ForumTopicActivity extends ServiceBase {
+export default class ForumTopicActivityService extends ServiceBase {
   get constraints () {
     return constraints
   }
@@ -28,7 +30,8 @@ export default class ForumTopicActivity extends ServiceBase {
           activityResult = await commentActivity({ user_id, data })
       }
     } catch (err) {
-      console.log('ERR', err)
+      logger.error(getErrorMessageForService('ForumTopicActivityService'), err)
+      this.addError(ERRORS.INTERNAL)
     }
     return activityResult
   }

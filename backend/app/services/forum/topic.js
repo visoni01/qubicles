@@ -1,7 +1,8 @@
 import ServiceBase from '../../common/serviceBase'
-import { getOneTopic, getTopicComments, getTopicLikesCount } from '../helper'
+import { getOneTopic, getTopicComments, getTopicLikesCount, getErrorMessageForService } from '../helper'
 import { getUserSubProfile } from './channels'
-import { ERRORS } from '../../utils/errors'
+import { ERRORS, MESSAGES } from '../../utils/errors'
+import logger from '../../common/logger'
 
 const constraints = {
   user_id: {
@@ -12,24 +13,29 @@ const constraints = {
   }
 }
 
-export default class ForumTopic extends ServiceBase {
+export default class ForumTopicService extends ServiceBase {
   get constraints () {
     return constraints
   }
 
   async run () {
     const { topic_id } = this.filteredArgs
+    const topicData = await getOneTopic({ topic_id })
+    if (!topicData) {
+      this.addError(ERRORS.NOT_FOUND, MESSAGES.TOPIC_NOT_EXIST)
+      return
+    }
     const promises = [
-      () => getOneTopic({ topic_id }),
       () => getTopicComments({ topic_id }),
       () => getTopicLikesCount({ topic_id })
     ]
     try {
-      const [topicData, topicComments, totalLikes] = await Promise.all(promises.map(promise => promise()))
+      const [topicComments, totalLikes] = await Promise.all(promises.map(promise => promise()))
       const topicDetails = await getTopicDetails({ topicData, topicComments, totalLikes })
       return topicDetails
     } catch (err) {
-      this.addError(ERRORS.NOT_FOUND)
+      logger.error(getErrorMessageForService('ForumTopicService'), err)
+      this.addError(ERRORS.INTERNAL)
     }
   }
 }

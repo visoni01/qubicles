@@ -1,18 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
 import {
   faComment, faEye, faHeart,
 } from '@fortawesome/free-solid-svg-icons'
 import StatBlock from '../StatBlock'
 import Post from './Post'
-import { getTimeFromNow, isEmptyArray } from '../../../utils/common'
+import { getTimeFromNow } from '../../../utils/common'
 import { ownerDetails, dateWithUser, postShape } from '../forumValidators'
 
 const PostWrap = ({
   createdAt, totalLikes, totalViews, posts,
 }) => {
-  const isPosts = !isEmptyArray(posts)
-  const lastReply = isPosts && posts.slice(-1)[ 0 ].postMeta
+  const isPosts = !_.isEmpty(posts)
+  const lastReply = isPosts && posts[ posts.length - 1 ].postMeta
   const totalReplies = posts.length
   return (
     <div className='forum-wrap'>
