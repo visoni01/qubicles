@@ -97,7 +97,7 @@ export async function getTopicsSubDetails ({ topics }) {
       topicTitle: topic.topic_title,
       topicOwner: userSubProfile,
       tags: topic.tags.split('&&'),
-      dateCreatedOn: topic.created_on,
+      dateCreatedOn: topic.createdAt,
       totalReplies,
       dateLastReplied
     })
@@ -113,7 +113,7 @@ export async function getTopicUserActivity ({ topic }) {
   })
   let dateLastReplied = ''
   if (topicComments.length !== 0) {
-    dateLastReplied = topicComments.sort((a, b) => new Date(b.created_on) - new Date(a.created_on))[0].created_on
+    dateLastReplied = topicComments.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))[0].createdAt
   }
   return {
     totalReplies: topicComments.length,

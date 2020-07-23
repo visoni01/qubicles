@@ -12,9 +12,10 @@ import { ownerDetails, dateWithUser, postShape } from '../forumValidators'
 const PostWrap = ({
   createdAt, totalLikes, totalViews, posts,
 }) => {
-  const isPosts = !_.isEmpty(posts)
-  const lastReply = isPosts && posts[ posts.length - 1 ].postMeta
-  const totalReplies = posts.length
+  const sortedPosts = posts.slice().sort((a, b) => new Date(b.postMeta.createdAt) - new Date(a.postMeta.createdAt))
+  const isPosts = !_.isEmpty(sortedPosts)
+  const lastReply = isPosts && sortedPosts[ 0 ].postMeta
+  const totalReplies = sortedPosts.length
   return (
     <div className='forum-wrap'>
       <div className='forum-container'>
@@ -47,7 +48,7 @@ const PostWrap = ({
         {/* Post list items */}
         {isPosts ? (
           <div className='full-topic'>
-            { posts.map((post) => <Post { ...post } key={ post.postId } />)}
+            { sortedPosts.map((post) => <Post { ...post } key={ post.postId } />)}
           </div>
         ) : (
           <div className='no-data-message'>

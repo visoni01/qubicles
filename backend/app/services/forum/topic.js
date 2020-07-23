@@ -1,5 +1,5 @@
 import ServiceBase from '../../common/serviceBase'
-import { getOneTopic, getTopicComments, getTopicLikesCount, getErrorMessageForService } from '../helper'
+import { getOneTopic, getTopicComments, getTopicLikesCount, getErrorMessageForService, updateTopicViews } from '../helper'
 import { getUserSubProfile } from './channels'
 import { ERRORS, MESSAGES } from '../../utils/errors'
 import logger from '../../common/logger'
@@ -26,12 +26,13 @@ export default class ForumTopicService extends ServiceBase {
       return
     }
     const promises = [
+      () => updateTopicViews({ topic_id, currentViews: topicData.views }),
       () => getTopicComments({ topic_id }),
       () => getTopicLikesCount({ topic_id })
     ]
     try {
-      const [topicComments, totalLikes] = await Promise.all(promises.map(promise => promise()))
-      const topicDetails = await getTopicDetails({ topicData, topicComments, totalLikes })
+      const [totalViews, topicComments, totalLikes] = await Promise.all(promises.map(promise => promise()))
+      const topicDetails = await getTopicDetails({ topicData, topicComments, totalLikes, totalViews })
       return topicDetails
     } catch (err) {
       logger.error(getErrorMessageForService('ForumTopicService'), err)
@@ -40,7 +41,7 @@ export default class ForumTopicService extends ServiceBase {
   }
 }
 
-export async function getTopicDetails ({ topicData, topicComments, totalLikes }) {
+export async function getTopicDetails ({ topicData, topicComments, totalLikes, totalViews }) {
   const topicOwner = await getUserSubProfile({ user_id: topicData.owner_id })
   const posts = await Promise.all(topicComments.map(comment => getCommentDetails({ comment })))
   return {
@@ -51,7 +52,7 @@ export async function getTopicDetails ({ topicData, topicComments, totalLikes })
       ownerDetails: topicOwner
     },
     totalReplies: topicComments.length,
-    totalViews: topicData.views,
+    totalViews,
     totalLikes,
     moderators: [],
     posts
