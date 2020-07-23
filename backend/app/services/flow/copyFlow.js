@@ -151,7 +151,7 @@ export class CopyFlowService extends ServiceBase {
         const goto_field = parseInt(field.goto_field)
 
         if (!isNaN(goto_field) && goto_field > 0) {
-          field.goto_field = fieldsMap[goto_field].toString()
+          field.goto_field = fieldsMap[goto_field] + ''
           fieldUpdated = true
         }
       }
@@ -171,7 +171,7 @@ export class CopyFlowService extends ServiceBase {
                 const goToField = parseInt(conditionParts[6])
                 // goToField can have field_id
                 if (!isNaN(goToField) && goToField > 0) {
-                  conditionParts[6] = fieldsMap[goToField].toString()
+                  conditionParts[6] = fieldsMap[goToField] + ''
                   conditionsUpdated = true
                 }
               }
@@ -180,7 +180,7 @@ export class CopyFlowService extends ServiceBase {
                 const goToField = parseInt(conditionParts[4])
                 // goToField can have field_id
                 if (!isNaN(goToField) && goToField > 0) {
-                  conditionParts[4] = fieldsMap[goToField].toString()
+                  conditionParts[4] = fieldsMap[goToField] + ''
                   conditionsUpdated = true
                 }
               }
@@ -188,7 +188,7 @@ export class CopyFlowService extends ServiceBase {
               if (conditionParts.Length > 3) {
                 const goToPage = parseInt(conditionParts[3])
                 if (!isNaN(goToPage) && goToPage > 0) {
-                  conditionParts[3] = pagesMap[goToPage].toString()
+                  conditionParts[3] = pagesMap[goToPage] + ''
                   conditionsUpdated = true
                 }
               }
