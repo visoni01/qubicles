@@ -1,5 +1,5 @@
 import React from 'react'
-import TrainingDescription from './training'
+import TrainingDescription from '../../components/People/training'
 import { trainingData } from './data'
 
 const TalentWrapper = () => (
