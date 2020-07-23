@@ -8,11 +8,12 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import JobsWrap from './jobsWrap'
 import TalentWrap from './talentWrap'
+import TrainingWrap from './trainingWrap'
 import withNavBar from '../../hoc/navbar'
 import './style.scss'
 
 const People = () => {
-  const [ activeTab, setActivetab ] = useState(0)
+  const [ activeTab, setActivetab ] = useState(2)
   return (
     <>
       <div id='main-dashboard' className='section-wrapper'>
@@ -62,6 +63,7 @@ const People = () => {
           <div className='forum-wrap'>
             { activeTab === 0 && <JobsWrap />}
             { activeTab === 1 && <TalentWrap />}
+            { activeTab === 2 && <TrainingWrap />}
           </div>
         </div>
       </div>
