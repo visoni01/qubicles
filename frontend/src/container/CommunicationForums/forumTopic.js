@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { isEmptyObject } from '../../utils/common'
@@ -13,7 +13,7 @@ const ForumTopic = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(topicDataFetchingStart({ topicId }))
-  }, [])
+  }, [ dispatch, topicId ])
   const { isLoading, topicDetails } = useSelector((state) => state.topic)
   return (
     <div>

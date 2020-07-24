@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBell, faSuitcase, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import StarRatings from 'react-star-ratings'
 import { IconButton } from '@material-ui/core'
 
@@ -56,7 +56,12 @@ const UserDescription = ({
               <span className='is-size-7'>Phone</span>
             </div>
             <div className='mr-20'>
-              <input type='checkbox' checked={ hasBackgroundCheck } readOnly className='text-align-center checkbox-style' />
+              <input
+                type='checkbox'
+                checked={ hasBackgroundCheck }
+                readOnly
+                className='text-align-center checkbox-style'
+              />
               <span className='is-size-7'>Background</span>
             </div>
           </div>

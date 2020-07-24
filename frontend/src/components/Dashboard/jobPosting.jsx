@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSuitcase, faShoppingBag, faSchool } from '@fortawesome/free-solid-svg-icons'
+import { faSuitcase } from '@fortawesome/free-solid-svg-icons'
 
 const JobPosting = () => {
   const { isLoading, jobPostings } = useSelector((state) => state.jobPosting)

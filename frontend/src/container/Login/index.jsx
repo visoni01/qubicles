@@ -35,14 +35,14 @@ const Login = () => {
   const [ isSocialLogin, setIsSocialLogin ] = useState(true)
   const dispatch = useDispatch()
   const onSubmit = (data) => dispatch(userLoginStart(data))
-  const { error, isLoading, success } = useSelector((state) => state.login)
+  const { success } = useSelector((state) => state.login)
 
   useEffect(() => {
     dispatch(clearStore())
     if (isManualLogin) {
       setIsSocialLogin(!isManualLogin)
     }
-  }, [ isManualLogin ])
+  }, [ isManualLogin, dispatch ])
 
   const inputField = (
     name,

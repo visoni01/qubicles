@@ -5,9 +5,8 @@ import { reviews } from './data'
 
 const ClientReviews = () => {
   const [ currentReview, setCurrentReview ] = useState(0)
-  let interval
   useEffect(() => {
-    interval = setTimeout(() => setCurrentReview((currentReview + 1) % reviews.length), 2000)
+    setTimeout(() => setCurrentReview((currentReview + 1) % reviews.length), 2000)
   }, [ currentReview ])
   return reviews.map(({
     name, message, rating, image,

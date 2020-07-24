@@ -1,4 +1,3 @@
-import React from 'react'
 import Dashboard from '../container/Dashboard'
 import { Signup, EmailVerification, PostSignUp } from '../container/User/Signup'
 import InviteFriends from '../container/InviteFriendsPage'

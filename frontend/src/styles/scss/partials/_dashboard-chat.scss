@@ -423,7 +423,7 @@ Chat app styles
                 //Chat message shared styles
                 .chat-message {
                     display: flex;
-                    align-items: start;
+                    align-items: flex-start;
                     margin-bottom: 30px;
 
                     //Avatar
@@ -994,7 +994,7 @@ Chat app styles
                                 //Box
                                 .about-block {
                                     display: flex;
-                                    align-items: start;
+                                    align-items: flex-start;
                                     border: 1px solid $fade-grey;
                                     border-radius: 6px;
                                     padding: 12px;

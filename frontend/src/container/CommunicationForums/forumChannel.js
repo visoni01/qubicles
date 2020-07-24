@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import ChannelHeader from '../../components/CommunicationForums/channel/ChannelHeader'
@@ -13,7 +13,7 @@ const ForumChannel = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(channelDataFetchingStart({ channelId }))
-  }, [])
+  }, [ dispatch, channelId ])
   const { isLoading, channelDetails } = useSelector((state) => state.channel)
   return (
     <div>

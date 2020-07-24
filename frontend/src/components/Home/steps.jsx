@@ -462,7 +462,7 @@ const Steps = ({ history }) => (
                   <h4>Support Portal</h4>
                 </div>
                 <div className='card-feature-description'>
-                  <span className>
+                  <span>
                     Our support portal is a combination of ticketing system,
                     knowledgebase, and self-service tools.
                   </span>
@@ -491,7 +491,7 @@ const Steps = ({ history }) => (
                   <h4>Ongoing Updates</h4>
                 </div>
                 <div className='card-feature-description'>
-                  <span className>
+                  <span>
                     We provide frequent updates to our software and systems to
                     deliver reliable services for our global audience.
                   </span>
@@ -512,7 +512,7 @@ const Steps = ({ history }) => (
                   <h4>Unlimited Use</h4>
                 </div>
                 <div className='card-feature-description'>
-                  <span className>
+                  <span>
                     With no limitations on use, agents and contact centers can
                     scale services up or down to meet their needs.
                   </span>
@@ -562,7 +562,7 @@ const Steps = ({ history }) => (
                       customer service. Exactly what I was looking for.
                     </div>
                     <div className='user-id'>
-                      <img className src={ chatUser } alt='' />
+                      <img src={ chatUser } alt='' />
                       <div className='info'>
                         <div className='name'>Jennifer Thorne</div>
                         <div className='position'>COO</div>
@@ -578,7 +578,7 @@ const Steps = ({ history }) => (
                       software.
                     </div>
                     <div className='user-id'>
-                      <img className src={ chatUser } alt='' />
+                      <img src={ chatUser } alt='' />
                       <div className='info'>
                         <div className='name'>Abhishek Verma</div>
                         <div className='position'>IT Manager</div>
@@ -597,7 +597,7 @@ const Steps = ({ history }) => (
                       friendly. It was easy to use and very affordable.
                     </div>
                     <div className='user-id'>
-                      <img className src={ chatUser } alt='' />
+                      <img src={ chatUser } alt='' />
                       <div className='info'>
                         <div className='name'>Bella Martin</div>
                         <div className='position'>Appointment Setter</div>
@@ -615,7 +615,7 @@ const Steps = ({ history }) => (
                       stations and users, ...everything!
                     </div>
                     <div className='user-id'>
-                      <img className src={ chatUser } alt='' />
+                      <img src={ chatUser } alt='' />
                       <div className='info'>
                         <div className='name'>Carlo Angelo Pablo</div>
                         <div className='position'>Sr. Project Manager</div>
@@ -644,7 +644,7 @@ const Steps = ({ history }) => (
 )
 
 Steps.propTypes = {
-  history: PropTypes.instanceOf({
+  history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
 }

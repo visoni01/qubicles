@@ -1,5 +1,4 @@
 import {
-  createSlice,
   configureStore,
   getDefaultMiddleware,
 } from '@reduxjs/toolkit'

@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  Button, TextField, Divider, Snackbar,
+  Button, TextField, Divider,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   FacebookShareButton,
   TwitterShareButton,
   LinkedinShareButton,
-  FacebookIcon,
-  LinkedinIcon,
-  TwitterIcon,
 } from 'react-share'
-import { faEnvelope, faTimes, faCopy } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faCopy } from '@fortawesome/free-solid-svg-icons'
 import { inviteRequestStart } from '../../redux-saga/redux/invitePage'
 import { showSuccessMessage } from '../../redux-saga/redux/snackbar'
 
@@ -33,7 +30,8 @@ const ShareModal = () => {
       setManualEmails('')
       dispatch(showSuccessMessage({ msg: 'Successfully Invited' }))
     }
-  }, [ isLoading ])
+    // eslint-disable-next-line
+  }, [ isLoading, dispatch ])
 
   const handleManualEmails = () => {
     if (!manualEmails) return
