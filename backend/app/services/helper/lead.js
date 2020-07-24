@@ -1,6 +1,6 @@
 import { getListByListId } from './list'
 import { getEditableFlowFieldsByFlowId } from './flow'
-import { listsFieldsColumnExists, listsFieldsTableExists, formatDate } from './index'
+import { listsFieldsColumnExists, listsFieldsTableExists, formatDate, getFirstElement } from './index'
 import moment from 'moment'
 import { SqlHelper } from '../../utils/sql'
 import { USER_LEVEL } from '../user/getSecurityContext'
@@ -11,6 +11,7 @@ import {
   executeInsertQuery
 } from '../../utils/queryManager'
 import { Lead } from '../../db/models'
+import _ from 'lodash'
 
 export const getLeadByLeadId = async ({ lead_id, user, clients }) => {
   const sourceTable = getLeadsTableName({ user, clients })
@@ -20,7 +21,7 @@ export const getLeadByLeadId = async ({ lead_id, user, clients }) => {
     columnName: 'lead_id',
     columnValue: lead_id
   })
-  return lead
+  return getFirstElement(lead)
 }
 
 export const getLeadsTableName = ({ user, clients }) => {
@@ -63,7 +64,7 @@ export const getLeadCustomData = async ({ list_id, lead_id }) => {
       extraQueryAttributes: 'LIMIT 1'
     })
   }
-  return lead
+  return _.isEmpty(lead) ? lead : getFirstElement(lead)
 }
 
 export const deleteLeadCustomData = async ({ list_id, lead_id }) => {
@@ -97,7 +98,7 @@ export const updateLeadInCustomTable = async ({ lead }) => {
   // send custom fields update
   let onDuplicateUpdateSQL = ' ON DUPLICATE KEY UPDATE '
   const insertSql = `INSERT INTO x_leads_custom_${list_id} SET `
-  let sql
+  let sql = ''
 
   // get all fields in this list to aide with data type checks
   const leadList = await getListByListId({ list_id })
@@ -106,8 +107,9 @@ export const updateLeadInCustomTable = async ({ lead }) => {
   // build dynamic SQL to do so
   let customFieldValuesSet = false
   const fieldsProcessed = []
+  const keys = Object.keys(lead)
 
-  Object.keys(lead).forEach(async (key) => {
+  keys.forEach(async (key, index) => {
     const keyInLowerCase = key.toLowerCase()
     const flowFieldDefinition = flowFields.find((f) => f.field_label.toLowerCase() === keyInLowerCase)
     // save this field to our custom table
@@ -127,25 +129,25 @@ export const updateLeadInCustomTable = async ({ lead }) => {
         fieldValue = fieldValue.replace(new RegExp('[{}]', 'g'), '')
       }
 
-      if (moment(fieldValue).isValid() && flowFieldDefinition.field_type === 'DATEPICKER') {
+      if (fieldValue && moment(fieldValue, 'YYYY-MM-DD').isValid() && flowFieldDefinition.field_type === 'DATEPICKER') {
         sql += `\`${key}\` = '${formatDate(fieldValue)}',`
       } else {
-        sql += `\`${key}\` = '${fieldValue}'`
+        sql += `\`${key}\` = '${fieldValue}',`
       }
 
-      onDuplicateUpdateSQL += `\`${key}\` = VALUES(\`${key}\`)`
+      onDuplicateUpdateSQL += `\`${key}\` = VALUES(\`${key}\`),`
       customFieldValuesSet = true
       fieldsProcessed.push(keyInLowerCase)
     }
-  })
 
-  // send update
-  if (customFieldValuesSet) {
-    sql += `lead_id = '${lead.lead_id}'`
-    onDuplicateUpdateSQL += 'lead_id = VALUES(lead_id)'
-    const fullQuery = insertSql + sql + onDuplicateUpdateSQL
-    await SqlHelper.insert(fullQuery)
-  }
+    // send update
+    if (((index) !== keys.length - 1) && customFieldValuesSet) {
+      sql += `lead_id = '${lead.lead_id}'`
+      onDuplicateUpdateSQL += 'lead_id = VALUES(lead_id)'
+      const fullQuery = insertSql + sql + onDuplicateUpdateSQL
+      await SqlHelper.insert(fullQuery)
+    }
+  })
 }
 
 export const createClientLeadTable = ({ client_id }) => {

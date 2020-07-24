@@ -2,7 +2,8 @@ import ServiceBase from '../../../common/serviceBase'
 import { FlowField, Flow } from '../../../db/models'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
 import logger from '../../../common/logger'
-import { getErrorMessageForService } from '../../helper'
+import { getErrorMessageForService, createNewEntity } from '../../helper'
+import _ from 'lodash'
 
 const constraints = {
   field_id: {
@@ -101,7 +102,7 @@ export class SaveFlowFieldService extends ServiceBase {
         field_rank: this.field_rank,
         field_help: this.field_help,
         field_type: this.field_type,
-        field_options: this.field_options,
+        field_options: _.isEmpty(this.field_options) ? '' : this.field_options,
         field_size: this.field_size,
         field_max: this.field_max,
         field_default: this.field_default,
@@ -126,7 +127,7 @@ export class SaveFlowFieldService extends ServiceBase {
       if (this.field_id > 0) {
         await FlowField.update(flowFieldData, { where: { flow_id: this.flow_id }, raw: true })
       } else {
-        await FlowField.create(flowFieldData)
+        await createNewEntity({ model: FlowField, data: flowFieldData })
       }
 
       return flowData

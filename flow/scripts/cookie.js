@@ -19,7 +19,7 @@
         }
         watchCookie()
       } else {
-        if (window.location.pathname.includes('/Flow')) {
+        if (window.location.pathname.includes('/flow')) {
           return redirectToLoginSite()
         }
         refreshPage()

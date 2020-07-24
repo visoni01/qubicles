@@ -207,7 +207,7 @@ const config = convict({
   },
   flow: {
     path: {
-      default: '/Flow',
+      default: '/flow',
       env: 'FLOW_PATH'
     }
   },

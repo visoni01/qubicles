@@ -103,7 +103,7 @@ export class SaveLeadService extends ServiceBase {
             standardLead.modify_date = new Date()
 
             // Update Lead
-            await updateLead({ lead: standardLead, user, clients })
+            await updateLead({ lead: standardLead, user: currentUser, clients })
 
             // Update Lead in custom table
             await updateLeadInCustomTable({ lead: this.lead })

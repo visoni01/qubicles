@@ -21,8 +21,8 @@ export const getFlowByFlowId = async ({ flow_id }) => {
   return Flow.findOne({ where: { flow_id }, raw: true })
 }
 
-export const getFlowPagesByFlowId = ({ flow_id }) => {
-  return FlowPage.findAll({ where: { flow_id }, raw: true })
+export const getFlowPagesByFlowId = (query) => {
+  return FlowPage.findAll({ where: query, raw: true })
 }
 
 export const getFlowFieldsByFlowId = ({ flow_id }) => {

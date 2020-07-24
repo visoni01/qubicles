@@ -38,10 +38,11 @@ export class GetHouseholdingRecordsService extends ServiceBase {
 
   async run () {
     let householdLeads = []
-    const currentUser = await getUserById({ user_id: this.userId })
-    const { clients } = await GetClientsService.run({ user_id: this.userId })
 
-    if (currentUser) {
+    if (this.userId) {
+      const currentUser = await getUserById({ user_id: this.userId })
+      const { clients } = await GetClientsService.run({ user_id: this.userId })
+
       let leads = []
       const promises = []
       const list = await getListByListId({ list_id: this.listId })
