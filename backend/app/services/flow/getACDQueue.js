@@ -1,10 +1,10 @@
 import ServiceBase from '../../common/serviceBase'
-import { getLiveAgentByUser, getXferInboundGroups, getInboundGroupsByUser } from '../helper'
+import { getLiveAgentByUser, getUserById, getXferInboundGroups, getInboundGroupsByUser } from '../helper'
 import GetSecurityContextService from '../user/getSecurityContext'
 import _ from 'lodash'
 
 const constraints = {
-  user: {
+  userId: {
     presence: { allowEmpty: false }
   }
 }
@@ -16,13 +16,14 @@ export class GetACDQueueService extends ServiceBase {
 
   async run () {
     let queues = []
-    const { clientIngroups, currentClientId, clients } = await GetSecurityContextService.run({ user: this.user })
-    const liveAgentData = await getLiveAgentByUser({ user: this.user.user, clients })
+    const currentUser = await getUserById({ user_id: this.userId })
+    const { clientIngroups, currentClientId, clients } = await GetSecurityContextService.run({ user: currentUser })
+    const liveAgentData = await getLiveAgentByUser({ user: currentUser, clients })
 
     if (liveAgentData) {
       queues = await getXferInboundGroups({ campaign_id: liveAgentData.campaign_id, clientIngroups })
     } else {
-      queues = await getInboundGroupsByUser({ user: this.user, client_id: currentClientId, clientIngroups })
+      queues = await getInboundGroupsByUser({ user: currentUser, client_id: currentClientId, clientIngroups })
     }
 
     queues = queues.map((queueData) => {

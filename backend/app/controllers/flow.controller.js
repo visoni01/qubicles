@@ -46,7 +46,7 @@ export default class FlowController {
   }
 
   static async saveFlowField (req, res) {
-    const saveFlowFieldResult = await SaveFlowFieldService.execute(req.body)
+    const saveFlowFieldResult = await SaveFlowFieldService.execute({ ...req.body, ...req.query })
     if (saveFlowFieldResult.successful) {
       Responder.success(res, saveFlowFieldResult.result)
     } else {
@@ -55,7 +55,7 @@ export default class FlowController {
   }
 
   static async addFlowPage (req, res) {
-    const addFlowPageResult = await AddFlowPageService.execute(req.body)
+    const addFlowPageResult = await AddFlowPageService.execute({ ...req.body, ...req.query })
     if (addFlowPageResult.successful) {
       Responder.success(res, addFlowPageResult.result)
     } else {
@@ -64,7 +64,7 @@ export default class FlowController {
   }
 
   static async editFlowPage (req, res) {
-    const editFlowPageResult = await EditFlowPageService.execute(req.body)
+    const editFlowPageResult = await EditFlowPageService.execute({ ...req.body, ...req.query })
     if (editFlowPageResult.successful) {
       Responder.success(res, editFlowPageResult.result)
     } else {
@@ -100,7 +100,7 @@ export default class FlowController {
   }
 
   static async addFlow (req, res) {
-    const addFlowResult = await AddFlowService.execute(req.body)
+    const addFlowResult = await AddFlowService.execute({ ...req.body, ...req.query })
     if (addFlowResult.successful) {
       Responder.success(res, addFlowResult.result)
     } else {
@@ -109,7 +109,7 @@ export default class FlowController {
   }
 
   static async editFlow (req, res) {
-    const editFlowResult = await EditFlowService.execute(req.body)
+    const editFlowResult = await EditFlowService.execute({ ...req.body, ...req.query })
     if (editFlowResult.successful) {
       Responder.success(res, editFlowResult.result)
     } else {
@@ -127,7 +127,7 @@ export default class FlowController {
   }
 
   static async getACDQueues (req, res) {
-    const acdQueueResult = await GetACDQueueService.execute(req.body)
+    const acdQueueResult = await GetACDQueueService.execute({ ...req.body, ...req.query })
     if (acdQueueResult.successful) {
       Responder.success(res, acdQueueResult.result)
     } else {
@@ -136,7 +136,7 @@ export default class FlowController {
   }
 
   static async copyFlow (req, res) {
-    const copyFlowResult = await CopyFlowService.execute(req.body)
+    const copyFlowResult = await CopyFlowService.execute({ ...req.body, ...req.query })
     if (copyFlowResult.successful) {
       Responder.success(res, copyFlowResult.result)
     } else {
@@ -175,7 +175,7 @@ export default class FlowController {
   }
 
   static async getDispositions (req, res) {
-    const getDispositionsResult = await GetDispositionsService.execute(req.body)
+    const getDispositionsResult = await GetDispositionsService.execute({ ...req.body, ...req.query })
     if (getDispositionsResult.successful) {
       Responder.success(res, getDispositionsResult.result)
     } else {
@@ -193,7 +193,7 @@ export default class FlowController {
   }
 
   static async checkUserStatus (req, res) {
-    const checkUserStatusResult = await CheckUserStatusService.execute(req.body)
+    const checkUserStatusResult = await CheckUserStatusService.execute({ ...req.body, ...req.query })
     if (checkUserStatusResult.successful) {
       Responder.success(res, checkUserStatusResult.result)
     } else {
@@ -202,7 +202,7 @@ export default class FlowController {
   }
 
   static async performAction (req, res) {
-    const performActionResult = await PerformActionService.execute(req.body)
+    const performActionResult = await PerformActionService.execute({ ...req.body, ...req.query })
     if (performActionResult.successful) {
       Responder.success(res, performActionResult.result)
     } else {
@@ -211,7 +211,7 @@ export default class FlowController {
   }
 
   static async dispoHouseholdingRecord (req, res) {
-    const dispoHouseholdingRecordResult = await DispoHouseholdingRecordService.execute(req.body)
+    const dispoHouseholdingRecordResult = await DispoHouseholdingRecordService.execute({ ...req.body, ...req.query })
     if (dispoHouseholdingRecordResult.successful) {
       Responder.success(res, dispoHouseholdingRecordResult.result)
     } else {
@@ -220,7 +220,7 @@ export default class FlowController {
   }
 
   static async householdingRecords (req, res) {
-    const householdingRecordsResult = await HouseholdingRecordsService.execute(req.body)
+    const householdingRecordsResult = await HouseholdingRecordsService.execute({ ...req.body, ...req.query })
     if (householdingRecordsResult.successful) {
       Responder.success(res, householdingRecordsResult.result)
     } else {
@@ -229,7 +229,7 @@ export default class FlowController {
   }
 
   static async getLead (req, res) {
-    const getLeadResult = await GetLeadService.execute(req.body)
+    const getLeadResult = await GetLeadService.execute({ ...req.body, ...req.query })
     if (getLeadResult.successful) {
       Responder.success(res, getLeadResult.result)
     } else {
