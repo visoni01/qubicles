@@ -41,8 +41,8 @@ export class CheckUserStatusService extends ServiceBase {
 
       // if we're on a lead, and did not get an API hangup/dispo, get the flow and list info
       const isValidLiveAgent = liveAgent.lead_id > 0 &&
-                                (liveAgent.Status === LIVE_AGENT_STATUS.INCALL ||
-                                liveAgent.Status === LIVE_AGENT_STATUS.QUEUE) &&
+                                (liveAgent.status === LIVE_AGENT_STATUS.INCALL ||
+                                liveAgent.status === LIVE_AGENT_STATUS.QUEUE) &&
                                 !liveAgent.external_status
 
       if (isValidLiveAgent) {
@@ -55,7 +55,7 @@ export class CheckUserStatusService extends ServiceBase {
           const liveCall = await getCallByCallerId({ callerid: liveAgent.callerid })
 
           if (liveCall && liveCall.auto_call_id) {
-            const leadData = await getLeadByLeadId({ lead_id: liveAgent.lead_id })
+            const leadData = await getLeadByLeadId({ lead_id: liveAgent.lead_id, user, clients })
 
             if (leadData && leadData.list_id > 999) {
               const leadList = await getListByListId({ list_id: leadData.list_id })

@@ -20,7 +20,7 @@ import {
   CheckUserStatusService,
   PerformActionService,
   DispoHouseholdingRecordService,
-  HouseholdingRecordsService,
+  GetHouseholdingRecordsService,
   GetLeadService
 } from '../services/flow'
 import config from '../../config/app'
@@ -219,8 +219,8 @@ export default class FlowController {
     }
   }
 
-  static async householdingRecords (req, res) {
-    const householdingRecordsResult = await HouseholdingRecordsService.execute({ ...req.body, ...req.query })
+  static async getHouseholdingRecords (req, res) {
+    const householdingRecordsResult = await GetHouseholdingRecordsService.execute({ ...req.body, ...req.query })
     if (householdingRecordsResult.successful) {
       Responder.success(res, householdingRecordsResult.result)
     } else {

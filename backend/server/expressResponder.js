@@ -54,7 +54,7 @@ Responder.success = (res, data) => {
 
 Responder.failed = (res, errorObj) => {
   // get the error key
-  const keys = Object.keys(errorObj)
+  const keys = errorObj && Object.keys(errorObj)
   const errorName = (keys && keys.length && keys[0])
 
   if (errorName && _.isFunction(res.boom[errorName])) {

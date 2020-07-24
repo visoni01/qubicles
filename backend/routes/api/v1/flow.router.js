@@ -91,7 +91,7 @@ flowRouter.route('/dispo-householding-record')
 
 // Section-3.8, REQ-23
 flowRouter.route('/householding-records')
-  .get(flowController.dispoHouseholdingRecord)
+  .get(flowController.getHouseholdingRecords)
 
 // Section-3.8, REQ-24
 flowRouter.route('/lead')
