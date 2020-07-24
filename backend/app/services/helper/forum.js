@@ -280,3 +280,17 @@ export async function getOneForumUser (queryObj = {}) {
   query = { where: { ...queryObj }, ...query }
   return XForumUser.findOne(query)
 }
+
+export async function getOneTopic (queryObj = {}) {
+  let query = { raw: true }
+  query = { where: { ...queryObj }, ...query }
+  return XForumTopic.findOne(query)
+}
+
+export async function updateTopicViews ({ topic_id, currentViews }) {
+  await XForumTopic.update({
+    views: currentViews + 1
+  },
+  { where: { topic_id } })
+  return currentViews + 1
+}

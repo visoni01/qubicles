@@ -11,4 +11,10 @@ forumRouter.route('/')
 forumRouter.route('/channel/:channel_id')
   .get(isAuthenticated, forumController.getChannel)
 
+forumRouter.route('/topic/:topic_id')
+  .get(isAuthenticated, forumController.getTopic)
+
+forumRouter.route('/topic/activity/:activity_type')
+  .post(isAuthenticated, forumController.postTopicActivity)
+
 export { forumRouter }

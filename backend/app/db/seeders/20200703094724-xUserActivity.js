@@ -15,7 +15,7 @@ module.exports = {
         created_on: date
       },
       {
-        user_id: 6,
+        user_id: 2,
         record_type: 'client',
         record_id: 1,
         activity_type: 'rating',
@@ -25,7 +25,7 @@ module.exports = {
         created_on: date
       },
       {
-        user_id: 7,
+        user_id: 1,
         record_type: 'client',
         record_id: 1,
         activity_type: 'like',
@@ -35,7 +35,7 @@ module.exports = {
         created_on: date
       },
       {
-        user_id: 5,
+        user_id: 1,
         record_type: 'client',
         record_id: 1,
         activity_type: 'subscribe',
@@ -45,7 +45,7 @@ module.exports = {
         created_on: date
       },
       {
-        user_id: 6,
+        user_id: 1,
         record_type: 'client',
         record_id: 1,
         activity_type: 'subscribe',
@@ -55,41 +55,11 @@ module.exports = {
         created_on: date
       },
       {
-        user_id: 7,
+        user_id: 2,
         record_type: 'client',
         record_id: 1,
         activity_type: 'subscribe',
         activity_value: '1',
-        activity_custom: '',
-        activity_permission: 'public',
-        created_on: date
-      },
-      {
-        user_id: 7,
-        record_type: 'client',
-        record_id: 1,
-        activity_type: 'like',
-        activity_value: '1',
-        activity_custom: '',
-        activity_permission: 'public',
-        created_on: date
-      },
-      {
-        user_id: 7,
-        record_type: 'topic',
-        record_id: 1,
-        activity_type: 'comment',
-        activity_value: 'Dummy comment',
-        activity_custom: '',
-        activity_permission: 'public',
-        created_on: date
-      },
-      {
-        user_id: 12,
-        record_type: 'topic',
-        record_id: 2,
-        activity_type: 'comment',
-        activity_value: 'Dummy comment',
         activity_custom: '',
         activity_permission: 'public',
         created_on: date

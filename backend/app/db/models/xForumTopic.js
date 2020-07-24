@@ -31,14 +31,18 @@ module.exports = (sequelize, DataTypes) => {
     is_flagged: {
       type: DataTypes.BOOLEAN
     },
-    created_on: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW
+    createdAt: {
+      field: 'created_on',
+      type: DataTypes.DATE
+    },
+    updatedAt: {
+      field: 'updated_on',
+      type: DataTypes.DATE
     }
   },
   {
-    tableName: 'x_forum_topics'
+    tableName: 'x_forum_topics',
+    timestamps: true
   })
   XForumTopic.associate = function (models) {
   }

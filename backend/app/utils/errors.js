@@ -16,5 +16,7 @@ export const MESSAGES = {
   UNAUTHORIZED: 'You don\'t have permission to access this page',
   FLOW_NOT_EXIST: 'Flow does not exist',
   FLOW_PAGE_NOT_EXIST: 'Flow page does not exist',
-  FLOW_FIELD_NOT_EXIST: 'Flow field does not exist'
+  FLOW_FIELD_NOT_EXIST: 'Flow field does not exist',
+  TOPIC_NOT_EXIST: 'Forum topic does not exist',
+  CHANNEL_NOT_EXIST: 'Forum channel does not exist'
 }

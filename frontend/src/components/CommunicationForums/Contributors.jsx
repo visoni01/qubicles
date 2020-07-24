@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import PATHS from '../../routes/routePaths'
+import { USER_ROUTE } from '../../routes/routesPath'
 import { ownerDetails } from './forumValidators'
 
 const getAvatarAndProfilesData = ({ users, bubbles }) => {
@@ -10,7 +10,7 @@ const getAvatarAndProfilesData = ({ users, bubbles }) => {
   usersData.forEach((user, index) => {
     data.avatars.push(<img key={ user.userId } className='avatar' src={ user.profileImage } alt='' />)
     data.usernames.push(
-      <Link to={ `${ PATHS.USER_ROUTE }/${ user.userId }` } key={ user.userId }>
+      <Link to={ `${ USER_ROUTE }${ user.userId }` } key={ user.userId }>
         {user.userName}
         {index < bubbles - 2 && <nobr>, </nobr>}
       </Link>,

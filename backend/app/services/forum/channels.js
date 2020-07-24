@@ -1,7 +1,7 @@
 import ServiceBase from '../../common/serviceBase'
 import { getOneChannel, getAllForumUsers, getTopics, getUserDetails } from '../helper'
 import { getAllUserActivities } from '../user/activity/helper'
-import { ERRORS } from '../../utils/errors'
+import { ERRORS, MESSAGES } from '../../utils/errors'
 
 const constraints = {
   user_id: {
@@ -12,7 +12,7 @@ const constraints = {
   }
 }
 
-export default class ForumChannel extends ServiceBase {
+export default class ForumChannelService extends ServiceBase {
   get constraints () {
     return constraints
   }
@@ -25,11 +25,15 @@ export default class ForumChannel extends ServiceBase {
     ]
     const [channel, topics] = await Promise.all(promises.map(promise => promise()))
     if (!channel) {
-      this.addError(ERRORS.NOT_FOUND, `Channel with channel_id ${channel_id} does not exist`)
+      this.addError(ERRORS.NOT_FOUND, MESSAGES.CHANNEL_NOT_EXIST)
       return
     }
-    const res = await getChannelPage({ channel, topics })
-    return res
+    try {
+      const res = await getChannelPage({ channel, topics })
+      return res
+    } catch (err) {
+      this.addError(ERRORS.INTERNAL)
+    }
   }
 }
 
@@ -93,7 +97,7 @@ export async function getTopicsSubDetails ({ topics }) {
       topicTitle: topic.topic_title,
       topicOwner: userSubProfile,
       tags: topic.tags.split('&&'),
-      dateCreatedOn: topic.created_on,
+      dateCreatedOn: topic.createdAt,
       totalReplies,
       dateLastReplied
     })
@@ -109,7 +113,7 @@ export async function getTopicUserActivity ({ topic }) {
   })
   let dateLastReplied = ''
   if (topicComments.length !== 0) {
-    dateLastReplied = topicComments.sort((a, b) => new Date(b.created_on) - new Date(a.created_on))[0].created_on
+    dateLastReplied = topicComments.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))[0].createdAt
   }
   return {
     totalReplies: topicComments.length,

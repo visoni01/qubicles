@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
 import {
   faComment, faEye, faHeart,
 } from '@fortawesome/free-solid-svg-icons'
@@ -9,46 +10,60 @@ import { getTimeFromNow } from '../../../utils/common'
 import { ownerDetails, dateWithUser, postShape } from '../forumValidators'
 
 const PostWrap = ({
-  topicTitle, createdAt, lastReply, totalReplies, totalLikes, totalViews, posts,
-}) => (
-  <div className='forum-wrap'>
-    <div className='forum-container'>
-      {/* Topic stats */}
-      <div className='topic-stats'>
-        {/* Created */}
-        <StatBlock
-          title='Created'
-          data={ `${ getTimeFromNow(createdAt.date) }` }
-          user={ createdAt.ownerDetails }
-          type='user'
-        />
-        {/* Last Reply */}
-        <StatBlock
-          title='Last Reply'
-          data={ `${ getTimeFromNow(lastReply.date) }` }
-          user={ createdAt.ownerDetails }
-          type='user'
-        />
-        {/* Replies */}
-        <StatBlock title='Replies' data={ `${ totalReplies }` } icon={ faComment } type='icon' />
-        {/* Views */}
-        <StatBlock title='Views' data={ `${ totalViews }` } icon={ faEye } type='icon' />
-        {/* Likes */}
-        <StatBlock title='Likes' data={ `${ totalLikes }` } icon={ faHeart } type='icon' />
-        {/* Contributers */}
-      </div>
-      {/* Post list items */}
-      <div className='full-topic'>
-        { posts.map((post) => <Post { ...post } key={ post.postId } />)}
+  createdAt, totalLikes, totalViews, posts,
+}) => {
+  const sortedPosts = posts.slice().sort((a, b) => new Date(b.postMeta.createdAt) - new Date(a.postMeta.createdAt))
+  const isPosts = !_.isEmpty(sortedPosts)
+  const lastReply = isPosts && sortedPosts[ 0 ].postMeta
+  const totalReplies = sortedPosts.length
+  return (
+    <div className='forum-wrap'>
+      <div className='forum-container'>
+        {/* Topic stats */}
+        <div className='topic-stats'>
+          {/* Created */}
+          <StatBlock
+            title='Created'
+            data={ `${ getTimeFromNow(createdAt.date) }` }
+            user={ createdAt.ownerDetails }
+            type='user'
+          />
+          {/* Last Reply */}
+          {isPosts && (
+          <StatBlock
+            title='Last Reply'
+            data={ `${ getTimeFromNow(lastReply.createdAt) }` }
+            user={ lastReply.ownerDetails }
+            type='user'
+          />
+          )}
+          {/* Replies */}
+          <StatBlock title='Replies' data={ `${ totalReplies }` } icon={ faComment } type='icon' />
+          {/* Views */}
+          <StatBlock title='Views' data={ `${ totalViews }` } icon={ faEye } type='icon' />
+          {/* Likes */}
+          <StatBlock title='Likes' data={ `${ totalLikes }` } icon={ faHeart } type='icon' />
+          {/* Contributers */}
+        </div>
+        {/* Post list items */}
+        {isPosts ? (
+          <div className='full-topic'>
+            { sortedPosts.map((post) => <Post { ...post } key={ post.postId } />)}
+          </div>
+        ) : (
+          <div className='no-data-message'>
+            No comments yet...
+          </div>
+        )}
+
       </div>
     </div>
-  </div>
-)
+  )
+}
 
 PostWrap.propTypes = {
   topicTitle: PropTypes.string.isRequired,
   createdAt: dateWithUser.isRequired,
-  lastReply: dateWithUser.isRequired,
   totalReplies: PropTypes.number.isRequired,
   totalLikes: PropTypes.number.isRequired,
   totalViews: PropTypes.number.isRequired,

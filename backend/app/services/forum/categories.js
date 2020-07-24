@@ -7,7 +7,7 @@ const constraints = {
   }
 }
 
-export default class ForumCategories extends ServiceBase {
+export default class ForumCategoriesService extends ServiceBase {
   get constraints () {
     return constraints
   }
