@@ -17,4 +17,7 @@ forumRouter.route('/topic/:topic_id')
 forumRouter.route('/topic/activity/:activity_type')
   .post(isAuthenticated, forumController.postTopicActivity)
 
+forumRouter.route('/new/:type')
+  .post(isAuthenticated, forumController.addNewInstance)
+
 export { forumRouter }

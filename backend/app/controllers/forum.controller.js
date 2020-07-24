@@ -3,6 +3,7 @@ import ForumCategoriesService from '../services/forum/categories'
 import ForumChannelService from '../services/forum/channels'
 import ForumTopicService from '../services/forum/topic'
 import ForumTopicActivityService from '../services/forum/topicActivity'
+import ForumNewInstanse from '../services/forum/newCategory'
 
 export default class ForumController {
   static async getCategories (req, res) {
@@ -38,6 +39,15 @@ export default class ForumController {
       Responder.success(res, topicActivity.result)
     } else {
       Responder.failed(res, topicActivity.errors)
+    }
+  }
+
+  static async addNewInstance (req, res) {
+    const forumNewCategories = await ForumNewInstanse.execute({ ...req.body, ...req.params })
+    if (forumNewCategories.successful) {
+      Responder.success(res, forumNewCategories.result)
+    } else {
+      Responder.failed(res, forumNewCategories.errors)
     }
   }
 }
