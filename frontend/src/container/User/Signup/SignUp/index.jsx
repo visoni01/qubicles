@@ -59,9 +59,9 @@ const SignUp = () => {
         <FontAwesomeIcon icon={ icon } />
       </span>
       {errors && errors[ name ] && (
-        <div className='error-message'>
-          {errors[ name ].message}
-        </div>
+      <div className='error-message'>
+        {errors[ name ].message}
+      </div>
       )}
     </div>
   )
@@ -108,44 +108,45 @@ const SignUp = () => {
                         >
                           Already have an account? Click here to login
                         </button>
-                        <div className='field pb-10'>
-                          {inputField(
-                            'email',
-                            'signupEmail',
-                            'Enter your email address',
-                            faPaperPlane,
-                            'email',
-                          )}
-                          {inputField(
-                            'first_name',
-                            'firstName',
-                            'Enter your first name',
-                            faUser,
-                          )}
-                          {inputField(
-                            'last_name',
-                            'lastName',
-                            'Enter your last name',
-                            faUser,
-                          )}
-                          {inputField(
-                            'pass',
-                            'password',
-                            'Enter your password',
-                            faLock,
-                            'password',
-                          )}
-                        </div>
-                        <p className='control login'>
-                          <button
-                            type='button'
-                            onClick={ handleSubmit(onSubmit) }
-                            id='sendVerificationCode'
-                            className='button btn-outlined is-bold is-fullwidth rounded raised no-lh'
-                          >
-                            Sign Up
-                          </button>
-                        </p>
+                        <form onSubmit={ handleSubmit(onSubmit) } noValidate>
+                          <div className='field pb-10'>
+                            {inputField(
+                              'email',
+                              'signupEmail',
+                              'Enter your email address',
+                              faPaperPlane,
+                              'email',
+                            )}
+                            {inputField(
+                              'first_name',
+                              'firstName',
+                              'Enter your first name',
+                              faUser,
+                            )}
+                            {inputField(
+                              'last_name',
+                              'lastName',
+                              'Enter your last name',
+                              faUser,
+                            )}
+                            {inputField(
+                              'pass',
+                              'password',
+                              'Enter your password',
+                              faLock,
+                              'password',
+                            )}
+                          </div>
+                          <p className='control login'>
+                            <button
+                              type='submit'
+                              id='sendVerificationCode'
+                              className='button btn-outlined is-bold is-fullwidth rounded raised no-lh'
+                            >
+                              Sign Up
+                            </button>
+                          </p>
+                        </form>
                       </>
                       <button type='button' className='text-button mt-20' onClick={ () => history.push('/login') }>
                         <span className='options-span-2'>

@@ -50,6 +50,7 @@ const Login = () => {
     placeholder,
     icon = faPaperPlane,
     type = 'text',
+    autocomplete = 'on',
   ) => (
     <div
       className={ classNames('control has-icons-right required', 'input-fields') }
@@ -60,6 +61,7 @@ const Login = () => {
         id={ id }
         name={ name }
         ref={ register }
+        autoComplete={ autocomplete }
         placeholder={ placeholder }
         size='medium'
       />
@@ -67,9 +69,9 @@ const Login = () => {
         <FontAwesomeIcon icon={ icon } />
       </span>
       {errors && errors[ name ] && (
-        <div className='error-message'>
-          {errors[ name ].message}
-        </div>
+      <div className='error-message'>
+        {errors[ name ].message}
+      </div>
       )}
     </div>
   )
@@ -126,56 +128,58 @@ const Login = () => {
                   {(!success) && (
                     <>
                       {isSocialLogin && (
-                      <div className='margin-bottom-30'>
-                        {SocialLoginButton('Login with Facebook', 'facebook', FacebookIcon)}
-                        {SocialLoginButton('Login with Twitter', 'twitter', TwitterIcon)}
-                        {SocialLoginButton('Login with LinkedIn', 'linkedin', LinkedinIcon)}
-                        <Button
-                          type='button'
-                          variant='contained'
-                          size='large'
-                          color='primary'
-                          className='social-login-buttons'
-                          onClick={ () => setIsSocialLogin(!isSocialLogin) }
-                          startIcon={ <FontAwesomeIcon className='social-login-icons mr-10' icon={ faEnvelope } /> }
-                        >
-                          Login with Email
-                        </Button>
-                      </div>
+                        <div className='margin-bottom-30'>
+                          {SocialLoginButton('Login with Facebook', 'facebook', FacebookIcon)}
+                          {SocialLoginButton('Login with Twitter', 'twitter', TwitterIcon)}
+                          {SocialLoginButton('Login with LinkedIn', 'linkedin', LinkedinIcon)}
+                          <Button
+                            type='button'
+                            variant='contained'
+                            size='large'
+                            color='primary'
+                            className='social-login-buttons'
+                            onClick={ () => setIsSocialLogin(!isSocialLogin) }
+                            startIcon={ <FontAwesomeIcon className='social-login-icons mr-10' icon={ faEnvelope } /> }
+                          >
+                            Login with Email
+                          </Button>
+                        </div>
                       )}
                       {!isSocialLogin && (
-                      <div className='margin-bottom-30'>
-                        <div className='field pb-10'>
-                          {inputField(
-                            'email',
-                            'loginEmail',
-                            'Enter your email address',
-                            faPaperPlane,
-                            'email',
-                          )}
-                          {inputField(
-                            'password',
-                            'password',
-                            'Enter your password',
-                            faLock,
-                            'password',
-                          )}
+                        <div className='margin-bottom-30'>
+                          <form onSubmit={ handleSubmit(onSubmit) } noValidate>
+                            <div className='field pb-10'>
+                              {inputField(
+                                'email',
+                                'loginEmail',
+                                'Enter your email address',
+                                faPaperPlane,
+                                'email',
+                                'off',
+                              )}
+                              {inputField(
+                                'password',
+                                'password',
+                                'Enter your password',
+                                faLock,
+                                'password',
+                              )}
+                            </div>
+                            <p className='control login'>
+                              <button
+                                type='submit'
+                                id='sendVerificationCode'
+                                className='button btn-outlined is-bold is-fullwidth rounded raised no-lh'
+                              >
+                                Login
+                              </button>
+                            </p>
+                          </form>
                         </div>
-                        <p className='control login'>
-                          <button
-                            type='button'
-                            onClick={ handleSubmit(onSubmit) }
-                            id='sendVerificationCode'
-                            className='button btn-outlined is-bold is-fullwidth rounded raised no-lh'
-                          >
-                            Login
-                          </button>
-                        </p>
-                      </div>
                       )}
                       <button type='button' className='text-button' onClick={ handleCreateAccountLink }>
                         {isSocialLogin ? 'Don\'t have a social account? Sign up using an email instead'
-                          : 'Don\'t have an account? Create one now using your email or social media account' }
+                          : 'Don\'t have an account? Create one now using your email or social media account'}
                       </button>
                     </>
                   )}

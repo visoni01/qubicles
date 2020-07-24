@@ -109,3 +109,7 @@ select {
 .height-full-cover {
   min-height: 100% !important;
 }
+
+.icon.is-medium, .icon.is-right {
+  margin-top: 8px;
+}
