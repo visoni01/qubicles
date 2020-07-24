@@ -13,6 +13,9 @@ const {
     categoryDataFetchingStart,
     categoryDataFetchingSuccessful,
     categoryDataFetchingFailure,
+    addNewCategoryStart,
+    addNewCategorySuccessful,
+    addNewCategoryFailure,
   },
   reducer,
 } = createSlice({
@@ -34,6 +37,26 @@ const {
       error: true,
       isLoading: false,
     }),
+    addNewCategoryStart: (state) => ({
+      ...state,
+      isLoading: true,
+      success: false,
+    }),
+    addNewCategorySuccessful: (state, action) => {
+      const { newCategory } = action.payload
+      return ({
+        ...state,
+        isLoading: false,
+        success: true,
+        categories: [ ...state.categories, newCategory ],
+      })
+    },
+    addNewCategoryFailure: (state) => ({
+      ...state,
+      isLoading: false,
+      success: false,
+      error: true,
+    }),
   },
 })
 
@@ -42,4 +65,7 @@ export {
   categoryDataFetchingStart,
   categoryDataFetchingSuccessful,
   categoryDataFetchingFailure,
+  addNewCategoryStart,
+  addNewCategorySuccessful,
+  addNewCategoryFailure,
 }

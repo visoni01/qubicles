@@ -20,6 +20,11 @@ class Forum {
     const response = await apiClient.postRequest(`/forum/topic/activity/${ activityType }`, payload)
     return response
   }
+
+  static async addNewCategory(payload) {
+    const response = await apiClient.postRequest('/forum/new/group', payload)
+    return response
+  }
 }
 
 export default Forum

@@ -15,6 +15,7 @@ import channel from './forum/channel'
 import topic from './forum/topic'
 import topicActivity from './forum/topicActivity'
 import jobCategoryDataActivity from './people/jobCategories'
+import addNewCategory from './forum/newCategory'
 
 export default function* rootSaga() {
   yield all([
@@ -33,5 +34,6 @@ export default function* rootSaga() {
     topic(),
     topicActivity(),
     jobCategoryDataActivity(),
+    addNewCategory(),
   ])
 }
