@@ -96,3 +96,21 @@ export const createDate = ({ year, month, day, hours, minutes, seconds }) => {
 export const fixDigits = (input, digit) => {
   return Number(parseFloat(input)).toFixed(digit)
 }
+
+// This method works same as class System.Dynamic.ExpandoObject()
+// For Example: 
+// input = {name: 'example'}
+// output = [{Key: 'name', Value: 'example'}]
+export const expandoObject = (input) => {
+  const customData = []
+  for (const property in input) {
+    customData.push(
+      {
+        Key: property,
+        Value: input[property]
+      }
+    )
+  }
+
+  return customData
+}
