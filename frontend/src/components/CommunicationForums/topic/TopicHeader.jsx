@@ -26,7 +26,7 @@ const TopicHeader = ({ topicTitle, topicId }) => {
     dispatch(topicActivityDataPostingStart({ payload, activityType: 'reply' }))
     setOpen(false)
     setComment('')
-  }, [ comment ])
+  }, [ comment, dispatch, topicId ])
 
   const handleClickOpen = useCallback(() => {
     setOpen(true)

@@ -1,9 +1,8 @@
 import React from 'react'
 import {
-  Route, Redirect, Switch, useHistory,
+  Route, Redirect, Switch,
 } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
 import routes from './routeList'
 import { getToken } from '../utils/common'
 

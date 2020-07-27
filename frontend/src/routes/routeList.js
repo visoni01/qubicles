@@ -1,6 +1,6 @@
-import Dashboard from '../container/Dashboard'
-import { Signup, EmailVerification, PostSignUp } from '../container/User/Signup'
-import InviteFriends from '../container/InviteFriendsPage'
+import Dashboard from '../containers/Dashboard'
+import { Signup, EmailVerification, PostSignUp } from '../containers/User/Signup'
+import InviteFriends from '../containers/InviteFriendsPage'
 import {
   Home, Agents, ContactCenter, ContactUs, AboutUs,
 } from '../containers/Home'

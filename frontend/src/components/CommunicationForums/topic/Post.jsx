@@ -2,7 +2,7 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import PropTypes from 'prop-types'
 import {
-  faLightbulb, faHeart, faReply, faShareAlt,
+  faLightbulb, faHeart, faReply,
 } from '@fortawesome/free-solid-svg-icons'
 import { formatDate, getTimeFromNow } from '../../../utils/common'
 import TopAction from '../TopAction'

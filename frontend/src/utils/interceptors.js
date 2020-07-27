@@ -6,7 +6,7 @@ export const handleResponse = (response) => {
 
 export const handleReponseError = (error) => {
   const { response } = error
-  const { status, statusText, data } = response
+  const { data } = response
   let errMsg
   if (data && data.message) {
     errMsg = response.data.message
