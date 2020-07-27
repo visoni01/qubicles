@@ -206,8 +206,9 @@ export const getLeadCustomDataByColumnName = async ({ list_id, columnName, colum
   let lead = {}
   const isTableExist = await listsFieldsTableExists({ list_id })
   const isColumnExist = await listsFieldsColumnExists({ list_id, columnName })
-  const sourceTable = getLeadsTableName({ user, clients })
-  if (isTableExist && isColumnExist) {
+  
+  if (isTableExist && isColumnExist) {    
+    const sourceTable = getLeadsTableName({ user, clients })
     lead = await executeSelectQuery({
       method: 'getLeadCustomDataByColumnName',
       sourceTable,
@@ -216,5 +217,6 @@ export const getLeadCustomDataByColumnName = async ({ list_id, columnName, colum
       list_id
     })
   }
+  
   return lead
 }
