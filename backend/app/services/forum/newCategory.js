@@ -5,9 +5,6 @@ const constraints = {
   user_id: {
     presence: { allowEmpty: false }
   },
-  type: {
-    presence: { allowEmpty: false }
-  },
   title: {
     presence: { allowEmpty: false }
   },
@@ -16,23 +13,19 @@ const constraints = {
   }
 }
 
-export default class ForumCategories extends ServiceBase {
+export default class ForumAddNewCategory extends ServiceBase {
   get constraints () {
     return constraints
   }
 
   async run () {
     const { user_id } = this.filteredArgs
-    const { type, title, isPublic } = this.args
-    let data
-    if (type === 'group') {
-      data = await addCategory({
-        category_title: title,
-        owner_id: user_id || 1,
-        is_public: isPublic
-      })
-      const { category_title, category_id } = data
-      return ({ id: category_id, title: category_title, channels: [] })
-    }
+    const { title, isPublic } = this.args
+    const { category_title, category_id } = await addCategory({
+      category_title: title,
+      owner_id: user_id,
+      is_public: isPublic
+    })
+    return ({ id: category_id, title: category_title, channels: [] })
   }
 }

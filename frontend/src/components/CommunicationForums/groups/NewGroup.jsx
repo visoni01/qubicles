@@ -1,13 +1,10 @@
 import React, { useState } from 'react'
-import Button from '@material-ui/core/Button'
-import { TextField, Checkbox } from '@material-ui/core'
-import Dialog from '@material-ui/core/Dialog'
-import DialogActions from '@material-ui/core/DialogActions'
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogContentText from '@material-ui/core/DialogContentText'
-import DialogTitle from '@material-ui/core/DialogTitle'
+import PropTypes from 'prop-types'
+import {
+  Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, Button,
+} from '@material-ui/core'
 
-const FormDialog = ({ open, handleClose, onSubmit }) => {
+const AddNewGroupModal = ({ open, handleClose, onSubmit }) => {
   const [ groupData, setGroupData ] = useState({
     title: '',
     isPublic: false,
@@ -21,9 +18,19 @@ const FormDialog = ({ open, handleClose, onSubmit }) => {
     setGroupData({ ...groupData, title: event.target.value })
   }
 
+  const handleCreateGroup = () => {
+    if (groupData.title) {
+      onSubmit(groupData)
+      setGroupData({
+        title: '',
+        isPublic: false,
+      })
+    }
+  }
+
   return (
     <Dialog open={ open } onClose={ handleClose }>
-      <DialogTitle>New Group</DialogTitle>
+      <DialogTitle className='text-align-center'>New Group</DialogTitle>
       <DialogContent>
         <TextField
           margin='dense'
@@ -33,6 +40,7 @@ const FormDialog = ({ open, handleClose, onSubmit }) => {
           label='Title'
           value={ groupData.title }
           onChange={ handleGroupTitle }
+          required
         />
       </DialogContent>
       <DialogContent>
@@ -40,18 +48,24 @@ const FormDialog = ({ open, handleClose, onSubmit }) => {
           checked={ groupData.isPublic }
           onChange={ handleCheckBox }
         />
-        <span>Make channel Public</span>
+        <span className='vertical-align-middle'>Make group public</span>
       </DialogContent>
       <DialogActions>
         <Button onClick={ handleClose } color='primary'>
           Cancel
         </Button>
-        <Button onClick={ () => onSubmit(groupData) } color='primary'>
-          Subscribe
+        <Button onClick={ handleCreateGroup } color='primary'>
+          Create Group
         </Button>
       </DialogActions>
     </Dialog>
   )
 }
 
-export default FormDialog
+AddNewGroupModal.propTypes = {
+  open: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+}
+
+export default AddNewGroupModal

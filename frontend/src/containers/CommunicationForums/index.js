@@ -19,6 +19,7 @@ const ForumGroup = () => {
   const handleNewGroupModal = useCallback(() => setOpenNewGroupModal((openNewGroupModal) => !openNewGroupModal), [])
   const addNewGroup = (data) => {
     dispatch(addNewCategoryStart(data))
+    setOpenNewGroupModal(false)
   }
 
   return (
