@@ -59,7 +59,6 @@ export class GetHouseholdingRecordsService extends ServiceBase {
         if (!_.isEmpty(customLead)) {
           leads = [...customLead]
         }
-        
       } else if (this.lookupScope === 'CAMPAIGN') {
         const campaignLists = await getListsByCampaignId({ campaign_id: list.campaign_id })
 
@@ -73,7 +72,7 @@ export class GetHouseholdingRecordsService extends ServiceBase {
           }))
         })
 
-        let data = await Promise.all(promises.map((promise) => promise()))
+        const data = await Promise.all(promises.map((promise) => promise()))
         if (data && data.length) {
           leads = [...leads, ...(data.flat())]
         }
@@ -93,7 +92,7 @@ export class GetHouseholdingRecordsService extends ServiceBase {
           leads.forEach((customLead) => {
             promises.push(() => this.addHouseholdLeads({ customLead, allCampStatuses, user: currentUser, clients }))
           })
-  
+
           const promiseResponse = await Promise.all(promises.map((promise) => promise()))
           // Filtering the null values
           householdLeads = _.compact(promiseResponse)

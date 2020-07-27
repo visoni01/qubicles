@@ -98,7 +98,7 @@ export const fixDigits = (input, digit) => {
 }
 
 // This method works same as class System.Dynamic.ExpandoObject()
-// For Example: 
+// For Example:
 // input = {name: 'example'}
 // output = [{Key: 'name', Value: 'example'}]
 export const expandoObject = (input) => {
