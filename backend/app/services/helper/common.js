@@ -114,3 +114,18 @@ export const expandoObject = (input) => {
 
   return customData
 }
+
+// This method is used for flat the array (one level).
+// For Example:
+// input: [[{name: 'abc'}], [{name: 'xyz'}], {}, {}]
+// output: [{name: 'abc'}, {name: 'xyz'}]
+export const flatArray = (input) => {
+  let flatFilteredArray = []
+  input.forEach((data) => {
+    if (!_.isEmpty(data)) {
+      flatFilteredArray = [...flatFilteredArray, ...data]
+    }
+  })
+
+  return flatFilteredArray
+}

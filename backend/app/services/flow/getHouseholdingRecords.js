@@ -5,7 +5,8 @@ import {
   getListByListId,
   getListsByCampaignId,
   getLeadCustomDataByColumnName,
-  getCampaignStatusesByCampaignId
+  getCampaignStatusesByCampaignId,
+  flatArray
 } from '../helper'
 import GetClientsService from '../user/getClients'
 import _ from 'lodash'
@@ -74,7 +75,7 @@ export class GetHouseholdingRecordsService extends ServiceBase {
 
         const data = await Promise.all(promises.map((promise) => promise()))
         if (data && data.length) {
-          leads = [...leads, ...(data.flat())]
+          leads = [...leads, ...(flatArray(data))]
         }
       } else if (this.lookupScope === 'SYSTEM') {
         // TODO:
