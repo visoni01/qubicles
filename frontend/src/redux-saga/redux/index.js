@@ -14,6 +14,7 @@ import snackbarReducer from './snackbar'
 import categoryReducer from './forum/category'
 import channelReducer from './forum/channel'
 import topicReducer from './forum/topic'
+import jobCategoriesReducer from './people/jobPage'
 
 const rootReducer = combineReducers({
   signup: signupReducer,
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   category: categoryReducer,
   channel: channelReducer,
   topic: topicReducer,
+  jobCategories: jobCategoriesReducer,
 })
 
 export default rootReducer

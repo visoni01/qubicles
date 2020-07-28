@@ -15,8 +15,8 @@ function* topicDataFetchingWatcherStart() {
 function* topicDataFetchingWorker(action) {
   try {
     const { topicId } = action.payload
-    const topicDetails = yield Forum.fetchTopic({ topicId })
-    yield put(topicDataFetchingSuccessful({ topicDetails }))
+    const { data } = yield Forum.fetchTopic({ topicId })
+    yield put(topicDataFetchingSuccessful({ topicDetails: data }))
   } catch (e) {
     yield put(showErrorMessage())
     yield put(topicDataFetchingFailure())

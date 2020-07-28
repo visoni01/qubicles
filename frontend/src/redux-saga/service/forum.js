@@ -12,13 +12,13 @@ class Forum {
   }
 
   static async fetchTopic({ topicId }) {
-    const { data } = await apiClient.getRequest(`/forum/topic/${ topicId }`)
-    return data.data
+    const response = await apiClient.getRequest(`/forum/topic/${ topicId }`)
+    return response
   }
 
   static async postTopicActivity({ activityType, payload }) {
-    const { data } = await apiClient.postRequest(`/forum/topic/activity/${ activityType }`, payload)
-    return data.data
+    const response = await apiClient.postRequest(`/forum/topic/activity/${ activityType }`, payload)
+    return response
   }
 }
 
