@@ -1,8 +1,9 @@
 import Responder from '../../server/expressResponder'
+import JobsByCategoryService from '../services/job/jobsByCategory'
 
 export default class JobController {
   static async getJobsByCatergory (req, res) {
-    const jobs = await JobsByCatergory.execute(req.body)
+    const jobs = await JobsByCategoryService.execute(req.body)
     if (jobs.successful) {
       Responder.success(res, jobs.result)
     } else {

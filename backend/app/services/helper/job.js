@@ -6,7 +6,7 @@ import {
   XQodJobSkill,
   XQodSkill
 } from '../../db/models'
-import { createNewEntity } from '../helper'
+import { createNewEntity, getAll, aggregate } from '../helper'
 
 export async function getRecentJobsByClient ({ client_id, limit = 5 }) {
   const jobDetails = []
@@ -38,7 +38,7 @@ export async function getRecentJobsByClient ({ client_id, limit = 5 }) {
   return jobDetails
 }
 
-export async function addJobByClient (data) {
+export async function addJob (data) {
   const newJob = await createNewEntity({
     model: XQodJob,
     data
@@ -46,12 +46,8 @@ export async function addJobByClient (data) {
   return newJob
 }
 
-export async function getJobPostingsByClient ({ client_id }) {
-  const jobs = await XQodJob.findAll({
-    where: { client_id },
-    raw: true
-  })
-  return jobs
+export async function getAllJobsSubDetails () {
+  return getAll({ model: XQodJob })
 }
 
 export async function getOpenJobPostings () {
@@ -154,9 +150,13 @@ export async function flagApplicationsById ({ application_id, status }) {
   }
 }
 
-export async function getJobCategories () {
-  const jobCategories = await XQodCategory.findAll({ raw: true })
-  return jobCategories
+export async function getAllJobCategories () {
+  return getAll({ model: XQodCategory })
+}
+
+export async function getJobApplicationCount (data) {
+  const res = await aggregate({ model: XQodApplication, data, AggFunction: 'count' })
+  return res
 }
 
 export async function getJobTitles () {
