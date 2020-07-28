@@ -29,12 +29,13 @@ const ChannelListItem = ({
 ChannelListItem.defaultProps = {
   notifications: 3,
   noOfTopics: 0,
+  description: '',
 }
 
 ChannelListItem.propTypes = {
   notifications: PropTypes.number,
   title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.string,
   noOfTopics: PropTypes.number,
   id: PropTypes.number.isRequired,
 }

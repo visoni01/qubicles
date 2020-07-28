@@ -20,6 +20,9 @@ const {
     categoryDeletionStart,
     categoryDeletionSuccessful,
     categoryDeletionFailure,
+    addNewChannelStart,
+    addNewChannelSuccessful,
+    addNewChannelFailure,
   },
   reducer,
 } = createSlice({
@@ -80,6 +83,35 @@ const {
       error: true,
       isLoading: false,
     }),
+    addNewChannelStart: (state) => ({
+      ...state,
+      isLoading: true,
+      success: false,
+    }),
+    addNewChannelSuccessful: (state, action) => {
+      const { newChannel, categoryId } = action.payload
+      const updatedCategories = state.categories.map((category) => {
+        if (category.id === categoryId) {
+          return {
+            ...category,
+            channels: [ ...category.channels, newChannel ],
+          }
+        }
+        return category
+      })
+      return ({
+        ...state,
+        isLoading: false,
+        success: true,
+        categories: updatedCategories,
+      })
+    },
+    addNewChannelFailure: (state) => ({
+      ...state,
+      isLoading: false,
+      success: false,
+      error: true,
+    }),
   },
 })
 
@@ -94,4 +126,7 @@ export {
   categoryDeletionStart,
   categoryDeletionSuccessful,
   categoryDeletionFailure,
+  addNewChannelStart,
+  addNewChannelSuccessful,
+  addNewChannelFailure,
 }
