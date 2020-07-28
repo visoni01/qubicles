@@ -85,7 +85,7 @@ export class PerformActionService extends ServiceBase {
           // if this was a repeat contact, need to also dispo it as as default dispo sdr set on page
           if (this.leadId && this.pageId) {
             const page = await getFlowPageByPageId({ page_id: this.pageId })
-            const lead = await getLeadByLeadId({ lead_id: this.leadId })
+            const lead = await getLeadByLeadId({ lead_id: this.leadId, user, clients })
             const customLead = await getLeadCustomData({ list_id: lead.list_id, lead_id: lead.lead_id })
 
             if (this.isValidLead(customLead)) {
@@ -100,7 +100,7 @@ export class PerformActionService extends ServiceBase {
             }
           } else if (this.leadId) {
             // if this was a repeat contact and we got here, this is not a valid SDR...delete it
-            const lead = await getLeadByLeadId({ lead_id: this.leadId })
+            const lead = await getLeadByLeadId({ lead_id: this.leadId, user, clients })
             const customLead = await getLeadCustomData({ list_id: lead.list_id, lead_id: lead.lead_id })
 
             if (this.isValidLead(customLead)) {
@@ -179,7 +179,7 @@ export class PerformActionService extends ServiceBase {
         const liveAgent = await getLiveAgentByUser({ user, clients })
         if (liveAgent) {
           liveAgent.external_hangup = this.value
-          await updateLiveAgent({ liveAgent })
+          await updateLiveAgent({ liveAgent, user, clients })
         }
         break
       }

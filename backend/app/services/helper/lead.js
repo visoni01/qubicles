@@ -21,6 +21,7 @@ export const getLeadByLeadId = async ({ lead_id, user, clients }) => {
     columnName: 'lead_id',
     columnValue: lead_id
   })
+
   return getFirstElement(lead)
 }
 
@@ -77,8 +78,8 @@ export const deleteLeadCustomData = async ({ list_id, lead_id }) => {
       columnName: 'lead_id',
       columnValue: lead_id
     })
-    return lead
   }
+  return lead
 }
 
 export const getLeadByPhone = async ({ phone_number, user, clients }) => {
@@ -90,7 +91,7 @@ export const getLeadByPhone = async ({ phone_number, user, clients }) => {
     columnValue: phone_number,
     extraQueryAttributes: 'LIMIT 100'
   })
-  return lead
+  return getFirstElement(lead)
 }
 
 export const updateLeadInCustomTable = async ({ lead }) => {
@@ -206,8 +207,8 @@ export const getLeadCustomDataByColumnName = async ({ list_id, columnName, colum
   let lead = {}
   const isTableExist = await listsFieldsTableExists({ list_id })
   const isColumnExist = await listsFieldsColumnExists({ list_id, columnName })
-  
-  if (isTableExist && isColumnExist) {    
+
+  if (isTableExist && isColumnExist) {
     const sourceTable = getLeadsTableName({ user, clients })
     lead = await executeSelectQuery({
       method: 'getLeadCustomDataByColumnName',
@@ -217,6 +218,6 @@ export const getLeadCustomDataByColumnName = async ({ list_id, columnName, colum
       list_id
     })
   }
-  
+
   return lead
 }
