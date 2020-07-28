@@ -12,7 +12,7 @@ module.exports = {
       },
       {
         category_title: 'Best Practices for Customer Service',
-        owner_id: 1,
+        owner_id: 2,
         is_public: true,
         created_on: date
       },

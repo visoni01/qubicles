@@ -96,10 +96,21 @@ export async function getCategories ({ user_id }) {
   })
   const categoryIds = userCategories.map(category => category.forum_object_id)
   const categories = await XForumCategory.findAll({
-    where: { [Op.or]: [{ is_public: true }, { owner_id: user_id }, { category_id: categoryIds }] },
+    where: {
+      [Op.or]: [{ is_public: true }, { owner_id: user_id }, { category_id: categoryIds }],
+      [Op.not]: [{ is_deleted: true }]
+    },
     raw: true
   })
   return categories
+}
+
+export async function getCategoryById ({ category_id }) {
+  const category = await XForumCategory.findOne({
+    where: { category_id },
+    raw: true
+  })
+  return category
 }
 
 export async function getChannels ({ user_id }) {
@@ -421,6 +432,7 @@ export function getForumData ({ categories, channels, topics }) {
     return {
       id: category.category_id,
       title: category.category_title,
+      owner: category.owner_id,
       channels: getFilteredChannels({ channels, topics, category_id: category.category_id })
     }
   })
@@ -473,4 +485,10 @@ export async function likeActivity ({ user_id, data }) {
     topic_id: data.topicId,
     user_id
   })
+}
+
+export async function deleteCategory ({ category_id }) {
+  const categories = await XForumCategory.update({ is_deleted: true },
+    { where: { category_id } })
+  return categories
 }

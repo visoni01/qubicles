@@ -25,6 +25,11 @@ class Forum {
     const response = await apiClient.postRequest('/forum/categories', payload)
     return response
   }
+
+  static async deleteCategory({ categoryId }) {
+    const response = await apiClient.deleteRequest(`/forum/categories/${ categoryId }`)
+    return response
+  }
 }
 
 export default Forum

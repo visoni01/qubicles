@@ -6,6 +6,7 @@ const initialState = {
   error: null,
   success: false,
   categories: [],
+  deletedCategoryId: null,
 }
 
 const {
@@ -16,6 +17,9 @@ const {
     addNewCategoryStart,
     addNewCategorySuccessful,
     addNewCategoryFailure,
+    categoryDeletionStart,
+    categoryDeletionSuccessful,
+    categoryDeletionFailure,
   },
   reducer,
 } = createSlice({
@@ -57,6 +61,25 @@ const {
       success: false,
       error: true,
     }),
+    categoryDeletionStart: (state, action) => ({
+      ...state,
+      isLoading: true,
+    }),
+    categoryDeletionSuccessful: (state, action) => {
+      const deletedCategoryId = getDataForReducer(action, initialState.deletedCategoryId, 'deletedCategoryId')
+      const newCategories = state.categories.filter((category) => (category.id !== deletedCategoryId))
+      return ({
+        ...state,
+        success: true,
+        isLoading: false,
+        categories: newCategories,
+      })
+    },
+    categoryDeletionFailure: (state, action) => ({
+      ...state,
+      error: true,
+      isLoading: false,
+    }),
   },
 })
 
@@ -68,4 +91,7 @@ export {
   addNewCategoryStart,
   addNewCategorySuccessful,
   addNewCategoryFailure,
+  categoryDeletionStart,
+  categoryDeletionSuccessful,
+  categoryDeletionFailure,
 }

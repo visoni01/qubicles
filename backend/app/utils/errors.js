@@ -18,5 +18,6 @@ export const MESSAGES = {
   FLOW_PAGE_NOT_EXIST: 'Flow page does not exist',
   FLOW_FIELD_NOT_EXIST: 'Flow field does not exist',
   TOPIC_NOT_EXIST: 'Forum topic does not exist',
-  CHANNEL_NOT_EXIST: 'Forum channel does not exist'
+  CHANNEL_NOT_EXIST: 'Forum channel does not exist',
+  CATEGORY_NOT_EXIST: 'Category does not exist'
 }

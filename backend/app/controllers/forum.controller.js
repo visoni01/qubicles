@@ -4,6 +4,7 @@ import ForumChannelService from '../services/forum/channels'
 import ForumTopicService from '../services/forum/topic'
 import ForumTopicActivityService from '../services/forum/topicActivity'
 import ForumAddNewCategoryService from '../services/forum/newCategory'
+import ForumDeleteCategoryService from '../services/forum/deleteCategory'
 
 export default class ForumController {
   static async getCategories (req, res) {
@@ -48,6 +49,15 @@ export default class ForumController {
       Responder.success(res, forumNewCategories.result)
     } else {
       Responder.failed(res, forumNewCategories.errors)
+    }
+  }
+
+  static async deleteCategory (req, res) {
+    const deleteforumCategory = await ForumDeleteCategoryService.execute({ ...req.body, ...req.params })
+    if (deleteforumCategory.successful) {
+      Responder.success(res, deleteforumCategory.result)
+    } else {
+      Responder.failed(res, deleteforumCategory.errors)
     }
   }
 }

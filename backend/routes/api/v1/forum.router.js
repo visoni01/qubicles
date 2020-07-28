@@ -20,4 +20,7 @@ forumRouter.route('/topic/activity/:activity_type')
 forumRouter.route('/categories')
   .post(isAuthenticated, forumController.addNewCategory)
 
+forumRouter.route('/categories/:category_id')
+  .delete(isAuthenticated, forumController.deleteCategory)
+
 export { forumRouter }
