@@ -2,7 +2,6 @@ export const ERRORS = {
   UNAUTHORIZED: 'unauthorized',
   FORBIDDEN: 'forbidden',
   NOT_FOUND: 'notFound',
-  CATEGORY_NOT_FOUND: 'categoryNotFound',
   METHOD_NOT_ALLOWED: 'methodNotAllowed',
   BAD_DATA: 'badData',
   BAD_REQUEST: 'badRequest',
