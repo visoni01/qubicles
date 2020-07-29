@@ -4,6 +4,7 @@ import { getLists, DEFAULT_SYSTEM_LIST_IB, DEFAULT_SYSTEM_LIST_OB } from './list
 import { getCampaigns } from './campaign'
 import { getInboundGroups } from './group'
 import moment from 'moment'
+import _ from 'lodash'
 import { XLogOutbound, XLogInbound, RecordingLog, XLogDID } from '../../db/models'
 import { formatDate, getArchiveTableName, getHistoricalTableName } from './common'
 
@@ -64,11 +65,11 @@ export function getOBLogTableName ({ user, clients }) {
 }
 
 export const getContactOutboundCallLog = async ({ lead_id, campaigns, lists, startDate, endDate, user, clients, client_id }) => {
-  if (!campaigns) {
+  if (_.isNull(campaigns)) {
     campaigns = await getCampaigns({ user, clients, client_id })
   }
 
-  if (!lists) {
+  if (_.isNull(lists)) {
     lists = await getLists({ campaigns })
   }
 
@@ -107,11 +108,11 @@ export const getLogForContactByDates = async ({ lead_id, startDate, endDate, sou
 }
 
 export const getContactInboundCallLog = async ({ lead_id, campaigns, lists, startDate, endDate, user, clients, client_id }) => {
-  if (!campaigns) {
+  if (_.isNull(campaigns)) {
     campaigns = await getCampaigns({ user, clients, client_id })
   }
 
-  if (!lists) {
+  if (_.isNull(lists)) {
     lists = await getLists({ campaigns })
   }
 

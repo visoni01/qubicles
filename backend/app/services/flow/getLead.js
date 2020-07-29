@@ -20,6 +20,7 @@ import {
   syncListsFieldsWithFlow,
   fixDigits,
   addFlowLog,
+  expandoObject,
   getAgentDIDCallLog
 } from '../helper'
 import { ERRORS } from '../../utils/errors'
@@ -50,14 +51,14 @@ export class GetLeadService extends ServiceBase {
 
   async run () {
     const currentUser = await getUserById({ user_id: this.userId })
-    const { clients } = await GetClientsService.run({ user_id: this.userId })
     let customLead = {}
     if (currentUser) {
+      const { clients } = await GetClientsService.run({ user_id: this.userId })
       const currentDate = new Date()
-      let standardLead = await getLeadByLeadId({ lead_id: this.leadId })
-
+      let standardLead = await getLeadByLeadId({ lead_id: this.leadId, user: currentUser, clients })
       // if our Flow changed while we were live, make sure we sync schemas before continuing
-      const flow = await getFlowByFlowId({ flow_id: this.flow_id })
+      const flow = await getFlowByFlowId({ flow_id: this.flowId })
+
       // Make sure flow/user combination belongs to client
       const client = getFirstElement(clients)
 
@@ -240,7 +241,7 @@ export class GetLeadService extends ServiceBase {
         if (liveAgent.lead_id > 0) {
           const recording = await getLiveRecordingLog({
             lead_id: liveAgent.lead_id,
-            user: liveAgent.user_id
+            user: liveAgent.user
           })
 
           if (recording) {
@@ -281,6 +282,6 @@ export class GetLeadService extends ServiceBase {
       }
     }
 
-    return customLead
+    return expandoObject(customLead)
   }
 }

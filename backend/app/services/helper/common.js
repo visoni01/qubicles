@@ -96,3 +96,36 @@ export const createDate = ({ year, month, day, hours, minutes, seconds }) => {
 export const fixDigits = (input, digit) => {
   return Number(parseFloat(input)).toFixed(digit)
 }
+
+// This method works same as class System.Dynamic.ExpandoObject()
+// For Example:
+// input = {name: 'example'}
+// output = [{Key: 'name', Value: 'example'}]
+export const expandoObject = (input) => {
+  const customData = []
+  for (const property in input) {
+    customData.push(
+      {
+        Key: property,
+        Value: input[property]
+      }
+    )
+  }
+
+  return customData
+}
+
+// This method is used for flat the array (one level).
+// For Example:
+// input: [[{name: 'abc'}], [{name: 'xyz'}], {}, {}]
+// output: [{name: 'abc'}, {name: 'xyz'}]
+export const flatArray = (input) => {
+  let flatFilteredArray = []
+  input.forEach((data) => {
+    if (!_.isEmpty(data)) {
+      flatFilteredArray = [...flatFilteredArray, ...data]
+    }
+  })
+
+  return flatFilteredArray
+}

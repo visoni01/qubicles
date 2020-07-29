@@ -1,6 +1,6 @@
 import { XLeadsList } from '../../db/models'
 import { SqlHelper } from '../../utils/sql'
-import { getArchiveTableName } from './common'
+import { getArchiveTableName, flatArray } from './common'
 import { executeSelectQuery } from '../../utils/queryManager'
 import _ from 'lodash'
 
@@ -29,7 +29,7 @@ export const getLists = async ({ campaigns }) => {
   let lists = await Promise.all(promises.map((promise) => promise()))
 
   if (lists && lists.length) {
-    lists = lists.flat()
+    lists = flatArray(lists)
   }
 
   return lists

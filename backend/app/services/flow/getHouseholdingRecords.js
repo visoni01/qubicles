@@ -5,7 +5,8 @@ import {
   getListByListId,
   getListsByCampaignId,
   getLeadCustomDataByColumnName,
-  getCampaignStatusesByCampaignId
+  getCampaignStatusesByCampaignId,
+  flatArray
 } from '../helper'
 import GetClientsService from '../user/getClients'
 import _ from 'lodash'
@@ -44,7 +45,7 @@ export class GetHouseholdingRecordsService extends ServiceBase {
       const { clients } = await GetClientsService.run({ user_id: this.userId })
 
       let leads = []
-      const promises = []
+      let promises = []
       const list = await getListByListId({ list_id: this.listId })
 
       if (this.lookupScope === 'LIST') {
@@ -55,7 +56,10 @@ export class GetHouseholdingRecordsService extends ServiceBase {
           user: currentUser,
           clients
         })
-        leads.push(customLead)
+
+        if (!_.isEmpty(customLead)) {
+          leads = [...customLead]
+        }
       } else if (this.lookupScope === 'CAMPAIGN') {
         const campaignLists = await getListsByCampaignId({ campaign_id: list.campaign_id })
 
@@ -70,7 +74,9 @@ export class GetHouseholdingRecordsService extends ServiceBase {
         })
 
         const data = await Promise.all(promises.map((promise) => promise()))
-        leads = [...leads, ...data]
+        if (data && data.length) {
+          leads = [...leads, ...(flatArray(data))]
+        }
       } else if (this.lookupScope === 'SYSTEM') {
         // TODO:
       }
@@ -81,13 +87,17 @@ export class GetHouseholdingRecordsService extends ServiceBase {
           extraQueryAttributes: { order: [['status_name', 'ASC']] }
         })
 
-        leads.forEach((customLead) => {
-          promises.push(() => this.addHouseholdLeads({ customLead, allCampStatuses }))
-        })
+        promises = []
 
-        const promiseResponse = await Promise.all(promises.map((promise) => promise()))
-        // Filtering the null values
-        householdLeads = _.compact(promiseResponse)
+        if (leads && leads.length) {
+          leads.forEach((customLead) => {
+            promises.push(() => this.addHouseholdLeads({ customLead, allCampStatuses, user: currentUser, clients }))
+          })
+
+          const promiseResponse = await Promise.all(promises.map((promise) => promise()))
+          // Filtering the null values
+          householdLeads = _.compact(promiseResponse)
+        }
       }
     }
 
@@ -101,8 +111,8 @@ export class GetHouseholdingRecordsService extends ServiceBase {
     return householdLeads
   }
 
-  async addHouseholdLeads ({ customLead, allCampStatuses }) {
-    const leadStandardRecord = await getLeadByLeadId({ lead_id: customLead.lead_id })
+  async addHouseholdLeads ({ customLead, allCampStatuses, user, clients }) {
+    const leadStandardRecord = await getLeadByLeadId({ lead_id: customLead.lead_id, user, clients })
     let finalDispo
     const householdLeadDispo = []
     let householdLead

@@ -6,9 +6,11 @@ import {
   getListsByCampaignId,
   updateLead,
   deleteLeadFromLeadQueue,
+  flatArray,
   getLeadCustomDataByColumnName
 } from '../helper'
 import GetClientsService from '../user/getClients'
+import _ from 'lodash'
 
 const constraints = {
   leadId: {
@@ -47,7 +49,7 @@ export class DispoHouseholdingRecordService extends ServiceBase {
     const { clients } = await GetClientsService.run({ user_id: this.userId })
 
     if (currentUser) {
-      const lead = await getLeadByLeadId({ lead_id: this.leadId })
+      const lead = await getLeadByLeadId({ lead_id: this.leadId, user: currentUser, clients })
 
       if (this.dispoType === 'ALL') {
         let leads = []
@@ -62,23 +64,30 @@ export class DispoHouseholdingRecordService extends ServiceBase {
             clients
           })
 
-          leads.push(leadCustomData)
+          if (!_.isEmpty(leadCustomData)) {
+            leads = [...leadCustomData]
+          }
         } else if (this.lookupScope === 'CAMPAIGN') {
           const list = await getListByListId({ list_id: lead.list_id })
           const campaignLists = await getListsByCampaignId({ campaign_id: list.campaign_id })
 
-          campaignLists.forEach((listdata) => {
-            promises.push(() => getLeadCustomDataByColumnName({
-              list_id: listdata.list_id,
-              columnName: this.lookupFieldName,
-              columnValue: this.lookupFieldValue,
-              user: currentUser,
-              clients
-            }))
-          })
+          if (campaignLists && campaignLists.length) {
+            campaignLists.forEach((listdata) => {
+              promises.push(() => getLeadCustomDataByColumnName({
+                list_id: listdata.list_id,
+                columnName: this.lookupFieldName,
+                columnValue: this.lookupFieldValue,
+                user: currentUser,
+                clients
+              }))
+            })
 
-          const customData = await Promise.all(promises.map((promise) => promise()))
-          leads = [...leads, ...customData]
+            const customData = await Promise.all(promises.map((promise) => promise()))
+            if (customData && customData.length) {
+              leads = [...leads, ...(flatArray(customData))]
+            }
+          }
+
           promises = []
         }
 
@@ -97,7 +106,7 @@ export class DispoHouseholdingRecordService extends ServiceBase {
       } else {
         // dispo a single lead at a time
         if (lead) {
-          this.updateAndDeleteLead({
+          await this.updateAndDeleteLead({
             lead,
             lead_id: lead.lead_id,
             user: currentUser,
@@ -113,7 +122,7 @@ export class DispoHouseholdingRecordService extends ServiceBase {
   }
 
   async updateRecord ({ customLead, status, user, clients }) {
-    const otherRecord = await getLeadByLeadId({ lead_id: customLead.lead_id })
+    const otherRecord = await getLeadByLeadId({ lead_id: customLead.lead_id, user, clients })
     if (otherRecord) {
       await this.updateAndDeleteLead({
         lead: otherRecord,
@@ -132,6 +141,6 @@ export class DispoHouseholdingRecordService extends ServiceBase {
     lead.modify_date = currentDate
     lead.last_local_call_time = currentDate
     await updateLead({ lead, user, clients })
-    await deleteLeadFromLeadQueue({ lead_id })
+    await deleteLeadFromLeadQueue({ lead_id, user, clients })
   }
 }
