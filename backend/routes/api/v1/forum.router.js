@@ -32,4 +32,7 @@ forumRouter.route('/topics/:topic_id')
 forumRouter.route('/topics/posts/:post_id')
   .delete(isAuthenticated, forumController.deleteTopicComment)
 
+forumRouter.route('/topics')
+  .post(isAuthenticated, forumController.addNewTopic)
+
 export { forumRouter }
