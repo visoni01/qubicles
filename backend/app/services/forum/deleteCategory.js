@@ -32,7 +32,7 @@ export default class ForumDeleteCategoryService extends ServiceBase {
           return
         }
       } else {
-        this.addError(ERRORS.NOT_FOUND, MESSAGES.gCATEGORY_NOT_EXIST)
+        this.addError(ERRORS.NOT_FOUND, MESSAGES.CATEGORY_NOT_EXIST)
         return
       }
     } catch (err) {
