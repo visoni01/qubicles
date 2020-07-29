@@ -1,6 +1,5 @@
 import ServiceBase from '../../common/serviceBase'
-import { commentTopic, likeTopic, getErrorMessageForService } from '../helper'
-import { getUserSubProfile } from './channels'
+import { getErrorMessageForService, commentActivity } from '../helper'
 import { ERRORS } from '../../utils/errors'
 import logger from '../../common/logger'
 
@@ -35,33 +34,4 @@ export default class ForumTopicActivityService extends ServiceBase {
     }
     return activityResult
   }
-}
-
-export async function commentActivity ({ user_id, data }) {
-  const ownerDetails = await getUserSubProfile({ user_id: user_id })
-  const newComment = await commentTopic({
-    comment: data.comment,
-    topic_id: data.topicId,
-    user_id
-  })
-  return {
-    postId: newComment.user_activity_id,
-    postMeta: {
-      ownerDetails,
-      createdAt: newComment.createdAt,
-      updatedAt: newComment.updatedAt,
-      totalLikes: 23,
-      totalReplies: 56
-    },
-    postBody: {
-      content: newComment.activity_value
-    }
-  }
-}
-
-export async function likeActivity ({ user_id, data }) {
-  return likeTopic({
-    topic_id: data.topicId,
-    user_id
-  })
 }

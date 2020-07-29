@@ -1,6 +1,12 @@
 import ServiceBase from '../../common/serviceBase'
-import { getOneTopic, getTopicComments, getTopicLikesCount, getErrorMessageForService, updateTopicViews } from '../helper'
-import { getUserSubProfile } from './channels'
+import {
+  getOneTopic,
+  getTopicComments,
+  getTopicLikesCount,
+  getErrorMessageForService,
+  updateTopicViews,
+  getTopicDetails
+} from '../helper'
 import { ERRORS, MESSAGES } from '../../utils/errors'
 import logger from '../../common/logger'
 
@@ -37,41 +43,6 @@ export default class ForumTopicService extends ServiceBase {
     } catch (err) {
       logger.error(getErrorMessageForService('ForumTopicService'), err)
       this.addError(ERRORS.INTERNAL)
-    }
-  }
-}
-
-export async function getTopicDetails ({ topicData, topicComments, totalLikes, totalViews }) {
-  const topicOwner = await getUserSubProfile({ user_id: topicData.owner_id })
-  const posts = await Promise.all(topicComments.map(comment => getCommentDetails({ comment })))
-  return {
-    topicId: topicData.topic_id,
-    topicTitle: topicData.topic_title,
-    createdAt: {
-      date: topicData.createdAt,
-      ownerDetails: topicOwner
-    },
-    totalReplies: topicComments.length,
-    totalViews,
-    totalLikes,
-    moderators: [],
-    posts
-  }
-}
-
-export async function getCommentDetails ({ comment }) {
-  const ownerDetails = await getUserSubProfile({ user_id: comment.user_id })
-  return {
-    postId: comment.user_activity_id,
-    postMeta: {
-      ownerDetails,
-      createdAt: comment.createdAt,
-      updatedAt: comment.updatedAt,
-      totalLikes: 23,
-      totalReplies: 56
-    },
-    postBody: {
-      content: comment.activity_value
     }
   }
 }
