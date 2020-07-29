@@ -3,23 +3,40 @@
  */
 
 const jobsData = [ {
-  title: 'Announcements',
+  categoryId: 1,
+  categoryTitle: 'Announcements',
   jobs: [
     {
+      jobId: 1,
       notifications: 43,
       title: 'Company Annoucements',
       description: 'Dedicated channel for company annoucements and heads up.',
       noOfApplications: 49,
     },
     {
+      jobId: 2,
       notifications: 43,
       title: 'Company Annoucements-2',
       description: 'Dedicated channel for company annoucements and heads up.',
       noOfApplications: 49,
     },
     {
+      jobId: 3,
       notifications: 43,
       title: 'Company Annoucements-3',
+      description: 'Dedicated channel for company annoucements and heads up.',
+      noOfApplications: 49,
+    },
+  ],
+},
+{
+  categoryId: 2,
+  categoryTitle: 'Announcements',
+  jobs: [
+    {
+      jobId: 4,
+      notifications: 43,
+      title: 'Company Annoucements -2',
       description: 'Dedicated channel for company annoucements and heads up.',
       noOfApplications: 49,
     },

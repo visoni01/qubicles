@@ -6,7 +6,7 @@ import {
   XQodJobSkill,
   XQodSkill
 } from '../../db/models'
-import { createNewEntity } from '../helper'
+import { createNewEntity, getAll, aggregate } from '../helper'
 
 export async function getRecentJobsByClient ({ client_id, limit = 5 }) {
   const jobDetails = []
@@ -38,7 +38,7 @@ export async function getRecentJobsByClient ({ client_id, limit = 5 }) {
   return jobDetails
 }
 
-export async function addJobByClient (data) {
+export async function addJob (data) {
   const newJob = await createNewEntity({
     model: XQodJob,
     data
@@ -46,12 +46,8 @@ export async function addJobByClient (data) {
   return newJob
 }
 
-export async function getJobPostingsByClient ({ client_id }) {
-  const jobs = await XQodJob.findAll({
-    where: { client_id },
-    raw: true
-  })
-  return jobs
+export async function getAllJobsSubDetails () {
+  return getAll({ model: XQodJob })
 }
 
 export async function getOpenJobPostings () {
@@ -154,9 +150,13 @@ export async function flagApplicationsById ({ application_id, status }) {
   }
 }
 
-export async function getJobCategories () {
-  const jobCategories = await XQodCategory.findAll({ raw: true })
-  return jobCategories
+export async function getAllJobCategories () {
+  return getAll({ model: XQodCategory })
+}
+
+export async function getJobApplicationCount (data) {
+  const res = await aggregate({ model: XQodApplication, data, aggFunction: 'count' })
+  return res
 }
 
 export async function getJobTitles () {
@@ -180,4 +180,43 @@ export async function getXQodApplications (queryObj) {
     query = { ...query, ...queryObj }
   }
   return XQodApplication.findAll(query)
+}
+
+export async function getJobsDetailsForClient ({ user_id, client_id }) {
+  const promises = [
+    () => getAllJobsSubDetails(),
+    () => getAllJobCategories()
+  ]
+  const [allJobs, jobCategories] = await Promise.all(promises.map(promise => promise()))
+  const jobDetails = []
+
+  for (const jobCategory of jobCategories) {
+    const jobsByCategory = allJobs.filter(job => job.category_id === jobCategory.category_id)
+    const jobs = await getFilteredJobs({ jobsByCategory })
+    jobDetails.push({
+      categoryId: jobCategory.category_id,
+      categoryTitle: jobCategory.category_name,
+      jobs
+    })
+  }
+  return jobDetails
+}
+
+export async function getFilteredJobs ({ jobsByCategory }) {
+  const filteredJobs = []
+  for (const job of jobsByCategory) {
+    const noOfApplications = await getJobApplicationCount({ job_id: job.job_id })
+    filteredJobs.push({
+      jobId: job.job_id,
+      notifications: 23,
+      title: job.title,
+      description: job.description,
+      noOfApplications
+    })
+  }
+  return filteredJobs
+}
+
+export function getJobsDetailsForUser ({ user_id, client_id }) {
+
 }

@@ -1,14 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBell, faSuitcase } from '@fortawesome/free-solid-svg-icons'
+import { faBell } from '@fortawesome/free-solid-svg-icons'
 
 const Channel = ({
-  notifications, title, description, noOfTopics, jobsWrap, noOfApplications,
+  notifications, title, description, noOfTopics,
 }) => (
   <div className='forum-channel'>
     <div className='channel-icon'>
-      <FontAwesomeIcon icon={ jobsWrap ? faSuitcase : faBell } />
+      <FontAwesomeIcon icon={ faBell } />
       {/* New Topics */}
       <div className='new-indicator'>
         <span>{notifications}</span>
@@ -19,8 +19,8 @@ const Channel = ({
       <span>{description}</span>
     </div>
     <div className='channel-topics'>
-      <span>{jobsWrap ? 'Applications' : 'Topics' }</span>
-      <span>{jobsWrap ? noOfApplications : noOfTopics}</span>
+      <span>Topics</span>
+      <span>{ noOfTopics }</span>
     </div>
     {/* TODO: Contributors functionality not ready at backend yet */}
     {/* <div className='top-contributors'>
@@ -34,8 +34,6 @@ const Channel = ({
 Channel.defaultProps = {
   notifications: 3,
   noOfTopics: 0,
-  jobsWrap: false,
-  noOfApplications: 0,
 }
 
 Channel.propTypes = {
@@ -43,8 +41,6 @@ Channel.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   noOfTopics: PropTypes.number,
-  jobsWrap: PropTypes.bool,
-  noOfApplications: PropTypes.number,
 }
 
 export default Channel

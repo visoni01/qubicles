@@ -14,10 +14,10 @@ function* topicActivityWatcher() {
 function* topicActivityWorker(action) {
   try {
     const { payload, activityType } = action.payload
-    const response = yield Forum.postTopicActivity({ payload, activityType })
+    const { data } = yield Forum.postTopicActivity({ payload, activityType })
     switch (activityType) {
       case 'reply':
-        yield put(topicReplyActivitySuccessful({ newReply: response }))
+        yield put(topicReplyActivitySuccessful({ newReply: data }))
         break
       default:
         break

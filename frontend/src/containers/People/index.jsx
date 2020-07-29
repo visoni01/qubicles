@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import {
-  Button, Tab, Tabs, Divider, IconButton,
+  Tab, Tabs, Divider, IconButton,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faSearch, faPlus, faEllipsisV,
+  faPlus, faEllipsisV,
 } from '@fortawesome/free-solid-svg-icons'
-import JobsWrap from './jobsWrap'
+import JobsPage from './jobsPage'
 import TalentWrap from './talentWrap'
 import TrainingWrap from './trainingWrap'
 import withNavBar from '../../hoc/navbar'
@@ -43,25 +43,9 @@ const People = () => {
             </IconButton>
           </div>
           <Divider />
-          {/* Page title */}
-          <div className='search-bar-header mt-10'>
-            <div className='control forum-search people-search-bar'>
-              <input type='text' className='input is-rounded' placeholder='Search Forum...' />
-              <div className='search-icon'>
-                <FontAwesomeIcon icon={ faSearch } />
-              </div>
-            </div>
-            <Button
-              variant='contained'
-              className='new-job-button'
-              startIcon={ <FontAwesomeIcon icon={ faPlus } className='people-header-icons' /> }
-            >
-              New Job
-            </Button>
-          </div>
           {/* Forum Category */}
           <div className='forum-wrap'>
-            { activeTab === 0 && <JobsWrap />}
+            { activeTab === 0 && <JobsPage />}
             { activeTab === 1 && <TalentWrap />}
             { activeTab === 2 && <TrainingWrap />}
           </div>
