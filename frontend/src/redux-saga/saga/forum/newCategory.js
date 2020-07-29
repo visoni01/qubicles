@@ -14,8 +14,11 @@ function* addNewCategoryWatcher() {
 
 function* addNewCategoryWorker(action) {
   try {
-    const { payload } = action
-    const { data } = yield Forum.addNewCategory(payload)
+    const { isPublic, title } = action.payload
+    const { data } = yield Forum.addNewCategory({
+      title,
+      is_public: isPublic,
+    })
     yield put(addNewCategorySuccessful({ newCategory: data }))
   } catch (e) {
     yield put(showErrorMessage())

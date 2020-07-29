@@ -22,7 +22,7 @@ class Forum {
   }
 
   static async addNewCategory(payload) {
-    const response = await apiClient.postRequest('/forum/new_category', payload)
+    const response = await apiClient.postRequest('/forum/categories', payload)
     return response
   }
 }

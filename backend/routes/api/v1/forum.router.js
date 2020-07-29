@@ -17,7 +17,7 @@ forumRouter.route('/topic/:topic_id')
 forumRouter.route('/topic/activity/:activity_type')
   .post(isAuthenticated, forumController.postTopicActivity)
 
-forumRouter.route('/new_category')
+forumRouter.route('/categories')
   .post(isAuthenticated, forumController.addNewCategory)
 
 export { forumRouter }

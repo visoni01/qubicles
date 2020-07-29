@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import {
   Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, Button,
@@ -10,15 +10,15 @@ const AddNewGroupModal = ({ open, handleClose, onSubmit }) => {
     isPublic: false,
   })
 
-  const handleCheckBox = (event) => {
+  const handleCheckBox = useCallback((event) => {
     setGroupData({ ...groupData, isPublic: event.target.checked })
-  }
+  }, [ groupData ])
 
-  const handleGroupTitle = (event) => {
+  const handleGroupTitle = useCallback((event) => {
     setGroupData({ ...groupData, title: event.target.value })
-  }
+  }, [ groupData ])
 
-  const handleCreateGroup = () => {
+  const handleCreateGroup = useCallback(() => {
     if (groupData.title) {
       onSubmit(groupData)
       setGroupData({
@@ -26,7 +26,7 @@ const AddNewGroupModal = ({ open, handleClose, onSubmit }) => {
         isPublic: false,
       })
     }
-  }
+  }, [ groupData ])
 
   return (
     <Dialog open={ open } onClose={ handleClose }>

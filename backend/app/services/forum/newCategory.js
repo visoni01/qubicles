@@ -1,5 +1,5 @@
 import ServiceBase from '../../common/serviceBase'
-import { addCategory } from '../helper/forum'
+import { addCategory } from '../helper'
 
 const constraints = {
   user_id: {
@@ -8,23 +8,21 @@ const constraints = {
   title: {
     presence: { allowEmpty: false }
   },
-  isPublic: {
+  is_public: {
     presence: { allowEmpty: true }
   }
 }
 
-export default class ForumAddNewCategory extends ServiceBase {
+export default class ForumAddNewCategoryService extends ServiceBase {
   get constraints () {
     return constraints
   }
 
   async run () {
-    const { user_id } = this.filteredArgs
-    const { title, isPublic } = this.args
     const { category_title, category_id } = await addCategory({
-      category_title: title,
-      owner_id: user_id,
-      is_public: isPublic
+      category_title: this.title,
+      owner_id: this.user_id,
+      is_public: this.is_public
     })
     return ({ id: category_id, title: category_title, channels: [] })
   }

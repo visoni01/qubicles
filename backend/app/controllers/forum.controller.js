@@ -3,7 +3,7 @@ import ForumCategoriesService from '../services/forum/categories'
 import ForumChannelService from '../services/forum/channels'
 import ForumTopicService from '../services/forum/topic'
 import ForumTopicActivityService from '../services/forum/topicActivity'
-import ForumAddNewCategory from '../services/forum/newCategory'
+import ForumAddNewCategoryService from '../services/forum/newCategory'
 
 export default class ForumController {
   static async getCategories (req, res) {
@@ -43,7 +43,7 @@ export default class ForumController {
   }
 
   static async addNewCategory (req, res) {
-    const forumNewCategories = await ForumAddNewCategory.execute({ ...req.body, ...req.params })
+    const forumNewCategories = await ForumAddNewCategoryService.execute({ ...req.body, ...req.params })
     if (forumNewCategories.successful) {
       Responder.success(res, forumNewCategories.result)
     } else {
