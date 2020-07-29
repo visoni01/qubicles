@@ -13,7 +13,6 @@ const ForumChannel = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(channelDataFetchingStart({ channelId }))
-    // dispatch(categoryDataDeletionActivitySuccessful({ channelId }))
   }, [ dispatch, channelId ])
   const { isLoading, channelDetails } = useSelector((state) => state.channel)
   return (

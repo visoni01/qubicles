@@ -34,7 +34,6 @@ const CategoryWrap = ({
     dispatch(categoryDeletionStart({ categoryId: id }))
   }, [ id ])
 
-  console.log('>>>>>>>>', title, owner, userDetails.user_id, owner === userDetails.user_id)
   return (
     <div className='forum-wrap'>
       <div className='forum-container'>

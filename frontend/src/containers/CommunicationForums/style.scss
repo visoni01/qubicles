@@ -86,6 +86,10 @@
   vertical-align: top;
 }
 
+.dropdown.is-right .dropdown-menu {
+  left: auto;
+  right: 0;
+}
 .category-dropdown {
   top: 150px !important;
   left: calc(100% - 140px) !important;
@@ -98,6 +102,7 @@
 }
 
 .category-dropdown-menu {
+  left: 150px;
   right: 0;
   position: absolute;
   top: 100%;
