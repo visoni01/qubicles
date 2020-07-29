@@ -11,22 +11,23 @@ const AddNewGroupModal = ({ open, handleClose, onSubmit }) => {
   })
 
   const handleCheckBox = useCallback((event) => {
-    setGroupData({ ...groupData, isPublic: event.target.checked })
-  }, [ groupData ])
+    // eslint-disable-next-line
+    setGroupData((groupData) => ({ ...groupData, isPublic: event.target.checked }))
+  }, [ setGroupData ])
 
   const handleGroupTitle = useCallback((event) => {
-    setGroupData({ ...groupData, title: event.target.value })
-  }, [ groupData ])
+    event.persist()
+    // eslint-disable-next-line
+    setGroupData((groupData) => ({ ...groupData, title: event.target.value }))
+  }, [ setGroupData ])
 
-  const handleCreateGroup = useCallback(() => {
-    if (groupData.title) {
-      onSubmit(groupData)
-      setGroupData({
-        title: '',
-        isPublic: false,
-      })
-    }
-  }, [ groupData ])
+  const handleCreateGroup = () => {
+    onSubmit(groupData)
+    setGroupData({
+      title: '',
+      isPublic: false,
+    })
+  }
 
   return (
     <Dialog open={ open } onClose={ handleClose }>
