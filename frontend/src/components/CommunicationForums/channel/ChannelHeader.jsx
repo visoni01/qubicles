@@ -1,14 +1,44 @@
-import React from 'react'
+import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faHome, faArrowLeft, faPlus, faUsers, faCommentDots,
 } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { Button } from '@material-ui/core'
 import { GROUP } from '../../../routes/routesPath'
+import { addNewTopic } from '../../../redux-saga/redux/forum/actions'
+import AddNewTopic from './NewTopic'
+
+const AddTopicButton = ({ channelId }) => {
+  const [ openNewTopicModal, setOpenNewTopicModal ] = useState(false)
+  const dispatch = useDispatch()
+
+  // eslint-disable-next-line no-shadow
+  const handleNewTopicModal = useCallback(() => setOpenNewTopicModal((openNewTopicModal) => !openNewTopicModal), [])
+  const addNewGroup = (data) => {
+    dispatch(addNewTopic({ ...data, channelId }))
+    setOpenNewTopicModal(false)
+  }
+
+  return (
+    <>
+      <AddNewTopic open={ openNewTopicModal } handleClose={ handleNewTopicModal } onSubmit={ addNewGroup } />
+      <Button
+        variant='contained'
+        className='new-job-button'
+        startIcon={ <FontAwesomeIcon icon={ faPlus } className='people-header-icons' /> }
+        onClick={ handleNewTopicModal }
+      >
+        New Group
+      </Button>
+    </>
+  )
+}
 
 const ChannelHeader = ({
-  channelTitle, channelDescription, totalMembers, totalReplies,
+  channelTitle, channelDescription, totalMembers, totalReplies, channelId,
 }) => (
   <div>
     <div className='forum-title-wrapper is-mobile'>
@@ -41,10 +71,7 @@ const ChannelHeader = ({
           <i><FontAwesomeIcon icon={ faArrowLeft } /></i>
         </Link>
         {/* Forum main dropdown */}
-        <div className='button btn-dash secondary-btn btn-dash raised ripple has-icon' data-ripple-color>
-          <i><FontAwesomeIcon icon={ faPlus } /></i>
-          {' New Topic '}
-        </div>
+        <AddTopicButton channelId={ channelId } />
       </div>
     </div>
     <span className='channel-description'>{channelDescription}</span>
@@ -56,6 +83,11 @@ ChannelHeader.propTypes = {
   channelDescription: PropTypes.string.isRequired,
   totalMembers: PropTypes.number.isRequired,
   totalReplies: PropTypes.number.isRequired,
+  channelId: PropTypes.number.isRequired,
+}
+
+AddTopicButton.propTypes = {
+  channelId: PropTypes.number.isRequired,
 }
 
 export default ChannelHeader
