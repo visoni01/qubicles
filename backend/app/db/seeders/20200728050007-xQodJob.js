@@ -2,6 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
+    const date = new Date()
     await queryInterface.bulkInsert('x_qod_jobs', [
       {
         client_id: 1,
@@ -16,7 +17,8 @@ module.exports = {
         needed: 1,
         fulfilled: 1,
         pay_amount: 100,
-        pay_type: 'monthly'
+        pay_type: 'monthly',
+        created_on: date
       },
       {
         client_id: 1,
@@ -31,7 +33,8 @@ module.exports = {
         needed: 1,
         fulfilled: 1,
         pay_amount: 100,
-        pay_type: 'monthly'
+        pay_type: 'monthly',
+        created_on: date
       },
       {
         client_id: 1,
@@ -46,7 +49,8 @@ module.exports = {
         needed: 1,
         fulfilled: 1,
         pay_amount: 100,
-        pay_type: 'monthly'
+        pay_type: 'monthly',
+        created_on: date
       }
 
     ], {})
