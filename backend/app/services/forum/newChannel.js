@@ -40,7 +40,8 @@ export default class ForumAddNewChannelService extends ServiceBase {
 
     return {
       channel_title: data.channel_title,
-      client_id: data.client_id
+      client_id: data.client_id,
+      channel_id: data.channel_id
     }
   }
 }

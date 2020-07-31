@@ -10,14 +10,13 @@ import announcement from './dashboard/announcement'
 import communityRep from './dashboard/communityRep'
 import jobPosting from './dashboard/jobPosting'
 import activeUser from './dashboard/activeUser'
-import categories from './forum/category'
-import channel from './forum/channel'
+import categories from './forum/category/category'
+import channel from './forum/channel/channel'
 import topic from './forum/topic'
 import topicActivity from './forum/topicActivity'
 import jobCategoryDataActivity from './people/jobCategories'
-import addNewCategory from './forum/newCategory'
-import deleteCategory from './forum/category/deleteCategory'
-import addNewChannel from './forum/newChannel'
+import crudCategory from './forum/category/crud'
+import crudChannel from './forum/channel/crud'
 
 export default function* rootSaga() {
   yield all([
@@ -36,8 +35,7 @@ export default function* rootSaga() {
     topic(),
     topicActivity(),
     jobCategoryDataActivity(),
-    addNewCategory(),
-    deleteCategory(),
-    addNewChannel(),
+    crudCategory(),
+    crudChannel(),
   ])
 }

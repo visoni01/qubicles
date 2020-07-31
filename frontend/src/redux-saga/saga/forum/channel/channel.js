@@ -3,10 +3,10 @@ import {
   channelDataFetchingStart,
   channelDataFetchingSuccessful,
   channelDataFetchingFailure,
-} from '../../redux/actions'
+} from '../../../redux/actions'
 
-import Forum from '../../service/forum'
-import { showErrorMessage } from '../../redux/snackbar'
+import Forum from '../../../service/forum'
+import { showErrorMessage } from '../../../redux/snackbar'
 
 function* channelDataFetchingWatcherStart() {
   yield takeEvery(channelDataFetchingStart.type, channelDataFetchingWorker)

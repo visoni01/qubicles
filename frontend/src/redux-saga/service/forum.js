@@ -28,6 +28,7 @@ class Forum {
 
   static async deleteCategory({ categoryId }) {
     const response = await apiClient.deleteRequest(`/forum/categories/${ categoryId }`)
+    return response
   }
 
   static async addNewChannel(payload) {

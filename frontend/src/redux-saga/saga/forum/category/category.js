@@ -3,10 +3,10 @@ import {
   categoryDataFetchingStart,
   categoryDataFetchingSuccessful,
   categoryDataFetchingFailure,
-} from '../../redux/actions'
+} from '../../../redux/actions'
 
-import Forum from '../../service/forum'
-import { showErrorMessage } from '../../redux/snackbar'
+import Forum from '../../../service/forum'
+import { showErrorMessage } from '../../../redux/snackbar'
 
 function* categoryDataFetchingWatcherStart() {
   yield takeEvery(categoryDataFetchingStart.type, categoryDataFetchingWorker)

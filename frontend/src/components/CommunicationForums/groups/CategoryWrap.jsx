@@ -7,7 +7,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { Menu, MenuItem } from '@material-ui/core'
 import ChannelListItem from './ChannelListItem'
-import { categoryDeletionStart, addNewChannelStart } from '../../../redux-saga/redux/actions'
+import { deleteCategory, addNewChannel } from '../../../redux-saga/redux/actions'
 import NewChannelModal from '../channel/NewChannel'
 
 const CategoryWrap = ({
@@ -34,7 +34,8 @@ const CategoryWrap = ({
   }
 
   const handleDelete = useCallback(() => {
-    dispatch(categoryDeletionStart({ categoryId: id }))
+    setAnchorEl(null)
+    dispatch(deleteCategory({ categoryId: id, title }))
   }, [ id ])
 
   const toggleNewChannelModal = useCallback(() => setOpenNewChannelModal(
@@ -43,8 +44,8 @@ const CategoryWrap = ({
   ), [ setOpenNewChannelModal ])
 
   const handleNewChannelSubmit = useCallback((data) => {
-    dispatch(addNewChannelStart({ ...data, id }))
-    console.log('lllllllllllllllllllllllllllllllllllll data', data)
+    setAnchorEl(null)
+    dispatch(addNewChannel({ ...data, id, userId: userDetails.user_id }))
     setOpenNewChannelModal(false)
   }, [ setOpenNewChannelModal ])
 
