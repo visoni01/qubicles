@@ -9,13 +9,14 @@ class ApiClient {
     this.axios = axiosInst
   }
 
-  makeRequest = (url, method, data = {}) => this.axios({
+  makeRequest = (url, method, data = {}, params) => this.axios({
     url,
     method,
     data,
+    params,
   })
 
-  getRequest = async (url, config) => this.makeRequest(url, 'GET', config)
+  getRequest = async (url, config, params) => this.makeRequest(url, 'GET', config, params)
 
   putRequest = (url, config) => this.makeRequest(url, 'put', config)
 

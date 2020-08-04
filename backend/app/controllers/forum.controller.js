@@ -11,7 +11,7 @@ import ForumDeleteTopicCommentService from '../services/forum/comment/delete'
 
 export default class ForumController {
   static async getCategories (req, res) {
-    const forumCategories = await ForumCategoriesService.execute(req.body)
+    const forumCategories = await ForumCategoriesService.execute({ ...req.body, ...req.query })
     if (forumCategories.successful) {
       Responder.success(res, forumCategories.result)
     } else {

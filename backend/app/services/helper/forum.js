@@ -16,6 +16,7 @@ import SendForumInvitationMail from '../email/sendForumInvitationMail'
 import { createNewEntity } from './common'
 import { getAllUserActivities } from '../user/activity/helper'
 import { getUserDetails } from './user'
+import _ from 'lodash'
 
 export async function addCategory ({ category_title, owner_id, is_public }) {
   const newCategory = await createNewEntity({
@@ -88,18 +89,22 @@ export async function addForumUser ({ user_id, forum_object_type, forum_object_i
   return newUser
 }
 
-export async function getCategories ({ user_id }) {
+export async function getCategories ({ user_id, search_keyword }) {
   const userCategories = await XForumUser.findAll({
     where: { forum_object_type: 'category', user_id },
     raw: true,
     attributes: ['forum_object_id']
   })
   const categoryIds = userCategories.map(category => category.forum_object_id)
+  let query = {
+    [Op.or]: [{ is_public: true }, { owner_id: user_id }, { category_id: categoryIds }],
+    [Op.not]: [{ is_deleted: true }]
+  }
+  if (!_.isEmpty(search_keyword)) {
+    query = { ...query, category_title: { [Op.startsWith]: search_keyword } }
+  }
   const categories = await XForumCategory.findAll({
-    where: {
-      [Op.or]: [{ is_public: true }, { owner_id: user_id }, { category_id: categoryIds }],
-      [Op.not]: [{ is_deleted: true }]
-    },
+    where: query,
     raw: true
   })
   return categories

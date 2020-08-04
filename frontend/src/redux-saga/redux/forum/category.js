@@ -21,7 +21,7 @@ const {
   name: 'category',
   initialState,
   reducers: {
-    categoryDataFetchingStart: () => ({
+    categoryDataFetchingStart: (state, action) => ({
       ...initialState,
       isLoading: true,
     }),

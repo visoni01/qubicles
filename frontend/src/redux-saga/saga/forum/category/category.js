@@ -14,7 +14,8 @@ function* categoryDataFetchingWatcherStart() {
 
 function* categoryDataFetchingWorker(action) {
   try {
-    const { data } = yield Forum.fetchCategories()
+    const { searchKeyword } = action.payload
+    const { data } = yield Forum.fetchCategories({ searchKeyword })
     yield put(categoryDataFetchingSuccessful({ categories: data }))
   } catch (e) {
     yield put(showErrorMessage())

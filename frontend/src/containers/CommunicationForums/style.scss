@@ -58,6 +58,17 @@
   text-overflow: ellipsis;
 }
 
+.no-category-message {
+  margin-top: 30px;
+  font-size: 1.6rem;
+  font-family: 'Nexa Bold', sans-serif;
+  color: #444F60;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .vertical-align-middle {
   vertical-align: middle;
 }
