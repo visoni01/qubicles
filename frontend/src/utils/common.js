@@ -56,3 +56,8 @@ export const getFullMessage = (msg) => {
 
   return fullMessage
 }
+
+export const isUserOwner = (ownerId) => {
+  const userData = getUserDetails()
+  return ownerId === userData.user_id
+}
