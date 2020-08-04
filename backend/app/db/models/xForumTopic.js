@@ -31,6 +31,10 @@ module.exports = (sequelize, DataTypes) => {
     is_flagged: {
       type: DataTypes.BOOLEAN
     },
+    is_deleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     createdAt: {
       field: 'created_on',
       type: DataTypes.DATE

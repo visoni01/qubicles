@@ -26,6 +26,10 @@ module.exports = (sequelize, DataTypes) => {
       values: ['public', 'followers', 'company', 'admins', 'managers'],
       defaultValue: 'public'
     },
+    is_deleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     createdAt: {
       field: 'created_on',
       type: DataTypes.DATE

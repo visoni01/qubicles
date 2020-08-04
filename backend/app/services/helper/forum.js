@@ -135,7 +135,10 @@ export async function getTopics ({ user_id }) {
   })
   const topicIds = userTopics.map(topic => topic.forum_object_id)
   const topics = await XForumTopic.findAll({
-    where: { [Op.or]: [{ is_public: true }, { owner_id: user_id }, { topic_id: topicIds }] },
+    where: {
+      [Op.or]: [{ is_public: true }, { owner_id: user_id }, { topic_id: topicIds }],
+      [Op.not]: [{ is_deleted: true }]
+    },
     raw: true
   })
   return topics
@@ -145,7 +148,8 @@ export async function getRecentTopics ({ client_id, limit = 5 }) {
   const { channel_id } = await getCompanyAnnouncementChannel({ client_id })
   const topics = await XForumTopic.findAll({
     where: {
-      channel_id
+      channel_id,
+      [Op.not]: [{ is_deleted: true }]
     },
     order: [['created_on', 'DESC']],
     limit,
@@ -235,7 +239,8 @@ export async function getTopicComments ({ topic_id }) {
     where: {
       record_type: 'topic',
       record_id: topic_id,
-      activity_type: 'comment'
+      activity_type: 'comment',
+      [Op.not]: [{ is_deleted: true }]
     },
     order: [['created_on', 'DESC']],
     raw: true
@@ -296,7 +301,7 @@ export async function getOneForumUser (queryObj = {}) {
 
 export async function getOneTopic (queryObj = {}) {
   let query = { raw: true }
-  query = { where: { ...queryObj }, ...query }
+  query = { where: { ...queryObj, [Op.not]: [{ is_deleted: true }] }, ...query }
   return XForumTopic.findOne(query)
 }
 
@@ -491,4 +496,33 @@ export async function deleteCategory ({ category_id }) {
   const categories = await XForumCategory.update({ is_deleted: true },
     { where: { category_id } })
   return categories
+}
+
+export async function getUserActivityDataById ({ user_activity_id }) {
+  const userActivityData = await XUserActivity.findOne({
+    where: {
+      user_activity_id,
+      [Op.not]: [{ is_deleted: true }]
+    },
+    raw: true
+  })
+  return userActivityData
+}
+
+export async function deleteTopic ({ topic_id }) {
+  await XForumTopic.update({ is_deleted: true },
+    { where: { topic_id } })
+  return { topic_id }
+}
+
+export async function deleteTopicComment ({ post_id }) {
+  await XUserActivity.update({ is_deleted: true },
+    {
+      where: {
+        record_type: 'topic',
+        user_activity_id: post_id,
+        activity_type: 'comment'
+      }
+    })
+  return { post_id }
 }

@@ -20,6 +20,7 @@ const {
     topicActivityDataPostingStart,
     topicReplyActivitySuccessful,
     topicReplyActivityFailure,
+    updateTopicReplies,
   },
   reducer,
 } = createSlice({
@@ -55,6 +56,10 @@ const {
         topicDetails: { ...state.topicDetails, posts: [ newReply, ...state.topicDetails.posts ] },
       })
     },
+    updateTopicReplies: (state, action) => ({
+      ...state,
+      topicDetails: action.payload.data.topicDetails,
+    }),
     topicReplyActivityFailure: (state, action) => ({
       ...state,
       newReplyError: true,
@@ -71,4 +76,5 @@ export {
   topicActivityDataPostingStart,
   topicReplyActivitySuccessful,
   topicReplyActivityFailure,
+  updateTopicReplies,
 }

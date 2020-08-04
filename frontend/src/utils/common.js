@@ -1,7 +1,9 @@
 import moment from 'moment'
 import Cookies from 'js-cookie'
 import jwt from 'jsonwebtoken'
+import _ from 'lodash'
 import config from './config'
+import MESSAGES from './messages'
 
 export const formatDate = (date, format = 'MMMM DD, YYYY') => moment(date).format(format)
 
@@ -37,3 +39,25 @@ export const getUserDetails = () => {
 }
 
 export const getToken = () => Cookies.get('access_token')
+
+export const getSubstrForNotification = (input) => {
+  let subStr = input
+  if (input.length > 40) {
+    subStr = `${ input.substr(0, 40) }...`
+  }
+  return subStr
+}
+
+export const getFullMessage = (msg) => {
+  let fullMessage = msg
+  if ((_.isString(msg) && !_.isEmpty(msg))) {
+    fullMessage = MESSAGES[ msg.toUpperCase() ] || msg
+  }
+
+  return fullMessage
+}
+
+export const isUserOwner = (ownerId) => {
+  const userData = getUserDetails()
+  return ownerId === userData.user_id
+}

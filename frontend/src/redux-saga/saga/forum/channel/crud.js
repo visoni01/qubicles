@@ -45,7 +45,7 @@ function* categoryCrudWorker(action) {
     }
     yield put(showSuccessMessage({ msg }))
   } catch (e) {
-    yield put(showErrorMessage())
+    yield put(showErrorMessage({ msg: e }))
   }
 }
 
