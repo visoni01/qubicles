@@ -13,6 +13,7 @@ const CreateGroup = () => {
   const [ openNewGroupModal, setOpenNewGroupModal ] = useState(false)
   const dispatch = useDispatch()
 
+  // eslint-disable-next-line no-shadow
   const handleNewGroupModal = useCallback(() => setOpenNewGroupModal((openNewGroupModal) => !openNewGroupModal), [])
   const addNewGroup = (data) => {
     dispatch(addNewCategory(data))

@@ -10,7 +10,7 @@ import Auth from '../components/User/Auth'
 import ForumGroup from '../containers/CommunicationForums'
 import ForumChannel from '../containers/CommunicationForums/forumChannel'
 import ForumTopic from '../containers/CommunicationForums/forumTopic'
-import ROUTE_PATHS from './routesPath'
+import ROUTE_PATHS, { GROUP, GROUP_CHANNEL, GROUP_TOPIC } from './routesPath'
 
 const routes = [
   {
@@ -68,17 +68,17 @@ const routes = [
     component: Auth,
   },
   {
-    path: ROUTE_PATHS.GROUP,
+    path: GROUP,
     component: ForumGroup,
     auth: true,
   },
   {
-    path: ROUTE_PATHS.GROUP_CHANNEL,
+    path: GROUP_CHANNEL,
     component: ForumChannel,
     auth: true,
   },
   {
-    path: ROUTE_PATHS.GROUP_TOPIC,
+    path: GROUP_TOPIC,
     component: ForumTopic,
     auth: true,
   },
