@@ -1,4 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
+import _ from 'lodash'
+import MESSAGES from '../../utils/messages'
+import { getFullMessage } from '../../utils/common'
 
 const initialState = {
   open: null,
@@ -22,7 +25,7 @@ const {
       return {
         ...initialState,
         open: true,
-        msg: msg || 'Request has been processed successfully.',
+        msg: getFullMessage(msg) || MESSAGES.SUCCESS,
       }
     },
     showErrorMessage: (state, action) => {
@@ -31,7 +34,7 @@ const {
         ...initialState,
         open: true,
         error: true,
-        msg: msg || 'An error occurred while processing your request. Please try again later.',
+        msg: getFullMessage(msg) || MESSAGES.ERROR,
       }
     },
     hideMessage: (state) => ({

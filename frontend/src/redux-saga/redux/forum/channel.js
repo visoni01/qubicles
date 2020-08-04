@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getDataForReducer } from '../../../utils/common'
+import { DELETE_TOPIC } from '../constants'
 
 const initialState = {
   isLoading: null,
@@ -13,6 +14,7 @@ const {
     channelDataFetchingStart,
     channelDataFetchingSuccessful,
     channelDataFetchingFailure,
+    updateChannelData,
   },
   reducer,
 } = createSlice({
@@ -34,6 +36,10 @@ const {
       error: true,
       isLoading: false,
     }),
+    updateChannelData: (state, action) => ({
+      ...state,
+      channelDetails: action.payload.data,
+    }),
   },
 })
 
@@ -42,4 +48,5 @@ export {
   channelDataFetchingStart,
   channelDataFetchingSuccessful,
   channelDataFetchingFailure,
+  updateChannelData,
 }

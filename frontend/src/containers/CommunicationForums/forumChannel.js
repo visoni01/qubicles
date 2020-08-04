@@ -15,6 +15,7 @@ const ForumChannel = () => {
     dispatch(channelDataFetchingStart({ channelId }))
   }, [ dispatch, channelId ])
   const { isLoading, channelDetails } = useSelector((state) => state.channel)
+
   return (
     <div>
       {/* Main dashboard container */}
