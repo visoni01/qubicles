@@ -23,4 +23,7 @@ forumRouter.route('/categories')
 forumRouter.route('/categories/:category_id')
   .delete(isAuthenticated, forumController.deleteCategory)
 
+forumRouter.route('/channel')
+  .post(isAuthenticated, forumController.addNewChannel)
+
 export { forumRouter }

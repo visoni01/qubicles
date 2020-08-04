@@ -2,6 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
+    const date = new Date()
     await queryInterface.bulkInsert('x_qod_applications', [
       {
         user_id: 1,
@@ -9,7 +10,8 @@ module.exports = {
         job_id: 1,
         cover_letter: '',
         video_pitch_url: '',
-        status_reason: ''
+        status_reason: '',
+        created_on: date
       },
       {
         user_id: 2,
@@ -17,7 +19,8 @@ module.exports = {
         job_id: 2,
         cover_letter: '',
         video_pitch_url: '',
-        status_reason: ''
+        status_reason: '',
+        created_on: date
       },
       {
         user_id: 1,
@@ -25,7 +28,8 @@ module.exports = {
         job_id: 2,
         cover_letter: '',
         video_pitch_url: '',
-        status_reason: ''
+        status_reason: '',
+        created_on: date
       }
     ], {})
   },

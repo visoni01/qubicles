@@ -3,6 +3,7 @@ import { ClipLoader } from 'react-spinners'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import './style.scss'
+import classNames from 'classnames'
 
 // Note: Generic component for displaying the loader in the center of the screen
 // enableOverlay: Used for display the background color with medium opacity
@@ -14,6 +15,16 @@ const Loader = ({
 }) => {
   const { loading } = useSelector((state) => state.loader)
 
+  const classes = {
+    'loader-container': true,
+  }
+
+  if (className) {
+    classes[ `${ className }` ] = true
+  }
+
+  const loaderRootClasses = classNames(classes)
+
   return (
     <>
       {
@@ -21,7 +32,7 @@ const Loader = ({
         && (
           <>
             <div className={ enableOverlay && 'overlay' } />
-            <div className={ className || 'loader-container' }>
+            <div className={ loaderRootClasses }>
               <ClipLoader size={ size } color={ color } loading />
             </div>
           </>

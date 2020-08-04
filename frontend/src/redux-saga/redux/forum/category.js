@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getDataForReducer } from '../../../utils/common'
+import { getUpdatedCategories } from '../helper'
 
 const initialState = {
   isLoading: null,
   error: null,
   success: false,
   categories: [],
-  deletedCategoryId: null,
 }
 
 const {
@@ -14,12 +14,7 @@ const {
     categoryDataFetchingStart,
     categoryDataFetchingSuccessful,
     categoryDataFetchingFailure,
-    addNewCategoryStart,
-    addNewCategorySuccessful,
-    addNewCategoryFailure,
-    categoryDeletionStart,
-    categoryDeletionSuccessful,
-    categoryDeletionFailure,
+    updateCategoryData,
   },
   reducer,
 } = createSlice({
@@ -41,44 +36,9 @@ const {
       error: true,
       isLoading: false,
     }),
-    addNewCategoryStart: (state) => ({
-      ...state,
-      isLoading: true,
-      success: false,
-    }),
-    addNewCategorySuccessful: (state, action) => {
-      const { newCategory } = action.payload
-      return ({
-        ...state,
-        isLoading: false,
-        success: true,
-        categories: [ ...state.categories, newCategory ],
-      })
-    },
-    addNewCategoryFailure: (state) => ({
-      ...state,
-      isLoading: false,
-      success: false,
-      error: true,
-    }),
-    categoryDeletionStart: (state, action) => ({
-      ...state,
-      isLoading: true,
-    }),
-    categoryDeletionSuccessful: (state, action) => {
-      const deletedCategoryId = getDataForReducer(action, initialState.deletedCategoryId, 'deletedCategoryId')
-      const newCategories = state.categories.filter((category) => (category.id !== deletedCategoryId))
-      return ({
-        ...state,
-        success: true,
-        isLoading: false,
-        categories: newCategories,
-      })
-    },
-    categoryDeletionFailure: (state, action) => ({
-      ...state,
-      error: true,
-      isLoading: false,
+    updateCategoryData: (state, action) => ({
+      ...initialState,
+      categories: getUpdatedCategories({ state, payload: action.payload }),
     }),
   },
 })
@@ -88,10 +48,5 @@ export {
   categoryDataFetchingStart,
   categoryDataFetchingSuccessful,
   categoryDataFetchingFailure,
-  addNewCategoryStart,
-  addNewCategorySuccessful,
-  addNewCategoryFailure,
-  categoryDeletionStart,
-  categoryDeletionSuccessful,
-  categoryDeletionFailure,
+  updateCategoryData,
 }

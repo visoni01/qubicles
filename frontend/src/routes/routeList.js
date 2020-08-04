@@ -75,7 +75,7 @@ const routes = [
   {
     path: ROUTE_PATHS.GROUP_CHANNEL,
     component: ForumChannel,
-    auth: true,
+    auth: false,
   },
   {
     path: ROUTE_PATHS.GROUP_TOPIC,

@@ -30,6 +30,11 @@ class Forum {
     const response = await apiClient.deleteRequest(`/forum/categories/${ categoryId }`)
     return response
   }
+
+  static async addNewChannel(payload) {
+    const response = await apiClient.postRequest('/forum/channel', payload)
+    return response
+  }
 }
 
 export default Forum

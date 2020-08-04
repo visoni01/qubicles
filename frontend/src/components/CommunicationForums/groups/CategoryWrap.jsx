@@ -3,11 +3,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faChevronDown, faChevronUp, faEllipsisV, faTrash,
+  faChevronDown, faChevronUp, faEllipsisV, faTrash, faPlus,
 } from '@fortawesome/free-solid-svg-icons'
 import { Menu, MenuItem } from '@material-ui/core'
 import ChannelListItem from './ChannelListItem'
-import { categoryDeletionStart } from '../../../redux-saga/redux/actions'
+import { deleteCategory, addNewChannel } from '../../../redux-saga/redux/actions'
+import NewChannelModal from '../channel/NewChannel'
 
 const CategoryWrap = ({
   id, title, owner, channels,
@@ -16,6 +17,8 @@ const CategoryWrap = ({
 
   const [ showInfo, setShowInfo ] = useState(false)
   const { userDetails } = useSelector((state) => state.login)
+  const [ openNewChannelModal, setOpenNewChannelModal ] = useState(false)
+
   const setShowInfoCB = useCallback(() => {
     setShowInfo((currentState) => !currentState)
   }, [ setShowInfo ])
@@ -31,8 +34,20 @@ const CategoryWrap = ({
   }
 
   const handleDelete = useCallback(() => {
-    dispatch(categoryDeletionStart({ categoryId: id }))
+    setAnchorEl(null)
+    dispatch(deleteCategory({ categoryId: id, title }))
   }, [ id ])
+
+  const toggleNewChannelModal = useCallback(() => setOpenNewChannelModal(
+    // eslint-disable-next-line
+    (openNewChannelModal) => !openNewChannelModal,
+  ), [ setOpenNewChannelModal ])
+
+  const handleNewChannelSubmit = useCallback((data) => {
+    setAnchorEl(null)
+    dispatch(addNewChannel({ ...data, id, userId: userDetails.user_id }))
+    setOpenNewChannelModal(false)
+  }, [ setOpenNewChannelModal ])
 
   return (
     <div className='forum-wrap'>
@@ -78,6 +93,14 @@ const CategoryWrap = ({
                     Remove
                   </span>
                 </MenuItem>
+                <MenuItem
+                  onClick={ toggleNewChannelModal }
+                >
+                  <FontAwesomeIcon icon={ faPlus } />
+                  <span className='remove'>
+                    Add Channel
+                  </span>
+                </MenuItem>
               </Menu>
             </div>
           </div>
@@ -85,6 +108,11 @@ const CategoryWrap = ({
         {/* Channels list */}
         {channels.map((channel) => <ChannelListItem { ...channel } key={ `${ channel.id }` } />)}
       </div>
+      <NewChannelModal
+        open={ openNewChannelModal }
+        handleClose={ toggleNewChannelModal }
+        onSubmit={ handleNewChannelSubmit }
+      />
     </div>
   )
 }

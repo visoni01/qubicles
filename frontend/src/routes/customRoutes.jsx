@@ -31,7 +31,7 @@ const Redirector = ({ component: Component, redirectToDashboard }) => (
 
 Validator.propTypes = {
   component: PropTypes.func.isRequired,
-  path: PropTypes.func.isRequired,
+  path: PropTypes.string.isRequired,
 }
 
 Redirector.propTypes = {

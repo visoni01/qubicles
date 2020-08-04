@@ -62,7 +62,11 @@ const TopicHeader = ({ topicTitle, topicId }) => {
           <i><FontAwesomeIcon icon={ faArrowLeft } /></i>
         </div>
         {/* Forum main dropdown */}
-        <Button id='topic-reply-button' className='button secondary-btn btn-dash raised ripple' onClick={ handleClickOpen }>
+        <Button
+          id='topic-reply-button'
+          className='button secondary-btn btn-dash raised ripple'
+          onClick={ handleClickOpen }
+        >
           Reply
         </Button>
         <Dialog open={ open } onClose={ handleClose } aria-labelledby='form-dialog-title'>
