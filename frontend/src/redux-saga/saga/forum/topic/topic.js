@@ -3,10 +3,10 @@ import {
   topicDataFetchingStart,
   topicDataFetchingSuccessful,
   topicDataFetchingFailure,
-} from '../../redux/actions'
+} from '../../../redux/actions'
 
-import Forum from '../../service/forum'
-import { showErrorMessage } from '../../redux/snackbar'
+import Forum from '../../../service/forum'
+import { showErrorMessage } from '../../../redux/snackbar'
 
 function* topicDataFetchingWatcherStart() {
   yield takeEvery(topicDataFetchingStart.type, topicDataFetchingWorker)

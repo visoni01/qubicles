@@ -12,8 +12,7 @@ import jobPosting from './dashboard/jobPosting'
 import activeUser from './dashboard/activeUser'
 import categories from './forum/category/category'
 import channel from './forum/channel/channel'
-import topic from './forum/topic'
-import topicActivity from './forum/topicActivity'
+import topic from './forum/topic/topic'
 import jobCategoryDataActivity from './people/jobCategories'
 import crudCategory from './forum/category/crud'
 import crudChannel from './forum/channel/crud'
@@ -35,7 +34,6 @@ export default function* rootSaga() {
     categories(),
     channel(),
     topic(),
-    topicActivity(),
     jobCategoryDataActivity(),
     crudCategory(),
     crudChannel(),

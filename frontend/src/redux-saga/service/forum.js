@@ -22,8 +22,8 @@ class Forum {
     return response
   }
 
-  static async postTopicActivity({ activityType, payload }) {
-    const response = await apiClient.postRequest(`/forum/topic/activity/${ activityType }`, payload)
+  static async addTopicComment({ payload }) {
+    const response = await apiClient.postRequest('/forum/topic/activity/reply', payload)
     return response
   }
 

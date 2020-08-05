@@ -9,7 +9,7 @@ import {
   faAngleRight, faHome, faArrowLeft,
 } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from 'react-redux'
-import { topicActivityDataPostingStart } from '../../../redux-saga/redux/actions'
+import { addTopicComment } from '../../../redux-saga/redux/actions'
 
 const TopicHeader = ({ topicTitle, topicId }) => {
   const dispatch = useDispatch()
@@ -23,7 +23,7 @@ const TopicHeader = ({ topicTitle, topicId }) => {
         topicId,
       },
     }
-    dispatch(topicActivityDataPostingStart({ payload, activityType: 'reply' }))
+    dispatch(addTopicComment({ payload }))
     setOpen(false)
     setComment('')
   }, [ comment, dispatch, topicId ])
