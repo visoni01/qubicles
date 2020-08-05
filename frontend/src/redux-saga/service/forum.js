@@ -27,6 +27,16 @@ class Forum {
     return response
   }
 
+  static async likeTopic({ payload }) {
+    const response = await apiClient.postRequest('/forum/topic/activity/like', payload)
+    return response
+  }
+
+  static async unlikeTopic({ payload }) {
+    const response = await apiClient.postRequest('/forum/topic/activity/unlike', payload)
+    return response
+  }
+
   static async addNewCategory(payload) {
     const response = await apiClient.postRequest('/forum/categories', payload)
     return response

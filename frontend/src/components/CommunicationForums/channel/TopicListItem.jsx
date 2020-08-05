@@ -16,7 +16,7 @@ const TopicListItem = ({
   const dispatch = useDispatch()
   const deleteTopicHandler = useCallback(() => {
     dispatch(deleteTopic({ topicId, topicTitle }))
-  }, [ deleteTopic ])
+  }, [ topicId, topicTitle, dispatch ])
 
   return (
     <div className='topic-card is-sticky'>

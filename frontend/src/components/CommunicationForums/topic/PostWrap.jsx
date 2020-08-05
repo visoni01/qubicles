@@ -2,15 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import {
-  faComment, faEye, faHeart,
+  faComment, faEye,
 } from '@fortawesome/free-solid-svg-icons'
 import StatBlock from '../StatBlock'
 import Post from './Post'
 import { getTimeFromNow } from '../../../utils/common'
 import { ownerDetails, dateWithUser, postShape } from '../forumValidators'
+import TopicLikeIcon from './TopicLikeIcon'
 
 const PostWrap = ({
-  createdAt, totalLikes, totalViews, posts,
+  createdAt, totalLikes, totalViews, posts, topicId, topicLiked,
 }) => {
   const sortedPosts = posts.slice().sort((a, b) => new Date(b.postMeta.createdAt) - new Date(a.postMeta.createdAt))
   const isPosts = !_.isEmpty(sortedPosts)
@@ -42,7 +43,7 @@ const PostWrap = ({
           {/* Views */}
           <StatBlock title='Views' data={ `${ totalViews }` } icon={ faEye } type='icon' />
           {/* Likes */}
-          <StatBlock title='Likes' data={ `${ totalLikes }` } icon={ faHeart } type='icon' />
+          <TopicLikeIcon topicId={ topicId } topicLiked={ topicLiked } totalLikes={ totalLikes } />
           {/* Contributers */}
         </div>
         {/* Post list items */}
@@ -69,6 +70,8 @@ PostWrap.propTypes = {
   totalViews: PropTypes.number.isRequired,
   moderators: PropTypes.arrayOf(ownerDetails).isRequired,
   posts: PropTypes.arrayOf(postShape).isRequired,
+  topicId: PropTypes.number.isRequired,
+  topicLiked: PropTypes.bool.isRequired,
 }
 
 export default PostWrap

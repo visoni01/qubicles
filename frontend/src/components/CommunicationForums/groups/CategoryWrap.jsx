@@ -36,7 +36,7 @@ const CategoryWrap = ({
   const handleDelete = useCallback(() => {
     setAnchorEl(null)
     dispatch(deleteCategory({ categoryId: id, title }))
-  }, [ id ])
+  }, [ id, dispatch, title ])
 
   const toggleNewChannelModal = useCallback(() => setOpenNewChannelModal(
     // eslint-disable-next-line
@@ -47,7 +47,7 @@ const CategoryWrap = ({
     setAnchorEl(null)
     dispatch(addNewChannel({ ...data, id, userId: userDetails.user_id }))
     setOpenNewChannelModal(false)
-  }, [ setOpenNewChannelModal ])
+  }, [ setOpenNewChannelModal, dispatch, id, userDetails.user_id ])
 
   return (
     <div className='forum-wrap'>

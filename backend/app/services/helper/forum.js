@@ -402,7 +402,7 @@ export async function getTopicUserActivity ({ topic }) {
   }
 }
 
-export async function getTopicDetails ({ topicData, topicComments, totalLikes, totalViews }) {
+export async function getTopicDetails ({ topicData, topicComments, totalLikes, totalViews, topicLiked }) {
   const topicOwner = await getUserSubProfile({ user_id: topicData.owner_id })
   const posts = await Promise.all(topicComments.map(comment => getCommentDetails({ comment })))
   return {
@@ -415,6 +415,7 @@ export async function getTopicDetails ({ topicData, topicComments, totalLikes, t
     totalReplies: topicComments.length,
     totalViews,
     totalLikes,
+    topicLiked,
     moderators: [],
     posts
   }
@@ -490,7 +491,7 @@ export async function commentActivity ({ user_id, data }) {
   }
 }
 
-export async function likeActivity ({ user_id, data }) {
+export async function likeTopicActivity ({ user_id, data }) {
   return likeTopic({
     topic_id: data.topicId,
     user_id
@@ -530,4 +531,35 @@ export async function deleteTopicComment ({ post_id }) {
       }
     })
   return { post_id }
+}
+
+export async function unlikeTopic ({ user_id, topic_id }) {
+  const topicUnlikeActivity = await XUserActivity.destroy({
+    where: {
+      user_id,
+      record_type: 'topic',
+      record_id: topic_id,
+      activity_type: 'like'
+    }
+  })
+  return topicUnlikeActivity
+}
+
+export async function unlikeTopicActivity ({ user_id, data }) {
+  return unlikeTopic({
+    user_id,
+    topic_id: data.topicId
+  })
+}
+
+export async function isTopicLiked ({ user_id, topic_id }) {
+  const isTopicLiked = await XUserActivity.findOne({
+    where: {
+      user_id,
+      record_type: 'topic',
+      record_id: topic_id,
+      activity_type: 'like'
+    }
+  })
+  return !!isTopicLiked
 }

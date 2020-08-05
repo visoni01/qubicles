@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getDataForReducer } from '../../../utils/common'
-import { DELETE_TOPIC } from '../constants'
 
 const initialState = {
   isLoading: null,

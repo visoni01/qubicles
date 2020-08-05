@@ -1,5 +1,5 @@
 import ServiceBase from '../../common/serviceBase'
-import { getErrorMessageForService, commentActivity } from '../helper'
+import { getErrorMessageForService, commentActivity, likeTopicActivity, unlikeTopicActivity } from '../helper'
 import { ERRORS } from '../../utils/errors'
 import logger from '../../common/logger'
 
@@ -27,6 +27,13 @@ export default class ForumTopicActivityService extends ServiceBase {
       switch (activity_type) {
         case 'reply':
           activityResult = await commentActivity({ user_id, data })
+          break
+        case 'like':
+          activityResult = await likeTopicActivity({ user_id, data })
+          break
+        case 'unlike':
+          activityResult = await unlikeTopicActivity({ user_id, data })
+          break
       }
     } catch (err) {
       logger.error(getErrorMessageForService('ForumTopicActivityService'), err)
