@@ -3,6 +3,8 @@ import {
   Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
+import CKEditor from '@ckeditor/ckeditor5-react'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
 const NewComment = ({ open, handleClose, handleSubmit }) => {
   const [ comment, setComment ] = useState('')
@@ -12,24 +14,20 @@ const NewComment = ({ open, handleClose, handleSubmit }) => {
   }
 
   return (
-    <Dialog open={ open } onClose={ handleClose } aria-labelledby='form-dialog-title'>
+    <Dialog open={ open } onClose={ handleClose } classes={ { paper: 'overflow-y-visible' } }>
       <DialogTitle className='text-align-center'>New Post</DialogTitle>
-      <DialogContent>
-        <TextField
-          autoFocus
-          margin='dense'
-          id='comment'
-          label='Comment'
-          fullWidth
-          value={ comment }
-          onChange={ (e) => setComment(e.target.value) }
+      <DialogContent classes={ { root: 'overflow-y-visible' } }>
+        <CKEditor
+          onChange={ (event, editor) => setComment(editor.getData()) }
+          editor={ ClassicEditor }
+          data={ comment }
         />
       </DialogContent>
       <DialogActions>
-        <Button className='button secondary-btn btn-dash raised ripple' onClick={ handleClose } color='primary'>
+        <Button onClick={ handleClose } color='primary'>
           Cancel
         </Button>
-        <Button className='button secondary-btn btn-dash raised ripple' onClick={ onSubmit } color='primary'>
+        <Button onClick={ onSubmit } color='primary'>
           Submit
         </Button>
       </DialogActions>
