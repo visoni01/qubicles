@@ -13,21 +13,21 @@ const CategoryList = () => {
     dispatch(categoryDataFetchingStart({ searchKeyword: '' }))
   }, [ dispatch ])
 
-  if (isCategories) {
-    return (isLoading
-      ? (
-        <Loader
-          className='loader-custom'
-          enableOverlay={ false }
-          displayLoaderManually
-        />
-      )
-      : categories.map((category) => <CategoryWrap { ...category } key={ category.id } />)
+  if (isLoading) {
+    return (
+      <Loader
+        className='loader-custom'
+        enableOverlay={ false }
+        displayLoaderManually
+      />
     )
+  }
+  if (isCategories) {
+    return (categories.map((category) => <CategoryWrap { ...category } key={ category.id } />))
   }
   return (
     <div className='no-category-message'>
-      Forum Group not available
+      Forum Group not available...
     </div>
   )
 }

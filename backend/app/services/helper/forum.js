@@ -390,7 +390,8 @@ export async function getTopicUserActivity ({ topic }) {
   const topicComments = await getAllUserActivities({
     activity_type: 'comment',
     record_type: 'topic',
-    record_id: topic.topic_id
+    record_id: topic.topic_id,
+    is_deleted: false
   })
   let dateLastReplied = ''
   if (topicComments.length !== 0) {
