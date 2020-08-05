@@ -18,6 +18,7 @@ import crudCategory from './forum/category/crud'
 import crudChannel from './forum/channel/crud'
 import crudTopic from './forum/topic/crud'
 import crudComment from './forum/comment/crud'
+import crudJob from './people/crud'
 
 export default function* rootSaga() {
   yield all([
@@ -39,5 +40,6 @@ export default function* rootSaga() {
     crudChannel(),
     crudTopic(),
     crudComment(),
+    crudJob(),
   ])
 }
