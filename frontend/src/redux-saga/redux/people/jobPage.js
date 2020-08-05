@@ -13,6 +13,7 @@ const {
     jobCategoriesFetchStart,
     jobCategoriesFetchSuccessful,
     jobCategoriesFetchFailure,
+    updateJobsData,
   },
   reducer,
 } = createSlice({
@@ -34,6 +35,10 @@ const {
       error: true,
       isLoading: false,
     }),
+    updateJobsData: (state, action) => ({
+      ...state,
+      jobCategories: action.payload.data.jobCategories,
+    }),
   },
 })
 
@@ -42,4 +47,5 @@ export {
   jobCategoriesFetchStart,
   jobCategoriesFetchSuccessful,
   jobCategoriesFetchFailure,
+  updateJobsData,
 }
