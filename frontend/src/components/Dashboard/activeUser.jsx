@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faUserCircle,
 } from '@fortawesome/free-solid-svg-icons'
+import Skeleton from '@material-ui/lab/Skeleton'
 
 const ActiveUser = () => {
   const { isLoading, activeUsers } = useSelector((state) => state.activeUser)
@@ -40,6 +41,11 @@ const ActiveUser = () => {
             </div>
           </div>
         ))
+      }
+
+      {
+        isLoading
+        && <Skeleton variant='rect' height={ 150 } />
       }
     </div>
   )

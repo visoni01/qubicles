@@ -1,8 +1,20 @@
 import config from '../config/app'
 import * as express from './express'
 import logger from '../app/common/logger'
+import db from '../app/db/models'
 
-// import '../app/workers'
+const closeAllProcesses = (server) => {
+  console.log('\x1b[32m%s\x1b[0m', '[Close server] Graceful shutdown server...')
+  server.close(() => {
+    console.log('\x1b[32m%s\x1b[0m', 'Express server closed.')
+    db.sequelize.close().then(() => {
+      console.log('\x1b[32m%s\x1b[0m', 'Database connection closed.')
+      process.exit(0)
+    }).catch((err) => {
+      logger.error('Error occured while closing the database connection', err)
+    })
+  })
+}
 
 const start = async () => {
   const port = config.get('port')
@@ -16,7 +28,10 @@ const start = async () => {
   }
   const app = express.init()
 
-  app.listen(port, appStartMessage)
+  const server = app.listen(port, appStartMessage)
+
+  process.on('SIGTERM', () => closeAllProcesses(server))
+  process.on('SIGINT', () => closeAllProcesses(server))
 }
 
 export default start

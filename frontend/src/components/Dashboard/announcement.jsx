@@ -1,5 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import Grid from '@material-ui/core/Grid'
+import Skeleton from '@material-ui/lab/Skeleton'
 import { formatDate } from '../../utils/common'
 
 const Announcement = () => {
@@ -24,6 +26,11 @@ const Announcement = () => {
             </div>
           </div>
         ))
+      }
+
+      {
+        isLoading
+        && <Skeleton variant='rect' height={ 150 } />
       }
     </div>
   )
