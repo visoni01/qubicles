@@ -27,11 +27,11 @@ const AddTopicButton = ({ channelId }) => {
       <AddNewTopic open={ openNewTopicModal } handleClose={ handleNewTopicModal } onSubmit={ addNewGroup } />
       <Button
         variant='contained'
-        className='new-job-button'
+        className='new-topic-button'
         startIcon={ <FontAwesomeIcon icon={ faPlus } className='people-header-icons' /> }
         onClick={ handleNewTopicModal }
       >
-        New Group
+        New Topic
       </Button>
     </>
   )

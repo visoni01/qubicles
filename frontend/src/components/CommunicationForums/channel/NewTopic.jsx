@@ -33,7 +33,7 @@ const AddNewTopicModal = ({ open, handleClose, onSubmit }) => {
 
   return (
     <Dialog open={ open } onClose={ handleClose }>
-      <DialogTitle className='text-align-center'>New Channel</DialogTitle>
+      <DialogTitle className='text-align-center'>New Topic</DialogTitle>
       <DialogContent>
         <TextField
           margin='dense'
