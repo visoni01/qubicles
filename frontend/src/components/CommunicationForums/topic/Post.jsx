@@ -16,7 +16,7 @@ const Post = ({ postMeta, postBody, postId }) => {
   const dispatch = useDispatch()
   const deleteTopicCommentHandler = useCallback(() => {
     dispatch(deleteTopicComment({ postId }))
-  }, [ deleteTopicComment ])
+  }, [ dispatch, postId ])
 
   return (
     <div className='post'>

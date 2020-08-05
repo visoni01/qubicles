@@ -1,12 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getDataForReducer } from '../../../utils/common'
+import { getUpdatedTopicDetails } from '../helper'
 
 const initialState = {
   isLoading: null,
-  newReplyLoading: false,
-  newReplyError: null,
-  newReplySuccess: null,
-  newReply: {},
   error: null,
   success: false,
   topicDetails: {},
@@ -17,10 +14,7 @@ const {
     topicDataFetchingStart,
     topicDataFetchingSuccessful,
     topicDataFetchingFailure,
-    topicActivityDataPostingStart,
-    topicReplyActivitySuccessful,
-    topicReplyActivityFailure,
-    updateTopicReplies,
+    updateTopicDetails,
   },
   reducer,
 } = createSlice({
@@ -42,28 +36,9 @@ const {
       error: true,
       isLoading: false,
     }),
-    topicActivityDataPostingStart: (state, action) => ({
+    updateTopicDetails: (state, action) => ({
       ...state,
-      newReplyLoading: true,
-    }),
-    topicReplyActivitySuccessful: (state, action) => {
-      const newReply = getDataForReducer(action, initialState.newReply, 'newReply')
-      return ({
-        ...state,
-        newReplySuccess: true,
-        newReplyLoading: false,
-        newReply,
-        topicDetails: { ...state.topicDetails, posts: [ newReply, ...state.topicDetails.posts ] },
-      })
-    },
-    updateTopicReplies: (state, action) => ({
-      ...state,
-      topicDetails: action.payload.data.topicDetails,
-    }),
-    topicReplyActivityFailure: (state, action) => ({
-      ...state,
-      newReplyError: true,
-      isLoading: false,
+      topicDetails: getUpdatedTopicDetails({ state, payload: action.payload }),
     }),
   },
 })
@@ -73,8 +48,5 @@ export {
   topicDataFetchingStart,
   topicDataFetchingSuccessful,
   topicDataFetchingFailure,
-  topicActivityDataPostingStart,
-  topicReplyActivitySuccessful,
-  topicReplyActivityFailure,
-  updateTopicReplies,
+  updateTopicDetails,
 }

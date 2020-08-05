@@ -1,12 +1,12 @@
 import { takeLatest, put, select } from 'redux-saga/effects'
 import { updateChannelData } from '../../../redux/actions'
-import { DELETE_TOPIC } from '../../../redux/constants'
+import { DELETE_TOPIC, LIKE_TOPIC, UNLIKE_TOPIC } from '../../../redux/constants'
 import { getSubstrForNotification } from '../../../../utils/common'
 import { showErrorMessage, showSuccessMessage } from '../../../redux/snackbar'
 import Forum from '../../../service/forum'
 
 function* topicCrudWatcher() {
-  yield takeLatest([ DELETE_TOPIC ], topicCrudWorker)
+  yield takeLatest([ DELETE_TOPIC, LIKE_TOPIC, UNLIKE_TOPIC ], topicCrudWorker)
 }
 
 function* topicCrudWorker(action) {
@@ -29,10 +29,22 @@ function* topicCrudWorker(action) {
         msg = `Topic '${ getSubstrForNotification(topicTitle) }' has been successfully deleted!`
         break
       }
+      case LIKE_TOPIC: {
+        const { payload } = action.payload
+        yield Forum.likeTopic({ payload })
+        break
+      }
+      case UNLIKE_TOPIC: {
+        const { payload } = action.payload
+        yield Forum.unlikeTopic({ payload })
+        break
+      }
       default:
         break
     }
-    yield put(showSuccessMessage({ msg }))
+    if (msg) {
+      yield put(showSuccessMessage({ msg }))
+    }
   } catch (e) {
     yield put(showErrorMessage({ msg: e }))
   }

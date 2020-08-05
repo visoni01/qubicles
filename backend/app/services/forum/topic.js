@@ -5,7 +5,8 @@ import {
   getTopicLikesCount,
   getErrorMessageForService,
   updateTopicViews,
-  getTopicDetails
+  getTopicDetails,
+  isTopicLiked
 } from '../helper'
 import { ERRORS, MESSAGES } from '../../utils/errors'
 import logger from '../../common/logger'
@@ -25,7 +26,7 @@ export default class ForumTopicService extends ServiceBase {
   }
 
   async run () {
-    const { topic_id } = this.filteredArgs
+    const { user_id, topic_id } = this.filteredArgs
     const topicData = await getOneTopic({ topic_id })
     if (!topicData) {
       this.addError(ERRORS.NOT_FOUND, MESSAGES.TOPIC_NOT_EXIST)
@@ -34,11 +35,12 @@ export default class ForumTopicService extends ServiceBase {
     const promises = [
       () => updateTopicViews({ topic_id, currentViews: topicData.views }),
       () => getTopicComments({ topic_id }),
-      () => getTopicLikesCount({ topic_id })
+      () => getTopicLikesCount({ topic_id }),
+      () => isTopicLiked({ user_id, topic_id })
     ]
     try {
-      const [totalViews, topicComments, totalLikes] = await Promise.all(promises.map(promise => promise()))
-      const topicDetails = await getTopicDetails({ topicData, topicComments, totalLikes, totalViews })
+      const [totalViews, topicComments, totalLikes, topicLiked] = await Promise.all(promises.map(promise => promise()))
+      const topicDetails = await getTopicDetails({ topicData, topicComments, totalLikes, totalViews, topicLiked })
       return topicDetails
     } catch (err) {
       logger.error(getErrorMessageForService('ForumTopicService'), err)

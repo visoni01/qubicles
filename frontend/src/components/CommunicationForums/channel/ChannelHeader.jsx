@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faHome, faArrowLeft, faPlus, faUsers, faCommentDots,
 } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom'
+import { GROUP } from '../../../routes/routesPath'
 
 const ChannelHeader = ({
   channelTitle, channelDescription, totalMembers, totalReplies,
@@ -34,10 +36,10 @@ const ChannelHeader = ({
         </div>
       </div>
       <div className='actions channel-actions'>
-        <div className='forum-back home-button'>
+        <Link to={ `${ GROUP }` } className='forum-back home-button'>
           <i><FontAwesomeIcon icon={ faHome } /></i>
           <i><FontAwesomeIcon icon={ faArrowLeft } /></i>
-        </div>
+        </Link>
         {/* Forum main dropdown */}
         <div className='button btn-dash secondary-btn btn-dash raised ripple has-icon' data-ripple-color>
           <i><FontAwesomeIcon icon={ faPlus } /></i>

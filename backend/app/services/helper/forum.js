@@ -16,6 +16,7 @@ import SendForumInvitationMail from '../email/sendForumInvitationMail'
 import { createNewEntity } from './common'
 import { getAllUserActivities } from '../user/activity/helper'
 import { getUserDetails } from './user'
+import _ from 'lodash'
 
 export async function addCategory ({ category_title, owner_id, is_public }) {
   const newCategory = await createNewEntity({
@@ -88,18 +89,22 @@ export async function addForumUser ({ user_id, forum_object_type, forum_object_i
   return newUser
 }
 
-export async function getCategories ({ user_id }) {
+export async function getCategories ({ user_id, search_keyword }) {
   const userCategories = await XForumUser.findAll({
     where: { forum_object_type: 'category', user_id },
     raw: true,
     attributes: ['forum_object_id']
   })
   const categoryIds = userCategories.map(category => category.forum_object_id)
+  let query = {
+    [Op.or]: [{ is_public: true }, { owner_id: user_id }, { category_id: categoryIds }],
+    [Op.not]: [{ is_deleted: true }]
+  }
+  if (!_.isEmpty(search_keyword)) {
+    query = { ...query, category_title: { [Op.startsWith]: search_keyword } }
+  }
   const categories = await XForumCategory.findAll({
-    where: {
-      [Op.or]: [{ is_public: true }, { owner_id: user_id }, { category_id: categoryIds }],
-      [Op.not]: [{ is_deleted: true }]
-    },
+    where: query,
     raw: true
   })
   return categories
@@ -385,7 +390,8 @@ export async function getTopicUserActivity ({ topic }) {
   const topicComments = await getAllUserActivities({
     activity_type: 'comment',
     record_type: 'topic',
-    record_id: topic.topic_id
+    record_id: topic.topic_id,
+    is_deleted: false
   })
   let dateLastReplied = ''
   if (topicComments.length !== 0) {
@@ -397,12 +403,15 @@ export async function getTopicUserActivity ({ topic }) {
   }
 }
 
-export async function getTopicDetails ({ topicData, topicComments, totalLikes, totalViews }) {
+export async function getTopicDetails ({ topicData, topicComments, totalLikes, totalViews, topicLiked }) {
   const topicOwner = await getUserSubProfile({ user_id: topicData.owner_id })
+  const channel = await getOneChannel({ channel_id: topicData.channel_id })
   const posts = await Promise.all(topicComments.map(comment => getCommentDetails({ comment })))
   return {
     topicId: topicData.topic_id,
     topicTitle: topicData.topic_title,
+    channelId: channel.channel_id,
+    channelTitle: channel.channel_title,
     createdAt: {
       date: topicData.createdAt,
       ownerDetails: topicOwner
@@ -410,6 +419,7 @@ export async function getTopicDetails ({ topicData, topicComments, totalLikes, t
     totalReplies: topicComments.length,
     totalViews,
     totalLikes,
+    topicLiked,
     moderators: [],
     posts
   }
@@ -485,7 +495,7 @@ export async function commentActivity ({ user_id, data }) {
   }
 }
 
-export async function likeActivity ({ user_id, data }) {
+export async function likeTopicActivity ({ user_id, data }) {
   return likeTopic({
     topic_id: data.topicId,
     user_id
@@ -525,4 +535,35 @@ export async function deleteTopicComment ({ post_id }) {
       }
     })
   return { post_id }
+}
+
+export async function unlikeTopic ({ user_id, topic_id }) {
+  const topicUnlikeActivity = await XUserActivity.destroy({
+    where: {
+      user_id,
+      record_type: 'topic',
+      record_id: topic_id,
+      activity_type: 'like'
+    }
+  })
+  return topicUnlikeActivity
+}
+
+export async function unlikeTopicActivity ({ user_id, data }) {
+  return unlikeTopic({
+    user_id,
+    topic_id: data.topicId
+  })
+}
+
+export async function isTopicLiked ({ user_id, topic_id }) {
+  const isTopicLiked = await XUserActivity.findOne({
+    where: {
+      user_id,
+      record_type: 'topic',
+      record_id: topic_id,
+      activity_type: 'like'
+    }
+  })
+  return !!isTopicLiked
 }

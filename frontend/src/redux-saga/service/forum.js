@@ -1,8 +1,14 @@
 import apiClient from '../../utils/apiClient'
 
 class Forum {
-  static async fetchCategories() {
-    const response = await apiClient.getRequest('/forum')
+  static async fetchCategories({ searchKeyword }) {
+    const url = '/forum'
+    let response
+    if (searchKeyword) {
+      response = await apiClient.getRequest(url, null, { search_keyword: searchKeyword })
+    } else {
+      response = await apiClient.getRequest(url)
+    }
     return response
   }
 
@@ -16,8 +22,18 @@ class Forum {
     return response
   }
 
-  static async postTopicActivity({ activityType, payload }) {
-    const response = await apiClient.postRequest(`/forum/topic/activity/${ activityType }`, payload)
+  static async addTopicComment({ payload }) {
+    const response = await apiClient.postRequest('/forum/topic/activity/reply', payload)
+    return response
+  }
+
+  static async likeTopic({ payload }) {
+    const response = await apiClient.postRequest('/forum/topic/activity/like', payload)
+    return response
+  }
+
+  static async unlikeTopic({ payload }) {
+    const response = await apiClient.postRequest('/forum/topic/activity/unlike', payload)
     return response
   }
 

@@ -1,12 +1,11 @@
 import { takeLatest, put, select } from 'redux-saga/effects'
-import { updateTopicReplies } from '../../../redux/actions'
-import { DELETE_TOPIC_COMMENT } from '../../../redux/constants'
-import { getSubstrForNotification } from '../../../../utils/common'
+import { updateTopicDetails } from '../../../redux/actions'
+import { DELETE_TOPIC_COMMENT, ADD_TOPIC_COMMENT } from '../../../redux/constants'
 import { showErrorMessage, showSuccessMessage } from '../../../redux/snackbar'
 import Forum from '../../../service/forum'
 
 function* topicCommentCrudWatcher() {
-  yield takeLatest([ DELETE_TOPIC_COMMENT ], topicCommentCrudWorker)
+  yield takeLatest([ DELETE_TOPIC_COMMENT, ADD_TOPIC_COMMENT ], topicCommentCrudWorker)
 }
 
 function* topicCommentCrudWorker(action) {
@@ -21,12 +20,16 @@ function* topicCommentCrudWorker(action) {
         let { posts } = data.topicDetails
         posts = posts.filter((post) => post.postId !== postId)
 
-        yield put(updateTopicReplies({
-          data: {
-            topicDetails: { ...data.topicDetails, posts },
-          },
-        }))
+        yield put(updateTopicDetails({ type: DELETE_TOPIC_COMMENT, posts }))
         msg = 'Comment has been successfully deleted!'
+        break
+      }
+      case ADD_TOPIC_COMMENT: {
+        const { payload } = action.payload
+        const { data } = yield Forum.addTopicComment({ payload })
+
+        yield put(updateTopicDetails({ type: ADD_TOPIC_COMMENT, data }))
+        msg = 'Comment has been successfully added!'
         break
       }
       default:
