@@ -56,7 +56,7 @@ const TopicHeader = ({
       </div>
       {/* Filter input */}
       <div className='actions'>
-        <Link to={ `${ GROUP }` } className='forum-back home-button'>
+        <Link to={ `${ GROUP }` } className='forum-back home-button topic-home-icon'>
           <i><FontAwesomeIcon icon={ faHome } /></i>
           <i><FontAwesomeIcon icon={ faArrowLeft } /></i>
         </Link>
