@@ -47,11 +47,6 @@ const TopicListItem = ({
           <span>Replies</span>
           <span>{totalReplies}</span>
         </div>
-        <div className='topic-remove'>
-          <i className='material-icons'>
-            <FontAwesomeIcon icon={ faTrash } onClick={ deleteTopicHandler } />
-          </i>
-        </div>
         {dateLastReplied !== '' && (
         <div className='last-reply'>
           <img src='https://via.placeholder.com/150x150' alt='' />
@@ -61,6 +56,11 @@ const TopicListItem = ({
           </div>
         </div>
         )}
+        <div className='topic-remove'>
+          <i className='material-icons'>
+            <FontAwesomeIcon icon={ faTrash } onClick={ deleteTopicHandler } />
+          </i>
+        </div>
       </div>
     </div>
   )

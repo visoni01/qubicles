@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
 import Contributors from '../Contributors'
 import TopicListItem from './TopicListItem'
 import { TopicItemShape, ownerDetails } from '../forumValidators'
@@ -12,7 +13,8 @@ const TopicWrap = ({ channelInfo, channelTopics }) => (
         <h3>
           {`${ channelInfo.topicsCount } topics`}
         </h3>
-        <Contributors users={ channelInfo.moderators } message='are moderating this channel' />
+        {!_.isEmpty(channelInfo.moderators)
+        && <Contributors users={ channelInfo.moderators } message='are moderating this channel' />}
       </div>
       <div className='topic-list'>
         {channelTopics.map((topic) => <TopicListItem { ...topic } key={ `${ topic.topicId }` } />)}

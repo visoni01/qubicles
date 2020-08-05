@@ -8,3 +8,13 @@
     opacity: 1;
   }
 }
+
+.style-button {
+  &:hover {
+    background-color: pink;
+  }
+}
+
+.channel-header {
+  flex: 3
+}

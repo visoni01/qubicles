@@ -404,10 +404,13 @@ export async function getTopicUserActivity ({ topic }) {
 
 export async function getTopicDetails ({ topicData, topicComments, totalLikes, totalViews, topicLiked }) {
   const topicOwner = await getUserSubProfile({ user_id: topicData.owner_id })
+  const channel = await getOneChannel({ channel_id: topicData.channel_id })
   const posts = await Promise.all(topicComments.map(comment => getCommentDetails({ comment })))
   return {
     topicId: topicData.topic_id,
     topicTitle: topicData.topic_title,
+    channelId: channel.channel_id,
+    channelTitle: channel.channel_title,
     createdAt: {
       date: topicData.createdAt,
       ownerDetails: topicOwner
