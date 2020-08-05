@@ -9,6 +9,6 @@ jobRouter.route('/category')
   .get(isAuthenticated, jobController.getJobsByCategory)
 
 jobRouter.route('/category/jobs/:job_id')
-  .delete(jobController.deleteJob)
+  .delete(isAuthenticated, jobController.deleteJob)
 
 export { jobRouter }

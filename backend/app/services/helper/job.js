@@ -202,7 +202,6 @@ export async function getJobsDetailsForClient ({ user_id, client_id }) {
       jobs
     })
   }
-  console.log('jobs Data========>', jobDetails)
   return jobDetails
 }
 
@@ -212,6 +211,8 @@ export async function getFilteredJobs ({ jobsByCategory }) {
     const noOfApplications = await getJobApplicationCount({ job_id: job.job_id })
     filteredJobs.push({
       jobId: job.job_id,
+      ownerId: job.user_id,
+      categoryId: job.category_id,
       notifications: 23,
       title: job.title,
       description: job.description,
