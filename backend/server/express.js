@@ -15,6 +15,7 @@ import initPassport from '../app/middlewares/passport'
 import logger from '../app/common/logger'
 import path from 'path'
 import config from '../config/app'
+import Responder from './expressResponder'
 
 // Initialize express app
 const app = express()
@@ -64,6 +65,16 @@ function initMiddleware () {
   })
 }
 
+function errorHandlerMiddleware () {
+  app.use((err, req, res, next) => {
+    if (res.headersSent) {
+      return next(err)
+    }
+
+    Responder.failed(res)
+  })
+}
+
 function initDatabase () {
   db
     .sequelize
@@ -82,6 +93,9 @@ export function init () {
 
   // Initialize modules server routes
   initRoutes(app)
+
+  // Global error handler
+  errorHandlerMiddleware()
 
   // Initialize db
   initDatabase()
