@@ -6,6 +6,7 @@ import {
   XQodJobSkill,
   XQodSkill
 } from '../../db/models'
+import { Op } from 'sequelize'
 import { createNewEntity, getAll, aggregate } from '../helper'
 
 export async function getRecentJobsByClient ({ client_id, limit = 5 }) {
@@ -13,7 +14,8 @@ export async function getRecentJobsByClient ({ client_id, limit = 5 }) {
   const jobs = await XQodJob.findAll({
     where: {
       is_active: true,
-      client_id
+      client_id,
+      [Op.not]: [{ is_deleted: true }]
     },
     raw: true,
     attributes: ['job_id', 'title'],
@@ -47,14 +49,15 @@ export async function addJob (data) {
 }
 
 export async function getAllJobsSubDetails () {
-  return getAll({ model: XQodJob })
+  return getAll({ model: XQodJob, data: { [Op.not]: [{ is_deleted: true }] } })
 }
 
 export async function getOpenJobPostings () {
   const openJobPostings = await XQodJob.findAll({
     where: {
       is_active: true,
-      is_public: true
+      is_public: true,
+      [Op.not]: [{ is_deleted: true }]
     },
     raw: true
   })
@@ -125,7 +128,7 @@ export async function handleApplicantResponse ({ application_id, status }) {
 }
 
 export async function getJobById ({ job_id }) {
-  const jobDetails = await XQodJob.findOne({ where: { job_id }, raw: true })
+  const jobDetails = await XQodJob.findOne({ where: { job_id, [Op.not]: [{ is_deleted: true }] }, raw: true })
   return jobDetails
 }
 
@@ -199,6 +202,7 @@ export async function getJobsDetailsForClient ({ user_id, client_id }) {
       jobs
     })
   }
+  console.log('jobs Data========>', jobDetails)
   return jobDetails
 }
 
@@ -219,4 +223,10 @@ export async function getFilteredJobs ({ jobsByCategory }) {
 
 export function getJobsDetailsForUser ({ user_id, client_id }) {
 
+}
+
+export async function deleteJob ({ job_id }) {
+  const jobs = await XQodJob.update({ is_deleted: true },
+    { where: { job_id } })
+  return jobs
 }

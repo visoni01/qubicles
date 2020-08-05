@@ -20,6 +20,7 @@ export const MESSAGES = {
   TOPIC_NOT_EXIST: 'Forum topic does not exist',
   CHANNEL_NOT_EXIST: 'Forum channel does not exist',
   CATEGORY_NOT_EXIST: 'Category does not exist',
+  JOB_NOT_EXIST: 'Job does not exist',
   TOPIC_COMMENT_NOT_EXIST: 'Forum topic comment does not exist',
   COMMENT_DELETED_SUCCESSFULLY: 'Topic comment successfully deleted',
   UNAUTHORIZED_MSG: 'You don\'t have permission to perform this action!'
