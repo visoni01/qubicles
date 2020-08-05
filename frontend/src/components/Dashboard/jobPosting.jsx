@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSuitcase } from '@fortawesome/free-solid-svg-icons'
+import Skeleton from '@material-ui/lab/Skeleton'
 
 const JobPosting = () => {
   const { isLoading, jobPostings } = useSelector((state) => state.jobPosting)
@@ -30,6 +31,11 @@ const JobPosting = () => {
             </div>
           </div>
         ))
+      }
+
+      {
+        isLoading
+        && <Skeleton variant='rect' height={ 150 } />
       }
     </div>
   )

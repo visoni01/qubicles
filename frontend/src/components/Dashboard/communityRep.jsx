@@ -3,6 +3,8 @@ import StarRatings from 'react-star-ratings'
 import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faThumbsUp } from '@fortawesome/free-solid-svg-icons'
+import Skeleton from '@material-ui/lab/Skeleton'
+import Grid from '@material-ui/core/Grid'
 import { isEmptyObject } from '../../utils/common'
 
 const CommunityRep = () => {
@@ -37,6 +39,29 @@ const CommunityRep = () => {
           </div>
         </div>
       )}
+
+      {
+        isLoading
+        && (
+        <Grid
+          container
+          direction='row'
+          justify='center'
+          alignItems='center'
+          spacing={ 1 }
+        >
+          <Grid item xs={ 12 }>
+            <Skeleton animation='wave' />
+          </Grid>
+          <Grid item xs={ 12 }>
+            <Skeleton animation='wave' />
+          </Grid>
+          <Grid item xs={ 12 }>
+            <Skeleton animation='wave' />
+          </Grid>
+        </Grid>
+        )
+      }
     </div>
   )
 }
