@@ -3,14 +3,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { debounce } from 'lodash'
 import { useDispatch } from 'react-redux'
+import PropTypes from 'prop-types'
 import { categoryDataFetchingStart } from '../../../redux-saga/redux/actions'
 
-const CategorySearchBar = () => {
+const CategorySearchBar = ({ currentPage, noOfGroupsPerPage, setCurrentPage }) => {
   const [ searchField, setSearchField ] = useState('')
   const dispatch = useDispatch()
 
   const callSearchApi = useCallback(debounce((nextValue) => {
-    dispatch(categoryDataFetchingStart({ searchKeyword: nextValue }))
+    setCurrentPage(1)
+    dispatch(categoryDataFetchingStart({
+      searchKeyword: nextValue,
+      limit: noOfGroupsPerPage,
+      offset: 0,
+    }))
   }, 500), [ dispatch ])
 
   const handleSearch = useCallback((e) => {
@@ -33,6 +39,12 @@ const CategorySearchBar = () => {
       </div>
     </div>
   )
+}
+
+CategorySearchBar.propTypes = {
+  currentPage: PropTypes.number.isRequired,
+  noOfGroupsPerPage: PropTypes.number.isRequired,
+  setCurrentPage: PropTypes.func.isRequired,
 }
 
 export default CategorySearchBar

@@ -1,13 +1,13 @@
 import apiClient from '../../utils/apiClient'
 
 class Forum {
-  static async fetchCategories({ searchKeyword }) {
+  static async fetchCategories({ searchKeyword, limit, offset }) {
     const url = '/forum'
     let response
     if (searchKeyword) {
-      response = await apiClient.getRequest(url, null, { search_keyword: searchKeyword })
+      response = await apiClient.getRequest(url, null, { search_keyword: searchKeyword, limit, offset })
     } else {
-      response = await apiClient.getRequest(url)
+      response = await apiClient.getRequest(url, null, { limit, offset })
     }
     return response
   }

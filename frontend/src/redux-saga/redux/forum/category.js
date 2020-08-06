@@ -30,6 +30,7 @@ const {
       success: true,
       isLoading: false,
       categories: getDataForReducer(action, initialState.categories, 'categories'),
+      totalCategories: action.payload.count,
     }),
     categoryDataFetchingFailure: (state, action) => ({
       ...initialState,
