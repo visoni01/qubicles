@@ -66,6 +66,7 @@ const ForumGroup = () => {
             shape='rounded'
             page={ currentPage }
             onChange={ changeCurrentPage }
+            classes={ { root: 'group-pagination' } }
           />
           )}
         </div>
