@@ -8,6 +8,7 @@ import {
 } from '../../db/models'
 import { Op } from 'sequelize'
 import { createNewEntity, getAll, aggregate } from '../helper'
+import _ from 'lodash'
 
 export async function getRecentJobsByClient ({ client_id, limit = 5 }) {
   const jobDetails = []
@@ -48,8 +49,16 @@ export async function addJob (data) {
   return newJob
 }
 
-export async function getAllJobsSubDetails () {
-  return getAll({ model: XQodJob, data: { [Op.not]: [{ is_deleted: true }] } })
+export async function getAllJobsSubDetails ({ search_keyword }) {
+  let query = { [Op.not]: [{ is_deleted: true }] }
+  if (!_.isEmpty(search_keyword)) {
+    query = { ...query, title: { [Op.startsWith]: search_keyword } }
+  }
+  const allJobsSubDetails = await XQodJob.findAll({
+    where: query,
+    raw: true
+  })
+  return allJobsSubDetails
 }
 
 export async function getOpenJobPostings () {
@@ -185,9 +194,9 @@ export async function getXQodApplications (queryObj) {
   return XQodApplication.findAll(query)
 }
 
-export async function getJobsDetailsForClient ({ user_id, client_id }) {
+export async function getJobsDetailsForClient ({ user_id, client_id, search_keyword }) {
   const promises = [
-    () => getAllJobsSubDetails(),
+    () => getAllJobsSubDetails({ search_keyword }),
     () => getAllJobCategories()
   ]
   const [allJobs, jobCategories] = await Promise.all(promises.map(promise => promise()))
@@ -202,6 +211,7 @@ export async function getJobsDetailsForClient ({ user_id, client_id }) {
       jobs
     })
   }
+  console.log('jobDetails in helper======>', jobDetails)
   return jobDetails
 }
 

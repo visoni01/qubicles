@@ -5,6 +5,9 @@ import { getClientIdByUserId } from '../helper/user'
 const constraints = {
   user_id: {
     presence: { allowEmpty: false }
+  },
+  search_keyword: {
+    presence: false
   }
 }
 
@@ -14,11 +17,11 @@ export default class JobsByCategoryService extends ServiceBase {
   }
 
   async run () {
-    const { user_id } = this.filteredArgs
+    const { user_id, search_keyword } = this.filteredArgs
     const client = await getClientIdByUserId({ user_id })
     if (client && client.client_id) {
       // User is an Employer
-      const jobs = await getJobsDetailsForClient({ user_id, client_id: client.client_id })
+      const jobs = await getJobsDetailsForClient({ user_id, client_id: client.client_id, search_keyword })
       return jobs
     } else {
       // User is not an Employer
