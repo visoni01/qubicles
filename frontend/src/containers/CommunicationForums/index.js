@@ -55,12 +55,12 @@ const ForumGroup = () => {
               <CreateGroup />
             </div>
             {/* Forum Category Search */}
-            <CategorySearchBar />
+            <CategorySearchBar currentPage={ currentPage } noOfGroupsPerPage={ noOfGroupsPerPage } />
 
             {/* ForumGroup Category */}
             <CategoryList currentPage={ currentPage } noOfGroupsPerPage={ noOfGroupsPerPage } />
           </div>
-          { noOfPages && (
+          { Boolean(noOfPages) && (
           <Pagination
             count={ noOfPages }
             shape='rounded'
