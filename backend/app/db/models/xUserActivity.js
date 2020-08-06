@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ENUM,
       values: ['like', 'subscribe', 'connection', 'rating', 'status', 'comment']
     },
-    activity_value: DataTypes.STRING,
+    activity_value: DataTypes.TEXT,
     activity_custom: DataTypes.STRING,
     activity_permission: {
       type: DataTypes.ENUM,
