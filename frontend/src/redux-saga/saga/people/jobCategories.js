@@ -1,4 +1,5 @@
 import { takeEvery, put } from 'redux-saga/effects'
+import _ from 'lodash'
 import {
   jobCategoriesFetchStart,
   jobCategoriesFetchSuccessful,
@@ -13,7 +14,11 @@ function* categoryDataFetchingWatcherStart() {
 function* categoryDataFetchingWorker(action) {
   try {
     const { searchKeyword } = action.payload
-    const { data } = yield People.fetchJobCategories({ searchKeyword })
+    let { data } = yield People.fetchJobCategories({ searchKeyword })
+    data = data.sort((category1, category2) => category2.jobs.length - category1.jobs.length)
+    if (!_.isEmpty(searchKeyword)) {
+      data = data.filter((category) => !_.isEmpty(category.jobs))
+    }
     yield put(jobCategoriesFetchSuccessful({ jobCategories: data }))
   } catch (e) {
     yield put(showErrorMessage({ msg: e }))

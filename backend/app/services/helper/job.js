@@ -211,7 +211,6 @@ export async function getJobsDetailsForClient ({ user_id, client_id, search_keyw
       jobs
     })
   }
-  console.log('jobDetails in helper======>', jobDetails)
   return jobDetails
 }
 
