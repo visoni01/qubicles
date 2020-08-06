@@ -377,7 +377,7 @@ export async function getTopicsSubDetails ({ topics }) {
       topicId: topic.topic_id,
       topicTitle: topic.topic_title,
       topicOwner: userSubProfile,
-      tags: topic.tags.split('&&'),
+      tags: topic.tags && topic.tags.split('&&'),
       dateCreatedOn: topic.createdAt,
       totalReplies,
       dateLastReplied

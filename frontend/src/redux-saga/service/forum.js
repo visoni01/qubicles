@@ -61,6 +61,11 @@ class Forum {
     const response = await apiClient.deleteRequest(`/forum/topics/posts/${ postId }`)
     return response
   }
+
+  static async addNewTopic(payload) {
+    const response = await apiClient.postRequest('/forum/topics', payload)
+    return response
+  }
 }
 
 export default Forum

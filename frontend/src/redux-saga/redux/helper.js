@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 
 import {
-  ADD_CATEGORY, ADD_CHANNEL, DELETE_CATEGORY, ADD_TOPIC_COMMENT, DELETE_TOPIC_COMMENT,
+  ADD_CATEGORY, ADD_CHANNEL, DELETE_CATEGORY, ADD_TOPIC_COMMENT, DELETE_TOPIC_COMMENT, ADD_TOPIC, DELETE_TOPIC,
 } from './constants'
 
 export const getUpdatedCategories = ({ state, payload }) => {
@@ -48,4 +48,27 @@ export const getUpdatedTopicDetails = ({ state, payload }) => {
       break
   }
   return topicDetails
+}
+
+export const getUpdatedChannel = ({ state, payload }) => {
+  let channelDetails
+  switch (payload.type) {
+    case ADD_TOPIC: {
+      channelDetails = {
+        ...state.channelDetails,
+        channelTopics: [ ...state.channelDetails.channelTopics, payload.newTopic ],
+      }
+      break
+    }
+    case DELETE_TOPIC: {
+      channelDetails = {
+        ...state.channelDetails,
+        channelTopics: state.channelDetails.channelTopics.filter((topic) => topic.topicId !== payload.topicId),
+      }
+      break
+    }
+    default:
+      break
+  }
+  return channelDetails
 }

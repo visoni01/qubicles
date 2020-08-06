@@ -8,6 +8,7 @@ import ForumDeleteCategoryService from '../services/forum/deleteCategory'
 import ForumAddNewChannelService from '../services/forum/newChannel'
 import ForumDeleteTopicService from '../services/forum/topic/delete'
 import ForumDeleteTopicCommentService from '../services/forum/comment/delete'
+import ForumAddNewTopicService from '../services/forum/topic/create'
 
 export default class ForumController {
   static async getCategories (req, res) {
@@ -88,6 +89,15 @@ export default class ForumController {
       Responder.success(res, deleteForumTopicComment.result)
     } else {
       Responder.failed(res, deleteForumTopicComment.errors)
+    }
+  }
+
+  static async addNewTopic (req, res) {
+    const forumNewTopic = await ForumAddNewTopicService.execute({ ...req.body, ...req.params })
+    if (forumNewTopic.successful) {
+      Responder.success(res, forumNewTopic.result)
+    } else {
+      Responder.failed(res, forumNewTopic.errors)
     }
   }
 }

@@ -35,7 +35,7 @@ const TopicListItem = ({
             <Link to={ `${ USER_ROUTE }${ topicOwner.userId }` }>{topicOwner.userName}</Link>
           </span>
           <div className='tags'>
-            {tags.map((tag) => (
+            {tags && tags.map((tag) => (
               <span className='tag' key={ tag }>{tag}</span>
             ))}
           </div>
