@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {
-  Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle,
+  Button, Dialog, DialogActions, DialogContent, DialogTitle,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import CKEditor from '@ckeditor/ckeditor5-react'

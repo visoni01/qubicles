@@ -7,6 +7,7 @@ import {
 const AddNewChannelModal = ({ open, handleClose, onSubmit }) => {
   const [ channelData, setChannelData ] = useState({
     title: '',
+    description: '',
     isPublic: false,
     isCompanyAnn: false,
   })
@@ -17,7 +18,9 @@ const AddNewChannelModal = ({ open, handleClose, onSubmit }) => {
     setChannelData((channelData) => (
       {
         ...channelData,
-        [ event.target.name ]: event.target.type === 'text' ? event.target.value : event.target.checked,
+        [ event.target.name ]: (event.target.type === 'text' || event.target.type === 'textarea')
+          ? event.target.value
+          : event.target.checked,
       }))
   }, [ setChannelData ])
 
@@ -26,6 +29,7 @@ const AddNewChannelModal = ({ open, handleClose, onSubmit }) => {
       onSubmit(channelData)
       setChannelData({
         title: '',
+        description: '',
         isPublic: false,
         isCompanyAnn: false,
       })
@@ -45,6 +49,18 @@ const AddNewChannelModal = ({ open, handleClose, onSubmit }) => {
           onChange={ handleChange }
           required
           name='title'
+        />
+        <TextField
+          margin='dense'
+          fullWidth
+          multiline='true'
+          rows='5'
+          variant='outlined'
+          label='Description'
+          value={ channelData.description }
+          onChange={ handleChange }
+          required
+          name='description'
         />
         <div>
           <div>

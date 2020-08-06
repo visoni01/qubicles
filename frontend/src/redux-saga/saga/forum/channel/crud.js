@@ -15,10 +15,11 @@ function* categoryCrudWorker(action) {
     switch (action.type) {
       case ADD_CHANNEL: {
         const {
-          title, isPublic, isCompanyAnn, id, userId,
+          title, description, isPublic, isCompanyAnn, id, userId,
         } = action.payload
         const { data } = yield Forum.addNewChannel({
           title,
+          channel_description: description,
           is_public: isPublic,
           is_company_ann: isCompanyAnn,
           category_id: id,
@@ -31,8 +32,8 @@ function* categoryCrudWorker(action) {
             newChannel: {
               title: data.channel_title,
               id: data.channel_id,
+              description,
               noOfTopics: 0,
-              description: '',
             },
             categoryId: id,
           },
