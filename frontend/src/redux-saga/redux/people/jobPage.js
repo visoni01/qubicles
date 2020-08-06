@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getDataForReducer } from '../../../utils/common'
+import { getUpdatedJobsData } from '../helper'
 
 const initialState = {
   isLoading: null,
@@ -37,7 +38,7 @@ const {
     }),
     updateJobsData: (state, action) => ({
       ...state,
-      jobCategories: action.payload.data.jobCategories,
+      jobCategories: getUpdatedJobsData({ state, payload: action.payload }),
     }),
   },
 })

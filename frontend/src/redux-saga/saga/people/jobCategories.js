@@ -2,9 +2,8 @@ import { takeEvery, put } from 'redux-saga/effects'
 import {
   jobCategoriesFetchStart,
   jobCategoriesFetchSuccessful,
-  jobCategoriesFetchFailure,
 } from '../../redux/actions'
-
+import { showErrorMessage } from '../../redux/snackbar'
 import People from '../../service/people'
 
 function* categoryDataFetchingWatcherStart() {
@@ -13,10 +12,11 @@ function* categoryDataFetchingWatcherStart() {
 
 function* categoryDataFetchingWorker(action) {
   try {
-    const jobCategories = yield People.fetchJobCategories()
-    yield put(jobCategoriesFetchSuccessful({ jobCategories }))
+    const { searchKeyword } = action.payload
+    const { data } = yield People.fetchJobCategories({ searchKeyword })
+    yield put(jobCategoriesFetchSuccessful({ jobCategories: data }))
   } catch (e) {
-    yield put(jobCategoriesFetchFailure())
+    yield put(showErrorMessage({ msg: e }))
   }
 }
 

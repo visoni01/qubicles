@@ -7,6 +7,13 @@
   width: 100%;
 }
 
+.job-search {
+  width: 80%;
+  margin: 15px;
+  position: relative;
+  transition: all .3s;
+}
+
 .new-job-button {
   position: absolute !important;
   right: 0;
@@ -14,6 +21,17 @@
   background-color: #00D1B2 !important;
   color: white !important;
 }
+
+.button.secondary-btn {
+  &.new-job-button {
+    position: absolute !important;
+    right: 42px;
+    background-color: #00D1B2 !important;
+    margin-top: 0px !important;
+    margin-right: 18px !important;
+  }
+}
+
 
 .people-header-paper {
   display: inline-flex;
@@ -99,4 +117,8 @@
 .training-video {
   border-radius: 8px;
   margin: auto;
+}
+
+.loader-custom {
+  margin-top: 63px;
 }
