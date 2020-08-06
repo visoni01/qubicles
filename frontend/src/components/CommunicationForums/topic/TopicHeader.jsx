@@ -1,25 +1,25 @@
 import React, { useState, useCallback } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle,
+  Button,
 } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
-  faAngleRight, faHome, faArrowLeft,
+  faAngleRight, faHome, faArrowLeft, faPlus,
 } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from 'react-redux'
 import { addTopicComment } from '../../../redux-saga/redux/actions'
 import { GROUP, GROUP_CHANNEL, GROUP_TOPIC } from '../../../routes/routesPath'
+import NewComment from './NewComment'
 
 const TopicHeader = ({
   topicTitle, topicId, channelId, channelTitle,
 }) => {
   const dispatch = useDispatch()
-  const [ open, setOpen ] = useState(false)
-  const [ comment, setComment ] = useState('')
+  const [ openCommentModal, setOpenCommentModal ] = useState(false)
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = useCallback((comment) => {
     const payload = {
       data: {
         comment,
@@ -27,16 +27,12 @@ const TopicHeader = ({
       },
     }
     dispatch(addTopicComment({ payload }))
-    setOpen(false)
-    setComment('')
-  }, [ comment, dispatch, topicId ])
+    setOpenCommentModal(false)
+  }, [ dispatch ])
 
-  const handleClickOpen = useCallback(() => {
-    setOpen(true)
-  }, [])
-
-  const handleClose = useCallback(() => {
-    setOpen(false)
+  const toggleModalState = useCallback(() => {
+    // eslint-disable-next-line
+    setOpenCommentModal((openCommentModal) => !openCommentModal)
   }, [])
 
   return (
@@ -59,41 +55,22 @@ const TopicHeader = ({
         </div>
       </div>
       {/* Filter input */}
-      <div className='actions channel-actions'>
-        <Link to={ `${ GROUP }` } className='forum-back home-button'>
+      <div className='actions'>
+        <Link to={ `${ GROUP }` } className='forum-back home-button topic-home-icon'>
           <i><FontAwesomeIcon icon={ faHome } /></i>
           <i><FontAwesomeIcon icon={ faArrowLeft } /></i>
         </Link>
         {/* Forum main dropdown */}
         <Button
-          className='button secondary-btn btn-dash raised ripple'
-          onClick={ handleClickOpen }
+          variant='contained'
+          className='new-reply-button'
+          startIcon={ <FontAwesomeIcon icon={ faPlus } className='people-header-icons' /> }
+          onClick={ toggleModalState }
         >
           Reply
         </Button>
-        <Dialog open={ open } onClose={ handleClose } aria-labelledby='form-dialog-title'>
-          <DialogTitle id='form-dialog-title'>{topicTitle}</DialogTitle>
-          <DialogContent>
-            <TextField
-              autoFocus
-              margin='dense'
-              id='comment'
-              label='Comment'
-              fullWidth
-              value={ comment }
-              onChange={ (e) => setComment(e.target.value) }
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button className='button secondary-btn btn-dash raised ripple' onClick={ handleClose } color='primary'>
-              Cancel
-            </Button>
-            <Button className='button secondary-btn btn-dash raised ripple' onClick={ handleSubmit } color='primary'>
-              Submit
-            </Button>
-          </DialogActions>
-        </Dialog>
       </div>
+      <NewComment open={ openCommentModal } handleClose={ toggleModalState } handleSubmit={ handleSubmit } />
     </div>
   )
 }
