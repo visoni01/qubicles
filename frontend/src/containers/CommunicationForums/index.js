@@ -55,7 +55,7 @@ const ForumGroup = () => {
               <CreateGroup />
             </div>
             {/* Forum Category Search */}
-            <CategorySearchBar currentPage={ currentPage } noOfGroupsPerPage={ noOfGroupsPerPage } />
+            <CategorySearchBar currentPage={ currentPage } noOfGroupsPerPage={ noOfGroupsPerPage } setCurrentPage={ setCurrentPage } />
 
             {/* ForumGroup Category */}
             <CategoryList currentPage={ currentPage } noOfGroupsPerPage={ noOfGroupsPerPage } />

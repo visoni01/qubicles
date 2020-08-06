@@ -6,15 +6,16 @@ import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { categoryDataFetchingStart } from '../../../redux-saga/redux/actions'
 
-const CategorySearchBar = ({ currentPage, noOfGroupsPerPage }) => {
+const CategorySearchBar = ({ currentPage, noOfGroupsPerPage, setCurrentPage }) => {
   const [ searchField, setSearchField ] = useState('')
   const dispatch = useDispatch()
 
   const callSearchApi = useCallback(debounce((nextValue) => {
+    setCurrentPage(1)
     dispatch(categoryDataFetchingStart({
       searchKeyword: nextValue,
       limit: noOfGroupsPerPage,
-      offset: (currentPage - 1) * noOfGroupsPerPage,
+      offset: 0,
     }))
   }, 500), [ dispatch ])
 
@@ -43,6 +44,7 @@ const CategorySearchBar = ({ currentPage, noOfGroupsPerPage }) => {
 CategorySearchBar.propTypes = {
   currentPage: PropTypes.number.isRequired,
   noOfGroupsPerPage: PropTypes.number.isRequired,
+  setCurrentPage: PropTypes.func.isRequired,
 }
 
 export default CategorySearchBar
