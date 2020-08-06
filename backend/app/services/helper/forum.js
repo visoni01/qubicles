@@ -89,7 +89,7 @@ export async function addForumUser ({ user_id, forum_object_type, forum_object_i
   return newUser
 }
 
-export async function getCategories ({ user_id, search_keyword }) {
+export async function getCategories ({ user_id, search_keyword, limit, offset }) {
   const userCategories = await XForumUser.findAll({
     where: { forum_object_type: 'category', user_id },
     raw: true,
@@ -103,11 +103,13 @@ export async function getCategories ({ user_id, search_keyword }) {
   if (!_.isEmpty(search_keyword)) {
     query = { ...query, category_title: { [Op.startsWith]: search_keyword } }
   }
-  const categories = await XForumCategory.findAll({
+  const { rows, count } = await XForumCategory.findAndCountAll({
     where: query,
-    raw: true
+    raw: true,
+    limit,
+    offset
   })
-  return categories
+  return { categories: rows, count }
 }
 
 export async function getCategoryById ({ category_id }) {

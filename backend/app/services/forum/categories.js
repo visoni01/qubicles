@@ -8,6 +8,12 @@ const constraints = {
   },
   search_keyword: {
     presence: false
+  },
+  limit: {
+    presence: false
+  },
+  offset: {
+    presence: false
   }
 }
 
@@ -17,13 +23,18 @@ export default class ForumCategoriesService extends ServiceBase {
   }
 
   async run () {
-    const { user_id, search_keyword } = this.filteredArgs
+    const { user_id, search_keyword, limit, offset } = this.filteredArgs
     const promises = [
-      () => getCategories({ user_id, search_keyword }),
+      () => getCategories({
+        user_id,
+        search_keyword,
+        limit: JSON.parse(limit),
+        offset: JSON.parse(offset)
+      }),
       () => getChannels({ user_id }),
       () => getTopics({ user_id })
     ]
-    const [categories, channels, topics] = await Promise.all(promises.map(promise => promise()))
-    return getForumData({ categories, channels, topics })
+    const [{ categories, count }, channels, topics] = await Promise.all(promises.map(promise => promise()))
+    return { categories: getForumData({ categories, channels, topics }), count }
   }
 }
