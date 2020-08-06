@@ -61,7 +61,7 @@ export async function addTopic ({ topic_title, owner_id, channel_id, client_id, 
   return newTopic
 }
 
-export async function addChannel ({ channel_title, owner_id, category_id, client_id, is_public, is_company_ann }) {
+export async function addChannel ({ channel_title, owner_id, category_id, client_id, channel_description, is_public, is_company_ann }) {
   const newChannel = await createNewEntity({
     model: XForumChannel,
     data: {
@@ -69,6 +69,7 @@ export async function addChannel ({ channel_title, owner_id, category_id, client
       owner_id,
       client_id,
       category_id,
+      channel_description,
       is_public,
       is_company_ann
     }

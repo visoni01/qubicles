@@ -9,6 +9,9 @@ const constraints = {
   title: {
     presence: { allowEmpty: false }
   },
+  channel_description: {
+    presence: { allowEmpty: false }
+  },
   is_public: {
     presence: { allowEmpty: true }
   },
@@ -26,12 +29,13 @@ export default class ForumAddNewChannelService extends ServiceBase {
   }
 
   async run () {
-    const { user_id, title, is_public, category_id, is_company_ann } = this.args
+    const { user_id, title, channel_description, is_public, category_id, is_company_ann } = this.args
     const { client_id } = await XClientUser.findOne({ where: { user_id }, raw: true, attributes: ['client_id'] })
 
     const data = await addChannel({
       channel_title: title,
       owner_id: user_id,
+      channel_description,
       is_public: is_public,
       client_id,
       category_id: category_id,
