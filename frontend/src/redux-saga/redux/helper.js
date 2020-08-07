@@ -14,7 +14,10 @@ import {
   UPDATE_TOPIC,
   UPDATE_CATEGORY,
   UPDATE_CHANNEL,
+  ADD_POST,
 } from './constants'
+
+import { postDataFechingStart } from './actions'
 
 export const getUpdatedCategories = ({ state, payload }) => {
   let categories = []
@@ -182,3 +185,19 @@ export const getUpdatedJobsData = ({ state, payload }) => {
   }
   return updatedJobCategories
 }
+
+export const getPostData = ({ state, payload }) => {
+  let posts
+  switch (payload.type) {
+    case ADD_POST: {
+      posts = [ ...payload.newPost, ...state.posts ]
+      break
+    }
+    case postDataFechingStart.type: {
+      posts = payload.posts
+      break
+    }
+    default:
+    break  
+  }
+}    

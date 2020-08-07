@@ -7,7 +7,7 @@ import {
   communityRepDataFechingStart,
   jobPostingDataFetchingStart,
   activeUserDataFetchingStart,
-
+  postDataFechingStart,
 } from '../../redux/actions'
 import { showErrorMessage } from '../../redux/snackbar'
 
@@ -19,12 +19,14 @@ function* dashboardWorker(action) {
   try {
     // Fetching announcements data
     yield put(announcementDataFetchingStart())
-    // TODO: Call action for fetching community reputation data
+    // Calling action for fetching community reputation data
     yield put(communityRepDataFechingStart())
-    // TODO: Call action for fetching job posting data
+    // Calling action for fetching job posting data
     yield put(jobPostingDataFetchingStart())
-    // TODO: Call action for fetching active users data
+    // Calling action for fetching active users data
     yield put(activeUserDataFetchingStart())
+    // Calling action for fetching posts
+    yield put(postDataFechingStart())
 
     yield put(dashboardDataFetchingSuccessful())
   } catch (e) {

@@ -9,6 +9,7 @@ import dashboard from './dashboard'
 import announcement from './dashboard/announcement'
 import communityRep from './dashboard/communityRep'
 import jobPosting from './dashboard/jobPosting'
+import post from './dashboard/post'
 import activeUser from './dashboard/activeUser'
 import categories from './forum/category/category'
 import channel from './forum/channel/channelDetails'
@@ -43,5 +44,6 @@ export default function* rootSaga() {
     crudTopic(),
     crudComment(),
     crudJob(),
+    post(),
   ])
 }

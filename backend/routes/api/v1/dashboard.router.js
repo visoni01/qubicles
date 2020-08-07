@@ -11,6 +11,12 @@ dashboardRouter.route('/community-rep')
 dashboardRouter.route('/latest-announcements')
   .get(isAuthenticated, dashboardController.getLatestAnnouncements)
 
+dashboardRouter.route('/status-list')
+  .get(isAuthenticated, dashboardController.getAllStatusList)
+
+dashboardRouter.route('/status')
+  .post(isAuthenticated, dashboardController.addStatus)
+
 dashboardRouter.route('/job-postings')
   .get(isAuthenticated, dashboardController.getJobPostings)
 

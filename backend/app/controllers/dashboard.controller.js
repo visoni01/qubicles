@@ -3,6 +3,8 @@ import CommunityRep from '../services/dashboard/communityRep'
 import LatestAnnouncements from '../services/dashboard/latestAnnouncements'
 import JobPostings from '../services/dashboard/jobPostings'
 import ActiveUsers from '../services/dashboard/activeUsers'
+import GellAllStatusListService from '../services/dashboard/statusList'
+import AddStatusService from '../services/dashboard/addStatus'
 
 export default class DashboardController {
   static async getCommunityRep (req, res) {
@@ -38,6 +40,24 @@ export default class DashboardController {
       Responder.success(res, activeUsers.result)
     } else {
       Responder.failed(res, activeUsers.errors)
+    }
+  }
+
+  static async getAllStatusList (req, res) {
+    const statusList = await GellAllStatusListService.execute(req.body)
+    if (statusList.successful) {
+      Responder.success(res, statusList.result)
+    } else {
+      Responder.failed(res, statusList.errors)
+    }
+  }
+
+  static async addStatus (req, res) {
+    const status = await AddStatusService.execute(req.body)
+    if (status.successful) {
+      Responder.success(res, status.result)
+    } else {
+      Responder.failed(res, status.errors)
     }
   }
 }

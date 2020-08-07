@@ -34,6 +34,16 @@ class Dashboard {
     },
     ]
   }
+
+  static async fetchPosts() {
+    const response = await apiClient.getRequest('/dashboard/status-list')
+    return response
+  }
+
+  static async addPost({ data }) {
+    const response = await apiClient.postRequest('/dashboard/status-list', data)
+    return response
+  }
 }
 
 export default Dashboard
