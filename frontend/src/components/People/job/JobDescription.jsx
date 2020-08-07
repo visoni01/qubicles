@@ -27,7 +27,7 @@ const JobDescription = ({
   const handleDelete = useCallback(() => {
     setAnchorEl(null)
     dispatch(deleteJob({ categoryId, jobId, title }))
-  }, [ jobId ])
+  }, [ categoryId, jobId, title ])
 
   return (
     <div className='forum-channel'>

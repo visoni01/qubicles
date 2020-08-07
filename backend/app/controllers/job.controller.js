@@ -4,7 +4,7 @@ import ForumDeleteJobService from '../services/job/deleteJobs'
 
 export default class JobController {
   static async getJobsByCategory (req, res) {
-    const jobs = await JobsByCategoryService.execute(req.body)
+    const jobs = await JobsByCategoryService.execute({ ...req.body, ...req.query })
     if (jobs.successful) {
       Responder.success(res, jobs.result)
     } else {
