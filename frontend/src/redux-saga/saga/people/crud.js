@@ -1,4 +1,4 @@
-import { takeLatest, put, select } from 'redux-saga/effects'
+import { takeLatest, put } from 'redux-saga/effects'
 import { updateJobsData } from '../../redux/actions'
 import { DELETE_JOB } from '../../redux/constants'
 import { showErrorMessage, showSuccessMessage } from '../../redux/snackbar'

@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getDataForReducer } from '../../../utils/common'
-import { DELETE_TOPIC } from '../constants'
 import { getUpdatedChannel } from '../helper'
 
 const initialState = {
