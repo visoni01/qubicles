@@ -5,7 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faChevronDown, faChevronUp, faEllipsisV, faTrash, faPlus,
 } from '@fortawesome/free-solid-svg-icons'
-import { Menu, MenuItem } from '@material-ui/core'
+import {
+  Menu, MenuItem,
+  Dialog, DialogActions, DialogTitle, Button,
+} from '@material-ui/core'
 import ChannelListItem from './ChannelListItem'
 import { deleteCategory, addNewChannel } from '../../../redux-saga/redux/actions'
 import NewChannelModal from '../channel/NewChannel'
@@ -33,8 +36,20 @@ const CategoryWrap = ({
     setAnchorEl(null)
   }
 
+  const [ open, setOpen ] = useState(false)
+
+  const handleDialogOpen = () => {
+    setOpen(true)
+  }
+
+  const handleDialogClose = () => {
+    setOpen(false)
+    setAnchorEl(null)
+  }
+
   const handleDelete = useCallback(() => {
     setAnchorEl(null)
+    setOpen(false)
     dispatch(deleteCategory({ categoryId: id, title }))
   }, [ id, dispatch, title ])
 
@@ -86,7 +101,7 @@ const CategoryWrap = ({
                 onClose={ handleClose }
               >
                 <MenuItem
-                  onClick={ handleDelete }
+                  onClick={ handleDialogOpen }
                 >
                   <FontAwesomeIcon icon={ faTrash } />
                   <span className='remove'>
@@ -104,6 +119,21 @@ const CategoryWrap = ({
               </Menu>
             </div>
           </div>
+          <Dialog
+            open={ open }
+            onClose={ handleDialogClose }
+            aria-labelledby='delete-dialog-title'
+          >
+            <DialogTitle id='delete-dialog-title'>Are you sure you want to delete?</DialogTitle>
+            <DialogActions>
+              <Button onClick={ handleDialogClose } color='primary'>
+                Cancel
+              </Button>
+              <Button onClick={ handleDelete } color='primary' autoFocus>
+                Delete
+              </Button>
+            </DialogActions>
+          </Dialog>
         </div>
         {/* Channels list */}
         {channels.map((channel) => <ChannelListItem { ...channel } key={ `${ channel.id }` } />)}
