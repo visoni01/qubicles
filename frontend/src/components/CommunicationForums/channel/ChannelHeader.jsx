@@ -30,6 +30,7 @@ const AddTopicButton = ({ channelId }) => {
         className='new-topic-button'
         startIcon={ <FontAwesomeIcon icon={ faPlus } className='people-header-icons' /> }
         onClick={ handleNewTopicModal }
+        classes={ { label: 'new-topic-button-label' } }
       >
         New Topic
       </Button>

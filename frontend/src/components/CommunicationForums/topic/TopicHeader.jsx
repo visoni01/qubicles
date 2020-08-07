@@ -66,6 +66,7 @@ const TopicHeader = ({
           className='new-reply-button'
           startIcon={ <FontAwesomeIcon icon={ faPlus } className='people-header-icons' /> }
           onClick={ toggleModalState }
+          classes={ { label: 'new-reply-button-label' } }
         >
           Reply
         </Button>
