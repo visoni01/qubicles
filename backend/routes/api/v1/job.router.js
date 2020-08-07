@@ -6,6 +6,9 @@ const args = { mergeParams: true }
 const jobRouter = express.Router(args)
 
 jobRouter.route('/category')
-  .get(isAuthenticated, jobController.getJobsByCatergory)
+  .get(isAuthenticated, jobController.getJobsByCategory)
+
+jobRouter.route('/category/jobs/:job_id')
+  .delete(isAuthenticated, jobController.deleteJob)
 
 export { jobRouter }
