@@ -9,6 +9,7 @@ import {
   LIKE_TOPIC,
   UNLIKE_TOPIC,
   ADD_TOPIC,
+  DELETE_CHANNEL,
 } from '../constants'
 
 export const addNewCategory = createAction(ADD_CATEGORY)
@@ -20,3 +21,4 @@ export const addTopicComment = createAction(ADD_TOPIC_COMMENT)
 export const likeForumTopic = createAction(LIKE_TOPIC)
 export const unlikeForumTopic = createAction(UNLIKE_TOPIC)
 export const addNewTopic = createAction(ADD_TOPIC)
+export const deleteChannel = createAction(DELETE_CHANNEL)

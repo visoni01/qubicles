@@ -66,6 +66,11 @@ class Forum {
     const response = await apiClient.postRequest('/forum/topics', payload)
     return response
   }
+
+  static async deleteChannel({ channelId }) {
+    const response = await apiClient.deleteRequest(`/forum/channel/${ channelId }`)
+    return response
+  }
 }
 
 export default Forum

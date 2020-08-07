@@ -28,7 +28,14 @@ const CategoryWrap = ({
           <GroupActions id={ id } title={ title } owner={ owner } />
         </div>
         {/* Channels list */}
-        {channels.map((channel) => <ChannelListItem { ...channel } key={ `${ channel.id }` } />)}
+        {channels.map((channel) => (
+          <ChannelListItem
+            { ...channel }
+            key={ `${ channel.id }` }
+            categoryId={ id }
+            ownerId={ owner }
+          />
+        ))}
       </div>
     </div>
   )
