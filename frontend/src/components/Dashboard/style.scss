@@ -1,0 +1,38 @@
+.post-section {
+  .other-options {
+    .upload-file {
+      position: relative;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: start;
+      -ms-flex-pack: start;
+      justify-content: flex-start;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      padding: 6px 16px;
+      margin-right: 10px;
+      background: #f7f7f7;
+      border-radius: 500px;
+      font-size: .85rem;
+      color: #888da8;
+      -webkit-transition: all .3s;
+      transition: all .3s;
+
+      .file-input-label {
+        margin-left: 7px;
+      }
+
+      .input-field {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        opacity: 0;
+        cursor: pointer;
+      }
+    }
+  }
+}

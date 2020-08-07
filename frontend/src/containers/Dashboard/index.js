@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart, faThumbsUp, faCamera } from '@fortawesome/free-solid-svg-icons'
 import Announcement from '../../components/Dashboard/announcement'
 import CommunityRep from '../../components/Dashboard/communityRep'
 import JobPosting from '../../components/Dashboard/jobPosting'
 import ActiveUser from '../../components/Dashboard/activeUser'
 import Overview from '../../components/Dashboard/overview'
+import Post from '../../components/Dashboard/post'
 import ActivityDetail from '../../components/Dashboard/activityDetail'
 import profileLogo1 from '../../assets/images/ray.jpg'
 import profileLogo2 from '../../assets/images/helen.jpg'
@@ -44,61 +47,7 @@ const Dashboard = () => {
 
           </div>
           <div className='column is-5'>
-            <div className='compose-card is-flex is-start is-vcenter'>
-              <figure className='avatar image is-hidden-mobile'>
-                <img
-                  className='img-circle'
-                  src={ profileLogo2 }
-                  alt='profile-logo-2'
-                />
-              </figure>
-              <div className='status-wrapper'>
-                <textarea
-                  className='textarea is-grow'
-                  rows='5'
-                  placeholder='Write something ...'
-                />
-              </div>
-              <div className='icon-button'>
-                <i data-feather='upload-cloud' />
-              </div>
-            </div>
-            <div className='post-item animated preFadeInLeft fadeInLeft'>
-              <div className='is-flex is-start is-vcenter padding-10'>
-                <img
-                  className='feed-avatar'
-                  src={ profileLogo1 }
-                  alt='feed-avatar'
-                />
-                <div className='item-title full-width'>
-                  <span> Posted by </span>
-                  <span>Ray O&apos;Driscol</span>
-                  <span className='feed-time-small float-right'>45 minutes ago</span>
-                  <br />
-                </div>
-              </div>
-              <div className='is-flex is-start is-vcenter'>
-                <p>
-                  <span
-                    className='post-title'
-                  >
-                    <span>
-                      How team building boosts productivity
-                    </span>
-                  </span>
-                  <br />
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem
-                  Ipsum is simply
-                  dummy text Lorem Ipsum ...
-                </p>
-              </div>
-              <div className='is-flex is-start is-vcenter'>
-                <div className='feed-image-container'>
-                  <div className='soft-overlay' />
-                  <img src={ demoPic } alt='demo-pic' />
-                </div>
-              </div>
-            </div>
+            <Post />
           </div>
           <div className='column is-4'>
             {/* Today's activity */ }
