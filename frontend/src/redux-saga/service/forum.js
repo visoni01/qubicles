@@ -12,8 +12,25 @@ class Forum {
     return response
   }
 
-  static async fetchChannel({ channelId }) {
-    const response = await apiClient.getRequest(`/forum/channel/${ channelId }`)
+  static async fetchChannel({ channelId, searchKeyword }) {
+    const url = `/forum/channel/${ channelId }`
+    let response
+    if (searchKeyword) {
+      response = await apiClient.getRequest(url, null, { search_keyword: searchKeyword })
+    } else {
+      response = await apiClient.getRequest(url)
+    }
+    return response
+  }
+
+  static async fetchChannelTopicsList({ channelId, searchKeyword }) {
+    const url = `/forum/channelTopicsList/${ channelId }`
+    let response
+    if (searchKeyword) {
+      response = await apiClient.getRequest(url, null, { search_keyword: searchKeyword })
+    } else {
+      response = await apiClient.getRequest(url)
+    }
     return response
   }
 

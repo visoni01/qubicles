@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getDataForReducer } from '../../../utils/common'
-import { getUpdatedChannel } from '../helper'
+import { getDataForReducer } from '../../../../utils/common'
+import { getUpdatedChannel } from '../../helper'
 
 const initialState = {
   isLoading: null,
@@ -11,32 +11,32 @@ const initialState = {
 
 const {
   actions: {
-    channelDataFetchingStart,
-    channelDataFetchingSuccessful,
-    channelDataFetchingFailure,
-    updateChannelData,
+    channelDetailsFetchingStart,
+    channelDetailsFetchingSuccessful,
+    channelDetailsFetchingFailure,
+    updateChannelDetails,
   },
   reducer,
 } = createSlice({
   name: 'channel',
   initialState,
   reducers: {
-    channelDataFetchingStart: (state) => ({
+    channelDetailsFetchingStart: (state) => ({
       ...state,
       isLoading: true,
     }),
-    channelDataFetchingSuccessful: (state, action) => ({
+    channelDetailsFetchingSuccessful: (state, action) => ({
       ...state,
       success: true,
       isLoading: false,
       channelDetails: getDataForReducer(action, initialState.channelDetails, 'channelDetails'),
     }),
-    channelDataFetchingFailure: (state, action) => ({
+    channelDetailsFetchingFailure: (state, action) => ({
       ...state,
       error: true,
       isLoading: false,
     }),
-    updateChannelData: (state, action) => ({
+    updateChannelDetails: (state, action) => ({
       ...state,
       channelDetails: getUpdatedChannel({ state, payload: action.payload }),
     }),
@@ -45,8 +45,8 @@ const {
 
 export default reducer
 export {
-  channelDataFetchingStart,
-  channelDataFetchingSuccessful,
-  channelDataFetchingFailure,
-  updateChannelData,
+  channelDetailsFetchingStart,
+  channelDetailsFetchingSuccessful,
+  channelDetailsFetchingFailure,
+  updateChannelDetails,
 }

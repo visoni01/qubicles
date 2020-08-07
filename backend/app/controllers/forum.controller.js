@@ -1,6 +1,6 @@
 import Responder from '../../server/expressResponder'
 import ForumCategoriesService from '../services/forum/categories'
-import ForumChannelService from '../services/forum/channels'
+import ForumChannelDetailsService from '../services/forum/channel/channelDetails'
 import ForumTopicService from '../services/forum/topic'
 import ForumTopicActivityService from '../services/forum/topicActivity'
 import ForumAddNewCategoryService from '../services/forum/newCategory'
@@ -10,6 +10,7 @@ import ForumDeleteTopicService from '../services/forum/topic/delete'
 import ForumDeleteTopicCommentService from '../services/forum/comment/delete'
 import ForumAddNewTopicService from '../services/forum/topic/create'
 import ForumChannelDeleteService from '../services/forum/channel/deleteChannel'
+import ForumChannelTopicsListService from '../services/forum/channel/channelTopicsList'
 
 export default class ForumController {
   static async getCategories (req, res) {
@@ -22,11 +23,24 @@ export default class ForumController {
   }
 
   static async getChannel (req, res) {
-    const forumChannel = await ForumChannelService.execute({ ...req.body, ...req.params })
-    if (forumChannel.successful) {
-      Responder.success(res, forumChannel.result)
+    const forumChannelDetails = await ForumChannelDetailsService.execute({ ...req.body, ...req.params, ...req.query })
+    if (forumChannelDetails.successful) {
+      Responder.success(res, forumChannelDetails.result)
     } else {
-      Responder.failed(res, forumChannel.errors)
+      Responder.failed(res, forumChannelDetails.errors)
+    }
+  }
+
+  static async getChannelTopicsList (req, res) {
+    const forumChannelTopicsList = await ForumChannelTopicsListService.execute({
+      ...req.body,
+      ...req.params,
+      ...req.query
+    })
+    if (forumChannelTopicsList.successful) {
+      Responder.success(res, forumChannelTopicsList.result)
+    } else {
+      Responder.failed(res, forumChannelTopicsList.errors)
     }
   }
 

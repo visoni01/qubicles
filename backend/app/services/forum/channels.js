@@ -8,6 +8,9 @@ const constraints = {
   },
   channel_id: {
     presence: { allowEmpty: false }
+  },
+  search_keyword: {
+    presence: false
   }
 }
 
@@ -17,10 +20,10 @@ export default class ForumChannelService extends ServiceBase {
   }
 
   async run () {
-    const { user_id, channel_id } = this.filteredArgs
+    const { user_id, channel_id, search_keyword } = this.filteredArgs
     const promises = [
       () => getOneChannel({ channel_id, is_deleted: false }),
-      () => getTopics({ user_id })
+      () => getTopics({ user_id, search_keyword })
     ]
     const [channel, topics] = await Promise.all(promises.map(promise => promise()))
     if (!channel) {

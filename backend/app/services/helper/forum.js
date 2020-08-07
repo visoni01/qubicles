@@ -17,6 +17,7 @@ import { createNewEntity } from './common'
 import { getAllUserActivities } from '../user/activity/helper'
 import { getUserDetails } from './user'
 import _ from 'lodash'
+import { aggregate } from './crud.js'
 
 export async function addCategory ({ category_title, owner_id, is_public }) {
   const newCategory = await createNewEntity({
@@ -138,18 +139,22 @@ export async function getChannels ({ user_id }) {
   return channels
 }
 
-export async function getTopics ({ user_id }) {
+export async function getTopics ({ user_id, search_keyword }) {
   const userTopics = await XForumUser.findAll({
     where: { forum_object_type: 'topic', user_id },
     raw: true,
     attributes: ['forum_object_id']
   })
   const topicIds = userTopics.map(topic => topic.forum_object_id)
+  let query = {
+    [Op.or]: [{ is_public: true }, { owner_id: user_id }, { topic_id: topicIds }],
+    [Op.not]: [{ is_deleted: true }]
+  }
+  if (!_.isEmpty(search_keyword)) {
+    query = { ...query, topic_title: { [Op.startsWith]: search_keyword } }
+  }
   const topics = await XForumTopic.findAll({
-    where: {
-      [Op.or]: [{ is_public: true }, { owner_id: user_id }, { topic_id: topicIds }],
-      [Op.not]: [{ is_deleted: true }]
-    },
+    where: query,
     raw: true
   })
   return topics
@@ -581,4 +586,14 @@ export async function deleteChannel ({ channel_id }) {
         channel_id
       }
     })
+}
+
+export async function getChannelTopicsCount ({ channel_id }) {
+  return aggregate({
+    model: XForumTopic,
+    aggFunction: 'count',
+    data: {
+      channel_id
+    }
+  })
 }

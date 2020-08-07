@@ -1,5 +1,5 @@
 import { takeLatest, put, select } from 'redux-saga/effects'
-import { updateChannelData } from '../../../redux/actions'
+import { updateChannelDetails } from '../../../redux/actions'
 import {
   DELETE_TOPIC, LIKE_TOPIC, UNLIKE_TOPIC, ADD_TOPIC,
 } from '../../../redux/constants'
@@ -19,7 +19,7 @@ function* topicCrudWorker(action) {
         const { topicId, topicTitle } = action.payload
         yield Forum.deleteTopic({ topicId })
 
-        yield put(updateChannelData({
+        yield put(updateChannelDetails({
           type: DELETE_TOPIC,
           topicId,
         }))
@@ -39,7 +39,7 @@ function* topicCrudWorker(action) {
           // eslint-disable-next-line
           createdAt, updatedAt, topic_id, owner_id, topic_title,
         } = data
-        yield put(updateChannelData({
+        yield put(updateChannelDetails({
           type: ADD_TOPIC,
           newTopic: {
             dateCreatedOn: createdAt,

@@ -2,11 +2,12 @@ import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faHome, faArrowLeft, faPlus, faUsers, faCommentDots,
+  faHome, faArrowLeft, faPlus, faUsers, faComments,
 } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { Button } from '@material-ui/core'
+import TopicSearch from './TopicSearch'
 import { GROUP } from '../../../routes/routesPath'
 import { addNewTopic } from '../../../redux-saga/redux/forum/actions'
 import AddNewTopic from './NewTopic'
@@ -39,7 +40,7 @@ const AddTopicButton = ({ channelId }) => {
 }
 
 const ChannelHeader = ({
-  channelTitle, channelDescription, totalMembers, totalReplies, channelId,
+  channelId, channelTitle, channelDescription, totalMembers, topicsCount,
 }) => (
   <div>
     <div className='forum-title-wrapper is-mobile'>
@@ -54,18 +55,13 @@ const ChannelHeader = ({
           </div>
           {/* {Total Replies} */}
           <div className='meta'>
-            <FontAwesomeIcon icon={ faCommentDots } className='total-comments' />
-            <span>{totalReplies}</span>
+            <FontAwesomeIcon icon={ faComments } className='total-comments' />
+            <span>{topicsCount}</span>
           </div>
         </div>
       </div>
       {/* {Channel Search Bar} */}
-      <div className='control channel-search'>
-        <input type='text' className='input is-rounded' placeholder='Search Channel...' />
-        <div className='search-icon'>
-          <i className='sl sl-icon-magnifier' />
-        </div>
-      </div>
+      <TopicSearch channelId={ channelId } />
       <div className='actions channel-actions'>
         <Link to={ `${ GROUP }` } className='forum-back home-button'>
           <i><FontAwesomeIcon icon={ faHome } /></i>
@@ -80,15 +76,11 @@ const ChannelHeader = ({
 )
 
 ChannelHeader.propTypes = {
+  channelId: PropTypes.number.isRequired,
   channelTitle: PropTypes.string.isRequired,
   channelDescription: PropTypes.string.isRequired,
   totalMembers: PropTypes.number.isRequired,
-  totalReplies: PropTypes.number.isRequired,
-  channelId: PropTypes.number.isRequired,
-}
-
-AddTopicButton.propTypes = {
-  channelId: PropTypes.number.isRequired,
+  topicsCount: PropTypes.number.isRequired,
 }
 
 export default ChannelHeader

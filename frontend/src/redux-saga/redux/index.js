@@ -12,7 +12,8 @@ import dashboardReducer from './dashboard'
 import loaderReducer from './loader'
 import snackbarReducer from './snackbar'
 import categoryReducer from './forum/category'
-import channelReducer from './forum/channel'
+import channelDetailsReducer from './forum/channel/channelDetails'
+import channelTopicsListReducer from './forum/channel/channelTopicsList'
 import topicReducer from './forum/topic'
 import jobCategoriesReducer from './people/jobPage'
 
@@ -30,7 +31,8 @@ const rootReducer = combineReducers({
   jobPosting: jobPostingReducer,
   activeUser: activeUserReducer,
   category: categoryReducer,
-  channel: channelReducer,
+  channel: channelDetailsReducer,
+  channelTopicsList: channelTopicsListReducer,
   topic: topicReducer,
   jobCategories: jobCategoriesReducer,
 })
