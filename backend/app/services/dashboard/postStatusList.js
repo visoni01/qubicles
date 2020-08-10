@@ -10,7 +10,7 @@ const constraints = {
   }
 }
 
-export default class GellAllStatusListService extends ServiceBase {
+export default class GellAllPostStatusListService extends ServiceBase {
   get constraints () {
     return constraints
   }
@@ -26,11 +26,10 @@ export default class GellAllStatusListService extends ServiceBase {
         order: [['created_on', 'DESC']],
         raw: true
       })
-      // TODO: status
 
       return statusList
     } catch (e) {
-      logger.error(getErrorMessageForService('GellAllStatusListService'), e)
+      logger.error(getErrorMessageForService('GellAllPostStatusListService'), e)
       this.addError(ERRORS.INTERNAL)
     }
   }

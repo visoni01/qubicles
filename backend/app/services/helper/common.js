@@ -129,3 +129,8 @@ export const flatArray = (input) => {
 
   return flatFilteredArray
 }
+
+export const isValidImageFile = (fileObj) => {
+  const isImage = ['image/jpeg', 'image/png'].includes(fileObj.mimetype)
+  return isImage
+}

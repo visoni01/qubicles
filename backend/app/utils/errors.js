@@ -23,5 +23,7 @@ export const MESSAGES = {
   JOB_NOT_EXIST: 'Job does not exist',
   TOPIC_COMMENT_NOT_EXIST: 'Forum topic comment does not exist',
   COMMENT_DELETED_SUCCESSFULLY: 'Topic comment successfully deleted',
-  UNAUTHORIZED_MSG: 'You don\'t have permission to perform this action!'
+  UNAUTHORIZED_MSG: 'You don\'t have permission to perform this action!',
+  INVALID_IMAGE_FILE: 'File is not valid image file!',
+  IPFS_FILE_UPLOAD_ERROR: 'Error occured while uploadind file on IPFS!'
 }

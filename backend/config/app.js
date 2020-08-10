@@ -214,6 +214,20 @@ const config = convict({
   cookieMaxAge: {
     default: 1000 * 60 * 60 * 24,
     env: 'COOKIE_MAX_AGE'
+  },
+  ipfs: {
+    host: {
+      default: 'ipfs.infura.io',
+      env: 'IPFS_HOST_NAME'
+    },
+    port: {
+      default: '',
+      env: 'IPFS_PORT'
+    },
+    protocol: {
+      default: 'https',
+      env: 'IPFS_PROTOCOL'
+    }
   }
 })
 config.validate({ allowed: 'strict' })

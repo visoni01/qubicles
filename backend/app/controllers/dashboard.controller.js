@@ -3,8 +3,8 @@ import CommunityRep from '../services/dashboard/communityRep'
 import LatestAnnouncements from '../services/dashboard/latestAnnouncements'
 import JobPostings from '../services/dashboard/jobPostings'
 import ActiveUsers from '../services/dashboard/activeUsers'
-import GellAllStatusListService from '../services/dashboard/statusList'
-import AddStatusService from '../services/dashboard/addStatus'
+import GellAllPostStatusListService from '../services/dashboard/postStatusList'
+import AddPostStatusService from '../services/dashboard/addPostStatus'
 
 export default class DashboardController {
   static async getCommunityRep (req, res) {
@@ -43,21 +43,21 @@ export default class DashboardController {
     }
   }
 
-  static async getAllStatusList (req, res) {
-    const statusList = await GellAllStatusListService.execute(req.body)
-    if (statusList.successful) {
-      Responder.success(res, statusList.result)
+  static async getAllPostStatusList (req, res) {
+    const postStatusList = await GellAllPostStatusListService.execute({ ...req.body })
+    if (postStatusList.successful) {
+      Responder.success(res, postStatusList.result)
     } else {
-      Responder.failed(res, statusList.errors)
+      Responder.failed(res, postStatusList.errors)
     }
   }
 
-  static async addStatus (req, res) {
-    const status = await AddStatusService.execute(req.body)
-    if (status.successful) {
-      Responder.success(res, status.result)
+  static async addPostStatus (req, res) {
+    const postStatus = await AddPostStatusService.execute({ ...req.body, file: req.file })
+    if (postStatus.successful) {
+      Responder.success(res, postStatus.result)
     } else {
-      Responder.failed(res, status.errors)
+      Responder.failed(res, postStatus.errors)
     }
   }
 }
