@@ -28,7 +28,7 @@ const TopicHeader = ({
     }
     dispatch(addTopicComment({ payload }))
     setOpenCommentModal(false)
-  }, [ dispatch ])
+  }, [ dispatch, topicId ])
 
   const toggleModalState = useCallback(() => {
     // eslint-disable-next-line

@@ -16,7 +16,7 @@ const CategoryList = ({ currentPage, noOfGroupsPerPage }) => {
       limit: noOfGroupsPerPage,
       offset: (currentPage - 1) * noOfGroupsPerPage,
     }))
-  }, [ dispatch, currentPage ])
+  }, [ dispatch, currentPage, noOfGroupsPerPage ])
 
   if (isLoading) {
     return (

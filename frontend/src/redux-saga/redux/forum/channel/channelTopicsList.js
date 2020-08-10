@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getDataForReducer } from '../../../../utils/common'
+import { getUpdatedTopicsList } from '../../helper'
 
 const initialState = {
   isLoading: null,
@@ -37,7 +38,7 @@ const {
     }),
     updateChannelTopicsList: (state, action) => ({
       ...state,
-      channelTopicsList: action.payload.data,
+      channelTopicsList: getUpdatedTopicsList({ state, payload: action.payload }),
     }),
   },
 })

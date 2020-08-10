@@ -66,7 +66,7 @@ Post.propTypes = {
     totalLikes: PropTypes.number.isRequired,
     totalReplies: PropTypes.number.isRequired,
   }).isRequired,
-  postId: PropTypes.string.isRequired,
+  postId: PropTypes.number.isRequired,
   postBody: PropTypes.shape({
     content: PropTypes.string.isRequired,
   }).isRequired,

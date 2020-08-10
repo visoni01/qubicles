@@ -1,6 +1,5 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import Grid from '@material-ui/core/Grid'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { formatDate } from '../../utils/common'
 

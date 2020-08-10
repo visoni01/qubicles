@@ -71,26 +71,29 @@ export const getUpdatedTopicDetails = ({ state, payload }) => {
 }
 
 export const getUpdatedChannel = ({ state, payload }) => {
-  let channelDetails
+  const { channelDetails } = state
+  switch (payload.type) {
+    default:
+      break
+  }
+  return channelDetails
+}
+
+export const getUpdatedTopicsList = ({ state, payload }) => {
+  let { channelTopicsList } = state
   switch (payload.type) {
     case ADD_TOPIC: {
-      channelDetails = {
-        ...state.channelDetails,
-        channelTopics: [ ...state.channelDetails.channelTopics, payload.newTopic ],
-      }
+      channelTopicsList = [ ...state.channelTopicsList, payload.newTopic ]
       break
     }
     case DELETE_TOPIC: {
-      channelDetails = {
-        ...state.channelDetails,
-        channelTopics: state.channelDetails.channelTopics.filter((topic) => topic.topicId !== payload.topicId),
-      }
+      channelTopicsList = state.channelTopicsList.filter((topic) => topic.topicId !== payload.topicId)
       break
     }
     default:
       break
   }
-  return channelDetails
+  return channelTopicsList
 }
 
 export const getUpdatedJobsData = ({ state, payload }) => {

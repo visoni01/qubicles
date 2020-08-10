@@ -1,5 +1,5 @@
 import ServiceBase from '../../common/serviceBase'
-import { getCategories, getChannels, getTopics } from '../helper/forum'
+import { getCategories, getChannels } from '../helper/forum'
 import { getForumData } from '../helper'
 
 const constraints = {
@@ -31,10 +31,10 @@ export default class ForumCategoriesService extends ServiceBase {
         limit: JSON.parse(limit),
         offset: JSON.parse(offset)
       }),
-      () => getChannels({ user_id }),
-      () => getTopics({ user_id })
+      () => getChannels({ user_id })
     ]
-    const [{ categories, count }, channels, topics] = await Promise.all(promises.map(promise => promise()))
-    return { categories: getForumData({ categories, channels, topics }), count }
+    const [{ categories, count }, channels] = await Promise.all(promises.map(promise => promise()))
+    const forumCategories = await getForumData({ categories, channels })
+    return { categories: forumCategories, count }
   }
 }

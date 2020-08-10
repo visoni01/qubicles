@@ -139,7 +139,7 @@ export async function getChannels ({ user_id }) {
   return channels
 }
 
-export async function getTopics ({ user_id, search_keyword }) {
+export async function getTopics ({ user_id, search_keyword, channel_id }) {
   const userTopics = await XForumUser.findAll({
     where: { forum_object_type: 'topic', user_id },
     raw: true,
@@ -147,6 +147,7 @@ export async function getTopics ({ user_id, search_keyword }) {
   })
   const topicIds = userTopics.map(topic => topic.forum_object_id)
   let query = {
+    channel_id,
     [Op.or]: [{ is_public: true }, { owner_id: user_id }, { topic_id: topicIds }],
     [Op.not]: [{ is_deleted: true }]
   }
@@ -453,27 +454,30 @@ export async function getCommentDetails ({ comment }) {
   }
 }
 
-export function getForumData ({ categories, channels, topics }) {
-  const forumData = categories.map(category => {
-    return {
+export async function getForumData ({ categories, channels }) {
+  const forumData = []
+  for (const category of categories) {
+    const filteredChannels = await getFilteredChannels({ channels, category_id: category.category_id })
+    forumData.push({
       id: category.category_id,
       title: category.category_title,
       owner: category.owner_id,
-      channels: getFilteredChannels({ channels, topics, category_id: category.category_id })
-    }
-  })
+      channels: filteredChannels
+    })
+  }
   return forumData
 }
 
-export function getFilteredChannels ({ topics, channels, category_id }) {
+export async function getFilteredChannels ({ topics, channels, category_id }) {
   const filteredChannels = []
   for (const channel of channels) {
     if (channel.category_id === category_id) {
+      const noOfTopics = await getChannelTopicsCount({ channel_id: channel.channel_id })
       filteredChannels.push({
         id: channel.channel_id,
         title: channel.channel_title,
         description: channel.channel_description,
-        noOfTopics: getFilteredTopicsCount({ topics, channel_id: channel.channel_id })
+        noOfTopics
       })
     }
   }

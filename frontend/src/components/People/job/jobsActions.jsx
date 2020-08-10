@@ -42,7 +42,7 @@ const JobsActions = ({
     setAnchorEl(null)
     setOpen(false)
     dispatch(deleteJob({ categoryId, jobId, title }))
-  }, [ categoryId, jobId, title ])
+  }, [ dispatch, categoryId, jobId, title ])
 
   return (
     <div className='dropdown is-right dropdown-trigger styled-dropdown is-round is-active'>

@@ -26,7 +26,7 @@ export const getModelPrimaryKeys = async ({ model }) => {
 }
 
 export const aggregate = async ({ model, aggFunction, data }) => {
-  const query = { raw: true, where: data }
+  const query = { raw: true, where: { is_deleted: false, ...data } }
   let res
   switch (aggFunction) {
     case 'count':

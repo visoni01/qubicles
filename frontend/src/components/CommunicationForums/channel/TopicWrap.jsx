@@ -16,6 +16,29 @@ const TopicWrap = ({ channelDetails }) => {
   const { isLoading, channelTopicsList } = useSelector((state) => state.channelTopicsList)
   const totalTopics = channelTopicsList.length
   const isTopics = !_.isEmpty(channelTopicsList)
+
+  if (isLoading) {
+    return (
+      <div className='forum-wrap'>
+        <div className='forum-container'>
+          <div className='channel-heading'>
+            <h3>
+              {`${ totalTopics } topics`}
+            </h3>
+            {!_.isEmpty(channelDetails.moderators)
+          && <Contributors users={ channelDetails.moderators } message='are moderating this channel' />}
+          </div>
+          {isLoading && (
+            <Loader
+              className='loader-custom'
+              enableOverlay={ false }
+              displayLoaderManually
+            />
+          )}
+        </div>
+      </div>
+    )
+  }
   return (
     <div className='forum-wrap'>
       <div className='forum-container'>
@@ -24,16 +47,9 @@ const TopicWrap = ({ channelDetails }) => {
             {`${ totalTopics } topics`}
           </h3>
           {!_.isEmpty(channelDetails.moderators)
-        && <Contributors users={ channelDetails.moderators } message='are moderating this channel' />}
+          && <Contributors users={ channelDetails.moderators } message='are moderating this channel' />}
         </div>
-        {isLoading && (
-        <Loader
-          className='loader-custom'
-          enableOverlay={ false }
-          displayLoaderManually
-        />
-        )}
-        { isTopics
+        { isTopics && !isLoading
           ? (
             <div className='topic-list'>
               {channelTopicsList.map((topic) => <TopicListItem { ...topic } key={ `${ topic.topicId }` } />)}
