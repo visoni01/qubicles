@@ -468,7 +468,7 @@ const Steps = ({ history }) => (
                   </span>
                 </div>
                 <a
-                  href='https://support.fenero.com'
+                  href='https://support.qubicles.io'
                   className='button btn-align btn-more is-link color-primary mt-10 mb-10'
                   style={ { display: 'none' } }
                 >
