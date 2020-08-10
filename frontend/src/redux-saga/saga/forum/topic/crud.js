@@ -1,5 +1,5 @@
 import { takeLatest, put, select } from 'redux-saga/effects'
-import { updateChannelTopicsList } from '../../../redux/actions'
+import { updateChannelTopicsList, updateChannelDetails } from '../../../redux/actions'
 import {
   DELETE_TOPIC, LIKE_TOPIC, UNLIKE_TOPIC, ADD_TOPIC,
 } from '../../../redux/constants'
@@ -22,6 +22,10 @@ function* topicCrudWorker(action) {
         yield put(updateChannelTopicsList({
           type: DELETE_TOPIC,
           topicId,
+        }))
+
+        yield put(updateChannelDetails({
+          type: DELETE_TOPIC,
         }))
         msg = `Topic '${ getSubstrForNotification(topicTitle) }' has been successfully deleted!`
         break
@@ -53,6 +57,10 @@ function* topicCrudWorker(action) {
             topicTitle: topic_title,
             totalReplies: 0,
           },
+        }))
+
+        yield put(updateChannelDetails({
+          type: ADD_TOPIC,
         }))
 
         msg = `Topic '${ getSubstrForNotification(data.topic_title) }' has been successfully created!`

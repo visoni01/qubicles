@@ -71,8 +71,16 @@ export const getUpdatedTopicDetails = ({ state, payload }) => {
 }
 
 export const getUpdatedChannel = ({ state, payload }) => {
-  const { channelDetails } = state
+  let { channelDetails } = state
   switch (payload.type) {
+    case ADD_TOPIC: {
+      channelDetails = { ...state.channelDetails, topicsCount: state.channelDetails.topicsCount + 1 }
+      break
+    }
+    case DELETE_TOPIC: {
+      channelDetails = { ...state.channelDetails, topicsCount: state.channelDetails.topicsCount - 1 }
+      break
+    }
     default:
       break
   }

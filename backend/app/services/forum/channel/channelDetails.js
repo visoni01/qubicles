@@ -1,6 +1,7 @@
 import ServiceBase from '../../../common/serviceBase'
-import { getOneChannel, getChannelTopicsCount, getChannelUsersCount, getChannelModerators } from '../../helper'
+import { getOneChannel, getChannelTopicsCount, getChannelUsersCount, getChannelModerators, getErrorMessageForService } from '../../helper'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
+import logger from '../../../common/logger'
 
 const constraints = {
   user_id: {
@@ -30,21 +31,18 @@ export default class ForumChannelDetailsService extends ServiceBase {
       return
     }
     try {
-      const res = await getChannelDetails({ channel, totalMembers, moderators, topicsCount })
+      const res = {
+        channelId: channel.channel_id,
+        channelTitle: channel.channel_title,
+        channelDescription: channel.channel_description,
+        totalMembers,
+        topicsCount,
+        moderators
+      }
       return res
     } catch (err) {
+      logger.error(getErrorMessageForService('ForumChannelDetailsService'), err)
       this.addError(ERRORS.INTERNAL)
     }
-  }
-}
-
-export async function getChannelDetails ({ channel, totalMembers, moderators, topicsCount }) {
-  return {
-    channelId: channel.channel_id,
-    channelTitle: channel.channel_title,
-    channelDescription: channel.channel_description,
-    totalMembers,
-    topicsCount,
-    moderators
   }
 }

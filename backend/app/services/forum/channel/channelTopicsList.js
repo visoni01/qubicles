@@ -1,6 +1,7 @@
 import ServiceBase from '../../../common/serviceBase'
-import { getTopics, getTopicsSubDetails } from '../../helper'
+import { getTopics, getTopicsSubDetails, getErrorMessageForService } from '../../helper'
 import { ERRORS } from '../../../utils/errors'
+import logger from '../../../common/logger'
 
 const constraints = {
   user_id: {
@@ -26,14 +27,11 @@ export default class ForumChannelTopicsListService extends ServiceBase {
     ]
     const [topics] = await Promise.all(promises.map(promise => promise()))
     try {
-      const res = await getChannelTopics({ topics })
+      const res = await getTopicsSubDetails({ topics })
       return res
     } catch (err) {
+      logger.error(getErrorMessageForService('ForumChannelTopicsListService'), err)
       this.addError(ERRORS.INTERNAL)
     }
   }
-}
-
-export async function getChannelTopics ({ topics }) {
-  return await getTopicsSubDetails({ topics })
 }
