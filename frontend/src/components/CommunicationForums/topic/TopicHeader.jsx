@@ -56,7 +56,7 @@ const TopicHeader = ({
       </div>
       {/* Filter input */}
       <div className='actions'>
-        <Link to={ `${ GROUP }` } className='forum-back home-button topic-home-icon'>
+        <Link to={ `${ GROUP }` } className='forum-back home-button'>
           <i><FontAwesomeIcon icon={ faHome } /></i>
           <i><FontAwesomeIcon icon={ faArrowLeft } /></i>
         </Link>
@@ -66,6 +66,7 @@ const TopicHeader = ({
           className='new-reply-button'
           startIcon={ <FontAwesomeIcon icon={ faPlus } className='people-header-icons' /> }
           onClick={ toggleModalState }
+          classes={ { label: 'new-reply-button-label' } }
         >
           Reply
         </Button>

@@ -19,7 +19,7 @@ export default class ForumChannelService extends ServiceBase {
   async run () {
     const { user_id, channel_id } = this.filteredArgs
     const promises = [
-      () => getOneChannel({ channel_id }),
+      () => getOneChannel({ channel_id, is_deleted: false }),
       () => getTopics({ user_id })
     ]
     const [channel, topics] = await Promise.all(promises.map(promise => promise()))

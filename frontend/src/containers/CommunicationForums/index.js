@@ -29,6 +29,7 @@ const CreateGroup = () => {
         className='new-job-button'
         startIcon={ <FontAwesomeIcon icon={ faPlus } className='people-header-icons' /> }
         onClick={ handleNewGroupModal }
+        classes={ { label: 'new-job-button-label' } }
       >
         New Group
       </Button>

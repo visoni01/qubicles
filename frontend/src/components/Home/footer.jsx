@@ -56,7 +56,7 @@ const Footer = () => (
               <h3>Resources</h3>
             </div>
             <ul className='link-list'>
-              <li><a href='http://support.fenero.com'>Support</a></li>
+              <li><a href='http://support.qubicles.io'>Support</a></li>
               <li><Link to='/termsofuse'>Terms of Use</Link></li>
               <li><Link to='/privacypolicy'>Privacy Policy</Link></li>
             </ul>

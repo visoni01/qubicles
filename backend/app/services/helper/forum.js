@@ -129,7 +129,10 @@ export async function getChannels ({ user_id }) {
   })
   const channelIds = userChannels.map(channel => channel.forum_object_id)
   const channels = await XForumChannel.findAll({
-    where: { [Op.or]: [{ is_public: true }, { owner_id: user_id }, { channel_id: channelIds }] },
+    where: {
+      [Op.or]: [{ is_public: true }, { owner_id: user_id }, { channel_id: channelIds }],
+      [Op.not]: [{ is_deleted: true }]
+    },
     raw: true
   })
   return channels
@@ -569,4 +572,13 @@ export async function isTopicLiked ({ user_id, topic_id }) {
     }
   })
   return !!isTopicLiked
+}
+
+export async function deleteChannel ({ channel_id }) {
+  await XForumChannel.update({ is_deleted: true },
+    {
+      where: {
+        channel_id
+      }
+    })
 }

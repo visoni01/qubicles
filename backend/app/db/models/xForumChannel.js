@@ -31,6 +31,10 @@ module.exports = (sequelize, DataTypes) => {
     is_company_ann: {
       type: DataTypes.BOOLEAN
     },
+    is_deleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     created_on: {
       type: DataTypes.DATE,
       allowNull: false,

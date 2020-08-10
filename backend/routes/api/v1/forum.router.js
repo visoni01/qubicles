@@ -11,6 +11,9 @@ forumRouter.route('/')
 forumRouter.route('/channel/:channel_id')
   .get(isAuthenticated, forumController.getChannel)
 
+forumRouter.route('/channel/:channel_id')
+  .delete(isAuthenticated, forumController.deleteChannel)
+
 forumRouter.route('/topic/:topic_id')
   .get(isAuthenticated, forumController.getTopic)
 
