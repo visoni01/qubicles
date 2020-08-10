@@ -3,12 +3,14 @@ import PropTypes from 'prop-types'
 import {
   Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, Button,
 } from '@material-ui/core'
+import CKEditor from '@ckeditor/ckeditor5-react'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
 const AddNewTopicModal = ({ open, handleClose, onSubmit }) => {
   const [ topicData, setTopicData ] = useState({
     title: '',
     isPublic: false,
-    isCompanyAnn: false,
+    description: '',
   })
 
   const handleChange = useCallback((event) => {
@@ -19,6 +21,14 @@ const AddNewTopicModal = ({ open, handleClose, onSubmit }) => {
         ...topicData,
         [ event.target.name ]: event.target.type === 'text' ? event.target.value : event.target.checked,
       }))
+  }, [ setTopicData ])
+
+  const handleDescriptionData = useCallback((event, editor) => {
+    // eslint-disable-next-line
+    setTopicData((topicData) => ({
+      ...topicData,
+      description: editor.getData(),
+    }))
   }, [ setTopicData ])
 
   const handleCreateChannel = () => {
@@ -34,7 +44,7 @@ const AddNewTopicModal = ({ open, handleClose, onSubmit }) => {
   return (
     <Dialog open={ open } onClose={ handleClose }>
       <DialogTitle className='text-align-center'>New Topic</DialogTitle>
-      <DialogContent>
+      <DialogContent className='overflow-x-hidden'>
         <TextField
           margin='dense'
           fullWidth
@@ -44,6 +54,12 @@ const AddNewTopicModal = ({ open, handleClose, onSubmit }) => {
           onChange={ handleChange }
           required
           name='title'
+        />
+        <span>Description</span>
+        <CKEditor
+          onChange={ handleDescriptionData }
+          editor={ ClassicEditor }
+          data={ topicData.description }
         />
         <div>
           <div>

@@ -422,6 +422,7 @@ export async function getTopicDetails ({ topicData, topicComments, totalLikes, t
   return {
     topicId: topicData.topic_id,
     topicTitle: topicData.topic_title,
+    topicDescription: topicData.topic_description,
     channelId: channel.channel_id,
     channelTitle: channel.channel_title,
     createdAt: {
