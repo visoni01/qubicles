@@ -35,4 +35,10 @@
       }
     }
   }
+
+  &.create-post-status {
+    .add-status-loader {
+      position: inherit;
+    }
+  }
 }

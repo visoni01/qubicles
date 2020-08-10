@@ -1,4 +1,4 @@
-import apiClient from '../../utils/apiClient'
+import apiClient, { axiosInst } from '../../utils/apiClient'
 
 class Dashboard {
   static async fetchAnnouncement() {
@@ -36,12 +36,17 @@ class Dashboard {
   }
 
   static async fetchPosts() {
-    const response = await apiClient.getRequest('/dashboard/status-list')
+    const response = await apiClient.getRequest('/dashboard/post-status-list')
     return response
   }
 
   static async addPost({ data }) {
-    const response = await apiClient.postRequest('/dashboard/status-list', data)
+    const response = await axiosInst({
+      method: 'post',
+      url: '/dashboard/post-status',
+      data,
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
     return response
   }
 }

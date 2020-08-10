@@ -17,7 +17,7 @@ import {
   ADD_POST,
 } from './constants'
 
-import { postDataFechingStart } from './actions'
+import { postDataFechingStart, createStatusPostStart } from './actions'
 
 export const getUpdatedCategories = ({ state, payload }) => {
   let categories = []
@@ -189,8 +189,8 @@ export const getUpdatedJobsData = ({ state, payload }) => {
 export const getPostData = ({ state, payload }) => {
   let posts
   switch (payload.type) {
-    case ADD_POST: {
-      posts = [ ...payload.newPost, ...state.posts ]
+    case createStatusPostStart.type: {
+      posts = [ payload.newPost, ...state.posts ]
       break
     }
     case postDataFechingStart.type: {
@@ -200,4 +200,5 @@ export const getPostData = ({ state, payload }) => {
     default:
     break  
   }
-}    
+  return posts
+}

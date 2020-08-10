@@ -3,7 +3,8 @@ export * from './dashboard/announcement'
 export * from './loader'
 export * from './snackbar'
 export * from './dashboard/communityRep'
-export * from './dashboard/post'
+export * from './dashboard/post/create'
+export * from './dashboard/post/getPosts'
 export * from './dashboard/jobPosting'
 export * from './dashboard/activeUser'
 export * from './forum/category'
@@ -12,5 +13,8 @@ export * from './forum/channel/channelTopicsList'
 export * from './forum/topic'
 export * from './people/jobPage'
 export * from './forum/actions'
+<<<<<<< 6a03a9f4b892b05fe5326a00eb20bb5bcfa00ba0
 export * from './people/actions'
 export * from './dashboard/actions'
+=======
+>>>>>>> WIP - Added frontend changes for display loader and success message.

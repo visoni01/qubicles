@@ -50,10 +50,12 @@ class ApiClient {
   }
 }
 
-export const axiosInst = axios.create({
+const axiosInst = axios.create({
   baseURL,
 })
 axiosInst.defaults.withCredentials = true
 axiosInst.interceptors.response.use(handleResponse, handleReponseError)
+
+export { axiosInst }
 
 export default new ApiClient(axiosInst)

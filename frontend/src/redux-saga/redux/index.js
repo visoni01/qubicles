@@ -8,7 +8,8 @@ import announcementReducer from './dashboard/announcement'
 import communityRepReducer from './dashboard/communityRep'
 import jobPostingReducer from './dashboard/jobPosting'
 import activeUserReducer from './dashboard/activeUser'
-import postReducer from './dashboard/post'
+import getPostsReducer from './dashboard/post/getPosts'
+import createPostReducer from './dashboard/post/create'
 import dashboardReducer from './dashboard'
 import loaderReducer from './loader'
 import snackbarReducer from './snackbar'
@@ -36,7 +37,8 @@ const rootReducer = combineReducers({
   channelTopicsList: channelTopicsListReducer,
   topic: topicReducer,
   jobCategories: jobCategoriesReducer,
-  status: postReducer,
+  statusPosts: getPostsReducer,
+  createPost: createPostReducer,
 })
 
 export default rootReducer
