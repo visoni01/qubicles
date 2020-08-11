@@ -1,5 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 
+import { actionChannel } from 'redux-saga/effects'
 import {
   ADD_CATEGORY,
   ADD_CHANNEL,
@@ -10,6 +11,7 @@ import {
   DELETE_TOPIC,
   DELETE_CHANNEL,
   DELETE_JOB,
+  UPDATE_TOPIC,
 } from './constants'
 
 export const getUpdatedCategories = ({ state, payload }) => {
@@ -79,6 +81,28 @@ export const getUpdatedChannel = ({ state, payload }) => {
     }
     case DELETE_TOPIC: {
       channelDetails = { ...state.channelDetails, topicsCount: state.channelDetails.topicsCount - 1 }
+      break
+    }
+    case UPDATE_TOPIC: {
+      const {
+        topicId, topicTitle, topicDescription, isPublic,
+      } = payload.topicData
+      const topics = state.channelDetails.channelTopics.map((topic) => {
+        if (topic.topicId !== payload.topicData.topicId) {
+          return {
+            ...topic,
+            topicId,
+            topicTitle,
+            topicDescription,
+            isPublic,
+          }
+        }
+        return topic
+      })
+      channelDetails = {
+        ...state.channelDetails,
+        channelTopics: topics,
+      }
       break
     }
     default:

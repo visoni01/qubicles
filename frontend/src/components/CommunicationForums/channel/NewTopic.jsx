@@ -6,12 +6,10 @@ import {
 import CKEditor from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
-const AddNewTopicModal = ({ open, handleClose, onSubmit }) => {
-  const [ topicData, setTopicData ] = useState({
-    title: '',
-    isPublic: false,
-    description: '',
-  })
+const AddNewTopicModal = ({
+  open, handleClose, onSubmit, editTopicData,
+}) => {
+  const [ topicData, setTopicData ] = useState(editTopicData)
 
   const handleChange = useCallback((event) => {
     event.persist()
@@ -37,6 +35,7 @@ const AddNewTopicModal = ({ open, handleClose, onSubmit }) => {
       setTopicData({
         title: '',
         isPublic: false,
+        description: '',
       })
     }
   }
@@ -77,17 +76,26 @@ const AddNewTopicModal = ({ open, handleClose, onSubmit }) => {
           Cancel
         </Button>
         <Button onClick={ handleCreateChannel } color='primary'>
-          Create Topic
+          Submit
         </Button>
       </DialogActions>
     </Dialog>
   )
 }
 
+AddNewTopicModal.defaultProps = {
+  editTopicData: {
+    title: '',
+    isPublic: false,
+    description: '',
+  },
+}
+
 AddNewTopicModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  editTopicData: PropTypes.shape({}),
 }
 
 export default AddNewTopicModal

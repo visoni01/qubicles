@@ -1,14 +1,14 @@
 import { takeLatest, put, select } from 'redux-saga/effects'
 import { updateChannelTopicsList, updateChannelDetails } from '../../../redux/actions'
 import {
-  DELETE_TOPIC, LIKE_TOPIC, UNLIKE_TOPIC, ADD_TOPIC,
+  DELETE_TOPIC, LIKE_TOPIC, UNLIKE_TOPIC, ADD_TOPIC, UPDATE_TOPIC,
 } from '../../../redux/constants'
 import { getSubstrForNotification } from '../../../../utils/common'
 import { showErrorMessage, showSuccessMessage } from '../../../redux/snackbar'
 import Forum from '../../../service/forum'
 
 function* topicCrudWatcher() {
-  yield takeLatest([ DELETE_TOPIC, LIKE_TOPIC, UNLIKE_TOPIC, ADD_TOPIC ], topicCrudWorker)
+  yield takeLatest([ DELETE_TOPIC, LIKE_TOPIC, UNLIKE_TOPIC, ADD_TOPIC, UPDATE_TOPIC ], topicCrudWorker)
 }
 
 function* topicCrudWorker(action) {
@@ -74,6 +74,33 @@ function* topicCrudWorker(action) {
       case UNLIKE_TOPIC: {
         const { payload } = action.payload
         yield Forum.unlikeTopic({ payload })
+        break
+      }
+      case UPDATE_TOPIC: {
+        const {
+          title, isPublic, topicId, description,
+        } = action.payload
+        const { data } = yield Forum.updateTopic({
+          topicId,
+          title,
+          topic_description: description,
+          is_public: isPublic ? 1 : 0,
+        })
+        const {
+          // eslint-disable-next-line
+          topic_id
+        } = data
+        yield put(updateChannelData({
+          type: UPDATE_TOPIC,
+          topicData: {
+            topicId: topic_id,
+            topicTitle: title,
+            topicDescription: description,
+            isPublic,
+          },
+        }))
+
+        msg = `Topic '${ getSubstrForNotification(title) }' has been successfully updated!`
         break
       }
       default:

@@ -2,21 +2,23 @@ import React, { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisV, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faEllipsisV, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
 import {
   Menu, MenuItem,
-  Dialog, DialogActions, DialogTitle, Button,
+  Dialog, DialogActions, DialogTitle, Button, IconButton,
 } from '@material-ui/core'
 import { ownerDetails } from '../forumValidators'
-import { deleteTopic } from '../../../redux-saga/redux/actions'
+import { deleteTopic, updateTopic } from '../../../redux-saga/redux/actions'
 import './style.scss'
+import EditTopic from './NewTopic'
 
 const TopicActions = ({
-  topicTitle, topicId, topicOwner,
+  topicTitle, topicId, topicOwner, topicDescription, isPublic,
 }) => {
   const dispatch = useDispatch()
   const { userDetails } = useSelector((state) => state.login)
   const [ anchorEl, setAnchorEl ] = useState(null)
+  const [ openEditModal, setOpenEditModal ] = useState(false)
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
   }
@@ -39,21 +41,25 @@ const TopicActions = ({
   const deleteTopicHandler = useCallback(() => {
     dispatch(deleteTopic({ topicId, topicTitle }))
     setOpen(false)
-  }, [ topicId, topicTitle, dispatch ])
+  }, [ dispatch ])
+
+  const toggleEditModal = useCallback(() => {
+    // eslint-disable-next-line
+    setOpenEditModal((openEditModal) => !openEditModal)
+    handleClose()
+  }, [ setOpenEditModal ])
+
+  const submitEditedTopic = useCallback((topicData) => {
+    dispatch(updateTopic({ ...topicData, topicId }))
+    setOpenEditModal(false)
+  }, [ setOpenEditModal ])
 
   return (
     <div className='dropdown is-right dropdown-trigger styled-dropdown is-round'>
       {(topicOwner.userId === userDetails.user_id) && (
-      <div className='button'>
-        <i className='dropdown-icon'>
-          <FontAwesomeIcon
-            icon={ faEllipsisV }
-            aria-controls='menu'
-            aria-haspopup='true'
-            onClick={ handleClick }
-          />
-        </i>
-      </div>
+        <IconButton onClick={ handleClick }>
+          <FontAwesomeIcon icon={ faEllipsisV } className='is-size-6' />
+        </IconButton>
       )}
       <div className='topic-dropdown'>
         <Menu
@@ -70,6 +76,12 @@ const TopicActions = ({
             <FontAwesomeIcon icon={ faTrash } />
             <span className='remove'>
               Remove
+            </span>
+          </MenuItem>
+          <MenuItem onClick={ toggleEditModal }>
+            <FontAwesomeIcon icon={ faEdit } />
+            <span className='remove'>
+              Edit
             </span>
           </MenuItem>
         </Menu>
@@ -91,14 +103,31 @@ const TopicActions = ({
           </DialogActions>
         </Dialog>
       </div>
+      <EditTopic
+        open={ openEditModal }
+        handleClose={ toggleEditModal }
+        onSubmit={ submitEditedTopic }
+        editTopicData={ {
+          title: topicTitle,
+          description: topicDescription,
+          isPublic,
+        } }
+      />
     </div>
   )
+}
+
+TopicActions.defaultProps = {
+  topicDescription: '',
+  isPublic: false,
 }
 
 TopicActions.propTypes = {
   topicId: PropTypes.number.isRequired,
   topicTitle: PropTypes.string.isRequired,
-  topicOwner: ownerDetails.isRequired,
+  topicOwner: PropTypes.number.isRequired,
+  topicDescription: PropTypes.string,
+  isPublic: PropTypes.bool,
 }
 
 export default TopicActions

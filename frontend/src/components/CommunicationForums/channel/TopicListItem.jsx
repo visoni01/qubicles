@@ -11,7 +11,7 @@ import './style.scss'
 import TopicActions from './TopicActions'
 
 const TopicListItem = ({
-  topicTitle, tags, dateCreatedOn, topicOwner, totalReplies, dateLastReplied, topicId,
+  topicTitle, tags, dateCreatedOn, topicOwner, totalReplies, dateLastReplied, topicId, topicDescription, isPublic,
 }) => (
   <div className='topic-card is-sticky'>
     <div className='topic-owner'>
@@ -50,10 +50,22 @@ const TopicListItem = ({
           </div>
         </div>
       )}
-      <TopicActions topicTitle={ topicTitle } topicId={ topicId } topicOwner={ topicOwner } key={ topicId } />
+      <TopicActions
+        topicTitle={ topicTitle }
+        topicId={ topicId }
+        topicOwner={ topicOwner }
+        key={ topicId }
+        topicDescription={ topicDescription }
+        isPublic={ isPublic }
+      />
     </div>
   </div>
 )
+
+TopicListItem.defaultProps = {
+  topicDescription: '',
+  isPublic: false,
+}
 
 TopicListItem.propTypes = {
   topicId: PropTypes.number.isRequired,
@@ -63,6 +75,9 @@ TopicListItem.propTypes = {
   topicOwner: ownerDetails.isRequired,
   totalReplies: PropTypes.number.isRequired,
   dateLastReplied: PropTypes.string.isRequired,
+  topicDescription: PropTypes.string,
+  isPublic: PropTypes.bool,
+
 }
 
 export default TopicListItem
