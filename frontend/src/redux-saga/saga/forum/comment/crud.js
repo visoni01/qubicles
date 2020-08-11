@@ -1,11 +1,18 @@
 import { takeLatest, put, select } from 'redux-saga/effects'
 import { updateTopicDetails } from '../../../redux/actions'
-import { DELETE_TOPIC_COMMENT, ADD_TOPIC_COMMENT } from '../../../redux/constants'
+import {
+  DELETE_TOPIC_COMMENT, ADD_TOPIC_COMMENT, LIKE_TOPIC_COMMENT, UNLIKE_TOPIC_COMMENT,
+} from '../../../redux/constants'
 import { showErrorMessage, showSuccessMessage } from '../../../redux/snackbar'
 import Forum from '../../../service/forum'
 
 function* topicCommentCrudWatcher() {
-  yield takeLatest([ DELETE_TOPIC_COMMENT, ADD_TOPIC_COMMENT ], topicCommentCrudWorker)
+  yield takeLatest([
+    DELETE_TOPIC_COMMENT,
+    ADD_TOPIC_COMMENT,
+    LIKE_TOPIC_COMMENT,
+    UNLIKE_TOPIC_COMMENT,
+  ], topicCommentCrudWorker)
 }
 
 function* topicCommentCrudWorker(action) {
@@ -32,10 +39,22 @@ function* topicCommentCrudWorker(action) {
         msg = 'Comment has been successfully added!'
         break
       }
+      case LIKE_TOPIC_COMMENT: {
+        const { postId } = action.payload
+        yield Forum.likeTopicComment({ postId })
+        break
+      }
+      case UNLIKE_TOPIC_COMMENT: {
+        const { postId } = action.payload
+        yield Forum.unlikeTopicComment({ postId })
+        break
+      }
       default:
         break
     }
-    yield put(showSuccessMessage({ msg }))
+    if (msg) {
+      yield put(showSuccessMessage({ msg }))
+    }
   } catch (e) {
     yield put(showErrorMessage({ msg: e }))
   }

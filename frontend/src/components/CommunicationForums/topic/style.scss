@@ -29,3 +29,9 @@
 .new-reply-button-label:hover {
   color: white;
 }
+
+.faIcon {
+  &:hover {
+    color: rgb(255, 0, 255);
+  }
+}

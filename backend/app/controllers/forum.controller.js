@@ -12,6 +12,8 @@ import ForumAddNewTopicService from '../services/forum/topic/create'
 import ForumChannelDeleteService from '../services/forum/channel/deleteChannel'
 import ForumChannelTopicsListService from '../services/forum/channel/channelTopicsList'
 import ForumUpdateTopicService from '../services/forum/topic/update'
+import ForumLikeTopicCommentService from '../services/forum/comment/likeComment'
+import ForumUnlikeTopicCommentService from '../services/forum/comment/unlikeComment'
 
 export default class ForumController {
   static async getCategories (req, res) {
@@ -132,6 +134,24 @@ export default class ForumController {
       Responder.success(res, updateTopicResult.result)
     } else {
       Responder.failed(res, updateTopicResult.errors)
+    }
+  }
+
+  static async likeTopicComment (req, res) {
+    const likeTopicCommentRes = await ForumLikeTopicCommentService.execute({ ...req.body, ...req.params })
+    if (likeTopicCommentRes.successful) {
+      Responder.success(res, likeTopicCommentRes.result)
+    } else {
+      Responder.failed(res, likeTopicCommentRes.errors)
+    }
+  }
+
+  static async unlikeTopicComment (req, res) {
+    const unlikeTopicCommentRes = await ForumUnlikeTopicCommentService.execute({ ...req.body, ...req.params })
+    if (unlikeTopicCommentRes.successful) {
+      Responder.success(res, unlikeTopicCommentRes.result)
+    } else {
+      Responder.failed(res, unlikeTopicCommentRes.errors)
     }
   }
 }

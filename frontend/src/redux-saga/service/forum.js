@@ -86,6 +86,15 @@ class Forum {
 
   static async deleteChannel({ channelId }) {
     const response = await apiClient.deleteRequest(`/forum/channel/${ channelId }`)
+  }
+
+  static async likeTopicComment({ postId }) {
+    const response = await apiClient.postRequest(`/forum/topics/posts/${ postId }/like`)
+    return response
+  }
+
+  static async unlikeTopicComment({ postId }) {
+    const response = await apiClient.postRequest(`/forum/topics/posts/${ postId }/unlike`)
     return response
   }
 

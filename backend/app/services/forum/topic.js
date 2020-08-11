@@ -40,7 +40,7 @@ export default class ForumTopicService extends ServiceBase {
     ]
     try {
       const [totalViews, topicComments, totalLikes, topicLiked] = await Promise.all(promises.map(promise => promise()))
-      const topicDetails = await getTopicDetails({ topicData, topicComments, totalLikes, totalViews, topicLiked })
+      const topicDetails = await getTopicDetails({ user_id, topicData, topicComments, totalLikes, totalViews, topicLiked })
       return topicDetails
     } catch (err) {
       logger.error(getErrorMessageForService('ForumTopicService'), err)
