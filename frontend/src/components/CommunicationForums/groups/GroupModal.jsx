@@ -4,11 +4,19 @@ import {
   Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, Button,
 } from '@material-ui/core'
 
-const AddNewGroupModal = ({ open, handleClose, onSubmit }) => {
-  const [ groupData, setGroupData ] = useState({
-    title: '',
-    isPublic: false,
-  })
+const AddNewGroupModal = ({
+  open, handleClose, onSubmit, isUpdate, modalFields,
+}) => {
+  let modalHeading
+  let submitButtonText
+  if (isUpdate) {
+    modalHeading = 'Update Group'
+    submitButtonText = 'Update'
+  } else {
+    modalHeading = 'New Group'
+    submitButtonText = 'Create'
+  }
+  const [ groupData, setGroupData ] = useState(modalFields)
 
   const handleCheckBox = useCallback((event) => {
     // eslint-disable-next-line
@@ -23,15 +31,12 @@ const AddNewGroupModal = ({ open, handleClose, onSubmit }) => {
 
   const handleCreateGroup = () => {
     onSubmit(groupData)
-    setGroupData({
-      title: '',
-      isPublic: false,
-    })
+    setGroupData(groupData)
   }
 
   return (
     <Dialog open={ open } onClose={ handleClose }>
-      <DialogTitle className='text-align-center'>New Group</DialogTitle>
+      <DialogTitle className='text-align-center'>{modalHeading}</DialogTitle>
       <DialogContent>
         <TextField
           margin='dense'
@@ -56,17 +61,30 @@ const AddNewGroupModal = ({ open, handleClose, onSubmit }) => {
           Cancel
         </Button>
         <Button onClick={ handleCreateGroup } color='primary'>
-          Create Group
+          {submitButtonText}
         </Button>
       </DialogActions>
     </Dialog>
   )
 }
 
+AddNewGroupModal.defaultProps = {
+  isUpdate: false,
+  modalFields: {
+    title: '',
+    isPublic: false,
+  },
+}
+
 AddNewGroupModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  isUpdate: PropTypes.bool,
+  modalFields: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    isPublic: PropTypes.bool.isRequired,
+  }),
 }
 
 export default AddNewGroupModal

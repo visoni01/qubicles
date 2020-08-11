@@ -485,7 +485,8 @@ export async function getForumData ({ categories, channels }) {
       id: category.category_id,
       title: category.category_title,
       owner: category.owner_id,
-      channels: filteredChannels
+      channels: filteredChannels,
+      isPublic: category.is_public
     })
   }
   return forumData
@@ -671,6 +672,18 @@ export async function getTopicCommentsLikes ({ post_id }) {
       record_type: 'activity',
       record_id: post_id,
       activity_type: 'like'
+    }
+  })
+}
+
+export async function updateCategory ({ category_id, title, is_public }) {
+  await XForumCategory.update({
+    category_title: title,
+    is_public
+  },
+  {
+    where: {
+      category_id
     }
   })
 }

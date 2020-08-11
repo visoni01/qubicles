@@ -3,22 +3,24 @@ import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faEllipsisV, faTrash, faPlus,
+  faEllipsisV, faTrash, faPlus, faPencilAlt,
 } from '@fortawesome/free-solid-svg-icons'
 import {
   Menu, MenuItem,
   Dialog, DialogActions, DialogTitle, Button,
 } from '@material-ui/core'
-import { deleteCategory, addNewChannel } from '../../../redux-saga/redux/actions'
+import { deleteCategory, addNewChannel, updateCategory } from '../../../redux-saga/redux/actions'
 import NewChannelModal from '../channel/NewChannel'
+import GroupModal from './GroupModal'
 
 const GroupActions = ({
-  id, title, owner,
+  id, title, owner, isPublic,
 }) => {
   const dispatch = useDispatch()
 
   const { userDetails } = useSelector((state) => state.login)
   const [ openNewChannelModal, setOpenNewChannelModal ] = useState(false)
+  const [ openEditGroupModal, setOpenEditGroupModal ] = useState(false)
 
   const [ anchorEl, setAnchorEl ] = useState(null)
 
@@ -52,11 +54,22 @@ const GroupActions = ({
     (openNewChannelModal) => !openNewChannelModal,
   ), [ setOpenNewChannelModal ])
 
+  const toggleEditGroupModal = useCallback(() => setOpenEditGroupModal(
+    // eslint-disable-next-line
+    (openEditGroupModal) => !openEditGroupModal,
+  ), [ setOpenEditGroupModal ])
+
   const handleNewChannelSubmit = useCallback((data) => {
     setAnchorEl(null)
     dispatch(addNewChannel({ ...data, id, userId: userDetails.user_id }))
     setOpenNewChannelModal(false)
   }, [ setOpenNewChannelModal, dispatch, id, userDetails.user_id ])
+
+  const handleEditGroupModal = useCallback((data) => {
+    setAnchorEl(null)
+    dispatch(updateCategory({ title: data.title, is_public: data.isPublic, categoryId: id }))
+    setOpenEditGroupModal(false)
+  }, [ id, setOpenEditGroupModal, dispatch ])
 
   return (
     <>
@@ -100,6 +113,14 @@ const GroupActions = ({
                 Add Channel
               </span>
             </MenuItem>
+            <MenuItem
+              onClick={ toggleEditGroupModal }
+            >
+              <FontAwesomeIcon icon={ faPencilAlt } />
+              <span className='remove'>
+                Edit
+              </span>
+            </MenuItem>
           </Menu>
         </div>
       </div>
@@ -123,6 +144,18 @@ const GroupActions = ({
         handleClose={ toggleNewChannelModal }
         onSubmit={ handleNewChannelSubmit }
       />
+      <GroupModal
+        open={ openEditGroupModal }
+        handleClose={ toggleEditGroupModal }
+        onSubmit={ handleEditGroupModal }
+        modalFields={
+           {
+             title,
+             isPublic,
+           }
+         }
+        isUpdate
+      />
     </>
   )
 }
@@ -131,6 +164,7 @@ GroupActions.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   owner: PropTypes.number.isRequired,
+  isPublic: PropTypes.bool.isRequired,
 }
 
 export default GroupActions

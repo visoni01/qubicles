@@ -1,12 +1,12 @@
 import { takeLatest, put, select } from 'redux-saga/effects'
 import { updateCategoryData } from '../../../redux/actions'
-import { ADD_CATEGORY, DELETE_CATEGORY } from '../../../redux/constants'
+import { ADD_CATEGORY, DELETE_CATEGORY, UPDATE_CATEGORY } from '../../../redux/constants'
 
 import Forum from '../../../service/forum'
 import { showErrorMessage, showSuccessMessage } from '../../../redux/snackbar'
 
 function* categoryCrudWatcher() {
-  yield takeLatest([ ADD_CATEGORY, DELETE_CATEGORY ], categoryCrudWorker)
+  yield takeLatest([ ADD_CATEGORY, DELETE_CATEGORY, UPDATE_CATEGORY ], categoryCrudWorker)
 }
 
 function* categoryCrudWorker(action) {
@@ -34,10 +34,18 @@ function* categoryCrudWorker(action) {
         msg = `Group '${ title }' has been successfully deleted!`
         break
       }
+      case UPDATE_CATEGORY: {
+        const { payload } = action
+        const { data } = yield Forum.updateCategory(payload)
+        yield put(updateCategoryData({ type: UPDATE_CATEGORY, data }))
+        break
+      }
       default:
         break
     }
-    yield put(showSuccessMessage({ msg }))
+    if (msg) {
+      yield put(showSuccessMessage({ msg }))
+    }
   } catch (e) {
     yield put(showErrorMessage())
   }

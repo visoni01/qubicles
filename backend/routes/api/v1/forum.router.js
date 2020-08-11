@@ -50,4 +50,7 @@ forumRouter.route('/topics')
 forumRouter.route('/topics/:topic_id')
   .put(isAuthenticated, forumController.updateTopic)
 
+forumRouter.route('/categories/:category_id')
+  .put(isAuthenticated, forumController.updateCategory)
+
 export { forumRouter }

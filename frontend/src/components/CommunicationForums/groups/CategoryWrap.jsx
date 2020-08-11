@@ -8,7 +8,7 @@ import ChannelListItem from './ChannelListItem'
 import GroupActions from './GroupActions'
 
 const CategoryWrap = ({
-  id, title, owner, channels,
+  id, title, owner, channels, isPublic,
 }) => {
   const [ showInfo, setShowInfo ] = useState(false)
   const setShowInfoCB = useCallback(() => {
@@ -25,7 +25,7 @@ const CategoryWrap = ({
         {/* Heading */}
         <div className='channel-heading'>
           <h3>{title}</h3>
-          <GroupActions id={ id } title={ title } owner={ owner } />
+          <GroupActions id={ id } title={ title } owner={ owner } isPublic={ isPublic } />
         </div>
         {/* Channels list */}
         {channels.map((channel) => (
@@ -46,6 +46,7 @@ CategoryWrap.propTypes = {
   title: PropTypes.string.isRequired,
   owner: PropTypes.number.isRequired,
   channels: PropTypes.arrayOf(PropTypes.oneOfType([ PropTypes.object ])).isRequired,
+  isPublic: PropTypes.bool.isRequired,
 }
 
 export default CategoryWrap

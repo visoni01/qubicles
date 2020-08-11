@@ -6,7 +6,7 @@ import { Button } from '@material-ui/core'
 import Pagination from '@material-ui/lab/Pagination'
 import { addNewCategory } from '../../redux-saga/redux/actions'
 import withNavBar from '../../hoc/navbar'
-import NewGroupModal from '../../components/CommunicationForums/groups/NewGroup'
+import GroupModal from '../../components/CommunicationForums/groups/GroupModal'
 import CategoryList from '../../components/CommunicationForums/groups/CategoryList'
 import CategorySearchBar from '../../components/CommunicationForums/groups/CategorySearch'
 
@@ -23,7 +23,7 @@ const CreateGroup = () => {
 
   return (
     <>
-      <NewGroupModal open={ openNewGroupModal } handleClose={ handleNewGroupModal } onSubmit={ addNewGroup } />
+      <GroupModal open={ openNewGroupModal } handleClose={ handleNewGroupModal } onSubmit={ addNewGroup } />
       <Button
         variant='contained'
         className='new-job-button'
