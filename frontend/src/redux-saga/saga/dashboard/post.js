@@ -20,7 +20,15 @@ function* postDataFetchingWorker(action) {
     switch (action.type) {
       case postDataFechingStart.type: {
         const { data } = yield Dashboard.fetchPosts()
-        yield put(updatePostData({ type: action.type, posts: data }))
+        const postData = data.map((post) => ({
+          activityCustom: post.activity_custom,
+          activityPermission: post.activity_permission,
+          activityValue: post.activity_value,
+          createdAt: post.createdAt,
+          userActivtyId: post.user_activity_id,
+          userId: post.user_id,
+        }))
+        yield put(updatePostData({ type: action.type, posts: postData }))
         break
       }
       case createStatusPostStart.type: {
@@ -32,7 +40,15 @@ function* postDataFetchingWorker(action) {
         formData.set('activityPermission', activityPermission)
 
         const { data } = yield Dashboard.addPost({ data: formData })
-        yield put(updatePostData({ type: action.type, newPost: data }))
+        const postData = {
+          activityCustom: data.activity_custom,
+          activityPermission: data.activity_permission,
+          activityValue: data.activity_value,
+          createdAt: data.createdAt,
+          userActivtyId: data.user_activity_id,
+          userId: data.user_id,
+        }
+        yield put(updatePostData({ type: action.type, newPost: postData }))
         yield put(createStatusPostSuccess())
         msg = 'Status has been sucessfully posted!'
         break
