@@ -42,6 +42,12 @@ function* categoryCrudWorker(action) {
         msg = `Group '${ getSubstrForNotification(data.title) }' has been successfully updated!`
         break
       }
+      case UPDATE_CATEGORY: {
+        const { payload } = action
+        const { data } = yield Forum.updateCategory(payload)
+        yield put(updateCategoryData({ type: UPDATE_CATEGORY, data }))
+        break
+      }
       default:
         break
     }

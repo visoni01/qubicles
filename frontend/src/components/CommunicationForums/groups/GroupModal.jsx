@@ -1,12 +1,10 @@
 import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, Button, IconButton,
+  Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, Button,
 } from '@material-ui/core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
-const AddUpdateGroupModal = ({
+const AddNewGroupModal = ({
   open, handleClose, onSubmit, isUpdate, modalFields,
 }) => {
   let modalHeading
@@ -31,24 +29,14 @@ const AddUpdateGroupModal = ({
     setGroupData((groupData) => ({ ...groupData, title: event.target.value }))
   }, [ setGroupData ])
 
-  const handleCreateGroup = useCallback(() => {
+  const handleCreateGroup = () => {
     onSubmit(groupData)
     setGroupData(groupData)
-  })
-
-  const handleCancelButton = useCallback(() => {
-    handleClose()
-    setGroupData(modalFields)
-  })
+  }
 
   return (
-    <Dialog open={ open } onClose={ handleClose } classes={ { paper: 'group-modal' } }>
+    <Dialog open={ open } onClose={ handleClose }>
       <DialogTitle className='text-align-center'>{modalHeading}</DialogTitle>
-      <DialogActions className='cross-button'>
-        <IconButton className='is-size-6' onClick={ handleCancelButton }>
-          <FontAwesomeIcon icon={ faTimes } />
-        </IconButton>
-      </DialogActions>
       <DialogContent>
         <TextField
           margin='dense'
@@ -69,20 +57,10 @@ const AddUpdateGroupModal = ({
         <span className='vertical-align-middle'>Make group public</span>
       </DialogContent>
       <DialogActions>
-        <Button
-          onClick={ handleCancelButton }
-          color='primary'
-          className='primary-button'
-          classes={ { label: 'primary-button-label' } }
-        >
+        <Button onClick={ handleClose } color='primary'>
           Cancel
         </Button>
-        <Button
-          onClick={ handleCreateGroup }
-          color='primary'
-          className='primary-button'
-          classes={ { label: 'primary-button-label' } }
-        >
+        <Button onClick={ handleCreateGroup } color='primary'>
           {submitButtonText}
         </Button>
       </DialogActions>
@@ -90,7 +68,7 @@ const AddUpdateGroupModal = ({
   )
 }
 
-AddUpdateGroupModal.defaultProps = {
+AddNewGroupModal.defaultProps = {
   isUpdate: false,
   modalFields: {
     title: '',
@@ -98,7 +76,7 @@ AddUpdateGroupModal.defaultProps = {
   },
 }
 
-AddUpdateGroupModal.propTypes = {
+AddNewGroupModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
@@ -109,4 +87,4 @@ AddUpdateGroupModal.propTypes = {
   }),
 }
 
-export default AddUpdateGroupModal
+export default AddNewGroupModal

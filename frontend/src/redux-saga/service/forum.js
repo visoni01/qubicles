@@ -108,6 +108,11 @@ class Forum {
     const response = await apiClient.putRequest(`/forum/categories/${ payload.categoryId }`, payload)
     return response
   }
+
+  static async updateCategory(payload) {
+    const response = await apiClient.putRequest(`/forum/categories/${ payload.categoryId }`, payload)
+    return response
+  }
 }
 
 export default Forum
