@@ -25,5 +25,7 @@ export const MESSAGES = {
   COMMENT_DELETED_SUCCESSFULLY: 'Topic comment successfully deleted',
   UNAUTHORIZED_MSG: 'You don\'t have permission to perform this action!',
   INVALID_IMAGE_FILE: 'File is not valid image file!',
-  IPFS_FILE_UPLOAD_ERROR: 'Error occured while uploadind file on IPFS!'
+  IPFS_FILE_UPLOAD_ERROR: 'Error occured while uploadind file on IPFS!',
+  POST_STATUS_NOT_EXIST: 'Post status does not exist',
+  STATUS_DELETED_SUCCESSFULLY: 'Post status successfully deleted'
 }

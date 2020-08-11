@@ -160,3 +160,9 @@ export async function isUserBelongsToCompany ({ user_id, client_id }) {
 
   return !!isUserBelongsToCompany
 }
+
+export async function deleteStatusPost ({ user_activity_id }) {
+  const postStatus = await XUserActivity.update({ is_deleted: true },
+    { where: { user_activity_id } })
+  return postStatus
+}

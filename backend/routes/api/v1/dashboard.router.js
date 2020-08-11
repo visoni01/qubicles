@@ -25,4 +25,7 @@ dashboardRouter.route('/job-postings')
 dashboardRouter.route('/active-users')
   .get(isAuthenticated, dashboardController.getActiveUsers)
 
+dashboardRouter.route('/post-status/:user_activity_id')
+  .delete(isAuthenticated, dashboardController.deletePostStatus)
+
 export { dashboardRouter }

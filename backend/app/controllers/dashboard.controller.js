@@ -5,6 +5,7 @@ import JobPostings from '../services/dashboard/jobPostings'
 import ActiveUsers from '../services/dashboard/activeUsers'
 import GellAllPostStatusListService from '../services/dashboard/postStatusList'
 import AddPostStatusService from '../services/dashboard/addPostStatus'
+import ForumDeletePostStatusService from '../services/dashboard/deletePostStatus'
 
 export default class DashboardController {
   static async getCommunityRep (req, res) {
@@ -58,6 +59,15 @@ export default class DashboardController {
       Responder.success(res, postStatus.result)
     } else {
       Responder.failed(res, postStatus.errors)
+    }
+  }
+
+  static async deletePostStatus (req, res) {
+    const deletePostStatus = await ForumDeletePostStatusService.execute({ ...req.body, ...req.params })
+    if (deletePostStatus.successful) {
+      Responder.success(res, deletePostStatus.result)
+    } else {
+      Responder.failed(res, deletePostStatus.errors)
     }
   }
 }
