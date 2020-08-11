@@ -31,11 +31,12 @@ export async function addCategory ({ category_title, owner_id, is_public }) {
   return newCategory
 }
 
-export async function addTopic ({ topic_title, owner_id, channel_id, client_id, is_public, is_flagged }) {
+export async function addTopic ({ topic_title, topic_description, owner_id, channel_id, client_id, is_public, is_flagged }) {
   const newTopic = await createNewEntity({
     model: XForumTopic,
     data: {
       topic_title,
+      topic_description,
       owner_id,
       channel_id,
       is_public,

@@ -73,7 +73,8 @@ const TopicHeader = ({
         </div>
         <NewComment open={ openCommentModal } handleClose={ toggleModalState } handleSubmit={ handleSubmit } />
       </div>
-      <div className='ml-10 mr-10'>{topicDescription}</div>
+      {/* eslint-disable-next-line */}
+      <div className='ml-10 mr-10' dangerouslySetInnerHTML={ { __html: topicDescription } } />
     </>
   )
 }

@@ -31,9 +31,12 @@ function* topicCrudWorker(action) {
         break
       }
       case ADD_TOPIC: {
-        const { title, isPublic, channelId } = action.payload
+        const {
+          title, isPublic, channelId, description,
+        } = action.payload
         const { data } = yield Forum.addNewTopic({
           title,
+          description,
           is_public: isPublic,
           channel_id: channelId,
           is_flagged: false, // Temporary set is_flagged false, currently has no functionality.
@@ -80,20 +83,16 @@ function* topicCrudWorker(action) {
         const {
           title, isPublic, topicId, description,
         } = action.payload
-        const { data } = yield Forum.updateTopic({
+        yield Forum.updateTopic({
           topicId,
           title,
           topic_description: description,
           is_public: isPublic ? 1 : 0,
         })
-        const {
-          // eslint-disable-next-line
-          topic_id
-        } = data
         yield put(updateChannelData({
           type: UPDATE_TOPIC,
           topicData: {
-            topicId: topic_id,
+            topicId,
             topicTitle: title,
             topicDescription: description,
             isPublic,

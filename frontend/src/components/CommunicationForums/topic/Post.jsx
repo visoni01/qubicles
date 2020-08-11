@@ -51,6 +51,7 @@ const Post = ({ postMeta, postBody, postId }) => {
             }
           </div>
         </div>
+        {/* eslint-disable-next-line */}
         <div className='post-body content' dangerouslySetInnerHTML={ { __html: postBody.content } } />
         {isEdited && <div className='edited-text'>{`Edited ${ getTimeFromNow(postMeta.updatedAt) }`}</div>}
       </div>
