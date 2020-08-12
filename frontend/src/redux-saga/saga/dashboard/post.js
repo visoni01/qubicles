@@ -28,15 +28,7 @@ function* postDataFetchingWorker(action) {
     switch (action.type) {
       case postDataFechingStart.type: {
         const { data } = yield Dashboard.fetchPosts()
-        const postData = data.map((post) => ({
-          activityCustom: post.activity_custom,
-          activityPermission: post.activity_permission,
-          activityValue: post.activity_value,
-          createdAt: post.createdAt,
-          userActivityId: post.user_activity_id,
-          userId: post.user_id,
-        }))
-        yield put(updatePostData({ type: action.type, posts: postData }))
+        yield put(updatePostData({ type: action.type, posts: data }))
         break
       }
       case createStatusPostStart.type: {
@@ -48,15 +40,7 @@ function* postDataFetchingWorker(action) {
         formData.set('activityPermission', activityPermission)
 
         const { data } = yield Dashboard.addPost({ data: formData })
-        const postData = {
-          activityCustom: data.activity_custom,
-          activityPermission: data.activity_permission,
-          activityValue: data.activity_value,
-          createdAt: data.createdAt,
-          userActivityId: data.user_activity_id,
-          userId: data.user_id,
-        }
-        yield put(updatePostData({ type: action.type, newPost: postData }))
+        yield put(updatePostData({ type: action.type, newPost: data }))
         yield put(createStatusPostSuccess())
         msg = 'Status has been sucessfully posted!'
         break
@@ -64,8 +48,8 @@ function* postDataFetchingWorker(action) {
       case DELETE_POST_STATUS: {
         const { userActivityId } = action.payload
         const { data } = yield Dashboard.deletePost({ userActivityId })
-        yield put(updatePostData({ type: action.type, userActivityId: data.userActivityId }))
-        msg = 'Posted status successfully deleted!'
+        yield put(updatePostData({ type: action.type, userActivityId: data.user_activity_id }))
+        msg = 'Status has been successfully deleted!'
         break
       }
       default:

@@ -1,8 +1,9 @@
 import ServiceBase from '../../common/serviceBase'
 import { XUserActivity } from '../../db/models'
 import logger from '../../common/logger'
-import { getErrorMessageForService } from '../helper'
+import { getErrorMessageForService, checkVisibility, getUserById } from '../helper'
 import { ERRORS } from '../../utils/errors'
+import _ from 'lodash'
 
 const constraints = {
   user_id: {
@@ -17,17 +18,34 @@ export default class GellAllPostStatusListService extends ServiceBase {
 
   async run () {
     try {
-      const statusList = await XUserActivity.findAll({
+      let statusList = await XUserActivity.findAll({
         where: {
           record_id: 0,
           record_type: 'activity',
-          activity_type: 'status'
+          activity_type: 'status',
+          is_deleted: false
         },
         order: [['created_on', 'DESC']],
         raw: true
       })
 
-      return statusList
+      statusList = await Promise.all(statusList.map(async (data) => {
+        const isValidUser = await checkVisibility({ 
+          activity_permission: data.activity_permission, 
+          user_id: this.user_id, 
+          owner_id: data.user_id  
+        })
+        
+        if (isValidUser) {
+          const user = await getUserById({ user_id: data.user_id })
+          data['owner'] = user.full_name
+          return data
+        } else {
+          return false
+        }
+      }))
+
+      return _.compact(statusList)
     } catch (e) {
       logger.error(getErrorMessageForService('GellAllPostStatusListService'), e)
       this.addError(ERRORS.INTERNAL)

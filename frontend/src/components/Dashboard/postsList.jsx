@@ -45,7 +45,17 @@ const PostsList = () => {
   }
 
   if (isPosts) {
-    return (posts.map((post) => <PostStatusWrap { ...post } key={ posts.userActivityId } />))
+    return (posts.map((post) => (
+      <PostStatusWrap
+        userActivityId={ post.user_activity_id }
+        activityValue={ post.activity_value }
+        activityCustom={ post.activity_custom }
+        createdAt={ post.createdAt }
+        owner={ post.owner }
+        userId={ post.user_id }
+        key={ post.user_activity_id }
+      />
+    )))
   }
 
   return (
