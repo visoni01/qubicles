@@ -1,10 +1,12 @@
 import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, Button,
+  Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, Button, IconButton,
 } from '@material-ui/core'
 import CKEditor from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
 const AddNewTopicModal = ({
   open, handleClose, onSubmit, editTopicData, isEdit,
@@ -42,9 +44,16 @@ const AddNewTopicModal = ({
 
   return (
     <Dialog open={ open } onClose={ handleClose }>
-      <DialogTitle className='text-align-center'>
-        {isEdit ? 'Update Topic' : 'New Topic'}
-      </DialogTitle>
+      <div className='is-flex'>
+        <DialogTitle className='text-align-center width-full'>
+          {isEdit ? 'Update Topic' : 'New Topic'}
+        </DialogTitle>
+        <DialogActions className='cross-button'>
+          <IconButton className='is-size-6' onClick={ handleClose }>
+            <FontAwesomeIcon icon={ faTimes } />
+          </IconButton>
+        </DialogActions>
+      </div>
       <DialogContent className='overflow-x-hidden'>
         <TextField
           margin='dense'
