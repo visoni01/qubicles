@@ -1,36 +1,37 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Avatar from '@material-ui/core/Avatar'
-import './style.scss'
-import { useSelector } from 'react-redux'
-import Skeleton from '@material-ui/lab/Skeleton'
 import { getTimeFromNow } from '../../utils/common'
 import PostStatusAction from './PostStatusAction'
+import './style.scss'
 
 const PostStatusWrap = ({
   userActivityId, activityValue, activityCustom, createdAt, owner, userId,
 }) => (
-  <div className='post-item animated preFadeInLeft fadeInLeft'>
+  <div className='post-item post-item-custom animated preFadeInLeft fadeInLeft'>
     <div className='is-flex is-start is-vcenter padding-10'>
       <Avatar className='avatar'>
         {owner[ 0 ].toUpperCase()}
       </Avatar>
-      <div className='item-title full-width'>
-        Posted by
-        <span>
-          {' '}
-          {owner}
-        </span>
-        <span className='feed-time-small float-right'>
+      <div className='item-title title-bar-style'>
+        <div>
+          Posted by
+          <span>
+            {' '}
+            {owner}
+          </span>
+        </div>
+        <div className='feed-time-small'>
           {getTimeFromNow(createdAt)}
-          <PostStatusAction userId={ userId } userActivityId={ userActivityId } />
-        </span>
-        <br />
+        </div>
+      </div>
+      <div className='feed-time-small float-right icon-style'>
+        <PostStatusAction userId={ userId } userActivityId={ userActivityId } />
       </div>
     </div>
 
     <div>
-      <div className='is-flex is-start is-vcenter'>
+      <div className='is-flex is-start is-vcenter post-text-container'>
         <div className='post-text'>
           <p>
             {activityValue}
@@ -39,7 +40,7 @@ const PostStatusWrap = ({
       </div>
       {(activityCustom) && (
         <div className='is-flex is-start is-vcenter'>
-          <div className='feed-image-container'>
+          <div className='feed-image-container image-root'>
             <div className='soft-overlay' />
             <img src={ activityCustom } alt='demo-pic' />
           </div>
@@ -47,7 +48,6 @@ const PostStatusWrap = ({
       )}
     </div>
   </div>
-
 )
 
 PostStatusWrap.defaultProps = {

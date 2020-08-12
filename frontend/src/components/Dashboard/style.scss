@@ -50,6 +50,93 @@
   }
 }
 
+.post-item-custom {
+  width: 100%;
+  .MuiAvatar-root {
+    float: left;
+  }
+
+  .skeleton-header-container {
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 15px;
+
+    .skeleton-avatar-container {
+      float: left;
+      width: 16%;
+
+      .custom-skeleton-avatar {
+        width: 50px;
+        height: 50px;
+        margin-top: 20px;
+        margin-top: 10px;
+        margin-left: 7px;
+        float: left
+      }
+    }
+
+    .skeleton-title-container {
+      width: 78%;
+      display: inline-block;
+      margin-top: 11px;
+
+      .custom-skeleton-title {
+        width: 61%; 
+        height: 20px;
+      }
+
+      .custom-skeleton-date {
+        height: 15px;
+        margin-bottom: 6px;
+        width: 31%;
+        margin-top: 5px;
+      }
+    }
+
+    .custom-skeleton-description {
+      height: 28px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  }
+
+  .skeleton-footer-container {
+    height: 350px;
+  }
+  
+
+  .title-bar-style {
+    float: left;
+    display: block;
+    width: 75%;
+  }
+
+  .post-text-container {
+    .post-text {
+      display: block;
+      width: 100%;
+
+      p {
+        padding-top: 0px;
+        padding-bottom: 0px;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    }
+  }
+
+  .icon-style {
+    margin-top: -10px;
+    margin-left: 9px;
+
+    .button {
+      &:hover {
+        background: none !important;
+      }
+    }
+  }
+}
+
 .feed-image-container > img {
   top: 27px;
   height: 350px;
@@ -71,7 +158,6 @@
 }
 
 .status-wrapper .textarea {
-  // margin-top: 10px;
   padding: 0;
   border-color: transparent;
   resize: none;

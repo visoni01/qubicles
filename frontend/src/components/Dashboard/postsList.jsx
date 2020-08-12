@@ -16,22 +16,31 @@ const PostsList = () => {
 
   if (isLoading) {
     return (
-      <>
-        <Skeleton animation='wave' variant='circle' width={ 40 } height={ 40 } styel={ { marginTop: 20 } } />
-        <Skeleton
-          animation='wave'
-          height='20px'
-          width='70%'
-          style={ { marginLeft: 50, marginBottom: 10, paddingBottom: 30 } }
-        />
-        <Skeleton animation='wave' height='40px' style={ { marginBottom: 6 } } />
+      <div className='post-item post-item-custom animated preFadeInLeft fadeInLeft'>
+        <div className='skeleton-header-container'>
+          <div className='skeleton-avatar-container'>
+            <Skeleton
+              classes={ { root: 'custom-skeleton-avatar' } }
+              animation='wave'
+              variant='circle'
+            />
+          </div>
+          <div className='skeleton-title-container'>
+            <Skeleton
+              animation='wave'
+              classes={ { root: 'custom-skeleton-title' } }
+            />
+            <Skeleton animation='wave' classes={ { root: 'custom-skeleton-date' } } />
+          </div>
+
+          <Skeleton animation='wave' classes={ { root: 'custom-skeleton-description' } } />
+        </div>
         <Skeleton
           animation='wave'
           variant='rect'
-          height={ 350 }
-          style={ { marginBottom: 10 } }
+          classes={ { root: 'skeleton-footer-container' } }
         />
-      </>
+      </div>
     )
   }
 
@@ -40,9 +49,7 @@ const PostsList = () => {
   }
 
   return (
-    <div className='post-item animated preFadeInLeft fadeInLeft'>
-      No status update...
-    </div>
+    <> </>
   )
 }
 
