@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisV, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
+import { faEllipsisV, faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 import {
   Menu, MenuItem,
   Dialog, DialogActions, DialogTitle, Button, IconButton,
@@ -79,7 +79,7 @@ const TopicActions = ({
             </span>
           </MenuItem>
           <MenuItem onClick={ toggleEditModal }>
-            <FontAwesomeIcon icon={ faEdit } />
+            <FontAwesomeIcon icon={ faPencilAlt } />
             <span className='remove'>
               Edit
             </span>
