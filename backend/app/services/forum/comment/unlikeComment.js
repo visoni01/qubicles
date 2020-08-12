@@ -12,7 +12,7 @@ const constraints = {
   }
 }
 
-export default class ForumUnlikeTopicCommentService extends ServiceBase {
+export class ForumUnlikeTopicCommentService extends ServiceBase {
   get constraints () {
     return constraints
   }

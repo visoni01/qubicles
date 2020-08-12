@@ -1,6 +1,6 @@
-import ServiceBase from '../../common/serviceBase'
-import { addChannel } from '../helper'
-import { XClientUser } from '../../db/models'
+import ServiceBase from '../../../common/serviceBase'
+import { addChannel } from '../../helper'
+import { XClientUser } from '../../../db/models'
 
 const constraints = {
   user_id: {
@@ -23,7 +23,7 @@ const constraints = {
   }
 }
 
-export default class ForumAddNewChannelService extends ServiceBase {
+export class ForumAddNewChannelService extends ServiceBase {
   get constraints () {
     return constraints
   }

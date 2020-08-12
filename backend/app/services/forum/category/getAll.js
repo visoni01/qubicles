@@ -1,6 +1,6 @@
-import ServiceBase from '../../common/serviceBase'
-import { getCategories, getChannels } from '../helper/forum'
-import { getForumData } from '../helper'
+import ServiceBase from '../../../common/serviceBase'
+import { getCategories, getChannels } from '../../helper/forum'
+import { getForumData } from '../../helper'
 
 const constraints = {
   user_id: {
@@ -17,7 +17,7 @@ const constraints = {
   }
 }
 
-export default class ForumCategoriesService extends ServiceBase {
+export class ForumCategoriesService extends ServiceBase {
   get constraints () {
     return constraints
   }

@@ -11,7 +11,7 @@ const constraints = {
   }
 }
 
-export default class ForumChannelDeleteService extends ServiceBase {
+export class ForumChannelDeleteService extends ServiceBase {
   get constraints () {
     return constraints
   }

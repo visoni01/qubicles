@@ -12,7 +12,7 @@ const constraints = {
   }
 }
 
-export default class ForumDeleteTopicCommentService extends ServiceBase {
+export class ForumDeleteTopicCommentService extends ServiceBase {
   get constraints () {
     return constraints
   }

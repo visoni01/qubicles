@@ -1,5 +1,5 @@
-import ServiceBase from '../../common/serviceBase'
-import { addCategory } from '../helper'
+import ServiceBase from '../../../common/serviceBase'
+import { addCategory } from '../../helper'
 
 const constraints = {
   user_id: {
@@ -13,7 +13,7 @@ const constraints = {
   }
 }
 
-export default class ForumAddNewCategoryService extends ServiceBase {
+export class ForumAddNewCategoryService extends ServiceBase {
   get constraints () {
     return constraints
   }

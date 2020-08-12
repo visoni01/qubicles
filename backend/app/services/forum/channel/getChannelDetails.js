@@ -1,5 +1,11 @@
 import ServiceBase from '../../../common/serviceBase'
-import { getOneChannel, getChannelTopicsCount, getChannelUsersCount, getChannelModerators, getErrorMessageForService } from '../../helper'
+import {
+  getOneChannel,
+  getChannelTopicsCount,
+  getChannelUsersCount,
+  getChannelModerators,
+  getErrorMessageForService
+} from '../../helper'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
 import logger from '../../../common/logger'
 
@@ -12,7 +18,7 @@ const constraints = {
   }
 }
 
-export default class ForumChannelDetailsService extends ServiceBase {
+export class ForumChannelDetailsService extends ServiceBase {
   get constraints () {
     return constraints
   }

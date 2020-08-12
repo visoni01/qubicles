@@ -1,7 +1,7 @@
-import ServiceBase from '../../common/serviceBase'
-import { getErrorMessageForService, commentActivity, likeTopicActivity, unlikeTopicActivity } from '../helper'
-import { ERRORS } from '../../utils/errors'
-import logger from '../../common/logger'
+import ServiceBase from '../../../common/serviceBase'
+import { getErrorMessageForService, commentActivity, likeTopicActivity, unlikeTopicActivity } from '../../helper'
+import { ERRORS } from '../../../utils/errors'
+import logger from '../../../common/logger'
 
 const constraints = {
   user_id: {
@@ -15,7 +15,7 @@ const constraints = {
   }
 }
 
-export default class ForumTopicActivityService extends ServiceBase {
+export class ForumTopicActivityService extends ServiceBase {
   get constraints () {
     return constraints
   }
