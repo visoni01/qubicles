@@ -15,7 +15,8 @@ import {
   ForumUpdateCategoryService,
   ForumLikeTopicCommentService,
   ForumUnlikeTopicCommentService,
-  ForumUpdateTopicService
+  ForumUpdateTopicService,
+  ForumUpdateCategoryService
 } from '../services/forum'
 
 export default class ForumController {
