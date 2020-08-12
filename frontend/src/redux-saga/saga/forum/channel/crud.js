@@ -1,12 +1,12 @@
 import { takeLatest, put } from 'redux-saga/effects'
 import { updateCategoryData } from '../../../redux/actions'
-import { ADD_CHANNEL, DELETE_CHANNEL } from '../../../redux/constants'
+import { ADD_CHANNEL, DELETE_CHANNEL, UPDATE_CHANNEL } from '../../../redux/constants'
 
 import Forum from '../../../service/forum'
 import { showErrorMessage, showSuccessMessage } from '../../../redux/snackbar'
 
 function* channelCrudWatcher() {
-  yield takeLatest([ ADD_CHANNEL, DELETE_CHANNEL ], categoryCrudWorker)
+  yield takeLatest([ ADD_CHANNEL, DELETE_CHANNEL, UPDATE_CHANNEL ], categoryCrudWorker)
 }
 
 function* categoryCrudWorker(action) {
@@ -50,6 +50,17 @@ function* categoryCrudWorker(action) {
           data: action.payload,
         }))
         msg = `Channel '${ title }' has been successfully deleted!`
+        break
+      }
+      case UPDATE_CHANNEL: {
+        const { payload } = action
+        console.log('PAYLLOASSDD===', payload)
+        yield Forum.updateChannel(payload)
+        // eslint-disable-next-line
+        yield put(updateCategoryData({
+          type: UPDATE_CHANNEL,
+          data: payload,
+        }))
         break
       }
       default:

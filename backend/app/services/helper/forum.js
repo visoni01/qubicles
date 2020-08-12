@@ -501,7 +501,9 @@ export async function getFilteredChannels ({ topics, channels, category_id }) {
         id: channel.channel_id,
         title: channel.channel_title,
         description: channel.channel_description,
-        noOfTopics
+        noOfTopics,
+        isPublic: channel.is_public,
+        isCompanyAnn: channel.is_company_ann
       })
     }
   }
@@ -680,10 +682,28 @@ export async function updateCategory ({ category_id, title, is_public }) {
   await XForumCategory.update({
     category_title: title,
     is_public
-  },
-  {
+  }, {
     where: {
       category_id
+    }
+  })
+}
+
+export async function updateChannel ({
+  channel_id,
+  channel_title,
+  channel_description,
+  is_public,
+  is_company_ann
+}) {
+  return XForumChannel.update({
+    channel_title,
+    channel_description,
+    is_public,
+    is_company_ann
+  }, {
+    where: {
+      channel_id
     }
   })
 }

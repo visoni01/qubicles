@@ -4,13 +4,19 @@ import {
   Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, Button,
 } from '@material-ui/core'
 
-const AddNewChannelModal = ({ open, handleClose, onSubmit }) => {
-  const [ channelData, setChannelData ] = useState({
-    title: '',
-    description: '',
-    isPublic: false,
-    isCompanyAnn: false,
-  })
+const AddNewChannelModal = ({
+  open, handleClose, onSubmit, isEdit, modalFields,
+}) => {
+  let modalTitle
+  let onSubmitText
+  if (isEdit) {
+    modalTitle = 'Edit Channel'
+    onSubmitText = 'Update'
+  } else {
+    modalTitle = 'Add Channel'
+    onSubmitText = 'Create'
+  }
+  const [ channelData, setChannelData ] = useState(modalFields)
 
   const handleChange = useCallback((event) => {
     event.persist()
@@ -27,18 +33,13 @@ const AddNewChannelModal = ({ open, handleClose, onSubmit }) => {
   const handleCreateChannel = () => {
     if (channelData.title) {
       onSubmit(channelData)
-      setChannelData({
-        title: '',
-        description: '',
-        isPublic: false,
-        isCompanyAnn: false,
-      })
+      setChannelData(channelData)
     }
   }
 
   return (
     <Dialog open={ open } onClose={ handleClose }>
-      <DialogTitle className='text-align-center'>New Channel</DialogTitle>
+      <DialogTitle className='text-align-center'>{modalTitle}</DialogTitle>
       <DialogContent>
         <TextField
           margin='dense'
@@ -86,17 +87,34 @@ const AddNewChannelModal = ({ open, handleClose, onSubmit }) => {
           Cancel
         </Button>
         <Button onClick={ handleCreateChannel } color='primary'>
-          Create Channel
+          {onSubmitText}
         </Button>
       </DialogActions>
     </Dialog>
   )
 }
 
+AddNewChannelModal.defaultProps = {
+  isEdit: false,
+  modalFields: {
+    title: '',
+    description: '',
+    isPublic: false,
+    isCompanyAnn: false,
+  },
+}
+
 AddNewChannelModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  isEdit: PropTypes.bool,
+  modalFields: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    isPublic: PropTypes.bool.isRequired,
+    isCompanyAnn: PropTypes.bool.isRequired,
+  }),
 }
 
 export default AddNewChannelModal

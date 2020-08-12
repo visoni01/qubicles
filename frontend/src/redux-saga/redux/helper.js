@@ -13,6 +13,7 @@ import {
   DELETE_JOB,
   UPDATE_TOPIC,
   UPDATE_CATEGORY,
+  UPDATE_CHANNEL,
 } from './constants'
 
 export const getUpdatedCategories = ({ state, payload }) => {
@@ -57,6 +58,24 @@ export const getUpdatedCategories = ({ state, payload }) => {
             ...category,
             title: payload.data.title,
             isPublic: payload.data.is_public,
+          }
+        }
+        return category
+      })
+      break
+    }
+    case UPDATE_CHANNEL: {
+      categories = state.categories.map((category) => {
+        if (category.id === payload.data.category_id) {
+          return {
+            ...category,
+            channels: category.channels.map((channel) => ({
+              ...channel,
+              title: payload.data.channel_title,
+              description: payload.data.channel_description,
+              isPublic: payload.data.is_public,
+              isCompanyAnn: payload.data.is_company_ann,
+            })),
           }
         }
         return category

@@ -16,7 +16,8 @@ import {
   ForumLikeTopicCommentService,
   ForumUnlikeTopicCommentService,
   ForumUpdateTopicService,
-  ForumUpdateCategoryService
+  ForumUpdateChannelService
+
 } from '../services/forum'
 
 export default class ForumController {
@@ -165,6 +166,15 @@ export default class ForumController {
       Responder.success(res, updateCategoryResult.result)
     } else {
       Responder.failed(res, updateCategoryResult.errors)
+    }
+  }
+
+  static async updateChannel (req, res) {
+    const updateChannelResult = await ForumUpdateChannelService.execute({ ...req.body, ...req.params })
+    if (updateChannelResult.successful) {
+      Responder.success(res, updateChannelResult.result)
+    } else {
+      Responder.failed(res, updateChannelResult.errors)
     }
   }
 }
