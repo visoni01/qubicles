@@ -15,6 +15,7 @@ import {
   UPDATE_CATEGORY,
   UPDATE_CHANNEL,
   ADD_POST,
+  DELETE_POST_STATUS,
 } from './constants'
 
 import { postDataFechingStart, createStatusPostStart } from './actions'
@@ -195,6 +196,11 @@ export const getPostData = ({ state, payload }) => {
     }
     case postDataFechingStart.type: {
       posts = payload.posts
+      break
+    }
+    case DELETE_POST_STATUS: {
+      const { userActivityId } = payload
+      posts = state.posts.filter((post) => post.userActivityId !== userActivityId)
       break
     }
     default:

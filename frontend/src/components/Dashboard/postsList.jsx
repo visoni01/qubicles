@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import _ from 'lodash'
 import './style.scss'
+import Skeleton from '@material-ui/lab/Skeleton'
 import { postDataFechingStart } from '../../redux-saga/redux/actions'
-import Loader from '../loaders/circularLoader'
 import PostStatusWrap from './PostStatusWrap'
 
 const PostsList = () => {
@@ -16,13 +16,25 @@ const PostsList = () => {
 
   if (isLoading) {
     return (
-      <Loader
-        className='loader-custom'
-        enableOverlay={ false }
-        displayLoaderManually
-      />
+      <>
+        <Skeleton animation='wave' variant='circle' width={ 40 } height={ 40 } styel={ { marginTop: 20 } } />
+        <Skeleton
+          animation='wave'
+          height='20px'
+          width='70%'
+          style={ { marginLeft: 50, marginBottom: 10, paddingBottom: 30 } }
+        />
+        <Skeleton animation='wave' height='40px' style={ { marginBottom: 6 } } />
+        <Skeleton
+          animation='wave'
+          variant='rect'
+          height={ 350 }
+          style={ { marginBottom: 10 } }
+        />
+      </>
     )
   }
+
   if (isPosts) {
     return (posts.map((post) => <PostStatusWrap { ...post } key={ posts.userActivityId } />))
   }

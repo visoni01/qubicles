@@ -13,6 +13,7 @@
       align-items: center;
       padding: 6px 16px;
       margin-right: 10px;
+      margin:10px;
       background: #f7f7f7;
       border-radius: 200px;
       font-size: .85rem;
@@ -34,6 +35,11 @@
         cursor: pointer;
         margin-left: 10px;
       }
+
+      .ruler {
+        height:10px;
+        color: black;
+      }
     }
   }
 
@@ -46,7 +52,7 @@
 
 .feed-image-container > img {
   top: 27px;
-  height: 300px;
+  height: 350px;
   max-width: 100%;
 }
 
@@ -64,11 +70,8 @@
     }
 }
 
-.ruler {
-  height:2px;
-  color: black;
-}
 .status-wrapper .textarea {
+  // margin-top: 10px;
   padding: 0;
   border-color: transparent;
   resize: none;
@@ -78,6 +81,7 @@
   position: relative !important;
   right: 0;
   margin-left: 40px;
+  justify-content: flex-start;
   background-color: #00D1B2 !important;
   color: white !important;
 }

@@ -49,6 +49,11 @@ class Dashboard {
     })
     return response
   }
+
+  static async deletePost({ userActivityId }) {
+    const response = await apiClient.deleteRequest(`/dashboard/post-status/${ userActivityId }`)
+    return response
+  }
 }
 
 export default Dashboard

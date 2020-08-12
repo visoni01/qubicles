@@ -8,10 +8,18 @@ import {
   createStatusPostFailed,
   createStatusPostSuccess,
 } from '../../redux/actions'
+import { DELETE_POST_STATUS } from '../../redux/constants'
 import Dashboard from '../../service/dashboard'
 
 function* postDataCrudWatcherStart() {
-  yield takeLatest([ postDataFechingStart.type, createStatusPostStart.type ], postDataFetchingWorker)
+  yield takeLatest(
+    [
+      postDataFechingStart.type,
+      createStatusPostStart.type,
+      DELETE_POST_STATUS,
+    ],
+    postDataFetchingWorker,
+  )
 }
 
 function* postDataFetchingWorker(action) {
@@ -25,7 +33,7 @@ function* postDataFetchingWorker(action) {
           activityPermission: post.activity_permission,
           activityValue: post.activity_value,
           createdAt: post.createdAt,
-          userActivtyId: post.user_activity_id,
+          userActivityId: post.user_activity_id,
           userId: post.user_id,
         }))
         yield put(updatePostData({ type: action.type, posts: postData }))
@@ -45,12 +53,19 @@ function* postDataFetchingWorker(action) {
           activityPermission: data.activity_permission,
           activityValue: data.activity_value,
           createdAt: data.createdAt,
-          userActivtyId: data.user_activity_id,
+          userActivityId: data.user_activity_id,
           userId: data.user_id,
         }
         yield put(updatePostData({ type: action.type, newPost: postData }))
         yield put(createStatusPostSuccess())
         msg = 'Status has been sucessfully posted!'
+        break
+      }
+      case DELETE_POST_STATUS: {
+        const { userActivityId } = action.payload
+        const { data } = yield Dashboard.deletePost({ userActivityId })
+        yield put(updatePostData({ type: action.type, userActivityId: data.userActivityId }))
+        msg = 'Posted status successfully deleted!'
         break
       }
       default:
