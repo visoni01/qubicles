@@ -11,6 +11,7 @@ import { ownerDetails } from '../forumValidators'
 import { deleteTopic, updateTopic } from '../../../redux-saga/redux/actions'
 import './style.scss'
 import EditTopic from './TopicModal'
+import ConfirmationModal from '../../CommonModal/ConfirmationModal'
 
 const TopicActions = ({
   topicTitle, topicId, topicOwner, topicDescription, isPublic, tags,
@@ -86,23 +87,6 @@ const TopicActions = ({
           </MenuItem>
         </Menu>
       </div>
-      <div>
-        <Dialog
-          open={ open }
-          onClose={ handleDialogClose }
-          aria-labelledby='delete-dialog-title'
-        >
-          <DialogTitle id='delete-dialog-title'>Are you sure you want to delete?</DialogTitle>
-          <DialogActions>
-            <Button onClick={ handleDialogClose } color='primary'>
-              Cancel
-            </Button>
-            <Button onClick={ deleteTopicHandler } color='primary' autoFocus>
-              Delete
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </div>
       <EditTopic
         open={ openEditModal }
         handleClose={ toggleEditModal }
@@ -114,6 +98,12 @@ const TopicActions = ({
           tags,
         } }
         isEdit
+      />
+      <ConfirmationModal
+        open={ open }
+        handleClose={ handleDialogClose }
+        handleConfirm={ deleteTopicHandler }
+        message={ `Are you sure want to delete "${ topicTitle }" topic?` }
       />
     </div>
   )

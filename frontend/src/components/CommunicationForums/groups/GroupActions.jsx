@@ -12,6 +12,7 @@ import {
 import { deleteCategory, addNewChannel, updateCategory } from '../../../redux-saga/redux/actions'
 import AddUpdateChannel from '../channel/ChannelModal'
 import AddUpdateGroupModal from './GroupModal'
+import ConfirmationModal from '../../CommonModal/ConfirmationModal'
 
 const GroupActions = ({
   id, title, owner, isPublic,
@@ -120,25 +121,11 @@ const GroupActions = ({
           </Menu>
         </div>
       </div>
-      <Dialog
+      <ConfirmationModal
         open={ open }
-        onClose={ handleDialogClose }
-        aria-labelledby='delete-dialog-title'
-      >
-        <DialogTitle id='delete-dialog-title'>Are you sure you want to delete?</DialogTitle>
-        <DialogActions>
-          <Button onClick={ handleDialogClose } color='primary'>
-            Cancel
-          </Button>
-          <Button onClick={ handleDelete } color='primary' autoFocus>
-            Delete
-          </Button>
-        </DialogActions>
-      </Dialog>
-      <AddUpdateChannel
-        open={ openNewChannelModal }
-        handleClose={ handleNewChannelCancel }
-        onSubmit={ handleNewChannelSubmit }
+        handleClose={ handleDialogClose }
+        handleConfirm={ handleDelete }
+        message={ `Are you sure want to delete "${ title }" group?` }
       />
       <AddUpdateGroupModal
         open={ openGroupModal }
