@@ -10,7 +10,7 @@ import {
 import { ownerDetails } from '../forumValidators'
 import { deleteTopic, updateTopic } from '../../../redux-saga/redux/actions'
 import './style.scss'
-import EditTopic from './NewTopic'
+import EditTopic from './TopicModal'
 
 const TopicActions = ({
   topicTitle, topicId, topicOwner, topicDescription, isPublic,
@@ -112,6 +112,7 @@ const TopicActions = ({
           description: topicDescription,
           isPublic,
         } }
+        isEdit
       />
     </div>
   )

@@ -7,7 +7,7 @@ import CKEditor from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
 const AddNewTopicModal = ({
-  open, handleClose, onSubmit, editTopicData,
+  open, handleClose, onSubmit, editTopicData, isEdit,
 }) => {
   const [ topicData, setTopicData ] = useState(editTopicData)
 
@@ -42,7 +42,9 @@ const AddNewTopicModal = ({
 
   return (
     <Dialog open={ open } onClose={ handleClose }>
-      <DialogTitle className='text-align-center'>New Topic</DialogTitle>
+      <DialogTitle className='text-align-center'>
+        {isEdit ? 'Update Topic' : 'New Topic'}
+      </DialogTitle>
       <DialogContent className='overflow-x-hidden'>
         <TextField
           margin='dense'
@@ -54,7 +56,7 @@ const AddNewTopicModal = ({
           required
           name='title'
         />
-        <span>Description</span>
+        <span>Description:</span>
         <CKEditor
           onChange={ handleDescriptionData }
           editor={ ClassicEditor }
@@ -72,11 +74,21 @@ const AddNewTopicModal = ({
         </div>
       </DialogContent>
       <DialogActions>
-        <Button onClick={ handleClose } color='primary'>
+        <Button
+          onClick={ handleClose }
+          variant='contained'
+          className='new-topic-button'
+          classes={ { label: 'new-topic-button-label' } }
+        >
           Cancel
         </Button>
-        <Button onClick={ handleCreateChannel } color='primary'>
-          Submit
+        <Button
+          onClick={ handleCreateChannel }
+          variant='contained'
+          className='new-topic-button'
+          classes={ { label: 'new-topic-button-label' } }
+        >
+          {isEdit ? 'Update' : 'Save'}
         </Button>
       </DialogActions>
     </Dialog>
@@ -89,6 +101,7 @@ AddNewTopicModal.defaultProps = {
     isPublic: false,
     description: '',
   },
+  isEdit: false,
 }
 
 AddNewTopicModal.propTypes = {
@@ -96,6 +109,7 @@ AddNewTopicModal.propTypes = {
   handleClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   editTopicData: PropTypes.shape({}),
+  isEdit: PropTypes.bool,
 }
 
 export default AddNewTopicModal
