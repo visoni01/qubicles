@@ -37,10 +37,7 @@ const {
       error: true,
       isLoading: false,
     }),
-    updateCategoryData: (state, action) => ({
-      ...initialState,
-      categories: getUpdatedCategories({ state, payload: action.payload }),
-    }),
+    updateCategoryData: (state, action) => getUpdatedCategories({ state, payload: action.payload }),
   },
 })
 
