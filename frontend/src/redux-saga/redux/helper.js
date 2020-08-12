@@ -83,28 +83,6 @@ export const getUpdatedChannel = ({ state, payload }) => {
       channelDetails = { ...state.channelDetails, topicsCount: state.channelDetails.topicsCount - 1 }
       break
     }
-    case UPDATE_TOPIC: {
-      const {
-        topicId, topicTitle, topicDescription, isPublic,
-      } = payload.topicData
-      const topics = state.channelDetails.channelTopics.map((topic) => {
-        if (topic.topicId !== payload.topicData.topicId) {
-          return {
-            ...topic,
-            topicId,
-            topicTitle,
-            topicDescription,
-            isPublic,
-          }
-        }
-        return topic
-      })
-      channelDetails = {
-        ...state.channelDetails,
-        channelTopics: topics,
-      }
-      break
-    }
     default:
       break
   }
@@ -120,6 +98,24 @@ export const getUpdatedTopicsList = ({ state, payload }) => {
     }
     case DELETE_TOPIC: {
       channelTopicsList = state.channelTopicsList.filter((topic) => topic.topicId !== payload.topicId)
+      break
+    }
+    case UPDATE_TOPIC: {
+      const {
+        topicId, topicTitle, topicDescription, isPublic,
+      } = payload.topicData
+      const topics = state.channelTopicsList.map((topic) => {
+        if (topic.topicId === topicId) {
+          return {
+            ...topic,
+            topicTitle,
+            topicDescription,
+            isPublic,
+          }
+        }
+        return topic
+      })
+      channelTopicsList = topics
       break
     }
     default:

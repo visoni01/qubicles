@@ -89,7 +89,7 @@ function* topicCrudWorker(action) {
           topic_description: description,
           is_public: isPublic ? 1 : 0,
         })
-        yield put(updateChannelData({
+        yield put(updateChannelTopicsList({
           type: UPDATE_TOPIC,
           topicData: {
             topicId,
