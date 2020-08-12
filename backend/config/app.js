@@ -217,11 +217,11 @@ const config = convict({
   },
   ipfs: {
     host: {
-      default: 'ipfs.infura.io',
+      default: 'ipfs.telos.miami',
       env: 'IPFS_HOST_NAME'
     },
     port: {
-      default: '',
+      default: '5002',
       env: 'IPFS_PORT'
     },
     protocol: {

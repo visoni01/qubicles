@@ -130,7 +130,8 @@ export const flatArray = (input) => {
   return flatFilteredArray
 }
 
-export const isValidImageFile = (fileObj) => {
-  const isImage = ['image/jpeg', 'image/png'].includes(fileObj.mimetype)
-  return isImage
+export const isValidImageFile = ({ mimetype, size }) => {
+  const isImage = ['image/jpeg', 'image/png'].includes(mimetype)
+  const isFileSizeExceed = size > 1024 * 1024
+  return (isImage && !isFileSizeExceed)
 }
