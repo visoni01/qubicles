@@ -31,7 +31,16 @@ export async function addCategory ({ category_title, owner_id, is_public }) {
   return newCategory
 }
 
-export async function addTopic ({ topic_title, topic_description, owner_id, channel_id, client_id, is_public, is_flagged }) {
+export async function addTopic ({
+  topic_title,
+  topic_description,
+  owner_id,
+  channel_id,
+  client_id,
+  is_public,
+  is_flagged,
+  tags
+}) {
   const newTopic = await createNewEntity({
     model: XForumTopic,
     data: {
@@ -40,7 +49,8 @@ export async function addTopic ({ topic_title, topic_description, owner_id, chan
       owner_id,
       channel_id,
       is_public,
-      is_flagged
+      is_flagged,
+      tags
     }
   })
   const announcementChannel = await getCompanyAnnouncementChannel({ client_id })
@@ -406,7 +416,7 @@ export async function getTopicsSubDetails ({ topics }) {
       topicDescription: topic.topic_description,
       isPublic: topic.is_public,
       topicOwner: userSubProfile,
-      tags: topic.tags && topic.tags.split('&&'),
+      tags: topic.tags && topic.tags.split(','),
       dateCreatedOn: topic.createdAt,
       totalReplies,
       dateLastReplied

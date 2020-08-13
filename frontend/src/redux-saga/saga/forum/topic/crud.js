@@ -32,7 +32,7 @@ function* topicCrudWorker(action) {
       }
       case ADD_TOPIC: {
         const {
-          title, isPublic, channelId, description,
+          title, isPublic, channelId, description, tags,
         } = action.payload
         const { data } = yield Forum.addNewTopic({
           title,
@@ -40,18 +40,19 @@ function* topicCrudWorker(action) {
           is_public: isPublic,
           channel_id: channelId,
           is_flagged: false, // Temporary set is_flagged false, currently has no functionality.
+          tags,
         })
         const { userDetails } = yield select((state) => state.login)
         const {
           // eslint-disable-next-line
-          createdAt, updatedAt, topic_id, owner_id, topic_title,
+          createdAt, updatedAt, topic_id, owner_id, topic_title
         } = data
         yield put(updateChannelTopicsList({
           type: ADD_TOPIC,
           newTopic: {
             dateCreatedOn: createdAt,
             dateLastReplied: '',
-            tags: null,
+            tags: data.tags,
             topicId: topic_id,
             topicOwner: {
               userId: owner_id,

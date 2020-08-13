@@ -20,6 +20,9 @@ const constraints = {
   },
   is_flagged: {
     presence: { allowEmpty: true }
+  },
+  tags: {
+    presence: { allowEmpty: true }
   }
 }
 
@@ -29,8 +32,12 @@ export default class ForumAddNewTopicService extends ServiceBase {
   }
 
   async run () {
-    const { user_id, title, is_public, channel_id, is_flagged, description } = this.args
+    const { user_id, title, is_public, channel_id, is_flagged, description, tags } = this.args
+    let tagsString
     const { client_id } = await XClientUser.findOne({ where: { user_id }, raw: true, attributes: ['client_id'] })
+    tags && tags.forEach((tag) => {
+      tagsString = tagsString ? `${tagsString},${tag}` : tag
+    })
 
     const data = await addTopic({
       topic_title: title,
@@ -39,8 +46,10 @@ export default class ForumAddNewTopicService extends ServiceBase {
       is_public,
       channel_id,
       is_flagged,
-      client_id
+      client_id,
+      tags: tagsString || ''
     })
+    data.tags = tags
     return data
   }
 }
