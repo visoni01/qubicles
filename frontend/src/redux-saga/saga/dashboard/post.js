@@ -1,5 +1,5 @@
 import {
-  takeLatest, put, delay, select,
+  takeLatest, put, select,
 } from 'redux-saga/effects'
 import {
   postDataFechingStart,
@@ -29,13 +29,11 @@ function* postDataFetchingWorker(action) {
     let msg
     switch (action.type) {
       case postDataFechingStart.type: {
-        yield delay(8000)
         const { data } = yield Dashboard.fetchPosts()
         yield put(updatePostData({ type: action.type, posts: data }))
         break
       }
       case createStatusPostStart.type: {
-        yield delay(8000)
         const formData = new FormData()
         const { file, text, activityPermission } = action.payload
 
