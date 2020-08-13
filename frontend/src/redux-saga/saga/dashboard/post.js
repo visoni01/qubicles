@@ -3,6 +3,7 @@ import {
 } from 'redux-saga/effects'
 import {
   postDataFechingStart,
+  postDataFetchingFailed,
   createStatusPostStart,
   updatePostData,
   showErrorMessage,
@@ -67,6 +68,9 @@ function* postDataFetchingWorker(action) {
 
     if (action.type === createStatusPostStart.type) {
       yield put(createStatusPostFailed())
+    }
+    if (action.type === postDataFechingStart.type) {
+      yield put(postDataFetchingFailed())
     }
   }
 }

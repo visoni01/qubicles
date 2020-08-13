@@ -204,7 +204,7 @@ export const getPostData = ({ state, payload }) => {
       break
     }
     default:
-    break  
+      break
   }
   return posts
 }

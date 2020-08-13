@@ -154,26 +154,25 @@ const CreatePost = () => {
             )
           }
         </div>
-        <div className='column is-3'>
+        <div className='column is-6 action'>
           <Button
             variant='contained'
             disabled={ isLoading }
-            className='post-status-button '
-            startIcon={ <FontAwesomeIcon icon={ faStickyNote } /> }
-            onClick={ post }
-          >
-            post
-          </Button>
-        </div>
-        <div className='column is-3 pdl'>
-          <Button
-            variant='contained'
-            disabled={ isLoading }
-            className='post-status-button'
-            startIcon={ <FontAwesomeIcon icon={ faTrashAlt } /> }
+            className='post-status-button align-right clear'
+            startIcon={ <FontAwesomeIcon className='action-icon' icon={ faTrashAlt } /> }
             onClick={ clear }
           >
             clear
+          </Button>
+
+          <Button
+            variant='contained'
+            disabled={ isLoading }
+            className='post-status-button align-right'
+            startIcon={ <FontAwesomeIcon className='action-icon' icon={ faStickyNote } /> }
+            onClick={ post }
+          >
+            post
           </Button>
         </div>
       </div>

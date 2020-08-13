@@ -10,6 +10,7 @@ const initialState = {
 const {
   actions: {
     postDataFechingStart,
+    postDataFetchingFailed,
     updatePostData,
   },
   reducer,
@@ -20,6 +21,11 @@ const {
     postDataFechingStart: (state) => ({
       ...state,
       isLoading: true,
+    }),
+    postDataFetchingFailed: (state) => ({
+      ...state,
+      isLoading: false,
+      success: false,
     }),
     updatePostData: (state, action) => ({
       ...state,
@@ -32,5 +38,6 @@ const {
 export default reducer
 export {
   postDataFechingStart,
+  postDataFetchingFailed,
   updatePostData,
 }
