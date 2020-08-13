@@ -61,7 +61,7 @@ const CreatePost = () => {
       fileInput.current.value = ''
       setFileName(null)
     }
-  }, [ success ])
+  }, [ success, isLoading ])
 
   const handleFileInputChange = useCallback(() => {
     const fileObj = fileInput.current.files[ 0 ]
