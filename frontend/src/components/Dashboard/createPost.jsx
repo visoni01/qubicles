@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faCamera, faPen, faTrashAlt, faStickyNote,
+  faCamera, faPaperPlane, faTrashAlt, faStickyNote,
 } from '@fortawesome/free-solid-svg-icons'
 import { createStatusPostStart } from '../../redux-saga/redux/actions'
 import Loader from '../loaders/circularLoader'
@@ -158,21 +158,21 @@ const CreatePost = () => {
           <Button
             variant='contained'
             disabled={ isLoading }
-            className='post-status-button align-right clear'
-            startIcon={ <FontAwesomeIcon className='action-icon' icon={ faTrashAlt } /> }
-            onClick={ clear }
+            className='post-status-button align-right post'
+            startIcon={ <FontAwesomeIcon className='action-icon' icon={ faPaperPlane } /> }
+            onClick={ post }
           >
-            clear
+            post
           </Button>
 
           <Button
             variant='contained'
             disabled={ isLoading }
             className='post-status-button align-right'
-            startIcon={ <FontAwesomeIcon className='action-icon' icon={ faStickyNote } /> }
-            onClick={ post }
+            startIcon={ <FontAwesomeIcon className='action-icon' icon={ faTrashAlt } /> }
+            onClick={ clear }
           >
-            post
+            clear
           </Button>
         </div>
       </div>

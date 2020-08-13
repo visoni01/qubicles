@@ -19,8 +19,7 @@ const PostStatusWrap = ({
         <div>
           Posted by
           <span>
-            {' '}
-            {owner}
+            &nbsp;{owner}
           </span>
         </div>
         <div className='feed-time-small'>

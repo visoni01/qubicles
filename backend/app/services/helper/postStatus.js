@@ -128,14 +128,14 @@ export async function checkVisibility ({ activity_permission, user_id, owner_id 
       // company constraint with user-level greater and equal to 8
       owner = await getClientIdByUserId({ user_id: owner_id })
       userBelongstoCompany = await isUserBelongsToCompany({ user_id, client_id: owner.client_id })
-      user = await getUserById({ user_id: user_id })
+      user = await getUserById({ user_id })
       permission = userBelongstoCompany && (user.user_level >= USER_LEVEL.ADMIN)
       break
     case 'managers':
       // company constraint with user-level greater and equal to 7
       owner = await getClientIdByUserId({ user_id: owner_id })
       userBelongstoCompany = await isUserBelongsToCompany({ user_id, client_id: owner.client_id })
-      user = await getUserById({ user_id: user_id })
+      user = await getUserById({ user_id })
       permission = userBelongstoCompany && (user.user_level >= USER_LEVEL.SUPERVISOR)
       break
   }

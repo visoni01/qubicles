@@ -1,7 +1,6 @@
 .post-section {
   .other-options {
     .upload-file {
-      width: 120px;
       position: relative;
       display: -webkit-box;
       display: -ms-flexbox;
@@ -22,7 +21,7 @@
       -webkit-transition: all .3s;
       transition: all .3s;
       height: 38px;
-      width: 120px;
+      width: 95px;
 
       .file-input-label {
         margin-left: 7px;
@@ -197,7 +196,7 @@
       .MuiButton-iconSizeMedium > *:first-child {
         font-size: 12px;
       }  
-      .clear {
+      .post {
         margin-left: 15px;
       }
       .align-right {
