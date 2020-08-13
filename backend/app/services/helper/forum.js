@@ -63,14 +63,15 @@ export async function addTopic ({ topic_title, topic_description, owner_id, chan
   return newTopic
 }
 
-export async function updateTopic ({ topic_id, topic_title, topic_description, is_public }) {
+export async function updateTopic ({ topic_id, topic_title, topic_description, is_public, tags }) {
   await updateEntity({
     model: XForumTopic,
     data: {
       topic_id,
       topic_title,
       topic_description,
-      is_public
+      is_public,
+      tags
     }
   })
   return { topic_id }

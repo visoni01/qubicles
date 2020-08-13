@@ -13,6 +13,9 @@ const constraints = {
   },
   is_public: {
     presence: { allowEmpty: true }
+  },
+  tags: {
+    presence: { allowEmpty: true }
   }
 }
 
@@ -22,12 +25,18 @@ export default class ForumUpdateTopicService extends ServiceBase {
   }
 
   async run () {
-    const { title, is_public, topic_description, topic_id } = this.args
+    const { title, is_public, topic_description, topic_id, tags } = this.args
+    let tagsString
+    tags && tags.forEach((tag) => {
+      tagsString = tagsString ? `${tagsString}&&${tag}` : tag
+    })
+
     const data = await updateTopic({
       topic_id,
       topic_title: title,
       topic_description,
-      is_public
+      is_public,
+      tags: tagsString || ''
     })
     return data
   }
