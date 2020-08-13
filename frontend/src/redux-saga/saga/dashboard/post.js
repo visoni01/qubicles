@@ -1,4 +1,6 @@
-import { takeLatest, put } from 'redux-saga/effects'
+import {
+  takeLatest, put, delay, select,
+} from 'redux-saga/effects'
 import {
   postDataFechingStart,
   createStatusPostStart,
@@ -27,11 +29,13 @@ function* postDataFetchingWorker(action) {
     let msg
     switch (action.type) {
       case postDataFechingStart.type: {
+        yield delay(8000)
         const { data } = yield Dashboard.fetchPosts()
         yield put(updatePostData({ type: action.type, posts: data }))
         break
       }
       case createStatusPostStart.type: {
+        yield delay(8000)
         const formData = new FormData()
         const { file, text, activityPermission } = action.payload
 
@@ -40,7 +44,8 @@ function* postDataFetchingWorker(action) {
         formData.set('activityPermission', activityPermission)
 
         const { data } = yield Dashboard.addPost({ data: formData })
-        yield put(updatePostData({ type: action.type, newPost: data }))
+        const { userDetails } = yield select((state) => state.login)
+        yield put(updatePostData({ type: action.type, newPost: { ...data, owner: userDetails.full_name } }))
         yield put(createStatusPostSuccess())
         msg = 'Status has been sucessfully posted!'
         break

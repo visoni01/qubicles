@@ -20,6 +20,7 @@
       color: #888da8;
       -webkit-transition: all .3s;
       transition: all .3s;
+      height: 38px;
 
       .file-input-label {
         margin-left: 7px;
@@ -47,6 +48,7 @@
     .add-status-loader {
       position: inherit;
       margin-left: 15px;
+      float: right;
     }
   }
 }
@@ -56,6 +58,11 @@
   .MuiAvatar-root {
     float: left;
     background-color: #344258;
+  }
+
+  .custom-avatar {
+    padding-left: 7px;
+    margin-top: -55px;
   }
 
   .skeleton-header-container {
@@ -111,6 +118,10 @@
     float: left;
     display: block;
     width: 75%;
+
+    .fa-clock-style {
+      margin-right: 5px;
+    }
   }
 
   .post-text-container {
@@ -137,6 +148,42 @@
       }
     }
   }
+
+  .select-custom {
+    .MuiFormControl-root {
+      width: 107px;
+      margin-top: -3px;
+    }
+  }
+
+  .chip-custom {
+    margin-top: 1px;
+    margin-left: 17px;
+    width: 100%;
+
+    .MuiChip-outlined  {
+      background-color: #f7f7f7;
+      margin-bottom: 14px;
+    }
+  }
+
+  .break-line {
+    width: 100%;
+    height: 1px;
+    background-color: #dddddd;
+  }
+
+  .create-post-footer {
+    width: 100%;
+    margin-top: 0px;
+    margin-bottom: 1px;
+    margin-left: 0px;
+    margin-right: 0px;
+
+    .pdl {
+      padding-left: 5px;
+    }
+  }
 }
 
 .feed-image-container > img {
@@ -159,10 +206,13 @@
     }
 }
 
-.status-wrapper .textarea {
-  margin-top: 5px;
-  padding: 0;
-  resize: none;
+.status-wrapper {
+  margin-left: 4px;
+  .textarea {
+    &.is-grow {
+      min-height: 100px !important;     
+    }
+  }  
 }
 
 .post-status-button {

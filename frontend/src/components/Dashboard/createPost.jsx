@@ -3,10 +3,12 @@ import React, {
 } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  FormControl, Select, InputLabel, MenuItem, makeStyles, Button, Avatar, Chip,
+  FormControl, Select, InputLabel, MenuItem, Button, Avatar, Chip,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCamera, faPen, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import {
+  faCamera, faPen, faTrashAlt, faStickyNote,
+} from '@fortawesome/free-solid-svg-icons'
 import { createStatusPostStart } from '../../redux-saga/redux/actions'
 import Loader from '../loaders/circularLoader'
 import './style.scss'
@@ -18,15 +20,25 @@ const CreatePost = () => {
   const fileInput = useRef()
   const dispatch = useDispatch()
 
-  const publish = useCallback(() => {
+  const post = useCallback(() => {
+    if (!(postText && postText.trim())) {
+      return
+    }
     const postData = {
       activityPermission: permission,
       file: fileInput.current.files && fileInput.current.files[ 0 ],
       text: postText,
     }
-    debugger
     dispatch(createStatusPostStart(postData))
   }, [ postText, fileInput, permission, dispatch ])
+
+  const setPostTextCB = useCallback((event) => {
+    setPostText(event.target.value)
+  }, [])
+
+  const setPermissionCB = useCallback((event) => {
+    setPermission(event.target.value)
+  }, [])
 
   const { isLoading, success } = useSelector((state) => state.createPost)
   const { userDetails } = useSelector((state) => state.login)
@@ -49,72 +61,65 @@ const CreatePost = () => {
       fileInput.current.value = ''
       setFileName(null)
     }
-  }, [ isLoading, success ])
+  }, [ success ])
 
-  const useStyles = makeStyles((theme) => ({
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 300,
-    },
-    customLabel: {
-      color: '#888da8',
-    },
-    selectColor: {
-      background: '#f7f7f7',
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-  }))
-  const classes = useStyles()
+  const handleFileInputChange = useCallback(() => {
+    const fileObj = fileInput.current.files[ 0 ]
+    // eslint-disable-next-line no-shadow
+    let fileName = fileObj.name
+    if (fileName && fileName.length > 30) {
+      fileName = `${ fileName.substr(0, 30) }.${ fileObj.type.split('/')[ 1 ] }`
+    }
+    setFileName(fileInput.current.files[ 0 ].name)
+  }, [])
+
   return (
     <div
       className='compose-card is-new-content post-item-custom is-start is-vcenter post-section create-post-status'
       style={ { pointerEvents: isLoading ? 'none' : 'auto' } }
     >
       <div className='columns is-vcentered'>
-        <div className='column is-1'>
+        <div className='column is-1 custom-avatar'>
           <Avatar className='avatar'>
             {userDetails && userDetails.full_name && userDetails.full_name[ 0 ].toUpperCase()}
           </Avatar>
         </div>
         <div className='status-wrapper column is-11'>
           <textarea
-            className='textarea'
-            rows='6'
+            className='textarea is-grow'
+            rows='5'
             autoComplete='off'
             value={ postText }
-            onChange={ (event) => setPostText(event.target.value) }
+            onChange={ setPostTextCB }
             placeholder='Write something ...'
           />
         </div>
       </div>
       <div className='columns is-multiline is-full'>
-        <div className='other-options column is-6 is-narrower'>
+        <div className='other-options column is-4 is-narrower'>
           <form onReset={ clear }>
             <div className='upload-file'>
               <FontAwesomeIcon icon={ faCamera } />
               <span className='file-input-label'>Media</span>
-              <input type='file' className='input-field' accept='image/*' ref={ fileInput } onChange={ (event) => setFileName(fileInput.current.files[ 0 ].name) } />
+              <input
+                type='file'
+                className='input-field'
+                accept='image/*'
+                ref={ fileInput }
+                onChange={ handleFileInputChange }
+              />
             </div>
           </form>
-          {fileName && (
-          <Chip
-            variant='outlined'
-            label={ fileName }
-            onDelete={ handleDelete }
-          />
-          )}
+
         </div>
-        <div className='column is-6 is-narrower'>
-          <FormControl variant='filled' className={ classes.formControl }>
-            <InputLabel FormControlClasses={ { focused: classes.customLabel } } id='permission'>Permission</InputLabel>
+        <div className='column is-6 is-narrower select-custom'>
+          <FormControl>
+            <InputLabel id='permission'>Permission</InputLabel>
             <Select
               labelId='permission'
               id='permission-select'
               value={ permission }
-              onChange={ (event) => setPermission(event.target.value) }
-              classes={ { inkbar: classes.selectColor } }
+              onChange={ setPermissionCB }
             >
               <MenuItem value='public'>public</MenuItem>
               <MenuItem value='followers'>followers</MenuItem>
@@ -124,45 +129,55 @@ const CreatePost = () => {
             </Select>
           </FormControl>
         </div>
-        <hr />
-        <div className='columns is-multiline is-vcentered'>
-          <div className='column is-one-third '>
-            <Button
-              variant='contained'
-              className='post-status-button '
-              startIcon={ <FontAwesomeIcon icon={ faPen } /> }
-              onClick={ publish }
-            >
-              publish
-            </Button>
-          </div>
-          <div className='column is-one-third '>
-            { isLoading && (
-            <div>
-              <Loader
-                className='add-status-loader'
-                displayLoaderManually
-                enableOverlay={ false }
-                size={ 40 }
-              />
-            </div>
-            ) }
-          </div>
-          <div className='column is-one-third'>
-            <Button
-              variant='contained'
-              className='post-status-button  '
-              startIcon={ <FontAwesomeIcon icon={ faTrashAlt } /> }
-              onClick={ clear }
-            >
-              clear
-            </Button>
-          </div>
+        <div className='columns is-multiline is-full chip-custom'>
+          {fileName && (
+          <Chip
+            variant='outlined'
+            label={ fileName }
+            onDelete={ handleDelete }
+          />
+          )}
+        </div>
+
+      </div>
+      <div className='break-line'> </div>
+      <div className='columns is-multiline is-vcentered create-post-footer'>
+        <div className='column is-6'>
+          {
+            isLoading && (
+            <Loader
+              className='add-status-loader'
+              displayLoaderManually
+              enableOverlay={ false }
+              size={ 30 }
+            />
+            )
+          }
+        </div>
+        <div className='column is-3'>
+          <Button
+            variant='contained'
+            disabled={ isLoading }
+            className='post-status-button '
+            startIcon={ <FontAwesomeIcon icon={ faStickyNote } /> }
+            onClick={ post }
+          >
+            post
+          </Button>
+        </div>
+        <div className='column is-3 pdl'>
+          <Button
+            variant='contained'
+            disabled={ isLoading }
+            className='post-status-button'
+            startIcon={ <FontAwesomeIcon icon={ faTrashAlt } /> }
+            onClick={ clear }
+          >
+            clear
+          </Button>
         </div>
       </div>
-
     </div>
-
   )
 }
 

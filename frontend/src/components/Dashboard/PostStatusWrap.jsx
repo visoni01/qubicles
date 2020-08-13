@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Avatar from '@material-ui/core/Avatar'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faClock } from '@fortawesome/free-solid-svg-icons'
 import { getTimeFromNow } from '../../utils/common'
 import PostStatusAction from './PostStatusAction'
 import './style.scss'
@@ -11,7 +13,7 @@ const PostStatusWrap = ({
   <div className='post-item post-item-custom animated preFadeInLeft fadeInLeft'>
     <div className='is-flex is-start is-vcenter padding-10'>
       <Avatar className='avatar'>
-        {owner[ 0 ].toUpperCase()}
+        {owner && owner[ 0 ].toUpperCase()}
       </Avatar>
       <div className='item-title title-bar-style'>
         <div>
@@ -22,6 +24,9 @@ const PostStatusWrap = ({
           </span>
         </div>
         <div className='feed-time-small'>
+          <span className='fa-clock-style'>
+            <FontAwesomeIcon icon={ faClock } />
+          </span>
           {getTimeFromNow(createdAt)}
         </div>
       </div>
@@ -50,16 +55,11 @@ const PostStatusWrap = ({
   </div>
 )
 
-PostStatusWrap.defaultProps = {
-  activityCustom: null,
-  owner: 'Marlon',
-}
-
 PostStatusWrap.propTypes = {
   userId: PropTypes.number.isRequired,
   userActivityId: PropTypes.number.isRequired,
-  activityCustom: PropTypes.string,
-  owner: PropTypes.string,
+  activityCustom: PropTypes.string.isRequired,
+  owner: PropTypes.string.isRequired,
   activityValue: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
 }
