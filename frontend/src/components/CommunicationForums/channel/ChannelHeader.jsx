@@ -28,15 +28,19 @@ const AddTopicButton = ({ channelId }) => {
       <AddNewTopic open={ openNewTopicModal } handleClose={ handleNewTopicModal } onSubmit={ addNewGroup } />
       <Button
         variant='contained'
-        className='new-topic-button'
+        className='primary-button'
         startIcon={ <FontAwesomeIcon icon={ faPlus } className='people-header-icons' /> }
         onClick={ handleNewTopicModal }
-        classes={ { label: 'new-topic-button-label' } }
+        classes={ { label: 'primary-button-label' } }
       >
         New Topic
       </Button>
     </>
   )
+}
+
+AddTopicButton.propTypes = {
+  channelId: PropTypes.number.isRequired,
 }
 
 const ChannelHeader = ({

@@ -27,7 +27,7 @@ const CreateGroup = () => {
       <Button
         variant='contained'
         className='new-job-button'
-        startIcon={ <FontAwesomeIcon icon={ faPlus } className='people-header-icons' /> }
+        startIcon={ <FontAwesomeIcon icon={ faPlus } className='primary-button-label' /> }
         onClick={ handleNewGroupModal }
         classes={ { label: 'new-job-button-label' } }
       >

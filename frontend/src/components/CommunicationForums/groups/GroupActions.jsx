@@ -7,11 +7,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import {
   Menu, MenuItem,
-  Dialog, DialogActions, DialogTitle, Button,
+  Dialog, DialogActions, DialogTitle, Button, IconButton,
 } from '@material-ui/core'
 import { deleteCategory, addNewChannel, updateCategory } from '../../../redux-saga/redux/actions'
 import NewChannelModal from '../channel/NewChannel'
-import GroupModal from './GroupModal'
+import AddUpdateGroupModal from './GroupModal'
 
 const GroupActions = ({
   id, title, owner, isPublic,
@@ -20,29 +20,43 @@ const GroupActions = ({
 
   const { userDetails } = useSelector((state) => state.login)
   const [ openNewChannelModal, setOpenNewChannelModal ] = useState(false)
-  const [ openEditGroupModal, setOpenEditGroupModal ] = useState(false)
-
+  const [ openGroupModal, setOpenGroupModal ] = useState(false)
   const [ anchorEl, setAnchorEl ] = useState(null)
+  const [ open, setOpen ] = useState(false)
 
-  const handleClick = (event) => {
+  const handleMenuIconClick = (event) => {
     setAnchorEl(event.currentTarget)
   }
-
-  const handleClose = () => {
+  const handleMenuClose = () => {
     setAnchorEl(null)
   }
 
-  const [ open, setOpen ] = useState(false)
-
+  // Delete Dialog methods
   const handleDialogOpen = () => {
     setOpen(true)
   }
-
   const handleDialogClose = () => {
     setOpen(false)
     setAnchorEl(null)
   }
 
+  /* Edit Group Action methods */
+  const handleEditButtonClick = useCallback(() => {
+    setOpenGroupModal(true)
+  }, [ setOpenGroupModal ])
+
+  const handleEditGroupCancel = useCallback(() => {
+    handleMenuClose()
+    setOpenGroupModal(false)
+  })
+
+  const handleEditGroupSubmit = useCallback((data) => {
+    handleMenuClose()
+    dispatch(updateCategory({ title: data.title, is_public: data.isPublic, categoryId: id }))
+    setOpenGroupModal(false)
+  }, [ id, setOpenGroupModal, dispatch ])
+
+  /* Remove Group Action methods */
   const handleDelete = useCallback(() => {
     setAnchorEl(null)
     setOpen(false)
@@ -54,37 +68,19 @@ const GroupActions = ({
     (openNewChannelModal) => !openNewChannelModal,
   ), [ setOpenNewChannelModal ])
 
-  const toggleEditGroupModal = useCallback(() => setOpenEditGroupModal(
-    // eslint-disable-next-line
-    (openEditGroupModal) => !openEditGroupModal,
-  ), [ setOpenEditGroupModal ])
-
   const handleNewChannelSubmit = useCallback((data) => {
     setAnchorEl(null)
     dispatch(addNewChannel({ ...data, id, userId: userDetails.user_id }))
     setOpenNewChannelModal(false)
   }, [ setOpenNewChannelModal, dispatch, id, userDetails.user_id ])
 
-  const handleEditGroupModal = useCallback((data) => {
-    setAnchorEl(null)
-    dispatch(updateCategory({ title: data.title, is_public: data.isPublic, categoryId: id }))
-    setOpenEditGroupModal(false)
-  }, [ id, setOpenEditGroupModal, dispatch ])
-
   return (
     <>
       <div className='dropdown is-right dropdown-trigger styled-dropdown is-round is-active'>
         {(owner === userDetails.user_id) && (
-        <div className='button'>
-          <i className='dropdown-icon'>
-            <FontAwesomeIcon
-              icon={ faEllipsisV }
-              aria-controls='menu'
-              aria-haspopup='true'
-              onClick={ handleClick }
-            />
-          </i>
-        </div>
+          <IconButton onClick={ handleMenuIconClick }>
+            <FontAwesomeIcon icon={ faEllipsisV } className='is-size-6' />
+          </IconButton>
         )}
         <div className='category-dropdown'>
           <Menu
@@ -95,30 +91,27 @@ const GroupActions = ({
             anchorEl={ anchorEl }
             keepMounted
             open={ Boolean(anchorEl) }
-            onClose={ handleClose }
+            onClose={ handleMenuClose }
           >
-            <MenuItem
-              onClick={ handleDialogOpen }
-            >
-              <FontAwesomeIcon icon={ faTrash } />
-              <span className='remove'>
-                Remove
-              </span>
-            </MenuItem>
-            <MenuItem
-              onClick={ toggleNewChannelModal }
-            >
+            {/* Add Group Channel */}
+            <MenuItem onClick={ toggleNewChannelModal }>
               <FontAwesomeIcon icon={ faPlus } />
-              <span className='remove'>
+              <span className='menu-item'>
                 Add Channel
               </span>
             </MenuItem>
-            <MenuItem
-              onClick={ toggleEditGroupModal }
-            >
+            {/* Edit Forum Group  */}
+            <MenuItem onClick={ handleEditButtonClick }>
               <FontAwesomeIcon icon={ faPencilAlt } />
-              <span className='remove'>
+              <span className='menu-item'>
                 Edit
+              </span>
+            </MenuItem>
+            {/* Remove Forum Group */}
+            <MenuItem onClick={ handleDialogOpen }>
+              <FontAwesomeIcon icon={ faTrash } />
+              <span className='menu-item'>
+                Remove
               </span>
             </MenuItem>
           </Menu>
@@ -144,10 +137,10 @@ const GroupActions = ({
         handleClose={ toggleNewChannelModal }
         onSubmit={ handleNewChannelSubmit }
       />
-      <GroupModal
-        open={ openEditGroupModal }
-        handleClose={ toggleEditGroupModal }
-        onSubmit={ handleEditGroupModal }
+      <AddUpdateGroupModal
+        open={ openGroupModal }
+        handleClose={ handleEditGroupCancel }
+        onSubmit={ handleEditGroupSubmit }
         modalFields={
            {
              title,

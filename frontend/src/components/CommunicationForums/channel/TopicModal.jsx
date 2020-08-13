@@ -86,16 +86,16 @@ const AddNewTopicModal = ({
         <Button
           onClick={ handleClose }
           variant='contained'
-          className='new-topic-button'
-          classes={ { label: 'new-topic-button-label' } }
+          className='primary-button'
+          classes={ { label: 'primary-button-label' } }
         >
           Cancel
         </Button>
         <Button
           onClick={ handleCreateChannel }
           variant='contained'
-          className='new-topic-button'
-          classes={ { label: 'new-topic-button-label' } }
+          className='primary-button'
+          classes={ { label: 'primary-button-label' } }
         >
           {isEdit ? 'Update' : 'Save'}
         </Button>
