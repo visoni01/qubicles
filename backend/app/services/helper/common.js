@@ -130,8 +130,8 @@ export const flatArray = (input) => {
   return flatFilteredArray
 }
 
-export const isValidImageFile = ({ mimetype, size }) => {
-  const isImage = ['image/jpeg', 'image/png'].includes(mimetype)
-  const isFileSizeExceed = size > 1024 * 1024
-  return (isImage && !isFileSizeExceed)
+export const validateImageFile = ({ mimetype, size }) => {
+  const isValidImage = ['image/jpeg', 'image/png'].includes(mimetype)
+  const isValidFileSize = size <= config.get('imageFileSize')
+  return { isValidImage, isValidFileSize }
 }

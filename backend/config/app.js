@@ -228,6 +228,10 @@ const config = convict({
       default: 'https',
       env: 'IPFS_PROTOCOL'
     }
+  },
+  imageFileSize: {
+    default: 1024 * 1024,
+    env: 'IMAGE_MAX_SIZE'
   }
 })
 config.validate({ allowed: 'strict' })

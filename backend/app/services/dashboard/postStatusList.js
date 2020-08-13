@@ -30,12 +30,12 @@ export default class GellAllPostStatusListService extends ServiceBase {
       })
 
       statusList = await Promise.all(statusList.map(async (data) => {
-        const isValidUser = await checkVisibility({ 
-          activity_permission: data.activity_permission, 
-          user_id: this.user_id, 
-          owner_id: data.user_id  
+        const isValidUser = await checkVisibility({
+          activity_permission: data.activity_permission,
+          user_id: this.user_id,
+          owner_id: data.user_id
         })
-        
+
         if (isValidUser) {
           const user = await getUserById({ user_id: data.user_id })
           data['owner'] = user.full_name

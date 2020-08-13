@@ -3,7 +3,7 @@ import { XUserActivity } from '../../db/models'
 import {
   createNewEntity,
   getErrorMessageForService,
-  isValidImageFile,
+  validateImageFile,
   uploadFileToIPFS
 } from '../helper'
 import logger from '../../common/logger'
@@ -34,9 +34,14 @@ export default class AddPostStatusService extends ServiceBase {
       let url
 
       if (this.file) {
-        const isValidImage = isValidImageFile(this.file)
+        const { isValidFileSize, isValidImage } = validateImageFile(this.file)
         if (!isValidImage) {
           this.addError(ERRORS.BAD_DATA, MESSAGES.INVALID_IMAGE_FILE)
+          return
+        }
+
+        if (!isValidFileSize) {
+          this.addError(ERRORS.BAD_DATA, MESSAGES.INVALID_IMAGE_FILE_SIZE)
           return
         }
 
