@@ -13,7 +13,7 @@ import './style.scss'
 import EditTopic from './TopicModal'
 
 const TopicActions = ({
-  topicTitle, topicId, topicOwner, topicDescription, isPublic,
+  topicTitle, topicId, topicOwner, topicDescription, isPublic, tags,
 }) => {
   const dispatch = useDispatch()
   const { userDetails } = useSelector((state) => state.login)
@@ -111,6 +111,7 @@ const TopicActions = ({
           title: topicTitle,
           description: topicDescription,
           isPublic,
+          tags,
         } }
         isEdit
       />
@@ -121,6 +122,7 @@ const TopicActions = ({
 TopicActions.defaultProps = {
   topicDescription: '',
   isPublic: false,
+  tags: [],
 }
 
 TopicActions.propTypes = {
@@ -129,6 +131,7 @@ TopicActions.propTypes = {
   topicOwner: PropTypes.number.isRequired,
   topicDescription: PropTypes.string,
   isPublic: PropTypes.bool,
+  tags: PropTypes.shape([]),
 }
 
 export default TopicActions

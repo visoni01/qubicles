@@ -81,13 +81,14 @@ function* topicCrudWorker(action) {
       }
       case UPDATE_TOPIC: {
         const {
-          title, isPublic, topicId, description,
+          title, isPublic, topicId, description, tags,
         } = action.payload
         yield Forum.updateTopic({
           topicId,
           title,
           topic_description: description,
           is_public: isPublic ? 1 : 0,
+          tags,
         })
         yield put(updateChannelTopicsList({
           type: UPDATE_TOPIC,
@@ -96,6 +97,7 @@ function* topicCrudWorker(action) {
             topicTitle: title,
             topicDescription: description,
             isPublic,
+            tags,
           },
         }))
 
