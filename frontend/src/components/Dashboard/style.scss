@@ -55,6 +55,13 @@
 
 .post-item-custom {
   width: 100%;
+  .feed-image-container {
+    width: 100%;
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
+  }
   .MuiAvatar-root {
     float: left;
     background-color: #344258;
