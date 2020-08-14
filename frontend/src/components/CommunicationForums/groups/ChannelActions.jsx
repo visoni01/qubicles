@@ -7,7 +7,7 @@ import {
 import { IconButton, Menu, MenuItem } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteChannel, updateChannel } from '../../../redux-saga/redux/forum/actions'
-import NewChannel from '../channel/NewChannel'
+import AddUpdateChannelModal from '../channel/ChannelModal'
 
 const ChannelActions = ({
   categoryId, channelId, title, ownerId, description, isPublic, isCompanyAnn,
@@ -18,26 +18,31 @@ const ChannelActions = ({
   const [ anchorEl, setAnchorEl ] = useState(null)
   const [ openEditChannelModal, setOpenEditChannelModal ] = useState(false)
 
-  const handleClick = (event) => {
+  const handleMenuIconClick = (event) => {
     setAnchorEl(event.currentTarget)
   }
 
-  const handleClose = () => {
+  const handleMenuClose = () => {
     setAnchorEl(null)
   }
 
   const handelRemoveChannel = () => {
     dispatch(deleteChannel({ categoryId, channelId, title }))
-    handleClose()
+    handleMenuClose()
   }
 
-  const toggleEditChannelModal = useCallback(() => setOpenEditChannelModal(
-    // eslint-disable-next-line
-    (openEditChannelModal) => !openEditChannelModal,
-  ), [ setOpenEditChannelModal ])
+  /* Edit Channel Action methods */
+  const handleEditButtonClick = useCallback(() => {
+    setOpenEditChannelModal(true)
+  }, [ setOpenEditChannelModal ])
 
-  const handleEditChannel = useCallback((data) => {
-    setAnchorEl(null)
+  const handleEditGroupCancel = useCallback(() => {
+    handleMenuClose()
+    setOpenEditChannelModal(false)
+  })
+
+  const handleEditChannelSubmit = useCallback((data) => {
+    handleMenuClose()
     dispatch(updateChannel({
       channel_id: channelId,
       category_id: categoryId,
@@ -47,12 +52,12 @@ const ChannelActions = ({
       is_company_ann: data.isCompanyAnn,
     }))
     setOpenEditChannelModal(false)
-  })
+  }, [ setOpenEditChannelModal, dispatch ])
 
   return (
     <>
       {(ownerId === userDetails.user_id) && (
-      <IconButton onClick={ handleClick }>
+      <IconButton onClick={ handleMenuIconClick }>
         <FontAwesomeIcon icon={ faEllipsisV } className='is-size-6' />
       </IconButton>
       )}
@@ -65,26 +70,28 @@ const ChannelActions = ({
           anchorEl={ anchorEl }
           keepMounted
           open={ Boolean(anchorEl) }
-          onClose={ handleClose }
+          onClose={ handleMenuClose }
         >
+          {/* Edit Button */}
+          <MenuItem onClick={ handleEditButtonClick }>
+            <FontAwesomeIcon icon={ faPencilAlt } />
+            <span className='menu-item'>
+              Edit
+            </span>
+          </MenuItem>
+          {/* Remove Button */}
           <MenuItem onClick={ handelRemoveChannel }>
             <FontAwesomeIcon icon={ faTrash } />
             <span className='menu-item'>
               Remove
             </span>
           </MenuItem>
-          <MenuItem onClick={ toggleEditChannelModal }>
-            <FontAwesomeIcon icon={ faPencilAlt } />
-            <span className='remove'>
-              Edit
-            </span>
-          </MenuItem>
         </Menu>
       </div>
-      <NewChannel
+      <AddUpdateChannelModal
         open={ openEditChannelModal }
-        handleClose={ toggleEditChannelModal }
-        onSubmit={ handleEditChannel }
+        handleClose={ handleEditGroupCancel }
+        onSubmit={ handleEditChannelSubmit }
         isEdit
         modalFields={
           {

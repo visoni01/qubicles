@@ -4,7 +4,7 @@ import {
   Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, Button,
 } from '@material-ui/core'
 
-const AddNewChannelModal = ({
+const AddUpdateChannel = ({
   open, handleClose, onSubmit, isEdit, modalFields,
 }) => {
   let modalTitle
@@ -30,15 +30,26 @@ const AddNewChannelModal = ({
       }))
   }, [ setChannelData ])
 
-  const handleCreateChannel = () => {
-    if (channelData.title) {
-      onSubmit(channelData)
+  const handleOnSubmit = () => {
+    onSubmit(channelData)
+    if (isEdit) {
       setChannelData(channelData)
+    } else {
+      setChannelData({
+        title: '',
+        description: '',
+        isPublic: false,
+        isCompanyAnn: false,
+      })
     }
+  }
+  const handleCancelButton = () => {
+    handleClose()
+    setChannelData(modalFields)
   }
 
   return (
-    <Dialog open={ open } onClose={ handleClose }>
+    <Dialog open={ open } onClose={ handleClose } classes={ { paper: 'channel-modal' } }>
       <DialogTitle className='text-align-center'>{modalTitle}</DialogTitle>
       <DialogContent>
         <TextField
@@ -83,10 +94,10 @@ const AddNewChannelModal = ({
         </div>
       </DialogContent>
       <DialogActions>
-        <Button onClick={ handleClose } color='primary'>
+        <Button onClick={ handleCancelButton } color='primary' className='primary-button'>
           Cancel
         </Button>
-        <Button onClick={ handleCreateChannel } color='primary'>
+        <Button onClick={ handleOnSubmit } color='primary' className='primary-button'>
           {onSubmitText}
         </Button>
       </DialogActions>
@@ -94,7 +105,7 @@ const AddNewChannelModal = ({
   )
 }
 
-AddNewChannelModal.defaultProps = {
+AddUpdateChannel.defaultProps = {
   isEdit: false,
   modalFields: {
     title: '',
@@ -104,7 +115,7 @@ AddNewChannelModal.defaultProps = {
   },
 }
 
-AddNewChannelModal.propTypes = {
+AddUpdateChannel.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
@@ -117,4 +128,4 @@ AddNewChannelModal.propTypes = {
   }),
 }
 
-export default AddNewChannelModal
+export default AddUpdateChannel

@@ -4,13 +4,13 @@ import {
   Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, Button,
 } from '@material-ui/core'
 
-const AddNewGroupModal = ({
+const AddUpdateGroupModal = ({
   open, handleClose, onSubmit, isUpdate, modalFields,
 }) => {
   let modalHeading
   let submitButtonText
   if (isUpdate) {
-    modalHeading = 'Update Group'
+    modalHeading = 'Edit Group'
     submitButtonText = 'Update'
   } else {
     modalHeading = 'New Group'
@@ -29,13 +29,24 @@ const AddNewGroupModal = ({
     setGroupData((groupData) => ({ ...groupData, title: event.target.value }))
   }, [ setGroupData ])
 
-  const handleCreateGroup = () => {
+  const handleOnSubmit = () => {
     onSubmit(groupData)
-    setGroupData(groupData)
+    if (isUpdate) {
+      setGroupData(groupData)
+    } else {
+      setGroupData({
+        title: '',
+        isPublic: false,
+      })
+    }
+  }
+  const handleCancelButton = () => {
+    handleClose()
+    setGroupData(modalFields)
   }
 
   return (
-    <Dialog open={ open } onClose={ handleClose }>
+    <Dialog open={ open } onClose={ handleClose } classes={ { paper: 'group-modal' } }>
       <DialogTitle className='text-align-center'>{modalHeading}</DialogTitle>
       <DialogContent>
         <TextField
@@ -57,10 +68,10 @@ const AddNewGroupModal = ({
         <span className='vertical-align-middle'>Make group public</span>
       </DialogContent>
       <DialogActions>
-        <Button onClick={ handleClose } color='primary'>
+        <Button onClick={ handleCancelButton } color='primary' className='primary-button'>
           Cancel
         </Button>
-        <Button onClick={ handleCreateGroup } color='primary'>
+        <Button onClick={ handleOnSubmit } color='primary' className='primary-button'>
           {submitButtonText}
         </Button>
       </DialogActions>
@@ -68,7 +79,7 @@ const AddNewGroupModal = ({
   )
 }
 
-AddNewGroupModal.defaultProps = {
+AddUpdateGroupModal.defaultProps = {
   isUpdate: false,
   modalFields: {
     title: '',
@@ -76,7 +87,7 @@ AddNewGroupModal.defaultProps = {
   },
 }
 
-AddNewGroupModal.propTypes = {
+AddUpdateGroupModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
@@ -87,4 +98,4 @@ AddNewGroupModal.propTypes = {
   }),
 }
 
-export default AddNewGroupModal
+export default AddUpdateGroupModal
