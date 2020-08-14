@@ -200,7 +200,7 @@ export const getPostData = ({ state, payload }) => {
     }
     case DELETE_POST_STATUS: {
       const { userActivityId } = payload
-      posts = state.posts.filter((post) => post.userActivityId !== userActivityId)
+      posts = state.posts.filter((post) => post.user_activity_id !== userActivityId)
       break
     }
     default:

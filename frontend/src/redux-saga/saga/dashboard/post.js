@@ -51,8 +51,8 @@ function* postDataFetchingWorker(action) {
       }
       case DELETE_POST_STATUS: {
         const { userActivityId } = action.payload
-        const { data } = yield Dashboard.deletePost({ userActivityId })
-        yield put(updatePostData({ type: action.type, userActivityId: data.user_activity_id }))
+        yield Dashboard.deletePost({ userActivityId })
+        yield put(updatePostData({ type: action.type, userActivityId }))
         msg = 'Status has been successfully deleted!'
         break
       }
