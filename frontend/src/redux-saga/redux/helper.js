@@ -69,13 +69,18 @@ export const getUpdatedCategories = ({ state, payload }) => {
         if (category.id === payload.data.category_id) {
           return {
             ...category,
-            channels: category.channels.map((channel) => ({
-              ...channel,
-              title: payload.data.channel_title,
-              description: payload.data.channel_description,
-              isPublic: payload.data.is_public,
-              isCompanyAnn: payload.data.is_company_ann,
-            })),
+            channels: category.channels.map((channel) => {
+              if (channel.id === payload.data.channel_id) {
+                return {
+                  ...channel,
+                  title: payload.data.channel_title,
+                  description: payload.data.channel_description,
+                  isPublic: payload.data.is_public,
+                  isCompanyAnn: payload.data.is_company_ann,
+                }
+              }
+              return channel
+            }),
           }
         }
         return category

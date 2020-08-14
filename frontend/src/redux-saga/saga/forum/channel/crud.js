@@ -57,7 +57,6 @@ function* categoryCrudWorker(action) {
       }
       case UPDATE_CHANNEL: {
         const { payload } = action
-        console.log('PAYLOAD===', payload)
         yield Forum.updateChannel(payload)
         // eslint-disable-next-line
         yield put(updateCategoryData({
