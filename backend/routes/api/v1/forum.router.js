@@ -38,6 +38,9 @@ forumRouter.route('/topics/:topic_id')
 forumRouter.route('/topics/posts/:post_id')
   .delete(isAuthenticated, forumController.deleteTopicComment)
 
+forumRouter.route('/topics/posts/:post_id')
+  .put(isAuthenticated, forumController.updateTopicComment)
+
 forumRouter.route('/topics/posts/:post_id/like')
   .post(isAuthenticated, forumController.likeTopicComment)
 
