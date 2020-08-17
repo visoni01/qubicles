@@ -10,7 +10,7 @@ import { Button } from '@material-ui/core'
 import TopicSearch from './TopicSearch'
 import { GROUP } from '../../../routes/routesPath'
 import { addNewTopic } from '../../../redux-saga/redux/forum/actions'
-import AddNewTopic from './NewTopic'
+import AddNewTopic from './TopicModal'
 
 const AddTopicButton = ({ channelId }) => {
   const [ openNewTopicModal, setOpenNewTopicModal ] = useState(false)

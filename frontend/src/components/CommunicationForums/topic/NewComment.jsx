@@ -14,9 +14,9 @@ const NewComment = ({ open, handleClose, handleSubmit }) => {
   }
 
   return (
-    <Dialog open={ open } onClose={ handleClose } classes={ { paper: 'overflow-y-visible' } }>
+    <Dialog open={ open } onClose={ handleClose }>
       <DialogTitle className='text-align-center'>New Post</DialogTitle>
-      <DialogContent classes={ { root: 'overflow-y-visible' } }>
+      <DialogContent className='overflow-x-hidden'>
         <CKEditor
           onChange={ (event, editor) => setComment(editor.getData()) }
           editor={ ClassicEditor }

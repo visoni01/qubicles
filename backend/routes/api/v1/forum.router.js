@@ -41,4 +41,7 @@ forumRouter.route('/topics/posts/:post_id')
 forumRouter.route('/topics')
   .post(isAuthenticated, forumController.addNewTopic)
 
+forumRouter.route('/topics/:topic_id')
+  .put(isAuthenticated, forumController.updateTopic)
+
 export { forumRouter }

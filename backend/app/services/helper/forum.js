@@ -13,7 +13,7 @@ import {
 import { Op } from 'sequelize'
 import config from '../../../config/app'
 import SendForumInvitationMail from '../email/sendForumInvitationMail'
-import { createNewEntity } from './common'
+import { createNewEntity, updateEntity } from './common'
 import { getAllUserActivities } from '../user/activity/helper'
 import { getUserDetails } from './user'
 import _ from 'lodash'
@@ -31,11 +31,12 @@ export async function addCategory ({ category_title, owner_id, is_public }) {
   return newCategory
 }
 
-export async function addTopic ({ topic_title, owner_id, channel_id, client_id, is_public, is_flagged }) {
+export async function addTopic ({ topic_title, topic_description, owner_id, channel_id, client_id, is_public, is_flagged }) {
   const newTopic = await createNewEntity({
     model: XForumTopic,
     data: {
       topic_title,
+      topic_description,
       owner_id,
       channel_id,
       is_public,
@@ -60,6 +61,19 @@ export async function addTopic ({ topic_title, owner_id, channel_id, client_id, 
     }
   }
   return newTopic
+}
+
+export async function updateTopic ({ topic_id, topic_title, topic_description, is_public }) {
+  await updateEntity({
+    model: XForumTopic,
+    data: {
+      topic_id,
+      topic_title,
+      topic_description,
+      is_public
+    }
+  })
+  return { topic_id }
 }
 
 export async function addChannel ({ channel_title, owner_id, category_id, client_id, channel_description, is_public, is_company_ann }) {
@@ -388,6 +402,8 @@ export async function getTopicsSubDetails ({ topics }) {
     channelTopics.push({
       topicId: topic.topic_id,
       topicTitle: topic.topic_title,
+      topicDescription: topic.topic_description,
+      isPublic: topic.is_public,
       topicOwner: userSubProfile,
       tags: topic.tags && topic.tags.split('&&'),
       dateCreatedOn: topic.createdAt,
@@ -422,6 +438,7 @@ export async function getTopicDetails ({ topicData, topicComments, totalLikes, t
   return {
     topicId: topicData.topic_id,
     topicTitle: topicData.topic_title,
+    topicDescription: topicData.topic_description,
     channelId: channel.channel_id,
     channelTitle: channel.channel_title,
     createdAt: {

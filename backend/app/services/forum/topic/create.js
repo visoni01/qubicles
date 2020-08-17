@@ -15,6 +15,9 @@ const constraints = {
   is_public: {
     presence: { allowEmpty: true }
   },
+  description: {
+    presence: { allowEmpty: true }
+  },
   is_flagged: {
     presence: { allowEmpty: true }
   }
@@ -26,11 +29,12 @@ export default class ForumAddNewTopicService extends ServiceBase {
   }
 
   async run () {
-    const { user_id, title, is_public, channel_id, is_flagged } = this.args
+    const { user_id, title, is_public, channel_id, is_flagged, description } = this.args
     const { client_id } = await XClientUser.findOne({ where: { user_id }, raw: true, attributes: ['client_id'] })
 
     const data = await addTopic({
       topic_title: title,
+      topic_description: description,
       owner_id: user_id,
       is_public,
       channel_id,

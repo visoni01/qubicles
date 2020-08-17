@@ -11,6 +11,7 @@ import ForumDeleteTopicCommentService from '../services/forum/comment/delete'
 import ForumAddNewTopicService from '../services/forum/topic/create'
 import ForumChannelDeleteService from '../services/forum/channel/deleteChannel'
 import ForumChannelTopicsListService from '../services/forum/channel/channelTopicsList'
+import ForumUpdateTopicService from '../services/forum/topic/update'
 
 export default class ForumController {
   static async getCategories (req, res) {
@@ -122,6 +123,15 @@ export default class ForumController {
       Responder.success(res, deleteChannelResult.result)
     } else {
       Responder.failed(res, deleteChannelResult.errors)
+    }
+  }
+
+  static async updateTopic (req, res) {
+    const updateTopicResult = await ForumUpdateTopicService.execute({ ...req.body, ...req.params })
+    if (updateTopicResult.successful) {
+      Responder.success(res, updateTopicResult.result)
+    } else {
+      Responder.failed(res, updateTopicResult.errors)
     }
   }
 }

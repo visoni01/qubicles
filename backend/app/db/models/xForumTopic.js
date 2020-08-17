@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(100),
       allowNull: false
     },
+    topic_description: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
     owner_id: {
       type: DataTypes.INTEGER(11),
       allowNull: false
