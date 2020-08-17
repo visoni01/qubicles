@@ -140,7 +140,7 @@ export const getUpdatedTopicsList = ({ state, payload }) => {
     }
     case UPDATE_TOPIC: {
       const {
-        topicId, topicTitle, topicDescription, isPublic,
+        topicId, topicTitle, topicDescription, isPublic, tags,
       } = payload.topicData
       const topics = state.channelTopicsList.map((topic) => {
         if (topic.topicId === topicId) {
@@ -149,6 +149,7 @@ export const getUpdatedTopicsList = ({ state, payload }) => {
             topicTitle,
             topicDescription,
             isPublic,
+            tags,
           }
         }
         return topic

@@ -57,6 +57,7 @@ const TopicListItem = ({
         key={ topicId }
         topicDescription={ topicDescription }
         isPublic={ isPublic }
+        tags={ tags }
       />
     </div>
   </div>

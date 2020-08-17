@@ -1,17 +1,19 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, Button, IconButton,
+  Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, Button, IconButton, Chip,
 } from '@material-ui/core'
 import CKEditor from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faTimes, faPlus, faCheck } from '@fortawesome/free-solid-svg-icons'
 
 const AddNewTopicModal = ({
   open, handleClose, onSubmit, editTopicData, isEdit,
 }) => {
   const [ topicData, setTopicData ] = useState(editTopicData)
+  const [ addTopic, setAddTopic ] = useState(false)
+  const [ newTag, setNewTag ] = useState('')
 
   const handleChange = useCallback((event) => {
     event.persist()
@@ -34,12 +36,39 @@ const AddNewTopicModal = ({
   const handleCreateChannel = () => {
     if (topicData.title) {
       onSubmit(topicData)
-      setTopicData({
-        title: '',
-        isPublic: false,
-        description: '',
-      })
+      setTopicData(editTopicData)
     }
+  }
+
+  const handleCloseModal = () => {
+    setTopicData(editTopicData)
+    setAddTopic(false)
+    setNewTag('')
+    handleClose()
+  }
+
+  const toggleAddTopic = useCallback(() => {
+    // eslint-disable-next-line
+    setAddTopic((addTopic) => !addTopic)
+    setNewTag('')
+  }, [])
+
+  const deleteTag = (tag) => {
+    const updatedTags = topicData.tags && topicData.tags.filter((topicTag) => topicTag !== tag)
+    setTopicData({
+      ...topicData,
+      tags: updatedTags,
+    })
+  }
+
+  const addTopicTag = () => {
+    if (!newTag) return
+    setTopicData({
+      ...topicData,
+      tags: topicData.tags ? [ ...topicData.tags, newTag ] : [ newTag ],
+    })
+    setAddTopic(false)
+    setNewTag('')
   }
 
   return (
@@ -64,12 +93,14 @@ const AddNewTopicModal = ({
           onChange={ handleChange }
           required
           name='title'
+          className='topic-titile-field'
         />
-        <span>Description:</span>
+        <span className='pt-10 pb-5'>Description:</span>
         <CKEditor
           onChange={ handleDescriptionData }
           editor={ ClassicEditor }
           data={ topicData.description }
+          className='mt-5'
         />
         <div>
           <div>
@@ -77,14 +108,46 @@ const AddNewTopicModal = ({
               checked={ topicData.isPublic }
               onChange={ handleChange }
               name='isPublic'
+              classes={ { root: ' is-public-topic' } }
             />
             <span className='vertical-align-middle'>Make topic public</span>
           </div>
         </div>
+        <div className='mb-20'>
+          <span className='mr-10'>Tags:</span>
+          {Boolean(topicData.tags && topicData.tags.length) && topicData.tags.map((tag) => (
+            <Chip
+              label={ tag }
+              onDelete={ () => deleteTag(tag) }
+              key={ tag }
+              className='mr-10 mb-10 mt-10'
+            />
+          ))}
+          {!addTopic ? (
+            <IconButton onClick={ toggleAddTopic } classes={ { root: 'add-new-tag-button' } }>
+              <FontAwesomeIcon icon={ faPlus } />
+            </IconButton>
+          )
+            : (
+              <div className='new-tag-field'>
+                <TextField
+                  value={ newTag }
+                  onChange={ (e) => setNewTag(e.target.value) }
+                  className='add-tag-textfield'
+                />
+                <IconButton size='small' onClick={ addTopicTag }>
+                  <FontAwesomeIcon icon={ faCheck } className='submit-button mt-5' />
+                </IconButton>
+                <IconButton size='small' onClick={ toggleAddTopic }>
+                  <FontAwesomeIcon icon={ faTimes } className='cancel-button mt-5' />
+                </IconButton>
+              </div>
+            )}
+        </div>
       </DialogContent>
       <DialogActions>
         <Button
-          onClick={ handleClose }
+          onClick={ handleCloseModal }
           variant='contained'
           className='primary-button'
           classes={ { label: 'primary-button-label' } }
@@ -109,6 +172,7 @@ AddNewTopicModal.defaultProps = {
     title: '',
     isPublic: false,
     description: '',
+    tags: [],
   },
   isEdit: false,
 }
