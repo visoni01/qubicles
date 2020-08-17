@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import ActionDropdown from './ChannelActions'
 
 const ChannelListItem = ({
-  notifications, title, description, noOfTopics, id, categoryId, ownerId,
+  notifications, title, description, noOfTopics, id, categoryId, ownerId, isPublic, isCompanyAnn,
 }) => (
   <div className='forum-channel'>
     <Link to={ `/group/channels/${ id }` } className='channel-link'>
@@ -26,7 +26,15 @@ const ChannelListItem = ({
         <span>{noOfTopics}</span>
       </div>
     </Link>
-    <ActionDropdown categoryId={ categoryId } channelId={ id } title={ title } ownerId={ ownerId } />
+    <ActionDropdown
+      categoryId={ categoryId }
+      channelId={ id }
+      title={ title }
+      ownerId={ ownerId }
+      description={ description }
+      isPublic={ isPublic }
+      isCompanyAnn={ isCompanyAnn }
+    />
   </div>
 )
 
@@ -44,6 +52,8 @@ ChannelListItem.propTypes = {
   id: PropTypes.number.isRequired,
   categoryId: PropTypes.number.isRequired,
   ownerId: PropTypes.number.isRequired,
+  isPublic: PropTypes.bool.isRequired,
+  isCompanyAnn: PropTypes.bool.isRequired,
 }
 
 export default ChannelListItem

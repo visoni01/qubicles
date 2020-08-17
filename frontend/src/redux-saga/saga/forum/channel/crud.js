@@ -1,12 +1,13 @@
 import { takeLatest, put } from 'redux-saga/effects'
 import { updateCategoryData } from '../../../redux/actions'
-import { ADD_CHANNEL, DELETE_CHANNEL } from '../../../redux/constants'
+import { ADD_CHANNEL, DELETE_CHANNEL, UPDATE_CHANNEL } from '../../../redux/constants'
 
 import Forum from '../../../service/forum'
 import { showErrorMessage, showSuccessMessage } from '../../../redux/snackbar'
+import { getSubstrForNotification } from '../../../../utils/common'
 
 function* channelCrudWatcher() {
-  yield takeLatest([ ADD_CHANNEL, DELETE_CHANNEL ], categoryCrudWorker)
+  yield takeLatest([ ADD_CHANNEL, DELETE_CHANNEL, UPDATE_CHANNEL ], categoryCrudWorker)
 }
 
 function* categoryCrudWorker(action) {
@@ -33,12 +34,14 @@ function* categoryCrudWorker(action) {
               title: data.channel_title,
               id: data.channel_id,
               description,
+              isPublic,
+              isCompanyAnn,
               noOfTopics: 0,
             },
             categoryId: id,
           },
         }))
-        msg = `Channel '${ title }' has been successfully created!`
+        msg = `Channel '${ getSubstrForNotification(title) }' has been successfully created!`
         break
       }
       case DELETE_CHANNEL: {
@@ -49,7 +52,18 @@ function* categoryCrudWorker(action) {
           type: DELETE_CHANNEL,
           data: action.payload,
         }))
-        msg = `Channel '${ title }' has been successfully deleted!`
+        msg = `Channel '${ getSubstrForNotification(title) }' has been successfully deleted!`
+        break
+      }
+      case UPDATE_CHANNEL: {
+        const { payload } = action
+        yield Forum.updateChannel(payload)
+        // eslint-disable-next-line
+        yield put(updateCategoryData({
+          type: UPDATE_CHANNEL,
+          data: payload,
+        }))
+        msg = `Channel '${ getSubstrForNotification(payload.channel_title) }' has been successfully updated!`
         break
       }
       default:

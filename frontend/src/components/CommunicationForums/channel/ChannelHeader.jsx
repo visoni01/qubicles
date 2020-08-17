@@ -38,6 +38,9 @@ const AddTopicButton = ({ channelId }) => {
     </>
   )
 }
+AddTopicButton.propTypes = {
+  channelId: PropTypes.number.isRequired,
+}
 
 AddTopicButton.propTypes = {
   channelId: PropTypes.number.isRequired,

@@ -10,7 +10,7 @@ import {
   Dialog, DialogActions, DialogTitle, Button, IconButton,
 } from '@material-ui/core'
 import { deleteCategory, addNewChannel, updateCategory } from '../../../redux-saga/redux/actions'
-import NewChannelModal from '../channel/NewChannel'
+import AddUpdateChannel from '../channel/ChannelModal'
 import AddUpdateGroupModal from './GroupModal'
 
 const GroupActions = ({
@@ -19,7 +19,7 @@ const GroupActions = ({
   const dispatch = useDispatch()
 
   const { userDetails } = useSelector((state) => state.login)
-  const [ openNewChannelModal, setOpenNewChannelModal ] = useState(false)
+  const [ openNewChannelModal, setOpenChannelModal ] = useState(false)
   const [ openGroupModal, setOpenGroupModal ] = useState(false)
   const [ anchorEl, setAnchorEl ] = useState(null)
   const [ open, setOpen ] = useState(false)
@@ -45,7 +45,7 @@ const GroupActions = ({
     setOpenGroupModal(true)
   }, [ setOpenGroupModal ])
 
-  const handleEditGroupCancel = useCallback(() => {
+  const handleEditChannelCancel = useCallback(() => {
     handleMenuClose()
     setOpenGroupModal(false)
   })
@@ -63,16 +63,19 @@ const GroupActions = ({
     dispatch(deleteCategory({ categoryId: id, title }))
   }, [ id, dispatch, title ])
 
-  const toggleNewChannelModal = useCallback(() => setOpenNewChannelModal(
-    // eslint-disable-next-line
-    (openNewChannelModal) => !openNewChannelModal,
-  ), [ setOpenNewChannelModal ])
+  const handleNewChannelCancel = () => {
+    handleMenuClose()
+    setOpenChannelModal(false)
+  }
+  const handleAddChannelButtonClick = useCallback(() => {
+    setOpenChannelModal(true)
+  }, [ setOpenChannelModal ])
 
   const handleNewChannelSubmit = useCallback((data) => {
-    setAnchorEl(null)
+    handleMenuClose()
     dispatch(addNewChannel({ ...data, id, userId: userDetails.user_id }))
-    setOpenNewChannelModal(false)
-  }, [ setOpenNewChannelModal, dispatch, id, userDetails.user_id ])
+    setOpenChannelModal(false)
+  }, [ setOpenChannelModal, dispatch, id, userDetails.user_id ])
 
   return (
     <>
@@ -94,7 +97,7 @@ const GroupActions = ({
             onClose={ handleMenuClose }
           >
             {/* Add Group Channel */}
-            <MenuItem onClick={ toggleNewChannelModal }>
+            <MenuItem onClick={ handleAddChannelButtonClick }>
               <FontAwesomeIcon icon={ faPlus } />
               <span className='menu-item'>
                 Add Channel
@@ -132,14 +135,14 @@ const GroupActions = ({
           </Button>
         </DialogActions>
       </Dialog>
-      <NewChannelModal
+      <AddUpdateChannel
         open={ openNewChannelModal }
-        handleClose={ toggleNewChannelModal }
+        handleClose={ handleNewChannelCancel }
         onSubmit={ handleNewChannelSubmit }
       />
       <AddUpdateGroupModal
         open={ openGroupModal }
-        handleClose={ handleEditGroupCancel }
+        handleClose={ handleEditChannelCancel }
         onSubmit={ handleEditGroupSubmit }
         modalFields={
            {
