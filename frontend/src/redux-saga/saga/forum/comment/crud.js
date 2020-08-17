@@ -1,7 +1,7 @@
 import { takeLatest, put, select } from 'redux-saga/effects'
 import { updateTopicDetails } from '../../../redux/actions'
 import {
-  DELETE_TOPIC_COMMENT, ADD_TOPIC_COMMENT, LIKE_TOPIC_COMMENT, UNLIKE_TOPIC_COMMENT,
+  DELETE_TOPIC_COMMENT, ADD_TOPIC_COMMENT, LIKE_TOPIC_COMMENT, UNLIKE_TOPIC_COMMENT, UPDATE_COMMENT,
 } from '../../../redux/constants'
 import { showErrorMessage, showSuccessMessage } from '../../../redux/snackbar'
 import Forum from '../../../service/forum'
@@ -12,6 +12,7 @@ function* topicCommentCrudWatcher() {
     ADD_TOPIC_COMMENT,
     LIKE_TOPIC_COMMENT,
     UNLIKE_TOPIC_COMMENT,
+    UPDATE_COMMENT,
   ], topicCommentCrudWorker)
 }
 
@@ -47,6 +48,11 @@ function* topicCommentCrudWorker(action) {
       case UNLIKE_TOPIC_COMMENT: {
         const { postId } = action.payload
         yield Forum.unlikeTopicComment({ postId })
+        break
+      }
+      case UPDATE_COMMENT: {
+        const { message } = yield Forum.updateComment(action.payload)
+        yield put(updateTopicDetails({ type: UPDATE_COMMENT, data: action.payload }))
         break
       }
       default:

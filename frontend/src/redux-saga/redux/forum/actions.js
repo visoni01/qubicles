@@ -15,6 +15,7 @@ import {
   UNLIKE_TOPIC_COMMENT,
   UPDATE_CATEGORY,
   UPDATE_CHANNEL,
+  UPDATE_COMMENT,
 } from '../constants'
 
 export const addNewCategory = createAction(ADD_CATEGORY)
@@ -32,3 +33,4 @@ export const likeTopicComment = createAction(LIKE_TOPIC_COMMENT)
 export const unlikeTopicComment = createAction(UNLIKE_TOPIC_COMMENT)
 export const updateCategory = createAction(UPDATE_CATEGORY)
 export const updateChannel = createAction(UPDATE_CHANNEL)
+export const updateComment = createAction(UPDATE_COMMENT)

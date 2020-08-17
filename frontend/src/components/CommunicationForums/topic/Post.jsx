@@ -12,21 +12,12 @@ import { deleteTopicComment } from '../../../redux-saga/redux/actions'
 import CommentLikeIcon from './CommentLikeIcon'
 import './style.scss'
 import ConfirmationModal from '../../CommonModal/ConfirmationModal'
+import PostActions from './PostActions'
 
 const Post = ({
   postMeta, postBody, postId, postLiked,
 }) => {
   const isEdited = !postMeta.updatedAt === postMeta.createdAt
-  const [ openConfirmationModal, setOpenConfirmationModal ] = useState(false)
-  const dispatch = useDispatch()
-  const deleteTopicCommentHandler = useCallback(() => {
-    dispatch(deleteTopicComment({ postId }))
-  }, [ dispatch, postId ])
-
-  const toggleConfirmationModal = useCallback(
-    // eslint-disable-next-line
-    () => setOpenConfirmationModal((openConfirmationModal) => !openConfirmationModal), [ setOpenConfirmationModal ],
-  )
 
   return (
     <div className='post'>
@@ -50,26 +41,13 @@ const Post = ({
           <div className='top-actions'>
             {/* Like Icon */}
             <CommentLikeIcon postId={ postId } totalLikes={ postMeta.totalLikes } postLiked={ postLiked } />
-            {
-              isUserOwner(postMeta.ownerDetails.userId)
-              && (
-              <div className='delete-comment'>
-                <FontAwesomeIcon icon={ faTrash } onClick={ toggleConfirmationModal } />
-              </div>
-              )
-            }
+            <PostActions isOwner={ isUserOwner(postMeta.ownerDetails.userId) } postId={ postId } comment={ postBody.content } />
           </div>
         </div>
         {/* eslint-disable-next-line */}
         <div className='post-body content' dangerouslySetInnerHTML={ { __html: postBody.content } } />
         {isEdited && <div className='edited-text'>{`Edited ${ getTimeFromNow(postMeta.updatedAt) }`}</div>}
       </div>
-      <ConfirmationModal
-        open={ openConfirmationModal }
-        handleClose={ toggleConfirmationModal }
-        handleConfirm={ deleteTopicCommentHandler }
-        message='Are you sure want to delete this comment?'
-      />
     </div>
   )
 }

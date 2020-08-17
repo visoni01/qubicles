@@ -1,4 +1,4 @@
-import apiClient from '../../utils/apiClient'
+import apiClient, { axiosInst } from '../../utils/apiClient'
 
 class Forum {
   static async fetchCategories({ searchKeyword, limit, offset }) {
@@ -111,6 +111,12 @@ class Forum {
 
   static async updateChannel(payload) {
     const response = await apiClient.putRequest(`/forum/channel/${ payload.channel_id }`, payload)
+    return response
+  }
+
+  static async updateComment(data) {
+    const { postId, postData } = data
+    const response = await apiClient.putRequest(`/forum/topics/posts/${ postId }`, { post_data: postData })
     return response
   }
 }
