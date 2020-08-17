@@ -40,6 +40,8 @@
 .add-new-tag-button {
   color: white !important;
   background-color: #00D1B2 !important;
+  font-size: 19px !important;
+	box-shadow: 2px 2px 4px #999;
 }
 
 .cancel-button {
@@ -52,4 +54,23 @@
 
 .add-tag-textfield {
  width: 120px;
+}
+
+.new-tag-field {
+  display: inline-block;
+  min-width: 170px;
+  max-width: 170px;
+}
+
+.is-public-topic {
+  padding: 10px 10px 10px 0px !important;
+  margin: 10px 0px !important;
+}
+
+.topic-titile-field {
+  margin-bottom: 10px !important;
+}
+
+.ck-editor {
+  margin-top: 5px;
 }

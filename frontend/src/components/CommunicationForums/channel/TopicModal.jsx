@@ -36,11 +36,7 @@ const AddNewTopicModal = ({
   const handleCreateChannel = () => {
     if (topicData.title) {
       onSubmit(topicData)
-      setTopicData({
-        title: '',
-        isPublic: false,
-        description: '',
-      })
+      setTopicData(editTopicData)
     }
   }
 
@@ -66,6 +62,7 @@ const AddNewTopicModal = ({
   }
 
   const addTopicTag = () => {
+    if (!newTag) return
     setTopicData({
       ...topicData,
       tags: topicData.tags ? [ ...topicData.tags, newTag ] : [ newTag ],
@@ -96,12 +93,14 @@ const AddNewTopicModal = ({
           onChange={ handleChange }
           required
           name='title'
+          className='topic-titile-field'
         />
-        <span>Description:</span>
+        <span className='pt-10 pb-5'>Description:</span>
         <CKEditor
           onChange={ handleDescriptionData }
           editor={ ClassicEditor }
           data={ topicData.description }
+          className='mt-5'
         />
         <div>
           <div>
@@ -109,6 +108,7 @@ const AddNewTopicModal = ({
               checked={ topicData.isPublic }
               onChange={ handleChange }
               name='isPublic'
+              classes={ { root: ' is-public-topic' } }
             />
             <span className='vertical-align-middle'>Make topic public</span>
           </div>
@@ -120,7 +120,7 @@ const AddNewTopicModal = ({
               label={ tag }
               onDelete={ () => deleteTag(tag) }
               key={ tag }
-              className='mr-10'
+              className='mr-10 mb-10 mt-10'
             />
           ))}
           {!addTopic ? (
@@ -129,20 +129,18 @@ const AddNewTopicModal = ({
             </IconButton>
           )
             : (
-              <div>
+              <div className='new-tag-field'>
                 <TextField
                   value={ newTag }
                   onChange={ (e) => setNewTag(e.target.value) }
                   className='add-tag-textfield'
                 />
-                <>
-                  <IconButton size='small' onClick={ addTopicTag }>
-                    <FontAwesomeIcon icon={ faCheck } className='submit-button mt-5' />
-                  </IconButton>
-                  <IconButton size='small' onClick={ toggleAddTopic }>
-                    <FontAwesomeIcon icon={ faTimes } className='cancel-button mt-5' />
-                  </IconButton>
-                </>
+                <IconButton size='small' onClick={ addTopicTag }>
+                  <FontAwesomeIcon icon={ faCheck } className='submit-button mt-5' />
+                </IconButton>
+                <IconButton size='small' onClick={ toggleAddTopic }>
+                  <FontAwesomeIcon icon={ faTimes } className='cancel-button mt-5' />
+                </IconButton>
               </div>
             )}
         </div>
