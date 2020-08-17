@@ -15,7 +15,7 @@ const constraints = {
   }
 }
 
-export default class ForumChannelTopicsListService extends ServiceBase {
+export class ForumChannelTopicsListService extends ServiceBase {
   get constraints () {
     return constraints
   }

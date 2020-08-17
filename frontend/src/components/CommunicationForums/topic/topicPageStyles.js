@@ -2,10 +2,16 @@ import { makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   topicLikeIconHover: {
-    '&:hover, &.Mui-focusVisible': { backgroundColor: '#FF6E4F' },
+    '&:hover, &.Mui-focusVisible': { color: '#FF6E4F' },
   },
   topicLikeIconOn: {
-    backgroundColor: '#FF6E4F',
+    color: '#FF6E4F',
+  },
+  commentLikeIconHover: {
+    '&:hover, &.Mui-focusVisible': { color: '#FF6E4F' },
+  },
+  commentLikeIconOn: {
+    color: '#FF6E4F',
   },
 }))
 

@@ -43,7 +43,7 @@ function* categoryCrudWorker(action) {
       }
       case DELETE_CHANNEL: {
         const { channelId, title } = action.payload
-        const { data } = yield Forum.deleteChannel({ channelId })
+        yield Forum.deleteChannel({ channelId })
         // eslint-disable-next-line
         yield put(updateCategoryData({
           type: DELETE_CHANNEL,

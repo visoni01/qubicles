@@ -9,9 +9,12 @@ import { formatDate, getTimeFromNow, isUserOwner } from '../../../utils/common'
 import TopAction from '../TopAction'
 import { ownerDetails } from '../forumValidators'
 import { deleteTopicComment } from '../../../redux-saga/redux/actions'
+import CommentLikeIcon from './CommentLikeIcon'
 import './style.scss'
 
-const Post = ({ postMeta, postBody, postId }) => {
+const Post = ({
+  postMeta, postBody, postId, postLiked,
+}) => {
   const isEdited = !postMeta.updatedAt === postMeta.createdAt
   const dispatch = useDispatch()
   const deleteTopicCommentHandler = useCallback(() => {
@@ -38,9 +41,8 @@ const Post = ({ postMeta, postBody, postId }) => {
             </span>
           </div>
           <div className='top-actions'>
-            <span>{postMeta.totalLikes}</span>
-            <TopAction icon={ faHeart } />
-            <TopAction icon={ faReply } />
+            {/* Like Icon */}
+            <CommentLikeIcon postId={ postId } totalLikes={ postMeta.totalLikes } postLiked={ postLiked } />
             {
               isUserOwner(postMeta.ownerDetails.userId)
               && (
@@ -71,6 +73,7 @@ Post.propTypes = {
   postBody: PropTypes.shape({
     content: PropTypes.string.isRequired,
   }).isRequired,
+  postLiked: PropTypes.bool.isRequired,
 }
 
 export default Post

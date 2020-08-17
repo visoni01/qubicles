@@ -1,7 +1,7 @@
-import ServiceBase from '../../common/serviceBase'
-import { ERRORS, MESSAGES } from '../../utils/errors'
-import logger from '../../common/logger'
-import { deleteCategory, getErrorMessageForService, getCategoryById } from '../helper'
+import ServiceBase from '../../../common/serviceBase'
+import { ERRORS, MESSAGES } from '../../../utils/errors'
+import logger from '../../../common/logger'
+import { deleteCategory, getErrorMessageForService, getCategoryById } from '../../helper'
 
 const constraints = {
   user_id: {
@@ -12,7 +12,7 @@ const constraints = {
   }
 }
 
-export default class ForumDeleteCategoryService extends ServiceBase {
+export class ForumDeleteCategoryService extends ServiceBase {
   get constraints () {
     return constraints
   }

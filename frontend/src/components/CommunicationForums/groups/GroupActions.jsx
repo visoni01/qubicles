@@ -3,44 +3,60 @@ import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faEllipsisV, faTrash, faPlus,
+  faEllipsisV, faTrash, faPlus, faPencilAlt,
 } from '@fortawesome/free-solid-svg-icons'
 import {
   Menu, MenuItem,
-  Dialog, DialogActions, DialogTitle, Button,
+  Dialog, DialogActions, DialogTitle, Button, IconButton,
 } from '@material-ui/core'
-import { deleteCategory, addNewChannel } from '../../../redux-saga/redux/actions'
+import { deleteCategory, addNewChannel, updateCategory } from '../../../redux-saga/redux/actions'
 import NewChannelModal from '../channel/NewChannel'
+import AddUpdateGroupModal from './GroupModal'
 
 const GroupActions = ({
-  id, title, owner,
+  id, title, owner, isPublic,
 }) => {
   const dispatch = useDispatch()
 
   const { userDetails } = useSelector((state) => state.login)
   const [ openNewChannelModal, setOpenNewChannelModal ] = useState(false)
-
+  const [ openGroupModal, setOpenGroupModal ] = useState(false)
   const [ anchorEl, setAnchorEl ] = useState(null)
+  const [ open, setOpen ] = useState(false)
 
-  const handleClick = (event) => {
+  const handleMenuIconClick = (event) => {
     setAnchorEl(event.currentTarget)
   }
-
-  const handleClose = () => {
+  const handleMenuClose = () => {
     setAnchorEl(null)
   }
 
-  const [ open, setOpen ] = useState(false)
-
+  // Delete Dialog methods
   const handleDialogOpen = () => {
     setOpen(true)
   }
-
   const handleDialogClose = () => {
     setOpen(false)
     setAnchorEl(null)
   }
 
+  /* Edit Group Action methods */
+  const handleEditButtonClick = useCallback(() => {
+    setOpenGroupModal(true)
+  }, [ setOpenGroupModal ])
+
+  const handleEditGroupCancel = useCallback(() => {
+    handleMenuClose()
+    setOpenGroupModal(false)
+  })
+
+  const handleEditGroupSubmit = useCallback((data) => {
+    handleMenuClose()
+    dispatch(updateCategory({ title: data.title, is_public: data.isPublic, categoryId: id }))
+    setOpenGroupModal(false)
+  }, [ id, setOpenGroupModal, dispatch ])
+
+  /* Remove Group Action methods */
   const handleDelete = useCallback(() => {
     setAnchorEl(null)
     setOpen(false)
@@ -62,16 +78,9 @@ const GroupActions = ({
     <>
       <div className='dropdown is-right dropdown-trigger styled-dropdown is-round is-active'>
         {(owner === userDetails.user_id) && (
-        <div className='button'>
-          <i className='dropdown-icon'>
-            <FontAwesomeIcon
-              icon={ faEllipsisV }
-              aria-controls='menu'
-              aria-haspopup='true'
-              onClick={ handleClick }
-            />
-          </i>
-        </div>
+          <IconButton onClick={ handleMenuIconClick }>
+            <FontAwesomeIcon icon={ faEllipsisV } className='is-size-6' />
+          </IconButton>
         )}
         <div className='category-dropdown'>
           <Menu
@@ -82,22 +91,27 @@ const GroupActions = ({
             anchorEl={ anchorEl }
             keepMounted
             open={ Boolean(anchorEl) }
-            onClose={ handleClose }
+            onClose={ handleMenuClose }
           >
-            <MenuItem
-              onClick={ handleDialogOpen }
-            >
-              <FontAwesomeIcon icon={ faTrash } />
-              <span className='remove'>
-                Remove
+            {/* Add Group Channel */}
+            <MenuItem onClick={ toggleNewChannelModal }>
+              <FontAwesomeIcon icon={ faPlus } />
+              <span className='menu-item'>
+                Add Channel
               </span>
             </MenuItem>
-            <MenuItem
-              onClick={ toggleNewChannelModal }
-            >
-              <FontAwesomeIcon icon={ faPlus } />
-              <span className='remove'>
-                Add Channel
+            {/* Edit Forum Group  */}
+            <MenuItem onClick={ handleEditButtonClick }>
+              <FontAwesomeIcon icon={ faPencilAlt } />
+              <span className='menu-item'>
+                Edit
+              </span>
+            </MenuItem>
+            {/* Remove Forum Group */}
+            <MenuItem onClick={ handleDialogOpen }>
+              <FontAwesomeIcon icon={ faTrash } />
+              <span className='menu-item'>
+                Remove
               </span>
             </MenuItem>
           </Menu>
@@ -123,6 +137,18 @@ const GroupActions = ({
         handleClose={ toggleNewChannelModal }
         onSubmit={ handleNewChannelSubmit }
       />
+      <AddUpdateGroupModal
+        open={ openGroupModal }
+        handleClose={ handleEditGroupCancel }
+        onSubmit={ handleEditGroupSubmit }
+        modalFields={
+           {
+             title,
+             isPublic,
+           }
+         }
+        isUpdate
+      />
     </>
   )
 }
@@ -131,6 +157,7 @@ GroupActions.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   owner: PropTypes.number.isRequired,
+  isPublic: PropTypes.bool.isRequired,
 }
 
 export default GroupActions

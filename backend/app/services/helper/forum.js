@@ -17,7 +17,7 @@ import { createNewEntity, updateEntity } from './common'
 import { getAllUserActivities } from '../user/activity/helper'
 import { getUserDetails } from './user'
 import _ from 'lodash'
-import { aggregate } from './crud.js'
+import { aggregate } from './crud'
 
 export async function addCategory ({ category_title, owner_id, is_public }) {
   const newCategory = await createNewEntity({
@@ -431,10 +431,10 @@ export async function getTopicUserActivity ({ topic }) {
   }
 }
 
-export async function getTopicDetails ({ topicData, topicComments, totalLikes, totalViews, topicLiked }) {
+export async function getTopicDetails ({ user_id, topicData, topicComments, totalLikes, totalViews, topicLiked }) {
   const topicOwner = await getUserSubProfile({ user_id: topicData.owner_id })
   const channel = await getOneChannel({ channel_id: topicData.channel_id })
-  const posts = await Promise.all(topicComments.map(comment => getCommentDetails({ comment })))
+  const posts = await Promise.all(topicComments.map(comment => getCommentDetails({ user_id, comment })))
   return {
     topicId: topicData.topic_id,
     topicTitle: topicData.topic_title,
@@ -454,20 +454,26 @@ export async function getTopicDetails ({ topicData, topicComments, totalLikes, t
   }
 }
 
-export async function getCommentDetails ({ comment }) {
-  const ownerDetails = await getUserSubProfile({ user_id: comment.user_id })
+export async function getCommentDetails ({ user_id, comment }) {
+  const promises = [
+    () => getUserSubProfile({ user_id: comment.user_id }),
+    () => isTopicCommentLiked({ user_id, post_id: comment.user_activity_id }),
+    () => getTopicCommentsLikes({ post_id: comment.user_activity_id })
+  ]
+  const [ownerDetails, postLiked, totalLikes] = await Promise.all(promises.map(promise => promise()))
   return {
     postId: comment.user_activity_id,
     postMeta: {
       ownerDetails,
       createdAt: comment.createdAt,
       updatedAt: comment.updatedAt,
-      totalLikes: 23,
+      totalLikes,
       totalReplies: 56
     },
     postBody: {
       content: comment.activity_value
-    }
+    },
+    postLiked
   }
 }
 
@@ -479,7 +485,8 @@ export async function getForumData ({ categories, channels }) {
       id: category.category_id,
       title: category.category_title,
       owner: category.owner_id,
-      channels: filteredChannels
+      channels: filteredChannels,
+      isPublic: category.is_public
     })
   }
   return forumData
@@ -518,8 +525,8 @@ export async function commentActivity ({ user_id, data }) {
       ownerDetails,
       createdAt: newComment.createdAt,
       updatedAt: newComment.updatedAt,
-      totalLikes: 23,
-      totalReplies: 56
+      totalLikes: 0,
+      totalReplies: 0
     },
     postBody: {
       content: newComment.activity_value
@@ -615,6 +622,68 @@ export async function getChannelTopicsCount ({ channel_id }) {
     aggFunction: 'count',
     data: {
       channel_id
+    }
+  })
+}
+
+export async function likeTopicComment ({ user_id, topic_comment_id }) {
+  const topicLikeActivity = await createNewEntity({
+    model: XUserActivity,
+    data: {
+      user_id,
+      record_type: 'activity',
+      record_id: topic_comment_id,
+      activity_type: 'like',
+      activity_value: '1'
+    }
+  })
+  return topicLikeActivity
+}
+
+export async function unlikeTopicComment ({ user_id, post_id }) {
+  const topicUnlikeActivity = await XUserActivity.destroy({
+    where: {
+      user_id,
+      record_type: 'activity',
+      record_id: post_id,
+      activity_type: 'like'
+    }
+  })
+  return topicUnlikeActivity
+}
+
+export async function isTopicCommentLiked ({ user_id, post_id }) {
+  const isTopicLiked = await XUserActivity.findOne({
+    where: {
+      user_id,
+      record_type: 'activity',
+      record_id: post_id,
+      activity_type: 'like'
+    }
+  })
+  return !!isTopicLiked
+}
+
+export async function getTopicCommentsLikes ({ post_id }) {
+  return aggregate({
+    model: XUserActivity,
+    aggFunction: 'count',
+    data: {
+      record_type: 'activity',
+      record_id: post_id,
+      activity_type: 'like'
+    }
+  })
+}
+
+export async function updateCategory ({ category_id, title, is_public }) {
+  await XForumCategory.update({
+    category_title: title,
+    is_public
+  },
+  {
+    where: {
+      category_id
     }
   })
 }

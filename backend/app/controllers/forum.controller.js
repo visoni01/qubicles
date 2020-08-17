@@ -1,17 +1,22 @@
 import Responder from '../../server/expressResponder'
-import ForumCategoriesService from '../services/forum/categories'
-import ForumChannelDetailsService from '../services/forum/channel/channelDetails'
-import ForumTopicService from '../services/forum/topic'
-import ForumTopicActivityService from '../services/forum/topicActivity'
-import ForumAddNewCategoryService from '../services/forum/newCategory'
-import ForumDeleteCategoryService from '../services/forum/deleteCategory'
-import ForumAddNewChannelService from '../services/forum/newChannel'
-import ForumDeleteTopicService from '../services/forum/topic/delete'
-import ForumDeleteTopicCommentService from '../services/forum/comment/delete'
-import ForumAddNewTopicService from '../services/forum/topic/create'
-import ForumChannelDeleteService from '../services/forum/channel/deleteChannel'
-import ForumChannelTopicsListService from '../services/forum/channel/channelTopicsList'
-import ForumUpdateTopicService from '../services/forum/topic/update'
+import {
+  ForumCategoriesService,
+  ForumChannelDetailsService,
+  ForumTopicService,
+  ForumTopicActivityService,
+  ForumAddNewCategoryService,
+  ForumDeleteCategoryService,
+  ForumAddNewChannelService,
+  ForumDeleteTopicService,
+  ForumDeleteTopicCommentService,
+  ForumAddNewTopicService,
+  ForumChannelDeleteService,
+  ForumChannelTopicsListService,
+  ForumUpdateCategoryService,
+  ForumLikeTopicCommentService,
+  ForumUnlikeTopicCommentService,
+  ForumUpdateTopicService
+} from '../services/forum'
 
 export default class ForumController {
   static async getCategories (req, res) {
@@ -132,6 +137,33 @@ export default class ForumController {
       Responder.success(res, updateTopicResult.result)
     } else {
       Responder.failed(res, updateTopicResult.errors)
+    }
+  }
+
+  static async likeTopicComment (req, res) {
+    const likeTopicCommentRes = await ForumLikeTopicCommentService.execute({ ...req.body, ...req.params })
+    if (likeTopicCommentRes.successful) {
+      Responder.success(res, likeTopicCommentRes.result)
+    } else {
+      Responder.failed(res, likeTopicCommentRes.errors)
+    }
+  }
+
+  static async unlikeTopicComment (req, res) {
+    const unlikeTopicCommentRes = await ForumUnlikeTopicCommentService.execute({ ...req.body, ...req.params })
+    if (unlikeTopicCommentRes.successful) {
+      Responder.success(res, unlikeTopicCommentRes.result)
+    } else {
+      Responder.failed(res, unlikeTopicCommentRes.errors)
+    }
+  }
+
+  static async updateCategory (req, res) {
+    const updateCategoryResult = await ForumUpdateCategoryService.execute({ ...req.body, ...req.params })
+    if (updateCategoryResult.successful) {
+      Responder.success(res, updateCategoryResult.result)
+    } else {
+      Responder.failed(res, updateCategoryResult.errors)
     }
   }
 }

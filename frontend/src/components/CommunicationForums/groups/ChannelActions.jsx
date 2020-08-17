@@ -46,7 +46,7 @@ const ChannelActions = ({
         >
           <MenuItem onClick={ handelRemoveChannel }>
             <FontAwesomeIcon icon={ faTrash } />
-            <span className='remove'>
+            <span className='menu-item'>
               Remove
             </span>
           </MenuItem>
