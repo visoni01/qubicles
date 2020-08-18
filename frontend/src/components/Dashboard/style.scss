@@ -59,6 +59,7 @@
   .feed-image-container {
     width: 100%;
     img {
+      cursor: pointer;
       width: 100%;
       object-fit: cover;
     }
@@ -338,4 +339,304 @@
   justify-content: flex-start;
   background-color: #00D1B2 !important;
   color: white !important;
+}
+
+.post-comments-section {
+  top: 0px;
+  right: 0px;
+  width: 100%;
+  height: 100%;
+  background: #181e28;
+  padding: 0 40px;
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  .remove-icon {
+    color: white;
+    cursor: pointer;
+  }
+
+  .image-container {
+    width: calc(100% - 450px);
+    overflow: visible;
+    padding: 0;
+    -webkit-user-select: none;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    user-select: none;
+
+    img {
+      height: auto;
+      max-width: 100%;
+      width: 100%;
+    }
+  }
+
+  .comment-container {
+    background: #fff;
+    bottom: 0;
+    color: #6c6f73;
+    left: auto;
+    padding: 10px 0;
+    right: 44px;
+    top: 0;
+    width: 350px;
+    text-align: left;
+    position: absolute;
+
+    .comment-section-body {
+      .MuiLinearProgress-colorPrimary {
+        .MuiLinearProgress-barColorPrimary {
+          background-color: #344258;
+        }
+      }
+
+      .MuiAvatar-root {
+        background-color: #344258;
+      }
+      .close-icon-custom {
+        position: absolute;
+        right: -28px;
+
+        &:hover {
+          color: white;
+        } 
+
+        path {
+          &:hover {
+            color: white;
+          } 
+        }
+
+        svg {
+          font-size: 21px;
+        }
+      }
+
+      &:hover {
+        color: inherit;
+      }
+
+      span {
+        &:hover {
+          color: inherit;
+        }
+      }
+      .header {
+        &:hover {
+          color: inherit;
+        }
+
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: start;
+        -ms-flex-pack: start;
+        justify-content: flex-start;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        padding: 12px;
+        width: 100%;
+
+        .title-bar-style {
+          &:hover {
+            color: inherit;
+          }
+          margin-left: 9px;
+
+          .post-by {
+            font-size: 16px;
+
+            span {
+              margin-left: 4px;
+            }
+          }
+
+          .feed-time-small {
+            font-size: 11px;
+
+            .fa-clock-style {
+              margin-right: 4px;
+            }
+          }
+        }  
+        .MuiAvatar-root {
+          margin-left: 4px;
+        }
+      }
+
+      .like-comment-section {
+        margin-top: 28px;
+        margin-left: 17px;
+
+        .icons {
+          width: 60%;
+          float: left;
+        }
+
+        .comments {
+          color: #9094ae;
+        }
+
+        .count {
+          margin-left: 6px;
+          margin-right: 7px;
+          color: #9094ae;
+        }
+      }
+
+      .line {
+        width: 100%;
+        height: 1px;
+        display: block;
+        background-color: #e8e8e8;
+        margin-top: 17px;
+      }
+
+      .like-comment-icon {
+        color: white;
+        stroke: #bdbdbd;
+        stroke-width: 20px;
+        width: 22px;
+        height: 18px;
+
+        &:hover {
+          color: white;
+        }
+        path {
+          &:hover {
+            color: white;
+          } 
+        }
+      }
+
+      .action-header {
+        margin-top: 7px;
+        span:first-child {
+          margin-left: 20px;
+          font-size: 12px;
+          cursor: pointer;
+          text-decoration: underline;
+        }
+        span:nth-child(2) {
+          float: right;
+          margin-right: 13px;
+          font-size: 12px;
+          margin-top: 7px;
+          color: #9094ae;
+
+          span {
+            margin-top: 0px;
+            margin-left: 7px;
+          }
+        }
+
+        span {
+          &:hover {
+            color: #6c6f72;
+          }
+        }
+      }
+
+      .comments-container {
+        height: calc(100vh - 270px);
+        overflow-y: auto;
+      }
+
+      .comment-input {
+        height: 40px;
+        position: absolute;
+        bottom: 25px;
+        left: 5px;
+
+        .MuiInputBase-root {
+          float: left;
+          width: 258px;
+        }
+
+        svg {
+          margin-left: 10px;
+          font-size: 37px;
+          box-shadow: 1px;
+          box-shadow: 2px #999;
+          transform: rotate(62deg);
+          margin-left: 18px;
+          margin-top: 4px;
+          width: none;
+          height: none;
+          cursor: pointer;
+          color: #42d2b2;
+          &:hover {
+            color: #42d2b2;
+          }
+          path {
+            &:hover {
+              color: #42d2b2;
+            } 
+          }
+        }
+
+        input {
+          height: 40px;
+          width: 80%;
+          margin: 20px 10px;
+        }
+      }
+
+      .comments-list {
+        background: #f5f6f7;
+        height: 100%;
+        padding: 20px 14px;
+        overflow-y: auto;
+        /* padding: 20px 14px; */
+        overflow-y: auto;
+
+        .comment-section {
+          display: flex;
+          width: 100%;
+          margin-bottom: 20px;
+
+          .avatar-parent {
+            .MuiAvatar-root {
+              width: 30px;
+              height: 30px;
+              font-size: 15px;
+            }
+          }
+
+          .icon {
+            float: left;
+          }
+
+          .comment-body {
+            float: left;
+            background: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            padding-top: 0px;
+            margin-left: 10px;
+            padding-top: 6px;
+
+            .username {
+              font-size: .8rem;
+              font-weight: 500;
+              &:hover {
+                color: #6c6f72;
+              }
+            }
+
+            p {
+              font-size: .75rem;
+              color: #999;
+            }
+          }
+        }
+      }
+    }
+  }
 }

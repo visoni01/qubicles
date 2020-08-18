@@ -4,16 +4,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faComment } from '@fortawesome/free-solid-svg-icons'
 import './style.scss'
 import PropTypes from 'prop-types'
-import { unlikePostStatus, likePostStatus } from '../../redux-saga/redux/actions'
+import { unlikePostStatus, likePostStatus, showCommentsSection } from '../../redux-saga/redux/actions'
 
 const PostStatusLikeComment = ({
-  userActivityId, isPostLiked, likesCount, commentsCount,
+  userActivityId, isPostLiked, likesCount, commentsCount, img, owner, createdAt,
 }) => {
   const className = isPostLiked ? 'like-icon-custom liked' : 'like-icon-custom'
   const dispatch = useDispatch()
   const data = {
     userActivityId,
   }
+
   const changePostLikeStatus = useCallback(() => {
     if (isPostLiked) {
       dispatch(unlikePostStatus({ data }))
@@ -21,6 +22,17 @@ const PostStatusLikeComment = ({
       dispatch(likePostStatus({ data }))
     }
   }, [ isPostLiked ])
+
+  const showCommentsCB = useCallback(() => {
+    dispatch(showCommentsSection({
+      postStatusId: userActivityId,
+      img,
+      owner,
+      createdAt,
+      likesCount,
+      commentsCount,
+    }))
+  }, [ userActivityId, img, owner, createdAt, likesCount, commentsCount ])
 
   return (
     <div className='like-comment-section columns'>
@@ -39,6 +51,7 @@ const PostStatusLikeComment = ({
       <div className='comment-section'>
         <FontAwesomeIcon
           icon={ faComment }
+          onClick={ showCommentsCB }
           className='comment-icon-custom'
         />
         <span className='comments-count'>
@@ -56,6 +69,9 @@ PostStatusLikeComment.propTypes = {
   likesCount: PropTypes.number.isRequired,
   isPostLiked: PropTypes.bool.isRequired,
   commentsCount: PropTypes.number.isRequired,
+  img: PropTypes.string.isRequired,
+  owner: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
 }
 
 export default PostStatusLikeComment
