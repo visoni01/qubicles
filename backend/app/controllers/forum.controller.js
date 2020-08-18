@@ -17,7 +17,8 @@ import {
   ForumUnlikeTopicCommentService,
   ForumUpdateTopicService,
   ForumUpdateChannelService,
-  ForumUpdateTopicCommentService
+  ForumUpdateTopicCommentService,
+  ImageUploadService
 } from '../services/forum'
 
 export default class ForumController {
@@ -184,6 +185,15 @@ export default class ForumController {
       Responder.success(res, forumUpdateTopicComment.result)
     } else {
       Responder.failed(res, forumUpdateTopicComment.errors)
+    }
+  }
+
+  static async imageUpload (req, res) {
+    const upload = await ImageUploadService.execute({ ...req.body, file: req.file })
+    if (upload.successful) {
+      Responder.success(res, upload.result)
+    } else {
+      Responder.failed(res, upload.errors)
     }
   }
 }

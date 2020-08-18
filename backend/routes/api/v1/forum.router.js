@@ -1,7 +1,9 @@
 import express from 'express'
 import { isAuthenticated } from './../../../app/middlewares/isAuthenticated'
 import forumController from '../../../app/controllers/forum.controller'
+import multer from 'multer'
 
+const multerUpload = multer()
 const args = { mergeParams: true }
 const forumRouter = express.Router(args)
 
@@ -58,5 +60,8 @@ forumRouter.route('/categories/:category_id')
 
 forumRouter.route('/channel/:channel_id')
   .put(isAuthenticated, forumController.updateChannel)
+
+forumRouter.route('/image')
+  .post(multerUpload.single('file'), isAuthenticated, forumController.imageUpload)
 
 export { forumRouter }
