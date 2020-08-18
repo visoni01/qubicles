@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useState, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import PropTypes from 'prop-types'
@@ -11,15 +11,22 @@ import { ownerDetails } from '../forumValidators'
 import { deleteTopicComment } from '../../../redux-saga/redux/actions'
 import CommentLikeIcon from './CommentLikeIcon'
 import './style.scss'
+import ConfirmationModal from '../../CommonModal/ConfirmationModal'
 
 const Post = ({
   postMeta, postBody, postId, postLiked,
 }) => {
   const isEdited = !postMeta.updatedAt === postMeta.createdAt
+  const [ openConfirmationModal, setOpenConfirmationModal ] = useState(false)
   const dispatch = useDispatch()
   const deleteTopicCommentHandler = useCallback(() => {
     dispatch(deleteTopicComment({ postId }))
   }, [ dispatch, postId ])
+
+  const toggleConfirmationModal = useCallback(
+    // eslint-disable-next-line
+    () => setOpenConfirmationModal((openConfirmationModal) => !openConfirmationModal), [ setOpenConfirmationModal ],
+  )
 
   return (
     <div className='post'>
@@ -47,7 +54,7 @@ const Post = ({
               isUserOwner(postMeta.ownerDetails.userId)
               && (
               <div className='delete-comment'>
-                <FontAwesomeIcon icon={ faTrash } onClick={ deleteTopicCommentHandler } />
+                <FontAwesomeIcon icon={ faTrash } onClick={ toggleConfirmationModal } />
               </div>
               )
             }
@@ -57,6 +64,12 @@ const Post = ({
         <div className='post-body content' dangerouslySetInnerHTML={ { __html: postBody.content } } />
         {isEdited && <div className='edited-text'>{`Edited ${ getTimeFromNow(postMeta.updatedAt) }`}</div>}
       </div>
+      <ConfirmationModal
+        open={ openConfirmationModal }
+        handleClose={ toggleConfirmationModal }
+        handleConfirm={ deleteTopicCommentHandler }
+        message='Are you sure want to delete this comment?'
+      />
     </div>
   )
 }

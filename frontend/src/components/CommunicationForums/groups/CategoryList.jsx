@@ -6,7 +6,7 @@ import CategoryWrap from './CategoryWrap'
 import { categoryDataFetchingStart } from '../../../redux-saga/redux/actions'
 import Loader from '../../loaders/circularLoader'
 
-const CategoryList = ({ currentPage, noOfGroupsPerPage }) => {
+const CategoryList = ({ currentPage, noOfGroupsPerPage, changeCurrentPage }) => {
   const { categories, isLoading } = useSelector((state) => state.category)
   const isCategories = !_.isEmpty(categories)
   const dispatch = useDispatch()
@@ -18,6 +18,12 @@ const CategoryList = ({ currentPage, noOfGroupsPerPage }) => {
     }))
   }, [ dispatch, currentPage, noOfGroupsPerPage ])
 
+  useEffect(() => {
+    if (!categories.length && currentPage > 1 && !isLoading) {
+      changeCurrentPage(_, currentPage - 1)
+    }
+  }, [ categories ])
+
   if (isLoading) {
     return (
       <Loader
@@ -28,7 +34,9 @@ const CategoryList = ({ currentPage, noOfGroupsPerPage }) => {
     )
   }
   if (isCategories) {
-    return (categories.map((category) => <CategoryWrap { ...category } key={ category.id } />))
+    return (categories.map(
+      (category, index) => ((index < noOfGroupsPerPage) ? <CategoryWrap { ...category } key={ category.id } /> : null),
+    ))
   }
   return (
     <div className='no-category-message'>
@@ -40,6 +48,7 @@ const CategoryList = ({ currentPage, noOfGroupsPerPage }) => {
 CategoryList.propTypes = {
   currentPage: PropTypes.number.isRequired,
   noOfGroupsPerPage: PropTypes.number.isRequired,
+  changeCurrentPage: PropTypes.func.isRequired,
 }
 
 export default CategoryList

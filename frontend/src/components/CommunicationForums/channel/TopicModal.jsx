@@ -8,7 +8,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faPlus, faCheck } from '@fortawesome/free-solid-svg-icons'
 
-const AddNewTopicModal = ({
+const TopicModal = ({
   open, handleClose, onSubmit, editTopicData, isEdit,
 }) => {
   const [ topicData, setTopicData ] = useState(editTopicData)
@@ -167,7 +167,7 @@ const AddNewTopicModal = ({
   )
 }
 
-AddNewTopicModal.defaultProps = {
+TopicModal.defaultProps = {
   editTopicData: {
     title: '',
     isPublic: false,
@@ -177,7 +177,7 @@ AddNewTopicModal.defaultProps = {
   isEdit: false,
 }
 
-AddNewTopicModal.propTypes = {
+TopicModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
@@ -185,4 +185,4 @@ AddNewTopicModal.propTypes = {
   isEdit: PropTypes.bool,
 }
 
-export default AddNewTopicModal
+export default TopicModal

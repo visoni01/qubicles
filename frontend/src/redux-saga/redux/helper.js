@@ -21,18 +21,20 @@ import {
 import { postDataFechingStart, createStatusPostStart } from './actions'
 
 export const getUpdatedCategories = ({ state, payload }) => {
-  let categories = []
+  const updatedState = { ...state }
   switch (payload.type) {
     case ADD_CATEGORY: {
-      categories = [ ...state.categories, payload.newCategory ]
+      updatedState.categories = [ ...state.categories, payload.newCategory ]
+      updatedState.totalCategories = state.totalCategories + 1
       break
     }
     case DELETE_CATEGORY: {
-      categories = state.categories.filter((category) => (category.id !== payload.categoryId))
+      updatedState.categories = state.categories.filter((category) => (category.id !== payload.categoryId))
+      updatedState.totalCategories = state.totalCategories - 1
       break
     }
     case ADD_CHANNEL: {
-      categories = state.categories.map((category) => {
+      updatedState.categories = state.categories.map((category) => {
         if (category.id === payload.data.categoryId) {
           return {
             ...category,
@@ -44,7 +46,7 @@ export const getUpdatedCategories = ({ state, payload }) => {
       break
     }
     case DELETE_CHANNEL: {
-      categories = state.categories.map((category) => {
+      updatedState.categories = state.categories.map((category) => {
         if (category.id === payload.data.categoryId) {
           return {
             ...category,
@@ -56,7 +58,7 @@ export const getUpdatedCategories = ({ state, payload }) => {
       break
     }
     case UPDATE_CATEGORY: {
-      categories = state.categories.map((category) => {
+      updatedState.categories = state.categories.map((category) => {
         if (category.id === payload.data.category_id) {
           return {
             ...category,
@@ -69,7 +71,7 @@ export const getUpdatedCategories = ({ state, payload }) => {
       break
     }
     case UPDATE_CHANNEL: {
-      categories = state.categories.map((category) => {
+      updatedState.categories = state.categories.map((category) => {
         if (category.id === payload.data.category_id) {
           return {
             ...category,
@@ -94,7 +96,7 @@ export const getUpdatedCategories = ({ state, payload }) => {
     default:
       break
   }
-  return categories
+  return updatedState
 }
 
 export const getUpdatedTopicDetails = ({ state, payload }) => {

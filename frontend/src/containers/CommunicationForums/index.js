@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
@@ -56,10 +56,18 @@ const ForumGroup = () => {
               <CreateGroup />
             </div>
             {/* Forum Category Search */}
-            <CategorySearchBar currentPage={ currentPage } noOfGroupsPerPage={ noOfGroupsPerPage } setCurrentPage={ setCurrentPage } />
+            <CategorySearchBar
+              currentPage={ currentPage }
+              noOfGroupsPerPage={ noOfGroupsPerPage }
+              setCurrentPage={ setCurrentPage }
+            />
 
             {/* ForumGroup Category */}
-            <CategoryList currentPage={ currentPage } noOfGroupsPerPage={ noOfGroupsPerPage } />
+            <CategoryList
+              currentPage={ currentPage }
+              noOfGroupsPerPage={ noOfGroupsPerPage }
+              changeCurrentPage={ changeCurrentPage }
+            />
           </div>
           { Boolean(noOfPages) && (
           <Pagination

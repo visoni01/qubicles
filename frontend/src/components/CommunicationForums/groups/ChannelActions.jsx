@@ -8,6 +8,7 @@ import { IconButton, Menu, MenuItem } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteChannel, updateChannel } from '../../../redux-saga/redux/forum/actions'
 import AddUpdateChannelModal from '../channel/ChannelModal'
+import ConfirmationModal from '../../CommonModal/ConfirmationModal'
 
 const ChannelActions = ({
   categoryId, channelId, title, ownerId, description, isPublic, isCompanyAnn,
@@ -17,6 +18,12 @@ const ChannelActions = ({
 
   const [ anchorEl, setAnchorEl ] = useState(null)
   const [ openEditChannelModal, setOpenEditChannelModal ] = useState(false)
+  const [ openConfirmationModal, setOpenConfirmationModal ] = useState(false)
+
+  const toggleConfirmationModal = useCallback(
+    // eslint-disable-next-line
+    () => setOpenConfirmationModal((openConfirmationModal) => !openConfirmationModal), [ setOpenConfirmationModal ],
+  )
 
   const handleMenuIconClick = (event) => {
     setAnchorEl(event.currentTarget)
@@ -28,6 +35,7 @@ const ChannelActions = ({
 
   const handelRemoveChannel = () => {
     dispatch(deleteChannel({ categoryId, channelId, title }))
+    toggleConfirmationModal()
     handleMenuClose()
   }
 
@@ -80,7 +88,7 @@ const ChannelActions = ({
             </span>
           </MenuItem>
           {/* Remove Button */}
-          <MenuItem onClick={ handelRemoveChannel }>
+          <MenuItem onClick={ toggleConfirmationModal }>
             <FontAwesomeIcon icon={ faTrash } />
             <span className='menu-item'>
               Remove
@@ -101,6 +109,12 @@ const ChannelActions = ({
             isCompanyAnn,
           }
         }
+      />
+      <ConfirmationModal
+        open={ openConfirmationModal }
+        handleClose={ toggleConfirmationModal }
+        handleConfirm={ handelRemoveChannel }
+        message={ `Are you sure want to delete "${ title }" channel?` }
       />
     </>
   )
