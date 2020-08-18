@@ -93,7 +93,6 @@ export async function isUserLikedPost ({ user_id, user_activity_id }) {
 }
 
 export async function commentStatus ({ user_id, record_id, activity_permission, activity_value }) {
-  const ownerDetails = await getUserSubProfile({ user_id })
   const newComment = await createNewEntity({
     model: XUserActivity,
     data: {
@@ -107,17 +106,8 @@ export async function commentStatus ({ user_id, record_id, activity_permission, 
   })
   return {
     commentId: newComment.user_activity_id,
-    commentMeta: {
-      ownerDetails,
-      permission: newComment.activity_permission,
-      createdAt: newComment.createdAt,
-      updatedAt: newComment.updatedAt,
-      totalLikes: 10,
-      totalReplies: 4
-    },
-    commentBody: {
-      content: newComment.activity_value
-    }
+    createdAt: newComment.createdAt,
+    content: newComment.activity_value
   }
 }
 

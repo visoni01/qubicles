@@ -1,7 +1,7 @@
 import ServiceBase from '../../common/serviceBase'
 import {
   getErrorMessageForService,
-  commentStatus, checkVisibility,
+  checkVisibility,
   likeStatus, getUserActivityById, unlikeStatus
 } from '../helper'
 import { ERRORS, MESSAGES } from '../../utils/errors'
@@ -43,14 +43,6 @@ export default class DashboardStatusActivityService extends ServiceBase {
       }
 
       switch (activity_type) {
-        case 'comment':
-          activityResult = await commentStatus({
-            user_id,
-            record_id: activityData.user_activity_id,
-            activity_permission: activityData.activity_permission,
-            activity_value: data.comment
-          })
-          break
         case 'like':
           activityResult = await likeStatus({
             user_id,
