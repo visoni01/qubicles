@@ -26,7 +26,8 @@ export async function postStatusUpdate ({ user_id, activity_value, activity_cust
 
 export async function getUserActivityById ({ user_activity_id }) {
   const userActivity = await XUserActivity.findOne({
-    where: { user_activity_id }
+    where: { user_activity_id },
+    raw: true
   })
   return userActivity
 }
@@ -138,6 +139,21 @@ export async function getStatusComments ({ user_id, record_id }) {
     })
   })
   return visibleComments
+}
+
+export async function getStatusCommentsInBatch ({ record_id, limit, offset }) {
+  const { rows, count } = await XUserActivity.findAndCountAll({
+    where: {
+      record_type: 'activity',
+      record_id,
+      activity_type: 'comment'
+    },
+    limit,
+    offset,
+    order: [['created_on', 'DESC']],
+    raw: true
+  })
+  return { comments: rows, count }
 }
 
 export async function getStatusCommentsCount ({ record_id }) {

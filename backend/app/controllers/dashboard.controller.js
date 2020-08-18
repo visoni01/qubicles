@@ -7,6 +7,8 @@ import GellAllPostStatusListService from '../services/dashboard/postStatusList'
 import AddPostStatusService from '../services/dashboard/addPostStatus'
 import DashboardDeletePostStatusService from '../services/dashboard/deletePostStatus'
 import DashboardStatusActivityService from '../services/dashboard/statusActivity'
+import GetPostCommentsService from '../services/dashboard/getPostComments'
+import AddPostStatusCommentService from '../services/dashboard/addPostComment'
 
 export default class DashboardController {
   static async getCommunityRep (req, res) {
@@ -78,6 +80,24 @@ export default class DashboardController {
       Responder.success(res, statusActivity.result)
     } else {
       Responder.failed(res, statusActivity.errors)
+    }
+  }
+
+  static async getPostComments (req, res) {
+    const postComments = await GetPostCommentsService.execute({ ...req.body, ...req.params, ...req.query })
+    if (postComments.successful) {
+      Responder.success(res, postComments.result)
+    } else {
+      Responder.failed(res, postComments.errors)
+    }
+  }
+
+  static async postComment (req, res) {
+    const postComment = await AddPostStatusCommentService.execute({ ...req.body, ...req.params })
+    if (postComment.successful) {
+      Responder.success(res, postComment.result)
+    } else {
+      Responder.failed(res, postComment.errors)
     }
   }
 }
