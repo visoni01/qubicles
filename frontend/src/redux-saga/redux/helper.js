@@ -58,7 +58,7 @@ export const getUpdatedCategories = ({ state, payload }) => {
       break
     }
     case UPDATE_CATEGORY: {
-      categories = state.categories.map((category) => {
+      updatedState.categories = state.categories.map((category) => {
         if (category.id === payload.data.category_id) {
           return {
             ...category,
@@ -71,7 +71,7 @@ export const getUpdatedCategories = ({ state, payload }) => {
       break
     }
     case UPDATE_CHANNEL: {
-      categories = state.categories.map((category) => {
+      updatedState.categories = state.categories.map((category) => {
         if (category.id === payload.data.category_id) {
           return {
             ...category,
