@@ -121,6 +121,12 @@
     height: 350px;
   }
 
+  .custom-skeleton-like-comment {
+    width: 30%;
+    height: 20px;
+    margin-left: 12px;
+  }
+
 
   .title-bar-style {
     float: left;
@@ -195,7 +201,7 @@
 
       .MuiButton-iconSizeMedium > *:first-child {
         font-size: 12px;
-      }  
+      }
       .post {
         margin-left: 15px;
       }
@@ -206,6 +212,91 @@
 
     .pdl {
       padding-left: 5px;
+    }
+  }
+
+  .status-activity {
+    .like-comment-section {
+      height: 27px;
+      margin-left: 9px;
+      margin-top: 4px;
+      margin-bottom: 4px;
+
+      .like-section {
+        width: 30px;
+        display: flex;
+        -webkit-box-pack: start;
+        -ms-flex-pack: start;
+        justify-content: flex-start;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        margin: 0 3px;
+
+        .liked {
+          color: red !important;
+        }
+
+        .like-icon-custom {
+          color: white;
+          stroke: #bdbdbd;
+          stroke-width: 20px;
+          width: 22px;
+          height: 26px;
+          cursor: pointer;
+          &:hover {
+            color: red;
+          }
+          path {
+            &:hover {
+              color: red;
+            } 
+          }
+        }
+  
+        .likes-count {
+          display: inline-block;
+          font-size: .9rem;
+          color: #888da8;
+          margin-left: 9px;
+        }
+      }
+
+      .comment-section {
+        width: 30px;
+        display: flex;
+        -webkit-box-pack: start;
+        -ms-flex-pack: start;
+        justify-content: flex-start;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        margin: 0 25px;
+
+        .comment-icon-custom {
+          color: white;
+          stroke: #bdbdbd;
+          stroke-width: 20px;
+          width: 22px;
+          height: 26px;
+          cursor: pointer;
+          &:hover {
+            color:white;
+          }
+          path {
+            &:hover {
+              color: white;
+            }
+          }
+        }
+
+        .comments-count {
+          display: inline-block;
+          font-size: .9rem;
+          color: #888da8;
+          margin-left: 9px;
+        }
+      }
     }
   }
 }

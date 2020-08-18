@@ -14,11 +14,13 @@ import {
   UPDATE_TOPIC,
   UPDATE_CATEGORY,
   UPDATE_CHANNEL,
+  LIKE_POST,
+  UNLIKE_POST,
   ADD_POST,
   DELETE_POST_STATUS,
 } from './constants'
 
-import { postDataFechingStart, createStatusPostStart } from './actions'
+import { postDataFetchingStart, createStatusPostStart } from './actions'
 
 export const getUpdatedCategories = ({ state, payload }) => {
   let categories = []
@@ -194,13 +196,43 @@ export const getPostData = ({ state, payload }) => {
       posts = [ payload.newPost, ...state.posts ]
       break
     }
-    case postDataFechingStart.type: {
+    case postDataFetchingStart.type: {
       posts = payload.posts
       break
     }
     case DELETE_POST_STATUS: {
       const { userActivityId } = payload
       posts = state.posts.filter((post) => post.user_activity_id !== userActivityId)
+      break
+    }
+    case LIKE_POST: {
+      const { data } = payload
+      posts = state.posts.map((post) => {
+        let updatedStatusLike = post.isPostLiked
+        let updatedLikeCount = post.likesCount
+        if (post.user_activity_id === data.userActivityId) {
+          updatedStatusLike = true
+          updatedLikeCount += 1
+        }
+        return {
+          ...post, isPostLiked: updatedStatusLike, likesCount: updatedLikeCount,
+        }
+      })
+      break
+    }
+    case UNLIKE_POST: {
+      const { data } = payload
+      posts = state.posts.map((post) => {
+        let updatedStatusLike = post.isPostLiked
+        let updatedLikeCount = post.likesCount
+        if (post.user_activity_id === data.userActivityId) {
+          updatedStatusLike = false
+          updatedLikeCount -= 1
+        }
+        return {
+          ...post, isPostLiked: updatedStatusLike, likesCount: updatedLikeCount,
+        }
+      })
       break
     }
     default:

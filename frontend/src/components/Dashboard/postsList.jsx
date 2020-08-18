@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import _ from 'lodash'
 import './style.scss'
 import Skeleton from '@material-ui/lab/Skeleton'
-import { postDataFechingStart } from '../../redux-saga/redux/actions'
+import { postDataFetchingStart } from '../../redux-saga/redux/actions'
 import PostStatusWrap from './PostStatusWrap'
 
 const PostsList = () => {
@@ -11,7 +11,7 @@ const PostsList = () => {
   const isPosts = !_.isEmpty(posts)
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(postDataFechingStart())
+    dispatch(postDataFetchingStart())
   }, [ dispatch ])
 
   if (isLoading) {
@@ -40,6 +40,10 @@ const PostsList = () => {
           variant='rect'
           classes={ { root: 'skeleton-footer-container' } }
         />
+        <Skeleton
+          animation='wave'
+          classes={ { root: 'custom-skeleton-like-comment' } }
+        />
       </div>
     )
   }
@@ -53,6 +57,9 @@ const PostsList = () => {
         createdAt={ post.createdAt }
         owner={ post.owner }
         userId={ post.user_id }
+        isPostLiked={ post.isPostLiked }
+        likesCount={ post.likesCount }
+        commentsCount={ post.commentsCount }
         key={ post.user_activity_id }
       />
     )))
