@@ -69,7 +69,7 @@ const ChannelHeader = ({
       </div>
       {/* {Channel Search Bar} */}
       <TopicSearch channelId={ channelId } />
-      <div className='actions channel-actions'>
+      <div className='actions'>
         <Link to={ `${ GROUP }` } className='forum-back home-button'>
           <i><FontAwesomeIcon icon={ faHome } /></i>
           <i><FontAwesomeIcon icon={ faArrowLeft } /></i>

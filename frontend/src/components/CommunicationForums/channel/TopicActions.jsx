@@ -74,13 +74,13 @@ const TopicActions = ({
         >
           <MenuItem onClick={ handleDialogOpen }>
             <FontAwesomeIcon icon={ faTrash } />
-            <span className='remove'>
+            <span className='menu-item'>
               Remove
             </span>
           </MenuItem>
           <MenuItem onClick={ toggleEditModal }>
             <FontAwesomeIcon icon={ faPencilAlt } />
-            <span className='remove'>
+            <span className='menu-item'>
               Edit
             </span>
           </MenuItem>
