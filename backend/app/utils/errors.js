@@ -28,5 +28,7 @@ export const MESSAGES = {
   INVALID_IMAGE_FILE_SIZE: 'File size should not be greater than 1 MB!',
   IPFS_FILE_UPLOAD_ERROR: 'Error occured while uploadind file on IPFS!',
   POST_STATUS_NOT_EXIST: 'Post status does not exist',
-  STATUS_DELETED_SUCCESSFULLY: 'Post status successfully deleted'
+  STATUS_DELETED_SUCCESSFULLY: 'Post status successfully deleted',
+  LIKE_ERROR_MESSAGE: 'You have already liked this post!',
+  UNLIKE_ERROR_MESSAGE: 'You have already unliked this post!'
 }

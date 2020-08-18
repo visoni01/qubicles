@@ -28,4 +28,7 @@ dashboardRouter.route('/active-users')
 dashboardRouter.route('/post-status/:user_activity_id')
   .delete(isAuthenticated, dashboardController.deletePostStatus)
 
+dashboardRouter.route('/post-status/activity/:activity_type')
+  .post(isAuthenticated, dashboardController.postStatusActivity)
+
 export { dashboardRouter }
