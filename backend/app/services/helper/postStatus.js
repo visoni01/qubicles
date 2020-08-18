@@ -1,7 +1,13 @@
 import { XUserActivity } from '../../db/models'
-import { createNewEntity, getUserById, getClientUsers, getClientIdByUserId, getXQodApplications } from '../helper'
+import {
+  createNewEntity,
+  getXQodApplications,
+  getUserById, getClientUsers, getClientIdByUserId
+} from '../helper'
 import { USER_LEVEL } from '../user/getSecurityContext'
 import { Op } from 'sequelize'
+import { getUserSubProfile } from './forum'
+import _ from 'lodash'
 
 export async function postStatusUpdate ({ user_id, activity_value, activity_custom, activity_permission }) {
   await createNewEntity({
@@ -18,18 +24,47 @@ export async function postStatusUpdate ({ user_id, activity_value, activity_cust
   })
 }
 
-export async function likeStatus ({ user_id, record_id, activity_permission }) {
-  await createNewEntity({
-    model: XUserActivity,
-    data: {
-      user_id,
-      record_type: 'activity',
-      record_id,
-      activity_type: 'like',
-      activity_value: '1',
-      activity_permission
-    }
+export async function getUserActivityById ({ user_activity_id }) {
+  const userActivity = await XUserActivity.findOne({
+    where: { user_activity_id }
   })
+  return userActivity
+}
+
+export async function likeStatus ({ user_id, record_id, activity_permission }) {
+  const isStatusLiked = await isUserLikedPost({ user_id, user_activity_id: record_id })
+  let statusLikeActivity = { isUserAlreadyLiked: true }
+  if (!isStatusLiked) {
+    statusLikeActivity = await createNewEntity({
+      model: XUserActivity,
+      data: {
+        user_id,
+        record_type: 'activity',
+        record_id,
+        activity_type: 'like',
+        activity_value: '1',
+        activity_permission
+      }
+    })
+  }
+  return statusLikeActivity
+}
+
+export async function unlikeStatus ({ user_id, record_id, activity_permission }) {
+  const isStatusLiked = await isUserLikedPost({ user_id, user_activity_id: record_id })
+  let statusUnlikeActivity = { isUserAlreadyUnliked: true }
+  if (isStatusLiked) {
+    statusUnlikeActivity = await XUserActivity.destroy({
+      where: {
+        user_id,
+        record_type: 'activity',
+        record_id,
+        activity_type: 'like',
+        activity_permission
+      }
+    })
+  }
+  return statusUnlikeActivity
 }
 
 export async function getStatusLikesCount ({ record_id }) {
@@ -41,11 +76,24 @@ export async function getStatusLikesCount ({ record_id }) {
     },
     raw: true
   })
-  return { likes: totalLikes }
+  return (totalLikes || 0)
+}
+
+export async function isUserLikedPost ({ user_id, user_activity_id }) {
+  const userActivity = await XUserActivity.findOne({
+    where: {
+      user_id,
+      record_type: 'activity',
+      activity_type: 'like',
+      record_id: user_activity_id
+    }
+  })
+  return !_.isEmpty(userActivity)
 }
 
 export async function commentStatus ({ user_id, record_id, activity_permission, activity_value }) {
-  await createNewEntity({
+  const ownerDetails = await getUserSubProfile({ user_id })
+  const newComment = await createNewEntity({
     model: XUserActivity,
     data: {
       user_id,
@@ -56,6 +104,20 @@ export async function commentStatus ({ user_id, record_id, activity_permission, 
       activity_permission
     }
   })
+  return {
+    commentId: newComment.user_activity_id,
+    commentMeta: {
+      ownerDetails,
+      permission: newComment.activity_permission,
+      createdAt: newComment.createdAt,
+      updatedAt: newComment.updatedAt,
+      totalLikes: 10,
+      totalReplies: 4
+    },
+    commentBody: {
+      content: newComment.activity_value
+    }
+  }
 }
 
 export async function getStatusComments ({ user_id, record_id }) {
@@ -76,6 +138,18 @@ export async function getStatusComments ({ user_id, record_id }) {
     })
   })
   return visibleComments
+}
+
+export async function getStatusCommentsCount ({ record_id }) {
+  const totalComments = XUserActivity.count({
+    where: {
+      record_type: 'activity',
+      record_id,
+      activity_type: 'comment'
+    },
+    raw: true
+  })
+  return (totalComments || 0)
 }
 
 export async function getStatusUpdates ({ user_id }) {

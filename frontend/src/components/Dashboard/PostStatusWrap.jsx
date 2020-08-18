@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import Avatar from '@material-ui/core/Avatar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClock } from '@fortawesome/free-solid-svg-icons'
 import { getTimeFromNow } from '../../utils/common'
 import PostStatusAction from './PostStatusAction'
+import PostStatusLikeComment from './postStatusLikeComment'
 import './style.scss'
 
 const PostStatusWrap = ({
-  userActivityId, activityValue, activityCustom, createdAt, owner, userId,
+  userActivityId, activityValue, activityCustom, createdAt, owner, userId, isPostLiked, likesCount, commentsCount,
 }) => (
   <div className='post-item post-item-custom animated preFadeInLeft fadeInLeft'>
     <div className='is-flex is-start is-vcenter padding-10'>
@@ -19,7 +20,8 @@ const PostStatusWrap = ({
         <div>
           Posted by
           <span>
-            &nbsp;{owner}
+            &nbsp;
+            {owner}
           </span>
         </div>
         <div className='feed-time-small'>
@@ -51,6 +53,14 @@ const PostStatusWrap = ({
         </div>
       )}
     </div>
+    <div className='status-activity'>
+      <PostStatusLikeComment
+        userActivityId={ userActivityId }
+        isPostLiked={ isPostLiked }
+        likesCount={ likesCount }
+        commentsCount={ commentsCount }
+      />
+    </div>
   </div>
 )
 
@@ -61,6 +71,9 @@ PostStatusWrap.propTypes = {
   owner: PropTypes.string.isRequired,
   activityValue: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
+  likesCount: PropTypes.number.isRequired,
+  isPostLiked: PropTypes.bool.isRequired,
+  commentsCount: PropTypes.number.isRequired,
 }
 
 export default PostStatusWrap

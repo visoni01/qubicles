@@ -54,6 +54,21 @@ class Dashboard {
     const response = await apiClient.deleteRequest(`/dashboard/post-status/${ userActivityId }`)
     return response
   }
+
+  static async addPostComment(data) {
+    const response = await apiClient.postRequest('/dashboard/post-status/activity/comment', data)
+    return response
+  }
+
+  static async likePost(data) {
+    const response = await apiClient.postRequest('/dashboard/post-status/activity/like', data)
+    return response
+  }
+
+  static async unlikePost(data) {
+    const response = await apiClient.postRequest('/dashboard/post-status/activity/unlike', data)
+    return response
+  }
 }
 
 export default Dashboard

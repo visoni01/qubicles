@@ -2,7 +2,7 @@ import {
   takeLatest, put, select,
 } from 'redux-saga/effects'
 import {
-  postDataFechingStart,
+  postDataFetchingStart,
   postDataFetchingFailed,
   createStatusPostStart,
   updatePostData,
@@ -11,13 +11,13 @@ import {
   createStatusPostFailed,
   createStatusPostSuccess,
 } from '../../redux/actions'
-import { DELETE_POST_STATUS } from '../../redux/constants'
+import { DELETE_POST_STATUS, LIKE_POST, UNLIKE_POST } from '../../redux/constants'
 import Dashboard from '../../service/dashboard'
 
 function* postDataCrudWatcherStart() {
   yield takeLatest(
     [
-      postDataFechingStart.type,
+      postDataFetchingStart.type,
       createStatusPostStart.type,
       DELETE_POST_STATUS,
     ],
@@ -29,7 +29,7 @@ function* postDataFetchingWorker(action) {
   try {
     let msg
     switch (action.type) {
-      case postDataFechingStart.type: {
+      case postDataFetchingStart.type: {
         const { data } = yield Dashboard.fetchPosts()
         yield put(updatePostData({ type: action.type, posts: data }))
         break
@@ -44,7 +44,16 @@ function* postDataFetchingWorker(action) {
 
         const { data } = yield Dashboard.addPost({ data: formData })
         const { userDetails } = yield select((state) => state.login)
-        yield put(updatePostData({ type: action.type, newPost: { ...data, owner: userDetails.full_name } }))
+        yield put(updatePostData({
+          type: action.type,
+          newPost: {
+            ...data,
+            owner: userDetails.full_name,
+            isPostLiked: false,
+            likesCount: 0,
+            commentsCount: 0,
+          },
+        }))
         yield put(createStatusPostSuccess())
         msg = 'Status has been sucessfully posted!'
         break
@@ -69,7 +78,7 @@ function* postDataFetchingWorker(action) {
     if (action.type === createStatusPostStart.type) {
       yield put(createStatusPostFailed())
     }
-    if (action.type === postDataFechingStart.type) {
+    if (action.type === postDataFetchingStart.type) {
       yield put(postDataFetchingFailed())
     }
   }
