@@ -21,6 +21,16 @@ const useReducerStateSelector = (userActivityId) => {
   }
 }
 
+const useReducerStateSelector = (userActivityId) => {
+  const { posts } = useSelector((state) => state.statusPosts)
+  const currentPostData = posts.find((post) => post.user_activity_id === userActivityId)
+  return {
+    likesCount: currentPostData ? currentPostData.likesCount : 0,
+    commentsCount: currentPostData ? currentPostData.commentsCount : 0,
+    isPostLiked: !!(currentPostData && currentPostData.isPostLiked),
+  }
+}
+
 const CommentsHeader = ({
   owner, createdAt, limit, offset, userActivityId,
 }) => {
