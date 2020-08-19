@@ -472,11 +472,11 @@
 
       .like-comment-section {
         margin-top: 28px;
-        margin-left: 17px;
 
         .icons {
           width: 60%;
           float: left;
+          margin-left: 17px;
         }
 
         .comments {
@@ -556,17 +556,16 @@
 
         .MuiInputBase-root {
           float: left;
-          width: 273px;
+          width: 275px;
           border-radius: 100px;
+          max-height: 57px;
         }
 
         svg {
-          margin-left: 10px;
           font-size: 37px;
-          box-shadow: 1px;
           box-shadow: 2px #999;
           transform: rotate(62deg);
-          margin-left: 18px;
+          margin-left: 9px;
           margin-top: 4px;
           width: none;
           height: none;
@@ -589,14 +588,21 @@
         }
       }
 
+      .slim-scroll::-webkit-scrollbar {
+        width: 8px !important;
+      }
+
+      .slim-scroll::-webkit-scrollbar-thumb {
+        border-radius: 10px !important;
+        background: rgba(0,0,0,0.2) !important;
+      }
+
       .comments-list {
         background: #f5f6f7;
         height: 100%;
         padding: 20px 14px;
         overflow-y: auto;
-        /* padding: 20px 14px; */
-        overflow-y: auto;
-
+        
         .comment-section {
           display: flex;
           width: 100%;
@@ -634,6 +640,10 @@
             p {
               font-size: .75rem;
               color: #999;
+
+              &.comment-time {
+                margin-top: 6px;
+              }
             }
           }
         }

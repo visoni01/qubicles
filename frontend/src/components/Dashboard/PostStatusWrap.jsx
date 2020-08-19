@@ -18,7 +18,7 @@ const PostStatusWrap = ({
   const showCommentsCB = useCallback(() => {
     dispatch(showCommentsSection({
       postStatusId: userActivityId,
-      img: activityCustom,
+      imgSrc: activityCustom,
       owner,
       createdAt: timeFromNow,
       likesCount,

@@ -26,7 +26,7 @@ const PostStatusLikeComment = ({
   const showCommentsCB = useCallback(() => {
     dispatch(showCommentsSection({
       postStatusId: userActivityId,
-      img,
+      imgSrc: img,
       owner,
       createdAt,
       likesCount,
