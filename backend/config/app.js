@@ -232,6 +232,20 @@ const config = convict({
   imageFileSize: {
     default: 1024 * 1024,
     env: 'IMAGE_MAX_SIZE'
+  },
+  checkr: {
+    baseUrl: {
+      default: '',
+      env: 'CHECKR_BASE_URL'
+    },
+    publishableKey: {
+      default: '',
+      env: 'CHECKR_PUBLISHABLE_KEY'
+    },
+    secretKey: {
+      default: '',
+      env: 'CHECKR_SECRET_KEY'
+    }
   }
 })
 config.validate({ allowed: 'strict' })
