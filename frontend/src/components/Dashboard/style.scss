@@ -54,6 +54,12 @@
   }
 }
 
+.post-status-dropdown-menu {
+  .remove {
+    margin-left: 10px;
+  }
+}
+
 .post-item-custom {
   width: 100%;
   .feed-image-container {
@@ -61,7 +67,6 @@
     img {
       cursor: pointer;
       width: 100%;
-      object-fit: cover;
     }
   }
   .MuiAvatar-root {
@@ -137,6 +142,12 @@
     .fa-clock-style {
       margin-right: 5px;
     }
+
+    .post-by {
+      &:hover {
+        color: inherit;
+      }
+    } 
   }
 
   .post-text-container {
@@ -354,6 +365,32 @@
   right: 0;
   bottom: 0;
   left: 0;
+
+  .liked {
+    color: red !important;
+  }
+
+  .like-icon-custom {
+    color: white;
+    stroke: #bdbdbd;
+    stroke-width: 20px;
+    width: 22px;
+    height: 26px;
+    cursor: pointer;
+    &:hover {
+      color: red;
+    }
+    path {
+      &:hover {
+        color: red;
+      } 
+    }
+  }
+
+  .disable-event {
+    pointer-events: none;
+  }
+
   .remove-icon {
     color: white;
     cursor: pointer;
@@ -373,6 +410,7 @@
       height: auto;
       max-width: 100%;
       width: 100%;
+      border-radius: 6px;
     }
   }
 
@@ -447,6 +485,7 @@
           &:hover {
             color: inherit;
           }
+
           margin-left: 9px;
 
           .post-by {
@@ -472,6 +511,7 @@
 
       .like-comment-section {
         margin-top: 28px;
+        
 
         .icons {
           width: 60%;
@@ -602,11 +642,36 @@
         height: 100%;
         padding: 20px 14px;
         overflow-y: auto;
+
+        .no-comment-msg {
+          text-align: center;
+          span {
+            color: #828487;
+            &:hover {
+              color: #828487;
+            }
+          }
+        }
         
         .comment-section {
           display: flex;
           width: 100%;
           margin-bottom: 20px;
+
+          &.skeleton-root {
+            .custom-skeleton-comment-img {
+              width: 32px;
+              height: 32px;
+            }
+
+            .comment-body {
+              width: 100%;
+              height: 65px;
+              .username {
+                width: 33%;
+              }
+            }
+          }
 
           .avatar-parent {
             .MuiAvatar-root {
@@ -628,6 +693,7 @@
             padding-top: 0px;
             margin-left: 10px;
             padding-top: 6px;
+            width: 100%;
 
             .username {
               font-size: .8rem;
@@ -642,7 +708,7 @@
               color: #999;
 
               &.comment-time {
-                margin-top: 6px;
+                margin-top: 14px;
               }
             }
           }

@@ -38,13 +38,14 @@ const PostCommentSection = () => {
           <div>
             <CommentsHeader
               owner={ data.owner }
-              likesCount={ data.likesCount }
-              commentsCount={ data.commentsCount }
+              userActivityId={ data.postStatusId }
+              limit={ 10 }
+              offset={ 0 }
               createdAt={ data.createdAt }
             />
           </div>
-          <PostComments />
-          <PostCommentInput />
+          <PostComments limit={ 10 } offset={ 0 } userActivityId={ data.postStatusId } />
+          <PostCommentInput userActivityId={ data.postStatusId } />
         </div>
       </div>
     </div>

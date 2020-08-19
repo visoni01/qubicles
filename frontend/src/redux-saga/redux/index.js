@@ -10,6 +10,7 @@ import jobPostingReducer from './dashboard/jobPosting'
 import activeUserReducer from './dashboard/activeUser'
 import getPostsReducer from './dashboard/post/getPosts'
 import createPostReducer from './dashboard/post/create'
+import commentsReducer from './dashboard/post/comments'
 import commentsSectionReducer from './dashboard/post/commentsSection'
 import dashboardReducer from './dashboard'
 import loaderReducer from './loader'
@@ -41,6 +42,7 @@ const rootReducer = combineReducers({
   statusPosts: getPostsReducer,
   createPost: createPostReducer,
   commentsSection: commentsSectionReducer,
+  comments: commentsReducer,
 })
 
 export default rootReducer

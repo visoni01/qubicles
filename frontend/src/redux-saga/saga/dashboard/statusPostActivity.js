@@ -1,10 +1,13 @@
 import {
-  takeLatest, put,
+  takeLatest, put, select,
 } from 'redux-saga/effects'
 import {
   updatePostData,
   showErrorMessage,
   showSuccessMessage,
+  fetchCommentsStart,
+  updatePostComments,
+  fetchCommentsSuccess,
 } from '../../redux/actions'
 import { UNLIKE_POST, LIKE_POST, CREATE_POST_COMMENT_START } from '../../redux/constants'
 import Dashboard from '../../service/dashboard'
@@ -15,6 +18,7 @@ function* statusPostActivityWatcherStart() {
       UNLIKE_POST,
       LIKE_POST,
       CREATE_POST_COMMENT_START,
+      fetchCommentsStart.type,
     ],
     statusPostActivityFetchingWorker,
   )
@@ -38,7 +42,22 @@ function* statusPostActivityFetchingWorker(action) {
       }
       case CREATE_POST_COMMENT_START: {
         const { commentData } = action.payload
-        yield Dashboard.addPostComment({ data: commentData })
+        const { data } = yield Dashboard.addPostComment({ data: commentData })
+        const { userDetails } = yield select((state) => state.login)
+        const newCommentData = {
+          user_activity_id: commentData.userActivityId,
+          createdAt: data.createdAt,
+          activity_value: data.content,
+          owner: userDetails.full_name,
+          owner_id: userDetails.user_id,
+        }
+        yield put(updatePostComments({ type: updatePostComments.type, data: newCommentData }))
+        yield put(updatePostData({ type: action.type, data: commentData }))
+        break
+      }
+      case fetchCommentsStart.type: {
+        const { data } = yield Dashboard.getPostComments(action.payload)
+        yield put(fetchCommentsSuccess({ comments: data.commentsData, count: data.count }))
         break
       }
       default:

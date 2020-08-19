@@ -61,3 +61,18 @@ export const isUserOwner = (ownerId) => {
   const userData = getUserDetails()
   return ownerId === userData.user_id
 }
+
+export const formatCount = (input) => {
+  let count = input
+  if (input >= 1e3 && input < 1e6) {
+    count = `${ +(input / 1e3).toFixed(1) }K`
+  } else if (input >= 1e6 && input < 1e9) {
+    count = `${ +(input / 1e6).toFixed(1) }M`
+  } else if (input >= 1e9 && input < 1e12) {
+    count = `${ +(input / 1e9).toFixed(1) }B`
+  } else {
+    count = `${ +(input / 1e12).toFixed(1) }T`
+  }
+
+  return count
+}

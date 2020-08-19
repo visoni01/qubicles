@@ -29,10 +29,8 @@ const PostStatusLikeComment = ({
       imgSrc: img,
       owner,
       createdAt,
-      likesCount,
-      commentsCount,
     }))
-  }, [ userActivityId, img, owner, createdAt, likesCount, commentsCount ])
+  }, [ userActivityId, img, owner, createdAt ])
 
   return (
     <div className='like-comment-section columns'>

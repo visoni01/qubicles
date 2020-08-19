@@ -60,8 +60,8 @@ class Dashboard {
     return response
   }
 
-  static async getPostComments({ limit, offset }) {
-    const url = '/dashboard/post/comments/:user_activity_id'
+  static async getPostComments({ limit, offset, userActivityId }) {
+    const url = `/dashboard/post/comments/${ userActivityId }`
     const response = await apiClient.getRequest(url, null, { limit, offset })
     return response
   }

@@ -21,10 +21,8 @@ const PostStatusWrap = ({
       imgSrc: activityCustom,
       owner,
       createdAt: timeFromNow,
-      likesCount,
-      commentsCount,
     }))
-  }, [ userActivityId, activityCustom, owner, timeFromNow, likesCount, commentsCount ])
+  }, [ userActivityId, activityCustom, owner, timeFromNow ])
 
   return (
     <div className='post-item post-item-custom animated preFadeInLeft fadeInLeft'>
