@@ -7,6 +7,9 @@ import CKEditor from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faPlus, faCheck } from '@fortawesome/free-solid-svg-icons'
+import { useDispatch } from 'react-redux'
+import MyUploadAdapter from './uploadFile'
+import Loader from '../../loaders/circularLoader'
 
 const TopicModal = ({
   open, handleClose, onSubmit, editTopicData, isEdit,
@@ -14,6 +17,8 @@ const TopicModal = ({
   const [ topicData, setTopicData ] = useState(editTopicData)
   const [ addTopic, setAddTopic ] = useState(false)
   const [ newTag, setNewTag ] = useState('')
+  const [ isImageUploading, setIsImageUploading ] = useState(false)
+  const dispatch = useDispatch()
 
   const handleChange = useCallback((event) => {
     event.persist()
@@ -101,6 +106,18 @@ const TopicModal = ({
           editor={ ClassicEditor }
           data={ topicData.description }
           className='mt-5'
+          onInit={ (editor) => {
+            // eslint-disable-next-line
+            editor.plugins.get('FileRepository').createUploadAdapter = function (loader) {
+              return new MyUploadAdapter(loader, setIsImageUploading, dispatch)
+            }
+          } }
+        />
+        <Loader
+          className='add-status-loader'
+          displayLoaderManually={ isImageUploading }
+          enableOverlay={ false }
+          size={ 50 }
         />
         <div>
           <div>
@@ -159,6 +176,7 @@ const TopicModal = ({
           variant='contained'
           className='primary-button'
           classes={ { label: 'primary-button-label' } }
+          disabled={ isImageUploading }
         >
           {isEdit ? 'Update' : 'Save'}
         </Button>

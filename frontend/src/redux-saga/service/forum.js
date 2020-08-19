@@ -117,6 +117,15 @@ class Forum {
   static async updateComment(data) {
     const { postId, postData } = data
     const response = await apiClient.putRequest(`/forum/topics/posts/${ postId }`, { post_data: postData })
+  }
+
+  static async imageUpload({ data }) {
+    const response = await axiosInst({
+      method: 'post',
+      url: '/forum/image',
+      data,
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
     return response
   }
 }
