@@ -6,7 +6,7 @@ import {
   showErrorMessage,
   showSuccessMessage,
 } from '../../redux/actions'
-import { UNLIKE_POST, LIKE_POST } from '../../redux/constants'
+import { UNLIKE_POST, LIKE_POST, CREATE_POST_COMMENT_START } from '../../redux/constants'
 import Dashboard from '../../service/dashboard'
 
 function* statusPostActivityWatcherStart() {
@@ -14,6 +14,7 @@ function* statusPostActivityWatcherStart() {
     [
       UNLIKE_POST,
       LIKE_POST,
+      CREATE_POST_COMMENT_START,
     ],
     statusPostActivityFetchingWorker,
   )
@@ -33,6 +34,11 @@ function* statusPostActivityFetchingWorker(action) {
         const { data } = action.payload
         yield put(updatePostData({ type: action.type, data }))
         yield Dashboard.unlikePost({ data })
+        break
+      }
+      case CREATE_POST_COMMENT_START: {
+        const { commentData } = action.payload
+        yield Dashboard.addPostComment({ data: commentData })
         break
       }
       default:

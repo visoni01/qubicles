@@ -11,7 +11,7 @@ import {
   createStatusPostFailed,
   createStatusPostSuccess,
 } from '../../redux/actions'
-import { DELETE_POST_STATUS, LIKE_POST, UNLIKE_POST } from '../../redux/constants'
+import { DELETE_POST_STATUS } from '../../redux/constants'
 import Dashboard from '../../service/dashboard'
 
 function* postDataCrudWatcherStart() {
