@@ -30,7 +30,7 @@ export default class GellAllPostStatusListService extends ServiceBase {
           activity_type: 'status',
           is_deleted: false
         },
-        order: [['created_on', 'DESC']],
+        order: [['created_on', 'ASC']],
         raw: true
       })
 

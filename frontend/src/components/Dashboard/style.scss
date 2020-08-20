@@ -370,6 +370,10 @@
     color: red !important;
   }
 
+  .comment-header-like-icon {
+    height: 19px !important;
+  }
+
   .like-icon-custom {
     color: white;
     stroke: #bdbdbd;
@@ -377,6 +381,7 @@
     width: 22px;
     height: 26px;
     cursor: pointer;
+
     &:hover {
       color: red;
     }
@@ -524,8 +529,8 @@
         }
 
         .count {
-          margin-left: 6px;
-          margin-right: 7px;
+          margin-left: 9px;
+          margin-right: 9px;
           color: #9094ae;
         }
       }
@@ -557,17 +562,36 @@
 
       .action-header {
         margin-top: 7px;
+        width: 100%;
+        display: inline-flex;
+        .load-comment-section {
+          margin-top: 3px;
+          width: 70%;
+          float: left;
+          height: 26px;
+        }
+        .comments-icon-section {
+          width: 30%;
+          div {
+            display: inline-block;
+            margin-top: 3px;
+            svg {
+              margin-right: 6px;
+              margin-top: 3px;
+            }
+          }
+        }
         span:first-child {
           margin-left: 20px;
-          font-size: 12px;
+          font-size: 13px;
           cursor: pointer;
           text-decoration: underline;
         }
         span:nth-child(2) {
           float: right;
           margin-right: 13px;
-          font-size: 12px;
-          margin-top: 7px;
+          font-size: 13px;
+          margin-top: 2px;
           color: #9094ae;
 
           span {

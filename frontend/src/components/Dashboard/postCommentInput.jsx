@@ -41,6 +41,7 @@ const PostCommentInput = ({ userActivityId }) => {
         value={ commentText }
         onChange={ setCommentTextCB }
       />
+      
       <FontAwesomeIcon icon={ faPaperPlane } onClick={ postComment } />
     </div>
   )

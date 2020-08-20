@@ -33,7 +33,7 @@ const CommentsHeader = ({
 
   const { isLoading, data } = useSelector((state) => state.comments)
   const { likesCount, commentsCount, isPostLiked } = useReducerStateSelector(userActivityId)
-  const className = isPostLiked ? 'like-icon-custom liked' : 'like-icon-custom'
+  const className = isPostLiked ? ' liked' : ''
 
   const changePostLikeStatus = useCallback(() => {
     if (isPostLiked) {
@@ -66,9 +66,9 @@ const CommentsHeader = ({
       </div>
       <div className='like-comment-section'>
         <div className='icons'>
-          <FontAwesomeIcon className={ className } icon={ faHeart } onClick={ changePostLikeStatus } />
+          <FontAwesomeIcon className={'like-icon-custom comment-header-like-icon' + className} icon={ faHeart } onClick={ changePostLikeStatus } />
           <span className='count'>{likesCount}</span>
-          <FontAwesomeIcon className='like-comment-icon' icon={ faComment } />
+          <FontAwesomeIcon className='like-comment-icon comment-header-like-icon' icon={ faComment } />
           <span className='count'>{commentsCount}</span>
         </div>
         <div className='comments'>
@@ -78,19 +78,26 @@ const CommentsHeader = ({
         </div>
         <div className='line' />
         <div className='action-header'>
+          <div className='load-comment-section'>
           {
             data.comments.length !== data.count
-            && (
-            <span
-              className={ isLoading ? 'disable-event' : '' }
-              onClick={ loadMoreCommentsCB }
-            >
-              Load more comments
-            </span>
+            ? (
+              <span
+                className={ isLoading ? 'disable-event' : '' }
+                onClick={ loadMoreCommentsCB }
+              >
+                Load more comments
+              </span>
             )
+            : <span></span>
           }
-          <FontAwesomeIcon className='like-comment-icon' icon={ faComment } />
-          <span>Comments</span>
+          </div>
+          <div className='comments-icon-section'>
+            <div>
+              <FontAwesomeIcon className='like-comment-icon' icon={ faComment } />
+              <span>Comments</span>
+            </div>  
+          </div>  
         </div>
         <div className='line' />
         { isLoading && <LinearProgress />}
