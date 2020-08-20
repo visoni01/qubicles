@@ -667,6 +667,7 @@
         height: 100%;
         padding: 20px 14px;
         overflow-y: auto;
+        overflow-x: hidden;
 
         .no-comment-msg {
           text-align: center;
@@ -731,6 +732,7 @@
             p {
               font-size: .75rem;
               color: #999;
+              word-break: break-all;
 
               &.comment-time {
                 margin-top: 14px;

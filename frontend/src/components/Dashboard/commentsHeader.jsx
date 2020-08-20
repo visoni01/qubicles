@@ -83,16 +83,16 @@ const CommentsHeader = ({
         <div className='action-header'>
           <div className='load-comment-section'>
             {
-            data.comments.length <= data.count
-              ? (
-                <span
-                  className={ isLoading ? 'disable-event' : '' }
-                  onClick={ loadMoreCommentsCB }
-                >
-                  Load more comments
-                </span>
-              )
-              : <span />
+             data.comments.length < data.count
+               ? (
+                 <span
+                   className={ isLoading ? 'disable-event' : '' }
+                   onClick={ loadMoreCommentsCB }
+                 >
+                   Load more comments
+                 </span>
+               )
+               : <span />
           }
           </div>
           <div className='comments-icon-section'>
