@@ -6,7 +6,6 @@ import {
 } from '../helper'
 import { USER_LEVEL } from '../user/getSecurityContext'
 import { Op } from 'sequelize'
-import { getUserSubProfile } from './forum'
 import _ from 'lodash'
 
 export async function postStatusUpdate ({ user_id, activity_value, activity_custom, activity_permission }) {
@@ -140,7 +139,7 @@ export async function getStatusCommentsInBatch ({ record_id, limit, offset }) {
     },
     limit,
     offset,
-    order: [['created_on', 'DESC']],
+    order: [['created_on', 'ASC']],
     raw: true
   })
   return { comments: rows, count }

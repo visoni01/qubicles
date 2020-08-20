@@ -64,7 +64,7 @@ export const isUserOwner = (ownerId) => {
 
 export const formatCount = (input) => {
   let count = input
-  if (isNaN(input)) {
+  if (Number.isNaN(input)) {
     count = 0
   } else if (input >= 0 && input < 1e3) {
     count = input

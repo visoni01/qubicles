@@ -83,7 +83,7 @@ const CommentsHeader = ({
         <div className='action-header'>
           <div className='load-comment-section'>
             {
-            (offsetCount + limit) < data.count
+            data.comments.length <= data.count
               ? (
                 <span
                   className={ isLoading ? 'disable-event' : '' }
