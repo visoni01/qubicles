@@ -1,9 +1,11 @@
 import ServiceBase from '../../common/serviceBase'
 import {
   validateImageFile,
-  uploadFileToIPFS
+  uploadFileToIPFS,
+  getErrorMessageForService
 } from '../helper'
 import { ERRORS, MESSAGES } from '../../utils/errors'
+import logger from '../../common/logger'
 
 const constraints = {
   file: {
@@ -42,6 +44,7 @@ export class ImageUploadService extends ServiceBase {
 
       return { url }
     } catch (e) {
+      logger.error(getErrorMessageForService('ImageUploadService'), e)
       this.addError(ERRORS.INTERNAL)
     }
   }
