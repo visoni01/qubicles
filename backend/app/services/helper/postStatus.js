@@ -115,7 +115,8 @@ export async function getStatusComments ({ user_id, record_id }) {
     where: {
       record_type: 'activity',
       record_id,
-      activity_type: 'comment'
+      activity_type: 'comment',
+      is_deleted: false
     },
     order: [['created_on', 'DESC']],
     raw: true
@@ -135,7 +136,8 @@ export async function getStatusCommentsInBatch ({ record_id, limit, offset }) {
     where: {
       record_type: 'activity',
       record_id,
-      activity_type: 'comment'
+      activity_type: 'comment',
+      is_deleted: false
     },
     limit,
     offset,
@@ -150,7 +152,8 @@ export async function getStatusCommentsCount ({ record_id }) {
     where: {
       record_type: 'activity',
       record_id,
-      activity_type: 'comment'
+      activity_type: 'comment',
+      is_deleted: false
     },
     raw: true
   })
@@ -243,5 +246,21 @@ export async function isUserBelongsToCompany ({ user_id, client_id }) {
 export async function deleteStatusPost ({ user_activity_id }) {
   const postStatus = await XUserActivity.update({ is_deleted: true },
     { where: { user_activity_id } })
+  await XUserActivity.update({ is_deleted: true },
+    {
+      where: {
+        record_type: 'activity',
+        record_id: user_activity_id,
+        activity_type: 'comment'
+      }
+    }
+  )
+  await XUserActivity.destroy({
+    where: {
+      record_type: 'activity',
+      record_id: user_activity_id,
+      activity_type: 'like'
+    }
+  })
   return postStatus
 }
