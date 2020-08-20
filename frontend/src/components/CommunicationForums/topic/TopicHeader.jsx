@@ -11,7 +11,7 @@ import {
 import { useDispatch } from 'react-redux'
 import { addTopicComment } from '../../../redux-saga/redux/actions'
 import { GROUP, GROUP_CHANNEL, GROUP_TOPIC } from '../../../routes/routesPath'
-import NewComment from './NewComment'
+import NewComment from './CommentModal'
 
 const TopicHeader = ({
   topicTitle, topicId, channelId, channelTitle, topicDescription,

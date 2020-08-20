@@ -589,6 +589,18 @@ export async function deleteTopicComment ({ post_id }) {
   return { post_id }
 }
 
+export async function updateTopicComment ({ post_id, post_data }) {
+  const update = await XUserActivity.update({ activity_value: post_data },
+    {
+      where: {
+        record_type: 'topic',
+        user_activity_id: post_id,
+        activity_type: 'comment'
+      }
+    })
+  return update
+}
+
 export async function unlikeTopic ({ user_id, topic_id }) {
   const topicUnlikeActivity = await XUserActivity.destroy({
     where: {

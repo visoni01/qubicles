@@ -18,6 +18,7 @@ import {
   UNLIKE_POST,
   ADD_POST,
   DELETE_POST_STATUS,
+  UPDATE_COMMENT,
 } from './constants'
 
 import { postDataFetchingStart, createStatusPostStart } from './actions'
@@ -110,6 +111,20 @@ export const getUpdatedTopicDetails = ({ state, payload }) => {
     }
     case DELETE_TOPIC_COMMENT: {
       topicDetails = { ...state.topicDetails, posts: payload.posts }
+      break
+    }
+    case UPDATE_COMMENT: {
+      const { postId, postData } = payload.data
+      const updatedPosts = state.topicDetails.posts.map((post) => {
+        if (post.postId === postId) {
+          return {
+            ...post,
+            postBody: { content: postData },
+          }
+        }
+        return post
+      })
+      topicDetails = { ...state.topicDetails, posts: updatedPosts }
       break
     }
     default:
