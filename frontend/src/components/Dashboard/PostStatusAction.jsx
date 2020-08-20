@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faEllipsisV, faTrash,
+  faEllipsisV, faTrash, faComment,
 } from '@fortawesome/free-solid-svg-icons'
 import {
   Menu, MenuItem,
@@ -12,7 +12,7 @@ import {
 import { deletePostStatus } from '../../redux-saga/redux/actions'
 
 const PostStatusAction = ({
-  userId, userActivityId,
+  userId, userActivityId, showComments,
 }) => {
   const dispatch = useDispatch()
 
@@ -44,6 +44,11 @@ const PostStatusAction = ({
     setOpen(false)
     dispatch(deletePostStatus({ userActivityId }))
   }, [ userActivityId, dispatch ])
+
+  const showCommentsCB = useCallback(() => {
+    showComments()
+    setAnchorEl(null)
+  }, [])
 
   return (
     <>
@@ -79,6 +84,14 @@ const PostStatusAction = ({
                 Remove
               </span>
             </MenuItem>
+            <MenuItem
+              onClick={ showCommentsCB }
+            >
+              <FontAwesomeIcon icon={ faComment } />
+              <span className='remove'>
+                Show comments
+              </span>
+            </MenuItem>
           </Menu>
         </div>
       </div>
@@ -104,6 +117,7 @@ const PostStatusAction = ({
 PostStatusAction.propTypes = {
   userId: PropTypes.number.isRequired,
   userActivityId: PropTypes.number.isRequired,
+  showComments: PropTypes.func.isRequired,
 }
 
 export default PostStatusAction

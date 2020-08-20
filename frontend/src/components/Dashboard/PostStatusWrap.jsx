@@ -46,7 +46,11 @@ const PostStatusWrap = ({
           </div>
         </div>
         <div className='feed-time-small float-right icon-style'>
-          <PostStatusAction userId={ userId } userActivityId={ userActivityId } />
+          <PostStatusAction
+            userId={ userId }
+            showComments={ showCommentsCB }
+            userActivityId={ userActivityId }
+          />
         </div>
       </div>
 

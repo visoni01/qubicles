@@ -1,5 +1,5 @@
 import {
-  takeLatest, put, select
+  takeLatest, put, select,
 } from 'redux-saga/effects'
 import {
   updatePostData,
