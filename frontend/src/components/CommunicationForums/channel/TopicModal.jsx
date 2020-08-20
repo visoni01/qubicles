@@ -8,7 +8,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faPlus, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from 'react-redux'
-import MyUploadAdapter from './uploadFile'
+import MyUploadAdapter from '../../../utils/uploadImage'
 import Loader from '../../loaders/circularLoader'
 
 const TopicModal = ({

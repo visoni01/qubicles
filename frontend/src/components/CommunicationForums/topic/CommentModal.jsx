@@ -5,12 +5,16 @@ import {
 import PropTypes from 'prop-types'
 import CKEditor from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import { useDispatch } from 'react-redux'
+import MyUploadAdapter from '../../../utils/uploadImage'
+import Loader from '../../loaders/circularLoader'
 
 const NewComment = ({
   open, handleClose, handleSubmit, commentData, isEdit,
 }) => {
   const [ comment, setComment ] = useState(commentData)
-
+  const [ isImageUploading, setIsImageUploading ] = useState(false)
+  const dispatch = useDispatch()
   useEffect(() => { setComment(commentData) }, [ commentData ])
 
   const onSubmit = () => {
@@ -28,6 +32,18 @@ const NewComment = ({
           onChange={ (event, editor) => setComment(editor.getData()) }
           editor={ ClassicEditor }
           data={ comment }
+          onInit={ (editor) => {
+            // eslint-disable-next-line
+            editor.plugins.get('FileRepository').createUploadAdapter = function (loader) {
+              return new MyUploadAdapter(loader, setIsImageUploading, dispatch)
+            }
+          } }
+        />
+        <Loader
+          className='add-status-loader'
+          displayLoaderManually={ isImageUploading }
+          enableOverlay={ false }
+          size={ 50 }
         />
       </DialogContent>
       <DialogActions>
