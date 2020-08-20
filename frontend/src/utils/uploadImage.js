@@ -23,6 +23,7 @@ class MyUploadAdapter {
       }).catch((err) => {
         this.dispatch(showErrorMessage({ msg: err }))
         this.setIsImageUploading(false)
+        return Promise.reject()
       })
   }
 }
