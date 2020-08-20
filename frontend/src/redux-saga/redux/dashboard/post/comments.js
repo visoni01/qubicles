@@ -14,6 +14,7 @@ const {
     fetchCommentsSuccess,
     fetchCommentsFailed,
     updatePostComments,
+    resetPostComments,
   },
   reducer,
 } = createSlice({
@@ -35,6 +36,9 @@ const {
       isLoading: false,
       success: false,
     }),
+    resetPostComments: (state) => ({
+      ...initialState,
+    }),
     updatePostComments: (state, action) => ({
       ...state,
       isLoading: false,
@@ -49,4 +53,5 @@ export {
   fetchCommentsSuccess,
   fetchCommentsFailed,
   updatePostComments,
+  resetPostComments,
 }

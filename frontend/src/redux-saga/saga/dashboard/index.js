@@ -8,6 +8,7 @@ import {
   jobPostingDataFetchingStart,
   activeUserDataFetchingStart,
   postDataFetchingStart,
+  resetPostComments,
 } from '../../redux/actions'
 import { showErrorMessage } from '../../redux/snackbar'
 
@@ -29,6 +30,8 @@ function* dashboardWorker(action) {
     yield put(postDataFetchingStart())
 
     yield put(dashboardDataFetchingSuccessful())
+    // reset post comments states
+    yield put(resetPostComments())
   } catch (e) {
     yield put(showErrorMessage())
     yield put(dashboardDataFetchingFailure())

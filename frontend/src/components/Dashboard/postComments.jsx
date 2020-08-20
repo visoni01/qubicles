@@ -15,19 +15,24 @@ const PostComments = ({ limit, offset, userActivityId }) => {
 
   const { isLoading, data } = useSelector((state) => state.comments)
   const isCommentDataPresent = !_.isEmpty(data.comments)
+
   return (
     <div className='comments-container'>
       <div className='comments-list slim-scroll'>
-        {(isLoading && !isCommentDataPresent) && (
-        <>
-          <CommentSkeleton />
-        </>
-        )}
-        {(!isCommentDataPresent && !isLoading) && (
-        <div className='no-comment-msg'>
-          <span>No Comments found.. </span>
-        </div>
-        )}
+        {/* Display skeleton loader on inital render */}
+        {(isLoading && !isCommentDataPresent) && <CommentSkeleton />}
+
+        {/* Display no comment message */}
+        {
+          !isCommentDataPresent
+          && !isLoading
+          && (
+          <div className='no-comment-msg'>
+            <span>No Comments found.. </span>
+          </div>
+          )
+        }
+
         {(isCommentDataPresent) && (
           data.comments.map((comment) => (
             <CommentDetails

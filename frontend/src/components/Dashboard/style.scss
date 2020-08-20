@@ -413,6 +413,7 @@
 
     img {
       height: auto;
+      max-height: calc(100vh - 47px);
       max-width: 100%;
       width: 100%;
       border-radius: 6px;

@@ -3,16 +3,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import './style.scss'
-import { hideCommentsSection } from '../../redux-saga/redux/actions'
+import { hideCommentsSection, resetPostComments } from '../../redux-saga/redux/actions'
 import defaultPic from '../../assets/images/default-post-status-image.jpg'
 import PostCommentInput from './postCommentInput'
 import PostComments from './postComments'
 import CommentsHeader from './commentsHeader'
+import config from '../../utils/config'
 
 const PostCommentSection = () => {
   const dispatch = useDispatch()
   const onClickHandlerCB = useCallback(() => {
     dispatch(hideCommentsSection())
+    dispatch(resetPostComments())
   }, [ dispatch ])
 
   const { showCommentSection, data } = useSelector((state) => state.commentsSection)
@@ -38,12 +40,12 @@ const PostCommentSection = () => {
             <CommentsHeader
               owner={ data.owner }
               userActivityId={ data.postStatusId }
-              limit={ 10 }
+              limit={ config.COMMENTS_LIMIT }
               offset={ 0 }
               createdAt={ data.createdAt }
             />
           </div>
-          <PostComments limit={ 10 } offset={ 0 } userActivityId={ data.postStatusId } />
+          <PostComments limit={ config.COMMENTS_LIMIT } offset={ 0 } userActivityId={ data.postStatusId } />
           <PostCommentInput userActivityId={ data.postStatusId } />
         </div>
       </div>

@@ -64,10 +64,11 @@ export const isUserOwner = (ownerId) => {
 
 export const formatCount = (input) => {
   let count = input
-  if (input >= 0 && input < 1e3) {
-    return input
-  }
-  if (input >= 1e3 && input < 1e6) {
+  if (isNaN(input)) {
+    count = 0
+  } else if (input >= 0 && input < 1e3) {
+    count = input
+  } else if (input >= 1e3 && input < 1e6) {
     count = `${ +(input / 1e3).toFixed(1) }K`
   } else if (input >= 1e6 && input < 1e9) {
     count = `${ +(input / 1e6).toFixed(1) }M`
