@@ -5,8 +5,11 @@ import PropTypes from 'prop-types'
 import Avatar from '@material-ui/core/Avatar'
 import { useDispatch, useSelector } from 'react-redux'
 import LinearProgress from '@material-ui/core/LinearProgress'
-import { fetchCommentsStart, unlikePostStatus, likePostStatus } from '../../redux-saga/redux/actions'
+import {
+  fetchCommentsStart, unlikePostStatus, likePostStatus,
+} from '../../redux-saga/redux/actions'
 import './style.scss'
+import { formatCount } from '../../utils/common'
 
 const useReducerStateSelector = (userActivityId) => {
   const { posts } = useSelector((state) => state.statusPosts)
@@ -66,38 +69,38 @@ const CommentsHeader = ({
       </div>
       <div className='like-comment-section'>
         <div className='icons'>
-          <FontAwesomeIcon className={'like-icon-custom comment-header-like-icon' + className} icon={ faHeart } onClick={ changePostLikeStatus } />
-          <span className='count'>{likesCount}</span>
+          <FontAwesomeIcon className={ `like-icon-custom comment-header-like-icon${ className }` } icon={ faHeart } onClick={ changePostLikeStatus } />
+          <span className='count'>{formatCount(likesCount)}</span>
           <FontAwesomeIcon className='like-comment-icon comment-header-like-icon' icon={ faComment } />
-          <span className='count'>{commentsCount}</span>
+          <span className='count'>{formatCount(commentsCount)}</span>
         </div>
         <div className='comments'>
-          {commentsCount}
+          {formatCount(commentsCount)}
           &nbsp;
           comments
         </div>
         <div className='line' />
         <div className='action-header'>
           <div className='load-comment-section'>
-          {
-            data.comments.length !== data.count
-            ? (
-              <span
-                className={ isLoading ? 'disable-event' : '' }
-                onClick={ loadMoreCommentsCB }
-              >
-                Load more comments
-              </span>
-            )
-            : <span></span>
+            {
+            (offsetCount + limit) < data.count
+              ? (
+                <span
+                  className={ isLoading ? 'disable-event' : '' }
+                  onClick={ loadMoreCommentsCB }
+                >
+                  Load more comments
+                </span>
+              )
+              : <span />
           }
           </div>
           <div className='comments-icon-section'>
             <div>
               <FontAwesomeIcon className='like-comment-icon' icon={ faComment } />
               <span>Comments</span>
-            </div>  
-          </div>  
+            </div>
+          </div>
         </div>
         <div className='line' />
         { isLoading && <LinearProgress />}

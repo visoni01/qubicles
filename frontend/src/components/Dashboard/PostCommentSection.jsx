@@ -23,7 +23,6 @@ const PostCommentSection = () => {
 
   return (
     <div className='post-comments-section'>
-
       <div className='image-container'>
         <img
           src={ data.imgSrc || defaultPic }

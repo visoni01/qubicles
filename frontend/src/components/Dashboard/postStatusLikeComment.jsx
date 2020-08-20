@@ -5,6 +5,7 @@ import { faHeart, faComment } from '@fortawesome/free-solid-svg-icons'
 import './style.scss'
 import PropTypes from 'prop-types'
 import { unlikePostStatus, likePostStatus, showCommentsSection } from '../../redux-saga/redux/actions'
+import { formatCount } from '../../utils/common'
 
 const PostStatusLikeComment = ({
   userActivityId, isPostLiked, likesCount, commentsCount, img, owner, createdAt,
@@ -42,7 +43,7 @@ const PostStatusLikeComment = ({
         />
         <span className='likes-count'>
           &nbsp;
-          {likesCount}
+          {formatCount(likesCount)}
           &nbsp;
         </span>
       </div>
@@ -54,7 +55,7 @@ const PostStatusLikeComment = ({
         />
         <span className='comments-count'>
           &nbsp;
-          {commentsCount}
+          {formatCount(commentsCount)}
           &nbsp;
         </span>
       </div>

@@ -28,7 +28,7 @@ const {
       ...state,
       isLoading: false,
       success: true,
-      data: action.payload,
+      data: updatePostCommentsData({ state, payload: action.payload }),
     }),
     fetchCommentsFailed: (state) => ({
       ...state,

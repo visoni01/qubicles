@@ -17,12 +17,13 @@ import {
   LIKE_POST,
   UNLIKE_POST,
   CREATE_POST_COMMENT_START,
-  ADD_POST,
   DELETE_POST_STATUS,
   UPDATE_COMMENT,
 } from './constants'
 
-import { postDataFetchingStart, createStatusPostStart, updatePostComments } from './actions'
+import {
+  postDataFetchingStart, createStatusPostStart, updatePostComments, fetchCommentsSuccess,
+} from './actions'
 
 export const getUpdatedCategories = ({ state, payload }) => {
   const updatedState = { ...state }
@@ -275,6 +276,14 @@ export const updatePostCommentsData = ({ state, payload }) => {
       commentsData = {
         count: state.data.count + 1,
         comments: [ ...state.data.comments, data ],
+      }
+      break
+    }
+    case fetchCommentsSuccess.type: {
+      const { data } = payload
+      commentsData = {
+        count: data.count,
+        comments: [ ...state.data.comments, ...data.comments ],
       }
       break
     }
