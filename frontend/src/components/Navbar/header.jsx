@@ -9,7 +9,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { IconButton } from '@material-ui/core'
 import { useSelector } from 'react-redux'
-import headerLogo from '../../assets/images/qbe-logo-dark.png'
 import UserAccount from './account'
 
 const Header = () => {
@@ -20,7 +19,7 @@ const Header = () => {
       <div className='left column is-1 pull-left'>
         <img
           className='header-logo'
-          src={ headerLogo }
+          src='https://i.imgur.com/y2vEn7E.png'
           alt='header-logo'
         />
       </div>

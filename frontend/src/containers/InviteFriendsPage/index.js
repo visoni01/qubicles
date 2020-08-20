@@ -2,14 +2,13 @@ import React from 'react'
 import { Grid, Paper } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faComment, faAddressBook, faMoneyBillWave } from '@fortawesome/free-solid-svg-icons'
-import qubiclesLogo from '../../assets/images/qbe-dark.png'
 import ShareModal from './shareOptions'
 import './style.scss'
 
 const InviteFriends = () => (
   <div>
     <div className='fake-nav'>
-      <img className='qubicles-logo' src={ qubiclesLogo } width={ 180 } height={ 28 } alt='' />
+      <img className='qubicles-logo' src='https://i.imgur.com/Ap2GB30.png' width={ 180 } height={ 28 } alt='' />
     </div>
     <div className='background-image-div'>
       <i />

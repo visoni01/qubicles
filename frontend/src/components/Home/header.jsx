@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { qbeDark, qbeLight } from '../../assets/images/landingPage'
 
 const Header = () => (
   <div className='navbar-placeholder'>
@@ -9,8 +8,8 @@ const Header = () => (
         {/* Brand */}
         <div className='navbar-brand'>
           <a className='navbar-item' href='/'>
-            <img className='light-logo logo-height' src={ qbeLight } alt='' />
-            <img className='dark-logo logo-height' src={ qbeDark } alt='' />
+            <img className='light-logo logo-height' src='https://i.imgur.com/y5zrESW.png' alt='' />
+            <img className='dark-logo logo-height' src='https://i.imgur.com/Ap2GB30.png' alt='' />
           </a>
           {/* Responsive toggle */}
           <div className='custom-burger' data-target='is-cloned'>

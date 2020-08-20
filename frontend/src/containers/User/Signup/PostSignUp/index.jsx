@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import './style.scss'
 
-import qubiclesLogo from '../../../../assets/images/qbe-dark.png'
 import AgentMultipartForm from './AgentMultipartForm'
 import ContactCenterMultipartForm from './ContactCenterMultipartForm'
 
@@ -10,7 +9,7 @@ const PostSignUp = () => {
   return (
     <div className='signup-wrapper'>
       <div className='fake-nav'>
-        <img className='qubicles-logo' src={ qubiclesLogo } width={ 180 } height={ 28 } alt='' />
+        <img className='qubicles-logo' src='https://i.imgur.com/Ap2GB30.png' width={ 180 } height={ 28 } alt='' />
       </div>
       {(!role) && (
       <>

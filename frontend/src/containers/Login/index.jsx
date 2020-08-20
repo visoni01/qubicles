@@ -17,7 +17,6 @@ import {
   TwitterIcon,
 } from 'react-share'
 import { userLoginStart, clearStore } from '../../redux-saga/redux/login'
-import QubiclesLogo from '../../assets/images/qbe-dark.png'
 import './style.scss'
 import config from '../../utils/config'
 
@@ -118,7 +117,7 @@ const Login = () => {
             <div className='section has-text-centered section-login'>
               <img
                 className='top-logo'
-                src={ QubiclesLogo }
+                src='https://i.imgur.com/Ap2GB30.png'
                 alt='Qubicles logo'
               />
             </div>

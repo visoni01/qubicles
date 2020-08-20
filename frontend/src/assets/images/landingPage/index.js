@@ -14,8 +14,6 @@ import poty2016 from './poty2016.png'
 import bgAllInOne from './bg-all-in-one.jpg'
 import bgQbeRewards from './bg-qbe-rewards.jpg'
 import chatUser from './chat-user.png'
-import qbeLight from './qbe-light.png'
-import qbeDark from './qbe-dark.png'
 import qubiclesAgent from './qubiclesagent.png'
 import agentWorkFlow from './agentworkflow.png'
 import centerDash from './centerdash.png'
@@ -47,8 +45,6 @@ export {
   bgAllInOne,
   bgQbeRewards,
   chatUser,
-  qbeLight,
-  qbeDark,
   qubiclesAgent,
   agentWorkFlow,
   centerDash,

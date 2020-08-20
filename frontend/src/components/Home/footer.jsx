@@ -7,7 +7,6 @@ import {
 } from 'react-share'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCopyright } from '@fortawesome/free-solid-svg-icons'
-import { qbeDark } from '../../assets/images/landingPage'
 
 const Footer = () => (
   <footer className='footer footer-dark'>
@@ -79,7 +78,7 @@ const Footer = () => (
         <div className='column'>
           <div className='footer-column'>
             <div className='footer-logo'>
-              <img src={ qbeDark } alt='' />
+              <img src='https://i.imgur.com/Ap2GB30.png' alt='' />
             </div>
             <div className='footer-header'>
               <nav className='level is-mobile'>

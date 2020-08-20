@@ -12,7 +12,6 @@ import {
 
 import { useHistory, useLocation } from 'react-router-dom'
 import { userSignupStart } from '../../../../redux-saga/redux/signup'
-import QubiclesLogo from '../../../../assets/images/qbe-dark.png'
 import './style.scss'
 
 const schema = yup.object().shape({
@@ -83,7 +82,7 @@ const SignUp = () => {
             <div className='section has-text-centered section-signup'>
               <img
                 className='top-logo'
-                src={ QubiclesLogo }
+                src='https://i.imgur.com/Ap2GB30.png'
                 alt='Qubicles logo'
               />
             </div>
