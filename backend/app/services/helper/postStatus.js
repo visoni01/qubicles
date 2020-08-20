@@ -23,6 +23,20 @@ export async function postStatusUpdate ({ user_id, activity_value, activity_cust
   })
 }
 
+export async function updatePostStatus ({ user_id, user_activity_id, activity_value, activity_custom }) {
+  await XUserActivity.update({
+    activity_value,
+    activity_custom
+  }, {
+    where:
+    {
+      user_id,
+      user_activity_id
+    }
+  }
+  )
+}
+
 export async function getUserActivityById ({ user_activity_id }) {
   const userActivity = await XUserActivity.findOne({
     where: { user_activity_id },

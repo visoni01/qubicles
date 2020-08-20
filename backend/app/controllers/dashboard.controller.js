@@ -9,6 +9,7 @@ import DashboardDeletePostStatusService from '../services/dashboard/deletePostSt
 import DashboardStatusActivityService from '../services/dashboard/statusActivity'
 import GetPostCommentsService from '../services/dashboard/getPostComments'
 import AddPostStatusCommentService from '../services/dashboard/addPostComment'
+import UpdatePostStatusService from '../services/dashboard/post/updatePostStatus'
 
 export default class DashboardController {
   static async getCommunityRep (req, res) {
@@ -62,6 +63,15 @@ export default class DashboardController {
       Responder.success(res, postStatus.result)
     } else {
       Responder.failed(res, postStatus.errors)
+    }
+  }
+
+  static async updatePostStatus (req, res) {
+    const updatePostStatus = await UpdatePostStatusService.execute({ ...req.body, file: req.file, ...req.params })
+    if (updatePostStatus.successful) {
+      Responder.success(res, updatePostStatus.result)
+    } else {
+      Responder.failed(res, updatePostStatus.errors)
     }
   }
 
