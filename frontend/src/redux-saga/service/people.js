@@ -16,6 +16,11 @@ class People {
     const response = await apiClient.deleteRequest(`/job/category/jobs/${ jobId }`)
     return response
   }
+
+  static async addJob(payload) {
+    const response = await apiClient.postRequest('/job/category/jobs', payload)
+    return response
+  }
 }
 
 export default People
