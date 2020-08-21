@@ -4,7 +4,8 @@ import {
   validateImageFile,
   uploadFileToIPFS,
   getUserActivityById,
-  updatePostStatus
+  updatePostStatus,
+  checkVisibility
 } from '../../helper'
 import logger from '../../../common/logger'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
@@ -44,41 +45,47 @@ export default class UpdatePostStatusService extends ServiceBase {
         return
       }
 
-      if (this.file) {
-        const { isValidFileSize, isValidImage } = validateImageFile(this.file)
-        if (!isValidImage) {
-          this.addError(ERRORS.BAD_DATA, MESSAGES.INVALID_IMAGE_FILE)
-          return
-        }
+      const isValidUser = await checkVisibility({
+        activity_permission: postData.activity_permission,
+        user_id: this.user_id,
+        owner_id: postData.user_id
+      })
 
-        if (!isValidFileSize) {
-          this.addError(ERRORS.BAD_DATA, MESSAGES.INVALID_IMAGE_FILE_SIZE)
-          return
-        }
+      if (isValidUser) {
+        if (this.file) {
+          const { isValidFileSize, isValidImage } = validateImageFile(this.file)
+          if (!isValidImage) {
+            this.addError(ERRORS.BAD_DATA, MESSAGES.INVALID_IMAGE_FILE)
+            return
+          }
 
-        try {
+          if (!isValidFileSize) {
+            this.addError(ERRORS.BAD_DATA, MESSAGES.INVALID_IMAGE_FILE_SIZE)
+            return
+          }
+
+          try {
           // upload file to IPFS
-          url = await uploadFileToIPFS(this.file.buffer)
-        } catch (e) {
-          this.addError(ERRORS.BAD_DATA, MESSAGES.IPFS_FILE_UPLOAD_ERROR)
-          return
+            url = await uploadFileToIPFS(this.file.buffer)
+          } catch (e) {
+            this.addError(ERRORS.BAD_DATA, MESSAGES.IPFS_FILE_UPLOAD_ERROR)
+            return
+          }
         }
+
+        const updateUserActivity = {
+          user_id: postData.user_id,
+          user_activity_id: postData.user_activity_id,
+          activity_value: this.text,
+          activity_custom: url || postData.activity_custom
+        }
+
+        await updatePostStatus(updateUserActivity)
+
+        return updateUserActivity
+      } else {
+        return false
       }
-
-      const updateUserActivity = {
-        user_id: postData.user_id,
-        user_activity_id: postData.user_activity_id,
-        record_id: 0,
-        record_type: 'activity',
-        activity_type: 'status',
-        activity_value: this.text,
-        activity_custom: url || postData.activity_custom,
-        activity_permission: postData.activity_permission
-      }
-
-      await updatePostStatus({ ...updateUserActivity })
-
-      return updateUserActivity
     } catch (e) {
       logger.error(getErrorMessageForService('UpdatePostStatusService'), e)
       this.addError(ERRORS.INTERNAL)
