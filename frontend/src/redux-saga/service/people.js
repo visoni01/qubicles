@@ -26,6 +26,11 @@ class People {
     const response = await apiClient.getRequest('/jobs/job-fields')
     return response
   }
+
+  static async addJob(payload) {
+    const response = await apiClient.postRequest('/job/category/jobs', payload)
+    return response
+  }
 }
 
 export default People
