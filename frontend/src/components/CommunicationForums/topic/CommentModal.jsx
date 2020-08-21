@@ -25,7 +25,7 @@ const NewComment = ({
   return (
     <Dialog open={ open } onClose={ handleClose }>
       <DialogTitle className='text-align-center'>
-        {isEdit ? 'Update Post' : 'New Post' }
+        {isEdit ? 'Update Comment' : 'New Comment' }
       </DialogTitle>
       <DialogContent className='overflow-x-hidden'>
         <CKEditor
@@ -47,10 +47,10 @@ const NewComment = ({
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={ handleClose } color='primary'>
+        <Button onClick={ handleClose } className='primary-button'>
           Cancel
         </Button>
-        <Button onClick={ onSubmit } color='primary'>
+        <Button onClick={ onSubmit } className='primary-button'>
           { isEdit ? 'Update' : 'Submit' }
         </Button>
       </DialogActions>

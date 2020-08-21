@@ -51,8 +51,9 @@ function* topicCommentCrudWorker(action) {
         break
       }
       case UPDATE_COMMENT: {
-        const { message } = yield Forum.updateComment(action.payload)
+        yield Forum.updateComment(action.payload)
         yield put(updateTopicDetails({ type: UPDATE_COMMENT, data: action.payload }))
+        msg = 'Comment has been successfully updated!'
         break
       }
       default:

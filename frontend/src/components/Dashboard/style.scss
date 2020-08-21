@@ -336,7 +336,7 @@
 .status-wrapper {
   margin-left: 4px;
   &.custom-is-11 {
-    width: 91%;
+    width: 91% !important;
   }
   .textarea {
     &.is-grow {

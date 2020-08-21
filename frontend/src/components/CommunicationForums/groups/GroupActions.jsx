@@ -10,7 +10,7 @@ import {
   Dialog, DialogActions, DialogTitle, Button, IconButton,
 } from '@material-ui/core'
 import { deleteCategory, addNewChannel, updateCategory } from '../../../redux-saga/redux/actions'
-import AddUpdateChannel from '../channel/ChannelModal'
+import AddNewChannel from '../channel/ChannelModal'
 import AddUpdateGroupModal from './GroupModal'
 import ConfirmationModal from '../../CommonModal/ConfirmationModal'
 
@@ -138,6 +138,11 @@ const GroupActions = ({
            }
          }
         isUpdate
+      />
+      <AddNewChannel
+        open={ openNewChannelModal }
+        handleClose={ handleNewChannelCancel }
+        onSubmit={ handleNewChannelSubmit }
       />
     </>
   )

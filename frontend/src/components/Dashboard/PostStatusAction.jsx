@@ -53,7 +53,6 @@ const PostStatusAction = ({
   return (
     <>
       <div className='dropdown is-right dropdown-trigger styled-dropdown is-round is-active'>
-        {(userId === userDetails.user_id) && (
         <div className='button'>
           <i className='dropdown-icon'>
             <FontAwesomeIcon
@@ -64,35 +63,39 @@ const PostStatusAction = ({
             />
           </i>
         </div>
-        )}
         <div className='post-status-dropdown'>
-          <Menu
-            classes={ {
-              paper: 'post-status-dropdown-menu',
-            } }
-            id='menu'
-            anchorEl={ anchorEl }
-            keepMounted
-            open={ Boolean(anchorEl) }
-            onClose={ handleClose }
-          >
-            <MenuItem
-              onClick={ handleDialogOpen }
+          {
+            (userId === userDetails.user_id)
+            && (
+            <Menu
+              classes={ {
+                paper: 'post-status-dropdown-menu',
+              } }
+              id='menu'
+              anchorEl={ anchorEl }
+              keepMounted
+              open={ Boolean(anchorEl) }
+              onClose={ handleClose }
             >
-              <FontAwesomeIcon icon={ faTrash } />
-              <span className='remove'>
-                Remove
-              </span>
-            </MenuItem>
-            <MenuItem
-              onClick={ showCommentsCB }
-            >
-              <FontAwesomeIcon icon={ faComment } />
-              <span className='remove'>
-                Show comments
-              </span>
-            </MenuItem>
-          </Menu>
+              <MenuItem
+                onClick={ handleDialogOpen }
+              >
+                <FontAwesomeIcon icon={ faTrash } />
+                <span className='remove'>
+                  Remove
+                </span>
+              </MenuItem>
+              <MenuItem
+                onClick={ showCommentsCB }
+              >
+                <FontAwesomeIcon icon={ faComment } />
+                <span className='remove'>
+                  Show comments
+                </span>
+              </MenuItem>
+            </Menu>
+            )
+          }
         </div>
       </div>
       <Dialog

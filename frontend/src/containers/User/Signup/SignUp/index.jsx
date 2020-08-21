@@ -154,7 +154,7 @@ const SignUp = () => {
                   <div>
                     {(success || isSocialSignupSuccess) && (
                       <>
-                        {'You have succesfully registered. Please check your inbox'}
+                        {'You have succesfully registered. Please check your inbox '}
                         {'to verify your email !!'}
                       </>
                     )}
