@@ -84,7 +84,7 @@ const CreatePost = () => {
             {userDetails && userDetails.full_name && userDetails.full_name[ 0 ].toUpperCase()}
           </Avatar>
         </div>
-        <div className='status-wrapper column is-11'>
+        <div className='status-wrapper column is-11 custom-is-11'>
           <textarea
             className='textarea is-grow'
             rows='5'
