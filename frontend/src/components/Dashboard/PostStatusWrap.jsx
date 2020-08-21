@@ -50,6 +50,7 @@ const PostStatusWrap = ({
             userId={ userId }
             showComments={ showCommentsCB }
             userActivityId={ userActivityId }
+            activityValue={ activityValue }
           />
         </div>
       </div>
