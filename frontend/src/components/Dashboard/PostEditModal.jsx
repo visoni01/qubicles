@@ -57,10 +57,10 @@ const PostEditModal = ({
   }
 
   return (
-    <Dialog open={ open } onClose={ handleClose }>
+    <Dialog className='custom-edit-dialog' open={ open } onClose={ handleClose }>
       <div className='is-flex'>
         <DialogTitle className='text-align-center width-full'>
-          Update Post Status
+          Update Post
         </DialogTitle>
         <DialogActions className='cross-button'>
           <IconButton className='is-size-6' onClick={ handleClose }>
@@ -68,12 +68,12 @@ const PostEditModal = ({
           </IconButton>
         </DialogActions>
       </div>
-      <DialogContent className='overflow-x-hidden'>
+      <DialogContent className='overflow-x-hidden' dividers>
         <TextField
           margin='dense'
           fullWidth
           multiline
-          rowsMax={ 5 }
+          rowsMax={ 8 }
           variant='outlined'
           label='Description'
           value={ postText }
@@ -83,32 +83,31 @@ const PostEditModal = ({
           placeholder='Write something ...'
           className='topic-titile-field'
         />
-        {/* <span className='pt-10 pb-5'>Description:</span> */}
-        <div className='other-options column is-4 is-narrower'>
-          <form onReset={ clear }>
-            <div className='upload-file'>
-              <FontAwesomeIcon icon={ faCamera } />
-              <span className='file-input-label'>Media</span>
-              <input
-                type='file'
-                className='input-field'
-                accept='image/*'
-                ref={ fileInput }
-                onChange={ handleFileInputChange }
+        <div className='post-section columns is-multiline is-full'>
+          <div className=' other-options column is-4 is-narrower'>
+            <form onReset={ clear }>
+              <div className='upload-file'>
+                <FontAwesomeIcon icon={ faCamera } />
+                <span className='file-input-label'>Media</span>
+                <input
+                  type='file'
+                  className='input-field'
+                  accept='image/*'
+                  ref={ fileInput }
+                  onChange={ handleFileInputChange }
+                />
+              </div>
+            </form>
+          </div>
+          <div className='column is-7 is-full chip-custom'>
+            {fileName && (
+              <Chip
+                variant='outlined'
+                label={ fileName }
+                onDelete={ handleChipDelete }
               />
-            </div>
-          </form>
-
-        </div>
-        {/* <div className='mb-20' /> */}
-        <div className='columns is-multiline is-full chip-custom'>
-          {fileName && (
-          <Chip
-            variant='outlined'
-            label={ fileName }
-            onDelete={ handleChipDelete }
-          />
-          )}
+            )}
+          </div>
         </div>
       </DialogContent>
       <DialogActions>

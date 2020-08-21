@@ -746,3 +746,22 @@
     }
   }
 }
+
+
+.custom-edit-dialog{
+  .MuiDialog-paperWidthSm {
+    width: 550px;
+  }
+  .MuiDialog-paperWidthSm {
+    min-height: 400px;;
+  }
+  .chip-custom {
+    margin-top: -70px;
+    margin-left: 185px;
+    width: 100%;
+
+    .MuiChip-outlined  {
+      background-color: #f7f7f7;
+    }
+  }
+}
