@@ -4,8 +4,9 @@ import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV, faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 import {
-  Menu, MenuItem,
-  Dialog, DialogActions, DialogTitle, Button, IconButton,
+  Menu,
+  MenuItem,
+  IconButton,
 } from '@material-ui/core'
 import { ownerDetails } from '../forumValidators'
 import { deleteTopic, updateTopic } from '../../../redux-saga/redux/actions'

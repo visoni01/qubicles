@@ -7,7 +7,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import {
   Menu, MenuItem,
-  Dialog, DialogActions, DialogTitle, Button,
 } from '@material-ui/core'
 import { deletePostStatus, updatePostStatus } from '../../redux-saga/redux/actions'
 import ConfirmationModal from '../CommonModal/ConfirmationModal'

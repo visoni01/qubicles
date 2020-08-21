@@ -1,7 +1,6 @@
 import {
   takeLatest, put, select,
 } from 'redux-saga/effects'
-import { useSelector } from 'react-redux'
 import {
   postDataFetchingStart,
   postDataFetchingFailed,
@@ -79,7 +78,6 @@ function* postDataFetchingWorker(action) {
             ...data,
           },
         }))
-        yield put(createStatusPostSuccess())
         msg = 'Post has been sucessfully edited!'
         break
       }

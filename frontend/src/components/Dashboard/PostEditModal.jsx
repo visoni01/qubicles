@@ -1,5 +1,5 @@
 import React, {
-  useState, useCallback, useEffect, useRef,
+  useState, useCallback, useRef,
 } from 'react'
 import PropTypes from 'prop-types'
 import {
@@ -18,6 +18,11 @@ const PostEditModal = ({
   const [ fileName, setFileName ] = useState(null)
   const fileInput = useRef()
 
+  const handleChipDelete = () => {
+    fileInput.current.value = ''
+    setFileName(null)
+  }
+
   const handleUpdatePost = useCallback(() => {
     if (!(postText && postText.trim())) {
       return
@@ -29,7 +34,9 @@ const PostEditModal = ({
     }
     onSubmit(editedPost)
     handleClose()
-  }, [ postText, fileInput ])
+    setPostText(postDescription)
+    handleChipDelete()
+  }, [ postText, fileInput, onSubmit, userActivityId ])
 
   const setPostTextCB = useCallback((event) => {
     setPostText(event.target.value)
@@ -37,11 +44,8 @@ const PostEditModal = ({
 
   const handleCloseModal = () => {
     handleClose()
-  }
-
-  const handleChipDelete = () => {
-    fileInput.current.value = ''
-    setFileName(null)
+    setPostText(postDescription)
+    handleChipDelete()
   }
 
   const handleFileInputChange = useCallback(() => {
@@ -63,7 +67,7 @@ const PostEditModal = ({
           Update Post
         </DialogTitle>
         <DialogActions className='cross-button'>
-          <IconButton className='is-size-6' onClick={ handleClose }>
+          <IconButton className='is-size-6' onClick={ handleCloseModal }>
             <FontAwesomeIcon icon={ faTimes } />
           </IconButton>
         </DialogActions>
@@ -82,6 +86,7 @@ const PostEditModal = ({
           rows='8'
           placeholder='Write something ...'
           className='topic-titile-field'
+          required
         />
         <div className='post-section columns is-multiline is-full'>
           <div className=' other-options column is-4 is-narrower'>
