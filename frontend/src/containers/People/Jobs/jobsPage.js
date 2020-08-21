@@ -7,33 +7,21 @@ import '../style.scss'
 import Jobs from '../../../components/People/job/Jobs'
 import NewJobsModal from './newJob'
 
-const JobsPage = () => {
-  const [ openJobModal, setOpenJobModal ] = useState(false)
-
-  const toggleJobModal = useCallback(() => {
-    // eslint-disable-next-line
-    setOpenJobModal((openJobModal) => !openJobModal)
-  }, [ setOpenJobModal ])
-
-  return (
-    <>
-      <div className='forum-title-wrapper is-mobile'>
-        {/* Search Bar */}
-        <JobSearchBar />
-        <Button
-          variant='contained'
-          className='button secondary-btn new-job-button'
-          startIcon={ <FontAwesomeIcon icon={ faPlus } /> }
-          onClick={ toggleJobModal }
-        >
-          New Job
-        </Button>
-        <NewJobsModal open={ openJobModal } handleClose={ toggleJobModal } />
-      </div>
-
-      <Jobs />
-    </>
-  )
-}
+const JobsPage = () => (
+  <>
+    <div className='forum-title-wrapper is-mobile'>
+      {/* Search Bar */}
+      <JobSearchBar />
+      <Button
+        variant='contained'
+        className='button secondary-btn new-job-button'
+        startIcon={ <FontAwesomeIcon icon={ faPlus } /> }
+      >
+        Job Category
+      </Button>
+    </div>
+    <Jobs />
+  </>
+)
 
 export default JobsPage

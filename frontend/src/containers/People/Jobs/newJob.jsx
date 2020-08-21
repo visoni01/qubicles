@@ -13,13 +13,16 @@ import {
   InputLabel,
   FormControl,
 } from '@material-ui/core'
+import { useDispatch } from 'react-redux'
 import {
   jobTypes, employmentType, durationTypes, experienceTypes, locationTypes,
 } from '../constants'
+import { addJob } from '../../../redux-saga/redux/people/actions'
 
-const AddUpdateGroupModal = ({
-  open, handleClose, onSubmit, modalFields,
+const JobModal = ({
+  open, handleClose, onSubmit, modalFields, categoryId,
 }) => {
+  const dispatch = useDispatch()
   const [ jobData, setJobData ] = useState(modalFields)
 
   const handleChange = useCallback((event) => {
@@ -31,6 +34,11 @@ const AddUpdateGroupModal = ({
   const handleCancelButton = () => {
     handleClose()
     setJobData(modalFields)
+  }
+
+  const handleSubmit = () => {
+    dispatch(addJob({ ...jobData, categoryId }))
+    handleCancelButton()
   }
 
   return (
@@ -197,7 +205,7 @@ const AddUpdateGroupModal = ({
         <Button onClick={ handleCancelButton } color='primary' className='primary-button'>
           Cancel
         </Button>
-        <Button onClick={ () => {} } color='primary' className='primary-button'>
+        <Button onClick={ handleSubmit } color='primary' className='primary-button'>
           Submit
         </Button>
       </DialogActions>
@@ -205,7 +213,7 @@ const AddUpdateGroupModal = ({
   )
 }
 
-AddUpdateGroupModal.defaultProps = {
+JobModal.defaultProps = {
   modalFields: {
     title: '',
     description: '',
@@ -220,10 +228,11 @@ AddUpdateGroupModal.defaultProps = {
   },
 }
 
-AddUpdateGroupModal.propTypes = {
+JobModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  categoryId: PropTypes.number.isRequired,
   modalFields: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
@@ -238,4 +247,4 @@ AddUpdateGroupModal.propTypes = {
   }),
 }
 
-export default AddUpdateGroupModal
+export default JobModal

@@ -2,6 +2,7 @@ import React from 'react'
 import _ from 'lodash'
 import JobDescription from './JobDescription'
 import { jobCategoryValidator } from '../peopleValidator'
+import JobsCategoryActions from './jobsCategoryActions'
 
 const JobsWrapper = ({ categoryId, categoryTitle, jobs }) => {
   const isJobs = !_.isEmpty(jobs)
@@ -10,6 +11,7 @@ const JobsWrapper = ({ categoryId, categoryTitle, jobs }) => {
       {/* Heading */}
       <div className='channel-heading'>
         <h3>{ categoryTitle }</h3>
+        <JobsCategoryActions categoryId={ categoryId } />
       </div>
       {jobs.map((job) => <JobDescription { ...job } key={ job.jobId } />)}
       {!isJobs && (
