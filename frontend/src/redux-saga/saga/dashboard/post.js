@@ -1,6 +1,7 @@
 import {
   takeLatest, put, select,
 } from 'redux-saga/effects'
+import { useSelector } from 'react-redux'
 import {
   postDataFetchingStart,
   postDataFetchingFailed,
@@ -11,7 +12,7 @@ import {
   createStatusPostFailed,
   createStatusPostSuccess,
 } from '../../redux/actions'
-import { DELETE_POST_STATUS } from '../../redux/constants'
+import { DELETE_POST_STATUS, UPDATE_POST } from '../../redux/constants'
 import Dashboard from '../../service/dashboard'
 
 function* postDataCrudWatcherStart() {
@@ -20,6 +21,7 @@ function* postDataCrudWatcherStart() {
       postDataFetchingStart.type,
       createStatusPostStart.type,
       DELETE_POST_STATUS,
+      UPDATE_POST,
     ],
     postDataFetchingWorker,
   )
@@ -63,6 +65,22 @@ function* postDataFetchingWorker(action) {
         yield Dashboard.deletePost({ userActivityId })
         yield put(updatePostData({ type: action.type, userActivityId }))
         msg = 'Status has been successfully deleted!'
+        break
+      }
+      case UPDATE_POST: {
+        const formData = new FormData()
+        const { file, text, userActivityId } = action.payload
+        formData.append('file', file)
+        formData.set('text', text)
+        const { data } = yield Dashboard.editPost({ data: formData, userActivityId })
+        yield put(updatePostData({
+          type: action.type,
+          editedPost: {
+            ...data,
+          },
+        }))
+        yield put(createStatusPostSuccess())
+        msg = 'Post has been sucessfully edited!'
         break
       }
       default:
