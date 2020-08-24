@@ -68,9 +68,12 @@ function* postDataFetchingWorker(action) {
       }
       case UPDATE_POST: {
         const formData = new FormData()
-        const { file, text, userActivityId } = action.payload
+        const {
+          file, text, removeCurrentImage, userActivityId,
+        } = action.payload
         formData.append('file', file)
         formData.set('text', text)
+        formData.set('remove_image', removeCurrentImage)
         const { data } = yield Dashboard.editPost({ data: formData, userActivityId })
         yield put(updatePostData({
           type: action.type,
@@ -78,7 +81,7 @@ function* postDataFetchingWorker(action) {
             ...data,
           },
         }))
-        msg = 'Post has been sucessfully edited!'
+        msg = 'Post has been sucessfully updated!'
         break
       }
       default:

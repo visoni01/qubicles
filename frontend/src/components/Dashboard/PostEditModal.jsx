@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React, {
   useState, useCallback, useRef,
 } from 'react'
@@ -12,18 +13,37 @@ import {
 import { shortenFileName } from '../../utils/common'
 
 const PostEditModal = ({
-  open, handleClose, onSubmit, postDescription, userActivityId,
+  open, handleClose, onSubmit, postDescription, userActivityId, activityCustom,
 }) => {
   const [ postText, setPostText ] = useState(postDescription)
-  const [ fileName, setFileName ] = useState(null)
+  const [ fileName, setFileName ] = useState('current-image.jpg')
+  const [ showChip, setShowChip ] = useState(activityCustom)
   const fileInput = useRef()
 
   const handleChipDelete = () => {
     fileInput.current.value = ''
     setFileName(null)
+    setShowChip(!showChip)
   }
 
-  const handleUpdatePost = useCallback(() => {
+  const handleImageRemove = (activityCustom, showChip) => {
+    let removeImage
+    if (activityCustom && showChip) {
+      removeImage = false
+    }
+    if (!activityCustom && showChip) {
+      removeImage = false
+    }
+    if (activityCustom && !showChip) {
+      removeImage = true
+    }
+    if (!activityCustom && !showChip) {
+      removeImage = false
+    }
+    return removeImage
+  }
+
+  const handleUpdatePost = () => {
     if (!(postText && postText.trim())) {
       return
     }
@@ -31,12 +51,15 @@ const PostEditModal = ({
       file: fileInput.current.files && fileInput.current.files[ 0 ],
       text: postText,
       userActivityId,
+      removeCurrentImage: handleImageRemove(activityCustom, showChip),
     }
     onSubmit(editedPost)
+    fileInput.current.value = ''
     handleClose()
-    setPostText(postDescription)
-    handleChipDelete()
-  }, [ postText, fileInput, onSubmit, userActivityId ])
+    if (showChip) {
+      setFileName(('current-image.jpg'))
+    }
+  }
 
   const setPostTextCB = useCallback((event) => {
     setPostText(event.target.value)
@@ -45,23 +68,28 @@ const PostEditModal = ({
   const handleCloseModal = () => {
     handleClose()
     setPostText(postDescription)
-    handleChipDelete()
+    setFileName('current-image.jpg')
+    setShowChip(activityCustom)
   }
 
   const handleFileInputChange = useCallback(() => {
     const fileObj = fileInput.current.files[ 0 ]
     const shortFileName = shortenFileName(fileObj)
     setFileName(shortFileName)
-  }, [])
+    if (fileObj) {
+      setShowChip((showChip) => !showChip)
+    }
+  }, [ showChip ])
 
   const clear = () => {
     setPostText('')
     fileInput.current.value = ''
     setFileName(null)
+    setShowChip((showChip) => !showChip)
   }
 
   return (
-    <Dialog className='custom-edit-dialog' open={ open } onClose={ handleClose }>
+    <Dialog disableBackdropClick className='custom-edit-dialog' open={ open } onClose={ handleClose }>
       <div className='is-flex'>
         <DialogTitle className='text-align-center width-full'>
           Update Post
@@ -105,7 +133,7 @@ const PostEditModal = ({
             </form>
           </div>
           <div className='column is-7 is-full chip-custom'>
-            {fileName && (
+            {(showChip && fileName) && (
               <Chip
                 variant='outlined'
                 label={ fileName }
@@ -137,12 +165,17 @@ const PostEditModal = ({
   )
 }
 
+PostEditModal.defaultProps = {
+  activityCustom: null,
+}
+
 PostEditModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   postDescription: PropTypes.string.isRequired,
   userActivityId: PropTypes.number.isRequired,
+  activityCustom: PropTypes.string,
 }
 
 export default PostEditModal

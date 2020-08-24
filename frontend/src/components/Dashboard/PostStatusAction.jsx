@@ -13,7 +13,7 @@ import ConfirmationModal from '../CommonModal/ConfirmationModal'
 import PostEditModal from './PostEditModal'
 
 const PostStatusAction = ({
-  userId, userActivityId, showComments, activityValue,
+  userId, userActivityId, showComments, activityValue, activityCustom,
 }) => {
   const dispatch = useDispatch()
 
@@ -122,6 +122,7 @@ const PostStatusAction = ({
         onSubmit={ submitEditedPost }
         userActivityId={ userActivityId }
         postDescription={ activityValue }
+        activityCustom={ activityCustom }
       />
       <ConfirmationModal
         open={ open }
@@ -133,11 +134,16 @@ const PostStatusAction = ({
   )
 }
 
+PostStatusAction.defaultProps = {
+  activityCustom: null,
+}
+
 PostStatusAction.propTypes = {
   userId: PropTypes.number.isRequired,
   userActivityId: PropTypes.number.isRequired,
   showComments: PropTypes.func.isRequired,
   activityValue: PropTypes.string.isRequired,
+  activityCustom: PropTypes.string,
 }
 
 export default PostStatusAction

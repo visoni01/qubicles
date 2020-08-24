@@ -20,6 +20,9 @@ const constraints = {
   user_activity_id: {
     presence: { allowEmpty: false }
   },
+  remove_image: {
+    presence: { allowEmpty: false }
+  },
   text: {
     presence: { allowEmpty: false }
   }
@@ -34,7 +37,6 @@ export default class UpdatePostStatusService extends ServiceBase {
     try {
       let url
       const postData = await getUserActivityById({ user_activity_id: this.user_activity_id })
-
       if (!postData) {
         this.addError(ERRORS.NOT_FOUND, MESSAGES.POST_STATUS_NOT_EXIST)
         return
@@ -79,7 +81,9 @@ export default class UpdatePostStatusService extends ServiceBase {
           activity_value: this.text,
           activity_custom: url || postData.activity_custom
         }
-
+        if (this.remove_image === 'true') {
+          updateUserActivity['activity_custom'] = null
+        }
         await updatePostStatus(updateUserActivity)
 
         return updateUserActivity
