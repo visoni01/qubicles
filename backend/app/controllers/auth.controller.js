@@ -1,4 +1,5 @@
 import VerifyTokenMethod from '../services/user/verifyToken'
+import HandleCheckrEventService from '../services/authentication/handleCheckrEvents'
 import config from '../../config/app'
 import Responder from '../../server/expressResponder'
 
@@ -12,6 +13,15 @@ export default class AuthController {
       Responder.success(res, 'User email verified Successfully!!')
     } else {
       Responder.failed(res, verifyTokenResult.errors)
+    }
+  }
+
+  static async webhook (req, res) {
+    const checkrEventResult = await HandleCheckrEventService.execute(req.body)
+    if (checkrEventResult.successful) {
+      Responder.success(res, 'Event Handled Successfully')
+    } else {
+      Responder.failed(res, checkrEventResult.errors)
     }
   }
 }

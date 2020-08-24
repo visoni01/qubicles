@@ -1,23 +1,9 @@
 import ServiceBase from '../../common/serviceBase'
+import { getUserById, getUserDetails } from '../helper/user'
 import Checkr from './checkr'
 
 const constraints = {
-  email: {
-    presence: { allowEmpty: false }
-  },
-  phone_number: {
-    presence: { allowEmpty: false }
-  },
-  first_name: {
-    presence: { allowEmpty: false }
-  },
-  last_name: {
-    presence: { allowEmpty: false }
-  },
-  ssn: {
-    presence: { allowEmpty: false }
-  },
-  dob: {
+  user_id: {
     presence: { allowEmpty: false }
   }
 }
@@ -28,7 +14,12 @@ export default class AddAuthenticationService extends ServiceBase {
   }
 
   async run () {
-    const { first_name, last_name, email, dob, ssn } = this.filteredArgs
+    const { user_id } = this.filteredArgs
+    const promises = [
+      () => getUserById({ user_id }),
+      () => getUserDetails({ user_id })
+    ]
+    const [{ email }, { first_name, last_name, ssn, dob }] = await Promise.all(promises.map(promise => promise()))
     // Create User Candidate
     const { id } = await Checkr.createCandidate({
       first_name,
