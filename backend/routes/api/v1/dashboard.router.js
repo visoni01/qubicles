@@ -31,13 +31,16 @@ dashboardRouter.route('/post-status/:user_activity_id')
 dashboardRouter.route('/post-status/activity/:activity_type')
   .post(isAuthenticated, dashboardController.postStatusActivity)
 
+dashboardRouter.route('/post-status/:user_activity_id')
+  .put(multerUpload.single('file'), isAuthenticated, dashboardController.updatePostStatus)
+
 dashboardRouter.route('/post/comments/:user_activity_id')
   .get(isAuthenticated, dashboardController.getPostComments)
 
 dashboardRouter.route('/post/comments/:user_activity_id')
   .post(isAuthenticated, dashboardController.postComment)
 
-dashboardRouter.route('/post-status/:user_activity_id')
-  .put(multerUpload.single('file'), isAuthenticated, dashboardController.updatePostStatus)
+dashboardRouter.route('/post/comments/:user_activity_id')
+  .delete(isAuthenticated, dashboardController.deletePostComment)
 
 export { dashboardRouter }

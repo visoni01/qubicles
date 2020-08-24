@@ -10,6 +10,7 @@ import DashboardStatusActivityService from '../services/dashboard/statusActivity
 import GetPostCommentsService from '../services/dashboard/getPostComments'
 import AddPostStatusCommentService from '../services/dashboard/addPostComment'
 import UpdatePostStatusService from '../services/dashboard/post/updatePostStatus'
+import DeletePostCommentsService from '../services/dashboard/post/comments/deletePostComments'
 
 export default class DashboardController {
   static async getCommunityRep (req, res) {
@@ -108,6 +109,15 @@ export default class DashboardController {
       Responder.success(res, postComment.result)
     } else {
       Responder.failed(res, postComment.errors)
+    }
+  }
+
+  static async deletePostComment (req, res) {
+    const deletePostComment = await DeletePostCommentsService.execute({ ...req.body, ...req.params })
+    if (deletePostComment.successful) {
+      Responder.success(res, deletePostComment.result)
+    } else {
+      Responder.failed(res, deletePostComment.errors)
     }
   }
 }
