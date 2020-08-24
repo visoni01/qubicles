@@ -11,4 +11,7 @@ jobRouter.route('/category')
 jobRouter.route('/category/jobs/:job_id')
   .delete(isAuthenticated, jobController.deleteJob)
 
+jobRouter.route('/category/jobs')
+  .post(isAuthenticated, jobController.addJob)
+
 export { jobRouter }
