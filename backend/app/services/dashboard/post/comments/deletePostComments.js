@@ -15,6 +15,9 @@ const constraints = {
   },
   user_activity_id: {
     presence: { allowEmpty: false }
+  },
+  data: {
+    presence: { allowEmpty: false }
   }
 }
 
@@ -25,7 +28,7 @@ export default class DeletePostCommentsService extends ServiceBase {
 
   async run () {
     try {
-      const { user_id, user_activity_id } = this.filteredArgs
+      const { user_id, user_activity_id, data } = this.filteredArgs
       const activityData = await getUserActivityById({ user_activity_id })
       if (!activityData) {
         this.addError(ERRORS.NOT_FOUND, MESSAGES.POST_STATUS_NOT_EXIST)
@@ -33,11 +36,20 @@ export default class DeletePostCommentsService extends ServiceBase {
       }
 
       if (user_id !== activityData.user_id) {
-        const isValidPermission = await checkVisibility({ activity_permission: activityData.activity_permission, user_id, owner_id: activityData.user_id })
-        if (!isValidPermission) {
-          this.addError(ERRORS.UNAUTHORIZED, MESSAGES.UNAUTHORIZED_MSG)
-          return
+        // Is data type same.
+        if (user_id !== data.postUserId) {
+          const isValidPermission = await checkVisibility({
+            activity_permission: activityData.activity_permission,
+            user_id,
+            owner_id: activityData.user_id
+          })
+          if (!isValidPermission) {
+            this.addError(ERRORS.UNAUTHORIZED, MESSAGES.UNAUTHORIZED_MSG)
+            return
+          }
         }
+        this.addError(ERRORS.UNAUTHORIZED, MESSAGES.UNAUTHORIZED_MSG)
+        return
       }
 
       const deletePostComment = await deleteStatusPostComment({ user_activity_id })
@@ -47,7 +59,10 @@ export default class DeletePostCommentsService extends ServiceBase {
           userActivityId: activityData.user_activity_id,
           message: MESSAGES.POST_COMMENT_DELETED_SUCCESSFULLY
         }
-      } else { return false }
+      } else {
+        this.addError(ERRORS.INTERNAL)
+        return
+      }
     } catch (error) {
       logger.error(getErrorMessageForService('DeletePostCommentsService'), error)
       this.addError(ERRORS.INTERNAL)
