@@ -9,7 +9,9 @@ import {
   updatePostComments,
   fetchCommentsSuccess,
 } from '../../redux/actions'
-import { UNLIKE_POST, LIKE_POST, CREATE_POST_COMMENT_START } from '../../redux/constants'
+import {
+  UNLIKE_POST, LIKE_POST, CREATE_POST_COMMENT_START, DELETE_POST_COMMENT,
+} from '../../redux/constants'
 import Dashboard from '../../service/dashboard'
 
 function* statusPostActivityWatcherStart() {
@@ -19,6 +21,7 @@ function* statusPostActivityWatcherStart() {
       LIKE_POST,
       CREATE_POST_COMMENT_START,
       fetchCommentsStart.type,
+      DELETE_POST_COMMENT,
     ],
     statusPostActivityFetchingWorker,
   )
@@ -61,6 +64,14 @@ function* statusPostActivityFetchingWorker(action) {
           type: fetchCommentsSuccess.type,
           data: { comments: data.commentsData, count: data.count },
         }))
+        break
+      }
+      case DELETE_POST_COMMENT: {
+        const { userActivityId, postUserId } = action.payload
+        yield Dashboard.deletePostComment({ userActivityId, data: { postUserId } })
+        yield put(updatePostComments({ type: action.type, userActivityId }))
+        yield put(updatePostData({ type: action.type, postUserId }))
+        msg = 'Comment has been successfully deleted!'
         break
       }
       default:
