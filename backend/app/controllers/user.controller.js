@@ -3,6 +3,7 @@ import CreateUserWithInvite from '../services/user/createUser'
 import { InviteWithGoogleAuthService, InviteWithGoogleCallbackService } from '../services/user/invite/inviteWithGoogle'
 import HandleInviteLink from '../services/user/invite/handleInvitelink'
 import InviteManual from '../services/user/invite/inviteManualEmail'
+import CheckrInvitationService from '../services/authentication/checkrInvitation'
 
 export default class UserController {
   static async signUp (req, res) {
@@ -56,6 +57,15 @@ export default class UserController {
       Responder.success(res, inviteManualResult.result)
     } else {
       Responder.failed(res, inviteManualResult.errors)
+    }
+  }
+
+  static async checkrInvitation (req, res) {
+    const checkrInvitationResult = await CheckrInvitationService.execute(req.body)
+    if (checkrInvitationResult.successful) {
+      Responder.success(res, checkrInvitationResult.result)
+    } else {
+      Responder.failed(res, checkrInvitationResult.errors)
     }
   }
 }

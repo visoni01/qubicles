@@ -16,7 +16,7 @@ export default class AuthController {
     }
   }
 
-  static async webhook (req, res) {
+  static async checkrEvent (req, res) {
     const checkrEventResult = await HandleCheckrEventService.execute(req.body)
     if (checkrEventResult.successful) {
       Responder.success(res, 'Event Handled Successfully')

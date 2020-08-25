@@ -1,5 +1,5 @@
 import ServiceBase from '../../common/serviceBase'
-import CheckReportService from './checkReport'
+import VerifyCheckrReportService from './verifyCheckrReport'
 import logger from '../../common/logger'
 
 const constraints = {
@@ -23,28 +23,28 @@ export default class HandleCheckrEventService extends ServiceBase {
   }
 
   async run () {
-    const { id, object, type, data } = this.filteredArgs
+    const { type, data } = this.filteredArgs
     switch (type) {
       // Invitation Events
       case ('invitation.created'): {
         logger.info('Checkr Invitation Creation Successful')
-        break
+        return 'okay'
       }
       case ('invitation.completed'): {
         logger.info('Checkr Invitation Completed Successful')
-        break
+        return 'okay'
       }
       case ('invitation.expired'): {
         logger.info('Checkr Invitation Expired')
-        break
+        return 'okay'
       }
       case ('invitation.deleted'): {
-        break
+        return 'okay'
       }
       // Report Events
       case ('report.created'): {
         logger.info('Checkr Report Created')
-        break
+        return 'okay'
       }
       case ('report.completed'): {
         logger.info('Checkr Report Completed')
@@ -55,7 +55,7 @@ export default class HandleCheckrEventService extends ServiceBase {
           sex_offender_search_id,
           global_watchlist_search_id
         } = data.object
-        await CheckReportService.execute({
+        await VerifyCheckrReportService.execute({
           ssn_trace_id,
           national_criminal_search_id,
           sex_offender_search_id,
@@ -64,7 +64,7 @@ export default class HandleCheckrEventService extends ServiceBase {
         break
       }
       case ('report.pre_adverse_action'): {
-        break
+        return 'okay'
       }
     }
   }

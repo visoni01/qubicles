@@ -1,5 +1,5 @@
 import ServiceBase from '../../common/serviceBase'
-import Checkr from './checkr'
+import Checkr from './checkrApis'
 
 const constraints = {
   ssn_trace_id: {
@@ -16,7 +16,7 @@ const constraints = {
   }
 }
 
-export default class CheckReportService extends ServiceBase {
+export default class VerifyCheckrReportService extends ServiceBase {
   get constraints () {
     return constraints
   }

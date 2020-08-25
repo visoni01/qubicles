@@ -36,7 +36,7 @@ authRouter.route('/linkedin/callback')
 authRouter.route('/verify-token/:token')
   .get(authController.verifyToken)
 
-authRouter.route('/checkr-hook')
-  .post(authController.webhook)
+authRouter.route('/checkr-webhook')
+  .post(authController.checkrEvent)
 
 export { authRouter }

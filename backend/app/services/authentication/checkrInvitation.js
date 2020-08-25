@@ -1,6 +1,6 @@
 import ServiceBase from '../../common/serviceBase'
 import { getUserById, getUserDetails } from '../helper/user'
-import Checkr from './checkr'
+import Checkr from './checkrApis'
 
 const constraints = {
   user_id: {
@@ -8,7 +8,7 @@ const constraints = {
   }
 }
 
-export default class AddAuthenticationService extends ServiceBase {
+export default class CheckrInvitationService extends ServiceBase {
   get constraints () {
     return constraints
   }
@@ -31,6 +31,9 @@ export default class AddAuthenticationService extends ServiceBase {
 
     // Send Invitation to Candidate
     const { invitation_url } = await Checkr.createInvitation({ candidate_id: id })
-    return invitation_url
+
+    return {
+      checkrInvitationUrl: invitation_url
+    }
   }
 }
