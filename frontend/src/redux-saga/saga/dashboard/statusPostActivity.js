@@ -57,7 +57,10 @@ function* statusPostActivityFetchingWorker(action) {
       }
       case fetchCommentsStart.type: {
         const { data } = yield Dashboard.getPostComments(action.payload)
-        yield put(fetchCommentsSuccess({ type: fetchCommentsSuccess.type, data: { comments: data.commentsData, count: data.count } }))
+        yield put(fetchCommentsSuccess({
+          type: fetchCommentsSuccess.type,
+          data: { comments: data.commentsData, count: data.count },
+        }))
         break
       }
       default:

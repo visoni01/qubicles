@@ -27,18 +27,9 @@ const PostEditModal = ({
   }
 
   const handleImageRemove = (activityCustom, showChip) => {
-    let removeImage
-    if (activityCustom && showChip) {
-      removeImage = false
-    }
-    if (!activityCustom && showChip) {
-      removeImage = false
-    }
+    let removeImage = false
     if (activityCustom && !showChip) {
       removeImage = true
-    }
-    if (!activityCustom && !showChip) {
-      removeImage = false
     }
     return removeImage
   }

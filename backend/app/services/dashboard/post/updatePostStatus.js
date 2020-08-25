@@ -88,7 +88,8 @@ export default class UpdatePostStatusService extends ServiceBase {
 
         return updateUserActivity
       } else {
-        return false
+        this.addError(ERRORS.UNAUTHORIZED)
+        return
       }
     } catch (e) {
       logger.error(getErrorMessageForService('UpdatePostStatusService'), e)

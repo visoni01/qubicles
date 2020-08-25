@@ -24,17 +24,16 @@ export async function postStatusUpdate ({ user_id, activity_value, activity_cust
 }
 
 export async function updatePostStatus ({ user_id, user_activity_id, activity_value, activity_custom }) {
+  // To update post status activity_value & activity_custom data entry.
   await XUserActivity.update({
     activity_value,
     activity_custom
   }, {
-    where:
-    {
+    where: {
       user_id,
       user_activity_id
     }
-  }
-  )
+  })
 }
 
 export async function getUserActivityById ({ user_activity_id }) {
@@ -146,6 +145,7 @@ export async function getStatusComments ({ user_id, record_id }) {
 }
 
 export async function getStatusCommentsInBatch ({ record_id, limit, offset }) {
+  // To fetch comments data based on limit and offset value
   const { rows, count } = await XUserActivity.findAndCountAll({
     where: {
       record_type: 'activity',
@@ -260,15 +260,17 @@ export async function isUserBelongsToCompany ({ user_id, client_id }) {
 export async function deleteStatusPost ({ user_activity_id }) {
   const postStatus = await XUserActivity.update({ is_deleted: true },
     { where: { user_activity_id } })
-  await XUserActivity.update({ is_deleted: true },
-    {
-      where: {
-        record_type: 'activity',
-        record_id: user_activity_id,
-        activity_type: 'comment'
-      }
+
+  // To soft delete comments associated with posted status
+  await XUserActivity.update({ is_deleted: true }, {
+    where: {
+      record_type: 'activity',
+      record_id: user_activity_id,
+      activity_type: 'comment'
     }
-  )
+  })
+
+  // To hard delete likes data associated with posted status
   await XUserActivity.destroy({
     where: {
       record_type: 'activity',
