@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faEllipsisV, faTrash,
+  faEllipsisV, faTrash, faPencilAlt,
 } from '@fortawesome/free-solid-svg-icons'
 import {
   Menu, MenuItem,
@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux'
 import { jobSubDetailsValidator } from '../peopleValidator'
 import { deleteJob } from '../../../redux-saga/redux/actions'
 import { isUserOwner } from '../../../utils/common'
+import UpdateJobModal from '../../../containers/People/Jobs/newJob'
 
 const JobsActions = ({
   categoryId, title, jobId, ownerId,
@@ -26,6 +27,13 @@ const JobsActions = ({
   const handleClose = () => {
     setAnchorEl(null)
   }
+
+  const [ openEditJobModal, setOpenEditJobModal ] = useState(false)
+
+  const toggleEditJobModal = useCallback(() => {
+    // eslint-disable-next-line
+    setOpenEditJobModal((openEditJobModal) => !openEditJobModal)
+  }, [ setOpenEditJobModal ])
 
   const [ open, setOpen ] = useState(false)
 
@@ -70,7 +78,16 @@ const JobsActions = ({
               Remove
             </span>
           </MenuItem>
+          <MenuItem
+            onClick={ toggleEditJobModal }
+          >
+            <FontAwesomeIcon icon={ faPencilAlt } />
+            <span className='remove ml-10'>
+              Edit
+            </span>
+          </MenuItem>
         </Menu>
+        <UpdateJobModal open={ openEditJobModal } handleClose={ toggleEditJobModal } isEdit jobId={ jobId } />
         <Dialog
           open={ open }
           onClose={ handleDialogClose }

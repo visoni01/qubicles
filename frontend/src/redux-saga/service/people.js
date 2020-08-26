@@ -27,8 +27,8 @@ class People {
     return response
   }
 
-  static async addJob(payload) {
-    const response = await apiClient.postRequest('/job/category/jobs', payload)
+  static async getJobById(jobId) {
+    const response = await apiClient.getRequest(`/jobs/job/${ jobId }`)
     return response
   }
 }
