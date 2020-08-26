@@ -7,7 +7,7 @@ const constraints = {
   }
 }
 
-export default class ActiveUsers extends ServiceBase {
+export class ActiveUsers extends ServiceBase {
   get constraints () {
     return constraints
   }

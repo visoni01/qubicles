@@ -8,7 +8,7 @@ const constraints = {
   }
 }
 
-export default class JobPostings extends ServiceBase {
+export class JobPostings extends ServiceBase {
   get constraints () {
     return constraints
   }

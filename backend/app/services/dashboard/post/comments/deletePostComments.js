@@ -20,7 +20,7 @@ const constraints = {
   }
 }
 
-export default class DeletePostCommentsService extends ServiceBase {
+export class DeletePostCommentsService extends ServiceBase {
   get constraints () {
     return constraints
   }

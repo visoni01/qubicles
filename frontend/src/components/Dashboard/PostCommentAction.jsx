@@ -52,7 +52,6 @@ const PostCommentAction = ({
             >
               <FontAwesomeIcon icon={ faTrash } />
               <span className='menu-item'>
-                {/* change class here to menu-item */}
                 Remove
               </span>
             </MenuItem>

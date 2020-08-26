@@ -28,7 +28,7 @@ const constraints = {
   }
 }
 
-export default class UpdatePostStatusService extends ServiceBase {
+export class UpdatePostStatusService extends ServiceBase {
   get constraints () {
     return constraints
   }

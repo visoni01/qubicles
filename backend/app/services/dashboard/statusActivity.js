@@ -19,7 +19,7 @@ const constraints = {
   }
 }
 
-export default class DashboardStatusActivityService extends ServiceBase {
+export class DashboardStatusActivityService extends ServiceBase {
   get constraints () {
     return constraints
   }

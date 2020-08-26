@@ -1,16 +1,18 @@
 import Responder from '../../server/expressResponder'
-import CommunityRep from '../services/dashboard/communityRep'
-import LatestAnnouncements from '../services/dashboard/latestAnnouncements'
-import JobPostings from '../services/dashboard/jobPostings'
-import ActiveUsers from '../services/dashboard/activeUsers'
-import GellAllPostStatusListService from '../services/dashboard/postStatusList'
-import AddPostStatusService from '../services/dashboard/addPostStatus'
-import DashboardDeletePostStatusService from '../services/dashboard/deletePostStatus'
-import DashboardStatusActivityService from '../services/dashboard/statusActivity'
-import GetPostCommentsService from '../services/dashboard/getPostComments'
-import AddPostStatusCommentService from '../services/dashboard/addPostComment'
-import UpdatePostStatusService from '../services/dashboard/post/updatePostStatus'
-import DeletePostCommentsService from '../services/dashboard/post/comments/deletePostComments'
+import {
+  CommunityRep,
+  LatestAnnouncements,
+  JobPostings,
+  ActiveUsers,
+  GellAllPostStatusListService,
+  AddPostStatusService,
+  DashboardDeletePostStatusService,
+  GetPostCommentsService,
+  AddPostStatusCommentService,
+  UpdatePostStatusService,
+  DeletePostCommentsService,
+  DashboardStatusActivityService
+} from '../services/dashboard/index'
 
 export default class DashboardController {
   static async getCommunityRep (req, res) {

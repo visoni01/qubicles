@@ -8,7 +8,7 @@ const constraints = {
   }
 }
 
-export default class LatestAnnouncements extends ServiceBase {
+export class LatestAnnouncements extends ServiceBase {
   get constraints () {
     return constraints
   }
