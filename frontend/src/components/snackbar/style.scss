@@ -13,5 +13,9 @@
 .MuiSnackbarContent-message {
   &:hover {
     color: white;
-  }  
+  }
+}
+
+.snackbar {
+  z-index: 11000 !important;
 }
