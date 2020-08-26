@@ -7,7 +7,9 @@ import CommentDetails from './commentDetails'
 import CommentSkeleton from './commentSkeleton'
 import './style.scss'
 
-const PostComments = ({ limit, offset, userActivityId }) => {
+const PostComments = ({
+  limit, offset, userActivityId,
+}) => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchCommentsStart({ limit, offset, userActivityId }))
@@ -40,6 +42,9 @@ const PostComments = ({ limit, offset, userActivityId }) => {
               owner={ comment.owner }
               content={ comment.activity_value }
               createdAt={ comment.createdAt }
+              userActivityId={ comment.user_activity_id }
+              postUserActivityId={ userActivityId }
+              ownerId={ comment.owner_id }
             />
           ))
         )}

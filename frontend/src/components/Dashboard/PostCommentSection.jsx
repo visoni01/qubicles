@@ -18,7 +18,6 @@ const PostCommentSection = () => {
   }, [ dispatch ])
 
   const { showCommentSection, data } = useSelector((state) => state.commentsSection)
-
   if (!showCommentSection) {
     return <></>
   }
@@ -45,7 +44,12 @@ const PostCommentSection = () => {
               createdAt={ data.createdAt }
             />
           </div>
-          <PostComments limit={ config.COMMENTS_LIMIT } offset={ 0 } userActivityId={ data.postStatusId } />
+          <PostComments
+            limit={ config.COMMENTS_LIMIT }
+            offset={ 0 }
+            userActivityId={ data.postStatusId }
+            userId={ data.userId }
+          />
           <PostCommentInput userActivityId={ data.postStatusId } />
         </div>
       </div>
