@@ -8,6 +8,9 @@ const jobRouter = express.Router(args)
 jobRouter.route('/')
   .get(isAuthenticated, jobController.getJobsByCategory)
 
+jobRouter.route('/job/:job_id')
+  .get(isAuthenticated, jobController.getJobById)
+
 jobRouter.route('/job-fields')
   .get(isAuthenticated, jobController.getJobCategoriesAndTitles)
 
