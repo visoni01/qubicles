@@ -277,10 +277,10 @@ export const getPostData = ({ state, payload }) => {
       break
     }
     case DELETE_POST_COMMENT: {
-      const { postUserId } = payload
+      const { postUserActivityId } = payload
       posts = state.posts.map((post) => ({
         ...post,
-        commentsCount: post.user_activity_id === postUserId ? post.commentsCount - 1 : post.commentsCount,
+        commentsCount: post.user_activity_id === postUserActivityId ? post.commentsCount - 1 : post.commentsCount,
       }))
       break
     }

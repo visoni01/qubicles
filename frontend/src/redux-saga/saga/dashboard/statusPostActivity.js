@@ -13,6 +13,7 @@ import {
   UNLIKE_POST, LIKE_POST, CREATE_POST_COMMENT_START, DELETE_POST_COMMENT,
 } from '../../redux/constants'
 import Dashboard from '../../service/dashboard'
+import { getSubstrForNotification } from '../../../utils/common'
 
 function* statusPostActivityWatcherStart() {
   yield takeLatest(
@@ -67,11 +68,11 @@ function* statusPostActivityFetchingWorker(action) {
         break
       }
       case DELETE_POST_COMMENT: {
-        const { userActivityId, postUserId } = action.payload
-        yield Dashboard.deletePostComment({ userActivityId, data: { postUserId } })
+        const { userActivityId, postUserActivityId, content } = action.payload
+        yield Dashboard.deletePostComment({ userActivityId, data: { postUserActivityId } })
         yield put(updatePostComments({ type: action.type, userActivityId }))
-        yield put(updatePostData({ type: action.type, postUserId }))
-        msg = 'Comment has been successfully deleted!'
+        yield put(updatePostData({ type: action.type, postUserActivityId }))
+        msg = `Comment ${ getSubstrForNotification(content) } has been successfully deleted!`
         break
       }
       default:
