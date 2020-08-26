@@ -5,7 +5,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import {
   Menu, MenuItem,
-  Dialog, DialogActions, DialogTitle, Button,
+  Dialog, DialogActions, DialogTitle, Button, IconButton,
 } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 import { jobSubDetailsValidator } from '../peopleValidator'
@@ -47,16 +47,9 @@ const JobsActions = ({
   return (
     <div className='dropdown is-right dropdown-trigger styled-dropdown is-round is-active'>
       {isUserOwner(ownerId) && (
-        <div className='button'>
-          <i className='dropdown-icon'>
-            <FontAwesomeIcon
-              icon={ faEllipsisV }
-              aria-controls='menu'
-              aria-haspopup='true'
-              onClick={ handleClick }
-            />
-          </i>
-        </div>
+        <IconButton onClick={ handleClick }>
+          <FontAwesomeIcon icon={ faEllipsisV } className='is-size-6' />
+        </IconButton>
       )}
       <div className='job-dropdown'>
         <Menu
@@ -73,7 +66,7 @@ const JobsActions = ({
             onClick={ handleDialogOpen }
           >
             <FontAwesomeIcon icon={ faTrash } />
-            <span className='remove'>
+            <span className='remove ml-10'>
               Remove
             </span>
           </MenuItem>
