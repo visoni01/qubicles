@@ -13,30 +13,23 @@ import {
   InputLabel,
   FormControl,
 } from '@material-ui/core'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   jobTypes, employmentType, durationTypes, experienceTypes, locationTypes,
 } from '../constants'
-import { addJob } from '../../../redux-saga/redux/people/actions'
+import { addJob, getJobFields } from '../../../redux-saga/redux/people/actions'
 import People from '../../../redux-saga/service/people'
 
 const JobModal = ({
   open, handleClose, onSubmit, modalFields,
 }) => {
   const dispatch = useDispatch()
+  const { jobFields } = useSelector((state) => state.jobCategories)
   const [ jobData, setJobData ] = useState(modalFields)
-  const [ jobFields, setJobFields ] = useState({ jobTitles: [], jobCategories: [] })
 
   useEffect(() => {
-    async function fetchData() {
-      const { data } = await People.getJobCategoriesAndTitles()
-      let { jobTitles, jobCategories } = data
-      jobTitles = jobTitles.map((title) => ({ name: title.job_title_name, value: title.job_title_id }))
-      jobCategories = jobCategories.map((category) => ({ name: category.category_name, value: category.category_id }))
-      setJobFields({ jobTitles, jobCategories })
-    }
-    fetchData()
-  }, [ setJobFields ])
+    dispatch(getJobFields())
+  }, [ dispatch ])
 
   const handleChange = useCallback((event) => {
     event.persist()
@@ -95,7 +88,7 @@ const JobModal = ({
                 <MenuItem value=''>
                   <strong>Job category</strong>
                 </MenuItem>
-                {jobFields.jobCategories.map((category) => <MenuItem value={ category.value } key={ category.name }>{category.name}</MenuItem>)}
+                {jobFields.jobCategories && jobFields.jobCategories.map((category) => <MenuItem value={ category.value } key={ category.name }>{category.name}</MenuItem>)}
               </Select>
             </FormControl>
             <FormControl className='people-job-select'>
@@ -113,7 +106,7 @@ const JobModal = ({
                 <MenuItem value=''>
                   <strong>Job title</strong>
                 </MenuItem>
-                {jobFields.jobTitles.map((title) => (
+                {jobFields.jobTitles && jobFields.jobTitles.map((title) => (
                   <MenuItem value={ title.value } key={ title.name }>{title.name}</MenuItem>
                 ))}
               </Select>

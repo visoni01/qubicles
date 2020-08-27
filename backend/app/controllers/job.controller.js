@@ -1,8 +1,8 @@
 import Responder from '../../server/expressResponder'
 import JobsByCategoryService from '../services/job/jobsByCategory'
-import DeleteJobService from '../services/job/deleteJobs'
+import DeleteJobService from '../services/job/delete'
 import AddJobService from '../services/job/create'
-import GetJobCategoriesAndTitlesService from '../services/job/jobTitles'
+import GetJobCategoriesAndTitlesService from '../services/job/jobCatoriesAndTitles'
 
 export default class JobController {
   static async getJobsByCategory (req, res) {
