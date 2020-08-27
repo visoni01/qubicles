@@ -49,4 +49,7 @@ userRouter.route('/profile')
     res.status(200).json(req.user)
   })
 
+userRouter.route('/checkr-invitation')
+  .get(isAuthenticated, userController.checkrInvitation)
+
 export { userRouter }

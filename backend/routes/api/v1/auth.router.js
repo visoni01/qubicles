@@ -3,6 +3,7 @@ import passport from 'passport'
 import authController from '../../../app/controllers/auth.controller'
 import config from '../../../config/app'
 import { handleSocialLogin } from '../../../app/middlewares/handleSocialLogin'
+import { isCheckrWebhook } from '../../../app/middlewares/checkrWebhook'
 
 const args = { mergeParams: true }
 const authRouter = express.Router(args)
@@ -35,5 +36,8 @@ authRouter.route('/linkedin/callback')
 
 authRouter.route('/verify-token/:token')
   .get(authController.verifyToken)
+
+authRouter.route('/checkr-webhook')
+  .post(isCheckrWebhook, authController.checkrEvent)
 
 export { authRouter }

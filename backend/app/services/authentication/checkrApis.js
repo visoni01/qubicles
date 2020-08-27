@@ -85,7 +85,7 @@ class Checkr {
     return result
   }
 
-  async getAllInvitations ({ report_id }) {
+  async getAllInvitations () {
     const result = await this.client.get('/invitations')
     return result
   }
@@ -113,12 +113,34 @@ class Checkr {
   }
 
   async getNationalCriminalSearch ({ national_criminal_search_id }) {
-    const result = await this.client.get(`/national_criminal_searches//${national_criminal_search_id}`)
+    const result = await this.client.get(`/national_criminal_searches/${national_criminal_search_id}`)
     if (result.statusCode === 200) {
       logger.info(`Checkr national_criminal_search Successful === status: ${result.body.status}`)
       return result.body
     } else {
       logger.error(`Checkr national_criminal_search Failed === id: ${national_criminal_search_id}`)
+    }
+    return result
+  }
+
+  async getSexOffenderSearch ({ sex_offender_search_id }) {
+    const result = await this.client.get(`/sex_offender_searches/${sex_offender_search_id}`)
+    if (result.statusCode === 200) {
+      logger.info(`Checkr sex_offender_search Successful === status: ${result.body.status}`)
+      return result.body
+    } else {
+      logger.error(`Checkr sex_offender_search Failed === id: ${sex_offender_search_id}`)
+    }
+    return result
+  }
+
+  async getGlobalWatchlistSearch ({ global_watchlist_search_id }) {
+    const result = await this.client.get(`/global_watchlist_searches/${global_watchlist_search_id}`)
+    if (result.statusCode === 200) {
+      logger.info(`Checkr global_watchlist_search Successful === status: ${result.body.status}`)
+      return result.body
+    } else {
+      logger.error(`Checkr global_watchlist_search Failed === id: ${global_watchlist_search_id}`)
     }
     return result
   }
