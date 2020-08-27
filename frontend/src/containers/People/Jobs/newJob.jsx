@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
   Dialog,
@@ -18,12 +18,22 @@ import {
   jobTypes, employmentType, durationTypes, experienceTypes, locationTypes,
 } from '../constants'
 import { addJob } from '../../../redux-saga/redux/people/actions'
+import People from '../../../redux-saga/service/people'
 
 const JobModal = ({
-  open, handleClose, onSubmit, modalFields, categoryId,
+  open, handleClose, onSubmit, modalFields,
 }) => {
   const dispatch = useDispatch()
   const [ jobData, setJobData ] = useState(modalFields)
+  const [ jobFields, setJobFields ] = useState({ jobTitles: [], jobCategories: [] })
+
+  useEffect(async () => {
+    const { data } = await People.getJobCategoriesAndTitles()
+    let { jobTitles, jobCategories } = data
+    jobTitles = jobTitles.map((title) => ({ name: title.job_title_name, value: title.job_title_id }))
+    jobCategories = jobCategories.map((category) => ({ name: category.category_name, value: category.category_id }))
+    setJobFields({ jobTitles, jobCategories })
+  }, [ setJobFields ])
 
   const handleChange = useCallback((event) => {
     event.persist()
@@ -37,7 +47,7 @@ const JobModal = ({
   }
 
   const handleSubmit = () => {
-    dispatch(addJob({ ...jobData, categoryId }))
+    dispatch(addJob(jobData))
     handleCancelButton()
   }
 
@@ -66,6 +76,46 @@ const JobModal = ({
             multiline
             rows={ 4 }
           />
+          <div className='pt-10 pb-10'>
+            <FormControl className='people-job-select mr-10-per'>
+              <InputLabel margin='dense' variant='outlined'>Job category</InputLabel>
+              <Select
+                margin='dense'
+                variant='outlined'
+                label='Job category'
+                name='categoryId'
+                value={ jobData.categoryId }
+                fullWidth
+                onChange={ handleChange }
+                className='people-job-select'
+              >
+                <MenuItem value=''>
+                  <strong>Job category</strong>
+                </MenuItem>
+                {jobFields.jobCategories.map((category) => <MenuItem value={ category.value } key={ category.name }>{category.name}</MenuItem>)}
+              </Select>
+            </FormControl>
+            <FormControl className='people-job-select'>
+              <InputLabel margin='dense' variant='outlined'>Job title</InputLabel>
+              <Select
+                margin='dense'
+                variant='outlined'
+                label='Job title'
+                name='positionId'
+                value={ jobData.positionId }
+                fullWidth
+                className='people-job-select'
+                onChange={ handleChange }
+              >
+                <MenuItem value=''>
+                  <strong>Job title</strong>
+                </MenuItem>
+                {jobFields.jobTitles.map((title) => (
+                  <MenuItem value={ title.value } key={ title.name }>{title.name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
           <div className='pt-10 pb-10'>
             <FormControl className='people-job-select mr-10-per'>
               <InputLabel margin='dense' variant='outlined'>Job type</InputLabel>
@@ -217,6 +267,8 @@ JobModal.defaultProps = {
   modalFields: {
     title: '',
     description: '',
+    categoryId: 0,
+    positionId: 0,
     jobType: 'contract',
     employmentType: 'freelancer',
     durationType: 'ondemand',
@@ -232,10 +284,11 @@ JobModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  categoryId: PropTypes.number.isRequired,
   modalFields: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
+    categoryId: PropTypes.number,
+    positionId: PropTypes.number,
     jobType: PropTypes.string,
     employmentType: PropTypes.string,
     durationType: PropTypes.string,
