@@ -27,12 +27,15 @@ const JobModal = ({
   const [ jobData, setJobData ] = useState(modalFields)
   const [ jobFields, setJobFields ] = useState({ jobTitles: [], jobCategories: [] })
 
-  useEffect(async () => {
-    const { data } = await People.getJobCategoriesAndTitles()
-    let { jobTitles, jobCategories } = data
-    jobTitles = jobTitles.map((title) => ({ name: title.job_title_name, value: title.job_title_id }))
-    jobCategories = jobCategories.map((category) => ({ name: category.category_name, value: category.category_id }))
-    setJobFields({ jobTitles, jobCategories })
+  useEffect(() => {
+    async function fetchData() {
+      const { data } = await People.getJobCategoriesAndTitles()
+      let { jobTitles, jobCategories } = data
+      jobTitles = jobTitles.map((title) => ({ name: title.job_title_name, value: title.job_title_id }))
+      jobCategories = jobCategories.map((category) => ({ name: category.category_name, value: category.category_id }))
+      setJobFields({ jobTitles, jobCategories })
+    }
+    fetchData()
   }, [ setJobFields ])
 
   const handleChange = useCallback((event) => {
@@ -267,8 +270,8 @@ JobModal.defaultProps = {
   modalFields: {
     title: '',
     description: '',
-    categoryId: 0,
-    positionId: 0,
+    categoryId: '',
+    positionId: '',
     jobType: 'contract',
     employmentType: 'freelancer',
     durationType: 'ondemand',

@@ -25,6 +25,7 @@ const JobsPage = () => {
           className='button secondary-btn new-job-button'
           startIcon={ <FontAwesomeIcon icon={ faPlus } /> }
           onClick={ toggleJobModal }
+          classes={ { label: 'primary-button-label' } }
         >
           New Job
         </Button>

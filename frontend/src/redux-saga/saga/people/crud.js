@@ -22,7 +22,7 @@ function* jobCrudWorker(action) {
       }
       case ADD_JOB: {
         const {
-          categoryId, jobType, employmentType, durationType, experienceType, locationType, ...rest
+          categoryId, jobType, positionId, employmentType, durationType, experienceType, locationType, ...rest
         } = action.payload
         const { data } = yield People.addJob({
           job_type: jobType,
@@ -31,6 +31,7 @@ function* jobCrudWorker(action) {
           experience_type: experienceType,
           location_type: locationType,
           category_id: categoryId,
+          position_id: positionId,
           ...rest,
         })
         // eslint-disable-next-line

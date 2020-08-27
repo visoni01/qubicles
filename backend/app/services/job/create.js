@@ -10,6 +10,9 @@ const constraints = {
   category_id: {
     presence: { allowEmpty: false }
   },
+  position_id: {
+    presence: { allowEmpty: false }
+  },
   job_type: {
     presence: { allowEmpty: true }
   },

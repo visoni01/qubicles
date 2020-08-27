@@ -1,7 +1,8 @@
 import Responder from '../../server/expressResponder'
 import JobsByCategoryService from '../services/job/jobsByCategory'
-import PeopleDeleteJobService from '../services/job/deleteJobs'
-import PeopleAddJobService from '../services/job/create'
+import DeleteJobService from '../services/job/deleteJobs'
+import AddJobService from '../services/job/create'
+import GetJobCategoriesAndTitlesService from '../services/job/jobTitles'
 
 export default class JobController {
   static async getJobsByCategory (req, res) {
@@ -13,8 +14,17 @@ export default class JobController {
     }
   }
 
+  static async getJobCategoriesAndTitles (req, res) {
+    const jobTitles = await GetJobCategoriesAndTitlesService.execute({ ...req.query })
+    if (jobTitles.successful) {
+      Responder.success(res, jobTitles.result)
+    } else {
+      Responder.failed(res, jobTitles.errors)
+    }
+  }
+
   static async deleteJob (req, res) {
-    const deleteJob = await PeopleDeleteJobService.execute({ ...req.body, ...req.params })
+    const deleteJob = await DeleteJobService.execute({ ...req.body, ...req.params })
     if (deleteJob.successful) {
       Responder.success(res, deleteJob.result)
     } else {
@@ -23,7 +33,7 @@ export default class JobController {
   }
 
   static async addJob (req, res) {
-    const addJob = await PeopleAddJobService.execute({ ...req.body, ...req.params })
+    const addJob = await AddJobService.execute({ ...req.body, ...req.params })
     if (addJob.successful) {
       Responder.success(res, addJob.result)
     } else {
