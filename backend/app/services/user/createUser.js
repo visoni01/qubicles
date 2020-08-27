@@ -72,6 +72,7 @@ export class CreateUserService extends ServiceBase {
       }
       return user
     } catch (e) {
+      console.log('Error signup>>>>>', e)
       logger.error(getErrorMessageForService('CreateUserService'), e)
       this.addError(ERRORS.INTERNAL)
     }
