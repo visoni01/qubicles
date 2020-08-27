@@ -3,16 +3,17 @@ import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faEllipsisV, faTrash, faComment,
+  faEllipsisV, faTrash, faComment, faPencilAlt,
 } from '@fortawesome/free-solid-svg-icons'
 import {
   Menu, MenuItem,
-  Dialog, DialogActions, DialogTitle, Button,
 } from '@material-ui/core'
-import { deletePostStatus } from '../../redux-saga/redux/actions'
+import { deletePostStatus, updatePostStatus } from '../../redux-saga/redux/actions'
+import ConfirmationModal from '../CommonModal/ConfirmationModal'
+import PostEditModal from './PostEditModal'
 
 const PostStatusAction = ({
-  userId, userActivityId, showComments,
+  userId, userActivityId, showComments, activityValue, activityCustom,
 }) => {
   const dispatch = useDispatch()
 
@@ -24,11 +25,13 @@ const PostStatusAction = ({
     setAnchorEl(event.currentTarget)
   }
 
+  const [ open, setOpen ] = useState(false)
+  const [ openEditModal, setOpenEditModal ] = useState(false)
+
   const handleClose = () => {
+    // eslint-disable-next-line
     setAnchorEl(null)
   }
-
-  const [ open, setOpen ] = useState(false)
 
   const handleDialogOpen = () => {
     setOpen(true)
@@ -39,7 +42,7 @@ const PostStatusAction = ({
     setAnchorEl(null)
   }
 
-  const handleDelete = useCallback(() => {
+  const deletePostHandler = useCallback(() => {
     setAnchorEl(null)
     setOpen(false)
     dispatch(deletePostStatus({ userActivityId }))
@@ -49,6 +52,16 @@ const PostStatusAction = ({
     showComments()
     setAnchorEl(null)
   }, [])
+
+  const toggleEditModal = useCallback(() => {
+    // eslint-disable-next-line
+    setOpenEditModal((openEditModal) => !openEditModal)
+    handleClose()
+  }, [ openEditModal ])
+
+  const submitEditedPost = useCallback((editedPost) => {
+    dispatch(updatePostStatus(editedPost))
+  })
 
   return (
     <>
@@ -64,63 +77,73 @@ const PostStatusAction = ({
           </i>
         </div>
         <div className='post-status-dropdown'>
-          {
-            (userId === userDetails.user_id)
-            && (
-            <Menu
-              classes={ {
-                paper: 'post-status-dropdown-menu',
-              } }
-              id='menu'
-              anchorEl={ anchorEl }
-              keepMounted
-              open={ Boolean(anchorEl) }
-              onClose={ handleClose }
+          <Menu
+            classes={ {
+              paper: 'post-status-dropdown-menu',
+            } }
+            id='menu'
+            anchorEl={ anchorEl }
+            keepMounted
+            open={ Boolean(anchorEl) }
+            onClose={ handleClose }
+          >
+            <MenuItem
+              onClick={ showCommentsCB }
             >
-              <MenuItem
-                onClick={ handleDialogOpen }
-              >
-                <FontAwesomeIcon icon={ faTrash } />
-                <span className='remove'>
-                  Remove
-                </span>
-              </MenuItem>
-              <MenuItem
-                onClick={ showCommentsCB }
-              >
-                <FontAwesomeIcon icon={ faComment } />
-                <span className='remove'>
-                  Show comments
-                </span>
-              </MenuItem>
-            </Menu>
-            )
-          }
+              <FontAwesomeIcon icon={ faComment } />
+              <span className='remove'>
+                Show comments
+              </span>
+            </MenuItem>
+            {(userId === userDetails.user_id) && (
+            <MenuItem
+              onClick={ handleDialogOpen }
+            >
+              <FontAwesomeIcon icon={ faTrash } />
+              <span className='remove'>
+                Remove
+              </span>
+            </MenuItem>
+            )}
+            {(userId === userDetails.user_id) && (
+            <MenuItem onClick={ toggleEditModal }>
+              <FontAwesomeIcon icon={ faPencilAlt } />
+              <span className='menu-item'>
+                Edit
+              </span>
+            </MenuItem>
+            )}
+          </Menu>
         </div>
       </div>
-      <Dialog
+      <PostEditModal
+        open={ openEditModal }
+        handleClose={ toggleEditModal }
+        onSubmit={ submitEditedPost }
+        userActivityId={ userActivityId }
+        postDescription={ activityValue }
+        activityCustom={ activityCustom }
+      />
+      <ConfirmationModal
         open={ open }
-        onClose={ handleDialogClose }
-        aria-labelledby='delete-dialog-title'
-      >
-        <DialogTitle id='delete-dialog-title'>Are you sure you want to delete this status?</DialogTitle>
-        <DialogActions>
-          <Button onClick={ handleDialogClose } color='primary'>
-            Cancel
-          </Button>
-          <Button onClick={ handleDelete } color='primary' autoFocus>
-            Delete
-          </Button>
-        </DialogActions>
-      </Dialog>
+        handleClose={ handleDialogClose }
+        handleConfirm={ deletePostHandler }
+        message='Are you sure want to delete this posted status?'
+      />
     </>
   )
+}
+
+PostStatusAction.defaultProps = {
+  activityCustom: null,
 }
 
 PostStatusAction.propTypes = {
   userId: PropTypes.number.isRequired,
   userActivityId: PropTypes.number.isRequired,
   showComments: PropTypes.func.isRequired,
+  activityValue: PropTypes.string.isRequired,
+  activityCustom: PropTypes.string,
 }
 
 export default PostStatusAction

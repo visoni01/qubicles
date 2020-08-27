@@ -147,7 +147,7 @@
       &:hover {
         color: inherit;
       }
-    } 
+    }
   }
 
   .post-text-container {
@@ -262,10 +262,10 @@
           path {
             &:hover {
               color: red;
-            } 
+            }
           }
         }
-  
+
         .likes-count {
           display: inline-block;
           font-size: .9rem;
@@ -384,14 +384,13 @@
     width: 22px;
     height: 26px;
     cursor: pointer;
-
     &:hover {
       color: red;
     }
     path {
       &:hover {
         color: red;
-      } 
+      }
     }
   }
 
@@ -451,12 +450,12 @@
 
         &:hover {
           color: white;
-        } 
+        }
 
         path {
           &:hover {
             color: white;
-          } 
+          }
         }
 
         svg {
@@ -512,7 +511,7 @@
               margin-right: 4px;
             }
           }
-        }  
+        }
         .MuiAvatar-root {
           margin-left: 4px;
         }
@@ -520,7 +519,7 @@
 
       .like-comment-section {
         margin-top: 28px;
-        
+
 
         .icons {
           width: 60%;
@@ -560,7 +559,7 @@
         path {
           &:hover {
             color: white;
-          } 
+          }
         }
       }
 
@@ -645,7 +644,7 @@
           path {
             &:hover {
               color: #42d2b2;
-            } 
+            }
           }
         }
 
@@ -681,7 +680,7 @@
             }
           }
         }
-        
+
         .comment-section {
           display: flex;
           width: 100%;
@@ -744,6 +743,25 @@
           }
         }
       }
+    }
+  }
+}
+
+
+.custom-edit-dialog{
+  .MuiDialog-paperWidthSm {
+    width: 550px;
+  }
+  .MuiDialog-paperWidthSm {
+    min-height: 400px;;
+  }
+  .chip-custom {
+    margin-top: -70px;
+    margin-left: 185px;
+    width: 100%;
+
+    .MuiChip-outlined  {
+      background-color: #f7f7f7;
     }
   }
 }

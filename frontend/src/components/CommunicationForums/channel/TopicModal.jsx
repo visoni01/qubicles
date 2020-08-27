@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import {
   Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, Button, IconButton, Chip,

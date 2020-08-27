@@ -50,6 +50,16 @@ class Dashboard {
     return response
   }
 
+  static async editPost({ data, userActivityId }) {
+    const response = await axiosInst({
+      method: 'put',
+      url: `/dashboard/post-status/${ userActivityId }`,
+      data,
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+    return response
+  }
+
   static async deletePost({ userActivityId }) {
     const response = await apiClient.deleteRequest(`/dashboard/post-status/${ userActivityId }`)
     return response

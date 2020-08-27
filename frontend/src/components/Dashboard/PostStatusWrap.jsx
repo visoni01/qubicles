@@ -50,6 +50,8 @@ const PostStatusWrap = ({
             userId={ userId }
             showComments={ showCommentsCB }
             userActivityId={ userActivityId }
+            activityValue={ activityValue }
+            activityCustom={ activityCustom }
           />
         </div>
       </div>
@@ -85,10 +87,14 @@ const PostStatusWrap = ({
   )
 }
 
+PostStatusWrap.defaultProps = {
+  activityCustom: null,
+}
+
 PostStatusWrap.propTypes = {
   userId: PropTypes.number.isRequired,
   userActivityId: PropTypes.number.isRequired,
-  activityCustom: PropTypes.string.isRequired,
+  activityCustom: PropTypes.string,
   owner: PropTypes.string.isRequired,
   activityValue: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,

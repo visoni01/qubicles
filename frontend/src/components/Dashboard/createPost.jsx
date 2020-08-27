@@ -7,11 +7,12 @@ import {
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faCamera, faPaperPlane, faTrashAlt, faStickyNote,
+  faCamera, faPaperPlane, faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons'
 import { createStatusPostStart } from '../../redux-saga/redux/actions'
 import Loader from '../loaders/circularLoader'
 import './style.scss'
+import { shortenFileName } from '../../utils/common'
 
 const CreatePost = () => {
   const [ postText, setPostText ] = useState(null)
@@ -65,12 +66,8 @@ const CreatePost = () => {
 
   const handleFileInputChange = useCallback(() => {
     const fileObj = fileInput.current.files[ 0 ]
-    // eslint-disable-next-line no-shadow
-    let fileName = fileObj.name
-    if (fileName && fileName.length > 30) {
-      fileName = `${ fileName.substr(0, 30) }.${ fileObj.type.split('/')[ 1 ] }`
-    }
-    setFileName(fileInput.current.files[ 0 ].name)
+    const shortFileName = shortenFileName(fileObj)
+    setFileName(shortFileName)
   }, [])
 
   return (

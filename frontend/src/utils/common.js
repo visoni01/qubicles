@@ -80,3 +80,9 @@ export const formatCount = (input) => {
 
   return count
 }
+
+export const shortenFileName = (fileObj) => {
+  let fileName = fileObj.name
+  fileName = `${ fileName.substr(0, 30) }.${ fileObj.type.split('/')[ 1 ] }`
+  return fileName
+}

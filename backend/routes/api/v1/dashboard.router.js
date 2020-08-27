@@ -37,4 +37,7 @@ dashboardRouter.route('/post/comments/:user_activity_id')
 dashboardRouter.route('/post/comments/:user_activity_id')
   .post(isAuthenticated, dashboardController.postComment)
 
+dashboardRouter.route('/post-status/:user_activity_id')
+  .put(multerUpload.single('file'), isAuthenticated, dashboardController.updatePostStatus)
+
 export { dashboardRouter }

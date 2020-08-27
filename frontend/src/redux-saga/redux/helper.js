@@ -19,6 +19,7 @@ import {
   CREATE_POST_COMMENT_START,
   DELETE_POST_STATUS,
   UPDATE_COMMENT,
+  UPDATE_POST,
 } from './constants'
 
 import {
@@ -260,6 +261,18 @@ export const getPostData = ({ state, payload }) => {
         ...post,
         commentsCount: post.user_activity_id === data.userActivityId ? post.commentsCount + 1 : post.commentsCount,
       }))
+      break
+    }
+    case UPDATE_POST: {
+      const { editedPost } = payload
+      posts = state.posts.map((post) => {
+        const isPost = (post.user_activity_id === editedPost.user_activity_id)
+        return {
+          ...post,
+          activity_custom: isPost ? editedPost.activity_custom : post.activity_custom,
+          activity_value: isPost ? editedPost.activity_value : post.activity_value,
+        }
+      })
       break
     }
     default:

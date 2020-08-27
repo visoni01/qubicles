@@ -63,12 +63,16 @@ const PostStatusLikeComment = ({
   )
 }
 
+PostStatusLikeComment.defaultProps = {
+  img: null,
+}
+
 PostStatusLikeComment.propTypes = {
   userActivityId: PropTypes.number.isRequired,
   likesCount: PropTypes.number.isRequired,
   isPostLiked: PropTypes.bool.isRequired,
   commentsCount: PropTypes.number.isRequired,
-  img: PropTypes.string.isRequired,
+  img: PropTypes.string,
   owner: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
 }
