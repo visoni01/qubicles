@@ -189,7 +189,7 @@ const config = convict({
   },
   jwt: {
     loginTokenSecret: {
-      default: 'secret',
+      default: '',
       env: 'JWT_LOGIN_SECRET'
     },
     loginTokenExpiry: {

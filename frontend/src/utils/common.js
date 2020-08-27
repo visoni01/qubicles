@@ -39,6 +39,13 @@ export const getUserDetails = () => {
 }
 
 export const getToken = () => Cookies.get('access_token')
+export const getPostSignUpStatus = () => {
+  const postSignUpStatus = Cookies.get('is_post_signup_completed')
+  if (postSignUpStatus === '1') {
+    return true
+  }
+  return false
+}
 
 export const getSubstrForNotification = (input) => {
   let subStr = input

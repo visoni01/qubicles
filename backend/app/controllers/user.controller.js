@@ -1,4 +1,5 @@
 import Responder from '../../server/expressResponder'
+import config from '../../config/app'
 import CreateUserWithInvite from '../services/user/createUser'
 import { InviteWithGoogleAuthService, InviteWithGoogleCallbackService } from '../services/user/invite/inviteWithGoogle'
 import HandleInviteLink from '../services/user/invite/handleInvitelink'
@@ -9,6 +10,9 @@ export default class UserController {
   static async signUp (req, res) {
     const createUserResult = await CreateUserWithInvite.execute(req.body)
     if (createUserResult.successful) {
+      res.cookie('is_post_signup_completed', 0, {
+        maxAge: config.get('cookieMaxAge')
+      })
       Responder.success(res, createUserResult.result)
     } else {
       Responder.failed(res, createUserResult.errors)
@@ -18,6 +22,7 @@ export default class UserController {
   static async logout (req, res) {
     try {
       res.clearCookie('access_token')
+      res.clearCookie('is_post_signup_completed')
       Responder.success(res, 'User logged out successfully!!')
     } catch (err) {
       Responder.failed(res)

@@ -32,7 +32,11 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: true
     },
     is_online: DataTypes.BOOLEAN,
-    profile_image: DataTypes.STRING
+    profile_image: DataTypes.STRING,
+    is_post_signup_completed: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    }
   },
   { tableName: 'x_user_details' })
 

@@ -1,6 +1,6 @@
 import ServiceBase from '../../common/serviceBase'
 import jwt from 'jsonwebtoken'
-import { User } from '../../db/models'
+import { User, UserDetail } from '../../db/models'
 import CreateUserGroup from '../user/createUserGroup'
 import config from '../../../config/app'
 import { ERRORS } from '../../utils/errors'
@@ -17,7 +17,7 @@ export default class VerifyTokenService extends ServiceBase {
   }
 
   async run () {
-    return jwt.verify(this.args.token, 'secret', async (err, jwtVerified) => {
+    return jwt.verify(this.args.token, config.get('jwt.loginTokenSecret'), async (err, jwtVerified) => {
       if (err) {
         this.addError(ERRORS.BAD_REQUEST, 'Verification link is expired or invalid')
         return
@@ -36,10 +36,18 @@ export default class VerifyTokenService extends ServiceBase {
           },
           { where: { email: jwtVerified.email } })
 
-          const jwtToken = await jwt.sign({ email: jwtVerified.email, user_id: user.user_id, full_name: user.full_name },
-            config.get('jwt.loginTokenSecret'), {
-              expiresIn: config.get('jwt.loginTokenExpiry')
-            })
+          const userData = await UserDetail.findOne({
+            where: { user_id: user.user_id }
+          })
+          const jwtToken = await jwt.sign({
+            email: jwtVerified.email,
+            user_id: user.user_id,
+            full_name: user.full_name,
+            is_post_signup_completed: userData.is_post_signup_completed
+          },
+          config.get('jwt.loginTokenSecret'), {
+            expiresIn: config.get('jwt.loginTokenExpiry')
+          })
           return {
             message: 'Email Verified Successfully!!',
             accessToken: jwtToken
