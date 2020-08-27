@@ -60,6 +60,16 @@ class Dashboard {
     return response
   }
 
+  static async likePost(data) {
+    const response = await apiClient.postRequest('/dashboard/post-status/activity/like', data)
+    return response
+  }
+
+  static async unlikePost(data) {
+    const response = await apiClient.postRequest('/dashboard/post-status/activity/unlike', data)
+    return response
+  }
+
   static async deletePost({ userActivityId }) {
     const response = await apiClient.deleteRequest(`/dashboard/post-status/${ userActivityId }`)
     return response
@@ -76,13 +86,8 @@ class Dashboard {
     return response
   }
 
-  static async likePost(data) {
-    const response = await apiClient.postRequest('/dashboard/post-status/activity/like', data)
-    return response
-  }
-
-  static async unlikePost(data) {
-    const response = await apiClient.postRequest('/dashboard/post-status/activity/unlike', data)
+  static async deletePostComment({ userActivityId, data }) {
+    const response = await apiClient.deleteRequest(`/dashboard/post/comments/${ userActivityId }`, { data })
     return response
   }
 }

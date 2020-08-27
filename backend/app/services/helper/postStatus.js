@@ -280,3 +280,16 @@ export async function deleteStatusPost ({ user_activity_id }) {
   })
   return postStatus
 }
+
+export async function deleteStatusPostComment ({ user_activity_id }) {
+  const deletedPostComment = await XUserActivity.update({ is_deleted: true },
+    {
+      where: {
+        user_activity_id,
+        record_type: 'activity',
+        activity_type: 'comment'
+      }
+    }
+  )
+  return deletedPostComment
+}

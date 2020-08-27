@@ -8,7 +8,7 @@ const constraints = {
   }
 }
 
-export default class CommunityRep extends ServiceBase {
+export class CommunityRep extends ServiceBase {
   get constraints () {
     return constraints
   }

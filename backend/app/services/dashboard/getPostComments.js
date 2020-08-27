@@ -24,7 +24,7 @@ const constraints = {
   }
 }
 
-export default class GetPostCommentsService extends ServiceBase {
+export class GetPostCommentsService extends ServiceBase {
   get constraints () {
     return constraints
   }

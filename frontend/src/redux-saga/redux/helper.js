@@ -20,6 +20,7 @@ import {
   DELETE_POST_STATUS,
   UPDATE_COMMENT,
   UPDATE_POST,
+  DELETE_POST_COMMENT,
 } from './constants'
 
 import {
@@ -275,6 +276,14 @@ export const getPostData = ({ state, payload }) => {
       })
       break
     }
+    case DELETE_POST_COMMENT: {
+      const { postUserActivityId } = payload
+      posts = state.posts.map((post) => ({
+        ...post,
+        commentsCount: post.user_activity_id === postUserActivityId ? post.commentsCount - 1 : post.commentsCount,
+      }))
+      break
+    }
     default:
       break
   }
@@ -297,6 +306,14 @@ export const updatePostCommentsData = ({ state, payload }) => {
       commentsData = {
         count: data.count,
         comments: [ ...state.data.comments, ...data.comments ],
+      }
+      break
+    }
+    case DELETE_POST_COMMENT: {
+      const { userActivityId } = payload
+      commentsData = {
+        count: state.data.count - 1,
+        comments: state.data.comments.filter((comment) => comment.user_activity_id !== userActivityId),
       }
       break
     }

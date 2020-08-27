@@ -12,7 +12,7 @@ const constraints = {
   }
 }
 
-export default class ForumDeletePostStatusService extends ServiceBase {
+export class DashboardDeletePostStatusService extends ServiceBase {
   get constraints () {
     return constraints
   }
@@ -37,7 +37,7 @@ export default class ForumDeletePostStatusService extends ServiceBase {
         return
       }
     } catch (err) {
-      logger.error(getErrorMessageForService('ForumDeletePostStatusService'), err)
+      logger.error(getErrorMessageForService('DashboardDeletePostStatusService'), err)
       this.addError(ERRORS.INTERNAL)
     }
   }

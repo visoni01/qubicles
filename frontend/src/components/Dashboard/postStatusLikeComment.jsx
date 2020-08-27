@@ -8,7 +8,7 @@ import { unlikePostStatus, likePostStatus, showCommentsSection } from '../../red
 import { formatCount } from '../../utils/common'
 
 const PostStatusLikeComment = ({
-  userActivityId, isPostLiked, likesCount, commentsCount, img, owner, createdAt,
+  userId, userActivityId, isPostLiked, likesCount, commentsCount, img, owner, createdAt,
 }) => {
   const className = isPostLiked ? 'like-icon-custom liked' : 'like-icon-custom'
   const dispatch = useDispatch()
@@ -26,12 +26,13 @@ const PostStatusLikeComment = ({
 
   const showCommentsCB = useCallback(() => {
     dispatch(showCommentsSection({
+      userId,
       postStatusId: userActivityId,
       imgSrc: img,
       owner,
       createdAt,
     }))
-  }, [ userActivityId, img, owner, createdAt ])
+  }, [ userId, userActivityId, img, owner, createdAt ])
 
   return (
     <div className='like-comment-section columns'>
@@ -68,6 +69,7 @@ PostStatusLikeComment.defaultProps = {
 }
 
 PostStatusLikeComment.propTypes = {
+  userId: PropTypes.number.isRequired,
   userActivityId: PropTypes.number.isRequired,
   likesCount: PropTypes.number.isRequired,
   isPostLiked: PropTypes.bool.isRequired,

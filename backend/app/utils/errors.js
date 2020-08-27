@@ -31,5 +31,6 @@ export const MESSAGES = {
   STATUS_DELETED_SUCCESSFULLY: 'Post status successfully deleted',
   LIKE_ERROR_MESSAGE: 'You have already liked this post!',
   UNLIKE_ERROR_MESSAGE: 'You have already unliked this post!',
-  COMMENT_UPDATED_SUCCESSFULLY: 'Topic comment successfully updated'
+  COMMENT_UPDATED_SUCCESSFULLY: 'Topic comment successfully updated',
+  POST_COMMENT_DELETED_SUCCESSFULLY: 'Post comment successfully deleted'
 }

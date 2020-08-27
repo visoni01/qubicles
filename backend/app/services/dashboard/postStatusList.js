@@ -16,7 +16,7 @@ const constraints = {
   }
 }
 
-export default class GellAllPostStatusListService extends ServiceBase {
+export class GellAllPostStatusListService extends ServiceBase {
   get constraints () {
     return constraints
   }

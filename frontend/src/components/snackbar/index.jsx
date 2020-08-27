@@ -22,6 +22,7 @@ const CustomSnackbar = () => {
 
   return (
     <Snackbar
+      classes={ { root: 'snackbar' } }
       anchorOrigin={ { vertical: 'top', horizontal: 'right' } }
       autoHideDuration={ 3000 }
       onClose={ hideSnackbar }
