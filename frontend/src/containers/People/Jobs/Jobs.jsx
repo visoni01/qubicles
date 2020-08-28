@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import JobsWrap from './jobsWrap'
+import JobsWrap from '../../../components/People/job/jobsWrap'
 import { jobCategoriesFetchStart } from '../../../redux-saga/redux/actions'
-import Loader from '../../loaders/circularLoader'
-import '../../../containers/People/style.scss'
+import Loader from '../../../components/loaders/circularLoader'
+import '../style.scss'
 
 const Jobs = () => {
   const dispatch = useDispatch()

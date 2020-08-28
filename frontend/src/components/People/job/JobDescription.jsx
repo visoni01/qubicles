@@ -2,7 +2,7 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSuitcase } from '@fortawesome/free-solid-svg-icons'
 import { jobSubDetailsValidator } from '../peopleValidator'
-import JobsActions from './jobsActions'
+import JobsActions from '../../../containers/People/Jobs/jobsActions'
 
 const JobDescription = ({
   categoryId, notifications, title, description, noOfApplications, jobId, ownerId,

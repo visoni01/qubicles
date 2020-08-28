@@ -4,8 +4,8 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { Button } from '@material-ui/core'
 import JobSearchBar from '../../../components/People/job/JobSearchBar'
 import '../style.scss'
-import Jobs from '../../../components/People/job/Jobs'
-import NewJobsModal from './newJob'
+import Jobs from './Jobs'
+import NewJobsModal from './jobModal'
 
 const NewJob = () => {
   const [ openJobModal, setOpenJobModal ] = useState(false)

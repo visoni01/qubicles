@@ -8,10 +8,11 @@ import {
   Dialog, DialogActions, DialogTitle, Button, IconButton,
 } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
-import { jobSubDetailsValidator } from '../peopleValidator'
+import { jobSubDetailsValidator } from '../../../components/People/peopleValidator'
 import { deleteJob } from '../../../redux-saga/redux/actions'
 import { isUserOwner } from '../../../utils/common'
-import UpdateJobModal from '../../../containers/People/Jobs/newJob'
+import UpdateJobModal from './jobModal'
+import ConfirmationModal from '../../../components/CommonModal/ConfirmationModal'
 
 const JobsActions = ({
   categoryId, title, jobId, ownerId,
@@ -108,6 +109,12 @@ const JobsActions = ({
             </Button>
           </DialogActions>
         </Dialog>
+        <ConfirmationModal
+          open={ open }
+          handleClose={ handleDialogClose }
+          handleConfirm={ handleDelete }
+          message='Are you sure want to delete this job?'
+        />
       </div>
     </div>
   )
