@@ -7,7 +7,7 @@ import {
   XQodSkill
 } from '../../db/models'
 import { Op } from 'sequelize'
-import { createNewEntity, getAll, aggregate } from '../helper'
+import { createNewEntity, getAll, aggregate, updateEntity } from '../helper'
 import _ from 'lodash'
 
 export async function getRecentJobsByClient ({ client_id, limit = 5 }) {
@@ -47,6 +47,14 @@ export async function addJob (data) {
     data
   })
   return newJob
+}
+
+export async function updateJob (data) {
+  const updatedJob = await updateEntity({
+    model: XQodJob,
+    data
+  })
+  return updatedJob
 }
 
 export async function getAllJobsSubDetails ({ search_keyword }) {
