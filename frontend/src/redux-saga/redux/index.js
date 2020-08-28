@@ -20,6 +20,7 @@ import channelDetailsReducer from './forum/channel/channelDetails'
 import channelTopicsListReducer from './forum/channel/channelTopicsList'
 import topicReducer from './forum/topic'
 import jobCategoriesReducer from './people/jobPage'
+import jobReducer from './people/job'
 
 const rootReducer = combineReducers({
   signup: signupReducer,
@@ -43,6 +44,7 @@ const rootReducer = combineReducers({
   createPost: createPostReducer,
   commentsSection: commentsSectionReducer,
   comments: commentsReducer,
+  jobDetails: jobReducer,
 })
 
 export default rootReducer
