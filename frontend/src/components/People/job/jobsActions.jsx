@@ -52,6 +52,11 @@ const JobsActions = ({
     dispatch(deleteJob({ categoryId, jobId, title }))
   }, [ dispatch, categoryId, jobId, title ])
 
+  const closeEditJobModal = useCallback(() => {
+    toggleEditJobModal()
+    handleClose()
+  }, [ setOpenEditJobModal ])
+
   return (
     <div className='dropdown is-right dropdown-trigger styled-dropdown is-round is-active'>
       {isUserOwner(ownerId) && (
@@ -87,7 +92,7 @@ const JobsActions = ({
             </span>
           </MenuItem>
         </Menu>
-        <UpdateJobModal open={ openEditJobModal } handleClose={ toggleEditJobModal } isEdit jobId={ jobId } />
+        <UpdateJobModal open={ openEditJobModal } handleClose={ closeEditJobModal } isEdit jobId={ jobId } />
         <Dialog
           open={ open }
           onClose={ handleDialogClose }

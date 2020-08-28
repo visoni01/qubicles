@@ -17,19 +17,57 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   jobTypes, employmentType, durationTypes, experienceTypes, locationTypes,
 } from '../constants'
-import { addJob, getJobFields } from '../../../redux-saga/redux/people/actions'
+import { addJob, getJobFields, updateJob } from '../../../redux-saga/redux/people/actions'
+import { jobDetailsFetchStart } from '../../../redux-saga/redux/actions'
 import People from '../../../redux-saga/service/people'
 
+const initialJobDetails = {
+  jobId: '',
+  title: '',
+  description: '',
+  categoryId: '',
+  positionId: '',
+  jobType: 'contract',
+  employmentType: 'freelancer',
+  durationType: 'ondemand',
+  experienceType: 'entrylevel',
+  locationType: 'remote',
+  city: '',
+  state: '',
+  country: '',
+}
+
 const JobModal = ({
-  open, handleClose, onSubmit, modalFields,
+  open, handleClose, onSubmit, isEdit, jobId,
 }) => {
   const dispatch = useDispatch()
-  const { jobFields } = useSelector((state) => state.jobCategories)
-  const [ jobData, setJobData ] = useState(modalFields)
+  const { jobFields, jobDetails, success } = useSelector((state) => state.jobDetails)
+  const [ jobData, setJobData ] = useState(initialJobDetails)
 
   useEffect(() => {
-    dispatch(getJobFields())
-  }, [ dispatch ])
+    if (open) {
+      // Fetching jod's details by id.
+      if (isEdit && jobDetails.jobId !== jobId) {
+        dispatch(jobDetailsFetchStart({ jobId }))
+      }
+
+      // Fetching job fields i.e. job categories and titles to select.
+      if (!(jobFields.jobTitles && jobFields.jobTitles.length)) {
+        dispatch(getJobFields())
+      }
+
+      // Updating job's details in the modal to update job's details.
+      if (success) {
+        setJobData(jobDetails)
+      }
+    }
+  }, [ dispatch, isEdit, open, jobId, success ])
+
+  useEffect(() => {
+    if (open && !isEdit) {
+      setJobData(initialJobDetails)
+    }
+  }, [ open, isEdit ])
 
   const handleChange = useCallback((event) => {
     event.persist()
@@ -39,17 +77,23 @@ const JobModal = ({
 
   const handleCancelButton = () => {
     handleClose()
-    setJobData(modalFields)
+    setJobData(initialJobDetails)
   }
 
   const handleSubmit = () => {
-    dispatch(addJob(jobData))
+    if (!isEdit) {
+      dispatch(addJob(jobData))
+    } else {
+      dispatch(updateJob(jobData))
+    }
     handleCancelButton()
   }
 
   return (
     <Dialog open={ open } onClose={ handleClose } classes={ { paper: 'group-modal' } }>
-      <DialogTitle className='text-align-center'>New Job</DialogTitle>
+      <DialogTitle className='text-align-center'>
+        {isEdit ? 'Update Job' : 'New Job'}
+      </DialogTitle>
       <DialogContent>
         <form className='mb-10'>
           <TextField
@@ -252,7 +296,7 @@ const JobModal = ({
           Cancel
         </Button>
         <Button onClick={ handleSubmit } color='primary' className='primary-button'>
-          Submit
+          {isEdit ? 'Update' : 'Submit'}
         </Button>
       </DialogActions>
     </Dialog>
@@ -260,40 +304,16 @@ const JobModal = ({
 }
 
 JobModal.defaultProps = {
-  modalFields: {
-    title: '',
-    description: '',
-    categoryId: '',
-    positionId: '',
-    jobType: 'contract',
-    employmentType: 'freelancer',
-    durationType: 'ondemand',
-    experienceType: 'entrylevel',
-    locationType: 'remote',
-    city: '',
-    state: '',
-    country: '',
-  },
+  isEdit: false,
+  jobId: '',
 }
 
 JobModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  modalFields: PropTypes.shape({
-    title: PropTypes.string,
-    description: PropTypes.string,
-    categoryId: PropTypes.number,
-    positionId: PropTypes.number,
-    jobType: PropTypes.string,
-    employmentType: PropTypes.string,
-    durationType: PropTypes.string,
-    experienceType: PropTypes.string,
-    locationType: PropTypes.string,
-    city: PropTypes.string,
-    state: PropTypes.string,
-    country: PropTypes.string,
-  }),
+  isEdit: PropTypes.bool,
+  jobId: PropTypes.number,
 }
 
 export default JobModal

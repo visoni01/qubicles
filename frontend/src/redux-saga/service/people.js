@@ -31,6 +31,11 @@ class People {
     const response = await apiClient.getRequest(`/jobs/job/${ jobId }`)
     return response
   }
+
+  static async updateJob({ jobId, ...payload }) {
+    const response = await apiClient.putRequest(`/jobs/${ jobId }`, payload)
+    return response
+  }
 }
 
 export default People
