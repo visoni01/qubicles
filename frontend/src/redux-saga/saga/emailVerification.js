@@ -19,7 +19,7 @@ function* emailVerificationWorker(action) {
     yield put(emailVerificationSuccessful())
     yield put(stopLoader())
   } catch (e) {
-    yield put(showErrorMessage())
+    yield put(showErrorMessage({ msg: e }))
     yield put(emailVerificationFailure())
     yield put(stopLoader())
   }

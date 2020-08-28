@@ -17,7 +17,7 @@ export default class VerifyTokenService extends ServiceBase {
   }
 
   async run () {
-    return jwt.verify(this.args.token, config.get('jwt.loginTokenSecret'), async (err, jwtVerified) => {
+    return jwt.verify(this.args.token, 'secret', async (err, jwtVerified) => {
       if (err) {
         this.addError(ERRORS.BAD_REQUEST, 'Verification link is expired or invalid')
         return

@@ -27,11 +27,14 @@ export const getUserDetails = () => {
   let userDetails
   if (token) {
     // eslint-disable-next-line camelcase
-    const { full_name, user_id, email } = jwt.decode(token)
+    const {
+      full_name, user_id, email, is_post_signup_completed,
+    } = jwt.decode(token)
     userDetails = {
       full_name,
       user_id,
       email,
+      is_post_signup_completed,
     }
   }
 
@@ -39,13 +42,6 @@ export const getUserDetails = () => {
 }
 
 export const getToken = () => Cookies.get('access_token')
-export const getPostSignUpStatus = () => {
-  const postSignUpStatus = Cookies.get('is_post_signup_completed')
-  if (postSignUpStatus === '1') {
-    return true
-  }
-  return false
-}
 
 export const getSubstrForNotification = (input) => {
   let subStr = input

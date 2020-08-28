@@ -1,18 +1,16 @@
 import Responder from '../../server/expressResponder'
-import config from '../../config/app'
 import CreateUserWithInvite from '../services/user/createUser'
 import { InviteWithGoogleAuthService, InviteWithGoogleCallbackService } from '../services/user/invite/inviteWithGoogle'
 import HandleInviteLink from '../services/user/invite/handleInvitelink'
 import InviteManual from '../services/user/invite/inviteManualEmail'
 import CheckrInvitationService from '../services/authentication/checkrInvitation'
+import PostSignUpEmployerDataService from '../services/user/employer/postSignUpEmployerData'
+import PostSignUpCompanyDataService from '../services/user/agent/postSignUpCompanyData'
 
 export default class UserController {
   static async signUp (req, res) {
     const createUserResult = await CreateUserWithInvite.execute(req.body)
     if (createUserResult.successful) {
-      res.cookie('is_post_signup_completed', 0, {
-        maxAge: config.get('cookieMaxAge')
-      })
       Responder.success(res, createUserResult.result)
     } else {
       Responder.failed(res, createUserResult.errors)
@@ -22,7 +20,6 @@ export default class UserController {
   static async logout (req, res) {
     try {
       res.clearCookie('access_token')
-      res.clearCookie('is_post_signup_completed')
       Responder.success(res, 'User logged out successfully!!')
     } catch (err) {
       Responder.failed(res)
@@ -71,6 +68,24 @@ export default class UserController {
       Responder.success(res, checkrInvitationResult.result)
     } else {
       Responder.failed(res, checkrInvitationResult.errors)
+    }
+  }
+
+  static async postSignUpEmployerDataController (req, res) {
+    const postSignUpEmployerDataResult = await PostSignUpEmployerDataService.execute({ user_id: 22 })
+    if (postSignUpEmployerDataResult.successful) {
+      Responder.success(res, postSignUpEmployerDataResult.result)
+    } else {
+      Responder.failed(res, postSignUpEmployerDataResult.errors)
+    }
+  }
+
+  static async postSignUpCompanyDataController (req, res) {
+    const PostSignUpCompanyData = await PostSignUpCompanyDataService.execute(req.body)
+    if (PostSignUpCompanyData.successful) {
+      Responder.success(res, PostSignUpCompanyData.result)
+    } else {
+      Responder.failed(res, PostSignUpCompanyData.errors)
     }
   }
 }

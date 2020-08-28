@@ -15,6 +15,9 @@ const {
     postSignUpStepFailure,
     handleBackStep,
     handleNextStep,
+    postSignUpPreviousDataFetch,
+    postSignUpPreviousDataSuccess,
+    postSignUpPreviousDataFailure
   },
   reducer,
 } = createSlice({
@@ -26,6 +29,25 @@ const {
       isLoading: true,
       success: false,
       error: false,
+    }),
+    postSignUpPreviousDataFetch: (state) => ({
+      ...state,
+      isLoading: true,
+      success: false,
+      error: false,
+    }),
+    postSignUpPreviousDataFailure: (state) => ({
+      ...state,
+      error: false,
+      isLoading: false,
+      success: false
+    }),
+    postSignUpPreviousDataSuccess: (state, action) => ({
+      ...state,
+      isLoading: false,
+      success: true,
+      error: false,
+      stepsData: action.payload.stepsData
     }),
     postSignUpStepSuccessful: (state, action) => {
       const { step, data, inviteLink } = action.payload
@@ -62,6 +84,9 @@ export {
   postSignUpStepStart,
   postSignUpStepSuccessful,
   postSignUpStepFailure,
+  postSignUpPreviousDataFetch,
+  postSignUpPreviousDataSuccess,
+  postSignUpPreviousDataFailure,
   handleBackStep,
   handleNextStep,
 }

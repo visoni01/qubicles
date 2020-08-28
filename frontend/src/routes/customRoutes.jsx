@@ -4,7 +4,7 @@ import {
 } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import routes from './routeList'
-import { getToken, getPostSignUpStatus } from '../utils/common'
+import { getToken, getUserDetails } from '../utils/common'
 
 const CustomRoutes = (routeData) => (
   <Switch>
@@ -23,12 +23,25 @@ const CustomRoutes = (routeData) => (
 
 const Validator = ({ component: Component, path }) => {
   const token = getToken()
-  const isPostSignUpCompleted = getPostSignUpStatus()
+  let userDetails; 
+  let component;
+  if (token) {
+    userDetails = getUserDetails()
+  }
   if (!token) {
-    return <Redirect to={ `/login?return_url=${ path }` } />
-  } if (isPostSignUpCompleted && path === '/post-signup') {
-    return <Redirect to='/dashboard' />
-  } return <Component />
+    component = <Redirect to={ `/login?return_url=${ path }` } />
+  } else if (!userDetails.is_post_signup_completed && path !== '/post-signup') {
+    component = <Redirect to='/post-signup' />
+  } 
+  // else if (userDetails.is_post_signup_completed && path === '/post-signup') {
+  //   component = <Redirect to='/dashboard' />
+  // } 
+  
+  else {
+    component = <Component />
+  }
+
+  return component
 }
 
 const Redirector = ({ component: Component, redirectToDashboard }) => (

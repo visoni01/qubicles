@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   faCheck, faVenusMars, faBriefcase, faIdCard, faPoll, faAddressCard,
 } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import { POST_SIGNUP_EMPLOYEE_PREVIOUS_DATA_FETCH } from '../../../../../redux-saga/redux/constants'
 
 import StepperComponent from '../../../../../components/Stepper'
 import MutlipartForm from './multipartForm'
@@ -11,6 +12,7 @@ import {
   postSignUpStepStart,
   handleBackStep,
   handleNextStep,
+  postSignUpPreviousDataFetch
 } from '../../../../../redux-saga/redux/postSignup'
 
 const AgentMultipartForm = () => {
@@ -20,6 +22,11 @@ const AgentMultipartForm = () => {
   } = useSelector(
     (state) => state.postSignUp,
   )
+
+  useEffect(() => {
+    dispatch(postSignUpPreviousDataFetch({ type: POST_SIGNUP_EMPLOYEE_PREVIOUS_DATA_FETCH }))
+  }, [ ])
+
   const handleOnNext = (data) => {
     if (stepsData[ currentStep ] || currentStep === 4) {
       return dispatch(handleNextStep())

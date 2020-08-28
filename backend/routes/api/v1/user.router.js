@@ -11,6 +11,12 @@ const userRouter = express.Router(args)
 userRouter.route('/signup')
   .post(userController.signUp)
 
+userRouter.route('/post-signup-employer-data')
+  .get(userController.postSignUpEmployerDataController)
+
+userRouter.route('/post-signup-company-data')
+  .get(isAuthenticated, userController.postSignUpCompanyDataController)
+
 userRouter.route('/invite-with-google')
   .get(isAuthenticated, userController.inviteWithGoogle)
 
@@ -34,10 +40,6 @@ userRouter.route('/login')
           return res.status(401).send(loginErr)
         }
         res.cookie('access_token', req.user.accessToken, {
-          maxAge: config.get('cookieMaxAge')
-        })
-        // TODO:- Check this on the basis of 'is_post_signup_completed' in x_user_details table
-        res.cookie('is_post_signup_completed', 1, {
           maxAge: config.get('cookieMaxAge')
         })
         Responder.success(res, 'User logged in Successfully!!')
