@@ -11,13 +11,13 @@ import {
   postSignUpStepStart,
   handleBackStep,
   handleNextStep,
-  postSignUpPreviousDataFetch
+  postSignUpPreviousDataFetch,
 } from '../../../../../redux-saga/redux/postSignup'
 
 const ContactCenterMultiPartForm = () => {
   const dispatch = useDispatch()
   const {
-    stepsData, currentStep, isLoading
+    stepsData, currentStep, isLoading,
   } = useSelector(
     (state) => state.postSignUp,
   )
@@ -28,8 +28,9 @@ const ContactCenterMultiPartForm = () => {
 
   const handleOnNext = (data) => {
     if (stepsData[ currentStep ]) {
-      return dispatch(handleNextStep)
+      return dispatch(handleNextStep())
     }
+
     return dispatch(postSignUpStepStart({ type: 'employer', step: currentStep, data }))
   }
   const handleOnBack = () => dispatch(handleBackStep())

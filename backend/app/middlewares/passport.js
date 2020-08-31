@@ -32,7 +32,7 @@ function initPassport () {
         done('Incorrect Password')
       } else {
         const userObj = user.get({ plain: true })
-        const { is_post_signup_completed } = getOne({ model: UserDetail, data: { user_id: user.user_id }, attributes: ['is_post_signup_completed'] })
+        const { is_post_signup_completed } = await getOne({ model: UserDetail, data: { user_id: user.user_id }, attributes: ['is_post_signup_completed'] })
         const jwtToken = await jwt.sign({ email, full_name: user.full_name, user_id: user.user_id, is_post_signup_completed },
           config.get('jwt.loginTokenSecret'), {
             expiresIn: config.get('jwt.loginTokenExpiry')
@@ -69,7 +69,7 @@ function initPassport () {
         email: userDetailsJson.email
       }
       const user = await SocialSignup.run(userObj)
-      const { is_post_signup_completed } = getOne({ model: UserDetail, data: { user_id: user.user_id }, attributes: ['is_post_signup_completed'] })
+      const { is_post_signup_completed } = await getOne({ model: UserDetail, data: { user_id: user.user_id }, attributes: ['is_post_signup_completed'] })
       const jwtToken = await jwt.sign({ email: user.email, full_name: userDetailsJson.name, user_id: user.user_id, is_post_signup_completed },
         config.get('jwt.loginTokenSecret'), {
           expiresIn: config.get('jwt.loginTokenExpiry')

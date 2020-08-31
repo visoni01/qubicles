@@ -7,9 +7,9 @@ import {
   postSignUpStepFailure,
   postSignUpPreviousDataFetch,
 } from '../redux/postSignup'
-import { 
-  POST_SIGNUP_EMPLOYEE_PREVIOUS_DATA_FETCH, 
-  POST_SIGNUP_COMPANY_PREVIOUS_DATA_FETCH 
+import {
+  POST_SIGNUP_EMPLOYEE_PREVIOUS_DATA_FETCH,
+  POST_SIGNUP_COMPANY_PREVIOUS_DATA_FETCH,
 } from '../redux/constants'
 import { startLoader, stopLoader } from '../redux/loader'
 import { showErrorMessage } from '../redux/snackbar'
@@ -19,7 +19,7 @@ import { getPostSignUpStepsData } from './helper'
 function* postSignupStepWatcher() {
   yield takeLatest([
     postSignUpStepStart.type,
-    postSignUpPreviousDataFetch.type
+    postSignUpPreviousDataFetch.type,
   ], postSignupStepWorker)
 }
 
@@ -37,9 +37,9 @@ function* postSignupStepWorker(action) {
         break
       }
       case postSignUpPreviousDataFetch.type: {
-        const { type } = action.payload;
+        const { type } = action.payload
         yield put(startLoader())
-        let stepsData = {};
+        let stepsData = {}
         if (type === POST_SIGNUP_EMPLOYEE_PREVIOUS_DATA_FETCH) {
           yield put(startLoader())
           const { data } = yield SignUp.previousPostSignupDataForEmployee()
@@ -48,7 +48,6 @@ function* postSignupStepWorker(action) {
           yield put(startLoader())
           const { data } = yield SignUp.previousPostSignupDataForCompany()
           stepsData = getPostSignUpStepsData({ type: POST_SIGNUP_COMPANY_PREVIOUS_DATA_FETCH, data })
-          break
         }
         yield put(postSignUpPreviousDataSuccess({ stepsData }))
         yield put(stopLoader())
@@ -56,7 +55,7 @@ function* postSignupStepWorker(action) {
       }
       default:
         break
-    }  
+    }
   } catch (e) {
     yield put(showErrorMessage())
     yield put(postSignUpStepFailure())

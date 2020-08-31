@@ -12,7 +12,7 @@ import {
   postSignUpStepStart,
   handleBackStep,
   handleNextStep,
-  postSignUpPreviousDataFetch
+  postSignUpPreviousDataFetch,
 } from '../../../../../redux-saga/redux/postSignup'
 
 const AgentMultipartForm = () => {

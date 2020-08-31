@@ -23,8 +23,8 @@ const CustomRoutes = (routeData) => (
 
 const Validator = ({ component: Component, path }) => {
   const token = getToken()
-  let userDetails; 
-  let component;
+  let userDetails
+  let component
   if (token) {
     userDetails = getUserDetails()
   }
@@ -32,12 +32,9 @@ const Validator = ({ component: Component, path }) => {
     component = <Redirect to={ `/login?return_url=${ path }` } />
   } else if (!userDetails.is_post_signup_completed && path !== '/post-signup') {
     component = <Redirect to='/post-signup' />
-  } 
-  // else if (userDetails.is_post_signup_completed && path === '/post-signup') {
-  //   component = <Redirect to='/dashboard' />
-  // } 
-  
-  else {
+  } else if (userDetails.is_post_signup_completed && path === '/post-signup') {
+    component = <Redirect to='/dashboard' />
+  } else {
     component = <Component />
   }
 

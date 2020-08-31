@@ -17,7 +17,7 @@ const {
     handleNextStep,
     postSignUpPreviousDataFetch,
     postSignUpPreviousDataSuccess,
-    postSignUpPreviousDataFailure
+    postSignUpPreviousDataFailure,
   },
   reducer,
 } = createSlice({
@@ -40,14 +40,14 @@ const {
       ...state,
       error: false,
       isLoading: false,
-      success: false
+      success: false,
     }),
     postSignUpPreviousDataSuccess: (state, action) => ({
       ...state,
       isLoading: false,
       success: true,
       error: false,
-      stepsData: action.payload.stepsData
+      stepsData: action.payload.stepsData,
     }),
     postSignUpStepSuccessful: (state, action) => {
       const { step, data, inviteLink } = action.payload
