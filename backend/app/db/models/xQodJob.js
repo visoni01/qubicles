@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     category_id: DataTypes.INTEGER(11),
     position_id: DataTypes.INTEGER(11),
     title: DataTypes.STRING(100),
-    description: DataTypes.STRING,
+    description: DataTypes.TEXT,
     job_type: {
       type: DataTypes.ENUM,
       values: ['fulltime', 'parttime', 'contract'],

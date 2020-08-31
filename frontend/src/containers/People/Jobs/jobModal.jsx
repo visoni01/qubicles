@@ -12,8 +12,11 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
+  IconButton,
 } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import {
   jobTypes, employmentType, durationTypes, experienceTypes, locationTypes,
 } from '../constants'
@@ -125,9 +128,16 @@ const JobModal = ({
 
   return (
     <Dialog open={ open } onClose={ handleClose } classes={ { paper: 'group-modal' } }>
-      <DialogTitle className='text-align-center'>
-        {isEdit ? 'Update Job' : 'New Job'}
-      </DialogTitle>
+      <div className='is-flex'>
+        <DialogTitle className='text-align-center width-full'>
+          {isEdit ? 'Update Job' : 'New Job'}
+        </DialogTitle>
+        <DialogActions className='cross-button'>
+          <IconButton className='is-size-6' onClick={ handleClose }>
+            <FontAwesomeIcon icon={ faTimes } />
+          </IconButton>
+        </DialogActions>
+      </div>
       <DialogContent>
         <form className='mb-10'>
           {InputField(
