@@ -3,6 +3,8 @@ import JobsByCategoryService from '../services/job/jobsByCategory'
 import DeleteJobService from '../services/job/delete'
 import AddJobService from '../services/job/create'
 import GetJobCategoriesAndTitlesService from '../services/job/jobCatoriesAndTitles'
+import GetJobByIdService from '../services/job/jobById'
+import UpdateJobService from '../services/job/update'
 
 export default class JobController {
   static async getJobsByCategory (req, res) {
@@ -38,6 +40,24 @@ export default class JobController {
       Responder.success(res, addJob.result)
     } else {
       Responder.failed(res, addJob.errors)
+    }
+  }
+
+  static async getJobById (req, res) {
+    const job = await GetJobByIdService.execute({ ...req.params })
+    if (job.successful) {
+      Responder.success(res, job.result)
+    } else {
+      Responder.failed(res, job.errors)
+    }
+  }
+
+  static async updateJob (req, res) {
+    const updateJob = await UpdateJobService.execute({ ...req.body, ...req.params })
+    if (updateJob.successful) {
+      Responder.success(res, updateJob.result)
+    } else {
+      Responder.failed(res, updateJob.errors)
     }
   }
 }

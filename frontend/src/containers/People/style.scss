@@ -132,11 +132,24 @@
   min-width: 100px;
 }
 
-.mr-10-per {
+.people-job-text {
+  width: 48% !important;
+  min-width: 100px !important;
+}
+
+.mr-4-per {
   margin-right: 4% !important;
 }
 
 .job-category-action-button{
   position: absolute !important;
   right: 20px
+}
+
+.mt-8 {
+  margin-top: 8px !important;
+}
+
+.pt-6 {
+  padding-top: 6px;
 }

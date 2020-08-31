@@ -1,12 +1,12 @@
 import { takeLatest, put } from 'redux-saga/effects'
-import { updateJobsData } from '../../redux/actions'
-import { DELETE_JOB, ADD_JOB } from '../../redux/constants'
+import { updateJobsData, jobDetailsFetchSuccessful } from '../../redux/actions'
+import { DELETE_JOB, ADD_JOB, UPDATE_JOB } from '../../redux/constants'
 import { showErrorMessage, showSuccessMessage } from '../../redux/snackbar'
 import People from '../../service/people'
 import { getSubstrForNotification } from '../../../utils/common'
 
 function* jobCrudWatcher() {
-  yield takeLatest([ DELETE_JOB, ADD_JOB ], jobCrudWorker)
+  yield takeLatest([ DELETE_JOB, ADD_JOB, UPDATE_JOB ], jobCrudWorker)
 }
 
 function* jobCrudWorker(action) {
@@ -49,6 +49,49 @@ function* jobCrudWorker(action) {
           },
         }))
         msg = 'Job has been successfully created!'
+        break
+      }
+      case UPDATE_JOB: {
+        const {
+          categoryId,
+          title,
+          description,
+          jobId,
+          jobType,
+          positionId,
+          employmentType,
+          durationType,
+          experienceType,
+          locationType,
+          ...rest
+        } = action.payload
+        const { data } = yield People.updateJob({
+          job_type: jobType,
+          employment_type: employmentType,
+          duration_type: durationType,
+          experience_type: experienceType,
+          location_type: locationType,
+          category_id: categoryId,
+          position_id: positionId,
+          title,
+          description,
+          jobId,
+          ...rest,
+        })
+        // eslint-disable-next-line
+        yield put(updateJobsData({
+          type: UPDATE_JOB,
+          updatedJob: {
+            categoryId,
+            jobId,
+            title,
+            description,
+            noOfApplications: 0,
+            notifications: 0,
+          },
+        }))
+        yield put(jobDetailsFetchSuccessful(action.payload))
+        msg = 'Job has been successfully updated!'
         break
       }
       default:

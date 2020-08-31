@@ -22,6 +22,7 @@ import {
   UPDATE_POST,
   DELETE_POST_COMMENT,
   ADD_JOB,
+  UPDATE_JOB,
 } from './constants'
 
 import {
@@ -211,6 +212,25 @@ export const getUpdatedJobsData = ({ state, payload }) => {
         let updatedJobs = category.jobs
         if (category.categoryId === newJob.categoryId) {
           updatedJobs = [ ...updatedJobs, newJob ]
+        }
+        return { ...category, jobs: updatedJobs }
+      })
+      break
+    }
+    case UPDATE_JOB: {
+      const { updatedJob } = payload
+      updatedJobCategories = state.jobCategories.map((category) => {
+        let updatedJobs = category.jobs
+        if (category.categoryId === updatedJob.categoryId) {
+          updatedJobs = updatedJobs.map((job) => {
+            if (job.jobId === updatedJob.jobId) {
+              return {
+                ownerId: job.ownerId,
+                ...updatedJob,
+              }
+            }
+            return job
+          })
         }
         return { ...category, jobs: updatedJobs }
       })

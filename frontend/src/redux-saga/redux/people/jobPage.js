@@ -7,7 +7,6 @@ const initialState = {
   error: null,
   success: false,
   jobCategories: [],
-  jobFields: { jobTitles: [], jobCategories: [] },
 }
 
 const {
@@ -16,7 +15,6 @@ const {
     jobCategoriesFetchSuccessful,
     jobCategoriesFetchFailure,
     updateJobsData,
-    updateJobsFields,
   },
   reducer,
 } = createSlice({
@@ -42,16 +40,6 @@ const {
       ...state,
       jobCategories: getUpdatedJobsData({ state, payload: action.payload }),
     }),
-    updateJobsFields: (state, action) => {
-      const { jobFields } = action.payload
-      let { jobTitles, jobCategories } = jobFields
-      jobTitles = jobTitles.map((title) => ({ name: title.job_title_name, value: title.job_title_id }))
-      jobCategories = jobCategories.map((category) => ({ name: category.category_name, value: category.category_id }))
-      return ({
-        ...state,
-        jobFields: { jobTitles, jobCategories },
-      })
-    },
   },
 })
 
@@ -61,5 +49,4 @@ export {
   jobCategoriesFetchSuccessful,
   jobCategoriesFetchFailure,
   updateJobsData,
-  updateJobsFields,
 }

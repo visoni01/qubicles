@@ -1,16 +1,18 @@
 import React, { useState, useCallback } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faEllipsisV, faTrash,
+  faEllipsisV, faTrash, faPencilAlt,
 } from '@fortawesome/free-solid-svg-icons'
 import {
   Menu, MenuItem,
   Dialog, DialogActions, DialogTitle, Button, IconButton,
 } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
-import { jobSubDetailsValidator } from '../peopleValidator'
+import { jobSubDetailsValidator } from '../../../components/People/peopleValidator'
 import { deleteJob } from '../../../redux-saga/redux/actions'
 import { isUserOwner } from '../../../utils/common'
+import UpdateJobModal from './jobModal'
+import ConfirmationModal from '../../../components/CommonModal/ConfirmationModal'
 
 const JobsActions = ({
   categoryId, title, jobId, ownerId,
@@ -26,6 +28,13 @@ const JobsActions = ({
   const handleClose = () => {
     setAnchorEl(null)
   }
+
+  const [ openEditJobModal, setOpenEditJobModal ] = useState(false)
+
+  const toggleEditJobModal = useCallback(() => {
+    // eslint-disable-next-line
+    setOpenEditJobModal((openEditJobModal) => !openEditJobModal)
+  }, [ setOpenEditJobModal ])
 
   const [ open, setOpen ] = useState(false)
 
@@ -43,6 +52,11 @@ const JobsActions = ({
     setOpen(false)
     dispatch(deleteJob({ categoryId, jobId, title }))
   }, [ dispatch, categoryId, jobId, title ])
+
+  const closeEditJobModal = useCallback(() => {
+    toggleEditJobModal()
+    handleClose()
+  }, [ setOpenEditJobModal ])
 
   return (
     <div className='dropdown is-right dropdown-trigger styled-dropdown is-round is-active'>
@@ -70,7 +84,16 @@ const JobsActions = ({
               Remove
             </span>
           </MenuItem>
+          <MenuItem
+            onClick={ toggleEditJobModal }
+          >
+            <FontAwesomeIcon icon={ faPencilAlt } />
+            <span className='remove ml-10'>
+              Edit
+            </span>
+          </MenuItem>
         </Menu>
+        <UpdateJobModal open={ openEditJobModal } handleClose={ closeEditJobModal } isEdit jobId={ jobId } />
         <Dialog
           open={ open }
           onClose={ handleDialogClose }
@@ -86,6 +109,12 @@ const JobsActions = ({
             </Button>
           </DialogActions>
         </Dialog>
+        <ConfirmationModal
+          open={ open }
+          handleClose={ handleDialogClose }
+          handleConfirm={ handleDelete }
+          message='Are you sure want to delete this job?'
+        />
       </div>
     </div>
   )
