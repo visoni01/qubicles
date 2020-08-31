@@ -24,6 +24,9 @@ function initPassport () {
     if (user == null) {
       done('Email not registered!')
     } else {
+      if (!user.email_verified) {
+        done('Email not verified!')
+      }
       if (!await user.comparePassword(password)) {
         done('Incorrect Password')
       } else {
