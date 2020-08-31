@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faPlus, faEllipsisV,
 } from '@fortawesome/free-solid-svg-icons'
-import JobsPage from './jobsPage'
+import JobsPage from './Jobs/jobsPage'
 import TalentWrap from './talentWrap'
 import TrainingWrap from './trainingWrap'
 import withNavBar from '../../hoc/navbar'

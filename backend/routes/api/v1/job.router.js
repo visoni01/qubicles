@@ -5,10 +5,16 @@ import jobController from '../../../app/controllers/job.controller'
 const args = { mergeParams: true }
 const jobRouter = express.Router(args)
 
-jobRouter.route('/category')
+jobRouter.route('/')
   .get(isAuthenticated, jobController.getJobsByCategory)
 
-jobRouter.route('/category/jobs/:job_id')
+jobRouter.route('/job-fields')
+  .get(isAuthenticated, jobController.getJobCategoriesAndTitles)
+
+jobRouter.route('/:job_id')
   .delete(isAuthenticated, jobController.deleteJob)
+
+jobRouter.route('/')
+  .post(isAuthenticated, jobController.addJob)
 
 export { jobRouter }

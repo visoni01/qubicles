@@ -19,7 +19,7 @@ const CommentDetails = ({
         </Avatar>
       </div>
       <div className=' comment-body'>
-        <div className='columns'>
+        <div className='columns comment-root'>
           <div className='column is-10 username'>
             {owner}
           </div>

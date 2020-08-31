@@ -726,8 +726,25 @@
             padding-top: 6px;
             width: 100%;
 
+            .comment-root {
+              margin-bottom: 3px;
+            }
+
+            .comment-menu {
+              height: 20px;
+              display: block;
+              .styled-dropdown {
+                height: 20px;
+
+                svg {
+                  height: 13px;
+                }
+              }
+            }
+
             .username {
-              font-size: 1rem;
+              padding-bottom: 0px;
+              font-size: 0.9rem;
               font-weight: 500;
               margin-top: 4px;
               &:hover {

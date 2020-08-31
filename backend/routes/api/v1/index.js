@@ -21,6 +21,6 @@ router.use(`/${NAMESPACE}/auth`, authRouter)
 router.use(`/${NAMESPACE}/flows`, flowRouter)
 router.use(`/${NAMESPACE}/dashboard`, dashboardRouter)
 router.use(`/${NAMESPACE}/forum`, forumRouter)
-router.use(`/${NAMESPACE}/job`, jobRouter)
+router.use(`/${NAMESPACE}/jobs`, jobRouter)
 
 export default router

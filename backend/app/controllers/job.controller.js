@@ -1,6 +1,8 @@
 import Responder from '../../server/expressResponder'
 import JobsByCategoryService from '../services/job/jobsByCategory'
-import ForumDeleteJobService from '../services/job/deleteJobs'
+import DeleteJobService from '../services/job/delete'
+import AddJobService from '../services/job/create'
+import GetJobCategoriesAndTitlesService from '../services/job/jobCatoriesAndTitles'
 
 export default class JobController {
   static async getJobsByCategory (req, res) {
@@ -12,12 +14,30 @@ export default class JobController {
     }
   }
 
+  static async getJobCategoriesAndTitles (req, res) {
+    const jobTitles = await GetJobCategoriesAndTitlesService.execute({ ...req.query })
+    if (jobTitles.successful) {
+      Responder.success(res, jobTitles.result)
+    } else {
+      Responder.failed(res, jobTitles.errors)
+    }
+  }
+
   static async deleteJob (req, res) {
-    const deleteJob = await ForumDeleteJobService.execute({ ...req.body, ...req.params })
+    const deleteJob = await DeleteJobService.execute({ ...req.body, ...req.params })
     if (deleteJob.successful) {
       Responder.success(res, deleteJob.result)
     } else {
       Responder.failed(res, deleteJob.errors)
+    }
+  }
+
+  static async addJob (req, res) {
+    const addJob = await AddJobService.execute({ ...req.body, ...req.params })
+    if (addJob.successful) {
+      Responder.success(res, addJob.result)
+    } else {
+      Responder.failed(res, addJob.errors)
     }
   }
 }

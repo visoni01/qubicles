@@ -22,6 +22,7 @@ import crudTopic from './forum/topic/crud'
 import crudComment from './forum/comment/crud'
 import crudJob from './people/crud'
 import statusPostActivity from './dashboard/statusPostActivity'
+import jobFields from './people/jobFields'
 
 export default function* rootSaga() {
   yield all([
@@ -47,5 +48,6 @@ export default function* rootSaga() {
     crudJob(),
     post(),
     statusPostActivity(),
+    jobFields(),
   ])
 }
