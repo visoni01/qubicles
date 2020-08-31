@@ -11,7 +11,7 @@ const Announcement = () => {
         Latest announcements
       </div>
       {
-        !isLoading && announcements.length && announcements.map(({ date, title, id }, index) => (
+        !isLoading && announcements.map(({ date, title, id }, index) => (
           <div className='menu-items' key={ `${ id }` }>
             <div className='card-background-color'>
               <div className='mb-4 pd-11'>
@@ -26,7 +26,6 @@ const Announcement = () => {
           </div>
         ))
       }
-
       {
         isLoading
         && <Skeleton variant='rect' height={ 150 } />
