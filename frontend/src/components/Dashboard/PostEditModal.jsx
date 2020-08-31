@@ -70,6 +70,7 @@ const PostEditModal = ({
     if (fileObj) {
       setShowChip((showChip) => !showChip)
     }
+    // eslint-disable-next-line
   }, [ showChip ])
 
   const clear = () => {

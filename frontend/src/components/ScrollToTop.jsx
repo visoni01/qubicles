@@ -9,7 +9,7 @@ const ScrollToTop = ({ history }) => {
     return () => {
       unlisten()
     }
-  }, [])
+  }, [ history ])
 
   return (null)
 }

@@ -56,6 +56,7 @@ const JobsActions = ({
   const closeEditJobModal = useCallback(() => {
     toggleEditJobModal()
     handleClose()
+    // eslint-disable-next-line
   }, [ setOpenEditJobModal ])
 
   return (

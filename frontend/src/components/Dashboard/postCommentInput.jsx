@@ -1,10 +1,9 @@
 import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import TextField from '@material-ui/core/TextField'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
-import _ from 'lodash'
 import { createPostCommentStart } from '../../redux-saga/redux/actions'
 import './style.scss'
 
@@ -23,6 +22,7 @@ const PostCommentInput = ({ userActivityId }) => {
 
     dispatch(createPostCommentStart({ commentData }))
     setCommentText('')
+    // eslint-disable-next-line
   }, [ commentText ])
 
   const setCommentTextCB = useCallback((event) => {

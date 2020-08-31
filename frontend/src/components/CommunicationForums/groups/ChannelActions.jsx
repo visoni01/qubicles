@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faBell, faEllipsisV, faTrash, faPenAlt, faPencilAlt,
+  faEllipsisV, faTrash, faPencilAlt,
 } from '@fortawesome/free-solid-svg-icons'
 import { IconButton, Menu, MenuItem } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
@@ -47,7 +47,8 @@ const ChannelActions = ({
   const handleEditGroupCancel = useCallback(() => {
     handleMenuClose()
     setOpenEditChannelModal(false)
-  })
+    // eslint-disable-next-line
+  }, [setOpenEditChannelModal])
 
   const handleEditChannelSubmit = useCallback((data) => {
     handleMenuClose()
@@ -60,6 +61,7 @@ const ChannelActions = ({
       is_company_ann: data.isCompanyAnn,
     }))
     setOpenEditChannelModal(false)
+    // eslint-disable-next-line
   }, [ setOpenEditChannelModal, dispatch ])
 
   return (

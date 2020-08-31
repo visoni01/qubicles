@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getPostData } from '../../helper'
 
 const initialState = {
   isLoading: null,

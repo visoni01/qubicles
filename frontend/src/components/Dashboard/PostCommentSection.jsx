@@ -27,7 +27,7 @@ const PostCommentSection = () => {
       <div className='image-container'>
         <img
           src={ data.imgSrc || defaultPic }
-          alt='post image'
+          alt='post'
         />
       </div>
       <div className='comment-container'>

@@ -32,6 +32,7 @@ const CommentsHeader = ({
     // eslint-disable-next-line no-shadow
     changeOffsetCount((offsetCount) => offsetCount + limit)
     dispatch(fetchCommentsStart({ limit, offset: updatedCount, userActivityId }))
+    // eslint-disable-next-line
   }, [ offsetCount, changeOffsetCount, limit, userActivityId ])
 
   const { isLoading, data } = useSelector((state) => state.comments)
@@ -44,6 +45,7 @@ const CommentsHeader = ({
     } else {
       dispatch(likePostStatus({ data: { userActivityId } }))
     }
+    // eslint-disable-next-line
   }, [ isPostLiked ])
 
   return (

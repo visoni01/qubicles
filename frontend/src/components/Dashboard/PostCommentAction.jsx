@@ -28,6 +28,7 @@ const PostCommentAction = ({
   const deletePostCommentHandler = useCallback(() => {
     setAnchorEl(null)
     dispatch(deletePostComment({ userActivityId, postUserActivityId, content }))
+    // eslint-disable-next-line
   }, [ userActivityId, dispatch ])
 
   return (

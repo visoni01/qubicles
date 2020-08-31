@@ -22,6 +22,7 @@ const PostStatusLikeComment = ({
     } else {
       dispatch(likePostStatus({ data }))
     }
+    // eslint-disable-next-line
   }, [ isPostLiked ])
 
   const showCommentsCB = useCallback(() => {
@@ -32,6 +33,7 @@ const PostStatusLikeComment = ({
       owner,
       createdAt,
     }))
+    // eslint-disable-next-line
   }, [ userId, userActivityId, img, owner, createdAt ])
 
   return (

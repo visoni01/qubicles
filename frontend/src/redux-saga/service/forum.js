@@ -85,7 +85,7 @@ class Forum {
   }
 
   static async deleteChannel({ channelId }) {
-    const response = await apiClient.deleteRequest(`/forum/channel/${ channelId }`)
+    await apiClient.deleteRequest(`/forum/channel/${ channelId }`)
   }
 
   static async likeTopicComment({ postId }) {
@@ -101,7 +101,7 @@ class Forum {
   static async updateTopic({
     topicId, ...payload
   }) {
-    const response = await apiClient.putRequest(`/forum/topics/${ topicId }`, payload)
+    await apiClient.putRequest(`/forum/topics/${ topicId }`, payload)
   }
 
   static async updateCategory(payload) {
@@ -116,7 +116,7 @@ class Forum {
 
   static async updateComment(data) {
     const { postId, postData } = data
-    const response = await apiClient.putRequest(`/forum/topics/posts/${ postId }`, { post_data: postData })
+    await apiClient.putRequest(`/forum/topics/posts/${ postId }`, { post_data: postData })
   }
 
   static async imageUpload({ data }) {

@@ -8,7 +8,6 @@ import {
   MenuItem,
   IconButton,
 } from '@material-ui/core'
-import { ownerDetails } from '../forumValidators'
 import { deleteTopic, updateTopic } from '../../../redux-saga/redux/actions'
 import './style.scss'
 import EditTopic from './TopicModal'
@@ -43,6 +42,7 @@ const TopicActions = ({
   const deleteTopicHandler = useCallback(() => {
     dispatch(deleteTopic({ topicId, topicTitle }))
     setOpen(false)
+    // eslint-disable-next-line
   }, [ dispatch ])
 
   const toggleEditModal = useCallback(() => {
@@ -54,6 +54,7 @@ const TopicActions = ({
   const submitEditedTopic = useCallback((topicData) => {
     dispatch(updateTopic({ ...topicData, topicId }))
     setOpenEditModal(false)
+    // eslint-disable-next-line
   }, [ setOpenEditModal ])
 
   return (

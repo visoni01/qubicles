@@ -6,8 +6,7 @@ import {
   faEllipsisV, faTrash, faPlus, faPencilAlt,
 } from '@fortawesome/free-solid-svg-icons'
 import {
-  Menu, MenuItem,
-  Dialog, DialogActions, DialogTitle, Button, IconButton,
+  Menu, MenuItem, IconButton,
 } from '@material-ui/core'
 import { deleteCategory, addNewChannel, updateCategory } from '../../../redux-saga/redux/actions'
 import AddNewChannel from '../channel/ChannelModal'
@@ -49,7 +48,7 @@ const GroupActions = ({
   const handleEditChannelCancel = useCallback(() => {
     handleMenuClose()
     setOpenGroupModal(false)
-  })
+  }, [ setOpenGroupModal ])
 
   const handleEditGroupSubmit = useCallback((data) => {
     handleMenuClose()
