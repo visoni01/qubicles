@@ -36,8 +36,7 @@ const Login = () => {
   const [ isSocialLogin, setIsSocialLogin ] = useState(true)
   const dispatch = useDispatch()
   const onSubmit = (data) => dispatch(userLoginStart(data))
-  const { success } = useSelector((state) => state.login)
-
+  const { success, error } = useSelector((state) => state.login)
   useEffect(() => {
     dispatch(clearStore())
     if (isManualLogin) {
@@ -126,71 +125,70 @@ const Login = () => {
             <div className='container'>
               <div className='columns'>
                 <div className='column is-8 is-offset-2'>
-                  {(!success) && (
-                    <>
-                      {isSocialLogin && (
-                        <div className='margin-bottom-30'>
-                          {SocialLoginButton('Login with Facebook', 'facebook', FacebookIcon)}
-                          {SocialLoginButton('Login with Twitter', 'twitter', TwitterIcon)}
-                          {SocialLoginButton('Login with LinkedIn', 'linkedin', LinkedinIcon)}
-                          <Button
-                            type='button'
-                            variant='contained'
-                            size='large'
-                            color='primary'
-                            className='social-login-buttons'
-                            onClick={ () => setIsSocialLogin(!isSocialLogin) }
-                            startIcon={ <FontAwesomeIcon className='social-login-icons mr-10' icon={ faEnvelope } /> }
+
+                  <>
+                    {isSocialLogin && (
+                    <div className='margin-bottom-30'>
+                      {SocialLoginButton('Login with Facebook', 'facebook', FacebookIcon)}
+                      {SocialLoginButton('Login with Twitter', 'twitter', TwitterIcon)}
+                      {SocialLoginButton('Login with LinkedIn', 'linkedin', LinkedinIcon)}
+                      <Button
+                        type='button'
+                        variant='contained'
+                        size='large'
+                        color='primary'
+                        className='social-login-buttons'
+                        onClick={ () => setIsSocialLogin(!isSocialLogin) }
+                        startIcon={ <FontAwesomeIcon className='social-login-icons mr-10' icon={ faEnvelope } /> }
+                      >
+                        Login with Email
+                      </Button>
+                    </div>
+                    )}
+                    {!isSocialLogin && (
+                    <div className='margin-bottom-30'>
+                      <form onSubmit={ handleSubmit(onSubmit) } noValidate>
+                        <div className='field pb-10'>
+                          {inputField(
+                            'email',
+                            'loginEmail',
+                            'Enter your email address',
+                            faPaperPlane,
+                            'email',
+                            'off',
+                          )}
+                          {inputField(
+                            'password',
+                            'password',
+                            'Enter your password',
+                            faLock,
+                            'password',
+                          )}
+                        </div>
+                        <p className='control login'>
+                          <button
+                            type='submit'
+                            id='sendVerificationCode'
+                            className='button btn-outlined is-bold is-fullwidth rounded raised no-lh'
                           >
-                            Login with Email
-                          </Button>
-                        </div>
-                      )}
-                      {!isSocialLogin && (
-                        <div className='margin-bottom-30'>
-                          <form onSubmit={ handleSubmit(onSubmit) } noValidate>
-                            <div className='field pb-10'>
-                              {inputField(
-                                'email',
-                                'loginEmail',
-                                'Enter your email address',
-                                faPaperPlane,
-                                'email',
-                                'off',
-                              )}
-                              {inputField(
-                                'password',
-                                'password',
-                                'Enter your password',
-                                faLock,
-                                'password',
-                              )}
-                            </div>
-                            <p className='control login'>
-                              <button
-                                type='submit'
-                                id='sendVerificationCode'
-                                className='button btn-outlined is-bold is-fullwidth rounded raised no-lh'
-                              >
-                                Login
-                              </button>
-                            </p>
-                          </form>
-                        </div>
-                      )}
-                      <button type='button' className='text-button' onClick={ handleCreateAccountLink }>
-                        {isSocialLogin ? 'Don\'t have a social account? Sign up using an email instead'
-                          : 'Don\'t have an account? Create one now using your email or social media account'}
-                      </button>
-                    </>
-                  )}
+                            Login
+                          </button>
+                        </p>
+                      </form>
+                    </div>
+                    )}
+                    <button type='button' className='text-button' onClick={ handleCreateAccountLink }>
+                      {isSocialLogin ? 'Don\'t have a social account? Sign up using an email instead'
+                        : 'Don\'t have an account? Create one now using your email or social media account'}
+                    </button>
+                  </>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      {success && <Redirect to={ (isReturnTo && isReturnTo[ 1 ]) || '/dashboard' } />}
+      {success && !error && <Redirect to={ (isReturnTo && isReturnTo[ 1 ]) || '/dashboard' } />}
     </div>
   )
 }
