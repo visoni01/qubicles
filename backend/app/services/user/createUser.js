@@ -54,7 +54,12 @@ export default class CreateUserService extends ServiceBase {
         first_name: this.first_name,
         last_name: this.last_name
       })
-      const token = jwt.sign({ email: this.email }, 'secret', { expiresIn: TOKEN_EXPIRY_TIME })
+      const token = jwt.sign({
+        email: this.email,
+        full_name: user.full_name,
+        user_id: user.user_id,
+        user_code: user.user_code
+      }, 'secret', { expiresIn: TOKEN_EXPIRY_TIME })
       await SendEmailVerificationMail.execute({ token, email: this.email })
 
       // Check for invited Registration

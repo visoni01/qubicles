@@ -32,11 +32,17 @@ function initPassport () {
         done('Incorrect Password')
       } else {
         const userObj = user.get({ plain: true })
-        const { is_post_signup_completed } = await getOne({ model: UserDetail, data: { user_id: user.user_id }, attributes: ['is_post_signup_completed'] })
-        const jwtToken = await jwt.sign({ email, full_name: user.full_name, user_id: user.user_id, is_post_signup_completed },
-          config.get('jwt.loginTokenSecret'), {
-            expiresIn: config.get('jwt.loginTokenExpiry')
-          })
+        const userDetailsData = await getOne({ model: UserDetail, data: { user_id: user.user_id }, attributes: ['is_post_signup_completed'] })
+        const jwtToken = await jwt.sign({
+          email,
+          full_name: user.full_name,
+          user_id: user.user_id,
+          is_post_signup_completed: !!(userDetailsData && userDetailsData.is_post_signup_completed),
+          user_code: user.user_code
+        },
+        config.get('jwt.loginTokenSecret'), {
+          expiresIn: config.get('jwt.loginTokenExpiry')
+        })
         userObj.accessToken = jwtToken
         return done(null, userObj)
       }
@@ -69,11 +75,17 @@ function initPassport () {
         email: userDetailsJson.email
       }
       const user = await SocialSignup.run(userObj)
-      const { is_post_signup_completed } = await getOne({ model: UserDetail, data: { user_id: user.user_id }, attributes: ['is_post_signup_completed'] })
-      const jwtToken = await jwt.sign({ email: user.email, full_name: userDetailsJson.name, user_id: user.user_id, is_post_signup_completed },
-        config.get('jwt.loginTokenSecret'), {
-          expiresIn: config.get('jwt.loginTokenExpiry')
-        })
+      const userDetailsData = await getOne({ model: UserDetail, data: { user_id: user.user_id }, attributes: ['is_post_signup_completed'] })
+      const jwtToken = await jwt.sign({
+        email: user.email,
+        full_name: userDetailsJson.name,
+        user_id: user.user_id,
+        is_post_signup_completed: !!(userDetailsData && userDetailsData.is_post_signup_completed),
+        user_code: user.user_code
+      },
+      config.get('jwt.loginTokenSecret'), {
+        expiresIn: config.get('jwt.loginTokenExpiry')
+      })
       user.accessToken = jwtToken
       return done(null, user)
     }

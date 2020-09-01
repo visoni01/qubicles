@@ -1,7 +1,6 @@
 import ServiceBase from '../../../common/serviceBase'
 import { UserDetail, User } from '../../../db/models'
 import { getOne } from '../../helper'
-import { ERRORS } from '../../../utils/errors'
 
 const constraints = {
   user_id: {
@@ -15,10 +14,10 @@ export default class PostSignUpCompanyDataService extends ServiceBase {
   }
 
   async run () {
+    let data = {}
     const userDetailsData = await getOne({ model: UserDetail, data: { user_id: this.user_id } })
     if (!userDetailsData) {
-      this.addError(ERRORS.BAD_DATA)
-      return
+      return data
     }
 
     const userData = await getOne({
@@ -28,8 +27,7 @@ export default class PostSignUpCompanyDataService extends ServiceBase {
     })
 
     if (!userData) {
-      this.addError(ERRORS.BAD_DATA)
-      return
+      return data
     }
 
     const {
@@ -49,7 +47,7 @@ export default class PostSignUpCompanyDataService extends ServiceBase {
       source
     } = userDetailsData
 
-    return {
+    data = {
       dob,
       ssn,
       gender,
@@ -67,5 +65,7 @@ export default class PostSignUpCompanyDataService extends ServiceBase {
       service: userData.service,
       user_code: userData.user_code
     }
+
+    return data
   }
 }

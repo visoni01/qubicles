@@ -7,7 +7,6 @@ export const getPostSignUpStepsData = ({ type, data }) => {
   if (type === POST_SIGNUP_EMPLOYEE_PREVIOUS_DATA_FETCH) {
     stepsData = {
       1: {
-        user_code: data.user_code,
         client_name: data.client_name,
         address1: data.address1,
         city: data.city,

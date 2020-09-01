@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -13,6 +13,10 @@ const StepForm = ({
   const { register, errors, handleSubmit } = useForm({
     validationSchema: steps[ step ] && steps[ step ].schema,
   })
+
+  useEffect(() => {
+    setValues(stepData)
+  }, [ stepData ])
 
   const handleValueChange = (name) => (event) => {
     setValues({ ...formValues, [ name ]: event.target.value })

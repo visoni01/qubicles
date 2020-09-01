@@ -12,7 +12,7 @@ userRouter.route('/signup')
   .post(userController.signUp)
 
 userRouter.route('/post-signup-employer-data')
-  .get(userController.postSignUpEmployerDataController)
+  .get(isAuthenticated, userController.postSignUpEmployerDataController)
 
 userRouter.route('/post-signup-company-data')
   .get(isAuthenticated, userController.postSignUpCompanyDataController)
@@ -57,5 +57,8 @@ userRouter.route('/profile')
 
 userRouter.route('/checkr-invitation')
   .get(isAuthenticated, userController.checkrInvitation)
+
+userRouter.route('/update')
+  .post(isAuthenticated, userController.updateUserDataController)
 
 export { userRouter }

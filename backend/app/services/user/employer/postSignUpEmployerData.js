@@ -1,7 +1,6 @@
 import ServiceBase from '../../../common/serviceBase'
-import { XClient, XClientUser } from '../../../db/models'
+import { XClient, XClientUser, User } from '../../../db/models'
 import { getOne } from '../../helper'
-import { ERRORS } from '../../../utils/errors'
 
 const constraints = {
   user_id: {
@@ -15,6 +14,8 @@ export default class PostSignUpEmployeeDataService extends ServiceBase {
   }
 
   async run () {
+    let data = {}
+
     const clientUserData = await getOne({
       model: XClientUser,
       data: { user_id: this.user_id },
@@ -22,16 +23,16 @@ export default class PostSignUpEmployeeDataService extends ServiceBase {
     })
 
     if (!clientUserData) {
-      this.addError(ERRORS.BAD_DATA)
-      return
+      return data
     }
 
     const clientData = await getOne({ model: XClient, data: { client_id: clientUserData.client_id } })
 
     if (!clientData) {
-      this.addError(ERRORS.BAD_DATA)
-      return
+      return data
     }
+
+    const userData = await getOne({ model: User, data: { user_id: this.user_id }, attributes: ['user_code'] })
 
     const {
       client_name,
@@ -46,7 +47,7 @@ export default class PostSignUpEmployeeDataService extends ServiceBase {
       website
     } = clientData
 
-    return {
+    data = {
       client_name,
       address1,
       city,
@@ -55,8 +56,11 @@ export default class PostSignUpEmployeeDataService extends ServiceBase {
       phone_number,
       client_ein,
       source,
+      user_code: userData.user_code,
       interactions_per_month,
       website
     }
+
+    return data
   }
 }

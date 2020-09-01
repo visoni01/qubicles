@@ -1,7 +1,7 @@
 import ServiceBase from '../../common/serviceBase'
-import { User } from '../../db/models'
+import { User, UserDetail } from '../../db/models'
 import SendEmailVerificationMail from '../email/sendEmailVerificationMail'
-import { createNewEntity } from '../helper'
+import { createNewEntity, getOne } from '../helper'
 import jwt from 'jsonwebtoken'
 
 const constraints = {
@@ -35,7 +35,7 @@ export default class SocialSignupService extends ServiceBase {
         [this.type]: this.id
       }
       const user = await createNewEntity({ model: User, data: userObj })
-      this.generateAndSendToken(userObj.email, this.full_name, user.user_id)
+      this.generateAndSendToken(userObj.email, this.full_name, user.user_id, user.user_code)
       return user
     } else {
       if (!Object.is(existingUser[this.id], null)) {
@@ -44,7 +44,8 @@ export default class SocialSignupService extends ServiceBase {
         await this.updateUserIfAlreadyExist(this.email, updateObj)
       }
       if (!existingUser.email_verified) {
-        this.generateAndSendToken(this.email, this.full_name, this.id)
+        const userDetailsData = await getOne({ model: UserDetail, data: { user_id: existingUser.user_id }, attributes: ['is_post_signup_completed'] })
+        this.generateAndSendToken(this.email, this.full_name, this.id, this.user_code, userDetailsData.is_post_signup_completed)
       }
       return existingUser
     }
@@ -58,8 +59,8 @@ export default class SocialSignupService extends ServiceBase {
     })
   }
 
-  async generateAndSendToken (email, full_name, user_id) {
-    const token = jwt.sign({ email, full_name, user_id }, 'secret', { expiresIn: TOKEN_EXPIRY_TIME })
+  async generateAndSendToken (email, full_name, user_id, user_code, is_post_signup_completed) {
+    const token = jwt.sign({ email, full_name, user_id, user_code, is_post_signup_completed }, 'secret', { expiresIn: TOKEN_EXPIRY_TIME })
     await SendEmailVerificationMail.execute({ token, email })
   }
 }

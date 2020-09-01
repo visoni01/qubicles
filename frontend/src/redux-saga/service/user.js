@@ -15,6 +15,11 @@ class User {
     const response = await apiClient.getRequest('/user/checkr-invitation')
     return response
   }
+
+  static async updateUser(data) {
+    const response = await apiClient.postRequest('/user/update', { data, update_user_code: true })
+    return response
+  }
 }
 
 export default User

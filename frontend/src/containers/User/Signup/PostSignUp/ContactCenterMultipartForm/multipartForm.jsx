@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import PropTypes from 'prop-types'
 import steps from './steps'
@@ -7,6 +7,10 @@ const Form = ({
   step, onNext, onBack, onSubmit, stepData,
 }) => {
   const [ formValues, setValues ] = useState(stepData || {})
+
+  useEffect(() => {
+    setValues(stepData)
+  }, [ stepData ])
 
   const { register, errors, handleSubmit } = useForm({
     validationSchema: steps[ step ] && steps[ step ].schema,

@@ -4,7 +4,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { POST_SIGNUP_EMPLOYEE_PREVIOUS_DATA_FETCH } from '../../../../../redux-saga/redux/constants'
+import _ from 'lodash'
+import { POST_SIGNUP_COMPANY_PREVIOUS_DATA_FETCH } from '../../../../../redux-saga/redux/constants'
 
 import StepperComponent from '../../../../../components/Stepper'
 import MutlipartForm from './multipartForm'
@@ -18,17 +19,18 @@ import {
 const AgentMultipartForm = () => {
   const dispatch = useDispatch()
   const {
-    stepsData, currentStep,
+    stepsData, currentStep, isLoading,
   } = useSelector(
     (state) => state.postSignUp,
   )
 
   useEffect(() => {
-    dispatch(postSignUpPreviousDataFetch({ type: POST_SIGNUP_EMPLOYEE_PREVIOUS_DATA_FETCH }))
+    dispatch(postSignUpPreviousDataFetch({ type: POST_SIGNUP_COMPANY_PREVIOUS_DATA_FETCH }))
   }, [ ])
 
   const handleOnNext = (data) => {
-    if (stepsData[ currentStep ] || currentStep === 4) {
+    const stepDataForCurrentStep = stepsData[ currentStep ]
+    if ((stepDataForCurrentStep && _.isEqual(stepDataForCurrentStep, data)) || currentStep === 4) {
       return dispatch(handleNextStep())
     }
     return dispatch(postSignUpStepStart({ type: 'agent', step: currentStep, data }))
@@ -46,6 +48,10 @@ const AgentMultipartForm = () => {
     if (index < currentStep) return { icon: faCheck }
     return step
   })
+
+  if (isLoading) {
+    return <></>
+  }
 
   return (
     <>

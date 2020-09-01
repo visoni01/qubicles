@@ -42,6 +42,7 @@ export default class VerifyTokenService extends ServiceBase {
           const jwtToken = await jwt.sign({
             email: jwtVerified.email,
             user_id: user.user_id,
+            user_code: user.user_code,
             full_name: user.full_name,
             is_post_signup_completed: userData.is_post_signup_completed
           },

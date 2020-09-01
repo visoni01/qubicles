@@ -6,7 +6,7 @@ import { generateUserWalletId } from '../../../utils/generateWalletId'
 import SendEmailNotificationMail from '../../email/sendEmailNotificationMail'
 import AddUserToActiveCampaign from '../../activeCampaign/addUserToActiveCampaign'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
-import { getErrorMessageForService } from '../../helper'
+import { getErrorMessageForService, getOne } from '../../helper'
 import logger from '../../../common/logger'
 import { Op } from 'sequelize'
 import config from '../../../../config/app'
@@ -52,20 +52,27 @@ export class PostSignupEmployerStep1Service extends ServiceBase {
       zip: this.zip,
       phone_number: this.phone_number
     }
-    // Generate Client username here
-    clientObject.client_username = await generateClientUserName({ name: clientObject.client_name, maxLength: 100 })
 
     try {
-      // Creating client in x_clients
-      const xClient = await XClient.create(
-        clientObject
-      )
+      const clientUserData = await getOne({ model: XClientUser, data: { user_id: this.user_id }, attributes: ['client_id'] })
+      if (clientUserData && clientUserData.client_id) {
+        // Generate Client username here
+        clientObject.client_username = await generateClientUserName({ name: clientObject.client_name, maxLength: 100 })
 
-      // Generating client-user association in x_client_users
-      await XClientUser.create({
-        user_id: this.user_id,
-        client_id: xClient.client_id
-      })
+        // Update the xClient record if already exists
+        await XClient.update(clientObject, { where: { client_id: clientUserData.client_id } })
+      } else {
+        // Creating client in x_clients
+        const xClient = await XClient.create(
+          clientObject
+        )
+
+        // Generating client-user association in x_client_users
+        await XClientUser.create({
+          user_id: this.user_id,
+          client_id: xClient.client_id
+        })
+      }
 
       // Update user code and set user_level = 8 for Employer in User model
       await User.update({

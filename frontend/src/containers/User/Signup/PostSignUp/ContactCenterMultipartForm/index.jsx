@@ -4,6 +4,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import _ from 'lodash'
 import { POST_SIGNUP_EMPLOYEE_PREVIOUS_DATA_FETCH } from '../../../../../redux-saga/redux/constants'
 import Form from './multipartForm'
 import StepperComponent from '../../../../../components/Stepper'
@@ -27,7 +28,8 @@ const ContactCenterMultiPartForm = () => {
   }, [ ])
 
   const handleOnNext = (data) => {
-    if (stepsData[ currentStep ]) {
+    const stepDataForCurrentStep = stepsData[ currentStep ]
+    if (stepDataForCurrentStep && _.isEqual(stepDataForCurrentStep, data)) {
       return dispatch(handleNextStep())
     }
 
@@ -43,6 +45,10 @@ const ContactCenterMultiPartForm = () => {
     if (index < currentStep) return { icon: faCheck }
     return step
   })
+
+  if (isLoading) {
+    return <></>
+  }
 
   return (
     <>

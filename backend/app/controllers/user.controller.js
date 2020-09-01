@@ -6,6 +6,9 @@ import InviteManual from '../services/user/invite/inviteManualEmail'
 import CheckrInvitationService from '../services/authentication/checkrInvitation'
 import PostSignUpEmployerDataService from '../services/user/employer/postSignUpEmployerData'
 import PostSignUpCompanyDataService from '../services/user/agent/postSignUpCompanyData'
+import UpdateUserDataService from '../services/user/updateUserDataService'
+import { getNewTokenAfterUserCodeChanged } from '../services/helper'
+import config from '../../config/app'
 
 export default class UserController {
   static async signUp (req, res) {
@@ -72,7 +75,7 @@ export default class UserController {
   }
 
   static async postSignUpEmployerDataController (req, res) {
-    const postSignUpEmployerDataResult = await PostSignUpEmployerDataService.execute({ user_id: 22 })
+    const postSignUpEmployerDataResult = await PostSignUpEmployerDataService.execute(req.body)
     if (postSignUpEmployerDataResult.successful) {
       Responder.success(res, postSignUpEmployerDataResult.result)
     } else {
@@ -86,6 +89,24 @@ export default class UserController {
       Responder.success(res, PostSignUpCompanyData.result)
     } else {
       Responder.failed(res, PostSignUpCompanyData.errors)
+    }
+  }
+
+  static async updateUserDataController (req, res) {
+    const updateUserDataService = await UpdateUserDataService.execute(req.body)
+    if (req.body.update_user_code) {
+      const token = await getNewTokenAfterUserCodeChanged({
+        ...req.user,
+        user_code: req.body.data.user_code
+      })
+      res.cookie('access_token', token, {
+        maxAge: config.get('cookieMaxAge')
+      })
+    }
+    if (updateUserDataService.successful) {
+      Responder.success(res, updateUserDataService.result)
+    } else {
+      Responder.failed(res, updateUserDataService.errors)
     }
   }
 }

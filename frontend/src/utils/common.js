@@ -28,12 +28,13 @@ export const getUserDetails = () => {
   if (token) {
     // eslint-disable-next-line camelcase
     const {
-      full_name, user_id, email, is_post_signup_completed,
+      full_name, user_id, email, is_post_signup_completed, user_code,
     } = jwt.decode(token)
     userDetails = {
       full_name,
       user_id,
       email,
+      user_code,
       is_post_signup_completed,
     }
   }
