@@ -30,7 +30,8 @@ const AgentMultipartForm = () => {
 
   const handleOnNext = (data) => {
     const stepDataForCurrentStep = stepsData[ currentStep ]
-    if ((stepDataForCurrentStep && _.isEqual(stepDataForCurrentStep, data)) || currentStep === 4) {
+    if (currentStep !== 5
+      && ((stepDataForCurrentStep && _.isEqual(stepDataForCurrentStep, data)) || currentStep === 4)) {
       return dispatch(handleNextStep())
     }
     return dispatch(postSignUpStepStart({ type: 'agent', step: currentStep, data }))

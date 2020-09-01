@@ -1,5 +1,5 @@
 import ServiceBase from '../../common/serviceBase'
-import { User, UserDetail } from '../../db/models'
+import { User } from '../../db/models'
 import { getOne } from '../helper'
 import { ERRORS } from '../../utils/errors'
 
@@ -24,7 +24,7 @@ export default class UpdateUserDataService extends ServiceBase {
       return
     }
 
-    await UserDetail.update(this.data, { where: { user_id: this.user_id } })
+    await User.update(this.data, { where: { user_id: this.user_id } })
 
     return true
   }

@@ -27,15 +27,13 @@ export default class UserAgentController {
         postSignupAgentResult = await PostSignupAgentStep4Service.execute(req.body)
         break
       case 'step5':
-        postSignupAgentResult = await PostSignupAgentStep5Service.execute(req.body)
-        break
-      case 'step6':
+        await PostSignupAgentStep5Service.execute(req.body)
         postSignupAgentResult = await PostSignupAgentStep6Service.execute(req.body)
         break
     }
 
     if (postSignupAgentResult.successful) {
-      if (req.params.step === 'step6') {
+      if (req.params.step === 'step5') {
         const token = await getTokenAfterPostSignupCompleted(req.user)
         res.cookie('access_token', token, {
           maxAge: config.get('cookieMaxAge')

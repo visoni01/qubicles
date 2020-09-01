@@ -9,6 +9,7 @@ import {
 import User from '../service/user'
 import { getUserDetails } from '../../utils/common'
 import { showSuccessMessage, showErrorMessage } from '../redux/snackbar'
+import { startLoader, stopLoader } from '../redux/loader'
 
 function* loginWatcher() {
   yield takeLatest([ userLoginStart.type, userUpdateStart.type ], loginWorker)
@@ -27,9 +28,11 @@ function* loginWorker(action) {
         break
       }
       case userUpdateStart.type: {
+        yield put(startLoader())
         const { role } = action.payload
         yield User.updateUser({ user_code: role })
         yield put(userUpdateSuccess())
+        yield put(stopLoader())
         break
       }
       default:
@@ -38,6 +41,7 @@ function* loginWorker(action) {
   } catch (e) {
     yield put(showErrorMessage({ msg: e }))
     yield put(userLoginFailure())
+    yield put(stopLoader())
   }
 }
 

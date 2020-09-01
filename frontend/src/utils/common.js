@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import moment from 'moment'
 import Cookies from 'js-cookie'
 import jwt from 'jsonwebtoken'
@@ -26,7 +27,6 @@ export const getUserDetails = () => {
   const token = Cookies.get('access_token')
   let userDetails
   if (token) {
-    // eslint-disable-next-line camelcase
     const {
       full_name, user_id, email, is_post_signup_completed, user_code,
     } = jwt.decode(token)

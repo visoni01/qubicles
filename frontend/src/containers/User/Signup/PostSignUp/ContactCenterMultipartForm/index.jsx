@@ -29,7 +29,7 @@ const ContactCenterMultiPartForm = () => {
 
   const handleOnNext = (data) => {
     const stepDataForCurrentStep = stepsData[ currentStep ]
-    if (stepDataForCurrentStep && _.isEqual(stepDataForCurrentStep, data)) {
+    if (currentStep !== 3 && stepDataForCurrentStep && _.isEqual(stepDataForCurrentStep, data)) {
       return dispatch(handleNextStep())
     }
 

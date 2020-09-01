@@ -51,6 +51,13 @@ const StepForm = ({
         </div>
       )
     } if (type === 'select') {
+      let selectFieldValue
+      if (Array.isArray(formValues[ name ])) {
+        selectFieldValue = formValues[ name ]
+      } else {
+        selectFieldValue = formValues[ name ] ? (formValues[ name ].split(',')) : []
+      }
+
       return (
         <div className='control'>
           <Select
@@ -63,7 +70,7 @@ const StepForm = ({
             } }
             name={ name }
             id={ name }
-            value={ formValues[ name ] || [] }
+            value={ selectFieldValue }
             multiple
             onChange={ handleValueChange(name) }
             className='dropdown'
