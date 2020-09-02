@@ -20,12 +20,12 @@ function* checkrInvitationFetchingWorker(action) {
       invitationLink: data.checkrInvitationUrl,
       status: data.status,
     }))
+    if (msg) {
+      yield put(showSuccessMessage({ msg }))
+    }
   } catch (e) {
     yield put(showErrorMessage())
     yield put(checkrInvitationFetchingFailure())
-  }
-  if (msg) {
-    yield put(showSuccessMessage({ msg }))
   }
 }
 
