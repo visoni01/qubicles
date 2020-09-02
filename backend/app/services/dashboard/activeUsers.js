@@ -1,5 +1,4 @@
 import ServiceBase from '../../common/serviceBase'
-import { getClientIdByUserId } from '../helper/user'
 
 const constraints = {
   user_id: {
@@ -13,7 +12,7 @@ export class ActiveUsers extends ServiceBase {
   }
 
   async run () {
-    const userClientId = await getClientIdByUserId({ userId: this.user_id })
+    // const userClientId = await getClientIdByUserId({ userId: this.user_id })
     // TODO
   }
 }
