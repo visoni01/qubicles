@@ -429,7 +429,7 @@ const Steps = ({ history }) => {
               {!isLoggedin && (
               <Link
                 className='button button-cta btn-align rounded raised primary-btn steps-button-color'
-                to='/signup'
+                to='/login'
               >
                 Get Started for Free
               </Link>
@@ -640,7 +640,7 @@ const Steps = ({ history }) => {
             {!isLoggedin && (
             <Link
               className='button button-cta btn-align rounded raised primary-btn steps-button-color'
-              to='/signup'
+              to='/login'
             >
               Get Started for Free
             </Link>

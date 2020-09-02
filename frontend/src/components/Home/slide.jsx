@@ -30,7 +30,7 @@ const Slide = ({
                   <div className='action'>
                     {!isLoggedin && (
                     <Link
-                      to='/signup'
+                      to='/login'
                       className='button button-cta primary-btn rounded steps-button-color'
                     >
                       {buttonName}

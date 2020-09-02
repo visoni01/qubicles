@@ -1,14 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import TextField from '@material-ui/core/TextField'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Avatar from '@material-ui/core/Avatar'
 import {
   faComment,
   faEnvelope,
   faBell,
 } from '@fortawesome/free-solid-svg-icons'
-import { IconButton } from '@material-ui/core'
-import { useSelector } from 'react-redux'
 import AccountSettings from './account'
 
 const Header = () => (

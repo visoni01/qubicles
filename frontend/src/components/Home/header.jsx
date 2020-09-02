@@ -56,21 +56,15 @@ const Header = () => {
             {/* Navbar end */}
             {!(userDetails && userDetails.user_id) ? (
               <div className='navbar-end'>
-                {/* Navbar item */}
-                <Link className='navbar-item is-slide' to='/login'>
-                  Login
-                </Link>
-                {/* Sign in button */}
-
+                {/* Sign up button */}
                 <div className='navbar-item'>
                   <Link
-                    to='/signup'
+                    to='/login'
                     className='button button-signup btn-outlined is-bold btn-align light-btn rounded raised'
                   >
-                    Sign Up
+                    Log In
                   </Link>
                 </div>
-
               </div>
             )
               : (

@@ -32,7 +32,7 @@ const Agents = () => {
                 <br />
                 {!isLoggedin && (
                 <Link
-                  to='/signup'
+                  to='/login'
                   className='button btn-align secondary-btn raised'
                 >
                   Join for Free
@@ -121,7 +121,7 @@ const Agents = () => {
             <div className='has-text-centered pt-40 pb-40'>
               {!isLoggedin && (
               <Link
-                to='/signup'
+                to='/login'
                 className='button button-cta primary-btn rounded raised is-title-reveal steps-button-color'
               >
                 Sign up for a Free account
@@ -165,7 +165,7 @@ const Agents = () => {
                 <div className='pt-20 pb-20'>
                   {!isLoggedin && (
                   <Link
-                    to='/signup'
+                    to='/login'
                     className='button button-cta primary-btn rounded raised steps-button-color'
                   >
                     Access portal now
@@ -209,7 +209,7 @@ const Agents = () => {
                   {!isLoggedin
                   && (
                   <a
-                    href='/signup'
+                    href='/login'
                     className='button button-cta light-btn btn-outlined rounded is-bold is-title-reveal'
                   >
                     See how it works
@@ -325,7 +325,7 @@ const Agents = () => {
           <div className='has-text-centered pt-80 pb-40'>
             {!isLoggedin && (
             <Link
-              to='/signup'
+              to='/login'
               className='button button-cta primary-btn rounded raised steps-button-color'
             >
               Give it a try!
