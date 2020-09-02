@@ -12,7 +12,7 @@ const constraints = {
   }
 }
 
-export default class UpdateUserDataService extends ServiceBase {
+export class UpdateUserDataService extends ServiceBase {
   get constraints () {
     return constraints
   }

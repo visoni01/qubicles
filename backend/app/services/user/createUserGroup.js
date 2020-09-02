@@ -10,7 +10,7 @@ const constraints = {
   }
 }
 
-export default class CreateUserGroupService extends ServiceBase {
+export class CreateUserGroupService extends ServiceBase {
   get constraints () {
     return constraints
   }

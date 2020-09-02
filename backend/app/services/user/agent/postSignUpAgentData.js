@@ -10,7 +10,7 @@ const constraints = {
   }
 }
 
-export default class PostSignUpCompanyDataService extends ServiceBase {
+export class PostSignUpAgentDataService extends ServiceBase {
   get constraints () {
     return constraints
   }
@@ -71,7 +71,7 @@ export default class PostSignUpCompanyDataService extends ServiceBase {
 
       return data
     } catch (e) {
-      logger.error(getErrorMessageForService('PostSignUpCompanyDataService'), e)
+      logger.error(getErrorMessageForService('PostSignUpAgentDataService'), e)
       this.addError(ERRORS.INTERNAL)
     }
   }

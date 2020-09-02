@@ -4,7 +4,7 @@ import { google } from 'googleapis'
 import jwt from 'jsonwebtoken'
 import { UserDetail } from '../../../db/models'
 import SendEmailInvitationMail from '../../email/sendEmailInvitationMail'
-import AddUserContact from '../addUserContact'
+import { AddUserContactService } from '../addUserContact'
 import { ERRORS } from '../../../utils/errors'
 import logger from '../../../common/logger'
 import { getErrorMessageForService } from '../../helper'
@@ -119,7 +119,7 @@ export class InviteWithGoogleCallbackService extends ServiceBase {
     }
     // Add contactEmails to x_user_contacts
     for (const contact of contacts) {
-      await AddUserContact.execute({ email: contact.email, user_id })
+      await AddUserContactService.execute({ email: contact.email, user_id })
     }
 
     // Send Invitation link to contactEmails

@@ -5,10 +5,10 @@ import {
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import _ from 'lodash'
-import { POST_SIGNUP_COMPANY_PREVIOUS_DATA_FETCH } from '../../../../../redux-saga/redux/constants'
+import { POST_SIGNUP_AGENT_PREVIOUS_DATA_FETCH } from '../../../../../redux-saga/redux/constants'
 
 import StepperComponent from '../../../../../components/Stepper'
-import MutlipartForm from './multipartForm'
+import MultipartForm from './multipartForm'
 import {
   postSignUpStepStart,
   handleBackStep,
@@ -25,7 +25,7 @@ const AgentMultipartForm = () => {
   )
 
   useEffect(() => {
-    dispatch(postSignUpPreviousDataFetch({ type: POST_SIGNUP_COMPANY_PREVIOUS_DATA_FETCH }))
+    dispatch(postSignUpPreviousDataFetch({ type: POST_SIGNUP_AGENT_PREVIOUS_DATA_FETCH }))
   }, [ ])
 
   const handleOnNext = (data) => {
@@ -57,7 +57,7 @@ const AgentMultipartForm = () => {
   return (
     <>
       <StepperComponent steps={ steps } activeStep={ currentStep } />
-      <MutlipartForm
+      <MultipartForm
         step={ currentStep }
         onNext={ handleOnNext }
         onBack={ handleOnBack }

@@ -1,6 +1,11 @@
 import Responder from '../../server/expressResponder'
 import config from '../../config/app'
-import { PostSignupEmployerStep1Service, PostSignupEmployerStep2Service, PostSignupEmployerStep3Service, PostSignupEmployerStep4Service } from '../services/user/employer/postSignupEmployer'
+import {
+  PostSignupEmployerStep1Service,
+  PostSignupEmployerStep2Service,
+  PostSignupEmployerStep3Service,
+  PostSignupEmployerStep4Service
+} from '../services/user/employer/postSignupEmployer'
 import { getTokenAfterPostSignupCompleted } from '../services/helper'
 
 export default class UserEmployerController {

@@ -1,18 +1,21 @@
 import Responder from '../../server/expressResponder'
-import CreateUserWithInvite from '../services/user/createUser'
-import { InviteWithGoogleAuthService, InviteWithGoogleCallbackService } from '../services/user/invite/inviteWithGoogle'
-import HandleInviteLink from '../services/user/invite/handleInvitelink'
-import InviteManual from '../services/user/invite/inviteManualEmail'
 import CheckrInvitationService from '../services/authentication/checkrInvitation'
-import PostSignUpEmployerDataService from '../services/user/employer/postSignUpEmployerData'
-import PostSignUpCompanyDataService from '../services/user/agent/postSignUpCompanyData'
-import UpdateUserDataService from '../services/user/updateUserDataService'
+import {
+  CreateUserService,
+  InviteWithGoogleAuthService,
+  InviteWithGoogleCallbackService,
+  HandleInviteLinkService,
+  InviteManualService,
+  UpdateUserDataService,
+  PostSignUpEmployerDataService,
+  PostSignUpAgentDataService
+} from '../services/user'
 import { getNewTokenAfterUserCodeChanged } from '../services/helper'
 import config from '../../config/app'
 
 export default class UserController {
   static async signUp (req, res) {
-    const createUserResult = await CreateUserWithInvite.execute(req.body)
+    const createUserResult = await CreateUserService.execute(req.body)
     if (createUserResult.successful) {
       Responder.success(res, createUserResult.result)
     } else {
@@ -48,7 +51,7 @@ export default class UserController {
   }
 
   static async handleInviteLink (req, res) {
-    const handleInviteLinkResult = await HandleInviteLink.execute(req.params)
+    const handleInviteLinkResult = await HandleInviteLinkService.execute(req.params)
     if (handleInviteLinkResult.successful) {
       Responder.success(res, handleInviteLinkResult.result)
     } else {
@@ -57,7 +60,7 @@ export default class UserController {
   }
 
   static async inviteManual (req, res) {
-    const inviteManualResult = await InviteManual.execute(req.body)
+    const inviteManualResult = await InviteManualService.execute(req.body)
     if (inviteManualResult.successful) {
       Responder.success(res, inviteManualResult.result)
     } else {
@@ -84,7 +87,7 @@ export default class UserController {
   }
 
   static async postSignUpCompanyDataController (req, res) {
-    const PostSignUpCompanyData = await PostSignUpCompanyDataService.execute(req.body)
+    const PostSignUpCompanyData = await PostSignUpAgentDataService.execute(req.body)
     if (PostSignUpCompanyData.successful) {
       Responder.success(res, PostSignUpCompanyData.result)
     } else {

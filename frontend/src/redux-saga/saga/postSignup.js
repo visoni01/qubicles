@@ -8,8 +8,8 @@ import {
   postSignUpPreviousDataFetch,
 } from '../redux/postSignup'
 import {
-  POST_SIGNUP_EMPLOYEE_PREVIOUS_DATA_FETCH,
-  POST_SIGNUP_COMPANY_PREVIOUS_DATA_FETCH,
+  POST_SIGNUP_EMPLOYER_PREVIOUS_DATA_FETCH,
+  POST_SIGNUP_AGENT_PREVIOUS_DATA_FETCH,
 } from '../redux/constants'
 import { startLoader, stopLoader } from '../redux/loader'
 import { showErrorMessage } from '../redux/snackbar'
@@ -40,14 +40,14 @@ function* postSignupStepWorker(action) {
         const { type } = action.payload
         yield put(startLoader())
         let stepsData = {}
-        if (type === POST_SIGNUP_EMPLOYEE_PREVIOUS_DATA_FETCH) {
+        if (type === POST_SIGNUP_EMPLOYER_PREVIOUS_DATA_FETCH) {
           yield put(startLoader())
           const { data } = yield SignUp.previousPostSignupDataForEmployee()
-          stepsData = getPostSignUpStepsData({ type: POST_SIGNUP_EMPLOYEE_PREVIOUS_DATA_FETCH, data })
+          stepsData = getPostSignUpStepsData({ type: POST_SIGNUP_EMPLOYER_PREVIOUS_DATA_FETCH, data })
         } else {
           yield put(startLoader())
           const { data } = yield SignUp.previousPostSignupDataForCompany()
-          stepsData = getPostSignUpStepsData({ type: POST_SIGNUP_COMPANY_PREVIOUS_DATA_FETCH, data })
+          stepsData = getPostSignUpStepsData({ type: POST_SIGNUP_AGENT_PREVIOUS_DATA_FETCH, data })
         }
         yield put(postSignUpPreviousDataSuccess({ stepsData }))
         yield put(stopLoader())

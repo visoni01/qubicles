@@ -5,7 +5,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import _ from 'lodash'
-import { POST_SIGNUP_EMPLOYEE_PREVIOUS_DATA_FETCH } from '../../../../../redux-saga/redux/constants'
+import { POST_SIGNUP_EMPLOYER_PREVIOUS_DATA_FETCH } from '../../../../../redux-saga/redux/constants'
 import Form from './multipartForm'
 import StepperComponent from '../../../../../components/Stepper'
 import {
@@ -24,7 +24,7 @@ const ContactCenterMultiPartForm = () => {
   )
 
   useEffect(() => {
-    dispatch(postSignUpPreviousDataFetch({ type: POST_SIGNUP_EMPLOYEE_PREVIOUS_DATA_FETCH }))
+    dispatch(postSignUpPreviousDataFetch({ type: POST_SIGNUP_EMPLOYER_PREVIOUS_DATA_FETCH }))
   }, [ ])
 
   const handleOnNext = (data) => {

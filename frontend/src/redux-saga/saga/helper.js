@@ -1,10 +1,10 @@
 import {
-  POST_SIGNUP_EMPLOYEE_PREVIOUS_DATA_FETCH,
+  POST_SIGNUP_EMPLOYER_PREVIOUS_DATA_FETCH,
 } from '../redux/constants'
 
 export const getPostSignUpStepsData = ({ type, data }) => {
   let stepsData = {}
-  if (type === POST_SIGNUP_EMPLOYEE_PREVIOUS_DATA_FETCH) {
+  if (type === POST_SIGNUP_EMPLOYER_PREVIOUS_DATA_FETCH) {
     stepsData = {
       1: {
         client_name: data.client_name,

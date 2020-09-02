@@ -3,6 +3,7 @@ import { User, UserDetail } from '../../db/models'
 import SendEmailVerificationMail from '../email/sendEmailVerificationMail'
 import { createNewEntity, getOne } from '../helper'
 import jwt from 'jsonwebtoken'
+import config from '../../../config/app'
 
 const constraints = {
   type: {
@@ -19,7 +20,6 @@ const constraints = {
   }
 }
 
-const TOKEN_EXPIRY_TIME = 300
 export default class SocialSignupService extends ServiceBase {
   get constraints () {
     return constraints
@@ -60,7 +60,9 @@ export default class SocialSignupService extends ServiceBase {
   }
 
   async generateAndSendToken (email, full_name, user_id, user_code, is_post_signup_completed) {
-    const token = jwt.sign({ email, full_name, user_id, user_code, is_post_signup_completed }, 'secret', { expiresIn: TOKEN_EXPIRY_TIME })
+    const token = jwt.sign({ email, full_name, user_id, user_code, is_post_signup_completed },
+      config.get('jwt.emailVerificationTokenSecret'),
+      { expiresIn: config.get('jwt.emailVerificationTokenExpiry') })
     await SendEmailVerificationMail.execute({ token, email })
   }
 }
