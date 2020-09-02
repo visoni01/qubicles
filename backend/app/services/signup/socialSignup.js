@@ -1,7 +1,7 @@
 import ServiceBase from '../../common/serviceBase'
 import { User, UserDetail } from '../../db/models'
 import SendEmailVerificationMail from '../email/sendEmailVerificationMail'
-import { createNewEntity, getOne } from '../helper'
+import { createNewEntity } from '../helper'
 import jwt from 'jsonwebtoken'
 import config from '../../../config/app'
 
@@ -27,6 +27,7 @@ export default class SocialSignupService extends ServiceBase {
 
   async run () {
     const existingUser = await User.findOne({ where: { email: this.email }, raw: true })
+    let userDetailsData
     if (Object.is(existingUser, null)) {
       const userObj = {
         full_name: this.full_name,
@@ -35,6 +36,14 @@ export default class SocialSignupService extends ServiceBase {
         [this.type]: this.id
       }
       const user = await createNewEntity({ model: User, data: userObj })
+      userDetailsData = await createNewEntity({
+        model: UserDetail,
+        data: {
+          user_id: user.user_id,
+          first_name: this.first_name,
+          last_name: this.last_name
+        }
+      })
       this.generateAndSendToken(userObj.email, this.full_name, user.user_id, user.user_code)
       return user
     } else {
@@ -44,7 +53,6 @@ export default class SocialSignupService extends ServiceBase {
         await this.updateUserIfAlreadyExist(this.email, updateObj)
       }
       if (!existingUser.email_verified) {
-        const userDetailsData = await getOne({ model: UserDetail, data: { user_id: existingUser.user_id }, attributes: ['is_post_signup_completed'] })
         this.generateAndSendToken(this.email, this.full_name, this.id, this.user_code, userDetailsData.is_post_signup_completed)
       }
       return existingUser
