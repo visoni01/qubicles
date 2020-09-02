@@ -7,7 +7,7 @@ class SignUp {
   }
 
   static async previousPostSignupDataForCompany() {
-    const response = await apiClient.getRequest('/user/post-signup-company-data')
+    const response = await apiClient.getRequest('/user/post-signup-agent-data')
     return response
   }
 }
