@@ -11,33 +11,34 @@ class Checkr {
   }
 
   // CRUD Candidates
-  async createCandidate ({ first_name, last_name, email, dob, ssn }) {
+  async createCandidate ({ first_name, last_name, email, dob, zipcode, ssn }) {
     const body = {
       first_name,
       no_middle_name: 'true',
       last_name,
       email,
       dob,
+      zipcode,
       ssn
     }
 
     const result = await this.client.post('/candidates', body)
     if (result.statusCode === 201 || result.statusCode === 200) {
-      logger.info(`Checkr Candidate Created === ${result.body.email}`)
       return result.body
     } else {
       logger.error(`Checkr Candidate Creation Failed === ${email}`)
     }
   }
 
-  async updateCandidate ({ first_name, last_name, email, dob, ssn, candidate_id }) {
+  async updateCandidate ({ first_name, last_name, email, dob, ssn, candidate_id, zipcode }) {
     const body = {
       first_name,
       no_middle_name: 'true',
       last_name,
       email,
       dob,
-      ssn
+      ssn,
+      zipcode
     }
 
     const result = await this.client.post(`/candidates/${candidate_id}`, body)
@@ -77,7 +78,6 @@ class Checkr {
     }
     const result = await this.client.post('/invitations', body)
     if (result.statusCode === 201 || result.statusCode === 200) {
-      logger.info(`Checkr Invitation Created === ${result.body.status}`)
       return result.body
     } else {
       logger.error(`Checkr Invitation Creation Failed === ${candidate_id}`)

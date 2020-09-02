@@ -21,6 +21,7 @@ import channelTopicsListReducer from './forum/channel/channelTopicsList'
 import topicReducer from './forum/topic'
 import jobCategoriesReducer from './people/jobPage'
 import jobReducer from './people/job'
+import checkrAuthentication from './user/checkrAuthentication'
 
 const rootReducer = combineReducers({
   signup: signupReducer,
@@ -45,6 +46,7 @@ const rootReducer = combineReducers({
   commentsSection: commentsSectionReducer,
   comments: commentsReducer,
   jobDetails: jobReducer,
+  checkr: checkrAuthentication,
 })
 
 export default rootReducer

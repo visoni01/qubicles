@@ -10,6 +10,7 @@ import ActivityDetail from '../../components/Dashboard/activityDetail'
 import { dashboardDataFetchingStart } from '../../redux-saga/redux/actions'
 import './style.scss'
 import withNavBar from '../../hoc/navbar'
+import CheckrVerification from '../../components/User/CheckrVerification'
 
 const Dashboard = () => {
   const dispatch = useDispatch()
@@ -28,6 +29,7 @@ const Dashboard = () => {
       <div id='main-dashboard' className='section-wrapper'>
         <div id='basic-layout' className='columns dashboard-columns'>
           <div className='column is-3'>
+            <CheckrVerification />
             {/* Community Reputation  */}
             <CommunityRep />
 

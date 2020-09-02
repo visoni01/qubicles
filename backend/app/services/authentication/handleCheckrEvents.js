@@ -1,6 +1,7 @@
 import ServiceBase from '../../common/serviceBase'
 import VerifyCheckrReportService from './verifyCheckrReport'
 import logger from '../../common/logger'
+import { updateUserScreeningDetail } from '../helper/checkr'
 
 const constraints = {
   id: {
@@ -25,12 +26,23 @@ export default class HandleCheckrEventService extends ServiceBase {
   async run () {
     const { type, data } = this.filteredArgs
     switch (type) {
-      // Invitation Events
-      case ('invitation.created'): {
-        logger.info('Checkr Invitation Creation Successful')
+      // Candidate Events
+      case ('candidate.created'): {
         return 'okay'
       }
+      case ('candidate.updated'): {
+        logger.info('Checkr Candidate Updated Successfully')
+        return 'okay'
+      }
+      // Invitation Events
       case ('invitation.completed'): {
+        const { candidate_id } = data.object
+        await updateUserScreeningDetail({
+          data: {
+            status: 'invitation.completed'
+          },
+          candidate_id
+        })
         logger.info('Checkr Invitation Completed Successful')
         return 'okay'
       }
@@ -43,23 +55,39 @@ export default class HandleCheckrEventService extends ServiceBase {
       }
       // Report Events
       case ('report.created'): {
+        const { id, candidate_id } = data.object
+        await updateUserScreeningDetail({
+          data: {
+            report_id: id,
+            status: 'report.created'
+          },
+          candidate_id
+        })
+
         logger.info('Checkr Report Created')
         return 'okay'
       }
       case ('report.completed'): {
         logger.info('Checkr Report Completed')
-        // Check Report
+        // Verify Screening Report
         const {
           ssn_trace_id,
           national_criminal_search_id,
           sex_offender_search_id,
-          global_watchlist_search_id
+          global_watchlist_search_id,
+          candidate_id
         } = data.object
         await VerifyCheckrReportService.execute({
           ssn_trace_id,
           national_criminal_search_id,
           sex_offender_search_id,
           global_watchlist_search_id
+        })
+        await updateUserScreeningDetail({
+          data: {
+            status: 'report.completed'
+          },
+          candidate_id
         })
         break
       }
