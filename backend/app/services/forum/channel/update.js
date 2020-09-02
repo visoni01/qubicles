@@ -39,7 +39,7 @@ export class ForumUpdateChannelService extends ServiceBase {
       this.addError(ERRORS.UNAUTHORIZED)
       return
     }
-    const data = await updateChannel({
+    await updateChannel({
       channel_id,
       channel_title,
       channel_description,

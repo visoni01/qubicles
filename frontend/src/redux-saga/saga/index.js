@@ -23,6 +23,7 @@ import crudComment from './forum/comment/crud'
 import crudJob from './people/crud'
 import statusPostActivity from './dashboard/statusPostActivity'
 import jobDetails from './people/job'
+import checkrInvitation from './user/checkrAuthentication'
 
 export default function* rootSaga() {
   yield all([
@@ -49,5 +50,6 @@ export default function* rootSaga() {
     post(),
     statusPostActivity(),
     jobDetails(),
+    checkrInvitation(),
   ])
 }

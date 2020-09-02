@@ -10,6 +10,11 @@ class User {
     const response = await apiClient.postRequest('/user/logout')
     return response
   }
+
+  static async getCheckrInvitationLink() {
+    const response = await apiClient.getRequest('/user/checkr-invitation')
+    return response
+  }
 }
 
 export default User
