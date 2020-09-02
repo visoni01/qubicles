@@ -10,7 +10,7 @@ import {
   faLock,
 } from '@fortawesome/free-solid-svg-icons'
 
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory, useLocation, Link } from 'react-router-dom'
 import { userSignupStart } from '../../../../redux-saga/redux/signup'
 import './style.scss'
 
@@ -80,11 +80,13 @@ const SignUp = () => {
         <div className='hero is-fullheight'>
           <div className='hero-heading'>
             <div className='section has-text-centered section-signup'>
-              <img
-                className='top-logo'
-                src='https://i.imgur.com/Ap2GB30.png'
-                alt='Qubicles logo'
-              />
+              <Link to='/'>
+                <img
+                  className='top-logo'
+                  src='https://i.imgur.com/Ap2GB30.png'
+                  alt='Qubicles logo'
+                />
+              </Link>
             </div>
           </div>
           <div className='hero-body'>

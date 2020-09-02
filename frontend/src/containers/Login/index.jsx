@@ -10,7 +10,9 @@ import {
   faEnvelope,
 } from '@fortawesome/free-solid-svg-icons'
 import { Button } from '@material-ui/core'
-import { Redirect, useHistory, useLocation } from 'react-router-dom'
+import {
+  Redirect, useHistory, useLocation, Link,
+} from 'react-router-dom'
 import {
   FacebookIcon,
   LinkedinIcon,
@@ -114,11 +116,13 @@ const Login = () => {
         <div className='hero is-fullheight'>
           <div className='hero-heading'>
             <div className='section has-text-centered section-login'>
-              <img
-                className='top-logo'
-                src='https://i.imgur.com/Ap2GB30.png'
-                alt='Qubicles logo'
-              />
+              <Link to='/'>
+                <img
+                  className='top-logo'
+                  src='https://i.imgur.com/Ap2GB30.png'
+                  alt='Qubicles logo'
+                />
+              </Link>
             </div>
           </div>
           <div className='hero-body'>

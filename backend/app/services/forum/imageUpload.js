@@ -37,7 +37,6 @@ export class ImageUploadService extends ServiceBase {
           // upload file to IPFS
           url = await uploadFileToIPFS(this.file.buffer)
         } catch (e) {
-          console.log('**********************************************************', e)
           this.addError(ERRORS.BAD_DATA, MESSAGES.IPFS_FILE_UPLOAD_ERROR)
           return
         }

@@ -6,16 +6,19 @@ import {
   faEnvelope,
   faBell,
 } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom'
 import AccountSettings from './account'
 
 const Header = () => (
   <div className='dashboard-header'>
     <div className='left column is-1 pull-left'>
-      <img
-        className='header-logo'
-        src='https://i.imgur.com/y2vEn7E.png'
-        alt='header-logo'
-      />
+      <Link to='/'>
+        <img
+          className='header-logo'
+          src='https://i.imgur.com/y2vEn7E.png'
+          alt='header-logo'
+        />
+      </Link>
     </div>
     <div className='center column is-9 pull-left'>
       <TextField
