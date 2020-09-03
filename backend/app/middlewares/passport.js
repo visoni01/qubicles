@@ -5,9 +5,10 @@ import { Strategy as LinkedInStrategy } from 'passport-linkedin-oauth2'
 import { Strategy as LocalStrategy } from 'passport-local'
 import { Strategy as JwtStrategy } from 'passport-jwt'
 import jwt from 'jsonwebtoken'
-import { User } from '../db/models'
+import { User, UserDetail } from '../db/models'
 import config from '../../config/app'
 import SocialSignup from '../services/signup/socialSignup'
+import { getOne } from '../services/helper'
 
 function initPassport () {
   const opts = {}
@@ -31,10 +32,17 @@ function initPassport () {
         done('Incorrect Password')
       } else {
         const userObj = user.get({ plain: true })
-        const jwtToken = await jwt.sign({ email, full_name: user.full_name, user_id: user.user_id },
-          config.get('jwt.loginTokenSecret'), {
-            expiresIn: config.get('jwt.loginTokenExpiry')
-          })
+        const userDetailsData = await getOne({ model: UserDetail, data: { user_id: user.user_id }, attributes: ['is_post_signup_completed'] })
+        const jwtToken = await jwt.sign({
+          email,
+          full_name: user.full_name,
+          user_id: user.user_id,
+          is_post_signup_completed: !!(userDetailsData && userDetailsData.is_post_signup_completed),
+          user_code: user.user_code
+        },
+        config.get('jwt.loginTokenSecret'), {
+          expiresIn: config.get('jwt.loginTokenExpiry')
+        })
         userObj.accessToken = jwtToken
         return done(null, userObj)
       }
@@ -67,10 +75,17 @@ function initPassport () {
         email: userDetailsJson.email
       }
       const user = await SocialSignup.run(userObj)
-      const jwtToken = await jwt.sign({ email: user.email, full_name: userDetailsJson.name, user_id: user.user_id },
-        config.get('jwt.loginTokenSecret'), {
-          expiresIn: config.get('jwt.loginTokenExpiry')
-        })
+      const userDetailsData = await getOne({ model: UserDetail, data: { user_id: user.user_id }, attributes: ['is_post_signup_completed'] })
+      const jwtToken = await jwt.sign({
+        email: user.email,
+        full_name: userDetailsJson.name,
+        user_id: user.user_id,
+        is_post_signup_completed: !!(userDetailsData && userDetailsData.is_post_signup_completed),
+        user_code: user.user_code
+      },
+      config.get('jwt.loginTokenSecret'), {
+        expiresIn: config.get('jwt.loginTokenExpiry')
+      })
       user.accessToken = jwtToken
       return done(null, user)
     }

@@ -1,7 +1,7 @@
 import ServiceBase from '../../common/serviceBase'
 import jwt from 'jsonwebtoken'
-import { User } from '../../db/models'
-import CreateUserGroup from '../user/createUserGroup'
+import { User, UserDetail } from '../../db/models'
+import { CreateUserGroupService } from '../user/createUserGroup'
 import config from '../../../config/app'
 import { ERRORS } from '../../utils/errors'
 
@@ -17,7 +17,7 @@ export default class VerifyTokenService extends ServiceBase {
   }
 
   async run () {
-    return jwt.verify(this.args.token, 'secret', async (err, jwtVerified) => {
+    return jwt.verify(this.args.token, config.get('jwt.emailVerificationTokenSecret'), async (err, jwtVerified) => {
       if (err) {
         this.addError(ERRORS.BAD_REQUEST, 'Verification link is expired or invalid')
         return
@@ -26,7 +26,7 @@ export default class VerifyTokenService extends ServiceBase {
         const user = await this.checkIfEmailAlreadyVerified(jwtVerified.email)
         if (!(user.email_verified)) {
           // Create User Group
-          const newUserGroup = await CreateUserGroup.execute({
+          const newUserGroup = await CreateUserGroupService.execute({
             id: user.user_id,
             full_name: user.full_name
           })
@@ -36,10 +36,19 @@ export default class VerifyTokenService extends ServiceBase {
           },
           { where: { email: jwtVerified.email } })
 
-          const jwtToken = await jwt.sign({ email: jwtVerified.email, user_id: user.user_id, full_name: user.full_name },
-            config.get('jwt.loginTokenSecret'), {
-              expiresIn: config.get('jwt.loginTokenExpiry')
-            })
+          const userData = await UserDetail.findOne({
+            where: { user_id: user.user_id }
+          })
+          const jwtToken = await jwt.sign({
+            email: jwtVerified.email,
+            user_id: user.user_id,
+            user_code: user.user_code,
+            full_name: user.full_name,
+            is_post_signup_completed: userData.is_post_signup_completed
+          },
+          config.get('jwt.loginTokenSecret'), {
+            expiresIn: config.get('jwt.loginTokenExpiry')
+          })
           return {
             message: 'Email Verified Successfully!!',
             accessToken: jwtToken

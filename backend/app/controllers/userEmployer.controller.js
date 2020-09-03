@@ -1,5 +1,12 @@
 import Responder from '../../server/expressResponder'
-import { PostSignupEmployerStep1Service, PostSignupEmployerStep2Service, PostSignupEmployerStep3Service, PostSignupEmployerStep4Service } from '../services/user/employer/postSignupEmployer'
+import config from '../../config/app'
+import {
+  PostSignupEmployerStep1Service,
+  PostSignupEmployerStep2Service,
+  PostSignupEmployerStep3Service,
+  PostSignupEmployerStep4Service
+} from '../services/user/employer/postSignupEmployer'
+import { getTokenAfterPostSignupCompleted } from '../services/helper'
 
 export default class UserEmployerController {
   static async postSignupEmployer (req, res) {
@@ -16,7 +23,15 @@ export default class UserEmployerController {
         postSignupEmployerResult = await PostSignupEmployerStep4Service.execute(req.body)
         break
     }
+
     if (postSignupEmployerResult.successful) {
+      if (req.params.step === 'step3') {
+        const token = await getTokenAfterPostSignupCompleted(req.user)
+        res.cookie('access_token', token, {
+          maxAge: config.get('cookieMaxAge')
+        })
+      }
+
       Responder.success(res, postSignupEmployerResult.result)
     } else {
       Responder.failed(res, postSignupEmployerResult.errors)

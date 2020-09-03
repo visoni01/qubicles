@@ -6,7 +6,7 @@ const constraints = {
   }
 }
 
-export default class HandleInviteLinkService extends ServiceBase {
+export class HandleInviteLinkService extends ServiceBase {
   get constraints () {
     return constraints
   }

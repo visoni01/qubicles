@@ -32,9 +32,8 @@ const constraints = {
 const MAX_USER_CREDIT = parseInt(config.get('invite.max_user_credit'))
 const USER_CREDIT = parseInt(config.get('invite.user_credit'))
 const REFERRAL_CREDIT = parseInt(config.get('invite.referral_credit'))
-const TOKEN_EXPIRY_TIME = 300
 
-export default class CreateUserService extends ServiceBase {
+export class CreateUserService extends ServiceBase {
   get constraints () {
     return constraints
   }
@@ -54,7 +53,13 @@ export default class CreateUserService extends ServiceBase {
         first_name: this.first_name,
         last_name: this.last_name
       })
-      const token = jwt.sign({ email: this.email }, 'secret', { expiresIn: TOKEN_EXPIRY_TIME })
+      const token = jwt.sign({
+        email: this.email,
+        full_name: user.full_name,
+        user_id: user.user_id,
+        user_code: user.user_code
+      }, config.get('jwt.emailVerificationTokenSecret'), { expiresIn: config.get('jwt.emailVerificationTokenExpiry') })
+
       await SendEmailVerificationMail.execute({ token, email: this.email })
 
       // Check for invited Registration

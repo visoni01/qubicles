@@ -11,7 +11,13 @@ const initialState = {
 
 const {
   actions: {
-    userLoginStart, userLoginSuccessful, userLoginFailure, userLogoutSuccessful, clearStore,
+    userLoginStart,
+    userLoginSuccessful,
+    userLoginFailure,
+    userLogoutSuccessful,
+    clearStore,
+    userUpdateStart,
+    userUpdateSuccess,
   },
   reducer,
 } = createSlice({
@@ -50,10 +56,29 @@ const {
       isLoading: false,
       success: false,
     }),
+    userUpdateStart: (state) => ({
+      ...state,
+      error: false,
+      isLoading: true,
+      success: false,
+    }),
+    userUpdateSuccess: (state) => ({
+      ...state,
+      error: false,
+      isLoading: false,
+      success: true,
+      userDetails: getUserDetails(),
+    }),
   },
 })
 
 export default reducer
 export {
-  userLoginStart, userLoginSuccessful, userLoginFailure, userLogoutSuccessful, clearStore,
+  userLoginStart,
+  userLoginSuccessful,
+  userLoginFailure,
+  userLogoutSuccessful,
+  clearStore,
+  userUpdateStart,
+  userUpdateSuccess,
 }

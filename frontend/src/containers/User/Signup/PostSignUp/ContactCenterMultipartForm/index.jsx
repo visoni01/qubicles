@@ -1,30 +1,38 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   faCheck, faAddressBook, faPoll, faBuilding,
 } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-
+import _ from 'lodash'
+import { POST_SIGNUP_EMPLOYER_PREVIOUS_DATA_FETCH } from '../../../../../redux-saga/redux/constants'
 import Form from './multipartForm'
 import StepperComponent from '../../../../../components/Stepper'
 import {
   postSignUpStepStart,
   handleBackStep,
   handleNextStep,
+  postSignUpPreviousDataFetch,
 } from '../../../../../redux-saga/redux/postSignup'
 
 const ContactCenterMultiPartForm = () => {
   const dispatch = useDispatch()
   const {
-    stepsData, currentStep,
+    stepsData, currentStep, isLoading,
   } = useSelector(
     (state) => state.postSignUp,
   )
 
+  useEffect(() => {
+    dispatch(postSignUpPreviousDataFetch({ type: POST_SIGNUP_EMPLOYER_PREVIOUS_DATA_FETCH }))
+  }, [ ])
+
   const handleOnNext = (data) => {
-    if (stepsData[ currentStep ]) {
-      return dispatch(handleNextStep)
+    const stepDataForCurrentStep = stepsData[ currentStep ]
+    if (currentStep !== 3 && stepDataForCurrentStep && _.isEqual(stepDataForCurrentStep, data)) {
+      return dispatch(handleNextStep())
     }
+
     return dispatch(postSignUpStepStart({ type: 'employer', step: currentStep, data }))
   }
   const handleOnBack = () => dispatch(handleBackStep())
@@ -37,6 +45,10 @@ const ContactCenterMultiPartForm = () => {
     if (index < currentStep) return { icon: faCheck }
     return step
   })
+
+  if (isLoading) {
+    return <></>
+  }
 
   return (
     <>

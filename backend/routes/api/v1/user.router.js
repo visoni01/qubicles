@@ -11,6 +11,12 @@ const userRouter = express.Router(args)
 userRouter.route('/signup')
   .post(userController.signUp)
 
+userRouter.route('/post-signup-employer-data')
+  .get(isAuthenticated, userController.postSignUpEmployerDataController)
+
+userRouter.route('/post-signup-agent-data')
+  .get(isAuthenticated, userController.postSignUpCompanyDataController)
+
 userRouter.route('/invite-with-google')
   .get(isAuthenticated, userController.inviteWithGoogle)
 
@@ -51,5 +57,8 @@ userRouter.route('/profile')
 
 userRouter.route('/checkr-invitation')
   .get(isAuthenticated, userController.checkrInvitation)
+
+userRouter.route('/update')
+  .post(isAuthenticated, userController.updateUserDataController)
 
 export { userRouter }

@@ -18,7 +18,7 @@ const EmailVerification = () => {
   return (
     <>
       {success && <Redirect to='/post-signup' />}
-      {error && <>{' An unexpected error occured '}</>}
+      {error && <div className='email-verification-error-msg'>{' Link is expired or invalid!! '}</div>}
     </>
   )
 }

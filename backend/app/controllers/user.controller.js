@@ -1,13 +1,21 @@
 import Responder from '../../server/expressResponder'
-import CreateUserWithInvite from '../services/user/createUser'
-import { InviteWithGoogleAuthService, InviteWithGoogleCallbackService } from '../services/user/invite/inviteWithGoogle'
-import HandleInviteLink from '../services/user/invite/handleInvitelink'
-import InviteManual from '../services/user/invite/inviteManualEmail'
 import CheckrInvitationService from '../services/authentication/checkrInvitation'
+import {
+  CreateUserService,
+  InviteWithGoogleAuthService,
+  InviteWithGoogleCallbackService,
+  HandleInviteLinkService,
+  InviteManualService,
+  UpdateUserDataService,
+  PostSignUpEmployerDataService,
+  PostSignUpAgentDataService
+} from '../services/user'
+import { getNewTokenAfterUserCodeChanged } from '../services/helper'
+import config from '../../config/app'
 
 export default class UserController {
   static async signUp (req, res) {
-    const createUserResult = await CreateUserWithInvite.execute(req.body)
+    const createUserResult = await CreateUserService.execute(req.body)
     if (createUserResult.successful) {
       Responder.success(res, createUserResult.result)
     } else {
@@ -43,7 +51,7 @@ export default class UserController {
   }
 
   static async handleInviteLink (req, res) {
-    const handleInviteLinkResult = await HandleInviteLink.execute(req.params)
+    const handleInviteLinkResult = await HandleInviteLinkService.execute(req.params)
     if (handleInviteLinkResult.successful) {
       Responder.success(res, handleInviteLinkResult.result)
     } else {
@@ -52,7 +60,7 @@ export default class UserController {
   }
 
   static async inviteManual (req, res) {
-    const inviteManualResult = await InviteManual.execute(req.body)
+    const inviteManualResult = await InviteManualService.execute(req.body)
     if (inviteManualResult.successful) {
       Responder.success(res, inviteManualResult.result)
     } else {
@@ -66,6 +74,42 @@ export default class UserController {
       Responder.success(res, checkrInvitationResult.result)
     } else {
       Responder.failed(res, checkrInvitationResult.errors)
+    }
+  }
+
+  static async postSignUpEmployerDataController (req, res) {
+    const postSignUpEmployerDataResult = await PostSignUpEmployerDataService.execute(req.body)
+    if (postSignUpEmployerDataResult.successful) {
+      Responder.success(res, postSignUpEmployerDataResult.result)
+    } else {
+      Responder.failed(res, postSignUpEmployerDataResult.errors)
+    }
+  }
+
+  static async postSignUpCompanyDataController (req, res) {
+    const PostSignUpCompanyData = await PostSignUpAgentDataService.execute(req.body)
+    if (PostSignUpCompanyData.successful) {
+      Responder.success(res, PostSignUpCompanyData.result)
+    } else {
+      Responder.failed(res, PostSignUpCompanyData.errors)
+    }
+  }
+
+  static async updateUserDataController (req, res) {
+    const updateUserDataService = await UpdateUserDataService.execute(req.body)
+    if (req.body.update_user_code) {
+      const token = await getNewTokenAfterUserCodeChanged({
+        ...req.user,
+        user_code: req.body.data.user_code
+      })
+      res.cookie('access_token', token, {
+        maxAge: config.get('cookieMaxAge')
+      })
+    }
+    if (updateUserDataService.successful) {
+      Responder.success(res, updateUserDataService.result)
+    } else {
+      Responder.failed(res, updateUserDataService.errors)
     }
   }
 }

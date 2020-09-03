@@ -1,4 +1,5 @@
 import Responder from '../../server/expressResponder'
+import config from '../../config/app'
 import {
   PostSignupAgentStep1Service,
   PostSignupAgentStep2Service,
@@ -7,6 +8,7 @@ import {
   PostSignupAgentStep5Service,
   PostSignupAgentStep6Service
 } from '../services/user/agent/postSignupAgent'
+import { getTokenAfterPostSignupCompleted } from '../services/helper'
 
 export default class UserAgentController {
   static async postSignupAgent (req, res) {
@@ -29,7 +31,14 @@ export default class UserAgentController {
         postSignupAgentResult = await PostSignupAgentStep6Service.execute(req.body)
         break
     }
+
     if (postSignupAgentResult.successful) {
+      if (req.params.step === 'step5') {
+        const token = await getTokenAfterPostSignupCompleted(req.user)
+        res.cookie('access_token', token, {
+          maxAge: config.get('cookieMaxAge')
+        })
+      }
       Responder.success(res, postSignupAgentResult.result)
     } else {
       Responder.failed(res, postSignupAgentResult.errors)
