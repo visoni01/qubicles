@@ -14,18 +14,28 @@ export class CommunityRep extends ServiceBase {
   }
 
   async run () {
-    const { client_id } = await getClientIdByUserId({ user_id: this.user_id })
-    const promises = [
-      () => getClientRating({ client_id }),
-      () => getClientLikesCount({ client_id }),
-      () => getClientSubscribersCount({ client_id })
-    ]
-    const [{ rating, raters }, { likes }, { subscribers }] = await Promise.all(promises.map(promise => promise()))
-    return {
-      rating,
-      raters,
-      likes,
-      subscribers
+    const client = await getClientIdByUserId({ user_id: this.user_id })
+    if (client && client.client_id) {
+      const { client_id } = client
+      const promises = [
+        () => getClientRating({ client_id }),
+        () => getClientLikesCount({ client_id }),
+        () => getClientSubscribersCount({ client_id })
+      ]
+      const [{ rating, raters }, { likes }, { subscribers }] = await Promise.all(promises.map(promise => promise()))
+      return {
+        rating,
+        raters,
+        likes,
+        subscribers
+      }
+    } else {
+      return {
+        rating: 0,
+        raters: 0,
+        likes: 0,
+        subscribers: 0
+      }
     }
   }
 }

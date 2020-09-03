@@ -36,7 +36,7 @@ export default class VerifyTokenService extends ServiceBase {
           },
           { where: { email: jwtVerified.email } })
 
-          const jwtToken = await jwt.sign({ email: jwtVerified.email, user_id: user.user_id },
+          const jwtToken = await jwt.sign({ email: jwtVerified.email, user_id: user.user_id, full_name: user.full_name },
             config.get('jwt.loginTokenSecret'), {
               expiresIn: config.get('jwt.loginTokenExpiry')
             })

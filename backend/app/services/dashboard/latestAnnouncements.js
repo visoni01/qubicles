@@ -14,15 +14,19 @@ export class LatestAnnouncements extends ServiceBase {
   }
 
   async run () {
-    const { client_id } = await getClientIdByUserId({ user_id: this.user_id })
-    const recentTopics = await getRecentTopics({ client_id })
-    const latestAnnouncements = recentTopics.map(topic => {
-      return {
-        id: topic.topic_id,
-        title: topic.topic_title,
-        date: topic.created_on
-      }
-    })
-    return latestAnnouncements
+    const client = await getClientIdByUserId({ user_id: this.user_id })
+    if (client && client.client_id) {
+      const recentTopics = await getRecentTopics({ client_id: client.client_id })
+      const latestAnnouncements = recentTopics.map(topic => {
+        return {
+          id: topic.topic_id,
+          title: topic.topic_title,
+          date: topic.createdAt
+        }
+      })
+      return latestAnnouncements
+    } else {
+      return []
+    }
   }
 }
