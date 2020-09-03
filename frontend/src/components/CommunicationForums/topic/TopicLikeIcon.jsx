@@ -35,7 +35,7 @@ const TopicLikeIcon = ({ topicId, totalLikes, topicLiked }) => {
         className={ isLikedTopic ? classes.topicLikeIconOn : classes.topicLikeIconHover }
         onClick={ handleTopicLikeActivity }
       >
-        <FontAwesomeIcon icon={ faHeart } />
+        <FontAwesomeIcon icon={ faHeart } className='comment-like-icon' />
       </IconButton>
       <div className='stat-meta'>
         <span>Likes</span>

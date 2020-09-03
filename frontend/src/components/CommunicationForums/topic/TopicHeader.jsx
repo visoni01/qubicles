@@ -66,7 +66,7 @@ const TopicHeader = ({
             variant='contained'
             className='custom-button-primary'
             classes={ { label: 'custom-button-label-hover' } }
-            startIcon={ <FontAwesomeIcon icon={ faPlus } className='people-header-icons' /> }
+            startIcon={ <FontAwesomeIcon icon={ faPlus } className='people-header-icons icon-hover' /> }
             onClick={ toggleModalState }
           >
             Reply

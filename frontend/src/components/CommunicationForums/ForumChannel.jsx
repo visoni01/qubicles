@@ -32,7 +32,7 @@ const Channel = ({
 )
 
 Channel.defaultProps = {
-  notifications: 3,
+  notifications: 4,
   noOfTopics: 0,
 }
 

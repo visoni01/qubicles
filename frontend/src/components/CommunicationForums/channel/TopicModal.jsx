@@ -142,7 +142,7 @@ const TopicModal = ({
           ))}
           {!addTopic ? (
             <IconButton onClick={ toggleAddTopic } classes={ { root: 'add-new-tag-button' } }>
-              <FontAwesomeIcon icon={ faPlus } />
+              <FontAwesomeIcon icon={ faPlus } className='icon-hover' />
             </IconButton>
           )
             : (
@@ -153,10 +153,10 @@ const TopicModal = ({
                   className='add-tag-textfield'
                 />
                 <IconButton size='small' onClick={ addTopicTag }>
-                  <FontAwesomeIcon icon={ faCheck } className='submit-button mt-5 icon-hover' />
+                  <FontAwesomeIcon icon={ faCheck } className='submit-button mt-5' />
                 </IconButton>
                 <IconButton size='small' onClick={ toggleAddTopic }>
-                  <FontAwesomeIcon icon={ faTimes } className='cancel-button mt-5 icon-hover' />
+                  <FontAwesomeIcon icon={ faTimes } className='cancel-button mt-5' />
                 </IconButton>
               </div>
             )}
