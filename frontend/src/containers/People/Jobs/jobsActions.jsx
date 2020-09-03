@@ -95,30 +95,6 @@ const JobsActions = ({
           </MenuItem>
         </Menu>
         <UpdateJobModal open={ openEditJobModal } handleClose={ closeEditJobModal } isEdit jobId={ jobId } />
-        <Dialog
-          open={ open }
-          onClose={ handleDialogClose }
-          aria-labelledby='delete-dialog-title'
-        >
-          <DialogTitle id='delete-dialog-title'>Are you sure you want to delete?</DialogTitle>
-          <DialogActions>
-            <Button
-              onClick={ handleDialogClose }
-              className='custom-button-primary'
-              classes={ { label: 'custom-button-label-hover' } }
-            >
-              Cancel
-            </Button>
-            <Button
-              onClick={ handleDelete }
-              className='custom-button-primary'
-              classes={ { label: 'custom-button-label-hover' } }
-              autoFocus
-            >
-              Delete
-            </Button>
-          </DialogActions>
-        </Dialog>
         <ConfirmationModal
           open={ open }
           handleClose={ handleDialogClose }

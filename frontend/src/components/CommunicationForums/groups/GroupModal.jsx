@@ -1,8 +1,10 @@
 import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, Button,
+  Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, Button, IconButton,
 } from '@material-ui/core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
 const AddUpdateGroupModal = ({
   open, handleClose, onSubmit, isUpdate, modalFields,
@@ -47,7 +49,16 @@ const AddUpdateGroupModal = ({
 
   return (
     <Dialog open={ open } onClose={ handleClose } classes={ { paper: 'group-modal' } }>
-      <DialogTitle className='text-align-center'>{modalHeading}</DialogTitle>
+      <div className='is-flex'>
+        <DialogTitle className='text-align-center width-full'>
+          {modalHeading}
+        </DialogTitle>
+        <DialogActions className='cross-button'>
+          <IconButton className='is-size-6 mt-10' onClick={ handleClose }>
+            <FontAwesomeIcon icon={ faTimes } />
+          </IconButton>
+        </DialogActions>
+      </div>
       <DialogContent>
         <TextField
           margin='dense'
