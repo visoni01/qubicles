@@ -1,11 +1,11 @@
 import ServiceBase from '../../../common/serviceBase'
-import { UserDetail, User, Server, Phone } from '../../../db/models'
+import { UserDetail, User, Server, Phone, XPhoneCodes } from '../../../db/models'
 import CreateUserWallet from '../../wallet/createUserWallet'
 import { generateUserWalletId } from '../../../utils/generateWalletId'
 import AddUserToActiveCampaign from '../../activeCampaign/addUserToActiveCampaign'
 import { Op } from 'sequelize'
 import config from '../../../../config/app'
-import { ERRORS } from '../../../utils/errors'
+import { ERRORS, MESSAGES } from '../../../utils/errors'
 import logger from '../../../common/logger'
 import { getErrorMessageForService } from '../../helper'
 
@@ -81,18 +81,39 @@ export class PostSignupAgentStep2Service extends ServiceBase {
   }
 
   async run () {
-    // Update user details
-    await UserDetail.update({
-      street_address: this.street_address,
-      city: this.city,
-      state: this.state,
-      zip: this.zip,
-      home_phone: this.home_phone,
-      mobile_phone: this.mobile_phone
-    }, { where: { user_id: this.user_id } })
+    try {
+      // Verify Mobile phone here
+      if (this.mobile_phone) {
+        let state
+        if (!this.state) {
+          const result = this.mobile_phone.split(' ')
+          const phoneData = await XPhoneCodes.findOne({ where: { country_code: result[0], area_code_: result[1] }, raw: true })
+          if (phoneData) {
+            state = phoneData.state
+          }
+          this.addError(ERRORS.BAD_DATA, MESSAGES.PHONE_NUMBER_IS_INVALID)
+          return
+        }
 
-    // Verify Mobile phone here
-    return 'User Updated Successfully'
+        // Update user details
+        await UserDetail.update({
+          street_address: this.street_address,
+          city: this.city,
+          state: this.state || state,
+          zip: this.zip,
+          home_phone: this.home_phone,
+          mobile_phone: this.mobile_phone
+        }, { where: { user_id: this.user_id } })
+
+        return 'User Updated Successfully'
+      } else {
+        this.addError(ERRORS.BAD_DATA, MESSAGES.PHONE_NUMBER_IS_INVALID)
+        return
+      }
+    } catch (e) {
+      logger.error(getErrorMessageForService('PostSignupAgentStep2Service'), e)
+      this.addError(ERRORS.INTERNAL)
+    }
   }
 }
 

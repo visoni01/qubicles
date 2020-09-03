@@ -1,5 +1,6 @@
 import * as yup from 'yup'
 
+const phoneRegExp = /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)$/
 const steps = {
   1: {
     fields: [ { label: 'Date of Birth', type: 'date', name: 'dob' }, {
@@ -27,11 +28,11 @@ const steps = {
     ],
     schema: yup.object().shape({
       street_address: yup.string().required('*Required'),
-      city: yup.string().required('*Required'),
-      state: yup.string().required('*Required'),
+      city: yup.string(),
+      state: yup.string(),
       zip: yup.string().required('*Required'),
       home_phone: yup.string().required('*Required'),
-      mobile_phone: yup.string().required('*Required'),
+      mobile_phone: yup.string().required('*Required').matches(phoneRegExp, 'Phone number is not valid, eg:- +1 305 509 6995'),
     }),
   },
   3: {
@@ -63,7 +64,7 @@ const steps = {
       years_of_experience: yup.string().required('*Required'),
       highest_education: yup.string().required('*Required'),
       primary_language: yup.string().required('*Required'),
-      other_languages: yup.string().required('*Required'),
+      other_languages: yup.string(),
     }),
   },
   5: {
