@@ -22,6 +22,7 @@ const CategoryList = ({ currentPage, noOfGroupsPerPage, changeCurrentPage }) => 
     if (!categories.length && currentPage > 1 && !isLoading) {
       changeCurrentPage(_, currentPage - 1)
     }
+    // eslint-disable-next-line
   }, [ categories ])
 
   if (isLoading) {

@@ -65,7 +65,7 @@ function* jobCrudWorker(action) {
           locationType,
           ...rest
         } = action.payload
-        const { data } = yield People.updateJob({
+        yield People.updateJob({
           job_type: jobType,
           employment_type: employmentType,
           duration_type: durationType,

@@ -1,6 +1,5 @@
 /* eslint-disable import/prefer-default-export */
 
-import { actionChannel } from 'redux-saga/effects'
 import {
   ADD_CATEGORY,
   ADD_CHANNEL,

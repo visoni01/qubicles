@@ -8,8 +8,8 @@ export const handleReponseError = (error) => {
   const { response } = error
   const { data } = response
   let errMsg
-  if (data && data.error) {
-    errMsg = response.data.message || response.data.error
+  if (data) {
+    errMsg = data.message || data.error
   }
   return Promise.reject(errMsg)
 }

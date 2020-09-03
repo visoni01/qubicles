@@ -1,17 +1,11 @@
-import React, { useState, useCallback } from 'react'
-import { useDispatch } from 'react-redux'
+import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import PropTypes from 'prop-types'
-import {
-  faLightbulb, faHeart, faReply, faTrash,
-} from '@fortawesome/free-solid-svg-icons'
+import { faLightbulb } from '@fortawesome/free-solid-svg-icons'
 import { formatDate, getTimeFromNow, isUserOwner } from '../../../utils/common'
-import TopAction from '../TopAction'
 import { ownerDetails } from '../forumValidators'
-import { deleteTopicComment } from '../../../redux-saga/redux/actions'
 import CommentLikeIcon from './CommentLikeIcon'
 import './style.scss'
-import ConfirmationModal from '../../CommonModal/ConfirmationModal'
 import PostActions from './PostActions'
 
 const Post = ({

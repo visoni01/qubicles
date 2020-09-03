@@ -23,6 +23,7 @@ const PostStatusWrap = ({
       createdAt: timeFromNow,
       userId,
     }))
+    // eslint-disable-next-line
   }, [ userId, userActivityId, activityCustom, owner, timeFromNow ])
 
   return (

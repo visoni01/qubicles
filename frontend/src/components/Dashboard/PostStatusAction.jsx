@@ -51,17 +51,18 @@ const PostStatusAction = ({
   const showCommentsCB = useCallback(() => {
     showComments()
     setAnchorEl(null)
-  }, [])
+  }, [ setAnchorEl, showComments ])
 
   const toggleEditModal = useCallback(() => {
     // eslint-disable-next-line
     setOpenEditModal((openEditModal) => !openEditModal)
     handleClose()
+    // eslint-disable-next-line
   }, [ openEditModal ])
 
   const submitEditedPost = useCallback((editedPost) => {
     dispatch(updatePostStatus(editedPost))
-  })
+  }, [ dispatch ])
 
   return (
     <>

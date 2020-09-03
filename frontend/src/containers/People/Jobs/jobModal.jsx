@@ -6,7 +6,6 @@ import {
   DialogContent,
   DialogTitle,
   TextField,
-  Checkbox,
   Button,
   Select,
   MenuItem,
@@ -22,7 +21,6 @@ import {
 } from '../constants'
 import { addJob, getJobFields, updateJob } from '../../../redux-saga/redux/people/actions'
 import { jobDetailsFetchStart } from '../../../redux-saga/redux/actions'
-import People from '../../../redux-saga/service/people'
 
 const initialJobDetails = {
   jobId: '',
@@ -98,12 +96,14 @@ const JobModal = ({
         setJobData(jobDetails)
       }
     }
+    // eslint-disable-next-line
   }, [ dispatch, isEdit, open, jobId, success ])
 
   useEffect(() => {
     if (open && !isEdit) {
       setJobData(initialJobDetails)
     }
+    // eslnt-disable-next-line
   }, [ open, isEdit ])
 
   const handleChange = useCallback((event) => {

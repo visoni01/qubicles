@@ -3,10 +3,10 @@ import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faEllipsisV, faTrash, faPencilAlt, faCommentsDollar,
+  faEllipsisV, faTrash, faPencilAlt,
 } from '@fortawesome/free-solid-svg-icons'
 import {
-  Menu, MenuItem, Dialog, IconButton,
+  Menu, MenuItem, IconButton,
 } from '@material-ui/core'
 import { deleteTopicComment, updateComment } from '../../../redux-saga/redux/actions'
 import './style.scss'
@@ -42,6 +42,7 @@ const TopicActions = ({
   const deleteCommentHandler = useCallback(() => {
     dispatch(deleteTopicComment({ postId }))
     setOpen(false)
+    // eslint-disable-next-line
   }, [ dispatch ])
 
   const toggleEditModal = useCallback(() => {
@@ -53,6 +54,7 @@ const TopicActions = ({
   const submitEditedComment = useCallback((postData) => {
     dispatch(updateComment({ postData, postId }))
     setOpenEditModal(false)
+    // eslint-disable-next-line
   }, [ setOpenEditModal ])
 
   return (
