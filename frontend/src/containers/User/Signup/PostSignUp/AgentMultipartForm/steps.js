@@ -1,6 +1,6 @@
 import * as yup from 'yup'
+import { regExpPhone, regExpSSN } from '../../../../../utils/common'
 
-const phoneRegExp = /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)$/
 const steps = {
   1: {
     fields: [ { label: 'Date of Birth', type: 'date', name: 'dob' }, {
@@ -14,7 +14,7 @@ const steps = {
     schema: yup.object().shape({
       dob: yup.date().required('*Required'),
       gender: yup.string().required('*Required'),
-      ssn: yup.string().required('*Required'),
+      ssn: yup.string().required('*Required').matches(regExpSSN, 'SSN is invalid, eg:- 000000000'),
     }),
   },
   2: {
@@ -27,12 +27,12 @@ const steps = {
       { label: 'Mobile Phone', type: 'text', name: 'mobile_phone' },
     ],
     schema: yup.object().shape({
-      street_address: yup.string().required('*Required'),
+      street_address: yup.string(),
       city: yup.string(),
       state: yup.string(),
       zip: yup.string().required('*Required'),
-      home_phone: yup.string().required('*Required'),
-      mobile_phone: yup.string().required('*Required').matches(phoneRegExp, 'Phone number is not valid, eg:- +1 305 509 6995'),
+      home_phone: yup.string(),
+      mobile_phone: yup.string().required('*Required').matches(regExpPhone, 'Phone number is invalid, eg:- 1234567890'),
     }),
   },
   3: {
@@ -61,10 +61,10 @@ const steps = {
       },
     ],
     schema: yup.object().shape({
-      years_of_experience: yup.string().required('*Required'),
-      highest_education: yup.string().required('*Required'),
+      years_of_experience: yup.string(),
+      highest_education: yup.string(),
       primary_language: yup.string().required('*Required'),
-      other_languages: yup.string(),
+      other_languages: yup.string().nullable(),
     }),
   },
   5: {

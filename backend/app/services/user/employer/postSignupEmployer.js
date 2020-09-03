@@ -1,5 +1,5 @@
 import ServiceBase from '../../../common/serviceBase'
-import { XClient, XClientUser, Server, XClientServer, User, UserDetail } from '../../../db/models'
+import { XClient, XClientUser, Server, XClientServer, User, UserDetail, XPhoneCodes } from '../../../db/models'
 import CreateUserWallet from '../../wallet/createUserWallet'
 import { findUniqueID, generateID } from '../../../utils/generateId'
 import { generateUserWalletId } from '../../../utils/generateWalletId'
@@ -25,10 +25,10 @@ const constraintsStep1 = {
     presence: { allowEmpty: false }
   },
   city: {
-    presence: { allowEmpty: false }
+    presence: { allowEmpty: true }
   },
   state: {
-    presence: { allowEmpty: false }
+    presence: { allowEmpty: true }
   },
   zip: {
     presence: { allowEmpty: false }
@@ -44,11 +44,21 @@ export class PostSignupEmployerStep1Service extends ServiceBase {
   }
 
   async run () {
+    let state
+    if (!this.state) {
+      const areaCode = this.phone_number.substring(0, 3)
+      // using country_code = 1 specifically for US
+      const phoneData = await XPhoneCodes.findOne({ where: { country_code: 1, areacode: areaCode }, raw: true })
+      if (phoneData) {
+        state = phoneData.state
+      }
+    }
+
     const clientObject = {
       client_name: this.client_name,
       address1: this.address1,
       city: this.city,
-      state: this.state,
+      state: this.state || state,
       zip: this.zip,
       phone_number: this.phone_number
     }

@@ -70,19 +70,19 @@ const constraintsStep2 = {
     presence: { allowEmpty: false }
   },
   street_address: {
-    presence: { allowEmpty: false }
+    presence: { allowEmpty: true }
   },
   city: {
-    presence: { allowEmpty: false }
+    presence: { allowEmpty: true }
   },
   state: {
-    presence: { allowEmpty: false }
+    presence: { allowEmpty: true }
   },
   zip: {
     presence: { allowEmpty: false }
   },
   home_phone: {
-    presence: { allowEmpty: false }
+    presence: { allowEmpty: true }
   },
   mobile_phone: {
     presence: { allowEmpty: false }
@@ -100,13 +100,12 @@ export class PostSignupAgentStep2Service extends ServiceBase {
       if (this.mobile_phone) {
         let state
         if (!this.state) {
-          const result = this.mobile_phone.split(' ')
-          const phoneData = await XPhoneCodes.findOne({ where: { country_code: result[0], area_code_: result[1] }, raw: true })
+          const areaCode = this.mobile_phone.substring(0, 3)
+          // using country_code = 1 specifically for US
+          const phoneData = await XPhoneCodes.findOne({ where: { country_code: 1, areacode: areaCode }, raw: true })
           if (phoneData) {
             state = phoneData.state
           }
-          this.addError(ERRORS.BAD_DATA, MESSAGES.PHONE_NUMBER_IS_INVALID)
-          return
         }
 
         // Update user details
@@ -136,10 +135,10 @@ const constraintsStep3 = {
     presence: { allowEmpty: false }
   },
   years_of_experience: {
-    presence: { allowEmpty: false }
+    presence: { allowEmpty: true }
   },
   highest_education: {
-    presence: { allowEmpty: false }
+    presence: { allowEmpty: true }
   },
   primary_language: {
     presence: { allowEmpty: false }
