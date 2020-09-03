@@ -9,6 +9,23 @@ const config = convict({
       default: 'Qubicles App'
     }
   },
+  encryption: {
+    initialization_vector: {
+      doc: 'Initialization Vector',
+      default: '',
+      env: 'ENCRYPTION_INITIALIZATION_VECTOR'
+    },
+    initialization_key: {
+      doc: 'Initialization Key',
+      default: '',
+      env: 'ENCRYPTION_KEY'
+    },
+    algorithm: {
+      doc: 'Symmetric algorithm',
+      default: '',
+      env: 'ENCRYPTION_ALGORITHM'
+    }
+  },
   env: {
     doc: 'The application environment.',
     format: ['production', 'development', 'staging', 'test'],

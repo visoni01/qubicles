@@ -187,17 +187,20 @@ export async function getTopics ({ user_id, search_keyword, channel_id }) {
 }
 
 export async function getRecentTopics ({ client_id, limit = 5 }) {
-  const { channel_id } = await getCompanyAnnouncementChannel({ client_id })
-  const topics = await XForumTopic.findAll({
-    where: {
-      channel_id,
-      [Op.not]: [{ is_deleted: true }]
-    },
-    order: [['created_on', 'DESC']],
-    limit,
-    raw: true
-  })
-  return topics
+  const announcementChannel = await getCompanyAnnouncementChannel({ client_id })
+  if (announcementChannel && announcementChannel.channel_id) {
+    const topics = await XForumTopic.findAll({
+      where: {
+        channel_id: announcementChannel.channel_id,
+        [Op.not]: [{ is_deleted: true }]
+      },
+      order: [['created_on', 'DESC']],
+      limit,
+      raw: true
+    })
+    return topics
+  }
+  return []
 }
 
 export async function inviteUser ({ forum_object_id, forum_object_type, user_id, inviter_id }) {

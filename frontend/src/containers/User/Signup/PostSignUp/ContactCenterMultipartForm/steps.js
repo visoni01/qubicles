@@ -1,4 +1,5 @@
 import * as yup from 'yup'
+import { regExpPhone } from '../../../../../utils/common'
 
 const steps = {
   1: {
@@ -13,10 +14,11 @@ const steps = {
     schema: yup.object().shape({
       client_name: yup.string().max(45).required('*Required'),
       address1: yup.string().max(100).required('*Required'),
-      city: yup.string().max(100).required('*Required'),
-      state: yup.string().max(100).required('*Required'),
+      city: yup.string().max(100),
+      state: yup.string().max(100),
       zip: yup.string().max(10).required('*Required'),
-      phone_number: yup.string().max(15).required('*Required'),
+      phone_number: yup.string().max(15).required('*Required')
+        .matches(regExpPhone, 'Phone number is invalid, eg:- 1234567890'),
     }),
   },
   2: {

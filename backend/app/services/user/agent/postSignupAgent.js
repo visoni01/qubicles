@@ -1,13 +1,16 @@
 import ServiceBase from '../../../common/serviceBase'
-import { UserDetail, User, Server, Phone } from '../../../db/models'
+import { UserDetail, User, Server, Phone, XPhoneCodes } from '../../../db/models'
 import CreateUserWallet from '../../wallet/createUserWallet'
 import { generateUserWalletId } from '../../../utils/generateWalletId'
 import AddUserToActiveCampaign from '../../activeCampaign/addUserToActiveCampaign'
 import { Op } from 'sequelize'
 import config from '../../../../config/app'
-import { ERRORS } from '../../../utils/errors'
+import { ERRORS, MESSAGES } from '../../../utils/errors'
 import logger from '../../../common/logger'
 import { getErrorMessageForService } from '../../helper'
+import { encryptData } from '../../../utils/encryption'
+import _ from 'lodash'
+import moment from 'moment'
 
 const constraintsStep1 = {
   user_id: {
@@ -34,9 +37,20 @@ export class PostSignupAgentStep1Service extends ServiceBase {
 
   async run () {
     // Add user details
+    let encryptedDob
+    let encryptedSSN
+
+    if (!_.isEmpty(this.dob)) {
+      encryptedDob = encryptData(moment(this.dob).format('YYYY-MM-DD'))
+    }
+
+    if (!_.isEmpty(this.ssn)) {
+      encryptedSSN = encryptData(this.ssn)
+    }
+
     await UserDetail.update({
-      dob: this.dob,
-      ssn: this.ssn,
+      dob: encryptedDob,
+      ssn: encryptedSSN,
       gender: this.gender
     }, { where: { user_id: this.user_id } })
 
@@ -56,19 +70,19 @@ const constraintsStep2 = {
     presence: { allowEmpty: false }
   },
   street_address: {
-    presence: { allowEmpty: false }
+    presence: { allowEmpty: true }
   },
   city: {
-    presence: { allowEmpty: false }
+    presence: { allowEmpty: true }
   },
   state: {
-    presence: { allowEmpty: false }
+    presence: { allowEmpty: true }
   },
   zip: {
     presence: { allowEmpty: false }
   },
   home_phone: {
-    presence: { allowEmpty: false }
+    presence: { allowEmpty: true }
   },
   mobile_phone: {
     presence: { allowEmpty: false }
@@ -81,18 +95,38 @@ export class PostSignupAgentStep2Service extends ServiceBase {
   }
 
   async run () {
-    // Update user details
-    await UserDetail.update({
-      street_address: this.street_address,
-      city: this.city,
-      state: this.state,
-      zip: this.zip,
-      home_phone: this.home_phone,
-      mobile_phone: this.mobile_phone
-    }, { where: { user_id: this.user_id } })
+    try {
+      // Verify Mobile phone here
+      if (this.mobile_phone) {
+        let state
+        if (!this.state) {
+          const areaCode = this.mobile_phone.substring(0, 3)
+          // using country_code = 1 specifically for US
+          const phoneData = await XPhoneCodes.findOne({ where: { country_code: 1, areacode: areaCode }, raw: true })
+          if (phoneData) {
+            state = phoneData.state
+          }
+        }
 
-    // Verify Mobile phone here
-    return 'User Updated Successfully'
+        // Update user details
+        await UserDetail.update({
+          street_address: this.street_address,
+          city: this.city,
+          state: this.state || state,
+          zip: this.zip,
+          home_phone: this.home_phone,
+          mobile_phone: this.mobile_phone
+        }, { where: { user_id: this.user_id } })
+
+        return 'User Updated Successfully'
+      } else {
+        this.addError(ERRORS.BAD_DATA, MESSAGES.PHONE_NUMBER_IS_INVALID)
+        return
+      }
+    } catch (e) {
+      logger.error(getErrorMessageForService('PostSignupAgentStep2Service'), e)
+      this.addError(ERRORS.INTERNAL)
+    }
   }
 }
 
@@ -101,10 +135,10 @@ const constraintsStep3 = {
     presence: { allowEmpty: false }
   },
   years_of_experience: {
-    presence: { allowEmpty: false }
+    presence: { allowEmpty: true }
   },
   highest_education: {
-    presence: { allowEmpty: false }
+    presence: { allowEmpty: true }
   },
   primary_language: {
     presence: { allowEmpty: false }

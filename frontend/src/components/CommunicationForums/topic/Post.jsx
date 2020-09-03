@@ -35,7 +35,11 @@ const Post = ({
           <div className='top-actions'>
             {/* Like Icon */}
             <CommentLikeIcon postId={ postId } totalLikes={ postMeta.totalLikes } postLiked={ postLiked } />
-            <PostActions isOwner={ isUserOwner(postMeta.ownerDetails.userId) } postId={ postId } comment={ postBody.content } />
+            <PostActions
+              isOwner={ isUserOwner(postMeta.ownerDetails.userId) }
+              postId={ postId }
+              comment={ postBody.content }
+            />
           </div>
         </div>
         {/* eslint-disable-next-line */}

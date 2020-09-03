@@ -3,6 +3,7 @@ import { UserDetail, User } from '../../../db/models'
 import { getOne, getErrorMessageForService } from '../../helper'
 import { ERRORS } from '../../../utils/errors'
 import logger from '../../../common/logger'
+import { decryptData } from '../../../utils/encryption'
 
 const constraints = {
   user_id: {
@@ -51,8 +52,8 @@ export class PostSignUpAgentDataService extends ServiceBase {
       } = userDetailsData
 
       data = {
-        dob,
-        ssn,
+        dob: dob ? decryptData(dob) : '',
+        ssn: ssn ? decryptData(ssn) : '',
         gender,
         street_address,
         city,
