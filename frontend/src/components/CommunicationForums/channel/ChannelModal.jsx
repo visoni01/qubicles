@@ -1,8 +1,10 @@
 import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, Button,
+  Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, Button, IconButton,
 } from '@material-ui/core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
 const AddUpdateChannel = ({
   open, handleClose, onSubmit, isEdit, modalFields,
@@ -50,7 +52,16 @@ const AddUpdateChannel = ({
 
   return (
     <Dialog open={ open } onClose={ handleClose } classes={ { paper: 'channel-modal' } }>
-      <DialogTitle className='text-align-center'>{modalTitle}</DialogTitle>
+      <div className='is-flex'>
+        <DialogTitle className='text-align-center width-full'>
+          {modalTitle}
+        </DialogTitle>
+        <DialogActions className='cross-button'>
+          <IconButton className='is-size-6 mt-10' onClick={ handleClose }>
+            <FontAwesomeIcon icon={ faTimes } />
+          </IconButton>
+        </DialogActions>
+      </div>
       <DialogContent>
         <TextField
           margin='dense'
@@ -94,10 +105,18 @@ const AddUpdateChannel = ({
         </div>
       </DialogContent>
       <DialogActions>
-        <Button onClick={ handleCancelButton } color='primary' className='primary-button'>
+        <Button
+          onClick={ handleCancelButton }
+          className='custom-button-primary'
+          classes={ { label: 'custom-button-label-hover' } }
+        >
           Cancel
         </Button>
-        <Button onClick={ handleOnSubmit } color='primary' className='primary-button'>
+        <Button
+          onClick={ handleOnSubmit }
+          className='custom-button-primary'
+          classes={ { label: 'custom-button-label-hover' } }
+        >
           {onSubmitText}
         </Button>
       </DialogActions>

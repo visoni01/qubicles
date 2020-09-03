@@ -155,8 +155,9 @@ const CreatePost = () => {
           <Button
             variant='contained'
             disabled={ isLoading }
+            classes={ { label: 'custom-button-label-hover' } }
             className='post-status-button align-right post'
-            startIcon={ <FontAwesomeIcon className='action-icon' icon={ faPaperPlane } /> }
+            startIcon={ <FontAwesomeIcon className='icon-hover' icon={ faPaperPlane } /> }
             onClick={ post }
           >
             post
@@ -165,8 +166,9 @@ const CreatePost = () => {
           <Button
             variant='contained'
             disabled={ isLoading }
+            classes={ { label: 'custom-button-label-hover' } }
             className='post-status-button align-right'
-            startIcon={ <FontAwesomeIcon className='action-icon' icon={ faTrashAlt } /> }
+            startIcon={ <FontAwesomeIcon className='icon-hover' icon={ faTrashAlt } /> }
             onClick={ clear }
           >
             clear

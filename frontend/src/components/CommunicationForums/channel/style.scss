@@ -11,7 +11,7 @@
 
 .primary-button {
   background-color: #00D1B2 !important;
-  width: 140px;
+  min-width: 140px;
   height: 36px;
   color: white !important;
 }
@@ -39,7 +39,7 @@
 
 .add-new-tag-button {
   color: white !important;
-  background-color: #00D1B2 !important;
+  background-color: #4677F4 !important;
   font-size: 19px !important;
 	box-shadow: 2px 2px 4px #999;
 }

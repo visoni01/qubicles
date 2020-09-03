@@ -30,8 +30,14 @@
   color: white;
 }
 
-.faIcon {
+.comment-like-icon {
+  cursor: pointer;
   &:hover {
-    color: rgb(255, 0, 255);
+    color: #ff0000c7;
+  }
+  path {
+    &:hover {
+      color: #ff0000c7;
+    }
   }
 }

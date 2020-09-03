@@ -26,7 +26,7 @@ const AgentMultipartForm = () => {
 
   useEffect(() => {
     dispatch(postSignUpPreviousDataFetch({ type: POST_SIGNUP_AGENT_PREVIOUS_DATA_FETCH }))
-  }, [ ])
+  }, [ dispatch ])
 
   const handleOnNext = (data) => {
     const stepDataForCurrentStep = stepsData[ currentStep ]

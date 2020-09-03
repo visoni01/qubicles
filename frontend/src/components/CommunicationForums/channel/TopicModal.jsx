@@ -142,7 +142,7 @@ const TopicModal = ({
           ))}
           {!addTopic ? (
             <IconButton onClick={ toggleAddTopic } classes={ { root: 'add-new-tag-button' } }>
-              <FontAwesomeIcon icon={ faPlus } />
+              <FontAwesomeIcon icon={ faPlus } className='icon-hover' />
             </IconButton>
           )
             : (
@@ -166,16 +166,16 @@ const TopicModal = ({
         <Button
           onClick={ handleCloseModal }
           variant='contained'
-          className='primary-button'
-          classes={ { label: 'primary-button-label' } }
+          className='custom-button-primary'
+          classes={ { label: 'custom-button-label-hover' } }
         >
           Cancel
         </Button>
         <Button
           onClick={ handleCreateChannel }
           variant='contained'
-          className='primary-button'
-          classes={ { label: 'primary-button-label' } }
+          className='custom-button-primary'
+          classes={ { label: 'custom-button-label-hover' } }
           disabled={ isImageUploading }
         >
           {isEdit ? 'Update' : 'Save'}

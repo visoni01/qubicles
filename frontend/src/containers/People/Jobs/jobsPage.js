@@ -19,10 +19,11 @@ const NewJob = () => {
     <>
       <Button
         variant='contained'
-        className='button secondary-btn new-job-button'
-        startIcon={ <FontAwesomeIcon icon={ faPlus } /> }
+        // className='custom-button-primary'
+        classes={ { label: 'custom-button-label-hover' } }
+        className='button secondary-btn new-job-button custom-button-primary'
+        startIcon={ <FontAwesomeIcon icon={ faPlus } className='icon-hover' /> }
         onClick={ toggleJobModal }
-        classes={ { label: 'primary-button-label' } }
       >
         New Job
       </Button>

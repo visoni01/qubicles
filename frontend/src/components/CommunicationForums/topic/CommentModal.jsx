@@ -47,10 +47,18 @@ const NewComment = ({
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={ handleClose } className='primary-button'>
+        <Button
+          onClick={ handleClose }
+          className='custom-button-primary'
+          classes={ { label: 'custom-button-label-hover' } }
+        >
           Cancel
         </Button>
-        <Button onClick={ onSubmit } className='primary-button'>
+        <Button
+          onClick={ onSubmit }
+          className='custom-button-primary'
+          classes={ { label: 'custom-button-label-hover' } }
+        >
           { isEdit ? 'Update' : 'Submit' }
         </Button>
       </DialogActions>

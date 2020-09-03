@@ -1,8 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogTitle, Button,
+  Dialog, DialogActions, DialogTitle, Button, IconButton,
 } from '@material-ui/core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import './style.scss'
 
 const ConfirmationModal = ({
   open, handleClose, handleConfirm, message, confirmButtonText,
@@ -12,14 +15,32 @@ const ConfirmationModal = ({
     onClose={ handleClose }
     aria-labelledby='delete-dialog-title'
   >
-    <DialogTitle id='delete-dialog-title'>
-      {message}
-    </DialogTitle>
-    <DialogActions>
-      <Button onClick={ handleClose } variant='contained'>
+    <div className='is-flex'>
+      <DialogTitle classes={ { root: 'delete-dialog-title' } }>
+        {message}
+      </DialogTitle>
+      <DialogActions className='cross-button'>
+        <IconButton className='is-size-6 mt-10' onClick={ handleClose }>
+          <FontAwesomeIcon icon={ faTimes } />
+        </IconButton>
+      </DialogActions>
+    </div>
+    <DialogActions classes={ { root: 'delete-dialog-buttons' } }>
+      <Button
+        onClick={ handleClose }
+        variant='contained'
+        className='custom-button-primary'
+        classes={ { label: 'custom-button-label-hover' } }
+      >
         Cancel
       </Button>
-      <Button onClick={ handleConfirm } variant='contained' autoFocus>
+      <Button
+        onClick={ handleConfirm }
+        variant='contained'
+        autoFocus
+        className='custom-button-primary'
+        classes={ { label: 'custom-button-label-hover' } }
+      >
         {confirmButtonText}
       </Button>
     </DialogActions>
