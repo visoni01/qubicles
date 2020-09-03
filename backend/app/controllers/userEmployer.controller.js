@@ -11,7 +11,6 @@ import { getTokenAfterPostSignupCompleted } from '../services/helper'
 export default class UserEmployerController {
   static async postSignupEmployer (req, res) {
     let postSignupEmployerResult
-    let postSignupEmployerStep3Result
     switch (req.params.step) {
       case 'step1':
         postSignupEmployerResult = await PostSignupEmployerStep1Service.execute(req.body)
@@ -20,9 +19,7 @@ export default class UserEmployerController {
         postSignupEmployerResult = await PostSignupEmployerStep2Service.execute(req.body)
         break
       case 'step3':
-        postSignupEmployerStep3Result = await PostSignupEmployerStep3Service.execute(req.body)
-        break
-      case 'step4':
+        await PostSignupEmployerStep3Service.execute(req.body)
         postSignupEmployerResult = await PostSignupEmployerStep4Service.execute(req.body)
         break
     }
@@ -36,12 +33,6 @@ export default class UserEmployerController {
       }
 
       Responder.success(res, postSignupEmployerResult.result)
-    }
-    if (postSignupEmployerStep3Result.successful) {
-      res.cookie('is_post_signup_completed', 1, {
-        maxAge: config.get('cookieMaxAge')
-      })
-      Responder.success(res, postSignupEmployerStep3Result.result)
     } else {
       Responder.failed(res, postSignupEmployerResult.errors)
     }

@@ -1,5 +1,4 @@
 import Responder from '../../server/expressResponder'
-import config from '../../config/app'
 import CheckrInvitationService from '../services/authentication/checkrInvitation'
 import {
   CreateUserService,
@@ -12,14 +11,12 @@ import {
   PostSignUpAgentDataService
 } from '../services/user'
 import { getNewTokenAfterUserCodeChanged } from '../services/helper'
+import config from '../../config/app'
 
 export default class UserController {
   static async signUp (req, res) {
     const createUserResult = await CreateUserService.execute(req.body)
     if (createUserResult.successful) {
-      res.cookie('is_post_signup_completed', 0, {
-        maxAge: config.get('cookieMaxAge')
-      })
       Responder.success(res, createUserResult.result)
     } else {
       Responder.failed(res, createUserResult.errors)
@@ -29,7 +26,6 @@ export default class UserController {
   static async logout (req, res) {
     try {
       res.clearCookie('access_token')
-      res.clearCookie('is_post_signup_completed')
       Responder.success(res, 'User logged out successfully!!')
     } catch (err) {
       Responder.failed(res)
