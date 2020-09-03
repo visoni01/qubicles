@@ -8,6 +8,9 @@ import config from '../../../../config/app'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
 import logger from '../../../common/logger'
 import { getErrorMessageForService } from '../../helper'
+import { encryptData } from '../../../utils/encryption'
+import _ from 'lodash'
+import moment from 'moment'
 
 const constraintsStep1 = {
   user_id: {
@@ -34,9 +37,20 @@ export class PostSignupAgentStep1Service extends ServiceBase {
 
   async run () {
     // Add user details
+    let encryptedDob
+    let encryptedSSN
+
+    if (!_.isEmpty(this.dob)) {
+      encryptedDob = encryptData(moment(this.dob).format('YYYY-MM-DD'))
+    }
+
+    if (!_.isEmpty(this.ssn)) {
+      encryptedSSN = encryptData(this.ssn)
+    }
+
     await UserDetail.update({
-      dob: this.dob,
-      ssn: this.ssn,
+      dob: encryptedDob,
+      ssn: encryptedSSN,
       gender: this.gender
     }, { where: { user_id: this.user_id } })
 
