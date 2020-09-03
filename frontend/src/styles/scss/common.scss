@@ -1,0 +1,28 @@
+.MuiButtonBase-root {
+  &.custom-button-color{
+    color: white;
+    min-width: 140px;
+    height: 36px;
+    color: white !important;
+    background-color: $primary-palette-blue !important;
+  }
+
+}
+.MuiButton-label {
+  &.custom-button-label-hover:hover{
+    color: white;
+  }
+}
+
+.icon-hover {
+  color: white;
+  cursor: pointer;
+  &:hover {
+    color: white;
+  }
+  path {
+    &:hover {
+      color: white;
+    }
+  }
+}
