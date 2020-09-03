@@ -25,7 +25,7 @@ const ContactCenterMultiPartForm = () => {
 
   useEffect(() => {
     dispatch(postSignUpPreviousDataFetch({ type: POST_SIGNUP_EMPLOYER_PREVIOUS_DATA_FETCH }))
-  }, [ ])
+  }, [ dispatch ])
 
   const handleOnNext = (data) => {
     const stepDataForCurrentStep = stepsData[ currentStep ]

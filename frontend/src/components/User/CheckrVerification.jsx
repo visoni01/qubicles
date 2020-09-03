@@ -9,7 +9,7 @@ const CheckrVerification = () => {
   const dispatch = useDispatch()
   const handleClickButton = useCallback(() => {
     dispatch(checkrInvitationFetchingStart())
-  }, [])
+  }, [ dispatch ])
   useEffect(() => {
     if (!isLoading && invitationLink) {
       window.open(invitationLink, '_blank')
