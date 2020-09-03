@@ -1,7 +1,7 @@
 import Responder from '../../server/expressResponder'
 import {
-  CommunityRep,
-  LatestAnnouncements,
+  CommunityRepService,
+  LatestAnnouncementsService,
   JobPostings,
   ActiveUsers,
   GellAllPostStatusListService,
@@ -16,7 +16,7 @@ import {
 
 export default class DashboardController {
   static async getCommunityRep (req, res) {
-    const communityRep = await CommunityRep.execute(req.body)
+    const communityRep = await CommunityRepService.execute(req.body)
     if (communityRep.successful) {
       Responder.success(res, communityRep.result)
     } else {
@@ -25,7 +25,7 @@ export default class DashboardController {
   }
 
   static async getLatestAnnouncements (req, res) {
-    const latestAnnouncements = await LatestAnnouncements.execute(req.body)
+    const latestAnnouncements = await LatestAnnouncementsService.execute(req.body)
     if (latestAnnouncements.successful) {
       Responder.success(res, latestAnnouncements.result)
     } else {
