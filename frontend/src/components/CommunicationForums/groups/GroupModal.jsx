@@ -68,10 +68,18 @@ const AddUpdateGroupModal = ({
         <span className='vertical-align-middle'>Make group public</span>
       </DialogContent>
       <DialogActions>
-        <Button onClick={ handleCancelButton } color='primary' className='primary-button'>
+        <Button
+          onClick={ handleCancelButton }
+          className='custom-button-primary'
+          classes={ { label: 'custom-button-label-hover' } }
+        >
           Cancel
         </Button>
-        <Button onClick={ handleOnSubmit } color='primary' className='primary-button'>
+        <Button
+          onClick={ handleOnSubmit }
+          className='custom-button-primary'
+          classes={ { label: 'custom-button-label-hover' } }
+        >
           {submitButtonText}
         </Button>
       </DialogActions>

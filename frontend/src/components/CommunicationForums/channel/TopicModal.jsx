@@ -153,10 +153,10 @@ const TopicModal = ({
                   className='add-tag-textfield'
                 />
                 <IconButton size='small' onClick={ addTopicTag }>
-                  <FontAwesomeIcon icon={ faCheck } className='submit-button mt-5' />
+                  <FontAwesomeIcon icon={ faCheck } className='submit-button mt-5 icon-hover' />
                 </IconButton>
                 <IconButton size='small' onClick={ toggleAddTopic }>
-                  <FontAwesomeIcon icon={ faTimes } className='cancel-button mt-5' />
+                  <FontAwesomeIcon icon={ faTimes } className='cancel-button mt-5 icon-hover' />
                 </IconButton>
               </div>
             )}
@@ -166,16 +166,16 @@ const TopicModal = ({
         <Button
           onClick={ handleCloseModal }
           variant='contained'
-          className='primary-button'
-          classes={ { label: 'primary-button-label' } }
+          className='custom-button-primary'
+          classes={ { label: 'custom-button-label-hover' } }
         >
           Cancel
         </Button>
         <Button
           onClick={ handleCreateChannel }
           variant='contained'
-          className='primary-button'
-          classes={ { label: 'primary-button-label' } }
+          className='custom-button-primary'
+          classes={ { label: 'custom-button-label-hover' } }
           disabled={ isImageUploading }
         >
           {isEdit ? 'Update' : 'Save'}

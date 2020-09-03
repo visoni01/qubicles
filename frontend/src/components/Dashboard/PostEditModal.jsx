@@ -139,16 +139,16 @@ const PostEditModal = ({
         <Button
           onClick={ handleCloseModal }
           variant='contained'
-          className='primary-button'
-          classes={ { label: 'primary-button-label' } }
+          className='custom-button-primary'
+          classes={ { label: 'custom-button-label-hover' } }
         >
           Cancel
         </Button>
         <Button
           onClick={ handleUpdatePost }
           variant='contained'
-          className='primary-button'
-          classes={ { label: 'primary-button-label' } }
+          className='custom-button-primary'
+          classes={ { label: 'custom-button-label-hover' } }
         >
           Update
         </Button>

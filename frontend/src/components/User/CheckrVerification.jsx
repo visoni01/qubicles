@@ -22,8 +22,8 @@ const CheckrVerification = () => {
       </div>
       <Button
         onClick={ handleClickButton }
-        color='primary'
-        className='primary-button'
+        className='custom-button-primary'
+        classes={ { label: 'custom-button-label-hover' } }
       >
         Start Check
       </Button>

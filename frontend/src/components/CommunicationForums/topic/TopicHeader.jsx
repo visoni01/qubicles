@@ -64,7 +64,8 @@ const TopicHeader = ({
           {/* Forum main dropdown */}
           <Button
             variant='contained'
-            className='new-reply-button'
+            className='custom-button-primary'
+            classes={ { label: 'custom-button-label-hover' } }
             startIcon={ <FontAwesomeIcon icon={ faPlus } className='people-header-icons' /> }
             onClick={ toggleModalState }
           >

@@ -102,10 +102,19 @@ const JobsActions = ({
         >
           <DialogTitle id='delete-dialog-title'>Are you sure you want to delete?</DialogTitle>
           <DialogActions>
-            <Button onClick={ handleDialogClose } color='primary'>
+            <Button
+              onClick={ handleDialogClose }
+              className='custom-button-primary'
+              classes={ { label: 'custom-button-label-hover' } }
+            >
               Cancel
             </Button>
-            <Button onClick={ handleDelete } color='primary' autoFocus>
+            <Button
+              onClick={ handleDelete }
+              className='custom-button-primary'
+              classes={ { label: 'custom-button-label-hover' } }
+              autoFocus
+            >
               Delete
             </Button>
           </DialogActions>

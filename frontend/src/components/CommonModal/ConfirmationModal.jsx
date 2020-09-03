@@ -16,10 +16,21 @@ const ConfirmationModal = ({
       {message}
     </DialogTitle>
     <DialogActions>
-      <Button onClick={ handleClose } variant='contained'>
+      <Button
+        onClick={ handleClose }
+        variant='contained'
+        className='custom-button-primary'
+        classes={ { label: 'custom-button-label-hover' } }
+      >
         Cancel
       </Button>
-      <Button onClick={ handleConfirm } variant='contained' autoFocus>
+      <Button
+        onClick={ handleConfirm }
+        variant='contained'
+        autoFocus
+        className='custom-button-primary'
+        classes={ { label: 'custom-button-label-hover' } }
+      >
         {confirmButtonText}
       </Button>
     </DialogActions>

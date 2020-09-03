@@ -27,11 +27,11 @@ const AddTopicButton = ({ channelId }) => {
     <>
       <AddNewTopic open={ openNewTopicModal } handleClose={ handleNewTopicModal } onSubmit={ addNewGroup } />
       <Button
+        className='custom-button-primary'
+        classes={ { label: 'custom-button-label-hover' } }
         variant='contained'
-        className='primary-button'
-        startIcon={ <FontAwesomeIcon icon={ faPlus } className='people-header-icons' /> }
+        startIcon={ <FontAwesomeIcon icon={ faPlus } className='icon-hover' /> }
         onClick={ handleNewTopicModal }
-        classes={ { label: 'primary-button-label' } }
       >
         New Topic
       </Button>

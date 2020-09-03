@@ -26,10 +26,11 @@ const CreateGroup = () => {
       <GroupModal open={ openNewGroupModal } handleClose={ handleNewGroupModal } onSubmit={ addNewGroup } />
       <Button
         variant='contained'
-        className='new-job-button'
-        startIcon={ <FontAwesomeIcon icon={ faPlus } className='primary-button-label' /> }
+        // className='custom-button-primary'
+        classes={ { label: 'custom-button-label-hover' } }
+        className='new-job-button custom-button-primary'
+        startIcon={ <FontAwesomeIcon icon={ faPlus } className='icon-hover' /> }
         onClick={ handleNewGroupModal }
-        classes={ { label: 'new-job-button-label' } }
       >
         New Group
       </Button>
