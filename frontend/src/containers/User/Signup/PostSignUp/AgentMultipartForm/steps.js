@@ -1,5 +1,5 @@
 import * as yup from 'yup'
-import { regExpPhone, regExpSSN } from '../../../../../utils/common'
+import { regExpPhone, regExpSSN, regExpZip } from '../../../../../utils/common'
 
 const steps = {
   1: {
@@ -30,9 +30,9 @@ const steps = {
       street_address: yup.string(),
       city: yup.string(),
       state: yup.string(),
-      zip: yup.string().required('*Required'),
+      zip: yup.string().required('*Required').matches(regExpZip, 'Zipcode is invalid, eg:- 90401'),
       home_phone: yup.string(),
-      mobile_phone: yup.string().required('*Required').matches(regExpPhone, 'Phone number is invalid, eg:- 1234567890'),
+      mobile_phone: yup.string().required('*Required').matches(regExpPhone, 'Phone number is invalid, eg:- 5555555555'),
     }),
   },
   3: {

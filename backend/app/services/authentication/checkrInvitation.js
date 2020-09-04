@@ -1,6 +1,7 @@
 import ServiceBase from '../../common/serviceBase'
 import { getUserById, getUserDetails } from '../helper/user'
 import { createNewCandidate, getOneCandidate, createNewInvitation } from '../helper/checkr'
+import { decryptData } from '../../utils/encryption'
 
 const constraints = {
   user_id: {
@@ -48,13 +49,18 @@ export default class CheckrInvitationService extends ServiceBase {
       }
     }
     // Create User Candidate
+
+    // Decrypt Dob, SSN
+    const decryptedDob = decryptData(dob)
+    const decryptedSsn = decryptData(ssn)
+
     const candidate_id = await createNewCandidate({
       user_id,
       first_name,
       last_name,
       email,
-      dob,
-      ssn,
+      dob: decryptedDob,
+      ssn: decryptedSsn,
       zipcode: zip
     })
 
