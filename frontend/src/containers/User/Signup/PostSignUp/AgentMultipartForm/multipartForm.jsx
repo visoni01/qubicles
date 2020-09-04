@@ -4,8 +4,8 @@ import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { Select, MenuItem } from '@material-ui/core/'
-import steps from './steps'
 import moment from 'moment'
+import steps from './steps'
 
 const StepForm = ({
   step, onNext, onBack, onSubmit, stepData,
@@ -28,8 +28,6 @@ const StepForm = ({
     const {
       type, name, options,
     } = fieldData
-
-    
 
     if (type === 'radio' || type === 'checkbox') {
       return (
@@ -92,8 +90,8 @@ const StepForm = ({
 
     let value = formValues[ name ]
 
-    if ( type === 'date' && name === 'dob') {
-      value = formValues[ 'dob' ] ? moment(formValues[ 'dob' ], 'YYYY-MM-DD').format('YYYY-MM-DD') : formValues[ 'dob' ]
+    if (type === 'date' && name === 'dob') {
+      value = formValues.dob ? moment(formValues.dob, 'YYYY-MM-DD').format('YYYY-MM-DD') : formValues.dob
     }
 
     return (
