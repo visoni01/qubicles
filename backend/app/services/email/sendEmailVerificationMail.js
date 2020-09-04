@@ -19,6 +19,7 @@ export default class SendEmailVerificationMailService extends ServiceBase {
 
   async run () {
     const verifyEmailPageUrl = `${config.get('webApp.baseUrl')}/verify-token/${this.token}`
+    logger.info(`verifyEmailPageUrl =========> ${verifyEmailPageUrl}`)
 
     NodeMailer.sendMail({
       from: 'Qubicles <notifications@qubicles.io>',

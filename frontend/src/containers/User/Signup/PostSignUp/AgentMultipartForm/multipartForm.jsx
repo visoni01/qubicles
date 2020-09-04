@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { Select, MenuItem } from '@material-ui/core/'
 import steps from './steps'
+import moment from 'moment'
 
 const StepForm = ({
   step, onNext, onBack, onSubmit, stepData,
@@ -27,6 +28,9 @@ const StepForm = ({
     const {
       type, name, options,
     } = fieldData
+
+    
+
     if (type === 'radio' || type === 'checkbox') {
       return (
         <div className='control'>
@@ -85,11 +89,18 @@ const StepForm = ({
         </div>
       )
     }
+
+    let value = formValues[ name ]
+
+    if ( type === 'date' && name === 'dob') {
+      value = formValues[ 'dob' ] ? moment(formValues[ 'dob' ], 'YYYY-MM-DD').format('YYYY-MM-DD') : formValues[ 'dob' ]
+    }
+
     return (
       <div className='control'>
         <input
           onChange={ handleValueChange(name) }
-          value={ formValues[ name ] }
+          value={ value }
           type={ type }
           className='input'
           name={ name }
