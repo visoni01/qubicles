@@ -27,8 +27,7 @@ export default class SocialSignupService extends ServiceBase {
 
   async run () {
     const existingUser = await User.findOne({ where: { email: this.email }, raw: true })
-    let userDetailsData
-    if (Object.is(existingUser, null)) {
+    if (!existingUser) {
       const userObj = {
         full_name: this.full_name,
         email: this.email,
@@ -36,7 +35,7 @@ export default class SocialSignupService extends ServiceBase {
         [this.type]: this.id
       }
       const user = await createNewEntity({ model: User, data: userObj })
-      userDetailsData = await createNewEntity({
+      await createNewEntity({
         model: UserDetail,
         data: {
           user_id: user.user_id,
@@ -44,16 +43,28 @@ export default class SocialSignupService extends ServiceBase {
           last_name: this.last_name
         }
       })
-      this.generateAndSendToken(userObj.email, this.full_name, user.user_id, user.user_code)
+      await this.generateAndSendToken(
+        {
+          email: userObj.email,
+          full_name: userObj.full_name,
+          user_id: user.user_id,
+          user_code: user.user_code
+        })
       return user
     } else {
-      if (!Object.is(existingUser[this.id], null)) {
+      if (existingUser[this.type] == null) {
         const updateObj = {}
         updateObj[this.type] = this.id
         await this.updateUserIfAlreadyExist(this.email, updateObj)
       }
       if (!existingUser.email_verified) {
-        this.generateAndSendToken(this.email, this.full_name, this.id, this.user_code, userDetailsData.is_post_signup_completed)
+        await this.generateAndSendToken(
+          {
+            email: existingUser.email,
+            full_name: this.full_name,
+            user_id: existingUser.user_id,
+            user_code: existingUser.user_code
+          })
       }
       return existingUser
     }
@@ -67,8 +78,8 @@ export default class SocialSignupService extends ServiceBase {
     })
   }
 
-  async generateAndSendToken (email, full_name, user_id, user_code, is_post_signup_completed) {
-    const token = jwt.sign({ email, full_name, user_id, user_code, is_post_signup_completed },
+  async generateAndSendToken ({ email, full_name, user_id, user_code }) {
+    const token = jwt.sign({ email, full_name, user_id, user_code },
       config.get('jwt.emailVerificationTokenSecret'),
       { expiresIn: config.get('jwt.emailVerificationTokenExpiry') })
     await SendEmailVerificationMail.execute({ token, email })

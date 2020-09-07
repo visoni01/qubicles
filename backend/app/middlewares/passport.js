@@ -75,17 +75,7 @@ function initPassport () {
         email: userDetailsJson.email
       }
       const user = await SocialSignup.run(userObj)
-      const userDetailsData = await getOne({ model: UserDetail, data: { user_id: user.user_id }, attributes: ['is_post_signup_completed'] })
-      const jwtToken = await jwt.sign({
-        email: user.email,
-        full_name: userDetailsJson.name,
-        user_id: user.user_id,
-        is_post_signup_completed: !!(userDetailsData && userDetailsData.is_post_signup_completed),
-        user_code: user.user_code
-      },
-      config.get('jwt.loginTokenSecret'), {
-        expiresIn: config.get('jwt.loginTokenExpiry')
-      })
+      const jwtToken = await signAccessToken(user)
       user.accessToken = jwtToken
       return done(null, user)
     }
@@ -97,18 +87,20 @@ function initPassport () {
     clientSecret: config.get('facebook.appSecret'),
     callbackURL: config.get('facebook.callbackURL'),
     profileFields: ['email', 'name']
-  }, function (accessToken, refreshToken, profile, done) {
+  }, async function (accessToken, refreshToken, profile, done) {
     if (profile) {
       if (profile._json) {
         const userDetailsJson = profile._json
-        const user = {
+        const userObj = {
           type: 'facebook_id',
           full_name: userDetailsJson.first_name + ' ' + userDetailsJson.last_name,
           id: userDetailsJson.id,
           email: userDetailsJson.email
         }
-        SocialSignup.execute(user)
-        return (null, profile)
+        const user = await SocialSignup.run(userObj)
+        const jwtToken = await signAccessToken(user)
+        user.accessToken = jwtToken
+        return done(null, user)
       }
     }
   }
@@ -119,20 +111,19 @@ function initPassport () {
     clientSecret: config.get('linkedin.secretkey'),
     callbackURL: config.get('linkedin.callbackURL'),
     scope: ['r_emailaddress', 'r_liteprofile']
-  }, function (req, accessToken, refreshToken, profile, done) {
-    // asynchronous verification, for effect...
-    process.nextTick(function () {
-      if (profile) {
-        const user = {
-          type: 'linkedin_id',
-          full_name: profile.displayName,
-          id: profile.id,
-          email: profile.emails[0].value
-        }
-        SocialSignup.execute(user)
-        return done(null, profile)
+  }, async function (req, accessToken, refreshToken, profile, done) {
+    if (profile) {
+      const userObj = {
+        type: 'linkedin_id',
+        full_name: profile.displayName,
+        id: profile.id,
+        email: profile.emails[0].value
       }
-    })
+      const user = await SocialSignup.run(userObj)
+      const jwtToken = await signAccessToken(user)
+      user.accessToken = jwtToken
+      return done(null, user)
+    }
   }
   ))
 
@@ -151,6 +142,27 @@ const getAccessTokenFromCookie = function (req) {
     accessToken = req.cookies['access_token']
   }
   return accessToken
+}
+
+const signAccessToken = async function (user) {
+  const userDetailsData = await getOne({
+    model: UserDetail,
+    data: {
+      user_id: user.user_id
+    },
+    attributes: ['is_post_signup_completed']
+  })
+  const jwtToken = await jwt.sign({
+    email: user.email,
+    full_name: user.full_name,
+    user_id: user.user_id,
+    is_post_signup_completed: !!(userDetailsData && userDetailsData.is_post_signup_completed),
+    user_code: user.user_code
+  },
+  config.get('jwt.loginTokenSecret'), {
+    expiresIn: config.get('jwt.loginTokenExpiry')
+  })
+  return jwtToken
 }
 
 module.exports = initPassport
