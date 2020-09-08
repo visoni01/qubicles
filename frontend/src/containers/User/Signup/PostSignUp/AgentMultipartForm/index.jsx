@@ -30,6 +30,9 @@ const AgentMultipartForm = () => {
   }, [ dispatch ])
 
   const handleOnNext = (data) => {
+    console.log('data==========>data')
+    console.log('currentStep==========>currentStep')
+    console.log('stepsData[ currentStep ]==========>stepsData[ currentStep ]')
     if (data.dob) {
       data.dob = moment(data.dob, 'YYYY-MM-DD').format('YYYY-MM-DD')
     }
