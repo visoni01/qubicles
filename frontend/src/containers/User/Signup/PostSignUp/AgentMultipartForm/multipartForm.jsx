@@ -15,6 +15,8 @@ const StepForm = ({
     validationSchema: steps[ step ] && steps[ step ].schema,
   })
 
+  console.log('Errors =======>', errors)
+
   useEffect(() => {
     setValues(stepData)
   }, [ stepData ])
