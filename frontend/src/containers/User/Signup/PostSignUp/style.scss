@@ -256,6 +256,15 @@
           height: 30px;
           background: lighten($fade-grey, 8%);
         }
+
+        .custom-intl-tel-input {
+          font-size: 1.2rem !important;
+          input {
+            &:hover, &:focus {
+              outline: none;
+            }
+          }
+        }
       }
     }
 
@@ -382,4 +391,11 @@
 
 .intro-logo {
   border-radius: 6px;
+}
+
+.intl-tel-input {
+  &:hover, &:focus {
+    border: none;
+    outline: none;
+  }
 }
