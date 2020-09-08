@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import PropTypes from 'prop-types'
+import IntlTelInput from 'react-intl-tel-input'
 import steps from './steps'
+import 'react-intl-tel-input/dist/main.css'
+import { spreadArgs } from '../../../../../utils/common'
 
 const Form = ({
   step, onNext, onBack, onSubmit, stepData,
@@ -12,12 +15,23 @@ const Form = ({
     setValues(stepData)
   }, [ stepData ])
 
-  const { register, errors, handleSubmit } = useForm({
+  const {
+    register, errors, handleSubmit, control,
+  } = useForm({
     validationSchema: steps[ step ] && steps[ step ].schema,
   })
 
   const handleValueChange = (name) => (event) => {
     setValues({ ...formValues, [ name ]: event.target.value })
+  }
+
+  const handlePhoneNumberChange = (isValid, value, selectedCountryData, fullNumber, extension) => {
+    const nextValue = isValid
+      ? fullNumber.replace(/([()])|-/g, '') : value
+    if (isValid) {
+      setValues({ ...formValues, mobile_phone: nextValue })
+    }
+    return nextValue
   }
 
   const isChecked = (name, value) => formValues[ name ] && formValues[ name ] === value
@@ -29,43 +43,66 @@ const Form = ({
     return (
       <div className='field' key={ `${ name }${ label }` }>
         <label>{label}</label>
-        { (type === 'radio' || type === 'checkbox') ? (
+        {(type === 'radio' || type === 'checkbox') ? (
           <div className='control'>
             {checkTypes
-            && checkTypes.map(([ inputName, value, inputLabel ]) => (
-              <div key={ `${ inputName }` } className='check-box-div'>
-                <input
-                  type={ type }
-                  onChange={ handleValueChange(name) }
-                  id={ inputName }
-                  name={ name }
-                  value={ value }
-                  ref={ register }
-                  checked={ isChecked(name, value) }
-                />
-                <label htmlFor={ value } className='checkbox-label'>
-                  {inputLabel}
-                </label>
-                <br />
-              </div>
-            ))}
+              && checkTypes.map(([ inputName, value, inputLabel ]) => (
+                <div key={ `${ inputName }` } className='check-box-div'>
+                  <input
+                    type={ type }
+                    onChange={ handleValueChange(name) }
+                    id={ inputName }
+                    name={ name }
+                    value={ value }
+                    ref={ register }
+                    checked={ isChecked(name, value) }
+                  />
+                  <label htmlFor={ value } className='checkbox-label'>
+                    {inputLabel}
+                  </label>
+                  <br />
+                </div>
+              ))}
           </div>
         ) : (
           <div className='control'>
-            <input
-              onChange={ handleValueChange(name) }
-              type={ type }
-              className='input'
-              name={ name }
-              ref={ register }
-              value={ formValues[ name ] }
-            />
+            {
+                (name === 'phone_number') ? (
+                  <Controller
+                    as={ IntlTelInput }
+                    control={ control }
+                    fieldId={ name }
+                    fieldName={ name }
+                    preferredCountries={ [ 'us', 'ca' ] }
+                    containerClassName='control custom-intl-tel-input intl-tel-input'
+                    name={ name }
+                    format
+                    formatInput
+                    onChangeName='onPhoneNumberChange'
+                    onChange={ spreadArgs(handlePhoneNumberChange) }
+                    telInputProps={ {
+                      required: true,
+                    } }
+                    defaultValue={ formValues[ name ] }
+
+                  />
+                ) : (
+                  <input
+                    onChange={ handleValueChange(name) }
+                    type={ type }
+                    className='input'
+                    name={ name }
+                    ref={ register }
+                    value={ formValues[ name ] }
+                  />
+                )
+              }
           </div>
         )}
         {errors && errors[ name ] && (
-        <div className='error-message'>
-          {errors[ name ].message}
-        </div>
+          <div className='error-message'>
+            {errors[ name ].message}
+          </div>
         )}
       </div>
     )

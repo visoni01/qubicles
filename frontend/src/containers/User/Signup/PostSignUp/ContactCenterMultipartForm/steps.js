@@ -17,8 +17,8 @@ const steps = {
       city: yup.string().max(100),
       state: yup.string().max(100),
       zip: yup.string().max(10).required('*Required'),
-      phone_number: yup.string().max(15).required('*Required')
-        .matches(regExpPhone, 'Phone number is invalid, eg:- 1234567890'),
+      phone_number: yup.string().required('*Required').max(15)
+        .matches(regExpPhone, 'Phone number is invalid, eg:- 5555555555'),
     }),
   },
   2: {
