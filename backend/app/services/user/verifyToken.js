@@ -23,7 +23,7 @@ export default class VerifyTokenService extends ServiceBase {
         return
       }
       if (jwtVerified) {
-        const user = await this.checkIfEmailAlreadyVerified(jwtVerified.email)
+        const user = await User.findOne({ where: { email: jwtVerified.email }, raw: true })
         if (!(user.email_verified)) {
           // Create User Group
           const newUserGroup = await CreateUserGroupService.execute({
@@ -57,10 +57,5 @@ export default class VerifyTokenService extends ServiceBase {
         }
       }
     })
-  }
-
-  async checkIfEmailAlreadyVerified (email) {
-    const user = User.findOne({ where: { email }, raw: true })
-    return user
   }
 }
