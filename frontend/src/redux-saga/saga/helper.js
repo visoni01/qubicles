@@ -26,7 +26,6 @@ export const getPostSignUpStepsData = ({ type, data }) => {
   } else {
     stepsData = {
       1: {
-        user_code: data.user_code,
         dob: data.dob,
         ssn: data.ssn,
         gender: data.gender,

@@ -40,7 +40,7 @@ const StepForm = ({
                   type={ type }
                   id={ inputName }
                   name={ name }
-                  value={ value }
+                  defaultValue={ value }
                   ref={ register }
                   checked={ isChecked(name, value) }
                 />
@@ -98,7 +98,7 @@ const StepForm = ({
       <div className='control'>
         <input
           onChange={ handleValueChange(name) }
-          value={ value }
+          defaultValue={ value }
           type={ type }
           className='input'
           name={ name }

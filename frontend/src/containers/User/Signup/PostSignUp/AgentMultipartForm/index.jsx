@@ -5,6 +5,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import _ from 'lodash'
+import moment from 'moment'
 import { POST_SIGNUP_AGENT_PREVIOUS_DATA_FETCH } from '../../../../../redux-saga/redux/constants'
 
 import StepperComponent from '../../../../../components/Stepper'
@@ -29,13 +30,16 @@ const AgentMultipartForm = () => {
   }, [ dispatch ])
 
   const handleOnNext = (data) => {
-    const stepDataForCurrentStep = stepsData[ currentStep ]
-    if (currentStep !== 5
-      && ((stepDataForCurrentStep && _.isEqual(stepDataForCurrentStep, data)) || currentStep === 4)) {
+    if (data.dob) {
+      data.dob = moment(data.dob, 'YYYY-MM-DD').format('YYYY-MM-DD')
+    }
+
+    if (currentStep !== 5 && ((stepsData[ currentStep ] && _.isEqual(stepsData[ currentStep ], data)) || currentStep === 4)) {
       return dispatch(handleNextStep())
     }
     return dispatch(postSignUpStepStart({ type: 'agent', step: currentStep, data }))
   }
+
   const handleOnBack = () => dispatch(handleBackStep())
 
   const steps = [
