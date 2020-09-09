@@ -8,6 +8,7 @@ import jwt from 'jsonwebtoken'
 import { User, UserDetail } from '../db/models'
 import config from '../../config/app'
 import SocialSignup from '../services/signup/socialSignup'
+import { APP_ERROR_CODES } from '../utils/errors'
 import { getOne } from '../services/helper'
 
 function initPassport () {
@@ -23,13 +24,13 @@ function initPassport () {
   async function (email, password, done) {
     const user = await User.findOne({ where: { email } })
     if (user == null) {
-      done('Email not registered!')
+      return done({ message: APP_ERROR_CODES[101], code: 101 }, null)
     } else {
-      if (!user.email_verified) {
-        done('Email not verified!')
-      }
       if (!await user.comparePassword(password)) {
-        done('Incorrect Password')
+        return done({ message: APP_ERROR_CODES[103], code: 103 }, null)
+      }
+      if (!user.email_verified) {
+        return done({ message: APP_ERROR_CODES[102], code: 102 }, null)
       } else {
         const userObj = user.get({ plain: true })
         const userDetailsData = await getOne({ model: UserDetail, data: { user_id: user.user_id }, attributes: ['is_post_signup_completed'] })

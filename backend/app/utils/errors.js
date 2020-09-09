@@ -10,6 +10,12 @@ export const ERRORS = {
   SERVER_UNAVAILABLE: 'serverUnavailable'
 }
 
+export const APP_ERROR_CODES = {
+  101: 'Email not registered!',
+  102: 'Email not verified!',
+  103: 'Incorrect Password!'
+}
+
 export const MESSAGES = {
   SERVER_ERROR: 'An error occurred while processing your request. Please try again later.',
   CLIENT_NOT_FOUND: 'Client does not exist for this user, Please complete step 1 First',
