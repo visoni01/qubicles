@@ -57,7 +57,7 @@ function* postSignupStepWorker(action) {
         break
     }
   } catch (e) {
-    yield put(showErrorMessage({ msg: e }))
+    yield put(showErrorMessage({ msg: e.errMsg }))
     yield put(postSignUpStepFailure())
 
     yield put(stopLoader())

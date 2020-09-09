@@ -42,7 +42,7 @@ function* jobDetailsWorker(action) {
       default: return
     }
   } catch (e) {
-    yield put(showErrorMessage({ msg: e }))
+    yield put(showErrorMessage({ msg: e.errMsg }))
   }
 }
 

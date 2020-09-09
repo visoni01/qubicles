@@ -21,7 +21,7 @@ function* categoryDataFetchingWorker(action) {
     }
     yield put(jobCategoriesFetchSuccessful({ jobCategories: data }))
   } catch (e) {
-    yield put(showErrorMessage({ msg: e }))
+    yield put(showErrorMessage({ msg: e.errMsg }))
   }
 }
 

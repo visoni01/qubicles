@@ -10,6 +10,7 @@ import User from '../service/user'
 import { getUserDetails } from '../../utils/common'
 import { showSuccessMessage, showErrorMessage } from '../redux/snackbar'
 import { startLoader, stopLoader } from '../redux/loader'
+import { setShowVerifyMailButton } from '../redux/actions'
 
 function* loginWatcher() {
   yield takeLatest([ userLoginStart.type, userUpdateStart.type ], loginWorker)
@@ -39,7 +40,16 @@ function* loginWorker(action) {
         break
     }
   } catch (e) {
-    yield put(showErrorMessage({ msg: e }))
+    yield put(showErrorMessage({ msg: e.errMsg }))
+    switch (e.errCode) {
+      case 102: {
+        yield put(setShowVerifyMailButton(true))
+        break
+      }
+      default: {
+        break
+      }
+    }
     yield put(userLoginFailure())
     yield put(stopLoader())
   }

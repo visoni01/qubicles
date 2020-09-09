@@ -7,9 +7,12 @@ export const handleResponse = (response) => {
 export const handleReponseError = (error) => {
   const { response } = error
   const { data } = response
-  let errMsg
+  let err
   if (data) {
-    errMsg = data.message || data.error
+    err = {
+      errMsg: data.message || data.error,
+      errCode: data.errCode,
+    }
   }
-  return Promise.reject(errMsg)
+  return Promise.reject(err)
 }
