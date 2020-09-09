@@ -1,6 +1,6 @@
 import ServiceBase from '../../../common/serviceBase'
 import { UserDetail, User } from '../../../db/models'
-import { getOne, getErrorMessageForService } from '../../helper'
+import { getOne, getErrorMessageForService, phoneNumberFormatter } from '../../helper'
 import { ERRORS } from '../../../utils/errors'
 import logger from '../../../common/logger'
 import { decryptData } from '../../../utils/encryption'
@@ -60,7 +60,7 @@ export class PostSignUpAgentDataService extends ServiceBase {
         zip,
         state,
         home_phone,
-        mobile_phone,
+        mobile_phone: mobile_phone ? phoneNumberFormatter(mobile_phone) : '',
         years_of_experience,
         highest_education,
         primary_language,
@@ -69,7 +69,6 @@ export class PostSignUpAgentDataService extends ServiceBase {
         service: userData.user_code,
         user_code: userData.user_code
       }
-
       return data
     } catch (e) {
       logger.error(getErrorMessageForService('PostSignUpAgentDataService'), e)

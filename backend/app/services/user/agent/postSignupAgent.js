@@ -115,7 +115,7 @@ export class PostSignupAgentStep2Service extends ServiceBase {
           state: this.state || state,
           zip: this.zip,
           home_phone: this.home_phone,
-          mobile_phone: this.mobile_phone.substring(1, 12)
+          mobile_phone: this.mobile_phone.substring(1, 15)
         }, { where: { user_id: this.user_id } })
 
         return 'User Updated Successfully'

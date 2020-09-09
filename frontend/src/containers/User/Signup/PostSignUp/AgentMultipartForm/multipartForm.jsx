@@ -8,7 +8,7 @@ import moment from 'moment'
 import IntlTelInput from 'react-intl-tel-input'
 import steps from './steps'
 import 'react-intl-tel-input/dist/main.css'
-import { getPhoneNumber, spreadArgs } from '../../../../../utils/common'
+import { spreadArgs, phoneNumberFormatter } from '../../../../../utils/common'
 
 const StepForm = ({
   step, onNext, onBack, onSubmit, stepData,
@@ -28,10 +28,10 @@ const StepForm = ({
     setValues({ ...formValues, [ name ]: event.target.value })
   }
 
-  const handlePhoneNumberChange = (isValid, value, selectedCountryData, fullNumber, extension) => {
+  const handlePhoneNumberChange = (isValid, value, selectedCountryData, fullNumber) => {
     const nextValue = isValid
-      ? fullNumber.replace(/\((.+)\)|-/g, '')
-      : value
+      ? fullNumber.replace(/([()])|-/g, '')
+      : phoneNumberFormatter(value, selectedCountryData)
     if (isValid) {
       setValues({ ...formValues, mobile_phone: nextValue })
     }

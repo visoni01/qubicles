@@ -60,7 +60,7 @@ export class PostSignupEmployerStep1Service extends ServiceBase {
       city: this.city,
       state: this.state || state,
       zip: this.zip,
-      phone_number: this.phone_number.substring(1, 12)
+      phone_number: this.phone_number.substring(1, 15)
     }
 
     try {

@@ -258,8 +258,8 @@
         }
 
         .custom-intl-tel-input {
-          font-size: 1.2rem !important;
           input {
+            font-size: 1.2rem !important;
             &:hover, &:focus {
               outline: none;
             }

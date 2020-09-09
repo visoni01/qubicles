@@ -7,7 +7,7 @@ import _ from 'lodash'
 import config from './config'
 import MESSAGES from './messages'
 
-export const regExpPhone = /^[+](\d{1,4})?\s(\d{3})(\d{3}?)(\d{4}?)$/
+export const regExpPhone = /^[+](\d{1,4})?\s(\d{10})$/
 export const regExpSSN = /^(?!000|666)[0-8][0-9]{2}(?!00)[0-9]{2}(?!0000)[0-9]{4}$/
 export const regExpZip = /^[0-9]{5}(?:-[0-9]{4})?$/
 
@@ -104,6 +104,15 @@ export const shortenFileName = (fileObj) => {
 }
 
 export const getPhoneNumber = (value, countryData) => `+${ countryData.dialCode } ${ value }`
+
+// This method is used to format phone number as per e.g. +1 5555555555
+export const phoneNumberFormatter = (number, countryData) => {
+  if (number.match(/([()])|^\d{10}$/g)) {
+    const formattedNum = number.replace(/([()])|-|\s|\+/g, '')
+    return `+${ countryData.dialCode } ${ formattedNum }`
+  }
+  return number
+}
 
 export const spreadArgs = (handler) =>
   // Spreading the arguments over the handler.

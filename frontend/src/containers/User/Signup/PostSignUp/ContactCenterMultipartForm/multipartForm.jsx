@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import IntlTelInput from 'react-intl-tel-input'
 import steps from './steps'
 import 'react-intl-tel-input/dist/main.css'
-import { spreadArgs } from '../../../../../utils/common'
+import { spreadArgs, phoneNumberFormatter } from '../../../../../utils/common'
 
 const Form = ({
   step, onNext, onBack, onSubmit, stepData,
@@ -20,16 +20,16 @@ const Form = ({
   } = useForm({
     validationSchema: steps[ step ] && steps[ step ].schema,
   })
-
   const handleValueChange = (name) => (event) => {
     setValues({ ...formValues, [ name ]: event.target.value })
   }
 
-  const handlePhoneNumberChange = (isValid, value, selectedCountryData, fullNumber, extension) => {
+  const handlePhoneNumberChange = (isValid, value, selectedCountryData, fullNumber) => {
     const nextValue = isValid
-      ? fullNumber.replace(/([()])|-/g, '') : value
+      ? fullNumber.replace(/([()])|-/g, '')
+      : phoneNumberFormatter(value, selectedCountryData)
     if (isValid) {
-      setValues({ ...formValues, mobile_phone: nextValue })
+      setValues({ ...formValues, phone_number: nextValue })
     }
     return nextValue
   }
@@ -84,7 +84,6 @@ const Form = ({
                       required: true,
                     } }
                     defaultValue={ formValues[ name ] }
-
                   />
                 ) : (
                   <input
