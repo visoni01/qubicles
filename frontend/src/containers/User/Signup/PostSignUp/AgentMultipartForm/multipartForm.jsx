@@ -15,7 +15,7 @@ const StepForm = ({
 }) => {
   const [ formValues, setValues ] = useState(stepData || {})
   const {
-    register, errors, handleSubmit, setValue, getValues, unregister, control,
+    register, errors, handleSubmit, control, setValue, getValues, unregister,
   } = useForm({
     validationSchema: steps[ step ] && steps[ step ].schema,
   })
@@ -168,14 +168,16 @@ const StepForm = ({
               defaultValue={ formValues[ name ] }
             />
           ) : (
-            <input
-              onChange={ handleValueChange(name) }
-              value={ value }
-              type={ type }
-              className='input'
-              name={ name }
-              ref={ register }
-            />
+            <div key={ `${ name }${ label }` }>
+              <input
+                onChange={ handleValueChange(name) }
+                defaultValue={ value }
+                type={ type }
+                className='input'
+                name={ name }
+                ref={ register }
+              />
+            </div>
           )
         }
       </div>
