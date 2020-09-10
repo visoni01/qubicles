@@ -74,11 +74,11 @@ const {
     }),
     setShowVerifyMailButton: (state) => ({
       ...state,
-      setShowVerifyMailButton: true,
+      showVerifyMailButton: true,
     }),
     resetShowVerifyMailButton: (state) => ({
       ...state,
-      setShowVerifyMailButton: false,
+      showVerifyMailButton: false,
     }),
   },
 })
