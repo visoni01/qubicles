@@ -13,6 +13,7 @@ import {
   sendVerificationMailStart,
   resetShowVerifyMailButton,
   resetSendVerificationMail,
+  setIsSocialLogin,
 } from '../../redux-saga/redux/actions'
 import '../User/Signup/SignUp/style.scss'
 
@@ -129,10 +130,12 @@ const VerifyEmail = () => {
                       <button
                         type='button'
                         className='text-button mt-20'
-                        onClick={ () => history.push({
-                          pathname: '/login',
-                          state: { isEmail: true },
-                        }) }
+                        onClick={ () => {
+                          dispatch(setIsSocialLogin(false))
+                          history.push({
+                            pathname: '/login',
+                          })
+                        } }
                       >
                         <span className='options-span-2'>
                           Already have an account? Click here to login
@@ -143,7 +146,12 @@ const VerifyEmail = () => {
                       <button
                         type='button'
                         className='text-button mt-20'
-                        onClick={ () => history.push('/login') }
+                        onClick={ () => {
+                          dispatch(setIsSocialLogin(true))
+                          history.push({
+                            pathname: '/login',
+                          })
+                        } }
                       >
                         <span className='options-span-2'>
                           Or sign up faster using your Facebook, Twitter or linkedIn account
@@ -163,10 +171,12 @@ const VerifyEmail = () => {
                       <button
                         type='button'
                         className='text-button mt-20'
-                        onClick={ () => history.push({
-                          pathname: '/login',
-                          state: { isEmail: true },
-                        }) }
+                        onClick={ () => {
+                          dispatch(setIsSocialLogin(false))
+                          history.push({
+                            pathname: '/login',
+                          })
+                        } }
                       >
                         <span className='options-span-2'>
                           { 'Already Verified ?  Click here to login '}

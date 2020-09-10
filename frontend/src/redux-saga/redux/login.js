@@ -8,6 +8,7 @@ const initialState = {
   // Setting the state when app render and user refresh the page
   userDetails: getUserDetails(),
   showVerifyMailButton: false,
+  socialLogin: true,
 }
 
 const {
@@ -17,6 +18,7 @@ const {
     userLoginFailure,
     userLogoutSuccessful,
     clearStore,
+    setIsSocialLogin,
     userUpdateStart,
     userUpdateSuccess,
     setShowVerifyMailButton,
@@ -80,6 +82,10 @@ const {
       ...state,
       showVerifyMailButton: false,
     }),
+    setIsSocialLogin: (state, action) => ({
+      ...state,
+      socialLogin: !!action.payload,
+    }),
   },
 })
 
@@ -94,4 +100,5 @@ export {
   userUpdateSuccess,
   setShowVerifyMailButton,
   resetShowVerifyMailButton,
+  setIsSocialLogin,
 }

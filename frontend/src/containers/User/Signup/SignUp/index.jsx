@@ -12,6 +12,7 @@ import {
 
 import { useHistory, useLocation, Link } from 'react-router-dom'
 import { userSignupStart } from '../../../../redux-saga/redux/signup'
+import { setIsSocialLogin } from '../../../../redux-saga/redux/actions'
 import './style.scss'
 
 const schema = yup.object().shape({
@@ -31,7 +32,6 @@ const SignUp = () => {
   const dispatch = useDispatch()
   const onSubmit = (data) => dispatch(userSignupStart(data))
   const { success } = useSelector((state) => state.signup)
-
   const inputField = (
     name,
     id,
@@ -99,10 +99,12 @@ const SignUp = () => {
                         <button
                           type='button'
                           className='text-button mb-20'
-                          onClick={ () => history.push({
-                            pathname: '/login',
-                            state: { isEmail: true },
-                          }) }
+                          onClick={ () => {
+                            dispatch(setIsSocialLogin(false))
+                            history.push({
+                              pathname: '/login',
+                            })
+                          } }
                         >
                           Already have an account? Click here to login
                         </button>

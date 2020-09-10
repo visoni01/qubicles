@@ -35,17 +35,14 @@ const Login = () => {
   const history = useHistory()
   const location = useLocation()
   const isReturnTo = location.search.split('?return_url=')
-  const isManualLogin = history.location.state && history.location.state.isEmail
-  const [ isSocialLogin, setIsSocialLogin ] = useState(true)
+  const { socialLogin } = useSelector((state) => state.login)
+  const [ isSocialLogin, setIsSocialLogin ] = useState(socialLogin)
   const dispatch = useDispatch()
   const onSubmit = (data) => dispatch(userLoginStart(data))
   const { success, error } = useSelector((state) => state.login)
   useEffect(() => {
     dispatch(clearStore())
-    if (isManualLogin) {
-      setIsSocialLogin(!isManualLogin)
-    }
-  }, [ isManualLogin, dispatch ])
+  }, [ dispatch ])
 
   const inputField = (
     name,
