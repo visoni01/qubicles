@@ -15,13 +15,50 @@ const StepForm = ({
 }) => {
   const [ formValues, setValues ] = useState(stepData || {})
   const {
-    register, errors, handleSubmit, control,
+    register, errors, handleSubmit, setValue, getValues, unregister, control,
   } = useForm({
     validationSchema: steps[ step ] && steps[ step ].schema,
   })
 
+  const handleRadioChange = (name) => (event) => {
+    setValue(name, event.target.value)
+    setValues({ ...formValues, [ name ]: event.target.value })
+  }
+
   useEffect(() => {
     setValues(stepData)
+    if (steps[ step ]) {
+      steps[ step ].fields.map((field) => {
+        // Manually registering radio and select fields in the react-hook-form.
+        if (field.type === 'radio' || field.type === 'select') {
+          register(field.name)
+        }
+        // Setting value in the registered field if exists.
+        if (stepData[ field.name ]) {
+          setValue(field.name, stepData[ field.name ])
+        }
+        return null
+      })
+      if (Object.keys(getValues()).length !== steps[ step ].fields.length) {
+        steps[ step ].fields.map((field) => {
+          // Registering and setting value if it misses.
+          if (field.type === 'text') {
+            register(field.name)
+            setValue(field.name, stepData[ field.name ])
+          }
+          return null
+        })
+      }
+    }
+    return () => {
+      if (steps[ step ]) {
+        steps[ step ].fields.map((field) => {
+          // Unregistering fields.
+          unregister(field.name)
+          return null
+        })
+      }
+    }
   }, [ stepData ])
 
   const handleValueChange = (name) => (event) => {
@@ -43,23 +80,22 @@ const StepForm = ({
   // eslint-disable-next-line complexity
   const inputField = (fieldData) => {
     const {
-      type, name, options,
+      type, name, options, label,
     } = fieldData
 
     if (type === 'radio' || type === 'checkbox') {
       return (
-        <div className='control'>
+        <div key={ `${ name }${ label }` }>
           {options
             && options.map(([ inputName, value, inputLabel ]) => (
               <div key={ `${ inputName }` } className='check-box-div'>
                 <input
-                  onChange={ handleValueChange(name) }
+                  onChange={ handleRadioChange(name) }
                   type={ type }
                   id={ inputName }
                   name={ name }
                   defaultValue={ value }
-                  ref={ register }
-                  checked={ isChecked(name, value) }
+                  defaultChecked={ isChecked(name, value) }
                 />
                 <label htmlFor={ value } className='checkbox-label'>
                   {inputLabel}
@@ -78,7 +114,7 @@ const StepForm = ({
       }
 
       return (
-        <div className='control'>
+        <div key={ `${ name }${ label }` }>
           <Select
             MenuProps={ {
               getContentAnchorEl: null,
@@ -91,9 +127,8 @@ const StepForm = ({
             id={ name }
             value={ selectFieldValue }
             multiple
-            onChange={ handleValueChange(name) }
+            onChange={ handleRadioChange(name) }
             className='dropdown'
-            inputRef={ (ref) => register({ name, value: formValues[ name ] && (formValues[ name ]).toString() }) }
           >
             {options && options.map(({ label: optionLabel, value }) => (
               <MenuItem key={ value } value={ value }>
