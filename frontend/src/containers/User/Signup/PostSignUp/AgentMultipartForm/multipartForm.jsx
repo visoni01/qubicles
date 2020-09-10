@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, { useState, useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import PropTypes from 'prop-types'
@@ -8,7 +9,7 @@ import moment from 'moment'
 import IntlTelInput from 'react-intl-tel-input'
 import steps from './steps'
 import 'react-intl-tel-input/dist/main.css'
-import { spreadArgs, phoneNumberFormatter } from '../../../../../utils/common'
+import { spreadArgs, phoneNumberFormatter, formatSSN } from '../../../../../utils/common'
 
 const StepForm = ({
   step, onNext, onBack, onSubmit, stepData,
@@ -62,7 +63,11 @@ const StepForm = ({
   }, [ stepData ])
 
   const handleValueChange = (name) => (event) => {
-    setValues({ ...formValues, [ name ]: event.target.value })
+    let { value } = event.target
+    if (name === 'ssn') {
+      value = formatSSN(value)
+    }
+    setValues({ ...formValues, [ name ]: value })
   }
 
   const handlePhoneNumberChange = (isValid, value, selectedCountryData, fullNumber) => {

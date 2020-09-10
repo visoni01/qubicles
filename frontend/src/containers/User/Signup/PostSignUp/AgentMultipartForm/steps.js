@@ -14,7 +14,7 @@ const steps = {
     schema: yup.object().shape({
       dob: yup.date().required('*Required'),
       gender: yup.string().required('*Required'),
-      ssn: yup.string().required('*Required').matches(regExpSSN, 'SSN is invalid, eg:- 111112001'),
+      ssn: yup.string().required('*Required').matches(regExpSSN, 'SSN is invalid, eg:- 111-11-2001'),
     }),
   },
   2: {
