@@ -41,14 +41,8 @@ function* loginWorker(action) {
     }
   } catch (e) {
     yield put(showErrorMessage({ msg: e.errMsg }))
-    switch (e.errCode) {
-      case 102: {
-        yield put(setShowVerifyMailButton(true))
-        break
-      }
-      default: {
-        break
-      }
+    if (e.errCode === 102) {
+      yield put(setShowVerifyMailButton())
     }
     yield put(userLoginFailure())
     yield put(stopLoader())

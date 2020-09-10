@@ -7,6 +7,7 @@ const initialState = {
   success: false,
   // Setting the state when app render and user refresh the page
   userDetails: getUserDetails(),
+  showVerifyMailButton: false,
 }
 
 const {
@@ -18,6 +19,8 @@ const {
     clearStore,
     userUpdateStart,
     userUpdateSuccess,
+    setShowVerifyMailButton,
+    resetShowVerifyMailButton,
   },
   reducer,
 } = createSlice({
@@ -69,6 +72,14 @@ const {
       success: true,
       userDetails: getUserDetails(),
     }),
+    setShowVerifyMailButton: (state) => ({
+      ...state,
+      setShowVerifyMailButton: true,
+    }),
+    resetShowVerifyMailButton: (state) => ({
+      ...state,
+      setShowVerifyMailButton: false,
+    }),
   },
 })
 
@@ -81,4 +92,6 @@ export {
   clearStore,
   userUpdateStart,
   userUpdateSuccess,
+  setShowVerifyMailButton,
+  resetShowVerifyMailButton,
 }

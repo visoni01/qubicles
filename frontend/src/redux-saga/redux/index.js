@@ -23,7 +23,6 @@ import jobCategoriesReducer from './people/jobPage'
 import jobReducer from './people/job'
 import checkrAuthentication from './user/checkrAuthentication'
 import sendVerificationMail from './sendVerificationMail'
-import loginErrors from './loginErrors'
 
 const rootReducer = combineReducers({
   signup: signupReducer,
@@ -50,7 +49,6 @@ const rootReducer = combineReducers({
   jobDetails: jobReducer,
   checkr: checkrAuthentication,
   sendVerificationMail,
-  loginErrors,
 
 })
 
