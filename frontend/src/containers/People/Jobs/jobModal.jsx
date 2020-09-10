@@ -43,6 +43,7 @@ const InputField = (name, label, value, onChange, rest) => (
     margin='dense'
     name={ name }
     fullWidth
+    required
     variant='outlined'
     label={ label }
     value={ value }

@@ -32,16 +32,16 @@ const constraints = {
     presence: { allowEmpty: false }
   },
   description: {
-    presence: { allowEmpty: true }
+    presence: { allowEmpty: false }
   },
   city: {
-    presence: { allowEmpty: true }
+    presence: { allowEmpty: false }
   },
   state: {
-    presence: { allowEmpty: true }
+    presence: { allowEmpty: false }
   },
   country: {
-    presence: { allowEmpty: true }
+    presence: { allowEmpty: false }
   }
 }
 
