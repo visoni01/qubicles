@@ -1,5 +1,6 @@
 import Responder from '../../server/expressResponder'
 import CheckrInvitationService from '../services/authentication/checkrInvitation'
+import { SUCCESS_MESSAGES } from '../utils/success'
 import {
   CreateUserService,
   InviteWithGoogleAuthService,
@@ -26,7 +27,7 @@ export default class UserController {
   static async logout (req, res) {
     try {
       res.clearCookie('access_token')
-      Responder.success(res, 'User logged out successfully!!')
+      Responder.success(res, SUCCESS_MESSAGES.LOGOUT)
     } catch (err) {
       Responder.failed(res)
     }
