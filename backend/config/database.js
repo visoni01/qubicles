@@ -20,25 +20,31 @@ module.exports = {
     password: config.get('sequelize.password'),
     database: config.get('sequelize.name'),
     host: config.get('sequelize.host'),
-    dialect: 'postgres'
+    dialect: 'mariadb',
+    define: {
+      timestamps: false
+    }
+
   },
   staging: {
     username: config.get('sequelize.user'),
     password: config.get('sequelize.password'),
     database: config.get('sequelize.name'),
     host: config.get('sequelize.host'),
-    dialect: 'postgres'
+    dialect: 'mariadb',
+    define: {
+      timestamps: false
+    }
+
   },
   production: {
     username: config.get('sequelize.user'),
     password: config.get('sequelize.password'),
     database: config.get('sequelize.name'),
     host: config.get('sequelize.host'),
-    dialect: 'postgres'
-    // dialectOptions: {
-    //   ssl: {
-    //     // ca: fs.readFileSync(__dirname + '/mysql-ca-master.crt')
-    //   }
-    // }
+    dialect: 'mariadb',
+    define: {
+      timestamps: false
+    }
   }
 }

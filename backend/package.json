@@ -9,7 +9,11 @@
     "lint:fix": "eslint --fix --ext .js .",
     "sequelize:seed:undo": "./node_modules/.bin/sequelize db:seed:undo:all",
     "sequelize:seed": "./node_modules/.bin/sequelize db:seed:all",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf dist && mkdir dist",
+    "build-production": "babel . -d ./dist -s --copy-files --ignore node_modules,yarn-v1.5.1",
+    "build": "npm run clean && npm run build-production",
+    "start-prod-server": "pm2 start dist/bin/dev -p 4000"
   },
   "author": "Qubicles",
   "license": "Copyright @ 2020 Qubicles, Inc. All rights reserved.",
