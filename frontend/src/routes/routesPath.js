@@ -11,6 +11,7 @@ const ROUTE_PATHS = {
   ABOUT: '/about',
   SIGN_UP: '/signup',
   LOG_IN: '/login',
+  VERIFY_EMAIL: '/verify-email',
   VERIFY_TOKEN: '/verify-token/:token',
   DASHBOARD: '/dashboard',
   POST_SIGN_UP: '/post-signup',

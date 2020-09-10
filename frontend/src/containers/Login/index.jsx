@@ -19,6 +19,7 @@ import {
   TwitterIcon,
 } from 'react-share'
 import { userLoginStart, clearStore } from '../../redux-saga/redux/login'
+import VerificationPageButton from '../EmailVerification/verificationPageButton'
 import './style.scss'
 import config from '../../utils/config'
 
@@ -178,6 +179,7 @@ const Login = () => {
                             Login
                           </button>
                         </p>
+                        <VerificationPageButton />
                       </form>
                     </div>
                     )}
