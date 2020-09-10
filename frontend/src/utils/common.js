@@ -117,6 +117,8 @@ export const phoneNumberFormatter = (number, countryData) => {
 export const spreadArgs = (handler) =>
   // Spreading the arguments over the handler.
   (args) => handler(...args)
+
+// This method is used for formatting SSN as per e.g. 111-11-2001
 export const formatSSN = (value) => {
   let val = value.replace(/\D/g, '')
   let newVal = ''

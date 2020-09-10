@@ -32,7 +32,7 @@ const steps = {
       state: yup.string(),
       zip: yup.string().required('*Required').matches(regExpZip, 'Zipcode is invalid, eg:- 90401'),
       home_phone: yup.string(),
-      mobile_phone: yup.string().required('*Required').max(15)
+      mobile_phone: yup.string().max(15).required('*Required')
         .matches(regExpPhone, 'Phone number is invalid, eg:- 5555555555'),
     }),
   },
