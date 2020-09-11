@@ -97,7 +97,7 @@ const StepForm = ({
                   defaultValue={ value }
                   defaultChecked={ isChecked(name, value) }
                 />
-                <label htmlFor={ value } className='checkbox-label'>
+                <label htmlFor={ value }>
                   {inputLabel}
                 </label>
                 <br />
