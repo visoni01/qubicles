@@ -489,37 +489,6 @@ TABLE OF CONTENTS
 }
 
 /* ==========================================================================
-11. Social buttons
-========================================================================== */
-.button.social-btn {
-    color: $white;
-
-    &.facebook {
-        background-color: $facebook;
-    }
-
-    &.twitter {
-        background-color: $twitter;
-    }
-
-    &.linkedin {
-        background-color: $linkedin;
-    }
-
-    &.tumblr {
-        background-color: $tumblr;
-    }
-
-    &.github {
-        background-color: $github;
-    }
-
-    &.icon-solo i.fa {
-        top: 12px !important;
-    }
-}
-
-/* ==========================================================================
 12. Ripple effect
 ========================================================================== */
 .ripple {
