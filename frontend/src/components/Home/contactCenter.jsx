@@ -8,6 +8,7 @@ import {
 import { useSelector } from 'react-redux'
 import { Clients, Header, Footer } from './index'
 import { centerDash, bars, idleUsage } from '../../assets/images/landingPage'
+import '../../containers/Home/style.scss'
 
 const ContactCenter = () => {
   const { userDetails } = useSelector((state) => state.login)
