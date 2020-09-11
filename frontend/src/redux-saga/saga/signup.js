@@ -22,7 +22,7 @@ function* signupWorker(action) {
     yield apiClient.signup(data)
     yield put(userSignupSuccessful())
   } catch (e) {
-    yield put(showErrorMessage())
+    yield put(showErrorMessage({ msg: e.errMsg }))
     yield put(userSignupFailure())
   }
 }

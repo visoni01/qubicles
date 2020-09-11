@@ -4,7 +4,7 @@ import SendEmailVerificationMail from '../email/sendEmailVerificationMail'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import config from '../../../config/app'
-import { ERRORS } from '../../utils/errors'
+import { ERRORS, MESSAGES } from '../../utils/errors'
 import logger from '../../common/logger'
 import { getErrorMessageForService } from '../helper'
 
@@ -39,42 +39,46 @@ export class CreateUserService extends ServiceBase {
   }
 
   async run () {
-    const salt = bcrypt.genSaltSync(10)
-    const newUser = {
-      email: this.email,
-      pass: bcrypt.hashSync(this.pass, salt),
-      full_name: this.first_name + ' ' + this.last_name,
-      email_verified: false
-    }
-    try {
-      const user = await User.create(newUser)
-      await UserDetail.create({
-        user_id: user.user_id,
-        first_name: this.first_name,
-        last_name: this.last_name
-      })
-      const token = jwt.sign({
+    const checkUserExist = await User.findOne({ where: { email: this.email }, raw: true })
+    if (!checkUserExist) {
+      const salt = bcrypt.genSaltSync(10)
+      const newUser = {
         email: this.email,
-        full_name: user.full_name,
-        user_id: user.user_id,
-        user_code: user.user_code
-      }, config.get('jwt.emailVerificationTokenSecret'), { expiresIn: config.get('jwt.emailVerificationTokenExpiry') })
-
-      await SendEmailVerificationMail.execute({ token, email: this.email })
-
-      // Check for invited Registration
-      if (this.with_invite) {
-        const { inviter_id } = this.args
-        // Check for existing contact
-        await findOrCreateContact({ user_id: inviter_id, referral_email: this.email })
-        // Assign User and Referrel Credits rewards
-        await assignCredits({ user_id: inviter_id, referral_email: this.email })
+        pass: bcrypt.hashSync(this.pass, salt),
+        full_name: this.first_name + ' ' + this.last_name,
+        email_verified: false
       }
-      return user
-    } catch (e) {
-      logger.error(getErrorMessageForService('CreateUserService'), e)
-      this.addError(ERRORS.INTERNAL)
+      try {
+        const user = await User.create(newUser)
+        await UserDetail.create({
+          user_id: user.user_id,
+          first_name: this.first_name,
+          last_name: this.last_name
+        })
+        const token = jwt.sign({
+          email: this.email,
+          full_name: user.full_name,
+          user_id: user.user_id,
+          user_code: user.user_code
+        }, config.get('jwt.emailVerificationTokenSecret'), { expiresIn: config.get('jwt.emailVerificationTokenExpiry') })
+
+        await SendEmailVerificationMail.execute({ token, email: this.email })
+
+        // Check for invited Registration
+        if (this.with_invite) {
+          const { inviter_id } = this.args
+          // Check for existing contact
+          await findOrCreateContact({ user_id: inviter_id, referral_email: this.email })
+          // Assign User and Referrel Credits rewards
+          await assignCredits({ user_id: inviter_id, referral_email: this.email })
+        }
+        return user
+      } catch (e) {
+        logger.error(getErrorMessageForService('CreateUserService'), e)
+        this.addError(ERRORS.INTERNAL)
+      }
     }
+    this.addError(ERRORS.FORBIDDEN, MESSAGES.EMAIL_ALREADY_REGISTERED)
   }
 }
 
