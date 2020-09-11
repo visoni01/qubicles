@@ -16,7 +16,7 @@ const StepForm = ({
 }) => {
   const [ formValues, setValues ] = useState(stepData || {})
   const {
-    register, errors, handleSubmit, control, setValue, getValues, unregister, reset,
+    register, errors, handleSubmit, control, setValue, getValues, unregister,
   } = useForm({
     validationSchema: steps[ step ] && steps[ step ].schema,
   })
@@ -66,7 +66,6 @@ const StepForm = ({
     let { value } = event.target
     if (name === 'ssn') {
       value = formatSSN(value)
-      // reset({...formValues, [ name ]: value})
       setValue(name, value)
     }
     setValues({ ...formValues, [ name ]: value })

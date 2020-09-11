@@ -4,8 +4,7 @@ import {
   faEllipsisV, faTrash, faPencilAlt,
 } from '@fortawesome/free-solid-svg-icons'
 import {
-  Menu, MenuItem,
-  Dialog, DialogActions, DialogTitle, Button, IconButton,
+  Menu, MenuItem, IconButton,
 } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 import { jobSubDetailsValidator } from '../../../components/People/peopleValidator'
