@@ -21,6 +21,7 @@ import {
 } from '../constants'
 import { addJob, getJobFields, updateJob } from '../../../redux-saga/redux/people/actions'
 import { jobDetailsFetchStart } from '../../../redux-saga/redux/actions'
+import '../style.scss'
 
 const initialJobDetails = {
   jobId: '',

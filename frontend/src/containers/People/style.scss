@@ -1,25 +1,8 @@
-.people-search-bar {
-  margin: 0 !important;
-}
-
-.search-bar-header {
-  display: inline-flex;
-  width: 100%;
-}
-
 .job-search {
   width: 80%;
   margin: 15px;
   position: relative;
   transition: all .3s;
-}
-
-.new-job-button {
-  position: absolute !important;
-  right: 0;
-  margin-top: 10px !important;
-  background-color: #00D1B2 !important;
-  color: white !important;
 }
 
 .button.secondary-btn {
@@ -62,18 +45,6 @@
   right: 40px;
   margin-top: 7px !important;
 
-}
-
-.display-inline-grid {
-  display: inline-grid;
-}
-
-.display-inline-flex {
-  display: inline-flex;
-}
-
-.text-align-center {
-  text-align: center;
 }
 
 .user-info {
@@ -127,8 +98,7 @@
 }
 
 .people-job-select {
-  width: 48%;
-  min-width: 100px;
+  min-width: 48%;
 }
 
 .people-job-text {

@@ -3,9 +3,11 @@
   margin-left: 10px;
   margin-right: 10px;
 }
+
 .primary-button {
  margin: auto;
 }
+
 .channel-title {
   font-size: 1.4rem;
   font-family: 'Nexa Bold', sans-serif;
@@ -18,10 +20,12 @@
   margin: auto;
   margin-right: 10px;
 }
+
 .total-members {
   margin: 5px;
   color: gray;
 }
+
 .total-comments {
   margin: 5px;
   color: gray;
@@ -41,16 +45,6 @@
 .angle-right {
   margin-left: 5px;
   margin-right: 5px;
-}
-
-.no-data-message {
-  font-size: 1.6rem;
-  font-family: 'Nexa Bold', sans-serif;
-  color: #444F60;
-  text-align: center;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 }
 
 .no-category-message {

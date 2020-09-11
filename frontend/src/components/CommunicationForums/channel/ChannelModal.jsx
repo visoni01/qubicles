@@ -91,6 +91,7 @@ const AddUpdateChannel = ({
               checked={ channelData.isPublic }
               onChange={ handleChange }
               name='isPublic'
+              classes={ { root: 'modal-checkbox' } }
             />
             <span className='vertical-align-middle'>Make channel public</span>
           </div>
@@ -99,6 +100,7 @@ const AddUpdateChannel = ({
               checked={ channelData.isCompanyAnn }
               onChange={ handleChange }
               name='isCompanyAnn'
+              classes={ { root: 'modal-checkbox' } }
             />
             <span className='vertical-align-middle'>Company announcements channel</span>
           </div>
