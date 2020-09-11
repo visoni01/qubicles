@@ -78,7 +78,7 @@ const SignUp = () => {
       </div>
       <div className='column is-4'>
         <div className='hero is-fullheight'>
-          <div className='hero-heading'>
+          <div className='hero-heading hero-heading-custom'>
             <div className='section has-text-centered section-signup'>
               <Link to='/'>
                 <img
@@ -89,7 +89,7 @@ const SignUp = () => {
               </Link>
             </div>
           </div>
-          <div className='hero-body'>
+          <div className='hero-body hero-body-custom'>
             <div className='container'>
               <div className='columns'>
                 <div className='column is-8 is-offset-2'>

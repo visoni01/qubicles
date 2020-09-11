@@ -11,7 +11,6 @@ import {
 import { useHistory, Link } from 'react-router-dom'
 import {
   sendVerificationMailStart,
-  resetShowVerifyMailButton,
   resetSendVerificationMail,
   setIsSocialLogin,
 } from '../../redux-saga/redux/actions'
@@ -37,7 +36,6 @@ const VerifyEmail = () => {
   const onSubmit = (data) => {
     setEmail(data.email)
     dispatch(sendVerificationMailStart({ email: data.email }))
-    dispatch(resetShowVerifyMailButton())
   }
 
   const inputField = (
@@ -86,7 +84,7 @@ const VerifyEmail = () => {
       </div>
       <div className='column is-4'>
         <div className='hero is-fullheight'>
-          <div className='hero-heading'>
+          <div className='hero-heading hero-heading-custom'>
             <div className='section has-text-centered section-signup'>
               <Link to='/'>
                 <img
@@ -97,7 +95,7 @@ const VerifyEmail = () => {
               </Link>
             </div>
           </div>
-          <div className='hero-body'>
+          <div className='hero-body hero-body-custom'>
             <div className='container'>
               <div className='columns'>
                 <div className='column is-8 is-offset-2'>
@@ -162,11 +160,10 @@ const VerifyEmail = () => {
                   <div>
                     {success && (
                     <>
-                      <>
-                        {'If you have registered with us, you will get a verification link '}
-                        {'on your email '}
+                      <p className='success-send-email'>
+                        {'If you have registered with us, you will get a verification link on your email '}
                         <b>{`${ email }`}</b>
-                      </>
+                      </p>
                       {/* Login Page Redirecting link */}
                       <button
                         type='button'
