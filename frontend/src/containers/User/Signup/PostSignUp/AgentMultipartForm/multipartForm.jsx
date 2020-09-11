@@ -1,21 +1,24 @@
 import React, { useState, useEffect } from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { Select, MenuItem } from '@material-ui/core/'
 import moment from 'moment'
+import IntlTelInput from 'react-intl-tel-input'
 import steps from './steps'
+import 'react-intl-tel-input/dist/main.css'
+import { spreadArgs, phoneNumberFormatter } from '../../../../../utils/common'
 
 const StepForm = ({
   step, onNext, onBack, onSubmit, stepData,
 }) => {
   const [ formValues, setValues ] = useState(stepData || {})
-  const { register, errors, handleSubmit } = useForm({
+  const {
+    register, errors, handleSubmit, control,
+  } = useForm({
     validationSchema: steps[ step ] && steps[ step ].schema,
   })
-
-  console.log('Errors =======>', errors)
 
   useEffect(() => {
     setValues(stepData)
@@ -24,8 +27,20 @@ const StepForm = ({
   const handleValueChange = (name) => (event) => {
     setValues({ ...formValues, [ name ]: event.target.value })
   }
+
+  const handlePhoneNumberChange = (isValid, value, selectedCountryData, fullNumber) => {
+    const nextValue = isValid
+      ? fullNumber.replace(/([()])|-/g, '')
+      : phoneNumberFormatter(value, selectedCountryData)
+    if (isValid) {
+      setValues({ ...formValues, mobile_phone: nextValue })
+    }
+    return nextValue
+  }
+
   const isChecked = (name, value) => formValues[ name ] && formValues[ name ] === value
 
+  // eslint-disable-next-line complexity
   const inputField = (fieldData) => {
     const {
       type, name, options,
@@ -98,14 +113,36 @@ const StepForm = ({
 
     return (
       <div className='control'>
-        <input
-          onChange={ handleValueChange(name) }
-          defaultValue={ value }
-          type={ type }
-          className='input'
-          name={ name }
-          ref={ register }
-        />
+        {
+          (name === 'mobile_phone') ? (
+            <Controller
+              as={ IntlTelInput }
+              control={ control }
+              fieldId={ name }
+              fieldName={ name }
+              preferredCountries={ [ 'us', 'ca' ] }
+              containerClassName='control custom-intl-tel-input intl-tel-input'
+              format
+              formatOnInit
+              name={ name }
+              onChangeName='onPhoneNumberChange'
+              onChange={ spreadArgs(handlePhoneNumberChange) }
+              telInputProps={ {
+                required: true,
+              } }
+              defaultValue={ formValues[ name ] }
+            />
+          ) : (
+            <input
+              onChange={ handleValueChange(name) }
+              value={ value }
+              type={ type }
+              className='input'
+              name={ name }
+              ref={ register }
+            />
+          )
+        }
       </div>
     )
   }
@@ -116,11 +153,11 @@ const StepForm = ({
       <div className='form-field' key={ `${ name }${ label }` }>
         <div className='field'>
           <label>{label}</label>
-          {inputField({ name, label, ...rest }) }
+          {inputField({ name, label, ...rest })}
           {errors && errors[ name ] && (
-          <div className='error-message'>
-            {errors[ name ].message}
-          </div>
+            <div className='error-message'>
+              {errors[ name ].message}
+            </div>
           )}
         </div>
       </div>
@@ -158,16 +195,16 @@ const StepForm = ({
         </div>
 
         <div className='buttons'>
-          { step > 1 && (
-          <button
-            className='button is-rounded process-button'
-            data-step='step-dot-1'
-            type='button'
-            onClick={ onBack }
-          >
-            Back
-          </button>
-          ) }
+          {step > 1 && (
+            <button
+              className='button is-rounded process-button'
+              data-step='step-dot-1'
+              type='button'
+              onClick={ onBack }
+            >
+              Back
+            </button>
+          )}
           <button
             className='button is-rounded process-button is-next'
             data-step='step-dot-3'

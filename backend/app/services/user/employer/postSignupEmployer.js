@@ -6,7 +6,7 @@ import { generateUserWalletId } from '../../../utils/generateWalletId'
 import SendEmailNotificationMail from '../../email/sendEmailNotificationMail'
 import AddUserToActiveCampaign from '../../activeCampaign/addUserToActiveCampaign'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
-import { getErrorMessageForService, getOne } from '../../helper'
+import { getErrorMessageForService, getOne, checkSpecificCountry } from '../../helper'
 import logger from '../../../common/logger'
 import { Op } from 'sequelize'
 import config from '../../../../config/app'
@@ -45,8 +45,8 @@ export class PostSignupEmployerStep1Service extends ServiceBase {
 
   async run () {
     let state
-    if (!this.state) {
-      const areaCode = this.phone_number.substring(0, 3)
+    if (!this.state && checkSpecificCountry(this.phone_number)) {
+      const areaCode = this.phone_number.substring(3, 6)
       // using country_code = 1 specifically for US
       const phoneData = await XPhoneCodes.findOne({ where: { country_code: 1, areacode: areaCode }, raw: true })
       if (phoneData) {
@@ -60,7 +60,7 @@ export class PostSignupEmployerStep1Service extends ServiceBase {
       city: this.city,
       state: this.state || state,
       zip: this.zip,
-      phone_number: this.phone_number
+      phone_number: this.phone_number.substring(1, 15)
     }
 
     try {

@@ -135,3 +135,14 @@ export const validateImageFile = ({ mimetype, size }) => {
   const isValidFileSize = size <= config.get('imageFileSize')
   return { isValidImage, isValidFileSize }
 }
+
+// This method is used for checking countries whose country code is '+1' e.g. U.S. or Canada
+export const checkSpecificCountry = (phone_number) => {
+  const countryCode = phone_number.split(' ')[0]
+  return countryCode === '+1'
+}
+
+// This method is used for showing number saved in db to user as per format +1 5555555555
+export const phoneNumberFormatter = (phone_number) => {
+  return `+${phone_number}`
+}

@@ -7,7 +7,7 @@ import { Op } from 'sequelize'
 import config from '../../../../config/app'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
 import logger from '../../../common/logger'
-import { getErrorMessageForService } from '../../helper'
+import { getErrorMessageForService, checkSpecificCountry } from '../../helper'
 import { encryptData } from '../../../utils/encryption'
 import _ from 'lodash'
 import moment from 'moment'
@@ -99,8 +99,8 @@ export class PostSignupAgentStep2Service extends ServiceBase {
       // Verify Mobile phone here
       if (this.mobile_phone) {
         let state
-        if (!this.state) {
-          const areaCode = this.mobile_phone.substring(0, 3)
+        if (!this.state && checkSpecificCountry(this.mobile_phone)) {
+          const areaCode = this.mobile_phone.substring(3, 6)
           // using country_code = 1 specifically for US
           const phoneData = await XPhoneCodes.findOne({ where: { country_code: 1, areacode: areaCode }, raw: true })
           if (phoneData) {
@@ -115,7 +115,7 @@ export class PostSignupAgentStep2Service extends ServiceBase {
           state: this.state || state,
           zip: this.zip,
           home_phone: this.home_phone,
-          mobile_phone: this.mobile_phone
+          mobile_phone: this.mobile_phone.substring(1, 15)
         }, { where: { user_id: this.user_id } })
 
         return 'User Updated Successfully'

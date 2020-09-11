@@ -1,6 +1,6 @@
 import ServiceBase from '../../../common/serviceBase'
 import { XClient, XClientUser, User } from '../../../db/models'
-import { getOne, getErrorMessageForService } from '../../helper'
+import { getOne, getErrorMessageForService, phoneNumberFormatter } from '../../helper'
 import { ERRORS } from '../../../utils/errors'
 import logger from '../../../common/logger'
 
@@ -56,14 +56,13 @@ export class PostSignUpEmployerDataService extends ServiceBase {
         city,
         state,
         zip,
-        phone_number,
+        phone_number: phone_number ? phoneNumberFormatter(phone_number) : '',
         client_ein,
         source,
         user_code: userData.user_code,
         interactions_per_month,
         website
       }
-
       return data
     } catch (e) {
       logger.error(getErrorMessageForService('PostSignUpEmployerDataService'), e)
