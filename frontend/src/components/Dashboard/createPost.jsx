@@ -83,7 +83,7 @@ const CreatePost = () => {
         </div>
         <div className='status-wrapper column is-11 custom-is-11'>
           <textarea
-            className='textarea is-grow'
+            className='textarea'
             rows='5'
             autoComplete='off'
             value={ postText }

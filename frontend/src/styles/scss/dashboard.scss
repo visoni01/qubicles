@@ -15,16 +15,13 @@ TABLE OF CONTENTS
 /* ==========================================================================
 0. CSS Imports
 ========================================================================== */
-
 @import "partials/colors";
 @import "partials/dashboard";
-@import "partials/buttons";
 @import "partials/cards";
 @import "partials/dashboard-layout";
 @import "partials/dashboard-sidebar";
 @import "partials/dashboard-feed";
-@import "partials/dashboard-forum";
-@import "partials/forms";
+// @import "partials/dashboard-forum";
 
 /* ==========================================================================
 1. Resets and base setup
@@ -41,12 +38,6 @@ TABLE OF CONTENTS
 
 a {
     color: $secondary;
-
-    // &:hover {
-    //     color: $accent;
-    //     text-decoration: none;
-    // }
-
     &:focus {
         text-decoration: none;
     }
