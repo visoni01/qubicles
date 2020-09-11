@@ -6,6 +6,7 @@ import {
 } from '../containers/Home'
 import People from '../containers/People'
 import Login from '../containers/Login'
+import VerifyEmail from '../containers/EmailVerification'
 import Auth from '../components/User/Auth'
 import ForumGroup from '../containers/CommunicationForums'
 import ForumChannel from '../containers/CommunicationForums/forumChannel'
@@ -42,6 +43,10 @@ const routes = [
     path: ROUTE_PATHS.LOG_IN,
     component: Login,
     redirectToDashboard: true,
+  },
+  {
+    path: ROUTE_PATHS.VERIFY_EMAIL,
+    component: VerifyEmail,
   },
   {
     path: ROUTE_PATHS.VERIFY_TOKEN,

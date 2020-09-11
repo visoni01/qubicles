@@ -1,37 +1,43 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import * as yup from 'yup'
 import classNames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faPaperPlane,
-  faUser,
-  faLock,
 } from '@fortawesome/free-solid-svg-icons'
 
-import { useHistory, useLocation, Link } from 'react-router-dom'
-import { userSignupStart } from '../../../../redux-saga/redux/signup'
-import { setIsSocialLogin } from '../../../../redux-saga/redux/actions'
-import './style.scss'
+import { useHistory, Link } from 'react-router-dom'
+import {
+  sendVerificationMailStart,
+  resetSendVerificationMail,
+  setIsSocialLogin,
+} from '../../redux-saga/redux/actions'
+import '../User/Signup/SignUp/style.scss'
 
 const schema = yup.object().shape({
-  first_name: yup.string().required('*Required'),
-  last_name: yup.string().required('*Required'),
   email: yup.string().email().required('*Required'),
-  pass: yup.string().required('*Required'),
 })
 
-const SignUp = () => {
+const VerifyEmail = () => {
   const { register, errors, handleSubmit } = useForm({
     validationSchema: schema,
   })
+  const { success } = useSelector((state) => state.sendVerificationMail)
+  const [ email, setEmail ] = useState('')
   const history = useHistory()
-  const location = useLocation()
-  const isSocialSignupSuccess = location.search && location.search.split('?')[ 1 ] === 'with_social=true' // Temporary set up.
   const dispatch = useDispatch()
-  const onSubmit = (data) => dispatch(userSignupStart(data))
-  const { success } = useSelector((state) => state.signup)
+
+  useEffect(() => (() => {
+    dispatch(resetSendVerificationMail())
+  }), [ dispatch ])
+
+  const onSubmit = (data) => {
+    setEmail(data.email)
+    dispatch(sendVerificationMailStart({ email: data.email }))
+  }
+
   const inputField = (
     name,
     id,
@@ -93,62 +99,58 @@ const SignUp = () => {
             <div className='container'>
               <div className='columns'>
                 <div className='column is-8 is-offset-2'>
-                  {(!success && !isSocialSignupSuccess) && (
+                  {!success && (
                     <>
                       <>
-                        <button
-                          type='button'
-                          className='text-button mb-20'
-                          onClick={ () => {
-                            dispatch(setIsSocialLogin(false))
-                            history.push({
-                              pathname: '/login',
-                            })
-                          } }
-                        >
-                          Already have an account? Click here to login
-                        </button>
                         <form onSubmit={ handleSubmit(onSubmit) } noValidate>
                           <div className='field pb-10'>
                             {inputField(
                               'email',
                               'signupEmail',
-                              'Enter your email address',
+                              'Enter your registered email',
                               faPaperPlane,
                               'email',
-                            )}
-                            {inputField(
-                              'first_name',
-                              'firstName',
-                              'Enter your first name',
-                              faUser,
-                            )}
-                            {inputField(
-                              'last_name',
-                              'lastName',
-                              'Enter your last name',
-                              faUser,
-                            )}
-                            {inputField(
-                              'pass',
-                              'password',
-                              'Enter your password',
-                              faLock,
-                              'password',
                             )}
                           </div>
                           <p className='control login'>
                             <button
                               type='submit'
-                              id='sendVerificationCode'
+                              id='sendVerificationLink'
                               className='button btn-outlined is-bold is-fullwidth rounded raised no-lh'
                             >
-                              Sign Up
+                              Send Verification Link
                             </button>
                           </p>
                         </form>
                       </>
-                      <button type='button' className='text-button mt-20' onClick={ () => history.push('/login') }>
+
+                      {/* Login Page Redirecting link */}
+                      <button
+                        type='button'
+                        className='text-button mt-20'
+                        onClick={ () => {
+                          dispatch(setIsSocialLogin(false))
+                          history.push({
+                            pathname: '/login',
+                          })
+                        } }
+                      >
+                        <span className='options-span-2'>
+                          Already have an account? Click here to login
+                        </span>
+                      </button>
+
+                      {/* Signup page redirecting link */}
+                      <button
+                        type='button'
+                        className='text-button mt-20'
+                        onClick={ () => {
+                          dispatch(setIsSocialLogin(true))
+                          history.push({
+                            pathname: '/login',
+                          })
+                        } }
+                      >
                         <span className='options-span-2'>
                           Or sign up faster using your Facebook, Twitter or linkedIn account
                         </span>
@@ -156,11 +158,28 @@ const SignUp = () => {
                     </>
                   )}
                   <div>
-                    {(success || isSocialSignupSuccess) && (
-                      <>
-                        {'You have succesfully registered. Please check your inbox '}
-                        {'to verify your email !!'}
-                      </>
+                    {success && (
+                    <>
+                      <p className='success-send-email'>
+                        {'If you have registered with us, you will get a verification link on your email '}
+                        <b>{`${ email }`}</b>
+                      </p>
+                      {/* Login Page Redirecting link */}
+                      <button
+                        type='button'
+                        className='text-button mt-20'
+                        onClick={ () => {
+                          dispatch(setIsSocialLogin(false))
+                          history.push({
+                            pathname: '/login',
+                          })
+                        } }
+                      >
+                        <span className='options-span-2'>
+                          { 'Already Verified ?  Click here to login '}
+                        </span>
+                      </button>
+                    </>
                     )}
                   </div>
                 </div>
@@ -173,4 +192,4 @@ const SignUp = () => {
   )
 }
 
-export default SignUp
+export default VerifyEmail

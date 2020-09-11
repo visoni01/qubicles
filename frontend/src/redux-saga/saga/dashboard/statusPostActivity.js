@@ -83,7 +83,7 @@ function* statusPostActivityFetchingWorker(action) {
       yield put(showSuccessMessage({ msg }))
     }
   } catch (e) {
-    yield put(showErrorMessage({ msg: e }))
+    yield put(showErrorMessage({ msg: e.errMsg }))
     if (action.type === LIKE_POST) {
       yield put(updatePostData({ type: UNLIKE_POST, data: action.payload.data }))
     }

@@ -112,7 +112,7 @@ function* topicCrudWorker(action) {
       yield put(showSuccessMessage({ msg }))
     }
   } catch (e) {
-    yield put(showErrorMessage({ msg: e }))
+    yield put(showErrorMessage({ msg: e.errMsg }))
   }
 }
 

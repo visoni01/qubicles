@@ -24,6 +24,7 @@ import crudJob from './people/crud'
 import statusPostActivity from './dashboard/statusPostActivity'
 import jobDetails from './people/job'
 import checkrInvitation from './user/checkrAuthentication'
+import sendVerificationMail from './sendVerificationMail'
 
 export default function* rootSaga() {
   yield all([
@@ -51,5 +52,6 @@ export default function* rootSaga() {
     statusPostActivity(),
     jobDetails(),
     checkrInvitation(),
+    sendVerificationMail(),
   ])
 }

@@ -20,6 +20,11 @@ class User {
     const response = await apiClient.postRequest('/user/update', { data, update_user_code: true })
     return response
   }
+
+  static async sendVerificationMail(email) {
+    const response = await apiClient.postRequest('/auth/send-verification-mail', { email })
+    return response
+  }
 }
 
 export default User

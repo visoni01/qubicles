@@ -22,6 +22,7 @@ import topicReducer from './forum/topic'
 import jobCategoriesReducer from './people/jobPage'
 import jobReducer from './people/job'
 import checkrAuthentication from './user/checkrAuthentication'
+import sendVerificationMail from './sendVerificationMail'
 
 const rootReducer = combineReducers({
   signup: signupReducer,
@@ -47,6 +48,8 @@ const rootReducer = combineReducers({
   comments: commentsReducer,
   jobDetails: jobReducer,
   checkr: checkrAuthentication,
+  sendVerificationMail,
+
 })
 
 export default rootReducer

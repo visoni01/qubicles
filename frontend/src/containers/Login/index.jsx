@@ -18,7 +18,8 @@ import {
   LinkedinIcon,
   TwitterIcon,
 } from 'react-share'
-import { userLoginStart, clearStore } from '../../redux-saga/redux/login'
+import { userLoginStart, clearStore, resetShowVerifyMailButton } from '../../redux-saga/redux/login'
+import VerificationPageButton from '../EmailVerification/verificationPageButton'
 import './style.scss'
 import config from '../../utils/config'
 
@@ -34,17 +35,17 @@ const Login = () => {
   const history = useHistory()
   const location = useLocation()
   const isReturnTo = location.search.split('?return_url=')
-  const isManualLogin = history.location.state && history.location.state.isEmail
-  const [ isSocialLogin, setIsSocialLogin ] = useState(true)
+  const { socialLogin, showVerifyMailButton } = useSelector((state) => state.login)
+  const [ isSocialLogin, setIsSocialLogin ] = useState(socialLogin)
   const dispatch = useDispatch()
   const onSubmit = (data) => dispatch(userLoginStart(data))
   const { success, error } = useSelector((state) => state.login)
   useEffect(() => {
     dispatch(clearStore())
-    if (isManualLogin) {
-      setIsSocialLogin(!isManualLogin)
-    }
-  }, [ isManualLogin, dispatch ])
+    return (() => {
+      dispatch(resetShowVerifyMailButton())
+    })
+  }, [ dispatch ])
 
   const inputField = (
     name,
@@ -114,7 +115,7 @@ const Login = () => {
       </div>
       <div className='column is-4'>
         <div className='hero is-fullheight'>
-          <div className='hero-heading'>
+          <div className='hero-heading hero-heading-custom'>
             <div className='section has-text-centered section-login'>
               <Link to='/'>
                 <img
@@ -125,7 +126,7 @@ const Login = () => {
               </Link>
             </div>
           </div>
-          <div className='hero-body'>
+          <div className='hero-body hero-body-custom'>
             <div className='container'>
               <div className='columns'>
                 <div className='column is-8 is-offset-2'>
@@ -181,6 +182,7 @@ const Login = () => {
                       </form>
                     </div>
                     )}
+                    {showVerifyMailButton && <VerificationPageButton />}
                     <button type='button' className='text-button' onClick={ handleCreateAccountLink }>
                       {isSocialLogin ? 'Don\'t have a social account? Sign up using an email instead'
                         : 'Don\'t have an account? Create one now using your email or social media account'}

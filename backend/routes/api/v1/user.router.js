@@ -33,7 +33,7 @@ userRouter.route('/login')
   .post(function (req, res) {
     passport.authenticate('login', (err, user) => {
       if (err) {
-        return res.status(401).json({ message: err })
+        return res.status(401).json({ message: err.message, errCode: err.code })
       }
       req.login(user, loginErr => {
         if (loginErr) {

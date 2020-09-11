@@ -37,6 +37,9 @@ authRouter.route('/linkedin/callback')
 authRouter.route('/verify-token/:token')
   .get(authController.verifyToken)
 
+authRouter.route('/send-verification-mail')
+  .post(authController.sendVerificationMail)
+
 authRouter.route('/checkr-webhook')
   .post(isCheckrWebhook, authController.checkrEvent)
 
