@@ -5,10 +5,6 @@ import Slider from './slider'
 import {
   Clients, Steps, Header, Footer,
 } from '../../components/Home'
-import Agents from '../../components/Home/agents'
-import ContactCenter from '../../components/Home/contactCenter'
-import ContactUs from '../../components/Home/contactUs'
-import AboutUs from '../../components/Home/aboutUs'
 import './style.scss'
 import { isProductionEnvironment } from '../../utils/common'
 
@@ -58,6 +54,4 @@ const Home = () => {
   )
 }
 
-export {
-  Home, Agents, ContactCenter, ContactUs, AboutUs,
-}
+export default Home

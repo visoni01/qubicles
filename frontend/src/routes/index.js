@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import {
   BrowserRouter as Router,
 } from 'react-router-dom'
@@ -10,11 +10,13 @@ import PostCommentSection from '../components/Dashboard/PostCommentSection'
 
 const Routes = () => (
   <Router>
-    <ScrollToTop />
-    <CustomRoutes />
-    <CircularLoader />
-    <CustomSnackbar />
-    <PostCommentSection />
+    <Suspense fallback={ <div>Loading...</div> }>
+      <ScrollToTop />
+      <CustomRoutes />
+      <CircularLoader />
+      <CustomSnackbar />
+      <PostCommentSection />
+    </Suspense>
   </Router>
 )
 
