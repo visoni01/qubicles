@@ -97,7 +97,10 @@ const Login = () => {
     </Button>
   )
 
-  const handleCreateAccountLink = () => (isSocialLogin ? history.push('/signup') : setIsSocialLogin(!isSocialLogin))
+  const handleCreateAccountLink = () => {
+    dispatch(resetShowVerifyMailButton())
+    return isSocialLogin ? history.push('/signup') : setIsSocialLogin(!isSocialLogin)
+  }
 
   return (
     <div className='login-wrapper columns is-gapless'>

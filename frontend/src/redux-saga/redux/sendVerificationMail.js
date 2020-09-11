@@ -11,7 +11,7 @@ const {
     sendVerificationMailStart,
     sendVerificationMailSuccessful,
     sendVerificationMailFailure,
-    resetSendVerificationMail,
+    sendVerificationMailReset,
   },
   reducer,
 } = createSlice({
@@ -32,7 +32,7 @@ const {
       error: true,
       isLoading: false,
     }),
-    resetSendVerificationMail: () => ({
+    sendVerificationMailReset: () => ({
       ...initialState,
     }),
   },
@@ -43,5 +43,5 @@ export {
   sendVerificationMailStart,
   sendVerificationMailSuccessful,
   sendVerificationMailFailure,
-  resetSendVerificationMail,
+  sendVerificationMailReset,
 }
