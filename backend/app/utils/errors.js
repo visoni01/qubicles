@@ -11,9 +11,9 @@ export const ERRORS = {
 }
 
 export const APP_ERROR_CODES = {
-  101: 'Email not registered!',
-  102: 'Email not verified!',
-  103: 'Incorrect Password!'
+  EMAIL_NOT_REGISTERED: 'Email not registered!',
+  EMAIL_NOT_VERIFIED: 'Email not verified!',
+  INCORRECT_PASSWORD: 'Incorrect Password!'
 }
 
 export const MESSAGES = {

@@ -41,7 +41,7 @@ function* loginWorker(action) {
     }
   } catch (e) {
     yield put(showErrorMessage({ msg: e.errMsg }))
-    if (e.errCode === 102) {
+    if (e.errCode === 'EMAIL_NOT_VERIFIED') {
       yield put(setShowVerifyMailButton())
     }
     yield put(userLoginFailure())

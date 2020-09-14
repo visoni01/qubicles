@@ -48,7 +48,7 @@ const rootReducer = combineReducers({
   comments: commentsReducer,
   jobDetails: jobReducer,
   checkr: checkrAuthentication,
-  sendVerificationMail,
+  verification: sendVerificationMail,
 
 })
 

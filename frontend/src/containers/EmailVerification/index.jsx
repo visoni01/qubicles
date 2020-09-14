@@ -11,7 +11,7 @@ import {
 import { useHistory, Link } from 'react-router-dom'
 import {
   sendVerificationMailStart,
-  resetSendVerificationMail,
+  sendVerificationMailReset,
   setIsSocialLogin,
 } from '../../redux-saga/redux/actions'
 import '../User/Signup/SignUp/style.scss'
@@ -24,13 +24,13 @@ const VerifyEmail = () => {
   const { register, errors, handleSubmit } = useForm({
     validationSchema: schema,
   })
-  const { success } = useSelector((state) => state.sendVerificationMail)
+  const { success } = useSelector((state) => state.verification)
   const [ email, setEmail ] = useState('')
   const history = useHistory()
   const dispatch = useDispatch()
 
   useEffect(() => (() => {
-    dispatch(resetSendVerificationMail())
+    dispatch(sendVerificationMailReset())
   }), [ dispatch ])
 
   const onSubmit = (data) => {

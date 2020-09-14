@@ -24,13 +24,13 @@ function initPassport () {
   async function (email, password, done) {
     const user = await User.findOne({ where: { email } })
     if (user == null) {
-      return done({ message: APP_ERROR_CODES[101], code: 101 }, null)
+      return done({ message: APP_ERROR_CODES.EMAIL_NOT_REGISTERED, code: 'EMAIL_NOT_REGISTERED' }, null)
     } else {
       if (!await user.comparePassword(password)) {
-        return done({ message: APP_ERROR_CODES[103], code: 103 }, null)
+        return done({ message: APP_ERROR_CODES.INCORRECT_PASSWORD, code: 'INCORRECT_PASSWORD' }, null)
       }
       if (!user.email_verified) {
-        return done({ message: APP_ERROR_CODES[102], code: 102 }, null)
+        return done({ message: APP_ERROR_CODES.EMAIL_NOT_VERIFIED, code: 'EMAIL_NOT_VERIFIED' }, null)
       } else {
         const userObj = user.get({ plain: true })
         const userDetailsData = await getOne({ model: UserDetail, data: { user_id: user.user_id }, attributes: ['is_post_signup_completed'] })
