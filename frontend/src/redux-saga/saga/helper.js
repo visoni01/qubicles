@@ -44,7 +44,7 @@ export const getPostSignUpStepsData = ({ type, data }) => {
         primary_language: data.primary_language,
         other_languages: data.other_languages,
       },
-      4: {
+      5: {
         source: data.source || 'search_engine',
         service: data.service,
       },

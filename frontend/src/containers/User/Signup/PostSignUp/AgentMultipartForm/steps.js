@@ -65,7 +65,7 @@ const steps = {
       years_of_experience: yup.string(),
       highest_education: yup.string(),
       primary_language: yup.string().required('*Required'),
-      other_languages: yup.string().nullable(),
+      other_languages: yup.string().default(''),
     }),
   },
   5: {
