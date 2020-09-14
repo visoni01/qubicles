@@ -15,7 +15,7 @@ import './style.scss'
 import { shortenFileName } from '../../utils/common'
 
 const CreatePost = () => {
-  const [ postText, setPostText ] = useState(null)
+  const [ postText, setPostText ] = useState('')
   const [ permission, setPermission ] = useState('public')
   const [ fileName, setFileName ] = useState(null)
   const fileInput = useRef()

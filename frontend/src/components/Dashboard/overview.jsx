@@ -23,9 +23,14 @@ const Overview = ({ title, data }) => (
   </div>
 )
 
+Overview.defaultProps = {
+  title: '',
+  data: [ {} ],
+}
+
 Overview.propTypes = {
-  title: PropTypes.string.isRequired,
-  data: PropTypes.arrayOf.isRequired,
+  title: PropTypes.string,
+  data: PropTypes.arrayOf(PropTypes.any),
 }
 
 export default Overview

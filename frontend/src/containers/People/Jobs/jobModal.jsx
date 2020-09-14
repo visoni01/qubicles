@@ -211,13 +211,16 @@ const JobModal = ({
 
 JobModal.defaultProps = {
   isEdit: false,
-  jobId: '',
+  jobId: 0,
+  onSubmit(e) {
+    e.preventDefault()
+  },
 }
 
 JobModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func,
   isEdit: PropTypes.bool,
   jobId: PropTypes.number,
 }

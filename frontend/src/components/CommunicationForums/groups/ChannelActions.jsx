@@ -128,8 +128,8 @@ ChannelActions.propTypes = {
   channelId: PropTypes.number.isRequired,
   categoryId: PropTypes.number.isRequired,
   ownerId: PropTypes.number.isRequired,
-  isPublic: PropTypes.bool.isRequired,
-  isCompanyAnn: PropTypes.bool.isRequired,
+  isPublic: PropTypes.number.isRequired,
+  isCompanyAnn: PropTypes.number.isRequired,
 }
 
 export default ChannelActions
