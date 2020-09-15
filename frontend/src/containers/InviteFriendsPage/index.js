@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import { resetUserDetails } from '../../redux-saga/redux/login'
 import ShareModal from './shareOptions'
 import './style.scss'
+import InviteModal from './InviteModal'
 
 const InviteFriends = () => {
   const dispatch = useDispatch()

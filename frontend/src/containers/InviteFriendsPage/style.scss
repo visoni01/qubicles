@@ -109,3 +109,149 @@
   position: relative;
   left: 0;
 }
+
+.popup-section {
+  margin-top: 60px;
+  .popup-image {
+    height: 100px;
+    // min-height: 436px;
+    // background-color: #adabab;
+    background-image: url('../../assets/images/popup.png');
+    // opacity: 0.60;
+    // color: black;
+  }
+}
+
+.popup-bg {
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0px 5px 5px 5px rgba(0,0,0,0.3);
+}
+
+.invite-text {
+	h2 {
+		font-size: 32px;
+		font-family: 'Poppins', sans-serif;
+		padding: 30px 0;
+		margin: 0;
+		font-weight: bold;
+	}
+}
+
+.invite-content {
+	p {
+		font-size: 12px;
+		font-family: 'Poppins', sans-serif;
+	}
+}
+
+.email-section {
+	p {
+		font-size: 18px;
+		margin-bottom: 10px;
+		font-weight: bold;
+		font-family: 'Poppins', sans-serif;
+	}
+}
+
+.email-align {
+	input {
+		width: calc(100% - 145px);
+		margin-right: 20px;
+		height: 44px;
+		padding-left: 15px;
+		border-radius: 6px;
+		border: 1px solid #DBDBDB;
+		font-family: 'Poppins', sans-serif;
+	}
+	button {
+		width: 120px;
+		border: none;
+		background-color: #4877F4;
+		color: #fff;
+		border-radius: 6px;
+		padding: 10px 32px;
+		font-family: 'Poppins', sans-serif;
+	}
+}
+.gmail-contact {
+	button {
+		border: 1px solid #4877F4;
+		background-color: #fff;
+		width: 100%;
+		padding: 10px;
+		color: #4877F4;
+		font-family: 'Poppins', sans-serif;
+		border-radius: 5px;
+		margin-bottom: 30px;
+	}
+}
+.share-links {
+	p {
+		color: #444F5F;
+		font-weight: normal;
+		font-size: 12px;
+	}
+	ul {
+		list-style: none;
+		justify-content: center;
+		padding-top: 10px;
+		li {
+			padding: 10px;
+			a {
+				&:hover {
+					color: #fff;
+					text-decoration: none;
+				}
+			}
+		}
+	}
+}
+
+.social-icons-invite {
+  width: 49px;
+  height: 49px;
+  border-radius: 50%;
+}
+
+.fb {
+	background-color: #3b579d;
+	color: #fff;
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.tw {
+	background-color: #00acee;
+	color: #fff;
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.in {
+	background-color: #0e76a8;
+	color: #fff;
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.link {
+	background-color: #4877f4;
+	color: #fff;
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
