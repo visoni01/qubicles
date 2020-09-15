@@ -10,24 +10,43 @@ import { TwitterIcon, LinkedinIcon, FacebookIcon } from 'react-share'
 import { useDispatch, useSelector } from 'react-redux'
 import { showSuccessMessage } from '../../redux-saga/redux/actions'
 import { inviteRequestStart } from '../../redux-saga/redux/invitePage'
+import invitePopup from '../../assets/images/popup.png'
 
 const InviteModal = ({
-  open, handleClose, handleConfirm,
+  open, handleClose,
 }) => {
   const dispatch = useDispatch()
+  const inviteReducerStore = useSelector((state) => state.invitePage)
   const { inviteLink } = useSelector((state) => state.postSignUp)
   const [ manualEmails, setManualEmails ] = useState()
+
+  const {
+    isLoading, success, result, type,
+  } = inviteReducerStore
 
   const handleCopyToClipboard = () => {
     dispatch(showSuccessMessage({ msg: 'Link copied' }))
     navigator.clipboard.writeText(inviteLink || 'invite link')
   }
 
+  useEffect(() => {
+    if (type === 'invite-with-google' && !isLoading && success) {
+      window.open(result.message, '_blank')
+    }
+    if (success) {
+      setManualEmails('')
+      dispatch(showSuccessMessage({ msg: 'Successfully Invited' }))
+    }
+    // eslint-disable-next-line
+  }, [ isLoading, dispatch ])
+
   const handleManualEmails = () => {
     if (!manualEmails) return
     const emails = manualEmails.split(',')
     dispatch(inviteRequestStart({ type: 'invite-manual', body: { emails } }))
   }
+
+  const handleInviteWithGoogle = () => dispatch(inviteRequestStart({ type: 'invite-with-google' }))
 
   return (
     <div className='invite-container'>
@@ -48,11 +67,10 @@ const InviteModal = ({
               <div>
                 <span className='fa fa-times pull-right' />
               </div>
-              <div className='text-center popup-image'>
-                {/* <img src='../../assets/images/bg-invitation-page.jpg' alt='popup' /> */}
-                <i />
+              <div className='has-text-centered popup-image'>
+                <img src={ invitePopup } alt='popup' />
               </div>
-              <div className='invite-text text-center'>
+              <div className='invite-text has-text-centered'>
                 <h2>
                   Invite friends &amp; earn up to
                   {' '}
@@ -61,16 +79,13 @@ const InviteModal = ({
                   and free crypto
                 </h2>
               </div>
-              <div className='invite-content text-center'>
+              <div className='invite-content has-text-centered'>
                 <p>
-                  <b>You get $5 credit plus 1 free QBE token</b>
-                  {' '}
+                  <b>You get $5 credit plus 1 free QBE token </b>
                   for each friend that
                   <br />
-                  {' '}
                   signs up using your link, up to $100. Your friend also
                   <br />
-                  {' '}
                   receives $5 credit to use toward the service.
                 </p>
               </div>
@@ -91,44 +106,37 @@ const InviteModal = ({
                 </div>
                 <center className='py-3'>or</center>
                 <div className='gmail-contact'>
-                  {/* <button>
-                    <FontAwesomeIcon icon={ faEnvelope } className=' fa fa-envelope pr-3' />
-                    Invite Gmail Contacts
-                  </button> */}
                   <Button
                     variant='contained'
                     color='primary'
+                    onClick={ handleInviteWithGoogle }
                   >
-                    <FontAwesomeIcon icon={ faEnvelope } className='pr-3' />
+                    <FontAwesomeIcon icon={ faEnvelope } className='mail-icon pr-3' />
                     Invite Gmail Contacts
                   </Button>
                 </div>
                 <div className='share-links'>
-                  <p className='mt-3 mb-0 text-center'>
+                  <p className='mt-3 mb-0 has-text-centered'>
                     Share link via social media
                   </p>
-                  <ul className='m-0 pl-0 text-center d-flex'>
+                  <ul className='m-0 pl-0 has-text-centered columns is-flex'>
                     <li>
                       <a href='#' className='fb'>
-                        {/* <span className='fa fa-facebook' /> */}
                         <FacebookIcon className='fb' />
                       </a>
                     </li>
                     <li>
                       <a href='#' className='tw'>
-                        {/* <span className='fa fa-twitter' /> */}
                         <TwitterIcon className='tw' />
                       </a>
                     </li>
                     <li>
                       <a href='#' className='in'>
-                        {/* <span className='fa fa-linkedin' /> */}
                         <LinkedinIcon className='in' />
                       </a>
                     </li>
                     <li>
                       <a href='#' className='link'>
-                        <span className='fa fa-link' />
                         <FontAwesomeIcon icon={ faLink } className='link' onClick={ handleCopyToClipboard } />
                       </a>
                     </li>
@@ -147,7 +155,6 @@ const InviteModal = ({
 InviteModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-  handleConfirm: PropTypes.func.isRequired,
 }
 
 export default InviteModal

@@ -101,6 +101,8 @@
     font-weight: 500;
 }
 
+// CSS for new design
+
 .snackbar-div {
   padding: 15px;
   background-color: green;
@@ -114,11 +116,6 @@
   margin-top: 60px;
   .popup-image {
     height: 100px;
-    // min-height: 436px;
-    // background-color: #adabab;
-    background-image: url('../../assets/images/popup.png');
-    // opacity: 0.60;
-    // color: black;
   }
 }
 
@@ -126,7 +123,6 @@
 	background-color: #fff;
 	padding: 20px;
 	border-radius: 10px;
-	box-shadow: 0px 5px 5px 5px rgba(0,0,0,0.3);
 }
 
 .invite-text {
@@ -136,14 +132,26 @@
 		padding: 30px 0;
 		margin: 0;
 		font-weight: bold;
-	}
+  }
+  .price {
+    color: #4877F4;
+  }
 }
 
 .invite-content {
+  b {
+    color: #4A4A4A;
+    &:hover {
+      color: #4A4A4A;
+      text-decoration: none;
+    }
+  }
 	p {
 		font-size: 12px;
-		font-family: 'Poppins', sans-serif;
-	}
+    font-family: 'Poppins', sans-serif;
+    color: #999999;
+
+  }
 }
 
 .email-section {
@@ -175,6 +183,7 @@
 		font-family: 'Poppins', sans-serif;
 	}
 }
+
 .gmail-contact {
 	button {
 		border: 1px solid #4877F4;
@@ -184,8 +193,16 @@
 		color: #4877F4;
 		font-family: 'Poppins', sans-serif;
 		border-radius: 5px;
-		margin-bottom: 30px;
-	}
+    margin-bottom: 30px;
+    margin-top: 10px;
+    &:hover {
+      background-color: #4877F4;
+      color: white;
+    }
+  }
+  .mail-icon {
+    margin-right: 15px;
+  }
 }
 .share-links {
 	p {
@@ -209,10 +226,26 @@
 	}
 }
 
-.social-icons-invite {
-  width: 49px;
-  height: 49px;
-  border-radius: 50%;
+.share-links {
+	p {
+		color: #444F5F;
+		font-weight: normal;
+		font-size: 12px;
+	}
+	ul {
+		list-style: none;
+		justify-content: center;
+		padding-top: 10px;
+		li {
+			padding: 10px;
+			a {
+				&:hover {
+					color: #fff;
+					text-decoration: none;
+				}
+			}
+		}
+	}
 }
 
 .fb {
@@ -225,6 +258,7 @@
 	align-items: center;
 	justify-content: center;
 }
+
 .tw {
 	background-color: #00acee;
 	color: #fff;
@@ -233,8 +267,9 @@
 	border-radius: 50%;
 	display: flex;
 	align-items: center;
-	justify-content: center;
+  justify-content: center;
 }
+
 .in {
 	background-color: #0e76a8;
 	color: #fff;
@@ -245,6 +280,7 @@
 	align-items: center;
 	justify-content: center;
 }
+
 .link {
 	background-color: #4877f4;
 	color: #fff;
