@@ -60,6 +60,7 @@ const StepForm = ({
         })
       }
     }
+    // eslint-disable-next-line
   }, [ stepData ])
 
   const handleValueChange = (name) => (event) => {
