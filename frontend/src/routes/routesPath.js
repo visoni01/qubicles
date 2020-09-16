@@ -16,6 +16,7 @@ const ROUTE_PATHS = {
   DASHBOARD: '/dashboard',
   POST_SIGN_UP: '/post-signup',
   INVITE_FRIEND: '/invite-friends',
+  INVITE_LINK: '/invite/:walletId',
   AUTH: '/auth',
   GROUP,
   GROUP_CHANNEL: `${ GROUP_CHANNEL }:channelId`,

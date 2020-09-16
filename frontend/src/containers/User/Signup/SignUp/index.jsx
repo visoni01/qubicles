@@ -10,7 +10,9 @@ import {
   faLock,
 } from '@fortawesome/free-solid-svg-icons'
 
-import { useHistory, useLocation, Link } from 'react-router-dom'
+import {
+  useHistory, useLocation, Link, useParams,
+} from 'react-router-dom'
 import { userSignupStart } from '../../../../redux-saga/redux/signup'
 import { setIsSocialLogin } from '../../../../redux-saga/redux/actions'
 import './style.scss'
@@ -30,8 +32,9 @@ const SignUp = () => {
   const location = useLocation()
   const isSocialSignupSuccess = location.search && location.search.split('?')[ 1 ] === 'with_social=true' // Temporary set up.
   const dispatch = useDispatch()
-  const onSubmit = (data) => dispatch(userSignupStart(data))
   const { success } = useSelector((state) => state.signup)
+  const { inviterId, fullName, withInvite } = useSelector((state) => state.signupWithInvite)
+  const onSubmit = (data) => dispatch(userSignupStart({ ...data, with_invite: withInvite, inviter_id: inviterId }))
   const inputField = (
     name,
     id,
@@ -96,6 +99,14 @@ const SignUp = () => {
                   {(!success && !isSocialSignupSuccess) && (
                     <>
                       <>
+                        {withInvite && (
+                        <p className='signup-with-invite-message'>
+                          <b>
+                            {fullName}
+                          </b>
+                          {' has invited you to join Qubicles. Register to get free tokens'}
+                        </p>
+                        )}
                         <button
                           type='button'
                           className='text-button mb-20'

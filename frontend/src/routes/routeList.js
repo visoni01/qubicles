@@ -59,6 +59,10 @@ const routes = [
     auth: true,
   },
   {
+    path: ROUTE_PATHS.INVITE_LINK,
+    component: React.lazy(() => import('../containers/InviteFriendsPage/handleInvite')),
+  },
+  {
     path: ROUTE_PATHS.AUTH,
     component: Auth,
   },

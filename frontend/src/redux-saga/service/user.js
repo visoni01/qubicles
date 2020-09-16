@@ -25,6 +25,11 @@ class User {
     const response = await apiClient.postRequest('/auth/send-verification-mail', { email })
     return response
   }
+
+  static async getInviterDetails(walletId) {
+    const response = await apiClient.getRequest(`/user/invite/${ walletId }`)
+    return response
+  }
 }
 
 export default User
