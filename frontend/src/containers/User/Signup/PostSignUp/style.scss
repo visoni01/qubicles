@@ -22,6 +22,351 @@
   padding: 30px 0 0 0;
 }
 
+.process-bar {
+  height: 18px;
+  background: $white;
+  border-radius: 100px;
+  max-width: 520px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+
+  .progress-wrap {
+    position: relative;
+    margin: 0 12px;
+    width: calc(100% - 24px);
+    height: 6px;
+    border-radius: 100px;
+
+    //background: $primary;
+
+    .track,
+    .bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      border-radius: 100px;
+    }
+
+    .track {
+      background: lighten($medium-grey, 5%);
+      width: 100%;
+    }
+
+    .bar {
+      background: $accent;
+      width: 0;
+      transition: width 0.4s;
+    }
+
+    .dot {
+      position: absolute;
+      top: calc(50% - 19px);
+      height: 38px;
+      width: 38px;
+      background: $white;
+      border-radius: 50%;
+      border: 1.4px solid $fade-grey;
+      box-shadow: $light-box-shadow;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      pointer-events: none;
+
+      &.is-first {
+        left: -19px;
+      }
+
+      &.is-second {
+        left: calc(25% - 19px);
+      }
+
+      &.is-third {
+        left: calc(50% - 19px);
+      }
+
+      &.is-fourth {
+        left: calc(75% - 19px);
+      }
+
+      &.is-fifth {
+        right: -19px;
+      }
+
+      &.is-active {
+        border-color: $accent;
+        box-shadow: $accent-box-shadow;
+
+        svg {
+          stroke: $accent;
+        }
+      }
+
+      &.is-current {
+        border-color: $primary;
+        box-shadow: $primary-box-shadow;
+
+        svg {
+          stroke: $primary;
+        }
+      }
+
+      svg {
+        height: 16px;
+        width: 16px;
+        stroke: $placeholder;
+        transition: stroke 0.3s;
+      }
+    }
+  }
+}
+
+.outer-panel {
+  display: flex;
+  align-items: center;
+  min-height: calc(100vh - 133px);
+  background-color: #F8F9FD;
+
+  .outer-panel-inner {
+    width: 100%;
+  }
+}
+
+.process-title {
+  max-width: 840px;
+  margin: 0 auto;
+  text-align: left;
+
+  .step-title {
+    animation: fadeInUp 0.5s;
+    display: none;
+
+    &.is-active {
+      display: block;
+    }
+  }
+}
+
+.process-panel-wrap {
+  display: none;
+  animation: fadeInLeft 0.5s;
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 20px 0;
+
+  &.is-active {
+    display: block;
+  }
+
+  &.is-narrow {
+    max-width: 540px;
+  }
+
+  .account-type {
+    width: 340px;
+    height: 377px;
+    background: #FFFFFF;
+    border: 1px solid $fade-grey;
+    border-radius: 8px;
+    text-align: center;
+    margin: auto;
+
+    img {
+      display: block;
+      margin: 0 auto 20px auto;
+      max-height: 140px;
+    }
+
+    h3 {
+      font-size: 18px !important;
+    }
+
+    p {
+      color: #4A4A4A;
+      letter-spacing: 0px;
+      font-size: 14px !important;;
+    }
+
+    .button {
+      margin-top: 20px;
+      border-width: 1.4px;
+      color: $muted-grey;
+
+      &:hover,
+      &.is-loading {
+        border-color: $accent;
+        background: $accent;
+        color: $white;
+        box-shadow: $accent-box-shadow;
+      }
+    }
+  }
+
+  .form-panel {
+    width: 100%;
+    background: $white;
+    border: 1px solid $fade-grey;
+    border-radius: 8px;
+    padding: 30px;
+
+    .field {
+      border: 1px solid $fade-grey;
+      padding: 4px 8px 8px 8px;
+      border-radius: 6px;
+      background: lighten($fade-grey, 8%);
+      margin-bottom: 20px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      label {
+        text-transform: uppercase;
+        font-size: 0.7rem;
+        font-weight: 500;
+        color: $medium-text;
+        padding-left: 8px;
+      }
+
+      .control {
+        input {
+          border: none;
+          height: 30px;
+          background: lighten($fade-grey, 8%);
+        }
+
+        .custom-intl-tel-input {
+          input {
+            font-size: 1.2rem !important;
+            &:hover, &:focus {
+              outline: none;
+            }
+          }
+        }
+      }
+    }
+
+    .success-image {
+      display: block;
+      max-width: 120px;
+      margin: 0 auto;
+    }
+
+    .success-text {
+      text-align: center;
+      margin: 12px auto;
+      max-width: 370px;
+
+      h3 {
+        font-weight: 500;
+        color: $dark-text;
+      }
+
+      p {
+        font-size: 0.9rem;
+        color: $muted-grey;
+      }
+
+      .button {
+        // margin: 20px auto 0 auto;
+        max-width: 280px;
+        // border: 1.4px solid $accent;
+        color: $accent;
+        position: relative !important;
+        right: 0;
+        margin-left: 40px;
+        margin-bottom: 15px;
+        justify-content: flex-start;
+        background-color: #4677F4 !important;
+        color: white !important;
+
+        &:hover,
+        &.is-loading {
+          border-color: $accent;
+          background: $accent;
+          color: $white;
+          box-shadow: $accent-box-shadow;
+        }
+      }
+    }
+  }
+
+  .photo-upload {
+    .preview {
+      position: relative;
+      height: 120px;
+      width: 120px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      border: 1.4px solid $placeholder;
+      margin: 0 auto;
+
+      img {
+        display: block;
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+      }
+
+      .upload-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 36px;
+        width: 36px;
+        border-radius: 50%;
+        border: 3px solid $white;
+        background: $placeholder;
+        transition: all 0.3s;
+
+        &:hover {
+          background: $primary;
+        }
+
+        svg {
+          height: 14px;
+          width: 14px;
+          stroke: $white;
+          stroke-width: 3px;
+        }
+      }
+    }
+
+    .limitation {
+      margin-top: 20px;
+      text-align: center;
+
+      small {
+        color: $muted-grey;
+      }
+    }
+  }
+
+  .buttons {
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .button {
+      min-width: 90px;
+
+      &.is-next:hover {
+        border-color: $accent;
+        background: $accent;
+        color: $white-smoke;
+        box-shadow: $accent-box-shadow;
+      }
+    }
+  }
+}
+
 .check-box-div {
   display: flex;
 }
@@ -31,7 +376,11 @@
 }
 
 .intro-logo {
+  top: 342px;
+  left: 564px;
   border-radius: 6px;
+  width: 182px;
+  height: 140px;
 }
 
 .intl-tel-input {

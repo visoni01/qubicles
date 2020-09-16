@@ -153,9 +153,10 @@ Signup styles
         text-align: center;
 
         h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 400 !important;
-            font-size: 1.2rem;
+          font-family: "Poppins", sans-serif !important;
+          font-weight: 600;
+          font-size: 50px;
+          color: #444F5F;
         }
 
         .step-title {
@@ -188,8 +189,13 @@ Signup styles
             background: $white;
             border: 1px solid $fade-grey;
             border-radius: 8px;
-            padding: 30px;
+            // padding: 30px;
             text-align: center;
+            color: #4A4A4A;;
+            top: 317px;
+            left: 485px;
+            width: 340px;
+            height: 377px;
 
             img {
                 display: block;
@@ -198,14 +204,15 @@ Signup styles
             }
 
             h3 {
-                font-family: 'Montserrat', sans-serif;
-                font-weight: 400 !important;
-                font-size: .9rem;
+                font-family: "Poppins", sans-serif;
+                font-weight: 400;
+                font-size: 18px;
             }
 
             p {
-                color: $muted-grey;
-                font-size: .9rem;
+                font-family: "SF Pro Text", Regular;
+                color: #4A4A4A !important;
+                font-size: 14px;
             }
 
             .button {
