@@ -46,7 +46,7 @@ const ActivityDetail = ({ title, data }) => (
 
 ActivityDetail.defaultProps = {
   title: '',
-  data: [ {} ],
+  data: [ ],
 }
 
 ActivityDetail.propTypes = {
