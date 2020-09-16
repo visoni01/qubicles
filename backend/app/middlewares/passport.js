@@ -9,7 +9,7 @@ import { User, UserDetail } from '../db/models'
 import config from '../../config/app'
 import SocialSignup from '../services/signup/socialSignup'
 import { APP_ERROR_CODES } from '../utils/errors'
-import { getOne } from '../services/helper'
+import { getOne, getInviteLink } from '../services/helper'
 
 function initPassport () {
   const opts = {}
@@ -33,13 +33,19 @@ function initPassport () {
         return done({ message: APP_ERROR_CODES.EMAIL_NOT_VERIFIED, code: 'EMAIL_NOT_VERIFIED' }, null)
       } else {
         const userObj = user.get({ plain: true })
-        const userDetailsData = await getOne({ model: UserDetail, data: { user_id: user.user_id }, attributes: ['is_post_signup_completed'] })
+        const inviteLink = await getInviteLink({ user_id: user.user_id })
+        const userDetailsData = await getOne({
+          model: UserDetail,
+          data: { user_id: user.user_id },
+          attributes: ['is_post_signup_completed']
+        })
         const jwtToken = await jwt.sign({
           email,
           full_name: user.full_name,
           user_id: user.user_id,
           is_post_signup_completed: !!(userDetailsData && userDetailsData.is_post_signup_completed),
-          user_code: user.user_code
+          user_code: user.user_code,
+          inviteLink
         },
         config.get('jwt.loginTokenSecret'), {
           expiresIn: config.get('jwt.loginTokenExpiry')
@@ -146,6 +152,7 @@ const getAccessTokenFromCookie = function (req) {
 }
 
 const signAccessToken = async function (user) {
+  const inviteLink = await getInviteLink({ user_id: user.user_id })
   const userDetailsData = await getOne({
     model: UserDetail,
     data: {
@@ -158,7 +165,8 @@ const signAccessToken = async function (user) {
     full_name: user.full_name,
     user_id: user.user_id,
     is_post_signup_completed: !!(userDetailsData && userDetailsData.is_post_signup_completed),
-    user_code: user.user_code
+    user_code: user.user_code,
+    inviteLink
   },
   config.get('jwt.loginTokenSecret'), {
     expiresIn: config.get('jwt.loginTokenExpiry')
