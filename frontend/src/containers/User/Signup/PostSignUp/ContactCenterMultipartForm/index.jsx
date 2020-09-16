@@ -1,7 +1,4 @@
 import React, { useEffect } from 'react'
-import {
-  faCheck, faAddressBook, faPoll, faBuilding,
-} from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import _ from 'lodash'
@@ -38,13 +35,10 @@ const ContactCenterMultiPartForm = () => {
   const handleOnBack = () => dispatch(handleBackStep())
 
   const steps = [
-    { icon: faCheck },
-    { icon: faAddressBook },
-    { icon: faBuilding },
-    { icon: faPoll } ].map((step, index) => {
-    if (index < currentStep) return { icon: faCheck }
-    return step
-  })
+    { icon: 1, label: 1 },
+    { icon: 2, label: 2 },
+    { icon: 3, label: 3 },
+  ].map((step) => step)
 
   if (isLoading) {
     return <></>

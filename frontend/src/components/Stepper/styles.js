@@ -9,25 +9,30 @@ const useStepperStyles = makeStyles({
     background: 'none',
   },
   stepIconRoot: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#D5DFFC',
     zIndex: 1,
     color: '#fff',
-    width: 50,
-    height: 50,
+    width: 72,
+    height: 59,
     display: 'flex',
-    borderRadius: '50%',
+    borderRadius: '10%',
     justifyContent: 'center',
     alignItems: 'center',
   },
   stepIconActive: {
+    backgroundColor: '#4877F4',
     border: '2px solid #2874d27d',
     boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
   },
   stepIconCompleted: {
+    backgroundColor: '#4877F4',
     border: '2px solid #2874d27d',
   },
   stepIcon: {
-    color: '#5b8be4bf',
+    color: '#FFFFFF',
+    fontSize: 32,
+    fontFamily: ' "Poppins", sans-serif',
+    fontWeight: '600',
   },
 })
 
