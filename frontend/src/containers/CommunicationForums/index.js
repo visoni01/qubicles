@@ -9,6 +9,7 @@ import withNavBar from '../../hoc/navbar'
 import GroupModal from '../../components/CommunicationForums/groups/GroupModal'
 import CategoryList from '../../components/CommunicationForums/groups/CategoryList'
 import CategorySearchBar from '../../components/CommunicationForums/groups/CategorySearch'
+import './style.scss'
 
 const CreateGroup = () => {
   const [ openNewGroupModal, setOpenNewGroupModal ] = useState(false)

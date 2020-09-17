@@ -70,13 +70,14 @@ const AddUpdateGroupModal = ({
           onChange={ handleGroupTitle }
           required
         />
-      </DialogContent>
-      <DialogContent>
-        <Checkbox
-          checked={ groupData.isPublic }
-          onChange={ handleCheckBox }
-        />
-        <span className='vertical-align-middle'>Make group public</span>
+        <div className='mt-10'>
+          <Checkbox
+            checked={ groupData.isPublic }
+            onChange={ handleCheckBox }
+            classes={ { root: 'modal-checkbox' } }
+          />
+          <span className='vertical-align-middle'>Make group public</span>
+        </div>
       </DialogContent>
       <DialogActions>
         <Button

@@ -1,47 +1,37 @@
-import Dashboard from '../containers/Dashboard'
-import { Signup, EmailVerification, PostSignUp } from '../containers/User/Signup'
-import InviteFriends from '../containers/InviteFriendsPage'
-import {
-  Home, Agents, ContactCenter, ContactUs, AboutUs,
-} from '../containers/Home'
-import People from '../containers/People'
-import Login from '../containers/Login'
-import VerifyEmail from '../containers/EmailVerification'
+import React from 'react'
 import Auth from '../components/User/Auth'
-import ForumGroup from '../containers/CommunicationForums'
-import ForumChannel from '../containers/CommunicationForums/forumChannel'
-import ForumTopic from '../containers/CommunicationForums/forumTopic'
 import ROUTE_PATHS from './routesPath'
+import VerifyEmail from '../containers/EmailVerification'
 
 const routes = [
   {
     path: ROUTE_PATHS.Home,
-    component: Home,
+    component: React.lazy(() => import('../containers/Home')),
   },
   {
     path: ROUTE_PATHS.AGENTS,
-    component: Agents,
+    component: React.lazy(() => import('../components/Home/agents')),
   },
   {
     path: ROUTE_PATHS.CONTACT_CENTERS,
-    component: ContactCenter,
+    component: React.lazy(() => import('../components/Home/contactCenter')),
   },
   {
     path: ROUTE_PATHS.CONTACT_US,
-    component: ContactUs,
+    component: React.lazy(() => import('../components/Home/contactUs')),
   },
   {
     path: ROUTE_PATHS.ABOUT,
-    component: AboutUs,
+    component: React.lazy(() => import('../components/Home/aboutUs')),
   },
   {
     path: ROUTE_PATHS.SIGN_UP,
-    component: Signup,
+    component: React.lazy(() => import('../containers/User/Signup/SignUp')),
     redirectToDashboard: true,
   },
   {
     path: ROUTE_PATHS.LOG_IN,
-    component: Login,
+    component: React.lazy(() => import('../containers/Login')),
     redirectToDashboard: true,
   },
   {
@@ -50,22 +40,22 @@ const routes = [
   },
   {
     path: ROUTE_PATHS.VERIFY_TOKEN,
-    component: EmailVerification,
+    component: React.lazy(() => import('../containers/User/Signup/EmailVerification')),
     redirectToDashboard: true,
   },
   {
     path: ROUTE_PATHS.DASHBOARD,
-    component: Dashboard,
+    component: React.lazy(() => import('../containers/Dashboard')),
     auth: true,
   },
   {
     path: ROUTE_PATHS.POST_SIGN_UP,
-    component: PostSignUp,
+    component: React.lazy(() => import('../containers/User/Signup/PostSignUp')),
     auth: true,
   },
   {
     path: ROUTE_PATHS.INVITE_FRIEND,
-    component: InviteFriends,
+    component: React.lazy(() => import('../containers/InviteFriendsPage')),
     auth: true,
   },
   {
@@ -74,22 +64,22 @@ const routes = [
   },
   {
     path: ROUTE_PATHS.GROUP,
-    component: ForumGroup,
+    component: React.lazy(() => import('../containers/CommunicationForums')),
     auth: true,
   },
   {
     path: ROUTE_PATHS.GROUP_CHANNEL,
-    component: ForumChannel,
+    component: React.lazy(() => import('../containers/CommunicationForums/forumChannel')),
     auth: false,
   },
   {
     path: ROUTE_PATHS.GROUP_TOPIC,
-    component: ForumTopic,
+    component: React.lazy(() => import('../containers/CommunicationForums/forumTopic')),
     auth: true,
   },
   {
     path: ROUTE_PATHS.PEOPLE,
-    component: People,
+    component: React.lazy(() => import('../containers/People')),
     auth: true,
   },
 ]

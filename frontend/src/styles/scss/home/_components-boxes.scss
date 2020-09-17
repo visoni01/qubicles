@@ -58,7 +58,7 @@ TABLE OF CONTENTS
     //Colors
     &.primary {
         .box-icon {
-            color: $primary; 
+            color: $primary;
         }
         .box-title {
             color: $primary;
@@ -66,7 +66,7 @@ TABLE OF CONTENTS
     }
     &.secondary {
         .box-icon {
-            color: $secondary; 
+            color: $secondary;
         }
         .box-title {
             color: $secondary;
@@ -74,7 +74,7 @@ TABLE OF CONTENTS
     }
     &.accent {
         .box-icon {
-            color: $accent; 
+            color: $accent;
         }
         .box-title {
             color: $accent;
@@ -82,7 +82,7 @@ TABLE OF CONTENTS
     }
     &.info {
         .box-icon {
-            color: $blue; 
+            color: $blue;
         }
         .box-title {
             color: $blue;
@@ -90,7 +90,7 @@ TABLE OF CONTENTS
     }
     &.success {
         .box-icon {
-            color: $green; 
+            color: $green;
         }
         .box-title {
             color: $green;
@@ -98,7 +98,7 @@ TABLE OF CONTENTS
     }
     &.warning {
         .box-icon {
-            color: $orange; 
+            color: $orange;
         }
         .box-title {
             color: $orange;
@@ -106,7 +106,7 @@ TABLE OF CONTENTS
     }
     &.danger {
         .box-icon {
-            color: $red; 
+            color: $red;
         }
         .box-title {
             color: $red;
@@ -178,7 +178,7 @@ TABLE OF CONTENTS
     &.primary {
         .diamond {
             background-color: $primary;
-            box-shadow: $primary-box-shadow; 
+            box-shadow: $primary-box-shadow;
         }
         .box-title {
             color: $primary;
@@ -187,7 +187,7 @@ TABLE OF CONTENTS
     &.secondary {
         .diamond {
             background-color: $secondary;
-            box-shadow: $secondary-box-shadow; 
+            box-shadow: $secondary-box-shadow;
         }
         .box-title {
             color: $secondary;
@@ -196,7 +196,7 @@ TABLE OF CONTENTS
     &.accent {
         .diamond {
             background-color: $accent;
-            box-shadow: $accent-box-shadow; 
+            box-shadow: $accent-box-shadow;
         }
         .box-title {
             color: $accent;
@@ -205,7 +205,7 @@ TABLE OF CONTENTS
     &.info {
         .diamond {
             background-color: $blue;
-            box-shadow: $blue-box-shadow; 
+            box-shadow: $blue-box-shadow;
         }
         .box-title {
             color: $blue;
@@ -214,7 +214,7 @@ TABLE OF CONTENTS
     &.success {
         .diamond {
             background-color: $green;
-            box-shadow: $green-box-shadow; 
+            box-shadow: $green-box-shadow;
         }
         .box-title {
             color: $green;
@@ -223,7 +223,7 @@ TABLE OF CONTENTS
     &.warning {
         .diamond {
             background-color: $orange;
-            box-shadow: $orange-box-shadow; 
+            box-shadow: $orange-box-shadow;
         }
         .box-title {
             color: $orange;
@@ -232,7 +232,7 @@ TABLE OF CONTENTS
     &.danger {
         .diamond {
             background-color: $red;
-            box-shadow: $red-box-shadow; 
+            box-shadow: $red-box-shadow;
         }
         .box-title {
             color: $red;
@@ -291,7 +291,7 @@ TABLE OF CONTENTS
                 opacity: 0.8;
                 border-radius: 4px;
                 transform: scale(0.8);
-                transition: all 0.3s;      
+                transition: all 0.3s;
             }
         }
     }
@@ -399,7 +399,7 @@ TABLE OF CONTENTS
 ========================================================================== */
 
 //Variables
-$icon-color: $white;     
+$icon-color: $white;
 $primary-box-background: $primary;
 $secondary-box-background: $secondary;
 $accent-box-background: $accent;
@@ -407,13 +407,13 @@ $info-box-background: $blue;
 $success-box-background: $green;
 $warning-box-background: $orange;
 $danger-box-background: $red;
-$primary-shadow-color: darken($primary,15%);  
-$secondary-shadow-color: darken($secondary,15%); 
-$accent-shadow-color: darken($accent,15%); 
-$info-shadow-color: darken($blue,15%); 
-$success-shadow-color: darken($green,15%); 
-$warning-shadow-color: darken($orange,15%); 
-$danger-shadow-color: darken($red,15%); 
+$primary-shadow-color: darken($primary,15%);
+$secondary-shadow-color: darken($secondary,15%);
+$accent-shadow-color: darken($accent,15%);
+$info-shadow-color: darken($blue,15%);
+$success-shadow-color: darken($green,15%);
+$warning-shadow-color: darken($orange,15%);
+$danger-shadow-color: darken($red,15%);
 $box-primary-shadow: $primary-box-shadow;
 $box-secondary-shadow: $secondary-box-shadow;
 $box-accent-shadow: $accent-box-shadow;
@@ -565,7 +565,7 @@ $length: 75;
                 transform: rotate(360deg) scale(1.05);
                 background: $accent;
                 box-shadow: $accent-box-shadow;
-            }  
+            }
             .counter-text {
                 color: $accent;
             }
@@ -1316,7 +1316,7 @@ $length: 75;
     &.is-prev {
         left: -6px;
         i {
-            right: 2px; 
+            right: 2px;
         }
     }
     //next arrow

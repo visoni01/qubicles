@@ -1,7 +1,7 @@
 .MuiButtonBase-root {
   &.custom-button-primary{
     color: white;
-    min-width: 130px;
+    min-width: 140px;
     height: 36px;
     color: white !important;
     background-color: $primary-palette-blue !important;
@@ -24,4 +24,79 @@
       color: white;
     }
   }
+}
+
+.text-button {
+  width: 100%;
+  padding: 0px;
+  border: none;
+  background: #f4f4f4;
+  color: #7f00ff;
+  font-size: 15px;
+  outline: none;
+  cursor: pointer;
+} :hover {
+  color: black
+}
+
+.steps-icons {
+  margin: auto;
+  width: 100% !important;
+  height: 30px;
+}
+
+
+.search-bar-header {
+  display: inline-flex;
+  width: 100%;
+}
+
+.people-search-bar {
+  margin: 0 !important;
+}
+
+
+.new-job-button {
+  position: absolute !important;
+  right: 0;
+  margin-top: 10px !important;
+  background-color: #00D1B2 !important;
+  color: white !important;
+}
+
+
+.cross-button {
+  position: absolute;
+  right: 0;
+}
+
+.width-full {
+  width: 100%
+}
+
+.display-inline-grid {
+  display: inline-grid;
+}
+
+.display-inline-flex {
+  display: inline-flex;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.modal-checkbox {
+  padding: 10px 10px 10px 0px !important;
+  margin: 10px 0px !important;
+}
+
+.no-data-message {
+  font-size: 1.6rem;
+  font-family: 'Nexa Bold', sans-serif;
+  color: #444F60;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

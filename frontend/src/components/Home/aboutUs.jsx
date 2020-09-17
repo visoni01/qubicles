@@ -16,6 +16,7 @@ import {
   teamKate,
 } from '../../assets/images/landingPage'
 import { Header, Footer, ClientReviews } from './index'
+import '../../containers/Home/style.scss'
 
 const AboutUs = () => {
   const { userDetails } = useSelector((state) => state.login)

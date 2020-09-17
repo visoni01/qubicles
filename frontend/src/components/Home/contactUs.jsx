@@ -6,6 +6,7 @@ import {
 import GoogleMapReact from 'google-map-react'
 import { Header, Footer } from './index'
 import config from '../../utils/config'
+import '../../containers/Home/style.scss'
 
 const ContactUs = () => (
   <div>

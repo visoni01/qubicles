@@ -125,7 +125,7 @@ const TopicModal = ({
               checked={ topicData.isPublic }
               onChange={ handleChange }
               name='isPublic'
-              classes={ { root: ' is-public-topic' } }
+              classes={ { root: 'modal-checkbox' } }
             />
             <span className='vertical-align-middle'>Make topic public</span>
           </div>

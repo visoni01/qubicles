@@ -341,9 +341,10 @@
     width: 91% !important;
   }
   .textarea {
-    &.is-grow {
-      min-height: 100px !important;
-    }
+    height: 100px !important;
+    &:focus {
+      height: 130px !important;
+  }
   }
 }
 

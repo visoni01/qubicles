@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { Clients, Header, Footer } from './index'
 import { qubiclesAgent, ipads, agentWorkFlow } from '../../assets/images/landingPage'
+import '../../containers/Home/style.scss'
 
 const Agents = () => {
   const { userDetails } = useSelector((state) => state.login)
