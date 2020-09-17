@@ -5,7 +5,7 @@ import { faLightbulb } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import { getTimeFromNow } from '../../../utils/common'
 import { ownerDetails } from '../forumValidators'
-import { USER_ROUTE, GROUP_TOPIC } from '../../../routes/routesPath'
+import { USER_ROUTE, GROUP_TOPIC_ROUTE } from '../../../routes/routesPath'
 
 import './style.scss'
 import TopicActions from './TopicActions'
@@ -21,7 +21,7 @@ const TopicListItem = ({
       </div>
     </div>
     <div className='topic-meta'>
-      <Link to={ `${ GROUP_TOPIC }${ topicId }` } className='topic-title'>{topicTitle}</Link>
+      <Link to={ `${ GROUP_TOPIC_ROUTE }${ topicId }` } className='topic-title'>{topicTitle}</Link>
       <div className='flex-block'>
         <span>
           {getTimeFromNow(dateCreatedOn)}

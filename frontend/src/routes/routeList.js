@@ -1,11 +1,10 @@
 import React from 'react'
 import Auth from '../components/User/Auth'
 import ROUTE_PATHS from './routesPath'
-import VerifyEmail from '../containers/EmailVerification'
 
 const routes = [
   {
-    path: ROUTE_PATHS.Home,
+    path: ROUTE_PATHS.HOME,
     component: React.lazy(() => import('../containers/Home')),
   },
   {
@@ -36,7 +35,7 @@ const routes = [
   },
   {
     path: ROUTE_PATHS.VERIFY_EMAIL,
-    component: VerifyEmail,
+    component: React.lazy(() => import('../containers/EmailVerification')),
   },
   {
     path: ROUTE_PATHS.VERIFY_TOKEN,
