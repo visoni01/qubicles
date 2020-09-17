@@ -40,7 +40,7 @@ const AddUpdateChannel = ({
       setChannelData({
         title: '',
         description: '',
-        isPublic: false,
+        isPublic: 0,
         isCompanyAnn: false,
       })
     }
@@ -131,8 +131,8 @@ AddUpdateChannel.defaultProps = {
   modalFields: {
     title: '',
     description: '',
-    isPublic: false,
-    isCompanyAnn: false,
+    isPublic: 0,
+    isCompanyAnn: 0,
   },
 }
 
@@ -144,8 +144,8 @@ AddUpdateChannel.propTypes = {
   modalFields: PropTypes.shape({
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    isPublic: PropTypes.bool.isRequired,
-    isCompanyAnn: PropTypes.bool.isRequired,
+    isPublic: PropTypes.number.isRequired,
+    isCompanyAnn: PropTypes.number.isRequired,
   }),
 }
 

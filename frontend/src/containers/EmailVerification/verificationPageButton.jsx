@@ -6,7 +6,7 @@ const VerificationPageButton = () => {
   const history = useHistory()
   const handleCreateAccountLink = useCallback(() => {
     history.push(ROUTE_PATHS.VERIFY_EMAIL)
-  })
+  }, [ history ])
 
   return (
     <button type='button' className='text-button mb-20' onClick={ handleCreateAccountLink }>

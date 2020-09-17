@@ -14,7 +14,7 @@ const steps = {
     schema: yup.object().shape({
       dob: yup.date().required('*Required'),
       gender: yup.string().required('*Required'),
-      ssn: yup.string().required('*Required').matches(regExpSSN, 'SSN is invalid, eg:- 111112001'),
+      ssn: yup.string().required('*Required').matches(regExpSSN, 'SSN is invalid, eg:- 111-11-2001'),
     }),
   },
   2: {
@@ -32,7 +32,7 @@ const steps = {
       state: yup.string(),
       zip: yup.string().required('*Required').matches(regExpZip, 'Zipcode is invalid, eg:- 90401'),
       home_phone: yup.string(),
-      mobile_phone: yup.string().required('*Required').max(15)
+      mobile_phone: yup.string().max(15).required('*Required')
         .matches(regExpPhone, 'Phone number is invalid, eg:- 5555555555'),
     }),
   },
@@ -65,7 +65,7 @@ const steps = {
       years_of_experience: yup.string(),
       highest_education: yup.string(),
       primary_language: yup.string().required('*Required'),
-      other_languages: yup.string().default(''),
+      other_languages: yup.string().required('*Required'),
     }),
   },
   5: {

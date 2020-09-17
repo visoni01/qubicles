@@ -44,9 +44,14 @@ const ActivityDetail = ({ title, data }) => (
   </div>
 )
 
+ActivityDetail.defaultProps = {
+  title: '',
+  data: [ ],
+}
+
 ActivityDetail.propTypes = {
-  title: PropTypes.string.isRequired,
-  data: PropTypes.arrayOf.isRequired,
+  title: PropTypes.string,
+  data: PropTypes.arrayOf(PropTypes.any),
 }
 
 export default ActivityDetail

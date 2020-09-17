@@ -92,7 +92,7 @@ const Form = ({
                     className='input'
                     name={ name }
                     ref={ register }
-                    value={ formValues[ name ] }
+                    defaultValue={ formValues[ name ] }
                   />
                 )
               }

@@ -44,6 +44,7 @@ const InputField = (name, label, value, onChange, rest) => (
     margin='dense'
     name={ name }
     fullWidth
+    required
     variant='outlined'
     label={ label }
     value={ value }
@@ -211,13 +212,16 @@ const JobModal = ({
 
 JobModal.defaultProps = {
   isEdit: false,
-  jobId: '',
+  jobId: 0,
+  onSubmit(e) {
+    e.preventDefault()
+  },
 }
 
 JobModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func,
   isEdit: PropTypes.bool,
   jobId: PropTypes.number,
 }

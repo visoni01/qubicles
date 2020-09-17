@@ -8,7 +8,7 @@ import config from './config'
 import MESSAGES from './messages'
 
 export const regExpPhone = /^[+](\d{1,4})?\s(\d{10})$/
-export const regExpSSN = /^(?!000|666)[0-8][0-9]{2}(?!00)[0-9]{2}(?!0000)[0-9]{4}$/
+export const regExpSSN = /^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$/
 export const regExpZip = /^[0-9]{5}(?:-[0-9]{4})?$/
 
 export const formatDate = (date, format = 'MMMM DD, YYYY') => moment(date).format(format)
@@ -117,3 +117,24 @@ export const phoneNumberFormatter = (number, countryData) => {
 export const spreadArgs = (handler) =>
   // Spreading the arguments over the handler.
   (args) => handler(...args)
+
+// This method is used for formatting SSN as per e.g. 111-11-2001
+export const formatSSN = (value) => {
+  let val = value.replace(/\D/g, '')
+  let newVal = ''
+  if (val.length > 4) {
+    // eslint-disable-next-line no-param-reassign
+    value = val
+  }
+  if ((val.length > 3) && (val.length < 6)) {
+    newVal += `${ val.substr(0, 3) }-`
+    val = val.substr(3)
+  }
+  if (val.length > 5) {
+    newVal += `${ val.substr(0, 3) }-`
+    newVal += `${ val.substr(3, 2) }-`
+    val = val.substr(5)
+  }
+  newVal += val
+  return newVal.substring(0, 11)
+}

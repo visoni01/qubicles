@@ -113,8 +113,8 @@ AddUpdateGroupModal.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   isUpdate: PropTypes.bool,
   modalFields: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    isPublic: PropTypes.bool.isRequired,
+    title: PropTypes.string,
+    isPublic: PropTypes.bool,
   }),
 }
 

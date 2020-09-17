@@ -151,7 +151,7 @@ GroupActions.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   owner: PropTypes.number.isRequired,
-  isPublic: PropTypes.bool.isRequired,
+  isPublic: PropTypes.number.isRequired,
 }
 
 export default GroupActions

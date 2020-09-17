@@ -31,7 +31,7 @@ function* postSignupStepWorker(action) {
         const { type, step, data } = action.payload
         if (step === 1) data.user_code = type
         const response = yield apiClient.postSignUp(type, step, data)
-        const inviteLink = response.data && response.data.result && response.data.result.inviteLink // temporary set up.
+        const inviteLink = response.data && response.data.inviteLink // temporary set up.
         yield put(postSignUpStepSuccessful({ step, data, inviteLink }))
         yield put(stopLoader())
         break

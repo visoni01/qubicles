@@ -46,7 +46,7 @@ CategoryWrap.propTypes = {
   title: PropTypes.string.isRequired,
   owner: PropTypes.number.isRequired,
   channels: PropTypes.arrayOf(PropTypes.oneOfType([ PropTypes.object ])).isRequired,
-  isPublic: PropTypes.bool.isRequired,
+  isPublic: PropTypes.number.isRequired,
 }
 
 export default CategoryWrap
