@@ -23,6 +23,7 @@ const {
     userUpdateSuccess,
     setShowVerifyMailButton,
     resetShowVerifyMailButton,
+    resetUserDetails,
   },
   reducer,
 } = createSlice({
@@ -86,6 +87,10 @@ const {
       ...state,
       socialLogin: !!action.payload,
     }),
+    resetUserDetails: (state) => ({
+      ...state,
+      userDetails: getUserDetails(),
+    }),
   },
 })
 
@@ -101,4 +106,5 @@ export {
   setShowVerifyMailButton,
   resetShowVerifyMailButton,
   setIsSocialLogin,
+  resetUserDetails,
 }
