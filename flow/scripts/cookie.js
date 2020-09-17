@@ -1,11 +1,11 @@
-;(function() {
+(function() {
   'use strict';
   const root = Function('return this')();
-  
+
   function getCookie(name) {
     return Cookies.get(name)
   }
-  
+
   function getToken() {
     // Get cookie using our custom function
     return getCookie("access_token") || null;
@@ -41,4 +41,4 @@
     getTokenData
   }
 
-}.call(this));  
+}.call(this));

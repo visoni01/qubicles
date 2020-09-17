@@ -1,6 +1,6 @@
-html.md-default-theme, html, body.md-default-theme , body 
-{  
-    color: rgba(0,0,0,0.87);  
+html.md-default-theme, html, body.md-default-theme , body
+{
+    color: rgba(0,0,0,0.87);
     background-color: transparent!important;
 }
 
@@ -42,7 +42,6 @@ html.md-default-theme, html, body.md-default-theme , body
     text-align: center;
     position: relative;
     overflow: hidden;
-    margin-top: 76px;
 }
 
 #content {
