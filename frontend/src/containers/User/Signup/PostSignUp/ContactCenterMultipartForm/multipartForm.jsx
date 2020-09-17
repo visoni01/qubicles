@@ -44,7 +44,7 @@ const Form = ({
       <div className='field' key={ `${ name }${ label }` }>
         <label>{label}</label>
         {(type === 'radio' || type === 'checkbox') ? (
-          <div className='control'>
+          <div className='control check-box'>
             {checkTypes
               && checkTypes.map(([ inputName, value, inputLabel ]) => (
                 <div key={ `${ inputName }` } className='check-box-div'>

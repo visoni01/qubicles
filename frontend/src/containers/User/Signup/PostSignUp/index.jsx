@@ -5,8 +5,8 @@ import { Button } from '@material-ui/core'
 import { userUpdateStart } from '../../../../redux-saga/redux/actions'
 import AgentMultipartForm from './AgentMultipartForm'
 import ContactCenterMultipartForm from './ContactCenterMultipartForm'
-import agent from '../../../../assets/images/agent.png'
-import contactCenter from '../../../../assets/images/contact-center.png'
+import agent from '../../../../assets/images/agent-registration.svg'
+import contactCenter from '../../../../assets/images/contactcenter-registration.svg'
 
 const RoleSetup = () => {
   const dispatch = useDispatch()
