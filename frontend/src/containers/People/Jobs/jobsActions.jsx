@@ -3,9 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faEllipsisV, faTrash, faPencilAlt,
 } from '@fortawesome/free-solid-svg-icons'
-import {
-  Menu, MenuItem, IconButton,
-} from '@material-ui/core'
+import { Menu, MenuItem, IconButton } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 import { jobSubDetailsValidator } from '../../../components/People/peopleValidator'
 import { deleteJob } from '../../../redux-saga/redux/actions'

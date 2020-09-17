@@ -1,5 +1,5 @@
 import React from 'react'
-import { ClipLoader } from 'react-spinners'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import './style.scss'
@@ -33,7 +33,7 @@ const Loader = ({
           <>
             <div className={ enableOverlay && 'overlay' } />
             <div className={ loaderRootClasses }>
-              <ClipLoader size={ size } color={ color } loading />
+              <CircularProgress size={ size } />
             </div>
           </>
         )
