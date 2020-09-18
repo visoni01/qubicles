@@ -1,21 +1,24 @@
 @import '../../../../styles/scss/pages/app-signup';
 
 .agent-form {
-  .field {
-    margin-bottom: 0 !important;
-  }
-  .form-field {
-    margin-bottom: 20px;
-  }
-  .dropdown {
-    width: 98%;
-    margin-left: 8px;
-  }
+  // .field {
+  //   margin-bottom: 0 !important;
+  // }
+  // .form-field {
+  //   margin-bottom: 20px;
+  // }
+}
+
+.error-message {
+  font-weight: bold;
+  color: red;
 }
 
 .role-selector {
   display: flex;
   justify-content: space-evenly;
+  margin-left: 250px;
+  margin-right: 250px;
 }
 
 .process-bar-wrap {
@@ -38,10 +41,7 @@
     height: 6px;
     border-radius: 100px;
 
-    //background: $primary;
-
-    .track,
-    .bar {
+    .track, .bar {
       position: absolute;
       top: 0;
       left: 0;
@@ -138,6 +138,13 @@
   margin: 0 auto;
   text-align: left;
 
+  h2 {
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 600;
+    font-size: 50px;
+    color: #444F5F;
+  }
+
   .step-title {
     animation: fadeInUp 0.5s;
     display: none;
@@ -150,27 +157,32 @@
 
 .process-panel-wrap {
   display: none;
-  animation: fadeInLeft 0.5s;
-  max-width: 940px;
+  animation: fadeInLeft .5s;
+  max-width: 850px;
+  max-height: 850px;
   margin: 0 auto;
   padding: 20px 0;
+  width: 680px;
+  height: 500px;
+  background: #fff;
+  border: 1px solid #DBDBDB;
+  border-radius: 10px;
+  padding: 25px;
 
   &.is-active {
     display: block;
-  }
-
-  &.is-narrow {
-    max-width: 540px;
   }
 
   .account-type {
     width: 340px;
     height: 377px;
     background: #FFFFFF;
-    border: 1px solid $fade-grey;
-    border-radius: 8px;
+    border: 1px solid #DBDBDB;
+    border-radius: 10px;
     text-align: center;
     margin: auto;
+    opacity: 1;
+
 
     img {
       display: block;
@@ -180,6 +192,8 @@
 
     h3 {
       font-size: 18px !important;
+      text-align: center !important;
+      font-weight: 600;
     }
 
     p {
@@ -204,17 +218,17 @@
   }
 
   .form-panel {
-    width: 100%;
-    background: $white;
-    border: 1px solid $fade-grey;
-    border-radius: 8px;
-    padding: 30px;
+    // width: 100%;
+    // background: $white;
+    // border: 1px solid $fade-grey;
+    // border-radius: 8px;
+    // padding: 30px;
 
     .field {
       // border: 1px solid $fade-grey;
       padding: 4px 8px 8px 8px;
       border-radius: 6px;
-      background: lighten($fade-grey, 8%);
+      background:  white;
       margin-bottom: 20px;
 
       &:last-child {
@@ -231,10 +245,34 @@
         font-family: 'Poppins', sans-serif;
       }
 
+      .dropdown-field {
+        margin-left: 30px;
+        .dropdown {
+          border: 1px solid #DBDBDB;
+          height: 45px;
+          border-radius: 6px;
+          width: 290px;
+          background: #FFFFFF;
+          margin-top: 11px;
+          font-family: "SF Pro Text", Regular;
+          font-weight: normal;
+          color: #4A4A4A;
+          padding-left: calc(0.75em - 1px);
+          padding-right: calc(0.75em - 1px);
+        }
+      }
+
       .control {
         input {
-          border: none;
-          background: lighten($fade-grey, 8%);
+          border: 1px solid #DBDBDB;
+          height: 45px;
+          border-radius: 6px;
+          width: 290px;
+          background: #FFFFFF;
+          margin-top: 11px;
+          font-family: "SF Pro Text", Regular;
+          font-weight: normal;
+          color: #4A4A4A;
         }
 
         .custom-intl-tel-input {
@@ -282,8 +320,7 @@
         background-color: #4677F4 !important;
         color: white !important;
 
-        &:hover,
-        &.is-loading {
+        &:hover, &.is-loading {
           border-color: $accent;
           background: $accent;
           color: $white;
@@ -349,22 +386,118 @@
     }
   }
 
-  .buttons {
+  .registration-buttons {
     padding: 20px 0;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
+    position: fixed;
+    top: 580px;
 
-    .button {
-      min-width: 90px;
+    // .button {
+    //   min-width: 90px;
 
-      &.is-next:hover {
-        border-color: $accent;
-        background: $accent;
-        color: $white-smoke;
-        box-shadow: $accent-box-shadow;
+    //   &.is-next:hover {
+    //     border-color: $accent;
+    //     background: $accent;
+    //     color: $white-smoke;
+    //     box-shadow: $accent-box-shadow;
+    //   }
+    // }
+
+    .back-button-class {
+      button {
+        border: 1px solid #4877F4;
+        background-color: #fff;
+        width: 130px;
+        padding: 10px;
+        color: #4877F4;
+        font-family: 'Poppins', sans-serif;
+        border-radius: 5px;
+        margin-bottom: 30px;
+        margin-top: 10px;
+        &:hover {
+          background-color: #4877F4;
+          color: white;
+        }
       }
     }
+
+    .next-button-class {
+      button {
+        width: 130px;
+        margin-left: 120px;
+        margin-bottom: 30px;
+        margin-top: 10px;
+        border: none;
+        background-color: #4877F4;
+        color: #fff;
+        border-radius: 6px;
+        padding: 10px 32px;
+        font-family: 'Poppins', sans-serif;
+        &:hover {
+          background-color: #3258BE;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+.account-type {
+  // background: $white;
+  // border: 1px solid $fade-grey;
+  // border-radius: 8px;
+  // padding: 30px;
+  // text-align: center;
+  // color: #4A4A4A;;
+  // top: 317px;
+  // left: 485px;
+  // width: 340px;
+  // height: 377px;
+  // height: 445px;
+
+  width: 340px;
+  height: 377px;
+  background: $white;
+  border: 1px solid #DBDBDB !important;
+  border-radius: 10px !important;;
+  text-align: center;
+  margin: auto;
+  opacity: 1;
+  padding: 25px;
+
+  img {
+      display: block;
+      margin: 0 auto 20px auto;
+      max-height: 140px;
+  }
+
+  h3 {
+      font-family: "Poppins", sans-serif;
+      font-weight: 400;
+      font-size: 18px;
+  }
+
+  p {
+      font-family: "SF Pro Text", Regular;
+      color: #4A4A4A !important;
+      font-size: 14px;
+      margin-top: 16px;
+      margin-bottom: 25px;
+  }
+
+  .button {
+      margin-top: 20px;
+      border-width: 1.4px;
+      color: $muted-grey;
+
+      &:hover, &.is-loading {
+          border-color: $accent;
+          background: $accent;
+          color: $white;
+          box-shadow: $accent-box-shadow;
+      }
   }
 }
 
@@ -405,8 +538,20 @@
 }
 
 .intl-tel-input {
+  margin-top: 11px !important;
   &:hover, &:focus {
     border: none;
     outline: none;
   }
+
+  .country-list {
+    .country.highlight {
+      margin-bottom: 0px!important;
+    }
+    .divider {
+      margin-top: 0px!important;
+    }
+  }
+
+
 }

@@ -46,7 +46,8 @@ const ContactCenterMultiPartForm = () => {
 
   return (
     <>
-      <StepperComponent steps={ steps } activeStep={ currentStep } />
+      {/* activeStep prop starts from initial index value of steps array */}
+      <StepperComponent steps={ steps } activeStep={ currentStep - 1 } />
       <Form
         step={ currentStep }
         onNext={ handleOnNext }

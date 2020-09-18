@@ -26,14 +26,14 @@ const RoleSetup = () => {
             Welcome! How do you intend on using Qubicles?
           </h2>
         </div>
-        <div id='signup-panel-1' className='process-panel-wrap is-active'>
+        <div id='signup-panel-1' className=' is-active'>
           <div className='role-selector'>
             <div className='column is-4'>
               <div className='account-type'>
                 <img src={ contactCenter } alt='Center logo' className='intro-logo' />
                 <h3>For a Contact Center</h3>
                 <p>
-                  Operating inbound, outbound,  blended or multi-channel programs for a new or existing contact
+                  Operating inbound,  outbound,  blended or multi-channel programs for a new or existing contact
                   center
                 </p>
                 <Button
@@ -51,7 +51,10 @@ const RoleSetup = () => {
                 <img src={ agent } alt='Agent logo' className='intro-logo' />
                 <h3>As an Agent or Manager</h3>
                 <p>
-                  Handle customer interactions, quality assurance, training or support for contact centers
+                  Handle customer interactions,  quality assurance,  training or support for contact
+                  center
+                  {' '}
+                  <br />
                 </p>
                 <Button
                   variant='contained'
