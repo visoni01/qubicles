@@ -10,7 +10,9 @@ const steps = {
       options: [
         [ 'Male', 'male', 'Male' ], [ 'Female', 'female', 'Female' ], [ 'Other', 'other', 'Other' ],
       ],
-    }, { label: 'SSN', type: 'text', name: 'ssn' } ],
+    }, {
+      label: 'SSN', type: 'text', name: 'ssn', placeholder: '111-11-2001',
+    } ],
     schema: yup.object().shape({
       dob: yup.date().required('*Required'),
       gender: yup.string().required('*Required'),

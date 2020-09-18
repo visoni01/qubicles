@@ -4,7 +4,9 @@ import { Controller, useForm } from 'react-hook-form'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { Select, MenuItem } from '@material-ui/core/'
+import {
+  Select, MenuItem, Button, Grid,
+} from '@material-ui/core/'
 import moment from 'moment'
 import IntlTelInput from 'react-intl-tel-input'
 import steps from './steps'
@@ -20,7 +22,7 @@ const StepForm = ({
   } = useForm({
     validationSchema: steps[ step ] && steps[ step ].schema,
   })
-
+  console.log('errors=====>>>>>>', errors.name)
   const handleRadioChange = (name) => (event) => {
     setValue(name, event.target.value)
     setValues({ ...formValues, [ name ]: event.target.value })
@@ -92,8 +94,10 @@ const StepForm = ({
 
     if (type === 'radio' || type === 'checkbox') {
       return (
-        <div key={ `${ name }${ label }` }>
-          {options
+        <>
+          <label>{label}</label>
+          <div key={ `${ name }${ label }` } className='control check-box'>
+            {options
             && options.map(([ inputName, value, inputLabel ]) => (
               <div key={ `${ inputName }` } className='check-box-div'>
                 <input
@@ -104,13 +108,14 @@ const StepForm = ({
                   defaultValue={ value }
                   defaultChecked={ isChecked(name, value) }
                 />
-                <label htmlFor={ value }>
+                <label htmlFor={ value } className='checkbox-label'>
                   {inputLabel}
                 </label>
                 <br />
               </div>
             ))}
-        </div>
+          </div>
+        </>
       )
     } if (type === 'select') {
       let selectFieldValue
@@ -121,7 +126,10 @@ const StepForm = ({
       }
 
       return (
-        <div key={ `${ name }${ label }` }>
+        <div key={ `${ name }${ label }` } className='dropdown-field'>
+          <div>
+            <label>{label}</label>
+          </div>
           <Select
             MenuProps={ {
               getContentAnchorEl: null,
@@ -154,28 +162,37 @@ const StepForm = ({
     }
 
     return (
-      <div className='control'>
-        {
+      <Grid item xs>
+        <div className='control'>
+          {
           (name === 'mobile_phone') ? (
-            <Controller
-              as={ IntlTelInput }
-              control={ control }
-              fieldId={ name }
-              fieldName={ name }
-              preferredCountries={ [ 'us', 'ca' ] }
-              containerClassName='control custom-intl-tel-input intl-tel-input'
-              format
-              formatOnInit
-              name={ name }
-              onChangeName='onPhoneNumberChange'
-              onChange={ spreadArgs(handlePhoneNumberChange) }
-              telInputProps={ {
-                required: true,
-              } }
-              defaultValue={ formValues[ name ] }
-            />
+            <>
+              <div>
+                <label>{label}</label>
+              </div>
+              <Controller
+                as={ IntlTelInput }
+                control={ control }
+                fieldId={ name }
+                fieldName={ name }
+                preferredCountries={ [ 'us', 'ca' ] }
+                containerClassName='control custom-intl-tel-input intl-tel-input'
+                format
+                formatOnInit
+                name={ name }
+                onChangeName='onPhoneNumberChange'
+                onChange={ spreadArgs(handlePhoneNumberChange) }
+                telInputProps={ {
+                  required: true,
+                } }
+                defaultValue={ formValues[ name ] }
+              />
+            </>
           ) : (
             <div key={ `${ name }${ label }` }>
+              <div>
+                <label>{label}</label>
+              </div>
               <input
                 onChange={ handleValueChange(name) }
                 defaultValue={ value }
@@ -187,24 +204,27 @@ const StepForm = ({
             </div>
           )
         }
-      </div>
+        </div>
+      </Grid>
     )
   }
 
   const fields = () => steps
     && steps[ step ]
     && steps[ step ].fields.map(({ name, label, ...rest }) => (
-      <div className='form-field' key={ `${ name }${ label }` }>
-        <div className='field'>
-          <label>{label}</label>
-          {inputField({ name, label, ...rest })}
-          {errors && errors[ name ] && (
-            <div className='error-message'>
-              {errors[ name ].message}
-            </div>
-          )}
+      // <div className='form-field' key={ `${ name }${ label }` }>
+      // <div className='field'>
+      // {/* <label>{label}</label> */}
+      <div className='field' key={ `${ name }${ label }` }>
+        {inputField({ name, label, ...rest })}
+        {errors && errors[ name ] && (
+        <div className='error-message'>
+          {errors[ name ].message}
         </div>
+        )}
       </div>
+      // {/* </div> */}
+      // </div>
     ))
 
   return (
@@ -234,30 +254,38 @@ const StepForm = ({
               </div>
             </div>
           ) : (
-            fields()
+            <Grid container spacing={ 1 }>
+              {fields()}
+            </Grid>
           )}
         </div>
 
-        <div className='buttons'>
-          {step > 1 && (
-            <button
-              className='button is-rounded process-button'
-              data-step='step-dot-1'
-              type='button'
-              onClick={ onBack }
-            >
-              Back
-            </button>
-          )}
-          <button
-            className='button is-rounded process-button is-next'
-            data-step='step-dot-3'
-            type='button'
-            onClick={ handleSubmit(step === 5 ? onSubmit : onNext) }
-          >
-            {step === 5 ? 'Submit' : 'Next'}
-          </button>
-        </div>
+        <Grid container spacing={ 3 }>
+          <div className='registration-buttons'>
+            <Grid item xs={ 6 }>
+              {step > 1 && (
+              <button
+                className='button is-rounded process-button'
+                data-step='step-dot-1'
+                type='button'
+                onClick={ onBack }
+              >
+                Back
+              </button>
+              )}
+            </Grid>
+            <Grid item xs={ 6 }>
+              <button
+                className='button is-rounded process-button is-next'
+                data-step='step-dot-3'
+                type='button'
+                onClick={ handleSubmit(step === 5 ? onSubmit : onNext) }
+              >
+                {step === 5 ? 'Submit' : 'Next'}
+              </button>
+            </Grid>
+          </div>
+        </Grid>
       </div>
     </>
   )

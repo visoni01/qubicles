@@ -54,8 +54,6 @@ Signup styles
             height: 6px;
             border-radius: 100px;
 
-            //background: $primary;
-
             .track, .bar {
                 position: absolute;
                 top: 0;
@@ -170,79 +168,43 @@ Signup styles
     }
 
     .process-panel-wrap {
-        display: none;
-        animation: fadeInLeft .5s;
-        max-width: 940px;
-        margin: 0 auto;
-        padding: 20px 0;
+        // display: none;
+        // animation: fadeInLeft .5s;
+        // max-width: 850px;
+        // max-height: 850px;
+        // margin: 0 auto;
+        // padding: 20px 0;
+        // width: 680px;
+        // height: 470px;
+        // background: #fff;
+        // border: 1px solid #DBDBDB;
+        // border-radius: 10px;
+        // padding: 25px;
 
-        &.is-active {
-            display: block;
-        }
+        // &.is-active {
+        //     display: block;
+        // }
 
-        &.is-narrow {
-            max-width: 540px;
-        }
+        // &.is-narrow {
+        //     max-width: 540px;
+        // }
 
-        .account-type {
-            width: 100%;
-            background: $white;
-            border: 1px solid $fade-grey;
-            border-radius: 8px;
-            // padding: 30px;
-            text-align: center;
-            color: #4A4A4A;;
-            top: 317px;
-            left: 485px;
-            width: 340px;
-            height: 377px;
 
-            img {
-                display: block;
-                margin: 0 auto 20px auto;
-                max-height: 140px;
-            }
-
-            h3 {
-                font-family: "Poppins", sans-serif;
-                font-weight: 400;
-                font-size: 18px;
-            }
-
-            p {
-                font-family: "SF Pro Text", Regular;
-                color: #4A4A4A !important;
-                font-size: 14px;
-            }
-
-            .button {
-                margin-top: 20px;
-                border-width: 1.4px;
-                color: $muted-grey;
-
-                &:hover, &.is-loading {
-                    border-color: $accent;
-                    background: $accent;
-                    color: $white;
-                    box-shadow: $accent-box-shadow;
-                }
-            }
-        }
 
         .form-panel {
-            width: 680px;
+            // width: 680px;
             // height: 445px;
-            background: $white;
-            border: 1px solid #DBDBDB;
-            border-radius: 10px;
-            padding: 25px;
+            // background: $white;
+            // border: 1px solid #DBDBDB;
+            // border-radius: 10px;
+            // padding: 25px;
 
             .field {
                 // border: 1px solid $fade-grey;
-                padding: 4px 8px 8px 8px;
-                border-radius: 6px;
-                background: #ffffff;
-                margin-bottom: 30px;
+                // padding: 4px 8px 8px 8px;
+                // border-radius: 6px;
+                // background: #ffffff;
+                // margin-bottom: 30px;
 
                 &:last-child {
                     margin-bottom: 0;
@@ -294,19 +256,19 @@ Signup styles
                     color: $muted-grey;
                 }
 
-                .button {
-                    margin: 20px auto 0 auto;
-                    max-width: 280px;
-                    border: 1.4px solid $accent;
-                    color: $accent;
+                // .button {
+                //     margin: 20px auto 0 auto;
+                //     max-width: 280px;
+                //     border: 1.4px solid $accent;
+                //     color: $accent;
 
-                    &:hover, &.is-loading {
-                        border-color: $accent;
-                        background: $accent;
-                        color: $white;
-                        box-shadow: $accent-box-shadow;
-                    }
-                }
+                //     &:hover, &.is-loading {
+                //         border-color: $accent;
+                //         background: $accent;
+                //         color: $white;
+                //         box-shadow: $accent-box-shadow;
+                //     }
+                // }
             }
         }
 
@@ -366,23 +328,27 @@ Signup styles
             }
         }
 
-        .buttons {
-            padding: 20px 0;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
+        // .buttons {
+        //     padding: 20px 0;
+        //     display: flex;
+        //     align-items: center;
+        //     justify-content: space-between;
 
-            .button {
-                min-width: 90px;
+        //     .button {
+        //         min-width: 90px;
 
-                &.is-next:hover {
-                    border-color: $accent;
-                    background: $accent;
-                    color: $white-smoke;
-                    box-shadow: $accent-box-shadow;
-                }
-            }
-        }
+        //         &:hover {
+        //           color:white
+        //         }
+
+        //         &.is-next:hover {
+        //             border-color: $accent;
+        //             background: $accent;
+        //             color: $white-smoke;
+        //             box-shadow: $accent-box-shadow;
+        //         }
+        //     }
+        // }
     }
 }
 

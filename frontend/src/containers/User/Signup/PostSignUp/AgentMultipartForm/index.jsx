@@ -43,16 +43,12 @@ const AgentMultipartForm = () => {
   const handleOnBack = () => dispatch(handleBackStep())
 
   const steps = [
-    { icon: faCheck },
-    { icon: faVenusMars },
-    { icon: faAddressCard },
-    { icon: faBriefcase },
-    { icon: faIdCard },
-    { icon: faPoll },
-  ].map((step, index) => {
-    if (index < currentStep) return { icon: faCheck }
-    return step
-  })
+    { icon: 1, label: 1 },
+    { icon: 2, label: 2 },
+    { icon: 3, label: 3 },
+    { icon: 4, label: 4 },
+    { icon: 5, label: 5 },
+  ].map((step) => step)
 
   if (isLoading) {
     return <></>
@@ -60,7 +56,7 @@ const AgentMultipartForm = () => {
 
   return (
     <>
-      <StepperComponent steps={ steps } activeStep={ currentStep } />
+      <StepperComponent steps={ steps } activeStep={ currentStep - 1 } />
       <MultipartForm
         step={ currentStep }
         onNext={ handleOnNext }
