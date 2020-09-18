@@ -5,9 +5,11 @@ const useStepperStyles = makeStyles({
   container: {
     width: '50%',
   },
+
   stepperRoot: {
     background: 'none',
   },
+
   stepIconRoot: {
     backgroundColor: '#D5DFFC',
     zIndex: 1,
@@ -19,15 +21,18 @@ const useStepperStyles = makeStyles({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   stepIconActive: {
     backgroundColor: '#4877F4',
     border: '2px solid #2874d27d',
     boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
   },
+
   stepIconCompleted: {
     backgroundColor: '#4877F4',
     border: '2px solid #2874d27d',
   },
+
   stepIcon: {
     color: '#FFFFFF',
     fontSize: 32,
@@ -40,16 +45,19 @@ const ColorlibConnector = withStyles({
   alternativeLabel: {
     top: 22,
   },
+
   active: {
     '& $line': {
       backgroundColor: '#172ed082',
     },
   },
+
   completed: {
     '& $line': {
       backgroundColor: '#114ffd',
     },
   },
+
   line: {
     height: 6,
     border: 0,

@@ -4,31 +4,22 @@ import classNames from 'classnames'
 import {
   Container, Stepper, Step, StepLabel,
 } from '@material-ui/core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useStepperStyles, ColorlibConnector } from './styles'
 
 const StepperComponent = ({ activeStep, steps }) => {
-  // debugger
-  console.log('activeStep, steps value in stepper ====>>>>>', activeStep, steps)
   const classes = useStepperStyles()
-  const StepIcon = (active, completed, Icon) => {
-    // debugger
-    console.log('active, completed value in stepper ====>>>>>', active, completed)
-    return (
-      <div
-        className={ classNames(classes.stepIconRoot, {
-          [ classes.stepIconActive ]: active,
-          [ classes.stepIconCompleted ]: completed,
-        }) }
-      >
-        {/* <FontAwesomeIcon icon={ Icon } className={ classes.stepIcon } /> */}
-        {/* {steps.map((step) => step)} */}
-        <div className={ classes.stepIcon }>
-          {Icon}
-        </div>
+  const StepIcon = (active, completed, Icon) => (
+    <div
+      className={ classNames(classes.stepIconRoot, {
+        [ classes.stepIconActive ]: active,
+        [ classes.stepIconCompleted ]: completed,
+      }) }
+    >
+      <div className={ classes.stepIcon }>
+        {Icon}
       </div>
-    )
-  }
+    </div>
+  )
 
   return (
     <Container className={ classes.container }>
