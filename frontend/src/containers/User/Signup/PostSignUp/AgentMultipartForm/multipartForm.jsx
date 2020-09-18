@@ -22,7 +22,6 @@ const StepForm = ({
   } = useForm({
     validationSchema: steps[ step ] && steps[ step ].schema,
   })
-  console.log('errors=====>>>>>>', errors.name)
   const handleRadioChange = (name) => (event) => {
     setValue(name, event.target.value)
     setValues({ ...formValues, [ name ]: event.target.value })
@@ -212,9 +211,6 @@ const StepForm = ({
   const fields = () => steps
     && steps[ step ]
     && steps[ step ].fields.map(({ name, label, ...rest }) => (
-      // <div className='form-field' key={ `${ name }${ label }` }>
-      // <div className='field'>
-      // {/* <label>{label}</label> */}
       <div className='field' key={ `${ name }${ label }` }>
         {inputField({ name, label, ...rest })}
         {errors && errors[ name ] && (
@@ -223,13 +219,11 @@ const StepForm = ({
         </div>
         )}
       </div>
-      // {/* </div> */}
-      // </div>
     ))
 
   return (
     <>
-      <div id='signup-panel' className='process-panel-wrap is-narrow is-active agent-form'>
+      <div id='signup-panel' className='process-panel-wrap is-narrow is-active'>
         <div className='form-panel'>
           {step === 4 ? (
             <div className='photo-upload'>
@@ -251,6 +245,14 @@ const StepForm = ({
               </div>
               <div className='limitation'>
                 <small>Upload copy of government identification card</small>
+                <div className='upload-button'>
+                  <Button
+                    variant='contained'
+                    color='primary'
+                  >
+                    Upload
+                  </Button>
+                </div>
               </div>
             </div>
           ) : (
@@ -260,32 +262,34 @@ const StepForm = ({
           )}
         </div>
 
-        <Grid container spacing={ 3 }>
-          <div className='registration-buttons'>
+        <div className='registration-buttons'>
+          <Grid container spacing={ 3 }>
             <Grid item xs={ 6 }>
               {step > 1 && (
-              <button
-                className='button is-rounded process-button'
-                data-step='step-dot-1'
-                type='button'
-                onClick={ onBack }
-              >
-                Back
-              </button>
+                <div className='back-button'>
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    onClick={ onBack }
+                  >
+                    Back
+                  </Button>
+                </div>
               )}
             </Grid>
             <Grid item xs={ 6 }>
-              <button
-                className='button is-rounded process-button is-next'
-                data-step='step-dot-3'
-                type='button'
-                onClick={ handleSubmit(step === 5 ? onSubmit : onNext) }
-              >
-                {step === 5 ? 'Submit' : 'Next'}
-              </button>
+              <div className='next-button'>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  onClick={ handleSubmit(step === 5 ? onSubmit : onNext) }
+                >
+                  {step === 5 ? 'Submit' : 'Next'}
+                </Button>
+              </div>
             </Grid>
-          </div>
-        </Grid>
+          </Grid>
+        </div>
       </div>
     </>
   )

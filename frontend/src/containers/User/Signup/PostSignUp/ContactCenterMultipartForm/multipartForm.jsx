@@ -44,8 +44,6 @@ const Form = ({
     return (
 
       <div className='field' key={ `${ name }${ label }` }>
-        {/* <Grid container spacing={ 3 }> */}
-        {/* <label>{label}</label> */}
         {(type === 'radio' || type === 'checkbox') ? (
           <>
             <label>{label}</label>
@@ -98,7 +96,6 @@ const Form = ({
                     />
                   </>
                 ) : (
-                  // <Grid item xs>
                   <>
                     <div>
                       <label>{label}</label>
@@ -122,7 +119,6 @@ const Form = ({
             {errors[ name ].message}
           </div>
         )}
-        {/* </Grid> */}
       </div>
 
     )
@@ -144,7 +140,7 @@ const Form = ({
           <Grid container spacing={ 3 }>
             <Grid item xs={ 6 }>
               {step > 1 && (
-                <div className='back-button-class'>
+                <div className='back-button'>
                   <Button
                     variant='contained'
                     color='primary'
@@ -156,7 +152,7 @@ const Form = ({
               )}
             </Grid>
             <Grid item xs={ 6 }>
-              <div className='next-button-class'>
+              <div className='next-button'>
                 <Button
                   variant='contained'
                   color='primary'

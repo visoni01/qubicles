@@ -168,51 +168,14 @@ Signup styles
     }
 
     .process-panel-wrap {
-        // display: none;
-        // animation: fadeInLeft .5s;
-        // max-width: 850px;
-        // max-height: 850px;
-        // margin: 0 auto;
-        // padding: 20px 0;
-        // width: 680px;
-        // height: 470px;
-        // background: #fff;
-        // border: 1px solid #DBDBDB;
-        // border-radius: 10px;
-        // padding: 25px;
-
-        // &.is-active {
-        //     display: block;
-        // }
-
-        // &.is-narrow {
-        //     max-width: 540px;
-        // }
-
-
-
         .form-panel {
-            // width: 680px;
-            // height: 445px;
-            // background: $white;
-            // border: 1px solid #DBDBDB;
-            // border-radius: 10px;
-            // padding: 25px;
-
             .field {
-                // border: 1px solid $fade-grey;
-                // padding: 4px 8px 8px 8px;
-                // border-radius: 6px;
-                // background: #ffffff;
-                // margin-bottom: 30px;
 
                 &:last-child {
                     margin-bottom: 0;
                 }
 
                 label {
-                    // text-transform: uppercase;
-                    // padding-left: 8px;
                     font-size: 18px;
                     font-weight: 600;
                     color: #444F5F;
@@ -255,20 +218,6 @@ Signup styles
                     font-size: .9rem;
                     color: $muted-grey;
                 }
-
-                // .button {
-                //     margin: 20px auto 0 auto;
-                //     max-width: 280px;
-                //     border: 1.4px solid $accent;
-                //     color: $accent;
-
-                //     &:hover, &.is-loading {
-                //         border-color: $accent;
-                //         background: $accent;
-                //         color: $white;
-                //         box-shadow: $accent-box-shadow;
-                //     }
-                // }
             }
         }
 
@@ -327,28 +276,6 @@ Signup styles
                 }
             }
         }
-
-        // .buttons {
-        //     padding: 20px 0;
-        //     display: flex;
-        //     align-items: center;
-        //     justify-content: space-between;
-
-        //     .button {
-        //         min-width: 90px;
-
-        //         &:hover {
-        //           color:white
-        //         }
-
-        //         &.is-next:hover {
-        //             border-color: $accent;
-        //             background: $accent;
-        //             color: $white-smoke;
-        //             box-shadow: $accent-box-shadow;
-        //         }
-        //     }
-        // }
     }
 }
 
