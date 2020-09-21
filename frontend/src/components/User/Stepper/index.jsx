@@ -8,7 +8,7 @@ import { useStepperStyles, ColorlibConnector } from './styles'
 
 const StepperComponent = ({ activeStep, steps }) => {
   const classes = useStepperStyles()
-  const StepIcon = (active, completed, Icon) => (
+  const StepIcon = (active, completed, step) => (
     <div
       className={ classNames(classes.stepIconRoot, {
         [ classes.stepIconActive ]: active,
@@ -16,7 +16,7 @@ const StepperComponent = ({ activeStep, steps }) => {
       }) }
     >
       <div className={ classes.stepIcon }>
-        {Icon}
+        {step}
       </div>
     </div>
   )
@@ -29,13 +29,17 @@ const StepperComponent = ({ activeStep, steps }) => {
         activeStep={ activeStep }
         connector={ <ColorlibConnector /> }
       >
-        {steps.map(({ label, icon }) => (
-          <Step key={ label }>
-            <StepLabel
-              StepIconComponent={ ({ active, completed }) => StepIcon(active, completed, icon) }
-            />
-          </Step>
-        ))}
+        {[ ...Array(steps).keys() ].map((stepIndex) => {
+          const step = stepIndex + 1
+          return (
+            <Step key={ step }>
+              <StepLabel
+                StepIconComponent={ ({ active, completed }) => StepIcon(active, completed, step) }
+              />
+            </Step>
+          )
+        })}
+
       </Stepper>
     </Container>
   )
@@ -43,9 +47,7 @@ const StepperComponent = ({ activeStep, steps }) => {
 
 StepperComponent.propTypes = {
   activeStep: PropTypes.number.isRequired,
-  steps: PropTypes.arrayOf(
-    PropTypes.shape({ icon: PropTypes.node, label: PropTypes.string }),
-  ).isRequired,
+  steps: PropTypes.number.isRequired,
 }
 
 export default StepperComponent

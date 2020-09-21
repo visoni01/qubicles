@@ -206,6 +206,11 @@
   }
 
   .form-panel {
+
+    .MuiGrid-item {
+      height: 120px;
+    }
+
     .field {
       padding: 4px 8px 8px 8px;
       border-radius: 6px;
@@ -214,10 +219,6 @@
 
       &:last-child {
         margin-bottom: 0;
-      }
-
-      .MuiGrid-item {
-        height: 90px;
       }
 
       label {
@@ -229,7 +230,6 @@
       }
 
       .dropdown-field {
-        margin-left: 30px;
         .dropdown {
           border: 1px solid #DBDBDB;
           height: 45px;
@@ -242,6 +242,10 @@
           color: #4A4A4A;
           padding-left: calc(0.75em - 1px);
           padding-right: calc(0.75em - 1px);
+        }
+
+        .MuiInput-underline:after {
+          border-bottom: 2px solid #4877f4 !important;
         }
       }
 
@@ -400,7 +404,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: fixed;
+    position: absolute;
     top: 580px;
 
     .MuiGrid-item {
