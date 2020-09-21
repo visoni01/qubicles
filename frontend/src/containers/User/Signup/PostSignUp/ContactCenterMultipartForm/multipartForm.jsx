@@ -41,14 +41,13 @@ const Form = ({
     const {
       label, type, name, checkTypes,
     } = fieldData
-    return (
 
-      <div className='field' key={ `${ name }${ label }` }>
-        {(type === 'radio' || type === 'checkbox') ? (
-          <>
-            <label>{label}</label>
-            <div className='control check-box'>
-              {checkTypes
+    if (type === 'radio' || type === 'checkbox') {
+      return (
+        <>
+          <label>{label}</label>
+          <div className='control check-box'>
+            {checkTypes
               && checkTypes.map(([ inputName, value, inputLabel ]) => (
                 <div key={ `${ inputName }` } className='check-box-div'>
                   <input
@@ -66,67 +65,72 @@ const Form = ({
                   <br />
                 </div>
               ))}
-            </div>
-          </>
-        ) : (
-          <Grid item xs>
-            <div className='control'>
-              {
-                (name === 'phone_number') ? (
-                  <>
-                    <div>
-                      <label>{label}</label>
-                    </div>
-                    <Controller
-                      as={ IntlTelInput }
-                      control={ control }
-                      fieldId={ name }
-                      fieldName={ name }
-                      preferredCountries={ [ 'us', 'ca' ] }
-                      containerClassName='control custom-intl-tel-input intl-tel-input'
-                      name={ name }
-                      format
-                      formatInput
-                      onChangeName='onPhoneNumberChange'
-                      onChange={ spreadArgs(handlePhoneNumberChange) }
-                      telInputProps={ {
-                        required: true,
-                      } }
-                      defaultValue={ formValues[ name ] }
-                    />
-                  </>
-                ) : (
-                  <>
-                    <div>
-                      <label>{label}</label>
-                    </div>
-                    <input
-                      onChange={ handleValueChange(name) }
-                      type={ type }
-                      className='input'
-                      name={ name }
-                      ref={ register }
-                      defaultValue={ formValues[ name ] }
-                    />
-                  </>
-                )
-              }
-            </div>
-          </Grid>
-        )}
-        {errors && errors[ name ] && (
-          <div className='error-message'>
-            {errors[ name ].message}
           </div>
-        )}
-      </div>
-
+        </>
+      )
+    }
+    return (
+      <Grid item xs>
+        <div className='control'>
+          {
+            (name === 'phone_number') ? (
+              <>
+                <div>
+                  <label>{label}</label>
+                </div>
+                <Controller
+                  as={ IntlTelInput }
+                  control={ control }
+                  fieldId={ name }
+                  fieldName={ name }
+                  preferredCountries={ [ 'us', 'ca' ] }
+                  containerClassName='control custom-intl-tel-input intl-tel-input'
+                  name={ name }
+                  format
+                  formatInput
+                  onChangeName='onPhoneNumberChange'
+                  onChange={ spreadArgs(handlePhoneNumberChange) }
+                  telInputProps={ {
+                    required: true,
+                  } }
+                  defaultValue={ formValues[ name ] }
+                />
+              </>
+            ) : (
+              <>
+                <div>
+                  <label>{label}</label>
+                </div>
+                <input
+                  onChange={ handleValueChange(name) }
+                  type={ type }
+                  className='input'
+                  name={ name }
+                  ref={ register }
+                  defaultValue={ formValues[ name ] }
+                />
+              </>
+            )
+          }
+        </div>
+      </Grid>
     )
   }
 
   const fields = () => steps
     && steps[ step ]
-    && steps[ step ].fields.map((field) => inputField(field))
+    && steps[ step ].fields.map(({ name, label, ...rest }) => (
+      <div className='field' key={ `${ name }${ label }` }>
+        <Grid item xs>
+          {inputField({ name, label, ...rest })}
+          {errors && errors[ name ] && (
+          <div className='error-message'>
+            {errors[ name ].message}
+          </div>
+          )}
+        </Grid>
+      </div>
+    ))
 
   return (
     <>

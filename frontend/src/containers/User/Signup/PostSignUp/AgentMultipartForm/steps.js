@@ -4,14 +4,14 @@ import { regExpPhone, regExpSSN, regExpZip } from '../../../../../utils/common'
 const steps = {
   1: {
     fields: [ { label: 'Date of Birth', type: 'date', name: 'dob' }, {
+      label: 'SSN', type: 'text', name: 'ssn', placeholder: '111-11-2001',
+    }, {
       label: 'Gender',
       type: 'radio',
       name: 'gender',
       options: [
         [ 'Male', 'male', 'Male' ], [ 'Female', 'female', 'Female' ], [ 'Other', 'other', 'Other' ],
       ],
-    }, {
-      label: 'SSN', type: 'text', name: 'ssn', placeholder: '111-11-2001',
     } ],
     schema: yup.object().shape({
       dob: yup.date().required('*Required'),

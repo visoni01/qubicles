@@ -212,12 +212,14 @@ const StepForm = ({
     && steps[ step ]
     && steps[ step ].fields.map(({ name, label, ...rest }) => (
       <div className='field' key={ `${ name }${ label }` }>
-        {inputField({ name, label, ...rest })}
-        {errors && errors[ name ] && (
-        <div className='error-message'>
-          {errors[ name ].message}
-        </div>
-        )}
+        <Grid item xs>
+          {inputField({ name, label, ...rest })}
+          {errors && errors[ name ] && (
+          <div className='error-message'>
+            {errors[ name ].message}
+          </div>
+          )}
+        </Grid>
       </div>
     ))
 
