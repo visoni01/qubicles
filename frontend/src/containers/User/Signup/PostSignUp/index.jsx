@@ -53,7 +53,7 @@ const RoleSetup = () => {
                 <p>
                   Handle customer interactions,  quality assurance,  training or support for contact
                   center
-                  {' '}
+                  {'\n'}
                   <br />
                 </p>
                 <Button

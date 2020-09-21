@@ -5,13 +5,6 @@
   color: red;
 }
 
-.role-selector {
-  display: flex;
-  justify-content: space-evenly;
-  margin-left: 250px;
-  margin-right: 250px;
-}
-
 .process-bar-wrap {
   padding: 30px 0 0 0;
 }
@@ -121,27 +114,75 @@
 
   .outer-panel-inner {
     width: 100%;
-  }
-}
 
-.process-title {
-  max-width: 840px;
-  margin: 0 auto;
-  text-align: left;
+    .process-title {
+      max-width: 840px;
+      margin: 0 auto;
+      text-align: left;
 
-  h2 {
-    font-family: "Poppins", sans-serif !important;
-    font-weight: 600;
-    font-size: 50px;
-    color: #444F5F;
-  }
+      h2 {
+        font-family: "Poppins", sans-serif !important;
+        font-weight: 600;
+        font-size: 50px;
+        color: #444F5F;
+      }
 
-  .step-title {
-    animation: fadeInUp 0.5s;
-    display: none;
+      .step-title {
+        animation: fadeInUp 0.5s;
+        display: none;
 
-    &.is-active {
-      display: block;
+        &.is-active {
+          display: block;
+        }
+      }
+    }
+
+    .role-selector {
+      display: flex;
+      justify-content: space-evenly;
+      margin-left: 250px;
+      margin-right: 250px;
+
+      .account-type {
+        width: 340px;
+        height: 377px;
+        background: $white;
+        border: 1px solid #DBDBDB !important;
+        border-radius: 10px !important;;
+        text-align: center;
+        margin: auto;
+        opacity: 1;
+        padding: 25px;
+
+        img {
+          display: block;
+          margin: 0 auto 20px auto;
+          max-height: 140px;
+        }
+
+        p {
+          font-family: "SF Pro Text", Regular;
+          color: #4A4A4A !important;
+          font-size: 14px;
+          margin-top: 16px;
+          margin-bottom: 25px;
+          letter-spacing: 0px;
+          white-space: pre-wrap;
+        }
+
+        .button {
+          margin-top: 20px;
+          border-width: 1.4px;
+          color: $muted-grey;
+
+          &:hover, &.is-loading {
+              border-color: $accent;
+              background: $accent;
+              color: $white;
+              box-shadow: $accent-box-shadow;
+          }
+        }
+      }
     }
   }
 }
@@ -162,50 +203,6 @@
 
   &.is-active {
     display: block;
-  }
-
-  .account-type {
-    width: 340px;
-    height: 377px;
-    background: #FFFFFF;
-    border: 1px solid #DBDBDB;
-    border-radius: 10px;
-    text-align: center;
-    margin: auto;
-    opacity: 1;
-
-
-    img {
-      display: block;
-      margin: 0 auto 20px auto;
-      max-height: 140px;
-    }
-
-    h3 {
-      font-size: 18px !important;
-      text-align: center !important;
-      font-weight: 600;
-    }
-
-    p {
-      color: #4A4A4A;
-      letter-spacing: 0px;
-      font-size: 14px !important;;
-    }
-
-    .button {
-      margin-top: 20px;
-      border-width: 1.4px;
-      color: $muted-grey;
-
-      &:hover,
-      &.is-loading {
-        border-color: $accent;
-        background: $accent;
-        color: $white;
-        box-shadow: $accent-box-shadow;
-      }
-    }
   }
 
   .form-panel {
@@ -462,51 +459,6 @@
   }
 }
 
-.account-type {
-  width: 340px;
-  height: 377px;
-  background: $white;
-  border: 1px solid #DBDBDB !important;
-  border-radius: 10px !important;;
-  text-align: center;
-  margin: auto;
-  opacity: 1;
-  padding: 25px;
-
-  img {
-      display: block;
-      margin: 0 auto 20px auto;
-      max-height: 140px;
-  }
-
-  h3 {
-      font-family: "Poppins", sans-serif;
-      font-weight: 400;
-      font-size: 18px;
-  }
-
-  p {
-      font-family: "SF Pro Text", Regular;
-      color: #4A4A4A !important;
-      font-size: 14px;
-      margin-top: 16px;
-      margin-bottom: 25px;
-  }
-
-  .button {
-      margin-top: 20px;
-      border-width: 1.4px;
-      color: $muted-grey;
-
-      &:hover, &.is-loading {
-          border-color: $accent;
-          background: $accent;
-          color: $white;
-          box-shadow: $accent-box-shadow;
-      }
-  }
-}
-
 .check-box {
   display: flex ;
 }
@@ -524,7 +476,6 @@
   }
 
   .checkbox-label {
-    // margin-top: 7px;
     font-family: "SF Pro Text", Regular !important;
     font-weight: normal !important;
     letter-spacing: 0px;
