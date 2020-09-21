@@ -1,0 +1,122 @@
+/* Button Styles
+========================================================================== */
+
+// Primary Default
+.primary-default {
+  background: $color-primary 0% 0% no-repeat padding-box;
+
+  &:hover {
+    background-color: $color-primary-dark;
+  }
+  &:disabled {
+    background-color: $color-primary-light;
+  }
+}
+
+// Secondary Default
+.secondary-default {
+  color: $color-primary;
+  background: $color-white 0% 0% no-repeat padding-box;
+  border: 2px solid $color-primary;
+
+  &:hover {
+    background-color: $color-primary;
+    color: $color-white;
+  }
+  &:disabled {
+    border: 2px solid $color-primary-light;
+    color: $color-primary-light;
+  }
+}
+
+/* Material UI over-ride Button root Styles
+========================================================================== */
+
+.MuiButtonBase-root {
+  text-align: center;
+  opacity: 1;
+
+// Primary Large Default
+  &.button-primary-large {
+    @extend .primary-default;
+    min-width: 145px;
+    height: 40px;
+    border-radius: 6px;
+  }
+
+// Primary Small Default
+  &.button-primary-small {
+    @extend .primary-default;
+      min-width: 86px;
+      height: 30px;
+      border-radius: 4px;
+  }
+
+// Secondary Large Default
+  &.button-secondary-large {
+    @extend .secondary-default;
+    min-width: 137px;
+    height: 40px;
+    border-radius: 6px;
+  }
+
+// Secondary Small Default
+  &.button-secondary-small {
+    @extend .secondary-default;
+    min-width: 86px;
+    height: 30px;
+    border-radius: 4px;
+  }
+}
+
+/* Button Label Styles
+========================================================================== */
+
+// Primary Button Label
+.primary-label {
+  color: $color-white;
+
+  &:hover {
+    color: $color-white;
+  }
+}
+
+// Secondary Button Label
+.secondary-label {
+  &:hover {
+    color: $color-white;
+  }
+}
+
+/* Material UI over-ride Button label Styles
+========================================================================== */
+.MuiButton-label {
+  font-family: $button-label;
+  text-transform: none;
+  text-align: left;
+  letter-spacing: 0px;
+
+  // Primary Large Label
+  &.button-primary-large-label {
+    @extend .primary-label;
+    font-size: 17px;
+  }
+
+  // Primary Small Label
+  &.button-primary-small-label {
+    @extend .primary-label;
+    font-size: 14px;
+  }
+
+  // Secondary Large Label
+  &.button-secondary-large-label {
+    @extend .secondary-label;
+    font-size: 17px;
+  }
+
+  // Secondary Small Label
+  &.button-secondary-small-label {
+    @extend .secondary-label;
+    font-size: 14px;
+  }
+}

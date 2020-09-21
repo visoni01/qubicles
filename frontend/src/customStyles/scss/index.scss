@@ -1,0 +1,12 @@
+@import "https://fonts.googleapis.com/css2?family=Poppins&display=swap";
+@font-face {
+	font-family: 'SF Pro Text';
+	src: url('../fonts/SFProText-Regular.eot');
+	src: url('../fonts/SFProText-Regular.eot?#iefix') format('embedded-opentype'), url('../fonts/SFProText-Regular.woff2') format('woff2'), url('../fonts/SFProText-Regular.woff') format('woff'), url('../fonts/SFProText-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+@import 'partials/variables';
+@import 'partials/texts';
+@import 'partials/buttons';
