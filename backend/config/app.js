@@ -220,6 +220,14 @@ const config = convict({
     emailVerificationTokenExpiry: {
       default: '',
       env: 'JWT_EMAIL_VERIFICATION_EXPIRY'
+    },
+    forgetPasswordTokenSecret: {
+      default: 'secret',
+      env: 'JWT_FORGET_PASSWORD_SECRET'
+    },
+    forgetPasswordTokenExpiry: {
+      default: '1d',
+      env: 'JWT_FORGET_PASSWORD_EXPIRY'
     }
   },
   flow: {
