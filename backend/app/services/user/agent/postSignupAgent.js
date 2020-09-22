@@ -4,7 +4,6 @@ import CreateUserWallet from '../../wallet/createUserWallet'
 import { generateUserWalletId } from '../../../utils/generateWalletId'
 import AddUserToActiveCampaign from '../../activeCampaign/addUserToActiveCampaign'
 import { Op } from 'sequelize'
-import config from '../../../../config/app'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
 import logger from '../../../common/logger'
 import { getErrorMessageForService, checkSpecificCountry } from '../../helper'
@@ -231,14 +230,12 @@ export class PostSignupAgentStep6Service extends ServiceBase {
   }
 
   async run () {
-    const baseInviteUrl = `${config.get('webApp.baseUrl')}/invite`
     try {
       const xUser = await User.findOne({ where: { user_id: this.user_id }, raw: true })
 
       // Create wallet for user
       const walletAddress = (await generateUserWalletId(xUser.full_name)).toLowerCase() + '.qbe'
       await CreateUserWallet.execute({ walletAddress })
-      const inviteLink = `${baseInviteUrl}/${walletAddress}`
 
       // Assign SIP phone server to Agent
       const leastUsedPhoneServer = await getServerWithLeastPhones()
@@ -277,8 +274,8 @@ export class PostSignupAgentStep6Service extends ServiceBase {
         })
       return {
         successful: true,
-        message: `Post Signup Completed for user ${this.user_id}`,
-        inviteLink
+        message: `Post Signup Completed for user ${this.user_id}`
+
       }
     } catch (e) {
       logger.error(getErrorMessageForService('PostSignupAgentStep6Service'), e)

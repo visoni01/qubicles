@@ -9,7 +9,6 @@ import { ERRORS, MESSAGES } from '../../../utils/errors'
 import { getErrorMessageForService, getOne, checkSpecificCountry } from '../../helper'
 import logger from '../../../common/logger'
 import { Op } from 'sequelize'
-import config from '../../../../config/app'
 
 const constraintsStep1 = {
   user_id: {
@@ -223,7 +222,6 @@ export class PostSignupEmployerStep4Service extends ServiceBase {
   }
 
   async run () {
-    const baseInviteUrl = `${config.get('webApp.baseUrl')}/invite`
     const xClientUserData = await XClientUser.findOne({ where: { user_id: this.user_id }, raw: true })
     if (xClientUserData) {
       const clientInfo = await XClient.findOne({ where: { client_id: xClientUserData.client_id }, raw: true })
@@ -252,7 +250,6 @@ export class PostSignupEmployerStep4Service extends ServiceBase {
         // Create Wallet for user
         const walletAddress = (await generateUserWalletId(full_name)).toLowerCase() + '.qbe'
         await CreateUserWallet.execute({ walletAddress })
-        const inviteLink = `${baseInviteUrl}/${walletAddress}`
 
         // Update User and UserDetails for wallet
         await User.update({
@@ -276,8 +273,8 @@ export class PostSignupEmployerStep4Service extends ServiceBase {
 
         return {
           successful: true,
-          message: `Post signup step 4 for user ${this.user_id} is completed. Assigned telephone server, Sent email notification, Created wallet, `,
-          inviteLink
+          message: `Post signup step 4 for user ${this.user_id} is completed. Assigned telephone server, Sent email notification, Created wallet, `
+
         }
       } catch (e) {
         logger.error(getErrorMessageForService('PostSignupEmployerStep4Service'), e)

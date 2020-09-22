@@ -10,7 +10,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from 'react-redux'
 import { addTopicComment } from '../../../redux-saga/redux/actions'
-import { GROUP, GROUP_CHANNEL, GROUP_TOPIC } from '../../../routes/routesPath'
+import { GROUP_ROUTE, GROUP_CHANNEL_ROUTE, GROUP_TOPIC_ROUTE } from '../../../routes/routesPath'
 import NewComment from './CommentModal'
 
 const TopicHeader = ({
@@ -43,21 +43,21 @@ const TopicHeader = ({
           <h3 className='forum-title is-topic-title'>{ topicTitle }</h3>
           <div className='title-meta'>
             <div className='meta'>
-              <Link to={ `${ GROUP }` }>Home</Link>
+              <Link to={ `${ GROUP_ROUTE }` }>Home</Link>
               <i className='material-icons is-breadcrumb angle-right'><FontAwesomeIcon icon={ faAngleRight } /></i>
             </div>
             <div className='meta'>
-              <Link to={ `${ GROUP_CHANNEL }${ channelId }` }>{channelTitle}</Link>
+              <Link to={ `${ GROUP_CHANNEL_ROUTE }${ channelId }` }>{channelTitle}</Link>
               <i className='material-icons is-breadcrumb angle-right'><FontAwesomeIcon icon={ faAngleRight } /></i>
             </div>
             <div className='meta'>
-              <Link to={ `${ GROUP_TOPIC }${ topicId }` }>{topicTitle}</Link>
+              <Link to={ `${ GROUP_TOPIC_ROUTE }${ topicId }` }>{topicTitle}</Link>
             </div>
           </div>
         </div>
         {/* Filter input */}
         <div className='actions'>
-          <Link to={ `${ GROUP_CHANNEL }${ channelId }` } className='forum-back home-button topic-home-icon'>
+          <Link to={ `${ GROUP_CHANNEL_ROUTE }${ channelId }` } className='forum-back home-button topic-home-icon'>
             <i><FontAwesomeIcon icon={ faHome } /></i>
             <i><FontAwesomeIcon icon={ faArrowLeft } /></i>
           </Link>

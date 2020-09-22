@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { Button } from '@material-ui/core'
 import TopicSearch from './TopicSearch'
-import { GROUP } from '../../../routes/routesPath'
+import { GROUP_ROUTE } from '../../../routes/routesPath'
 import { addNewTopic } from '../../../redux-saga/redux/forum/actions'
 import AddNewTopic from './TopicModal'
 
@@ -70,7 +70,7 @@ const ChannelHeader = ({
       {/* {Channel Search Bar} */}
       <TopicSearch channelId={ channelId } />
       <div className='actions'>
-        <Link to={ `${ GROUP }` } className='forum-back home-button'>
+        <Link to={ `${ GROUP_ROUTE }` } className='forum-back home-button'>
           <i><FontAwesomeIcon icon={ faHome } /></i>
           <i><FontAwesomeIcon icon={ faArrowLeft } /></i>
         </Link>

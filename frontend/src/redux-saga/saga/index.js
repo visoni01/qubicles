@@ -25,6 +25,7 @@ import statusPostActivity from './dashboard/statusPostActivity'
 import jobDetails from './people/job'
 import checkrInvitation from './user/checkrAuthentication'
 import sendVerificationMail from './sendVerificationMail'
+import signupWithInvite from './inviteDetails'
 
 export default function* rootSaga() {
   yield all([
@@ -53,5 +54,6 @@ export default function* rootSaga() {
     jobDetails(),
     checkrInvitation(),
     sendVerificationMail(),
+    signupWithInvite(),
   ])
 }

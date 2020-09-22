@@ -16,7 +16,8 @@ import { showSuccessMessage } from '../../redux-saga/redux/snackbar'
 const ShareModal = () => {
   const dispatch = useDispatch()
   const inviteReducerStore = useSelector((state) => state.invitePage)
-  const { inviteLink } = useSelector((state) => state.postSignUp)
+  const { userDetails } = useSelector((state) => state.login)
+  const { inviteLink } = userDetails
   const [ manualEmails, setManualEmails ] = useState()
   const {
     isLoading, success, result, type,

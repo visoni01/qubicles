@@ -33,7 +33,7 @@ export const getUserDetails = () => {
   let userDetails
   if (token) {
     const {
-      full_name, user_id, email, is_post_signup_completed, user_code,
+      full_name, user_id, email, is_post_signup_completed, user_code, inviteLink,
     } = jwt.decode(token)
     userDetails = {
       full_name,
@@ -41,6 +41,7 @@ export const getUserDetails = () => {
       email,
       user_code,
       is_post_signup_completed,
+      inviteLink,
     }
   }
 
