@@ -24,7 +24,7 @@ export const newNavBar = (Component) => () => (
     </div>
     <div className='right-section'>
       <TopBar />
-      <Container maxWidth='xl' className='route-component'>
+      <Container maxWidth='lg' className='route-component' classes={ { maxWidthLg: 'container-max-width' } }>
         <Component />
       </Container>
     </div>
