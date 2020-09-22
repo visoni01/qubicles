@@ -1,0 +1,57 @@
+/* Headings
+==========================================================*/
+
+.headings {
+  text-align: left;
+  color: $color-headings;
+  letter-spacing: 0px;
+  opacity: 1;
+}
+
+.h1 {
+  @extend .headings;
+  font: normal normal 600 50px/76px $system-font;
+}
+
+.h2 {
+  @extend .headings;
+  font: normal normal 600 32px/48px $system-font;
+}
+
+.h3 {
+  @extend .headings;
+  font: normal normal 600 18px/27px $system-font;
+}
+
+.h4 {
+  @extend .headings;
+  font: normal normal medium 14px/21px $system-font;
+}
+
+/* Paragraphs
+==========================================================*/
+
+.para {
+  font: normal normal normal 14px/20px $system-font;
+  text-align: left;
+  letter-spacing: 0px;
+  color: $color-paragraph;
+  opacity: 1;
+}
+
+/* Text Links
+==========================================================*/
+
+.text-link {
+  font: normal normal normal 14px/25px SF Pro Text;
+  text-align: left;
+  letter-spacing: 0px;
+  color: $color-primary;
+  opacity: 1;
+}
+
+.text-link-underlined {
+  @extend .text-link;
+  color: $color-primary-dark;
+  text-decoration: underline;
+}
