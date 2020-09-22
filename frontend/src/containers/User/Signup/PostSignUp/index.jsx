@@ -1,9 +1,12 @@
 import React, { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import './style.scss'
+import { Button } from '@material-ui/core'
 import { userUpdateStart } from '../../../../redux-saga/redux/actions'
 import AgentMultipartForm from './AgentMultipartForm'
 import ContactCenterMultipartForm from './ContactCenterMultipartForm'
+import agent from '../../../../assets/images/agent-registration.svg'
+import contactCenter from '../../../../assets/images/contactcenter-registration.svg'
 
 const RoleSetup = () => {
   const dispatch = useDispatch()
@@ -20,44 +23,47 @@ const RoleSetup = () => {
       <div className='outer-panel-inner'>
         <div className='process-title'>
           <h2 id='step-title-1' className='step-title is-active'>
-            Welcome. How do you intend on using Qubicles?
+            Welcome! How do you intend on using Qubicles?
           </h2>
         </div>
-        <div id='signup-panel-1' className='process-panel-wrap is-active'>
+        <div id='signup-panel-1' className=' is-active'>
           <div className='role-selector'>
             <div className='column is-4'>
               <div className='account-type'>
-                <img src='https://i.imgur.com/EheuwMH.jpg' alt='Center logo' className='intro-logo' />
+                <img src={ contactCenter } alt='Center logo' className='intro-logo' />
                 <h3>For a Contact Center</h3>
                 <p>
-                  Operating inbound, outbound,  blended or multi-channel programs for a new or existing contact
+                  Operating inbound,  outbound,  blended or multi-channel programs for a new or existing contact
                   center
                 </p>
-                <button
-                  type='button'
-                  className='button is-fullwidth is-rounded process-button'
-                  data-step='step-dot-2'
+                <Button
+                  variant='contained'
+                  className='custom-button-primary'
+                  classes={ { label: 'custom-button-label-hover' } }
                   onClick={ updateEmpployeeRoleCB }
                 >
                   Continue
-                </button>
+                </Button>
               </div>
             </div>
             <div className='column is-4'>
               <div className='account-type'>
-                <img src='https://i.imgur.com/83jbCrE.jpg' alt='Agent logo' className='intro-logo' />
+                <img src={ agent } alt='Agent logo' className='intro-logo' />
                 <h3>As an Agent or Manager</h3>
                 <p>
-                  Handle customer interactions, quality assurance, training or support for contact centers
+                  Handle customer interactions,  quality assurance,  training or support for contact
+                  center
+                  {'\n'}
+                  <br />
                 </p>
-                <button
-                  type='button'
-                  className='button is-fullwidth is-rounded process-button'
-                  data-step='step-dot-2'
+                <Button
+                  variant='contained'
+                  className='custom-button-primary'
+                  classes={ { label: 'custom-button-label-hover' } }
                   onClick={ updateAgentRoleCB }
                 >
                   Continue
-                </button>
+                </Button>
               </div>
             </div>
           </div>

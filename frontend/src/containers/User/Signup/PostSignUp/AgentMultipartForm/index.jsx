@@ -1,7 +1,5 @@
+/* eslint-disable no-param-reassign */
 import React, { useEffect } from 'react'
-import {
-  faCheck, faVenusMars, faBriefcase, faIdCard, faPoll, faAddressCard,
-} from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import _ from 'lodash'
@@ -34,7 +32,8 @@ const AgentMultipartForm = () => {
       data.dob = moment(data.dob, 'YYYY-MM-DD').format('YYYY-MM-DD')
     }
 
-    if (currentStep !== 5 && ((stepsData[ currentStep ] && _.isEqual(stepsData[ currentStep ], data)) || currentStep === 4)) {
+    if (currentStep !== 5 && ((stepsData[ currentStep ] && _.isEqual(stepsData[ currentStep ], data))
+    || currentStep === 4)) {
       return dispatch(handleNextStep())
     }
     return dispatch(postSignUpStepStart({ type: 'agent', step: currentStep, data }))
@@ -43,16 +42,12 @@ const AgentMultipartForm = () => {
   const handleOnBack = () => dispatch(handleBackStep())
 
   const steps = [
-    { icon: faCheck },
-    { icon: faVenusMars },
-    { icon: faAddressCard },
-    { icon: faBriefcase },
-    { icon: faIdCard },
-    { icon: faPoll },
-  ].map((step, index) => {
-    if (index < currentStep) return { icon: faCheck }
-    return step
-  })
+    { icon: 1, label: 1 },
+    { icon: 2, label: 2 },
+    { icon: 3, label: 3 },
+    { icon: 4, label: 4 },
+    { icon: 5, label: 5 },
+  ].map((step) => step)
 
   if (isLoading) {
     return <></>
@@ -60,7 +55,7 @@ const AgentMultipartForm = () => {
 
   return (
     <>
-      <StepperComponent steps={ steps } activeStep={ currentStep } />
+      <StepperComponent steps={ steps } activeStep={ currentStep - 1 } />
       <MultipartForm
         step={ currentStep }
         onNext={ handleOnNext }

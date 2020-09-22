@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import PropTypes from 'prop-types'
 import IntlTelInput from 'react-intl-tel-input'
+import { Button, Grid } from '@material-ui/core'
 import steps from './steps'
 import 'react-intl-tel-input/dist/main.css'
 import { spreadArgs, phoneNumberFormatter } from '../../../../../utils/common'
@@ -40,11 +41,12 @@ const Form = ({
     const {
       label, type, name, checkTypes,
     } = fieldData
-    return (
-      <div className='field' key={ `${ name }${ label }` }>
-        <label>{label}</label>
-        {(type === 'radio' || type === 'checkbox') ? (
-          <div className='control'>
+
+    if (type === 'radio' || type === 'checkbox') {
+      return (
+        <>
+          <label>{label}</label>
+          <div className='control check-box'>
             {checkTypes
               && checkTypes.map(([ inputName, value, inputLabel ]) => (
                 <div key={ `${ inputName }` } className='check-box-div'>
@@ -64,76 +66,107 @@ const Form = ({
                 </div>
               ))}
           </div>
-        ) : (
-          <div className='control'>
-            {
-                (name === 'phone_number') ? (
-                  <Controller
-                    as={ IntlTelInput }
-                    control={ control }
-                    fieldId={ name }
-                    fieldName={ name }
-                    preferredCountries={ [ 'us', 'ca' ] }
-                    containerClassName='control custom-intl-tel-input intl-tel-input'
-                    name={ name }
-                    format
-                    formatInput
-                    onChangeName='onPhoneNumberChange'
-                    onChange={ spreadArgs(handlePhoneNumberChange) }
-                    telInputProps={ {
-                      required: true,
-                    } }
-                    defaultValue={ formValues[ name ] }
-                  />
-                ) : (
-                  <input
-                    onChange={ handleValueChange(name) }
-                    type={ type }
-                    className='input'
-                    name={ name }
-                    ref={ register }
-                    defaultValue={ formValues[ name ] }
-                  />
-                )
-              }
-          </div>
-        )}
-        {errors && errors[ name ] && (
-          <div className='error-message'>
-            {errors[ name ].message}
-          </div>
-        )}
-      </div>
+        </>
+      )
+    }
+    return (
+      <Grid item xs>
+        <div className='control'>
+          {
+            (name === 'phone_number') ? (
+              <>
+                <div>
+                  <label>{label}</label>
+                </div>
+                <Controller
+                  as={ IntlTelInput }
+                  control={ control }
+                  fieldId={ name }
+                  fieldName={ name }
+                  preferredCountries={ [ 'us', 'ca' ] }
+                  containerClassName='control custom-intl-tel-input intl-tel-input'
+                  name={ name }
+                  format
+                  formatInput
+                  onChangeName='onPhoneNumberChange'
+                  onChange={ spreadArgs(handlePhoneNumberChange) }
+                  telInputProps={ {
+                    required: true,
+                  } }
+                  defaultValue={ formValues[ name ] }
+                />
+              </>
+            ) : (
+              <>
+                <div>
+                  <label>{label}</label>
+                </div>
+                <input
+                  onChange={ handleValueChange(name) }
+                  type={ type }
+                  className='input'
+                  name={ name }
+                  ref={ register }
+                  defaultValue={ formValues[ name ] }
+                />
+              </>
+            )
+          }
+        </div>
+      </Grid>
     )
   }
 
   const fields = () => steps
     && steps[ step ]
-    && steps[ step ].fields.map((field) => inputField(field))
+    && steps[ step ].fields.map(({ name, label, ...rest }) => (
+      <div className='field' key={ `${ name }${ label }` }>
+        <Grid item xs>
+          {inputField({ name, label, ...rest })}
+          {errors && errors[ name ] && (
+          <div className='error-message'>
+            {errors[ name ].message}
+          </div>
+          )}
+        </Grid>
+      </div>
+    ))
 
   return (
     <>
       <div id='signup-panel' className='process-panel-wrap is-narrow is-active'>
-        <div className='form-panel'>{fields()}</div>
-        <div className='buttons'>
-          {step > 1 && (
-            <button
-              className='button is-rounded process-button'
-              data-step='step-dot-1'
-              type='button'
-              onClick={ onBack }
-            >
-              Back
-            </button>
-          )}
-          <button
-            className='button is-rounded process-button is-next'
-            data-step='step-dot-3'
-            type='button'
-            onClick={ handleSubmit(step === 5 ? onSubmit : onNext) }
-          >
-            {step === 3 ? 'Submit' : 'Next'}
-          </button>
+        <div className='form-panel'>
+          <Grid container spacing={ 1 }>
+            {fields()}
+          </Grid>
+        </div>
+        <div className='registration-buttons'>
+          <Grid container spacing={ 3 }>
+            <Grid item xs={ 6 }>
+              {step > 1 && (
+                <div className='back-button'>
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    onClick={ onBack }
+                  >
+                    Back
+                  </Button>
+                </div>
+              )}
+            </Grid>
+            <Grid item xs={ 6 }>
+              <div className='next-button'>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  onClick={ handleSubmit(step === 5 ? onSubmit : onNext) }
+                >
+                  {step === 3 ? 'Submit' : 'Next'}
+                </Button>
+              </div>
+            </Grid>
+          </Grid>
         </div>
       </div>
     </>
