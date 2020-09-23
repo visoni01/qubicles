@@ -27,8 +27,9 @@ class ApiClient {
   signup = (body) => this.postRequest('/user/signup', body)
 
   emailVerification = async (token) => {
-    await this.getRequest(`/auth/verify-token/${ token }`)
-  };
+    const response = await this.getRequest(`/auth/verify-token/${ token }`)
+    return response
+  }
 
   postSignUp = (userType, step, body) => this.postRequest(`/${ userType }/post-signup/step${ step }`, body)
 

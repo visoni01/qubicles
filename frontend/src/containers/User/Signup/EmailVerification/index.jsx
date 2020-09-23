@@ -12,11 +12,15 @@ const EmailVerification = () => {
     dispatch(emailVerificationStart(token))
     // eslint-disable-next-line
   }, [ dispatch ])
-  const { error, success } = useSelector(
+  const {
+    error, success, email, tokenType,
+  } = useSelector(
     (state) => state.emailVerification,
   )
   return (
     <>
+      {console.log('tokenType, email,  success*****', tokenType, email, success)}
+      { (tokenType && success) && <Redirect to='/reset-new-password' />}
       {success && <Redirect to='/post-signup' />}
       {error && <div className='email-verification-error-msg'>{' Link is expired or invalid!! '}</div>}
     </>
