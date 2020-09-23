@@ -1,20 +1,22 @@
 import VerifyTokenMethod from '../services/user/verifyToken'
 import SendVerificationMailService from '../services/user/sendVerificationMail'
 import HandleCheckrEventService from '../services/authentication/handleCheckrEvents'
-import ForgetPasswordMailService from '../services/user/forgetPassword'
+import ForgetPasswordMailService from '../services/user/sendForgetPasswordMail'
 import config from '../../config/app'
 import Responder from '../../server/expressResponder'
 import { SUCCESS_MESSAGES } from '../utils/success'
+import { ResetPasswordService } from '../services/user/resetPassword'
 
 export default class AuthController {
   static async verifyToken (req, res) {
     const verifyTokenResult = await VerifyTokenMethod.execute(req.params)
-
     if (verifyTokenResult.successful) {
-      res.cookie('access_token', verifyTokenResult.result.accessToken, {
-        maxAge: config.get('cookieMaxAge')
-      })
-      Responder.success(res, SUCCESS_MESSAGES.VERIFY_TOKEN)
+      if (verifyTokenResult.result.accessToken) {
+        res.cookie('access_token', verifyTokenResult.result.accessToken, {
+          maxAge: config.get('cookieMaxAge')
+        })
+      }
+      Responder.success(res, verifyTokenResult.result)
     } else {
       Responder.failed(res, verifyTokenResult.errors)
     }
@@ -44,6 +46,15 @@ export default class AuthController {
       Responder.success(res, SUCCESS_MESSAGES.SEND_FORGET_PASSWORD_EMAIL)
     } else {
       Responder.failed(res, sendForgetPasswordMailResult.errors)
+    }
+  }
+
+  static async resetPassword (req, res) {
+    const resetPasswordResult = await ResetPasswordService.execute(req.body)
+    if (resetPasswordResult.successful) {
+      Responder.success(res, SUCCESS_MESSAGES.PASSWORD_UPDATED_SUCCESSFULLY)
+    } else {
+      Responder.failed(res, resetPasswordResult.errors)
     }
   }
 }

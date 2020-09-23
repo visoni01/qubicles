@@ -27,10 +27,11 @@ export default class ForgetPasswordMailService extends ServiceBase {
           email,
           full_name: userDetails.full_name,
           user_id: user.user_id,
-          user_code: user.user_code
+          user_code: user.user_code,
+          token_type: 'forgetPassword'
         },
-        config.get('jwt.forgetPasswordTokenSecret'),
-        { expiresIn: config.get('jwt.forgetPasswordTokenExpiry') })
+        config.get('jwt.emailVerificationTokenSecret'),
+        { expiresIn: config.get('jwt.emailVerificationTokenExpiry') })
         await SendForgetPasswordMailService.execute({ token, email })
       }
       return 'Reset password link sent successfully'
