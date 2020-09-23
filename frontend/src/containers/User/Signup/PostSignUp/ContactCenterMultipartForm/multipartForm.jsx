@@ -70,9 +70,8 @@ const Form = ({
       )
     }
     return (
-      <Grid item xs>
-        <div className='control'>
-          {
+      <div className='control'>
+        {
             (name === 'phone_number') ? (
               <>
                 <div>
@@ -112,31 +111,34 @@ const Form = ({
               </>
             )
           }
-        </div>
-      </Grid>
+      </div>
     )
   }
 
   const fields = () => steps
     && steps[ step ]
-    && steps[ step ].fields.map(({ name, label, ...rest }) => (
-      <div className='field' key={ `${ name }${ label }` }>
-        <Grid item xs>
-          {inputField({ name, label, ...rest })}
+    && steps[ step ].fields.map(({
+      name, label, type, ...rest
+    }) => (
+      <Grid item xs={ type === 'radio' ? 12 : 6 } key={ `${ name }${ label }` }>
+        <div className='field' key={ `${ name }${ label }` }>
+          {inputField({
+            name, label, type, ...rest,
+          })}
           {errors && errors[ name ] && (
           <div className='error-message'>
             {errors[ name ].message}
           </div>
           )}
-        </Grid>
-      </div>
+        </div>
+      </Grid>
     ))
 
   return (
     <>
       <div id='signup-panel' className='process-panel-wrap is-narrow is-active'>
         <div className='form-panel'>
-          <Grid container spacing={ 1 }>
+          <Grid container spacing={ 3 }>
             {fields()}
           </Grid>
         </div>
@@ -147,7 +149,8 @@ const Form = ({
                 <div className='back-button'>
                   <Button
                     variant='contained'
-                    color='primary'
+                    className='button-secondary-large'
+                    classes={ { label: 'secondary-label' } }
                     onClick={ onBack }
                   >
                     Back
@@ -159,7 +162,8 @@ const Form = ({
               <div className='next-button'>
                 <Button
                   variant='contained'
-                  color='primary'
+                  className='button-primary-large'
+                  classes={ { label: 'primary-label' } }
                   onClick={ handleSubmit(step === 5 ? onSubmit : onNext) }
                 >
                   {step === 3 ? 'Submit' : 'Next'}

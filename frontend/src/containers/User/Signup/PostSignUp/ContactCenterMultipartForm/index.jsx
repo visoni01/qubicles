@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom'
 import _ from 'lodash'
 import { POST_SIGNUP_EMPLOYER_PREVIOUS_DATA_FETCH } from '../../../../../redux-saga/redux/constants'
 import Form from './multipartForm'
-import StepperComponent from '../../../../../components/Stepper'
+import StepperComponent from '../../../../../components/User/Stepper'
 import {
   postSignUpStepStart,
   handleBackStep,
@@ -34,20 +34,14 @@ const ContactCenterMultiPartForm = () => {
   }
   const handleOnBack = () => dispatch(handleBackStep())
 
-  const steps = [
-    { icon: 1, label: 1 },
-    { icon: 2, label: 2 },
-    { icon: 3, label: 3 },
-  ].map((step) => step)
-
   if (isLoading) {
     return <></>
   }
 
   return (
     <>
-      {/* activeStep prop starts from initial index value of steps array */}
-      <StepperComponent steps={ steps } activeStep={ currentStep - 1 } />
+      {/* activeStep prop starts from index value of steps provided i.e. 3 for contact-center-form */}
+      <StepperComponent steps={ 3 } activeStep={ currentStep - 1 } />
       <Form
         step={ currentStep }
         onNext={ handleOnNext }

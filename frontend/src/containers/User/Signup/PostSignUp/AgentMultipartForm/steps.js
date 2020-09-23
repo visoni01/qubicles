@@ -43,16 +43,6 @@ const steps = {
       { label: 'Years of Experience', type: 'text', name: 'years_of_experience' },
       { label: 'Highest Level of Education', type: 'text', name: 'highest_education' },
       {
-        label: 'Primary Language',
-        type: 'radio',
-        name: 'primary_language',
-        options: [
-          [ 'English', 'english', 'English' ],
-          [ 'French', 'french', 'French' ],
-          [ 'Spanish', 'spanish', 'Spanish' ],
-        ],
-      },
-      {
         label: 'Other Languages Spoken',
         type: 'select',
         name: 'other_languages',
@@ -60,6 +50,16 @@ const steps = {
           { label: 'English', value: 'English' },
           { label: 'French', value: 'French' },
           { label: 'Spanish', value: 'Spanish' },
+        ],
+      },
+      {
+        label: 'Primary Language',
+        type: 'radio',
+        name: 'primary_language',
+        options: [
+          [ 'English', 'english', 'English' ],
+          [ 'French', 'french', 'French' ],
+          [ 'Spanish', 'spanish', 'Spanish' ],
         ],
       },
     ],

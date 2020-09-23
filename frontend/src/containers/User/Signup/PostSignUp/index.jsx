@@ -22,24 +22,24 @@ const RoleSetup = () => {
     <div className='outer-panel'>
       <div className='outer-panel-inner'>
         <div className='process-title'>
-          <h2 id='step-title-1' className='step-title is-active'>
+          <h1 id='step-title-1' className='h1 step-title is-active'>
             Welcome! How do you intend on using Qubicles?
-          </h2>
+          </h1>
         </div>
         <div id='signup-panel-1' className=' is-active'>
           <div className='role-selector'>
             <div className='column is-4'>
               <div className='account-type'>
                 <img src={ contactCenter } alt='Center logo' className='intro-logo' />
-                <h3>For a Contact Center</h3>
-                <p>
+                <h3 className='h3'>For a Contact Center</h3>
+                <p className='para'>
                   Operating inbound,  outbound,  blended or multi-channel programs for a new or existing contact
                   center
                 </p>
                 <Button
                   variant='contained'
-                  className='custom-button-primary'
-                  classes={ { label: 'custom-button-label-hover' } }
+                  className='button-primary-large'
+                  classes={ { label: 'button-primary-large-label' } }
                   onClick={ updateEmpployeeRoleCB }
                 >
                   Continue
@@ -49,17 +49,16 @@ const RoleSetup = () => {
             <div className='column is-4'>
               <div className='account-type'>
                 <img src={ agent } alt='Agent logo' className='intro-logo' />
-                <h3>As an Agent or Manager</h3>
-                <p>
-                  Handle customer interactions,  quality assurance,  training or support for contact
-                  center
+                <h3 className='h3'>As an Agent or Manager</h3>
+                <p className='para'>
+                  Handle customer interactions, quality assurance, training or support for contact center
                   {'\n'}
                   <br />
                 </p>
                 <Button
                   variant='contained'
-                  className='custom-button-primary'
-                  classes={ { label: 'custom-button-label-hover' } }
+                  className='button-primary-large'
+                  classes={ { label: 'button-primary-large-label' } }
                   onClick={ updateAgentRoleCB }
                 >
                   Continue

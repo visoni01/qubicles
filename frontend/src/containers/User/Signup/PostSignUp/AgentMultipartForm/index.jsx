@@ -6,7 +6,7 @@ import _ from 'lodash'
 import moment from 'moment'
 import { POST_SIGNUP_AGENT_PREVIOUS_DATA_FETCH } from '../../../../../redux-saga/redux/constants'
 
-import StepperComponent from '../../../../../components/Stepper'
+import StepperComponent from '../../../../../components/User/Stepper'
 import MultipartForm from './multipartForm'
 import {
   postSignUpStepStart,
@@ -41,21 +41,14 @@ const AgentMultipartForm = () => {
 
   const handleOnBack = () => dispatch(handleBackStep())
 
-  const steps = [
-    { icon: 1, label: 1 },
-    { icon: 2, label: 2 },
-    { icon: 3, label: 3 },
-    { icon: 4, label: 4 },
-    { icon: 5, label: 5 },
-  ].map((step) => step)
-
   if (isLoading) {
     return <></>
   }
 
   return (
     <>
-      <StepperComponent steps={ steps } activeStep={ currentStep - 1 } />
+      {/* activeStep prop starts from index value of steps provided i.e. 5 for agent-form */}
+      <StepperComponent steps={ 5 } activeStep={ currentStep - 1 } />
       <MultipartForm
         step={ currentStep }
         onNext={ handleOnNext }
