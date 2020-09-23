@@ -47,6 +47,12 @@ const routes = [
     component: React.lazy(() => import('../containers/Dashboard')),
     auth: true,
   },
+  // Added extra route for new dashboard, Remove it when dashboard completely ready.
+  {
+    path: `/new${ ROUTE_PATHS.DASHBOARD }`,
+    component: React.lazy(() => import('../containers/Dashboard/new')),
+    auth: true,
+  },
   {
     path: ROUTE_PATHS.POST_SIGN_UP,
     component: React.lazy(() => import('../containers/User/Signup/PostSignUp')),

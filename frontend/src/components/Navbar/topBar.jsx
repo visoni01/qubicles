@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import {
   AppBar,
-  Avatar, Grid, IconButton, InputBase, Toolbar,
+  Avatar, Container, Grid, IconButton, InputBase, Toolbar,
 } from '@material-ui/core'
 import {
   chatIcon, walletIcon, bellIcon,
@@ -15,16 +15,16 @@ const TopBar = () => (
     className='topbar-root'
     elevation={ 0 }
   >
-    <Toolbar className='topbar-toolbar'>
+    <Container className='topbar-toolbar' maxWidth='lg' classes={ { maxWidthLg: 'container-max-width' } }>
       <Grid container>
-        <Grid item className='search-input' lg={ 8 } md={ 8 } xs={ 8 }>
+        <Grid item className='search-input' lg={ 9 } md={ 9 } xs={ 9 }>
           <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 fontawesome-icon' />
           <InputBase
             placeholder='Search'
             className='input-field'
           />
         </Grid>
-        <Grid item lg={ 4 } md={ 4 } xs={ 4 } className='notification-icons'>
+        <Grid item lg={ 3 } md={ 3 } xs={ 3 } className='notification-icons'>
           <IconButton>
             <img src={ chatIcon } alt='Chat Icon' />
           </IconButton>
@@ -37,7 +37,7 @@ const TopBar = () => (
           <Avatar className='topbar-avatar' />
         </Grid>
       </Grid>
-    </Toolbar>
+    </Container>
   </AppBar>
 )
 
