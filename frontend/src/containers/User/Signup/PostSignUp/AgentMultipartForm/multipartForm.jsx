@@ -252,7 +252,8 @@ const StepForm = ({
                 <div className='upload-button'>
                   <Button
                     variant='contained'
-                    color='primary'
+                    className='button-primary-large'
+                    classes={ { label: 'primary-label' } }
                   >
                     Upload
                   </Button>
@@ -273,7 +274,8 @@ const StepForm = ({
                 <div className='back-button'>
                   <Button
                     variant='contained'
-                    color='primary'
+                    className='button-secondary-large'
+                    classes={ { label: 'secondary-label' } }
                     onClick={ onBack }
                   >
                     Back
@@ -285,7 +287,8 @@ const StepForm = ({
               <div className='next-button'>
                 <Button
                   variant='contained'
-                  color='primary'
+                  className='button-primary-large'
+                  classes={ { label: 'primary-label' } }
                   onClick={ handleSubmit(step === 5 ? onSubmit : onNext) }
                 >
                   {step === 5 ? 'Submit' : 'Next'}

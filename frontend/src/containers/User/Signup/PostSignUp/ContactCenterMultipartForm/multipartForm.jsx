@@ -149,7 +149,8 @@ const Form = ({
                 <div className='back-button'>
                   <Button
                     variant='contained'
-                    color='primary'
+                    className='button-secondary-large'
+                    classes={ { label: 'secondary-label' } }
                     onClick={ onBack }
                   >
                     Back
@@ -161,7 +162,8 @@ const Form = ({
               <div className='next-button'>
                 <Button
                   variant='contained'
-                  color='primary'
+                  className='button-primary-large'
+                  classes={ { label: 'primary-label' } }
                   onClick={ handleSubmit(step === 5 ? onSubmit : onNext) }
                 >
                   {step === 3 ? 'Submit' : 'Next'}

@@ -145,27 +145,6 @@ Signup styles
         }
     }
 
-    .process-title {
-        max-width: 840px;
-        margin: 0 auto;
-        text-align: center;
-
-        h2 {
-          font-family: "Poppins", sans-serif !important;
-          font-weight: 600;
-          font-size: 50px;
-          color: #444F5F;
-        }
-
-        .step-title {
-            animation: fadeInUp .5s;
-            display: none;
-
-            &.is-active {
-                display: block;
-            }
-        }
-    }
 
     .process-panel-wrap {
         .form-panel {
