@@ -29,8 +29,6 @@ const Validator = ({ component: Component, path }) => {
     userDetails = getUserDetails()
   }
   if (!token) {
-    debugger
-    console.log('path in custom routes>>>>', path)
     if (path === '/reset-new-password') {
       component = <Redirect to='/reset-new-password' />
     } else { component = <Redirect to={ `/login?return_url=${ path }` } /> }

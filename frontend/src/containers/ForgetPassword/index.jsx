@@ -100,28 +100,29 @@ const ForgetPassword = () => {
                 <div className='column is-8 is-offset-2'>
                   {!success && (
                     <>
-                      <>
-                        <form onSubmit={ handleSubmit(onSubmit) } noValidate>
-                          <div className='field pb-10'>
-                            {inputField(
-                              'email',
-                              'signupEmail',
-                              'Enter your registered email',
-                              faPaperPlane,
-                              'email',
-                            )}
-                          </div>
-                          <p className='control login'>
-                            <button
-                              type='submit'
-                              id='forgetPasswordLink'
-                              className='button btn-outlined is-bold is-fullwidth rounded raised no-lh'
-                            >
-                              Send Reset Password Link
-                            </button>
-                          </p>
-                        </form>
-                      </>
+                      <div className='input-heading'>
+                        Reset Password
+                      </div>
+                      <form onSubmit={ handleSubmit(onSubmit) } noValidate>
+                        <div className='field pb-10'>
+                          {inputField(
+                            'email',
+                            'signupEmail',
+                            'Enter your registered email',
+                            faPaperPlane,
+                            'email',
+                          )}
+                        </div>
+                        <p className='control login'>
+                          <button
+                            type='submit'
+                            id='forgetPasswordLink'
+                            className='button btn-outlined is-bold is-fullwidth rounded raised no-lh'
+                          >
+                            Send Reset Password Link
+                          </button>
+                        </p>
+                      </form>
                     </>
                   )}
                   <div>

@@ -11,7 +11,6 @@ import {
 import { useHistory, Link } from 'react-router-dom'
 import {
   resetPasswordStart,
-  resetPasswordSuccessful,
 } from '../../redux-saga/redux/actions'
 import '../User/Signup/SignUp/style.scss'
 
@@ -32,9 +31,7 @@ const ResetNewPassword = () => {
   const onSubmit = (data) => {
     if (data.password === data.confirmPassword) {
       dispatch(resetPasswordStart({ email, pass: data.password }))
-      console.log('This is pass', data, email)
     }
-    // setEmail(data.email)
   }
 
   const inputField = (
@@ -100,35 +97,36 @@ const ResetNewPassword = () => {
                 <div className='column is-8 is-offset-2'>
                   {!success && (
                     <>
-                      <>
-                        <form onSubmit={ handleSubmit(onSubmit) } noValidate>
-                          <div className='field pb-10'>
-                            {inputField(
-                              'password',
-                              'password',
-                              'New password',
-                              faLock,
-                              'password',
-                            )}
-                            {inputField(
-                              'confirmPassword',
-                              'confirmPassword',
-                              'Confirm password',
-                              faLock,
-                              'password',
-                            )}
-                          </div>
-                          <p className='control login'>
-                            <button
-                              type='submit'
-                              id='resetPassword'
-                              className='button btn-outlined is-bold is-fullwidth rounded raised no-lh'
-                            >
-                              Submit
-                            </button>
-                          </p>
-                        </form>
-                      </>
+                      <div className='input-heading'>
+                        Set Password
+                      </div>
+                      <form onSubmit={ handleSubmit(onSubmit) } noValidate>
+                        <div className='field pb-10'>
+                          {inputField(
+                            'password',
+                            'password',
+                            'New password',
+                            faLock,
+                            'password',
+                          )}
+                          {inputField(
+                            'confirmPassword',
+                            'confirmPassword',
+                            'Confirm password',
+                            faLock,
+                            'password',
+                          )}
+                        </div>
+                        <p className='control login'>
+                          <button
+                            type='submit'
+                            id='resetPassword'
+                            className='button btn-outlined is-bold is-fullwidth rounded raised no-lh'
+                          >
+                            Submit
+                          </button>
+                        </p>
+                      </form>
                     </>
                   )}
                   <div>
