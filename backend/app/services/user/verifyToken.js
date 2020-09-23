@@ -4,6 +4,7 @@ import { User, UserDetail } from '../../db/models'
 import { CreateUserGroupService } from '../user/createUserGroup'
 import config from '../../../config/app'
 import { ERRORS } from '../../utils/errors'
+import { CONSTANTS } from '../../utils/success'
 
 const constraints = {
   token: {
@@ -50,13 +51,14 @@ export default class VerifyTokenService extends ServiceBase {
           })
           return {
             message: 'Email Verified Successfully!!',
+            token_type: CONSTANTS.VERIFY_EMAIL_TOKEN_TYPE,
             accessToken: jwtToken
           }
         } else {
           if (jwtVerified.token_type === 'forgetPassword') {
             return {
               message: 'Forget Password Email Verified Successfully!!',
-              token_type: 'forgetPassword',
+              token_type: CONSTANTS.FORGET_PASSWORD_TOKEN_TYPE,
               email: jwtVerified.email
             }
           }

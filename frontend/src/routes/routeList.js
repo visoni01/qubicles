@@ -1,8 +1,6 @@
 import React from 'react'
 import Auth from '../components/User/Auth'
 import ROUTE_PATHS from './routesPath'
-import VerifyEmail from '../containers/EmailVerification'
-import ForgetPassword from '../containers/ForgetPassword'
 
 const routes = [
   {
@@ -41,7 +39,7 @@ const routes = [
   },
   {
     path: ROUTE_PATHS.FORGET_PASSWORD,
-    component: ForgetPassword,
+    component: React.lazy(() => import('../containers/ForgetPassword')),
   },
   {
     path: ROUTE_PATHS.VERIFY_TOKEN,

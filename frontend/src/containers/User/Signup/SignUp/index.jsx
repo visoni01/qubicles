@@ -119,7 +119,7 @@ const SignUp = () => {
                         >
                           Already have an account? Click here to login
                         </button>
-                        <form onSubmit={ handleSubmit(onSubmit) } noValidate>
+                        <form onSubmit={ handleSubmit(onSubmit) } autoComplete='off' noValidate>
                           <div className='field pb-10'>
                             {inputField(
                               'email',
