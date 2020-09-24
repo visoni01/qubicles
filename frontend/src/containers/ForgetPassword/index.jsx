@@ -8,7 +8,7 @@ import {
   faPaperPlane,
 } from '@fortawesome/free-solid-svg-icons'
 
-import { useHistory, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import {
   forgetPasswordMailStart,
   forgetPasswordMailReset,
@@ -25,7 +25,6 @@ const ForgetPassword = () => {
   })
   const { success } = useSelector((state) => state.forgetPasswordMail)
   const [ email, setEmail ] = useState('')
-  const history = useHistory()
   const dispatch = useDispatch()
 
   useEffect(() => (() => {

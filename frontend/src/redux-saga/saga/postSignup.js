@@ -30,7 +30,7 @@ function* postSignupStepWorker(action) {
         yield put(startLoader())
         const { type, step, data } = action.payload
         if (step === 1) data.user_code = type
-        const response = yield apiClient.postSignUp(type, step, data)
+        yield apiClient.postSignUp(type, step, data)
         yield put(postSignUpStepSuccessful({ step, data }))
         yield put(stopLoader())
         break

@@ -11,7 +11,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
-  useHistory, useLocation, Link, useParams,
+  useHistory, useLocation, Link,
 } from 'react-router-dom'
 import { userSignupStart } from '../../../../redux-saga/redux/signup'
 import { setIsSocialLogin } from '../../../../redux-saga/redux/actions'
