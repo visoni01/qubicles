@@ -1,0 +1,31 @@
+import React from 'react'
+import { Box } from '@material-ui/core'
+import { useSelector } from 'react-redux'
+import { formatDate } from '../../utils/common'
+
+const LatestAnnouncement = () => {
+  const { isLoading, announcements } = useSelector((state) => state.announcement)
+  return (
+    <Box className='box'>
+      <div className='announcement-section'>
+        <h3 className='heading'>
+          Latest Announcements
+        </h3>
+        <ul>
+          {!isLoading && announcements.map(({ date, title, id }) => (
+            <li key={ `${ id }` } className='display-inline-flex'>
+              <span>
+                <b>{formatDate(date)}</b>
+              </span>
+              <p>
+                {title}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Box>
+  )
+}
+
+export default LatestAnnouncement
