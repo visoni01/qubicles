@@ -17,6 +17,11 @@ import { dashboardDataFetchingStart } from '../../redux-saga/redux/actions'
 import CheckrVerification from './ChekrVerification'
 import './newStyles.scss'
 import NewCreatePost from '../../components/Dashboard/NewCreatePost'
+import LatestAnnouncement from './LatestAnnouncement'
+import JobPostings from './JobPostings'
+import { dashboardDataFetchingStart } from '../../redux-saga/redux/actions'
+import CheckrVerification from './ChekrVerification'
+// import './newStyles.scss'
 
 const Dashboard = () => {
   const dispatch = useDispatch()
@@ -236,7 +241,11 @@ const Dashboard = () => {
             <div className='customer-service-content'>
               <p>
                 <span className='dark-color'>
+<<<<<<< HEAD
                   <b className='number'>0.20</b>
+=======
+                  <b>0.20</b>
+>>>>>>> Feature: Added Dashboard Components
                   {' '}
                 </span>
                 Calls per agent
@@ -244,7 +253,11 @@ const Dashboard = () => {
 
               <p>
                 <span className='dark-color'>
+<<<<<<< HEAD
                   <b className='number'>2.45</b>
+=======
+                  <b>2.45</b>
+>>>>>>> Feature: Added Dashboard Components
                   {' '}
                 </span>
                 Average talk time

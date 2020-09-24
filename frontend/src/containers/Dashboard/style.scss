@@ -242,4 +242,35 @@ nav {
   .PrivateRadioButtonIcon-root-25 {
     color: $color-primary;
   }
+.MuiRating-root {
+  &.rating {
+    color: $color-primary;
+  }
+}
+
+.like-people {
+  @extend.para;
+  font-size: 13px;
+}
+
+.rating-text {
+  @extend.h3;
+  text-align: center;
+  font-size: 20px;
+  color: $color-headings;
+}
+
+.heart-icon {
+  text-align: center;
+  color: $color-red;
+  font-size: 23px;
+  margin: auto;
+}
+
+.user-icon {
+  text-align: center;
+  color: $color-info;
+  font-size: 23px;
+  margin-left: auto;
+}
 }
