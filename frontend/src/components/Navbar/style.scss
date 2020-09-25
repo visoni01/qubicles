@@ -1,6 +1,8 @@
+@import '../../customStyles/scss/index.scss';
+
 .account-dropdown-list {
   top: 60px !important;
-  left: calc(100% - 105px) !important;
+  left: calc(100% - 280px) !important;
 }
 
 .account-dropdown-icon {
@@ -9,4 +11,61 @@
 
 .header-info-icons {
   padding-left: 20px;
+}
+
+// USER MENU
+.user-menu {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  // margin: auto;
+  margin-top: 10px;
+  padding: 20px;
+  padding-top: 0px;
+  .profile-pic {
+    margin: 10px;
+    margin-top: 0px;
+    width: 56px;
+    height: 56px;
+    flex: 1;
+    align-self: center;
+  }
+  .user-name {
+    @extend .h3;
+    margin: 5px;
+    margin-top: 0px;
+    align-self: center;
+  }
+  .view-profile {
+    margin-bottom: 10px;
+    align-self: center;
+    font-size: 14px;
+  }
+  .divider {
+    // margin: auto;
+    margin-bottom: 10px;
+  }
+  .options {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-content: space-around;
+    .option {
+      display: flex;
+      justify-content: flex-start;
+      background-color: $color-background;
+      .option-icon {
+        flex: 1;
+        margin: auto;
+      }
+      .option-name {
+        flex: 2;
+        margin: 5px;
+        font-size: 14px;
+      }
+      .logout-text {
+        color: $color-red;
+      }
+    }
+  }
 }
