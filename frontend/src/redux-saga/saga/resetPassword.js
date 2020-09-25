@@ -14,7 +14,6 @@ function* resetPasswordWatcher() {
 function* resetPasswordWorker(action) {
   try {
     const data = action.payload
-    console.log('data in resetPassword Saga:_--', data)
     yield User.resetPassword(data)
     yield put(resetPasswordSuccessful())
     yield put(showSuccessMessage({ msg: 'Password updated successfully' }))

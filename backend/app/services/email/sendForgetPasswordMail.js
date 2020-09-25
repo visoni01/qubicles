@@ -42,7 +42,7 @@ function getHtml ({ forgetPasswordPageUrl }) {
   Welcome to Qubicles!
   <br />
   <br />
-  Please click on below link to set new password for your account registered.
+  Please click on below link to set new password for your registered account.
   <br />
   <a href=${forgetPasswordPageUrl}>Click Here</a> to verify your email
   <br />

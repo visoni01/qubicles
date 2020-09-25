@@ -55,7 +55,7 @@ export default class VerifyTokenService extends ServiceBase {
             accessToken: jwtToken
           }
         } else {
-          if (jwtVerified.token_type === 'forgetPassword') {
+          if (jwtVerified.token_type === CONSTANTS.FORGET_PASSWORD_TOKEN_TYPE) {
             return {
               message: 'Forget Password Email Verified Successfully!!',
               token_type: CONSTANTS.FORGET_PASSWORD_TOKEN_TYPE,

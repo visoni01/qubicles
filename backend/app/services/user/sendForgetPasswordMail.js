@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken'
 import config from '../../../config/app'
 import { getErrorMessageForService } from '../helper'
 import SendForgetPasswordMailService from '../email/sendForgetPasswordMail'
+import { CONSTANTS } from '../../utils/success'
 
 const constraints = {
   email: {
@@ -28,7 +29,7 @@ export default class ForgetPasswordMailService extends ServiceBase {
           full_name: userDetails.full_name,
           user_id: user.user_id,
           user_code: user.user_code,
-          token_type: 'forgetPassword'
+          token_type: CONSTANTS.FORGET_PASSWORD_TOKEN_TYPE
         },
         config.get('jwt.emailVerificationTokenSecret'),
         { expiresIn: config.get('jwt.emailVerificationTokenExpiry') })
