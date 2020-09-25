@@ -24,7 +24,6 @@ const NewCreatePost = () => {
   })
   const [ fileName, setFileName ] = useState(null)
   const [ fileSrc, setFileSrc ] = useState('')
-
   const [ anchorEl, setAnchorEl ] = useState(null)
 
   const open = Boolean(anchorEl)
@@ -32,6 +31,7 @@ const NewCreatePost = () => {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
   }
+
   const handleClose = () => {
     setAnchorEl(null)
   }
@@ -56,7 +56,6 @@ const NewCreatePost = () => {
   }, [])
 
   const setPermissionCB = useCallback((event) => {
-    // setPermission(event.target.value)
     setPermission({
       value: event.target.value,
       label: event.target.name,
@@ -131,17 +130,8 @@ const NewCreatePost = () => {
               {userDetails && userDetails.full_name && userDetails.full_name[ 0 ].toUpperCase()}
             </Avatar>
           </Grid>
-          {/* <form onReset={ clear }> */}
           <Grid item xs={ 11 }>
             <div className='post-content'>
-              {/* <textarea
-                // className='textarea'
-                rows='5'
-                autoComplete='off'
-                value={ postText }
-                onChange={ setPostTextCB }
-                placeholder='Write something ...'
-              /> */}
               <TextareaAutosize
                 aria-label='minimum height'
                 autoComplete='off'
@@ -174,6 +164,18 @@ const NewCreatePost = () => {
                   </Button>
                   {/* </Grid> */}
                   {/* <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }> */}
+                  <div>
+                    {
+                      isLoading && (
+                      <Loader
+                        className='add-status-loader'
+                        displayLoaderManually
+                        enableOverlay={ false }
+                        size={ 30 }
+                      />
+                      )
+                   }
+                  </div>
                   <Button
                     variant='contained'
                     aria-describedby={ id }
@@ -202,7 +204,7 @@ const NewCreatePost = () => {
                       horizontal: 'center',
                     } }
                   >
-                    <List component='nav' aria-label='main mailbox folders'>
+                    <List component='nav' aria-label='permission-list'>
                       <ListItemText primary='Who can see your posts?' />
                       <ListItem>
                         <ListItemText
@@ -298,7 +300,6 @@ const NewCreatePost = () => {
               )}
             </div>
           </Grid>
-          {/* <input type='file' name='' className='position-absolute' /> */}
           <Grid item xs={ 1 }>
             <form onReset={ clear }>
               <p className='galley-icon'>
@@ -318,19 +319,6 @@ const NewCreatePost = () => {
           </Grid>
         </div>
       </Grid>
-      {/* <div className='column is-6'>
-          {
-            isLoading && (
-            <Loader
-              className='add-status-loader'
-              displayLoaderManually
-              enableOverlay={ false }
-              size={ 30 }
-            />
-            )
-          }
-        </div> */}
-
     </div>
 
   )

@@ -1,5 +1,4 @@
-
-
+@import '../../customStyles/scss/index.scss';
 .post-section {
   .other-options {
     .upload-file {
@@ -800,6 +799,7 @@
 
 // Classes of new create post designs
 
+
 .MuiList-padding {
   padding: 10px;
 }
@@ -814,9 +814,8 @@
     position: relative;
 
     img {
-      min-width: 500px;
-      height: 300px;
-      width:100%;
+      height: auto;
+      max-width: 100%;
     }
 
     .MuiButtonBase-root {
@@ -832,6 +831,7 @@
       }
     }
   }
+
   .postButtons {
     margin-top:10px;
     .cancel-button {
@@ -842,10 +842,14 @@
       min-width: 100px;
       border-radius: 8px;
 
-      .MuiButtonBase-root.button-secondary-small {
-        min-width: 100px;
-        width: 100px;
+      .MuiButton-label {
+        width: 90px;
       }
+
+      // .MuiButtonBase-root.button-secondary-small {
+      //   min-width: 100px;
+      //   width: 100px;
+      // }
     }
     .post-button {
       float:right;

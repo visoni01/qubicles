@@ -221,3 +221,21 @@ h4.user-name {
     border-radius: 6px;
   }
 }
+
+nav {
+  padding: 10px !important;
+  font-family: 'Poppins', sans-serif;
+  color: #444f5f;
+
+  .MuiTypography-body1 {
+    @extend .h4;
+    // font: normal normal 600 18px/27px;
+    // font-weight: 600;
+    // font-size: 18px;
+    // font-family: 'Poppins', sans-serif;
+  }
+
+  .PrivateRadioButtonIcon-root-25 {
+    color: #4877F4;
+  }
+}
