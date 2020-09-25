@@ -20,6 +20,7 @@ import {
 } from 'react-share'
 import { userLoginStart, clearStore, resetShowVerifyMailButton } from '../../redux-saga/redux/login'
 import VerificationPageButton from '../EmailVerification/verificationPageButton'
+import ForgottenPasswordButton from '../ForgetPassword/ForgottonPasswordButton'
 import './style.scss'
 import config from '../../utils/config'
 
@@ -136,55 +137,57 @@ const Login = () => {
 
                   <>
                     {isSocialLogin && (
-                    <div className='margin-bottom-30'>
-                      {SocialLoginButton('Login with Facebook', 'facebook', FacebookIcon)}
-                      {SocialLoginButton('Login with Twitter', 'twitter', TwitterIcon)}
-                      {SocialLoginButton('Login with LinkedIn', 'linkedin', LinkedinIcon)}
-                      <Button
-                        type='button'
-                        variant='contained'
-                        size='large'
-                        color='primary'
-                        className='social-login-buttons'
-                        onClick={ () => setIsSocialLogin(!isSocialLogin) }
-                        startIcon={ <FontAwesomeIcon className='social-login-icons mr-10' icon={ faEnvelope } /> }
-                      >
-                        Login with Email
-                      </Button>
-                    </div>
+                      <div className='margin-bottom-30'>
+                        {SocialLoginButton('Login with Facebook', 'facebook', FacebookIcon)}
+                        {SocialLoginButton('Login with Twitter', 'twitter', TwitterIcon)}
+                        {SocialLoginButton('Login with LinkedIn', 'linkedin', LinkedinIcon)}
+                        <Button
+                          type='button'
+                          variant='contained'
+                          size='large'
+                          color='primary'
+                          className='social-login-buttons'
+                          onClick={ () => setIsSocialLogin(!isSocialLogin) }
+                          startIcon={ <FontAwesomeIcon className='social-login-icons mr-10' icon={ faEnvelope } /> }
+                        >
+                          Login with Email
+                        </Button>
+                      </div>
                     )}
                     {!isSocialLogin && (
-                    <div className='margin-bottom-30'>
-                      <form onSubmit={ handleSubmit(onSubmit) } noValidate>
-                        <div className='field pb-10'>
-                          {inputField(
-                            'email',
-                            'loginEmail',
-                            'Enter your email address',
-                            faPaperPlane,
-                            'email',
-                            'off',
-                          )}
-                          {inputField(
-                            'password',
-                            'password',
-                            'Enter your password',
-                            faLock,
-                            'password',
-                          )}
-                        </div>
-                        <p className='control login'>
-                          <button
-                            type='submit'
-                            id='sendVerificationCode'
-                            className='button btn-outlined is-bold is-fullwidth rounded raised no-lh'
-                          >
-                            Login
-                          </button>
-                        </p>
-                      </form>
-                    </div>
+                      <div className='margin-bottom-30'>
+                        <form onSubmit={ handleSubmit(onSubmit) } noValidate>
+                          <div className='field pb-10'>
+                            {inputField(
+                              'email',
+                              'loginEmail',
+                              'Enter your email address',
+                              faPaperPlane,
+                              'email',
+                              'off',
+                            )}
+                            {inputField(
+                              'password',
+                              'password',
+                              'Enter your password',
+                              faLock,
+                              'password',
+                            )}
+                          </div>
+                          <p className='control login'>
+
+                            <button
+                              type='submit'
+                              id='sendVerificationCode'
+                              className='button btn-outlined is-bold is-fullwidth rounded raised no-lh'
+                            >
+                              Login
+                            </button>
+                          </p>
+                        </form>
+                      </div>
                     )}
+                    <ForgottenPasswordButton />
                     {showVerifyMailButton && <VerificationPageButton />}
                     <button type='button' className='text-button' onClick={ handleCreateAccountLink }>
                       {isSocialLogin ? 'Don\'t have a social account? Sign up using an email instead'

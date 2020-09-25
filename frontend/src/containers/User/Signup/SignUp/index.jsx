@@ -11,7 +11,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
-  useHistory, useLocation, Link, useParams,
+  useHistory, useLocation, Link,
 } from 'react-router-dom'
 import { userSignupStart } from '../../../../redux-saga/redux/signup'
 import { setIsSocialLogin } from '../../../../redux-saga/redux/actions'
@@ -119,7 +119,7 @@ const SignUp = () => {
                         >
                           Already have an account? Click here to login
                         </button>
-                        <form onSubmit={ handleSubmit(onSubmit) } noValidate>
+                        <form onSubmit={ handleSubmit(onSubmit) } autoComplete='off' noValidate>
                           <div className='field pb-10'>
                             {inputField(
                               'email',

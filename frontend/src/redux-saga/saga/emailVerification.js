@@ -15,8 +15,8 @@ function* emailVerificationWatcher() {
 function* emailVerificationWorker(action) {
   try {
     yield put(startLoader())
-    yield apiClient.emailVerification(action.payload)
-    yield put(emailVerificationSuccessful())
+    const response = yield apiClient.emailVerification(action.payload)
+    yield put(emailVerificationSuccessful(response.data))
     yield put(stopLoader())
   } catch (e) {
     yield put(showErrorMessage({ msg: e.errMsg }))

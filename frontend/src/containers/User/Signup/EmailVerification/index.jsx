@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useParams, Redirect } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-
+import Loader from '../../../../components/loaders/circularLoader'
 import { emailVerificationStart } from '../../../../redux-saga/redux/emailVerification'
 import './style.scss'
 
@@ -12,14 +12,32 @@ const EmailVerification = () => {
     dispatch(emailVerificationStart(token))
     // eslint-disable-next-line
   }, [ dispatch ])
-  const { error, success } = useSelector(
+  const {
+    error, success, tokenType, isLoading,
+  } = useSelector(
     (state) => state.emailVerification,
   )
+  if (!isLoading) {
+    if (error) {
+      return (
+        <div className='email-verification-error-msg'>
+          Link is expired or invalid!!
+        </div>
+      )
+    }
+    return (
+      <>
+        { success && tokenType === 'forgetPassword' && <Redirect to='/reset-new-password' />}
+        { success && tokenType === 'verifyEmail' && <Redirect to='/post-signup' />}
+      </>
+    )
+  }
   return (
-    <>
-      {success && <Redirect to='/post-signup' />}
-      {error && <div className='email-verification-error-msg'>{' Link is expired or invalid!! '}</div>}
-    </>
+    <Loader
+      className='loader-custom'
+      enableOverlay={ false }
+      displayLoaderManually
+    />
   )
 }
 

@@ -43,4 +43,10 @@ authRouter.route('/send-verification-mail')
 authRouter.route('/checkr-webhook')
   .post(isCheckrWebhook, authController.checkrEvent)
 
+authRouter.route('/reset-password-mail')
+  .post(authController.sendForgetPasswordMail)
+
+authRouter.route('/reset-password')
+  .post(authController.resetPassword)
+
 export { authRouter }

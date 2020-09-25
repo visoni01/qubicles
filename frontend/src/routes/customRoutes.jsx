@@ -29,7 +29,9 @@ const Validator = ({ component: Component, path }) => {
     userDetails = getUserDetails()
   }
   if (!token) {
-    component = <Redirect to={ `/login?return_url=${ path }` } />
+    if (path === '/reset-new-password') {
+      component = <Redirect to='/reset-new-password' />
+    } else { component = <Redirect to={ `/login?return_url=${ path }` } /> }
   } else if (!userDetails.is_post_signup_completed && path !== '/post-signup') {
     component = <Redirect to='/post-signup' />
   } else if (userDetails.is_post_signup_completed && path === '/post-signup') {

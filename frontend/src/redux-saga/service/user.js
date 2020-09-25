@@ -30,6 +30,16 @@ class User {
     const response = await apiClient.getRequest(`/user/invite/${ walletId }`)
     return response
   }
+
+  static async forgetPasswordMail(email) {
+    const response = await apiClient.postRequest('/auth/reset-password-mail', { email })
+    return response
+  }
+
+  static async resetPassword(data) {
+    const response = await apiClient.postRequest('/auth/reset-password', { ...data })
+    return response
+  }
 }
 
 export default User

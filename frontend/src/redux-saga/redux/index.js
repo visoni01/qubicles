@@ -24,6 +24,8 @@ import jobReducer from './people/job'
 import checkrAuthentication from './user/checkrAuthentication'
 import sendVerificationMail from './sendVerificationMail'
 import signupWithInviteReducer from './inviteDetails'
+import forgetPasswordMailReducer from './forgetPasswordMail'
+import resetPasswordReducer from './resetPassword'
 
 const rootReducer = combineReducers({
   signup: signupReducer,
@@ -51,7 +53,8 @@ const rootReducer = combineReducers({
   checkr: checkrAuthentication,
   verification: sendVerificationMail,
   signupWithInvite: signupWithInviteReducer,
-
+  forgetPasswordMail: forgetPasswordMailReducer,
+  resetPassword: resetPasswordReducer,
 })
 
 export default rootReducer

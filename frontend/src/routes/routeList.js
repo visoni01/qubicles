@@ -38,9 +38,17 @@ const routes = [
     component: React.lazy(() => import('../containers/EmailVerification')),
   },
   {
+    path: ROUTE_PATHS.FORGET_PASSWORD,
+    component: React.lazy(() => import('../containers/ForgetPassword')),
+  },
+  {
     path: ROUTE_PATHS.VERIFY_TOKEN,
     component: React.lazy(() => import('../containers/User/Signup/EmailVerification')),
     redirectToDashboard: true,
+  },
+  {
+    path: ROUTE_PATHS.RESET_NEW_PASSWORD,
+    component: React.lazy(() => import('../containers/ForgetPassword/ResetNewPassword')),
   },
   {
     path: ROUTE_PATHS.DASHBOARD,

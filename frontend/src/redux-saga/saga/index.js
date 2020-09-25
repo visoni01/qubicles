@@ -26,6 +26,8 @@ import jobDetails from './people/job'
 import checkrInvitation from './user/checkrAuthentication'
 import sendVerificationMail from './sendVerificationMail'
 import signupWithInvite from './inviteDetails'
+import forgetPassword from './forgetPassword'
+import resetPassword from './resetPassword'
 
 export default function* rootSaga() {
   yield all([
@@ -55,5 +57,7 @@ export default function* rootSaga() {
     checkrInvitation(),
     sendVerificationMail(),
     signupWithInvite(),
+    forgetPassword(),
+    resetPassword(),
   ])
 }
