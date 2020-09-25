@@ -16,6 +16,7 @@ import JobPostings from './JobPostings'
 import { dashboardDataFetchingStart } from '../../redux-saga/redux/actions'
 import CheckrVerification from './ChekrVerification'
 import './newStyles.scss'
+import NewCreatePost from '../../components/Dashboard/NewCreatePost'
 
 const Dashboard = () => {
   const dispatch = useDispatch()
@@ -34,14 +35,7 @@ const Dashboard = () => {
       </Grid>
       <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 4 }>
         <Box className='box'>
-          <div className='textarea-input'>
-            <Avatar className='avatar' />
-            <textarea placeholder='Write Something...' />
-            <input type='file' name='' className='position-absolute' />
-            <p className='galley-icon'>
-              <FontAwesomeIcon icon={ faImage } />
-            </p>
-          </div>
+          <NewCreatePost />
         </Box>
 
         <Box className='box'>
