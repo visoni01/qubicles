@@ -121,22 +121,24 @@ h3.heading {
 .textarea-input {
   display: inline-flex;
   width: 100%;
+
 	textarea {
-		width: calc(100% - 80px);
+    width: calc(100% );
 		margin: 0 auto;
 		display: flex;
 		height: 100%;
 		border: none;
 		resize: none;
-		border: 1px solid #DBDBDB;
-		border-radius: 8px;
-		padding: 10px;
-		font-family: 'Poppins', sans-serif;
+    margin-bottom: 10px;
+		font-family: 'SF Pro Text', Regular;
+    font-weight: normal;
+    color: #4A4A4A;
 		&:focus {
 			outline: none;
 			box-shadow: inherit;
 		}
-	}
+  }
+
 	input[type="file"] {
 		right: 10px;
 		width: 20px;

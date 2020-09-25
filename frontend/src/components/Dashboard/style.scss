@@ -797,3 +797,58 @@
     margin-left: 10px;
   }
 }
+
+// Classes of new create post designs
+
+.MuiList-padding {
+  padding: 10px;
+}
+
+.post-content {
+  border: 1px solid #DBDBDB;
+  border-radius: 8px;
+  padding: 10px;
+
+  .post-image {
+    display: inline-block;
+    position: relative;
+
+    img {
+      min-width: 500px;
+      height: 300px;
+      width:100%;
+    }
+
+    .MuiButtonBase-root {
+      position: absolute;
+      top: 0;
+      right: 0;
+      color: white !important;
+    }
+
+    .MuiIconButton-label {
+      &:hover {
+        color: white;
+      }
+    }
+  }
+  .postButtons {
+    margin-top:10px;
+    .cancel-button {
+      float:left;
+    }
+    .permission-button {
+      margin-left: 160px;
+      min-width: 100px;
+      border-radius: 8px;
+
+      .MuiButtonBase-root.button-secondary-small {
+        min-width: 100px;
+        width: 100px;
+      }
+    }
+    .post-button {
+      float:right;
+    }
+  }
+}
