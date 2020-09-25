@@ -797,7 +797,7 @@
   }
 }
 
-// Classes of new create post designs
+// Classes of new dashboard create post designs
 
 
 .MuiList-padding {
@@ -833,24 +833,27 @@
   }
 
   .postButtons {
-    margin-top:10px;
+    .MuiContainer-root {
+      display: inline-flex;
+      width: 100%;
+      padding: 10px 0;
+    }
+
     .cancel-button {
       float:left;
     }
+
     .permission-button {
-      margin-left: 160px;
+      margin-left: 200px;
+      margin-right: 30px;
       min-width: 100px;
       border-radius: 8px;
 
       .MuiButton-label {
         width: 90px;
       }
-
-      // .MuiButtonBase-root.button-secondary-small {
-      //   min-width: 100px;
-      //   width: 100px;
-      // }
     }
+
     .post-button {
       float:right;
     }

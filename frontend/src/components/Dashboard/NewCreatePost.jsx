@@ -2,27 +2,23 @@ import React, {
   useState, useRef, useCallback, useEffect,
 } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { withStyles } from '@material-ui/core/styles'
 import {
-  FormControl, Select, InputLabel, MenuItem, Button, Avatar, Chip,
-  Container, List, ListItem, ListItemText, Radio, Divider, Menu, Popover, Grid, IconButton, TextareaAutosize,
+  Button, Avatar, Container, List, ListItem, IconButton,
+  ListItemText, Radio, Divider, Popover, Grid, TextareaAutosize,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faCamera, faPaperPlane, faTrashAlt, faChevronDown, faImage, faTimesCircle,
+  faChevronDown, faImage, faTimesCircle,
 } from '@fortawesome/free-solid-svg-icons'
-import { boolean } from 'yup'
 import { createStatusPostStart } from '../../redux-saga/redux/actions'
 import Loader from '../loaders/circularLoader'
 import './style.scss'
-import { shortenFileName } from '../../utils/common'
 
 const NewCreatePost = () => {
   const [ postText, setPostText ] = useState('')
   const [ permission, setPermission ] = useState({
     value: 'public', label: 'Public',
   })
-  const [ fileName, setFileName ] = useState(null)
   const [ fileSrc, setFileSrc ] = useState('')
   const [ anchorEl, setAnchorEl ] = useState(null)
 
@@ -60,6 +56,7 @@ const NewCreatePost = () => {
       value: event.target.value,
       label: event.target.name,
     })
+    setAnchorEl(null)
   }, [])
 
   const { isLoading, success } = useSelector((state) => state.createPost)
@@ -70,13 +67,11 @@ const NewCreatePost = () => {
       value: 'public', label: 'Public',
     })
     fileInput.current.value = ''
-    setFileName(null)
     setFileSrc('')
   }
 
   const handleDelete = () => {
     fileInput.current.value = ''
-    setFileName(null)
     setFileSrc('')
   }
 
@@ -87,33 +82,20 @@ const NewCreatePost = () => {
         value: 'public', label: 'Public',
       })
       fileInput.current.value = ''
-      setFileName(null)
       setFileSrc('')
     }
   }, [ success, isLoading ])
 
   const handleFileInputChange = useCallback((event) => {
     event.preventDefault()
-    // console.log('fileInputt=====>>>>>', fileInput)
-    // console.log('fileInput.current=====>>>>>', fileInput.current)
-    const fileObj = fileInput.current.files[ 0 ]
     const file = event.target.files[ 0 ]
-    // fileObj.srcObject = stream
-    // setFileSrc(stream)
-    // console.log('stream=====>>>>>', stream)
-    // setFileSrc(URL.createObjectURL(fileObj))
-    // const shortFileName = shortenFileName(fileObj)
-    // setFileName(shortFileName)
     const reader = new FileReader()
-    // const file = fileObj
 
     reader.onloadend = () => {
       setFileSrc(
-        // file: file,
         reader.result,
       )
     }
-
     reader.readAsDataURL(file)
   }, [])
 
@@ -140,6 +122,7 @@ const NewCreatePost = () => {
                 onChange={ setPostTextCB }
                 placeholder='Write something ...'
               />
+
               {fileSrc && (
               <div className='post-image'>
                 <img alt='post' src={ fileSrc } height='300px' />
@@ -152,8 +135,6 @@ const NewCreatePost = () => {
               { postText && (
               <div className='postButtons'>
                 <Container>
-                  {/* <Grid container spacing={ 3 }> */}
-                  {/* <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }> */}
                   <Button
                     disabled={ isLoading }
                     color='secondary'
@@ -162,8 +143,6 @@ const NewCreatePost = () => {
                   >
                     cancel
                   </Button>
-                  {/* </Grid> */}
-                  {/* <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }> */}
                   <div>
                     {
                       isLoading && (
@@ -204,9 +183,9 @@ const NewCreatePost = () => {
                       horizontal: 'center',
                     } }
                   >
-                    <List component='nav' aria-label='permission-list'>
+                    <List component='nav' aria-label='permission-list' className='permission-list-container'>
                       <ListItemText primary='Who can see your posts?' />
-                      <ListItem>
+                      <ListItem className='permission-list-item'>
                         <ListItemText
                           primary='Public'
                           secondary='Anyone on Qubicles'
@@ -221,7 +200,7 @@ const NewCreatePost = () => {
                         />
                       </ListItem>
                       <Divider component='li' />
-                      <ListItem>
+                      <ListItem className='permission-list-item'>
                         <ListItemText
                           primary='Followers'
                           secondary='Your followers'
@@ -236,7 +215,7 @@ const NewCreatePost = () => {
                         />
                       </ListItem>
                       <Divider component='li' />
-                      <ListItem>
+                      <ListItem className='permission-list-item'>
                         <ListItemText
                           primary='Company'
                           secondary='Members of your company'
@@ -251,7 +230,7 @@ const NewCreatePost = () => {
                         />
                       </ListItem>
                       <Divider component='li' />
-                      <ListItem>
+                      <ListItem className='permission-list-item'>
                         <ListItemText
                           primary='Admins'
                           secondary='Admins of your company'
@@ -266,7 +245,7 @@ const NewCreatePost = () => {
                         />
                       </ListItem>
                       <Divider component='li' />
-                      <ListItem>
+                      <ListItem className='permission-list-item'>
                         <ListItemText
                           primary='Managers'
                           secondary='Managers of your company'
@@ -282,8 +261,6 @@ const NewCreatePost = () => {
                       </ListItem>
                     </List>
                   </Popover>
-                  {/* </Grid> */}
-                  {/* <Grid item xs={ 2 } xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }> */}
                   <Button
                     variant='contained'
                     disabled={ isLoading }
@@ -293,8 +270,6 @@ const NewCreatePost = () => {
                   >
                     post
                   </Button>
-                  {/* </Grid> */}
-                  {/* </Grid> */}
                 </Container>
               </div>
               )}
@@ -320,7 +295,6 @@ const NewCreatePost = () => {
         </div>
       </Grid>
     </div>
-
   )
 }
 
