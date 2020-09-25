@@ -11,13 +11,13 @@ const LatestAnnouncement = () => {
         <h3 className='heading'>
           Latest Announcements
         </h3>
-        <ul>
+        <ul className='announcement-list'>
           {!isLoading && announcements.map(({ date, title, id }) => (
-            <li key={ `${ id }` } className='display-inline-flex'>
-              <span>
+            <li key={ `${ id }` } className='announcement-item'>
+              <span className='date'>
                 <b>{formatDate(date)}</b>
               </span>
-              <p>
+              <p className='text'>
                 {title}
               </p>
             </li>

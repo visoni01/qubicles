@@ -11,6 +11,8 @@ const CommunityRep = () => {
   const { isLoading, communityRep } = useSelector((state) => state.communityRep)
   const likeMsg = communityRep.likes === 1 ? 'person likes your company' : 'people liked your company'
   const followMsg = communityRep.subscribers === 1 ? 'person is following you' : 'people are following you'
+  // Temporary Rating
+  const { rating } = communityRep
   return (
     <Box className='box community-rep'>
       <Grid container direction='column' spacing={ 2 }>
@@ -27,13 +29,13 @@ const CommunityRep = () => {
                 name='read-only'
                 readOnly
                 size='large'
-                value={ communityRep.rating }
+                value={ rating }
                 precision={ 0.1 }
               />
             </Grid>
             <Grid item xs={ 3 } className='rating-text'>
               <b>
-                {communityRep.rating}
+                {rating}
               </b>
             </Grid>
             <Grid item xs={ 3 }>
@@ -42,8 +44,8 @@ const CommunityRep = () => {
           </Grid>
         </Grid>
         <Grid container item xs={ 12 } justify='flex-start' alignContent='center'>
-          <Grid item xs={ 1 } className='heart-icon'>
-            <FontAwesomeIcon icon={ faHeart } />
+          <Grid item xs={ 1 } className='fa-icon'>
+            <FontAwesomeIcon icon={ faHeart } className='heart-icon' />
           </Grid>
           <Grid item xs={ 4 }>
             <AvatarGroup max={ 4 } spacing='small'>
@@ -53,15 +55,15 @@ const CommunityRep = () => {
             </AvatarGroup>
           </Grid>
           <Grid item xs={ 6 }>
-            <p className='like-people'>
-              <b style={ { fontSize: '15px' } }>{` ${ 7 } `}</b>
+            <p className='para'>
+              <b className='h3'>{` ${ communityRep.likes } `}</b>
               {likeMsg}
             </p>
           </Grid>
         </Grid>
         <Grid container item xs={ 12 } justify='flex-start' alignContent='center'>
-          <Grid item xs={ 1 } className='user-icon'>
-            <FontAwesomeIcon icon={ faUser } />
+          <Grid item xs={ 1 } className='fa-icon'>
+            <FontAwesomeIcon icon={ faUser } className='user-icon' />
           </Grid>
           <Grid item xs={ 4 }>
             <AvatarGroup max={ 4 } spacing='small'>
@@ -71,8 +73,8 @@ const CommunityRep = () => {
             </AvatarGroup>
           </Grid>
           <Grid item xs={ 6 }>
-            <p className='like-people'>
-              <b style={ { fontSize: '15px' } }>{` ${ 14 } `}</b>
+            <p className='para'>
+              <b className='h3'>{` ${ communityRep.subscribers } `}</b>
               {followMsg}
             </p>
           </Grid>

@@ -21,7 +21,7 @@ const CheckrVerification = () => {
   }, [ isLoading, invitationLink ])
 
   return (
-    <Box className='box' display={ isClosed ? 'none' : 'block' }>
+    <Box className='box background-check' display={ isClosed ? 'none' : 'block' }>
       <div>
         <IconButton size='small' className='pull-right' onClick={ () => setIsClosed(true) }>
           <FontAwesomeIcon icon={ faTimes } />
@@ -29,16 +29,16 @@ const CheckrVerification = () => {
         <h3 className='heading'>
           Background Screening
         </h3>
-        <p className='detail'>
+        <p className='text'>
           Companies are more likely to hire applicants that passed a background screening test.
         </p>
       </div>
-      <div className='background-check-buttons custom-btn'>
+      <div className='background-check-buttons'>
         <Button
           onClick={ () => setIsClosed(true) }
           classes={ {
-            root: 'button-secondary-small',
-            label: 'button-secondary-small-label',
+            root: 'button-secondary-large custom-btn not-now-btn',
+            label: 'button-secondary-large-label',
           } }
         >
           Not Now
@@ -46,8 +46,8 @@ const CheckrVerification = () => {
         <Button
           onClick={ handleClickButton }
           classes={ {
-            root: 'button-primary-small start-btn',
-            label: 'button-primary-small-label',
+            root: 'button-primary-large custom-btn start-btn',
+            label: 'button-primary-large-label',
           } }
         >
           Start

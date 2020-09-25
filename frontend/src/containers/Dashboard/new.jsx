@@ -217,7 +217,7 @@ const Dashboard = () => {
             <div className='customer-service-content'>
               <p>
                 <span className='green-color'>
-                  <b>0.20</b>
+                  <b className='number green'>0.20</b>
                   {' '}
                 </span>
                 Average speed of answer
@@ -225,7 +225,7 @@ const Dashboard = () => {
 
               <p>
                 <span className='dark-color'>
-                  <b>2.45</b>
+                  <b className='number'>2.45</b>
                   {' '}
                 </span>
                 Marlon mars
@@ -243,7 +243,7 @@ const Dashboard = () => {
             <div className='customer-service-content'>
               <p>
                 <span className='dark-color'>
-                  <b>0.20</b>
+                  <b className='number'>0.20</b>
                   {' '}
                 </span>
                 Calls per agent
@@ -251,7 +251,7 @@ const Dashboard = () => {
 
               <p>
                 <span className='dark-color'>
-                  <b>2.45</b>
+                  <b className='number'>2.45</b>
                   {' '}
                 </span>
                 Average talk time
