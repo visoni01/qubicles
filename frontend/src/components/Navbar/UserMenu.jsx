@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import {
-  Menu, IconButton, Avatar, Button, makeStyles, Divider,
+  Menu, IconButton, Avatar, Button, Divider,
 } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'

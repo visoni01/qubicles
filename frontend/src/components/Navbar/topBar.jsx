@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import {
   AppBar,
-  Avatar, Container, Grid, IconButton, InputBase, Toolbar,
+  Container, Grid, IconButton, InputBase,
 } from '@material-ui/core'
 import {
   chatIcon, walletIcon, bellIcon,

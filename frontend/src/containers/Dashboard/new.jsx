@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import './style.scss'
 import {
-  Avatar, Box, Container, Grid,
+  Avatar, Box, Grid,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faComment, faEllipsisV, faHeart, faImage, faShare, faTimes,
+  faComment, faEllipsisV, faHeart, faImage, faShare,
 } from '@fortawesome/free-solid-svg-icons'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { newNavBar } from '../../hoc/navbar'
 import CommunityRep from './CommunityRep'
 import postImage from '../../assets/images/demo-pic.jpeg'
@@ -19,7 +19,6 @@ import './newStyles.scss'
 
 const Dashboard = () => {
   const dispatch = useDispatch()
-  const { userDetails } = useSelector((state) => state.login)
 
   // Fetching dashboard data
   useEffect(() => {
