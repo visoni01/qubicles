@@ -11,7 +11,6 @@ const CommunityRep = () => {
   const { isLoading, communityRep } = useSelector((state) => state.communityRep)
   const likeMsg = communityRep.likes === 1 ? 'person likes your company' : 'people liked your company'
   const followMsg = communityRep.subscribers === 1 ? 'person is following you' : 'people are following you'
-  // Temporary Rating
   const { rating } = communityRep
   return (
     <Box className='box community-rep'>
@@ -24,6 +23,7 @@ const CommunityRep = () => {
         <Grid item xs={ 12 }>
           <Grid container justify='space-evenly' alignItems='center' spacing={ 3 }>
             <Grid item xs={ 6 }>
+              {!isLoading && (
               <Rating
                 className='rating'
                 name='read-only'
@@ -32,6 +32,7 @@ const CommunityRep = () => {
                 value={ rating }
                 precision={ 0.1 }
               />
+              )}
             </Grid>
             <Grid item xs={ 3 } className='rating-text'>
               <b>

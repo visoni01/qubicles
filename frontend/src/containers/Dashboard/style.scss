@@ -50,13 +50,6 @@ h3.heading {
   text-transform: none;
 }
 
-.background-check-buttons {
-  display: inline-flex;
-  width: 100%;
-  margin-top: 10px;
-}
-
-
 
 .activity-section {
 	ul {
@@ -111,6 +104,7 @@ h3.heading {
     .number {
       @extend .h3;
       margin-left: 0px;
+      background-color: $color-white;
     }
     .green {
       color: $color-green;
@@ -184,28 +178,6 @@ h4.user-name {
   }
 }
 
-.announcement-section {
-  ul {
-      li {
-          border-bottom: 1px solid #DBDBDB;
-          padding: 15px 0;
-          span {
-              b {
-                  color: #444f5f;
-                  font-size: 14px;
-              }
-          }
-          p {
-              color: #999;
-              font-family: 'Poppins', sans-serif;
-              font-size: 14px;
-          }
-          &:last-child {
-              border-bottom: none;
-          }
-      }
-  }
-}
 
 .display-inline-flex {
   display: inline-flex;
@@ -213,28 +185,6 @@ h4.user-name {
 
 .avatar {
   margin-right: 8px;
-}
-
-.posting-section {
-	ul {
-		li {
-			p {
-				b {
-					color: #444f5f;
-					font-size: 14px;
-				}
-				color: #999;
-				font-family: 'Poppins', sans-serif;
-				font-size: 14px;
-			}
-			&:last-child {
-				border-bottom: none;
-			}
-			list-style: none;
-			border-bottom: 1px solid #DBDBDB;
-			padding: 15px 0;
-		}
-	}
 }
 
 	.galley-icon {

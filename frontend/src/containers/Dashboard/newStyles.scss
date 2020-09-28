@@ -50,6 +50,11 @@
     @extend .para;
     margin-bottom: 15px;
   }
+  .background-check-buttons {
+    display: inline-flex;
+    width: 100%;
+    margin-top: 10px;
+  }
   .custom-btn {
     margin: auto;
     min-width: 125px;
@@ -59,45 +64,68 @@
   }
 }
 
-// Latest Announcements
 
+// Latest Announcements
 .announcement-section {
   .heading {
     @extend .h3;
+    margin-bottom: 20px;
   }
+
   .announcement-list {
-    .announcement-item{
+    .announcement-item {
+
       display: flex;
-      margin-bottom: 0px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid $color-border;
+
       .date {
         flex: 1;
-        @extend .h3;
+        @extend .para;
+        margin: 5px;
+        margin-right: 10px;
       }
+
       .text {
         flex: 5;
         align-self: center;
         @extend .para;
+      }
+
+      &:last-child {
+        border-bottom: none;
       }
     }
   }
 }
 
 // Job Postings
-
 .job-postings {
   .heading {
     @extend .h3;
     margin-bottom: 20px;
   }
+
   .job-list {
+    display: flex;
+    flex-direction: column;
+
     .job-item{
-      margin-bottom: 20px;
+      border-bottom: 1px solid $color-border;
+      margin-bottom: 10px;
+
       .title {
         @extend .para;
         margin-bottom: 0px;
       }
+
       .applicants {
         @extend .para;
+        margin-bottom: 10px;
+      }
+
+      &:last-child {
+        border-bottom: none;
       }
     }
   }

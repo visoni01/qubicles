@@ -16,8 +16,10 @@ const UserMenu = () => {
   const dispatch = useDispatch()
   const [ isDropdownOpen, setIsDropdownOpen ] = useState(false)
   const { userDetails } = useSelector((state) => state.login)
+  const [ anchorEl, setAnchorEl ] = useState(null)
 
-  const toggleDropdownOpen = useCallback(() => {
+  const toggleDropdownOpen = useCallback((event) => {
+    setAnchorEl(event.currentTarget)
     // eslint-disable-next-line
     setIsDropdownOpen((isDropdownOpen) => !isDropdownOpen)
   }, [ setIsDropdownOpen ])
@@ -42,11 +44,10 @@ const UserMenu = () => {
         </Avatar>
       </IconButton>
       <Menu
-        classes={ {
-          paper: 'account-dropdown-list',
-        } }
         open={ isDropdownOpen }
+        className='account-dropdown-icon'
         onClose={ toggleDropdownOpen }
+        anchorEl={ anchorEl }
       >
         <div className='user-menu'>
           <Avatar className='profile-pic' alt='Remy Sharp' src={ kareem } />
