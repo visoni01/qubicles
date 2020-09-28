@@ -1,9 +1,22 @@
 (function() {
   'use strict';
+  const publicRoutes = ['/flow/view']
   const root = Function('return this')();
 
   function getCookie(name) {
     return Cookies.get(name)
+  }
+
+  function isPublicRoute() {
+    let isPublicRoute = false;
+    for (let index = 0; index < publicRoutes.length; index++) {
+      if (window.location.pathname.includes(publicRoutes[index])) {
+        isPublicRoute = true;
+        break
+      }
+    }
+
+    return isPublicRoute
   }
 
   function getToken() {
@@ -19,6 +32,9 @@
         }
         watchCookie()
       } else {
+        if (isPublicRoute()) {
+          return
+        }
         if (window.location.pathname.includes('/flow')) {
           return redirectToLoginSite()
         }
