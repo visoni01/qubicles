@@ -6,7 +6,9 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faLink, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import './style.scss'
-import { TwitterIcon, LinkedinIcon, FacebookIcon } from 'react-share'
+import {
+  TwitterIcon, LinkedinIcon, FacebookIcon, TwitterShareButton, FacebookShareButton, LinkedinShareButton,
+} from 'react-share'
 import { useDispatch, useSelector } from 'react-redux'
 import { showSuccessMessage } from '../../redux-saga/redux/actions'
 import { inviteRequestStart } from '../../redux-saga/redux/invitePage'
@@ -120,25 +122,39 @@ const InviteModal = ({
                     Share link via social media
                   </p>
                   <ul className='m-0 pl-0 has-text-centered columns is-flex'>
-                    <li>
-                      <a href='#' className='fb'>
+
+                    {/* Facebook Share Button */}
+                    <FacebookShareButton
+                      url={ inviteLink || 'Invite Link' } // Temporary setup.
+                      quote='Qubicles invite link'
+                    >
+                      <Button>
                         <FacebookIcon className='fb' />
-                      </a>
-                    </li>
-                    <li>
-                      <a href='#' className='tw'>
+                      </Button>
+                    </FacebookShareButton>
+
+                    {/* Twitter Share Button */}
+                    <TwitterShareButton
+                      url={ inviteLink || 'Invite Link' } // Temporary setup.
+                      title='Invite link'
+                    >
+                      <Button>
                         <TwitterIcon className='tw' />
-                      </a>
-                    </li>
-                    <li>
-                      <a href='#' className='in'>
+                      </Button>
+                    </TwitterShareButton>
+
+                    {/* Linkedin Share Button */}
+                    <LinkedinShareButton
+                      url={ inviteLink || 'invite link' }
+                    >
+                      <Button>
                         <LinkedinIcon className='in' />
-                      </a>
-                    </li>
+                      </Button>
+                    </LinkedinShareButton>
                     <li>
-                      <a href='#' className='link'>
+                      <li href='#' className='link'>
                         <FontAwesomeIcon icon={ faLink } className='link' onClick={ handleCopyToClipboard } />
-                      </a>
+                      </li>
                     </li>
                   </ul>
                 </div>
