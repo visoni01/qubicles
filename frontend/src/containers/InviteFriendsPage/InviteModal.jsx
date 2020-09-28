@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, Button, IconButton, TextField,
+  Dialog, DialogActions, Button, IconButton,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faPaperclip, faEnvelope } from '@fortawesome/free-solid-svg-icons'
@@ -68,7 +68,6 @@ const InviteModal = ({
           </DialogActions>
         </div>
         <div className='popup-section'>
-          {/* <section className='popup-section'> */}
           <div className='popup-bg'>
             <div className='popup-image'>
               <img src={ invitePopup } alt='popup' />
@@ -172,7 +171,6 @@ const InviteModal = ({
               </div>
             </div>
           </div>
-          {/* </section> */}
         </div>
 
       </Dialog>
