@@ -4,7 +4,7 @@ import {
   Dialog, DialogActions, Button, IconButton, TextField,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes, faLink, faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { faTimes, faPaperclip, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import './style.scss'
 import {
   TwitterIcon, LinkedinIcon, FacebookIcon, TwitterShareButton, FacebookShareButton, LinkedinShareButton,
@@ -56,119 +56,123 @@ const InviteModal = ({
       <Dialog
         open={ open }
         onClose={ handleClose }
+        maxWidth='sm'
       >
         <div className='is-flex'>
           <DialogActions className='cross-button'>
+            {/* <div > */}
             <IconButton className='is-size-6 mt-10' onClick={ handleClose }>
               <FontAwesomeIcon icon={ faTimes } />
             </IconButton>
+            {/* </div> */}
           </DialogActions>
         </div>
-        <div>
-          <section className='popup-section'>
-            <div className='w-50 m-auto popup-bg'>
-              <div>
-                <span className='fa fa-times pull-right' />
+        <div className='popup-section'>
+          {/* <section className='popup-section'> */}
+          <div className='popup-bg'>
+            <div className='popup-image'>
+              <img src={ invitePopup } alt='popup' />
+            </div>
+            <div className='invite-text '>
+              <h2>
+                Invite friends &amp; earn up to
+                {' '}
+                <span className='price'>$5</span>
+                {' '}
+                and free crypto
+              </h2>
+            </div>
+            <div className='invite-content '>
+              <p>
+                <b>You get $5 credit plus 1 free QBE token </b>
+                for each friend that
+                <br />
+                signs up using your link, up to $100. Your friend also
+                <br />
+                receives $5 credit to use toward the service.
+              </p>
+            </div>
+            <div className='email-section'>
+              <p className>
+                Add emails
+              </p>
+              <div className='email-align'>
+                {/* Manual Invite */}
+                <input
+                  value={ manualEmails }
+                  onChange={ (event) => setManualEmails(event.target && event.target.value) }
+                  type='text'
+                  name
+                  placeholder='Separate emails with commas'
+                />
+                <Button
+                  variant='contained'
+                  color='primary'
+                  className='button-primary-small send-button'
+                  classes={ { label: 'primary-label' } }
+                  onClick={ handleManualEmails }
+                >
+                  Send
+                </Button>
               </div>
-              <div className='has-text-centered popup-image'>
-                <img src={ invitePopup } alt='popup' />
+              <div className='or'>
+                or
               </div>
-              <div className='invite-text has-text-centered'>
-                <h2>
-                  Invite friends &amp; earn up to
-                  {' '}
-                  <span className='price'>$5</span>
-                  {' '}
-                  and free crypto
-                </h2>
+              <div className='gmail-contact'>
+                <Button
+                  variant='contained'
+                  className='button-secondary-large'
+                  classes={ { label: 'secondary-label' } }
+                  color='primary'
+                  onClick={ handleInviteWithGoogle }
+                >
+                  <FontAwesomeIcon icon={ faEnvelope } className='mail-icon ' />
+                  Invite Gmail Contacts
+                </Button>
               </div>
-              <div className='invite-content has-text-centered'>
-                <p>
-                  <b>You get $5 credit plus 1 free QBE token </b>
-                  for each friend that
-                  <br />
-                  signs up using your link, up to $100. Your friend also
-                  <br />
-                  receives $5 credit to use toward the service.
+              <div className='share-links'>
+                <p className='mt-3 mb-0 '>
+                  Share link via social media
                 </p>
-              </div>
-              <div className='email-section'>
-                <p className>
-                  Add emails
-                </p>
-                <div className='email-align'>
-                  {/* Manual Invite */}
-                  <input
-                    value={ manualEmails }
-                    onChange={ (event) => setManualEmails(event.target && event.target.value) }
-                    type='text'
-                    name
-                    placeholder='Separate emails with commas'
-                  />
-                  <Button
-                    variant='contained'
-                    color='primary'
-                    className='sharemodal-buttons'
-                    onClick={ handleManualEmails }
+                <ul className='columns is-flex'>
+
+                  {/* Facebook Share Button */}
+                  <FacebookShareButton
+                    url={ inviteLink || 'Invite Link' } // Temporary setup.
+                    quote='Qubicles invite link'
                   >
-                    Send
-                  </Button>
-                </div>
-                <center className='py-3'>or</center>
-                <div className='gmail-contact'>
-                  <Button
-                    variant='contained'
-                    color='primary'
-                    onClick={ handleInviteWithGoogle }
+                    <Button>
+                      <FacebookIcon className='fb' />
+                    </Button>
+                  </FacebookShareButton>
+
+                  {/* Twitter Share Button */}
+                  <TwitterShareButton
+                    url={ inviteLink || 'Invite Link' }
+                    title='Invite link'
                   >
-                    <FontAwesomeIcon icon={ faEnvelope } className='mail-icon pr-3' />
-                    Invite Gmail Contacts
-                  </Button>
-                </div>
-                <div className='share-links'>
-                  <p className='mt-3 mb-0 has-text-centered'>
-                    Share link via social media
-                  </p>
-                  <ul className='m-0 pl-0 has-text-centered columns is-flex'>
+                    <Button>
+                      <TwitterIcon className='tw' />
+                    </Button>
+                  </TwitterShareButton>
 
-                    {/* Facebook Share Button */}
-                    <FacebookShareButton
-                      url={ inviteLink || 'Invite Link' } // Temporary setup.
-                      quote='Qubicles invite link'
-                    >
-                      <Button>
-                        <FacebookIcon className='fb' />
-                      </Button>
-                    </FacebookShareButton>
+                  {/* Linkedin Share Button */}
+                  <LinkedinShareButton
+                    url={ inviteLink || 'invite link' }
+                  >
+                    <Button>
+                      <LinkedinIcon className='in' />
+                    </Button>
+                  </LinkedinShareButton>
 
-                    {/* Twitter Share Button */}
-                    <TwitterShareButton
-                      url={ inviteLink || 'Invite Link' } // Temporary setup.
-                      title='Invite link'
-                    >
-                      <Button>
-                        <TwitterIcon className='tw' />
-                      </Button>
-                    </TwitterShareButton>
-
-                    {/* Linkedin Share Button */}
-                    <LinkedinShareButton
-                      url={ inviteLink || 'invite link' }
-                    >
-                      <Button>
-                        <LinkedinIcon className='in' />
-                      </Button>
-                    </LinkedinShareButton>
-                    <li>
-                      <li href='#' className='link'>
-                        <FontAwesomeIcon icon={ faLink } className='link' onClick={ handleCopyToClipboard } />
-                      </li>
-                    </li>
-                  </ul>
-                </div>
+                  <IconButton className='link'>
+                    <FontAwesomeIcon className='clip-icon' icon={ faPaperclip } onClick={ handleCopyToClipboard } />
+                  </IconButton>
+                </ul>
               </div>
             </div>
-          </section>
+          </div>
+          {/* </section> */}
         </div>
 
       </Dialog>

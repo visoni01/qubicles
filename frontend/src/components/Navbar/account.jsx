@@ -61,9 +61,9 @@ const UserAccount = () => {
         open={ isDropdownOpen }
         onClose={ toggleDropdownOpen }
       >
-        <MenuItem onClick={ logOut }>Logout</MenuItem>
         {/* Temporary Invite Button */}
         <MenuItem onClick={ handleInviteOpen }>Invite</MenuItem>
+        <MenuItem onClick={ logOut }>Logout</MenuItem>
       </Menu>
       <InviteModal
         open={ openInvite }
