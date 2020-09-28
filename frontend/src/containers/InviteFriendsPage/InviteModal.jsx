@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, Button, IconButton,
+  Dialog, DialogActions, Button, IconButton, TextField,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faLink, faEnvelope } from '@fortawesome/free-solid-svg-icons'
@@ -96,7 +96,14 @@ const InviteModal = ({
                   Add emails
                 </p>
                 <div className='email-align'>
-                  <input type='text' name placeholder='Separate emails with commas' />
+                  {/* Manual Invite */}
+                  <input
+                    value={ manualEmails }
+                    onChange={ (event) => setManualEmails(event.target && event.target.value) }
+                    type='text'
+                    name
+                    placeholder='Separate emails with commas'
+                  />
                   <Button
                     variant='contained'
                     color='primary'
