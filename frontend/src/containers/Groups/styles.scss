@@ -142,10 +142,116 @@
   }
 }
 
+// Topic's Details section
+
+.topic-details-box {
+  .topic-owner {
+    p {
+      font-size: 14px;
+      margin: auto 5px;
+    }
+    .owner-name {
+      font-weight: 500;
+      color: #444F5F;
+    }
+    .topic-create-date {
+      color: #999999;
+    }
+  }
+  .topic-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #444F5F;
+    margin: 10px 0;
+  }
+  .topic-description {
+    font-size: 14px;
+    color: #4A4A4A;
+  }
+  .action-buttons{
+    margin-top: 20px;
+     li{
+      margin-right: 20%;
+        svg{
+          margin-right: 5px;
+        }
+     }
+  }
+}
+
+.textarea-input {
+  display: inline-flex;
+  width: 100%;
+  .avatar {
+    margin-right: 8px;
+  }
+	textarea {
+		width: calc(100% - 80px);
+		margin: 0 auto;
+		display: flex;
+		height: 100%;
+		border: none;
+		resize: none;
+		border: 1px solid #DBDBDB;
+		border-radius: 8px;
+		padding: 10px;
+		font-family: 'Poppins', sans-serif;
+		&:focus {
+			outline: none;
+			box-shadow: inherit;
+		}
+	}
+	input[type="file"] {
+		right: 10px;
+		width: 20px;
+		top: 20px;
+		opacity: 0;
+		z-index: 9999;
+	}
+}
+
+.galley-icon {
+  svg {
+    vertical-align: middle;
+    font-size: 24px;
+    height: 100%;
+  }
+}
+
+.post-comment-button {
+  margin-top: 10px;
+  margin-left: calc(100% - 86px);
+}
+
+.comments-list{
+  h3 {
+    font-size: 18px;
+    color: #444F5F;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    padding-bottom: 10px;
+  }
+  .commentor-info{
+    margin: 20px 0;
+    .commentor-name {
+      font-weight: 500;
+      color: #444F5F;
+      font-size: 12px;
+    }
+    .comment-date {
+      font-size: 12px;
+      color: #999999;
+    }
+    .comment-description {
+      font-size: 14px;
+      color: #4A4A4A;
+    }
+  }
+}
+
 .topic-divider {
   margin-bottom: 20px
 }
-
 
 // ============== Common css ======================
 
@@ -163,4 +269,16 @@
 
 .mt-10 {
   margin-top: 10px;
+}
+
+.mb-10{
+  margin-bottom: 10px;
+}
+
+.mb-20{
+  margin-bottom: 20px;
+}
+
+.size-14{
+  font-size: 14px;
 }
