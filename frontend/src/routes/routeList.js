@@ -61,6 +61,12 @@ const routes = [
     component: React.lazy(() => import('../containers/Dashboard/new')),
     auth: true,
   },
+  // Added extra route for new groups design, Remove it when groups page completely ready.
+  {
+    path: `/new${ ROUTE_PATHS.GROUP }`,
+    component: React.lazy(() => import('../containers/Groups')),
+    auth: true,
+  },
   {
     path: ROUTE_PATHS.POST_SIGN_UP,
     component: React.lazy(() => import('../containers/User/Signup/PostSignUp')),

@@ -38,7 +38,7 @@
     margin: auto;
       .input-field {
         height: 100%;
-        width: 95%;
+        width: calc(100% - 36px);
       }
   }
 
@@ -82,7 +82,7 @@
 }
 
 .container-max-width {
-  max-width: 1480px;
+  max-width: 1480px !important;
 }
 
 // Common CSS which will be placed in common scss file.

@@ -1,0 +1,166 @@
+.group-list-root {
+  border: 1px solid #DBDBDB;
+	border-radius: 8px;
+  margin-bottom: 25px;
+  background-color: #FFFFFF;
+  padding: 20px 0;
+
+  .group-list-title {
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 15px;
+     h3 {
+      font-size: 24px;
+      color: #444F5F;
+      font-family: 'Poppins', sans-serif;
+      font-weight: bold;
+      text-transform: none;
+      margin: auto 0;
+     }
+     .add-icon {
+      font-size: 18px;
+      color: #444F5F;
+     }
+  }
+  .notification-number{
+    padding: 2px 5px;
+    border-radius: 3px;
+    background-color: #4877F4;
+    color: #FFFFFF;
+    font-size: 12px;
+  }
+}
+
+.group-name {
+  font-size: 14px;
+  font-family: poppins;
+  color: #444F5F;
+}
+
+.trending-topic-root{
+  border: 1px solid #DBDBDB;
+
+  h3 {
+    font-size: 18px;
+    color: #444F5F;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    padding-bottom: 10px;
+  }
+  .topic-info {
+    .avatar-logo {
+      width: 30px;
+      height: 30px;
+      margin: auto;
+    }
+    p{
+      margin: auto 5px;
+    }
+    svg {
+      font-size: 12px;
+    }
+  }
+  p {
+    padding: 6px 2px;
+    font-size: 14px;
+    color: #444F5F;
+    font-family: 'poppins', sans-serif;
+  }
+  ul {
+    width: 100%;
+    justify-content: space-between;
+    padding: 0px 2px;
+     li{
+      font-size: 14px;
+       svg{
+         margin-right: 5px;
+       }
+     }
+  }
+  .divider {
+    width: 100%;
+    margin: 10px 0;
+  }
+}
+
+.section-heading {
+  position: relative;
+  margin-bottom: 10px;
+  .section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #444F5F;
+    margin: auto 0;
+  }
+   .action-button {
+      font-size: 14px;
+      position: absolute;
+      right: 0;
+      padding: 9px 12px;
+   }
+}
+
+.search-topic-bar {
+  margin-bottom: 20px;
+   .search-input {
+      width: calc(100% - 120px);
+      background: #FFFFFF 0% 0% no-repeat padding-box;
+      border: 1px solid #DBDBDB;
+      border-radius: 8px;
+      opacity: 1;
+      padding: 2px 0;
+      margin-right: 20px;
+   }
+   .new-topic-button {
+    height: 100%;
+    width: 100px;
+   }
+}
+
+.topic-info {
+  .topic-owner-avatar {
+    margin-right: 10px;
+  }
+  .topic-details {
+    p {
+      font-size: 14px;
+    }
+    .topic-title {
+      font-weight: 500;
+    }
+  }
+  .action-buttons {
+    width: 100%;
+    padding: 10px 0;
+      li {
+        margin-right: 20%;
+          svg {
+            margin-right: 5px;
+          }
+      }
+  }
+}
+
+.topic-divider {
+  margin-bottom: 20px
+}
+
+
+// ============== Common css ======================
+
+.margin-auto {
+  margin: auto;
+}
+
+.display-inline-flex {
+  display: inline-flex;
+}
+
+.width-100-per {
+  width: 100%;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
