@@ -215,7 +215,7 @@ h4.user-name {
   .post-btn {
     color: #fff;
     border: 1px solid transparent;
-    background-color: #4877F4;
+    background-color: $color-primary;
     font-size: 14px;
     text-align: center;
     padding: 6px 32px;
@@ -225,14 +225,13 @@ h4.user-name {
 
 nav {
   padding: 6px !important;
-  font-family: 'Poppins', sans-serif;
-  color: #444f5f;
+  font-family: $system-font;
+  color: $color-headings;
 
   .MuiTypography-body1 {
     @extend .h4;
     font-weight: 600;
     font-size: 14px;
-    font-family: 'Poppins', sans-serif;
   }
 
   .permission-list-item {
@@ -241,6 +240,6 @@ nav {
   }
 
   .PrivateRadioButtonIcon-root-25 {
-    color: #4877F4;
+    color: $color-primary;
   }
 }

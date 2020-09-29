@@ -101,7 +101,7 @@ const NewCreatePost = () => {
 
   return (
     <div
-      className='is-new-content  is-start is-vcenter'
+      className=' create-post-container'
       style={ { pointerEvents: isLoading ? 'none' : 'auto' } }
     >
 
@@ -131,8 +131,8 @@ const NewCreatePost = () => {
                 </IconButton>
               </div>
               )}
-
-              { postText && (
+            </div>
+            { postText && (
               <div className='postButtons'>
                 <Container>
                   <Button
@@ -272,8 +272,7 @@ const NewCreatePost = () => {
                   </Button>
                 </Container>
               </div>
-              )}
-            </div>
+            )}
           </Grid>
           <Grid item xs={ 1 }>
             <form onReset={ clear }>
