@@ -42,6 +42,7 @@ html.md-default-theme, html, body.md-default-theme , body
     text-align: center;
     position: relative;
     overflow: hidden;
+    margin-top: 13px !important;
 }
 
 #content {
