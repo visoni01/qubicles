@@ -60,7 +60,7 @@ const Header = () => {
                 <div className='navbar-item'>
                   <Link
                     to='/login'
-                    className='button button-signup btn-outlined is-bold btn-align light-btn rounded raised'
+                    className='custom-login-button'
                   >
                     Log In
                   </Link>

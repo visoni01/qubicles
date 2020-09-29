@@ -111,16 +111,14 @@ TABLE OF CONTENTS
         }
     }
 
-    .navbar-item, .navbar-item.has-dropdown {
-        &:hover {
+      .navbar-item, .navbar-item.has-dropdown {
+        &:hover, &:focus {
             color: $muted-grey;
             background: transparent;
-
-            a {
-                background: transparent;
-            }
         }
     }
+
+
 
     .navbar-item {
         &.is-menu {
