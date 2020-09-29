@@ -114,194 +114,203 @@
   left: 0;
 }
 
-
-.cross-button {
-  button {
-    .MuiIconButton-label {
-      color: $color-primary;
-    }
+.invite-container {
+  .MuiDialog-scrollPaper {
+    overflow-y: scroll;
   }
-}
 
-.popup-section {
-  .popup-bg {
-    background-color: $color-white;
-    padding: 45px 75px;
-    border-radius: 10px;
+  .MuiDialog-paperScrollPaper {
+    max-height: none;
+  }
 
-    .popup-image {
-      height: 100px;
-      text-align: center;
-      margin-top: 25px;
-      margin-bottom: 25px;
-    }
-
-    .invite-text {
-      @extend .h2;
-
-      h2 {
-        padding: 30px 0 20px;
-        font-weight: bold;
-        text-align: center;
-        &:hover {
-          color: $color-headings;
-        }
-      }
-
-      .price {
+  .cross-button {
+    button {
+      .MuiIconButton-label {
         color: $color-primary;
       }
     }
+  }
 
-    .invite-content {
-      @extend .para;
-      text-align: center !important;
+  .popup-section {
+    .popup-bg {
+      background-color: $color-white;
+      padding: 35px 75px;
+      border-radius: 10px;
 
-      p {
-        font-size: 12px;
-        font-family: 'Poppins', sans-serif;
-        color: $color-dark-grey;
-        letter-spacing: 1px;
-        padding: 10px 0 30px 0;
+      .popup-image {
+        height: 100px;
+        text-align: center;
+        margin-top: 25px;
+        margin-bottom: 25px;
       }
 
-      b {
-        color: $color-paragraph;
-        &:hover {
+      .invite-text {
+        @extend .h2;
+
+        h2 {
+          padding: 30px 0 20px;
+          font-weight: bold;
+          text-align: center;
+          &:hover {
+            color: $color-headings;
+          }
+        }
+
+        .price {
+          color: $color-primary;
+        }
+      }
+
+      .invite-content {
+        @extend .para;
+        text-align: center !important;
+
+        p {
+          font-size: 12px;
+          font-family: 'Poppins', sans-serif;
+          color: $color-dark-grey;
+          letter-spacing: 1px;
+          padding: 10px 0 30px 0;
+        }
+
+        b {
           color: $color-paragraph;
-          text-decoration: none;
+          &:hover {
+            color: $color-paragraph;
+            text-decoration: none;
+          }
+        }
+
+
+      }
+
+      .email-section {
+        @extend .para;
+
+        p {
+          font-size: 18px;
+          margin-bottom: 10px;
+          font-weight: bold;
+          font-family: 'Poppins', sans-serif;
         }
       }
 
+      .email-align {
+        input {
+          width: calc(100% - 145px);
+          margin-right: 20px;
+          height: 44px;
+          padding-left: 15px;
+          border-radius: 6px;
+          border: 1px solid $color-border;
+          font-family: 'Poppins', sans-serif;
+        }
 
-    }
-
-    .email-section {
-      @extend .para;
-
-      p {
-        font-size: 18px;
-        margin-bottom: 10px;
-        font-weight: bold;
-        font-family: 'Poppins', sans-serif;
-      }
-    }
-
-    .email-align {
-      input {
-        width: calc(100% - 145px);
-        margin-right: 20px;
-        height: 44px;
-        padding-left: 15px;
-        border-radius: 6px;
-        border: 1px solid $color-border;
-        font-family: 'Poppins', sans-serif;
+        .send-button {
+          width: 120px;
+          padding: 10px 32px;
+          height:40px;
+        }
       }
 
-      .send-button {
-        width: 120px;
-        padding: 10px 32px;
-        height:40px;
-      }
-    }
-
-    .or {
-      padding: 10px;
-      color: $color-dark-grey;
-      display: block;
-      text-align: -webkit-center;
-    }
-
-    .gmail-contact {
-      button {
-        width: 100%;
+      .or {
         padding: 10px;
-        border-radius: 5px;
-        margin-bottom: 30px;
-        margin-top: 10px;
+        color: $color-dark-grey;
+        display: block;
+        text-align: -webkit-center;
       }
 
-      .mail-icon {
-        margin-right: 15px;
-      }
-    }
+      .gmail-contact {
+        button {
+          width: 100%;
+          padding: 10px;
+          border-radius: 5px;
+          margin-bottom: 30px;
+          margin-top: 10px;
+        }
 
-    .share-links {
-      @extend .para;
-
-      text-align: center;
-
-      p {
-        color: $color-headings;
-        font-size: 12px;
-        letter-spacing: 1px;
+        .mail-icon {
+          margin-right: 15px;
+        }
       }
 
-      ul {
-        list-style: none;
-        justify-content: center;
-        padding-top: 10px;
+      .share-links {
+        @extend .para;
 
-        .fb {
-          background-color: #3b579d;
-          color: $color-white;
-          height: 40px;
-          width: 40px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+        text-align: center;
+
+        p {
+          color: $color-headings;
+          font-size: 12px;
+          letter-spacing: 1px;
         }
 
-        .tw {
-          background-color: #00acee;
-          color: $color-white;
-          height: 40px;
-          width: 40px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
+        ul {
+          list-style: none;
           justify-content: center;
-        }
+          padding-top: 10px;
 
-        .in {
-          background-color: #0e76a8;
-          color: $color-white;
-          height: 40px;
-          width: 40px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .link {
-          background-color: $color-primary;
-          color: $color-white;
-          height: 40px;
-          width: 40px;
-          margin-top: 6px;
-          margin-left: 12px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
-          .MuiIconButton-label {
-            &:hover {
-              color: $color-white !important;
-            }
+          .fb {
+            background-color: #3b579d;
+            color: $color-white;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
 
-          .clip-icon {
-            padding: 2px;
-            cursor: pointer;
-            &:hover {
-              color: $color-white;
+          .tw {
+            background-color: #00acee;
+            color: $color-white;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .in {
+            background-color: #0e76a8;
+            color: $color-white;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .link {
+            background-color: $color-primary;
+            color: $color-white;
+            height: 40px;
+            width: 40px;
+            margin-top: 6px;
+            margin-left: 12px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .MuiIconButton-label {
+              &:hover {
+                color: $color-white !important;
+              }
             }
-            path {
+
+            .clip-icon {
+              padding: 2px;
+              cursor: pointer;
               &:hover {
                 color: $color-white;
+              }
+              path {
+                &:hover {
+                  color: $color-white;
+                }
               }
             }
           }
