@@ -149,6 +149,7 @@ const InviteModal = ({
                   <TwitterShareButton
                     url={ inviteLink || 'Invite Link' }
                     title='Invite link'
+                    hashtags={ [ 'qubicles' ] }
                   >
                     <Button>
                       <TwitterIcon className='tw' />
@@ -157,7 +158,8 @@ const InviteModal = ({
 
                   {/* Linkedin Share Button */}
                   <LinkedinShareButton
-                    url={ inviteLink || 'invite link' }
+                    url={ inviteLink || 'Invite Link' }
+                    title='Invite link'
                   >
                     <Button>
                       <LinkedinIcon className='in' />
