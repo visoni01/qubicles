@@ -3,10 +3,6 @@ import './style.scss'
 import {
   Box, Grid,
 } from '@material-ui/core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faEllipsisV,
-} from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from 'react-redux'
 import { newNavBar } from '../../hoc/navbar'
 import CommunityRep from './CommunityRep'
@@ -17,6 +13,7 @@ import CheckrVerification from './ChekrVerification'
 import './newStyles.scss'
 import NewCreatePost from '../../components/Dashboard/NewCreatePost'
 import RenderPosts from './RenderPosts'
+import TodayActivity from './TodaysActivity'
 
 const Dashboard = () => {
   const dispatch = useDispatch()
@@ -40,70 +37,7 @@ const Dashboard = () => {
         <RenderPosts />
       </Grid>
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
-        <Box className='box'>
-          <div className='activity-section'>
-            <h3 className='mb-3 heading'>
-              Today's Activity
-              <FontAwesomeIcon icon={ faEllipsisV } className='pull-right' />
-            </h3>
-            <div>
-              <ul>
-                <li>
-                  <p className='green'>
-                    3.282
-                  </p>
-                  <p>
-                    Calls
-                  </p>
-                </li>
-                <li>
-                  <p className='green'>
-                    680
-                  </p>
-                  <p>
-                    Sales
-                  </p>
-                </li>
-                <li>
-                  <p className='yellow'>
-                    558
-                  </p>
-                  <p>
-                    Working
-                  </p>
-                </li>
-              </ul>
-
-              <ul>
-                <li className=''>
-                  <p className='green'>
-                    754
-                  </p>
-                  <p>
-                    Live
-                  </p>
-                </li>
-                <li>
-                  <p className='red'>
-                    599
-                  </p>
-                  <p>
-                    Online
-                  </p>
-                </li>
-                <li>
-                  <p className='yellow'>
-                    260
-                  </p>
-                  <p>
-                    On a Call
-                  </p>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </Box>
-
+        <TodayActivity />
         <Box className='box'>
           <div className='customer-service'>
             <h3 className='heading'>
