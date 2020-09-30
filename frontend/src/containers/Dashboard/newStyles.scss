@@ -9,24 +9,61 @@
   }
 }
 
+@mixin fa-icon-outlined($color) {
+  stroke: $color;
+  stroke-width: 20px;
+  .MuiIconButton-label {
+    &:hover {
+      color: $color;
+    }
+  }
+}
+
+
 // Community Reputation
 
 .community-rep {
-  .rating-text {
-    @extend.h3;
-    text-align: center;
-    font-size: 20px;
-  }
-  .MuiRating-root {
-    &.rating {
-      color: $color-primary;
+  .rating {
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    .rating-text {
+      @extend .h3;
+      position: relative;
+      margin-left: 10px;
+      margin-right: 10px;
+      font-size: 24px;
+    }
+    .rating-info {
+      @include fa-icon-outlined($color-white);
+      font-size: 23px;
+      vertical-align: initial;
+    }
+
+    .MuiRating-root {
+      &.rating-star {
+        color: $color-primary;
+        margin: 0px 5px 0px 5px;
+        vertical-align: text-bottom;
+      }
+    }
+    .rating-info {
+      @include fa-icon-outlined($color-white);
+      font-size: 25px;
+      margin: 0px 5px 0px 10px;
+      vertical-align: text-bottom;
     }
   }
-  .fa-icon {
-    font-size: 23px;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-right: 10px;
+  .rep-info {
+    display: inline-flex;
+    margin-left: 10px;
+    margin-top: 10px;
+    .fa-icon {
+      font-size: 24px;
+      margin: auto;
+      margin-right: 5px;
+    }
+
     .heart-icon {
       color: $color-red;
       @include fa-icon-hover($color-red)
@@ -34,6 +71,10 @@
     .user-icon {
       color: $color-info;
       @include fa-icon-hover($color-info)
+    }
+
+    .avatar-group {
+      margin: 0px 5px 0px 5px;
     }
   }
 
@@ -127,15 +168,6 @@
   }
 }
 
-@mixin fa-icon-outlined($color) {
-  stroke: $color;
-  stroke-width: 20px;
-  .MuiIconButton-label {
-    &:hover {
-      color: $color;
-    }
-  }
-}
 
 // Render Posts
 
