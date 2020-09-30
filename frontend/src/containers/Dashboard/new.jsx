@@ -1,22 +1,22 @@
 import React, { useEffect } from 'react'
 import './style.scss'
 import {
-  Avatar, Box, Grid,
+  Box, Grid,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faComment, faEllipsisV, faHeart, faImage, faShare,
+  faEllipsisV,
 } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from 'react-redux'
 import { newNavBar } from '../../hoc/navbar'
 import CommunityRep from './CommunityRep'
-import postImage from '../../assets/images/demo-pic.jpeg'
 import LatestAnnouncement from './LatestAnnouncement'
 import JobPostings from './JobPostings'
 import { dashboardDataFetchingStart } from '../../redux-saga/redux/actions'
 import CheckrVerification from './ChekrVerification'
 import './newStyles.scss'
 import NewCreatePost from '../../components/Dashboard/NewCreatePost'
+import RenderPosts from './RenderPosts'
 
 const Dashboard = () => {
   const dispatch = useDispatch()
@@ -37,104 +37,7 @@ const Dashboard = () => {
         <Box className='box'>
           <NewCreatePost />
         </Box>
-
-        <Box className='box'>
-          <div className='display-inline-flex'>
-            <Avatar className='avatar' />
-            <div>
-              <h4 className='user-name'>
-                <b>Kathy Hill</b>
-              </h4>
-              <p className='date'>
-                Sepetember 06 2020, 15:37 pm
-              </p>
-            </div>
-          </div>
-
-          <div className='post-content'>
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-              <span className='hash-tag'> #workshop </span>
-            </p>
-            <img src={ postImage } alt='Helen' />
-
-            <div className='share-like'>
-              <ul>
-                <li>
-                  <FontAwesomeIcon icon={ faHeart } />
-                  274 Likes
-                </li>
-
-                <li>
-                  <FontAwesomeIcon icon={ faComment } />
-                  Comments
-                </li>
-                <li>
-                  <FontAwesomeIcon icon={ faShare } />
-                  3 Share
-                </li>
-              </ul>
-            </div>
-
-            <div className='textarea-input'>
-              <Avatar className='avatar' />
-              <textarea placeholder='Write Something...' />
-              <input type='file' name='' className='position-absolute' />
-              <span className='galley-icon'>
-                <FontAwesomeIcon icon={ faImage } />
-              </span>
-            </div>
-          </div>
-        </Box>
-
-        <Box className='box'>
-          <div className='display-inline-flex'>
-            <Avatar className='avatar' />
-            <div>
-              <h4 className='user-name'>
-                <b>Kathy Hill</b>
-              </h4>
-              <p className='date'>
-                Sepetember 06 2020, 15:37 pm
-              </p>
-            </div>
-          </div>
-
-          <div className='post-content'>
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-              <span className='hash-tag'> #workshop </span>
-            </p>
-            <img src={ postImage } alt='Helen' />
-
-            <div className='share-like'>
-              <ul>
-                <li>
-                  <FontAwesomeIcon icon={ faHeart } />
-                  274 Likes
-                </li>
-
-                <li>
-                  <FontAwesomeIcon icon={ faComment } />
-                  Comments
-                </li>
-                <li>
-                  <FontAwesomeIcon icon={ faShare } />
-                  3 Share
-                </li>
-              </ul>
-            </div>
-
-            <div className='textarea-input'>
-              <Avatar className='avatar' />
-              <textarea placeholder='Write Something...' />
-              <input type='file' name='' className='position-absolute' />
-              <span className='galley-icon'>
-                <FontAwesomeIcon icon={ faImage } />
-              </span>
-            </div>
-          </div>
-        </Box>
+        <RenderPosts />
       </Grid>
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
         <Box className='box'>

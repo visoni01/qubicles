@@ -51,7 +51,7 @@ h3.heading {
 }
 
 .background-check-buttons {
-  display: inline-flex;
+  // display: inline-flex;
   width: 100%;
   margin-top: 10px;
 }
@@ -165,25 +165,25 @@ h4.user-name {
 	font-family: 'Poppins', sans-serif;
 }
 
-.post-content {
-  p{
-    margin: 1.5rem 0;
-  }
-  .share-like {
-    ul {
-      display: inline-flex;
-      width: 100%;
-      padding: 15px 0;
-      li {
-        svg {
-          margin-right: 4px;
-        }
-        font-size: 14px;
-        width: 100%;
-      }
-    }
-  }
-}
+// .post-content {
+//   p{
+//     margin: 1.5rem 0;
+//   }
+//   .share-like {
+//     ul {
+//       display: inline-flex;
+//       width: 100%;
+//       padding: 15px 0;
+//       li {
+//         svg {
+//           margin-right: 4px;
+//         }
+//         font-size: 14px;
+//         width: 100%;
+//       }
+//     }
+//   }
+// }
 
 
 .display-inline-flex {
@@ -247,35 +247,4 @@ nav {
   .PrivateRadioButtonIcon-root-25 {
     color: $color-primary;
   }
-.MuiRating-root {
-  &.rating {
-    color: $color-primary;
-  }
-}
-
-.like-people {
-  @extend.para;
-  font-size: 13px;
-}
-
-.rating-text {
-  @extend.h3;
-  text-align: center;
-  font-size: 20px;
-  color: $color-headings;
-}
-
-.heart-icon {
-  text-align: center;
-  color: $color-red;
-  font-size: 23px;
-  margin: auto;
-}
-
-.user-icon {
-  text-align: center;
-  color: $color-info;
-  font-size: 23px;
-  margin-left: auto;
-}
 }

@@ -51,16 +51,12 @@
     margin-bottom: 15px;
   }
   .background-check-buttons {
-    display: inline-flex;
     width: 100%;
     margin-top: 10px;
   }
   .custom-btn {
-    margin: auto;
+    margin: 10px;
     min-width: 125px;
-  }
-  .not-now-btn {
-    margin-left: 0px;
   }
 }
 
@@ -127,6 +123,116 @@
       &:last-child {
         border-bottom: none;
       }
+    }
+  }
+}
+
+@mixin fa-icon-outlined($color) {
+  stroke: $color;
+  stroke-width: 20px;
+  .MuiIconButton-label {
+    &:hover {
+      color: $color;
+    }
+  }
+}
+
+// Render Posts
+
+.post-content {
+  .post-text {
+    @extend .para;
+    margin: 10px 0px 15px 0px;
+  }
+  .post-image {
+    border-radius: 8px;
+  }
+  .post-icons {
+    font-size: 22px;
+    color: white;
+  }
+  .share-like {
+    .like-icon {
+      @extend .post-icons;
+      @include fa-icon-hover($color-red);
+      @include fa-icon-outlined($color-red);
+    }
+    .liked-icon {
+      @extend .like-icon;
+      color: $color-red;
+    }
+
+    .comment-icon {
+      @extend .post-icons;
+      @include fa-icon-hover($color-white);
+      @include fa-icon-outlined($color-info);
+    }
+    .share-icon {
+      @extend .post-icons;
+      @include fa-icon-hover($color-primary);
+      @include fa-icon-outlined($color-primary);
+    }
+
+    .option-text {
+      cursor: pointer;
+      font-family: $pro-font;
+      font-size: 15px;
+      color: $color-dark-grey;
+      margin: 0px 5px 0px 5px;
+      padding: 15px 0px 15px 0px;
+    }
+
+    ul {
+      display: inline-flex;
+      width: 100%;
+      padding: 10px 0;
+      li {
+        display: flex;
+        svg {
+          margin-right: 4px;
+        }
+        font-size: 14px;
+        width: 100%;
+      }
+    }
+  }
+
+  .comment-wrap {
+    .comment-body {
+      display: inline-flex;
+      margin-top: 20px;
+    }
+  }
+
+  .post-comment-section {
+    display: inline-flex;
+    width: 100%;
+    margin-top: 20px;
+
+    textarea {
+      @extend .para;
+      padding: 10px;
+      width: 100%;
+      display: flex;
+      border: none;
+      margin: 1px;
+      height: 100%;
+      margin-bottom: 10px;
+      &:focus {
+        margin: none;
+        border: 1px solid $color-border;
+        border-radius: 8px;
+        outline: 1px;
+        box-shadow: inherit;
+      }
+    }
+
+    input[type="file"] {
+      right: 10px;
+      width: 20px;
+      top: 20px;
+      opacity: 0;
+      z-index: 9999;
     }
   }
 }
