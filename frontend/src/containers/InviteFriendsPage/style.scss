@@ -1,108 +1,5 @@
 @import '../../customStyles/scss/index.scss';
 
-.grid-container {
-  width: 80% !important;
-  margin: auto !important;
-  padding-bottom: 4% !important;
-}
-
-.step-heading {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.steps-heading {
-  text-align: center;
-  font-size: 26px;
-  font-weight: 600;
-  margin-bottom: 20px;
-}
-
-.background-image-div {
-  height: 50%;
-  min-height: 436px;
-  background-color: #adabab;
-  background-image: url('../../assets/images/bg-invitation-page.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  opacity: 0.60;
-  color: black;
-}
-
-.div1-h1 {
-  top: 100px;
-  position: relative;
-  text-align: center;
-  font-size: 32px;
-  font-weight: 700;
-}
-
-.div1-h2 {
-  position: relative;
-  text-align: center;
-  top: 120px;
-  font-size: 18px;
-}
-
-.div2-steps {
-  margin-top: 12%;
-}
-
-.div3-paper {
-  min-height: 200px;
-  min-width: 300px;
-  position: absolute;
-  top: 330px;
-  left: calc(50% - 415px);
-  padding: 3%;
-}
-
-.shareModal-span {
-  margin: 12px 20px;
-  font-size: 14px;
-}
-
-.shareModal-email-div {
-  display: inline-flex;
-  width: 100%;
-}
-
-.shareModal-add-email {
-  display: grid;
-  margin-right: 20px;
-}
-
-.sharemodal-buttons {
-  height: 40px;
-  text-transform: none !important;
-}
-
-.shareModal-add-email-span {
-  font-size: 12px;
-}
-
-.shareModal-add-email-textbox {
-  min-width: 425px !important;
-}
-
-.shareModal-divider {
-  margin: 20px 0 !important;
-}
-
-.shareModal-invite-link {
-  margin-left: 8%;
-}
-
-.shareModal-invite-fb {
-  margin-right: 25px !important;
-}
-
-.shareModal-social-h4 {
-  margin-bottom: 10px;
-    font-size: 15px;
-    font-weight: 500;
-}
-
 /* Styles for new designed invite popup
 ==========================================================*/
 .snackbar-div {
@@ -121,6 +18,7 @@
 
   .MuiDialog-paperScrollPaper {
     max-height: none;
+    margin-top: auto;
   }
 
   .cross-button {

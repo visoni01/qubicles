@@ -31,15 +31,10 @@ const UserAccount = () => {
   }
 
   // Temporary Invite Modal methods
-  const [ anchorEl, setAnchorEl ] = useState(null)
-  const [ openInvite, setOpenInvite ] = useState(false)
-  const handleInviteOpen = () => {
-    setOpenInvite(true)
-  }
-
-  const handleInviteClose = () => {
-    setOpenInvite(false)
-    setAnchorEl(null)
+  const [ openInviteDialog, setOpenInviteDialog ] = useState(false)
+  const toggleInviteDialogOpen = () => {
+    setOpenInviteDialog((openInvite) => !openInvite)
+    setIsDropdownOpen(false)
   }
 
   return (
@@ -49,7 +44,6 @@ const UserAccount = () => {
         className='profile-menu-container'
         onClick={ toggleDropdownOpen }
       >
-        {/* TODO: Add first letter of user name */}
         <Avatar className='avatar'>
           {userDetails && userDetails.full_name && userDetails.full_name[ 0 ].toUpperCase()}
         </Avatar>
@@ -62,12 +56,12 @@ const UserAccount = () => {
         onClose={ toggleDropdownOpen }
       >
         {/* Temporary Invite Button */}
-        <MenuItem onClick={ handleInviteOpen }>Invite</MenuItem>
+        <MenuItem onClick={ toggleInviteDialogOpen }>Invite</MenuItem>
         <MenuItem onClick={ logOut }>Logout</MenuItem>
       </Menu>
       <InviteModal
-        open={ openInvite }
-        handleClose={ handleInviteClose }
+        open={ openInviteDialog }
+        handleClose={ toggleInviteDialogOpen }
       />
     </>
   )
