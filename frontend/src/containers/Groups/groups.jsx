@@ -9,7 +9,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 const Groups = () => (
   <Box className='group-list-root'>
     <div className='group-list-title'>
-      <h3>Groups</h3>
+      <h3 className='h2 mb-10'>Groups</h3>
       <IconButton>
         <FontAwesomeIcon icon={ faPlus } className='add-icon' />
       </IconButton>
