@@ -11,7 +11,7 @@ const InviteFriends = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(resetUserDetails())
-  }, dispatch)
+  }, [ dispatch ])
   return (
     <div>
       <div className='fake-nav'>

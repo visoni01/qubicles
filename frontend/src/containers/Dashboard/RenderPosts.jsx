@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react'
-import _ from 'lodash'
 import { useSelector, useDispatch } from 'react-redux'
 import { postDataFetchingStart } from '../../redux-saga/redux/actions'
 import PostStatusWrap from './PostStatusWrap'
 
 const RenderPosts = () => {
   const { posts, isLoading } = useSelector((state) => state.statusPosts)
-  const isPosts = !_.isEmpty(posts)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(postDataFetchingStart())

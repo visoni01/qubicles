@@ -66,6 +66,8 @@ PostStatusLikeComment.propTypes = {
   likesCount: PropTypes.number.isRequired,
   isPostLiked: PropTypes.bool.isRequired,
   commentsCount: PropTypes.number.isRequired,
+  setShowComments: PropTypes.func.isRequired,
+  setShowCommentSection: PropTypes.func.isRequired,
 }
 
 export default PostStatusLikeComment

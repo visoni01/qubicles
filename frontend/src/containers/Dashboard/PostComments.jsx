@@ -12,7 +12,7 @@ const PostComments = ({
     dispatch(fetchCommentsStart({ limit, offset, userActivityId }))
   }, [ dispatch, limit, offset, userActivityId ])
 
-  const { isLoading, data } = useSelector((state) => state.comments)
+  const { data } = useSelector((state) => state.comments)
 
   return (data.comments.map((comment) => (
     <RenderPostComments

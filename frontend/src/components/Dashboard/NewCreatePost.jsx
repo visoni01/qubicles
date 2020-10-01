@@ -3,8 +3,8 @@ import React, {
 } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  Button, Avatar, Container, List, ListItem, IconButton,
-  ListItemText, Radio, Divider, Popover, Grid, TextareaAutosize,
+  Button, Avatar, List, ListItem, IconButton,
+  ListItemText, Radio, Divider, Popover, TextareaAutosize,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
