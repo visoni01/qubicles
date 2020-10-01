@@ -41,10 +41,12 @@ const PostStatusLikeComment = ({
           </p>
         </li>
         <li>
-          <IconButton onClick={ () => setShowCommentSection(true) }>
+          {/* WIP View Comments on Post */}
+          <IconButton onClick={ () => setShowCommentSection(false) }>
             <FontAwesomeIcon className='comment-icon' icon={ faComment } />
           </IconButton>
-          <p className='option-text' onClick={ () => setShowComments(true) }>
+          {/* WIP Comment on Post */}
+          <p className='option-text'>
             {`${ commentsCount } Comments `}
           </p>
         </li>
