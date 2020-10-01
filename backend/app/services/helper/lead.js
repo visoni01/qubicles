@@ -142,7 +142,7 @@ export const updateLeadInCustomTable = async ({ lead }) => {
     }
 
     // send update
-    if (((index) !== keys.length - 1) && customFieldValuesSet) {
+    if (((index) === keys.length - 1) && customFieldValuesSet) {
       sql += `lead_id = '${lead.lead_id}'`
       onDuplicateUpdateSQL += 'lead_id = VALUES(lead_id)'
       const fullQuery = insertSql + sql + onDuplicateUpdateSQL

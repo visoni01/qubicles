@@ -1,6 +1,7 @@
 import ServiceBase from '../../common/serviceBase'
+import logger from '../../common/logger'
 import { Flow } from '../../db/models'
-import { getUserById, getFlowFieldsByFlowId, isAuthorizedForClient } from '../helper'
+import { getUserById, getFlowFieldsByFlowId, getErrorMessageForService, isAuthorizedForClient } from '../helper'
 import GetClientsService from '../user/getClients'
 import _ from 'lodash'
 import { ERRORS, MESSAGES } from '../../utils/errors'
@@ -20,33 +21,36 @@ export class GetFlowFieldsByFlowIdService extends ServiceBase {
   }
 
   async run () {
-    const flow = await Flow.findOne({ where: { flow_id: this.flowId }, raw: true })
+    try {
+      const flow = await Flow.findOne({ where: { flow_id: this.flowId }, raw: true })
 
-    if (!(flow && flow['flow_id'])) {
-      this.addError(ERRORS.NOT_FOUND, MESSAGES.FLOW_NOT_EXIST)
-      return
-    }
-
-    if (this.userId) {
-      const currentUser = await getUserById({ user_id: this.userId })
-      const { clients } = await GetClientsService.run({ user_id: this.userId })
-      const isInvalid = !isAuthorizedForClient({
-        clients,
-        client_id: flow.client_id,
-        user_level: currentUser.user_level
-      })
-
-      if (isInvalid) {
-        this.addError(ERRORS.UNAUTHORIZED)
+      if (!(flow && flow['flow_id'])) {
+        this.addError(ERRORS.NOT_FOUND, MESSAGES.FLOW_NOT_EXIST)
         return
       }
+
+      if (this.userId) {
+        const currentUser = await getUserById({ user_id: this.userId })
+        const { clients } = await GetClientsService.run({ user_id: this.userId })
+        const isInvalid = !isAuthorizedForClient({
+          clients,
+          client_id: flow.client_id,
+          user_level: currentUser.user_level
+        })
+
+        if (isInvalid) {
+          this.addError(ERRORS.UNAUTHORIZED)
+          return
+        }
+      }
+
+      let fields = await getFlowFieldsByFlowId({ flow_id: flow.flow_id })
+
+      fields = _.sortBy(fields, ['page', 'field_rank', 'field_id'])
+      return fields
+    } catch (error) {
+      logger.error(getErrorMessageForService('GetFlowFieldsByFlowIdService'), error)
+      this.addError(ERRORS.INTERNAL)
     }
-
-    let fields = await getFlowFieldsByFlowId({ flow_id: flow.flow_id })
-    fields = _.orderBy(fields, 'page', 'ASC')
-    fields = _.sortBy(fields, 'field_rank')
-    fields = _.sortBy(fields, 'field_id')
-
-    return fields
   }
 }

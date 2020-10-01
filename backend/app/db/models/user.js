@@ -9,20 +9,12 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER(9)
     },
-    facebook_id: {
-      type: DataTypes.STRING,
-      unique: true
-    },
-    twitter_id: {
-      type: DataTypes.STRING,
-      unique: true
-    },
-    linkedin_id: {
-      type: DataTypes.STRING,
-      unique: true
-    },
+    facebook_id: DataTypes.STRING,
+    twitter_id: DataTypes.STRING,
+    linkedin_id: DataTypes.STRING,
     user: {
-      type: DataTypes.STRING(100)
+      type: DataTypes.STRING(100),
+      unique: 'User_user_unique'
     },
     pass: {
       type: DataTypes.STRING(100)
@@ -325,7 +317,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     email: {
       type: DataTypes.STRING(100),
-      unique: true,
       allowNull: false
     },
     email_verified: DataTypes.BOOLEAN,
