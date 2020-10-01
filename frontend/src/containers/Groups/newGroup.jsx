@@ -15,7 +15,7 @@ const NewGroup = () => (
         <Grid item md={ 6 } xs={ 12 }>
           <h3 className='h3'>Title</h3>
           <input
-            className='primary-input-field mt-10 is-max-width-100'
+            className='primary-input-field mt-10 width-100-per'
             placeholder='Name of your group'
           />
         </Grid>
