@@ -195,7 +195,7 @@ export class GetLeadService extends ServiceBase {
       customLead.recording_filename = ''
       customLead.list_name = ''
 
-      const liveAgent = await getLiveAgentByUser({ user: currentUser.user, clients })
+      const liveAgent = await getLiveAgentByUser({ user: currentUser, clients })
 
       if (liveAgent) {
         if (liveAgent.comments === 'INBOUND') {
