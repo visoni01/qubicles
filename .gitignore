@@ -1,4 +1,5 @@
 .env
+.env.prod
 node_modules/
 docker_volumes_data/
 ssl/

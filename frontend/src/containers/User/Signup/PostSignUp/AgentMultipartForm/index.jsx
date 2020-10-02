@@ -56,7 +56,7 @@ const AgentMultipartForm = () => {
         onSubmit={ handleOnNext }
         stepData={ stepsData && stepsData[ currentStep ] }
       />
-      {currentStep === 6 && <Redirect to='/invite-friends' />}
+      {currentStep === 6 && <Redirect to='/dashboard' />}
     </>
   )
 }

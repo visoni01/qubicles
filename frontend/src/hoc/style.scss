@@ -41,7 +41,7 @@
     margin: auto;
       .input-field {
         height: 100%;
-        width: 95%;
+        width: calc(100% - 36px);
       }
   }
 

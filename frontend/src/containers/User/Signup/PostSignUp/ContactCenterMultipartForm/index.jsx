@@ -49,7 +49,7 @@ const ContactCenterMultiPartForm = () => {
         onSubmit={ handleOnNext }
         stepData={ stepsData && stepsData[ currentStep ] }
       />
-      {currentStep === 4 && <Redirect to='/invite-friends' />}
+      {currentStep === 4 && <Redirect to='/dashboard' />}
     </>
   )
 }

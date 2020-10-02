@@ -116,7 +116,7 @@ const ForgetPassword = () => {
                           <button
                             type='submit'
                             id='forgetPasswordLink'
-                            className='button btn-outlined is-bold is-fullwidth rounded raised no-lh'
+                            className='signup-button custom-login-button'
                           >
                             Send Reset Password Link
                           </button>

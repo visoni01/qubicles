@@ -1,106 +1,7 @@
-.grid-container {
-  width: 80% !important;
-  margin: auto !important;
-  padding-bottom: 4% !important;
-}
+@import '../../customStyles/scss/index.scss';
 
-.step-heading {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.steps-heading {
-  text-align: center;
-  font-size: 26px;
-  font-weight: 600;
-  margin-bottom: 20px;
-}
-
-.background-image-div {
-  height: 50%;
-  min-height: 436px;
-  background-color: #adabab;
-  background-image: url('../../assets/images/bg-invitation-page.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  opacity: 0.60;
-  color: black;
-}
-
-.div1-h1 {
-  top: 100px;
-  position: relative;
-  text-align: center;
-  font-size: 32px;
-  font-weight: 700;
-}
-
-.div1-h2 {
-  position: relative;
-  text-align: center;
-  top: 120px;
-  font-size: 18px;
-}
-
-.div2-steps {
-  margin-top: 12%;
-}
-
-.div3-paper {
-  min-height: 200px;
-  min-width: 300px;
-  position: absolute;
-  top: 330px;
-  left: calc(50% - 415px);
-  padding: 3%;
-}
-
-.shareModal-span {
-  margin: 12px 20px;
-  font-size: 14px;
-}
-
-.shareModal-email-div {
-  display: inline-flex;
-  width: 100%;
-}
-
-.shareModal-add-email {
-  display: grid;
-  margin-right: 20px;
-}
-
-.sharemodal-buttons {
-  height: 40px;
-  text-transform: none !important;
-}
-
-.shareModal-add-email-span {
-  font-size: 12px;
-}
-
-.shareModal-add-email-textbox {
-  min-width: 425px !important;
-}
-
-.shareModal-divider {
-  margin: 20px 0 !important;
-}
-
-.shareModal-invite-link {
-  margin-left: 8%;
-}
-
-.shareModal-invite-fb {
-  margin-right: 25px !important;
-}
-
-.shareModal-social-h4 {
-  margin-bottom: 10px;
-    font-size: 15px;
-    font-weight: 500;
-}
-
+/* Styles for new designed invite popup
+==========================================================*/
 .snackbar-div {
   padding: 15px;
   background-color: green;
@@ -108,4 +9,211 @@
   border-radius: 4px;
   position: relative;
   left: 0;
+}
+
+.invite-container {
+  .MuiDialog-scrollPaper {
+    overflow-y: scroll;
+  }
+
+  .MuiDialog-paperScrollPaper {
+    max-height: none;
+    margin-top: auto;
+  }
+
+  .cross-button {
+    button {
+      .MuiIconButton-label {
+        color: $color-primary;
+      }
+    }
+  }
+
+  .popup-section {
+    .popup-bg {
+      background-color: $color-white;
+      padding: 35px 75px;
+      border-radius: 10px;
+
+      .popup-image {
+        height: 100px;
+        text-align: center;
+        margin-top: 25px;
+        margin-bottom: 25px;
+      }
+
+      .invite-text {
+        @extend .h2;
+
+        h2 {
+          padding: 30px 0 20px;
+          font-weight: bold;
+          text-align: center;
+          &:hover {
+            color: $color-headings;
+          }
+        }
+
+        .price {
+          color: $color-primary;
+        }
+      }
+
+      .invite-content {
+        @extend .para;
+        text-align: center !important;
+
+        p {
+          font-size: 12px;
+          font-family: 'Poppins', sans-serif;
+          color: $color-dark-grey;
+          letter-spacing: 1px;
+          padding: 10px 0 30px 0;
+        }
+
+        b {
+          color: $color-paragraph;
+          &:hover {
+            color: $color-paragraph;
+            text-decoration: none;
+          }
+        }
+
+
+      }
+
+      .email-section {
+        @extend .para;
+
+        p {
+          font-size: 18px;
+          margin-bottom: 10px;
+          font-weight: bold;
+          font-family: 'Poppins', sans-serif;
+        }
+      }
+
+      .email-align {
+        input {
+          width: calc(100% - 145px);
+          margin-right: 20px;
+          height: 44px;
+          padding-left: 15px;
+          border-radius: 6px;
+          border: 1px solid $color-border;
+          font-family: 'Poppins', sans-serif;
+        }
+
+        .send-button {
+          width: 120px;
+          padding: 10px 32px;
+          height:40px;
+        }
+      }
+
+      .or {
+        padding: 10px;
+        color: $color-dark-grey;
+        display: block;
+        text-align: -webkit-center;
+      }
+
+      .gmail-contact {
+        button {
+          width: 100%;
+          padding: 10px;
+          border-radius: 5px;
+          margin-bottom: 30px;
+          margin-top: 10px;
+        }
+
+        .mail-icon {
+          margin-right: 15px;
+        }
+      }
+
+      .share-links {
+        @extend .para;
+
+        text-align: center;
+
+        p {
+          color: $color-headings;
+          font-size: 12px;
+          letter-spacing: 1px;
+        }
+
+        ul {
+          list-style: none;
+          justify-content: center;
+          padding-top: 10px;
+
+          .fb {
+            background-color: #3b579d;
+            color: $color-white;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .tw {
+            background-color: #00acee;
+            color: $color-white;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .in {
+            background-color: #0e76a8;
+            color: $color-white;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .link {
+            background-color: $color-primary;
+            color: $color-white;
+            height: 40px;
+            width: 40px;
+            margin-top: 6px;
+            margin-left: 12px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .MuiIconButton-label {
+              &:hover {
+                color: $color-white !important;
+              }
+            }
+
+            .clip-icon {
+              padding: 2px;
+              cursor: pointer;
+              &:hover {
+                color: $color-white;
+              }
+              path {
+                &:hover {
+                  color: $color-white;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

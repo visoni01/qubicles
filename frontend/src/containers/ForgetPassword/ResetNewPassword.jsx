@@ -121,7 +121,7 @@ const ResetNewPassword = () => {
                           <button
                             type='submit'
                             id='resetPassword'
-                            className='button btn-outlined is-bold is-fullwidth rounded raised no-lh'
+                            className='signup-button custom-login-button'
                           >
                             Submit
                           </button>
