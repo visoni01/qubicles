@@ -152,7 +152,7 @@ const SignUp = () => {
                             <button
                               type='submit'
                               id='sendVerificationCode'
-                              className='button btn-outlined is-bold is-fullwidth rounded raised no-lh'
+                              className='signup-button custom-login-button'
                             >
                               Sign Up
                             </button>

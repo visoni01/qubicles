@@ -300,11 +300,11 @@ const Steps = ({ history }) => {
                 <div className='title-divider bg-color-blue' />
                 <span className='section-feature-description'>
                   Our global reach allows
-                  <b>businesses</b>
+                  <b> businesses </b>
                   seeking customer
                   service, sales and support talent to find resources to meet
                   their specific needs, while
-                  <b>millions of workers</b>
+                  <b> millions of workers </b>
                   can
                   access training, development, and staffing services without
                   traditional intermediaries.

@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import './style.scss'
 import User from '../../redux-saga/service/user'
+import InviteModal from '../../containers/InviteFriendsPage/InviteModal'
 import { showErrorMessage } from '../../redux-saga/redux/snackbar'
 import { userLogoutSuccessful } from '../../redux-saga/redux/login'
 
@@ -29,6 +30,13 @@ const UserAccount = () => {
     return dispatch(showErrorMessage())
   }
 
+  // Temporary Invite Modal methods
+  const [ openInviteDialog, setOpenInviteDialog ] = useState(false)
+  const toggleInviteDialogOpen = () => {
+    setOpenInviteDialog((openInvite) => !openInvite)
+    setIsDropdownOpen(false)
+  }
+
   return (
   // Temporary logout functionality.
     <>
@@ -36,7 +44,6 @@ const UserAccount = () => {
         className='profile-menu-container'
         onClick={ toggleDropdownOpen }
       >
-        {/* TODO: Add first letter of user name */}
         <Avatar className='avatar'>
           {userDetails && userDetails.full_name && userDetails.full_name[ 0 ].toUpperCase()}
         </Avatar>
@@ -48,8 +55,14 @@ const UserAccount = () => {
         open={ isDropdownOpen }
         onClose={ toggleDropdownOpen }
       >
+        {/* Temporary Invite Button */}
+        <MenuItem onClick={ toggleInviteDialogOpen }>Invite</MenuItem>
         <MenuItem onClick={ logOut }>Logout</MenuItem>
       </Menu>
+      <InviteModal
+        open={ openInviteDialog }
+        handleClose={ toggleInviteDialogOpen }
+      />
     </>
   )
 }

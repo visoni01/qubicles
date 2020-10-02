@@ -116,7 +116,7 @@ const VerifyEmail = () => {
                             <button
                               type='submit'
                               id='sendVerificationLink'
-                              className='button btn-outlined is-bold is-fullwidth rounded raised no-lh'
+                              className='signup-button custom-login-button'
                             >
                               Send Verification Link
                             </button>

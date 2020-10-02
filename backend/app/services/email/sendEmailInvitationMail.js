@@ -64,7 +64,8 @@ function getHtml ({ inviteUrl, name, inviter_first_name, inviter_last_name }) {
   <br />
   Click the link below to Register
   <br />
-  ${inviteUrl}
+  <a href=${inviteUrl}>Click Here</a>
+
   <br /><br />
   *********************************************************************
   `
