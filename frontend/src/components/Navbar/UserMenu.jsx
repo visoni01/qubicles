@@ -6,10 +6,11 @@ import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import './style.scss'
 import User from '../../redux-saga/service/user'
+import InviteModal from '../../containers/InviteFriendsPage/InviteModal'
 import { showErrorMessage } from '../../redux-saga/redux/snackbar'
 import { userLogoutSuccessful } from '../../redux-saga/redux/login'
 import { kareem } from '../../assets/images/avatar'
-import { walletIcon, settingIcon, logoutIcon } from '../../assets/images/icons/navBarIcons'
+import { chatIcon, walletIcon, settingIcon, logoutIcon } from '../../assets/images/icons/navBarIcons'
 
 const UserMenu = () => {
   const history = useHistory()
@@ -31,6 +32,13 @@ const UserMenu = () => {
       return dispatch(userLogoutSuccessful())
     }
     return dispatch(showErrorMessage())
+  }
+
+  // Temporary Invite Modal methods
+  const [ openInviteDialog, setOpenInviteDialog ] = useState(false)
+  const toggleInviteDialogOpen = () => {
+    setOpenInviteDialog((openInvite) => !openInvite)
+    setIsDropdownOpen(false)
   }
 
   return (
@@ -59,6 +67,14 @@ const UserMenu = () => {
             <Button
               size='small'
               className='option'
+              onClick={ toggleInviteDialogOpen }
+              startIcon={ <img src={ chatIcon } alt='' /> }
+            >
+              <p className='option-name'> Invite Friends </p>
+            </Button>
+            <Button
+              size='small'
+              className='option'
               startIcon={ <img src={ walletIcon } alt='' /> }
             >
               <p className='option-name'> Wallet </p>
@@ -81,6 +97,10 @@ const UserMenu = () => {
           </div>
         </div>
       </Menu>
+      <InviteModal
+        open={ openInviteDialog }
+        handleClose={ toggleInviteDialogOpen }
+      />
     </>
   )
 }

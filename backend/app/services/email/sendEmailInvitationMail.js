@@ -56,19 +56,25 @@ export default class SendEmailInvitationMailService extends ServiceBase {
 }
 
 function getHtml ({ inviteUrl, name, inviter_first_name, inviter_last_name }) {
-  const EMAIL_TEMPLATE_GREETING = `Hi ${name}`
+  const EMAIL_TEMPLATE_GREETING = name ? `Hi ${name}`: `Hi`
   const EMAIL_TEMPLATE_BODY = `
   ${inviter_first_name} ${inviter_last_name} has invited you to join Qubicles!
-  <br />
-  You can earn $5 in free Qubicle (QBE) tokens just for signing up!”
-  <br />
-  Click the link below to Register
-  <br />
-  <a href=${inviteUrl}>Click Here</a>
-
   <br /><br />
-  *********************************************************************
+  Qubicles is a revolutionary contact center service
+  that allows businesses to easily find customer service, sales and support talent
+  at any time, from any where in the world.
+  <br /><br />
+  It is so unique that it runs on a revolutionary technology called "blockchain"! That just means it's
+  trustworthy and reliable, and there are no middlemen like staffing companies taking 15-25%
+  of your hard earned money.
+  <br />
+  <p style='font-weight:bold;font-size:12pt;color:#23945b'>Earn $5 when you register
+  and up to $100 for referring your friends!
+  </p>
+  We hope you sign up today - even if it's just to collect this free money!
+  <a href=${inviteUrl}>Click here to register for free and get paid.</a>
   `
-  const EMAIL_TEMPLATE_CLOSING = 'What are you waiting for? Collect your free $5 in cryptocurrency tokens now!'
+  const EMAIL_TEMPLATE_CLOSING = `Once you\'ve signed up, connect with
+    ${inviter_first_name} inside Qubicles. See you there!`
   return notificationEmailTemplate(EMAIL_TEMPLATE_GREETING, EMAIL_TEMPLATE_BODY, EMAIL_TEMPLATE_CLOSING)
 }

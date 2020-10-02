@@ -25,8 +25,8 @@ function* inviteRequestWorker(action) {
       default:
         break
     }
-    const { data } = result
-    yield put(inviteRequestSuccessful({ result: data && data.result, type: payload.type }))
+    const { message } = result
+    yield put(inviteRequestSuccessful({ result: message, type: payload.type }))
   } catch (e) {
     yield put(showErrorMessage())
     yield put(inviteRequestFailure())
