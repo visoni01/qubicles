@@ -9,7 +9,7 @@ const HandleInvite = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getInviterDetailsStart({ walletId }))
-  }, [ dispatch ])
+  }, [ dispatch, walletId ])
   const { isLoading } = useSelector((state) => state.signupWithInvite)
   return (
     <>

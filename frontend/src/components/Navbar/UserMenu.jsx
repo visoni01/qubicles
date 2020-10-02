@@ -44,6 +44,7 @@ const UserMenu = () => {
         </Avatar>
       </IconButton>
       <Menu
+        disableScrollLock
         open={ isDropdownOpen }
         className='account-dropdown-icon'
         onClose={ toggleDropdownOpen }

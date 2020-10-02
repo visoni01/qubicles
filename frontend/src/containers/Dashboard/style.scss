@@ -36,7 +36,8 @@
   border: 1px solid #DBDBDB;
 	border-radius: 8px;
 	padding: 20px;
-	margin-bottom: 25px;
+  margin-bottom: 25px;
+  box-shadow: none;
 	p.detail {
 		font-size: 14px;
 	}
@@ -50,6 +51,11 @@ h3.heading {
   text-transform: none;
 }
 
+.background-check-buttons {
+  // display: inline-flex;
+  width: 100%;
+  margin-top: 10px;
+}
 
 .activity-section {
 	ul {
@@ -121,22 +127,24 @@ h3.heading {
 .textarea-input {
   display: inline-flex;
   width: 100%;
+
 	textarea {
-		width: calc(100% - 80px);
+    width: 100%;
 		margin: 0 auto;
 		display: flex;
 		height: 100%;
 		border: none;
 		resize: none;
-		border: 1px solid #DBDBDB;
-		border-radius: 8px;
-		padding: 10px;
-		font-family: 'Poppins', sans-serif;
+    margin-bottom: 10px;
+		font-family: 'SF Pro Text', Regular;
+    font-weight: normal;
+    color: #4A4A4A;
 		&:focus {
 			outline: none;
 			box-shadow: inherit;
 		}
-	}
+  }
+
 	input[type="file"] {
 		right: 10px;
 		width: 20px;
@@ -158,25 +166,25 @@ h4.user-name {
 	font-family: 'Poppins', sans-serif;
 }
 
-.post-content {
-  p{
-    margin: 1.5rem 0;
-  }
-  .share-like {
-    ul {
-      display: inline-flex;
-      width: 100%;
-      padding: 15px 0;
-      li {
-        svg {
-          margin-right: 4px;
-        }
-        font-size: 14px;
-        width: 100%;
-      }
-    }
-  }
-}
+// .post-content {
+//   p{
+//     margin: 1.5rem 0;
+//   }
+//   .share-like {
+//     ul {
+//       display: inline-flex;
+//       width: 100%;
+//       padding: 15px 0;
+//       li {
+//         svg {
+//           margin-right: 4px;
+//         }
+//         font-size: 14px;
+//         width: 100%;
+//       }
+//     }
+//   }
+// }
 
 
 .display-inline-flex {
@@ -188,6 +196,7 @@ h4.user-name {
 }
 
 	.galley-icon {
+    display: flex;
 		svg {
       vertical-align: middle;
       font-size: 24px;
@@ -212,10 +221,31 @@ h4.user-name {
   .post-btn {
     color: #fff;
     border: 1px solid transparent;
-    background-color: #4877F4;
+    background-color: $color-primary;
     font-size: 14px;
     text-align: center;
     padding: 6px 32px;
     border-radius: 6px;
+  }
+}
+
+nav {
+  padding: 6px !important;
+  font-family: $system-font;
+  color: $color-headings;
+
+  .MuiTypography-body1 {
+    @extend .h4;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .permission-list-item {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+  }
+
+  .PrivateRadioButtonIcon-root-25 {
+    color: $color-primary;
   }
 }
