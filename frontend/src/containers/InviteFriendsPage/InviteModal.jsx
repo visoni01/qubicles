@@ -34,7 +34,7 @@ const InviteModal = ({
 
   useEffect(() => {
     if (type === 'invite-with-google' && !isLoading && success) {
-      window.open(result.message, '_blank')
+      window.open(result, '_blank')
     }
     if (success) {
       setManualEmails('')
@@ -74,19 +74,17 @@ const InviteModal = ({
             <h2>
               Invite friends &amp; earn up to
               {' '}
-              <span className='price'>$5</span>
+              <span className='price'>$100</span>
               {' '}
-              and free crypto
+              in free tokens
             </h2>
           </div>
           <div className='invite-content '>
             <p>
-              <b>You get $5 credit plus 1 free QBE token </b>
-              for each friend that
+              <b>Earn $5 for inviting friends, plus 1 QBE token ($1 each)</b> for every
+              person that signs up using your link, up to $100. Your friend
               <br />
-              signs up using your link, up to $100. Your friend also
-              <br />
-              receives $5 credit to use toward the service.
+              also receives $5 credit to use toward the service.
             </p>
           </div>
           <div className='email-section'>
