@@ -4,7 +4,8 @@ import {
   getLeadByLeadId,
   updateLead,
   updateLeadInCustomTable,
-  getErrorMessageForService
+  getErrorMessageForService,
+  displayErrorMessageForMethod
 } from '../helper'
 import GetClientsService from '../user/getClients'
 import logger from '../../common/logger'
@@ -102,11 +103,22 @@ export class SaveLeadService extends ServiceBase {
             standardLead.rank = rank
             standardLead.modify_date = new Date()
 
-            // Update Lead
-            await updateLead({ lead: standardLead, user: currentUser, clients })
+            try {
+              await updateLead({ lead: standardLead, user: currentUser, clients })
+            } catch (updatedLeadError) {
+              displayErrorMessageForMethod('updateLead', updatedLeadError)
+              this.addError(ERRORS.INTERNAL)
+              return
+            }
 
-            // Update Lead in custom table
-            await updateLeadInCustomTable({ lead: this.lead })
+            try {
+              // Update Lead in custom table
+              await updateLeadInCustomTable({ lead: this.lead })
+            } catch (updateLeadInCustomTableError) {
+              displayErrorMessageForMethod('updateLeadInCustomTable', updateLeadInCustomTableError)
+              this.addError(ERRORS.INTERNAL)
+              return
+            }
 
             return standardLead
           } else {
