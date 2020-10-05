@@ -63,7 +63,10 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING(70),
     security_phrase: DataTypes.STRING(100),
     comments: DataTypes.STRING(512),
-    called_count: DataTypes.INTEGER(5).UNSIGNED,
+    called_count: {
+      type: DataTypes.SMALLINT(5).UNSIGNED,
+      defaultValue: 0
+    },
     last_local_call_time: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -74,7 +77,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 0
     },
-    owner: DataTypes.STRING(20),
+    owner: {
+      type: DataTypes.STRING(20),
+      defaultValue: ''
+    },
     entry_list_id: {
       type: DataTypes.BIGINT(14).UNSIGNED,
       allowNull: false,

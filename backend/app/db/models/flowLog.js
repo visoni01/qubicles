@@ -13,11 +13,22 @@ module.exports = (sequelize, DataTypes) => {
     },
     flow_id: {
       type: DataTypes.INTEGER(9).UNSIGNED,
-      allowNull: false
+      allowNull: false,
+      defaultValue: 0
     },
-    lead_id: DataTypes.INTEGER(9).UNSIGNED,
-    list_id: DataTypes.BIGINT(14).UNSIGNED,
-    call_date: DataTypes.DATE,
+    lead_id: {
+      type: DataTypes.INTEGER(9).UNSIGNED,
+      defaultValue: 0
+    },
+    list_id: {
+      type: DataTypes.BIGINT(14).UNSIGNED,
+      defaultValue: 0
+    },
+    call_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: '0000-00-00 00:00:00'
+    },
     cost: {
       type: DataTypes.STRING(10),
       defaultValue: '$0.000'
@@ -26,8 +37,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(10),
       defaultValue: '0.005'
     },
-    uniqueid: DataTypes.STRING(20),
-    user: DataTypes.STRING(100)
+    uniqueid: {
+      type: DataTypes.STRING(20),
+      defaultValue: ''
+    },
+    user: {
+      type: DataTypes.STRING(100),
+      defaultValue: ''
+    }
   },
   { tableName: 'x_flow_log' })
   FlowLog.associate = function (models) {}

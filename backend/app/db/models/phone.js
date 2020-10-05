@@ -7,12 +7,9 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       allowNull: false
     },
-    extension: {
-      type: DataTypes.STRING(100),
-      allowNull: false
-    },
+    extension: DataTypes.STRING(100),
     dialplan_number: DataTypes.STRING(100),
-    voicemail_id: DataTypes.STRING(12),
+    voicemail_id: DataTypes.STRING(10),
     phone_ip: DataTypes.STRING(15),
     computer_ip: DataTypes.STRING(15),
     server_ip: DataTypes.STRING(15),
@@ -67,7 +64,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     monitor_prefix: {
       type: DataTypes.STRING(10),
-      defaultValue: '8512'
+      defaultValue: '8612'
     },
     recording_exten: {
       type: DataTypes.STRING(10),
@@ -234,6 +231,7 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING(100),
     template_id: {
       type: DataTypes.STRING(15),
+      allowNull: false,
       defaultValue: ''
     },
     conf_override: DataTypes.TEXT,
@@ -246,12 +244,12 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: '60'
     },
     conf_secret: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(20),
       defaultValue: 'test'
     },
     delete_vm_after_email: {
       type: DataTypes.ENUM,
-      values: ['Y', 'N'],
+      values: ['N', 'Y'],
       defaultValue: 'N'
     },
     is_webphone: {

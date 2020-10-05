@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     field_label: DataTypes.STRING(50),
     field_name: DataTypes.STRING(5000),
     field_description: DataTypes.STRING(100),
-    field_rank: DataTypes.INTEGER(5),
+    field_rank: DataTypes.SMALLINT(5),
     field_help: DataTypes.STRING(1000),
     field_type: {
       type: DataTypes.ENUM,
@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
     field_options: DataTypes.STRING(5000),
     field_size: DataTypes.STRING(5),
     field_max: DataTypes.STRING(5),
-    field_default: DataTypes.TEXT,
+    field_default: DataTypes.STRING(8000),
     field_required: {
       type: DataTypes.ENUM,
       defaultValue: 'N',
@@ -63,7 +63,7 @@ module.exports = (sequelize, DataTypes) => {
       values: ['HORIZONTAL', 'VERTICAL', 'RANDOMIZE']
     },
     field_order: {
-      type: DataTypes.INTEGER(5),
+      type: DataTypes.SMALLINT(5),
       defaultValue: 1
     },
     goto_page: {
@@ -71,7 +71,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 0
     },
     goto_field: DataTypes.STRING(50),
-    field_min: DataTypes.INTEGER(5),
+    field_min: DataTypes.SMALLINT(5),
     field_hidden: {
       type: DataTypes.ENUM,
       defaultValue: 'N',

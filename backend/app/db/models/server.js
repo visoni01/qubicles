@@ -7,7 +7,10 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true
     },
     server_description: DataTypes.STRING,
-    server_ip: DataTypes.STRING(15),
+    server_ip: {
+      type: DataTypes.STRING(15),
+      allowNull: false
+    },
     active: {
       type: DataTypes.ENUM,
       values: ['Y', 'N']
@@ -120,7 +123,7 @@ module.exports = (sequelize, DataTypes) => {
     rebuild_conf_files: {
       type: DataTypes.ENUM,
       values: ['Y', 'N'],
-      defaultValue: 'N'
+      defaultValue: 'Y'
     },
     outbound_calls_per_second: {
       type: DataTypes.INTEGER.UNSIGNED,

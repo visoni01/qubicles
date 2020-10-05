@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     last_call_finish: DataTypes.DATE,
-    closer_campaigns: DataTypes.STRING(4000),
+    closer_campaigns: DataTypes.STRING(16000),
     call_server_ip: DataTypes.STRING(15),
     user_level: {
       type: DataTypes.INTEGER(2),
@@ -47,34 +47,58 @@ module.exports = (sequelize, DataTypes) => {
     },
     comments: DataTypes.STRING(20),
     campaign_weight: {
-      type: DataTypes.INTEGER(1),
+      type: DataTypes.TINYINT(1),
       defaultValue: 0
     },
     calls_today: {
-      type: DataTypes.INTEGER(5).UNSIGNED,
+      type: DataTypes.SMALLINT(5).UNSIGNED,
       defaultValue: 0
     },
-    external_hangup: DataTypes.STRING(1),
-    external_status: DataTypes.STRING(6),
-    external_pause: DataTypes.STRING(20),
-    external_dial: DataTypes.STRING(100),
+    external_hangup: {
+      type: DataTypes.STRING(1),
+      defaultValue: ''
+    },
+    external_status: {
+      type: DataTypes.STRING(6),
+      defaultValue: ''
+    },
+    external_pause: {
+      type: DataTypes.STRING(20),
+      defaultValue: ''
+    },
+    external_dial: {
+      type: DataTypes.STRING(100),
+      defaultValue: ''
+    },
     external_ingroups: DataTypes.STRING(4000),
     external_blended: {
       type: DataTypes.ENUM,
       values: ['0', '1'],
       defaultValue: '0'
     },
-    external_igb_set_user: DataTypes.STRING(100),
+    external_igb_set_user: {
+      type: DataTypes.STRING(100),
+      defaultValue: ''
+    },
     external_update_fields: {
       type: DataTypes.ENUM,
       values: ['0', '1'],
       defaultValue: '0'
     },
-    external_update_fields_data: DataTypes.STRING,
-    external_timer_action: DataTypes.STRING(20),
-    external_timer_action_message: DataTypes.STRING,
+    external_update_fields_data: {
+      type: DataTypes.STRING(255),
+      defaultValue: ''
+    },
+    external_timer_action: {
+      type: DataTypes.STRING(20),
+      defaultValue: ''
+    },
+    external_timer_action_message: {
+      type: DataTypes.STRING(255),
+      defaultValue: ''
+    },
     external_timer_action_seconds: {
-      type: DataTypes.INTEGER(7),
+      type: DataTypes.MEDIUMINT(7),
       defaultValue: -1
     },
     agent_log_id: {
@@ -93,22 +117,43 @@ module.exports = (sequelize, DataTypes) => {
       values: ['Y', 'N', 'SET'],
       defaultValue: 'N'
     },
-    ra_user: DataTypes.STRING(100),
-    ra_extension: DataTypes.STRING(100),
-    external_dtmf: DataTypes.STRING(100),
-    external_transferconf: DataTypes.STRING(100),
-    external_park: DataTypes.STRING(40),
-    external_timer_action_destination: DataTypes.STRING(100),
+    ra_user: {
+      type: DataTypes.STRING(100),
+      defaultValue: ''
+    },
+    ra_extension: {
+      type: DataTypes.STRING(100),
+      defaultValue: ''
+    },
+    external_dtmf: {
+      type: DataTypes.STRING(100),
+      defaultValue: ''
+    },
+    external_transferconf: {
+      type: DataTypes.STRING(100),
+      defaultValue: ''
+    },
+    external_park: {
+      type: DataTypes.STRING(40),
+      defaultValue: ''
+    },
+    external_timer_action_destination: {
+      type: DataTypes.STRING(100),
+      defaultValue: ''
+    },
     on_hook_agent: {
       type: DataTypes.ENUM,
       values: ['Y', 'N'],
       defaultValue: 'N'
     },
     on_hook_ring_time: {
-      type: DataTypes.INTEGER(15),
+      type: DataTypes.SMALLINT(15),
       defaultValue: 15
     },
-    ring_callerid: DataTypes.STRING(20)
+    ring_callerid: {
+      type: DataTypes.STRING(20),
+      defaultValue: ''
+    }
   },
   { tableName: 'x_live_agents' })
   LiveAgent.associate = function (models) {}

@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
     campaign_name: DataTypes.STRING(40),
     active: {
       type: DataTypes.ENUM,
-      defaultValue: 'N',
       values: ['Y', 'N']
     },
     dial_status_a: DataTypes.STRING(6),
@@ -23,7 +22,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(100),
       defaultValue: 'default'
     },
-    web_form_address: DataTypes.TEXT,
+    web_form_address: {
+      type: DataTypes.STRING(8000),
+      defaultValue: ''
+    },
     allow_closers: {
       type: DataTypes.ENUM,
       values: ['Y', 'N']
@@ -50,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'longest_wait_time'
     },
     local_call_time: {
-      type: DataTypes.STRING(8),
+      type: DataTypes.STRING(10),
       defaultValue: '9am-9pm'
     },
     voicemail_ext: DataTypes.STRING(10),
@@ -167,7 +169,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       defaultValue: 'Wrapup Call'
     },
-    closer_campaigns: DataTypes.TEXT,
+    closer_campaigns: {
+      type: DataTypes.TEXT,
+      defaultValue: ''
+    },
     use_internal_dnc: {
       type: DataTypes.ENUM,
       defaultValue: 'N',
@@ -245,7 +250,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     auto_alt_dial_statuses: {
       type: DataTypes.STRING,
-      defaultValue: 'B N NA DC -'
+      defaultValue: ' B N NA DC -'
     },
     agent_pause_codes_active: {
       type: DataTypes.ENUM,
@@ -293,7 +298,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(100),
       defaultValue: '---NONE---'
     },
-    xfer_groups: DataTypes.TEXT,
+    xfer_groups: {
+      type: DataTypes.TEXT,
+      defaultValue: ''
+    },
     queue_priority: {
       type: DataTypes.INTEGER(2),
       defaultValue: 50
@@ -307,7 +315,10 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'N',
       values: ['Y', 'N']
     },
-    qc_statuses: DataTypes.STRING(512),
+    qc_statuses: {
+      type: DataTypes.STRING(512),
+      defaultValue: ''
+    },
     qc_lists: DataTypes.STRING(512),
     qc_shift_id: {
       defaultValue: '24HRMIDNIGHT',
@@ -412,7 +423,10 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'CAMPAIGN',
       values: ['CAMPAIGN', 'CUSTOMER', 'AGENT_PHONE', 'AGENT_CHOOSE', 'CUSTOM_CID']
     },
-    three_way_dial_prefix: DataTypes.STRING(20),
+    three_way_dial_prefix: {
+      type: DataTypes.STRING(20),
+      defaultValue: ''
+    },
     web_form_target: {
       type: DataTypes.STRING(100),
       allowNull: false,
@@ -447,7 +461,10 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'N',
       values: ['Y', 'N']
     },
-    default_group_alias: DataTypes.STRING(30),
+    default_group_alias: {
+      type: DataTypes.STRING(30),
+      defaultValue: ''
+    },
     vtiger_search_dead: {
       values: ['DISABLED', 'ASK', 'RESURRECT'],
       type: DataTypes.ENUM,
@@ -458,7 +475,10 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'N',
       values: ['Y', 'N']
     },
-    survey_third_digit: DataTypes.STRING(1),
+    survey_third_digit: {
+      type: DataTypes.STRING(1),
+      defaultValue: ''
+    },
     survey_third_audio_file: {
       type: DataTypes.STRING(50),
       defaultValue: 'US_thanks_no_contact'
@@ -551,8 +571,14 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'N',
       values: ['Y', 'N']
     },
-    web_form_address_two: DataTypes.STRING,
-    waitforsilence_options: DataTypes.STRING(25),
+    web_form_address_two: {
+      type: DataTypes.STRING(512),
+      defaultValue: ''
+    },
+    waitforsilence_options: {
+      type: DataTypes.STRING(25),
+      defaultValue: ''
+    },
     agent_select_territories: {
       type: DataTypes.ENUM,
       defaultValue: 'N',
@@ -564,22 +590,43 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'N',
       values: ['Y', 'N', 'IFRAME']
     },
-    crm_login_address: DataTypes.STRING,
+    crm_login_address: {
+      type: DataTypes.STRING(512),
+      defaultValue: ''
+    },
     timer_action: {
       type: DataTypes.ENUM,
       defaultValue: 'NONE',
       values: ['NONE', 'WEBFORM', 'WEBFORM2', 'D1_DIAL', 'D2_DIAL', 'D3_DIAL', 'D4_DIAL', 'D5_DIAL', 'MESSAGE_ONLY', 'HANGUP', 'CALLMENU', 'EXTENSION', 'IN_GROUP']
     },
-    timer_action_message: DataTypes.STRING,
+    timer_action_message: {
+      type: DataTypes.STRING,
+      defaultValue: ''
+    },
     timer_action_seconds: {
-      type: DataTypes.INTEGER(7),
+      type: DataTypes.MEDIUMINT(7),
       defaultValue: -1
     },
-    start_call_url: DataTypes.STRING(512),
-    dispo_call_url: DataTypes.TEXT,
-    xferconf_c_number: DataTypes.STRING(50),
-    xferconf_d_number: DataTypes.STRING(50),
-    xferconf_e_number: DataTypes.STRING(50),
+    start_call_url: {
+      type: DataTypes.STRING(512),
+      defaultValue: ''
+    },
+    dispo_call_url: {
+      type: DataTypes.STRING(1000),
+      defaultValue: ''
+    },
+    xferconf_c_number: {
+      type: DataTypes.STRING(50),
+      defaultValue: ''
+    },
+    xferconf_d_number: {
+      type: DataTypes.STRING(50),
+      defaultValue: ''
+    },
+    xferconf_e_number: {
+      type: DataTypes.STRING(50),
+      defaultValue: ''
+    },
     use_custom_cid: {
       type: DataTypes.ENUM,
       defaultValue: 'N',
@@ -619,13 +666,19 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       defaultValue: 'Someone is blind monitoring your session'
     },
-    blind_monitor_filename: DataTypes.STRING(100),
+    blind_monitor_filename: {
+      type: DataTypes.STRING(100),
+      defaultValue: ''
+    },
     inbound_queue_no_dial: {
       type: DataTypes.ENUM,
       defaultValue: 'DISABLED',
       values: ['DISABLED', 'ENABLED', 'ALL_SERVERS']
     },
-    timer_action_destination: DataTypes.STRING(30),
+    timer_action_destination: {
+      type: DataTypes.STRING(30),
+      defaultValue: ''
+    },
     enable_xfer_presets: {
       type: DataTypes.ENUM,
       defaultValue: 'DISABLED',
@@ -636,7 +689,10 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'DISABLED',
       values: ['DISABLED', 'ENABLED']
     },
-    manual_dial_prefix: DataTypes.STRING(20),
+    manual_dial_prefix: {
+      type: DataTypes.STRING(20),
+      defaultValue: ''
+    },
     customer_3way_hangup_logging: {
       type: DataTypes.ENUM,
       defaultValue: 'ENABLED',
@@ -656,7 +712,10 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'DISABLED',
       values: ['DISABLED', 'ENABLED', 'ENABLED_PARK_ONLY', 'ENABLED_BUTTON_HIDDEN']
     },
-    ivr_park_call_agi: DataTypes.STRING(512),
+    ivr_park_call_agi: {
+      type: DataTypes.STRING(512),
+      defaultValue: ''
+    },
     manual_preview_dial: {
       type: DataTypes.ENUM,
       defaultValue: 'PREVIEW_AND_SKIP',
@@ -714,7 +773,7 @@ module.exports = (sequelize, DataTypes) => {
     per_call_notes: {
       type: DataTypes.ENUM,
       defaultValue: 'DISABLED',
-      values: ['DISABLED', 'ENABLED']
+      values: ['ENABLED', 'DISABLED']
     },
     my_callback_option: {
       type: DataTypes.ENUM,
@@ -730,10 +789,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(30),
       defaultValue: 'CAMPLISTS_ALL'
     },
-    queuemetrics_phone_environment: {
-      type: DataTypes.STRING(50),
-      defaultValue: 'CAMPLISTS_ALL'
-    },
+    queuemetrics_phone_environment: DataTypes.STRING(50),
     auto_pause_precall: {
       type: DataTypes.ENUM,
       defaultValue: 'N',
@@ -783,10 +839,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(100),
       defaultValue: 'buzz'
     },
-    safe_harbor_menu_id: DataTypes.STRING(50),
-    survey_menu_id: DataTypes.STRING(50),
+    safe_harbor_menu_id: {
+      type: DataTypes.STRING(50),
+      defaultValue: ''
+    },
+    survey_menu_id: {
+      type: DataTypes.STRING(50),
+      defaultValue: ''
+    },
     callback_days_limit: {
-      type: DataTypes.INTEGER(3),
+      type: DataTypes.SMALLINT(3),
       defaultValue: 0
     },
     dl_diff_target_method: {
@@ -823,9 +885,18 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'N',
       values: ['Y', 'N']
     },
-    xferconf_f_number: DataTypes.STRING(50),
-    xferconf_g_number: DataTypes.STRING(50),
-    xferconf_h_number: DataTypes.STRING(50),
+    xferconf_f_number: {
+      type: DataTypes.STRING(50),
+      defaultValue: ''
+    },
+    xferconf_g_number: {
+      type: DataTypes.STRING(50),
+      defaultValue: ''
+    },
+    xferconf_h_number: {
+      type: DataTypes.STRING(50),
+      defaultValue: ''
+    },
     show_called_count: {
       type: DataTypes.ENUM,
       defaultValue: 'Y',
@@ -923,7 +994,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     survey_queue: DataTypes.STRING(45),
     preview_seconds: {
-      type: DataTypes.INTEGER(3).UNSIGNED,
+      type: DataTypes.SMALLINT(3).UNSIGNED,
       defaultValue: 0
     }
   },

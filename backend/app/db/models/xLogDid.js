@@ -17,13 +17,20 @@ module.exports = (sequelize, DataTypes) => {
     caller_id_name: DataTypes.STRING(20),
     extension: DataTypes.STRING(100),
     call_date: DataTypes.DATE,
-    did_id: DataTypes.STRING(9),
-    did_route: DataTypes.STRING(9)
+    did_id: {
+      type: DataTypes.STRING(9),
+      defaultValue: ''
+    },
+    did_route: {
+      type: DataTypes.STRING(9),
+      defaultValue: ''
+    }
   },
   {
     tableName: 'x_log_did'
   })
   XLogDID.associate = function (models) {
   }
+  XLogDID.removeAttribute('id')
   return XLogDID
 }

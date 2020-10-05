@@ -49,9 +49,13 @@ module.exports = (sequelize, DataTypes) => {
     },
     uniqueid: {
       type: DataTypes.STRING(20),
-      allowNull: false
+      allowNull: false,
+      defaultValue: ''
     },
-    agents_only: DataTypes.STRING(100),
+    agent_only: {
+      type: DataTypes.STRING(100),
+      defaultValue: ''
+    },
     queue_position: {
       type: DataTypes.INTEGER(4).UNSIGNED,
       defaultValue: 1
