@@ -78,7 +78,7 @@ function errorHandlerMiddleware () {
 function initDatabase () {
   db
     .sequelize
-    .sync({ alter: true })
+    .sync({ force: false })
     .then(function () {
       logger.info('You are connected to the database successfully.')
     })
