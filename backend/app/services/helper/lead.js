@@ -1,6 +1,6 @@
 import { getListByListId } from './list'
 import { getEditableFlowFieldsByFlowId } from './flow'
-import { listsFieldsColumnExists, listsFieldsTableExists, formatDate, getFirstElement } from './index'
+import { listsFieldsColumnExists, listsFieldsTableExists, formatDate, getFirstElement, asyncForEach } from './index'
 import moment from 'moment'
 import { SqlHelper } from '../../utils/sql'
 import { USER_LEVEL } from '../user/getSecurityContext'
@@ -110,7 +110,7 @@ export const updateLeadInCustomTable = async ({ lead }) => {
   const fieldsProcessed = []
   const keys = Object.keys(lead)
 
-  keys.forEach(async (key, index) => {
+  asyncForEach(keys, async (key, index) => {
     const keyInLowerCase = key.toLowerCase()
     const flowFieldDefinition = flowFields.find((f) => f.field_label.toLowerCase() === keyInLowerCase)
     // save this field to our custom table

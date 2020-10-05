@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     campaign_id: DataTypes.STRING(20),
     status: {
-      type: DataTypes.STRING(45),
+      type: DataTypes.ENUM,
+      values: ['SENT', 'RINGING', 'LIVE', 'XFER', 'PAUSED', 'CLOSER', 'BUSY', 'DISCONNECT', 'IVR'],
       defaultValue: 'PAUSED'
     },
     lead_id: {
@@ -48,14 +49,26 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER(2),
       defaultValue: 0
     },
-    agent_only: DataTypes.STRING(100),
-    agent_grab: DataTypes.STRING(100),
+    agent_only: {
+      type: DataTypes.STRING(100),
+      defaultValue: ''
+    },
+    agent_grab: {
+      type: DataTypes.STRING(100),
+      defaultValue: ''
+    },
     queue_position: {
       type: DataTypes.INTEGER(4).UNSIGNED,
       defaultValue: 1
     },
-    extension: DataTypes.STRING(100),
-    agent_grab_extension: DataTypes.STRING(100)
+    extension: {
+      type: DataTypes.STRING(100),
+      defaultValue: ''
+    },
+    agent_grab_extension: {
+      type: DataTypes.STRING(100),
+      defaultValue: ''
+    }
   },
   {
     tableName: 'x_live_calls',

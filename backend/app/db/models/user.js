@@ -14,10 +14,12 @@ module.exports = (sequelize, DataTypes) => {
     linkedin_id: DataTypes.STRING,
     user: {
       type: DataTypes.STRING(100),
-      unique: 'User_user_unique'
+      unique: 'User_user_unique',
+      allowNull: false
     },
     pass: {
-      type: DataTypes.STRING(100)
+      type: DataTypes.STRING(20),
+      allowNull: false
     },
     full_name: DataTypes.STRING(100),
     user_level: {
@@ -219,7 +221,7 @@ module.exports = (sequelize, DataTypes) => {
     qc_enabled: {
       type: DataTypes.ENUM,
       defaultValue: '0',
-      values: ['0', '1']
+      values: ['1', '0']
     },
     qc_user_level: {
       type: DataTypes.INTEGER(2),
@@ -228,32 +230,32 @@ module.exports = (sequelize, DataTypes) => {
     qc_pass: {
       type: DataTypes.ENUM,
       defaultValue: '0',
-      values: ['0', '1']
+      values: ['1', '0']
     },
     qc_finish: {
       type: DataTypes.ENUM,
       defaultValue: '0',
-      values: ['0', '1']
+      values: ['1', '0']
     },
     qc_commit: {
       type: DataTypes.ENUM,
       defaultValue: '0',
-      values: ['0', '1']
+      values: ['1', '0']
     },
     add_timeclock_log: {
       type: DataTypes.ENUM,
       defaultValue: '0',
-      values: ['0', '1']
+      values: ['1', '0']
     },
     modify_timeclock_log: {
       type: DataTypes.ENUM,
       defaultValue: '0',
-      values: ['0', '1']
+      values: ['1', '0']
     },
     delete_timeclock_log: {
       type: DataTypes.ENUM,
       defaultValue: '0',
-      values: ['0', '1']
+      values: ['1', '0']
     },
     alter_custphone_override: {
       type: DataTypes.ENUM,
@@ -268,12 +270,12 @@ module.exports = (sequelize, DataTypes) => {
     modify_inbound_dids: {
       type: DataTypes.ENUM,
       defaultValue: '0',
-      values: ['0', '1']
+      values: ['1', '0']
     },
     delete_inbound_dids: {
       type: DataTypes.ENUM,
       defaultValue: '0',
-      values: ['0', '1']
+      values: ['1', '0']
     },
     active: {
       type: DataTypes.ENUM,
@@ -283,12 +285,12 @@ module.exports = (sequelize, DataTypes) => {
     alert_enabled: {
       type: DataTypes.ENUM,
       defaultValue: '0',
-      values: ['0', '1']
+      values: ['1', '0']
     },
     download_lists: {
       type: DataTypes.ENUM,
       defaultValue: '0',
-      values: ['0', '1']
+      values: ['1', '0']
     },
     agent_shift_enforcement_override: {
       type: DataTypes.ENUM,
@@ -308,7 +310,7 @@ module.exports = (sequelize, DataTypes) => {
     export_reports: {
       type: DataTypes.ENUM,
       defaultValue: '0',
-      values: ['0', '1']
+      values: ['1', '0']
     },
     delete_from_dnc: {
       type: DataTypes.ENUM,
@@ -317,7 +319,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     email: {
       type: DataTypes.STRING(100),
-      allowNull: false
+      defaultValue: ''
     },
     email_verified: DataTypes.BOOLEAN,
     user_code: {
@@ -370,7 +372,7 @@ module.exports = (sequelize, DataTypes) => {
     callcard_admin: {
       type: DataTypes.ENUM,
       defaultValue: '0',
-      values: ['0', '1']
+      values: ['1', '0']
     },
     agent_choose_blended: {
       type: DataTypes.ENUM,

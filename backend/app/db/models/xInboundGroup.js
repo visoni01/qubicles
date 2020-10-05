@@ -8,14 +8,17 @@ module.exports = (sequelize, DataTypes) => {
     },
     group_name: DataTypes.STRING(100),
     max_agent_calls: {
-      type: DataTypes.INTEGER(5),
+      type: DataTypes.SMALLINT(5),
       defaultValue: 0
     },
     active: {
       type: DataTypes.ENUM,
       values: ['Y', 'N']
     },
-    web_form_address: DataTypes.STRING(1024),
+    web_form_address: {
+      type: DataTypes.STRING(1024),
+      defaultValue: ''
+    },
     voicemail_ext: DataTypes.STRING(10),
     next_agent_call: {
       type: DataTypes.ENUM,
@@ -122,7 +125,10 @@ module.exports = (sequelize, DataTypes) => {
       values: ['Y', 'N'],
       defaultValue: 'N'
     },
-    qc_statuses: DataTypes.STRING(1024),
+    qc_statuses: {
+      type: DataTypes.STRING(1024),
+      defaultValue: ''
+    },
     qc_shift_id: {
       type: DataTypes.STRING(20),
       defaultValue: '24HRMIDNIGHT'
@@ -161,7 +167,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(20),
       defaultValue: '8300'
     },
-    hold_time_option_voicemail: DataTypes.STRING(20),
+    hold_time_option_voicemail: {
+      type: DataTypes.STRING(20),
+      defaultValue: ''
+    },
     hold_time_option_xfer_group: {
       type: DataTypes.STRING(20),
       defaultValue: '---NONE---'
@@ -196,7 +205,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER(5).UNSIGNED,
       defaultValue: 30
     },
-    default_group_alias: DataTypes.STRING(30),
+    default_group_alias: {
+      type: DataTypes.STRING(30),
+      defaultValue: ''
+    },
     no_agent_no_queue: {
       type: DataTypes.ENUM,
       values: ['N', 'Y', 'NO_PAUSED'],
@@ -211,22 +223,43 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       defaultValue: 'nbdy-avail-to-take-call|vm-goodbye'
     },
-    web_form_address_two: DataTypes.STRING(1024),
+    web_form_address_two: {
+      type: DataTypes.STRING(1024),
+      defaultValue: ''
+    },
     timer_action: {
       type: DataTypes.ENUM,
       values: ['NONE', 'WEBFORM', 'WEBFORM2', 'D1_DIAL', 'D2_DIAL', 'D3_DIAL', 'D4_DIAL', 'D5_DIAL', 'MESSAGE_ONLY', 'HANGUP', 'CALLMENU', 'EXTENSION', 'IN_GROUP'],
       defaultValue: 'NONE'
     },
-    timer_action_message: DataTypes.STRING,
+    timer_action_message: {
+      type: DataTypes.STRING,
+      defaultValue: ''
+    },
     timer_action_seconds: {
       type: DataTypes.INTEGER(7),
       defaultValue: -1
     },
-    start_call_url: DataTypes.STRING(1024),
-    dispo_call_url: DataTypes.STRING(1024),
-    xferconf_c_number: DataTypes.STRING(50),
-    xferconf_d_number: DataTypes.STRING(50),
-    xferconf_e_number: DataTypes.STRING(50),
+    start_call_url: {
+      type: DataTypes.STRING(1024),
+      defaultValue: ''
+    },
+    dispo_call_url: {
+      type: DataTypes.STRING(1024),
+      defaultValue: ''
+    },
+    xferconf_c_number: {
+      type: DataTypes.STRING(50),
+      defaultValue: ''
+    },
+    xferconf_d_number: {
+      type: DataTypes.STRING(50),
+      defaultValue: ''
+    },
+    xferconf_e_number: {
+      type: DataTypes.STRING(50),
+      defaultValue: ''
+    },
     ignore_list_script_override: {
       type: DataTypes.ENUM,
       values: ['Y', 'N'],
@@ -242,7 +275,10 @@ module.exports = (sequelize, DataTypes) => {
       values: ['DISABLED', 'ENABLED', 'ENABLED_PREFIX', 'ENABLED_PRESERVE'],
       defaultValue: 'DISABLED'
     },
-    uniqueid_status_prefix: DataTypes.STRING(50),
+    uniqueid_status_prefix: {
+      type: DataTypes.STRING(50),
+      defaultValue: ''
+    },
     hold_time_option_minimum: {
       type: DataTypes.INTEGER(5),
       defaultValue: 0
@@ -251,10 +287,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       defaultValue: 'to-be-called-back|digits/1'
     },
-    hold_time_option_callmenu: DataTypes.STRING(50),
+    hold_time_option_callmenu: {
+      type: DataTypes.STRING(50),
+      defaultValue: ''
+    },
     hold_time_option_no_block: {
       type: DataTypes.ENUM,
-      values: ['Y', 'N'],
+      values: ['N', 'Y'],
       defaultValue: 'N'
     },
     hold_time_option_prompt_seconds: {
@@ -263,7 +302,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     onhold_prompt_no_block: {
       type: DataTypes.ENUM,
-      values: ['Y', 'N'],
+      values: ['N', 'Y'],
       defaultValue: 'N'
     },
     onhold_prompt_seconds: {
@@ -271,11 +310,11 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 10
     },
     hold_time_second_option: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(30),
       defaultValue: 'NONE'
     },
     hold_time_third_option: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(30),
       defaultValue: 'NONE'
     },
     wait_hold_option_priority: {
@@ -303,12 +342,18 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(20),
       defaultValue: '8300'
     },
-    wait_time_option_voicemail: DataTypes.STRING(20),
+    wait_time_option_voicemail: {
+      type: DataTypes.STRING(20),
+      defaultValue: ''
+    },
     wait_time_option_xfer_group: {
       type: DataTypes.STRING(20),
       defaultValue: '---NONE---'
     },
-    wait_time_option_callmenu: DataTypes.STRING(50),
+    wait_time_option_callmenu: {
+      type: DataTypes.STRING(50),
+      defaultValue: ''
+    },
     wait_time_option_callback_filename: {
       type: DataTypes.STRING,
       defaultValue: 'vm-hangup'
@@ -323,20 +368,29 @@ module.exports = (sequelize, DataTypes) => {
     },
     wait_time_option_no_block: {
       type: DataTypes.ENUM,
-      values: ['Y', 'N'],
+      values: ['N', 'Y'],
       defaultValue: 'N'
     },
     wait_time_option_prompt_seconds: {
       type: DataTypes.INTEGER(5),
       defaultValue: 10
     },
-    timer_action_destination: DataTypes.STRING(30),
+    timer_action_destination: {
+      type: DataTypes.STRING(30),
+      defaultValue: ''
+    },
     calculate_estimated_hold_seconds: {
       type: DataTypes.INTEGER(5).UNSIGNED,
       defaultValue: 0
     },
-    add_lead_url: DataTypes.STRING(1024),
-    eht_minimum_prompt_filename: DataTypes.STRING,
+    add_lead_url: {
+      type: DataTypes.STRING(1024),
+      defaultValue: ''
+    },
+    eht_minimum_prompt_filename: {
+      type: DataTypes.STRING,
+      defaultValue: ''
+    },
     eht_minimum_prompt_no_block: {
       type: DataTypes.ENUM,
       values: ['Y', 'N'],
@@ -351,7 +405,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 15
     },
     max_calls_in_queue: {
-      type: DataTypes.INTEGER(5),
+      type: DataTypes.SMALLINT(5),
       defaultValue: 0
     },
     max_calls_in_queue_filename: {
@@ -372,7 +426,10 @@ module.exports = (sequelize, DataTypes) => {
       values: ['HANGUP', 'MESSAGE', 'EXTENSION', 'VOICEMAIL', 'IN_GROUP'],
       defaultValue: 'HANGUP'
     },
-    max_calls_in_queue_exten: DataTypes.STRING(20),
+    max_calls_in_queue_exten: {
+      type: DataTypes.STRING(20),
+      defaultValue: '8300'
+    },
     max_calls_in_queue_voicemail: DataTypes.STRING(20),
     max_calls_in_queue_xfer_group: DataTypes.STRING(20),
     afterhours_callmenu: DataTypes.STRING(50)

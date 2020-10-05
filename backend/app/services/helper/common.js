@@ -4,6 +4,7 @@ import { SqlHelper } from '../../utils/sql'
 import _ from 'lodash'
 import moment from 'moment'
 import { executeUpdateQuery } from '../../utils/queryManager'
+import logger from '../../common/logger'
 
 // Here we are separating the combined values
 // Input example: ' AGENTDIRECT LeadCrowdInbound NewTFNInboundQueue UveaousTechInbound -'
@@ -89,6 +90,10 @@ export const getErrorMessageForService = (serviceName) => {
   return `Error while executing the service ${serviceName} =====>`
 }
 
+export const displayErrorMessageForMethod = (methodName, error) => {
+  return logger.error(`Error while executing the method ${methodName} =====> ${error}`)
+}
+
 export const createDate = ({ year, month, day, hours, minutes, seconds }) => {
   return moment(`${month}/${day}/${year} ${hours}:${minutes}:${seconds}`, 'MM/DD/YYYY HH:mm:ss A')
 }
@@ -145,4 +150,11 @@ export const checkSpecificCountry = (phone_number) => {
 // This method is used for showing number saved in db to user as per format +1 5555555555
 export const phoneNumberFormatter = (phone_number) => {
   return `+${phone_number}`
+}
+
+// This method is used for Async forEach operation
+export const asyncForEach = async (array, callback) => {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index, array)
+  }
 }

@@ -16,18 +16,54 @@ module.exports = (sequelize, DataTypes) => {
     list_description: DataTypes.STRING,
     list_changedate: DataTypes.DATE,
     list_lastcalldate: DataTypes.DATE,
-    reset_time: DataTypes.STRING,
-    agent_script_override: DataTypes.STRING(10),
-    campaign_cid_override: DataTypes.STRING(20),
-    am_message_exten_override: DataTypes.STRING(100),
-    drop_inbound_group_override: DataTypes.STRING(20),
-    xferconf_a_number: DataTypes.STRING(50),
-    xferconf_b_number: DataTypes.STRING(50),
-    xferconf_c_number: DataTypes.STRING(50),
-    xferconf_d_number: DataTypes.STRING(50),
-    xferconf_e_number: DataTypes.STRING(50),
-    web_form_address: DataTypes.STRING(512),
-    web_form_address_two: DataTypes.STRING(512),
+    reset_time: {
+      type: DataTypes.STRING(512),
+      defaultValue: ''
+    },
+    agent_script_override: {
+      type: DataTypes.STRING(10),
+      defaultValue: ''
+    },
+    campaign_cid_override: {
+      type: DataTypes.STRING(20),
+      defaultValue: ''
+    },
+    am_message_exten_override: {
+      type: DataTypes.STRING(100),
+      defaultValue: ''
+    },
+    drop_inbound_group_override: {
+      type: DataTypes.STRING(20),
+      defaultValue: ''
+    },
+    xferconf_a_number: {
+      type: DataTypes.STRING(50),
+      defaultValue: ''
+    },
+    xferconf_b_number: {
+      type: DataTypes.STRING(50),
+      defaultValue: ''
+    },
+    xferconf_c_number: {
+      type: DataTypes.STRING(50),
+      defaultValue: ''
+    },
+    xferconf_d_number: {
+      type: DataTypes.STRING(50),
+      defaultValue: ''
+    },
+    xferconf_e_number: {
+      type: DataTypes.STRING(50),
+      defaultValue: ''
+    },
+    web_form_address: {
+      type: DataTypes.STRING(512),
+      defaultValue: ''
+    },
+    web_form_address_two: {
+      type: DataTypes.STRING(512),
+      defaultValue: ''
+    },
     time_zone_setting: {
       type: DataTypes.ENUM,
       values: ['COUNTRY_AND_AREA_CODE', 'POSTAL_CODE', 'NANPA_PREFIX', 'OWNER_TIME_ZONE_CODE'],
@@ -42,8 +78,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BIGINT(14).UNSIGNED,
       defaultValue: 0
     },
-    list_startdate: DataTypes.DATE,
-    list_stopdate: DataTypes.DATE
+    list_startdate: {
+      type: DataTypes.DATE,
+      defaultValue: '1970-01-01 00:00:00'
+    },
+    list_stopdate: {
+      type: DataTypes.DATE,
+      defaultValue: '1970-01-01 00:00:00'
+    }
   },
   {
     tableName: 'x_leads_lists',

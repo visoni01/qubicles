@@ -22,11 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'True',
       values: ['True', 'False']
     },
-    created_on: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW
-    }
+    created_on: DataTypes.DATE
   },
   { tableName: 'x_flow_pages' })
   FlowPage.associate = function (models) {}

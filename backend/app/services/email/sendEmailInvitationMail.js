@@ -56,7 +56,7 @@ export default class SendEmailInvitationMailService extends ServiceBase {
 }
 
 function getHtml ({ inviteUrl, name, inviter_first_name, inviter_last_name }) {
-  const EMAIL_TEMPLATE_GREETING = name ? `Hi ${name}`: `Hi`
+  const EMAIL_TEMPLATE_GREETING = name ? `Hi ${name}` : 'Hi'
   const EMAIL_TEMPLATE_BODY = `
   ${inviter_first_name} ${inviter_last_name} has invited you to join Qubicles!
   <br /><br />

@@ -56,7 +56,10 @@ module.exports = (sequelize, DataTypes) => {
       values: ['Y', 'N'],
       defaultValue: 'N'
     },
-    custom_code: DataTypes.STRING(45)
+    custom_code: {
+      type: DataTypes.STRING(45),
+      allowNull: false
+    }
   },
   {
     tableName: 'x_statuses_campaigns',
