@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import { Divider } from '@material-ui/core'
 import PostStatusLikeComment from './PostLikeComment'
 import PostComments from './PostComments'
 import PostCommentSection from './PostCommentSection'
@@ -10,6 +11,12 @@ const PostBody = ({
 }) => {
   const [ showComments, setShowComments ] = useState(false)
   const [ showCommentSection, setShowCommentSection ] = useState(false)
+  const toggleCommentSection = () => {
+    setShowCommentSection(!showCommentSection)
+  }
+  const toggleShowComments = () => {
+    setShowComments(!showComments)
+  }
   return (
     <div className='post-content'>
       <p className='post-text'>
@@ -18,13 +25,14 @@ const PostBody = ({
       {activityCustom && <img className='post-image' src={ activityCustom } alt='Helen' />}
 
       {/* Post Like and comment */}
+
       <PostStatusLikeComment
         userActivityId={ userActivityId }
         isPostLiked={ isPostLiked }
         likesCount={ likesCount }
         commentsCount={ commentsCount }
-        setShowComments={ setShowComments }
-        setShowCommentSection={ setShowCommentSection }
+        toggleShowComments={ toggleShowComments }
+        toggleCommentSection={ toggleCommentSection }
       />
 
       {showComments && (
@@ -36,8 +44,10 @@ const PostBody = ({
       )}
 
       {/* <PostComments /> */}
-      {showCommentSection
-      && <PostCommentSection />}
+      {showCommentSection && (
+      <PostCommentSection />
+      )}
+
     </div>
   )
 }

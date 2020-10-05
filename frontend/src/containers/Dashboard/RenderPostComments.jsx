@@ -2,16 +2,14 @@ import React from 'react'
 import { Divider, Avatar } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { formatDate } from '../../utils/common'
+import { terry } from '../../assets/images/avatar'
 
 const RenderPostComments = ({
   commentText, ownerName, createdAt, userActivityId,
 }) => (
   <div className='comment-wrap'>
-    <Divider />
     <div className='comment-body'>
-      <Avatar
-        className='avatar'
-      />
+      <Avatar className='comment-avatar' alt='Remy Sharp' src={ terry } />
       <div>
         <h4 className='user-name'>
           <b>{ownerName}</b>
