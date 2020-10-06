@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid } from '@material-ui/core'
 import GroupsList from './groups'
-import SelectedGroup from './newGroup'
+import SelectedGroup from './group'
 import TrendingTopics from './trendingTopics'
 import { newNavBar } from '../../hoc/navbar'
 import './styles.scss'
