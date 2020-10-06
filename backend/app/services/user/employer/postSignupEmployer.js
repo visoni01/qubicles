@@ -91,7 +91,7 @@ export class PostSignupEmployerStep1Service extends ServiceBase {
 
       return `Post Signup Step 1 for user ${this.user_id} is completed`
     } catch (e) {
-      logger.error(getErrorMessageForService('PostSignupEmployerStep1Service'), e)
+      logger.error(`${getErrorMessageForService('PostSignupEmployerStep1Service')} ${e}`)
       this.addError(ERRORS.INTERNAL)
     }
   }
@@ -130,7 +130,7 @@ export class PostSignupEmployerStep2Service extends ServiceBase {
 
         return `Post signup step 2 for user ${this.user_id} is completed. Added EIN`
       } catch (e) {
-        logger.error(getErrorMessageForService('PostSignupEmployerStep2Service'), e)
+        logger.error(`${getErrorMessageForService('PostSignupEmployerStep2Service')} ${e}`)
         this.addError(ERRORS.INTERNAL)
       }
     } else {
@@ -180,7 +180,7 @@ export class PostSignupEmployerStep3Service extends ServiceBase {
 
         return `Post signup step 3 for user ${this.user_id} is completed`
       } catch (e) {
-        logger.error(getErrorMessageForService('PostSignupEmployerStep3Service'), e)
+        logger.error(`${getErrorMessageForService('PostSignupEmployerStep3Service')} ${e}`)
         this.addError(ERRORS.INTERNAL)
       }
     } else {
@@ -277,7 +277,7 @@ export class PostSignupEmployerStep4Service extends ServiceBase {
 
         }
       } catch (e) {
-        logger.error(getErrorMessageForService('PostSignupEmployerStep4Service'), e)
+        logger.error(`${getErrorMessageForService('PostSignupEmployerStep4Service')} ${e}`)
         this.addError(ERRORS.INTERNAL)
       }
     } else {

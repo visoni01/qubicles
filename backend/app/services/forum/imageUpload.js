@@ -44,7 +44,7 @@ export class ImageUploadService extends ServiceBase {
 
       return { url }
     } catch (e) {
-      logger.error(getErrorMessageForService('ImageUploadService'), e)
+      logger.error(`${getErrorMessageForService('ImageUploadService')} ${e}`)
       this.addError(ERRORS.INTERNAL)
     }
   }

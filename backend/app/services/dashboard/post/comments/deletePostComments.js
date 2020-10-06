@@ -51,7 +51,7 @@ export class DeletePostCommentsService extends ServiceBase {
         message: MESSAGES.POST_COMMENT_DELETED_SUCCESSFULLY
       }
     } catch (error) {
-      logger.error(getErrorMessageForService('DeletePostCommentsService'), error)
+      logger.error(`${getErrorMessageForService('DeletePostCommentsService')} ${error}`)
       this.addError(ERRORS.INTERNAL)
     }
   }

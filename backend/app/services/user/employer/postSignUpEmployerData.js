@@ -65,7 +65,7 @@ export class PostSignUpEmployerDataService extends ServiceBase {
       }
       return data
     } catch (e) {
-      logger.error(getErrorMessageForService('PostSignUpEmployerDataService'), e)
+      logger.error(`${getErrorMessageForService('PostSignUpEmployerDataService')} ${e}`)
       this.addError(ERRORS.INTERNAL)
     }
   }

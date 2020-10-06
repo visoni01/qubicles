@@ -41,7 +41,7 @@ export class ForumUpdateTopicCommentService extends ServiceBase {
         return
       }
     } catch (err) {
-      logger.error(getErrorMessageForService('ForumUpdateTopicCommentService'), err)
+      logger.error(`${getErrorMessageForService('ForumUpdateTopicCommentService')} ${err}`)
       this.addError(ERRORS.INTERNAL)
     }
   }

@@ -43,7 +43,7 @@ export class ForumTopicService extends ServiceBase {
       const topicDetails = await getTopicDetails({ user_id, topicData, topicComments, totalLikes, totalViews, topicLiked })
       return topicDetails
     } catch (err) {
-      logger.error(getErrorMessageForService('ForumTopicService'), err)
+      logger.error(`${getErrorMessageForService('ForumTopicService')} ${err}`)
       this.addError(ERRORS.INTERNAL)
     }
   }

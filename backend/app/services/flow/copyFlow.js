@@ -85,7 +85,7 @@ export class CopyFlowService extends ServiceBase {
         }
       }
     } catch (err) {
-      logger.error(getErrorMessageForService('CopyFlowService'), err)
+      logger.error(`${getErrorMessageForService('CopyFlowService')} ${err}`)
       this.addError(ERRORS.INTERNAL)
     }
   }

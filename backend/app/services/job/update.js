@@ -55,7 +55,7 @@ export default class UpdateJobService extends ServiceBase {
       const updatedJob = await updateJob(this.args)
       return updatedJob
     } catch (err) {
-      logger.error(getErrorMessageForService('ForumAddJobService'), err)
+      logger.error(`${getErrorMessageForService('ForumAddJobService')} ${err}`)
       this.addError(ERRORS.INTERNAL)
     }
   }

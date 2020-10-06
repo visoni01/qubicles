@@ -36,7 +36,7 @@ export class ForumDeleteTopicService extends ServiceBase {
         return
       }
     } catch (err) {
-      logger.error(getErrorMessageForService('ForumDeleteTopicService'), err)
+      logger.error(`${getErrorMessageForService('ForumDeleteTopicService')} ${err}`)
       this.addError(ERRORS.INTERNAL)
     }
   }

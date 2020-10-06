@@ -36,7 +36,7 @@ export default class ForumDeleteJobService extends ServiceBase {
         return
       }
     } catch (err) {
-      logger.error(getErrorMessageForService('ForumDeleteJobService'), err)
+      logger.error(`${getErrorMessageForService('ForumDeleteJobService')} ${err}`)
       this.addError(ERRORS.INTERNAL)
     }
   }

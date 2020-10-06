@@ -71,7 +71,7 @@ export class PostSignUpAgentDataService extends ServiceBase {
       }
       return data
     } catch (e) {
-      logger.error(getErrorMessageForService('PostSignUpAgentDataService'), e)
+      logger.error(`${getErrorMessageForService('PostSignUpAgentDataService')} ${e}`)
       this.addError(ERRORS.INTERNAL)
     }
   }

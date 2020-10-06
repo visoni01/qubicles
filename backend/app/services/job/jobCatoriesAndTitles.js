@@ -13,7 +13,7 @@ export default class JobCatoriesAndTitles extends ServiceBase {
       const [jobTitles, jobCategories] = await Promise.all(promises.map(promise => promise()))
       return { jobTitles, jobCategories }
     } catch (err) {
-      logger.error(getErrorMessageForService('JobCatoriesAndTitles'), err)
+      logger.error(`${getErrorMessageForService('JobCatoriesAndTitles')} ${err}`)
       this.addError(ERRORS.INTERNAL)
     }
   }
