@@ -37,7 +37,7 @@ export class ForumDeleteTopicCommentService extends ServiceBase {
         return
       }
     } catch (err) {
-      logger.error(getErrorMessageForService('ForumDeleteTopicCommentService'), err)
+      logger.error(`${getErrorMessageForService('ForumDeleteTopicCommentService')} ${err}`)
       this.addError(ERRORS.INTERNAL)
     }
   }

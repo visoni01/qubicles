@@ -47,7 +47,7 @@ export class ForumChannelDetailsService extends ServiceBase {
       }
       return res
     } catch (err) {
-      logger.error(getErrorMessageForService('ForumChannelDetailsService'), err)
+      logger.error(`${getErrorMessageForService('ForumChannelDetailsService')} ${err}`)
       this.addError(ERRORS.INTERNAL)
     }
   }

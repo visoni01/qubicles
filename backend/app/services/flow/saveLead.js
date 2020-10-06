@@ -126,7 +126,7 @@ export class SaveLeadService extends ServiceBase {
             return
           }
         } catch (error) {
-          logger.error(getErrorMessageForService('SaveLeadService'), error)
+          logger.error(`${getErrorMessageForService('SaveLeadService')} ${error}`)
           this.addError(ERRORS.INTERNAL)
         }
       } else {

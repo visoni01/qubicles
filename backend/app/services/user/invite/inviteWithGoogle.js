@@ -43,7 +43,7 @@ export class InviteWithGoogleAuthService extends ServiceBase {
 
       return authUrl
     } catch (err) {
-      logger.error(getErrorMessageForService('InviteWithGoogleAuthService'), err)
+      logger.error(`${getErrorMessageForService('InviteWithGoogleAuthService')} ${err}`)
       this.addError(ERRORS.INTERNAL)
     }
   }
@@ -114,7 +114,7 @@ export class InviteWithGoogleCallbackService extends ServiceBase {
         }
       }
     } catch (err) {
-      logger.error(getErrorMessageForService('InviteWithGoogleCallbackService'), err)
+      logger.error(`${getErrorMessageForService('InviteWithGoogleCallbackService')} ${err}`)
       this.addError(ERRORS.INTERNAL)
     }
     // Add contactEmails to x_user_contacts

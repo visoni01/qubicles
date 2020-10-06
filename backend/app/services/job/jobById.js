@@ -19,7 +19,7 @@ export default class JobByIdService extends ServiceBase {
       const jobDetails = await getJobById({ job_id })
       return jobDetails
     } catch (err) {
-      logger.error(getErrorMessageForService('JobByIdService'), err)
+      logger.error(`${getErrorMessageForService('JobByIdService')} ${err}`)
       this.addError(ERRORS.INTERNAL)
     }
   }

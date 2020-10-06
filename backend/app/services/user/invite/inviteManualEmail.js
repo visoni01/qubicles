@@ -49,7 +49,7 @@ export class InviteManualService extends ServiceBase {
       })
       return 'Sent Invitations successfully'
     } catch (err) {
-      logger.error(getErrorMessageForService('InviteManualService'), err)
+      logger.error(`${getErrorMessageForService('InviteManualService')} ${err}`)
       this.addError(ERRORS.INTERNAL)
     }
   }

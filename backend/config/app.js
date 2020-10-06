@@ -228,6 +228,28 @@ const config = convict({
       env: 'FLOW_PATH'
     }
   },
+  logConfig: {
+    maxSize: {
+      default: '50m',
+      env: 'WINSTON_LOG_MAX_SIZE'
+    },
+    maxFiles: {
+      default: '10d',
+      env: 'WINSTON_MAX_FILES_DURATION'
+    },
+    dirname: {
+      default: 'logs',
+      env: 'WINSTON_LOG_DIR'
+    },
+    datePattern: {
+      default: 'YYYY-MM-DD-HH',
+      env: 'WINSTON_FILE_NAME_DATE_PATTERN'
+    },
+    zippedArchive: {
+      default: true,
+      env: 'WINSTON_ZIPPED_ARCHIVE'
+    }
+  },
   cookieMaxAge: {
     default: 1000 * 60 * 60 * 24,
     env: 'COOKIE_MAX_AGE'

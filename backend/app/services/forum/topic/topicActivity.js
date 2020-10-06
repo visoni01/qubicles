@@ -36,7 +36,7 @@ export class ForumTopicActivityService extends ServiceBase {
           break
       }
     } catch (err) {
-      logger.error(getErrorMessageForService('ForumTopicActivityService'), err)
+      logger.error(`${getErrorMessageForService('ForumTopicActivityService')} ${err}`)
       this.addError(ERRORS.INTERNAL)
     }
     return activityResult

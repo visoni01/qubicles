@@ -123,7 +123,7 @@ export class PostSignupAgentStep2Service extends ServiceBase {
         return
       }
     } catch (e) {
-      logger.error(getErrorMessageForService('PostSignupAgentStep2Service'), e)
+      logger.error(`${getErrorMessageForService('PostSignupAgentStep2Service')} ${e}`)
       this.addError(ERRORS.INTERNAL)
     }
   }
@@ -278,7 +278,7 @@ export class PostSignupAgentStep6Service extends ServiceBase {
 
       }
     } catch (e) {
-      logger.error(getErrorMessageForService('PostSignupAgentStep6Service'), e)
+      logger.error(`${getErrorMessageForService('PostSignupAgentStep6Service')} ${e}`)
       this.addError(ERRORS.INTERNAL)
     }
   }

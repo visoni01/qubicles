@@ -30,7 +30,7 @@ export class ForumChannelTopicsListService extends ServiceBase {
       const res = await getTopicsSubDetails({ topics })
       return res
     } catch (err) {
-      logger.error(getErrorMessageForService('ForumChannelTopicsListService'), err)
+      logger.error(`${getErrorMessageForService('ForumChannelTopicsListService')} ${err}`)
       this.addError(ERRORS.INTERNAL)
     }
   }

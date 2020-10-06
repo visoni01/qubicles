@@ -34,7 +34,7 @@ export default class SendVerificationMailService extends ServiceBase {
       }
       return 'Mail sent successfully'
     } catch (err) {
-      logger.error('Error in ResendEmailVerificationMailService', err)
+      logger.error(`Error in ResendEmailVerificationMailService ${err}`)
     }
   }
 }

@@ -30,7 +30,7 @@ export class ResetPasswordService extends ServiceBase {
       }
       this.addError(ERRORS.UNAUTHORIZED)
     } catch (err) {
-      logger.error(getErrorMessageForService('ResetPasswordService'), err)
+      logger.error(`${getErrorMessageForService('ResetPasswordService')} ${err}`)
       this.addError(ERRORS.INTERNAL)
     }
   }

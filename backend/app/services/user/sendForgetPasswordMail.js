@@ -37,7 +37,7 @@ export default class ForgetPasswordMailService extends ServiceBase {
       }
       return 'Reset password link sent successfully'
     } catch (err) {
-      logger.error(getErrorMessageForService('ForgetPasswordMailService'), err)
+      logger.error(`${getErrorMessageForService('ForgetPasswordMailService')} ${err}`)
     }
   }
 }

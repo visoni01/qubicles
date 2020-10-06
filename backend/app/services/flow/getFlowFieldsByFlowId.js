@@ -49,7 +49,7 @@ export class GetFlowFieldsByFlowIdService extends ServiceBase {
       fields = _.sortBy(fields, ['page', 'field_rank', 'field_id'])
       return fields
     } catch (error) {
-      logger.error(getErrorMessageForService('GetFlowFieldsByFlowIdService'), error)
+      logger.error(`${getErrorMessageForService('GetFlowFieldsByFlowIdService')} ${error}`)
       this.addError(ERRORS.INTERNAL)
     }
   }

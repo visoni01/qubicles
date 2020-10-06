@@ -55,7 +55,7 @@ export class GellAllPostStatusListService extends ServiceBase {
 
       return _.compact(statusList)
     } catch (e) {
-      logger.error(getErrorMessageForService('GellAllPostStatusListService'), e)
+      logger.error(`${getErrorMessageForService('GellAllPostStatusListService')} ${e}`)
       this.addError(ERRORS.INTERNAL)
     }
   }

@@ -57,7 +57,7 @@ export default class PeopleAddJobService extends ServiceBase {
       const newJob = await addJob({ client_id, user_id, ...payload })
       return newJob
     } catch (err) {
-      logger.error(getErrorMessageForService('ForumAddJobService'), err)
+      logger.error(`${getErrorMessageForService('ForumAddJobService')} ${err}`)
       this.addError(ERRORS.INTERNAL)
     }
   }

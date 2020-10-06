@@ -11,7 +11,7 @@ const closeAllProcesses = (server) => {
       console.log('\x1b[32m%s\x1b[0m', 'Database connection closed.')
       process.exit(0)
     }).catch((err) => {
-      logger.error('Error occured while closing the database connection', err)
+      logger.error(`Error occured while closing the database connection ${err}`)
     })
   })
 }

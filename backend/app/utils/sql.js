@@ -68,7 +68,7 @@ export const SqlHelper = {
           resolve(results)
         })
       } catch (err) {
-        logger.error('Error while executing the method runQuery ====>', err)
+        logger.error(`Error while executing the method runQuery ====> ${err}`)
         reject(err)
       }
     })

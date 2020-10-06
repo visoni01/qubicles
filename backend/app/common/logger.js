@@ -1,6 +1,7 @@
 import winston from 'winston'
 import fs from 'fs'
 import config from '../../config/app'
+require('winston-daily-rotate-file')
 
 const { combine, timestamp, label, printf } = winston.format
 
@@ -12,8 +13,16 @@ if (!fs.existsSync(logDir)) {
 }
 
 const logLevel = config.get('log_level')
+const maxSize = config.get('logConfig.maxSize')
+// maxFiles is set as 20d, it means after 10 days respective log files will be deleted.
+const maxFiles = config.get('logConfig.maxFiles')
+const dirname = config.get('logConfig.dirname')
+// datePattern is set as YYYY-MM-DD-HH, it means we have different log files per day.
+const datePattern = config.get('logConfig.datePattern')
+const zippedArchive = config.get('logConfig.zippedArchive')
+const environment = config.get('env')
 
-const transports = [
+let transports = [
   new winston.transports.Console({
     level: logLevel,
     handleExceptions: true,
@@ -21,6 +30,35 @@ const transports = [
     colorize: true
   })
 ]
+
+// Save the logs in production environment
+if (environment === 'production') {
+  transports = [
+    new winston.transports.DailyRotateFile({
+      filename: 'qubicles-%DATE%-combined.log',
+      datePattern,
+      zippedArchive,
+      maxSize,
+      maxFiles,
+      dirname,
+      level: logLevel,
+      utc: true
+    }),
+
+    new winston.transports.DailyRotateFile({
+      filename: 'qubicles-%DATE%-error.log',
+      datePattern,
+      zippedArchive,
+      maxSize,
+      maxFiles,
+      dirname,
+      level: 'error',
+      utc: true
+    }),
+
+    ...transports
+  ]
+}
 
 const customFormat = printf((info) => {
   let msg = `Process: ${process.pid} ${info.timestamp} [${info.label}] ${info.level}: `
