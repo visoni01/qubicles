@@ -22,6 +22,8 @@ import {
   DELETE_POST_COMMENT,
   ADD_JOB,
   UPDATE_JOB,
+  ADD_COMMENT_TO_POST,
+  FETCH_COMMENT_FOR_POST,
 } from './constants'
 
 import {
@@ -244,6 +246,27 @@ export const getUpdatedJobsData = ({ state, payload }) => {
 export const getPostData = ({ state, payload }) => {
   let posts
   switch (payload.type) {
+    case ADD_COMMENT_TO_POST: {
+      const { data } = payload
+      posts = state.posts.map((post) => ({
+        ...post,
+        commentsCount: post.user_activity_id === data.user_activity_id ? post.commentsCount + 1 : post.commentsCount,
+        comments: post.user_activity_id === data.user_activity_id ? [ ...post.comments, data ] : post.comments,
+      }))
+      break
+    }
+
+    case FETCH_COMMENT_FOR_POST: {
+      const { data } = payload
+      const fetchedComments = data.comments
+      posts = state.posts
+      posts = state.posts.map((post) => ({
+        ...post,
+        comments: post.user_activity_id === data.userActivityId ? fetchedComments : post.comments,
+      }))
+      break
+    }
+
     case createStatusPostStart.type: {
       posts = [ payload.newPost, ...state.posts ]
       break
@@ -287,14 +310,15 @@ export const getPostData = ({ state, payload }) => {
       })
       break
     }
-    case CREATE_POST_COMMENT_START: {
-      const { data } = payload
-      posts = state.posts.map((post) => ({
-        ...post,
-        commentsCount: post.user_activity_id === data.userActivityId ? post.commentsCount + 1 : post.commentsCount,
-      }))
-      break
-    }
+    // case CREATE_POST_COMMENT_START: {
+    //   const { data } = payload
+    //   posts = state.posts.map((post) => ({
+    //     ...post,
+    //     commentsCount: post.user_activity_id === data.userActivityId ? post.commentsCount + 1 : post.commentsCount,
+    //     comments: [ ...post.comments, data ],
+    //   }))
+    //   break
+    // }
     case UPDATE_POST: {
       const { editedPost } = payload
       posts = state.posts.map((post) => {
