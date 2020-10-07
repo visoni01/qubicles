@@ -94,6 +94,12 @@ const routes = [
     component: React.lazy(() => import('../containers/People')),
     auth: true,
   },
+  // Added extra route for new people design, Remove it when people's pages get completely ready.
+  {
+    path: `/new${ ROUTE_PATHS.PEOPLE }`,
+    component: React.lazy(() => import('../containers/NewPeople/index')),
+    auth: true,
+  },
 ]
 
 export default routes
