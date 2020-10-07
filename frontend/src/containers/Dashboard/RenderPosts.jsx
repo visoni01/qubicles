@@ -26,6 +26,7 @@ const RenderPosts = () => {
       likesCount={ post.likesCount }
       commentsCount={ post.commentsCount }
       key={ post.user_activity_id }
+      comments={ post.comments }
     />
   )))
 }

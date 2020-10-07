@@ -6,7 +6,9 @@ import PostHead from './PostHead'
 import PostBody from './PostBody'
 
 const PostStatusWrap = ({
-  userActivityId, activityValue, activityCustom, createdAt, owner, userId, isPostLiked, likesCount, commentsCount,
+  userActivityId,
+  activityValue,
+  activityCustom, createdAt, owner, userId, isPostLiked, likesCount, commentsCount, comments,
 }) => (
   <Box className='box'>
     <PostHead
@@ -22,6 +24,7 @@ const PostStatusWrap = ({
       isPostLiked={ isPostLiked }
       likesCount={ likesCount }
       commentsCount={ commentsCount }
+      comments={ comments }
     />
   </Box>
 )
@@ -40,6 +43,7 @@ PostStatusWrap.propTypes = {
   likesCount: PropTypes.number.isRequired,
   isPostLiked: PropTypes.bool.isRequired,
   commentsCount: PropTypes.number.isRequired,
+  comments: PropTypes.array.isRequired,
 }
 
-export default PostStatusWrap
+export default React.memo(PostStatusWrap)

@@ -4,23 +4,21 @@ import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Divider } from '@material-ui/core'
 import RenderPostComments from './RenderPostComments'
-import { fetchCommentsStart } from '../../redux-saga/redux/actions'
+import { fetchCommentForPost } from '../../redux-saga/redux/actions'
 
 const PostComments = ({
-  limit, offset, userActivityId,
+  limit, offset, userActivityId, comments,
 }) => {
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(fetchCommentsStart({ limit, offset, userActivityId }))
+    dispatch(fetchCommentForPost({ limit, offset, userActivityId }))
   }, [ dispatch, limit, offset, userActivityId ])
-
-  const { data } = useSelector((state) => state.comments)
 
   return (
     <>
-      {!_.isEmpty(data.comments) && <Divider />}
+      {!_.isEmpty(comments) && <Divider />}
       <div className='comments-body'>
-        {data.comments.map((comment) => (
+        {comments.map((comment) => (
           <RenderPostComments
             key={ comment.user_activity_id }
             commentText={ comment.activity_value }
@@ -39,5 +37,6 @@ PostComments.propTypes = {
   limit: PropTypes.number.isRequired,
   offset: PropTypes.number.isRequired,
   userActivityId: PropTypes.string.isRequired,
+  comments: PropTypes.array.isRequired,
 }
 export default PostComments

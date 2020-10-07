@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import {
   Avatar, Divider, TextareaAutosize, Button,
 } from '@material-ui/core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faImage } from '@fortawesome/free-solid-svg-icons'
+import PropTypes from 'prop-types'
 import { terry } from '../../assets/images/avatar'
 
-const PostCommentSection = () => {
+const PostCommentSection = ({ postComment }) => {
   const [ commentText, setCommentText ] = useState('')
   const handleCommentChange = (e) => {
     setCommentText(e.target.value)
@@ -15,6 +14,12 @@ const PostCommentSection = () => {
   const clearCommentText = () => {
     setCommentText('')
   }
+
+  const onCommentButtonClicked = () => {
+    postComment(commentText)
+    clearCommentText()
+  }
+
   return (
     <>
       <Divider />
@@ -50,6 +55,7 @@ const PostCommentSection = () => {
                 variant='contained'
                 className='button-primary-small post-button'
                 classes={ { label: 'primary-label' } }
+                onClick={ onCommentButtonClicked }
               >
                 Comment
               </Button>
@@ -60,6 +66,10 @@ const PostCommentSection = () => {
       </div>
     </>
   )
+}
+
+PostCommentSection.propTypes = {
+  postComment: PropTypes.func.isRequired,
 }
 
 export default PostCommentSection
