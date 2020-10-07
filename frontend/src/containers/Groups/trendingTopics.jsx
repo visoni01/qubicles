@@ -6,96 +6,41 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faChevronRight, faComment, faEye, faHeart,
 } from '@fortawesome/free-solid-svg-icons'
+import { carolin } from '../../assets/images/avatar/index'
 
 const TrendingTopics = () => (
-  <Box className='box trending-topic-root'>
-    <h3>
+  <Box className='primary-box trending-topic-root padding-20'>
+    <h3 className='h3 mb-10'>
       Trending Topics
     </h3>
-
-    <div>
-      <div className='display-inline-flex topic-info'>
-        <Avatar className='avatar-logo' />
-        <Typography className='margin-auto'>User</Typography>
-        <div className='margin-auto'>
-          <FontAwesomeIcon icon={ faChevronRight } />
+    {[ ...Array(4).keys() ].map((e) => (
+      <div key={ e }>
+        <div className='topic-info'>
+          <Avatar className='avatar-logo' src={ carolin } />
+          <p>User</p>
+          <div>
+            <FontAwesomeIcon icon={ faChevronRight } />
+          </div>
+          <p className='group-name'>Group Name</p>
         </div>
-        <Typography className='margin-auto'>Group Name</Typography>
+        <p className='description'>Display some topic's details.</p>
+        <ul className='display-inline-flex '>
+          <li>
+            <FontAwesomeIcon icon={ faHeart } />
+            <p>274</p>
+          </li>
+          <li>
+            <FontAwesomeIcon icon={ faComment } />
+            <p>17</p>
+          </li>
+          <li>
+            <FontAwesomeIcon icon={ faEye } />
+            <p>349</p>
+          </li>
+        </ul>
+        <Divider className='divider' />
       </div>
-      <p className='description'>Display some topic's details.</p>
-      <ul className='display-inline-flex '>
-        <li>
-          <FontAwesomeIcon icon={ faHeart } />
-          274
-        </li>
-
-        <li>
-          <FontAwesomeIcon icon={ faComment } />
-          17
-        </li>
-        <li>
-          <FontAwesomeIcon icon={ faEye } />
-          349
-        </li>
-      </ul>
-      <Divider className='divider' />
-    </div>
-
-    <div>
-      <div className='display-inline-flex topic-info'>
-        <Avatar className='avatar-logo' />
-        <Typography className='margin-auto'>User</Typography>
-        <div className='margin-auto'>
-          <FontAwesomeIcon icon={ faChevronRight } />
-        </div>
-        <Typography className='margin-auto'>Group Name</Typography>
-      </div>
-      <p className='description'>Display some topic's details.</p>
-      <ul className='display-inline-flex '>
-        <li>
-          <FontAwesomeIcon icon={ faHeart } />
-          274
-        </li>
-
-        <li>
-          <FontAwesomeIcon icon={ faComment } />
-          17
-        </li>
-        <li>
-          <FontAwesomeIcon icon={ faEye } />
-          349
-        </li>
-      </ul>
-      <Divider className='divider' />
-    </div>
-
-    <div>
-      <div className='display-inline-flex topic-info'>
-        <Avatar className='avatar-logo' />
-        <Typography className='margin-auto'>User</Typography>
-        <div className='margin-auto'>
-          <FontAwesomeIcon icon={ faChevronRight } />
-        </div>
-        <Typography className='margin-auto'>Group Name</Typography>
-      </div>
-      <p className='description'>Display some topic's details.</p>
-      <ul className='display-inline-flex '>
-        <li>
-          <FontAwesomeIcon icon={ faHeart } />
-          274
-        </li>
-
-        <li>
-          <FontAwesomeIcon icon={ faComment } />
-          17
-        </li>
-        <li>
-          <FontAwesomeIcon icon={ faEye } />
-          349
-        </li>
-      </ul>
-    </div>
-
+    ))}
   </Box>
 )
 
