@@ -110,6 +110,10 @@ export const getUpdatedCategories = ({ state, payload }) => {
   return updatedState
 }
 
+export const getUpdatedGroups = () => {
+
+}
+
 export const getUpdatedTopicDetails = ({ state, payload }) => {
   let topicDetails = {}
   switch (payload.type) {
