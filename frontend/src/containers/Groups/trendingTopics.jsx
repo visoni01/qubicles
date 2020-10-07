@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  Avatar, Box, Divider, Typography,
+  Avatar, Box, Divider,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {

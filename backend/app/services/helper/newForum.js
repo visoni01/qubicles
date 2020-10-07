@@ -28,12 +28,18 @@ export async function getOneForumGroup ({ group_id, user_id }) {
 }
 
 export async function getAllForumGroups ({ user_id }) {
-  const groups = await getAll({
+  let groups = await getAll({
     model: XForumGroup,
     data: {
       is_deleted: false
     }
   })
+
+  groups = groups.map((group) => ({
+    id: group.group_id,
+    title: group.group_title,
+    description: group.group_description
+  }))
 
   return groups
 }

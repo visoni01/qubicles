@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  Grid, Box, Typography, IconButton, InputBase, Button, Avatar, Divider,
+  Box, IconButton, InputBase, Button, Avatar, Divider,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -10,7 +10,6 @@ import {
 import PropTypes from 'prop-types'
 import GroupsList from './groups'
 import TrendingTopics from './trendingTopics'
-import { newNavBar } from '../../hoc/navbar'
 import { carolin } from '../../assets/images/avatar/index'
 
 const SelectedGroup = ({ group }) => {

@@ -10,7 +10,7 @@ import { groupsFetchingStart } from '../../redux-saga/redux/actions'
 
 const Groups = ({ selectedGroup, setSelectedGroup }) => {
   const dispatch = useDispatch()
-  const { groups, isLoading } = useSelector((state) => state.groups)
+  const { groups } = useSelector((state) => state.groups)
 
   useEffect(() => {
     dispatch(groupsFetchingStart())
