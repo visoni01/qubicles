@@ -4,7 +4,7 @@
   "description": "Decentralized tools and services for the contact center industry.",
   "main": "./dist/index.js",
   "scripts": {
-    "start": "./node_modules/.bin/nodemon --inspect=0.0.0.0:9229 ./bin/dev",
+    "start": "./node_modules/.bin/nodemon --inspect=0.0.0.0:9229 ./bin/qbe",
     "lint": "eslint .",
     "lint:fix": "eslint --fix --ext .js .",
     "sequelize:seed:undo": "./node_modules/.bin/sequelize db:seed:undo:all",
@@ -13,7 +13,7 @@
     "clean": "rm -rf dist && mkdir dist",
     "build-production": "babel . -d ./dist -s --copy-files --ignore node_modules,yarn-v1.5.1",
     "build": "npm run clean && npm run build-production",
-    "start-prod-server": "pm2 start dist/bin/dev -p 4000"
+    "start-prod-server": "pm2 start dist/bin/qbe -p 4000"
   },
   "author": "Qubicles",
   "license": "Copyright @ 2020 Qubicles, Inc. All rights reserved.",
