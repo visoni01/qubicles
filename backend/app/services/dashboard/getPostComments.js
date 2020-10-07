@@ -63,7 +63,7 @@ export class GetPostCommentsService extends ServiceBase {
           createdAt: comment.createdAt
         }
       }))
-      return { commentsData, count }
+      return { commentsData, count, user_activity_id: parseInt(user_activity_id) }
     } catch (error) {
       logger.error(getErrorMessageForService('GetPostCommentsService'), error)
       this.addError(ERRORS.INTERNAL)
