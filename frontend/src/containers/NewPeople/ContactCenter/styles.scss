@@ -1,18 +1,94 @@
 @import '../../../customStyles/scss/index.scss';
 
-.job-list {
+.job-list-root {
+  border: 1px solid #DBDBDB;
+  border-radius: 8px;
+  margin-top: 5px;
+  margin-bottom: 25px;
+  background-color: #FFFFFF;
+  padding: 20px 0;
+
+  h2 {
+    @extend .h2;
+    font-size: 28px;
+  }
+
   .job-list-title {
     display: inline-flex;
     width: 100%;
     justify-content: space-between;
-
+    padding: 0 15px;
+    h3 {
+      @extend .h3;
+      margin: auto 0;
+    }
     .job-list-icon {
-      padding-top: 12px;
-      .MuiIconButton-root {
-        color: $color-dark-grey;
-        font-size: 18px;
+      font-size: 18px;
+      color: #444F5F;
+    }
+  }
+
+  .list-item {
+    align-items: left;
+  }
+}
+
+.job-name {
+  font-size: 14px;
+  font-family: poppins;
+  font-weight: medium;
+  color: #999999;
+}
+
+.top-talent-root{
+  border: 1px solid #DBDBDB;
+
+  h3 {
+    font-size: 18px;
+    color: #444F5F;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    padding-bottom: 10px;
+  }
+
+  .candidate-info {
+    .avatar-logo {
+      width: 40px;
+      height: 40px;
+      margin: auto;
+    }
+    p{
+      margin: auto 5px;
+    }
+
+    svg {
+      font-size: 12px;
+    }
+    .MuiRating-root {
+      &.rating-star {
+        color: $color-primary;
+        margin: 15px 5px 0px 5px;
+        vertical-align: text-bottom;
+        font-size: 16px;
       }
     }
+  }
+
+  .description {
+    font-size: 12px;
+    margin-left: 40px;
+    color: #444F5F;
+    font-family: 'poppins', sans-serif;
+  }
+
+  .text-button {
+    color: $color-primary;
+    width: 60%;
+  }
+
+  .divider {
+    width: 100%;
+    margin: 10px 0;
   }
 }
 
@@ -20,7 +96,10 @@
   position: relative;
   margin-bottom: 10px;
   .section-title {
-    @extend .h3;
+    font-size: 18px;
+    font-weight: 600;
+    color: #444F5F;
+    margin: auto 0;
   }
    .action-button {
       font-size: 14px;
@@ -30,94 +109,215 @@
    }
 }
 
+.search-job-bar {
+  margin-bottom: 20px;
+   .search-input {
+      width: calc(100% - 120px);
+      background: #FFFFFF 0% 0% no-repeat padding-box;
+      border: 1px solid #DBDBDB;
+      border-radius: 8px;
+      opacity: 1;
+      padding: 2px 0;
+      margin-right: 20px;
+   }
+   .new-job {
+    height: 100%;
+    width: 100px;
+   }
+}
 
-.job-category-card {
-
-  .job-info {
-    border-bottom: 1px solid $color-border;
-    margin-bottom: 15px;
-    &:last-child {
-      border-bottom: none;
-    }
-
-    .job-owner-avatar {
-      margin-right: 10px;
-    }
-    .job-details {
-      p {
-        font-size: 14px;
-      }
-      .job-title {
-        @extend .para;
-        font-weight: 600;
-        color: $color-light-brown;
-      }
-    }
-    .action-buttons {
-      width: 100%;
-      display: inline-flex;
-      justify-content: flex-start;
-      padding: 10px 0;
+.job-info {
+  .job-owner-avatar {
+    margin-right: 10px;
+  }
+  .job-details {
+    p {
       font-size: 14px;
-
+    }
+    .job-title {
+      font-weight: 500;
+    }
+  }
+  .action-buttons {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 14px;
       li {
-        margin-right: 10px;
-        flex: 1;
+        margin-right: 10%;
           svg {
             margin-right: 5px;
           }
       }
-      .action-icon {
-        font-size: 16px;
-        margin-right: 10px;
-        color: $color-dark-grey;
-      }
-      .icon-value {
-        @extend .para;
-        font-weight: 600;
-      }
-      .icon-title {
-        margin-left: 5px;
-        font-size: 15px;
-        color: $color-dark-grey;
-      }
+  }
+}
+
+// job's Details section
+
+.job-details-box {
+  .job-owner {
+    p {
+      font-size: 14px;
+      margin: auto 5px;
+    }
+    .owner-name {
+      font-weight: 500;
+      color: #444F5F;
+    }
+    .job-create-date {
+      color: #999999;
     }
   }
+  .job-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #444F5F;
+    margin: 10px 0;
+  }
+  .job-description {
+    font-size: 14px;
+    color: #4A4A4A;
+  }
+  .action-buttons{
+    margin-top: 20px;
+     li{
+      margin-right: 20%;
+        svg{
+          margin-right: 5px;
+        }
+     }
+  }
+}
 
-  // job's Details section
+.textarea-input {
+  display: inline-flex;
+  width: 100%;
+  .avatar {
+    margin-right: 8px;
+  }
+	textarea {
+		width: calc(100% - 80px);
+		margin: 0 auto;
+		display: flex;
+		height: 100%;
+		border: none;
+		resize: none;
+		border: 1px solid #DBDBDB;
+		border-radius: 8px;
+		padding: 10px;
+		font-family: 'Poppins', sans-serif;
+		&:focus {
+			outline: none;
+			box-shadow: inherit;
+		}
+	}
+	input[type="file"] {
+		right: 10px;
+		width: 20px;
+		top: 20px;
+		opacity: 0;
+		z-index: 9999;
+	}
+}
 
-  .job-details-box {
-    .job-owner {
-      p {
-        font-size: 14px;
-        margin: auto 5px;
-      }
-      .owner-name {
-        font-weight: 500;
-        color: #444F5F;
-      }
-      .job-create-date {
-        color: #999999;
-      }
-    }
-    .job-title {
-      font-size: 24px;
-      font-weight: 600;
-      color: #444F5F;
+.galley-icon {
+  svg {
+    vertical-align: middle;
+    font-size: 24px;
+    height: 100%;
+  }
+}
+
+// .post-comment-button {
+//   margin-top: 10px;
+//   margin-left: calc(100% - 86px);
+// }
+
+// .comments-list{
+//   h3 {
+//     font-size: 18px;
+//     color: #444F5F;
+//     font-family: 'Poppins', sans-serif;
+//     font-weight: bold;
+//     padding-bottom: 10px;
+//   }
+//   .commentor-info{
+//     margin: 20px 0;
+//     .commentor-name {
+//       font-weight: 500;
+//       color: #444F5F;
+//       font-size: 12px;
+//     }
+//     .comment-date {
+//       font-size: 12px;
+//       color: #999999;
+//     }
+//     .comment-description {
+//       font-size: 14px;
+//       color: #4A4A4A;
+//     }
+//   }
+// }
+
+.job-divider {
+  margin-bottom: 20px
+}
+
+.talent-filter-root {
+  border: 1px solid #DBDBDB;
+  border-radius: 8px;
+  margin-top: 5px;
+  margin-bottom: 25px;
+  background-color: #FFFFFF;
+  padding: 20px 0;
+
+  h2 {
+    @extend .h2;
+    font-size: 28px;
+  }
+
+  .talent-filter-title {
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-between;
+
+    h3 {
+      @extend .h3;
       margin: 10px 0;
     }
-    .job-description {
-      font-size: 14px;
+
+    // .job-list-icon {
+    //   font-size: 18px;
+    //   color: #444F5F;
+    // }
+  }
+
+  .talent-dropdown  {
+    .dropdown {
+      border: 1px solid #DBDBDB;
+      height: 45px;
+      border-radius: 6px;
+      width: 290px;
+      background: #FFFFFF;
+      margin-top: 11px;
+      font-family: "SF Pro Text", Regular;
+      font-weight: normal;
       color: #4A4A4A;
+      padding-left: calc(0.75em - 1px);
+      padding-right: calc(0.75em - 1px);
     }
-    .action-buttons{
-      margin-top: 20px;
-       li{
-        margin-right: 20%;
-          svg{
-            margin-right: 5px;
-          }
-       }
+
+    .MuiInput-underline:after {
+      border-bottom: 2px solid #4877f4 !important;
     }
   }
+}
+
+// ============== Common css ======================
+
+.margin-auto {
+  margin: auto;
+}
+
+.display-inline-flex {
+  display: inline-flex;
 }

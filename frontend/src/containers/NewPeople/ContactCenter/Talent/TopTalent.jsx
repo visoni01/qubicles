@@ -1,34 +1,70 @@
-import React, { useState } from 'react'
-import { Box } from '@material-ui/core'
-import './styles.scss'
-import PropTypes from 'prop-types'
-import { topTalents } from '../testData'
-import TopTalentCard from './TopTalentCard'
+import React from 'react'
+import {
+  Avatar, Box, Divider, Typography, Button,
+} from '@material-ui/core'
+import Rating from '@material-ui/lab/Rating'
 
-const TopTalent = ({ heading }) => {
-  const [ header, setHeader ] = useState(heading)
-  return (
-    <Box className='box top-talent-root'>
-      <h3>
-        {header}
-      </h3>
-      {
-        topTalents.map((talent) => (
-          <TopTalentCard
-            key={ talent.candidateId }
-            candidateName={ talent.candidateName }
-            candidateRating={ talent.candidateRating }
-            candidatePic={ talent.candidatePic }
-            profileName={ talent.profileName }
-          />
-        ))
-      }
-    </Box>
-  )
-}
+const TopTalent = () => (
+  <Box className='box top-talent-root'>
+    <h3>
+      Top Talent
+    </h3>
 
-TopTalent.propTypes = {
-  heading: PropTypes.string.isRequired,
-}
+    <div>
+      <div className='display-inline-flex candidate-info'>
+        <Avatar className='avatar-logo' />
+        <Typography>User</Typography>
+        <Rating
+          className='rating-star'
+          name='read-only'
+          readOnly
+          size='large'
+          value={ 5 }
+          precision={ 0.1 }
+        />
+      </div>
+      <p className='description'> Customer Service Specialist </p>
+      <Button className='text-button'>View Resume </Button>
+      <Divider className='divider' />
+    </div>
+
+    <div>
+      <div className='display-inline-flex candidate-info'>
+        <Avatar className='avatar-logo' />
+        <Typography>User</Typography>
+        <Rating
+          className='rating-star'
+          name='read-only'
+          readOnly
+          size='large'
+          value={ 5 }
+          precision={ 0.1 }
+        />
+      </div>
+      <p className='description'> Customer Service Specialist </p>
+      <Button className='text-button'>View Resume </Button>
+      <Divider className='divider' />
+    </div>
+
+    <div>
+      <div className='display-inline-flex candidate-info'>
+        <Avatar className='avatar-logo' />
+        <Typography>User</Typography>
+        <Rating
+          className='rating-star'
+          name='read-only'
+          readOnly
+          size='large'
+          value={ 5 }
+          precision={ 0.1 }
+        />
+      </div>
+      <p className='description'> Customer Service Specialist </p>
+      <Button className='text-button'>View Resume </Button>
+      <Divider className='divider' />
+    </div>
+
+  </Box>
+)
 
 export default TopTalent
