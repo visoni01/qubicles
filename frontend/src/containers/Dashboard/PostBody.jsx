@@ -1,32 +1,67 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import PostStatusLikeComment from './PostLikeComment'
 import PostComments from './PostComments'
 import PostCommentSection from './PostCommentSection'
 import config from '../../utils/config'
-import { addCommentToPost } from '../../redux-saga/redux/actions'
+import { addCommentToPost, fetchCommentForPost } from '../../redux-saga/redux/actions'
 
 const PostBody = ({
   userActivityId, activityValue, activityCustom, isPostLiked, likesCount, commentsCount, comments,
 }) => {
   const dispatch = useDispatch()
+  const [ currentCommentsLength, setCurrentCommentsLength ] = useState(comments.length)
   const [ showComments, setShowComments ] = useState(false)
-  const [ showCommentSection, setShowCommentSection ] = useState(true)
-  const toggleCommentSection = () => {
-    setShowCommentSection(!showCommentSection)
-  }
-  const toggleShowComments = () => {
-    setShowComments(!showComments)
-  }
+  const [ loadInitialComments, setLoadInitalComments ] = useState(false)
 
-  const postComment = (commentText) => {
-    const commentData = {
-      comment: commentText,
-      userActivityId,
+  const isCommentLoading = () => {
+    if (commentsCount !== comments.length) {
+      return (currentCommentsLength !== comments.length)
     }
+    return false
+  }
 
-    dispatch(addCommentToPost({ commentData }))
+  // Fetch Comments for post
+  const [ limit, setLimit ] = useState(1) // Initial Limit of 1 comment
+  const [ offsetCount, changeOffsetCount ] = useState(0)
+
+  //  Load more comments
+  const loadMoreCommentsCB = useCallback(() => {
+    if (!isCommentLoading()) {
+      dispatch(fetchCommentForPost({ limit, offset: offsetCount, userActivityId }))
+      changeOffsetCount((count) => count + limit)
+      setCurrentCommentsLength((c) => c + limit)
+    }
+  }, [ offsetCount, changeOffsetCount, limit, userActivityId, comments ])
+
+  // Add New Comment
+  const postComment = (commentText) => {
+    if (!isCommentLoading()) {
+      if (!(commentText && commentText.trim())) {
+        return
+      }
+      const commentData = {
+        comment: commentText,
+        userActivityId,
+      }
+      dispatch(addCommentToPost({ commentData }))
+      changeOffsetCount((count) => count + 1)
+      setCurrentCommentsLength((c) => c + 1)
+    }
+  }
+
+  const toggleShowComments = () => {
+    if (!loadInitialComments) {
+      dispatch(fetchCommentForPost({ limit, offset: offsetCount, userActivityId }))
+      changeOffsetCount((count) => count + limit)
+      setCurrentCommentsLength((c) => c + limit)
+
+      // Set Limit for loading more comments
+      setLimit(config.COMMENTS_LIMIT)
+      setLoadInitalComments(true)
+    }
+    setShowComments(!showComments)
   }
 
   return (
@@ -44,23 +79,22 @@ const PostBody = ({
         likesCount={ likesCount }
         commentsCount={ commentsCount }
         toggleShowComments={ toggleShowComments }
-        toggleCommentSection={ toggleCommentSection }
       />
 
       {showComments && (
-      <PostComments
-        limit={ config.COMMENTS_LIMIT }
-        offset={ 0 }
-        userActivityId={ userActivityId }
-        comments={ comments }
-      />
-      )}
+        <>
+          <PostComments
+            loadMoreCommentsCB={ loadMoreCommentsCB }
+            userActivityId={ userActivityId }
+            comments={ comments }
+            commentsCount={ commentsCount }
+          />
 
-      {/* <PostComments /> */}
-      {showCommentSection && (
-      <PostCommentSection
-        postComment={ postComment }
-      />
+          <PostCommentSection
+            postComment={ postComment }
+            isCommentLoading={ isCommentLoading() }
+          />
+        </>
       )}
 
     </div>

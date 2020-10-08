@@ -1,11 +1,11 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState } from 'react'
 import {
   Avatar, Divider, TextareaAutosize, Button,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { terry } from '../../assets/images/avatar'
 
-const PostCommentSection = ({ postComment }) => {
+const PostCommentSection = ({ postComment, isCommentLoading }) => {
   const [ commentText, setCommentText ] = useState('')
   const handleCommentChange = (e) => {
     setCommentText(e.target.value)
@@ -22,6 +22,7 @@ const PostCommentSection = ({ postComment }) => {
 
   return (
     <>
+      {isCommentLoading && <h2>Here is the new comment </h2>}
       <Divider />
       <div
         className='post-comment-container'
@@ -45,6 +46,7 @@ const PostCommentSection = ({ postComment }) => {
               color='secondary'
               className='cancel-button'
               onClick={ clearCommentText }
+
             >
               Cancel
             </Button>
@@ -56,6 +58,7 @@ const PostCommentSection = ({ postComment }) => {
                 className='button-primary-small post-button'
                 classes={ { label: 'primary-label' } }
                 onClick={ onCommentButtonClicked }
+                disabled={ isCommentLoading }
               >
                 Comment
               </Button>
@@ -70,6 +73,7 @@ const PostCommentSection = ({ postComment }) => {
 
 PostCommentSection.propTypes = {
   postComment: PropTypes.func.isRequired,
+  isCommentLoading: PropTypes.bool.isRequired,
 }
 
 export default PostCommentSection

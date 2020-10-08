@@ -259,11 +259,17 @@ export const getPostData = ({ state, payload }) => {
     case FETCH_COMMENT_FOR_POST: {
       const { data } = payload
       const fetchedComments = data.comments
-      posts = state.posts
-      posts = state.posts.map((post) => ({
-        ...post,
-        comments: post.user_activity_id === data.userActivityId ? fetchedComments : post.comments,
-      }))
+      posts = state.posts.map((post) => {
+        if (post.user_activity_id === data.userActivityId) {
+          return ({
+            ...post,
+            comments: [ ...fetchedComments.reverse(), ...post.comments ],
+          })
+        }
+        return ({
+          ...post,
+        })
+      })
       break
     }
 

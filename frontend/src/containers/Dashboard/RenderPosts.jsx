@@ -14,21 +14,22 @@ const RenderPosts = () => {
     return (<> Empty posts</>)
   }
 
-  return (posts.map((post) => (
-    <PostStatusWrap
-      userActivityId={ post.user_activity_id }
-      activityValue={ post.activity_value }
-      activityCustom={ post.activity_custom }
-      createdAt={ post.createdAt }
-      owner={ post.owner }
-      userId={ post.user_id }
-      isPostLiked={ post.isPostLiked }
-      likesCount={ post.likesCount }
-      commentsCount={ post.commentsCount }
-      key={ post.user_activity_id }
-      comments={ post.comments }
-    />
-  )))
+  return (
+    posts.map((post) => (
+      <PostStatusWrap
+        userActivityId={ post.user_activity_id }
+        activityValue={ post.activity_value }
+        activityCustom={ post.activity_custom }
+        createdAt={ post.createdAt }
+        owner={ post.owner }
+        userId={ post.user_id }
+        isPostLiked={ post.isPostLiked }
+        likesCount={ post.likesCount }
+        commentsCount={ post.commentsCount }
+        key={ post.user_activity_id }
+        comments={ post.comments }
+      />
+    )))
 }
 
 export default RenderPosts

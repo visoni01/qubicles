@@ -231,6 +231,17 @@
       }
     }
   }
+
+  .load-comments {
+    @extend .text-link;
+    cursor: pointer;
+    margin-top: 20px;
+    :hover {
+      text-decoration: underline;
+      color: $color-primary;
+    }
+  }
+
   .comments-body {
     margin-top: 10px;
 

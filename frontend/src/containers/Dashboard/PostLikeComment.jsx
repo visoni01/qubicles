@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux'
 import { unlikePostStatus, likePostStatus } from '../../redux-saga/redux/actions'
 
 const PostStatusLikeComment = ({
-  userActivityId, isPostLiked, likesCount, commentsCount, toggleShowComments, toggleCommentSection,
+  userActivityId, isPostLiked, likesCount, commentsCount, toggleShowComments,
 }) => {
   const [ postLiked, setPostLiked ] = useState(isPostLiked)
   const dispatch = useDispatch()
@@ -42,7 +42,7 @@ const PostStatusLikeComment = ({
         </li>
         <li>
           {/* WIP View Comments on Post */}
-          <IconButton onClick={ () => toggleCommentSection() }>
+          <IconButton onClick={ () => toggleShowComments() }>
             <FontAwesomeIcon className='comment-icon' icon={ faComment } />
           </IconButton>
           {/* WIP Comment on Post */}
@@ -69,7 +69,6 @@ PostStatusLikeComment.propTypes = {
   isPostLiked: PropTypes.bool.isRequired,
   commentsCount: PropTypes.number.isRequired,
   toggleShowComments: PropTypes.func.isRequired,
-  toggleCommentSection: PropTypes.func.isRequired,
 }
 
 export default PostStatusLikeComment

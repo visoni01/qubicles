@@ -31,4 +31,4 @@ RenderPostComments.propTypes = {
   createdAt: PropTypes.string.isRequired,
 }
 
-export default RenderPostComments
+export default React.memo(RenderPostComments)
