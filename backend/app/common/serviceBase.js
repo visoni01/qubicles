@@ -117,14 +117,7 @@ export default class ServiceBase {
       // Select only necessary fields
       const fields = [
         'user_id',
-        'facebook_id',
-        'twitter_id',
-        'linkedin_id',
-        'user',
-        'full_name',
-        'user_level',
-        'email',
-        'user_code'
+        'user'
       ]
       userData = JSON.stringify(_.pick(arg[0].user, fields))
     }
@@ -135,21 +128,21 @@ export default class ServiceBase {
   static async run () {
     const args = arguments
     const user = ServiceBase.getUserData(args)
-    Log.info(`Service Started: ${this.name}`, { context: this.args, userCtx: this.context, wrap: 'start', extraData: user })
+    Log.info(this.name, { context: this.args, userCtx: this.context, wrap: 'start', extraData: user })
     const instance = new this(...args)
     await instance.tryExecuting()
     if (_.size(instance.errors)) throw instance.errors
-    Log.info(`Service Finished: ${this.name}`, { context: this.args, userCtx: this.context, wrap: 'end' })
+    Log.info(this.name, { context: this.args, userCtx: this.context, wrap: 'end', extraData: user })
     return instance.result
   }
 
   static async execute () {
     const args = arguments
     const user = ServiceBase.getUserData(args)
-    Log.info(`Service Started: ${this.name}`, { context: this.args, userCtx: this.context, wrap: 'start', extraData: user })
+    Log.info(this.name, { context: this.args, userCtx: this.context, wrap: 'start', extraData: user })
     const instance = new this(...args)
     await instance.tryExecuting()
-    Log.info(`Service Finished: ${this.name}`, { context: this.args, userCtx: this.context, wrap: 'end' })
+    Log.info(this.name, { context: this.args, userCtx: this.context, wrap: 'end', extraData: user })
     return instance
   }
 }
