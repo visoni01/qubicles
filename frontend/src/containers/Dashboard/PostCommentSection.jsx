@@ -4,6 +4,7 @@ import {
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { terry } from '../../assets/images/avatar'
+import PostCommentSkeleton from './PostCommentSkeleton.jsx'
 
 const PostCommentSection = ({ postComment, isCommentLoading }) => {
   const [ commentText, setCommentText ] = useState('')
@@ -22,7 +23,8 @@ const PostCommentSection = ({ postComment, isCommentLoading }) => {
 
   return (
     <>
-      {isCommentLoading && <h2>Here is the new comment </h2>}
+      {isCommentLoading
+      && <PostCommentSkeleton />}
       <Divider />
       <div
         className='post-comment-container'
