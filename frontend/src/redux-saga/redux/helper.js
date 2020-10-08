@@ -22,6 +22,7 @@ import {
   DELETE_POST_COMMENT,
   ADD_JOB,
   UPDATE_JOB,
+  ADD_GROUP,
   ADD_COMMENT_TO_POST,
   FETCH_COMMENT_FOR_POST,
   SET_IS_COMMENT_LOADING,
@@ -110,8 +111,21 @@ export const getUpdatedCategories = ({ state, payload }) => {
   return updatedState
 }
 
-export const getUpdatedGroups = () => {
-
+export const getUpdatedGroups = ({ state, payload }) => {
+  const { newGroup } = payload.data
+  let updatedState
+  switch (payload.type) {
+    case ADD_GROUP: {
+      updatedState = {
+        ...state,
+        groups: [ ...state.groups, newGroup ],
+      }
+      break
+    }
+    default:
+      break
+  }
+  return updatedState
 }
 
 export const getUpdatedTopicDetails = ({ state, payload }) => {

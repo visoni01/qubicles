@@ -14,7 +14,7 @@ const {
     groupsFetchingStart,
     groupsFetchingSuccessful,
     groupsFetchingFailure,
-    updateGroups,
+    updateGroupsList,
   },
   reducer,
 } = createSlice({
@@ -37,7 +37,7 @@ const {
       error: true,
       isLoading: false,
     }),
-    updateGroups: (state, action) => getUpdatedGroups({ state, payload: action.payload }),
+    updateGroupsList: (state, action) => getUpdatedGroups({ state, payload: action.payload }),
   },
 })
 
@@ -46,5 +46,5 @@ export {
   groupsFetchingStart,
   groupsFetchingSuccessful,
   groupsFetchingFailure,
-  updateGroups,
+  updateGroupsList,
 }

@@ -130,7 +130,12 @@ class Forum {
   }
 
   static async getAllGroups() {
-    const response = await apiClient.getRequest('/newForum//groups')
+    const response = await apiClient.getRequest('/newForum/groups')
+    return response
+  }
+
+  static async addGroup(data) {
+    const response = await apiClient.postRequest('/newForum/groups', data)
     return response
   }
 }

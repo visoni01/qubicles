@@ -20,6 +20,7 @@ import crudChannel from './forum/channel/crud'
 import crudTopic from './forum/topic/crud'
 import crudComment from './forum/comment/crud'
 import getAllGroups from './forum/groups/getAll'
+import crudGroups from './forum/groups/crud'
 import crudJob from './people/crud'
 import statusPostActivity from './dashboard/statusPostActivity'
 import jobDetails from './people/job'
@@ -45,6 +46,7 @@ export default function* rootSaga() {
     channelTopicsList(),
     topic(),
     getAllGroups(),
+    crudGroups(),
     jobCategoryDataActivity(),
     crudCategory(),
     crudChannel(),
