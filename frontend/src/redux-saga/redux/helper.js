@@ -24,6 +24,7 @@ import {
   UPDATE_JOB,
   ADD_COMMENT_TO_POST,
   FETCH_COMMENT_FOR_POST,
+  SET_IS_COMMENT_LOADING,
 } from './constants'
 
 import {
@@ -246,13 +247,44 @@ export const getUpdatedJobsData = ({ state, payload }) => {
 export const getPostData = ({ state, payload }) => {
   let posts
   switch (payload.type) {
+    case SET_IS_COMMENT_LOADING: {
+      posts = state.posts.map((post) => {
+        if (post.user_activity_id === payload.data.userActivityId) {
+          return ({
+            ...post,
+            commentLoading: payload.data.isLoading,
+          })
+        }
+        return ({
+          ...post,
+        })
+      })
+      break
+    }
+
     case ADD_COMMENT_TO_POST: {
       const { data } = payload
-      posts = state.posts.map((post) => ({
-        ...post,
-        commentsCount: post.user_activity_id === data.user_activity_id ? post.commentsCount + 1 : post.commentsCount,
-        comments: post.user_activity_id === data.user_activity_id ? [ ...post.comments, data ] : post.comments,
-      }))
+
+      posts = state.posts.map((post) => {
+        if (post.user_activity_id === data.post_id) {
+          const newComment = {
+            activity_value: data.activity_value,
+            createdAt: data.createdAt,
+            owner: data.owner,
+            owner_id: data.owner_id,
+            user_activity_id: data.comment_id,
+          }
+          return ({
+            ...post,
+            commentsCount: post.commentsCount + 1,
+            comments: [ ...post.comments, newComment ],
+            commentLoading: false,
+          })
+        }
+        return ({
+          ...post,
+        })
+      })
       break
     }
 
@@ -261,9 +293,15 @@ export const getPostData = ({ state, payload }) => {
       const fetchedComments = data.comments
       posts = state.posts.map((post) => {
         if (post.user_activity_id === data.userActivityId) {
+          // Find values that are in fetchedComments but not in post.comments
+          const uniqueComments = fetchedComments.filter(
+            (obj) => !post.comments.some((obj2) => obj.user_activity_id === obj2.user_activity_id),
+          )
+
           return ({
             ...post,
-            comments: [ ...fetchedComments.reverse(), ...post.comments ],
+            comments: [ ...uniqueComments.reverse(), ...post.comments ],
+            commentLoading: false,
           })
         }
         return ({
@@ -325,18 +363,20 @@ export const getPostData = ({ state, payload }) => {
     //   }))
     //   break
     // }
-    case UPDATE_POST: {
-      const { editedPost } = payload
-      posts = state.posts.map((post) => {
-        const isPost = (post.user_activity_id === editedPost.user_activity_id)
-        return {
-          ...post,
-          activity_custom: isPost ? editedPost.activity_custom : post.activity_custom,
-          activity_value: isPost ? editedPost.activity_value : post.activity_value,
-        }
-      })
-      break
-    }
+
+    // case UPDATE_POST: {
+    //   const { editedPost } = payload
+    //   posts = state.posts.map((post) => {
+    //     const isPost = (post.user_activity_id === editedPost.user_activity_id)
+    //     return {
+    //       ...post,
+    //       activity_custom: isPost ? editedPost.activity_custom : post.activity_custom,
+    //       activity_value: isPost ? editedPost.activity_value : post.activity_value,
+    //     }
+    //   })
+    //   break
+    // }
+
     case DELETE_POST_COMMENT: {
       const { postUserActivityId } = payload
       posts = state.posts.map((post) => ({

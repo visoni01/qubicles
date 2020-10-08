@@ -48,6 +48,7 @@ export class GellAllPostStatusListService extends ServiceBase {
           data['isPostLiked'] = await isUserLikedPost({ user_id: this.user_id, user_activity_id: data.user_activity_id })
           data['commentsCount'] = await getStatusCommentsCount({ record_id: data.user_activity_id })
           data['comments'] = []
+          data['commentLoading'] = false
           return data
         } else {
           return false

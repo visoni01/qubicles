@@ -34,4 +34,4 @@ PostComments.propTypes = {
   commentsCount: PropTypes.number.isRequired,
   loadMoreCommentsCB: PropTypes.func.isRequired,
 }
-export default React.memo(PostComments)
+export default PostComments

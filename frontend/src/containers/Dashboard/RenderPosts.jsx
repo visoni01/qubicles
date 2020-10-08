@@ -28,6 +28,7 @@ const RenderPosts = () => {
         commentsCount={ post.commentsCount }
         key={ post.user_activity_id }
         comments={ post.comments }
+        commentLoading={ post.commentLoading }
       />
     )))
 }

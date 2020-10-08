@@ -10,7 +10,9 @@ import {
   fetchCommentsSuccess,
 } from '../../redux/actions'
 import {
-  UNLIKE_POST, LIKE_POST, CREATE_POST_COMMENT_START, DELETE_POST_COMMENT, ADD_COMMENT_TO_POST, FETCH_COMMENT_FOR_POST,
+  UNLIKE_POST,
+  LIKE_POST,
+  CREATE_POST_COMMENT_START, DELETE_POST_COMMENT, ADD_COMMENT_TO_POST, FETCH_COMMENT_FOR_POST, SET_IS_COMMENT_LOADING,
 } from '../../redux/constants'
 import Dashboard from '../../service/dashboard'
 import { getSubstrForNotification } from '../../../utils/common'
@@ -25,6 +27,7 @@ function* statusPostActivityWatcherStart() {
       DELETE_POST_COMMENT,
       ADD_COMMENT_TO_POST,
       FETCH_COMMENT_FOR_POST,
+      SET_IS_COMMENT_LOADING,
     ],
     statusPostActivityFetchingWorker,
   )
@@ -34,12 +37,19 @@ function* statusPostActivityFetchingWorker(action) {
   try {
     let msg
     switch (action.type) {
+      case SET_IS_COMMENT_LOADING: {
+        yield put(updatePostData({ type: action.type, data: action.payload }))
+        break
+      }
+
       case ADD_COMMENT_TO_POST: {
         const { commentData } = action.payload
         const { data } = yield Dashboard.addPostComment({ data: commentData })
+
         const { userDetails } = yield select((state) => state.login)
         const newCommentData = {
-          user_activity_id: commentData.userActivityId,
+          post_id: commentData.userActivityId,
+          comment_id: data.commentId,
           createdAt: data.createdAt,
           activity_value: data.content,
           owner: userDetails.full_name,
@@ -71,6 +81,8 @@ function* statusPostActivityFetchingWorker(action) {
         break
       }
 
+      // REFACTOR ACTIONS
+
       // case CREATE_POST_COMMENT_START: {
       //   const { commentData } = action.payload
       //   const { data } = yield Dashboard.addPostComment({ data: commentData })
@@ -101,14 +113,15 @@ function* statusPostActivityFetchingWorker(action) {
       //   break
       // }
 
-      case DELETE_POST_COMMENT: {
-        const { userActivityId, postUserActivityId, content } = action.payload
-        yield Dashboard.deletePostComment({ userActivityId, data: { postUserActivityId } })
-        yield put(updatePostComments({ type: action.type, userActivityId }))
-        yield put(updatePostData({ type: action.type, postUserActivityId }))
-        msg = `Comment ${ getSubstrForNotification(content) } has been successfully deleted!`
-        break
-      }
+      // case DELETE_POST_COMMENT: {
+      //   const { userActivityId, postUserActivityId, content } = action.payload
+      //   yield Dashboard.deletePostComment({ userActivityId, data: { postUserActivityId } })
+      //   yield put(updatePostComments({ type: action.type, userActivityId }))
+      //   yield put(updatePostData({ type: action.type, postUserActivityId }))
+      //   msg = `Comment ${ getSubstrForNotification(content) } has been successfully deleted!`
+      //   break
+      // }
+
       default:
         break
     }
