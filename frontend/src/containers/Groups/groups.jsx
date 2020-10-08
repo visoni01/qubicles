@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import {
   Box, IconButton, List, ListItem, ListItemText,
 } from '@material-ui/core'
@@ -16,11 +16,13 @@ const Groups = ({ selectedGroup, setSelectedGroup }) => {
     dispatch(groupsFetchingStart())
   }, [ dispatch ])
 
+  const newGroupForm = useCallback(() => setSelectedGroup('new'), [])
+
   return (
     <Box className='group-list-root primary-box'>
       <div className='group-list-title'>
         <h3 className='h2 mb-10'>Groups</h3>
-        <IconButton>
+        <IconButton onClick={ newGroupForm }>
           <FontAwesomeIcon icon={ faPlus } className='add-icon' />
         </IconButton>
       </div>
