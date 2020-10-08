@@ -21,6 +21,7 @@ import crudTopic from './forum/topic/crud'
 import crudComment from './forum/comment/crud'
 import getAllGroups from './forum/groups/getAll'
 import crudGroups from './forum/groups/crud'
+import groupTopics from './forum/groupTopics/getAll'
 import crudJob from './people/crud'
 import statusPostActivity from './dashboard/statusPostActivity'
 import jobDetails from './people/job'
@@ -47,6 +48,7 @@ export default function* rootSaga() {
     topic(),
     getAllGroups(),
     crudGroups(),
+    groupTopics(),
     jobCategoryDataActivity(),
     crudCategory(),
     crudChannel(),
