@@ -234,12 +234,22 @@
 
   .load-comments {
     @extend .text-link;
+    display: flex;
     cursor: pointer;
     margin-top: 20px;
     :hover {
       text-decoration: underline;
       color: $color-primary;
     }
+
+    .view-more-comments-loader {
+      position: inherit;
+      margin: 2px 10px 0px 20px;
+      .MuiCircularProgress-colorPrimary {
+        color: $color-primary;
+      }
+    }
+
   }
 
   .comments-body {

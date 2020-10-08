@@ -97,6 +97,7 @@ const PostBody = ({
             userActivityId={ userActivityId }
             comments={ comments }
             commentsCount={ commentsCount }
+            isCommentLoading={ commentLoading }
           />
 
           <PostCommentSection
