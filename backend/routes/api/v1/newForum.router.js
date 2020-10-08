@@ -20,4 +20,7 @@ newForumRouter.route('/group/update/:group_id')
 newForumRouter.route('/group/delete/:group_id')
   .delete(isAuthenticated, forumController.deleteGroup)
 
+newForumRouter.route('/groups/:group_id/topics')
+  .get(isAuthenticated, forumController.getGroupTopics)
+
 export { newForumRouter }

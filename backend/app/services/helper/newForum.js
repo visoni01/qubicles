@@ -1,6 +1,7 @@
-import { XForumGroup } from '../../db/models'
+import { XForumGroup, XForumTopic, User } from '../../db/models'
 import { getAll, getOne } from './crud'
 import { createNewEntity, updateEntity } from './common'
+import { find, uniq } from 'lodash'
 
 export async function createForumGroup ({ group_title, owner_id, group_description, permission }) {
   const newGroup = await createNewEntity({
@@ -67,4 +68,51 @@ export async function deleteForumGroup ({ user_id, group_id }) {
   })
 
   return deletedGroup
+}
+
+export async function getOwnersName (ownerIds) {
+  return getAll({
+    model: User,
+    data: {
+      user_id: ownerIds
+    },
+    attributes: ['user_id', 'full_name']
+  })
+}
+
+export async function getForumGroupTopics ({ user_id, group_id }) {
+  let ownerIds = Array(0)
+  let groupTopics = await getAll({
+    model: XForumTopic,
+    data: {
+      owner_id: user_id,
+      group_id
+    }
+  })
+
+  groupTopics = groupTopics.map(({ owner_id, topic_id, topic_title, topic_description, createdAt }) => {
+    ownerIds.push(owner_id)
+    return ({
+      id: topic_id,
+      title: topic_title,
+      description: topic_description,
+      ownerId: owner_id,
+      createdAt
+    })
+  })
+
+  // Remove duplicate Ids
+  ownerIds = uniq(ownerIds)
+
+  // Get owners' names
+  const ownersNames = await getOwnersName(ownerIds)
+  groupTopics = groupTopics.map(({ ownerId, ...rest }) => {
+    const ownerName = find(ownersNames, (owner) => owner.user_id === ownerId)
+    return {
+      ...rest,
+      ownerName: ownerName && ownerName.full_name
+    }
+  })
+
+  return groupTopics
 }
