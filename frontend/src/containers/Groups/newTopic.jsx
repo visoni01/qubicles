@@ -6,7 +6,7 @@ import CKEditor from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import MyUploadAdapter from '../../utils/uploadImage'
 
-const NewGroup = () => (
+const NewGroup = ({ changeStatus }) => (
   <Box className='box'>
     <form>
       <h2 className='h2 mb-30'>
@@ -37,6 +37,7 @@ const NewGroup = () => (
         <Button
           color='secondary'
           className='cancel-button'
+          onClick={ changeStatus }
         >
           Cancel
         </Button>
