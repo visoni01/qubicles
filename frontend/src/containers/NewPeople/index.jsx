@@ -1,14 +1,10 @@
 import React, { useState } from 'react'
 import {
-  Grid, Box, Typography, IconButton, InputBase, Button, Avatar, Divider, Tabs, Tab,
+  Grid, Tabs, Tab,
 } from '@material-ui/core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faComment,
-  faEllipsisV, faEye, faHeart, faSearch, faSlidersH,
-} from '@fortawesome/free-solid-svg-icons'
 import JobsList from './JobsList'
 import JobsPage from './JobsPage'
+import TalentFilter from './TalentFilter'
 import TalentWrap from '../People/talentWrap'
 import TrainingWrap from '../People/trainingWrap'
 import TopTalent from './TopTalent'
@@ -20,7 +16,11 @@ const People = () => {
   return (
     <Grid container spacing={ 3 }>
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 } alignItems='flex-start'>
-        <JobsList />
+        <div>
+          { activeTab === 0 && <JobsList />}
+          { activeTab === 1 && <TalentFilter />}
+          { activeTab === 2 && <JobsList />}
+        </div>
       </Grid>
       <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 4 }>
         <Tabs

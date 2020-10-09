@@ -51,15 +51,7 @@
     padding-bottom: 10px;
   }
 
-  .MuiRating-root {
-    &.rating-star {
-      color: $color-primary;
-      margin: 10px 5px 0px 5px;
-      vertical-align: text-bottom;
-    }
-  }
-
-  .job-info {
+  .candidate-info {
     .avatar-logo {
       width: 40px;
       height: 40px;
@@ -68,28 +60,30 @@
     p{
       margin: auto 5px;
     }
+
     svg {
       font-size: 12px;
     }
+    .MuiRating-root {
+      &.rating-star {
+        color: $color-primary;
+        margin: 15px 5px 0px 5px;
+        vertical-align: text-bottom;
+        font-size: 16px;
+      }
+    }
   }
 
-  p {
-    padding: 6px 2px;
-    font-size: 14px;
+  .description {
+    font-size: 12px;
+    margin-left: 40px;
     color: #444F5F;
     font-family: 'poppins', sans-serif;
   }
 
-  ul {
-    width: 100%;
-    justify-content: space-between;
-    padding: 0px 2px;
-     li{
-      font-size: 14px;
-       svg{
-         margin-right: 5px;
-       }
-     }
+  .text-button {
+    color: $color-primary;
+    width: 60%;
   }
 
   .divider {
@@ -233,39 +227,89 @@
   }
 }
 
-.post-comment-button {
-  margin-top: 10px;
-  margin-left: calc(100% - 86px);
-}
+// .post-comment-button {
+//   margin-top: 10px;
+//   margin-left: calc(100% - 86px);
+// }
 
-.comments-list{
-  h3 {
-    font-size: 18px;
-    color: #444F5F;
-    font-family: 'Poppins', sans-serif;
-    font-weight: bold;
-    padding-bottom: 10px;
-  }
-  .commentor-info{
-    margin: 20px 0;
-    .commentor-name {
-      font-weight: 500;
-      color: #444F5F;
-      font-size: 12px;
-    }
-    .comment-date {
-      font-size: 12px;
-      color: #999999;
-    }
-    .comment-description {
-      font-size: 14px;
-      color: #4A4A4A;
-    }
-  }
-}
+// .comments-list{
+//   h3 {
+//     font-size: 18px;
+//     color: #444F5F;
+//     font-family: 'Poppins', sans-serif;
+//     font-weight: bold;
+//     padding-bottom: 10px;
+//   }
+//   .commentor-info{
+//     margin: 20px 0;
+//     .commentor-name {
+//       font-weight: 500;
+//       color: #444F5F;
+//       font-size: 12px;
+//     }
+//     .comment-date {
+//       font-size: 12px;
+//       color: #999999;
+//     }
+//     .comment-description {
+//       font-size: 14px;
+//       color: #4A4A4A;
+//     }
+//   }
+// }
 
 .job-divider {
   margin-bottom: 20px
+}
+
+.talent-filter-root {
+  border: 1px solid #DBDBDB;
+  border-radius: 8px;
+  margin-top: 5px;
+  margin-bottom: 25px;
+  background-color: #FFFFFF;
+  padding: 20px 0;
+
+  h2 {
+    @extend .h2;
+    font-size: 28px;
+  }
+
+  .talent-filter-title {
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-between;
+
+    h3 {
+      @extend .h3;
+      margin: 10px 0;
+    }
+
+    // .job-list-icon {
+    //   font-size: 18px;
+    //   color: #444F5F;
+    // }
+  }
+
+  .talent-dropdown  {
+    .dropdown {
+      border: 1px solid #DBDBDB;
+      height: 45px;
+      border-radius: 6px;
+      width: 290px;
+      background: #FFFFFF;
+      margin-top: 11px;
+      font-family: "SF Pro Text", Regular;
+      font-weight: normal;
+      color: #4A4A4A;
+      padding-left: calc(0.75em - 1px);
+      padding-right: calc(0.75em - 1px);
+    }
+
+    .MuiInput-underline:after {
+      border-bottom: 2px solid #4877f4 !important;
+    }
+  }
 }
 
 // ============== Common css ======================
