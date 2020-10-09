@@ -1,7 +1,6 @@
 import ServiceBase from '../../../common/serviceBase'
 import { UserDetail, User, Server, Phone, XPhoneCodes } from '../../../db/models'
 import CreateUserWallet from '../../wallet/createUserWallet'
-import { generateUserWalletId } from '../../../utils/generateWalletId'
 import AddUserToActiveCampaign from '../../activeCampaign/addUserToActiveCampaign'
 import { Op } from 'sequelize'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
@@ -234,7 +233,7 @@ export class PostSignupAgentStep6Service extends ServiceBase {
       const xUser = await User.findOne({ where: { user_id: this.user_id }, raw: true })
 
       // Create wallet for user
-      const walletAddress = (await generateUserWalletId(xUser.full_name)).toLowerCase() + '.qbe'
+      const walletAddress = xUser.user
       await CreateUserWallet.execute({ walletAddress })
 
       // Assign SIP phone server to Agent
@@ -251,13 +250,8 @@ export class PostSignupAgentStep6Service extends ServiceBase {
       })
       // Update User Details
       await User.update({
-        user: walletAddress,
         phone_login: phone.extension,
         phone_pass: phone.extension
-      }, { where: { user_id: this.user_id } })
-
-      await UserDetail.update({
-        wallet_address: walletAddress
       }, { where: { user_id: this.user_id } })
 
       // Add user to Active Campaign

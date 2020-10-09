@@ -1,8 +1,7 @@
 import ServiceBase from '../../../common/serviceBase'
-import { XClient, XClientUser, Server, XClientServer, User, UserDetail, XPhoneCodes } from '../../../db/models'
+import { XClient, XClientUser, Server, XClientServer, User, XPhoneCodes } from '../../../db/models'
 import CreateUserWallet from '../../wallet/createUserWallet'
 import { findUniqueID, generateID } from '../../../utils/generateId'
-import { generateUserWalletId } from '../../../utils/generateWalletId'
 import SendEmailNotificationMail from '../../email/sendEmailNotificationMail'
 import AddUserToActiveCampaign from '../../activeCampaign/addUserToActiveCampaign'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
@@ -244,20 +243,11 @@ export class PostSignupEmployerStep4Service extends ServiceBase {
         }
 
         // Send Email Notification for new Client Registration
-        const { email, full_name } = await User.findOne({ where: { user_id: this.user_id }, raw: true })
+        const { email, full_name, user } = await User.findOne({ where: { user_id: this.user_id }, raw: true })
         await SendEmailNotificationMail.execute({ ...clientInfo, email, serverPrivateIP, serverPublicIP })
 
-        // Create Wallet for user
-        const walletAddress = (await generateUserWalletId(full_name)).toLowerCase() + '.qbe'
-        await CreateUserWallet.execute({ walletAddress })
-
-        // Update User and UserDetails for wallet
-        await User.update({
-          user: walletAddress
-        }, { where: { user_id: this.user_id } })
-        await UserDetail.update({
-          wallet_address: walletAddress
-        }, { where: { user_id: this.user_id } })
+        // Create Wallet for user. Here user field contains wallet address that is generated at the time of signup.
+        await CreateUserWallet.execute({ user })
 
         // Add user to active campaign
         await AddUserToActiveCampaign.execute(
