@@ -170,7 +170,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'Wrapup Call'
     },
     closer_campaigns: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING(16000),
       defaultValue: ''
     },
     use_internal_dnc: {
@@ -299,7 +299,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: '---NONE---'
     },
     xfer_groups: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING(16000),
       defaultValue: ''
     },
     queue_priority: {

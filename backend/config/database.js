@@ -12,7 +12,9 @@ module.exports = {
       timezone: 'Etc/GMT0'
     },
     define: {
-      timestamps: false
+      timestamps: false,
+      charset: 'latin1',
+      collate: 'latin1_swedish_ci'
     }
   },
   test: {
@@ -22,9 +24,10 @@ module.exports = {
     host: config.get('sequelize.host'),
     dialect: 'mariadb',
     define: {
-      timestamps: false
+      timestamps: false,
+      charset: 'latin1',
+      collate: 'latin1_swedish_ci'
     }
-
   },
   staging: {
     username: config.get('sequelize.user'),
@@ -33,9 +36,10 @@ module.exports = {
     host: config.get('sequelize.host'),
     dialect: 'mariadb',
     define: {
-      timestamps: false
+      timestamps: false,
+      charset: 'latin1',
+      collate: 'latin1_swedish_ci'
     }
-
   },
   production: {
     username: config.get('sequelize.user'),
@@ -44,7 +48,9 @@ module.exports = {
     host: config.get('sequelize.host'),
     dialect: 'mariadb',
     define: {
-      timestamps: false
+      timestamps: false,
+      charset: 'latin1',
+      collate: 'latin1_swedish_ci'
     }
   }
 }
