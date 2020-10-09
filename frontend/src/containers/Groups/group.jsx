@@ -13,7 +13,7 @@ import moment from 'moment'
 import GroupsList from './groups'
 import TrendingTopics from './trendingTopics'
 import { carolin } from '../../assets/images/avatar/index'
-import { groupTopicsFetchingStart } from '../../redux-saga/redux/actions'
+import { groupTopicsFetchingStart, addNewGroupTopic } from '../../redux-saga/redux/actions'
 import NewTopicForm from './newTopic'
 
 const SelectedGroup = ({ group }) => {
@@ -21,6 +21,7 @@ const SelectedGroup = ({ group }) => {
   const dispatch = useDispatch()
   const [ newTopicForm, setNewTopicForm ] = useState(false)
   const { topics } = useSelector((state) => state.groupTopics)
+  const { userDetails } = useSelector((state) => state.login)
 
   useEffect(() => {
     if (id) {
@@ -32,8 +33,13 @@ const SelectedGroup = ({ group }) => {
   const changeTopicFormStatus = useCallback(() => setNewTopicForm((newTopicForm) => !newTopicForm),
     [ setNewTopicForm ])
 
+  const handleCreateTopic = (data) => {
+    dispatch(addNewGroupTopic({ ...data, groupId: id, ownerName: userDetails.full_name }))
+    setNewTopicForm(false)
+  }
+
   if (newTopicForm) {
-    return <NewTopicForm changeStatus={ changeTopicFormStatus } />
+    return <NewTopicForm handleCancel={ changeTopicFormStatus } handleSubmit={ handleCreateTopic } />
   }
 
   return (
