@@ -52,10 +52,13 @@
       width: 24px;
       height: 24px
     }
+    .notification-button {
+      width: 64px;
+    }
   }
 
   .topbar-avatar {
-    margin: auto 0px auto 20px;
+    margin: auto 0px auto 0px;
     background-color: $color-background;
     .avatar {
       margin: auto

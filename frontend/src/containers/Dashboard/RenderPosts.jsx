@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { postDataFetchingStart } from '../../redux-saga/redux/actions'
 import PostStatusWrap from './PostStatusWrap'
+import PostSkeleton from './PostSkeleton'
 
 const RenderPosts = () => {
   const { posts, isLoading } = useSelector((state) => state.statusPosts)
@@ -11,7 +12,14 @@ const RenderPosts = () => {
   }, [ dispatch ])
 
   if (isLoading) {
-    return (<> Empty posts</>)
+    return (
+      <>
+        <PostSkeleton />
+        <PostSkeleton />
+        <PostSkeleton />
+        <PostSkeleton />
+      </>
+    )
   }
 
   return (

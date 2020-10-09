@@ -237,6 +237,7 @@
     display: flex;
     cursor: pointer;
     margin-top: 20px;
+    height: 35px;
     :hover {
       text-decoration: underline;
       color: $color-primary;
@@ -327,7 +328,6 @@
 .skeleton-header-container {
   width: 100%;
   display: inline-block;
-  margin-bottom: 15px;
 
   .skeleton-avatar-container {
     float: left;
@@ -362,5 +362,69 @@
 
   .custom-skeleton-description {
     height: 30px;
+  }
+}
+
+
+.post-skeleton-header-container {
+  width: 100%;
+  display: inline-block;
+
+  .skeleton-avatar-container {
+    float: left;
+    margin-right: 10px;
+
+    .custom-skeleton-avatar {
+      width: 55px;
+      height: 55px;
+      margin-top: 20px;
+      margin-top: 10px;
+      float: left
+    }
+  }
+
+  .skeleton-title-container {
+    width: 90%;
+    display: inline-block;
+    margin-top: 17px;
+
+    .custom-skeleton-title {
+      width: 25%;
+      height: 20px;
+    }
+
+    .custom-skeleton-date {
+      height: 18px;
+      margin-bottom: 20px;
+      width: 32%;
+      margin-top: 5px;
+    }
+  }
+
+  .custom-skeleton-description {
+    margin-top: 5px;
+    height: 15px;
+  }
+
+  .custom-skeleton-photo {
+    height: 300px;
+    border-radius: 8px;
+  }
+
+  .MuiSkeleton-text {
+    transform: scale(1, 0.90);
+  }
+
+  .like-section {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+    padding-right: 80px;
+    // padding: 10px;
+    .like-option {
+      width: 20%;
+      height: 30px;
+    }
   }
 }
