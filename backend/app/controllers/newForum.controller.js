@@ -5,7 +5,8 @@ import {
   ForumDeleteGroupService,
   ForumGetAllGroupService,
   ForumGetOneGroupService,
-  ForumGetGroupTopicsService
+  ForumGetGroupTopicsService,
+  ForumCreateTopicService
 } from '../services/newForum'
 
 export default class ForumController {
@@ -55,11 +56,20 @@ export default class ForumController {
   }
 
   static async getGroupTopics (req, res) {
-    const forumGetAllGroupResult = await ForumGetGroupTopicsService.execute({ ...req.body, ...req.params })
-    if (forumGetAllGroupResult.successful) {
-      Responder.success(res, forumGetAllGroupResult.result)
+    const forumGetGroupTopicsResult = await ForumGetGroupTopicsService.execute({ ...req.body, ...req.params })
+    if (forumGetGroupTopicsResult.successful) {
+      Responder.success(res, forumGetGroupTopicsResult.result)
     } else {
-      Responder.failed(res, forumGetAllGroupResult.errors)
+      Responder.failed(res, forumGetGroupTopicsResult.errors)
+    }
+  }
+
+  static async createTopic (req, res) {
+    const forumCreateGroupResult = await ForumCreateTopicService.execute({ ...req.body, ...req.params })
+    if (forumCreateGroupResult.successful) {
+      Responder.success(res, forumCreateGroupResult.result)
+    } else {
+      Responder.failed(res, forumCreateGroupResult.errors)
     }
   }
 }

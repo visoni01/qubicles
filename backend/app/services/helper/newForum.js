@@ -116,3 +116,16 @@ export async function getForumGroupTopics ({ user_id, group_id }) {
 
   return groupTopics
 }
+
+export async function createForumTopic ({ topic_title, owner_id, topic_description, group_id }) {
+  const newTopic = await createNewEntity({
+    model: XForumTopic,
+    data: {
+      owner_id,
+      group_id,
+      topic_title,
+      topic_description
+    }
+  })
+  return newTopic
+}
