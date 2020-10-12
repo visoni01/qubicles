@@ -87,7 +87,11 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 0
     }
   },
-  { tableName: 'x_leads' })
+  {
+    charset: 'utf8',
+    collate: 'utf8_general_ci',
+    tableName: 'x_leads'
+  })
   Lead.associate = function (models) {}
   return Lead
 }

@@ -7,6 +7,7 @@ import config from '../../../config/app'
 import { ERRORS, MESSAGES } from '../../utils/errors'
 import logger from '../../common/logger'
 import { getErrorMessageForService } from '../helper'
+import { generateUserWalletId } from '../../utils/generateWalletId'
 
 const constraints = {
   email: {
@@ -42,18 +43,24 @@ export class CreateUserService extends ServiceBase {
     const checkUserExist = await User.findOne({ where: { email: this.email }, raw: true })
     if (!checkUserExist) {
       const salt = bcrypt.genSaltSync(10)
+      const full_name = this.first_name + ' ' + this.last_name
+      // Updating user field by locally generated walletAddress.
+      // This will be used in last step of postSignup where we create wallet on blockchain.
+      const walletAddress = (await generateUserWalletId(full_name)).toLowerCase() + '.qbe'
       const newUser = {
         email: this.email,
         pass: bcrypt.hashSync(this.pass, salt),
         full_name: this.first_name + ' ' + this.last_name,
-        email_verified: false
+        email_verified: false,
+        user: walletAddress
       }
       try {
         const user = await User.create(newUser)
         await UserDetail.create({
           user_id: user.user_id,
           first_name: this.first_name,
-          last_name: this.last_name
+          last_name: this.last_name,
+          wallet_address: walletAddress
         })
         const token = jwt.sign({
           email: this.email,
