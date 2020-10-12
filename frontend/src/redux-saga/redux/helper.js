@@ -13,6 +13,7 @@ import {
   UPDATE_TOPIC,
   UPDATE_CATEGORY,
   UPDATE_CHANNEL,
+  ADD_GROUP_TOPIC,
   LIKE_POST,
   UNLIKE_POST,
   CREATE_POST_COMMENT_START,
@@ -210,6 +211,19 @@ export const getUpdatedTopicsList = ({ state, payload }) => {
       break
   }
   return channelTopicsList
+}
+
+export const updateGroupTopics = (state, payload) => {
+  let updatedTopicsList
+  switch (payload.type) {
+    case ADD_GROUP_TOPIC: {
+      updatedTopicsList = [ ...state.topics, payload.newTopic ]
+      break
+    }
+    default:
+      break
+  }
+  return updatedTopicsList
 }
 
 export const getUpdatedJobsData = ({ state, payload }) => {

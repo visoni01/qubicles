@@ -1,5 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { configureStore, createSlice } from '@reduxjs/toolkit'
 import { getDataForReducer } from '../../../utils/common'
+import { updateGroupTopics } from '../helper'
 
 const initialState = {
   isLoading: null,
@@ -13,6 +14,7 @@ const {
     groupTopicsFetchingStart,
     groupTopicsFetchingSuccessful,
     groupTopicsFetchingFailure,
+    updateGroupTopicsList,
   },
   reducer,
 } = createSlice({
@@ -34,6 +36,10 @@ const {
       error: true,
       isLoading: false,
     }),
+    updateGroupTopicsList: (state, action) => ({
+      ...state,
+      topics: updateGroupTopics(state, action.payload),
+    }),
   },
 })
 
@@ -42,4 +48,5 @@ export {
   groupTopicsFetchingStart,
   groupTopicsFetchingSuccessful,
   groupTopicsFetchingFailure,
+  updateGroupTopicsList,
 }
