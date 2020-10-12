@@ -44,7 +44,7 @@ export class CreateUserService extends ServiceBase {
     if (!checkUserExist) {
       const salt = bcrypt.genSaltSync(10)
       const full_name = this.first_name + ' ' + this.last_name
-      // Updating user field locally generated walletAddress.
+      // Updating user field by locally generated walletAddress.
       // This will be used in last step of postSignup where we create wallet on blockchain.
       const walletAddress = (await generateUserWalletId(full_name)).toLowerCase() + '.qbe'
       const newUser = {

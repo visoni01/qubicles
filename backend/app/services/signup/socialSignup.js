@@ -4,6 +4,7 @@ import SendEmailVerificationMail from '../email/sendEmailVerificationMail'
 import { createNewEntity } from '../helper'
 import jwt from 'jsonwebtoken'
 import config from '../../../config/app'
+import { generateUserWalletId } from '../../utils/generateWalletId'
 
 const constraints = {
   type: {
@@ -28,10 +29,16 @@ export default class SocialSignupService extends ServiceBase {
   async run () {
     const existingUser = await User.findOne({ where: { email: this.email }, raw: true })
     if (!existingUser) {
+      // Updating user field by locally generated walletAddress.
+      // This will be used in last step of postSignup where we create wallet on blockchain.
+      const walletAddress = (await generateUserWalletId(this.full_name)).toLowerCase() + '.qbe'
+
       const userObj = {
         full_name: this.full_name,
         email: this.email,
         email_verified: false,
+        user: walletAddress,
+        pass: '',
         [this.type]: this.id
       }
       const user = await createNewEntity({ model: User, data: userObj })
@@ -40,7 +47,8 @@ export default class SocialSignupService extends ServiceBase {
         data: {
           user_id: user.user_id,
           first_name: this.first_name,
-          last_name: this.last_name
+          last_name: this.last_name,
+          wallet_address: walletAddress
         }
       })
       await this.generateAndSendToken(
