@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import {
   Grid, Tabs, Tab,
 } from '@material-ui/core'
-import JobsList from './JobsList'
-import JobsPage from './JobsPage'
-import TalentFilter from './TalentFilter'
-import TalentWrap from '../People/talentWrap'
-import TrainingWrap from '../People/trainingWrap'
-import TopTalent from './TopTalent'
-import { newNavBar } from '../../hoc/navbar'
+import JobsList from './Jobs/JobsList'
+import JobsPage from './Jobs/JobsPage'
+import TalentFilter from './Talent/TalentFilter'
+import TalentWrap from '../../People/talentWrap'
+import TrainingWrap from '../../People/trainingWrap'
+import TopTalent from './Talent/TopTalent'
+import { newNavBar } from '../../../hoc/navbar'
 import './styles.scss'
 
 const People = () => {
