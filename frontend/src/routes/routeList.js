@@ -55,12 +55,6 @@ const routes = [
     component: React.lazy(() => import('../containers/Dashboard/new')),
     auth: true,
   },
-  // Added extra route for new dashboard, Remove it when dashboard completely ready.
-  {
-    path: `/new${ ROUTE_PATHS.DASHBOARD }`,
-    component: React.lazy(() => import('../containers/Dashboard/new')),
-    auth: true,
-  },
   // Added extra route for new groups design, Remove it when groups page completely ready.
   {
     path: `/new${ ROUTE_PATHS.GROUP }`,

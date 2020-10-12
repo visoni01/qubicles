@@ -6,7 +6,6 @@ import { CircularLoader } from '../components/loaders'
 import CustomSnackbar from '../components/snackbar'
 import CustomRoutes from './customRoutes'
 import ScrollToTop from '../components/ScrollToTop'
-import PostCommentSection from '../components/Dashboard/PostCommentSection'
 
 const Routes = () => (
   <Router>
@@ -15,7 +14,6 @@ const Routes = () => (
       <CustomRoutes />
       <CircularLoader />
       <CustomSnackbar />
-      <PostCommentSection />
     </Suspense>
   </Router>
 )
