@@ -4,6 +4,7 @@ import { Box } from '@material-ui/core'
 import './newStyles.scss'
 import PostHead from './PostHead'
 import PostBody from './PostBody'
+import { commentsArrayValidator } from './postValidators'
 
 const PostStatusWrap = ({
   userActivityId,
@@ -44,7 +45,7 @@ PostStatusWrap.propTypes = {
   likesCount: PropTypes.number.isRequired,
   isPostLiked: PropTypes.bool.isRequired,
   commentsCount: PropTypes.number.isRequired,
-  comments: PropTypes.array.isRequired,
+  comments: commentsArrayValidator.isRequired,
   commentLoading: PropTypes.bool.isRequired,
 }
 

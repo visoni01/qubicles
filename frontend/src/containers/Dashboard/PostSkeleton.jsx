@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { Box } from '@material-ui/core'
 

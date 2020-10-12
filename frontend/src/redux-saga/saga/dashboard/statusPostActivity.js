@@ -81,37 +81,7 @@ function* statusPostActivityFetchingWorker(action) {
         break
       }
 
-      // REFACTOR ACTIONS
-
-      // case CREATE_POST_COMMENT_START: {
-      //   const { commentData } = action.payload
-      //   const { data } = yield Dashboard.addPostComment({ data: commentData })
-      //   const { userDetails } = yield select((state) => state.login)
-      //   const newCommentData = {
-      //     user_activity_id: commentData.userActivityId,
-      //     createdAt: data.createdAt,
-      //     activity_value: data.content,
-      //     owner: userDetails.full_name,
-      //     owner_id: userDetails.user_id,
-      //   }
-      //   // yield put(updatePostComments({ type: updatePostComments.type, data: newCommentData }))
-      //   // yield put(updatePostData({ type: action.type, data: commentData }))
-
-      //   // MY CHANGES******************
-      //   yield put(updatePostData({ type: action.type, data: newCommentData }))
-      //   break
-      // }
-
-      // case fetchCommentsStart.type: {
-      //   const { data } = yield Dashboard.getPostComments(action.payload)
-      //   // yield put(fetchCommentsSuccess({
-      //   //   type: fetchCommentsSuccess.type,
-      //   //   data: { comments: data.commentsData, count: data.count },
-      //   // }))
-
-      //   yield put(updatePostData({ type: action.type }))
-      //   break
-      // }
+      // WIP: REFACTOR ACTIONS
 
       // case DELETE_POST_COMMENT: {
       //   const { userActivityId, postUserActivityId, content } = action.payload

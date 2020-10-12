@@ -7,7 +7,7 @@ import { carolin } from '../../assets/images/avatar'
 const PostHead = ({
   owner, createdAt,
 }) => (
-  <div className='display-inline-flex'>
+  <div className='display-inline-flex post-head'>
     <Avatar className='profile-pic' alt='Remy Sharp' src={ carolin } />
     <div className='post-details'>
       <h4 className='user-name'>

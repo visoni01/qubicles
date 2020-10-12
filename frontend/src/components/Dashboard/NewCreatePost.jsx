@@ -13,6 +13,7 @@ import {
 import { createStatusPostStart } from '../../redux-saga/redux/actions'
 import Loader from '../loaders/circularLoader'
 import './style.scss'
+import { terry } from '../../assets/images/avatar'
 
 const NewCreatePost = () => {
   const [ postText, setPostText ] = useState('')
@@ -104,11 +105,7 @@ const NewCreatePost = () => {
       className='create-post-container'
       style={ { pointerEvents: isLoading ? 'none' : 'auto' } }
     >
-
-      <Avatar className='avatar'>
-        {userDetails && userDetails.full_name && userDetails.full_name[ 0 ].toUpperCase()}
-      </Avatar>
-
+      <Avatar className='avatar' alt='Remy Sharp' src={ terry } />
       <div className='create-post'>
         <div className='post-content'>
           <TextareaAutosize

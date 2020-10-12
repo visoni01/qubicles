@@ -17,7 +17,7 @@ const JobPostings = () => {
               <p className='title'><b>{jobTitle}</b></p>
               <p className='applicants'>
                 <b>{` ${ applicants } `}</b>
-                applications received
+                <span className='text'>applications received</span>
               </p>
             </li>
           ))}

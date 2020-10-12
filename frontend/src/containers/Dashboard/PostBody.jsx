@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react'
+import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import PostStatusLikeComment from './PostLikeComment'
@@ -6,6 +6,7 @@ import PostComments from './PostComments'
 import PostCommentSection from './PostCommentSection'
 import config from '../../utils/config'
 import { addCommentToPost, fetchCommentForPost, setIsCommentLoading } from '../../redux-saga/redux/actions'
+import { commentsArrayValidator } from './postValidators'
 
 const PostBody = ({
   userActivityId, activityValue, activityCustom, isPostLiked, likesCount, commentsCount, comments, commentLoading,
@@ -122,6 +123,7 @@ PostBody.propTypes = {
   isPostLiked: PropTypes.bool.isRequired,
   commentsCount: PropTypes.number.isRequired,
   commentLoading: PropTypes.bool.isRequired,
+  comments: commentsArrayValidator.isRequired,
 }
 
 export default PostBody

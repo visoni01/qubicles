@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { Divider } from '@material-ui/core'
 import RenderPostComments from './RenderPostComments'
 import Loader from '../../components/loaders/circularLoader'
+import { commentsArrayValidator } from './postValidators'
 
 const PostComments = ({
   comments, commentsCount, loadMoreCommentsCB, isCommentLoading,
@@ -16,8 +17,8 @@ const PostComments = ({
         {isCommentLoading && (
         <Loader
           className='view-more-comments-loader'
-          displayLoaderManually
           enableOverlay={ false }
+          displayLoaderManually
           size={ 23 }
         />
         )}
@@ -39,7 +40,7 @@ const PostComments = ({
 )
 
 PostComments.propTypes = {
-  comments: PropTypes.array.isRequired,
+  comments: commentsArrayValidator.isRequired,
   commentsCount: PropTypes.number.isRequired,
   loadMoreCommentsCB: PropTypes.func.isRequired,
   isCommentLoading: PropTypes.bool.isRequired,

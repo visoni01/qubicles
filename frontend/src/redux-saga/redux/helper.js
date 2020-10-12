@@ -354,15 +354,8 @@ export const getPostData = ({ state, payload }) => {
       })
       break
     }
-    // case CREATE_POST_COMMENT_START: {
-    //   const { data } = payload
-    //   posts = state.posts.map((post) => ({
-    //     ...post,
-    //     commentsCount: post.user_activity_id === data.userActivityId ? post.commentsCount + 1 : post.commentsCount,
-    //     comments: [ ...post.comments, data ],
-    //   }))
-    //   break
-    // }
+
+    // WIP ACTIONS
 
     // case UPDATE_POST: {
     //   const { editedPost } = payload

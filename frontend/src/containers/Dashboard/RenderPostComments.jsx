@@ -1,11 +1,11 @@
 import React from 'react'
-import { Divider, Avatar } from '@material-ui/core'
+import { Avatar } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { formatDate } from '../../utils/common'
 import { terry } from '../../assets/images/avatar'
 
 const RenderPostComments = ({
-  commentText, ownerName, createdAt, userActivityId,
+  commentText, ownerName, createdAt,
 }) => (
   <div className='comment-wrap'>
     <div className='comment-body'>
@@ -25,7 +25,6 @@ const RenderPostComments = ({
   </div>
 )
 RenderPostComments.propTypes = {
-  userActivityId: PropTypes.number.isRequired,
   commentText: PropTypes.string.isRequired,
   ownerName: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,

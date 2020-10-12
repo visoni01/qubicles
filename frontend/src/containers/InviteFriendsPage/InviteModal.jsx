@@ -53,6 +53,7 @@ const InviteModal = ({
 
   return (
     <Dialog
+      disableScrollLock
       open={ open }
       onClose={ handleClose }
       maxWidth='sm'
@@ -81,7 +82,9 @@ const InviteModal = ({
           </div>
           <div className='invite-content '>
             <p>
-              <b>Earn $5 for inviting friends, plus 1 QBE token ($1 each)</b> for every
+              <b>Earn $5 for inviting friends, plus 1 QBE token ($1 each)</b>
+              {' '}
+              for every
               person that signs up using your link, up to $100. Your friend
               <br />
               also receives $5 credit to use toward the service.
