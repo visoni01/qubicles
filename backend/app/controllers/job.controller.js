@@ -17,7 +17,10 @@ export default class JobController {
   }
 
   static async getJobCategoriesAndTitles (req, res) {
-    const jobTitles = await GetJobCategoriesAndTitlesService.execute({ ...req.query })
+    const jobTitles = await GetJobCategoriesAndTitlesService.execute({
+      user: req.body.user,
+      ...req.query
+    })
     if (jobTitles.successful) {
       Responder.success(res, jobTitles.result)
     } else {
@@ -44,7 +47,7 @@ export default class JobController {
   }
 
   static async getJobById (req, res) {
-    const job = await GetJobByIdService.execute({ ...req.params })
+    const job = await GetJobByIdService.execute({ user: req.body.user, ...req.params })
     if (job.successful) {
       Responder.success(res, job.result)
     } else {

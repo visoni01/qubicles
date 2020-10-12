@@ -106,16 +106,16 @@ export default class Logger {
 
   static writeToLog (logType, logTitle, logMessage, argHash) {
     if (argHash && ['start', 'around'].indexOf(argHash.wrap) !== -1) {
-      logger[logType](this.generateWrapStr(logTitle, 'START'))
+      logger[logType](this.generateWrapStr(logTitle, 'START', argHash['extraData']))
     } else if (argHash && ['end', 'around'].indexOf(argHash.wrap) !== -1) {
-      logger[logType](this.generateWrapStr(logTitle, 'END'))
+      logger[logType](this.generateWrapStr(logTitle, 'END', argHash['extraData']))
     } else {
       logger[logType](logMessage)
     }
   }
 
-  static generateWrapStr (logTitle, separatorType) {
-    return `${separatorType}${'='.repeat(15)}${logTitle.toUpperCase()}${'='.repeat(15)}${separatorType}`
+  static generateWrapStr (logTitle, separatorType, extraData) {
+    return `${separatorType}${'-'.repeat(5)}${logTitle.toUpperCase()}${'-'.repeat(5)}${extraData ? `${extraData}${'-'.repeat(5)}` : ''}${separatorType}`
   }
 
   static buildMessage (logAttrs) {

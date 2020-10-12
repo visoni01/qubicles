@@ -28,7 +28,11 @@ import config from '../../config/app'
 export default class FlowController {
   static async checkAuthorization (req, res) {
     const appPath = config.get('flow.path')
-    const checkAuthorizationResult = await CheckAuthorizationService.execute({ userId: req.body.user_id, appPath })
+    const checkAuthorizationResult = await CheckAuthorizationService.execute({
+      userId: req.body.user_id,
+      appPath,
+      user: req.body.user
+    })
     if (checkAuthorizationResult.successful) {
       Responder.success(res, checkAuthorizationResult.result)
     } else {
@@ -73,7 +77,10 @@ export default class FlowController {
   }
 
   static async deleteFlowPage (req, res) {
-    const deleteFlowPageResult = await DeleteFlowPageService.execute(req.params)
+    const deleteFlowPageResult = await DeleteFlowPageService.execute({
+      ...req.params,
+      user: req.body.user
+    })
     if (deleteFlowPageResult.successful) {
       Responder.success(res, deleteFlowPageResult.result)
     } else {
@@ -82,7 +89,7 @@ export default class FlowController {
   }
 
   static async getFlows (req, res) {
-    const getFlowsResult = await GetFlowsService.execute()
+    const getFlowsResult = await GetFlowsService.execute({ user: req.body.user })
     if (getFlowsResult.successful) {
       Responder.success(res, getFlowsResult.result)
     } else {
@@ -118,7 +125,7 @@ export default class FlowController {
   }
 
   static async deleteFlow (req, res) {
-    const deleteFlowResult = await DeleteFlowService.execute(req.params)
+    const deleteFlowResult = await DeleteFlowService.execute({ ...req.params, user: req.body.user })
     if (deleteFlowResult.successful) {
       Responder.success(res, deleteFlowResult.result)
     } else {

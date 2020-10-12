@@ -111,24 +111,38 @@ export default class ServiceBase {
     }
   }
 
-  // Static methods
+  static getUserData (arg) {
+    let userData
+    if (arg && arg.length && arg[0].user_id && !_.isEmpty(arg[0].user)) {
+      // Select only necessary fields
+      const fields = [
+        'user_id',
+        'user'
+      ]
+      userData = JSON.stringify(_.pick(arg[0].user, fields))
+    }
+    return userData
+  }
 
+  // Static methods
   static async run () {
-    Log.info(`Service Started: ${this.name}`, { context: this.args, userCtx: this.context, wrap: 'start' })
     const args = arguments
+    const user = ServiceBase.getUserData(args)
+    Log.info(this.name, { context: this.args, userCtx: this.context, wrap: 'start', extraData: user })
     const instance = new this(...args)
     await instance.tryExecuting()
     if (_.size(instance.errors)) throw instance.errors
-    Log.info(`Service Finished: ${this.name}`, { context: this.args, userCtx: this.context, wrap: 'end' })
+    Log.info(this.name, { context: this.args, userCtx: this.context, wrap: 'end', extraData: user })
     return instance.result
   }
 
   static async execute () {
-    Log.info(`Service Started: ${this.name}`, { context: this.args, userCtx: this.context, wrap: 'start' })
     const args = arguments
+    const user = ServiceBase.getUserData(args)
+    Log.info(this.name, { context: this.args, userCtx: this.context, wrap: 'start', extraData: user })
     const instance = new this(...args)
     await instance.tryExecuting()
-    Log.info(`Service Finished: ${this.name}`, { context: this.args, userCtx: this.context, wrap: 'end' })
+    Log.info(this.name, { context: this.args, userCtx: this.context, wrap: 'end', extraData: user })
     return instance
   }
 }
