@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react'
-import './style.scss'
+// import './style.scss'
 import {
   Box, Grid,
 } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 import { newNavBar } from '../../hoc/navbar'
-import CommunityRep from './CommunityRep'
-import LatestAnnouncement from './LatestAnnouncement'
-import JobPostings from './JobPostings'
+import CommunityRep from '../../components/Dashboard/LeftSection/CommunityRep'
+import LatestAnnouncement from '../../components/Dashboard/LeftSection/LatestAnnouncement'
+import JobPostings from '../../components/Dashboard/LeftSection/JobPostings'
 import { dashboardDataFetchingStart } from '../../redux-saga/redux/actions'
-import CheckrVerification from './ChekrVerification'
+import CheckrVerification from '../../components/Dashboard/LeftSection/ChekrVerification'
 import './newStyles.scss'
-import NewCreatePost from '../../components/Dashboard/NewCreatePost'
-import RenderPosts from './RenderPosts'
+import NewCreatePost from './Posts/NewCreatePost'
+import RenderPosts from './Posts/RenderPosts'
 import TodayActivity from './TodaysActivity'
 
 const Dashboard = () => {

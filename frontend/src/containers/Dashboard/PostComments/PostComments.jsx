@@ -3,8 +3,8 @@ import _ from 'lodash'
 import PropTypes from 'prop-types'
 import { Divider } from '@material-ui/core'
 import RenderPostComments from './RenderPostComments'
-import Loader from '../../components/loaders/circularLoader'
-import { commentsArrayValidator } from './postValidators'
+import Loader from '../../../components/loaders/circularLoader'
+import { commentsArrayValidator } from '../postValidators'
 
 const PostComments = ({
   comments, commentsCount, loadMoreCommentsCB, isCommentLoading,

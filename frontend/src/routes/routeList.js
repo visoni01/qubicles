@@ -52,7 +52,7 @@ const routes = [
   },
   {
     path: ROUTE_PATHS.DASHBOARD,
-    component: React.lazy(() => import('../containers/Dashboard/new')),
+    component: React.lazy(() => import('../containers/Dashboard')),
     auth: true,
   },
   // Added extra route for new groups design, Remove it when groups page completely ready.

@@ -10,10 +10,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faChevronDown, faImage, faTimesCircle,
 } from '@fortawesome/free-solid-svg-icons'
-import { createStatusPostStart } from '../../redux-saga/redux/actions'
-import Loader from '../loaders/circularLoader'
-import './style.scss'
-import { terry } from '../../assets/images/avatar'
+import { createStatusPostStart } from '../../../redux-saga/redux/actions'
+import Loader from '../../../components/loaders/circularLoader'
+import { terry } from '../../../assets/images/avatar'
 
 const NewCreatePost = () => {
   const [ postText, setPostText ] = useState('')

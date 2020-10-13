@@ -6,7 +6,7 @@ import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 const TodayActivity = () => (
   <Box className='box'>
     <div className='activity-section'>
-      <h3 className='mb-3 heading'>
+      <h3 className='heading'>
         Today's Activity
         <FontAwesomeIcon icon={ faEllipsisV } className='pull-right' />
       </h3>

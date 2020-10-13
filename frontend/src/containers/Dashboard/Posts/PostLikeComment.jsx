@@ -6,7 +6,7 @@ import {
 import PropTypes from 'prop-types'
 import { IconButton } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
-import { unlikePostStatus, likePostStatus } from '../../redux-saga/redux/actions'
+import { unlikePostStatus, likePostStatus } from '../../../redux-saga/redux/actions'
 
 const PostStatusLikeComment = ({
   userActivityId, isPostLiked, likesCount, commentsCount, toggleShowComments,

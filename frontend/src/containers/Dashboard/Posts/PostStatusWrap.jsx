@@ -1,10 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Box } from '@material-ui/core'
-import './newStyles.scss'
 import PostHead from './PostHead'
 import PostBody from './PostBody'
-import { commentsArrayValidator } from './postValidators'
+import { commentsArrayValidator } from '../postValidators'
 
 const PostStatusWrap = ({
   userActivityId,

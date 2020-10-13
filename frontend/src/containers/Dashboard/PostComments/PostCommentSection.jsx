@@ -3,7 +3,7 @@ import {
   Avatar, Divider, TextareaAutosize, Button,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import { terry } from '../../assets/images/avatar'
+import { terry } from '../../../assets/images/avatar'
 import PostCommentSkeleton from './PostCommentSkeleton.jsx'
 
 const PostCommentSection = ({ postComment, isCommentLoading }) => {

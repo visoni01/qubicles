@@ -1,4 +1,3 @@
-@import '../../styles/scss/dashboard.scss';
 @import '../../customStyles/scss/index.scss';
 
 .icon-style {
@@ -171,27 +170,6 @@ h4.user-name {
 	color: #444f5f;
 	font-family: 'Poppins', sans-serif;
 }
-
-// .post-content {
-//   p{
-//     margin: 1.5rem 0;
-//   }
-//   .share-like {
-//     ul {
-//       display: inline-flex;
-//       width: 100%;
-//       padding: 15px 0;
-//       li {
-//         svg {
-//           margin-right: 4px;
-//         }
-//         font-size: 14px;
-//         width: 100%;
-//       }
-//     }
-//   }
-// }
-
 
 .display-inline-flex {
   display: inline-flex;

@@ -1,0 +1,309 @@
+// Render Posts
+
+.post-skeleton-header-container {
+  width: 100%;
+  display: inline-block;
+
+  .skeleton-avatar-container {
+    float: left;
+    margin-right: 10px;
+
+    .custom-skeleton-avatar {
+      width: 55px;
+      height: 55px;
+      margin-top: 20px;
+      margin-top: 10px;
+      float: left
+    }
+  }
+
+  .skeleton-title-container {
+    width: 90%;
+    display: inline-block;
+    margin-top: 17px;
+
+    .custom-skeleton-title {
+      width: 25%;
+      height: 20px;
+    }
+
+    .custom-skeleton-date {
+      height: 18px;
+      margin-bottom: 20px;
+      width: 32%;
+      margin-top: 5px;
+    }
+  }
+
+  .custom-skeleton-description {
+    margin-top: 5px;
+    height: 15px;
+  }
+
+  .custom-skeleton-photo {
+    height: 300px;
+    border-radius: 8px;
+  }
+
+  .MuiSkeleton-text {
+    transform: scale(1, 0.90);
+  }
+
+  .like-section {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+    padding-right: 80px;
+    // padding: 10px;
+    .like-option {
+      width: 20%;
+      height: 30px;
+    }
+  }
+}
+
+.post-details {
+  align-self: center;
+}
+
+.post-content {
+  .post-text {
+    @extend .para;
+    margin: 10px 0px 15px 0px;
+  }
+  .post-image {
+    border-radius: 8px;
+  }
+
+  .comments-body {
+    margin-top: 10px;
+
+    .comment-wrap {
+      .comment-body {
+        display: inline-flex;
+        margin-top: 10px;
+      }
+      .user-name {
+        font-size: 13px;
+      }
+      .date {
+        font-size: 13px;
+      }
+      .post-text {
+        // font-size: 14px;
+        margin-top: 2px;
+      }
+    }
+  }
+}
+
+
+.post-icons {
+  font-size: 22px;
+  color: white;
+}
+
+.comment-avatar {
+  margin: 0px 10px 10px 0px;
+}
+
+.post-comment-container {
+  margin-top: 20px;
+  display: inline-flex;
+  width: 100%;
+
+  .create-comment {
+    width: 100%;
+
+    .comment-content {
+      border: 1px solid $color-border;
+      border-radius: 8px;
+      padding: 10px;
+
+      textarea {
+        @extend .para;
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        height: 100%;
+        border: none;
+        resize: none;
+        margin-bottom: 10px;
+        &:focus {
+          outline: none;
+          box-shadow: inherit;
+        }
+      }
+    }
+
+    .comment-actions {
+      justify-content: space-between;
+      display: inline-flex;
+      width: 100%;
+      margin-top: 10px;
+
+      .cancel-button {
+        float:left;
+      }
+
+      .post-button {
+        float:right;
+        right: 0;
+      }
+    }
+  }
+}
+
+.post-head {
+  .MuiAvatar-root {
+    width: 56px;
+    height: 56px;
+  }
+
+  .profile-pic {
+    margin: 10px;
+    margin-left: 0px;
+    flex: 1;
+    align-self: center;
+  }
+}
+
+// Post Like Section
+
+.share-like {
+  .like-icon {
+    @extend .post-icons;
+    @include fa-icon-hover($color-red);
+    @include fa-icon-outlined($color-red);
+  }
+  .liked-icon {
+    @extend .like-icon;
+    color: $color-red;
+  }
+
+  .comment-icon {
+    @extend .post-icons;
+    @include fa-icon-hover($color-white);
+    @include fa-icon-outlined($color-info);
+  }
+  .share-icon {
+    @extend .post-icons;
+    @include fa-icon-hover($color-primary);
+    @include fa-icon-outlined($color-primary);
+  }
+
+  .option-text {
+    cursor: pointer;
+    font-family: $pro-font;
+    font-size: 15px;
+    color: $color-dark-grey;
+    margin: 0px 5px 0px 5px;
+    padding: 15px 0px 15px 0px;
+  }
+
+  ul {
+    display: inline-flex;
+    width: 100%;
+    padding: 10px 0;
+    li {
+      display: flex;
+      svg {
+        margin-right: 4px;
+      }
+      font-size: 14px;
+      width: 100%;
+    }
+  }
+}
+
+.create-post-container {
+
+  display: inline-flex;
+  width: 100%;
+
+  .create-post {
+    width: calc(100% - 100px);
+
+    .post-content {
+      border: 1px solid $color-border;
+      border-radius: 8px;
+      padding: 10px;
+
+      textarea {
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        height: 100%;
+        border: none;
+        resize: none;
+        margin-bottom: 10px;
+        font-family: 'SF Pro Text', Regular;
+        font-weight: normal;
+        color: #4A4A4A;
+        &:focus {
+          outline: none;
+          box-shadow: inherit;
+        }
+      }
+
+      .post-image {
+        display: inline-block;
+        position: relative;
+
+        img {
+          height: auto;
+          max-width: 100%;
+          border-radius: 6px;
+        }
+
+        .MuiButtonBase-root {
+          position: absolute;
+          top: 0;
+          right: 0;
+          color: $color-white !important;
+        }
+
+        .MuiIconButton-label {
+          &:hover {
+            color: $color-white;
+          }
+        }
+      }
+    }
+
+    .postButtons {
+      justify-content: space-between;
+      display: inline-flex;
+      width: 100%;
+      margin-top: 10px;
+
+      .cancel-button {
+        float:left;
+      }
+
+      .permission-button {
+        margin-right: 30px;
+        width: 100px;
+        border-radius: 6px;
+
+        .MuiButton-label {
+          width: 90px;
+        }
+      }
+
+      .post-button {
+        float:right;
+        right: 0;
+      }
+    }
+  }
+
+  input[type="file"] {
+    right: 10px;
+    width: 20px;
+    top: 20px;
+    opacity: 0;
+    z-index: 9999;
+  }
+}

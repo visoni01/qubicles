@@ -1,8 +1,8 @@
 import React from 'react'
 import { Avatar } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import { formatDate } from '../../utils/common'
-import { terry } from '../../assets/images/avatar'
+import { formatDate } from '../../../utils/common'
+import { terry } from '../../../assets/images/avatar'
 
 const RenderPostComments = ({
   commentText, ownerName, createdAt,

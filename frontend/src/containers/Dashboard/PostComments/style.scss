@@ -1,0 +1,63 @@
+
+//  Post Comment Skeleton
+.skeleton-header-container {
+  width: 100%;
+  display: inline-block;
+
+  .skeleton-avatar-container {
+    float: left;
+    margin-right: 10px;
+
+    .custom-skeleton-avatar {
+      width: 40px;
+      height: 40px;
+      margin-top: 20px;
+      margin-top: 10px;
+      float: left
+    }
+  }
+
+  .skeleton-title-container {
+    width: 90%;
+    display: inline-block;
+    margin-top: 11px;
+
+    .custom-skeleton-title {
+      width: 25%;
+      height: 20px;
+    }
+
+    .custom-skeleton-date {
+      height: 18px;
+      margin-bottom: 3px;
+      width: 30%;
+    }
+  }
+
+  .custom-skeleton-description {
+    height: 30px;
+  }
+}
+
+// Load Comments
+
+.load-comments {
+  @extend .text-link;
+  display: flex;
+  cursor: pointer;
+  margin-top: 20px;
+  height: 35px;
+  :hover {
+    text-decoration: underline;
+    color: $color-primary;
+  }
+
+  .view-more-comments-loader {
+    position: inherit;
+    margin: 2px 10px 0px 20px;
+    .MuiCircularProgress-colorPrimary {
+      color: $color-primary;
+    }
+  }
+
+}
