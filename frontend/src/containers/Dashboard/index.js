@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-// import './style.scss'
 import {
   Box, Grid,
 } from '@material-ui/core'
@@ -10,10 +9,10 @@ import LatestAnnouncement from '../../components/Dashboard/LeftSection/LatestAnn
 import JobPostings from '../../components/Dashboard/LeftSection/JobPostings'
 import { dashboardDataFetchingStart } from '../../redux-saga/redux/actions'
 import CheckrVerification from '../../components/Dashboard/LeftSection/ChekrVerification'
-import './newStyles.scss'
-import NewCreatePost from './Posts/NewCreatePost'
+import CreatePost from './Posts/CreatePost'
 import RenderPosts from './Posts/RenderPosts'
 import TodayActivity from './TodaysActivity'
+import './newStyles.scss'
 
 const Dashboard = () => {
   const dispatch = useDispatch()
@@ -32,7 +31,7 @@ const Dashboard = () => {
       </Grid>
       <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 4 }>
         <Box className='box'>
-          <NewCreatePost />
+          <CreatePost />
         </Box>
         <RenderPosts />
       </Grid>

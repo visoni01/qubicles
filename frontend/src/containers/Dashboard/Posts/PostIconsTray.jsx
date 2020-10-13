@@ -27,7 +27,7 @@ const PostStatusLikeComment = ({
   }, [ isPostLiked, postLiked ])
 
   return (
-    <div className='share-like'>
+    <div className='post-icons-tray'>
       <ul>
         <li>
           <IconButton

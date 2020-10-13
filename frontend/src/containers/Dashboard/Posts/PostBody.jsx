@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
-import PostStatusLikeComment from './PostLikeComment'
-import PostComments from '../PostComments/PostComments'
-import PostCommentSection from '../PostComments/PostCommentSection'
+import PostIconsTray from './PostIconsTray'
+import PostCommentsWrap from '../PostComments/PostCommentsWrap'
+import AddComment from '../PostComments/AddComment'
 import config from '../../../utils/config'
 import { addCommentToPost, fetchCommentForPost, setIsCommentLoading } from '../../../redux-saga/redux/actions'
 import { commentsArrayValidator } from '../postValidators'
@@ -75,7 +75,8 @@ const PostBody = ({
   }, [ commentLoading, showComments ])
 
   return (
-    <div className='post-content'>
+    // Post Body
+    <div className='post-body'>
       <p className='post-text'>
         { activityValue}
       </p>
@@ -83,7 +84,7 @@ const PostBody = ({
 
       {/* Post Like and comment */}
 
-      <PostStatusLikeComment
+      <PostIconsTray
         userActivityId={ userActivityId }
         isPostLiked={ isPostLiked }
         likesCount={ likesCount }
@@ -93,7 +94,7 @@ const PostBody = ({
 
       {showComments && (
         <>
-          <PostComments
+          <PostCommentsWrap
             loadMoreCommentsCB={ loadMoreCommentsCB }
             userActivityId={ userActivityId }
             comments={ comments }
@@ -101,7 +102,7 @@ const PostBody = ({
             isCommentLoading={ commentLoading }
           />
 
-          <PostCommentSection
+          <AddComment
             postComment={ postComment }
             isCommentLoading={ commentLoading }
           />

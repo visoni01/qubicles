@@ -1,4 +1,3 @@
-
 //  Post Comment Skeleton
 .skeleton-header-container {
   width: 100%;
@@ -39,9 +38,40 @@
   }
 }
 
-// Load Comments
+// Comment Avatar
+.comment-avatar {
+  margin: 0px 10px 10px 0px;
+}
 
-.load-comments {
+// Post Comment Wrap
+.comments-wrap {
+  margin-top: 10px;
+
+  .comment-body {
+    display: inline-flex;
+    margin-top: 10px;
+
+    .user-name {
+      @extend .h4;
+      font-weight: 500;
+      font-size: 14px;
+    }
+    .date {
+      @extend .para;
+      color: $color-dark-grey;
+      font-size: 13px;
+    }
+    .post-text {
+      @extend .para;
+      margin-top: 2px;
+    }
+  }
+}
+
+
+
+// View More Comments
+.view-more-comments-section {
   @extend .text-link;
   display: flex;
   cursor: pointer;
@@ -59,5 +89,52 @@
       color: $color-primary;
     }
   }
+}
 
+// Add New Comment
+.post-add-new-comment {
+  margin-top: 20px;
+  display: inline-flex;
+  width: 100%;
+
+  .create-comment {
+    width: 100%;
+
+    .comment-content {
+      border: 1px solid $color-border;
+      border-radius: 8px;
+      padding: 10px;
+
+      textarea {
+        @extend .para;
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        height: 100%;
+        border: none;
+        resize: none;
+        margin-bottom: 10px;
+        &:focus {
+          outline: none;
+          box-shadow: inherit;
+        }
+      }
+    }
+
+    .comment-actions {
+      justify-content: space-between;
+      display: inline-flex;
+      width: 100%;
+      margin-top: 10px;
+
+      .cancel-button {
+        float:left;
+      }
+
+      .post-button {
+        float:right;
+        right: 0;
+      }
+    }
+  }
 }

@@ -104,7 +104,7 @@ const NewCreatePost = () => {
       className='create-post-container'
       style={ { pointerEvents: isLoading ? 'none' : 'auto' } }
     >
-      <Avatar className='avatar' alt='Remy Sharp' src={ terry } />
+      <Avatar className='comment-avatar' alt='Remy Sharp' src={ terry } />
       <div className='create-post'>
         <div className='post-content'>
           <TextareaAutosize

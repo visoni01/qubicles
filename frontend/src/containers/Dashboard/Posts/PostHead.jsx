@@ -11,7 +11,7 @@ const PostHead = ({
     <Avatar className='profile-pic' alt='Remy Sharp' src={ carolin } />
     <div className='post-details'>
       <h4 className='user-name'>
-        <b>{owner}</b>
+        {owner}
       </h4>
       <p className='date'>
         {formatDate(createdAt, 'MMMM DD YYYY, hh:mm a')}

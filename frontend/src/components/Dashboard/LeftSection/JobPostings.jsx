@@ -1,7 +1,6 @@
 import React from 'react'
 import { Box } from '@material-ui/core'
 import { useSelector } from 'react-redux'
-// import './style.scss'
 
 const JobPostings = () => {
   const { isLoading, jobPostings } = useSelector((state) => state.jobPosting)

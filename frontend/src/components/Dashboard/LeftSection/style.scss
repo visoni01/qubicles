@@ -1,11 +1,5 @@
 // Community Reputation
-
 .community-rep {
-  .heading {
-    @extend .h3;
-    margin-bottom: 15px;
-  }
-
   .rating {
     display: inline-block;
     margin-top: 10px;
@@ -66,10 +60,7 @@
 // Background Checking
 
 .background-check {
-  .heading {
-    @extend .h3;
-    margin-bottom: 15px;
-  }
+
   .text {
     @extend .para;
     margin-bottom: 15px;
@@ -87,11 +78,6 @@
 
 // Latest Announcements
 .announcement-section {
-  .heading {
-    @extend .h3;
-    margin-bottom: 20px;
-  }
-
   .announcement-list {
     .announcement-item {
 
@@ -122,10 +108,6 @@
 
 // Job Postings
 .job-postings {
-  .heading {
-    @extend .h3;
-    margin-bottom: 20px;
-  }
 
   .job-list {
     display: flex;

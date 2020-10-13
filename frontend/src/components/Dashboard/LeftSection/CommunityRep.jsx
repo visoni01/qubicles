@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfoCircle, faHeart, faUser } from '@fortawesome/free-solid-svg-icons'
 import { kareem, sally, thomas } from '../../../assets/images/avatar'
-// import './style.scss'
 
 const CommunityRep = () => {
   const { isLoading, communityRep } = useSelector((state) => state.communityRep)

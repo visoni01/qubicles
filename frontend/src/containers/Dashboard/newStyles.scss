@@ -1,22 +1,5 @@
 @import '../../customStyles/scss/index.scss';
 
-// .custom-title {
-//   font-size: 15px;
-//   font-weight: 500;
-// }
-
-// .custom-date {
-//   font-size: 14px;
-//   font-weight: 400;
-// }
-
-// .custom-subtitle {
-//   font-size: 14px;
-//   font-weight: 400;
-// }
-
-// New dasboard styles.
-
 .box {
   border: 1px solid #DBDBDB;
 	border-radius: 8px;
@@ -77,9 +60,6 @@
 	}
 }
 
-.dark-color {
-	color: #444F5F;
-}
 
 .customer-service-content {
 	p {
@@ -106,110 +86,6 @@
 	}
 }
 
-.textarea-input {
-  display: inline-flex;
-  width: 100%;
-
-	textarea {
-    width: 100%;
-		margin: 0 auto;
-		display: flex;
-		height: 100%;
-		border: none;
-		resize: none;
-    margin-bottom: 10px;
-		font-family: 'SF Pro Text', Regular;
-    font-weight: normal;
-    color: #4A4A4A;
-		&:focus {
-			outline: none;
-			box-shadow: inherit;
-		}
-  }
-
-	input[type="file"] {
-		right: 10px;
-		width: 20px;
-		top: 20px;
-		opacity: 0;
-		z-index: 9999;
-	}
-}
-
-.date {
-	font-size: 14px;
-	color: #999;
-	font-family: 'SF Pro Text';
-}
-
-h4.user-name {
-	font-size: 14px;
-	color: #444f5f;
-	font-family: 'Poppins', sans-serif;
-}
-
-.display-inline-flex {
-  display: inline-flex;
-}
-
-.avatar {
-  margin-right: 8px;
-}
-
-	.galley-icon {
-    display: flex;
-		svg {
-      vertical-align: middle;
-      font-size: 24px;
-      height: 100%;
-    }
-  }
-
-	.like-people {
-		font-size: 14px;
-	}
-
-	.people-like {
-		ul {
-			width: 85px;
-		}
-  }
-
-.post-btn-section {
-  width: calc(100% - 80px);
-  margin: 0 auto;
-  display: flex;
-  .post-btn {
-    color: #fff;
-    border: 1px solid transparent;
-    background-color: $color-primary;
-    font-size: 14px;
-    text-align: center;
-    padding: 6px 32px;
-    border-radius: 6px;
-  }
-}
-
-nav {
-  padding: 6px !important;
-  font-family: $system-font;
-  color: $color-headings;
-
-  .MuiTypography-body1 {
-    @extend .h4;
-    font-weight: 600;
-    font-size: 14px;
-  }
-
-  .permission-list-item {
-    padding-left: 5px !important;
-    padding-right: 5px !important;
-  }
-
-  .PrivateRadioButtonIcon-root-25 {
-    color: $color-primary;
-  }
-}
 
 @import '../../components/Dashboard/LeftSection/style.scss';
 @import './Posts/style.scss';

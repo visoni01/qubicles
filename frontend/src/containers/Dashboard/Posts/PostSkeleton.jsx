@@ -10,7 +10,7 @@ const PostSkeleton = () => {
 
   return (
     <Box className='box'>
-      <div className='post-skeleton-header-container'>
+      <div className='post-skeleton-container'>
         <div className='skeleton-avatar-container'>
           <Skeleton
             classes={ { root: 'custom-skeleton-avatar' } }
@@ -30,10 +30,10 @@ const PostSkeleton = () => {
         <Skeleton animation='wave' classes={ { root: 'custom-skeleton-description' } } />
         {isPhotoPost
           && <Skeleton animation='wave' classes={ { root: 'custom-skeleton-photo' } } />}
-        <div className='like-section'>
-          <Skeleton animation='wave' classes={ { root: 'like-option' } } />
-          <Skeleton animation='wave' classes={ { root: 'like-option' } } />
-          <Skeleton animation='wave' classes={ { root: 'like-option' } } />
+        <div className='icon-tray'>
+          <Skeleton animation='wave' classes={ { root: 'icon-option' } } />
+          <Skeleton animation='wave' classes={ { root: 'icon-option' } } />
+          <Skeleton animation='wave' classes={ { root: 'icon-option' } } />
         </div>
       </div>
     </Box>

@@ -6,13 +6,13 @@ import RenderPostComments from './RenderPostComments'
 import Loader from '../../../components/loaders/circularLoader'
 import { commentsArrayValidator } from '../postValidators'
 
-const PostComments = ({
+const PostCommentsWrap = ({
   comments, commentsCount, loadMoreCommentsCB, isCommentLoading,
 }) => (
   <>
     {!_.isEmpty(comments) && <Divider />}
     {comments.length < commentsCount && (
-      <div className='load-comments'>
+      <div className='view-more-comments-section'>
         <p onClick={ loadMoreCommentsCB }>View more comments</p>
         {isCommentLoading && (
         <Loader
@@ -24,7 +24,7 @@ const PostComments = ({
         )}
       </div>
     )}
-    <div className='comments-body'>
+    <div className='comments-wrap'>
       {comments.map((comment) => (
         <RenderPostComments
           key={ comment.user_activity_id }
@@ -39,10 +39,10 @@ const PostComments = ({
   </>
 )
 
-PostComments.propTypes = {
+PostCommentsWrap.propTypes = {
   comments: commentsArrayValidator.isRequired,
   commentsCount: PropTypes.number.isRequired,
   loadMoreCommentsCB: PropTypes.func.isRequired,
   isCommentLoading: PropTypes.bool.isRequired,
 }
-export default PostComments
+export default PostCommentsWrap
