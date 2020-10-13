@@ -4,7 +4,7 @@ import {
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { terry } from '../../../assets/images/avatar'
-import PostCommentSkeleton from './PostCommentSkeleton.jsx'
+import PostCommentSkeleton from './PostCommentSkeleton'
 
 const AddComment = ({ postComment, isCommentLoading }) => {
   const [ commentText, setCommentText ] = useState('')

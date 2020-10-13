@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react'
-import {
-  Box, Grid,
-} from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 import { newNavBar } from '../../hoc/navbar'
 import CommunityRep from '../../components/Dashboard/LeftSection/CommunityRep'
@@ -11,8 +9,10 @@ import { dashboardDataFetchingStart } from '../../redux-saga/redux/actions'
 import CheckrVerification from '../../components/Dashboard/LeftSection/ChekrVerification'
 import CreatePost from './Posts/CreatePost'
 import RenderPosts from './Posts/RenderPosts'
-import TodayActivity from './TodaysActivity'
-import './newStyles.scss'
+import TodayActivity from '../../components/Dashboard/RightSection/TodaysActivity'
+import CustomerServiceOverview from '../../components/Dashboard/RightSection/CustomerServiceOverview'
+import SelfProductivity from '../../components/Dashboard/RightSection/SelfProductivity'
+import './style.scss'
 
 const Dashboard = () => {
   const dispatch = useDispatch()
@@ -23,68 +23,27 @@ const Dashboard = () => {
   }, [ dispatch ])
   return (
     <Grid container spacing={ 3 }>
+      {/*  Left Section */}
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
         <CheckrVerification />
         <CommunityRep />
         <LatestAnnouncement />
         <JobPostings />
       </Grid>
+
+      {/* Center Section */}
       <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 4 }>
-        <Box className='box'>
-          <CreatePost />
-        </Box>
+        {/* Create new post */}
+        <CreatePost />
+        {/* Render Posts */}
         <RenderPosts />
       </Grid>
+
+      {/* Right Section */}
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
         <TodayActivity />
-        <Box className='box'>
-          <div className='customer-service'>
-            <h3 className='heading'>
-              Customer  Service Overview
-            </h3>
-
-            <div className='customer-service-content'>
-              <p>
-                <span className='green-color'>
-                  <b className='number green'>0.20</b>
-                  {' '}
-                </span>
-                <span className='text'>Average speed of answer</span>
-              </p>
-
-              <p>
-                <span className='dark-color'>
-                  <b className='number'>2.45</b>
-                  {' '}
-                </span>
-                <span className='text'>Marlon mars</span>
-              </p>
-            </div>
-          </div>
-        </Box>
-
-        <Box className='box'>
-          <div className='customer-service'>
-            <h3 className='heading'>
-              Staff Productivity Highlights
-            </h3>
-
-            <div className='customer-service-content'>
-              <p>
-                <span className='dark-color'>
-                  <b className='number'>76</b>
-                </span>
-                <span className='text'>Calls per agent</span>
-              </p>
-              <p>
-                <span className='dark-color'>
-                  <b className='number'>2.45</b>
-                </span>
-                <span className='text'>Average talk time</span>
-              </p>
-            </div>
-          </div>
-        </Box>
+        <CustomerServiceOverview />
+        <SelfProductivity />
       </Grid>
     </Grid>
   )

@@ -1,21 +1,4 @@
-@import '../../customStyles/scss/index.scss';
-
-.box {
-  border: 1px solid #DBDBDB;
-	border-radius: 8px;
-	padding: 20px;
-  margin-bottom: 25px;
-  box-shadow: none;
-	p.detail {
-		font-size: 14px;
-	}
-}
-
-.heading {
-  @extend .h3;
-  margin-bottom: 15px;
-}
-
+// Activity Section
 .activity-section {
 	ul {
     display: inline-flex;
@@ -25,14 +8,10 @@
 		li {
 			list-style: none;
       text-align: center;
-      // margin: auto;
 			p {
 				&:first-child {
-					color: #fff;
-          font-family: 'Poppins', sans-serif;
-          font-weight: bold;
-					font-size: 18px;
-					color: #fff;
+          @extend .h3;
+					color: $color-white;
 					border-radius: 10px;
 					width: 70px;
 					height: 60px;
@@ -41,26 +20,26 @@
 					justify-content: center;
 				}
 				&:nth-child(2) {
-					color: #999999;
-          font-size: 14px;
+          @extend .h4;
+          text-align: center;
+          color: $color-dark-grey;
           margin-top: 5px;
-					font-family: 'Poppins', sans-serif;
 				}
 			}
 			p.green {
-				background-color: #23E8B5;
+				background-color: $color-green;
 			}
 			p.yellow {
-				background-color: #FFDD57;
+				background-color: $color-yellow;
 			}
 			p.red {
-				background-color: #F14667;
+				background-color: $color-red;
 			}
 		}
 	}
 }
 
-
+// Customer Service
 .customer-service-content {
 	p {
     .number {
@@ -85,8 +64,3 @@
     }
 	}
 }
-
-
-@import '../../components/Dashboard/LeftSection/style.scss';
-@import './Posts/style.scss';
-@import './PostComments/style.scss';

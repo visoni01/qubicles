@@ -4,7 +4,7 @@ import React, {
 import { useDispatch, useSelector } from 'react-redux'
 import {
   Button, Avatar, List, ListItem, IconButton,
-  ListItemText, Radio, Divider, Popover, TextareaAutosize,
+  ListItemText, Radio, Divider, Popover, TextareaAutosize, Box,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -60,7 +60,6 @@ const NewCreatePost = () => {
   }, [])
 
   const { isLoading, success } = useSelector((state) => state.createPost)
-  const { userDetails } = useSelector((state) => state.login)
   const clear = () => {
     setPostText('')
     setPermission({
@@ -100,191 +99,194 @@ const NewCreatePost = () => {
   }, [])
 
   return (
-    <div
-      className='create-post-container'
-      style={ { pointerEvents: isLoading ? 'none' : 'auto' } }
-    >
-      <Avatar className='comment-avatar' alt='Remy Sharp' src={ terry } />
-      <div className='create-post'>
-        <div className='post-content'>
-          <TextareaAutosize
-            aria-label='minimum height'
-            autoComplete='off'
-            rowsMin={ 3 }
-            value={ postText }
-            onChange={ setPostTextCB }
-            placeholder='Write something ...'
-          />
+    <Box className='box'>
 
-          {fileSrc && (
-          <div className='post-image'>
-            <img alt='post' src={ fileSrc } height='300px' />
-            <IconButton onClick={ handleDelete }>
-              <FontAwesomeIcon icon={ faTimesCircle } />
-            </IconButton>
+      <div
+        className='create-post-container'
+        style={ { pointerEvents: isLoading ? 'none' : 'auto' } }
+      >
+        <Avatar className='comment-avatar' alt='Remy Sharp' src={ terry } />
+        <div className='create-post'>
+          <div className='post-content'>
+            <TextareaAutosize
+              aria-label='minimum height'
+              autoComplete='off'
+              rowsMin={ 3 }
+              value={ postText }
+              onChange={ setPostTextCB }
+              placeholder='Write something...'
+            />
+
+            {fileSrc && (
+            <div className='post-image'>
+              <img alt='post' src={ fileSrc } height='300px' />
+              <IconButton onClick={ handleDelete }>
+                <FontAwesomeIcon icon={ faTimesCircle } />
+              </IconButton>
+            </div>
+            )}
           </div>
-          )}
-        </div>
 
-        { postText && (
-        <div className='postButtons'>
-          <Button
-            disabled={ isLoading }
-            color='secondary'
-            className='cancel-button'
-            onClick={ clear }
-          >
-            Cancel
-          </Button>
+          { postText && (
+          <div className='postButtons'>
+            <Button
+              disabled={ isLoading }
+              color='secondary'
+              className='cancel-button'
+              onClick={ clear }
+            >
+              Cancel
+            </Button>
 
-          <div>
-            { isLoading && (
+            <div>
+              { isLoading && (
               <Loader
                 className='add-status-loader'
                 displayLoaderManually
                 enableOverlay={ false }
                 size={ 30 }
               />
-            )}
-          </div>
+              )}
+            </div>
 
-          <div>
-            <Button
-              variant='contained'
-              aria-describedby={ id }
-              disabled={ isLoading }
-              aria-controls='customized-menu'
-              aria-haspopup='true'
-              className='button-secondary-small permission-button'
-              classes={ { label: 'secondary-label' } }
-              endIcon={ <FontAwesomeIcon className='icon-hover' icon={ faChevronDown } /> }
-              onClick={ handleClick }
-            >
-              {permission.label}
-            </Button>
-            <Popover
-              id={ id }
-              open={ open }
-              anchorEl={ anchorEl }
-              onClose={ handleClose }
-              elevation={ 0 }
-              anchorOrigin={ {
-                vertical: 'bottom',
-                horizontal: 'center',
-              } }
-              transformOrigin={ {
-                vertical: 'top',
-                horizontal: 'center',
-              } }
-            >
-              <List component='nav' aria-label='permission-list' className='permission-list-container'>
-                <ListItemText primary='Who can see your posts?' />
-                <ListItem className='permission-list-item'>
-                  <ListItemText
-                    primary='Public'
-                    secondary='Anyone on Qubicles'
-                  />
-                  <Radio
-                    checked={ permission.value === 'public' }
-                    onChange={ setPermissionCB }
-                    value='public'
-                    name='Public'
-                    color='primary'
-                    inputProps={ { 'aria-label': 'public' } }
-                  />
-                </ListItem>
-                <Divider component='li' />
-                <ListItem className='permission-list-item'>
-                  <ListItemText
-                    primary='Followers'
-                    secondary='Your followers'
-                  />
-                  <Radio
-                    checked={ permission.value === 'followers' }
-                    onChange={ setPermissionCB }
-                    value='followers'
-                    name='Followers'
-                    color='primary'
-                    inputProps={ { 'aria-label': 'followers' } }
-                  />
-                </ListItem>
-                <Divider component='li' />
-                <ListItem className='permission-list-item'>
-                  <ListItemText
-                    primary='Company'
-                    secondary='Members of your company'
-                  />
-                  <Radio
-                    checked={ permission.value === 'company' }
-                    onChange={ setPermissionCB }
-                    value='company'
-                    name='Company'
-                    color='primary'
-                    inputProps={ { 'aria-label': 'company' } }
-                  />
-                </ListItem>
-                <Divider component='li' />
-                <ListItem className='permission-list-item'>
-                  <ListItemText
-                    primary='Admins'
-                    secondary='Admins of your company'
-                  />
-                  <Radio
-                    checked={ permission.value === 'admins' }
-                    onChange={ setPermissionCB }
-                    value='admins'
-                    name='Admins'
-                    color='primary'
-                    inputProps={ { 'aria-label': 'admins' } }
-                  />
-                </ListItem>
-                <Divider component='li' />
-                <ListItem className='permission-list-item'>
-                  <ListItemText
-                    primary='Managers'
-                    secondary='Managers of your company'
-                  />
-                  <Radio
-                    checked={ permission.value === 'managers' }
-                    onChange={ setPermissionCB }
-                    value='managers'
-                    name='Managers'
-                    color='primary'
-                    inputProps={ { 'aria-label': 'managers' } }
-                  />
-                </ListItem>
-              </List>
-            </Popover>
-            <Button
-              variant='contained'
-              disabled={ isLoading }
-              className='button-primary-small post-button'
-              classes={ { label: 'primary-label' } }
-              onClick={ post }
-            >
-              Post
-            </Button>
+            <div>
+              <Button
+                variant='contained'
+                aria-describedby={ id }
+                disabled={ isLoading }
+                aria-controls='customized-menu'
+                aria-haspopup='true'
+                className='button-secondary-small permission-button'
+                classes={ { label: 'secondary-label' } }
+                endIcon={ <FontAwesomeIcon className='icon-hover' icon={ faChevronDown } /> }
+                onClick={ handleClick }
+              >
+                {permission.label}
+              </Button>
+              <Popover
+                id={ id }
+                open={ open }
+                anchorEl={ anchorEl }
+                onClose={ handleClose }
+                elevation={ 0 }
+                anchorOrigin={ {
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                } }
+                transformOrigin={ {
+                  vertical: 'top',
+                  horizontal: 'center',
+                } }
+              >
+                <List component='nav' aria-label='permission-list' className='permission-list-container'>
+                  <ListItemText primary='Who can see your posts?' />
+                  <ListItem className='permission-list-item'>
+                    <ListItemText
+                      primary='Public'
+                      secondary='Anyone on Qubicles'
+                    />
+                    <Radio
+                      checked={ permission.value === 'public' }
+                      onChange={ setPermissionCB }
+                      value='public'
+                      name='Public'
+                      color='primary'
+                      inputProps={ { 'aria-label': 'public' } }
+                    />
+                  </ListItem>
+                  <Divider component='li' />
+                  <ListItem className='permission-list-item'>
+                    <ListItemText
+                      primary='Followers'
+                      secondary='Your followers'
+                    />
+                    <Radio
+                      checked={ permission.value === 'followers' }
+                      onChange={ setPermissionCB }
+                      value='followers'
+                      name='Followers'
+                      color='primary'
+                      inputProps={ { 'aria-label': 'followers' } }
+                    />
+                  </ListItem>
+                  <Divider component='li' />
+                  <ListItem className='permission-list-item'>
+                    <ListItemText
+                      primary='Company'
+                      secondary='Members of your company'
+                    />
+                    <Radio
+                      checked={ permission.value === 'company' }
+                      onChange={ setPermissionCB }
+                      value='company'
+                      name='Company'
+                      color='primary'
+                      inputProps={ { 'aria-label': 'company' } }
+                    />
+                  </ListItem>
+                  <Divider component='li' />
+                  <ListItem className='permission-list-item'>
+                    <ListItemText
+                      primary='Admins'
+                      secondary='Admins of your company'
+                    />
+                    <Radio
+                      checked={ permission.value === 'admins' }
+                      onChange={ setPermissionCB }
+                      value='admins'
+                      name='Admins'
+                      color='primary'
+                      inputProps={ { 'aria-label': 'admins' } }
+                    />
+                  </ListItem>
+                  <Divider component='li' />
+                  <ListItem className='permission-list-item'>
+                    <ListItemText
+                      primary='Managers'
+                      secondary='Managers of your company'
+                    />
+                    <Radio
+                      checked={ permission.value === 'managers' }
+                      onChange={ setPermissionCB }
+                      value='managers'
+                      name='Managers'
+                      color='primary'
+                      inputProps={ { 'aria-label': 'managers' } }
+                    />
+                  </ListItem>
+                </List>
+              </Popover>
+              <Button
+                variant='contained'
+                disabled={ isLoading }
+                className='button-primary-small post-button'
+                classes={ { label: 'primary-label' } }
+                onClick={ post }
+              >
+                Post
+              </Button>
+            </div>
           </div>
+          )}
         </div>
-        )}
-      </div>
 
-      <form onReset={ clear }>
-        <p className='galley-icon'>
-          <input
-            type='file'
-            className='position-absolute'
-            id='photo-input'
-            accept='image/*'
-            ref={ fileInput }
-            onChange={ handleFileInputChange }
-          />
-          <label htmlFor='photo-input'>
-            <FontAwesomeIcon icon={ faImage } />
-          </label>
-        </p>
-      </form>
-    </div>
+        <form onReset={ clear }>
+          <p className='galley-icon'>
+            <input
+              type='file'
+              className='position-absolute'
+              id='photo-input'
+              accept='image/*'
+              ref={ fileInput }
+              onChange={ handleFileInputChange }
+            />
+            <label htmlFor='photo-input'>
+              <FontAwesomeIcon icon={ faImage } className='image-icon' />
+            </label>
+          </p>
+        </form>
+      </div>
+    </Box>
   )
 }
 
