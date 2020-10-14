@@ -21,6 +21,7 @@ import channelTopicsListReducer from './forum/channel/channelTopicsList'
 import topicReducer from './forum/topic'
 import groupsReducer from './forum/groups'
 import groupTopicsReducer from './forum/groupTopics'
+import topicCommentsReducer from './forum/topicComments'
 import jobCategoriesReducer from './people/jobPage'
 import jobReducer from './people/job'
 import checkrAuthentication from './user/checkrAuthentication'
@@ -48,6 +49,7 @@ const rootReducer = combineReducers({
   topic: topicReducer,
   groups: groupsReducer,
   groupTopics: groupTopicsReducer,
+  topicComments: topicCommentsReducer,
   jobCategories: jobCategoriesReducer,
   statusPosts: getPostsReducer,
   createPost: createPostReducer,

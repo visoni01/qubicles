@@ -160,6 +160,10 @@ export const getUpdatedTopicDetails = ({ state, payload }) => {
   return topicDetails
 }
 
+export const getUpdatedTopicComments = () => {
+
+}
+
 export const getUpdatedChannel = ({ state, payload }) => {
   let { channelDetails } = state
   switch (payload.type) {

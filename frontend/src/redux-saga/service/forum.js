@@ -148,6 +148,11 @@ class Forum {
     const response = await apiClient.postRequest(`/newForum/groups/${ groupId }/topics`, data)
     return response
   }
+
+  static async getTopicComments(topicId) {
+    const response = await apiClient.getRequest(`/newForum/topics/${ topicId }/comments`)
+    return response
+  }
 }
 
 export default Forum
