@@ -44,7 +44,7 @@ const NewTopic = ({ handleSubmit, handleCancel }) => {
 
   const handleCloseModal = () => {
     setTopicData(initialData)
-    handleCancel()
+    handleCancel('')
   }
 
   return (

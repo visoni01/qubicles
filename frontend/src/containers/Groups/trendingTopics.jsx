@@ -27,15 +27,15 @@ const TrendingTopics = () => (
         <ul className='display-inline-flex '>
           <li>
             <FontAwesomeIcon icon={ faHeart } />
-            <p>274</p>
+            274
           </li>
           <li>
             <FontAwesomeIcon icon={ faComment } />
-            <p>17</p>
+            17
           </li>
           <li>
             <FontAwesomeIcon icon={ faEye } />
-            <p>349</p>
+            349
           </li>
         </ul>
         <Divider className='divider' />

@@ -16,11 +16,12 @@ import { carolin } from '../../assets/images/avatar/index'
 import { groupTopicsFetchingStart, addNewGroupTopic } from '../../redux-saga/redux/actions'
 import NewTopicForm from './newTopic'
 import { formatDate } from '../../utils/common'
+import SelectedTopic from './topic'
 
 const SelectedGroup = ({ group }) => {
   const { id, title, description } = group
   const dispatch = useDispatch()
-  const [ newTopicForm, setNewTopicForm ] = useState(false)
+  const [ selectedTopic, setSelectedTopic ] = useState('')
   const { topics } = useSelector((state) => state.groupTopics)
   const { userDetails } = useSelector((state) => state.login)
 
@@ -31,16 +32,26 @@ const SelectedGroup = ({ group }) => {
   }, [ id ])
 
   // eslint-disable-next-line
-  const changeTopicFormStatus = useCallback(() => setNewTopicForm((newTopicForm) => !newTopicForm),
-    [ setNewTopicForm ])
+  const changeTopicFormStatus = useCallback((status) => setSelectedTopic(status),
+    [ setSelectedTopic ])
 
   const handleCreateTopic = (data) => {
     dispatch(addNewGroupTopic({ ...data, groupId: id, ownerName: userDetails.full_name }))
-    setNewTopicForm(false)
+    setSelectedTopic('')
   }
 
-  if (newTopicForm) {
+  if (selectedTopic === 'new') {
     return <NewTopicForm handleCancel={ changeTopicFormStatus } handleSubmit={ handleCreateTopic } />
+  }
+
+  if (typeof (selectedTopic) === 'number' && selectedTopic !== 'new') {
+    return (
+      <SelectedTopic
+        topicDetails={ topics && topics[ selectedTopic ] }
+        backToGroup={ changeTopicFormStatus }
+        groupTitle={ title }
+      />
+    )
   }
 
   return (
@@ -73,7 +84,7 @@ const SelectedGroup = ({ group }) => {
               label: 'MuiButton-label button-primary-small-label',
               root: 'MuiButtonBase-root button-primary-small',
             } }
-            onClick={ changeTopicFormStatus }
+            onClick={ () => changeTopicFormStatus('new') }
           >
             New Topic
           </Button>
@@ -82,21 +93,27 @@ const SelectedGroup = ({ group }) => {
       <Box className='primary-box padding-20'>
         <div className='section-heading display-inline-flex width-100-per'>
           <h3 className='h3'>
-            Topics in Group
+            Topics in
+            {' '}
+            {title}
           </h3>
           <IconButton className='action-button'>
             <FontAwesomeIcon icon={ faSlidersH } />
           </IconButton>
         </div>
         <div className='mt-10'>
-          {Boolean(topics.length) && topics.map((topic) => (
+          {topics.length ? topics.map((topic, index) => (
             <>
               <div className='display-inline-flex topic-info width-100-per' key={ topic.id }>
                 <Avatar className='mr-10' src={ carolin } />
                 <div className='width-100-per'>
-                  <h4 className='h4'>
+                  <Button
+                    className='h4'
+                    onClick={ () => setSelectedTopic(index) }
+                    classes={ { root: ' background-none-hover' } }
+                  >
                     {topic.title}
-                  </h4>
+                  </Button>
                   <div className='display-inline-flex width-100-per'>
                     <p className='para'>
                       {topic.ownerName}
@@ -129,9 +146,13 @@ const SelectedGroup = ({ group }) => {
                   </div>
                 </div>
               </div>
-              <Divider className='mb-30' />
+              { (index + 1 < topics.length) && <Divider className='mb-30' />}
             </>
-          ))}
+          )) : (
+            <h4 className='h4 text-align-center padding-20'>
+              No topics to show
+            </h4>
+          )}
         </div>
       </Box>
     </>

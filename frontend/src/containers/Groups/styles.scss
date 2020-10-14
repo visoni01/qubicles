@@ -60,34 +60,10 @@
     @extend .para;
     padding: 6px 2px;
   }
-  ul {
-    width: 100%;
-    justify-content: space-between;
-    padding: 0px 2px;
-    margin-top: 7px;
     li {
-      margin-right: 10%;
-      display: flex;
-      p {
-        @extend .para;
-        width: max-content;
-        color: $color-dark-grey;
-        padding: 0;
-      }
-        svg {
-          margin-top: 2px;
-          margin-right: 6px;
-          stroke: $color-dark-grey;
-          stroke-width: 60px;
-          color: white;
-          path {
-            &:hover {
-              color: white !important;
-            }
-          }
-        }
+      @extend .para;
+      color: $color-dark-grey;
     }
-  }
   .divider {
     width: 100%;
     margin: 10px 0;
@@ -129,27 +105,6 @@
   .action-buttons {
     width: 100%;
     padding: 10px 0;
-      li {
-        margin-right: 10%;
-        display: flex;
-        p {
-          @extend .para;
-          width: max-content;
-          color: $color-dark-grey;
-        }
-          svg {
-            margin-top: 2px;
-            margin-right: 6px;
-            stroke: $color-dark-grey;
-            stroke-width: 60px;
-            color: white;
-            path {
-              &:hover {
-                color: white !important;
-              }
-            }
-          }
-      }
   }
 }
 
@@ -181,12 +136,6 @@
   }
   .action-buttons{
     margin-top: 20px;
-     li{
-      margin-right: 20%;
-        svg{
-          margin-right: 5px;
-        }
-     }
   }
 }
 
@@ -259,6 +208,31 @@
     }
   }
 }
+
+ul {
+    width: 100%;
+    justify-content: space-between;
+    padding: 0px 2px;
+    margin-top: 7px;
+    li {
+      @extend .para;
+      margin-right: 10%;
+      display: flex;
+      color: $color-dark-grey;
+        svg {
+          margin-top: 2px;
+          margin-right: 6px;
+          stroke: $color-dark-grey;
+          stroke-width: 60px;
+          color: white;
+          path {
+            &:hover {
+              color: white !important;
+            }
+          }
+        }
+    }
+  }
 
 // ============== Common css ======================
 
@@ -334,4 +308,14 @@
   letter-spacing: 0px;
   color: #999999;
   opacity: 1;
+}
+
+.background-none-hover {
+  &:hover {
+    background: none;
+  }
+}
+
+.text-align-center {
+  text-align: center;
 }
