@@ -5,8 +5,11 @@ import PostIconsTray from './PostIconsTray'
 import PostCommentsWrap from '../PostComments/PostCommentsWrap'
 import AddComment from '../PostComments/AddComment'
 import config from '../../../utils/config'
-import { addCommentToPost, fetchCommentForPost, setIsCommentLoading } from '../../../redux-saga/redux/actions'
+import {
+  addCommentToPost, fetchCommentForPost, setIsCommentLoading, updatePostData,
+} from '../../../redux-saga/redux/actions'
 import { commentsArrayValidator } from '../postValidators'
+import { SET_IS_COMMENT_LOADING } from '../../../redux-saga/redux/constants'
 
 const PostBody = ({
   userActivityId, activityValue, activityCustom, isPostLiked, likesCount, commentsCount, comments, commentLoading,
@@ -20,10 +23,12 @@ const PostBody = ({
   const [ offsetCount, changeOffsetCount ] = useState(0)
 
   const setIsLoading = () => {
-    // Set comment is loading
-    dispatch(setIsCommentLoading({
-      isLoading: true,
-      userActivityId,
+    dispatch(updatePostData({
+      type: SET_IS_COMMENT_LOADING,
+      data: {
+        isLoading: true,
+        userActivityId,
+      },
     }))
   }
 

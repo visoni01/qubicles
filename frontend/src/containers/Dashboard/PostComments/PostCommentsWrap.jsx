@@ -1,7 +1,7 @@
 import React from 'react'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
-import { Divider } from '@material-ui/core'
+import { Divider, Button } from '@material-ui/core'
 import RenderPostComments from './RenderPostComments'
 import Loader from '../../../components/loaders/circularLoader'
 import { commentsArrayValidator } from '../postValidators'
@@ -13,7 +13,13 @@ const PostCommentsWrap = ({
     {!_.isEmpty(comments) && <Divider />}
     {comments.length < commentsCount && (
       <div className='view-more-comments-section'>
-        <p onClick={ loadMoreCommentsCB }>View more comments</p>
+        <Button
+          disableRipple
+          onClick={ loadMoreCommentsCB }
+        >
+          View More Comments
+        </Button>
+        {/* <p onClick={ loadMoreCommentsCB }>View more comments</p> */}
         {isCommentLoading && (
         <Loader
           className='view-more-comments-loader'

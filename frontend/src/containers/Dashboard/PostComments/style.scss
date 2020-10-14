@@ -72,11 +72,13 @@
 
 // View More Comments
 .view-more-comments-section {
-  @extend .text-link;
   display: flex;
-  cursor: pointer;
   margin-top: 20px;
   height: 35px;
+  .MuiButtonBase-root {
+    color: $color-primary;
+    background-color: $color-white;
+  }
   :hover {
     text-decoration: underline;
     color: $color-primary;

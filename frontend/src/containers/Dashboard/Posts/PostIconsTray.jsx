@@ -4,7 +4,7 @@ import {
   faHeart, faComment, faShareAlt,
 } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
-import { IconButton } from '@material-ui/core'
+import { IconButton, Button } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 import { unlikePostStatus, likePostStatus } from '../../../redux-saga/redux/actions'
 
@@ -36,9 +36,12 @@ const PostStatusLikeComment = ({
           >
             <FontAwesomeIcon className={ postLiked ? 'liked-icon' : 'like-icon' } icon={ faHeart } />
           </IconButton>
-          <p className='option-text'>
+          <Button
+            disableRipple
+            className='option-text'
+          >
             {`${ likesCount } Likes `}
-          </p>
+          </Button>
         </li>
         <li>
           {/* WIP View Comments on Post */}
@@ -46,17 +49,27 @@ const PostStatusLikeComment = ({
             <FontAwesomeIcon className='comment-icon' icon={ faComment } />
           </IconButton>
           {/* WIP Comment on Post */}
-          <p className='option-text' onClick={ () => toggleShowComments() }>
+          {/* <p className='option-text' onClick={ () => toggleShowComments() }>
             {`${ commentsCount } Comments `}
-          </p>
+          </p> */}
+          <Button
+            disableRipple
+            onClick={ toggleShowComments }
+            className='option-text'
+          >
+            {`${ commentsCount } Comments `}
+          </Button>
         </li>
         <li>
           <IconButton>
             <FontAwesomeIcon className='share-icon' icon={ faShareAlt } />
           </IconButton>
-          <p className='option-text'>
+          <Button
+            disableRipple
+            className='option-text'
+          >
             {`${ '3' } Shares `}
-          </p>
+          </Button>
         </li>
       </ul>
     </div>

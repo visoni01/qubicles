@@ -255,9 +255,7 @@ export const getPostData = ({ state, payload }) => {
             commentLoading: payload.data.isLoading,
           })
         }
-        return ({
-          ...post,
-        })
+        return (post)
       })
       break
     }
