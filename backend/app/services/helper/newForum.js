@@ -1,4 +1,4 @@
-import { XForumGroup, XForumTopic, User } from '../../db/models'
+import { XForumGroup, XForumTopic, User, XForumComment } from '../../db/models'
 import { getAll, getOne } from './crud'
 import { createNewEntity, updateEntity } from './common'
 import { find, uniq } from 'lodash'
@@ -128,4 +128,43 @@ export async function createForumTopic ({ topic_title, owner_id, topic_descripti
     }
   })
   return newTopic
+}
+
+export async function getForumTopicComments ({ topic_id }) {
+  let ownerIds = Array(0)
+  let topicComments = await XForumComment.findAll({
+    where: {
+      topic_id,
+      is_deleted: false
+    },
+    order: [['createdAt', 'DESC']],
+    raw: true
+  })
+
+  topicComments = topicComments.map(({ comment_id, owner_id, comment_text, createdAt }) => {
+    ownerIds.push(owner_id)
+    return {
+      id: comment_id,
+      comment: comment_text,
+      ownerId: owner_id,
+      createdAt
+    }
+  })
+
+  // Remove duplicate Ids
+  ownerIds = uniq(ownerIds)
+
+  // Get owners' names
+  const ownersNames = await getOwnersName(ownerIds)
+
+  topicComments = topicComments.map(({ ownerId, ...rest }) => {
+    const ownerName = find(ownersNames, (owner) => owner.user_id === ownerId)
+    return {
+      ...rest,
+      ownerId,
+      ownerName: ownerName && ownerName.full_name
+    }
+  })
+
+  return topicComments
 }
