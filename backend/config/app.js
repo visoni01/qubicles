@@ -1,5 +1,8 @@
 const convict = require('convict')
-require('dotenv').config()
+const path = require('path')
+
+// Update path for dotenv file
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') })
 
 const config = convict({
   app: {
