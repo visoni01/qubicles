@@ -17,7 +17,6 @@ import { groupTopicsFetchingStart, addNewGroupTopic, updateGroupTopicsList } fro
 import NewTopicForm from './newTopic'
 import { formatDate } from '../../utils/common'
 import SelectedTopic from './topic'
-import { UPDATE_TOPIC_STATS } from '../../redux-saga/redux/constants'
 
 const SelectedGroup = ({ group }) => {
   const { id, title, description } = group
@@ -39,15 +38,6 @@ const SelectedGroup = ({ group }) => {
   const handleCreateTopic = (data) => {
     dispatch(addNewGroupTopic({ ...data, groupId: id, ownerName: userDetails.full_name }))
     setSelectedTopic('')
-  }
-
-  const selectTopic = (index, topicId) => {
-    setSelectedTopic(index)
-    dispatch(updateGroupTopicsList({
-      type: UPDATE_TOPIC_STATS,
-      topicId,
-      statType: 'views',
-    }))
   }
 
   if (selectedTopic === 'new') {
@@ -118,12 +108,9 @@ const SelectedGroup = ({ group }) => {
                 <Avatar className='mr-10' src={ carolin } />
                 <div className='width-100-per'>
                   <Button
-                    className='h4 topic-name-button'
-                    onClick={ () => selectTopic(index, topic.id) }
-                    classes={ {
-                      root: ' background-none-hover no-padding',
-                      label: 'text-align-left',
-                    } }
+                    className='h4'
+                    onClick={ () => setSelectedTopic(index) }
+                    classes={ { root: ' background-none-hover' } }
                   >
                     {topic.title}
                   </Button>
