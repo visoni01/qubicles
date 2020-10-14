@@ -155,7 +155,7 @@ export async function getStatusCommentsInBatch ({ record_id, limit, offset }) {
     },
     limit,
     offset,
-    order: [['created_on', 'ASC']],
+    order: [['created_on', 'DESC']],
     raw: true
   })
   return { comments: rows, count }

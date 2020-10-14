@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import {
-  Menu, IconButton, Avatar, Button, Divider,
+  IconButton, Avatar, Button, Divider, Popover,
 } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,7 +10,9 @@ import InviteModal from '../../containers/InviteFriendsPage/InviteModal'
 import { showErrorMessage } from '../../redux-saga/redux/snackbar'
 import { userLogoutSuccessful } from '../../redux-saga/redux/login'
 import { kareem } from '../../assets/images/avatar'
-import { chatIcon, walletIcon, settingIcon, logoutIcon } from '../../assets/images/icons/navBarIcons'
+import {
+  chatIcon, walletIcon, settingIcon, logoutIcon,
+} from '../../assets/images/icons/navBarIcons'
 
 const UserMenu = () => {
   const history = useHistory()
@@ -51,13 +53,14 @@ const UserMenu = () => {
           {userDetails && userDetails.full_name && userDetails.full_name[ 0 ].toUpperCase()}
         </Avatar>
       </IconButton>
-      <Menu
+      <Popover
         disableScrollLock
         open={ isDropdownOpen }
         className='account-dropdown-icon'
         onClose={ toggleDropdownOpen }
         anchorEl={ anchorEl }
       >
+
         <div className='user-menu'>
           <Avatar className='profile-pic' alt='Remy Sharp' src={ kareem } />
           <h2 className='user-name'>{userDetails.full_name}</h2>
@@ -96,7 +99,8 @@ const UserMenu = () => {
             </Button>
           </div>
         </div>
-      </Menu>
+
+      </Popover>
       <InviteModal
         open={ openInviteDialog }
         handleClose={ toggleInviteDialogOpen }

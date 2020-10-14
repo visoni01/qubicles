@@ -50,7 +50,7 @@ const Dashboard = () => {
                   <b className='number green'>0.20</b>
                   {' '}
                 </span>
-                Average speed of answer
+                <span className='text'>Average speed of answer</span>
               </p>
 
               <p>
@@ -58,7 +58,7 @@ const Dashboard = () => {
                   <b className='number'>2.45</b>
                   {' '}
                 </span>
-                Marlon mars
+                <span className='text'>Marlon mars</span>
               </p>
             </div>
           </div>
@@ -73,15 +73,15 @@ const Dashboard = () => {
             <div className='customer-service-content'>
               <p>
                 <span className='dark-color'>
-                  <b className='number'>0.20</b>
+                  <b className='number'>76</b>
                 </span>
-                Calls per agent
+                <span className='text'>Calls per agent</span>
               </p>
               <p>
                 <span className='dark-color'>
                   <b className='number'>2.45</b>
                 </span>
-                Average talk time
+                <span className='text'>Average talk time</span>
               </p>
             </div>
           </div>

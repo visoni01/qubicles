@@ -7,6 +7,9 @@ import {
   CREATE_POST_COMMENT_START,
   UPDATE_POST,
   DELETE_POST_COMMENT,
+  ADD_COMMENT_TO_POST,
+  FETCH_COMMENT_FOR_POST,
+  SET_IS_COMMENT_LOADING,
 } from '../constants'
 
 export const deletePostStatus = createAction(DELETE_POST_STATUS)
@@ -16,3 +19,6 @@ export const commentPostStatus = createAction(ADD_POST_COMMENT)
 export const createPostCommentStart = createAction(CREATE_POST_COMMENT_START)
 export const updatePostStatus = createAction(UPDATE_POST)
 export const deletePostComment = createAction(DELETE_POST_COMMENT)
+export const addCommentToPost = createAction(ADD_COMMENT_TO_POST)
+export const fetchCommentForPost = createAction(FETCH_COMMENT_FOR_POST)
+export const setIsCommentLoading = createAction(SET_IS_COMMENT_LOADING)

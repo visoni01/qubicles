@@ -2,15 +2,14 @@ import React from 'react'
 import { Avatar } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { formatDate } from '../../utils/common'
+import { carolin } from '../../assets/images/avatar'
 
 const PostHead = ({
   owner, createdAt,
 }) => (
-  <div className='display-inline-flex'>
-    <Avatar
-      className='avatar'
-    />
-    <div>
+  <div className='display-inline-flex post-head'>
+    <Avatar className='profile-pic' alt='Remy Sharp' src={ carolin } />
+    <div className='post-details'>
       <h4 className='user-name'>
         <b>{owner}</b>
       </h4>

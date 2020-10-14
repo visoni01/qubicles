@@ -46,7 +46,7 @@ const CommunityRep = () => {
         </AvatarGroup>
         <p className='para'>
           <b className='h3'>{` ${ communityRep.likes } `}</b>
-          {likeMsg}
+          <span className='text'>{likeMsg}</span>
         </p>
       </div>
 
@@ -60,7 +60,7 @@ const CommunityRep = () => {
         </AvatarGroup>
         <p className='para'>
           <b className='h3'>{` ${ communityRep.subscribers } `}</b>
-          {followMsg}
+          <span className='text'>{followMsg}</span>
         </p>
       </div>
 

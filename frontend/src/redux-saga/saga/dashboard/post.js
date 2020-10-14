@@ -53,6 +53,7 @@ function* postDataFetchingWorker(action) {
             isPostLiked: false,
             likesCount: 0,
             commentsCount: 0,
+            comments: [],
           },
         }))
         yield put(createStatusPostSuccess())

@@ -4,9 +4,12 @@ import { Box } from '@material-ui/core'
 import './newStyles.scss'
 import PostHead from './PostHead'
 import PostBody from './PostBody'
+import { commentsArrayValidator } from './postValidators'
 
 const PostStatusWrap = ({
-  userActivityId, activityValue, activityCustom, createdAt, owner, userId, isPostLiked, likesCount, commentsCount,
+  userActivityId,
+  activityValue,
+  activityCustom, createdAt, owner, userId, isPostLiked, likesCount, commentsCount, comments, commentLoading,
 }) => (
   <Box className='box'>
     <PostHead
@@ -22,6 +25,8 @@ const PostStatusWrap = ({
       isPostLiked={ isPostLiked }
       likesCount={ likesCount }
       commentsCount={ commentsCount }
+      comments={ comments }
+      commentLoading={ commentLoading }
     />
   </Box>
 )
@@ -40,6 +45,8 @@ PostStatusWrap.propTypes = {
   likesCount: PropTypes.number.isRequired,
   isPostLiked: PropTypes.bool.isRequired,
   commentsCount: PropTypes.number.isRequired,
+  comments: commentsArrayValidator.isRequired,
+  commentLoading: PropTypes.bool.isRequired,
 }
 
-export default PostStatusWrap
+export default React.memo(PostStatusWrap)
