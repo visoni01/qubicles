@@ -1,45 +1,20 @@
 @import '../../../customStyles/scss/index.scss';
 
-.job-list-root {
-  border: 1px solid #DBDBDB;
-  border-radius: 8px;
-  margin-top: 5px;
-  margin-bottom: 25px;
-  background-color: #FFFFFF;
-  padding: 20px 0;
-
-  h2 {
-    @extend .h2;
-    font-size: 28px;
-  }
-
+.job-list {
   .job-list-title {
     display: inline-flex;
     width: 100%;
     justify-content: space-between;
-    padding: 0 15px;
-    h3 {
-      @extend .h3;
-      margin: auto 0;
-    }
+
     .job-list-icon {
-      font-size: 18px;
-      color: #444F5F;
+      padding-top: 12px;
+      .MuiIconButton-root {
+        color: $color-dark-grey;
+        font-size: 18px;
+      }
     }
   }
-
-  .list-item {
-    align-items: left;
-  }
 }
-
-.job-name {
-  font-size: 14px;
-  font-family: poppins;
-  font-weight: medium;
-  color: #999999;
-}
-
 
 .section-heading {
   position: relative;

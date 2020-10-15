@@ -1,11 +1,13 @@
 @import '../../../customStyles/scss/index.scss';
 
+// Active Tabs
 .people-active-tabs {
 
   .MuiTabs-flexContainer {
     justify-content: space-around;
     max-width: 670px;
   }
+
   .MuiTabs-fixed {
     margin-bottom: 25px;
     margin-top: 25px;
@@ -29,4 +31,46 @@
   .PrivateTabIndicator-colorSecondary-5 {
     background-color: $color-primary;
   }
+}
+
+// Side Filter
+
+.side-filter-root {
+  background-color: $color-white;
+  border: 1px solid $color-border;
+  border-radius: 8px;
+  box-shadow: none;
+
+  .title {
+    @extend .h2;
+    margin: 25px 0px 8px 24px;
+  }
+
+  .subtitle {
+    @extend .h3;
+    margin: 0px 0px 0px 24px;
+    padding: 20px 0px;
+  }
+}
+
+.filter-list-items {
+  .list-item {
+    @extend .para;
+    color: $color-dark-grey;
+    font-size: 15px;
+  }
+
+  .MuiListItem-root {
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+  .MuiListItem-gutters {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .MuiTypography-displayBlock {
+    display: flex;
+  }
+
 }
