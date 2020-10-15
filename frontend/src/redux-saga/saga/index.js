@@ -23,6 +23,7 @@ import getAllGroups from './forum/groups/getAll'
 import crudGroups from './forum/groups/crud'
 import groupTopics from './forum/groupTopics/getAll'
 import topicComments from './forum/topicComments/getAll'
+import crudTopicComments from './forum/topicComments/crud'
 import crudGroupTopics from './forum/groupTopics/crud'
 import crudJob from './people/crud'
 import statusPostActivity from './dashboard/statusPostActivity'
@@ -52,6 +53,7 @@ export default function* rootSaga() {
     crudGroups(),
     groupTopics(),
     topicComments(),
+    crudTopicComments(),
     crudGroupTopics(),
     jobCategoryDataActivity(),
     crudCategory(),

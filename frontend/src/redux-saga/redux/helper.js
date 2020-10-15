@@ -28,6 +28,7 @@ import {
   ADD_COMMENT_TO_POST,
   FETCH_COMMENT_FOR_POST,
   SET_IS_COMMENT_LOADING,
+  POST_TOPIC_COMMENT,
 } from './constants'
 
 import {
@@ -161,8 +162,17 @@ export const getUpdatedTopicDetails = ({ state, payload }) => {
   return topicDetails
 }
 
-export const getUpdatedTopicComments = () => {
-
+export const getUpdatedTopicComments = ({ state, payload }) => {
+  let updatedComments
+  switch (payload.type) {
+    case POST_TOPIC_COMMENT: {
+      updatedComments = [ payload.newComment, ...state.comments ]
+      break
+    }
+    default:
+      break
+  }
+  return updatedComments
 }
 
 export const getUpdatedChannel = ({ state, payload }) => {
