@@ -1,0 +1,32 @@
+@import '../../../customStyles/scss/index.scss';
+
+.people-active-tabs {
+
+  .MuiTabs-flexContainer {
+    justify-content: space-around;
+    max-width: 670px;
+  }
+  .MuiTabs-fixed {
+    margin-bottom: 25px;
+    margin-top: 25px;
+  }
+
+  .active-tab {
+    .MuiTab-wrapper {
+      @extend .h3;
+      text-transform: none;
+    }
+  }
+
+  .inactive-tab {
+    @extend .active-tab;
+    .MuiTab-wrapper {
+      color: $color-dark-grey;
+      font-weight: 400;
+    }
+  }
+
+  .PrivateTabIndicator-colorSecondary-5 {
+    background-color: $color-primary;
+  }
+}
