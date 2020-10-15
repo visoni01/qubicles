@@ -265,6 +265,18 @@ export const updateGroupTopics = (state, payload) => {
       }
       break
     }
+    case UPDATE_TOPIC_STATS: {
+      updatedTopicsList = state.topics.map((topic) => {
+        if (topic.id === payload.topicId) {
+          return {
+            ...topic,
+            [ payload.statType ]: topic.views + 1,
+          }
+        }
+        return topic
+      })
+      break
+    }
     default:
       break
   }

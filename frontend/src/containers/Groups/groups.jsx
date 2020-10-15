@@ -18,6 +18,14 @@ const Groups = ({ selectedGroup, setSelectedGroup }) => {
 
   const newGroupForm = useCallback(() => setSelectedGroup('new'), [])
 
+  if (!groups.length) {
+    return (
+      <h4 className='h4 text-align-center padding-20'>
+        No groups to show
+      </h4>
+    )
+  }
+
   return (
     <Box className='group-list-root primary-box'>
       <div className='group-list-title'>
