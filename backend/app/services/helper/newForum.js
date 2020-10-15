@@ -1,4 +1,4 @@
-import { XForumGroup, XForumTopic, User, XForumComment } from '../../db/models'
+import { XForumGroup, XForumTopic, User, XForumComment, sequelize } from '../../db/models'
 import { getAll, getOne } from './crud'
 import { createNewEntity, updateEntity } from './common'
 import { find, uniq } from 'lodash'
@@ -90,16 +90,19 @@ export async function getForumGroupTopics ({ user_id, group_id }) {
     }
   })
 
-  groupTopics = groupTopics.map(({ owner_id, topic_id, topic_title, topic_description, createdAt }) => {
+  groupTopics = await Promise.all(groupTopics.map(async ({ owner_id, topic_id, topic_title, topic_description, views, createdAt }) => {
+    const commentsCount = await XForumComment.count({ where: { topic_id } })
     ownerIds.push(owner_id)
     return ({
       id: topic_id,
       title: topic_title,
       description: topic_description,
       ownerId: owner_id,
-      createdAt
+      createdAt,
+      views,
+      commentsCount
     })
-  })
+  }))
 
   // Remove duplicate Ids
   ownerIds = uniq(ownerIds)
@@ -132,6 +135,13 @@ export async function createForumTopic ({ topic_title, owner_id, topic_descripti
 
 export async function getForumTopicComments ({ topic_id }) {
   let ownerIds = Array(0)
+
+  // update number of the times topic visited.
+  await XForumTopic.update(
+    { views: sequelize.literal('views +1') },
+    { where: { topic_id }, returning: true }
+  )
+
   let topicComments = await XForumComment.findAll({
     where: {
       topic_id,

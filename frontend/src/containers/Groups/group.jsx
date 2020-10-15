@@ -13,10 +13,11 @@ import moment from 'moment'
 import GroupsList from './groups'
 import TrendingTopics from './trendingTopics'
 import { carolin } from '../../assets/images/avatar/index'
-import { groupTopicsFetchingStart, addNewGroupTopic } from '../../redux-saga/redux/actions'
+import { groupTopicsFetchingStart, addNewGroupTopic, updateGroupTopicsList } from '../../redux-saga/redux/actions'
 import NewTopicForm from './newTopic'
 import { formatDate } from '../../utils/common'
 import SelectedTopic from './topic'
+import { UPDATE_TOPIC_STATS } from '../../redux-saga/redux/constants'
 
 const SelectedGroup = ({ group }) => {
   const { id, title, description } = group
@@ -38,6 +39,15 @@ const SelectedGroup = ({ group }) => {
   const handleCreateTopic = (data) => {
     dispatch(addNewGroupTopic({ ...data, groupId: id, ownerName: userDetails.full_name }))
     setSelectedTopic('')
+  }
+
+  const selectTopic = (index, topicId) => {
+    setSelectedTopic(index)
+    dispatch(updateGroupTopicsList({
+      type: UPDATE_TOPIC_STATS,
+      topicId,
+      statType: 'views',
+    }))
   }
 
   if (selectedTopic === 'new') {
@@ -109,8 +119,8 @@ const SelectedGroup = ({ group }) => {
                 <div className='width-100-per'>
                   <Button
                     className='h4'
-                    onClick={ () => setSelectedTopic(index) }
-                    classes={ { root: ' background-none-hover' } }
+                    onClick={ () => selectTopic(index, topic.id) }
+                    classes={ { root: ' background-none-hover no-padding' } }
                   >
                     {topic.title}
                   </Button>
@@ -133,13 +143,17 @@ const SelectedGroup = ({ group }) => {
                       <li>
                         <FontAwesomeIcon icon={ faComment } />
                         <p>
-                          17 Comments
+                          {topic.commentsCount}
+                          {' '}
+                          Comments
                         </p>
                       </li>
                       <li>
                         <FontAwesomeIcon icon={ faEye } />
                         <p>
-                          349 Views
+                          {topic.views}
+                          {' '}
+                          Views
                         </p>
                       </li>
                     </ul>

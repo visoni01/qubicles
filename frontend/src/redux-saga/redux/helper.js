@@ -14,6 +14,7 @@ import {
   UPDATE_CATEGORY,
   UPDATE_CHANNEL,
   ADD_GROUP_TOPIC,
+  UPDATE_TOPIC_STATS,
   LIKE_POST,
   UNLIKE_POST,
   CREATE_POST_COMMENT_START,
@@ -222,6 +223,18 @@ export const updateGroupTopics = (state, payload) => {
   switch (payload.type) {
     case ADD_GROUP_TOPIC: {
       updatedTopicsList = [ ...state.topics, payload.newTopic ]
+      break
+    }
+    case UPDATE_TOPIC_STATS: {
+      updatedTopicsList = state.topics.map((topic) => {
+        if (topic.id === payload.topicId) {
+          return {
+            ...topic,
+            [ payload.statType ]: topic.views + 1,
+          }
+        }
+        return topic
+      })
       break
     }
     default:

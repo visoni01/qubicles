@@ -231,7 +231,14 @@ ul {
             }
           }
         }
+        &:hover {
+          color: $color-dark-grey;
+        }
     }
+  }
+
+  .topic-name-button {
+    min-width: min-content;
   }
 
 // ============== Common css ======================
@@ -318,4 +325,12 @@ ul {
 
 .text-align-center {
   text-align: center;
+}
+
+.no-padding {
+  padding: 0
+}
+
+.text-align-left {
+  text-align: left;
 }
