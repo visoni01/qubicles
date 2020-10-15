@@ -5,12 +5,13 @@ import {
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSlidersH, faSearch } from '@fortawesome/free-solid-svg-icons'
+import '../newStyles.scss'
 
 const JobsList = () => (
-  <Box className='job-list-root'>
-    <h2 className='ml-20'>Jobs</h2>
+  <Box className='side-filter-root job-list'>
+    <h2 className='title'>Jobs</h2>
     <div className='job-list-title'>
-      <h3> Categories </h3>
+      <h3 className='subtitle'> Categories </h3>
       <div className='job-list-icon'>
         <IconButton>
           <FontAwesomeIcon icon={ faSearch } />
@@ -21,27 +22,27 @@ const JobsList = () => (
       </div>
     </div>
 
-    <List className='list-items'>
+    <List className='filter-list-items'>
       <ListItem
         button
         selected
       >
-        <ListItemText primary='All' classes={ { primary: 'job-name' } } />
+        <ListItemText primary='All' classes={ { primary: 'list-item' } } />
       </ListItem>
       <ListItem
         button
       >
-        <ListItemText primary='Accounting' classes={ { primary: 'job-name' } } />
+        <ListItemText primary='Account Sales' classes={ { primary: 'list-item' } } />
       </ListItem>
       <ListItem
         button
       >
-        <ListItemText primary='Client Service' classes={ { primary: 'job-name' } } />
+        <ListItemText primary='Client Service' classes={ { primary: 'list-item' } } />
       </ListItem>
       <ListItem
         button
       >
-        <ListItemText primary='Customer Service' classes={ { primary: 'job-name' } } />
+        <ListItemText primary='Customer Service' classes={ { primary: 'list-item' } } />
       </ListItem>
     </List>
   </Box>

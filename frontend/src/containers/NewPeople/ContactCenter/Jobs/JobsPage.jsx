@@ -9,7 +9,7 @@ import {
 
 const JobsPage = () => (
   <>
-    <div className='display-inline-flex is-fullwidth mt-10 search-job-bar'>
+    <div className='display-inline-flex is-fullwidth mt-10 search-bar-people'>
       <div className='search-input'>
         <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 fontawesome-icon' />
         <InputBase
@@ -18,13 +18,17 @@ const JobsPage = () => (
         />
       </div>
       <Button
-        className='button-primary-small new-job'
-        classes={ { label: 'MuiButton-label button-primary-small-label' } }
+        className='search-button'
+        classes={ {
+          root: 'button-primary-small',
+          label: 'button-primary-small-label',
+        } }
       >
         New Job
       </Button>
     </div>
     <Box className='box'>
+
       <div className='section-heading display-inline-flex is-fullwidth'>
         <h3 className='section-title'>
           Accounting
@@ -41,16 +45,22 @@ const JobsPage = () => (
                 <div>
                   <ul className='display-inline-flex action-buttons'>
                     <li>
-                      <FontAwesomeIcon icon={ faUserFriends } />
-                      6/50 Hired
+                      <FontAwesomeIcon className='action-icon' icon={ faUserFriends } />
+                      <span className='icon-value'>6/50</span>
+                      {' '}
+                      <span className='icon-title'>Hired</span>
                     </li>
                     <li>
-                      <FontAwesomeIcon icon={ faRedo } />
-                      3 Evaluating
+                      <FontAwesomeIcon className='action-icon' icon={ faRedo } />
+                      <span className='icon-value'>3</span>
+                      {' '}
+                      <span className='icon-title'>Evaluating</span>
                     </li>
                     <li>
-                      <FontAwesomeIcon icon={ faEnvelope } />
-                      2 Pending Apllication
+                      <FontAwesomeIcon className='action-icon' icon={ faEnvelope } />
+                      <span className='icon-value'>2</span>
+                      {' '}
+                      <span className='icon-title'>Pending Applications</span>
                     </li>
                   </ul>
                 </div>
@@ -60,32 +70,41 @@ const JobsPage = () => (
           </>
         ))}
       </div>
+
+      {/* Client Services=== */}
+
       <div className='section-heading display-inline-flex is-fullwidth'>
         <h3 className='section-title'>
           Client Services
         </h3>
       </div>
-      <div className='mt-10'>
+      <div className='mt-10 mb-30'>
         {[ ...Array(3).keys() ].map((e) => (
           <>
             <div className='display-inline-flex job-info is-fullwidth' key={ e }>
               <div className='job-details is-fullwidth'>
                 <Typography className='job-title'>
-                  Looking for Experienced Customer Service Specialist
+                  Looking for Client Service Manager
                 </Typography>
                 <div>
                   <ul className='display-inline-flex action-buttons'>
                     <li>
-                      <FontAwesomeIcon icon={ faUserFriends } />
-                      6/50 Hired
+                      <FontAwesomeIcon className='action-icon' icon={ faUserFriends } />
+                      <span className='icon-value'>6/50</span>
+                      {' '}
+                      <span className='icon-title'>Hired</span>
                     </li>
                     <li>
-                      <FontAwesomeIcon icon={ faRedo } />
-                      3 Evaluating
+                      <FontAwesomeIcon className='action-icon' icon={ faRedo } />
+                      <span className='icon-value'>3</span>
+                      {' '}
+                      <span className='icon-title'>Evaluating</span>
                     </li>
                     <li>
-                      <FontAwesomeIcon icon={ faEnvelope } />
-                      2 Pending Apllication
+                      <FontAwesomeIcon className='action-icon' icon={ faEnvelope } />
+                      <span className='icon-value'>3</span>
+                      {' '}
+                      <span className='icon-title'>Pending Applications</span>
                     </li>
                   </ul>
                 </div>
@@ -95,6 +114,7 @@ const JobsPage = () => (
           </>
         ))}
       </div>
+
     </Box>
   </>
 )

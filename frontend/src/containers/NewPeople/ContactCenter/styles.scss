@@ -1,54 +1,26 @@
 @import '../../../customStyles/scss/index.scss';
 
-.job-list-root {
-  border: 1px solid #DBDBDB;
-  border-radius: 8px;
-  margin-top: 5px;
-  margin-bottom: 25px;
-  background-color: #FFFFFF;
-  padding: 20px 0;
-
-  h2 {
-    @extend .h2;
-    font-size: 28px;
-  }
-
+.job-list {
   .job-list-title {
     display: inline-flex;
     width: 100%;
     justify-content: space-between;
-    padding: 0 15px;
-    h3 {
-      @extend .h3;
-      margin: auto 0;
-    }
+
     .job-list-icon {
-      font-size: 18px;
-      color: #444F5F;
+      padding-top: 12px;
+      .MuiIconButton-root {
+        color: $color-dark-grey;
+        font-size: 18px;
+      }
     }
   }
-
-  .list-item {
-    align-items: left;
-  }
 }
-
-.job-name {
-  font-size: 14px;
-  font-family: poppins;
-  font-weight: medium;
-  color: #999999;
-}
-
 
 .section-heading {
   position: relative;
   margin-bottom: 10px;
   .section-title {
-    font-size: 18px;
-    font-weight: 600;
-    color: #444F5F;
-    margin: auto 0;
+    @extend .h3;
   }
    .action-button {
       font-size: 14px;
@@ -58,22 +30,7 @@
    }
 }
 
-.search-job-bar {
-  margin-bottom: 20px;
-   .search-input {
-      width: calc(100% - 120px);
-      background: #FFFFFF 0% 0% no-repeat padding-box;
-      border: 1px solid #DBDBDB;
-      border-radius: 8px;
-      opacity: 1;
-      padding: 2px 0;
-      margin-right: 20px;
-   }
-   .new-job {
-    height: 100%;
-    width: 100px;
-   }
-}
+
 
 .job-info {
   .job-owner-avatar {
@@ -84,7 +41,9 @@
       font-size: 14px;
     }
     .job-title {
-      font-weight: 500;
+      @extend .para;
+      font-weight: 600;
+      color: $color-light-brown;
     }
   }
   .action-buttons {
@@ -96,6 +55,20 @@
         svg {
           margin-right: 5px;
         }
+    }
+    .action-icon {
+      font-size: 16px;
+      margin-right: 10px;
+      color: $color-dark-grey;
+    }
+    .icon-value {
+      @extend .para;
+      font-weight: 600;
+    }
+    .icon-title {
+      margin-left: 5px;
+      font-size: 15px;
+      color: $color-dark-grey;
     }
   }
 }

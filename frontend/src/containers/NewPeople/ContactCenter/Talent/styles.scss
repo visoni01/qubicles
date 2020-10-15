@@ -172,6 +172,9 @@
       float: right;
       font-size: 16px;
       padding: 0px;
+      :hover {
+        color: $color-primary;
+      }
 
     }
 

@@ -17,12 +17,12 @@ const TopTalent = ({ heading }) => {
       <div className='display-inline-flex top-talent'>
         <Avatar className='profile-pic' alt='Terry Garret' src={ terry } />
         <div className='candidate-info'>
-          <b>Terry Garret</b>
+          <span className='candidate-name'>Terry Garret</span>
           <Rating
             className='rating-star'
             name='read-only'
             readOnly
-            size='large'
+            size='small'
             value={ 5 }
             precision={ 0.1 }
           />
@@ -35,12 +35,12 @@ const TopTalent = ({ heading }) => {
       <div className='display-inline-flex top-talent'>
         <Avatar className='profile-pic' alt='Chad Green' src={ sally } />
         <div className='candidate-info'>
-          <b>Chad Green</b>
+          <span className='candidate-name'>Chad Green</span>
           <Rating
             className='rating-star'
             name='read-only'
             readOnly
-            size='large'
+            size='small'
             value={ 5 }
             precision={ 0.1 }
           />
@@ -53,12 +53,12 @@ const TopTalent = ({ heading }) => {
       <div className='display-inline-flex top-talent'>
         <Avatar className='profile-pic' alt='Randy Williamson' src={ kareem } />
         <div className='candidate-info'>
-          <b>Randy Williamson</b>
+          <span className='candidate-name'>Janice Fox</span>
           <Rating
             className='rating-star'
             name='read-only'
             readOnly
-            size='large'
+            size='small'
             value={ 5 }
             precision={ 0.1 }
           />
@@ -66,8 +66,6 @@ const TopTalent = ({ heading }) => {
           <Button className='text-button'>View Resume </Button>
         </div>
       </div>
-      <Divider className='divider' />
-
     </Box>
   )
 }
