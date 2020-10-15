@@ -10,9 +10,12 @@ import TalentPage from './Talent/TalentPage'
 import TopTalent from './Talent/TopTalent'
 import { newNavBar } from '../../../hoc/navbar'
 import './styles.scss'
+import TrainingFilter from './Training/TrainingFilter'
+import TrainingWrap from './Training/TrainingWrap'
 
 const People = () => {
-  const [ activeTab, setActivetab ] = useState(0)
+  const [ activeTab, setActivetab ] = useState(2)
+  const spacingMid = activeTab === 2 ? 9 : 6
   return (
     <Grid container spacing={ 3 }>
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 } alignItems='flex-start'>
@@ -22,7 +25,7 @@ const People = () => {
           { activeTab === 2 && <JobsList />}
         </div>
       </Grid>
-      <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 4 }>
+      <Grid item xl={ spacingMid } lg={ spacingMid } md={ spacingMid } sm={ 4 }>
         <Tabs
           value={ activeTab }
           indicatorColor='primary'
@@ -40,9 +43,11 @@ const People = () => {
           { activeTab === 1 && <TalentPage />}
         </div>
       </Grid>
+      {activeTab !== 2 && (
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
         <TopTalent heading='Top Talent' />
       </Grid>
+      )}
     </Grid>
   )
 }
