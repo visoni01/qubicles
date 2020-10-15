@@ -22,7 +22,7 @@ const JobPost = () => (
           Edit Post
         </Button>
       </div>
-      <p> Posted 2 days ago </p>
+      <p className='date'> Posted 2 days ago </p>
       <Divider className='divider' />
 
       <div className='job-post-description is-fullwidth display-inline-flex'>
@@ -212,7 +212,7 @@ const JobPost = () => (
         Evaluating (2)
       </h3>
       <div className='display-inline-flex job-application-head'>
-        <Avatar className='profile-pic' alt='Chad Green' src={ helen } />
+        <Avatar className='profile-pic' alt='Chad Green' src={ sally } />
         <div className='candidate-info'>
           <b>Chad Green</b>
           <Rating

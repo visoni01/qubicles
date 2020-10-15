@@ -25,22 +25,25 @@ const TalentPage = () => (
       <div className='display-inline-flex talent-head'>
         <Avatar className='profile-pic' alt='Terry Garret' src={ terry } />
         <div className='talent-details'>
-          <h4 className='user-name is-fullwidth'>
-            <b>Terry Garret</b>
-            <Rating
-              className='rating-star'
-              name='read-only'
-              readOnly
-              size='large'
-              value={ 5 }
-              precision={ 0.1 }
-            />
-            <FontAwesomeIcon icon={ faAward } />
+          <div className='username'>
+            <div className='display-inline-flex'>
+              <h4>Terry Garret</h4>
+              <Rating
+                className='rating-star'
+                name='read-only'
+                readOnly
+                size='large'
+                value={ 5 }
+                precision={ 0.1 }
+              />
+              <FontAwesomeIcon className='badges' icon={ faAward } />
+            </div>
             <Button className='text-button'>View Resume </Button>
-          </h4>
+          </div>
           <p className='location'>
             <FontAwesomeIcon icon={ faMapMarkerAlt } className='ml-10' />
-            San Francisco, CA    Available
+            San Francisco, CA
+            <span className='status'> Available </span>
           </p>
           <p className='languages'>
             <FontAwesomeIcon icon={ faLanguage } className='ml-10' />
@@ -51,7 +54,7 @@ const TalentPage = () => (
       </div>
       <div className='talent-content'>
         <h4 className='mt-10'>
-          Customer Service Representative
+          Customer Service Expert
         </h4>
         <p className='mt-10 mb-10'>
           I have over 15 years of experience in telemarketing and lead generation.
@@ -69,22 +72,25 @@ const TalentPage = () => (
       <div className='display-inline-flex talent-head'>
         <Avatar className='profile-pic' alt='Sally Green' src={ sally } />
         <div className='talent-details'>
-          <h4 className='user-name is-fullwidth'>
-            <b>Chad Green</b>
-            <Rating
-              className='rating-star'
-              name='read-only'
-              readOnly
-              size='large'
-              value={ 5 }
-              precision={ 0.1 }
-            />
-            <FontAwesomeIcon icon={ faAward } />
+          <div className='username'>
+            <div className='display-inline-flex'>
+              <h4>Sally Green</h4>
+              <Rating
+                className='rating-star'
+                name='read-only'
+                readOnly
+                size='large'
+                value={ 5 }
+                precision={ 0.1 }
+              />
+              <FontAwesomeIcon className='badges' icon={ faAward } />
+            </div>
             <Button className='text-button'>View Resume </Button>
-          </h4>
+          </div>
           <p className='location'>
             <FontAwesomeIcon icon={ faMapMarkerAlt } />
-            San Francisco, CA    Available
+            San Francisco, CA
+            <span className='status'> Available </span>
           </p>
           <p className='languages'>
             <FontAwesomeIcon icon={ faLanguage } />
@@ -113,22 +119,25 @@ const TalentPage = () => (
       <div className='display-inline-flex talent-head'>
         <Avatar className='profile-pic' alt='Randy Williamson' src={ kareem } />
         <div className='talent-details'>
-          <h4 className='user-name is-fullwidth'>
-            <b>Randy Williamson</b>
-            <Rating
-              className='rating-star'
-              name='read-only'
-              readOnly
-              size='large'
-              value={ 5 }
-              precision={ 0.1 }
-            />
-            <FontAwesomeIcon icon={ faAward } />
+          <div className='username'>
+            <div className='display-inline-flex'>
+              <h4>Randy Williamson</h4>
+              <Rating
+                className='rating-star'
+                name='read-only'
+                readOnly
+                size='large'
+                value={ 5 }
+                precision={ 0.1 }
+              />
+              <FontAwesomeIcon className='badges' icon={ faAward } />
+            </div>
             <Button className='text-button'>View Resume </Button>
-          </h4>
+          </div>
           <p className='location'>
             <FontAwesomeIcon icon={ faMapMarkerAlt } className='ml-10' />
-            San Francisco, CA    Available
+            San Francisco, CA
+            <span className='status'> Available </span>
           </p>
           <p className='languages'>
             <FontAwesomeIcon icon={ faLanguage } className='ml-10' />

@@ -39,6 +39,14 @@
         }
       }
 
+      .location {
+        color: $color-dark-grey;
+      }
+
+      .date {
+        color: $color-dark-grey;
+      }
+
       h4 {
         @extend .h4;
         font-size: 14px;
@@ -104,6 +112,7 @@
   .job-post-heading {
     @extend .h3;
     width: 90%;
+    letter-spacing: 1px;
   }
 
   .edit-post {
@@ -111,12 +120,16 @@
     border-radius: 8px !important;
   }
 
+  .date {
+    color: $color-dark-grey;
+  }
+
   .job-post-description {
     flex-direction: column;
   }
 
   .account-button{
-    width: 15%;
+    width: fit-content;
     color: $color-primary;
     font-size: 12px;
     padding: 0px;
@@ -157,8 +170,8 @@
     .text-button {
       color: $color-primary;
       font-size: 12px;
+      width: fit-content;
       padding: 0px;
-      padding-right: 41px;
       font-weight: 600;
     }
   }
@@ -169,6 +182,7 @@
 
   h3 {
     font-size: 18px;
+    letter-spacing: 2px;
     color: #444F5F;
     font-family: 'Poppins', sans-serif;
     font-weight: bold;
@@ -218,7 +232,7 @@
 
       .text-button {
         color: $color-primary;
-        width: 30%;
+        width: fit-content;
         float: right;
         font-size: 12px;
         padding: 0px;
@@ -228,6 +242,7 @@
   }
 
   .date {
+    color: $color-dark-grey;
     font-weight: 200;
     margin: 10px 0px 5px;
   }

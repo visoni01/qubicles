@@ -49,7 +49,7 @@
 
       .text-button {
         color: $color-primary;
-        width: 60%;
+        width: fit-content;
         font-size: 12px;
         padding: 0px;
         padding-right: 38px;
@@ -163,12 +163,16 @@
 }
 
 .talent-head {
+  width: 100%;
+
   .MuiAvatar-root {
     width: 75px;
     height: 75px;
   }
 
   .profile-pic {
+    // width: 75px;
+    // height: 75px;
     margin: 10px;
     margin-left: 0px;
     flex: 1;
@@ -177,40 +181,68 @@
 
   .talent-details {
     align-self: center;
+    width: calc(100% - 90px);
+    margin-left: 15px;
+    margin-bottom: 10px;
 
-    .user-name {
+    .username {
+      display: inline-block;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    h4 {
       @extend .h4;
-      font-size: 14px;
+      font-size: 18px;
+      font-weight: 500;
+    }
 
-      .MuiRating-root {
-        &.rating-star {
-          color: $color-primary;
-          margin: 15px 5px 0px 5px;
-          vertical-align: text-bottom;
-          font-size: 16px;
-        }
-      }
-
-      .text-button {
+    .MuiRating-root {
+      &.rating-star {
         color: $color-primary;
-        // width: 60%;
+        margin: 0px 10px;
+        vertical-align: text-bottom;
+        font-size: 22px;
       }
     }
 
+    .badges {
+      color: $color-dark-grey;
+      font-size: 22px;
+    }
+
+    .text-button {
+      color: $color-primary;
+      width: fit-content;
+      float: right;
+      font-size: 16px;
+      padding: 0px;
+
+    }
+
     .location {
+      @extend .para;
       font-size: 13px;
       svg {
-        font-size: 14px;
-        margin-right: 10px;
+        color: $color-dark-grey;
+        font-size: 16px;
+        margin: 0 10px 0 0;
+      }
+      .status{
+        font-style: italic;
+        font-weight: 600;
+        margin-left: 20px;
       }
     }
 
     .languages {
+      @extend .para;
       font-size: 13px;
 
       svg {
-        font-size: 14px;
-        margin-right: 10px;
+        color: $color-dark-grey;
+        font-size: 16px;
+        margin: 0 10px 0 0;
       }
 
       span{

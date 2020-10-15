@@ -100,6 +100,12 @@ const routes = [
     component: React.lazy(() => import('../containers/NewPeople/ContactCenter/index')),
     auth: true,
   },
+  // Added extra route for new contact-center jobPost design.
+  {
+    path: '/new/jobpost',
+    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Jobs/JobView')),
+    auth: true,
+  },
 ]
 
 export default routes
