@@ -24,6 +24,12 @@
       align-self: center;
       width: calc(100% - 60px);
 
+      .candidate-name {
+        @extend .h4;
+        color: $color-light-brown;
+        font-weight: 600;
+
+      }
       .MuiRating-root {
         &.rating-star {
           color: $color-primary;
@@ -34,13 +40,14 @@
 
       .description {
         @extend .para;
+        font-size: 13px;
         color: $color-dark-grey;
       }
 
       .text-button {
         color: $color-primary;
         width: fit-content;
-        font-size: 12px;
+        font-size: 13px;
         padding: 0px;
         :hover {
           color: $color-primary;
@@ -161,20 +168,11 @@
     height: 75px;
   }
 
-  .profile-pic {
-    // width: 75px;
-    // height: 75px;
-    margin: 10px;
-    margin-left: 0px;
-    flex: 1;
-    align-self: center;
-  }
 
   .talent-details {
     align-self: center;
     width: calc(100% - 90px);
-    margin-left: 15px;
-    margin-bottom: 10px;
+    margin: 10px 10px 0px 15px;
 
     .username {
       display: inline-block;
@@ -184,8 +182,9 @@
 
     h4 {
       @extend .h4;
-      font-size: 18px;
-      font-weight: 500;
+      font-size: 16px;
+      font-weight: 600;
+      color: $color-light-brown;
     }
 
     .MuiRating-root {
@@ -206,20 +205,25 @@
       color: $color-primary;
       width: fit-content;
       float: right;
-      font-size: 16px;
+      font-size: 14px;
       padding: 0px;
+      :hover {
+        color: $color-primary;
+      }
 
     }
 
     .location {
       @extend .para;
-      font-size: 13px;
+      color: $color-dark-grey;
+      margin-top: 5px;
       svg {
         color: $color-dark-grey;
         font-size: 16px;
         margin: 0 10px 0 0;
       }
       .status{
+        @extend .para;
         font-style: italic;
         font-weight: 600;
         margin-left: 20px;
@@ -228,7 +232,8 @@
 
     .languages {
       @extend .para;
-      font-size: 13px;
+      font-size: 14px;
+      color: $color-dark-grey;
 
       svg {
         color: $color-dark-grey;
@@ -245,11 +250,13 @@
 
 .talent-content {
   h4 {
-    @extend .h4
+    @extend .h4;
+    color: $color-light-brown;
+    font-weight: 600;
   }
 
   p {
-    @extend .para
+    @extend .para;
   }
 }
 
@@ -257,6 +264,7 @@
   margin-left: 5px;
 
   .talent-chips {
+    @extend .para;
     margin-right: 15px;
     background-color: $color-primary-light;
   }

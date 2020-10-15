@@ -17,7 +17,7 @@ const TopTalent = ({ heading }) => {
       <div className='display-inline-flex top-talent'>
         <Avatar className='profile-pic' alt='Terry Garret' src={ terry } />
         <div className='candidate-info'>
-          <span>Terry Garret</span>
+          <span className='candidate-name'>Terry Garret</span>
           <Rating
             className='rating-star'
             name='read-only'
@@ -35,7 +35,7 @@ const TopTalent = ({ heading }) => {
       <div className='display-inline-flex top-talent'>
         <Avatar className='profile-pic' alt='Chad Green' src={ sally } />
         <div className='candidate-info'>
-          <span>Chad Green</span>
+          <span className='candidate-name'>Chad Green</span>
           <Rating
             className='rating-star'
             name='read-only'
@@ -53,7 +53,7 @@ const TopTalent = ({ heading }) => {
       <div className='display-inline-flex top-talent'>
         <Avatar className='profile-pic' alt='Randy Williamson' src={ kareem } />
         <div className='candidate-info'>
-          <span>Janice Fox</span>
+          <span className='candidate-name'>Janice Fox</span>
           <Rating
             className='rating-star'
             name='read-only'

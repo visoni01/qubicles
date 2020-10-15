@@ -58,7 +58,7 @@
     .job-title {
       @extend .para;
       font-weight: 600;
-      color: #727272;
+      color: $color-light-brown;
     }
   }
   .action-buttons {
