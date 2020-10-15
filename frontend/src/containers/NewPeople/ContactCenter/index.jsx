@@ -4,7 +4,6 @@ import {
 } from '@material-ui/core'
 import JobsList from './Jobs/JobsList'
 import ContactCenterIntro from './Jobs/ContactCenterIntro'
-import ResumeIntro from './Talent/ResumeIntro'
 import JobsPage from './Jobs/JobsPage'
 import JobPost from './Jobs/JobPost'
 import TalentFilter from './Talent/TalentFilter'
@@ -22,9 +21,8 @@ const People = () => {
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 } alignItems='flex-start'>
         <div>
           { activeTab === 0 && <JobsList />}
-          {/* { activeTab === 0 && <ContactCenterIntro />} */}
+          { activeTab === 1 && <ContactCenterIntro />}
           {/* { activeTab === 1 && <TalentFilter />} */}
-          { activeTab === 1 && <ResumeIntro />}
           { activeTab === 2 && <JobsList />}
         </div>
       </Grid>

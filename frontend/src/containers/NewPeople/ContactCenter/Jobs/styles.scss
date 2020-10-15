@@ -1,0 +1,268 @@
+@import '../../../../customStyles/scss/index.scss';
+
+.contact-center-info-root {
+  border: 1px solid #DBDBDB;
+  border-radius: 8px;
+  margin-top: 5px;
+  margin-bottom: 25px;
+  background-color: #FFFFFF;
+  padding: 20px 20px;
+
+  // h2 {
+  //   @extend .h2;
+  //   font-size: 28px;
+  // }
+
+  .contact-center-head {
+    .MuiAvatar-root {
+      width: 65px;
+      height: 65px;
+    }
+
+    .profile-pic {
+      margin-top: 15px;
+      flex: 1;
+      align-self: center;
+    }
+
+    .company-info {
+      align-self: center;
+      width: calc(100% - 80px);
+      margin-left: 15px;
+
+      .MuiRating-root {
+        &.rating-star {
+          color: $color-primary;
+          margin: 15px 5px 0px 5px;
+          vertical-align: text-bottom;
+          font-size: 16px;
+        }
+      }
+
+      h4 {
+        @extend .h4;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      p{
+        @extend .para;
+        font-size: 12px;
+      }
+
+      svg {
+        font-size: 12px;
+        margin-right: 7px;
+      }
+    }
+  }
+
+  .contact-center-title {
+    @extend .h4;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 10px 0px;
+  }
+
+  .description {
+    @extend .para;
+    font-size: 12px;
+  }
+
+  .member-count {
+    @extend .para;
+    margin-top: 10px;
+    b {
+      font-weight: 600;
+    }
+  }
+
+  .action-buttons {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 14px;
+    flex-direction: column;
+    li {
+      margin-right: 10%;
+      margin: 10px 0px;
+      svg {
+        margin-right: 10px;
+      }
+    }
+  }
+
+}
+
+.divider {
+  width: 100%;
+  margin: 15px 0;
+}
+
+
+.job-post-root {
+  .job-post-heading {
+    @extend .h3;
+    width: 90%;
+  }
+
+  .edit-post {
+    float:right;
+    border-radius: 8px !important;
+  }
+
+  .job-post-description {
+    flex-direction: column;
+  }
+
+  .account-button{
+    width: 15%;
+    color: $color-primary;
+    font-size: 12px;
+    padding: 0px;
+    margin: 10px 0px;
+    font-weight: 600;
+  }
+
+  p{
+    @extend .para;
+    font-size: 12px;
+  }
+
+  h3{
+    @extend .h3;
+  }
+
+  .job-post-specifications{
+    @extend .para;
+    justify-content: space-between;
+    margin: 10px;
+
+    .heading {
+      @extend .h4;
+      font-weight: 600;
+    }
+  }
+
+  .skills-tags {
+    .skills-chips {
+      margin-right: 15px;
+      background-color: #D5DFFC;
+      margin: 10px;
+    }
+  }
+
+  .course-section {
+    flex-direction: column;
+    .text-button {
+      color: $color-primary;
+      font-size: 12px;
+      padding: 0px;
+      padding-right: 41px;
+      font-weight: 600;
+    }
+  }
+}
+
+.job-application-root{
+  border: 1px solid #DBDBDB;
+
+  h3 {
+    font-size: 18px;
+    color: #444F5F;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    padding-bottom: 10px;
+  }
+
+  p{
+    @extend .para;
+  }
+
+  .job-application-head {
+    width: 100%;
+
+    .profile-pic {
+      width: 56px;
+      height: 56px;
+      margin: 10px;
+    }
+
+    .candidate-info {
+      align-self: center;
+      width: calc(100% - 60px);
+      margin-left: 15px;
+      margin-bottom: 10px;
+
+      b{
+        font-size: 12px;
+      }
+
+      svg {
+        font-size: 12px;
+      }
+
+      .MuiRating-root {
+        &.rating-star {
+          color: $color-primary;
+          margin: 15px 5px 0px 5px;
+          vertical-align: text-bottom;
+          font-size: 16px;
+        }
+      }
+
+      .description {
+        @extend .para;
+        font-size: 12px;
+      }
+
+      .text-button {
+        color: $color-primary;
+        width: 30%;
+        float: right;
+        font-size: 12px;
+        padding: 0px;
+        margin-top: 10px;
+      }
+    }
+  }
+
+  .date {
+    font-weight: 200;
+    margin: 10px 0px 5px;
+  }
+
+  .pending-application-buttons {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 0;
+
+    .reject-button {
+      float:left;
+      color: $color-red;
+      border: 1px solid $color-red;
+      &:hover {
+        background-color: $color-red;
+        color: #FFFFFF;
+      }
+    }
+
+    .message-button {
+      margin-left: 100px;
+      margin-right: 30px;
+    }
+
+    .hire-button {
+      float:right;
+    }
+  }
+
+  .hired-application {
+    float: right !important;
+    width: 40%!important;
+    .hire-message{
+      margin-left: 150px !important;
+    }
+  }
+}
