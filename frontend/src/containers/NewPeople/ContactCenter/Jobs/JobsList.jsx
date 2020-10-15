@@ -32,7 +32,7 @@ const JobsList = () => (
       <ListItem
         button
       >
-        <ListItemText primary='Accounting' classes={ { primary: 'list-item' } } />
+        <ListItemText primary='Account Sales' classes={ { primary: 'list-item' } } />
       </ListItem>
       <ListItem
         button

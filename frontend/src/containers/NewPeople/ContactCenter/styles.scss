@@ -20,10 +20,7 @@
   position: relative;
   margin-bottom: 10px;
   .section-title {
-    font-size: 18px;
-    font-weight: 600;
-    color: #444F5F;
-    margin: auto 0;
+    @extend .h3;
   }
    .action-button {
       font-size: 14px;
@@ -59,7 +56,9 @@
       font-size: 14px;
     }
     .job-title {
-      font-weight: 500;
+      @extend .para;
+      font-weight: 600;
+      color: #727272;
     }
   }
   .action-buttons {
@@ -71,6 +70,20 @@
         svg {
           margin-right: 5px;
         }
+    }
+    .action-icon {
+      font-size: 16px;
+      margin-right: 10px;
+      color: $color-dark-grey;
+    }
+    .icon-value {
+      @extend .para;
+      font-weight: 600;
+    }
+    .icon-title {
+      margin-left: 5px;
+      font-size: 15px;
+      color: $color-dark-grey;
     }
   }
 }
