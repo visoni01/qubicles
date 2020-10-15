@@ -29,4 +29,7 @@ newForumRouter.route('/groups/:group_id/topics')
 newForumRouter.route('/topics/:topic_id/comments')
   .get(isAuthenticated, forumController.getTopicComments)
 
+newForumRouter.route('/topics/:topic_id/comments')
+  .post(isAuthenticated, forumController.createTopicComment)
+
 export { newForumRouter }

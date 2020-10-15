@@ -7,7 +7,8 @@ import {
   ForumGetOneGroupService,
   ForumGetGroupTopicsService,
   ForumCreateTopicService,
-  ForumGetTopicCommentsService
+  ForumGetTopicCommentsService,
+  ForumCreateCommentService
 } from '../services/newForum'
 
 export default class ForumController {
@@ -80,6 +81,15 @@ export default class ForumController {
       Responder.success(res, forumGetTopicCommentsResult.result)
     } else {
       Responder.failed(res, forumGetTopicCommentsResult.errors)
+    }
+  }
+
+  static async createTopicComment (req, res) {
+    const forumCreateCommentResult = await ForumCreateCommentService.execute({ ...req.body, ...req.params })
+    if (forumCreateCommentResult.successful) {
+      Responder.success(res, forumCreateCommentResult.result)
+    } else {
+      Responder.failed(res, forumCreateCommentResult.errors)
     }
   }
 }

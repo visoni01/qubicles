@@ -178,3 +178,16 @@ export async function getForumTopicComments ({ topic_id }) {
 
   return topicComments
 }
+
+export async function createForumComment ({ topic_id, comment_text, owner_id }) {
+  const newComment = await createNewEntity({
+    model: XForumComment,
+    data: {
+      topic_id,
+      comment_text,
+      owner_id
+    }
+  })
+
+  return newComment
+}
