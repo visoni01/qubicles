@@ -4,6 +4,7 @@ import {
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSlidersH, faSearch } from '@fortawesome/free-solid-svg-icons'
+import './styles.scss'
 
 const TalentFilter = () => {
   const [ skills, setSkills ] = useState('')

@@ -1,0 +1,244 @@
+@import '../../../../customStyles/scss/index.scss';
+
+.top-talent-root{
+  border: 1px solid #DBDBDB;
+
+  h3 {
+    font-size: 18px;
+    color: #444F5F;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    padding-bottom: 10px;
+  }
+
+  .top-talent {
+    width: 100%;
+
+    .profile-pic {
+      width: 56px;
+      height: 56px;
+      margin: 10px;
+    }
+
+    .candidate-info {
+      align-self: center;
+      width: calc(100% - 60px);
+      margin-left: 15px;
+
+      b{
+        font-size: 12px;
+      }
+
+      svg {
+        font-size: 12px;
+      }
+
+      .MuiRating-root {
+        &.rating-star {
+          color: $color-primary;
+          margin: 15px 5px 0px 5px;
+          vertical-align: text-bottom;
+          font-size: 16px;
+        }
+      }
+
+      .description {
+        @extend .para;
+        font-size: 12px;
+      }
+
+      .text-button {
+        color: $color-primary;
+        width: 60%;
+        font-size: 12px;
+        padding: 0px;
+        padding-right: 38px;
+        margin-bottom: 5px;
+      }
+    }
+  }
+}
+
+.divider {
+  width: 100%;
+  margin: 15px 0;
+}
+
+.search-talent-bar {
+  margin-bottom: 20px;
+   .search-input {
+      width: 100%;
+      background: #FFFFFF 0% 0% no-repeat padding-box;
+      border: 1px solid #DBDBDB;
+      border-radius: 8px;
+      opacity: 1;
+      padding: 2px 0;
+      margin-right: 20px;
+   }
+}
+
+.textarea-input {
+  display: inline-flex;
+  width: 100%;
+  .avatar {
+    margin-right: 8px;
+  }
+	textarea {
+		width: calc(100% - 80px);
+		margin: 0 auto;
+		display: flex;
+		height: 100%;
+		border: none;
+		resize: none;
+		border: 1px solid #DBDBDB;
+		border-radius: 8px;
+		padding: 10px;
+		font-family: 'Poppins', sans-serif;
+		&:focus {
+			outline: none;
+			box-shadow: inherit;
+		}
+	}
+	input[type="file"] {
+		right: 10px;
+		width: 20px;
+		top: 20px;
+		opacity: 0;
+		z-index: 9999;
+	}
+}
+
+.galley-icon {
+  svg {
+    vertical-align: middle;
+    font-size: 24px;
+    height: 100%;
+  }
+}
+
+
+.talent-filter-root {
+  border: 1px solid #DBDBDB;
+  border-radius: 8px;
+  margin-top: 5px;
+  margin-bottom: 25px;
+  background-color: #FFFFFF;
+  padding: 20px 0;
+
+  h2 {
+    @extend .h2;
+    font-size: 28px;
+  }
+
+  .talent-filter-title {
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-between;
+
+    h3 {
+      @extend .h3;
+      margin: 10px 0;
+    }
+  }
+
+  .talent-dropdown  {
+    .dropdown {
+      border: 1px solid #DBDBDB;
+      height: 45px;
+      border-radius: 6px;
+      width: 290px;
+      background: #FFFFFF;
+      margin-top: 11px;
+      font-family: "SF Pro Text", Regular;
+      font-weight: normal;
+      color: #4A4A4A;
+      padding-left: calc(0.75em - 1px);
+      padding-right: calc(0.75em - 1px);
+    }
+
+    .MuiInput-underline:after {
+      border-bottom: 2px solid #4877f4 !important;
+    }
+  }
+}
+
+.talent-head {
+  .MuiAvatar-root {
+    width: 75px;
+    height: 75px;
+  }
+
+  .profile-pic {
+    margin: 10px;
+    margin-left: 0px;
+    flex: 1;
+    align-self: center;
+  }
+
+  .talent-details {
+    align-self: center;
+
+    .user-name {
+      @extend .h4;
+      font-size: 14px;
+
+      .MuiRating-root {
+        &.rating-star {
+          color: $color-primary;
+          margin: 15px 5px 0px 5px;
+          vertical-align: text-bottom;
+          font-size: 16px;
+        }
+      }
+
+      .text-button {
+        color: $color-primary;
+        // width: 60%;
+      }
+    }
+
+    .location {
+      font-size: 13px;
+      svg {
+        font-size: 14px;
+        margin-right: 10px;
+      }
+    }
+
+    .languages {
+      font-size: 13px;
+
+      svg {
+        font-size: 14px;
+        margin-right: 10px;
+      }
+
+      span{
+        float: right;
+      }
+    }
+  }
+}
+
+.talent-content {
+  h4 {
+    @extend .h4
+  }
+
+  p {
+    @extend .para
+  }
+}
+
+.talent-tags {
+  margin-left: 5px;
+
+  .talent-chips {
+    margin-right: 15px;
+    background-color: $color-primary-light;
+  }
+
+  .more {
+    margin-left: 15px;
+  }
+}
