@@ -145,36 +145,77 @@
   .avatar {
     margin-right: 8px;
   }
-	textarea {
-		width: calc(100% - 80px);
-		margin: 0 auto;
-		display: flex;
-		height: 100%;
-		border: none;
-		resize: none;
-		border: 1px solid #DBDBDB;
-		border-radius: 8px;
-		padding: 10px;
-		font-family: 'Poppins', sans-serif;
-		&:focus {
-			outline: none;
-			box-shadow: inherit;
-		}
-	}
+
+  .comment-content {
+    width: calc(100% - 30px);
+    border: 1px solid $color-border;
+    border-radius: 8px;
+    padding: 10px;
+    margin-right: 10px;
+
+    textarea {
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      height: 100%;
+      border: none;
+      resize: none;
+      margin-bottom: 10px;
+      font-family: 'SF Pro Text', Regular;
+      font-weight: normal;
+      color: #4A4A4A;
+      &:focus {
+        outline: none;
+        box-shadow: inherit;
+      }
+    }
+
+    .post-image {
+      display: inline-block;
+      position: relative;
+
+      img {
+        height: auto;
+        max-width: 100%;
+        border-radius: 6px;
+      }
+
+      .MuiButtonBase-root {
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: red;
+      }
+
+      .MuiIconButton-label {
+        &:hover {
+          color: red;
+        }
+      }
+    }
+  }
+
 	input[type="file"] {
 		right: 10px;
-		width: 20px;
+		width: 0;
 		top: 20px;
 		opacity: 0;
-		z-index: 9999;
+    z-index: 9999;
 	}
 }
 
 .galley-icon {
   svg {
+    cursor: pointer;
     vertical-align: middle;
     font-size: 24px;
     height: 100%;
+    color: $color-dark-grey;
+    path{
+    &:hover {
+        color: $color-dark-grey;
+      }
+    }
   }
 }
 

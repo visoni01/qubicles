@@ -11,6 +11,7 @@ import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { carolin } from '../../assets/images/avatar/index'
 import { topicCommentsFetchingStart } from '../../redux-saga/redux/actions'
+import PostComment from './postComment'
 import Comments from './comments'
 
 const SelectedTopic = ({ backToGroup, topicDetails, groupTitle }) => {
@@ -19,7 +20,7 @@ const SelectedTopic = ({ backToGroup, topicDetails, groupTitle }) => {
 
   useEffect(() => {
     dispatch(topicCommentsFetchingStart({ topicId: topicDetails.id }))
-  }, [ dispatch ])
+  }, [ dispatch, topicDetails.id ])
 
   return (
     <>
@@ -48,9 +49,7 @@ const SelectedTopic = ({ backToGroup, topicDetails, groupTitle }) => {
         <h3 className='topic-title'>
           {topicDetails.title}
         </h3>
-        <p className='topic-description'>
-          {topicDetails.description}
-        </p>
+        <p className='topic-description' dangerouslySetInnerHTML={ { __html: topicDetails.description } } />
         <div className='action-buttons'>
           <ul className='display-inline-flex action-buttons width-100-per'>
             <li>
@@ -59,34 +58,21 @@ const SelectedTopic = ({ backToGroup, topicDetails, groupTitle }) => {
             </li>
             <li>
               <FontAwesomeIcon icon={ faComment } />
-              17 Comments
+              {topicDetails.commentsCount}
+              {' '}
+              Comments
             </li>
             <li>
               <FontAwesomeIcon icon={ faEye } />
-              349 Views
+              {topicDetails.views}
+              {' '}
+              Views
             </li>
           </ul>
         </div>
       </Box>
-      <Box className='primary-box padding-20 mb-20'>
-        <div className='textarea-input'>
-          <Avatar className='avatar' />
-          <textarea placeholder='Write Something...' />
-          <input type='file' name='' className='position-absolute' />
-          <p className='galley-icon'>
-            <FontAwesomeIcon icon={ faImage } />
-          </p>
-        </div>
-        <Button
-          className='post-comment-button'
-          classes={ {
-            root: 'MuiButtonBase-root button-primary-small',
-            label: 'MuiButton-label button-primary-small-label',
-          } }
-        >
-          Post
-        </Button>
-      </Box>
+
+      <PostComment topicId={ topicDetails.id } />
 
       <Comments />
     </>

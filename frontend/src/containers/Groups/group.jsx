@@ -118,9 +118,12 @@ const SelectedGroup = ({ group }) => {
                 <Avatar className='mr-10' src={ carolin } />
                 <div className='width-100-per'>
                   <Button
-                    className='h4'
+                    className='h4 topic-name-button'
                     onClick={ () => selectTopic(index, topic.id) }
-                    classes={ { root: ' background-none-hover no-padding' } }
+                    classes={ {
+                      root: ' background-none-hover no-padding',
+                      label: 'text-align-left',
+                    } }
                   >
                     {topic.title}
                   </Button>
@@ -136,25 +139,19 @@ const SelectedGroup = ({ group }) => {
                     <ul className='display-inline-flex action-buttons'>
                       <li>
                         <FontAwesomeIcon icon={ faHeart } />
-                        <p>
-                          274 Likes
-                        </p>
+                        274 Likes
                       </li>
                       <li>
                         <FontAwesomeIcon icon={ faComment } />
-                        <p>
-                          {topic.commentsCount}
-                          {' '}
-                          Comments
-                        </p>
+                        {topic.commentsCount}
+                        {' '}
+                        Comments
                       </li>
                       <li>
                         <FontAwesomeIcon icon={ faEye } />
-                        <p>
-                          {topic.views}
-                          {' '}
-                          Views
-                        </p>
+                        {topic.views}
+                        {' '}
+                        Views
                       </li>
                     </ul>
                   </div>
