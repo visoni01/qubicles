@@ -161,6 +161,20 @@
 
     }
 
+    .badges {
+      color: $color-dark-grey;
+      font-size: 22px;
+    }
+
+    .text-button {
+      color: $color-primary;
+      width: fit-content;
+      float: right;
+      font-size: 16px;
+      padding: 0px;
+
+    }
+
     .location {
       @extend .para;
       color: $color-dark-grey;

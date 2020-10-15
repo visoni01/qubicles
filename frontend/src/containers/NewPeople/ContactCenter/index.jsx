@@ -4,9 +4,9 @@ import {
 } from '@material-ui/core'
 import JobsList from './Jobs/JobsList'
 import JobsPage from './Jobs/JobsPage'
+import JobPost from './Jobs/JobPost'
 import TalentFilter from './Talent/TalentFilter'
-import TalentWrap from '../../People/talentWrap'
-import TrainingWrap from '../../People/trainingWrap'
+import TalentPage from './Talent/TalentPage'
 import TopTalent from './Talent/TopTalent'
 import { newNavBar } from '../../../hoc/navbar'
 import './styles.scss'
@@ -18,7 +18,7 @@ const People = () => {
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 } alignItems='flex-start'>
         <div>
           { activeTab === 0 && <JobsList />}
-          { activeTab === 1 && <TalentFilter />}
+          { activeTab === 1 && <JobsList />}
           { activeTab === 2 && <JobsList />}
         </div>
       </Grid>
@@ -37,12 +37,11 @@ const People = () => {
         {/* Forum Category */}
         <div>
           { activeTab === 0 && <JobsPage />}
-          { activeTab === 1 && <TalentWrap />}
-          { activeTab === 2 && <TrainingWrap />}
+          { activeTab === 1 && <TalentPage />}
         </div>
       </Grid>
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
-        <TopTalent />
+        <TopTalent heading='Top Talent' />
       </Grid>
     </Grid>
   )
