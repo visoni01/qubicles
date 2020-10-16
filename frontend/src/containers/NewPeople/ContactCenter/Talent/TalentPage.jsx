@@ -12,7 +12,7 @@ import { terry, sally, kareem } from '../../../../assets/images/avatar'
 
 const TalentPage = () => (
   <>
-    <div className='display-inline-flex is-fullwidth mt-10 search-talent-bar'>
+    <div className='display-inline-flex is-fullwidth mt-10 search-bar-people'>
       <div className='search-input'>
         <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 fontawesome-icon' />
         <InputBase

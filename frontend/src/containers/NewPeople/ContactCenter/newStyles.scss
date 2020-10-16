@@ -34,7 +34,6 @@
 }
 
 // Side Filter
-
 .side-filter-root {
   background-color: $color-white;
   border: 1px solid $color-border;
@@ -73,4 +72,22 @@
     display: flex;
   }
 
+}
+
+// Search Input
+.search-bar-people {
+  margin-bottom: 20px;
+
+   .search-input {
+      width: 100%;
+      background: $color-white 0% 0% no-repeat padding-box;
+      border: 1px solid $color-border;
+      border-radius: 4px;
+      opacity: 1;
+      padding: 2px 0;
+   }
+   .search-button {
+      margin-left: 25px;
+      width: 150px;
+  }
 }

@@ -25,17 +25,17 @@ const People = () => {
         <div>
           { activeTab === 0 && <JobsList />}
           { activeTab === 1 && <JobsList />}
-          { activeTab === 2 && <JobsList />}
+          { activeTab === 2 && <TrainingFilter />}
         </div>
       </Grid>
       <Grid
         container
-        spacing={ 2 }
+        // spacing={ 2 }
         item
         xl={ spacingMid }
         lg={ spacingMid }
         md={ spacingMid }
-        sm={ 4 }
+        sm={ spacingMid }
         className='people-active-tabs'
       >
         <Grid item xl={ spacingTab } lg={ spacingTab } md={ spacingTab } sm={ spacingTab }>
@@ -52,7 +52,6 @@ const People = () => {
         <Grid item xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 }>
           <div>
             { activeTab === 0 && <JobsPage />}
-            {/* { activeTab === 0 && <JobPost />} */}
             { activeTab === 1 && <TalentPage />}
             { activeTab === 2 && <TrainingWrap />}
           </div>

@@ -71,7 +71,6 @@
       border-radius: 8px;
       opacity: 1;
       padding: 2px 0;
-      margin-right: 20px;
    }
 }
 
@@ -266,6 +265,7 @@
   .talent-chips {
     @extend .para;
     margin-right: 15px;
+    padding: 0px 5px;
     background-color: $color-primary-light;
   }
 

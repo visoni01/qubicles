@@ -9,7 +9,7 @@ import {
 
 const JobsPage = () => (
   <>
-    <div className='display-inline-flex is-fullwidth mt-10 search-job-bar'>
+    <div className='display-inline-flex is-fullwidth mt-10 search-bar-people'>
       <div className='search-input'>
         <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 fontawesome-icon' />
         <InputBase
@@ -18,8 +18,11 @@ const JobsPage = () => (
         />
       </div>
       <Button
-        className='button-primary-small new-job'
-        classes={ { label: 'MuiButton-label button-primary-small-label' } }
+        className='search-button'
+        classes={ {
+          root: 'button-primary-small',
+          label: 'button-primary-small-label',
+        } }
       >
         New Job
       </Button>
