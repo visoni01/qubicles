@@ -12,7 +12,7 @@ import './styles.scss'
 
 const ContactCenterIntro = () => (
   <>
-    <Box className='contact-center-info-root'>
+    <Box className='box contact-center-info-root'>
       <div className='mb-20'>
         <Button
           classes={ {

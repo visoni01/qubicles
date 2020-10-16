@@ -1,13 +1,6 @@
 @import '../../../../customStyles/scss/index.scss';
 
 .contact-center-info-root {
-  border: 1px solid #DBDBDB;
-  border-radius: 8px;
-  margin-top: 5px;
-  margin-bottom: 25px;
-  background-color: #FFFFFF;
-  padding: 20px 20px;
-
   // h2 {
   //   @extend .h2;
   //   font-size: 28px;
@@ -75,7 +68,7 @@
 
   .description {
     @extend .para;
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .member-count {

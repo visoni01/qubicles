@@ -48,30 +48,21 @@ const JobPost = () => (
 
       <div className='display-inline-flex job-post-specifications is-fullwidth'>
         <div>
-          <h4 className='heading'>$10/hr</h4>
+          <h4 className='heading'> $10/hr </h4>
           <p>Payment</p>
-        </div>
-        <div>
-          <h4 className='heading'>Part Time</h4>
-          <p>Job Type</p>
-        </div>
-        <div className='mr-30'>
-          <h4 className='heading'>Entry</h4>
-          <p>Experience Level</p>
-        </div>
-      </div>
-
-      <div className='display-inline-flex job-post-specifications is-fullwidth'>
-        <div>
-          <h4 className='heading'>6 months</h4>
+          <h4 className='heading mt-20'> 6 months </h4>
           <p>Duration</p>
         </div>
-        <div className='mr-15'>
-          <h4 className='heading'>Remote</h4>
+        <div>
+          <h4 className='heading'> Part Time </h4>
+          <p>Job Type</p>
+          <h4 className='heading mt-20'>Remote</h4>
           <p>Location</p>
         </div>
-        <div className='mr-45'>
-          <h4 className='heading'>6/50 hired</h4>
+        <div>
+          <h4 className='heading'> Entry </h4>
+          <p>Experience Level</p>
+          <h4 className='heading mt-20'> 6/50 hired </h4>
           <p>Needed</p>
         </div>
       </div>
