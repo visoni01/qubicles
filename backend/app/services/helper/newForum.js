@@ -80,17 +80,19 @@ export async function getOwnersName (ownerIds) {
   })
 }
 
-export async function getForumGroupTopics ({ user_id, group_id }) {
+export async function getForumGroupTopics ({ user_id, group_id, limit, offset }) {
   let ownerIds = Array(0)
-  let groupTopics = await getAll({
-    model: XForumTopic,
-    data: {
+  let { rows, count } = await XForumTopic.findAndCountAll({
+    where: {
       owner_id: user_id,
       group_id
-    }
+    },
+    limit: JSON.parse(limit),
+    offset: JSON.parse(offset),
+    raw: true
   })
 
-  groupTopics = await Promise.all(groupTopics.map(async ({ owner_id, topic_id, topic_title, topic_description, views, createdAt }) => {
+  rows = await Promise.all(rows.map(async ({ owner_id, topic_id, topic_title, topic_description, views, createdAt }) => {
     const commentsCount = await XForumComment.count({ where: { topic_id } })
     ownerIds.push(owner_id)
     return ({
@@ -109,7 +111,7 @@ export async function getForumGroupTopics ({ user_id, group_id }) {
 
   // Get owners' names
   const ownersNames = await getOwnersName(ownerIds)
-  groupTopics = groupTopics.map(({ ownerId, ...rest }) => {
+  rows = rows.map(({ ownerId, ...rest }) => {
     const ownerName = find(ownersNames, (owner) => owner.user_id === ownerId)
     return {
       ...rest,
@@ -117,7 +119,7 @@ export async function getForumGroupTopics ({ user_id, group_id }) {
     }
   })
 
-  return groupTopics
+  return { rows, count }
 }
 
 export async function createForumTopic ({ topic_title, owner_id, topic_description, group_id }) {

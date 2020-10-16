@@ -35,7 +35,11 @@ export class ForumCreateGroupService extends ServiceBase {
 
       return {
         message: 'Forum Group created Successfully',
-        data: newForumGroup
+        newGroup: {
+          id: newForumGroup.group_id,
+          title: newForumGroup.group_title,
+          description: newForumGroup.group_description
+        }
       }
     } catch (err) {
       logger.error(getErrorMessageForService('ForumCreateGroupService'), err)

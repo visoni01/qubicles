@@ -13,7 +13,7 @@ const TrendingTopics = () => (
     <h3 className='h3 mb-10'>
       Trending Topics
     </h3>
-    {[ ...Array(4).keys() ].map((e) => (
+    {[ ...Array(4).keys() ].map((e, index) => (
       <div key={ e }>
         <div className='topic-info'>
           <Avatar className='avatar-logo' src={ carolin } />
@@ -38,7 +38,7 @@ const TrendingTopics = () => (
             349
           </li>
         </ul>
-        <Divider className='divider' />
+        { (index < 3) && <Divider className='divider' /> }
       </div>
     ))}
   </Box>

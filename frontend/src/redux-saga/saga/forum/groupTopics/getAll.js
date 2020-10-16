@@ -14,9 +14,11 @@ function* groupTopicsWatcher() {
 
 function* groupTopicsFetchingWorker(action) {
   try {
-    const { groupId } = action.payload
-    const { data } = yield Forum.getGroupTopics(groupId)
-    yield put(groupTopicsFetchingSuccessful({ topics: data && data.topics }))
+    const { data } = yield Forum.getGroupTopics(action.payload)
+    yield put(groupTopicsFetchingSuccessful({
+      topics: data && data.topics,
+      topicsCount: data && data.count,
+    }))
   } catch (e) {
     yield put(showErrorMessage())
     yield put(groupTopicsFetchingFailure())

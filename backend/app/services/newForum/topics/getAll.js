@@ -9,6 +9,12 @@ const constraints = {
   },
   group_id: {
     presence: { allowEmpty: false }
+  },
+  limit: {
+    presence: { allowEmpty: false }
+  },
+  offset: {
+    presence: { allowEmpty: false }
   }
 }
 
@@ -18,16 +24,19 @@ export class ForumGetGroupTopicsService extends ServiceBase {
   }
 
   async run () {
-    const { user_id, group_id } = this.filteredArgs
+    const { user_id, group_id, limit, offset } = this.filteredArgs
     try {
-      const forumGroupTopics = await getForumGroupTopics({
+      const { rows, count } = await getForumGroupTopics({
         user_id,
-        group_id
+        group_id,
+        limit,
+        offset
       })
 
       return {
         message: 'GetAll Forum Group\'s topics fetch successfully',
-        topics: forumGroupTopics
+        topics: rows,
+        count
       }
     } catch (err) {
       logger.error(getErrorMessageForService('ForumGetAllGroupService'), err)

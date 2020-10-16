@@ -1,6 +1,6 @@
 import { takeLatest, put } from 'redux-saga/effects'
-import { updateTopicComments } from '../../../redux/actions'
-import { POST_TOPIC_COMMENT } from '../../../redux/constants'
+import { updateTopicComments, updateGroupTopicsList } from '../../../redux/actions'
+import { POST_TOPIC_COMMENT, UPDATE_TOPIC_STATS } from '../../../redux/constants'
 
 import Forum from '../../../service/forum'
 import { showErrorMessage, showSuccessMessage } from '../../../redux/snackbar'
@@ -14,13 +14,20 @@ function* topicCommentsCrudWorker(action) {
     let msg
     switch (action.type) {
       case POST_TOPIC_COMMENT: {
-        const { ownerName, ...rest } = action.payload
-        const { data } = yield Forum.postTopicComment(rest)
-        // eslint-disable-next-line
+        const { ownerName, topicId, ...rest } = action.payload
+        const { data } = yield Forum.postTopicComment({ ...rest, topicId })
+
+        yield put(updateGroupTopicsList({
+          type: UPDATE_TOPIC_STATS,
+          topicId,
+          statType: 'commentsCount',
+        }))
+
         yield put(updateTopicComments({
           type: POST_TOPIC_COMMENT,
           newComment: { ...data.newComment, ownerName },
         }))
+
         msg = 'Topic comment has been successfully posted!'
         break
       }

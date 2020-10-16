@@ -58,7 +58,7 @@ export default class ForumController {
   }
 
   static async getGroupTopics (req, res) {
-    const forumGetGroupTopicsResult = await ForumGetGroupTopicsService.execute({ ...req.body, ...req.params })
+    const forumGetGroupTopicsResult = await ForumGetGroupTopicsService.execute({ ...req.body, ...req.params, ...req.query })
     if (forumGetGroupTopicsResult.successful) {
       Responder.success(res, forumGetGroupTopicsResult.result)
     } else {

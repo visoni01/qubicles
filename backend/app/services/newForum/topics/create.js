@@ -35,7 +35,12 @@ export class ForumCreateTopicService extends ServiceBase {
 
       return {
         message: 'Forum Topic created Successfully',
-        newTopic: newForumTopic
+        newTopic: {
+          id: newForumTopic.topic_id,
+          title: newForumTopic.topic_title,
+          description: newForumTopic.topic_description,
+          views: newForumTopic.views
+        }
       }
     } catch (err) {
       logger.error(getErrorMessageForService('ForumCreateTopicService'), err)

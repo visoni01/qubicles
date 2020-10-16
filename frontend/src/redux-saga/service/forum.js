@@ -139,8 +139,8 @@ class Forum {
     return response
   }
 
-  static async getGroupTopics(groupId) {
-    const response = await apiClient.getRequest(`/newForum/groups/${ groupId }/topics`)
+  static async getGroupTopics({ groupId, limit, offset }) {
+    const response = await apiClient.getRequest(`/newForum/groups/${ groupId }/topics`, null, { limit, offset })
     return response
   }
 

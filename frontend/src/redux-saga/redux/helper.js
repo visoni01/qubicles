@@ -229,28 +229,35 @@ export const getUpdatedTopicsList = ({ state, payload }) => {
 }
 
 export const updateGroupTopics = (state, payload) => {
-  let updatedTopicsList
+  let updatedState
   switch (payload.type) {
     case ADD_GROUP_TOPIC: {
-      updatedTopicsList = [ ...state.topics, payload.newTopic ]
+      updatedState = {
+        ...state,
+        topics: [ ...state.topics, payload.newTopic ],
+        topicsCount: state.topicsCount + 1,
+      }
       break
     }
     case UPDATE_TOPIC_STATS: {
-      updatedTopicsList = state.topics.map((topic) => {
-        if (topic.id === payload.topicId) {
-          return {
-            ...topic,
-            [ payload.statType ]: topic.views + 1,
+      updatedState = {
+        ...state,
+        topics: state.topics.map((topic) => {
+          if (topic.id === payload.topicId) {
+            return {
+              ...topic,
+              [ payload.statType ]: topic[ payload.statType ] + 1,
+            }
           }
-        }
-        return topic
-      })
+          return topic
+        }),
+      }
       break
     }
     default:
       break
   }
-  return updatedTopicsList
+  return updatedState
 }
 
 export const getUpdatedJobsData = ({ state, payload }) => {
