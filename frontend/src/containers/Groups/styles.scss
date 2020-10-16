@@ -1,5 +1,35 @@
 @import '../../customStyles/scss/index.scss';
 
+.section-stats {
+  ul {
+    width: 100%;
+    justify-content: space-between;
+    padding: 0px 2px;
+    margin-top: 7px;
+    li {
+      @extend .para;
+      margin-right: 10%;
+      display: flex;
+      color: $color-dark-grey;
+        svg {
+          margin-top: 2px;
+          margin-right: 6px;
+          stroke: $color-dark-grey;
+          stroke-width: 60px;
+          color: white;
+          path {
+            &:hover {
+              color: white !important;
+            }
+          }
+        }
+        &:hover {
+          color: $color-dark-grey;
+        }
+    }
+  }
+}
+
 .group-list-root {
   padding: 20px 0;
 
@@ -36,6 +66,7 @@
 }
 
 .trending-topic-root{
+  @extend .section-stats;
   .topic-info {
     display: flex;
 
@@ -102,9 +133,18 @@
 }
 
 .topic-info {
+  @extend .section-stats;
   .action-buttons {
     width: 100%;
     padding: 10px 0;
+  }
+}
+
+.topics-pagination {
+  height: 32px;
+  margin: 30px 0 10px;
+  ul {
+    float: right;
   }
 }
 
@@ -135,6 +175,7 @@
     color: #4A4A4A;
   }
   .action-buttons{
+    @extend .section-stats;
     margin-top: 20px;
   }
 }
@@ -250,33 +291,7 @@
   }
 }
 
-ul {
-    width: 100%;
-    justify-content: space-between;
-    padding: 0px 2px;
-    margin-top: 7px;
-    li {
-      @extend .para;
-      margin-right: 10%;
-      display: flex;
-      color: $color-dark-grey;
-        svg {
-          margin-top: 2px;
-          margin-right: 6px;
-          stroke: $color-dark-grey;
-          stroke-width: 60px;
-          color: white;
-          path {
-            &:hover {
-              color: white !important;
-            }
-          }
-        }
-        &:hover {
-          color: $color-dark-grey;
-        }
-    }
-  }
+
 
   .topic-name-button {
     min-width: min-content;

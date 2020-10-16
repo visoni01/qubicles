@@ -18,6 +18,8 @@ import NewTopicForm from './newTopic'
 import { formatDate } from '../../utils/common'
 import SelectedTopic from './topic'
 import { UPDATE_TOPIC_STATS } from '../../redux-saga/redux/constants'
+import TopicsList from './topicsList'
+import ScrollToTop from '../../components/ScrollToTop'
 
 const SelectedGroup = ({ group }) => {
   const { id, title, description } = group
@@ -25,12 +27,6 @@ const SelectedGroup = ({ group }) => {
   const [ selectedTopic, setSelectedTopic ] = useState('')
   const { topics } = useSelector((state) => state.groupTopics)
   const { userDetails } = useSelector((state) => state.login)
-
-  useEffect(() => {
-    if (id) {
-      dispatch(groupTopicsFetchingStart({ groupId: id }))
-    }
-  }, [ id ])
 
   // eslint-disable-next-line
   const changeTopicFormStatus = useCallback((status) => setSelectedTopic(status),
@@ -56,11 +52,14 @@ const SelectedGroup = ({ group }) => {
 
   if (typeof (selectedTopic) === 'number' && selectedTopic !== 'new') {
     return (
-      <SelectedTopic
-        topicDetails={ topics && topics[ selectedTopic ] }
-        backToGroup={ changeTopicFormStatus }
-        groupTitle={ title }
-      />
+      <>
+        <SelectedTopic
+          topicDetails={ topics && topics[ selectedTopic ] }
+          backToGroup={ changeTopicFormStatus }
+          groupTitle={ title }
+        />
+        <ScrollToTop manualScroll />
+      </>
     )
   }
 
@@ -100,73 +99,7 @@ const SelectedGroup = ({ group }) => {
           </Button>
         </div>
       </div>
-      <Box className='primary-box padding-20'>
-        <div className='section-heading display-inline-flex width-100-per'>
-          <h3 className='h3'>
-            Topics in
-            {' '}
-            {title}
-          </h3>
-          <IconButton className='action-button'>
-            <FontAwesomeIcon icon={ faSlidersH } />
-          </IconButton>
-        </div>
-        <div className='mt-10'>
-          {topics.length ? topics.map((topic, index) => (
-            <>
-              <div className='display-inline-flex topic-info width-100-per' key={ topic.id }>
-                <Avatar className='mr-10' src={ carolin } />
-                <div className='width-100-per'>
-                  <Button
-                    className='h4'
-                    onClick={ () => selectTopic(index, topic.id) }
-                    classes={ { root: ' background-none-hover no-padding' } }
-                  >
-                    {topic.title}
-                  </Button>
-                  <div className='display-inline-flex width-100-per'>
-                    <p className='para'>
-                      {topic.ownerName}
-                    </p>
-                    <p className='date ml-20'>
-                      {formatDate(topic.createdAt, 'MMMM DD YYYY, hh:mm a')}
-                    </p>
-                  </div>
-                  <div>
-                    <ul className='display-inline-flex action-buttons'>
-                      <li>
-                        <FontAwesomeIcon icon={ faHeart } />
-                        274 Likes
-                      </li>
-                      <li>
-                        <FontAwesomeIcon icon={ faComment } />
-                        <p>
-                          {topic.commentsCount}
-                          {' '}
-                          Comments
-                        </p>
-                      </li>
-                      <li>
-                        <FontAwesomeIcon icon={ faEye } />
-                        <p>
-                          {topic.views}
-                          {' '}
-                          Views
-                        </p>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              { (index + 1 < topics.length) && <Divider className='mb-30' />}
-            </>
-          )) : (
-            <h4 className='h4 text-align-center padding-20'>
-              No topics to show
-            </h4>
-          )}
-        </div>
-      </Box>
+      <TopicsList groupId={ id } groupTitle={ title } setSelectedTopic={ selectTopic } />
     </>
   )
 }
