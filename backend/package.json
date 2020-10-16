@@ -11,7 +11,7 @@
     "sequelize:seed": "./node_modules/.bin/sequelize db:seed:all",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf dist && mkdir dist",
-    "build-production": "babel . -d ./dist -s --copy-files --ignore node_modules,yarn-v1.5.1",
+    "build-production": "babel . -d ./dist -s --copy-files --include-dotfiles --ignore node_modules,yarn-v1.5.1",
     "build": "npm run clean && npm run build-production",
     "start-prod-server": "pm2 start dist/bin/qbe -p 4000"
   },
