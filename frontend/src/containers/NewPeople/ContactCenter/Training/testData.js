@@ -1,11 +1,14 @@
 const courseCategories = [
   'Accounting',
   'Client Service',
-  'Maximus Nec',
-  'Dolor Lorem Bimbendum',
-  'Holeesdd',
-  'Hithkle',
-  'Moknsd',
+  'Human Resources',
+  'Inbound',
+  'Operations',
+  'Outbound',
+  'Quality Assurance',
+  'Sales',
+  'Support',
+  'Telemarketing',
 ]
 
 const courseCards = [
