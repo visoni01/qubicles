@@ -33,7 +33,7 @@ const TopTalent = ({ heading }) => {
       <Divider className='divider' />
 
       <div className='display-inline-flex top-talent'>
-        <Avatar className='profile-pic' alt='Chad Green' src={ sally } />
+        <Avatar className='profile-pic' alt='Chad Green' src={ kareem } />
         <div className='candidate-info'>
           <span className='candidate-name'>Chad Green</span>
           <Rating
@@ -51,7 +51,7 @@ const TopTalent = ({ heading }) => {
       <Divider className='divider' />
 
       <div className='display-inline-flex top-talent'>
-        <Avatar className='profile-pic' alt='Randy Williamson' src={ kareem } />
+        <Avatar className='profile-pic' alt='Randy Williamson' src={ sally } />
         <div className='candidate-info'>
           <span className='candidate-name'>Janice Fox</span>
           <Rating
