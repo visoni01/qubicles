@@ -1,5 +1,12 @@
 @import '../../../customStyles/scss/index.scss';
 
+//Box styles
+.box {
+  border: 1px solid $color-border;
+  box-shadow: none;
+  padding: 30px;
+}
+
 // Active Tabs
 .people-active-tabs {
 
@@ -49,6 +56,12 @@
     @extend .h3;
     margin: 0px 0px 0px 24px;
     padding: 20px 0px;
+  }
+
+  .bold-filter-item {
+    @extend .para;
+    margin-left: 14px;
+    font-weight: bold;
   }
 }
 

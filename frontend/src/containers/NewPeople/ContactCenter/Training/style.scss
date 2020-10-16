@@ -2,7 +2,7 @@
 
 .courses-heading {
   @extend .h3;
-  margin: 10px;
+  margin-bottom: 20px;
 }
 .create-course-button {
   width: 200px;
@@ -22,6 +22,8 @@
   margin: 10px;
   border-radius: 8px;
   position: relative;
+  box-shadow: none;
+  border: 1px solid $color-border;
 }
 .course-image {
   height: 160px;
