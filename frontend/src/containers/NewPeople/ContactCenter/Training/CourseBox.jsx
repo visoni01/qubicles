@@ -2,8 +2,9 @@ import React from 'react'
 import {
   Box, Card, CardMedia, CardContent,
 } from '@material-ui/core'
-import './style.scss'
+import PropTypes from 'prop-types'
 import { Rating } from '@material-ui/lab'
+import './style.scss'
 
 const CourseBox = ({
   priceQbe, priceUsd, ratingValue, studentsCount, courseDescription, sectionsCount, language, imageUrl,
@@ -56,6 +57,17 @@ CourseBox.defaultProps = {
   sectionsCount: 8,
   language: 'English',
   imageUrl: 'https://picsum.photos/400/300',
+}
+
+CourseBox.propTypes = {
+  priceQbe: PropTypes.number,
+  priceUsd: PropTypes.number,
+  ratingValue: PropTypes.number,
+  studentsCount: PropTypes.number,
+  courseDescription: PropTypes.string,
+  sectionsCount: PropTypes.number,
+  language: PropTypes.string,
+  imageUrl: PropTypes.string,
 }
 
 export default CourseBox

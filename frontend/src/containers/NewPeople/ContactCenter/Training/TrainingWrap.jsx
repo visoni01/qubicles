@@ -3,6 +3,7 @@ import { Box, InputBase, Button } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import CourseBox from './CourseBox'
+import { courseCards } from './testData'
 
 const TrainingWrap = () => (
   <div>
@@ -27,11 +28,19 @@ const TrainingWrap = () => (
     <Box className='box'>
       <h3 className='courses-heading'>All Courses</h3>
       <div className='courses-container'>
-        <CourseBox />
-        <CourseBox />
-        <CourseBox />
-        <CourseBox />
-        <CourseBox />
+        {courseCards.map((cardInfo) => (
+          <CourseBox
+            key={ cardInfo.courseId }
+            priceQbe={ cardInfo.priceQbe }
+            priceUsd={ cardInfo.priceUsd }
+            ratingValue={ cardInfo.ratingValue }
+            studentsCount={ cardInfo.studentsCount }
+            courseDescription={ cardInfo.courseDescription }
+            sectionsCount={ cardInfo.sectionsCount }
+            language={ cardInfo.language }
+            imageUrl={ cardInfo.imageUrl }
+          />
+        ))}
       </div>
     </Box>
   </div>
