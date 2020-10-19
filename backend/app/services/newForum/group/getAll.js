@@ -23,7 +23,7 @@ export class ForumGetAllGroupService extends ServiceBase {
 
       return {
         message: 'GetAll Forum Groups fetch successfully',
-        data: forumGroups
+        groups: forumGroups
       }
     } catch (err) {
       logger.error(getErrorMessageForService('ForumGetAllGroupService'), err)
