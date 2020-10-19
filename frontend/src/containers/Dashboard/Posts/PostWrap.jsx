@@ -1,12 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Box } from '@material-ui/core'
-import './newStyles.scss'
 import PostHead from './PostHead'
 import PostBody from './PostBody'
-import { commentsArrayValidator } from './postValidators'
+import { commentsArrayValidator } from '../postValidators'
 
-const PostStatusWrap = ({
+const PostWrap = ({
   userActivityId,
   activityValue,
   activityCustom, createdAt, owner, userId, isPostLiked, likesCount, commentsCount, comments, commentLoading,
@@ -31,11 +30,11 @@ const PostStatusWrap = ({
   </Box>
 )
 
-PostStatusWrap.defaultProps = {
+PostWrap.defaultProps = {
   activityCustom: null,
 }
 
-PostStatusWrap.propTypes = {
+PostWrap.propTypes = {
   userId: PropTypes.number.isRequired,
   userActivityId: PropTypes.number.isRequired,
   activityCustom: PropTypes.string,
@@ -49,4 +48,4 @@ PostStatusWrap.propTypes = {
   commentLoading: PropTypes.bool.isRequired,
 }
 
-export default React.memo(PostStatusWrap)
+export default React.memo(PostWrap)

@@ -1,19 +1,25 @@
 import React from 'react'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
-import { Divider } from '@material-ui/core'
+import { Divider, Button } from '@material-ui/core'
 import RenderPostComments from './RenderPostComments'
-import Loader from '../../components/loaders/circularLoader'
-import { commentsArrayValidator } from './postValidators'
+import Loader from '../../../components/loaders/circularLoader'
+import { commentsArrayValidator } from '../postValidators'
 
-const PostComments = ({
+const PostCommentsWrap = ({
   comments, commentsCount, loadMoreCommentsCB, isCommentLoading,
 }) => (
   <>
     {!_.isEmpty(comments) && <Divider />}
     {comments.length < commentsCount && (
-      <div className='load-comments'>
-        <p onClick={ loadMoreCommentsCB }>View more comments</p>
+      <div className='view-more-comments-section'>
+        <Button
+          disableRipple
+          onClick={ loadMoreCommentsCB }
+        >
+          View More Comments
+        </Button>
+        {/* <p onClick={ loadMoreCommentsCB }>View more comments</p> */}
         {isCommentLoading && (
         <Loader
           className='view-more-comments-loader'
@@ -24,7 +30,7 @@ const PostComments = ({
         )}
       </div>
     )}
-    <div className='comments-body'>
+    <div className='comments-wrap'>
       {comments.map((comment) => (
         <RenderPostComments
           key={ comment.user_activity_id }
@@ -39,10 +45,10 @@ const PostComments = ({
   </>
 )
 
-PostComments.propTypes = {
+PostCommentsWrap.propTypes = {
   comments: commentsArrayValidator.isRequired,
   commentsCount: PropTypes.number.isRequired,
   loadMoreCommentsCB: PropTypes.func.isRequired,
   isCommentLoading: PropTypes.bool.isRequired,
 }
-export default PostComments
+export default PostCommentsWrap

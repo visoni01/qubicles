@@ -1,12 +1,15 @@
 import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
-import PostStatusLikeComment from './PostLikeComment'
-import PostComments from './PostComments'
-import PostCommentSection from './PostCommentSection'
-import config from '../../utils/config'
-import { addCommentToPost, fetchCommentForPost, setIsCommentLoading } from '../../redux-saga/redux/actions'
-import { commentsArrayValidator } from './postValidators'
+import PostIconsTray from './PostIconsTray'
+import PostCommentsWrap from '../PostComments/PostCommentsWrap'
+import AddComment from '../PostComments/AddComment'
+import config from '../../../utils/config'
+import {
+  addCommentToPost, fetchCommentForPost, setIsCommentLoading, updatePostData,
+} from '../../../redux-saga/redux/actions'
+import { commentsArrayValidator } from '../postValidators'
+import { SET_IS_COMMENT_LOADING } from '../../../redux-saga/redux/constants'
 
 const PostBody = ({
   userActivityId, activityValue, activityCustom, isPostLiked, likesCount, commentsCount, comments, commentLoading,
@@ -20,10 +23,12 @@ const PostBody = ({
   const [ offsetCount, changeOffsetCount ] = useState(0)
 
   const setIsLoading = () => {
-    // Set comment is loading
-    dispatch(setIsCommentLoading({
-      isLoading: true,
-      userActivityId,
+    dispatch(updatePostData({
+      type: SET_IS_COMMENT_LOADING,
+      data: {
+        isLoading: true,
+        userActivityId,
+      },
     }))
   }
 
@@ -75,7 +80,8 @@ const PostBody = ({
   }, [ commentLoading, showComments ])
 
   return (
-    <div className='post-content'>
+    // Post Body
+    <div className='post-body'>
       <p className='post-text'>
         { activityValue}
       </p>
@@ -83,7 +89,7 @@ const PostBody = ({
 
       {/* Post Like and comment */}
 
-      <PostStatusLikeComment
+      <PostIconsTray
         userActivityId={ userActivityId }
         isPostLiked={ isPostLiked }
         likesCount={ likesCount }
@@ -93,7 +99,7 @@ const PostBody = ({
 
       {showComments && (
         <>
-          <PostComments
+          <PostCommentsWrap
             loadMoreCommentsCB={ loadMoreCommentsCB }
             userActivityId={ userActivityId }
             comments={ comments }
@@ -101,7 +107,7 @@ const PostBody = ({
             isCommentLoading={ commentLoading }
           />
 
-          <PostCommentSection
+          <AddComment
             postComment={ postComment }
             isCommentLoading={ commentLoading }
           />

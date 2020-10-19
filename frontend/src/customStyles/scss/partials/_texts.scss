@@ -5,7 +5,7 @@
   text-align: left;
   color: $color-headings;
   text-transform: none;
-  letter-spacing: 0.5px;
+  letter-spacing: 0px;
   opacity: 1;
 }
 
@@ -33,7 +33,7 @@
 ==========================================================*/
 
 .para {
-  font: normal normal normal 14px/20px SF Pro Text;
+  font: normal normal normal 14px/20px $pro-font;
   text-align: left;
   letter-spacing: 0px;
   color: $color-paragraph;
@@ -44,7 +44,7 @@
 ==========================================================*/
 
 .text-link {
-  font: normal normal normal 14px/25px SF Pro Text;
+  font: normal normal normal 14px/25px $pro-font;
   text-align: left;
   letter-spacing: 0px;
   color: $color-primary;

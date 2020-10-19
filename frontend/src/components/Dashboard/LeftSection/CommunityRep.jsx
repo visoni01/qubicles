@@ -5,7 +5,7 @@ import { AvatarGroup } from '@material-ui/lab'
 import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfoCircle, faHeart, faUser } from '@fortawesome/free-solid-svg-icons'
-import { kareem, sally, thomas } from '../../assets/images/avatar'
+import { kareem, sally, thomas } from '../../../assets/images/avatar'
 
 const CommunityRep = () => {
   const { isLoading, communityRep } = useSelector((state) => state.communityRep)

@@ -3,10 +3,10 @@ import {
   Avatar, Divider, TextareaAutosize, Button,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import { terry } from '../../assets/images/avatar'
-import PostCommentSkeleton from './PostCommentSkeleton.jsx'
+import { terry } from '../../../assets/images/avatar'
+import PostCommentSkeleton from './PostCommentSkeleton'
 
-const PostCommentSection = ({ postComment, isCommentLoading }) => {
+const AddComment = ({ postComment, isCommentLoading }) => {
   const [ commentText, setCommentText ] = useState('')
   const handleCommentChange = (e) => {
     setCommentText(e.target.value)
@@ -27,7 +27,7 @@ const PostCommentSection = ({ postComment, isCommentLoading }) => {
       && <PostCommentSkeleton />}
       <Divider />
       <div
-        className='post-comment-container'
+        className='post-add-new-comment'
       >
         <Avatar className='comment-avatar' alt='Remy Sharp' src={ terry } />
         <div className='create-comment'>
@@ -73,9 +73,9 @@ const PostCommentSection = ({ postComment, isCommentLoading }) => {
   )
 }
 
-PostCommentSection.propTypes = {
+AddComment.propTypes = {
   postComment: PropTypes.func.isRequired,
   isCommentLoading: PropTypes.bool.isRequired,
 }
 
-export default PostCommentSection
+export default AddComment

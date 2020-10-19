@@ -1,87 +1,52 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import Announcement from '../../components/Dashboard/announcement'
-import CommunityRep from '../../components/Dashboard/communityRep'
-import JobPosting from '../../components/Dashboard/jobPosting'
-import ActiveUser from '../../components/Dashboard/activeUser'
-import Overview from '../../components/Dashboard/overview'
-import Post from '../../components/Dashboard/post'
-import ActivityDetail from '../../components/Dashboard/activityDetail'
+import { Grid } from '@material-ui/core'
+import { useDispatch } from 'react-redux'
+import { newNavBar } from '../../hoc/navbar'
+import CommunityRep from '../../components/Dashboard/LeftSection/CommunityRep'
+import LatestAnnouncement from '../../components/Dashboard/LeftSection/LatestAnnouncement'
+import JobPostings from '../../components/Dashboard/LeftSection/JobPostings'
 import { dashboardDataFetchingStart } from '../../redux-saga/redux/actions'
+import CheckrVerification from '../../components/Dashboard/LeftSection/ChekrVerification'
+import CreatePost from './Posts/CreatePost'
+import RenderPosts from './Posts/RenderPosts'
+import TodayActivity from '../../components/Dashboard/RightSection/TodaysActivity'
+import CustomerServiceOverview from '../../components/Dashboard/RightSection/CustomerServiceOverview'
+import SelfProductivity from '../../components/Dashboard/RightSection/SelfProductivity'
 import './style.scss'
-import withNavBar from '../../hoc/navbar'
-import CheckrVerification from '../../components/User/CheckrVerification'
 
 const Dashboard = () => {
   const dispatch = useDispatch()
-  const { userDetails } = useSelector((state) => state.login)
 
   // Fetching dashboard data
   useEffect(() => {
     dispatch(dashboardDataFetchingStart())
   }, [ dispatch ])
-
   return (
-    <>
-      <div className='dashboard-heading'>
-        { `Welcome to the Floor, ${ userDetails && userDetails.full_name } `}
-      </div>
-      <div id='main-dashboard' className='section-wrapper'>
-        <div id='basic-layout' className='columns dashboard-columns'>
-          <div className='column is-3'>
-            <CheckrVerification />
-            {/* Community Reputation  */}
-            <CommunityRep />
+    <Grid container spacing={ 3 }>
+      {/*  Left Section */}
+      <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
+        <CheckrVerification />
+        <CommunityRep />
+        <LatestAnnouncement />
+        <JobPostings />
+      </Grid>
 
-            {/* Announcement  */}
-            <Announcement />
+      {/* Center Section */}
+      <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 4 }>
+        {/* Create new post */}
+        <CreatePost />
+        {/* Render Posts */}
+        <RenderPosts />
+      </Grid>
 
-            {/* Posting  */}
-            <JobPosting />
-
-            {/* Active Users  */}
-            <ActiveUser />
-
-          </div>
-          <div className='column is-5'>
-            <Post />
-          </div>
-          <div className='column is-4'>
-            {/* Today's activity */ }
-            <ActivityDetail
-              title={ 'Today\'s activity' }
-              data={ [
-                { color: '#ffffff', number: '3,283', label: 'Calls' },
-                { color: '#92c47d', number: '3,283', label: 'Sales' },
-                { color: '#fed965', number: '3,283', label: 'Live' },
-                { color: '#cccccc', number: '3,283', label: 'Logged In' },
-                { color: '#6ea8dc', number: '3,283', label: 'Working' },
-                { color: '#419e16', number: '3,283', label: 'On a call' },
-              ] }
-            />
-
-            {/* Overview  */}
-
-            <Overview
-              title='Customer service overview'
-              data={ [
-                { number: '0.20', heading: 'Average speed of answer' },
-                { number: '2.45', heading: 'Marlon Mars' },
-              ] }
-            />
-
-            <Overview
-              title='Staff productivity highlights'
-              data={ [
-                { number: '76', heading: 'Calls per agent' },
-                { number: '2:45', heading: 'Average talk time' },
-              ] }
-            />
-          </div>
-        </div>
-      </div>
-    </>
+      {/* Right Section */}
+      <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
+        <TodayActivity />
+        <CustomerServiceOverview />
+        <SelfProductivity />
+      </Grid>
+    </Grid>
   )
 }
 
-export default withNavBar(Dashboard)
+export default newNavBar(Dashboard)

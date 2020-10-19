@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { postDataFetchingStart } from '../../redux-saga/redux/actions'
-import PostStatusWrap from './PostStatusWrap'
+import { postDataFetchingStart } from '../../../redux-saga/redux/actions'
+import PostWrap from './PostWrap'
 import PostSkeleton from './PostSkeleton'
 
 const RenderPosts = () => {
@@ -24,7 +24,7 @@ const RenderPosts = () => {
 
   return (
     posts.map((post) => (
-      <PostStatusWrap
+      <PostWrap
         userActivityId={ post.user_activity_id }
         activityValue={ post.activity_value }
         activityCustom={ post.activity_custom }

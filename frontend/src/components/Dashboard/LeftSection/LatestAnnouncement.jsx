@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box } from '@material-ui/core'
 import { useSelector } from 'react-redux'
-import { formatDate } from '../../utils/common'
+import { formatDate } from '../../../utils/common'
 
 const LatestAnnouncement = () => {
   const { isLoading, announcements } = useSelector((state) => state.announcement)

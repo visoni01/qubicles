@@ -1,18 +1,18 @@
 import React from 'react'
 import { Avatar } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import { formatDate } from '../../utils/common'
-import { terry } from '../../assets/images/avatar'
+import { formatDate } from '../../../utils/common'
+import { terry } from '../../../assets/images/avatar'
 
 const RenderPostComments = ({
   commentText, ownerName, createdAt,
 }) => (
-  <div className='comment-wrap'>
+  <div>
     <div className='comment-body'>
       <Avatar className='comment-avatar' alt='Remy Sharp' src={ terry } />
       <div>
         <h4 className='user-name'>
-          <b>{ownerName}</b>
+          {ownerName}
         </h4>
         <p className='date'>
           {formatDate(createdAt, 'MMMM DD YYYY, hh:mm a')}

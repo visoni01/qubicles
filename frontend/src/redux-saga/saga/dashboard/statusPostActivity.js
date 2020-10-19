@@ -12,10 +12,9 @@ import {
 import {
   UNLIKE_POST,
   LIKE_POST,
-  CREATE_POST_COMMENT_START, DELETE_POST_COMMENT, ADD_COMMENT_TO_POST, FETCH_COMMENT_FOR_POST, SET_IS_COMMENT_LOADING,
+  CREATE_POST_COMMENT_START, DELETE_POST_COMMENT, ADD_COMMENT_TO_POST, FETCH_COMMENT_FOR_POST,
 } from '../../redux/constants'
 import Dashboard from '../../service/dashboard'
-import { getSubstrForNotification } from '../../../utils/common'
 
 function* statusPostActivityWatcherStart() {
   yield takeLatest(
@@ -27,7 +26,6 @@ function* statusPostActivityWatcherStart() {
       DELETE_POST_COMMENT,
       ADD_COMMENT_TO_POST,
       FETCH_COMMENT_FOR_POST,
-      SET_IS_COMMENT_LOADING,
     ],
     statusPostActivityFetchingWorker,
   )
@@ -37,11 +35,6 @@ function* statusPostActivityFetchingWorker(action) {
   try {
     let msg
     switch (action.type) {
-      case SET_IS_COMMENT_LOADING: {
-        yield put(updatePostData({ type: action.type, data: action.payload }))
-        break
-      }
-
       case ADD_COMMENT_TO_POST: {
         const { commentData } = action.payload
         const { data } = yield Dashboard.addPostComment({ data: commentData })
