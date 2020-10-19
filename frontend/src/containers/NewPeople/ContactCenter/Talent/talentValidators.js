@@ -12,4 +12,11 @@ const talentCardValidator = {
   profileTags: PropTypes.arrayOf(PropTypes.string),
 }
 
-export { talentCardValidator }
+const topTalentCardValidator = {
+  candidateName: PropTypes.string,
+  candidateRating: PropTypes.number,
+  candidatePic: PropTypes.object,
+  profileName: PropTypes.string,
+}
+
+export { talentCardValidator, topTalentCardValidator }

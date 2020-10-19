@@ -124,6 +124,30 @@ const talentCards = [
   },
 ]
 
+const topTalents = [
+  {
+    candidateId: 0,
+    candidateName: 'Terry Garret',
+    candidateRating: 5,
+    candidatePic: terry,
+    profileName: 'Customer Service Specialist',
+  },
+  {
+    candidateId: 1,
+    candidateName: 'Chad Green',
+    candidateRating: 4.5,
+    candidatePic: kareem,
+    profileName: 'Customer Service Expert',
+  },
+  {
+    candidateId: 2,
+    candidateName: 'Janice Fox',
+    candidateRating: 5,
+    candidatePic: sally,
+    profileName: 'Customer Support Enthusiast',
+  },
+]
+
 const jobsCards = [
   {
     categoryId: 0,
@@ -188,5 +212,5 @@ const jobsCards = [
 ]
 
 export {
-  courseCategories, courseCards, talentCards, jobsCards,
+  courseCategories, courseCards, talentCards, jobsCards, topTalents,
 }

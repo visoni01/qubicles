@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import {
-  Avatar, Box, Divider, Button,
+  Avatar, Box, Button,
 } from '@material-ui/core'
 import Rating from '@material-ui/lab/Rating'
 import './styles.scss'
 import PropTypes from 'prop-types'
-import { terry, sally, kareem } from '../../../../assets/images/avatar'
+import { topTalents } from '../testData'
+import TopTalentCard from './TopTalentCard'
+import TalentCard from './TalentCard'
 
 const TopTalent = ({ heading }) => {
   const [ header, setHeader ] = useState(heading)
@@ -14,58 +16,17 @@ const TopTalent = ({ heading }) => {
       <h3>
         {header}
       </h3>
-      <div className='display-inline-flex top-talent'>
-        <Avatar className='profile-pic' alt='Terry Garret' src={ terry } />
-        <div className='candidate-info'>
-          <span className='candidate-name'>Terry Garret</span>
-          <Rating
-            className='rating-star'
-            name='read-only'
-            readOnly
-            size='small'
-            value={ 5 }
-            precision={ 0.1 }
+      {
+        topTalents.map((talent) => (
+          <TopTalentCard
+            key={ talent.candidateId }
+            candidateName={ talent.candidateName }
+            candidateRating={ talent.candidateRating }
+            candidatePic={ talent.candidatePic }
+            profileName={ talent.profileName }
           />
-          <p className='description'> Customer Service Specialist </p>
-          <Button className='text-button'>View Resume </Button>
-        </div>
-      </div>
-      <Divider className='divider' />
-
-      <div className='display-inline-flex top-talent'>
-        <Avatar className='profile-pic' alt='Chad Green' src={ kareem } />
-        <div className='candidate-info'>
-          <span className='candidate-name'>Chad Green</span>
-          <Rating
-            className='rating-star'
-            name='read-only'
-            readOnly
-            size='small'
-            value={ 5 }
-            precision={ 0.1 }
-          />
-          <p className='description'> Customer Service Expert </p>
-          <Button className='text-button'>View Resume </Button>
-        </div>
-      </div>
-      <Divider className='divider' />
-
-      <div className='display-inline-flex top-talent'>
-        <Avatar className='profile-pic' alt='Randy Williamson' src={ sally } />
-        <div className='candidate-info'>
-          <span className='candidate-name'>Janice Fox</span>
-          <Rating
-            className='rating-star'
-            name='read-only'
-            readOnly
-            size='small'
-            value={ 5 }
-            precision={ 0.1 }
-          />
-          <p className='description'> Customer Support Enthusiast </p>
-          <Button className='text-button'>View Resume </Button>
-        </div>
-      </div>
+        ))
+      }
     </Box>
   )
 }

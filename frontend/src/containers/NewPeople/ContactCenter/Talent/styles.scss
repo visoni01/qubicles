@@ -2,6 +2,7 @@
 
 .top-talent-root{
   border: 1px solid #DBDBDB;
+  padding-bottom: 0px;
 
   h3 {
     font-size: 18px;
@@ -13,6 +14,12 @@
 
   .top-talent {
     width: 100%;
+    margin-bottom: 15px;
+    border-bottom: 1px solid $color-border;
+
+    &:last-child {
+      border: none;
+    }
 
     .profile-pic {
       width: 56px;
@@ -23,6 +30,7 @@
     .candidate-info {
       align-self: center;
       width: calc(100% - 60px);
+      margin-bottom: 15px;
 
       .candidate-name {
         @extend .h4;

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import { Rating } from '@material-ui/lab'
 import './style.scss'
 
-const CourseBox = ({
+const CourseCard = ({
   priceQbe, priceUsd, ratingValue, studentsCount, courseDescription, sectionsCount, language, imageUrl,
 }) => (
   <div className='course-card-container'>
@@ -48,18 +48,19 @@ const CourseBox = ({
   </div>
 )
 
-CourseBox.defaultProps = {
+CourseCard.defaultProps = {
   priceQbe: 12,
   priceUsd: 12,
   ratingValue: 4.5,
   studentsCount: 503,
-  courseDescription: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
+  courseDescription: `Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+  Lorem Ipsum has been the industry`,
   sectionsCount: 8,
   language: 'English',
   imageUrl: 'https://picsum.photos/400/300',
 }
 
-CourseBox.propTypes = {
+CourseCard.propTypes = {
   priceQbe: PropTypes.number,
   priceUsd: PropTypes.number,
   ratingValue: PropTypes.number,
@@ -70,4 +71,4 @@ CourseBox.propTypes = {
   imageUrl: PropTypes.string,
 }
 
-export default CourseBox
+export default CourseCard
