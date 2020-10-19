@@ -124,4 +124,69 @@ const talentCards = [
   },
 ]
 
-export { courseCategories, courseCards, talentCards }
+const jobsCards = [
+  {
+    categoryId: 0,
+    categoryName: 'Accounting',
+    jobs: [
+      {
+        jobId: 0,
+        title: 'Looking for Experienced Customer Service Specialist',
+        required: 50,
+        hired: 6,
+        evaluating: 3,
+        pending: 2,
+      },
+      {
+        jobId: 1,
+        title: 'Looking for Outbound Sales Agent',
+        required: 20,
+        hired: 2,
+        evaluating: 6,
+        pending: 0,
+      },
+      {
+        jobId: 2,
+        title: 'Seeking Inbound Closer',
+        required: 60,
+        hired: 42,
+        evaluating: 10,
+        pending: 0,
+      },
+    ],
+  },
+  {
+    categoryId: 1,
+    categoryName: 'Client Services',
+    jobs: [
+      {
+        jobId: 3,
+        title: 'Looking for Client Service Manager',
+        required: 1,
+        hired: 0,
+        evaluating: 1,
+        pending: 0,
+      },
+      {
+        jobId: 4,
+        title: 'Seeking Client Account Manager',
+        required: 5,
+        hired: 3,
+        evaluating: 0,
+        pending: 0,
+      },
+      {
+        jobId: 5,
+        title: 'Looking for Director of Client Support',
+        required: 1,
+        hired: 0,
+        evaluating: 0,
+        pending: 0,
+      },
+    ],
+  },
+]
+
+export {
+  courseCategories, courseCards, talentCards, jobsCards,
+}
