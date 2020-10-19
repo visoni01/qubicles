@@ -1,10 +1,6 @@
 @import '../../../../customStyles/scss/index.scss';
 
 .contact-center-info-root {
-  // h2 {
-  //   @extend .h2;
-  //   font-size: 28px;
-  // }
 
   .contact-center-head {
     .MuiAvatar-root {
@@ -95,11 +91,6 @@
 
 }
 
-.divider {
-  width: 100%;
-  margin: 15px 0;
-}
-
 
 .job-post-root {
   .job-post-heading {
@@ -171,7 +162,7 @@
 }
 
 .job-application-root{
-  border: 1px solid #DBDBDB;
+  border: 1px solid $color-border;
 
   h3 {
     font-size: 18px;

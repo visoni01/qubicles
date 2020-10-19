@@ -1,12 +1,8 @@
 /* eslint-disable complexity */
 import React, { useState } from 'react'
-import {
-  Grid, Tabs, Tab,
-} from '@material-ui/core'
+import { Grid, Tabs, Tab } from '@material-ui/core'
 import JobsList from './Jobs/JobsList'
 import JobsPage from './Jobs/JobsPage'
-import JobPost from './Jobs/JobPost'
-import TalentFilter from './Talent/TalentFilter'
 import TalentPage from './Talent/TalentPage'
 import TopTalent from './Talent/TopTalent'
 import { newNavBar } from '../../../hoc/navbar'
@@ -30,7 +26,6 @@ const People = () => {
       </Grid>
       <Grid
         container
-        // spacing={ 2 }
         item
         xl={ spacingMid }
         lg={ spacingMid }
