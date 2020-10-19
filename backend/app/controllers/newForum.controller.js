@@ -76,7 +76,7 @@ export default class ForumController {
   }
 
   static async getTopicComments (req, res) {
-    const forumGetTopicCommentsResult = await ForumGetTopicCommentsService.execute({ ...req.body, ...req.params })
+    const forumGetTopicCommentsResult = await ForumGetTopicCommentsService.execute({ ...req.body, ...req.params, ...req.query })
     if (forumGetTopicCommentsResult.successful) {
       Responder.success(res, forumGetTopicCommentsResult.result)
     } else {

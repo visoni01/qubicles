@@ -135,7 +135,7 @@ export async function createForumTopic ({ topic_title, owner_id, topic_descripti
   return newTopic
 }
 
-export async function getForumTopicComments ({ topic_id }) {
+export async function getForumTopicComments ({ topic_id, limit, offset }) {
   let ownerIds = Array(0)
 
   // update number of the times topic visited.
@@ -149,6 +149,8 @@ export async function getForumTopicComments ({ topic_id }) {
       topic_id,
       is_deleted: false
     },
+    limit: JSON.parse(limit),
+    offset: JSON.parse(offset),
     order: [['createdAt', 'DESC']],
     raw: true
   })

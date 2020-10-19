@@ -1,13 +1,34 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
-  Avatar, Box, Divider,
+  Avatar, Box, Button, Divider,
 } from '@material-ui/core'
 import moment from 'moment'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import PropTypes from 'prop-types'
 import { carolin } from '../../assets/images/avatar/index'
+import { topicCommentsFetchingStart, loadMoreComments } from '../../redux-saga/redux/actions'
 
-const Comments = () => {
+const Comments = ({ topicId, commentsCount }) => {
+  const dispatch = useDispatch()
   const { comments } = useSelector((state) => state.topicComments)
+
+  const noOfCommentsPerReq = 10
+
+  const handleMoreComments = () => (
+    dispatch(loadMoreComments({
+      topicId,
+      limit: noOfCommentsPerReq,
+      offset: comments.length,
+    }))
+  )
+
+  useEffect(() => {
+    dispatch(topicCommentsFetchingStart({
+      topicId,
+      limit: noOfCommentsPerReq,
+      offset: comments.length || 0,
+    }))
+  }, [ dispatch, topicId ])
 
   return (
     <Box className='primary-box padding-20 comments-list'>
@@ -41,8 +62,21 @@ const Comments = () => {
           </h4>
         )}
       </div>
+      {(comments.length < commentsCount) && (
+      <Button
+        classes={ { root: 'load-more-comment' } }
+        onClick={ handleMoreComments }
+      >
+        Load more comments
+      </Button>
+      )}
     </Box>
   )
+}
+
+Comments.propTypes = {
+  topicId: PropTypes.number.isRequired,
+  commentsCount: PropTypes.number.isRequired,
 }
 
 export default Comments

@@ -18,10 +18,6 @@ const SelectedTopic = ({ backToGroup, topicDetails, groupTitle }) => {
   const dispatch = useDispatch()
   const backButton = useCallback(() => backToGroup(''), [ backToGroup ])
 
-  useEffect(() => {
-    dispatch(topicCommentsFetchingStart({ topicId: topicDetails.id }))
-  }, [ dispatch, topicDetails.id ])
-
   return (
     <>
       <Box className='primary-box padding-20 mb-20 topic-details-box'>
@@ -74,7 +70,7 @@ const SelectedTopic = ({ backToGroup, topicDetails, groupTitle }) => {
 
       <PostComment topicId={ topicDetails.id } />
 
-      <Comments />
+      <Comments topicId={ topicDetails.id } commentsCount={ topicDetails.commentsCount } />
     </>
   )
 }

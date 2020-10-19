@@ -149,8 +149,8 @@ class Forum {
     return response
   }
 
-  static async getTopicComments(topicId) {
-    const response = await apiClient.getRequest(`/newForum/topics/${ topicId }/comments`)
+  static async getTopicComments({ topicId, limit, offset }) {
+    const response = await apiClient.getRequest(`/newForum/topics/${ topicId }/comments`, null, { limit, offset })
     return response
   }
 

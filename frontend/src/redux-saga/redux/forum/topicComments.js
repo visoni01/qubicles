@@ -30,16 +30,14 @@ const {
       success: true,
       isLoading: false,
       comments: getDataForReducer(action, initialState.comments, 'comments'),
+      commentsCount: action.payload.commentsCount,
     }),
     topicCommentsFetchingFailure: (state, action) => ({
       ...state,
       error: true,
       isLoading: false,
     }),
-    updateTopicComments: (state, action) => ({
-      ...state,
-      comments: getUpdatedTopicComments({ state, payload: action.payload }),
-    }),
+    updateTopicComments: (state, action) => (getUpdatedTopicComments({ state, payload: action.payload })),
   },
 })
 

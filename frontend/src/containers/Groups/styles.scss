@@ -148,6 +148,16 @@
   }
 }
 
+.load-more-comment {
+  padding: 0;
+  background: white;
+  width: 100%;
+  span {
+    color: $color-primary-dark;
+    text-decoration: underline;
+  }
+}
+
 // Topic's Details section
 
 .topic-details-box {
