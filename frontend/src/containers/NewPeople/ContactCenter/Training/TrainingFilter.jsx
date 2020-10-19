@@ -2,7 +2,7 @@ import React from 'react'
 import {
   Box, Button, Divider, List, ListItem, ListItemText,
 } from '@material-ui/core'
-import { courseCategories } from './testData'
+import { courseCategories } from '../testData'
 import './style.scss'
 
 const TrainingFilter = () => (

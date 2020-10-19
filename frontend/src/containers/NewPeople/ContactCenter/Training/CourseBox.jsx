@@ -24,7 +24,7 @@ const CourseBox = ({
         image={ imageUrl }
         className='course-image'
       />
-      <CardContent>
+      <CardContent className='course-card-content'>
         <div>
           <Rating
             className='course-rating'

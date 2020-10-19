@@ -23,14 +23,18 @@
   border-radius: 8px;
   position: relative;
   box-shadow: none;
-  border: 1px solid $color-border;
+  // border: 2px solid $color-border;
 }
 .course-image {
   height: 160px;
+  border: none;
 }
 
-.course-rating {
-  color: $color-primary;
+.course-card-content {
+  border: 1px solid $color-border;
+  .MuiRating-root  {
+    color: $color-primary;
+  }
 }
 .total-students {
   @extend .para;

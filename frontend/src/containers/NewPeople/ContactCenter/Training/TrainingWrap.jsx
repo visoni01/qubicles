@@ -3,7 +3,7 @@ import { Box, InputBase, Button } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import CourseBox from './CourseBox'
-import { courseCards } from './testData'
+import { courseCards } from '../testData'
 
 const TrainingWrap = () => (
   <div>
