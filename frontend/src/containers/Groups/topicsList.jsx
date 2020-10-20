@@ -13,13 +13,14 @@ import { slice } from 'lodash'
 import { carolin } from '../../assets/images/avatar/index'
 import { formatDate } from '../../utils/common'
 import { groupTopicsFetchingStart } from '../../redux-saga/redux/actions'
+import ListSkeleton from './skeletons/topicsList'
 
 const Topics = ({ groupId, groupTitle, setSelectedTopic }) => {
   const dispatch = useDispatch()
   const [ currentPage, setCurrentPage ] = useState(1)
 
   const noOfTopicsPerPage = 10 // Temporary defined.
-  const { topics, topicsCount } = useSelector((state) => state.groupTopics)
+  const { topics, topicsCount, isLoading } = useSelector((state) => state.groupTopics)
   const noOfPages = Math.floor(topicsCount / noOfTopicsPerPage) + Math.sign(topicsCount % noOfTopicsPerPage)
 
   const changeCurrentPage = useCallback((_, page) => setCurrentPage(page), [])
@@ -33,6 +34,14 @@ const Topics = ({ groupId, groupTitle, setSelectedTopic }) => {
       }))
     }
   }, [ currentPage, groupId ])
+
+  if (isLoading) {
+    return (
+      <Box className='group-list-root primary-box padding-20'>
+        <ListSkeleton />
+      </Box>
+    )
+  }
 
   return (
     <Box className='primary-box padding-20'>

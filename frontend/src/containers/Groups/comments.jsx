@@ -7,10 +7,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import { carolin } from '../../assets/images/avatar/index'
 import { topicCommentsFetchingStart, loadMoreComments } from '../../redux-saga/redux/actions'
+import ListSkeleton from './skeletons/commentsList'
 
 const Comments = ({ topicId, commentsCount }) => {
   const dispatch = useDispatch()
-  const { comments } = useSelector((state) => state.topicComments)
+  const { comments, isLoading } = useSelector((state) => state.topicComments)
 
   const noOfCommentsPerReq = 10
 
@@ -29,6 +30,14 @@ const Comments = ({ topicId, commentsCount }) => {
       offset: 0,
     }))
   }, [ dispatch, topicId ])
+
+  if (isLoading) {
+    return (
+      <Box className='group-list-root primary-box padding-20'>
+        <ListSkeleton />
+      </Box>
+    )
+  }
 
   return (
     <Box className='primary-box padding-20 comments-list'>
