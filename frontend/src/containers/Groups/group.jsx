@@ -15,6 +15,7 @@ import TrendingTopics from './trendingTopics'
 import { carolin } from '../../assets/images/avatar/index'
 import { groupTopicsFetchingStart, addNewGroupTopic } from '../../redux-saga/redux/actions'
 import NewTopicForm from './newTopic'
+import { formatDate } from '../../utils/common'
 
 const SelectedGroup = ({ group }) => {
   const { id, title, description } = group
@@ -101,7 +102,7 @@ const SelectedGroup = ({ group }) => {
                       {topic.ownerName}
                     </p>
                     <p className='date ml-20'>
-                      {moment(topic.createdAt).format('MMMM DD YYYY, hh:mm a')}
+                      {formatDate(topic.createdAt, 'MMMM DD YYYY, hh:mm a')}
                     </p>
                   </div>
                   <div>

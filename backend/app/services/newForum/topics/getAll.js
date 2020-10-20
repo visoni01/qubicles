@@ -26,7 +26,7 @@ export class ForumGetGroupTopicsService extends ServiceBase {
       })
 
       return {
-        message: 'GetAll Forum Groups fetch successfully',
+        message: 'GetAll Forum Group\'s topics fetch successfully',
         topics: forumGroupTopics
       }
     } catch (err) {
