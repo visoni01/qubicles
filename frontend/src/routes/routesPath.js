@@ -1,7 +1,4 @@
 export const USER_ROUTE = '/users/'
-export const GROUP_ROUTE = '/group/'
-export const GROUP_CHANNEL_ROUTE = '/group/channels/'
-export const GROUP_TOPIC_ROUTE = '/group/topics/'
 
 const ROUTE_PATHS = {
   HOME: '/',
@@ -19,9 +16,7 @@ const ROUTE_PATHS = {
   POST_SIGN_UP: '/post-signup',
   INVITE_LINK: '/invite/:walletId',
   AUTH: '/auth',
-  GROUP: GROUP_ROUTE,
-  GROUP_CHANNEL: `${ GROUP_CHANNEL_ROUTE }:channelId`,
-  GROUP_TOPIC: `${ GROUP_TOPIC_ROUTE }:topicId`,
+  GROUP: '/group',
   PEOPLE: '/people',
   NEW_PEOPLE: '/new/people',
   JOB_POST: '/new/people/jobpost',
