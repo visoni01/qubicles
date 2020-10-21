@@ -15,10 +15,6 @@ import commentsSectionReducer from './dashboard/post/commentsSection'
 import dashboardReducer from './dashboard'
 import loaderReducer from './loader'
 import snackbarReducer from './snackbar'
-import categoryReducer from './forum/category'
-import channelDetailsReducer from './forum/channel/channelDetails'
-import channelTopicsListReducer from './forum/channel/channelTopicsList'
-import topicReducer from './forum/topic'
 import groupsReducer from './forum/groups'
 import groupTopicsReducer from './forum/groupTopics'
 import topicCommentsReducer from './forum/topicComments'
@@ -43,10 +39,6 @@ const rootReducer = combineReducers({
   communityRep: communityRepReducer,
   jobPosting: jobPostingReducer,
   activeUser: activeUserReducer,
-  category: categoryReducer,
-  channel: channelDetailsReducer,
-  channelTopicsList: channelTopicsListReducer,
-  topic: topicReducer,
   groups: groupsReducer,
   groupTopics: groupTopicsReducer,
   topicComments: topicCommentsReducer,
