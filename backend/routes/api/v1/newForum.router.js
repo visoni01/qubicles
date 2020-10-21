@@ -1,7 +1,9 @@
 import express from 'express'
 import { isAuthenticated } from './../../../app/middlewares/isAuthenticated'
 import forumController from '../../../app/controllers/newForum.controller'
+import multer from 'multer'
 
+const multerUpload = multer()
 const args = { mergeParams: true }
 const newForumRouter = express.Router(args)
 
@@ -31,5 +33,8 @@ newForumRouter.route('/topics/:topic_id/comments')
 
 newForumRouter.route('/topics/:topic_id/comments')
   .post(isAuthenticated, forumController.createTopicComment)
+
+newForumRouter.route('/image')
+  .post(multerUpload.single('file'), isAuthenticated, forumController.imageUpload)
 
 export { newForumRouter }

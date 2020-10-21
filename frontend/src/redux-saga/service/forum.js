@@ -4,7 +4,7 @@ class Forum {
   static async imageUpload({ data }) {
     const response = await axiosInst({
       method: 'post',
-      url: '/forum/image',
+      url: '/newForum/image',
       data,
       headers: { 'Content-Type': 'multipart/form-data' },
     })
