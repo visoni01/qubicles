@@ -1,111 +1,266 @@
 import React, { useState, useCallback } from 'react'
 import {
-  Box, Divider, Select, MenuItem, FormControl, RadioGroup, Radio, FormControlLabel,
+  Box, Divider, FormControl, InputLabel, Select, RadioGroup, FormControlLabel, Radio, Checkbox, InputBase,
 } from '@material-ui/core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSlidersH, faSearch } from '@fortawesome/free-solid-svg-icons'
-import './styles.scss'
+import { Rating } from '@material-ui/lab'
 
 const TalentFilter = () => {
-  const [ skills, setSkills ] = useState('')
-  const [ language, setLanguage ] = useState('English')
-  const [ talentType, setTalentType ] = useState('')
-  const [ hourlyRate, setHourlyRate ] = useState('')
-
-  const handleTalentChange = (event) => {
-    setTalentType(event.target.value)
+  const verificationsInitial = {
+    backgroundCheck: false,
+    phoneVerified: false,
+    idVerified: false,
   }
 
-  const handleHourlyRateChange = (event) => {
-    setHourlyRate(event.target.value)
-  }
+  const [ selectedSkill, setSkill ] = useState('')
+  const [ selectedLanguage, setLanguage ] = useState('')
+  const [ selectedTalentType, setTalentType ] = useState('Any')
+  const [ selectedHourlyRate, setHourlyRate ] = useState('Any')
+  const [ selectedRating, setRating ] = useState('Any')
+  const [ selectedVerifications, setVerifications ] = useState(verificationsInitial)
+  const [ selectedAvailability, setAvailability ] = useState('Any')
+  const [ selectedLocation, setLocation ] = useState('')
 
-  const setSkillsCB = useCallback((event) => {
-    setSkills(event.target.value)
+  // console.log('===============================')
+  // console.log('selectedSkill =====', selectedSkill)
+  // console.log('selectedLanguage =====', selectedLanguage)
+  // console.log('selectedTalentType =====', selectedTalentType)
+  // console.log('selectedHourlyRate =====', selectedHourlyRate)
+  // console.log('selectedRating =====', selectedRating)
+  // console.log('selectedVerifications =====', selectedVerifications)
+  // console.log('selectedAvailability =====', selectedAvailability)
+  // console.log('selectedLocation =====', selectedLocation)
+
+  // Skills
+  const availableSkills = [ 'Customer Service', 'Phone Calling', 'Email Support', 'Active Sales', 'Agent Support' ]
+  const setSkillCB = useCallback((e) => {
+    setSkill(e.target.value)
   }, [])
 
-  const setLanguageCB = useCallback((event) => {
-    setLanguage(event.target.value)
+  // Languages
+  const availableLanguages = [ 'English', 'French', 'German', 'Chinese', 'Turkish' ]
+  const setLanguageCB = useCallback((e) => {
+    setLanguage(e.target.value)
   }, [])
+
+  // Talent Type
+  const availableTalentTypes = [ 'Freelancer', 'Contract', 'Employee' ]
+  const setTalentTypeCB = useCallback((e) => {
+    setTalentType(e.target.value)
+  }, [])
+
+  // Hourly Rate
+  const setHourlyRateCB = useCallback((e) => {
+    setHourlyRate(e.target.value)
+  }, [])
+
+  // Rating
+  const setRatingCB = useCallback((e) => {
+    setRating(e.target.value)
+  }, [])
+
+  // Verifications
+  const setVerificationsCB = useCallback((e) => {
+    setVerifications({
+      ...selectedVerifications,
+      [ e.target.name ]: e.target.checked,
+    })
+  })
+
+  // Availability
+  const setAvailabilityCB = useCallback((e) => {
+    setAvailability(e.target.value)
+  })
+
+  // Location
+  const setLocationCB = useCallback((e) => {
+    setLocation(e.target.value)
+  })
 
   return (
-    <Box className='talent-filter-root'>
-      <h2 className='ml-20'>Talent</h2>
-      <div className='talent-filter-title ml-20'>
-        <h3> Filter </h3>
-      </div>
-      <Divider />
-      <div className='talent-dropdown'>
+    <Box className='side-filter-root talent-filter'>
+      <h2 className='title talent-title'>Talent</h2>
+      <h3 className='subtitle talent-subtitle'> Filter </h3>
+      <Divider className='full-border' />
+
+      <div className='filter-section'>
+        <h4 className='heading'> Skills </h4>
         <div>
-          <label>Skills</label>
+          <FormControl variant='outlined' className='filter-dropdown'>
+            <InputLabel>Choose required skills</InputLabel>
+            <Select
+              native
+              label='Choose required skills'
+              onChange={ setSkillCB }
+            >
+              <option aria-label='None' value='' />
+              {availableSkills.map((skill) => (
+                <option key={ skill } value={ skill }>
+                  {skill}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
         </div>
-        <FormControl>
-          <Select
-            MenuProps={ {
-              getContentAnchorEl: null,
-              anchorOrigin: {
-                vertical: 'bottom',
-                horizontal: 'left',
-              },
-            } }
-            name='skills'
-            id='skills'
-            className='dropdown'
-            onChange={ setSkillsCB }
-            value={ skills }
-          >
-            <MenuItem value='skill 1'>skill 1</MenuItem>
-            <MenuItem value='skill 2'>skill 2</MenuItem>
-            <MenuItem value='skill 3'>skill 3</MenuItem>
-          </Select>
-        </FormControl>
-        <div>
-          <label>Languages</label>
-        </div>
-        <FormControl>
-          <Select
-            MenuProps={ {
-              getContentAnchorEl: null,
-              anchorOrigin: {
-                vertical: 'bottom',
-                horizontal: 'left',
-              },
-            } }
-            name='Languages'
-            id='Languages'
-            onChange={ setLanguageCB }
-            value={ language }
-            className='dropdown'
-          >
-            <MenuItem value='English'>English</MenuItem>
-            <MenuItem value='Spanish'>Spanish</MenuItem>
-            <MenuItem value='French'>French</MenuItem>
-          </Select>
-        </FormControl>
-        <FormControl>
-          <div>
-            <label>Talent Type</label>
-          </div>
-          <RadioGroup aria-label='Talent Type' name='talent-type' value={ talentType } onChange={ handleTalentChange }>
-            <FormControlLabel value='freelancer' control={ <Radio /> } label='Freelancer' />
-            <FormControlLabel value='contract' control={ <Radio /> } label='Contract' />
-            <FormControlLabel value='employee' control={ <Radio /> } label='Employee' />
-          </RadioGroup>
-        </FormControl>
-        <FormControl>
-          <div>
-            <label>Hourly Rate</label>
-          </div>
-          <RadioGroup aria-label='Hourly Rate' name='hourly-rate' value={ hourlyRate } onChange={ handleHourlyRateChange }>
-            <FormControlLabel value='any' control={ <Radio /> } label='Any' />
-            <FormControlLabel value='$10' control={ <Radio /> } label='10$ & below' />
-            <FormControlLabel value='$15' control={ <Radio /> } label='$10 - $15' />
-            <FormControlLabel value='$20' control={ <Radio /> } label='$15 - $20' />
-            <FormControlLabel value='above' control={ <Radio /> } label='$20 & above' />
-          </RadioGroup>
-        </FormControl>
       </div>
 
+      <div className='filter-section'>
+        <h4 className='heading'> Languages </h4>
+        <div>
+          <FormControl variant='outlined' className='filter-dropdown'>
+            <InputLabel>Choose required languages</InputLabel>
+            <Select
+              native
+              label='Choose required languages'
+              onChange={ setLanguageCB }
+            >
+              <option aria-label='None' value='' />
+              {availableLanguages.map((language) => (
+                <option key={ language } value={ language }>
+                  {language}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+        </div>
+      </div>
+
+      <div className='filter-section'>
+        <h4 className='heading'> Talent Type </h4>
+        <div className='radio-button-wrapper'>
+          <RadioGroup
+            className='radio-buttons'
+            value={ selectedTalentType }
+            onChange={ setTalentTypeCB }
+          >
+            <FormControlLabel value='Any' control={ <Radio /> } label='Any' />
+            {availableTalentTypes.map((talentType) => (
+              <FormControlLabel
+                key={ talentType }
+                value={ talentType }
+                control={ <Radio /> }
+                label={ talentType }
+              />
+            ))}
+          </RadioGroup>
+        </div>
+      </div>
+
+      <div className='filter-section'>
+        <h4 className='heading'> Hourly rate </h4>
+        <div className='radio-button-wrapper'>
+          <RadioGroup
+            className='radio-buttons'
+            value={ selectedHourlyRate }
+            onChange={ setHourlyRateCB }
+          >
+            <FormControlLabel value='Any' control={ <Radio /> } label='Any' />
+            <FormControlLabel value='tenAndBelow' control={ <Radio /> } label='10$ & below' />
+            <FormControlLabel value='tenToFifteen' control={ <Radio /> } label='$10 - $15' />
+            <FormControlLabel value='fifteenToTwenty' control={ <Radio /> } label='$15 - $20' />
+            <FormControlLabel value='twentyAndAbove' control={ <Radio /> } label='$20 & above' />
+          </RadioGroup>
+        </div>
+      </div>
+
+      <div className='filter-section'>
+        <h4 className='heading'> Rating </h4>
+        <div className='radio-button-wrapper'>
+          <RadioGroup
+            className='radio-buttons'
+            value={ selectedRating }
+            onChange={ setRatingCB }
+          >
+            <FormControlLabel value='Any' control={ <Radio /> } label='Any Rating' />
+            <div className='rating-filter'>
+              <FormControlLabel value='five' control={ <Radio /> } />
+              <Rating
+                readOnly
+                className='rating-star'
+                size='small'
+                value={ 5 }
+              />
+            </div>
+            <div className='rating-filter'>
+              <FormControlLabel value='fourAndAbove' control={ <Radio /> } />
+              <Rating
+                readOnly
+                className='rating-star'
+                size='small'
+                value={ 4 }
+              />
+              <span className='rating-text'> & up </span>
+            </div>
+            <div className='rating-filter'>
+              <FormControlLabel value='threeAndAbove' control={ <Radio /> } />
+              <Rating
+                readOnly
+                className='rating-star'
+                size='small'
+                value={ 3 }
+              />
+              <span className='rating-text'> & up </span>
+            </div>
+          </RadioGroup>
+        </div>
+      </div>
+
+      <div className='filter-section'>
+        <h4 className='heading'> Verifications </h4>
+        <div className='radio-button-wrapper'>
+          <FormControl
+            className='checkboxes'
+          >
+            <FormControlLabel
+              name='phoneVerified'
+              control={ <Checkbox /> }
+              label='Phone Verified'
+              onChange={ setVerificationsCB }
+            />
+
+            <FormControlLabel
+              name='idVerified'
+              control={ <Checkbox /> }
+              label='ID Verified'
+              onChange={ setVerificationsCB }
+            />
+
+            <FormControlLabel
+              name='backgroundCheck'
+              control={ <Checkbox /> }
+              label='Background Check'
+              onChange={ setVerificationsCB }
+            />
+          </FormControl>
+        </div>
+      </div>
+
+      <div className='filter-section'>
+        <h4 className='heading'> Availability </h4>
+        <div className='radio-button-wrapper'>
+          <RadioGroup
+            className='radio-buttons'
+            value={ selectedAvailability }
+            onChange={ setAvailabilityCB }
+          >
+            <FormControlLabel value='Any' control={ <Radio /> } label='Any' />
+            <FormControlLabel value='available' control={ <Radio /> } label='Available' />
+            <FormControlLabel value='unavailable' control={ <Radio /> } label='Unavailable' />
+            <FormControlLabel value='onVacation' control={ <Radio /> } label='On Vacation' />
+          </RadioGroup>
+        </div>
+      </div>
+
+      <div className='filter-section'>
+        <h4 className='heading'> Location </h4>
+        <div className='radio-button-wrapper'>
+          <InputBase
+            placeholder='Any (Remote)'
+            className='filter-input'
+            value={ selectedLocation }
+            onChange={ setLocationCB }
+          />
+        </div>
+      </div>
     </Box>
   )
 }

@@ -16,15 +16,15 @@ import TrainingWrap from './Training/TrainingWrap'
 import './newStyles.scss'
 
 const People = () => {
-  const [ activeTab, setActivetab ] = useState(0)
+  const [ activeTab, setActivetab ] = useState(1)
   const spacingMid = activeTab === 2 ? 9 : 6
   const spacingTab = activeTab === 2 ? 8 : 12
   return (
     <Grid container spacing={ 3 }>
-      <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 } alignItems='flex-start'>
+      <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 } alignItems='flex-start'>
         <div>
           { activeTab === 0 && <JobsList />}
-          { activeTab === 1 && <JobsList />}
+          { activeTab === 1 && <TalentFilter />}
           { activeTab === 2 && <TrainingFilter />}
         </div>
       </Grid>
@@ -32,6 +32,7 @@ const People = () => {
         container
         // spacing={ 2 }
         item
+        spacing={ 10 }
         xl={ spacingMid }
         lg={ spacingMid }
         md={ spacingMid }

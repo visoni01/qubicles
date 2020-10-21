@@ -26,7 +26,7 @@ const TalentCard = ({
                 className='rating-star'
                 name='read-only'
                 readOnly
-                size='large'
+                size='small'
                 value={ candidateRating }
                 precision={ 0.1 }
               />

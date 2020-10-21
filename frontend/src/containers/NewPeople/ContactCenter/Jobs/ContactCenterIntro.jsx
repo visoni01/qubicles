@@ -26,7 +26,7 @@ const ContactCenterIntro = () => (
       </div>
       <div className='display-inline-flex contact-center-head'>
         <Avatar className='profile-pic' alt='good' src={ good } />
-        <div className='company-info'>
+        <div className='company-info-wrapper'>
           <Rating
             className='rating-star'
             name='read-only'
@@ -35,12 +35,15 @@ const ContactCenterIntro = () => (
             value={ 5 }
             precision={ 0.1 }
           />
-          <h4>Good Call Center</h4>
-          <p className='location'>
-            <FontAwesomeIcon icon={ faMapMarkerAlt } />
-            San Francisco, CA
-          </p>
-          <p className='date'> Member since 11/2020 </p>
+          <div className='company-info'>
+
+            <h4>Good Call Center</h4>
+            <p className='location'>
+              <FontAwesomeIcon icon={ faMapMarkerAlt } />
+              San Francisco, CA
+            </p>
+            <p className='date'> Member since 11/2020 </p>
+          </div>
         </div>
       </div>
       <h4 className='contact-center-title'>

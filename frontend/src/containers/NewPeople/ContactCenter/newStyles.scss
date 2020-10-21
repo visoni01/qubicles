@@ -54,6 +54,7 @@
   border: 1px solid $color-border;
   border-radius: 8px;
   box-shadow: none;
+  padding-bottom: 30px;
 
   .title {
     @extend .h2;
@@ -64,6 +65,17 @@
     @extend .h3;
     margin: 0px 0px 0px 24px;
     padding: 20px 0px;
+  }
+
+  .heading {
+    @extend .h4;
+    margin: 0px 0px 0px 24px;
+  }
+
+  .sub-heading {
+    @extend .h4;
+    margin: 0px 0px 0px 24px;
+    font-weight: 500;
   }
 
   .bold-filter-item {

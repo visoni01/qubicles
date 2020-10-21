@@ -103,15 +103,17 @@ const JobPost = () => (
       <div className='display-inline-flex job-application-head'>
         <Avatar className='profile-pic' alt='Terry Garret' src={ terry } />
         <div className='candidate-info'>
-          <b>Terry Garret</b>
-          <Rating
-            className='rating-star'
-            name='read-only'
-            readOnly
-            size='large'
-            value={ 5 }
-            precision={ 0.1 }
-          />
+          <div className='candidate-head'>
+            <h4>Terry Garret</h4>
+            <Rating
+              className='rating-star'
+              name='read-only'
+              readOnly
+              size='small'
+              value={ 5 }
+              precision={ 0.1 }
+            />
+          </div>
           <Button className='text-button'>View full application </Button>
           <p className='description'> Customer Service Specialist </p>
         </div>

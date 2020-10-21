@@ -27,7 +27,7 @@ const CourseCard = ({
       <CardContent className='course-card-content'>
         <div>
           <Rating
-            className='course-rating'
+            className='rating-star'
             name='read-only'
             readOnly
             size='small'

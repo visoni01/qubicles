@@ -26,7 +26,7 @@ const CommunityRep = () => {
             name='read-only'
             readOnly
             size='large'
-            value={ rating }
+            value={ 4.3 }
             precision={ 0.1 }
           />
         )}

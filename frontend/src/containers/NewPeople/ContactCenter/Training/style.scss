@@ -31,8 +31,9 @@
 
 .course-card-content {
   border: 1px solid $color-border;
-  .MuiRating-root  {
-    color: $color-primary;
+
+  .rating-star {
+    margin-left: 0px;
   }
 }
 .total-students {
