@@ -23,6 +23,9 @@ const ROUTE_PATHS = {
   GROUP_CHANNEL: `${ GROUP_CHANNEL_ROUTE }:channelId`,
   GROUP_TOPIC: `${ GROUP_TOPIC_ROUTE }:topicId`,
   PEOPLE: '/people',
+  NEW_PEOPLE: '/new/people',
+  JOB_POST: '/new/people/jobpost',
+  VIEW_RESUME: '/new/people/view-resume',
   CREATE_COURSE: '/new/people/course/create',
 }
 

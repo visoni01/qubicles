@@ -1,4 +1,6 @@
-import { kareem, terry, sally } from '../../../assets/images/avatar'
+import {
+  kareem, terry, sally, good,
+} from '../../../assets/images/avatar'
 
 const courseCategories = [
   'Accounting',
@@ -235,6 +237,39 @@ const jobsCards = [
   },
 ]
 
+const contactCenterIntroduction = {
+  imageName: 'good',
+  rating: 5,
+  imageSrc: good,
+  name: 'Good Call Center',
+  location: 'San Francisco, CA',
+  date: 'Member since 11/2020',
+  title: 'Innovative Call Center',
+  description: `Whether you are looking for work in a contact center, seeking cloud-based contact center software
+  or you are in the market for talent, we have got you covered. Powered by blockchain smart contracts with no
+  middlemen involved, our patent-pending technology ensures the right agent is matched to the right position at
+  the right time. Members of our team have been on the battlefield as agents, supervisors and executives. We know
+  firsthand how irate customers respond, what makes employees happy, the key performance metrics for contact centers,
+  and how the right technology can make a difference.`,
+}
+
+const testResumeIntroduction = {
+  imageName: 'terry',
+  rating: 5,
+  imageSrc: terry,
+  name: 'Terry Garret',
+  location: 'San Francisco, CA',
+  date: 'Member since 11/2020',
+  title: 'Customer Service Specialist',
+  description: ` Over 25 years of experience. I am a seasoned marketing professional. I work well in  a dedicated home
+  office with a desk. I am able to adhere to a time schedule and am flexible in my availability. I am college educated
+  and have a medical background as well in pharmaceutical customer service. I have experience in fundraising,
+  appointment setting, market research surverys, phone sales, cold calling, and businees to business sales and
+  appointments. I have experience in voice-over work as well for different businesses. Especially enjoying realestate,
+  insurance, and healthcare field assignments. I have also done data scraping and skip tracing handling collections
+  accounts..`,
+}
+
 export {
-  courseCategories, courseCards, talentCards, jobsCards, topTalents,
+  courseCategories, courseCards, talentCards, jobsCards, topTalents, contactCenterIntroduction, testResumeIntroduction,
 }

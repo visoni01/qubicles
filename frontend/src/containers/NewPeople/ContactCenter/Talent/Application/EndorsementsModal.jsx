@@ -12,7 +12,12 @@ import '../styles.scss'
 const Endorsements = ({
   open, handleClose,
 }) => (
-  <Dialog open={ open } onClose={ handleClose } classes={ { paper: 'endorsement-modal' } }>
+  <Dialog
+    disableScrollLock
+    open={ open }
+    onClose={ handleClose }
+    classes={ { paper: 'endorsement-modal' } }
+  >
     <div className='is-flex'>
       <DialogTitle className='width-full'>
         <h2> Endorsements </h2>

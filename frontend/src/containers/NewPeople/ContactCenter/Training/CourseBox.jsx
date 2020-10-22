@@ -25,7 +25,7 @@ const CourseCard = ({
         className='course-image'
       />
       <CardContent className='course-card-content'>
-        <div>
+        <div className='rating-text'>
           <Rating
             className='rating-star'
             name='read-only'

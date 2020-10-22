@@ -25,7 +25,12 @@ const InviteAgent = ({
   }
 
   return (
-    <Dialog open={ open } onClose={ handleClose } classes={ { paper: 'invite-agent-modal' } }>
+    <Dialog
+      disableScrollLock
+      open={ open }
+      onClose={ handleClose }
+      classes={ { paper: 'invite-agent-modal' } }
+    >
       <div className='is-flex'>
         <DialogTitle className='width-full'>
           Invitation

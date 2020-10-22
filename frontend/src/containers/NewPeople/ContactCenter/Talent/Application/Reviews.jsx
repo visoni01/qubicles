@@ -11,7 +11,7 @@ const Reviews = () => {
   return (
     <div className='box courses-root reviews-root has-fullwidth'>
       <h3 className='courses-heading mb-20'> Reviews </h3>
-      <div className='display-inline-flex mb-20 people-active-tabs'>
+      <div className='people-active-tabs'>
         <Tabs
           value={ activeTab }
           onChange={ (_, tab) => setActivetab(tab) }

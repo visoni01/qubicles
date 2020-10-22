@@ -96,19 +96,19 @@ const routes = [
   },
   // Added extra route for new people design, Remove it when people's pages get completely ready.
   {
-    path: `/new${ ROUTE_PATHS.PEOPLE }`,
+    path: ROUTE_PATHS.NEW_PEOPLE,
     component: React.lazy(() => import('../containers/NewPeople/ContactCenter/index')),
     auth: true,
   },
   // Added extra route for new contact-center jobPost design.
   {
-    path: '/new/jobpost',
+    path: ROUTE_PATHS.JOB_POST,
     component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Jobs/JobView')),
     auth: true,
   },
   // Temporarily added extra route for new contact-center talent viewResume design.
   {
-    path: '/new/people/view-resume',
+    path: ROUTE_PATHS.VIEW_RESUME,
     component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Talent/ViewResume')),
   },
   // Added extra route for new contact-center jobPost design.

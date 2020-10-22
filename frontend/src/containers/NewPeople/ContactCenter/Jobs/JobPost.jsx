@@ -27,7 +27,6 @@ const JobPost = () => (
 
       <div className='job-post-description is-fullwidth display-inline-flex'>
         <Button className='account-button pull-right '> Account Sales </Button>
-
         <p>
           ICC is a strategic partner to the world's leading companies, bringing solutions and enhancing customer
           experience during each interaction. We are the largest interaction expert team in the market: multicultural,
@@ -72,9 +71,9 @@ const JobPost = () => (
         <div className='skills-tags mt-10'>
           <Chip label='Customer Service' className='skills-chips' />
           <Chip label='Phone Calling ' className='skills-chips' />
-          <Chip label='Email Supoort' className='skills-chips' />
-          <Chip label='Email Supoort' className='skills-chips' />
-          <Chip label='Email Supoort' className='skills-chips' />
+          <Chip label='Email Support' className='skills-chips' />
+          <Chip label='Email Support' className='skills-chips' />
+          <Chip label='Email Support' className='skills-chips' />
         </div>
         <h3 className='mt-10'> Bonus Skills</h3>
         <div className='skills-tags mt-10'>
@@ -82,17 +81,17 @@ const JobPost = () => (
         </div>
       </div>
       <div className='display-inline-flex course-section '>
-        <h3 className='mt-10'> Required Course</h3>
-        <div className='margin-top-bottom-10'>
+        <h3 className='mt-15 mb-10'> Required Course</h3>
+        <div className='mb-20'>
           <Button className='text-button mr-10'>How to talk to clients? </Button>
-          <p>Chris Porter, 2020</p>
+          <p className='paragraph-light-content'>Chris Porter, 2020</p>
           <Button className='text-button'>Email Communication </Button>
-          <p>Martha Riley, 2020</p>
+          <p className='paragraph-light-content'>Martha Riley, 2020</p>
         </div>
-        <h3> Bonus Course </h3>
-        <div className='margin-top-bottom-10'>
+        <h3 className='mt-15 mb-10'> Bonus Course </h3>
+        <div className='margin-bottom-15'>
           <Button className='text-button'>Managing Difficult Situation </Button>
-          <p>Roy Gordon, 2020</p>
+          <p className='paragraph-light-content'>Roy Gordon, 2020</p>
         </div>
       </div>
     </Box>
@@ -126,24 +125,28 @@ const JobPost = () => (
       </p>
       <div className='pending-application-buttons'>
         <Button
-          variant='contained'
-          className='button-secondary-small reject-button'
-          classes={ { label: 'secondary-label' } }
+          classes={ {
+            root: 'button-secondary-small-red',
+            label: 'button-secondary-small-label',
+          } }
         >
           Reject
         </Button>
         <div>
           <Button
-            variant='contained'
-            className='button-secondary-small message-button'
-            classes={ { label: 'secondary-label' } }
+            className='message-button'
+            classes={ {
+              root: 'button-secondary-small',
+              label: 'button-secondary-small-label',
+            } }
           >
             Message
           </Button>
           <Button
-            variant='contained'
-            className='button-primary-small hire-button'
-            classes={ { label: 'primary-label' } }
+            classes={ {
+              root: 'button-primary-small',
+              label: 'button-primary-small-label',
+            } }
           >
             Hire
           </Button>
@@ -153,15 +156,17 @@ const JobPost = () => (
       <div className='display-inline-flex job-application-head'>
         <Avatar className='profile-pic' alt='Randy Williamson' src={ kareem } />
         <div className='candidate-info'>
-          <b>Randy Williamson</b>
-          <Rating
-            className='rating-star'
-            name='read-only'
-            readOnly
-            size='large'
-            value={ 5 }
-            precision={ 0.1 }
-          />
+          <div className='candidate-head'>
+            <h4>Randy Williamson</h4>
+            <Rating
+              className='rating-star'
+              name='read-only'
+              readOnly
+              size='small'
+              value={ 5 }
+              precision={ 0.1 }
+            />
+          </div>
           <Button className='text-button'>View full application </Button>
           <p className='description'> Customer Service Specialist </p>
         </div>
@@ -174,30 +179,33 @@ const JobPost = () => (
       </p>
       <div className='pending-application-buttons'>
         <Button
-          variant='contained'
-          className='button-secondary-small reject-button'
-          classes={ { label: 'secondary-label' } }
+          classes={ {
+            root: 'button-secondary-small-red',
+            label: 'button-secondary-small-label',
+          } }
         >
           Reject
         </Button>
         <div>
           <Button
-            variant='contained'
-            className='button-secondary-small message-button'
-            classes={ { label: 'secondary-label' } }
+            className='message-button'
+            classes={ {
+              root: 'button-secondary-small',
+              label: 'button-secondary-small-label',
+            } }
           >
             Message
           </Button>
           <Button
-            variant='contained'
-            className='button-primary-small hire-button'
-            classes={ { label: 'primary-label' } }
+            classes={ {
+              root: 'button-primary-small',
+              label: 'button-primary-small-label',
+            } }
           >
             Hire
           </Button>
         </div>
       </div>
-      <Divider className='divider' />
     </Box>
 
     <Box className='box job-application-root'>
@@ -207,15 +215,17 @@ const JobPost = () => (
       <div className='display-inline-flex job-application-head'>
         <Avatar className='profile-pic' alt='Chad Green' src={ sally } />
         <div className='candidate-info'>
-          <b>Chad Green</b>
-          <Rating
-            className='rating-star'
-            name='read-only'
-            readOnly
-            size='large'
-            value={ 5 }
-            precision={ 0.1 }
-          />
+          <div className='candidate-head'>
+            <h4>Chad Green</h4>
+            <Rating
+              className='rating-star'
+              name='read-only'
+              readOnly
+              size='small'
+              value={ 5 }
+              precision={ 0.1 }
+            />
+          </div>
           <Button className='text-button'>View full application </Button>
           <p className='description'> Customer Service Specialist </p>
         </div>
@@ -230,9 +240,10 @@ const JobPost = () => (
         <p> Pretraining </p>
         <div>
           <Button
-            variant='contained'
-            className='button-secondary-small message-button'
-            classes={ { label: 'secondary-label' } }
+            classes={ {
+              root: 'button-secondary-small',
+              label: 'button-secondary-small-label',
+            } }
           >
             Message
           </Button>
@@ -242,15 +253,17 @@ const JobPost = () => (
       <div className='display-inline-flex job-application-head'>
         <Avatar className='profile-pic' alt='Ray Hill' src={ ray } />
         <div className='candidate-info'>
-          <b>Ray Hill</b>
-          <Rating
-            className='rating-star'
-            name='read-only'
-            readOnly
-            size='large'
-            value={ 5 }
-            precision={ 0.1 }
-          />
+          <div className='candidate-head'>
+            <h4>Ray Hill</h4>
+            <Rating
+              className='rating-star'
+              name='read-only'
+              readOnly
+              size='small'
+              value={ 5 }
+              precision={ 0.1 }
+            />
+          </div>
           <Button className='text-button'>View full application </Button>
           <p className='description'> Customer Service Specialist </p>
         </div>
@@ -264,15 +277,15 @@ const JobPost = () => (
         <p> Screening </p>
         <div>
           <Button
-            variant='contained'
-            className='button-secondary-small message-button'
-            classes={ { label: 'secondary-label' } }
+            classes={ {
+              root: 'button-secondary-small',
+              label: 'button-secondary-small-label',
+            } }
           >
             Message
           </Button>
         </div>
       </div>
-      <Divider className='divider' />
     </Box>
 
     <Box className='box job-application-root'>
@@ -282,15 +295,17 @@ const JobPost = () => (
       <div className='display-inline-flex job-application-head'>
         <Avatar className='profile-pic' alt='Helen Murphy' src={ helen } />
         <div className='candidate-info'>
-          <b>Helen Murphy</b>
-          <Rating
-            className='rating-star'
-            name='read-only'
-            readOnly
-            size='large'
-            value={ 5 }
-            precision={ 0.1 }
-          />
+          <div className='candidate-head'>
+            <h4>Helen Murphy</h4>
+            <Rating
+              className='rating-star'
+              name='read-only'
+              readOnly
+              size='small'
+              value={ 5 }
+              precision={ 0.1 }
+            />
+          </div>
           <Button className='text-button'>View full application </Button>
           <p className='description'> Customer Service Specialist </p>
         </div>
@@ -301,16 +316,19 @@ const JobPost = () => (
         training in different areas. I have a proven track record for meeting timelines and exceeding
         expectations...
       </p>
-      <div className='pending-application-buttons mt-10 hired-application'>
+      <div className='mb-50'>
         <Button
-          variant='contained'
-          className='button-secondary-small message-button hire-message'
-          classes={ { label: 'secondary-label' } }
+          className='pull-right'
+          classes={ {
+            root: 'button-secondary-small',
+            label: 'button-secondary-small-label',
+          } }
         >
           Message
         </Button>
       </div>
-      <Divider className='divider' />
+
+      {/* <Divider className='divider' /> */}
     </Box>
   </>
 )

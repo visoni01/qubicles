@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Avatar, Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { Rating } from '@material-ui/lab'
+import { useHistory } from 'react-router-dom'
 import { terry } from '../../../../assets/images/avatar'
+import ROUTE_PATHS from '../../../../routes/routesPath'
 
 const TopTalentCard = ({
   candidateName,
@@ -10,26 +12,37 @@ const TopTalentCard = ({
   candidatePic,
   profileName,
 
-}) => (
-  <div className='display-inline-flex top-talent'>
-    <Avatar className='profile-pic' alt={ candidateName } src={ candidatePic } />
-    <div className='candidate-info'>
-      <span className='candidate-name'>{candidateName}</span>
-      <Rating
-        className='rating-star'
-        name='read-only'
-        readOnly
-        size='small'
-        value={ candidateRating }
-        precision={ 0.1 }
-      />
-      <p className='description'>
-        {profileName}
-      </p>
-      <Button className='text-button'>View Resume </Button>
+}) => {
+  const history = useHistory()
+  const handleViewResume = useCallback(() => {
+    history.push(ROUTE_PATHS.VIEW_RESUME)
+  })
+  return (
+    <div className='display-inline-flex top-talent'>
+      <Avatar className='profile-pic' alt={ candidateName } src={ candidatePic } />
+      <div className='candidate-info'>
+        <span className='candidate-name'>{candidateName}</span>
+        <Rating
+          className='rating-star'
+          name='read-only'
+          readOnly
+          size='small'
+          value={ candidateRating }
+          precision={ 0.1 }
+        />
+        <p className='description'>
+          {profileName}
+        </p>
+        <Button
+          className='text-button'
+          onClick={ handleViewResume }
+        >
+          View Resume
+        </Button>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 TopTalentCard.defaultProps = {
   candidateName: 'Josh Starmer',

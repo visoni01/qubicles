@@ -5,14 +5,13 @@ import {
 } from '@material-ui/core'
 import JobsList from './Jobs/JobsList'
 import JobsPage from './Jobs/JobsPage'
-import JobPost from './Jobs/JobPost'
 import TalentFilter from './Talent/TalentFilter'
 import TalentPage from './Talent/TalentPage'
 import TopTalent from './Talent/TopTalent'
 import { newNavBar } from '../../../hoc/navbar'
-import './styles.scss'
 import TrainingFilter from './Training/TrainingFilter'
 import TrainingWrap from './Training/TrainingWrap'
+import './styles.scss'
 import './newStyles.scss'
 
 const People = () => {
@@ -29,8 +28,6 @@ const People = () => {
         </div>
       </Grid>
       <Grid
-        container
-        // spacing={ 2 }
         item
         spacing={ 10 }
         xl={ spacingMid }

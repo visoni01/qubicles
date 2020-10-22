@@ -23,17 +23,21 @@
 .course-card-content {
   border: 1px solid $color-border;
 
-  .rating-star {
-    margin-left: 0px;
+  .rating-text {
+    // padding: 5px 0;
+
+    .rating-star {
+      margin-left: 0px;
+    }
+
+    .total-students {
+      @extend .para;
+      margin: 0px 5px;
+      text-align: center;
+      color: $color-dark-grey;
+      font-size: 14px;
+    }
   }
-}
-.total-students {
-  @extend .para;
-  margin: 5px;
-  text-align: center;
-  color: $color-dark-grey;
-  vertical-align: text-bottom;
-  font-size: 14px;
 }
 
 .course-description {

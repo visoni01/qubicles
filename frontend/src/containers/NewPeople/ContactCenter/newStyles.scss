@@ -235,3 +235,81 @@
     margin-bottom: 15px;
   }
 }
+
+// Introduction styles
+.introduction-root {
+  .head-section {
+    width: 100%;
+
+    .profile-pic {
+      width: 65px;
+      height: 65px;
+      margin-top: 10px;
+    }
+
+    .info-wrapper {
+      margin-left: 15px;
+
+      .rating-star {
+        margin-left: 0;
+      }
+
+      h4 {
+        @extend .h4;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      p {
+        @extend .para;
+        font-size: 12px;
+      }
+
+      .location, .date {
+        font-size: 13px;
+        color: $color-dark-grey;
+
+        svg {
+          font-size: 12px;
+          margin-right: 7px;
+        }
+      }
+    }
+  }
+
+  .title {
+    @extend .h4;
+    width: 100%;
+    font-weight: 600;
+    margin: 10px 0px;
+  }
+
+  .description {
+    @extend .para;
+  }
+}
+
+// text styles
+
+.paragraph-light-content {
+  @extend .para;
+  color: $color-dark-grey !important;
+}
+
+.h4-heading {
+  @extend .h4;
+  font-weight: 500;
+}
+
+.profile-pic {
+  width: 56px;
+  height: 56px;
+  margin: 10px;
+}
+
+// Divider
+.MuiDivider-root {
+  &.divider {
+    margin: 15px 0;
+  }
+}
