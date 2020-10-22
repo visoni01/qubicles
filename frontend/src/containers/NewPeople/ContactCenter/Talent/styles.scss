@@ -1,5 +1,10 @@
 @import '../../../../customStyles/scss/index.scss';
 
+.divider {
+  width: 100%;
+  margin: 15px 0;
+}
+
 .top-talent-root{
   border: 1px solid $color-border;
   padding-bottom: 0px;
@@ -16,12 +21,6 @@
 
     &:last-child {
       border: none;
-    }
-
-    .profile-pic {
-      width: 56px;
-      height: 56px;
-      margin: 10px;
     }
 
     .candidate-info {
@@ -61,7 +60,6 @@
     }
   }
 }
-
 
 .talent-filter-root {
   border: 1px solid $color-border;
@@ -248,4 +246,292 @@
       vertical-align: bottom;
     }
   }
+}
+
+.resume-intro-root {
+
+  .agent-specifications{
+    @extend .para;
+    justify-content: space-between;
+    margin: 10px 0px;
+
+    .heading {
+      @extend .h4;
+      font-weight: 600;
+    }
+
+    .personal-details{
+      text-transform: capitalize;
+    }
+  }
+
+  .badges {
+    color: $color-primary;
+    font-size: 34px;
+  }
+}
+
+.courses-root{
+
+  .courses-heading {
+    @extend .h3;
+    width: 100%;
+    letter-spacing: 1px;
+  }
+
+  .course-section {
+    flex-direction: column;
+    width: 100%;
+    margin: 10px 0px;
+
+    p {
+      @extend .para;
+    }
+
+    .author {
+      color: $color-dark-grey;
+      margin-bottom: 10px;
+    }
+
+    .text-button {
+      color: $color-primary;
+      font-size: 14px;
+      width: fit-content;
+      padding: 0px;
+      font-weight: 600;
+    }
+  }
+}
+
+.skills-page-root{
+  .skill-section {
+    .skill-set{
+      @extend .h3;
+      font-weight: 500;
+    }
+
+    p {
+      @extend .para;
+    }
+
+    .description{
+      color: $color-dark-grey;
+      align-self: center;
+      margin-left: 15px;
+      font-size: 16px;
+    }
+
+    .text-button{
+      align-self: center;
+      margin: 20px 0px;
+    }
+  }
+}
+
+.reviews-root {
+  .review-section {
+    width: 100%;
+
+    .candidate-info {
+      align-self: center;
+      width: calc(100% - 60px);
+      margin-left: 15px;
+      margin-bottom: 10px;
+
+      p{
+        @extend .para;
+        font-size: 14px;
+      }
+
+      svg {
+        font-size: 20px;
+      }
+
+      .MuiRating-root {
+        &.rating-star {
+          color: $color-primary;
+          margin: 5px 0px;
+          vertical-align: text-bottom;
+          font-size: 16px;
+        }
+      }
+
+      .description {
+        @extend .para;
+        font-size: 14px;
+        color: $color-dark-grey;
+      }
+    }
+  }
+
+  .text-button {
+    color: $color-primary;
+  }
+}
+
+.work-history-root {
+  .work-history-section {
+    flex-direction: column;
+    width: 100%;
+    margin: 10px 0px;
+
+    .date {
+      svg {
+        font-size: 5px;
+        vertical-align: middle;
+        margin: 0px 15px;
+      }
+
+    }
+
+    .feedback-section {
+      display: inline-flex;
+      justify-content: space-between;
+      margin: 10px 0px;
+
+      .middle-part{
+        width: calc(100% - 150px);
+        vertical-align: middle;
+        margin: 15px 0;
+      }
+
+      .right-part {
+        float: right;
+        vertical-align: middle;
+        margin: 15px 0;
+
+        .MuiRating-root {
+          &.rating-star {
+            color: $color-primary;
+            vertical-align: text-bottom;
+            font-size: 16px;
+          }
+        }
+
+        .text-button {
+          color: $color-primary;
+          width: fit-content;
+          font-size: 13px;
+          padding: 0px;
+          :hover {
+            color: $color-primary;
+          }
+        }
+      }
+    }
+
+    .badges {
+      color: $color-primary;
+      font-size: 34px;
+      margin: 10px 0px;
+    }
+  }
+}
+
+.skills-tags {
+  .skills-chips {
+    margin-right: 15px;
+    background-color: #D5DFFC;
+    margin: 10px;
+
+    .MuiChip-label {
+      @extend .para;
+    }
+  }
+}
+
+.paragraph-heading {
+  @extend .para;
+  font-weight: 400;
+}
+
+.endorsement-modal {
+  width: 600px;
+
+  .MuiDialog-scrollPaper {
+    overflow-y: scroll;
+  }
+
+  .MuiDialog-paperScrollPaper {
+    max-height: none;
+    margin-top: auto;
+  }
+
+  .cross-button {
+    button {
+      .MuiIconButton-label {
+        color: $color-primary;
+      }
+    }
+  }
+
+  h2 {
+    @extend .h2;
+  }
+
+  h4 {
+    @extend .h4;
+    font-size: 18px;
+  }
+
+  .divider {
+    margin: 2px 0;
+  }
+
+  .endorsement-section {
+    display: inline-flex;
+    justify-content: space-between;
+    margin: 10px 0px;
+
+    .middle-part{
+      width: 100%;
+      vertical-align: middle;
+      margin: 15px 0;
+    }
+
+    .MuiRating-root {
+      &.rating-star {
+        vertical-align: middle;
+        margin: 0 15px;
+        color: $color-primary;
+        vertical-align: text-bottom;
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+.cover-letter-root {
+  h3 {
+    @extend .h3;
+  }
+
+  p {
+    @extend .para;
+  }
+
+  .stengths-list {
+    @extend .para;
+
+    li {
+      margin-left: 10px;
+      list-style-type: initial;
+   }
+  }
+}
+
+.paragraph-light-content {
+  @extend .para;
+  color: $color-dark-grey;
+}
+
+.h4-heading {
+  @extend .h4;
+  font-weight: 500;
+}
+
+.profile-pic {
+  width: 56px;
+  height: 56px;
+  margin: 10px;
 }

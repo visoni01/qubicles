@@ -3,16 +3,14 @@
 .contact-center-info-root {
 
   .contact-center-head {
-    .MuiAvatar-root {
-      width: 65px;
-      height: 65px;
-    }
+    width: 100%;
 
     .profile-pic {
-      margin-top: 15px;
-      flex: 1;
-      align-self: center;
+      width: 65px;
+      height: 65px;
+      margin-top: 10px;
     }
+
 
     .company-info {
       align-self: center;
@@ -264,4 +262,96 @@
       margin-left: 150px !important;
     }
   }
+}
+
+.invite-agent-modal {
+  width: 680px;
+  height: 700px;
+
+  .MuiDialog-scrollPaper {
+    overflow-y: scroll;
+  }
+
+  .MuiDialog-paperScrollPaper {
+    max-height: none;
+    margin-top: auto;
+  }
+
+  .cross-button {
+    button {
+      .MuiIconButton-label {
+        color: $color-primary;
+      }
+    }
+  }
+
+  h2 {
+    @extend .h2;
+  }
+
+  h4 {
+    @extend .h4;
+    margin-top: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  .MuiFormControl-root {
+    width: 100%;
+
+    .dropdown {
+      margin-top: 8px;
+      width: 50%;
+    }
+  }
+
+  .MuiDialogActions-root {
+    justify-content: space-between;
+    margin: 0 10px;
+  }
+}
+
+.new-job-root {
+  .new-job-heading {
+    @extend .h2;
+  }
+
+  h3 {
+    @extend .h3;
+    font-weight: 600;
+  }
+
+  .category-section {
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-between;
+
+    .MuiFormControl-root {
+      width: 100%;
+
+      .job-category-dropdown {
+        width: 70%;
+        height: 40px;
+      }
+    }
+    .agent-field{
+      width: 20%;
+    }
+    .agent-label {
+      align-self: center;
+      margin-left: 10px;
+    }
+  }
+}
+
+.job-requirements-root {
+
+  .MuiFormControl-root {
+    width: 100%;
+
+    .course-search-input{
+      width: 70%;
+      height: 40px;
+    }
+  }
+
 }

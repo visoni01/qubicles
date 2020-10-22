@@ -169,10 +169,11 @@
     width: 56px;
     height: 56px;
   }
+
   .user-name {
     @extend .h4;
-    font-weight: 500;
   }
+
   .post-details {
     align-self: center;
   }

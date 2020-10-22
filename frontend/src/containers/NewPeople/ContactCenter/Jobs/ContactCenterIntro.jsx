@@ -31,7 +31,7 @@ const ContactCenterIntro = () => (
             className='rating-star'
             name='read-only'
             readOnly
-            size='large'
+            size='small'
             value={ 5 }
             precision={ 0.1 }
           />
