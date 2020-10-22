@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { Avatar, Button, Chip } from '@material-ui/core'
+import PropTypes from 'prop-types'
 import { Rating } from '@material-ui/lab'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAward, faMapMarkerAlt, faLanguage } from '@fortawesome/free-solid-svg-icons'
-import { talentCardValidator } from './talentValidators'
+import { terry } from '../../../../assets/images/avatar'
 
 const TalentCard = ({
   candidateName, candidatePic, availability,
@@ -79,6 +80,7 @@ const TalentCard = ({
 
 TalentCard.defaultProps = {
   candidateName: 'Terry Garret',
+  candidatePic: terry,
   availability: 'Available',
   candidateRating: 5,
   location: 'San Francisco, CA',
@@ -91,6 +93,17 @@ TalentCard.defaultProps = {
   profileTags: [ 'Customer Service', 'Phone Calling', 'Active Talker', 'Business Studies' ],
 }
 
-TalentCard.propTypes = talentCardValidator
+TalentCard.propTypes = {
+  candidateName: PropTypes.string,
+  candidatePic: PropTypes.string,
+  availability: PropTypes.string,
+  candidateRating: PropTypes.number,
+  location: PropTypes.string,
+  languages: PropTypes.string,
+  ratePerHourDollar: PropTypes.number,
+  profileName: PropTypes.string,
+  profileDescription: PropTypes.string,
+  profileTags: PropTypes.arrayOf(PropTypes.string),
+}
 
 export default TalentCard

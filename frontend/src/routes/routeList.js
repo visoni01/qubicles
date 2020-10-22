@@ -106,6 +106,17 @@ const routes = [
     component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Jobs/JobView')),
     auth: true,
   },
+  // Temporarily added extra route for new contact-center talent viewResume design.
+  {
+    path: '/new/people/view-resume',
+    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Talent/ViewResume')),
+  },
+  // Added extra route for new contact-center jobPost design.
+  {
+    path: ROUTE_PATHS.CREATE_COURSE,
+    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Training/Course/NewCourse')),
+    auth: true,
+  },
 ]
 
 export default routes

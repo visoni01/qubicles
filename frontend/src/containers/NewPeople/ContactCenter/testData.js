@@ -74,6 +74,30 @@ const courseCards = [
     language: 'English',
     imageUrl: 'https://picsum.photos/400/300',
   },
+  {
+    courseId: 6,
+    priceQbe: 9,
+    priceUsd: 9,
+    ratingValue: 4,
+    studentsCount: 503,
+    courseDescription: `Lorem Ipsum
+     is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry`,
+    sectionsCount: 8,
+    language: 'English',
+    imageUrl: 'https://picsum.photos/400/300',
+  },
+  {
+    courseId: 6,
+    priceQbe: 18,
+    priceUsd: 18,
+    ratingValue: 4,
+    studentsCount: 503,
+    courseDescription: `Lorem Ipsum
+     is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry`,
+    sectionsCount: 8,
+    language: 'English',
+    imageUrl: 'https://picsum.photos/400/300',
+  },
 ]
 
 const talentCards = [

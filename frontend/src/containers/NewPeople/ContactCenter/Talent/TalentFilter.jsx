@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import {
-  Box, Divider, FormControl, InputLabel, Select, RadioGroup, FormControlLabel, Radio, Checkbox, InputBase,
+  Box, Divider, FormControl, InputLabel, Select, RadioGroup, FormControlLabel, Radio, Checkbox, InputBase, TextareaAutosize,
 } from '@material-ui/core'
 import { Rating } from '@material-ui/lab'
 
@@ -85,7 +85,7 @@ const TalentFilter = () => {
       <div className='filter-section'>
         <h4 className='heading'> Skills </h4>
         <div>
-          <FormControl variant='outlined' className='filter-dropdown'>
+          <FormControl variant='outlined' className='drop-down-bar talent-filter-dropdown'>
             <InputLabel>Choose required skills</InputLabel>
             <Select
               native
@@ -106,7 +106,7 @@ const TalentFilter = () => {
       <div className='filter-section'>
         <h4 className='heading'> Languages </h4>
         <div>
-          <FormControl variant='outlined' className='filter-dropdown'>
+          <FormControl variant='outlined' className='drop-down-bar talent-filter-dropdown'>
             <InputLabel>Choose required languages</InputLabel>
             <Select
               native
@@ -126,7 +126,7 @@ const TalentFilter = () => {
 
       <div className='filter-section'>
         <h4 className='heading'> Talent Type </h4>
-        <div className='radio-button-wrapper'>
+        <div className='control-buttons-wrapper'>
           <RadioGroup
             className='radio-buttons'
             value={ selectedTalentType }
@@ -147,7 +147,7 @@ const TalentFilter = () => {
 
       <div className='filter-section'>
         <h4 className='heading'> Hourly rate </h4>
-        <div className='radio-button-wrapper'>
+        <div className='control-buttons-wrapper'>
           <RadioGroup
             className='radio-buttons'
             value={ selectedHourlyRate }
@@ -164,7 +164,7 @@ const TalentFilter = () => {
 
       <div className='filter-section'>
         <h4 className='heading'> Rating </h4>
-        <div className='radio-button-wrapper'>
+        <div className='control-buttons-wrapper'>
           <RadioGroup
             className='radio-buttons'
             value={ selectedRating }
@@ -206,7 +206,7 @@ const TalentFilter = () => {
 
       <div className='filter-section'>
         <h4 className='heading'> Verifications </h4>
-        <div className='radio-button-wrapper'>
+        <div className='control-buttons-wrapper'>
           <FormControl
             className='checkboxes'
           >
@@ -236,7 +236,7 @@ const TalentFilter = () => {
 
       <div className='filter-section'>
         <h4 className='heading'> Availability </h4>
-        <div className='radio-button-wrapper'>
+        <div className='control-buttons-wrapper'>
           <RadioGroup
             className='radio-buttons'
             value={ selectedAvailability }
@@ -252,13 +252,17 @@ const TalentFilter = () => {
 
       <div className='filter-section'>
         <h4 className='heading'> Location </h4>
-        <div className='radio-button-wrapper'>
-          <InputBase
-            placeholder='Any (Remote)'
-            className='filter-input'
-            value={ selectedLocation }
-            onChange={ setLocationCB }
-          />
+        <div className='control-buttons-wrapper'>
+          <div className='input-box mr-15'>
+            <TextareaAutosize
+              aria-label='minimum height'
+              autoComplete='off'
+              rowsMin={ 1 }
+              placeholder='Any (Remote)'
+              value={ selectedLocation }
+              onChange={ setLocationCB }
+            />
+          </div>
         </div>
       </div>
     </Box>

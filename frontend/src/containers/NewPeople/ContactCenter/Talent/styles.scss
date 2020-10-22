@@ -23,6 +23,13 @@
       border: none;
     }
 
+    .profile-pic {
+      width: 56px;
+      height: 56px;
+      margin: 10px;
+      margin-left: 0px;
+    }
+
     .candidate-info {
       align-self: center;
       width: calc(100% - 60px);
@@ -50,51 +57,6 @@
           color: $color-primary;
         }
       }
-    }
-  }
-}
-
-.talent-filter-root {
-  border: 1px solid $color-border;
-  border-radius: 8px;
-  margin-top: 5px;
-  margin-bottom: 25px;
-  background-color: #FFFFFF;
-  padding: 20px 0;
-
-  h2 {
-    @extend .h2;
-    font-size: 28px;
-  }
-
-  .talent-filter-title {
-    display: inline-flex;
-    width: 100%;
-    justify-content: space-between;
-
-    h3 {
-      @extend .h3;
-      margin: 10px 0;
-    }
-  }
-
-  .talent-dropdown  {
-    .dropdown {
-      border: 1px solid #DBDBDB;
-      height: 45px;
-      border-radius: 6px;
-      width: 290px;
-      background: #FFFFFF;
-      margin-top: 11px;
-      font-family: "SF Pro Text", Regular;
-      font-weight: normal;
-      color: #4A4A4A;
-      padding-left: calc(0.75em - 1px);
-      padding-right: calc(0.75em - 1px);
-    }
-
-    .MuiInput-underline:after {
-      border-bottom: 2px solid #4877f4 !important;
     }
   }
 }
@@ -228,6 +190,43 @@
 
     .more {
       vertical-align: bottom;
+    }
+  }
+}
+
+.talent-filter {
+  .talent-title {
+    margin-bottom: 25px;
+  }
+
+  .full-border {
+    margin-bottom: 20px;
+  }
+
+  .filter-section {
+    h4 {
+      margin-top: 25px;
+    }
+  }
+
+  .talent-filter-dropdown {
+    width: 87%;
+    margin: 10px 5% 10px 8%;
+  }
+
+  .radio-buttons {
+    .MuiFormControlLabel-root {
+      margin-right: 0px;
+    }
+  }
+
+  .rating-filter {
+    .rating-star {
+      margin-left: 0px;
+    }
+
+    .rating-text {
+      @extend .para;
     }
   }
 }
@@ -403,12 +402,12 @@
         }
       }
     }
+  }
 
-    .badges {
-      color: $color-primary;
-      font-size: 34px;
-      margin: 10px 0px;
-    }
+  .badges {
+    color: $color-primary;
+    font-size: 34px;
+    margin: 10px 0px;
   }
 }
 

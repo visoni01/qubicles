@@ -1,7 +1,8 @@
 import React from 'react'
 import { Avatar, Button } from '@material-ui/core'
+import PropTypes from 'prop-types'
 import { Rating } from '@material-ui/lab'
-import { topTalentCardValidator } from './talentValidators'
+import { terry } from '../../../../assets/images/avatar'
 
 const TopTalentCard = ({
   candidateName,
@@ -30,6 +31,18 @@ const TopTalentCard = ({
   </div>
 )
 
-TopTalentCard.propTypes = topTalentCardValidator
+TopTalentCard.defaultProps = {
+  candidateName: 'Josh Starmer',
+  candidateRating: '5',
+  candidatePic: terry,
+  profileName: 'Service Specialist',
+}
+
+TopTalentCard.propTypes = {
+  candidateName: PropTypes.string,
+  candidateRating: PropTypes.number,
+  candidatePic: PropTypes.string,
+  profileName: PropTypes.string,
+}
 
 export default TopTalentCard

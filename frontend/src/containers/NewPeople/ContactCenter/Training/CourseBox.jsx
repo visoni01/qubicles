@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  Box, Card, CardMedia, CardContent,
+  Box, Card, CardMedia, CardContent, Grid,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { Rating } from '@material-ui/lab'
@@ -9,7 +9,7 @@ import './style.scss'
 const CourseCard = ({
   priceQbe, priceUsd, ratingValue, studentsCount, courseDescription, sectionsCount, language, imageUrl,
 }) => (
-  <div className='course-card-container'>
+  <Grid xl={ 4 } lg={ 4 } md={ 6 } sm={ 12 } item>
     <Card className='course-card'>
       <Box className='price-overlay'>
         <p className='price-qbe'>
@@ -45,7 +45,7 @@ const CourseCard = ({
         </div>
       </CardContent>
     </Card>
-  </div>
+  </Grid>
 )
 
 CourseCard.defaultProps = {

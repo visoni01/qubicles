@@ -23,6 +23,7 @@ const ROUTE_PATHS = {
   GROUP_CHANNEL: `${ GROUP_CHANNEL_ROUTE }:channelId`,
   GROUP_TOPIC: `${ GROUP_TOPIC_ROUTE }:topicId`,
   PEOPLE: '/people',
+  CREATE_COURSE: '/new/people/course/create',
 }
 
 export default ROUTE_PATHS
