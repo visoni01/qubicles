@@ -1,0 +1,115 @@
+@import '../../../customStyles/scss/index.scss';
+
+//Box styles
+.box {
+  border: 1px solid $color-border;
+  box-shadow: none;
+  padding: 30px;
+}
+
+.talent-page {
+  .MuiDivider-root {
+    margin-bottom: 20px;
+    margin-top: 20px
+  }
+}
+
+// Active Tabs
+.people-active-tabs {
+
+  .MuiTabs-flexContainer {
+    justify-content: space-around;
+    max-width: 670px;
+  }
+
+  .MuiTabs-fixed {
+    margin-bottom: 25px;
+    margin-top: 25px;
+  }
+
+  .active-tab {
+    .MuiTab-wrapper {
+      @extend .h3;
+      text-transform: none;
+    }
+  }
+
+  .inactive-tab {
+    @extend .active-tab;
+    .MuiTab-wrapper {
+      color: $color-dark-grey;
+      font-weight: 400;
+    }
+  }
+
+
+  .MuiTabs-indicator {
+    background-color: $color-primary;
+  }
+}
+
+// Side Filter
+.side-filter-root {
+  background-color: $color-white;
+  border: 1px solid $color-border;
+  border-radius: 8px;
+  box-shadow: none;
+
+  .title {
+    @extend .h2;
+    margin: 25px 0px 8px 24px;
+  }
+
+  .subtitle {
+    @extend .h3;
+    margin: 0px 0px 0px 24px;
+    padding: 20px 0px;
+  }
+
+  .bold-filter-item {
+    @extend .para;
+    margin-left: 14px;
+    font-weight: bold;
+  }
+}
+
+.filter-list-items {
+  .list-item {
+    @extend .para;
+    color: $color-dark-grey;
+    font-size: 15px;
+  }
+
+  .MuiListItem-root {
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+  .MuiListItem-gutters {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .MuiTypography-displayBlock {
+    display: flex;
+  }
+
+}
+
+// Search Input
+.search-bar-people {
+  margin-bottom: 20px;
+
+   .search-input {
+      width: 100%;
+      background: $color-white 0% 0% no-repeat padding-box;
+      border: 1px solid $color-border;
+      border-radius: 4px;
+      opacity: 1;
+      padding: 2px 0;
+   }
+   .search-button {
+      margin-left: 25px;
+      width: 150px;
+      height: 40px !important;
+  }
+}

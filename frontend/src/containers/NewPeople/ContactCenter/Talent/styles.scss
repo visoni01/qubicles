@@ -1,0 +1,234 @@
+@import '../../../../customStyles/scss/index.scss';
+
+.top-talent-root{
+  border: 1px solid $color-border;
+  padding-bottom: 0px;
+
+  h3 {
+    @extend .h3;
+    padding-bottom: 10px;
+  }
+
+  .top-talent {
+    width: 100%;
+    margin-bottom: 15px;
+    border-bottom: 1px solid $color-border;
+
+    &:last-child {
+      border: none;
+    }
+
+    .profile-pic {
+      width: 56px;
+      height: 56px;
+      margin: 10px;
+    }
+
+    .candidate-info {
+      align-self: center;
+      width: calc(100% - 60px);
+      margin-bottom: 15px;
+
+      .candidate-name {
+        @extend .h4;
+        color: $color-light-brown;
+        font-weight: 600;
+
+      }
+      .MuiRating-root {
+        &.rating-star {
+          color: $color-primary;
+          margin: 5px 15px 0px 5px;
+          vertical-align: text-bottom;
+        }
+      }
+
+      .description {
+        @extend .para;
+        font-size: 13px;
+        color: $color-dark-grey;
+      }
+
+      .text-button {
+        color: $color-primary;
+        width: fit-content;
+        font-size: 13px;
+        padding: 0px;
+        :hover {
+          color: $color-primary;
+        }
+      }
+    }
+  }
+}
+
+
+.talent-filter-root {
+  border: 1px solid $color-border;
+  border-radius: 8px;
+  margin-top: 5px;
+  margin-bottom: 25px;
+  background-color: #FFFFFF;
+  padding: 20px 0;
+
+  h2 {
+    @extend .h2;
+    font-size: 28px;
+  }
+
+  .talent-filter-title {
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-between;
+
+    h3 {
+      @extend .h3;
+      margin: 10px 0;
+    }
+  }
+
+  .talent-dropdown  {
+    .dropdown {
+      border: 1px solid #DBDBDB;
+      height: 45px;
+      border-radius: 6px;
+      width: 290px;
+      background: #FFFFFF;
+      margin-top: 11px;
+      font-family: "SF Pro Text", Regular;
+      font-weight: normal;
+      color: #4A4A4A;
+      padding-left: calc(0.75em - 1px);
+      padding-right: calc(0.75em - 1px);
+    }
+
+    .MuiInput-underline:after {
+      border-bottom: 2px solid #4877f4 !important;
+    }
+  }
+}
+
+.talent-head {
+  width: 100%;
+
+  .MuiAvatar-root {
+    width: 75px;
+    height: 75px;
+  }
+
+
+  .talent-details {
+    align-self: center;
+    width: calc(100% - 90px);
+    margin: 10px 10px 0px 15px;
+
+    .username {
+      display: inline-block;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    h4 {
+      @extend .h4;
+      font-size: 16px;
+      font-weight: 600;
+      color: $color-light-brown;
+    }
+
+    .MuiRating-root {
+      &.rating-star {
+        color: $color-primary;
+        margin: 0px 10px;
+        vertical-align: text-bottom;
+        font-size: 22px;
+      }
+    }
+
+    .badges {
+      color: $color-dark-grey;
+      font-size: 22px;
+    }
+
+    .text-button {
+      color: $color-primary;
+      width: fit-content;
+      float: right;
+      font-size: 14px;
+      padding: 0px;
+      :hover {
+        color: $color-primary;
+      }
+
+    }
+
+    .location {
+      @extend .para;
+      color: $color-dark-grey;
+      margin-top: 5px;
+      svg {
+        color: $color-dark-grey;
+        font-size: 16px;
+        margin: 0 10px 0 0;
+      }
+      .status{
+        @extend .para;
+        font-style: italic;
+        font-weight: 600;
+        margin-left: 20px;
+      }
+    }
+
+    .languages {
+      @extend .para;
+      font-size: 14px;
+      color: $color-dark-grey;
+
+      svg {
+        color: $color-dark-grey;
+        font-size: 16px;
+        margin: 0 10px 0 0;
+      }
+
+      span{
+        float: right;
+      }
+    }
+  }
+}
+
+.talent-card {
+  border-bottom: 1px solid $color-border;
+  margin-bottom: 20px;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .talent-content {
+    h4 {
+      @extend .h4;
+      color: $color-light-brown;
+      font-weight: 600;
+    }
+
+    p {
+      @extend .para;
+    }
+  }
+
+  .talent-tags {
+    margin-left: 5px;
+    margin-bottom: 30px;
+
+    .talent-chips {
+      @extend .para;
+      margin-right: 15px;
+      padding: 0px 5px;
+      background-color: $color-primary-light;
+    }
+
+    .more {
+      vertical-align: bottom;
+    }
+  }
+}

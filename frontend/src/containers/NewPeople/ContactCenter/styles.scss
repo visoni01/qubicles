@@ -1,0 +1,123 @@
+@import '../../../customStyles/scss/index.scss';
+
+.job-list {
+  .job-list-title {
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-between;
+
+    .job-list-icon {
+      padding-top: 12px;
+      .MuiIconButton-root {
+        color: $color-dark-grey;
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+.section-heading {
+  position: relative;
+  margin-bottom: 10px;
+  .section-title {
+    @extend .h3;
+  }
+   .action-button {
+      font-size: 14px;
+      position: absolute;
+      right: 0;
+      padding: 9px 12px;
+   }
+}
+
+
+.job-category-card {
+
+  .job-info {
+    border-bottom: 1px solid $color-border;
+    margin-bottom: 15px;
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .job-owner-avatar {
+      margin-right: 10px;
+    }
+    .job-details {
+      p {
+        font-size: 14px;
+      }
+      .job-title {
+        @extend .para;
+        font-weight: 600;
+        color: $color-light-brown;
+      }
+    }
+    .action-buttons {
+      width: 100%;
+      display: inline-flex;
+      justify-content: flex-start;
+      padding: 10px 0;
+      font-size: 14px;
+
+      li {
+        margin-right: 10px;
+        flex: 1;
+          svg {
+            margin-right: 5px;
+          }
+      }
+      .action-icon {
+        font-size: 16px;
+        margin-right: 10px;
+        color: $color-dark-grey;
+      }
+      .icon-value {
+        @extend .para;
+        font-weight: 600;
+      }
+      .icon-title {
+        margin-left: 5px;
+        font-size: 15px;
+        color: $color-dark-grey;
+      }
+    }
+  }
+
+  // job's Details section
+
+  .job-details-box {
+    .job-owner {
+      p {
+        font-size: 14px;
+        margin: auto 5px;
+      }
+      .owner-name {
+        font-weight: 500;
+        color: #444F5F;
+      }
+      .job-create-date {
+        color: #999999;
+      }
+    }
+    .job-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #444F5F;
+      margin: 10px 0;
+    }
+    .job-description {
+      font-size: 14px;
+      color: #4A4A4A;
+    }
+    .action-buttons{
+      margin-top: 20px;
+       li{
+        margin-right: 20%;
+          svg{
+            margin-right: 5px;
+          }
+       }
+    }
+  }
+}
