@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER(11),
       allowNull: false
     },
-    channel_id: {
+    group_id: {
       type: DataTypes.INTEGER(11)
     },
     views: {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import {
   Box, IconButton, InputBase, Button, Avatar, Divider,
 } from '@material-ui/core'
@@ -8,12 +8,40 @@ import {
   faEllipsisV, faEye, faHeart, faSearch, faSlidersH,
 } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
+import { useDispatch, useSelector } from 'react-redux'
+import moment from 'moment'
 import GroupsList from './groups'
 import TrendingTopics from './trendingTopics'
 import { carolin } from '../../assets/images/avatar/index'
+import { groupTopicsFetchingStart, addNewGroupTopic } from '../../redux-saga/redux/actions'
+import NewTopicForm from './newTopic'
+import { formatDate } from '../../utils/common'
 
 const SelectedGroup = ({ group }) => {
-  const { title, description } = group
+  const { id, title, description } = group
+  const dispatch = useDispatch()
+  const [ newTopicForm, setNewTopicForm ] = useState(false)
+  const { topics } = useSelector((state) => state.groupTopics)
+  const { userDetails } = useSelector((state) => state.login)
+
+  useEffect(() => {
+    if (id) {
+      dispatch(groupTopicsFetchingStart({ groupId: id }))
+    }
+  }, [ id ])
+
+  // eslint-disable-next-line
+  const changeTopicFormStatus = useCallback(() => setNewTopicForm((newTopicForm) => !newTopicForm),
+    [ setNewTopicForm ])
+
+  const handleCreateTopic = (data) => {
+    dispatch(addNewGroupTopic({ ...data, groupId: id, ownerName: userDetails.full_name }))
+    setNewTopicForm(false)
+  }
+
+  if (newTopicForm) {
+    return <NewTopicForm handleCancel={ changeTopicFormStatus } handleSubmit={ handleCreateTopic } />
+  }
 
   return (
     <>
@@ -45,6 +73,7 @@ const SelectedGroup = ({ group }) => {
               label: 'MuiButton-label button-primary-small-label',
               root: 'MuiButtonBase-root button-primary-small',
             } }
+            onClick={ changeTopicFormStatus }
           >
             New Topic
           </Button>
@@ -60,20 +89,20 @@ const SelectedGroup = ({ group }) => {
           </IconButton>
         </div>
         <div className='mt-10'>
-          {[ ...Array(10).keys() ].map((e) => (
+          {Boolean(topics.length) && topics.map((topic) => (
             <>
-              <div className='display-inline-flex topic-info width-100-per' key={ e }>
+              <div className='display-inline-flex topic-info width-100-per' key={ topic.id }>
                 <Avatar className='mr-10' src={ carolin } />
                 <div className='width-100-per'>
                   <h4 className='h4'>
-                    Topic's name
+                    {topic.title}
                   </h4>
                   <div className='display-inline-flex width-100-per'>
                     <p className='para'>
-                      Owner's name
+                      {topic.ownerName}
                     </p>
                     <p className='date ml-20'>
-                      Date
+                      {formatDate(topic.createdAt, 'MMMM DD YYYY, hh:mm a')}
                     </p>
                   </div>
                   <div>
