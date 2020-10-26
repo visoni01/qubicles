@@ -100,11 +100,6 @@
     letter-spacing: 1px;
   }
 
-  .edit-post {
-    float:right;
-    border-radius: 8px !important;
-  }
-
   .date {
     color: $color-dark-grey;
     font-size: 13px;
@@ -138,35 +133,6 @@
     justify-content: space-between;
     margin: 10px;
     margin-bottom: 40px;
-  }
-
-  // .skills-tags {
-  //   .skills-chips {
-  //     margin-right: 15px;
-  //     background-color: #D5DFFC;
-  //     margin: 10px;
-  //   }
-  // }
-
-  .skills-tags{
-    margin-left: 5px;
-    margin-bottom: 30px;
-
-    .skills-chips {
-      @extend .para;
-      margin-right: 15px;
-      padding: 0px 5px;
-      background-color: $color-primary-light;
-    }
-
-    .more {
-      background-color: inherit;
-      margin: 0px 5px;
-      vertical-align: bottom;
-      & :hover {
-        color: $color-primary;
-      }
-    }
   }
 
   .course-section {

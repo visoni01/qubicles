@@ -25,7 +25,6 @@ const JobPost = ({
             {jobPostHeading}
           </h3>
           <Button
-            className='edit-post'
             classes={ {
               root: 'button-secondary-small',
               label: 'button-secondary-small-label',
@@ -70,12 +69,12 @@ const JobPost = ({
 
         <div>
           <h3 className='mt-10'> Required Skills</h3>
-          <div className='skills-tags'>
-            {visibleProfileTags.map((tag) => <Chip key={ tag } label={ tag } className='skills-chips mt-10' />)}
+          <div className='tags-set mb-20'>
+            {visibleProfileTags.map((tag) => <Chip key={ tag } label={ tag } className='tag-chip' />)}
           </div>
           <h3 className='mt-10'> Bonus Skills</h3>
-          <div className='skills-tags mt-10'>
-            <Chip label='Customer Service' className='skills-chips' />
+          <div className='tags-set mb-20'>
+            {[ 'Customer Service' ].map((tag) => <Chip key={ tag } label={ tag } className='tag-chip' />)}
           </div>
         </div>
         <div className='display-inline-flex course-section '>

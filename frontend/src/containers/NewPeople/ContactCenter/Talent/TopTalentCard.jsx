@@ -18,27 +18,29 @@ const TopTalentCard = ({
     history.push(ROUTE_PATHS.VIEW_RESUME)
   })
   return (
-    <div className='display-inline-flex top-talent'>
-      <Avatar className='profile-pic' alt={ candidateName } src={ candidatePic } />
-      <div className='candidate-info'>
-        <span className='candidate-name'>{candidateName}</span>
-        <Rating
-          className='rating-star'
-          name='read-only'
-          readOnly
-          size='small'
-          value={ candidateRating }
-          precision={ 0.1 }
-        />
-        <p className='description'>
-          {profileName}
-        </p>
-        <Button
-          className='text-button'
-          onClick={ handleViewResume }
-        >
-          View Resume
-        </Button>
+    <div className='top-talent'>
+      <div className='display-inline-flex talent-profile'>
+        <Avatar className='profile-pic' alt={ candidateName } src={ candidatePic } />
+        <div className='candidate-info'>
+          <span className='candidate-name'>{candidateName}</span>
+          <Rating
+            className='rating-star'
+            name='read-only'
+            readOnly
+            size='small'
+            value={ candidateRating }
+            precision={ 0.1 }
+          />
+          <p className='description'>
+            {profileName}
+          </p>
+          <Button
+            className='text-button'
+            onClick={ handleViewResume }
+          >
+            View Resume
+          </Button>
+        </div>
       </div>
     </div>
   )

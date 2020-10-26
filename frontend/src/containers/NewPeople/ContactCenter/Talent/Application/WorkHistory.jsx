@@ -21,12 +21,10 @@ const WorkHistory = () => (
         <FontAwesomeIcon icon={ faCircle } />
         8 months
       </p>
-      <div className='skills-tags mt-10'>
-        <Chip label='Customer Service' className='skills-chips' />
-        <Chip label='Phone Calling ' className='skills-chips' />
-        <Chip label='Email Support' className='skills-chips' />
-        <Chip label='Email Support' className='skills-chips' />
-        <Chip label='Email Support' className='skills-chips' />
+      <div className='tags-set mt-20 mb-10'>
+        {[
+          'Customer Service', 'Phone Calling', 'Email Support', 'Quick Decisions', 'Customer Support',
+        ].map((tag) => <Chip key={ tag } label={ tag } className='tag-chip mt-10' />)}
       </div>
       <div className='feedback-section'>
         <Avatar className='profile-pic' alt='carolin' src={ carolin } />
@@ -39,7 +37,7 @@ const WorkHistory = () => (
             className='rating-star'
             name='read-only'
             readOnly
-            size='large'
+            size='small'
             value={ 5 }
             precision={ 0.1 }
           />
@@ -58,10 +56,10 @@ const WorkHistory = () => (
         <FontAwesomeIcon icon={ faCircle } />
         5 months
       </p>
-      <div className='skills-tags mt-10'>
-        <Chip label='Customer Service' className='skills-chips' />
-        <Chip label='Email Support' className='skills-chips' />
-        <Chip label='Phone Calling ' className='skills-chips' />
+      <div className='tags-set mt-20 mb-10'>
+        {[
+          'Customer Service', 'Phone Calling', 'Email Support',
+        ].map((tag) => <Chip key={ tag } label={ tag } className='tag-chip' />)}
       </div>
       <div className=' feedback-section'>
         <Avatar className='profile-pic' alt='thomas' src={ thomas } />
@@ -74,7 +72,7 @@ const WorkHistory = () => (
             className='rating-star'
             name='read-only'
             readOnly
-            size='large'
+            size='small'
             value={ 5 }
             precision={ 0.1 }
           />
@@ -91,9 +89,10 @@ const WorkHistory = () => (
         <FontAwesomeIcon icon={ faCircle } />
         3 months
       </p>
-      <div className='skills-tags mt-10'>
-        <Chip label='Customer Service' className='skills-chips' />
-        <Chip label='Email Support' className='skills-chips' />
+      <div className='tags-set mt-20'>
+        {[
+          'Customer Service', 'Phone Calling', 'Email Support',
+        ].map((tag) => <Chip key={ tag } label={ tag } className='tag-chip mt-10' />)}
       </div>
     </div>
   </div>

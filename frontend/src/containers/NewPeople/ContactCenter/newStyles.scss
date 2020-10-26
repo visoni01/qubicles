@@ -144,8 +144,12 @@
     color: $color-border;
   }
   .MuiInputBase-root {
+    height: auto;
     @extend .para;
     color: $color-dark-grey;
+  }
+  .MuiInputBase-input {
+    height: auto;
   }
 }
 
@@ -158,6 +162,7 @@
   .MuiIconButton-root {
     padding-top: 5px;
     padding-bottom: 5px;
+    background-color: inherit;
 
     .MuiSvgIcon-root {
       font-size: 1.2rem;
@@ -310,5 +315,26 @@
 .MuiDivider-root {
   &.divider {
     margin: 15px 0;
+  }
+}
+
+// tags-set
+
+.tags-set {
+  .tag-chip {
+    @extend .para;
+    margin-right: 15px;
+    margin-top: 10px;
+    padding: 0px 5px;
+    background-color: $color-primary-light;
+  }
+
+  .more {
+    background-color: inherit;
+    margin: 0px 5px;
+    vertical-align: bottom;
+    & :hover {
+      color: $color-primary;
+    }
   }
 }

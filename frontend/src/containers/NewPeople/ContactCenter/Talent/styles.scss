@@ -19,6 +19,10 @@
     margin-bottom: 15px;
     border-bottom: 1px solid $color-border;
 
+    .talent-profile {
+      margin-bottom: 10px;
+    }
+
     &:last-child {
       border: none;
     }
@@ -33,7 +37,6 @@
     .candidate-info {
       align-self: center;
       width: calc(100% - 60px);
-      margin-bottom: 15px;
 
       .candidate-name {
         @extend .h4;
@@ -161,27 +164,6 @@
 
     p {
       @extend .para;
-    }
-  }
-
-  .talent-tags {
-    margin-left: 5px;
-    margin-bottom: 30px;
-
-    .talent-chips {
-      @extend .para;
-      margin-right: 15px;
-      padding: 0px 5px;
-      background-color: $color-primary-light;
-    }
-
-    .more {
-      background-color: inherit;
-      margin: 0px 5px;
-      vertical-align: bottom;
-      & :hover {
-        color: $color-primary;
-      }
     }
   }
 }
@@ -325,14 +307,8 @@
       svg {
         font-size: 20px;
       }
-
-      .MuiRating-root {
-        &.rating-star {
-          color: $color-primary;
-          margin: 5px 0px;
-          vertical-align: text-bottom;
-          font-size: 16px;
-        }
+      .rating-star {
+        margin-left: 0px;
       }
 
       .description {
@@ -379,12 +355,8 @@
         vertical-align: middle;
         margin: 15px 0;
 
-        .MuiRating-root {
-          &.rating-star {
-            color: $color-primary;
-            vertical-align: text-bottom;
-            font-size: 16px;
-          }
+        .rating-star {
+          margin-left: 0px;
         }
 
         .text-button {
@@ -404,18 +376,6 @@
     color: $color-primary;
     font-size: 34px;
     margin: 10px 0px;
-  }
-}
-
-.skills-tags {
-  .skills-chips {
-    margin-right: 15px;
-    background-color: #D5DFFC;
-    margin: 10px;
-
-    .MuiChip-label {
-      @extend .para;
-    }
   }
 }
 

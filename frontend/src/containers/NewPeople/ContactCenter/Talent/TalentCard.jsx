@@ -70,8 +70,8 @@ const TalentCard = ({
         <p className='mt-10 mb-10'>
           {profileDescription}
         </p>
-        <div className='talent-tags'>
-          {visibleProfileTags.map((tag) => <Chip key={ tag } label={ tag } className='talent-chips mt-10' />)}
+        <div className='tags-set mt-10 mb-30'>
+          {visibleProfileTags.map((tag) => <Chip key={ tag } label={ tag } className='tag-chip' />)}
 
           {!showAllTags && profileTags.length > 3 && (
             <Button
