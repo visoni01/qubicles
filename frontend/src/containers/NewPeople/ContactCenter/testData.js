@@ -237,6 +237,47 @@ const jobsCards = [
   },
 ]
 
+const jobPostCard = {
+  jobPostId: 1,
+  jobPostHeading: 'Looking for Experienced Customer service specialist',
+  createdAt: 'Posted 2 days ago',
+  jobDescription: `ICC is a strategic partner to the world's leading companies, bringing solutions and enhancing
+  customer experience during each interaction. We are the largest interaction expert team in the market: multicultural,
+  highly skilled, and deeply knowlegdeable, with a wide range of integrated omnichannel solutions, technology,
+  and the highest security standards.
+
+  Whether you're looking for work in a contact center, seeking cloud-based contact center software or you're in
+  the market for talent, we've got you covered. Powered by blockchain smart contracts with no middlemen
+  involved, our patent-pending technology ensures the right agent is matched to the right position at the
+  right time. Members of our team have been on the battlefield as agents, supervisors and executives.
+  We know firsthand how irate customers respond, what makes employees happy, the key performance metrics
+  for contact centers, and how the right technology can make a difference.
+  `,
+  payment: '$10/hr',
+  duration: '6 months',
+  jobType: 'Part Time',
+  location: 'Remote',
+  experienceLevel: 'Entry',
+  needed: '6/50 hired',
+  skillsTags: [ 'Customer Service', 'Phone Calling', 'Email Support', 'Business Studies', 'Agent Support' ],
+  courses: {
+    requiredCourses:
+      [
+        {
+          courseName: 'How to talk to clients?',
+          courseAuthor: 'Chris Porter, 2020',
+        }, {
+          courseName: 'Email Communication',
+          courseAuthor: 'Martha Riley, 2020',
+        },
+      ],
+    bonusCourses: {
+      courseName: 'Managing Difficult Situation',
+      courseAuthor: 'Roy Gordon, 2020',
+    },
+  },
+}
+
 const contactCenterIntroduction = {
   imageName: 'good',
   rating: 5,
@@ -271,5 +312,12 @@ const testResumeIntroduction = {
 }
 
 export {
-  courseCategories, courseCards, talentCards, jobsCards, topTalents, contactCenterIntroduction, testResumeIntroduction,
+  courseCategories,
+  courseCards,
+  talentCards,
+  jobsCards,
+  topTalents,
+  contactCenterIntroduction,
+  testResumeIntroduction,
+  jobPostCard,
 }
