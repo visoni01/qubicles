@@ -114,7 +114,7 @@ const routes = [
   // Added extra route for new contact-center jobPost design.
   {
     path: ROUTE_PATHS.CREATE_COURSE,
-    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Training/Course/NewCourse')),
+    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Training/Course/NewCourse/index')),
     auth: true,
   },
 ]
