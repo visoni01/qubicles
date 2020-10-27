@@ -1,10 +1,10 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState } from 'react'
 import { Avatar, Button, Chip } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { Rating } from '@material-ui/lab'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAward, faMapMarkerAlt, faLanguage } from '@fortawesome/free-solid-svg-icons'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { terry } from '../../../../assets/images/avatar'
 import ROUTE_PATHS from '../../../../routes/routesPath'
 
@@ -17,10 +17,6 @@ const TalentCard = ({
   const history = useHistory()
   const [ showAllTags, setShowAllTags ] = useState(false)
   const [ visibleProfileTags, setVisibleProfileTags ] = useState(profileTags.filter((tag, index) => index < 3))
-
-  const handleViewResume = useCallback(() => {
-    history.push(ROUTE_PATHS.VIEW_RESUME)
-  })
 
   return (
     <div className='talent-card'>
@@ -40,12 +36,12 @@ const TalentCard = ({
               />
               <FontAwesomeIcon className='badges' icon={ faAward } />
             </div>
-            <Button
-              onClick={ handleViewResume }
-              className='text-button'
+            <Link
+              to={ ROUTE_PATHS.VIEW_RESUME }
+              className='primary-text-link  ml-10 mr-10'
             >
               View Resume
-            </Button>
+            </Link>
           </div>
           <p className='location'>
             <FontAwesomeIcon icon={ faMapMarkerAlt } className='ml-10' />

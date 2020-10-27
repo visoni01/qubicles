@@ -1,8 +1,8 @@
-import React, { useCallback } from 'react'
-import { Avatar, Button } from '@material-ui/core'
+import React from 'react'
+import { Avatar } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { Rating } from '@material-ui/lab'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { terry } from '../../../../assets/images/avatar'
 import ROUTE_PATHS from '../../../../routes/routesPath'
 
@@ -14,9 +14,6 @@ const TopTalentCard = ({
 
 }) => {
   const history = useHistory()
-  const handleViewResume = useCallback(() => {
-    history.push(ROUTE_PATHS.VIEW_RESUME)
-  })
   return (
     <div className='top-talent'>
       <div className='display-inline-flex talent-profile'>
@@ -34,12 +31,12 @@ const TopTalentCard = ({
           <p className='description'>
             {profileName}
           </p>
-          <Button
-            className='text-button'
-            onClick={ handleViewResume }
+          <Link
+            to={ ROUTE_PATHS.VIEW_RESUME }
+            className='primary-text-link'
           >
             View Resume
-          </Button>
+          </Link>
         </div>
       </div>
     </div>

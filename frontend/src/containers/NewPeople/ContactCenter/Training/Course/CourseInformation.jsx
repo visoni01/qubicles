@@ -164,9 +164,9 @@ const CourseInformation = () => {
           />
         </div>
         <h4> Required Courses </h4>
-        <Grid container>
+        <Grid container spacing={ 2 }>
           <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 6 }>
-            <div className='new-input-search'>
+            <div className='search-input'>
               <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 fontawesome-icon' />
               <InputBase
                 placeholder='Search Courses'
