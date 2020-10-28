@@ -1,7 +1,9 @@
 import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, IconButton, Select, FormControl, MenuItem,
+  Dialog, DialogActions, DialogContent,
+  DialogTitle, TextField, Button,
+  IconButton, Select, FormControl, InputLabel,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -9,16 +11,18 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 const InviteAgent = ({
   open, handleClose,
 }) => {
-  const [ jobType, setJobType ] = useState('')
-  const [ message, setMessage ] = useState('')
-
-  const setJobTypeCB = useCallback((event) => {
-    setJobType(event.target.value)
-  }, [])
-
-  const setMessageCB = useCallback((event) => {
-    setMessage(event.target.value)
-  }, [])
+  const [ inviteAgentData, setInviteAgentData ] = useState({
+    jobType: '',
+    inviteMessage: '',
+  })
+  const availableCategories = [ 'Customer Service', 'Phone Calling', 'Email Support', 'Active Sales', 'Agent Support' ]
+  const setInviteAgentDataCB = useCallback((event) => {
+    const { name, value } = event.target
+    setInviteAgentData((currentInviteAgentData) => ({
+      ...currentInviteAgentData,
+      [ name ]: value,
+    }))
+  }, [ ])
 
   const handleCancelButton = () => {
     handleClose()
@@ -42,30 +46,27 @@ const InviteAgent = ({
         </DialogActions>
       </div>
       <DialogContent>
-        <h4>Invite for following position</h4>
-        <FormControl>
-          <Select
-            MenuProps={ {
-              getContentAnchorEl: null,
-              anchorOrigin: {
-                vertical: 'bottom',
-                horizontal: 'left',
-              },
-            } }
-            name='jobType'
-            id='jobType'
-            className='dropdown'
-            placeholder='skill'
-            variant='outlined'
-            onChange={ setJobTypeCB }
-            value={ jobType }
-          >
-            <MenuItem value='skill 1'>skill 1</MenuItem>
-            <MenuItem value='skill 2'>skill 2</MenuItem>
-            <MenuItem value='skill 3'>skill 3</MenuItem>
-          </Select>
-        </FormControl>
-        <h4>Message</h4>
+        <h4 className='h4'>Invite for following position</h4>
+        <div>
+          <FormControl variant='outlined' className='drop-down-bar'>
+            <InputLabel>Choose job category</InputLabel>
+            <Select
+              native
+              label='Choose job category'
+              onChange={ setInviteAgentDataCB }
+              className='dropdown'
+              name='jobType'
+            >
+              <option aria-label='None' value='' />
+              {availableCategories.map((skill) => (
+                <option key={ skill } value={ skill }>
+                  {skill}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+        </div>
+        <h4 className='h4'>Message</h4>
         <TextField
           margin='dense'
           id='name'
@@ -74,9 +75,10 @@ const InviteAgent = ({
           multiline
           variant='outlined'
           placeholder="Personalize your invitation by referring to agent's specific skill"
-          value={ message }
-          onChange={ setMessageCB }
+          value={ inviteAgentData.inviteMessage }
+          onChange={ setInviteAgentDataCB }
           required
+          name='inviteMessage'
         />
       </DialogContent>
       <DialogActions>

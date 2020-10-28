@@ -265,13 +265,10 @@
     }
   }
 
-  h2 {
-    @extend .h2;
-  }
-
   h4 {
     @extend .h4;
     margin-top: 20px;
+    margin-bottom: 8px;
     letter-spacing: 0.5px;
   }
 
@@ -279,7 +276,6 @@
     width: 100%;
 
     .dropdown {
-      margin-top: 8px;
       width: 50%;
     }
   }

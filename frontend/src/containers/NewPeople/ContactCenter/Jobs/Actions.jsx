@@ -12,9 +12,6 @@ const Actions = () => {
     // eslint-disable-next-line no-shadow
     () => setOpenInviteAgentModal((openInviteAgentModal) => !openInviteAgentModal), [],
   )
-  const handleModalClose = () => {
-    setOpenInviteAgentModal(false)
-  }
 
   return (
     <>
@@ -43,7 +40,7 @@ const Actions = () => {
       </Box>
       <InviteAgent
         open={ openInviteAgentModal }
-        handleClose={ handleModalClose }
+        handleClose={ handleOpenInviteAgentModal }
       />
     </>
   )
