@@ -317,6 +317,19 @@
       margin-left: 10px;
     }
   }
+
+  .new-input-search {
+    border: 1px solid $color-border;
+    border-radius: 8px;
+    margin-right: 30px;
+    margin-top: 10px;
+
+    .input-field {
+      @extend .para;
+      font-size: 14px;
+    }
+  }
+
 }
 
 .job-requirements-root {
