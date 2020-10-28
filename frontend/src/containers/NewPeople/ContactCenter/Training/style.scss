@@ -10,38 +10,34 @@
     @extend .h4;
   }
 }
-.courses-container {
-  width: 100%;
-  height: 1000px;
-}
-.course-card-container {
-  display: inline-block;
-  width: 33.33%;
-}
 .course-card {
-  margin: 10px;
   border-radius: 8px;
   position: relative;
   box-shadow: none;
 }
 .course-image {
-  height: 160px;
+  height: 10rem;
   border: none;
 }
 
 .course-card-content {
   border: 1px solid $color-border;
-  .MuiRating-root  {
-    color: $color-primary;
+
+  .rating-text {
+    // padding: 5px 0;
+
+    .rating-star {
+      margin-left: 0px;
+    }
+
+    .total-students {
+      @extend .para;
+      margin: 0px 5px;
+      text-align: center;
+      color: $color-dark-grey;
+      font-size: 14px;
+    }
   }
-}
-.total-students {
-  @extend .para;
-  margin: 5px;
-  text-align: center;
-  color: $color-dark-grey;
-  vertical-align: text-bottom;
-  font-size: 14px;
 }
 
 .course-description {

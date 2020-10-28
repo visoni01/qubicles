@@ -31,93 +31,133 @@
 }
 
 
-.job-category-card {
 
-  .job-info {
-    border-bottom: 1px solid $color-border;
-    margin-bottom: 15px;
-    &:last-child {
-      border-bottom: none;
-    }
+.job-info {
+  border-bottom: 1px solid $color-border;
+  margin-bottom: 15px;
 
-    .job-owner-avatar {
-      margin-right: 10px;
-    }
-    .job-details {
-      p {
-        font-size: 14px;
-      }
-      .job-title {
-        @extend .para;
-        font-weight: 600;
-        color: $color-light-brown;
-      }
-    }
-    .action-buttons {
-      width: 100%;
-      display: inline-flex;
-      justify-content: flex-start;
-      padding: 10px 0;
-      font-size: 14px;
-
-      li {
-        margin-right: 10px;
-        flex: 1;
-          svg {
-            margin-right: 5px;
-          }
-      }
-      .action-icon {
-        font-size: 16px;
-        margin-right: 10px;
-        color: $color-dark-grey;
-      }
-      .icon-value {
-        @extend .para;
-        font-weight: 600;
-      }
-      .icon-title {
-        margin-left: 5px;
-        font-size: 15px;
-        color: $color-dark-grey;
-      }
-    }
+  &:last-child {
+    border-bottom: none;
   }
 
-  // job's Details section
-
-  .job-details-box {
-    .job-owner {
-      p {
-        font-size: 14px;
-        margin: auto 5px;
-      }
-      .owner-name {
-        font-weight: 500;
-        color: #444F5F;
-      }
-      .job-create-date {
-        color: #999999;
-      }
+  .job-owner-avatar {
+    margin-right: 10px;
+  }
+  .job-details {
+    p {
+      font-size: 14px;
     }
     .job-title {
-      font-size: 24px;
+      @extend .para;
       font-weight: 600;
-      color: #444F5F;
-      margin: 10px 0;
-    }
-    .job-description {
-      font-size: 14px;
-      color: #4A4A4A;
-    }
-    .action-buttons{
-      margin-top: 20px;
-       li{
-        margin-right: 20%;
-          svg{
-            margin-right: 5px;
-          }
-       }
+      color: $color-light-brown;
     }
   }
+  .action-buttons {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 14px;
+    li {
+      margin-right: 10%;
+        svg {
+          margin-right: 5px;
+        }
+    }
+    .action-icon {
+      font-size: 16px;
+      margin-right: 10px;
+      color: $color-dark-grey;
+    }
+    .icon-value {
+      @extend .para;
+      font-weight: 600;
+    }
+    .icon-title {
+      margin-left: 5px;
+      font-size: 15px;
+      color: $color-dark-grey;
+    }
+  }
+}
+
+// job's Details section
+
+.job-details-box {
+  .job-owner {
+    p {
+      font-size: 14px;
+      margin: auto 5px;
+    }
+    .owner-name {
+      font-weight: 500;
+      color: #444F5F;
+    }
+    .job-create-date {
+      color: #999999;
+    }
+  }
+  .job-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #444F5F;
+    margin: 10px 0;
+  }
+  .job-description {
+    font-size: 14px;
+    color: #4A4A4A;
+  }
+  .action-buttons{
+    margin-top: 20px;
+     li{
+      margin-right: 20%;
+        svg{
+          margin-right: 5px;
+        }
+     }
+  }
+}
+
+.textarea-input {
+  display: inline-flex;
+  width: 100%;
+  .avatar {
+    margin-right: 8px;
+  }
+	textarea {
+		width: calc(100% - 80px);
+		margin: 0 auto;
+		display: flex;
+		height: 100%;
+		border: none;
+		resize: none;
+		border: 1px solid #DBDBDB;
+		border-radius: 8px;
+		padding: 10px;
+		font-family: 'Poppins', sans-serif;
+		&:focus {
+			outline: none;
+			box-shadow: inherit;
+		}
+	}
+	input[type="file"] {
+		right: 10px;
+		width: 20px;
+		top: 20px;
+		opacity: 0;
+		z-index: 9999;
+	}
+}
+
+.galley-icon {
+  svg {
+    vertical-align: middle;
+    font-size: 24px;
+    height: 100%;
+  }
+}
+
+.job-divider {
+  margin-bottom: 20px
 }

@@ -1,4 +1,6 @@
-import { kareem, terry, sally } from '../../../assets/images/avatar'
+import {
+  kareem, terry, sally, good,
+} from '../../../assets/images/avatar'
 
 const courseCategories = [
   'Accounting',
@@ -67,6 +69,30 @@ const courseCards = [
     priceQbe: 12,
     priceUsd: 12,
     ratingValue: 4.5,
+    studentsCount: 503,
+    courseDescription: `Lorem Ipsum
+     is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry`,
+    sectionsCount: 8,
+    language: 'English',
+    imageUrl: 'https://picsum.photos/400/300',
+  },
+  {
+    courseId: 6,
+    priceQbe: 9,
+    priceUsd: 9,
+    ratingValue: 4,
+    studentsCount: 503,
+    courseDescription: `Lorem Ipsum
+     is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry`,
+    sectionsCount: 8,
+    language: 'English',
+    imageUrl: 'https://picsum.photos/400/300',
+  },
+  {
+    courseId: 6,
+    priceQbe: 18,
+    priceUsd: 18,
+    ratingValue: 4,
     studentsCount: 503,
     courseDescription: `Lorem Ipsum
      is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry`,
@@ -211,6 +237,87 @@ const jobsCards = [
   },
 ]
 
+const jobPostCard = {
+  jobPostId: 1,
+  jobPostHeading: 'Looking for Experienced Customer service specialist',
+  createdAt: 'Posted 2 days ago',
+  jobDescription: `ICC is a strategic partner to the world's leading companies, bringing solutions and enhancing
+  customer experience during each interaction. We are the largest interaction expert team in the market: multicultural,
+  highly skilled, and deeply knowlegdeable, with a wide range of integrated omnichannel solutions, technology,
+  and the highest security standards.
+
+  Whether you're looking for work in a contact center, seeking cloud-based contact center software or you're in
+  the market for talent, we've got you covered. Powered by blockchain smart contracts with no middlemen
+  involved, our patent-pending technology ensures the right agent is matched to the right position at the
+  right time. Members of our team have been on the battlefield as agents, supervisors and executives.
+  We know firsthand how irate customers respond, what makes employees happy, the key performance metrics
+  for contact centers, and how the right technology can make a difference.
+  `,
+  payment: '$10/hr',
+  duration: '6 months',
+  jobType: 'Part Time',
+  location: 'Remote',
+  experienceLevel: 'Entry',
+  needed: '6/50 hired',
+  skillsTags: [ 'Customer Service', 'Phone Calling', 'Email Support', 'Business Studies', 'Agent Support' ],
+  courses: {
+    requiredCourses:
+      [
+        {
+          courseName: 'How to talk to clients?',
+          courseAuthor: 'Chris Porter, 2020',
+        }, {
+          courseName: 'Email Communication',
+          courseAuthor: 'Martha Riley, 2020',
+        },
+      ],
+    bonusCourses: {
+      courseName: 'Managing Difficult Situation',
+      courseAuthor: 'Roy Gordon, 2020',
+    },
+  },
+}
+
+const contactCenterIntroduction = {
+  imageName: 'good',
+  rating: 5,
+  imageSrc: good,
+  name: 'Good Call Center',
+  location: 'San Francisco, CA',
+  date: 'Member since 11/2020',
+  title: 'Innovative Call Center',
+  description: `Whether you are looking for work in a contact center, seeking cloud-based contact center software
+  or you are in the market for talent, we have got you covered. Powered by blockchain smart contracts with no
+  middlemen involved, our patent-pending technology ensures the right agent is matched to the right position at
+  the right time. Members of our team have been on the battlefield as agents, supervisors and executives. We know
+  firsthand how irate customers respond, what makes employees happy, the key performance metrics for contact centers,
+  and how the right technology can make a difference.`,
+}
+
+const testResumeIntroduction = {
+  imageName: 'terry',
+  rating: 5,
+  imageSrc: terry,
+  name: 'Terry Garret',
+  location: 'San Francisco, CA',
+  date: 'Member since 11/2020',
+  title: 'Customer Service Specialist',
+  description: ` Over 25 years of experience. I am a seasoned marketing professional. I work well in  a dedicated home
+  office with a desk. I am able to adhere to a time schedule and am flexible in my availability. I am college educated
+  and have a medical background as well in pharmaceutical customer service. I have experience in fundraising,
+  appointment setting, market research surverys, phone sales, cold calling, and businees to business sales and
+  appointments. I have experience in voice-over work as well for different businesses. Especially enjoying realestate,
+  insurance, and healthcare field assignments. I have also done data scraping and skip tracing handling collections
+  accounts..`,
+}
+
 export {
-  courseCategories, courseCards, talentCards, jobsCards, topTalents,
+  courseCategories,
+  courseCards,
+  talentCards,
+  jobsCards,
+  topTalents,
+  contactCenterIntroduction,
+  testResumeIntroduction,
+  jobPostCard,
 }

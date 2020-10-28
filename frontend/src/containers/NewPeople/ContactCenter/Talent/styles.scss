@@ -1,18 +1,27 @@
 @import '../../../../customStyles/scss/index.scss';
 
+.divider {
+  width: 100%;
+  margin: 15px 0;
+}
+
 .top-talent-root{
   border: 1px solid $color-border;
   padding-bottom: 0px;
 
   h3 {
     @extend .h3;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
   }
 
   .top-talent {
     width: 100%;
     margin-bottom: 15px;
     border-bottom: 1px solid $color-border;
+
+    .talent-profile {
+      margin-bottom: 10px;
+    }
 
     &:last-child {
       border: none;
@@ -22,25 +31,18 @@
       width: 56px;
       height: 56px;
       margin: 10px;
+      margin-left: 0px;
     }
 
     .candidate-info {
       align-self: center;
       width: calc(100% - 60px);
-      margin-bottom: 15px;
 
       .candidate-name {
         @extend .h4;
         color: $color-light-brown;
         font-weight: 600;
 
-      }
-      .MuiRating-root {
-        &.rating-star {
-          color: $color-primary;
-          margin: 5px 15px 0px 5px;
-          vertical-align: text-bottom;
-        }
       }
 
       .description {
@@ -62,52 +64,6 @@
   }
 }
 
-
-.talent-filter-root {
-  border: 1px solid $color-border;
-  border-radius: 8px;
-  margin-top: 5px;
-  margin-bottom: 25px;
-  background-color: #FFFFFF;
-  padding: 20px 0;
-
-  h2 {
-    @extend .h2;
-    font-size: 28px;
-  }
-
-  .talent-filter-title {
-    display: inline-flex;
-    width: 100%;
-    justify-content: space-between;
-
-    h3 {
-      @extend .h3;
-      margin: 10px 0;
-    }
-  }
-
-  .talent-dropdown  {
-    .dropdown {
-      border: 1px solid #DBDBDB;
-      height: 45px;
-      border-radius: 6px;
-      width: 290px;
-      background: #FFFFFF;
-      margin-top: 11px;
-      font-family: "SF Pro Text", Regular;
-      font-weight: normal;
-      color: #4A4A4A;
-      padding-left: calc(0.75em - 1px);
-      padding-right: calc(0.75em - 1px);
-    }
-
-    .MuiInput-underline:after {
-      border-bottom: 2px solid #4877f4 !important;
-    }
-  }
-}
-
 .talent-head {
   width: 100%;
 
@@ -116,14 +72,13 @@
     height: 75px;
   }
 
-
   .talent-details {
     align-self: center;
     width: calc(100% - 90px);
     margin: 10px 10px 0px 15px;
 
     .username {
-      display: inline-block;
+      display: inline-flex;
       justify-content: space-between;
       width: 100%;
     }
@@ -133,15 +88,6 @@
       font-size: 16px;
       font-weight: 600;
       color: $color-light-brown;
-    }
-
-    .MuiRating-root {
-      &.rating-star {
-        color: $color-primary;
-        margin: 0px 10px;
-        vertical-align: text-bottom;
-        font-size: 22px;
-      }
     }
 
     .badges {
@@ -159,6 +105,11 @@
         color: $color-primary;
       }
 
+    }
+
+    .badges {
+      color: $color-dark-grey;
+      font-size: 22px;
     }
 
     .location {
@@ -215,20 +166,295 @@
       @extend .para;
     }
   }
+}
 
-  .talent-tags {
-    margin-left: 5px;
-    margin-bottom: 30px;
+.talent-filter {
+  .talent-title {
+    margin-bottom: 25px;
+  }
 
-    .talent-chips {
+  .full-border {
+    margin-bottom: 20px;
+  }
+
+  .filter-section {
+    h4 {
+      margin-top: 25px;
+    }
+  }
+
+  .talent-filter-dropdown {
+    width: 87%;
+    margin: 10px 5% 10px 8%;
+  }
+
+  .radio-buttons {
+    .MuiFormControlLabel-root {
+      margin-right: 0px;
+    }
+  }
+
+  .rating-filter {
+    .rating-star {
+      margin-left: 0px;
+    }
+
+    .rating-text {
       @extend .para;
-      margin-right: 15px;
-      padding: 0px 5px;
-      background-color: $color-primary-light;
+    }
+  }
+}
+
+.resume-intro-root {
+
+  .agent-specifications{
+    @extend .para;
+    justify-content: space-between;
+    margin: 10px 0px;
+
+    .heading {
+      @extend .h4;
+      font-weight: 600;
     }
 
-    .more {
-      vertical-align: bottom;
+    .personal-details{
+      text-transform: capitalize;
     }
+  }
+
+  .badges {
+    color: $color-primary;
+    font-size: 34px;
+  }
+}
+
+.courses-root{
+
+  .courses-heading {
+    @extend .h3;
+    width: 100%;
+    letter-spacing: 1px;
+  }
+
+  .course-section {
+    flex-direction: column;
+    width: 100%;
+    margin: 10px 0px;
+
+    p {
+      @extend .para;
+    }
+
+    .author {
+      color: $color-dark-grey;
+      margin-bottom: 10px;
+    }
+
+    .text-button {
+      color: $color-primary;
+      font-size: 14px;
+      width: fit-content;
+      padding: 0px;
+      font-weight: 600;
+    }
+  }
+}
+
+.skills-page-root{
+  .skill-section {
+    .skill-set{
+      @extend .h4;
+    }
+
+    p {
+      @extend .para;
+    }
+
+    .description{
+      color: $color-dark-grey;
+      align-self: center;
+      margin-left: 15px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .text-button{
+      align-self: center;
+      margin: 20px 0px;
+    }
+  }
+}
+
+.reviews-root {
+  .people-active-tabs {
+    width: 60%;
+    margin-bottom: 20px;
+  }
+  .review-section {
+    width: 100%;
+
+    .candidate-info {
+      align-self: center;
+      width: calc(100% - 60px);
+      margin-left: 15px;
+      margin-bottom: 10px;
+
+      p{
+        @extend .para;
+        font-size: 14px;
+      }
+
+      svg {
+        font-size: 20px;
+      }
+      .rating-star {
+        margin-left: 0px;
+      }
+
+      .description {
+        @extend .para;
+        font-size: 14px;
+        color: $color-dark-grey;
+      }
+    }
+  }
+
+  .text-button {
+    color: $color-primary;
+  }
+}
+
+.work-history-root {
+  .work-history-section {
+    flex-direction: column;
+    width: 100%;
+    margin: 10px 0px;
+
+    .date {
+      svg {
+        font-size: 5px;
+        vertical-align: middle;
+        margin: 0px 15px;
+      }
+
+    }
+
+    .feedback-section {
+      display: inline-flex;
+      justify-content: space-between;
+      margin: 10px 0px;
+
+      .middle-part{
+        width: calc(100% - 150px);
+        vertical-align: middle;
+        margin: 15px 0;
+      }
+
+      .right-part {
+        float: right;
+        vertical-align: middle;
+        margin: 15px 0;
+
+        .rating-star {
+          margin-left: 0px;
+        }
+
+        .text-button {
+          color: $color-primary;
+          width: fit-content;
+          font-size: 13px;
+          padding: 0px;
+          :hover {
+            color: $color-primary;
+          }
+        }
+      }
+    }
+  }
+
+  .badges {
+    color: $color-primary;
+    font-size: 34px;
+    margin: 10px 0px;
+  }
+}
+
+.paragraph-heading {
+  @extend .para;
+  font-weight: 400;
+}
+
+.endorsement-modal {
+  width: 600px;
+
+  .MuiDialog-scrollPaper {
+    overflow-y: scroll;
+  }
+
+  .MuiDialog-paperScrollPaper {
+    max-height: none;
+    margin-top: auto;
+  }
+
+  .cross-button {
+    button {
+      .MuiIconButton-label {
+        color: $color-primary;
+      }
+    }
+  }
+
+  h2 {
+    @extend .h2;
+  }
+
+  h4 {
+    @extend .h4;
+    font-size: 18px;
+  }
+
+  .divider {
+    margin: 2px 0;
+  }
+
+  .endorsement-section {
+    display: inline-flex;
+    justify-content: space-between;
+    margin: 10px 0px;
+
+    .middle-part{
+      width: 100%;
+      vertical-align: middle;
+      margin: 15px 0;
+    }
+
+    .MuiRating-root {
+      &.rating-star {
+        vertical-align: middle;
+        margin: 0 15px;
+        color: $color-primary;
+        vertical-align: text-bottom;
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+.cover-letter-root {
+  h3 {
+    @extend .h3;
+  }
+
+  p {
+    @extend .para;
+  }
+
+  .stengths-list {
+    @extend .para;
+
+    li {
+      margin-left: 10px;
+      list-style-type: initial;
+   }
   }
 }

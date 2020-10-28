@@ -2,9 +2,9 @@ import React from 'react'
 import { Box, InputBase } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import './styles.scss'
 import TalentCard from './TalentCard'
 import { talentCards } from '../testData'
+import './styles.scss'
 
 const TalentPage = () => (
   <>

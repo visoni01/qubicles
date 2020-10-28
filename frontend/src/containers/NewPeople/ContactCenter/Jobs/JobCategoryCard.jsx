@@ -2,7 +2,9 @@ import React from 'react'
 import { Typography } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserFriends, faRedo, faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom'
 import { jobCategoryCardValidator } from './jobsValidator'
+import ROUTE_PATHS from '../../../../routes/routesPath'
 
 const JobCategoryCard = ({
   categoryName, jobs,
@@ -19,11 +21,15 @@ const JobCategoryCard = ({
         jobId, title, required, hired, evaluating, pending,
       }) => (
         <>
-          <div className='display-inline-flex job-info is-fullwidth mb-10' key={ jobId }>
+          <div className='job-info' key={ jobId }>
             <div className='job-details is-fullwidth'>
-              <Typography className='job-title'>
-                { title }
-              </Typography>
+              <Link to={ ROUTE_PATHS.JOB_POST }>
+                <Typography
+                  className='job-title'
+                >
+                  { title }
+                </Typography>
+              </Link>
               <div>
                 <ul className='action-buttons'>
                   <li>

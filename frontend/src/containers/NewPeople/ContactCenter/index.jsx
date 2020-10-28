@@ -1,14 +1,17 @@
 /* eslint-disable complexity */
 import React, { useState } from 'react'
-import { Grid, Tabs, Tab } from '@material-ui/core'
+import {
+  Grid, Tabs, Tab,
+} from '@material-ui/core'
 import JobsList from './Jobs/JobsList'
 import JobsPage from './Jobs/JobsPage'
+import TalentFilter from './Talent/TalentFilter'
 import TalentPage from './Talent/TalentPage'
 import TopTalent from './Talent/TopTalent'
 import { newNavBar } from '../../../hoc/navbar'
-import './styles.scss'
 import TrainingFilter from './Training/TrainingFilter'
 import TrainingWrap from './Training/TrainingWrap'
+import './styles.scss'
 import './newStyles.scss'
 
 const People = () => {
@@ -17,16 +20,16 @@ const People = () => {
   const spacingTab = activeTab === 2 ? 8 : 12
   return (
     <Grid container spacing={ 3 }>
-      <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 } alignItems='flex-start'>
+      <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 } alignItems='flex-start'>
         <div>
           { activeTab === 0 && <JobsList />}
-          { activeTab === 1 && <JobsList />}
+          { activeTab === 1 && <TalentFilter />}
           { activeTab === 2 && <TrainingFilter />}
         </div>
       </Grid>
       <Grid
-        container
         item
+        spacing={ 10 }
         xl={ spacingMid }
         lg={ spacingMid }
         md={ spacingMid }

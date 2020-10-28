@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import { Avatar, Button, Chip } from '@material-ui/core'
+import PropTypes from 'prop-types'
 import { Rating } from '@material-ui/lab'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAward, faMapMarkerAlt, faLanguage } from '@fortawesome/free-solid-svg-icons'
-import { talentCardValidator } from './talentValidators'
+import { useHistory, Link } from 'react-router-dom'
+import { terry } from '../../../../assets/images/avatar'
+import ROUTE_PATHS from '../../../../routes/routesPath'
 
 const TalentCard = ({
   candidateName, candidatePic, availability,
@@ -11,6 +14,7 @@ const TalentCard = ({
   ratePerHourDollar, profileName,
   profileDescription, profileTags,
 }) => {
+  const history = useHistory()
   const [ showAllTags, setShowAllTags ] = useState(false)
   const [ visibleProfileTags, setVisibleProfileTags ] = useState(profileTags.filter((tag, index) => index < 3))
 
@@ -26,13 +30,18 @@ const TalentCard = ({
                 className='rating-star'
                 name='read-only'
                 readOnly
-                size='large'
+                size='small'
                 value={ candidateRating }
                 precision={ 0.1 }
               />
               <FontAwesomeIcon className='badges' icon={ faAward } />
             </div>
-            <Button className='text-button'>View Resume </Button>
+            <Link
+              to={ ROUTE_PATHS.VIEW_RESUME }
+              className='primary-text-link  ml-10 mr-10'
+            >
+              View Resume
+            </Link>
           </div>
           <p className='location'>
             <FontAwesomeIcon icon={ faMapMarkerAlt } className='ml-10' />
@@ -57,8 +66,8 @@ const TalentCard = ({
         <p className='mt-10 mb-10'>
           {profileDescription}
         </p>
-        <div className='talent-tags'>
-          {visibleProfileTags.map((tag) => <Chip key={ tag } label={ tag } className='talent-chips mt-10' />)}
+        <div className='tags-set mt-10 mb-30'>
+          {visibleProfileTags.map((tag) => <Chip key={ tag } label={ tag } className='tag-chip' />)}
 
           {!showAllTags && profileTags.length > 3 && (
             <Button
@@ -79,6 +88,7 @@ const TalentCard = ({
 
 TalentCard.defaultProps = {
   candidateName: 'Terry Garret',
+  candidatePic: terry,
   availability: 'Available',
   candidateRating: 5,
   location: 'San Francisco, CA',
@@ -91,6 +101,17 @@ TalentCard.defaultProps = {
   profileTags: [ 'Customer Service', 'Phone Calling', 'Active Talker', 'Business Studies' ],
 }
 
-TalentCard.propTypes = talentCardValidator
+TalentCard.propTypes = {
+  candidateName: PropTypes.string,
+  candidatePic: PropTypes.string,
+  availability: PropTypes.string,
+  candidateRating: PropTypes.number,
+  location: PropTypes.string,
+  languages: PropTypes.string,
+  ratePerHourDollar: PropTypes.number,
+  profileName: PropTypes.string,
+  profileDescription: PropTypes.string,
+  profileTags: PropTypes.arrayOf(PropTypes.string),
+}
 
 export default TalentCard
