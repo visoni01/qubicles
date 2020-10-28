@@ -304,9 +304,14 @@
         font-size: 14px;
       }
 
+      .reviewerName {
+        font-weight: 600;
+      }
+
       svg {
         font-size: 20px;
       }
+
       .rating-star {
         margin-left: 0px;
       }
@@ -320,6 +325,7 @@
   }
 
   .text-button {
+    align-self: center;
     color: $color-primary;
   }
 }

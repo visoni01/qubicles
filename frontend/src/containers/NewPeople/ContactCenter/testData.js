@@ -1,5 +1,5 @@
 import {
-  kareem, terry, sally, good,
+  kareem, terry, sally, good, carolin, helen, thomas,
 } from '../../../assets/images/avatar'
 
 const courseCategories = [
@@ -311,6 +311,49 @@ const testResumeIntroduction = {
   accounts..`,
 }
 
+const reviews = [
+  {
+    imageName: 'carolin',
+    rating: 5,
+    imageSrc: carolin,
+    reviewerName: 'Carolin Palmer',
+    date: 'September 06, 2020',
+    position: 'Customer Service Manager at Microsoft',
+    review: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
+    it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+    typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
+    containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including
+    versions of Lorem Ipsum.`,
+  }, {
+    imageName: 'helen',
+    rating: 5,
+    imageSrc: helen,
+    reviewerName: 'Helen Valdez',
+    date: 'September 06, 2020',
+    position: 'Customer Service Manager at Microsoft',
+    review: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
+    it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+    typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
+    containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including
+    versions of Lorem Ipsum.`,
+  }, {
+    imageName: 'thomas',
+    rating: 5,
+    imageSrc: thomas,
+    reviewerName: 'Thomas Gray',
+    date: 'September 06, 2020',
+    position: 'Customer Service Manager at Microsoft',
+    review: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
+    it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+    typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
+    containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including
+    versions of Lorem Ipsum.`,
+  },
+]
+
 export {
   courseCategories,
   courseCards,
@@ -320,4 +363,5 @@ export {
   contactCenterIntroduction,
   testResumeIntroduction,
   jobPostCard,
+  reviews,
 }

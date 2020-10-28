@@ -4,9 +4,11 @@ import {
 } from '@material-ui/core'
 import Rating from '@material-ui/lab/Rating'
 import { terry, carolin, helen } from '../../../../../assets/images/avatar'
+import Reviews from '../../Reviews'
+import { reviews } from '../../testData'
 import '../styles.scss'
 
-const Reviews = () => {
+const ResumeReviews = () => {
   const [ activeTab, setActivetab ] = useState(0)
   return (
     <div className='box courses-root reviews-root has-fullwidth'>
@@ -22,47 +24,18 @@ const Reviews = () => {
       </div>
       { activeTab === 0 && (
       <div>
-        <div className='display-inline-flex review-section'>
-          <Avatar className='profile-pic' alt='carolin' src={ carolin } />
-          <div className='candidate-info'>
-            <p className='reviewer-name'>Jasmine Palmer</p>
-            <p className='description'> Customer Service Manager at Good Call Center </p>
-            <Rating
-              className='rating-star'
-              name='read-only'
-              readOnly
-              size='small'
-              value={ 5 }
-              precision={ 0.1 }
-            />
-            <p>
-              Thank you Terry for your invaluable contribution in working with us and pioneering this program!
-              You have been an asset to helping us set up the process for this role. In truth, overqualified for this.
-              We wish you could have stayed with us longer.
-            </p>
-          </div>
-        </div>
-        <Divider className='divider' />
-        <div className='display-inline-flex review-section'>
-          <Avatar className='profile-pic' alt='helen' src={ helen } />
-          <div className='candidate-info'>
-            <p className='reviewer-name'>Elizabeth Valdez</p>
-            <p className='description'> Customer Account Manager at ICC </p>
-            <Rating
-              className='rating-star'
-              name='read-only'
-              readOnly
-              size='small'
-              value={ 5 }
-              precision={ 0.1 }
-            />
-            <p>
-              Terry's relentless drive has taken ICC towards great success. He is organized, efficient,
-              and willing to do whatever is needed to complete a set goal. I would recomend him anytime.
-            </p>
-          </div>
-        </div>
-        <Divider className='divider' />
+        {reviews.map((reviewData) => (
+          <Reviews
+            key={ reviewData.reviewerName }
+            imageName={ reviewData.imageName }
+            rating={ reviewData.rating }
+            imageSrc={ reviewData.imageSrc }
+            reviewerName={ reviewData.reviewerName }
+            date={ reviewData.date }
+            position={ reviewData.position }
+            review={ reviewData.review }
+          />
+        ))}
         <Button className='text-button'> View All Reviews </Button>
       </div>
       ) }
@@ -87,11 +60,10 @@ const Reviews = () => {
             </p>
           </div>
         </div>
-        <Divider className='divider' />
       </div>
       ) }
     </div>
   )
 }
 
-export default Reviews
+export default ResumeReviews
