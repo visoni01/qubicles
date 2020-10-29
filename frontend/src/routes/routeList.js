@@ -108,7 +108,7 @@ const routes = [
   },
   // Temporarily added extra route for new contact-center newJob design.
   {
-    path: '/new/people/apply-job',
+    path: ROUTE_PATHS.NEW_JOB,
     component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Jobs/NewJob')),
     auth: true,
   },
@@ -125,8 +125,8 @@ const routes = [
   },
   // Temporarily added extra route for new contact-center newJob design.
   {
-    path: '/new/people/training',
-    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Training/CoursePage')),
+    path: ROUTE_PATHS.VIEW_COURSE,
+    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Training/Course/ViewCourse/index')),
     auth: true,
   },
 ]

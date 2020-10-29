@@ -50,23 +50,23 @@
   color: $color-light-brown;
 }
 
-.course-sections {
-  margin-top: 10px;
-  span  {
-    @extend .para;
-    flex: 4;
-    text-align: center;
-    color: $color-dark-grey;
-    vertical-align: text-bottom;
-    font-size: 14px;
-  }
-  .sections {
-    margin-right: 5px;
-  }
-  .language {
-    margin-left: 5px;
-  }
-}
+// .course-sections {
+//   margin-top: 10px;
+//   span  {
+//     @extend .para;
+//     flex: 4;
+//     text-align: center;
+//     color: $color-dark-grey;
+//     vertical-align: text-bottom;
+//     font-size: 14px;
+//   }
+//   .sections {
+//     margin-right: 5px;
+//   }
+//   .language {
+//     margin-left: 5px;
+//   }
+// }
 
 .price-overlay {
   background-color: $color-white;
@@ -89,14 +89,14 @@
   }
 }
 
-.course-reviews-root {
-  .heading-section {
-    display: inline-flex;
-    width: 100%;
-    justify-content: space-between;
+// .course-reviews-root {
+//   .heading-section {
+//     display: inline-flex;
+//     width: 100%;
+//     justify-content: space-between;
 
-    .filter-icon {
-      font-size: 14px;
-    }
-  }
-}
+//     .filter-icon {
+//       font-size: 14px;
+//     }
+//   }
+// }

@@ -1,4 +1,5 @@
 @import '../../../../customStyles/scss/index.scss';
+@import '../newStyles.scss';
 
 .contact-center-info-root {
 
@@ -10,7 +11,6 @@
       height: 65px;
       margin-top: 10px;
     }
-
 
     .company-info-wrapper {
       margin-left: 15px;
@@ -40,7 +40,6 @@
         }
       }
     }
-
   }
 
   .contact-center-title {
@@ -287,30 +286,28 @@
 }
 
 .new-job-root {
-  .new-job-heading {
-    @extend .h2;
-  }
-
-  h3 {
-    @extend .h3;
-    font-weight: 600;
-  }
 
   .category-section {
     width: 100%;
     display: inline-flex;
     justify-content: space-between;
 
-    .MuiFormControl-root {
-      width: 100%;
-
-      .job-category-dropdown {
-        width: 70%;
-        height: 40px;
-      }
+    .drop-down-bar {
+      width: 80%;
+      height: 30px;
     }
+
+    // .MuiFormControl-root {
+    //   width: 100%;
+
+    //   .job-category-dropdown {
+    //     width: 70%;
+    //     height: 40px;
+    //   }
+    // }
+
     .agent-field{
-      width: 20%;
+      width: 75px;
     }
     .agent-label {
       align-self: center;
@@ -334,12 +331,35 @@
 
 .job-requirements-root {
 
+  .drop-down-bar {
+    width: 80%;
+    height: 30px;
+  }
+
   .MuiFormControl-root {
     width: 100%;
 
     .course-search-input{
       width: 70%;
-      height: 40px;
+      height: 30px;
     }
+  }
+}
+
+.job-details-root {
+  .duration-field{
+    width: 75px;
+  }
+  .duration-label {
+    align-self: center;
+    margin-left: 10px;
+  }
+  .locatiom {
+    width: 70%;
+    height: 30px;
+  }
+  .drop-down-bar {
+    width: 80%;
+    height: 30px;
   }
 }

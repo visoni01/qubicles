@@ -1,0 +1,60 @@
+@import '../../../../../../customStyles/scss/index.scss';
+@import '../../../newStyles.scss';
+
+.course-description {
+  font-family: $system-font;
+  letter-spacing: 0;
+  margin-top: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  color: $color-light-brown;
+}
+
+.course-sections {
+  margin-top: 10px;
+  span  {
+    @extend .para;
+    flex: 4;
+    text-align: center;
+    color: $color-dark-grey;
+    vertical-align: text-bottom;
+    font-size: 14px;
+  }
+  .sections {
+    margin-right: 5px;
+  }
+  .language {
+    margin-left: 5px;
+  }
+}
+
+.course-reviews-root {
+  .heading-section {
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-between;
+
+    .filter-icon {
+      font-size: 14px;
+    }
+  }
+}
+
+.cover-letter-root {
+  h3 {
+    @extend .h3;
+  }
+
+  p {
+    @extend .para;
+  }
+
+  .stengths-list {
+    @extend .para;
+
+    li {
+      margin-left: 10px;
+      list-style-type: initial;
+   }
+  }
+}

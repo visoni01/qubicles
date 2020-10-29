@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import { Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import './style.scss'
 
 const CourseDescription = ({
   title,

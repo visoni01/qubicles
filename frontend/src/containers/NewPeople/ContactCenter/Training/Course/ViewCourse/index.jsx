@@ -3,21 +3,17 @@ import { Grid } from '@material-ui/core'
 import CourseTrainerIntro from './CourseTrainerIntro'
 import CourseDescription from './CourseDescription'
 import CourseReviews from './CourseReviews'
-import CourseOverview from './Course/CourseOverview'
-import DisplayError from '../DisplayError'
-import Actions from '../Jobs/Actions'
-import { courseDescription } from './testData'
-import { newNavBar } from '../../../../hoc/navbar'
-import './style.scss'
+import Actions from '../../../Jobs/Actions'
+import { courseDescription } from '../../testData'
+import { newNavBar } from '../../../../../../hoc/navbar'
+import './styles.scss'
 
-const ViewResume = () => (
+const ViewCourse = () => (
   <Grid container spacing={ 3 }>
     <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
       <CourseTrainerIntro />
     </Grid>
     <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 4 }>
-      <DisplayError />
-      <CourseOverview />
       <CourseDescription
         key={ courseDescription.title }
         title={ courseDescription.title }
@@ -34,4 +30,4 @@ const ViewResume = () => (
   </Grid>
 )
 
-export default newNavBar(ViewResume)
+export default newNavBar(ViewCourse)
