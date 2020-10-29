@@ -26,7 +26,7 @@ const Comments = ({ topicId, commentsCount }) => {
     dispatch(topicCommentsFetchingStart({
       topicId,
       limit: noOfCommentsPerReq,
-      offset: comments.length || 0,
+      offset: 0,
     }))
   }, [ dispatch, topicId ])
 

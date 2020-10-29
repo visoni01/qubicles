@@ -1,4 +1,4 @@
-import { XForumGroup, XForumTopic, User, XForumComment, sequelize } from '../../db/models'
+import { XForumGroup, XForumTopic, User, XUserActivity, sequelize } from '../../db/models'
 import { getAll, getOne } from './crud'
 import { createNewEntity, updateEntity } from './common'
 import { find, uniq } from 'lodash'
@@ -93,7 +93,13 @@ export async function getForumGroupTopics ({ user_id, group_id, limit, offset })
   })
 
   rows = await Promise.all(rows.map(async ({ owner_id, topic_id, topic_title, topic_description, views, createdAt }) => {
-    const commentsCount = await XForumComment.count({ where: { topic_id } })
+    const commentsCount = await XUserActivity.count({
+      where: {
+        record_type: 'topic',
+        record_id: topic_id,
+        activity_type: 'comment'
+      }
+    })
     ownerIds.push(owner_id)
     return ({
       id: topic_id,
@@ -144,9 +150,11 @@ export async function getForumTopicComments ({ topic_id, limit, offset }) {
     { where: { topic_id }, returning: true }
   )
 
-  let topicComments = await XForumComment.findAll({
+  let topicComments = await XUserActivity.findAll({
     where: {
-      topic_id,
+      record_type: 'topic',
+      record_id: topic_id,
+      activity_type: 'comment',
       is_deleted: false
     },
     limit: JSON.parse(limit),
@@ -155,13 +163,13 @@ export async function getForumTopicComments ({ topic_id, limit, offset }) {
     raw: true
   })
 
-  topicComments = topicComments.map(({ comment_id, owner_id, comment_text, createdAt }) => {
-    ownerIds.push(owner_id)
+  topicComments = topicComments.map(({ user_activity_id, user_id, activity_value, created_on }) => {
+    ownerIds.push(user_id)
     return {
-      id: comment_id,
-      comment: comment_text,
-      ownerId: owner_id,
-      createdAt
+      id: user_activity_id,
+      comment: activity_value,
+      ownerId: user_id,
+      created_on
     }
   })
 
@@ -183,13 +191,15 @@ export async function getForumTopicComments ({ topic_id, limit, offset }) {
   return topicComments
 }
 
-export async function createForumComment ({ topic_id, comment_text, owner_id }) {
+export async function createForumComment ({ topic_id, comment, user_id }) {
   const newComment = await createNewEntity({
-    model: XForumComment,
+    model: XUserActivity,
     data: {
-      topic_id,
-      comment_text,
-      owner_id
+      user_id,
+      record_type: 'topic',
+      record_id: topic_id,
+      activity_type: 'comment',
+      activity_value: comment
     }
   })
 

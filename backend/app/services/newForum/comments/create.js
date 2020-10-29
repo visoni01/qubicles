@@ -25,16 +25,16 @@ export class ForumCreateCommentService extends ServiceBase {
     try {
       const newComment = await createForumComment({
         topic_id,
-        comment_text: comment,
-        owner_id: user_id
+        comment,
+        user_id
       })
 
       return {
         message: 'Forum comment created Successfully',
         newComment: {
-          id: newComment.comment_id,
-          comment: newComment.comment_text,
-          createdAt: newComment.createdAt
+          id: newComment.user_activity_id,
+          comment: newComment.activity_value,
+          createdAt: newComment.created_on
         }
       }
     } catch (err) {
