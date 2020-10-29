@@ -24,7 +24,7 @@ function* groupCrudWorker(action) {
         yield put(updateGroupsList({
           type: ADD_GROUP,
           data: {
-            newGroup: action.payload,
+            newGroup: data.newGroup,
           },
         }))
         msg = `Channel '${ getSubstrForNotification(title) }' has been successfully created!`

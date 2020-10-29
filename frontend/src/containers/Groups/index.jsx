@@ -11,7 +11,7 @@ import { addNewGroup } from '../../redux-saga/redux/actions'
 
 const Groups = () => {
   const dispatch = useDispatch()
-  const { groups } = useSelector((state) => state.groups)
+  const { groups, isLoading } = useSelector((state) => state.groups)
   const [ selectedGroup, setSelectedGroup ] = useState(0)
 
   const createGroup = (groupData) => {
@@ -21,10 +21,12 @@ const Groups = () => {
 
   const removeNewGroupForm = () => setSelectedGroup(0)
 
-  const sectionToRender = () => (selectedGroup === 'new'
-    ? <CreateGroup handleSubmit={ createGroup } onCancelClick={ removeNewGroupForm } />
-    : <SelectedGroup group={ groups && groups[ selectedGroup ] } />
-  )
+  const sectionToRender = () => {
+    if ((selectedGroup === 'new') || (!isLoading && groups.length === 0)) {
+      return <CreateGroup handleSubmit={ createGroup } onCancelClick={ removeNewGroupForm } />
+    }
+    return <SelectedGroup group={ groups && groups[ selectedGroup ] } />
+  }
 
   return (
     <Grid container spacing={ 3 }>

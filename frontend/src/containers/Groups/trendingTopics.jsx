@@ -13,7 +13,7 @@ const TrendingTopics = () => (
     <h3 className='h3 mb-10'>
       Trending Topics
     </h3>
-    {[ ...Array(4).keys() ].map((e) => (
+    {[ ...Array(4).keys() ].map((e, index) => (
       <div key={ e }>
         <div className='topic-info'>
           <Avatar className='avatar-logo' src={ carolin } />
@@ -27,18 +27,18 @@ const TrendingTopics = () => (
         <ul className='display-inline-flex '>
           <li>
             <FontAwesomeIcon icon={ faHeart } />
-            <p>274</p>
+            274
           </li>
           <li>
             <FontAwesomeIcon icon={ faComment } />
-            <p>17</p>
+            17
           </li>
           <li>
             <FontAwesomeIcon icon={ faEye } />
-            <p>349</p>
+            349
           </li>
         </ul>
-        <Divider className='divider' />
+        { (index < 3) && <Divider className='divider' /> }
       </div>
     ))}
   </Box>

@@ -29,7 +29,7 @@ const Groups = ({ selectedGroup, setSelectedGroup }) => {
       <List
         disablePadding
       >
-        {Boolean(groups.length) && groups.map(({ id, title }, index) => (
+        {groups.length ? groups.map(({ id, title }, index) => (
           <ListItem
             button
             key={ id }
@@ -44,7 +44,11 @@ const Groups = ({ selectedGroup, setSelectedGroup }) => {
             {/** Notification number logic still not clear */}
             <div className='notification-number'>+2</div>
           </ListItem>
-        ))}
+        )) : (
+          <h4 className='h4 text-align-center padding-20'>
+            No groups to show
+          </h4>
+        )}
       </List>
     </Box>
   )

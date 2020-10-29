@@ -14,6 +14,7 @@ import {
   UPDATE_CATEGORY,
   UPDATE_CHANNEL,
   ADD_GROUP_TOPIC,
+  UPDATE_TOPIC_STATS,
   LIKE_POST,
   UNLIKE_POST,
   CREATE_POST_COMMENT_START,
@@ -27,6 +28,8 @@ import {
   ADD_COMMENT_TO_POST,
   FETCH_COMMENT_FOR_POST,
   SET_IS_COMMENT_LOADING,
+  POST_TOPIC_COMMENT,
+  LOAD_MORE_COMMENTS,
 } from './constants'
 
 import {
@@ -160,6 +163,29 @@ export const getUpdatedTopicDetails = ({ state, payload }) => {
   return topicDetails
 }
 
+export const getUpdatedTopicComments = ({ state, payload }) => {
+  let updatedState
+  switch (payload.type) {
+    case POST_TOPIC_COMMENT: {
+      updatedState = {
+        ...state,
+        comments: [ payload.newComment, ...state.comments ],
+      }
+      break
+    }
+    case LOAD_MORE_COMMENTS: {
+      updatedState = {
+        ...state,
+        comments: [ ...state.comments, ...payload.comments ],
+      }
+      break
+    }
+    default:
+      break
+  }
+  return updatedState
+}
+
 export const getUpdatedChannel = ({ state, payload }) => {
   let { channelDetails } = state
   switch (payload.type) {
@@ -214,16 +240,35 @@ export const getUpdatedTopicsList = ({ state, payload }) => {
 }
 
 export const updateGroupTopics = (state, payload) => {
-  let updatedTopicsList
+  let updatedState
   switch (payload.type) {
     case ADD_GROUP_TOPIC: {
-      updatedTopicsList = [ ...state.topics, payload.newTopic ]
+      updatedState = {
+        ...state,
+        topics: [ ...state.topics, payload.newTopic ],
+        topicsCount: state.topicsCount + 1,
+      }
+      break
+    }
+    case UPDATE_TOPIC_STATS: {
+      updatedState = {
+        ...state,
+        topics: state.topics.map((topic) => {
+          if (topic.id === payload.topicId) {
+            return {
+              ...topic,
+              [ payload.statType ]: topic[ payload.statType ] + 1,
+            }
+          }
+          return topic
+        }),
+      }
       break
     }
     default:
       break
   }
-  return updatedTopicsList
+  return updatedState
 }
 
 export const getUpdatedJobsData = ({ state, payload }) => {

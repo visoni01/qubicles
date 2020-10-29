@@ -16,11 +16,11 @@ function* groupTopicsCrudWorker(action) {
     switch (action.type) {
       case ADD_GROUP_TOPIC: {
         const { title, ownerName } = action.payload
-        const data = yield Forum.addGroupTopic(action.payload)
+        const { data } = yield Forum.addGroupTopic(action.payload)
         // eslint-disable-next-line
         yield put(updateGroupTopicsList({
           type: ADD_GROUP_TOPIC,
-          newTopic: { ...action.payload, ownerName },
+          newTopic: { ownerName, ...data.newTopic, commentsCount: 0 },
         }))
         msg = `Topic '${ getSubstrForNotification(title) }' has been successfully created!`
         break

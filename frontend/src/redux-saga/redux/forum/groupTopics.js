@@ -7,6 +7,7 @@ const initialState = {
   error: null,
   success: false,
   topics: [],
+  topicsCount: 0,
 }
 
 const {
@@ -29,17 +30,15 @@ const {
       ...state,
       success: true,
       isLoading: false,
-      topics: getDataForReducer(action, initialState.topics, 'topics'),
+      topics: [ ...action.payload.topics ],
+      topicsCount: getDataForReducer(action, initialState.topicsCount, 'topicsCount'),
     }),
     groupTopicsFetchingFailure: (state, action) => ({
       ...state,
       error: true,
       isLoading: false,
     }),
-    updateGroupTopicsList: (state, action) => ({
-      ...state,
-      topics: updateGroupTopics(state, action.payload),
-    }),
+    updateGroupTopicsList: (state, action) => (updateGroupTopics(state, action.payload)),
   },
 })
 

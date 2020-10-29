@@ -26,4 +26,10 @@ newForumRouter.route('/groups/:group_id/topics')
 newForumRouter.route('/groups/:group_id/topics')
   .post(isAuthenticated, forumController.createTopic)
 
+newForumRouter.route('/topics/:topic_id/comments')
+  .get(isAuthenticated, forumController.getTopicComments)
+
+newForumRouter.route('/topics/:topic_id/comments')
+  .post(isAuthenticated, forumController.createTopicComment)
+
 export { newForumRouter }

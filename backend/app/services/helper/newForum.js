@@ -1,4 +1,4 @@
-import { XForumGroup, XForumTopic, User } from '../../db/models'
+import { XForumGroup, XForumTopic, User, XUserActivity, sequelize } from '../../db/models'
 import { getAll, getOne } from './crud'
 import { createNewEntity, updateEntity } from './common'
 import { find, uniq } from 'lodash'
@@ -80,33 +80,44 @@ export async function getOwnersName (ownerIds) {
   })
 }
 
-export async function getForumGroupTopics ({ user_id, group_id }) {
+export async function getForumGroupTopics ({ user_id, group_id, limit, offset }) {
   let ownerIds = Array(0)
-  let groupTopics = await getAll({
-    model: XForumTopic,
-    data: {
+  let { rows, count } = await XForumTopic.findAndCountAll({
+    where: {
       owner_id: user_id,
       group_id
-    }
+    },
+    limit: JSON.parse(limit),
+    offset: JSON.parse(offset),
+    raw: true
   })
 
-  groupTopics = groupTopics.map(({ owner_id, topic_id, topic_title, topic_description, createdAt }) => {
+  rows = await Promise.all(rows.map(async ({ owner_id, topic_id, topic_title, topic_description, views, createdAt }) => {
+    const commentsCount = await XUserActivity.count({
+      where: {
+        record_type: 'topic',
+        record_id: topic_id,
+        activity_type: 'comment'
+      }
+    })
     ownerIds.push(owner_id)
     return ({
       id: topic_id,
       title: topic_title,
       description: topic_description,
       ownerId: owner_id,
-      createdAt
+      createdAt,
+      views,
+      commentsCount
     })
-  })
+  }))
 
   // Remove duplicate Ids
   ownerIds = uniq(ownerIds)
 
   // Get owners' names
   const ownersNames = await getOwnersName(ownerIds)
-  groupTopics = groupTopics.map(({ ownerId, ...rest }) => {
+  rows = rows.map(({ ownerId, ...rest }) => {
     const ownerName = find(ownersNames, (owner) => owner.user_id === ownerId)
     return {
       ...rest,
@@ -114,7 +125,7 @@ export async function getForumGroupTopics ({ user_id, group_id }) {
     }
   })
 
-  return groupTopics
+  return { rows, count }
 }
 
 export async function createForumTopic ({ topic_title, owner_id, topic_description, group_id }) {
@@ -128,4 +139,69 @@ export async function createForumTopic ({ topic_title, owner_id, topic_descripti
     }
   })
   return newTopic
+}
+
+export async function getForumTopicComments ({ topic_id, limit, offset }) {
+  let ownerIds = Array(0)
+
+  // update number of the times topic visited.
+  await XForumTopic.update(
+    { views: sequelize.literal('views +1') },
+    { where: { topic_id }, returning: true }
+  )
+
+  let topicComments = await XUserActivity.findAll({
+    where: {
+      record_type: 'topic',
+      record_id: topic_id,
+      activity_type: 'comment',
+      is_deleted: false
+    },
+    limit: JSON.parse(limit),
+    offset: JSON.parse(offset),
+    order: [['createdAt', 'DESC']],
+    raw: true
+  })
+
+  topicComments = topicComments.map(({ user_activity_id, user_id, activity_value, created_on }) => {
+    ownerIds.push(user_id)
+    return {
+      id: user_activity_id,
+      comment: activity_value,
+      ownerId: user_id,
+      created_on
+    }
+  })
+
+  // Remove duplicate Ids
+  ownerIds = uniq(ownerIds)
+
+  // Get owners' names
+  const ownersNames = await getOwnersName(ownerIds)
+
+  topicComments = topicComments.map(({ ownerId, ...rest }) => {
+    const ownerName = find(ownersNames, (owner) => owner.user_id === ownerId)
+    return {
+      ...rest,
+      ownerId,
+      ownerName: ownerName && ownerName.full_name
+    }
+  })
+
+  return topicComments
+}
+
+export async function createForumComment ({ topic_id, comment, user_id }) {
+  const newComment = await createNewEntity({
+    model: XUserActivity,
+    data: {
+      user_id,
+      record_type: 'topic',
+      record_id: topic_id,
+      activity_type: 'comment',
+      activity_value: comment
+    }
+  })
+
+  return newComment
 }

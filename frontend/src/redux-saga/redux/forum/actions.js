@@ -18,6 +18,8 @@ import {
   UPDATE_COMMENT,
   ADD_GROUP,
   ADD_GROUP_TOPIC,
+  POST_TOPIC_COMMENT,
+  LOAD_MORE_COMMENTS,
 } from '../constants'
 
 export const addNewCategory = createAction(ADD_CATEGORY)
@@ -38,3 +40,5 @@ export const updateChannel = createAction(UPDATE_CHANNEL)
 export const updateComment = createAction(UPDATE_COMMENT)
 export const addNewGroup = createAction(ADD_GROUP)
 export const addNewGroupTopic = createAction(ADD_GROUP_TOPIC)
+export const postTopicComment = createAction(POST_TOPIC_COMMENT)
+export const loadMoreComments = createAction(LOAD_MORE_COMMENTS)

@@ -1,5 +1,35 @@
 @import '../../customStyles/scss/index.scss';
 
+.section-stats {
+  ul {
+    width: 100%;
+    justify-content: space-between;
+    padding: 0px 2px;
+    margin-top: 7px;
+    li {
+      @extend .para;
+      margin-right: 10%;
+      display: flex;
+      color: $color-dark-grey;
+        svg {
+          margin-top: 2px;
+          margin-right: 6px;
+          stroke: $color-dark-grey;
+          stroke-width: 60px;
+          color: white;
+          path {
+            &:hover {
+              color: white !important;
+            }
+          }
+        }
+        &:hover {
+          color: $color-dark-grey;
+        }
+    }
+  }
+}
+
 .group-list-root {
   padding: 20px 0;
 
@@ -36,6 +66,7 @@
 }
 
 .trending-topic-root{
+  @extend .section-stats;
   .topic-info {
     display: flex;
 
@@ -60,34 +91,10 @@
     @extend .para;
     padding: 6px 2px;
   }
-  ul {
-    width: 100%;
-    justify-content: space-between;
-    padding: 0px 2px;
-    margin-top: 7px;
     li {
-      margin-right: 10%;
-      display: flex;
-      p {
-        @extend .para;
-        width: max-content;
-        color: $color-dark-grey;
-        padding: 0;
-      }
-        svg {
-          margin-top: 2px;
-          margin-right: 6px;
-          stroke: $color-dark-grey;
-          stroke-width: 60px;
-          color: white;
-          path {
-            &:hover {
-              color: white !important;
-            }
-          }
-        }
+      @extend .para;
+      color: $color-dark-grey;
     }
-  }
   .divider {
     width: 100%;
     margin: 10px 0;
@@ -126,30 +133,28 @@
 }
 
 .topic-info {
+  @extend .section-stats;
   .action-buttons {
     width: 100%;
     padding: 10px 0;
-      li {
-        margin-right: 10%;
-        display: flex;
-        p {
-          @extend .para;
-          width: max-content;
-          color: $color-dark-grey;
-        }
-          svg {
-            margin-top: 2px;
-            margin-right: 6px;
-            stroke: $color-dark-grey;
-            stroke-width: 60px;
-            color: white;
-            path {
-              &:hover {
-                color: white !important;
-              }
-            }
-          }
-      }
+  }
+}
+
+.topics-pagination {
+  height: 32px;
+  margin: 30px 0 10px;
+  ul {
+    float: right;
+  }
+}
+
+.load-more-comment {
+  padding: 0;
+  background: white;
+  width: 100%;
+  span {
+    color: $color-primary-dark;
+    text-decoration: underline;
   }
 }
 
@@ -180,13 +185,8 @@
     color: #4A4A4A;
   }
   .action-buttons{
+    @extend .section-stats;
     margin-top: 20px;
-     li{
-      margin-right: 20%;
-        svg{
-          margin-right: 5px;
-        }
-     }
   }
 }
 
@@ -196,36 +196,77 @@
   .avatar {
     margin-right: 8px;
   }
-	textarea {
-		width: calc(100% - 80px);
-		margin: 0 auto;
-		display: flex;
-		height: 100%;
-		border: none;
-		resize: none;
-		border: 1px solid #DBDBDB;
-		border-radius: 8px;
-		padding: 10px;
-		font-family: 'Poppins', sans-serif;
-		&:focus {
-			outline: none;
-			box-shadow: inherit;
-		}
-	}
+
+  .comment-content {
+    width: calc(100% - 30px);
+    border: 1px solid $color-border;
+    border-radius: 8px;
+    padding: 10px;
+    margin-right: 10px;
+
+    textarea {
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      height: 100%;
+      border: none;
+      resize: none;
+      margin-bottom: 10px;
+      font-family: 'SF Pro Text', Regular;
+      font-weight: normal;
+      color: #4A4A4A;
+      &:focus {
+        outline: none;
+        box-shadow: inherit;
+      }
+    }
+
+    .post-image {
+      display: inline-block;
+      position: relative;
+
+      img {
+        height: auto;
+        max-width: 100%;
+        border-radius: 6px;
+      }
+
+      .MuiButtonBase-root {
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: red;
+      }
+
+      .MuiIconButton-label {
+        &:hover {
+          color: red;
+        }
+      }
+    }
+  }
+
 	input[type="file"] {
 		right: 10px;
-		width: 20px;
+		width: 0;
 		top: 20px;
 		opacity: 0;
-		z-index: 9999;
+    z-index: 9999;
 	}
 }
 
 .galley-icon {
   svg {
+    cursor: pointer;
     vertical-align: middle;
     font-size: 24px;
     height: 100%;
+    color: $color-dark-grey;
+    path{
+    &:hover {
+        color: $color-dark-grey;
+      }
+    }
   }
 }
 
@@ -259,6 +300,12 @@
     }
   }
 }
+
+
+
+  .topic-name-button {
+    min-width: min-content;
+  }
 
 // ============== Common css ======================
 
@@ -334,4 +381,22 @@
   letter-spacing: 0px;
   color: #999999;
   opacity: 1;
+}
+
+.background-none-hover {
+  &:hover {
+    background: none;
+  }
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.no-padding {
+  padding: 0
+}
+
+.text-align-left {
+  text-align: left;
 }

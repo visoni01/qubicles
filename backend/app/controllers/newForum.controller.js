@@ -6,7 +6,9 @@ import {
   ForumGetAllGroupService,
   ForumGetOneGroupService,
   ForumGetGroupTopicsService,
-  ForumCreateTopicService
+  ForumCreateTopicService,
+  ForumGetTopicCommentsService,
+  ForumCreateCommentService
 } from '../services/newForum'
 
 export default class ForumController {
@@ -56,7 +58,7 @@ export default class ForumController {
   }
 
   static async getGroupTopics (req, res) {
-    const forumGetGroupTopicsResult = await ForumGetGroupTopicsService.execute({ ...req.body, ...req.params })
+    const forumGetGroupTopicsResult = await ForumGetGroupTopicsService.execute({ ...req.body, ...req.params, ...req.query })
     if (forumGetGroupTopicsResult.successful) {
       Responder.success(res, forumGetGroupTopicsResult.result)
     } else {
@@ -70,6 +72,24 @@ export default class ForumController {
       Responder.success(res, forumCreateGroupResult.result)
     } else {
       Responder.failed(res, forumCreateGroupResult.errors)
+    }
+  }
+
+  static async getTopicComments (req, res) {
+    const forumGetTopicCommentsResult = await ForumGetTopicCommentsService.execute({ ...req.body, ...req.params, ...req.query })
+    if (forumGetTopicCommentsResult.successful) {
+      Responder.success(res, forumGetTopicCommentsResult.result)
+    } else {
+      Responder.failed(res, forumGetTopicCommentsResult.errors)
+    }
+  }
+
+  static async createTopicComment (req, res) {
+    const forumCreateCommentResult = await ForumCreateCommentService.execute({ ...req.body, ...req.params })
+    if (forumCreateCommentResult.successful) {
+      Responder.success(res, forumCreateCommentResult.result)
+    } else {
+      Responder.failed(res, forumCreateCommentResult.errors)
     }
   }
 }
