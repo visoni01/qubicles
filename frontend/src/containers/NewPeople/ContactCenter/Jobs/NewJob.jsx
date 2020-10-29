@@ -17,6 +17,7 @@ import Actions from './Actions'
 import { newNavBar } from '../../../../hoc/navbar'
 import './styles.scss'
 import ROUTE_PATHS from '../../../../routes/routesPath'
+import JobApplicationActions from './JobApplicationActions'
 
 const NewJob = () => {
   const [ jobCategory, setJobCategory ] = useState('')
@@ -308,7 +309,7 @@ const NewJob = () => {
 
       </Grid>
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
-        <Actions />
+        <JobApplicationActions />
       </Grid>
     </Grid>
   )

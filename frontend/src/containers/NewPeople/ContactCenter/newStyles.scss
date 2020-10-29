@@ -408,3 +408,28 @@
     font-weight: 600;
   }
 }
+
+// Text Divider
+
+.text-divider {
+  width: 100%;
+  margin: 10px 0;
+  .side {
+    align-self: center;
+
+    .border {
+      align-self: center;
+      border-bottom: 1px solid $color-border;
+    }
+  }
+
+  .middle {
+    text-align: center;
+    align-self: center;
+
+    .centered-text {
+      @extend .para;
+      color: $color-dark-grey;
+    }
+  }
+}
