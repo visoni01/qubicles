@@ -22,22 +22,17 @@ const Topics = ({ groupId, groupTitle, setSelectedTopic }) => {
   const { topics, topicsCount } = useSelector((state) => state.groupTopics)
   const noOfPages = Math.floor(topicsCount / noOfTopicsPerPage) + Math.sign(topicsCount % noOfTopicsPerPage)
 
-  const [ maxPageSelected, setMaxPageSelected ] = useState(
-    topics.length === topicsCount ? noOfPages : 1,
-  )
-
   const changeCurrentPage = useCallback((_, page) => setCurrentPage(page), [])
 
   useEffect(() => {
-    if (groupId && !(currentPage <= maxPageSelected)) {
-      setMaxPageSelected(currentPage)
+    if (groupId) {
       dispatch(groupTopicsFetchingStart({
         groupId,
         limit: noOfTopicsPerPage,
         offset: noOfTopicsPerPage * (currentPage - 1),
       }))
     }
-  }, [ groupId, currentPage ])
+  }, [ currentPage, groupId ])
 
   return (
     <Box className='primary-box padding-20'>
@@ -52,7 +47,7 @@ const Topics = ({ groupId, groupTitle, setSelectedTopic }) => {
         </IconButton>
       </div>
       <div className='mt-10'>
-        {topics.length ? slice(topics, noOfTopicsPerPage * (currentPage - 1), noOfTopicsPerPage * currentPage).map((topic, index) => (
+        {topics.length ? topics.map((topic, index) => (
           <>
             <div className='display-inline-flex topic-info width-100-per' key={ topic.id }>
               <Avatar className='mr-10' src={ carolin } />

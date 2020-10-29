@@ -1,4 +1,5 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
+
 import { withRouter } from 'react-router-dom'
 
 const ScrollToTop = ({ history, manualScroll }) => {
@@ -12,7 +13,7 @@ const ScrollToTop = ({ history, manualScroll }) => {
     return () => {
       unlisten()
     }
-  }, [ history ])
+  }, [ history, manualScroll ])
 
   return (null)
 }

@@ -28,6 +28,10 @@ const SelectedGroup = ({ group }) => {
   const { topics } = useSelector((state) => state.groupTopics)
   const { userDetails } = useSelector((state) => state.login)
 
+  useEffect(() => {
+    setSelectedTopic('')
+  }, [ id ])
+
   // eslint-disable-next-line
   const changeTopicFormStatus = useCallback((status) => setSelectedTopic(status),
     [ setSelectedTopic ])
