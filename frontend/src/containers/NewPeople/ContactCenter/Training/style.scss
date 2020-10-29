@@ -11,62 +11,67 @@
     @extend .h4;
   }
 }
+
 .course-card {
   border-radius: 8px;
   position: relative;
-  box-shadow: none;
-}
-.course-image {
-  height: 10rem;
-  border: none;
-}
+  cursor: pointer;
 
-.course-card-content {
-  border: 1px solid $color-border;
 
-  .rating-text {
-    // padding: 5px 0;
+  .course-image {
+    height: 10rem;
+    border: none;
 
-    .rating-star {
-      margin-left: 0px;
+    &.round-border {
+      border-radius: 8px;
     }
+  }
 
-    .total-students {
-      @extend .para;
-      margin: 0px 5px;
-      text-align: center;
-      color: $color-dark-grey;
-      font-size: 14px;
-    }
+  .course-card-content {
+    border: 1px solid $color-border;
+  }
+
+  .course-description {
+    font-family: $system-font;
+    letter-spacing: 0;
+    margin-top: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    color: $color-light-brown;
   }
 }
 
-.course-description {
-  font-family: $system-font;
-  letter-spacing: 0;
-  margin-top: 5px;
-  font-size: 14px;
-  font-weight: 600;
-  color: $color-light-brown;
+.rating-text {
+  .rating-star {
+    margin-left: 0px !important;
+  }
+
+  .total-students {
+    @extend .para;
+    margin: 0px 5px;
+    text-align: center;
+    color: $color-dark-grey;
+    font-size: 14px;
+  }
 }
 
-// .course-sections {
-//   margin-top: 10px;
-//   span  {
-//     @extend .para;
-//     flex: 4;
-//     text-align: center;
-//     color: $color-dark-grey;
-//     vertical-align: text-bottom;
-//     font-size: 14px;
-//   }
-//   .sections {
-//     margin-right: 5px;
-//   }
-//   .language {
-//     margin-left: 5px;
-//   }
-// }
+.course-sections {
+  margin-top: 10px;
+  span  {
+    @extend .para;
+    flex: 4;
+    text-align: center;
+    color: $color-dark-grey;
+    vertical-align: text-bottom;
+    font-size: 14px;
+  }
+  .sections {
+    margin-right: 5px;
+  }
+  .language {
+    margin-left: 5px;
+  }
+}
 
 .price-overlay {
   background-color: $color-white;

@@ -7,6 +7,7 @@ import Actions from '../../../Jobs/Actions'
 import { courseDescription } from '../../testData'
 import { newNavBar } from '../../../../../../hoc/navbar'
 import './styles.scss'
+import CourseActions from './CourseActions'
 
 const ViewCourse = () => (
   <Grid container spacing={ 3 }>
@@ -25,7 +26,7 @@ const ViewCourse = () => (
       <CourseReviews />
     </Grid>
     <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
-      <Actions />
+      <CourseActions />
     </Grid>
   </Grid>
 )
