@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Grid, Input, Button } from '@material-ui/core'
+import AddArticleModal from './AddArticleModal'
 
 export default function InitialContent() {
+  const [ openAddUnit, setOpenAddUnit ] = useState(false)
   return (
     <div className='list-item'>
       <Grid container spacing={ 2 } justify='space-between'>
@@ -18,11 +20,17 @@ export default function InitialContent() {
               root: 'button-secondary-small',
               label: 'button-secondary-small-label',
             } }
+            onClick={ () => setOpenAddUnit(true) }
           >
             Add Content
           </Button>
         </Grid>
       </Grid>
+      <AddArticleModal
+        open={ openAddUnit }
+        onClose={ () => setOpenAddUnit(false) }
+        onSubmit={ () => setOpenAddUnit(false) }
+      />
     </div>
   )
 }

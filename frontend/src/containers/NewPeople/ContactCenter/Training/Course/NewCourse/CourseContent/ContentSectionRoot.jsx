@@ -8,7 +8,6 @@ export default function ContentSectionRoot() {
     <div className='content-section'>
       <CourseContentSection />
       <CourseContentSection />
-      <CourseContentSection />
 
       <Button
         className='wide-button'
