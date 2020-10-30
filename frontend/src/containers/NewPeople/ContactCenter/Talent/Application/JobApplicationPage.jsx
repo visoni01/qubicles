@@ -5,7 +5,7 @@ import CoverLetter from './CoverLetter'
 import SkillsPage from './SkillsPage'
 import WorkHistory from './WorkHistory'
 import Courses from './Courses'
-import Reviews from '../../Reviews'
+import ResumeReviews from './ResumeReviews'
 import JobApplicationActions from '../../Jobs/JobApplicationActions'
 import { newNavBar } from '../../../../../hoc/navbar'
 
@@ -20,7 +20,7 @@ function JobApplicationPage() {
         <SkillsPage />
         <WorkHistory />
         <Courses />
-        <Reviews />
+        <ResumeReviews />
       </Grid>
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
         <JobApplicationActions />

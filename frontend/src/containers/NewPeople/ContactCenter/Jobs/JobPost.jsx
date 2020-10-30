@@ -4,12 +4,12 @@ import {
 } from '@material-ui/core'
 import Rating from '@material-ui/lab/Rating'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import {
   terry, sally, kareem, ray, helen,
 } from '../../../../assets/images/avatar'
 import './styles.scss'
 import ROUTE_PATHS from '../../../../routes/routesPath'
-import { Link } from 'react-router-dom'
 
 const JobPost = ({
   jobPostHeading, createdAt, jobDescription,
