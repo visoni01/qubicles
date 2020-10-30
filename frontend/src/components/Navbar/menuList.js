@@ -1,17 +1,20 @@
 import {
   walletIcon, homeIcon, settingIcon, peopleIcon,
 } from '../../assets/images/icons/navBarIcons'
+import ROUTE_PATHS from '../../routes/routesPath'
 
 const menuItems = [
   {
     icon: homeIcon,
     title: 'Floor',
     id: 1,
+    link: ROUTE_PATHS.DASHBOARD,
   },
   {
     icon: peopleIcon,
     title: 'People',
     id: 2,
+    link: ROUTE_PATHS.NEW_PEOPLE,
   },
   {
     icon: walletIcon,

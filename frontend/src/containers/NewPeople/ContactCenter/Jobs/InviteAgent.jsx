@@ -49,8 +49,10 @@ const InviteAgent = ({
         <h4 className='h4'>Invite for following position</h4>
         <div>
           <FormControl variant='outlined' className='drop-down-bar'>
-            <InputLabel>Choose job category</InputLabel>
+            <InputLabel margin='dense' variant='outlined'>Choose job category</InputLabel>
             <Select
+              margin='dense'
+              variant='outlined'
               native
               label='Choose job category'
               onChange={ setInviteAgentDataCB }

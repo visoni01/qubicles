@@ -56,8 +56,12 @@ export default function InformationTab() {
             <h3> Category </h3>
             <div>
               <FormControl variant='outlined' className='drop-down-bar'>
-                <InputLabel>Choose category</InputLabel>
+                <InputLabel margin='dense' variant='outlined'>
+                  Choose category
+                </InputLabel>
                 <Select
+                  margin='dense'
+                  variant='outlined'
                   native
                   label='Choose category'
                   onChange={ setCategoryCB }

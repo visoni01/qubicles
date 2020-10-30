@@ -66,10 +66,10 @@
   .background-check-buttons {
     width: 100%;
     margin-top: 10px;
-  }
-  .custom-btn {
-    margin: 10px;
-    min-width: 125px;
+    .custom-button {
+      min-width: 5rem;
+      margin-right: 10px;
+    }
   }
 }
 

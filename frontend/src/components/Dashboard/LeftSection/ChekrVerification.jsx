@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback, useState } from 'react'
 import {
-  Box, Button, IconButton,
+  Box, Button, IconButton, Grid,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -33,26 +33,35 @@ const CheckrVerification = () => {
           Companies are more likely to hire applicants that passed a background screening test.
         </p>
       </div>
-      <div className='background-check-buttons'>
-        <Button
-          onClick={ () => setIsClosed(true) }
-          classes={ {
-            root: 'button-secondary-large custom-btn not-now-btn',
-            label: 'button-secondary-large-label',
-          } }
-        >
-          Not Now
-        </Button>
-        <Button
-          onClick={ handleClickButton }
-          classes={ {
-            root: 'button-primary-large custom-btn start-btn',
-            label: 'button-primary-large-label',
-          } }
-        >
-          Start
-        </Button>
-      </div>
+      <Grid
+        container
+        justify='space-between'
+        spacing={ 2 }
+        className='background-check-buttons'
+      >
+        <Grid item xl={ 4 } lg={ 4 } sm={ 5 } xs={ 12 }>
+          <Button
+            onClick={ () => setIsClosed(true) }
+            classes={ {
+              root: 'button-secondary-small custom-button',
+              label: 'button-secondary-small-label',
+            } }
+          >
+            Not Now
+          </Button>
+        </Grid>
+        <Grid item xl={ 4 } lg={ 4 } sm={ 5 } xs={ 12 }>
+          <Button
+            onClick={ handleClickButton }
+            classes={ {
+              root: 'button-primary-small custom-button',
+              label: 'button-primary-small-label',
+            } }
+          >
+            Start
+          </Button>
+        </Grid>
+      </Grid>
     </Box>
 
   )
