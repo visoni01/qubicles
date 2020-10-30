@@ -83,9 +83,9 @@ const NewJobDetails = () => {
           <h4 className='mt-30 h4'> Location </h4>
           <TextField
             margin='dense'
+            variant='outlined'
             id='location'
             className='locatiom'
-            variant='outlined'
             name='location'
             onChange={ setNewJobDetailsCB }
             placeholder='Any (Remote)'
@@ -95,15 +95,15 @@ const NewJobDetails = () => {
 
         <div className='is-halfwidth'>
           <h4 className='h4'> Payment*  </h4>
-          <div className='display-inline-flex mt-5'>
+          <div className='display-inline-flex'>
             <TextField
               margin='dense'
+              variant='outlined'
               id='payment'
               type='number'
               className='duration-field'
               name='payment'
               onChange={ setNewJobDetailsCB }
-              variant='outlined'
               required
             />
             <p className='duration-label para'> $/hour </p>
@@ -138,11 +138,13 @@ const NewJobDetails = () => {
             </div>
           </RadioGroup>
 
-          <h4 className='mt-30 h4'> Languages(s) </h4>
+          <h4 className='mt-30 mb-5 h4'> Languages(s) </h4>
           <FormControl variant='outlined' className='drop-down-bar'>
-            <InputLabel>Languages</InputLabel>
+            <InputLabel margin='dense' variant='outlined'>Languages</InputLabel>
             <Select
               native
+              margin='dense'
+              variant='outlined'
               name='languages'
               onChange={ setNewJobDetailsCB }
               label='Languages'

@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from 'react'
 import {
-  Box, Divider, FormControl, InputLabel, Select, RadioGroup, FormControlLabel, Radio, Checkbox, InputBase, TextareaAutosize,
+  Box, Divider, FormControl, InputLabel,
+  Select, RadioGroup, FormControlLabel, Radio,
+  Checkbox, InputBase, TextareaAutosize,
 } from '@material-ui/core'
 import { Rating } from '@material-ui/lab'
 
@@ -86,9 +88,11 @@ const TalentFilter = () => {
         <h4 className='heading'> Skills </h4>
         <div>
           <FormControl variant='outlined' className='drop-down-bar talent-filter-dropdown'>
-            <InputLabel>Choose required skills</InputLabel>
+            <InputLabel margin='dense' variant='outlined'>Choose required skills</InputLabel>
             <Select
               native
+              margin='dense'
+              variant='outlined'
               label='Choose required skills'
               onChange={ setSkillCB }
             >
@@ -107,9 +111,11 @@ const TalentFilter = () => {
         <h4 className='heading'> Languages </h4>
         <div>
           <FormControl variant='outlined' className='drop-down-bar talent-filter-dropdown'>
-            <InputLabel>Choose required languages</InputLabel>
+            <InputLabel margin='dense' variant='outlined'>Choose required languages</InputLabel>
             <Select
               native
+              margin='dense'
+              variant='outlined'
               label='Choose required languages'
               onChange={ setLanguageCB }
             >

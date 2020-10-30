@@ -31,11 +31,13 @@ const NewJobRequirements = () => {
       <div className='category-section mt-30'>
         <div className='is-halfwidth'>
           <div>
-            <h4 className='h4'> Required Skills </h4>
+            <h4 className='h4 mb-10'> Required Skills </h4>
             <FormControl variant='outlined' className='drop-down-bar'>
-              <InputLabel>Required Skills</InputLabel>
+              <InputLabel margin='dense' variant='outlined'>Required Skills</InputLabel>
               <Select
                 native
+                margin='dense'
+                variant='outlined'
                 label='Required Skills'
                 name='requiredSkills'
                 onChange={ setNewJobRequirementsCB }
@@ -50,7 +52,7 @@ const NewJobRequirements = () => {
             </FormControl>
           </div>
           <div className='mt-50'>
-            <h4 className='h4'> Required Courses</h4>
+            <h4 className='h4 mb-10'> Required Courses</h4>
             <div className='new-input-search'>
               <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 fontawesome-icon' />
               <InputBase
@@ -64,11 +66,13 @@ const NewJobRequirements = () => {
         </div>
         <div className='is-halfwidth'>
           <div>
-            <h4 className='h4 '> Bonus Skills </h4>
+            <h4 className='h4 mb-10'> Bonus Skills </h4>
             <FormControl variant='outlined' className='drop-down-bar'>
-              <InputLabel>Bonus Skills</InputLabel>
+              <InputLabel margin='dense' variant='outlined'>Bonus Skills</InputLabel>
               <Select
                 native
+                margin='dense'
+                variant='outlined'
                 label='Bonus Skills'
                 name='bonusSkills'
                 onChange={ setNewJobRequirementsCB }
@@ -83,7 +87,7 @@ const NewJobRequirements = () => {
             </FormControl>
           </div>
           <div className='mt-50'>
-            <h4 className='h4'> Bonus Courses</h4>
+            <h4 className='h4 mb-10'> Bonus Courses</h4>
             <div className='new-input-search'>
               <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 fontawesome-icon' />
               <InputBase

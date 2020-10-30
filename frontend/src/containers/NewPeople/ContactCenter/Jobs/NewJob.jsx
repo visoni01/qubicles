@@ -5,7 +5,6 @@ import NewJobRequirements from './NewJobRequirements'
 import NewJobDetails from './NewJobDetails'
 import { newNavBar } from '../../../../hoc/navbar'
 import './styles.scss'
-import JobApplicationActions from './JobApplicationActions'
 import NewJobActions from './NewJobActions'
 
 const NewJob = () => (
@@ -16,7 +15,7 @@ const NewJob = () => (
       <NewJobDetails />
     </Grid>
     <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
-      <JobApplicationActions />
+      <NewJobActions />
     </Grid>
   </Grid>
 )

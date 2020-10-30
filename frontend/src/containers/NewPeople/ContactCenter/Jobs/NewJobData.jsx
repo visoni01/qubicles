@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react'
 import {
   Button, TextField, Select, FormControl, InputLabel,
 } from '@material-ui/core'
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CKEditor from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
@@ -48,12 +48,16 @@ const NewJobData = () => {
       <div className='category-section mt-20'>
         <div className='is-halfwidth'>
           <h3 className='h3'> Category </h3>
-          <div>
+          <div className='mt-10'>
             <FormControl variant='outlined' className='drop-down-bar'>
-              <InputLabel>Choose job category</InputLabel>
+              <InputLabel margin='dense' variant='outlined'>Choose job category</InputLabel>
               <Select
+                margin='dense'
+                variant='outlined'
+                // IconComponent={ () => (<FontAwesomeIcon icon={ faChevronDown } />) }
                 native
                 name='jobCategory'
+                placeholder='Choose job category'
                 label='Choose job category'
                 onChange={ setNewJobDataCB }
               >
@@ -97,10 +101,10 @@ const NewJobData = () => {
         required
       />
 
-      <h3 className='mt-30 h3'> Job Description </h3>
+      <h3 className='mt-30 mb-10 h3'> Job Description </h3>
       <CKEditor
         editor={ ClassicEditor }
-        className='mt-5'
+        className='mt-10'
         name='JobDescription'
       />
     </div>
