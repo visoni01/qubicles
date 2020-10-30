@@ -10,21 +10,58 @@
   color: $color-light-brown;
 }
 
-.course-sections {
-  margin-top: 10px;
-  span  {
-    @extend .para;
-    flex: 4;
-    text-align: center;
-    color: $color-dark-grey;
-    vertical-align: text-bottom;
-    font-size: 14px;
+.course-overview-root {
+  .contents {
+    svg {
+      font-size: 5px;
+      vertical-align: middle;
+      margin: 0px 15px;
+    }
   }
-  .sections {
-    margin-right: 5px;
-  }
-  .language {
-    margin-left: 5px;
+}
+
+.course-contents-root {
+  .overview-list {
+    width: 100%;
+    border: 1px solid $color-border;
+    border-radius: 6px;
+    margin-top: 20px;
+    box-shadow: none;
+
+    .top-down-icon {
+      color: $color-primary;
+    }
+    .section-heading {
+      float: left;
+
+      .MuiTypography-body1 {
+        @extend .h4;
+        font-weight: 600 !important;
+      }
+    }
+
+    .nested-list {
+      padding: 0 5px 0 20px;
+
+      .nested-list-heading {
+        float: left;
+        .MuiTypography-body1 {
+          @extend .para;
+          color: $color-dark-grey;
+
+          &:focus, &:hover {
+            color: $color-headings !important;
+          }
+        }
+      }
+
+      .text-link {
+        cursor: pointer;
+      }
+    }
+    .MuiListItemIcon-root {
+      min-width: 40px;
+    }
   }
 }
 
@@ -57,4 +94,62 @@
       list-style-type: initial;
    }
   }
+}
+
+// Course Preview Modal
+.course-preview-modal {
+
+  &.MuiDialog-scrollPaper {
+    overflow-y: scroll;
+  }
+
+  // &.MuiDialog-paperWidthSm {
+  //   max-width: none;
+  // }
+
+  // &.MuiDialog-paperScrollPaper {
+  //   max-height: none;
+  //   margin-top: auto;
+  // }
+
+  .cross-button {
+    button {
+      .MuiIconButton-label {
+        color: $color-primary;
+      }
+    }
+  }
+
+  .dialog-left-side {
+    width: 25%;
+    margin: 20px;
+  }
+
+  .dialog-right-side {
+    display: inline-flex;
+    flex-direction: column;
+    width: 75%;
+
+    .section-heading {
+      color: $color-dark-grey;
+      margin-bottom: 10px;
+
+      span {
+        color: $color-headings;
+      }
+    }
+
+    .post-image {
+      display: inline-block;
+      position: relative;
+
+      img {
+        height: auto;
+        width: 100%;
+        max-width: 100%;
+        border-radius: 6px;
+      }
+    }
+  }
+
 }

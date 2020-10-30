@@ -2,6 +2,7 @@ import React from 'react'
 import { Grid } from '@material-ui/core'
 import CourseTrainerIntro from './CourseTrainerIntro'
 import CourseDescription from './CourseDescription'
+import CourseOverview from './CourseOverview'
 import CourseReviews from './CourseReviews'
 import Actions from '../../../Jobs/Actions'
 import { courseDescription } from '../../testData'
@@ -23,6 +24,7 @@ const ViewCourse = () => (
         outcomes={ courseDescription.outcomes }
         prerequisites={ courseDescription.prerequisites }
       />
+      <CourseOverview />
       <CourseReviews />
     </Grid>
     <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
