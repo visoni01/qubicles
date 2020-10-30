@@ -8,6 +8,8 @@ import {
   terry, sally, kareem, ray, helen,
 } from '../../../../assets/images/avatar'
 import './styles.scss'
+import ROUTE_PATHS from '../../../../routes/routesPath'
+import { Link } from 'react-router-dom'
 
 const JobPost = ({
   jobPostHeading, createdAt, jobDescription,
@@ -112,18 +114,22 @@ const JobPost = ({
         <div className='display-inline-flex job-application-head'>
           <Avatar className='profile-pic' alt='Terry Garret' src={ terry } />
           <div className='candidate-info'>
-            <div className='candidate-head'>
-              <h4>Terry Garret</h4>
-              <Rating
-                className='rating-star'
-                name='read-only'
-                readOnly
-                size='small'
-                value={ 5 }
-                precision={ 0.1 }
-              />
+            <div className='head-with-link'>
+              <div className='candidate-head'>
+                <h4>Terry Garret</h4>
+                <Rating
+                  className='rating-star'
+                  name='read-only'
+                  readOnly
+                  size='small'
+                  value={ 5 }
+                  precision={ 0.1 }
+                />
+              </div>
+              <Link to={ ROUTE_PATHS.VIEW_JOB_APPLICATION }>
+                <span className='primary-text-link float-right'>View full application </span>
+              </Link>
             </div>
-            <Button className='text-button'>View full application </Button>
             <p className='description'> Customer Service Specialist </p>
           </div>
         </div>
@@ -166,18 +172,22 @@ const JobPost = ({
         <div className='display-inline-flex job-application-head'>
           <Avatar className='profile-pic' alt='Randy Williamson' src={ kareem } />
           <div className='candidate-info'>
-            <div className='candidate-head'>
-              <h4>Randy Williamson</h4>
-              <Rating
-                className='rating-star'
-                name='read-only'
-                readOnly
-                size='small'
-                value={ 5 }
-                precision={ 0.1 }
-              />
+            <div className='head-with-link'>
+              <div className='candidate-head'>
+                <h4>Randy Williamson</h4>
+                <Rating
+                  className='rating-star'
+                  name='read-only'
+                  readOnly
+                  size='small'
+                  value={ 5 }
+                  precision={ 0.1 }
+                />
+              </div>
+              <Link to={ ROUTE_PATHS.VIEW_JOB_APPLICATION }>
+                <span className='primary-text-link float-right'>View full application </span>
+              </Link>
             </div>
-            <Button className='text-button'>View full application </Button>
             <p className='description'> Customer Service Specialist </p>
           </div>
         </div>
@@ -225,18 +235,22 @@ const JobPost = ({
         <div className='display-inline-flex job-application-head'>
           <Avatar className='profile-pic' alt='Chad Green' src={ sally } />
           <div className='candidate-info'>
-            <div className='candidate-head'>
-              <h4>Chad Green</h4>
-              <Rating
-                className='rating-star'
-                name='read-only'
-                readOnly
-                size='small'
-                value={ 5 }
-                precision={ 0.1 }
-              />
+            <div className='head-with-link'>
+              <div className='candidate-head'>
+                <h4>Terry Garret</h4>
+                <Rating
+                  className='rating-star'
+                  name='read-only'
+                  readOnly
+                  size='small'
+                  value={ 5 }
+                  precision={ 0.1 }
+                />
+              </div>
+              <Link to={ ROUTE_PATHS.VIEW_JOB_APPLICATION }>
+                <span className='primary-text-link float-right'>View full application </span>
+              </Link>
             </div>
-            <Button className='text-button'>View full application </Button>
             <p className='description'> Customer Service Specialist </p>
           </div>
         </div>
@@ -263,18 +277,22 @@ const JobPost = ({
         <div className='display-inline-flex job-application-head'>
           <Avatar className='profile-pic' alt='Ray Hill' src={ ray } />
           <div className='candidate-info'>
-            <div className='candidate-head'>
-              <h4>Ray Hill</h4>
-              <Rating
-                className='rating-star'
-                name='read-only'
-                readOnly
-                size='small'
-                value={ 5 }
-                precision={ 0.1 }
-              />
+            <div className='head-with-link'>
+              <div className='candidate-head'>
+                <h4>Ray Hill</h4>
+                <Rating
+                  className='rating-star'
+                  name='read-only'
+                  readOnly
+                  size='small'
+                  value={ 5 }
+                  precision={ 0.1 }
+                />
+              </div>
+              <Link to={ ROUTE_PATHS.VIEW_JOB_APPLICATION }>
+                <span className='primary-text-link float-right'>View full application </span>
+              </Link>
             </div>
-            <Button className='text-button'>View full application </Button>
             <p className='description'> Customer Service Specialist </p>
           </div>
         </div>
@@ -305,18 +323,22 @@ const JobPost = ({
         <div className='display-inline-flex job-application-head'>
           <Avatar className='profile-pic' alt='Helen Murphy' src={ helen } />
           <div className='candidate-info'>
-            <div className='candidate-head'>
-              <h4>Helen Murphy</h4>
-              <Rating
-                className='rating-star'
-                name='read-only'
-                readOnly
-                size='small'
-                value={ 5 }
-                precision={ 0.1 }
-              />
+            <div className='head-with-link'>
+              <div className='candidate-head'>
+                <h4>Helen Murphy</h4>
+                <Rating
+                  className='rating-star'
+                  name='read-only'
+                  readOnly
+                  size='small'
+                  value={ 5 }
+                  precision={ 0.1 }
+                />
+              </div>
+              <Link to={ ROUTE_PATHS.VIEW_JOB_APPLICATION }>
+                <span className='primary-text-link float-right'>View full application </span>
+              </Link>
             </div>
-            <Button className='text-button'>View full application </Button>
             <p className='description'> Customer Service Specialist </p>
           </div>
         </div>

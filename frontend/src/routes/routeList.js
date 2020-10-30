@@ -129,6 +129,12 @@ const routes = [
     component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Training/Course/ViewCourse/index')),
     auth: true,
   },
+  // Temporarily added extra route for new contact-center Job application design.
+  {
+    path: ROUTE_PATHS.VIEW_JOB_APPLICATION,
+    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Talent/Application/JobApplicationPage')),
+    auth: true,
+  },
 ]
 
 export default routes

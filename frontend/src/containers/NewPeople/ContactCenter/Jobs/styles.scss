@@ -172,6 +172,11 @@
       align-self: center;
       width: 100%;
 
+      .head-with-link {
+        width: 100%;
+        display: inline-flex;
+        justify-content: space-between;
+      }
       .candidate-head {
         display: inline-flex;
         h4 {

@@ -16,7 +16,6 @@ const ViewResume = () => (
       <ResumeIntro />
     </Grid>
     <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 4 }>
-      <CoverLetter />
       <SkillsPage />
       <WorkHistory />
       <Courses />
