@@ -291,7 +291,6 @@
 }
 
 .new-job-root {
-
   .category-section {
     width: 100%;
     display: inline-flex;
@@ -313,6 +312,7 @@
 
     .agent-field{
       width: 75px;
+      height:40px;
     }
     .agent-label {
       align-self: center;
@@ -325,13 +325,15 @@
     border-radius: 8px;
     margin-right: 30px;
     margin-top: 10px;
+    width: 80%;
+    height: 40px;
 
     .input-field {
       @extend .para;
       font-size: 14px;
+      width: 80%;
     }
   }
-
 }
 
 .job-requirements-root {
