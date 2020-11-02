@@ -30,7 +30,7 @@ const JobsPage = () => {
           New Job
         </Button>
       </div>
-      <Box className='box'>
+      <Box className='custom-box'>
         {
         jobsCards.map((jobCategory) => (
           <JobCategoryCard

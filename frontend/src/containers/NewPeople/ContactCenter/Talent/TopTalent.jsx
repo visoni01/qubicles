@@ -8,8 +8,8 @@ import TopTalentCard from './TopTalentCard'
 const TopTalent = ({ heading }) => {
   const [ header, setHeader ] = useState(heading)
   return (
-    <Box className='box top-talent-root'>
-      <h3>
+    <Box className='custom-box top-talent-root'>
+      <h3 className='h3'>
         {header}
       </h3>
       {

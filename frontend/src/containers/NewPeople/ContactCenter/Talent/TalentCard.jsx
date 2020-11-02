@@ -19,13 +19,13 @@ const TalentCard = ({
   const [ visibleProfileTags, setVisibleProfileTags ] = useState(profileTags.filter((tag, index) => index < 3))
 
   return (
-    <div className='talent-card'>
+    <div className='talent-card list-divider'>
       <div className='display-inline-flex talent-head'>
         <Avatar alt={ candidateName } src={ candidatePic } />
         <div className='talent-details'>
           <div className='username'>
             <div className='display-inline-flex'>
-              <h4>{candidateName}</h4>
+              <h4 className='h4'>{candidateName}</h4>
               <Rating
                 className='rating-star'
                 name='read-only'
@@ -34,7 +34,7 @@ const TalentCard = ({
                 value={ candidateRating }
                 precision={ 0.1 }
               />
-              <FontAwesomeIcon className='badges' icon={ faAward } />
+              <FontAwesomeIcon className='badges ml-10' icon={ faAward } />
             </div>
             <Link
               to={ ROUTE_PATHS.VIEW_RESUME }
@@ -43,27 +43,27 @@ const TalentCard = ({
               View Resume
             </Link>
           </div>
-          <p className='location'>
+          <p className='para light location'>
             <FontAwesomeIcon icon={ faMapMarkerAlt } className='ml-10' />
             {location}
-            <span className='status'>
+            <span className='ml-20 para italic'>
               {availability}
             </span>
           </p>
-          <p className='languages'>
+          <p className='para light languages'>
             <FontAwesomeIcon icon={ faLanguage } className='ml-10' />
             {languages}
-            <span>
+            <span className='rate para'>
               {`${ ratePerHourDollar } $/hr`}
             </span>
           </p>
         </div>
       </div>
       <div className='talent-content'>
-        <h4 className='mt-10'>
+        <h4 className='mt-10 h4'>
           {profileName}
         </h4>
-        <p className='mt-10 mb-10'>
+        <p className='mb-10 mt-5 para'>
           {profileDescription}
         </p>
         <div className='tags-set mt-10 mb-30'>

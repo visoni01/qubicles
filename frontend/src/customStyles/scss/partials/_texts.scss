@@ -7,6 +7,14 @@
   text-transform: none;
   letter-spacing: 0.3px;
   opacity: 1;
+
+  &.unbold {
+    font-weight: normal;
+  }
+
+  &.light {
+    color: $color-dark-grey;
+  }
 }
 
 .h1 {
@@ -38,6 +46,35 @@
   letter-spacing: 0px;
   color: $color-paragraph;
   opacity: 1;
+
+  &.bold {
+    font-weight: bold;
+  }
+
+  &.light {
+    color: $color-dark-grey;
+  }
+
+  &.italic {
+    font-style: italic;
+  }
+
+  &.sz-sm {
+    font-size: 13px;
+  }
+
+  &.sz-xs {
+    font-size: 12px;
+  }
+
+  &.sm-lg {
+    font-size: 15px;
+  }
+
+  &.sm-xl {
+    font-size: 16px;
+  }
+
 }
 
 /* Text Links

@@ -1,0 +1,13 @@
+// Box Styles
+
+.custom-box {
+  background-color: $color-white;
+  border: 1px solid $color-border;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: none;
+
+  &.no-padding {
+    padding: 0;
+  }
+}

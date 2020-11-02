@@ -1,19 +1,5 @@
 @import '../../../customStyles/scss/index.scss';
 
-//Box styles
-.box {
-  border: 1px solid $color-border;
-  box-shadow: none;
-  padding: 20px;
-}
-
-.talent-page {
-  .MuiDivider-root {
-    margin-bottom: 20px;
-    margin-top: 20px
-  }
-}
-
 // Active Tabs
 .people-active-tabs {
 
@@ -50,47 +36,38 @@
 
 // Side Filter
 .side-filter-root {
-  background-color: $color-white;
-  border: 1px solid $color-border;
-  border-radius: 8px;
-  box-shadow: none;
-  padding-bottom: 30px;
-
   .title {
-    @extend .h2;
     margin: 25px 0px 8px 24px;
   }
 
   .subtitle {
-    @extend .h3;
     margin: 0px 0px 0px 24px;
     padding: 20px 0px;
   }
 
   .heading {
-    @extend .h4;
     margin: 0px 0px 0px 24px;
   }
 
   .sub-heading {
-    @extend .h4;
     margin: 0px 0px 0px 24px;
     font-weight: 500;
   }
 
   .bold-filter-item {
-    @extend .para;
-    margin-left: 14px;
-    font-weight: bold;
+    .MuiTypography-root {
+      margin-left: 14px;
+      font-weight: bold;
+    }
   }
 }
 
 // Side filter list items
 .filter-list-items {
   .list-item {
-    @extend .para;
+    @extend .h4;
+    font-weight: normal;
     color: $color-dark-grey;
-    font-size: 15px;
   }
 
   .MuiListItem-root {

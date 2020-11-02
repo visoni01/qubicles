@@ -17,7 +17,7 @@ const TalentPage = () => (
         />
       </div>
     </div>
-    <Box className='talent-page box'>
+    <Box className='custom-box'>
       {talentCards.map((talentCard) => (
         <TalentCard
           key={ talentCard.candidateId }

@@ -51,9 +51,18 @@
 }
 
 // Fa Icon
-
 .custom-fa-icon {
   color: $color-primary;
   @include fa-icon-hover($color-primary);
   @include fa-icon-outlined($color-dark-grey)
+}
+
+// List Divider
+.list-divider {
+  margin: 15px 0;
+  border-bottom: 1px solid $color-border;
+
+  &:last-child {
+    border: none;
+  }
 }

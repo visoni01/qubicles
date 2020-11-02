@@ -19,11 +19,11 @@ const CourseCard = ({
         onClick={ () => history.push(ROUTE_PATHS.VIEW_COURSE) }
       >
         <Box className='price-overlay'>
-          <p className='price-qbe'>
-            <b>{ `${ priceQbe } `}</b>
-            QBE
+          <p className='h3 price-qbe'>
+            { `${ priceQbe } `}
+            <span className='h3 unbold'>QBE</span>
           </p>
-          <p className='price-usd'>
+          <p className='para light price-usd'>
             {`$${ priceUsd } USD`}
           </p>
         </Box>
@@ -41,14 +41,14 @@ const CourseCard = ({
               value={ ratingValue }
               precision={ 0.1 }
             />
-            <span className='total-students'>{`${ studentsCount } students`}</span>
+            <span className='para light total-students'>{`${ studentsCount } students`}</span>
           </div>
-          <b className='course-description'>
+          <b className='h4 course-description'>
             {courseDescription}
           </b>
           <div className='course-sections'>
-            <span className='sections'>{`${ sectionsCount } Sections`}</span>
-            <span className='language'>{language}</span>
+            <span className='para light sections'>{`${ sectionsCount } Sections`}</span>
+            <span className='para light language'>{language}</span>
           </div>
         </CardContent>
       </Card>

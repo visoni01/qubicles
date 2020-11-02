@@ -36,8 +36,8 @@ const TrainingWrap = () => {
           Create Course
         </Button>
       </div>
-      <Box className='box'>
-        <h3 className='courses-heading'>All Courses</h3>
+      <Box className='custom-box'>
+        <h3 className='h3 mb-20'>All Courses</h3>
         <Grid container spacing={ 2 }>
           {courseCards.map((cardInfo) => (
             <CourseBox

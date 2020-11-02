@@ -7,23 +7,23 @@ import './style.scss'
 
 const TrainingFilter = () => (
 
-  <Box className='side-filter-root'>
-    <h2 className='title'>Training</h2>
+  <Box className='custom-box no-padding side-filter-root'>
+    <h2 className='h2 title'>Training</h2>
     <List className='courses-list-items'>
       <ListItem
         button
       >
-        <ListItemText primary='My Courses (2)' classes={ { primary: 'bold-filter-item' } } />
+        <ListItemText primary='My Courses (2)' className='h4 bold-filter-item' />
       </ListItem>
       <ListItem
         button
       >
-        <ListItemText primary='Enrolled Courses (3)' classes={ { primary: 'bold-filter-item' } } />
+        <ListItemText primary='Enrolled Courses (3)' className='h4 bold-filter-item' />
       </ListItem>
     </List>
 
     <Divider className='mb-20' />
-    <h3 className='subtitle'>Categories</h3>
+    <h3 className='h3 subtitle'>Categories</h3>
     <List className='filter-list-items'>
       <ListItem
         button
