@@ -106,6 +106,12 @@ const routes = [
     component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Jobs/JobView')),
     auth: true,
   },
+  // Temporarily added extra route for new contact-center newJob design.
+  {
+    path: ROUTE_PATHS.NEW_JOB,
+    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Jobs/NewJob')),
+    auth: true,
+  },
   // Temporarily added extra route for new contact-center talent viewResume design.
   {
     path: ROUTE_PATHS.VIEW_RESUME,
@@ -114,7 +120,19 @@ const routes = [
   // Added extra route for new contact-center jobPost design.
   {
     path: ROUTE_PATHS.CREATE_COURSE,
-    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Training/Course/NewCourse')),
+    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Training/Course/NewCourse/index')),
+    auth: true,
+  },
+  // Temporarily added extra route for new contact-center newJob design.
+  {
+    path: ROUTE_PATHS.VIEW_COURSE,
+    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Training/Course/ViewCourse/index')),
+    auth: true,
+  },
+  // Temporarily added extra route for new contact-center Job application design.
+  {
+    path: ROUTE_PATHS.VIEW_JOB_APPLICATION,
+    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Talent/Application/JobApplicationPage')),
     auth: true,
   },
 ]

@@ -3,17 +3,30 @@ import {
   List, ListItem, ListItemIcon, Typography,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Link } from 'react-router-dom'
 import menuItems from './menuList'
 
 const listItem = (item) => (
   <ListItem key={ item.id } className='menu-item' button>
-    <ListItemIcon className='menu-item-icon'>
-      <FontAwesomeIcon icon={ item.icon } />
-      <img src={ item.icon } alt='' />
-      <Typography className='menu-item-title'>
-        {item.title}
-      </Typography>
-    </ListItemIcon>
+    { item.link ? (
+      <Link to={ item.link }>
+        <ListItemIcon className='menu-item-icon'>
+          <FontAwesomeIcon icon={ item.icon } />
+          <img src={ item.icon } alt='' />
+          <Typography className='menu-item-title'>
+            {item.title}
+          </Typography>
+        </ListItemIcon>
+      </Link>
+    ) : (
+      <ListItemIcon className='menu-item-icon'>
+        <FontAwesomeIcon icon={ item.icon } />
+        <img src={ item.icon } alt='' />
+        <Typography className='menu-item-title'>
+          {item.title}
+        </Typography>
+      </ListItemIcon>
+    )}
   </ListItem>
 )
 

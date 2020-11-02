@@ -1,12 +1,12 @@
 import React, { useState, useCallback } from 'react'
 import {
-  Box, Tabs, Tab, InputBase, FormControl, InputLabel, Select, Grid, RadioGroup, FormControlLabel, Radio, TextareaAutosize,
+  TextareaAutosize, Grid, FormControl, InputLabel, Select,
+  RadioGroup, FormControlLabel, Radio, InputBase,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
-const CourseInformation = () => {
-  const [ activeTab, setActiveTab ] = useState(0)
+export default function InformationTab() {
   const [ selectedCategory, setCategory ] = useState('')
   const [ price, setPrice ] = useState('')
   const [ priceType, setPriceType ] = useState('price')
@@ -25,25 +25,20 @@ const CourseInformation = () => {
   }, [])
 
   // Course Categories
-  const availableCategories = [ 'Customer Service', 'Phone Calling', 'Email Support', 'Active Sales', 'Agent Support' ]
+  const availableCategories = [ 'Customer Service',
+    'Phone Calling',
+    'Email Support',
+    'Active Sales',
+    'Agent Support',
+  ]
+
   const setCategoryCB = useCallback((e) => {
     setCategory(e.target.value)
   }, [])
 
   return (
-
-    <Box className='box new-course-wrapper'>
-      <h2> New Course </h2>
-      <div className='people-active-tabs'>
-        <Tabs
-          value={ activeTab }
-          onChange={ (_, tab) => setActiveTab(tab) }
-        >
-          <Tab label='Information' className={ activeTab === 0 ? 'active-tab' : 'inactive-tab' } />
-          <Tab label='Content' className={ activeTab === 1 ? 'active-tab' : 'inactive-tab' } />
-        </Tabs>
-      </div>
-      <div className='information-section'>
+    <div className='mt-30'>
+      <div className='info-tab-section'>
         <h3> Course Title </h3>
         <div className='input-box'>
           <TextareaAutosize
@@ -57,12 +52,16 @@ const CourseInformation = () => {
 
       <Grid container spacing={ 4 }>
         <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 6 }>
-          <div className='information-section'>
+          <div className='info-tab-section'>
             <h3> Category </h3>
             <div>
               <FormControl variant='outlined' className='drop-down-bar'>
-                <InputLabel>Choose category</InputLabel>
+                <InputLabel margin='dense' variant='outlined'>
+                  Choose category
+                </InputLabel>
                 <Select
+                  margin='dense'
+                  variant='outlined'
                   native
                   label='Choose category'
                   onChange={ setCategoryCB }
@@ -79,7 +78,7 @@ const CourseInformation = () => {
           </div>
         </Grid>
         <Grid item xl={ 5 } lg={ 5 } md={ 6 } sm={ 6 }>
-          <div className='information-section'>
+          <div className='info-tab-section'>
             <h3> Price </h3>
             <RadioGroup
               className='radio-buttons'
@@ -111,7 +110,7 @@ const CourseInformation = () => {
         </Grid>
 
         <Grid item xl={ 3 } lg={ 3 } md={ 12 } sm={ 6 }>
-          <div className='information-section'>
+          <div className='info-tab-section'>
             <h3> Visibility </h3>
             <RadioGroup
               className='radio-buttons'
@@ -125,7 +124,7 @@ const CourseInformation = () => {
         </Grid>
       </Grid>
 
-      <div className='information-section'>
+      <div className='info-tab-section'>
         <h3> Description </h3>
         <h4> Summary </h4>
         <div className='input-box'>
@@ -182,9 +181,6 @@ const CourseInformation = () => {
           </Grid>
         </Grid>
       </div>
-    </Box>
-
+    </div>
   )
 }
-
-export default CourseInformation

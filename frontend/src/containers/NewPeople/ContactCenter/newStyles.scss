@@ -4,7 +4,7 @@
 .box {
   border: 1px solid $color-border;
   box-shadow: none;
-  padding: 30px;
+  padding: 20px;
 }
 
 .talent-page {
@@ -114,7 +114,7 @@
 
    .search-button {
       margin-left: 25px;
-      width: 150px;
+      width: 15%;
       height: 40px !important;
   }
 }
@@ -224,13 +224,15 @@
     @extend .para;
     margin-bottom: 15px;
   }
-  .wide-button {
-    width: 100%;
-    margin-bottom: 15px;
-  }
+
   .divider-padded {
     margin-bottom: 15px;
   }
+}
+
+.wide-button {
+  width: 100%;
+  margin-bottom: 15px;
 }
 
 // Introduction styles
@@ -306,6 +308,7 @@
 // Divider
 .MuiDivider-root {
   &.divider {
+    width: 100%;
     margin: 15px 0;
   }
 }
@@ -338,5 +341,95 @@
 
   &:hover {
     @extend .text-link-underlined;
+  }
+}
+
+// text-button
+.text-button {
+  color: $color-primary;
+  width: fit-content;
+  font-size: 13px;
+  padding: 0px;
+  :hover {
+    color: $color-primary;
+  }
+}
+
+// review section
+.review-section {
+  width: 100%;
+  display: inline-flex;
+  border-bottom: 1px solid $color-border;
+  margin-bottom: 20px;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .candidate-info {
+    align-self: center;
+    width: calc(100% - 60px);
+    margin-left: 10px;
+    margin-bottom: 10px;
+
+    .reviewerName {
+      font-weight: 600;
+    }
+
+    svg {
+      font-size: 20px;
+    }
+    .rating-star {
+      margin-left: 0px;
+    }
+
+    .position {
+      @extend .para;
+      color: $color-dark-grey;
+    }
+  }
+}
+
+// Error overlay box
+.display-error-root {
+  &.box {
+    color: $color-pink;
+    // z-index: 10000;
+  }
+  .heading {
+    @extend .h3;
+    text-align: center;
+    font-weight: 600;
+  }
+  .error-message {
+    @extend .para;
+    margin-top: 15px;
+    text-align: center;
+    font-weight: 600;
+  }
+}
+
+// Text Divider
+
+.text-divider {
+  width: 100%;
+  margin: 10px 0;
+  .side {
+    align-self: center;
+
+    .border {
+      align-self: center;
+      border-bottom: 1px solid $color-border;
+    }
+  }
+
+  .middle {
+    text-align: center;
+    align-self: center;
+
+    .centered-text {
+      @extend .para;
+      color: $color-dark-grey;
+    }
   }
 }

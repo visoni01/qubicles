@@ -49,3 +49,11 @@
     width: calc(100% - 36px);
   }
 }
+
+// Fa Icon
+
+.custom-fa-icon {
+  color: $color-primary;
+  @include fa-icon-hover($color-primary);
+  @include fa-icon-outlined($color-dark-grey)
+}

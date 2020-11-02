@@ -25,8 +25,11 @@ const ROUTE_PATHS = {
   PEOPLE: '/people',
   NEW_PEOPLE: '/new/people',
   JOB_POST: '/new/people/jobpost',
+  NEW_JOB: '/new/people/new-job',
   VIEW_RESUME: '/new/people/view-resume',
   CREATE_COURSE: '/new/people/course/create',
+  VIEW_COURSE: '/new/people/course/view',
+  VIEW_JOB_APPLICATION: '/new/people/job/application',
 }
 
 export default ROUTE_PATHS

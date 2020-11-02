@@ -1,0 +1,122 @@
+@import '../../../../../../../customStyles/scss/index.scss';
+@import '../../../../newStyles.scss';
+
+.content-section {
+  align-self: center;
+  width: 70%;
+
+  .content-options {
+    width: 100%;
+    margin: 20px 0;
+    display: inline-flex;
+    justify-content: space-between;
+
+    .wide-button {
+      width: 49%;
+    }
+
+  }
+
+  .list-sections {
+    width: 100%;
+    border: 1px solid $color-border;
+    border-radius: 6px;
+    margin-top: 20px;
+
+    .list-item {
+      width: 100%;
+      height: auto;
+      display: inline-flex;
+      vertical-align: middle;
+      justify-content: space-between;
+      border-bottom: 1px solid $color-border;
+
+      &:last-child {
+        border: none;
+      }
+
+      .upload-content-button {
+        width: 120px;
+      }
+
+      .unit-name {
+        align-self: center;
+        &.MuiInput-underline:before {
+          border-bottom: none;
+        }
+        &.MuiInputBase-root {
+          @extend .para;
+        }
+      }
+
+      .article-icon {
+        @include fa-icon-hover($color-primary);
+        align-self: center;
+        font-size: 20px;
+        color: $color-primary;
+        // margin-right: 5px;
+      }
+
+      .added-content {
+        flex-basis: auto;
+
+        .article {
+          @extend .para;
+          margin: 0px 10px;
+          color: $color-dark-grey;
+        }
+
+        .delete-icon {
+          @include fa-icon-hover($color-primary);
+          vertical-align: middle;
+          font-size: 20px;
+          color: $color-primary;
+        }
+
+        .edit-button {
+          width: 120px;
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}
+
+
+// Modal custom
+
+.custom-modal {
+
+  .MuiDialog-paperScrollPaper {
+    border-radius: 8px;
+    padding: 0.5rem 0.5rem;
+    height: 80%;
+  }
+
+  .header {
+    display: inline-flex;
+    justify-content: space-between;
+
+    h2 {
+      margin-right: 30px;
+      @extend .h2;
+    }
+
+    .cross-button {
+      margin-right: 0.5rem;
+      button {
+        .MuiIconButton-label {
+          color: $color-primary;
+        }
+      }
+    }
+  }
+
+  .modal-actions {
+    display: inline-flex;
+    justify-content: space-between;
+    button {
+      margin: 0 0.5rem;
+    }
+  }
+}

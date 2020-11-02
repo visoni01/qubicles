@@ -17,7 +17,7 @@
 @mixin secondary-default($front-color) {
   color: $front-color;
   background: $color-white 0% 0% no-repeat padding-box;
-  border: 2px solid $front-color;
+  border: 1px solid $front-color;
 
   &:hover {
     background-color: $front-color;
@@ -25,7 +25,7 @@
   }
 
   &:disabled {
-    border: 2px solid $color-primary-light;
+    border: 1px solid $color-primary-light;
     color: $color-primary-light;
   }
 }
@@ -92,6 +92,7 @@
 
 // Secondary Button Label
 .secondary-label {
+
   &:hover {
     color: $color-white;
   }

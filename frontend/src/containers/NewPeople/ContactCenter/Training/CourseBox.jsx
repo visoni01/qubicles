@@ -5,48 +5,56 @@ import {
 import PropTypes from 'prop-types'
 import { Rating } from '@material-ui/lab'
 import './style.scss'
+import { useHistory } from 'react-router-dom'
+import ROUTE_PATHS from '../../../../routes/routesPath'
 
 const CourseCard = ({
   priceQbe, priceUsd, ratingValue, studentsCount, courseDescription, sectionsCount, language, imageUrl,
-}) => (
-  <Grid xl={ 4 } lg={ 4 } md={ 6 } sm={ 12 } item>
-    <Card className='course-card'>
-      <Box className='price-overlay'>
-        <p className='price-qbe'>
-          <b>{ `${ priceQbe } `}</b>
-          QBE
-        </p>
-        <p className='price-usd'>
-          {`$${ priceUsd } USD`}
-        </p>
-      </Box>
-      <CardMedia
-        image={ imageUrl }
-        className='course-image'
-      />
-      <CardContent className='course-card-content'>
-        <div className='rating-text'>
-          <Rating
-            className='rating-star'
-            name='read-only'
-            readOnly
-            size='small'
-            value={ ratingValue }
-            precision={ 0.1 }
-          />
-          <span className='total-students'>{`${ studentsCount } students`}</span>
-        </div>
-        <b className='course-description'>
-          {courseDescription}
-        </b>
-        <div className='course-sections'>
-          <span className='sections'>{`${ sectionsCount } Sections`}</span>
-          <span className='language'>{language}</span>
-        </div>
-      </CardContent>
-    </Card>
-  </Grid>
-)
+}) => {
+  const history = useHistory()
+  return (
+    <Grid xl={ 4 } lg={ 4 } md={ 6 } sm={ 12 } item>
+      <Card
+        className='course-card'
+        onClick={ () => history.push(ROUTE_PATHS.VIEW_COURSE) }
+      >
+        <Box className='price-overlay'>
+          <p className='price-qbe'>
+            <b>{ `${ priceQbe } `}</b>
+            QBE
+          </p>
+          <p className='price-usd'>
+            {`$${ priceUsd } USD`}
+          </p>
+        </Box>
+        <CardMedia
+          image={ imageUrl }
+          className='course-image'
+        />
+        <CardContent className='course-card-content'>
+          <div className='rating-text'>
+            <Rating
+              className='rating-star'
+              name='read-only'
+              readOnly
+              size='small'
+              value={ ratingValue }
+              precision={ 0.1 }
+            />
+            <span className='total-students'>{`${ studentsCount } students`}</span>
+          </div>
+          <b className='course-description'>
+            {courseDescription}
+          </b>
+          <div className='course-sections'>
+            <span className='sections'>{`${ sectionsCount } Sections`}</span>
+            <span className='language'>{language}</span>
+          </div>
+        </CardContent>
+      </Card>
+    </Grid>
+  )
+}
 
 CourseCard.defaultProps = {
   priceQbe: 12,

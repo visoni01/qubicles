@@ -27,7 +27,8 @@ const Dashboard = () => {
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
         <CheckrVerification />
         <CommunityRep />
-        <LatestAnnouncement />
+        {/* WIP: Refactor latest announcement */}
+        {/* <LatestAnnouncement /> */}
         <JobPostings />
       </Grid>
 

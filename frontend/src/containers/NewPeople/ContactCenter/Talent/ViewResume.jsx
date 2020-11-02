@@ -1,10 +1,9 @@
 import React from 'react'
 import { Grid } from '@material-ui/core'
 import ResumeIntro from './Application/ResumeIntro'
-import CoverLetter from './Application/CoverLetter'
 import Courses from './Application/Courses'
 import SkillsPage from './Application/SkillsPage'
-import Reviews from './Application/Reviews'
+import ResumeReviews from './Application/ResumeReviews'
 import WorkHistory from './Application/WorkHistory'
 import Actions from '../Jobs/Actions'
 import { newNavBar } from '../../../../hoc/navbar'
@@ -19,7 +18,7 @@ const ViewResume = () => (
       <SkillsPage />
       <WorkHistory />
       <Courses />
-      <Reviews />
+      <ResumeReviews />
     </Grid>
     <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
       <Actions />

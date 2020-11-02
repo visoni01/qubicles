@@ -1,4 +1,5 @@
 @import '../../../../customStyles/scss/index.scss';
+@import '../newStyles.scss';
 
 .divider {
   width: 100%;
@@ -304,9 +305,14 @@
         font-size: 14px;
       }
 
+      .reviewerName {
+        font-weight: 600;
+      }
+
       svg {
         font-size: 20px;
       }
+
       .rating-star {
         margin-left: 0px;
       }
@@ -320,6 +326,7 @@
   }
 
   .text-button {
+    align-self: center;
     color: $color-primary;
   }
 }
