@@ -8,7 +8,8 @@ import {
   ForumGetGroupTopicsService,
   ForumCreateTopicService,
   ForumGetTopicCommentsService,
-  ForumCreateCommentService
+  ForumCreateCommentService,
+  ImageUploadService
 } from '../services/newForum'
 
 export default class ForumController {
@@ -90,6 +91,15 @@ export default class ForumController {
       Responder.success(res, forumCreateCommentResult.result)
     } else {
       Responder.failed(res, forumCreateCommentResult.errors)
+    }
+  }
+
+  static async imageUpload (req, res) {
+    const upload = await ImageUploadService.execute({ ...req.body, file: req.file })
+    if (upload.successful) {
+      Responder.success(res, upload.result)
+    } else {
+      Responder.failed(res, upload.errors)
     }
   }
 }

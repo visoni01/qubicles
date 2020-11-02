@@ -6,7 +6,6 @@ import { authRouter } from './auth.router'
 import { userRouter } from './user.router'
 import { flowRouter } from './flow.router'
 import { dashboardRouter } from './dashboard.router'
-import { forumRouter } from './forum.router'
 import { newForumRouter } from './newForum.router'
 import { jobRouter } from './job.router'
 
@@ -21,7 +20,6 @@ router.use(`/${NAMESPACE}/employer`, userEmployerRouter)
 router.use(`/${NAMESPACE}/auth`, authRouter)
 router.use(`/${NAMESPACE}/flows`, flowRouter)
 router.use(`/${NAMESPACE}/dashboard`, dashboardRouter)
-router.use(`/${NAMESPACE}/forum`, forumRouter)
 router.use(`/${NAMESPACE}/jobs`, jobRouter)
 router.use(`/${NAMESPACE}/newForum`, newForumRouter)
 

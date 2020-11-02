@@ -10,15 +10,7 @@ import communityRep from './dashboard/communityRep'
 import jobPosting from './dashboard/jobPosting'
 import post from './dashboard/post'
 import activeUser from './dashboard/activeUser'
-import categories from './forum/category/category'
-import channel from './forum/channel/channelDetails'
-import channelTopicsList from './forum/channel/channelTopicsList'
-import topic from './forum/topic/topic'
 import jobCategoryDataActivity from './people/jobCategories'
-import crudCategory from './forum/category/crud'
-import crudChannel from './forum/channel/crud'
-import crudTopic from './forum/topic/crud'
-import crudComment from './forum/comment/crud'
 import getAllGroups from './forum/groups/getAll'
 import crudGroups from './forum/groups/crud'
 import groupTopics from './forum/groupTopics/getAll'
@@ -45,10 +37,6 @@ export default function* rootSaga() {
     communityRep(),
     jobPosting(),
     activeUser(),
-    categories(),
-    channel(),
-    channelTopicsList(),
-    topic(),
     getAllGroups(),
     crudGroups(),
     groupTopics(),
@@ -56,10 +44,6 @@ export default function* rootSaga() {
     crudTopicComments(),
     crudGroupTopics(),
     jobCategoryDataActivity(),
-    crudCategory(),
-    crudChannel(),
-    crudTopic(),
-    crudComment(),
     crudJob(),
     post(),
     statusPostActivity(),

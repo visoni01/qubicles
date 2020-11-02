@@ -55,12 +55,6 @@ const routes = [
     component: React.lazy(() => import('../containers/Dashboard')),
     auth: true,
   },
-  // Added extra route for new groups design, Remove it when groups page completely ready.
-  {
-    path: `/new${ ROUTE_PATHS.GROUP }`,
-    component: React.lazy(() => import('../containers/Groups')),
-    auth: true,
-  },
   {
     path: ROUTE_PATHS.POST_SIGN_UP,
     component: React.lazy(() => import('../containers/User/Signup/PostSignUp')),
@@ -76,17 +70,7 @@ const routes = [
   },
   {
     path: ROUTE_PATHS.GROUP,
-    component: React.lazy(() => import('../containers/CommunicationForums')),
-    auth: true,
-  },
-  {
-    path: ROUTE_PATHS.GROUP_CHANNEL,
-    component: React.lazy(() => import('../containers/CommunicationForums/forumChannel')),
-    auth: false,
-  },
-  {
-    path: ROUTE_PATHS.GROUP_TOPIC,
-    component: React.lazy(() => import('../containers/CommunicationForums/forumTopic')),
+    component: React.lazy(() => import('../containers/Groups')),
     auth: true,
   },
   {

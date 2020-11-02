@@ -1,5 +1,4 @@
 import ServiceBase from '../../common/serviceBase'
-import { getRecentTopics } from '../helper/forum'
 import { getClientIdByUserId } from '../helper/user'
 import { getErrorMessageForService } from '../helper'
 import { ERRORS } from '../../utils/errors'
@@ -20,7 +19,8 @@ export class LatestAnnouncementsService extends ServiceBase {
     try {
       const client = await getClientIdByUserId({ user_id: this.user_id })
       if (client && client.client_id) {
-        const recentTopics = await getRecentTopics({ client_id: client.client_id })
+        // Recent topics has to be redefined.
+        const recentTopics = []
         const latestAnnouncements = recentTopics.map(topic => {
           return {
             id: topic.topic_id,
