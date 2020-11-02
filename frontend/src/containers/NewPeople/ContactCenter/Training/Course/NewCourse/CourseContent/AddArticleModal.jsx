@@ -27,7 +27,7 @@ export default function AddArticleModal({
             className='is-size-6'
             onClick={ onClose }
           >
-            <FontAwesomeIcon className='custom-fa-icon' icon={ faTimes } />
+            <FontAwesomeIcon className='custom-fa-icon pointer' icon={ faTimes } />
           </IconButton>
         </DialogActions>
       </div>

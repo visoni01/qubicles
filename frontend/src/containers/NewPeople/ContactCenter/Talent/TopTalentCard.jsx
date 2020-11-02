@@ -15,11 +15,11 @@ const TopTalentCard = ({
 }) => {
   const history = useHistory()
   return (
-    <div className='top-talent'>
-      <div className='display-inline-flex talent-profile'>
+    <div className='top-talent list-divider'>
+      <div className='display-inline-flex mb-10'>
         <Avatar className='profile-pic' alt={ candidateName } src={ candidatePic } />
         <div className='candidate-info'>
-          <span className='candidate-name'>{candidateName}</span>
+          <span className='h4'>{candidateName}</span>
           <Rating
             className='rating-star'
             name='read-only'
@@ -28,7 +28,7 @@ const TopTalentCard = ({
             value={ candidateRating }
             precision={ 0.1 }
           />
-          <p className='description'>
+          <p className='para light'>
             {profileName}
           </p>
           <Link

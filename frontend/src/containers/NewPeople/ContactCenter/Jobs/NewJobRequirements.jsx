@@ -54,7 +54,7 @@ const NewJobRequirements = () => {
           <div className='mt-50'>
             <h4 className='h4 mb-10'> Required Courses</h4>
             <div className='new-input-search'>
-              <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 fontawesome-icon' />
+              <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 custom-fa-icon light' />
               <InputBase
                 placeholder='Search Courses'
                 className='input-field'
@@ -89,7 +89,7 @@ const NewJobRequirements = () => {
           <div className='mt-50'>
             <h4 className='h4 mb-10'> Bonus Courses</h4>
             <div className='new-input-search'>
-              <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 fontawesome-icon' />
+              <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 custom-fa-icon light' />
               <InputBase
                 placeholder='Search Courses'
                 className='input-field'

@@ -19,7 +19,7 @@ const TrainingWrap = () => {
     <div>
       <div className='display-inline-flex is-fullwidth mt-10 search-bar-people'>
         <div className='search-input'>
-          <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 fontawesome-icon' />
+          <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 custom-fa-icon light' />
           <InputBase
             placeholder='Search Courses'
             className='input-field'
@@ -36,8 +36,8 @@ const TrainingWrap = () => {
           Create Course
         </Button>
       </div>
-      <Box className='box'>
-        <h3 className='courses-heading'>All Courses</h3>
+      <Box className='custom-box'>
+        <h3 className='h3 mb-20'>All Courses</h3>
         <Grid container spacing={ 2 }>
           {courseCards.map((cardInfo) => (
             <CourseBox

@@ -1,32 +1,9 @@
 @import '../../../../customStyles/scss/index.scss';
 @import '../newStyles.scss';
 
-.divider {
-  width: 100%;
-  margin: 15px 0;
-}
-
 .top-talent-root{
-  border: 1px solid $color-border;
-  padding-bottom: 0px;
-
-  h3 {
-    @extend .h3;
-    padding-bottom: 20px;
-  }
-
   .top-talent {
     width: 100%;
-    margin-bottom: 15px;
-    border-bottom: 1px solid $color-border;
-
-    .talent-profile {
-      margin-bottom: 10px;
-    }
-
-    &:last-child {
-      border: none;
-    }
 
     .profile-pic {
       width: 56px;
@@ -38,29 +15,6 @@
     .candidate-info {
       align-self: center;
       width: calc(100% - 60px);
-
-      .candidate-name {
-        @extend .h4;
-        color: $color-light-brown;
-        font-weight: 600;
-
-      }
-
-      .description {
-        @extend .para;
-        font-size: 13px;
-        color: $color-dark-grey;
-      }
-
-      .text-button {
-        color: $color-primary;
-        width: fit-content;
-        font-size: 13px;
-        padding: 0px;
-        :hover {
-          color: $color-primary;
-        }
-      }
     }
   }
 }
@@ -84,87 +38,24 @@
       width: 100%;
     }
 
-    h4 {
-      @extend .h4;
-      font-size: 16px;
-      font-weight: 600;
-      color: $color-light-brown;
-    }
-
-    .badges {
-      color: $color-dark-grey;
-      font-size: 22px;
-    }
-
-    .text-button {
-      color: $color-primary;
-      width: fit-content;
-      float: right;
-      font-size: 14px;
-      padding: 0px;
-      :hover {
-        color: $color-primary;
-      }
-
-    }
-
-    .badges {
-      color: $color-dark-grey;
-      font-size: 22px;
-    }
-
     .location {
-      @extend .para;
-      color: $color-dark-grey;
-      margin-top: 5px;
       svg {
-        color: $color-dark-grey;
-        font-size: 16px;
         margin: 0 10px 0 0;
       }
+
       .status{
-        @extend .para;
-        font-style: italic;
-        font-weight: 600;
         margin-left: 20px;
       }
     }
 
     .languages {
-      @extend .para;
-      font-size: 14px;
-      color: $color-dark-grey;
-
       svg {
-        color: $color-dark-grey;
-        font-size: 16px;
         margin: 0 10px 0 0;
       }
 
-      span{
+      .rate{
         float: right;
       }
-    }
-  }
-}
-
-.talent-card {
-  border-bottom: 1px solid $color-border;
-  margin-bottom: 20px;
-
-  &:last-child {
-    border-bottom: none;
-  }
-
-  .talent-content {
-    h4 {
-      @extend .h4;
-      color: $color-light-brown;
-      font-weight: 600;
-    }
-
-    p {
-      @extend .para;
     }
   }
 }
@@ -194,20 +85,9 @@
       margin-right: 0px;
     }
   }
-
-  .rating-filter {
-    .rating-star {
-      margin-left: 0px;
-    }
-
-    .rating-text {
-      @extend .para;
-    }
-  }
 }
 
 .resume-intro-root {
-
   .agent-specifications{
     @extend .para;
     justify-content: space-between;
@@ -230,7 +110,6 @@
 }
 
 .courses-root{
-
   .courses-heading {
     @extend .h3;
     width: 100%;
@@ -287,7 +166,7 @@
 }
 
 .reviews-root {
-  .people-active-tabs {
+  .custom-active-tabs {
     width: 60%;
     margin-bottom: 20px;
   }
@@ -311,10 +190,6 @@
 
       svg {
         font-size: 20px;
-      }
-
-      .rating-star {
-        margin-left: 0px;
       }
 
       .description {

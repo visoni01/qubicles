@@ -22,7 +22,7 @@ const Introduction = ({
       <Avatar className='profile-pic' alt={ imageName } src={ imageSrc } />
       <div className='info-wrapper'>
         <Rating
-          className='rating-star'
+          className='rating-star no-margin'
           name='read-only'
           readOnly
           size='small'

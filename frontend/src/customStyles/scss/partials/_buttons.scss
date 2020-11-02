@@ -84,6 +84,7 @@
 // Primary Button Label
 .primary-label {
   color: $color-white;
+  min-width: max-content;
 
   &:hover {
     color: $color-white;

@@ -11,7 +11,7 @@ const JobCategoryCard = ({
 }) => (
   <div className='job-category-card'>
     <div className='section-heading display-inline-flex is-fullwidth'>
-      <h3 className='section-title'>
+      <h3 className='h3'>
         { categoryName }
       </h3>
     </div>
@@ -21,31 +21,29 @@ const JobCategoryCard = ({
         jobId, title, required, hired, evaluating, pending,
       }) => (
         <>
-          <div className='job-info' key={ jobId }>
+          <div className='job-info list-divider' key={ jobId }>
             <div className='job-details is-fullwidth'>
               <Link to={ ROUTE_PATHS.JOB_POST }>
-                <Typography
-                  className='job-title'
-                >
+                <h4 className='h4'>
                   { title }
-                </Typography>
+                </h4>
               </Link>
               <div>
                 <ul className='action-buttons'>
                   <li>
-                    <FontAwesomeIcon className='action-icon' icon={ faUserFriends } />
-                    <span className='icon-value'>{`${ hired }/${ required }`}</span>
-                    <span className='icon-title'>Hired</span>
+                    <FontAwesomeIcon className='custom-fa-icon light' icon={ faUserFriends } />
+                    <span className='para bold'>{`${ hired }/${ required }`}</span>
+                    <span className='para light ml-5'>Hired</span>
                   </li>
                   <li>
-                    <FontAwesomeIcon className='action-icon' icon={ faRedo } />
-                    <span className='icon-value'>{evaluating}</span>
-                    <span className='icon-title'>Evaluating</span>
+                    <FontAwesomeIcon className='custom-fa-icon light' icon={ faRedo } />
+                    <span className='para bold'>{evaluating}</span>
+                    <span className='para light ml-5'>Evaluating</span>
                   </li>
                   <li>
-                    <FontAwesomeIcon className='action-icon' icon={ faEnvelope } />
-                    <span className='icon-value'>{pending}</span>
-                    <span className='icon-title'>Pending Applications</span>
+                    <FontAwesomeIcon className='custom-fa-icon light' icon={ faEnvelope } />
+                    <span className='para bold'>{pending}</span>
+                    <span className='para light ml-5'>Pending Applications</span>
                   </li>
                 </ul>
               </div>

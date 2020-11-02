@@ -79,13 +79,13 @@ const TalentFilter = () => {
   })
 
   return (
-    <Box className='side-filter-root talent-filter'>
-      <h2 className='title talent-title'>Talent</h2>
-      <h3 className='subtitle talent-subtitle'> Filter </h3>
+    <Box className='custom-box no-padding side-filter-root talent-filter'>
+      <h2 className='h2 title talent-title'>Talent</h2>
+      <h3 className='h3 subtitle talent-subtitle'> Filter </h3>
       <Divider className='full-border' />
 
       <div className='filter-section'>
-        <h4 className='heading'> Skills </h4>
+        <h4 className='h4 heading'> Skills </h4>
         <div>
           <FormControl variant='outlined' className='drop-down-bar talent-filter-dropdown'>
             <InputLabel margin='dense' variant='outlined'>Choose required skills</InputLabel>
@@ -108,7 +108,7 @@ const TalentFilter = () => {
       </div>
 
       <div className='filter-section'>
-        <h4 className='heading'> Languages </h4>
+        <h4 className='h4 heading'> Languages </h4>
         <div>
           <FormControl variant='outlined' className='drop-down-bar talent-filter-dropdown'>
             <InputLabel margin='dense' variant='outlined'>Choose required languages</InputLabel>
@@ -131,7 +131,7 @@ const TalentFilter = () => {
       </div>
 
       <div className='filter-section'>
-        <h4 className='heading'> Talent Type </h4>
+        <h4 className='h4 heading'> Talent Type </h4>
         <div className='control-buttons-wrapper'>
           <RadioGroup
             className='radio-buttons'
@@ -152,7 +152,7 @@ const TalentFilter = () => {
       </div>
 
       <div className='filter-section'>
-        <h4 className='heading'> Hourly rate </h4>
+        <h4 className='h4 heading'> Hourly rate </h4>
         <div className='control-buttons-wrapper'>
           <RadioGroup
             className='radio-buttons'
@@ -169,7 +169,7 @@ const TalentFilter = () => {
       </div>
 
       <div className='filter-section'>
-        <h4 className='heading'> Rating </h4>
+        <h4 className='h4 heading'> Rating </h4>
         <div className='control-buttons-wrapper'>
           <RadioGroup
             className='radio-buttons'
@@ -181,7 +181,7 @@ const TalentFilter = () => {
               <FormControlLabel value='five' control={ <Radio /> } />
               <Rating
                 readOnly
-                className='rating-star'
+                className='rating-star no-margin'
                 size='small'
                 value={ 5 }
               />
@@ -190,28 +190,28 @@ const TalentFilter = () => {
               <FormControlLabel value='fourAndAbove' control={ <Radio /> } />
               <Rating
                 readOnly
-                className='rating-star'
+                className='rating-star no-margin'
                 size='small'
                 value={ 4 }
               />
-              <span className='rating-text'> & up </span>
+              <span className='para'> & up </span>
             </div>
             <div className='rating-filter'>
               <FormControlLabel value='threeAndAbove' control={ <Radio /> } />
               <Rating
                 readOnly
-                className='rating-star'
+                className='rating-star no-margin'
                 size='small'
                 value={ 3 }
               />
-              <span className='rating-text'> & up </span>
+              <span className='para'> & up </span>
             </div>
           </RadioGroup>
         </div>
       </div>
 
       <div className='filter-section'>
-        <h4 className='heading'> Verifications </h4>
+        <h4 className='h4 heading'> Verifications </h4>
         <div className='control-buttons-wrapper'>
           <FormControl
             className='checkboxes'
@@ -241,7 +241,7 @@ const TalentFilter = () => {
       </div>
 
       <div className='filter-section'>
-        <h4 className='heading'> Availability </h4>
+        <h4 className='h4 heading'> Availability </h4>
         <div className='control-buttons-wrapper'>
           <RadioGroup
             className='radio-buttons'
@@ -257,7 +257,7 @@ const TalentFilter = () => {
       </div>
 
       <div className='filter-section'>
-        <h4 className='heading'> Location </h4>
+        <h4 className='h4 heading'> Location </h4>
         <div className='control-buttons-wrapper'>
           <div className='input-box mr-15'>
             <TextareaAutosize

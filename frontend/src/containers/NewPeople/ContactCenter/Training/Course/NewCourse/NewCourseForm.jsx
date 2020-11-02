@@ -11,7 +11,7 @@ const NewCourseForm = () => {
   return (
     <Box className='box new-course-wrapper'>
       <h2> New Course </h2>
-      <div className='people-active-tabs'>
+      <div className='custom-active-tabs'>
         <Tabs
           value={ activeTab }
           onChange={ (_, tab) => setActiveTab(tab) }

@@ -85,7 +85,7 @@ const SelectedGroup = ({ group }) => {
         </Box>
         <div className='display-inline-flex width-100-per search-topic-bar'>
           <div className='search-input primary-box'>
-            <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 fontawesome-icon' />
+            <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 custom-fa-icon light' />
             <InputBase
               placeholder='Search'
               className='input-field'
