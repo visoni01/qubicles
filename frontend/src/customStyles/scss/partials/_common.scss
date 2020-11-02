@@ -1,5 +1,5 @@
+
 @mixin fa-icon-hover($color) {
-  cursor: pointer;
   path {
     &:hover {
       color: $color;
@@ -52,9 +52,30 @@
 
 // Fa Icon
 .custom-fa-icon {
+  font-size: 16px;
   color: $color-primary;
   @include fa-icon-hover($color-primary);
-  @include fa-icon-outlined($color-dark-grey)
+
+  &.light {
+    color: $color-dark-grey;
+    @include fa-icon-hover($color-dark-grey);
+  }
+
+  &.pointer {
+    cursor: pointer;
+  }
+
+  &.sz-sm {
+    font-size: 14px;
+  }
+
+  &.sz-lg {
+    font-size: 18px;
+  }
+
+  &.sz-xl {
+    font-size: 22px;
+  }
 }
 
 // List Divider

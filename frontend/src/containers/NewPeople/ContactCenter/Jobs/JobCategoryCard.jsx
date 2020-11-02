@@ -33,17 +33,17 @@ const JobCategoryCard = ({
               <div>
                 <ul className='action-buttons'>
                   <li>
-                    <FontAwesomeIcon className='action-icon' icon={ faUserFriends } />
+                    <FontAwesomeIcon className='custom-fa-icon light' icon={ faUserFriends } />
                     <span className='para bold'>{`${ hired }/${ required }`}</span>
                     <span className='para light ml-5'>Hired</span>
                   </li>
                   <li>
-                    <FontAwesomeIcon className='action-icon' icon={ faRedo } />
+                    <FontAwesomeIcon className='custom-fa-icon light' icon={ faRedo } />
                     <span className='para bold'>{evaluating}</span>
                     <span className='para light ml-5'>Evaluating</span>
                   </li>
                   <li>
-                    <FontAwesomeIcon className='action-icon' icon={ faEnvelope } />
+                    <FontAwesomeIcon className='custom-fa-icon light' icon={ faEnvelope } />
                     <span className='para bold'>{pending}</span>
                     <span className='para light ml-5'>Pending Applications</span>
                   </li>

@@ -13,7 +13,7 @@ const JobsPage = () => {
     <>
       <div className='display-inline-flex is-fullwidth mt-10 search-bar-people'>
         <div className='search-input'>
-          <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 fontawesome-icon' />
+          <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 custom-fa-icon light' />
           <InputBase
             placeholder='Search Jobs'
             className='input-field'

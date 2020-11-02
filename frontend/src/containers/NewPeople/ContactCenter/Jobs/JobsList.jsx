@@ -14,10 +14,10 @@ const JobsList = () => (
       <h3 className='h3 subtitle'> Categories </h3>
       <div className='job-list-icon'>
         <IconButton>
-          <FontAwesomeIcon icon={ faSearch } />
+          <FontAwesomeIcon icon={ faSearch } className='custom-fa-icon light' />
         </IconButton>
         <IconButton>
-          <FontAwesomeIcon icon={ faSlidersH } />
+          <FontAwesomeIcon icon={ faSlidersH } className='custom-fa-icon light' />
         </IconButton>
       </div>
     </div>

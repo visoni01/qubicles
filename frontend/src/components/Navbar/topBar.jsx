@@ -19,7 +19,7 @@ const TopBar = () => (
     <Container className='topbar-toolbar' maxWidth='lg' classes={ { maxWidthLg: 'container-max-width' } }>
       <Grid container>
         <Grid item className='search-input' lg={ 9 } md={ 9 } xs={ 9 }>
-          <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 fontawesome-icon' />
+          <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 custom-fa-icon light' />
           <InputBase
             placeholder='Search'
             className='input-field'

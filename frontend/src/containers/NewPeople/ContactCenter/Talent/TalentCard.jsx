@@ -34,7 +34,7 @@ const TalentCard = ({
                 value={ candidateRating }
                 precision={ 0.1 }
               />
-              <FontAwesomeIcon className='badges ml-10' icon={ faAward } />
+              <FontAwesomeIcon className='ml-10 custom-fa-icon light sz-lg' icon={ faAward } />
             </div>
             <Link
               to={ ROUTE_PATHS.VIEW_RESUME }
@@ -44,14 +44,14 @@ const TalentCard = ({
             </Link>
           </div>
           <p className='para light location'>
-            <FontAwesomeIcon icon={ faMapMarkerAlt } className='ml-10' />
+            <FontAwesomeIcon icon={ faMapMarkerAlt } className='ml-10 custom-fa-icon light' />
             {location}
             <span className='ml-20 para italic'>
               {availability}
             </span>
           </p>
           <p className='para light languages'>
-            <FontAwesomeIcon icon={ faLanguage } className='ml-10' />
+            <FontAwesomeIcon icon={ faLanguage } className='ml-10 custom-fa-icon light' />
             {languages}
             <span className='rate para'>
               {`${ ratePerHourDollar } $/hr`}
