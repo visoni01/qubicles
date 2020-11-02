@@ -181,7 +181,7 @@ const TalentFilter = () => {
               <FormControlLabel value='five' control={ <Radio /> } />
               <Rating
                 readOnly
-                className='rating-star'
+                className='rating-star no-margin'
                 size='small'
                 value={ 5 }
               />
@@ -190,7 +190,7 @@ const TalentFilter = () => {
               <FormControlLabel value='fourAndAbove' control={ <Radio /> } />
               <Rating
                 readOnly
-                className='rating-star'
+                className='rating-star no-margin'
                 size='small'
                 value={ 4 }
               />
@@ -200,7 +200,7 @@ const TalentFilter = () => {
               <FormControlLabel value='threeAndAbove' control={ <Radio /> } />
               <Rating
                 readOnly
-                className='rating-star'
+                className='rating-star no-margin'
                 size='small'
                 value={ 3 }
               />

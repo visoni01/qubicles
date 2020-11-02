@@ -2,7 +2,6 @@
 @import '../newStyles.scss';
 
 .top-talent-root{
-
   .top-talent {
     width: 100%;
 
@@ -86,16 +85,9 @@
       margin-right: 0px;
     }
   }
-
-  .rating-filter {
-    .rating-star {
-      margin-left: 0px;
-    }
-  }
 }
 
 .resume-intro-root {
-
   .agent-specifications{
     @extend .para;
     justify-content: space-between;
@@ -174,7 +166,7 @@
 }
 
 .reviews-root {
-  .people-active-tabs {
+  .custom-active-tabs {
     width: 60%;
     margin-bottom: 20px;
   }
@@ -198,10 +190,6 @@
 
       svg {
         font-size: 20px;
-      }
-
-      .rating-star {
-        margin-left: 0px;
       }
 
       .description {

@@ -24,11 +24,9 @@ const JobCategoryCard = ({
           <div className='job-info list-divider' key={ jobId }>
             <div className='job-details is-fullwidth'>
               <Link to={ ROUTE_PATHS.JOB_POST }>
-                <Typography
-                  className='h4'
-                >
+                <h4 className='h4'>
                   { title }
-                </Typography>
+                </h4>
               </Link>
               <div>
                 <ul className='action-buttons'>

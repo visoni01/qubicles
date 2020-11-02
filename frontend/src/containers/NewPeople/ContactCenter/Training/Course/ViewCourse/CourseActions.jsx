@@ -51,7 +51,7 @@ export default function CourseActions() {
           <h4 className='h4'> Rating for this course</h4>
           <div className='rating-text'>
             <Rating
-              className='rating-star'
+              className='rating-star no-margin-left'
               name='read-only'
               readOnly
               size='small'

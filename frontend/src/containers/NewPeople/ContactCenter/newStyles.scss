@@ -1,39 +1,5 @@
 @import '../../../customStyles/scss/index.scss';
 
-// Active Tabs
-.people-active-tabs {
-
-  .MuiTabs-flexContainer {
-    justify-content: center;
-  }
-
-  .MuiTabs-fixed {
-    margin-bottom: 25px;
-    margin-top: 25px;
-  }
-
-  .active-tab {
-    margin: 0px 5%;
-
-    .MuiTab-wrapper {
-      @extend .h3;
-      text-transform: none;
-    }
-  }
-
-  .inactive-tab {
-    @extend .active-tab;
-    .MuiTab-wrapper {
-      color: $color-dark-grey;
-      font-weight: 400;
-    }
-  }
-
-  .MuiTabs-indicator {
-    background-color: $color-primary;
-  }
-}
-
 // Side Filter
 .side-filter-root {
   .title {
@@ -96,96 +62,12 @@
   }
 }
 
-// Drop down bar
-.drop-down-bar {
-  width: 100%;
-
-  .MuiFormLabel-root {
-    padding: 0px 20px 0px 0px;
-    @extend .para;
-    color: $color-dark-grey;
-  }
-
-  &:focus {
-    outline: none;
-  }
-  &:hover {
-    color: $color-border;
-  }
-  .MuiInputBase-root {
-    height: auto;
-    @extend .para;
-    color: $color-dark-grey;
-  }
-  .MuiInputBase-input {
-    height: auto;
-  }
-}
-
-// Control Buttons common styles
-.control-buttons {
-  .MuiTypography-root {
-    @extend .para;
-  }
-
-  .MuiIconButton-root {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    background-color: inherit;
-
-    .MuiSvgIcon-root {
-      font-size: 1.2rem;
-      color: $color-primary;
-    }
-  }
-}
 
 // Control Buttons wrapper
 .control-buttons-wrapper {
   margin-top: 10px;
   margin-bottom: 10px;
   margin-left: 30px;
-}
-
-// Radio Buttons
-.radio-buttons {
-  @extend .control-buttons;
-
-  .MuiRadio-colorSecondary {
-    color: $color-primary;
-  }
-}
-
-
-// Check boxes
-.checkboxes {
-  @extend .control-buttons;
-
-  .MuiCheckbox-colorSecondary {
-    color: $color-primary;
-  }
-}
-
-// Input Box
-.input-box {
-  border: 1px solid $color-border;
-  border-radius: 8px;
-  padding: 10px;
-
-  textarea {
-    @extend .para;
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    height: 100%;
-    border: none;
-    resize: none;
-
-    &:focus {
-      outline: none;
-      box-shadow: inherit;
-    }
-  }
 }
 
 // Right section Actions box
@@ -225,10 +107,6 @@
 
     .info-wrapper {
       margin-left: 15px;
-
-      .rating-star {
-        margin-left: 0;
-      }
 
       h4 {
         @extend .h4;

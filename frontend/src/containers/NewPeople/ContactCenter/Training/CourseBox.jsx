@@ -34,7 +34,7 @@ const CourseCard = ({
         <CardContent className='course-card-content'>
           <div className='rating-text'>
             <Rating
-              className='rating-star'
+              className='rating-star no-margin'
               name='read-only'
               readOnly
               size='small'

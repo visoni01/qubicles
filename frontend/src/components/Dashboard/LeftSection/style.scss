@@ -17,11 +17,6 @@
       vertical-align: initial;
     }
 
-    .rating-star {
-      margin-left: 5px;
-      margin-right: 5px;
-    }
-
     .rating-info {
       @include fa-icon-outlined($color-white);
       font-size: 25px;

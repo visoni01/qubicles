@@ -34,7 +34,7 @@ const People = () => {
         lg={ spacingMid }
         md={ spacingMid }
         sm={ spacingMid }
-        className='people-active-tabs'
+        className='custom-active-tabs'
       >
         <Grid item xl={ spacingTab } lg={ spacingTab } md={ spacingTab } sm={ spacingTab }>
           <Tabs
