@@ -111,6 +111,26 @@ TABLE OF CONTENTS
 //Inline flex display
 .display-inline-flex {
   display: inline-flex;
+
+  &.justify-between {
+    justify-content: space-between;
+  }
+
+  &.justify-around {
+    justify-content: space-around;
+  }
+
+  &.justify-evenly {
+    justify-content: space-evenly;
+  }
+
+  &.justify-start {
+    justify-content: flex-start;
+  }
+
+  &.justify-end {
+    justify-content: flex-end;
+  }
 }
 
 //Block display

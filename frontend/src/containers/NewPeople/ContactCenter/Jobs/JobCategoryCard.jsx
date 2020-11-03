@@ -29,7 +29,7 @@ const JobCategoryCard = ({
                 </h4>
               </Link>
               <div>
-                <ul className='action-buttons'>
+                <ul className='action-buttons display-inline-flex justify-between'>
                   <li>
                     <FontAwesomeIcon className='custom-fa-icon light' icon={ faUserFriends } />
                     <span className='para bold'>{`${ hired }/${ required }`}</span>
