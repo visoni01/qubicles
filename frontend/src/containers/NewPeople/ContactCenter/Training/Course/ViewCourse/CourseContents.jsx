@@ -23,73 +23,98 @@ const CourseContents = () => {
         <List
           component='nav'
           aria-labelledby='overview-list'
-          className='overview-list'
+          className='overview-list border-1'
         >
           <ListItem button onClick={ handleListOpen }>
             <ListItemIcon>
               {open
-                ? <FontAwesomeIcon className='top-down-icon' icon={ faChevronUp } />
-                : <FontAwesomeIcon className='top-down-icon' icon={ faChevronDown } />}
+                ? <FontAwesomeIcon className='custom-fa-icon' icon={ faChevronUp } />
+                : <FontAwesomeIcon className='custom-fa-icon' icon={ faChevronDown } />}
             </ListItemIcon>
-            <ListItemText className='section-heading' primary='Section 1' />
+            <ListItemText>
+              <h4 className='h4'>Section 1</h4>
+            </ListItemText>
             <p className='para'> 3 units </p>
           </ListItem>
           <Divider />
           <Collapse in={ open } timeout='auto' unmountOnExit>
-            <List component='div' disablePadding>
-              <ListItem className='nested-list'>
+            <List component='div'>
+              <ListItem className='nested-list' disableGutters>
                 <ListItemIcon>
-                  <FontAwesomeIcon icon={ faPlayCircle } />
+                  <FontAwesomeIcon className='custom-fa-icon light' icon={ faPlayCircle } />
                 </ListItemIcon>
-                <ListItemText className='nested-list-heading' primary='Intro' />
-                <Button className='text-button' onClick={ () => setOpenCoursePlayer(open) }> Preview </Button>
+                <ListItemText>
+                  <p className='text-link'> Intro </p>
+                </ListItemText>
+                <Button
+                  classes={ {
+                    root: 'button-primary-text',
+                    label: 'button-primary-text-label',
+                  } }
+                  onClick={ () => setOpenCoursePlayer(open) }
+                >
+                  Preview
+                </Button>
               </ListItem>
-              <ListItem className='nested-list'>
+
+              {/* List Item */}
+              <ListItem className='nested-list' disableGutters>
                 <ListItemIcon>
-                  <FontAwesomeIcon icon={ faFile } />
+                  <FontAwesomeIcon className='custom-fa-icon light' icon={ faFileAlt } />
                 </ListItemIcon>
-                <ListItemText className='nested-list-heading' primary='About' />
-                <Button className='text-button'> Start </Button>
+                <ListItemText>
+                  <p className='para light'> About </p>
+                </ListItemText>
+                <Button
+                  disabled
+                  classes={ {
+                    root: 'button-primary-text',
+                    label: 'button-primary-text-label',
+                  } }
+                >
+                  Start
+                </Button>
               </ListItem>
-              <ListItem className='nested-list'>
+
+              {/* List Item */}
+              <ListItem className='nested-list' disableGutters>
                 <ListItemIcon>
-                  <FontAwesomeIcon icon={ faFileAlt } />
+                  <FontAwesomeIcon className='custom-fa-icon light' icon={ faFileAlt } />
                 </ListItemIcon>
-                <ListItemText className='nested-list-heading' primary='Values' />
-                <Button className='text-button'> Start </Button>
+                <ListItemText>
+                  <p className='para light'> Values </p>
+                </ListItemText>
+                <Button
+                  disabled
+                  classes={ {
+                    root: 'button-primary-text',
+                    label: 'button-primary-text-label',
+                  } }
+                >
+                  Start
+                </Button>
               </ListItem>
-              <ListItem className='nested-list'>
+
+              {/* List Item */}
+              <ListItem className='nested-list' disableGutters>
                 <ListItemIcon>
-                  <FontAwesomeIcon icon={ faFileSignature } />
+                  <FontAwesomeIcon className='custom-fa-icon light' icon={ faFileSignature } />
                 </ListItemIcon>
-                <ListItemText className='nested-list-heading' primary='Test' />
-                <Button className='text-button'> Start </Button>
+                <ListItemText>
+                  <p className='para light'> Test </p>
+                </ListItemText>
+                <Button
+                  disabled
+                  classes={ {
+                    root: 'button-primary-text',
+                    label: 'button-primary-text-label',
+                  } }
+                >
+                  Start
+                </Button>
               </ListItem>
             </List>
           </Collapse>
-          <ListItem button>
-            <ListItemIcon>
-              <FontAwesomeIcon className='top-down-icon' icon={ faChevronDown } />
-            </ListItemIcon>
-            <ListItemText className='section-heading' primary='Section 2' />
-            <p className='para'> 7 units </p>
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <ListItemIcon>
-              <FontAwesomeIcon className='top-down-icon' icon={ faChevronDown } />
-            </ListItemIcon>
-            <ListItemText className='section-heading' primary='Section 3' />
-            <p className='para'> 4 units </p>
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <ListItemIcon>
-              <FontAwesomeIcon className='top-down-icon' icon={ faChevronDown } />
-            </ListItemIcon>
-            <ListItemText className='section-heading' primary='Section 4' />
-            <p className='para'> 5 units </p>
-          </ListItem>
         </List>
       </div>
       <CoursePreview

@@ -11,3 +11,38 @@
     padding: 0;
   }
 }
+
+// Custom Modal
+.custom-modal {
+  .MuiDialog-paperScrollPaper {
+    border-radius: 8px;
+    padding: 0.5rem 0.5rem;
+    height: 80%;
+  }
+
+  .header {
+    display: inline-flex;
+    justify-content: space-between;
+
+    h2 {
+      margin-right: 30px;
+    }
+
+    .cross-button {
+      margin-right: 0.5rem;
+      button {
+        .MuiIconButton-label {
+          color: $color-primary;
+        }
+      }
+    }
+  }
+
+  .modal-actions {
+    display: inline-flex;
+    justify-content: space-between;
+    button {
+      margin: 0 0.5rem;
+    }
+  }
+}

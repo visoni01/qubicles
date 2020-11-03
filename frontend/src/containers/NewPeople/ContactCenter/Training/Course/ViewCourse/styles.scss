@@ -1,21 +1,11 @@
 @import '../../../../../../customStyles/scss/index.scss';
-@import '../../../newStyles.scss';
-
-.course-description {
-  font-family: $system-font;
-  letter-spacing: 0;
-  margin-top: 5px;
-  font-size: 14px;
-  font-weight: 600;
-  color: $color-light-brown;
-}
 
 .course-overview-root {
   .contents {
     svg {
       font-size: 5px;
       vertical-align: middle;
-      margin: 0px 15px;
+      margin: 0px 10px;
     }
   }
 }
@@ -23,44 +13,20 @@
 .course-contents-root {
   .overview-list {
     width: 100%;
-    border: 1px solid $color-border;
     border-radius: 6px;
     margin-top: 20px;
     box-shadow: none;
-
-    .top-down-icon {
-      color: $color-primary;
-    }
-    .section-heading {
-      float: left;
-
-      .MuiTypography-body1 {
-        @extend .h4;
-        font-weight: 600 !important;
-      }
-    }
+    padding: 0;
 
     .nested-list {
-      padding: 0 5px 0 20px;
-
-      .nested-list-heading {
-        float: left;
-        .MuiTypography-body1 {
-          @extend .para;
-          color: $color-dark-grey;
-
-          &:focus, &:hover {
-            color: $color-headings !important;
-          }
-        }
-      }
+      padding: 0 20px;
 
       .text-link {
         cursor: pointer;
       }
     }
     .MuiListItemIcon-root {
-      min-width: 40px;
+      min-width: 30px;
     }
   }
 }

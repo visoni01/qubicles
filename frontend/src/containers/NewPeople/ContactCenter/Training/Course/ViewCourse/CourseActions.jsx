@@ -9,15 +9,15 @@ import { Rating } from '@material-ui/lab'
 export default function CourseActions() {
   return (
     <>
-      <Box className='box actions-box'>
+      <Box className='custom-box actions-box'>
         <div className='mb-20'>
           <Card className='course-card'>
-            <Box className='price-overlay'>
-              <p className='price-qbe'>
-                <b>{ `${ 12 } `}</b>
-                QBE
+            <Box className='custom-box no-padding price-overlay'>
+              <p className='h3 price-qbe text-center'>
+                { `${ 12 } `}
+                <span className='h3 unbold'>QBE</span>
               </p>
-              <p className='price-usd'>
+              <p className='para light price-usd text-center'>
                 {`$${ 12 } USD`}
               </p>
             </Box>

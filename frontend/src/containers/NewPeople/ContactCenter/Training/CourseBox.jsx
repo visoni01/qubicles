@@ -4,9 +4,9 @@ import {
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { Rating } from '@material-ui/lab'
-import './style.scss'
 import { useHistory } from 'react-router-dom'
 import ROUTE_PATHS from '../../../../routes/routesPath'
+import './style.scss'
 
 const CourseCard = ({
   priceQbe, priceUsd, ratingValue, studentsCount, courseDescription, sectionsCount, language, imageUrl,

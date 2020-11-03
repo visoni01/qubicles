@@ -19,8 +19,8 @@ export default function AddArticleModal({
       maxWidth='md'
     >
       <div className='header'>
-        <DialogTitle className='h2'>
-          New Article
+        <DialogTitle>
+          <h2 className='h2'>New Article</h2>
         </DialogTitle>
         <DialogActions className='cross-button'>
           <IconButton
