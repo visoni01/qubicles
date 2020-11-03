@@ -3,10 +3,10 @@ import { Button } from '@material-ui/core'
 
 export default function IntroVideo() {
   return (
-    <div className='content-tab-section'>
+    <div className='content-tab-section list-divider'>
       <div className='content-box'>
         <div className='info'>
-          <h3> Introduction Video </h3>
+          <h3 className='h3 mb-10'> Introduction Video </h3>
           <p className='para'>
             {`Choose an introduction video. This video will be accessible for everyone who is
                 intrested in your course `}

@@ -7,7 +7,7 @@ import AddedContent from './AddedContent'
 export default function CourseContentSection() {
   return (
     <div>
-      <div className='list-sections'>
+      <div className='list-sections border-1'>
         <div className='list-item'>
           <Grid container justify='space-between'>
             <Grid item>

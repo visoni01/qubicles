@@ -15,7 +15,7 @@ import './styles.scss'
 import './newStyles.scss'
 
 const People = () => {
-  const [ activeTab, setActivetab ] = useState(0)
+  const [ activeTab, setActivetab ] = useState(2)
   const spacingMid = activeTab === 2 ? 9 : 6
   const spacingTab = activeTab === 2 ? 8 : 12
   return (

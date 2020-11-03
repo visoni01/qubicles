@@ -4,7 +4,7 @@ import AddArticleModal from './AddArticleModal'
 
 export default function SectionOptions() {
   return (
-    <div className='content-options'>
+    <div className='content-options display-inline-flex justify-between'>
       <Button
         className='wide-button'
         classes={ {

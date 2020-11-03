@@ -10,7 +10,7 @@ export default function InitialContent() {
         <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 2 }>
           <Input
             defaultValue='Unit 1'
-            className='unit-name'
+            className='text-edit'
           />
         </Grid>
         <Grid item>

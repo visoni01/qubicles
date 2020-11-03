@@ -3,10 +3,10 @@ import { Button } from '@material-ui/core'
 
 export default function CourseThumbnail() {
   return (
-    <div className='content-tab-section'>
+    <div className='content-tab-section list-divider'>
       <div className='content-box'>
         <div className='info'>
-          <h3> Course Thumbnail</h3>
+          <h3 className='h3 mb-10'> Course Thumbnail</h3>
           <p className='para'>
             {`Choose a thumbnail image for
           your course (format 16:9) `}

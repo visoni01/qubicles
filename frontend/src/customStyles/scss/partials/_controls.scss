@@ -4,6 +4,7 @@
   Custom Active tabs
   Custom Input Box
   Drop Down Bar
+  Editable Text
 
 */
 
@@ -124,5 +125,17 @@
   }
   .MuiInputBase-input {
     height: auto;
+  }
+}
+
+// Editable text
+
+.text-edit {
+  align-self: center;
+  &.MuiInput-underline:before {
+    border-bottom: none;
+  }
+  &.MuiInputBase-root {
+    @extend .para;
   }
 }
