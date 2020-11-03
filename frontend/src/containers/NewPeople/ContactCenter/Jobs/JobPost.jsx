@@ -82,24 +82,24 @@ const JobPost = ({
         <div className='display-inline-flex course-section is-fullwidth'>
           <h3 className='h3 mt-15 mb-10'> Required Course</h3>
           <div className='mb-10'>
-            <Button className='text-button mr-10'>
+            <span className='primary-text-link mr-10'>
               {courses.requiredCourses[ 0 ].courseName}
-            </Button>
+            </span>
             <p className='para light'>
               {courses.requiredCourses[ 0 ].courseAuthor}
             </p>
-            <Button className='text-button'>
+            <span className='primary-text-link mr-10'>
               { courses.requiredCourses[ 1 ].courseName}
-            </Button>
+            </span>
             <p className='para light'>
               {courses.requiredCourses[ 0 ].courseAuthor}
             </p>
           </div>
           <h3 className='h3 mt-10 mb-10'> Bonus Course </h3>
           <div className='mb-10'>
-            <Button className='text-button'>
+            <span className='primary-text-link mr-10'>
               { courses.bonusCourses.courseName}
-            </Button>
+            </span>
             <p className='para light'>
               { courses.bonusCourses.courseAuthor}
             </p>

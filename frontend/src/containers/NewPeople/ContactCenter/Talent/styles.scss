@@ -96,19 +96,6 @@
   .resume-section {
     flex-direction: column;
     margin: 10px 0px;
-
-    .author {
-      color: $color-dark-grey;
-      margin-bottom: 10px;
-    }
-
-    .text-button {
-      color: $color-primary;
-      font-size: 14px;
-      width: fit-content;
-      padding: 0px;
-      font-weight: 600;
-    }
   }
 }
 
@@ -119,11 +106,6 @@
       margin-left: 15px;
       font-size: 15px;
       cursor: pointer;
-    }
-
-    .text-button{
-      align-self: center;
-      margin: 20px 0px;
     }
   }
 }
@@ -142,31 +124,16 @@
       margin-left: 15px;
       margin-bottom: 10px;
 
-      p{
-        @extend .para;
-        font-size: 14px;
-      }
-
-      .reviewerName {
-        font-weight: 600;
-      }
-
       svg {
         font-size: 20px;
-      }
-
-      .description {
-        @extend .para;
-        font-size: 14px;
-        color: $color-dark-grey;
       }
     }
   }
 
-  .text-button {
-    align-self: center;
-    color: $color-primary;
-  }
+  // .text-button {
+  //   align-self: center;
+  //   color: $color-primary;
+  // }
 }
 
 .work-history-root {
@@ -204,15 +171,15 @@
           margin-left: 0px;
         }
 
-        .text-button {
-          color: $color-primary;
-          width: fit-content;
-          font-size: 13px;
-          padding: 0px;
-          :hover {
-            color: $color-primary;
-          }
-        }
+        // .text-button {
+        //   color: $color-primary;
+        //   width: fit-content;
+        //   font-size: 13px;
+        //   padding: 0px;
+        //   :hover {
+        //     color: $color-primary;
+        //   }
+        // }
       }
     }
   }

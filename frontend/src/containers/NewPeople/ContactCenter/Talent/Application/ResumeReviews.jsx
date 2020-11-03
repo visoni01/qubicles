@@ -36,7 +36,14 @@ const ResumeReviews = () => {
             review={ reviewData.review }
           />
         ))}
-        <Button className='text-button'> View All Reviews </Button>
+        <Button
+          classes={ {
+            root: 'MuiButtonBase-root button-primary-text bold center',
+            label: 'MuiButton-label button-primary-text-label',
+          } }
+        >
+          View All Reviews
+        </Button>
       </div>
       ) }
 
@@ -45,10 +52,10 @@ const ResumeReviews = () => {
         <div className='display-inline-flex review-section'>
           <Avatar className='profile-pic' alt='Terry Garret' src={ terry } />
           <div className='candidate-info'>
-            <p className='para reviewer-name'>Terry Garret</p>
-            <p className='para description'> Customer Service Specialist </p>
+            <p className='para bold'>Terry Garret</p>
+            <p className='para light'> Customer Service Specialist </p>
             <Rating
-              className='rating-star'
+              className='rating-star no-margin'
               name='read-only'
               readOnly
               size='small'

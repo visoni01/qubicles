@@ -129,15 +129,15 @@
 }
 
 // text-button
-.text-button {
-  color: $color-primary;
-  width: fit-content;
-  font-size: 13px;
-  padding: 0px;
-  :hover {
-    color: $color-primary;
-  }
-}
+// .text-button {
+//   color: $color-primary;
+//   width: fit-content;
+//   font-size: 13px;
+//   padding: 0px;
+//   :hover {
+//     color: $color-primary;
+//   }
+// }
 
 // review section
 .review-section {
@@ -156,21 +156,21 @@
     margin-left: 10px;
     margin-bottom: 10px;
 
-    .reviewerName {
-      font-weight: 600;
-    }
+    // .reviewerName {
+    //   font-weight: 600;
+    // }
 
-    svg {
-      font-size: 20px;
-    }
-    .rating-star {
-      margin-left: 0px;
-    }
+    // svg {
+    //   font-size: 20px;
+    // }
+    // .rating-star {
+    //   margin-left: 0px;
+    // }
 
-    .position {
-      @extend .para;
-      color: $color-dark-grey;
-    }
+    // .position {
+    //   @extend .para;
+    //   color: $color-dark-grey;
+    // }
   }
 }
 

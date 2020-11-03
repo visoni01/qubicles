@@ -41,7 +41,14 @@ const WorkHistory = () => (
             value={ 5 }
             precision={ 0.1 }
           />
-          <Button className='text-button'> Show full feedback </Button>
+          <Button
+            classes={ {
+              root: 'MuiButtonBase-root button-primary-text',
+              label: 'MuiButton-label button-primary-text-label',
+            } }
+          >
+            Show full feedback
+          </Button>
         </div>
       </div>
       <p className='para bold'> Certificates and Awards </p>
@@ -76,7 +83,14 @@ const WorkHistory = () => (
             value={ 5 }
             precision={ 0.1 }
           />
-          <Button className='text-button'> Show full feedback </Button>
+          <Button
+            classes={ {
+              root: 'MuiButtonBase-root button-primary-text',
+              label: 'MuiButton-label button-primary-text-label',
+            } }
+          >
+            Show full feedback
+          </Button>
         </div>
       </div>
       <Divider className='divider' />

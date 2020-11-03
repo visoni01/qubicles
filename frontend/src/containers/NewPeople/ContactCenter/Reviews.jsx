@@ -17,20 +17,20 @@ const Reviews = ({
     <div className='review-section'>
       <Avatar className='profile-pic' alt={ imageName } src={ imageSrc } />
       <div className='candidate-info'>
-        <p className='para reviewerName'>{reviewerName}</p>
-        <p className='para position'>
+        <p className='para bold'>{reviewerName}</p>
+        <p className='para light'>
           {position}
         </p>
         <div className='display-inline-flex mt-10'>
           <Rating
-            className='rating-star'
+            className='rating-star no-margin'
             name='read-only'
             readOnly
             size='small'
             value={ rating }
             precision={ 0.1 }
           />
-          {date && <p className='para position ml-10'>{date}</p> }
+          {date && <p className='para light ml-10'>{date}</p> }
         </div>
         <p className='para mt-5'>
           {review}

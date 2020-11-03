@@ -85,9 +85,17 @@
   &.button-primary-text {
     height: auto;
     padding: 0;
-    min-width: max-content;
+    width: fit-content;
     color: $color-primary;
     background-color: $color-white;
+
+    &.bold {
+      font-weight: 600;
+    }
+
+    &.center {
+      align-self: center;
+    }
 
     &:disabled {
       color: $color-dark-grey;

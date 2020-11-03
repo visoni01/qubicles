@@ -4,16 +4,16 @@ import '../styles.scss'
 
 const CoverLetter = () => (
   <>
-    <div className='box cover-letter-root has-fullwidth'>
-      <h3> Cover Letter </h3>
-      <p className='mt-10 mb-10'>
+    <div className='custom-box cover-letter-root has-fullwidth'>
+      <h3 className='h3'> Cover Letter </h3>
+      <p className='para mt-10 mb-10'>
         As someone who's made over 100,000 sales calls and sold tend of millions of dollars
         of services and products, I clearly understand how challenging it can be to gain appointments, demos, and sales.
         You can see by my ratings and reviews that i'm very effective at what I do. I can tell you, however, that many
         business owners I speak with about using a telesales component for their sales and marketing have not developed
         the other needed areas to lay the proper groundwork for as succesful telesales campaign.
       </p>
-      <p className='mb-10'>Areas like:</p>
+      <p className='para mb-10'>Areas like:</p>
       <div className='stengths-list'>
         <ul className='ml-15'>
           <li> Determine potential prospect targets </li>
@@ -23,7 +23,7 @@ const CoverLetter = () => (
           <li> Telephony selection and deployment </li>
         </ul>
       </div>
-      <p className='mt-10 mb-10'>
+      <p className='para mt-10 mb-10'>
         Successful sales and marketing is only possile through the correct choices. Do you understand how to make the
         best choices in each area when it comes to your sales and marketing... or are you guessing ? How crucial is it
         to you (and your income) to actually solve the problem ? Have you experience enough "pain" through delays and

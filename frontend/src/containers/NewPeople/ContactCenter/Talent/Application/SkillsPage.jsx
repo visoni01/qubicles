@@ -23,7 +23,7 @@ const SkillsPage = () => {
   return (
     <div className='custom-box resume-root skills-page-root has-fullwidth'>
       <h3 className='h3 is-fullwidth mb-20'> Skills & Endorsements </h3>
-      <div className='display-inline-flex skill-section resume-section is-fullwidth'>
+      <div className='display-inline-flex skill-section resume-section is-fullwidth list-divider'>
         <h4 className='h4 '> Customer Service </h4>
         <div className='display-inline-flex mt-10'>
           <AvatarGroup max={ 4 } spacing='small' className='avatar-group'>
@@ -67,7 +67,14 @@ const SkillsPage = () => {
             7 people have given endorsements for this skill
           </p>
         </div>
-        <Button className='text-button'> View All Skills </Button>
+        <Button
+          classes={ {
+            root: 'MuiButtonBase-root button-primary-text center bold mt-10 mb-10',
+            label: 'MuiButton-label button-primary-text-label',
+          } }
+        >
+          View All Skills
+        </Button>
         <Divider className='divider' />
         <h4 className='h4 '> Languages </h4>
         <p className='para mt-10'> English (Native or Bilingual) </p>

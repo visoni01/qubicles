@@ -109,12 +109,12 @@
 
   .course-section {
     flex-direction: column;
-    .text-button {
-      font-size: 14px;
-      width: fit-content;
-      padding: 0px;
-      font-weight: 600;
-    }
+    // .text-button {
+    //   font-size: 14px;
+    //   width: fit-content;
+    //   padding: 0px;
+    //   font-weight: 600;
+    // }
   }
 }
 
@@ -144,12 +144,12 @@
         display: inline-flex;
       }
 
-      .text-button {
-        width: fit-content;
-        float: right;
-        font-size: 14px;
-        padding: 0px;
-      }
+      // .text-button {
+      //   width: fit-content;
+      //   float: right;
+      //   font-size: 14px;
+      //   padding: 0px;
+      // }
     }
   }
 
