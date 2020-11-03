@@ -100,3 +100,16 @@
     border: none;
   }
 }
+
+// Profile pic
+
+.profile-pic {
+  width: 56px;
+  height: 56px;
+  margin: 10px;
+
+  &.large {
+    width: 65px;
+    height: 65px;
+  }
+}

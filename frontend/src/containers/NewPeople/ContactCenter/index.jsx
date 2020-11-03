@@ -46,7 +46,6 @@ const People = () => {
             <Tab label='Training' className={ activeTab === 2 ? 'active-tab' : 'inactive-tab' } />
           </Tabs>
         </Grid>
-        {/* Forum Category */}
         <Grid item xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 }>
           <div>
             { activeTab === 0 && <JobsPage />}

@@ -21,9 +21,9 @@ const JobPost = ({
 
   return (
     <>
-      <Box className='box job-post-root'>
-        <div className='display-inline-flex  is-fullwidth'>
-          <h3 className='job-post-heading'>
+      <Box className='custom-box job-post-root'>
+        <div className='display-inline-flex is-fullwidth'>
+          <h3 className='h3 job-post-heading'>
             {jobPostHeading}
           </h3>
           <Button
@@ -35,14 +35,14 @@ const JobPost = ({
             Edit Post
           </Button>
         </div>
-        <p className='date'>
+        <p className='para light'>
           {createdAt}
         </p>
         <Divider className='divider' />
 
         <div className='job-post-description is-fullwidth display-inline-flex'>
-          <Button className='account-button pull-right '> Account Sales </Button>
-          <p>
+          <h4 className='h4 margin-top-bottom-10 text-link'> Account Sales </h4>
+          <p className='para'>
             {jobDescription}
           </p>
         </div>
@@ -51,64 +51,64 @@ const JobPost = ({
         <div className='display-inline-flex job-post-specifications is-fullwidth'>
           <div>
             <h4 className='h4'>{payment}</h4>
-            <p>Payment</p>
+            <p className='para'>Payment</p>
             <h4 className='h4 mt-20'>{duration}</h4>
-            <p>Duration</p>
+            <p className='para'>Duration</p>
           </div>
           <div>
             <h4 className='h4'>{jobType}</h4>
-            <p>Job Type</p>
+            <p className='para'>Job Type</p>
             <h4 className='h4 mt-20'>{location}</h4>
-            <p>Location</p>
+            <p className='para'>Location</p>
           </div>
           <div>
             <h4 className='h4'>{experienceLevel}</h4>
-            <p>Experience Level</p>
+            <p className='para'>Experience Level</p>
             <h4 className='h4 mt-20'>{needed}</h4>
-            <p>Needed</p>
+            <p className='para'>Needed</p>
           </div>
         </div>
 
         <div>
-          <h3 className='mt-10'> Required Skills</h3>
+          <h3 className='h3 mt-10'> Required Skills</h3>
           <div className='tags-set mb-20'>
             {visibleProfileTags.map((tag) => <Chip key={ tag } label={ tag } className='tag-chip' />)}
           </div>
-          <h3 className='mt-10'> Bonus Skills</h3>
+          <h3 className='h3 mt-10'> Bonus Skills</h3>
           <div className='tags-set mb-20'>
             {[ 'Customer Service' ].map((tag) => <Chip key={ tag } label={ tag } className='tag-chip' />)}
           </div>
         </div>
         <div className='display-inline-flex course-section '>
-          <h3 className='mt-15 mb-10'> Required Course</h3>
-          <div className='mb-20'>
+          <h3 className='h3 mt-15 mb-10'> Required Course</h3>
+          <div className='mb-10'>
             <Button className='text-button mr-10'>
               {courses.requiredCourses[ 0 ].courseName}
             </Button>
-            <p className='paragraph-light-content'>
+            <p className='para light'>
               {courses.requiredCourses[ 0 ].courseAuthor}
             </p>
             <Button className='text-button'>
               { courses.requiredCourses[ 1 ].courseName}
             </Button>
-            <p className='paragraph-light-content'>
+            <p className='para light'>
               {courses.requiredCourses[ 0 ].courseAuthor}
             </p>
           </div>
-          <h3 className='mt-15 mb-10'> Bonus Course </h3>
-          <div className='margin-bottom-15'>
+          <h3 className='h3 mt-10 mb-10'> Bonus Course </h3>
+          <div className='mb-10'>
             <Button className='text-button'>
               { courses.bonusCourses.courseName}
             </Button>
-            <p className='paragraph-light-content'>
+            <p className='para light'>
               { courses.bonusCourses.courseAuthor}
             </p>
           </div>
         </div>
       </Box>
 
-      <Box className='box job-application-root'>
-        <h3>
+      <Box className='custom-box job-application-root'>
+        <h3 className='h3'>
           Pending (2)
         </h3>
         <div className='display-inline-flex job-application-head'>
@@ -116,7 +116,7 @@ const JobPost = ({
           <div className='candidate-info'>
             <div className='head-with-link'>
               <div className='candidate-head'>
-                <h4>Terry Garret</h4>
+                <h4 className='h4'>Terry Garret</h4>
                 <Rating
                   className='rating-star'
                   name='read-only'
@@ -130,11 +130,11 @@ const JobPost = ({
                 <span className='primary-text-link float-right'>View full application </span>
               </Link>
             </div>
-            <p className='description'> Customer Service Specialist </p>
+            <p className='para light  sz-sm '> Customer Service Specialist </p>
           </div>
         </div>
-        <p className='date'> Received 1 days ago</p>
-        <p>
+        <p className='para light'> Received 1 days ago</p>
+        <p className='para'>
           As someone who's has made over 100,000 sales calls and sold tens of millions of dollars of services and
           products. I clearly understand how challenging it can be to gain appointments, demos, and sales.
           You can see by my rating and reviews that I'm very effective at what I do...
@@ -150,7 +150,7 @@ const JobPost = ({
           </Button>
           <div>
             <Button
-              className='message-button'
+              className='message-button mr-20'
               classes={ {
                 root: 'button-secondary-small',
                 label: 'button-secondary-small-label',
@@ -174,7 +174,7 @@ const JobPost = ({
           <div className='candidate-info'>
             <div className='head-with-link'>
               <div className='candidate-head'>
-                <h4>Randy Williamson</h4>
+                <h4 className='h4'>Randy Williamson</h4>
                 <Rating
                   className='rating-star'
                   name='read-only'
@@ -188,11 +188,11 @@ const JobPost = ({
                 <span className='primary-text-link float-right'>View full application </span>
               </Link>
             </div>
-            <p className='description'> Customer Service Specialist </p>
+            <p className='para light  sz-sm '> Customer Service Specialist </p>
           </div>
         </div>
-        <p className='date'> Received 1 days ago</p>
-        <p>
+        <p className='para light'> Received 1 days ago</p>
+        <p className='para'>
           As someone who's has made over 100,000 sales calls and sold tens of millions of dollars of services and
           products. I clearly understand how challenging it can be to gain appointments, demos, and sales.
           You can see by my rating and reviews that I'm very effective at what I do...
@@ -208,7 +208,7 @@ const JobPost = ({
           </Button>
           <div>
             <Button
-              className='message-button'
+              className='message-button mr-20'
               classes={ {
                 root: 'button-secondary-small',
                 label: 'button-secondary-small-label',
@@ -228,8 +228,8 @@ const JobPost = ({
         </div>
       </Box>
 
-      <Box className='box job-application-root'>
-        <h3>
+      <Box className='custom-box job-application-root'>
+        <h3 className='h3'>
           Evaluating (2)
         </h3>
         <div className='display-inline-flex job-application-head'>
@@ -237,7 +237,7 @@ const JobPost = ({
           <div className='candidate-info'>
             <div className='head-with-link'>
               <div className='candidate-head'>
-                <h4>Terry Garret</h4>
+                <h4 className='h4'>Terry Garret</h4>
                 <Rating
                   className='rating-star'
                   name='read-only'
@@ -251,17 +251,17 @@ const JobPost = ({
                 <span className='primary-text-link float-right'>View full application </span>
               </Link>
             </div>
-            <p className='description'> Customer Service Specialist </p>
+            <p className='para light  sz-sm '> Customer Service Specialist </p>
           </div>
         </div>
-        <p className='date'> Received 1 days ago</p>
-        <p>
+        <p className='para light'> Received 1 days ago</p>
+        <p className='para'>
           I am an Expert Virtual Assistant and Customer Service professional with a wealth of experience and
           training in different areas. I have a proven track record for meeting timelines and exceeding
           expectations...
         </p>
         <div className='pending-application-buttons mt-10'>
-          <p> Pretraining </p>
+          <p className='para italic'> Pretraining </p>
           <div>
             <Button
               classes={ {
@@ -279,7 +279,7 @@ const JobPost = ({
           <div className='candidate-info'>
             <div className='head-with-link'>
               <div className='candidate-head'>
-                <h4>Ray Hill</h4>
+                <h4 className='h4'>Ray Hill</h4>
                 <Rating
                   className='rating-star'
                   name='read-only'
@@ -293,16 +293,16 @@ const JobPost = ({
                 <span className='primary-text-link float-right'>View full application </span>
               </Link>
             </div>
-            <p className='description'> Customer Service Specialist </p>
+            <p className='para light  sz-sm '> Customer Service Specialist </p>
           </div>
         </div>
-        <p className='date'> Received 1 days ago</p>
-        <p>
+        <p className='para light'> Received 1 days ago</p>
+        <p className='para'>
           I have been working B2B Cold Calling Appointment Setting and Lead Generating various industries from over
           20 years working from the call center environment and my home office managing leads from beginning to end...
         </p>
         <div className='pending-application-buttons mt-10'>
-          <p> Screening </p>
+          <p className='para italic'> Screening </p>
           <div>
             <Button
               classes={ {
@@ -316,8 +316,8 @@ const JobPost = ({
         </div>
       </Box>
 
-      <Box className='box job-application-root'>
-        <h3>
+      <Box className='custom-box job-application-root'>
+        <h3 className='h3'>
           Hired (1)
         </h3>
         <div className='display-inline-flex job-application-head'>
@@ -325,7 +325,7 @@ const JobPost = ({
           <div className='candidate-info'>
             <div className='head-with-link'>
               <div className='candidate-head'>
-                <h4>Helen Murphy</h4>
+                <h4 className='h4'>Helen Murphy</h4>
                 <Rating
                   className='rating-star'
                   name='read-only'
@@ -339,11 +339,11 @@ const JobPost = ({
                 <span className='primary-text-link float-right'>View full application </span>
               </Link>
             </div>
-            <p className='description'> Customer Service Specialist </p>
+            <p className='para light  sz-sm '> Customer Service Specialist </p>
           </div>
         </div>
-        <p className='date'> Received 1 days ago</p>
-        <p>
+        <p className='para light'> Received 1 days ago</p>
+        <p className='para'>
           I am an Expert Virtual Assistant and Customer Service professional with a wealth of experience and
           training in different areas. I have a proven track record for meeting timelines and exceeding
           expectations...

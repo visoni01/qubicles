@@ -36,7 +36,7 @@ const InviteAgent = ({
       classes={ { paper: 'invite-agent-modal' } }
     >
       <div className='is-flex'>
-        <DialogTitle className='width-full'>
+        <DialogTitle className='width-full invite-dialog-title'>
           Invitation
         </DialogTitle>
         <DialogActions className='cross-button'>
