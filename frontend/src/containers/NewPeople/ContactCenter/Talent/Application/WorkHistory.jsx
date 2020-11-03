@@ -9,14 +9,14 @@ import { terry, carolin, thomas } from '../../../../../assets/images/avatar'
 import '../styles.scss'
 
 const WorkHistory = () => (
-  <div className='box courses-root reviews-root work-history-root has-fullwidth'>
-    <h3 className='courses-heading mb-20'> Work History </h3>
+  <div className='custom-box resume-root work-history-root has-fullwidth'>
+    <h3 className='h3 is-fullwidth mb-20'> Work History </h3>
     <div className='display-inline-flex work-history-section'>
 
       {/* First Dummy Data */}
-      <h4 className='h4-heading'> Customer Service Agent </h4>
-      <p className='paragraph-heading mt-5'> Microsoft </p>
-      <p className='paragraph-light-content date'>
+      <h4 className='h4'> Customer Service Agent </h4>
+      <p className='para bold mt-5'> Microsoft </p>
+      <p className='para light date'>
         Feb 2020 - Oct 2020
         <FontAwesomeIcon icon={ faCircle } />
         8 months
@@ -29,8 +29,8 @@ const WorkHistory = () => (
       <div className='feedback-section'>
         <Avatar className='profile-pic' alt='carolin' src={ carolin } />
         <div className='middle-part'>
-          <p className='paragraph-heading'>Jasmine Palmer</p>
-          <p className='paragraph-light-content'> Customer Service Manager at Microsoft </p>
+          <p className='para bold'>Jasmine Palmer</p>
+          <p className='para light'> Customer Service Manager at Microsoft </p>
         </div>
         <div className='right-part'>
           <Rating
@@ -44,14 +44,14 @@ const WorkHistory = () => (
           <Button className='text-button'> Show full feedback </Button>
         </div>
       </div>
-      <p className='paragraph-heading'> Certificates and Awards </p>
+      <p className='para bold'> Certificates and Awards </p>
       <FontAwesomeIcon className='badges' icon={ faAward } />
       <Divider className='divider' />
 
       {/* Second Dummy Data */}
-      <h4 className='h4-heading'> Customer Service Agent </h4>
-      <p className='paragraph-heading mt-5'> Setonic </p>
-      <p className='paragraph-light-content date'>
+      <h4 className='h4'> Customer Service Agent </h4>
+      <p className='para bold mt-5'> Setonic </p>
+      <p className='para light date'>
         Sep 2019 - Feb 2020
         <FontAwesomeIcon icon={ faCircle } />
         5 months
@@ -64,8 +64,8 @@ const WorkHistory = () => (
       <div className=' feedback-section'>
         <Avatar className='profile-pic' alt='thomas' src={ thomas } />
         <div className='middle-part'>
-          <p className='paragraph-heading'>Thomas Jordan</p>
-          <p className='paragraph-light-content'> Customer Service Manager at Setonic </p>
+          <p className='para bold'>Thomas Jordan</p>
+          <p className='para light'> Customer Service Manager at Setonic </p>
         </div>
         <div className='right-part'>
           <Rating
@@ -82,9 +82,9 @@ const WorkHistory = () => (
       <Divider className='divider' />
 
       {/* Third Dummy Data */}
-      <h4 className='h4-heading'> Customer Service Agent </h4>
-      <p className='paragraph-heading mt-5'> Blue Star </p>
-      <p className='paragraph-light-content date'>
+      <h4 className='h4'> Customer Service Agent </h4>
+      <p className='para bold mt-5'> Blue Star </p>
+      <p className='para light date'>
         May 2019 - Aug 2019
         <FontAwesomeIcon icon={ faCircle } />
         3 months

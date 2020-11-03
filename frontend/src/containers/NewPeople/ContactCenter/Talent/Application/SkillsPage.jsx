@@ -21,10 +21,10 @@ const SkillsPage = () => {
   }
 
   return (
-    <div className='box courses-root skills-page-root has-fullwidth'>
-      <h3 className='courses-heading mb-20'> Skills & Endorsements </h3>
-      <div className='display-inline-flex skill-section course-section'>
-        <h4 className='skill-set'> Customer Service </h4>
+    <div className='custom-box resume-root skills-page-root has-fullwidth'>
+      <h3 className='h3 is-fullwidth mb-20'> Skills & Endorsements </h3>
+      <div className='display-inline-flex skill-section resume-section is-fullwidth'>
+        <h4 className='h4 '> Customer Service </h4>
         <div className='display-inline-flex mt-10'>
           <AvatarGroup max={ 4 } spacing='small' className='avatar-group'>
             <Avatar alt='Remy Sharp' src={ kareem } />
@@ -39,39 +39,39 @@ const SkillsPage = () => {
         /> */}
             <Avatar alt='Remy Sharp' src={ thomas } />
           </AvatarGroup>
-          <p className='description' onClick={ handleOpenEndorsementModal }>
+          <p className='para light description' onClick={ handleOpenEndorsementModal }>
             7 people have given endorsements for this skill
           </p>
         </div>
         <Divider className='divider' />
-        <h4 className='skill-set'> Phone Calling </h4>
+        <h4 className='h4 '> Phone Calling </h4>
         <div className='display-inline-flex mt-10'>
           <AvatarGroup max={ 4 } spacing='small' className='avatar-group'>
             <Avatar alt='Remy Sharp' src={ kareem } />
             <Avatar alt='Remy Sharp' src={ sally } />
             <Avatar alt='Remy Sharp' src={ thomas } />
           </AvatarGroup>
-          <p className='description' onClick={ handleOpenEndorsementModal }>
+          <p className='para light description' onClick={ handleOpenEndorsementModal }>
             7 people have given endorsements for this skill
           </p>
         </div>
         <Divider className='divider' />
-        <h4 className='skill-set'> Email Support </h4>
+        <h4 className='h4 '> Email Support </h4>
         <div className='display-inline-flex mt-10'>
           <AvatarGroup max={ 4 } spacing='small' className='avatar-group'>
             <Avatar alt='Remy Sharp' src={ kareem } />
             <Avatar alt='Remy Sharp' src={ sally } />
             <Avatar alt='Remy Sharp' src={ thomas } />
           </AvatarGroup>
-          <p className='description' onClick={ handleOpenEndorsementModal }>
+          <p className='para light description' onClick={ handleOpenEndorsementModal }>
             7 people have given endorsements for this skill
           </p>
         </div>
         <Button className='text-button'> View All Skills </Button>
         <Divider className='divider' />
-        <h4 className='skill-set'> Languages </h4>
-        <p className='mt-10'> English (Native or Bilingual) </p>
-        <p className='mt-10 '> French (Native or Bilingual) </p>
+        <h4 className='h4 '> Languages </h4>
+        <p className='para mt-10'> English (Native or Bilingual) </p>
+        <p className='para mt-10 '> French (Native or Bilingual) </p>
       </div>
       <EndorsementsModal
         open={ openEndorsementModal }

@@ -36,7 +36,7 @@ const Endorsements = ({
         <Avatar className='profile-pic' alt='carolin' src={ carolin } />
         <div className='middle-part'>
           <div className='display-inline-flex'>
-            <p className='paragraph-heading'> Jasmine Palmer </p>
+            <p className='para bold'> Jasmine Palmer </p>
             <Rating
               className='rating-star'
               name='read-only'
@@ -46,7 +46,7 @@ const Endorsements = ({
               precision={ 0.1 }
             />
           </div>
-          <p className='paragraph-light-content'> Customer Service Manager at Microsoft </p>
+          <p className='para light'> Customer Service Manager at Microsoft </p>
         </div>
       </div>
       <Divider className='divider' />
@@ -56,7 +56,7 @@ const Endorsements = ({
         <Avatar className='profile-pic' alt='ray' src={ ray } />
         <div className='middle-part'>
           <div className='display-inline-flex'>
-            <p className='paragraph-heading'> Ronnie Cooper </p>
+            <p className='para bold'> Ronnie Cooper </p>
             <Rating
               className='rating-star'
               name='read-only'
@@ -66,7 +66,7 @@ const Endorsements = ({
               precision={ 0.1 }
             />
           </div>
-          <p className='paragraph-light-content'> Customer Service Manager at BlueSail </p>
+          <p className='para light'> Customer Service Manager at BlueSail </p>
         </div>
       </div>
       <Divider className='divider' />
@@ -76,7 +76,7 @@ const Endorsements = ({
         <Avatar className='profile-pic' alt='thomas' src={ thomas } />
         <div className='middle-part'>
           <div className='display-inline-flex'>
-            <p className='paragraph-heading'> Kevin Banks </p>
+            <p className='para bold'> Kevin Banks </p>
             <Rating
               className='rating-star'
               name='read-only'
@@ -86,7 +86,7 @@ const Endorsements = ({
               precision={ 0.1 }
             />
           </div>
-          <p className='paragraph-light-content'> Customer Service Manager at Setonic </p>
+          <p className='para light'> Customer Service Manager at Setonic </p>
         </div>
       </div>
       <Divider className='divider' />
@@ -96,7 +96,7 @@ const Endorsements = ({
         <Avatar className='profile-pic' alt='carolin' src={ carolin } />
         <div className='middle-part'>
           <div className='display-inline-flex'>
-            <p className='paragraph-heading'>Jasmine Palmer</p>
+            <p className='para bold'>Jasmine Palmer</p>
             <Rating
               className='rating-star'
               name='read-only'
@@ -106,7 +106,7 @@ const Endorsements = ({
               precision={ 0.1 }
             />
           </div>
-          <p className='paragraph-light-content'> Customer Service Manager at Microsoft </p>
+          <p className='para light'> Customer Service Manager at Microsoft </p>
         </div>
       </div>
       <Divider className='divider' />

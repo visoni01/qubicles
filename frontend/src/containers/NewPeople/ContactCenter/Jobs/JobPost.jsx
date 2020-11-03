@@ -79,7 +79,7 @@ const JobPost = ({
             {[ 'Customer Service' ].map((tag) => <Chip key={ tag } label={ tag } className='tag-chip' />)}
           </div>
         </div>
-        <div className='display-inline-flex course-section '>
+        <div className='display-inline-flex course-section is-fullwidth'>
           <h3 className='h3 mt-15 mb-10'> Required Course</h3>
           <div className='mb-10'>
             <Button className='text-button mr-10'>
@@ -107,7 +107,7 @@ const JobPost = ({
         </div>
       </Box>
 
-      <Box className='custom-box job-application-root'>
+      <Box className='mt-30 custom-box job-application-root'>
         <h3 className='h3'>
           Pending (2)
         </h3>
@@ -228,7 +228,7 @@ const JobPost = ({
         </div>
       </Box>
 
-      <Box className='custom-box job-application-root'>
+      <Box className='mt-30 custom-box job-application-root'>
         <h3 className='h3'>
           Evaluating (2)
         </h3>
@@ -316,7 +316,7 @@ const JobPost = ({
         </div>
       </Box>
 
-      <Box className='custom-box job-application-root'>
+      <Box className='mt-30 custom-box job-application-root'>
         <h3 className='h3'>
           Hired (1)
         </h3>

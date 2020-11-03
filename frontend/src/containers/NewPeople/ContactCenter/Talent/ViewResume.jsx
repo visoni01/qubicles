@@ -14,11 +14,19 @@ const ViewResume = () => (
     <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
       <ResumeIntro />
     </Grid>
-    <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 4 }>
-      <SkillsPage />
-      <WorkHistory />
-      <Courses />
-      <ResumeReviews />
+    <Grid container direction='column' spacing={ 3 } item xl={ 6 } lg={ 6 } md={ 6 } sm={ 4 }>
+      <Grid item>
+        <SkillsPage />
+      </Grid>
+      <Grid item>
+        <WorkHistory />
+      </Grid>
+      <Grid item>
+        <Courses />
+      </Grid>
+      <Grid item>
+        <ResumeReviews />
+      </Grid>
     </Grid>
     <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
       <Actions />

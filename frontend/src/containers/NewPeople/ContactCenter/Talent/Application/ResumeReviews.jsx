@@ -11,8 +11,8 @@ import '../styles.scss'
 const ResumeReviews = () => {
   const [ activeTab, setActivetab ] = useState(0)
   return (
-    <div className='box courses-root reviews-root has-fullwidth'>
-      <h3 className='courses-heading mb-20'> Reviews </h3>
+    <div className='custom-box resume-root reviews-root has-fullwidth'>
+      <h3 className='h3 is-fullwidth mb-20'> Reviews </h3>
       <div className='custom-active-tabs'>
         <Tabs
           value={ activeTab }
@@ -45,8 +45,8 @@ const ResumeReviews = () => {
         <div className='display-inline-flex review-section'>
           <Avatar className='profile-pic' alt='Terry Garret' src={ terry } />
           <div className='candidate-info'>
-            <p className='reviewer-name'>Terry Garret</p>
-            <p className='description'> Customer Service Specialist </p>
+            <p className='para reviewer-name'>Terry Garret</p>
+            <p className='para description'> Customer Service Specialist </p>
             <Rating
               className='rating-star'
               name='read-only'
@@ -55,7 +55,7 @@ const ResumeReviews = () => {
               value={ 5 }
               precision={ 0.1 }
             />
-            <p>
+            <p className='para'>
               Thank you !
             </p>
           </div>

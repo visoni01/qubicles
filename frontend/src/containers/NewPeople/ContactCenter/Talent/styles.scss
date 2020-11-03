@@ -87,42 +87,15 @@
 }
 
 .resume-intro-root {
-  .agent-specifications{
-    @extend .para;
-    justify-content: space-between;
-    margin: 10px 0px;
-
-    .heading {
-      @extend .h4;
-      font-weight: 600;
-    }
-
-    .personal-details{
-      text-transform: capitalize;
-    }
-  }
-
-  .badges {
-    color: $color-primary;
-    font-size: 34px;
+  .personal-details{
+    text-transform: capitalize;
   }
 }
 
-.courses-root{
-  .courses-heading {
-    @extend .h3;
-    width: 100%;
-    letter-spacing: 1px;
-  }
-
-  .course-section {
+.resume-root{
+  .resume-section {
     flex-direction: column;
-    width: 100%;
     margin: 10px 0px;
-
-    p {
-      @extend .para;
-    }
 
     .author {
       color: $color-dark-grey;
@@ -141,16 +114,7 @@
 
 .skills-page-root{
   .skill-section {
-    .skill-set{
-      @extend .h4;
-    }
-
-    p {
-      @extend .para;
-    }
-
     .description{
-      color: $color-dark-grey;
       align-self: center;
       margin-left: 15px;
       font-size: 15px;
@@ -260,10 +224,10 @@
   }
 }
 
-.paragraph-heading {
-  @extend .para;
-  font-weight: 400;
-}
+// .paragraph-heading {
+//   @extend .para;
+//   font-weight: 400;
+// }
 
 .endorsement-modal {
   width: 600px;
