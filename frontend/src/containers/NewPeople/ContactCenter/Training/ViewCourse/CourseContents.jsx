@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import {
   faChevronUp, faChevronDown, faPlayCircle, faFileAlt, faFile, faFileSignature,
 } from '@fortawesome/free-solid-svg-icons'
@@ -8,15 +9,14 @@ import {
   ListItem, ListItemIcon,
   ListItemText, Collapse, Divider,
 } from '@material-ui/core'
-import CoursePreview from './CoursePreview'
 
-const CourseContents = () => {
-  const [ open, setOpen ] = useState('true')
+const CourseContents = ({
+  isPreview, setOpenCoursePlayer,
+}) => {
+  const [ open, setOpen ] = useState(true)
   const handleListOpen = () => {
     setOpen(!open)
   }
-  const [ openCoursePlayer, setOpenCoursePlayer ] = useState(false)
-
   return (
     <>
       <div className='course-contents-root'>
@@ -51,7 +51,8 @@ const CourseContents = () => {
                     root: 'button-primary-text',
                     label: 'button-primary-text-label',
                   } }
-                  onClick={ () => setOpenCoursePlayer(open) }
+                  onClick={ () => setOpenCoursePlayer(true) }
+                  disabled={ !isPreview }
                 >
                   Preview
                 </Button>
@@ -117,13 +118,16 @@ const CourseContents = () => {
           </Collapse>
         </List>
       </div>
-      <CoursePreview
-        open={ openCoursePlayer }
-        onClose={ () => setOpenCoursePlayer(false) }
-        onSubmit={ () => setOpenCoursePlayer(false) }
-      />
     </>
   )
 }
 
+CourseContents.defaultProps = {
+  isPreview: true,
+}
+
+CourseContents.propTypes = {
+  isPreview: PropTypes.bool,
+  setOpenCoursePlayer: PropTypes.func.isRequired,
+}
 export default CourseContents

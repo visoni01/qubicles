@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { faCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box } from '@material-ui/core'
-import CourseContents from './CourseContents'
+import CourseContentWrap from './CourseContentWrap'
 
 const CourseOverview = () => {
   const [ openCoursePlayer, setOpenCoursePlayer ] = useState(true)
@@ -18,7 +18,7 @@ const CourseOverview = () => {
             19 units
           </p>
         </div>
-        <CourseContents />
+        <CourseContentWrap />
       </Box>
     </>
   )

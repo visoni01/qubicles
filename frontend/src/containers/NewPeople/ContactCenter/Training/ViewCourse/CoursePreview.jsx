@@ -24,7 +24,9 @@ const CoursePreview = ({
     <div className='display-inline-flex'>
       <div className='dialog-left-side ml-20 mr-10'>
         <h3 className='h3'> Overview </h3>
-        <CourseContents />
+        <CourseContents
+          isPreview={ false }
+        />
       </div>
       <div className='dialog-right-side'>
         <div className='display-inline-flex justify-between no-padding-bottom'>

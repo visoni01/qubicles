@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {
   Dialog, DialogTitle, DialogActions, IconButton, DialogContent, Button,
 } from '@material-ui/core'
@@ -56,4 +57,10 @@ export default function AddArticleModal({
       </DialogActions>
     </Dialog>
   )
+}
+
+AddArticleModal.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 }
