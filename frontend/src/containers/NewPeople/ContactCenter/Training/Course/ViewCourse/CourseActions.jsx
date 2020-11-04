@@ -58,21 +58,21 @@ export default function CourseActions() {
               value={ 4.5 }
               precision={ 0.1 }
             />
-            <span className='paragraph-light-content'>{`(${ 15 } ratings) `}</span>
-            <span className='paragraph-light-content'>{`${ 24 } students`}</span>
+            <span className='para light'>{`(${ 15 } ratings) `}</span>
+            <span className='para light'>{`${ 24 } students`}</span>
           </div>
         </div>
         <div className='mb-20'>
           <h4 className='h4'> Last updated</h4>
-          <span className='paragraph-light-content'>09/20/2020</span>
+          <span className='para light'>09/20/2020</span>
         </div>
         <div className='mb-20'>
           <h4 className='h4'>Category</h4>
-          <span className='paragraph-light-content'>Client Service</span>
+          <span className='para light'>Client Service</span>
         </div>
         <div className='mb-20'>
           <h4 className='h4'>Language(s)</h4>
-          <span className='paragraph-light-content'>English</span>
+          <span className='para light'>English</span>
         </div>
       </Box>
     </>

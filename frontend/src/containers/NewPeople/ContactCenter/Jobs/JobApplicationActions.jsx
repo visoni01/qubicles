@@ -7,7 +7,7 @@ import TextDivider from '../../TextDivider'
 export default function JobApplicationActions() {
   return (
     <>
-      <Box className='box actions-box'>
+      <Box className='custom-box actions-box'>
         <h3 className='h3 heading'> Actions </h3>
         <Button
           className='wide-button'
