@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../newStyles.scss'
+import '../../styles.scss'
 import '../styles.scss'
 
 const CoverLetter = () => (

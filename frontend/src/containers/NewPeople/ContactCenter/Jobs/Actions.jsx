@@ -3,8 +3,7 @@ import {
   Box, Button,
 } from '@material-ui/core'
 import InviteAgent from './InviteAgent'
-import './styles.scss'
-import '../newStyles.scss'
+import '../styles.scss'
 
 const Actions = () => {
   const [ openInviteAgentModal, setOpenInviteAgentModal ] = useState(false)

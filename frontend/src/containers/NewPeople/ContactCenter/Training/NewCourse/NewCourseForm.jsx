@@ -6,7 +6,7 @@ import InformationTab from './InformationTab'
 import ContentTab from './ContentTab'
 
 const NewCourseForm = () => {
-  const [ activeTab, setActiveTab ] = useState(1)
+  const [ activeTab, setActiveTab ] = useState(0)
 
   return (
     <Box className='custom-box new-course-wrapper'>

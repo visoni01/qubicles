@@ -3,9 +3,9 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
-import { courseTrainerIntroduction } from '../../testData'
-import Introduction from '../../../Introduction'
-import ROUTE_PATHS from '../../../../../../routes/routesPath'
+import { courseTrainerIntroduction } from '../testData'
+import Introduction from '../../Introduction'
+import ROUTE_PATHS from '../../../../../routes/routesPath'
 
 const CourseTrainerIntro = () => {
   const history = useHistory()

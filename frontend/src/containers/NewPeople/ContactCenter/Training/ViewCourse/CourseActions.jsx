@@ -3,7 +3,7 @@ import {
   Button, Box, Card, CardMedia, CardContent,
 } from '@material-ui/core'
 
-import '../../style.scss'
+import '../style.scss'
 import { Rating } from '@material-ui/lab'
 
 export default function CourseActions() {

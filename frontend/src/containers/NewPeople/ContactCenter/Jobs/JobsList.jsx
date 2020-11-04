@@ -5,7 +5,6 @@ import {
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSlidersH, faSearch } from '@fortawesome/free-solid-svg-icons'
-import '../newStyles.scss'
 
 const JobsList = () => (
   <Box className='custom-box no-padding side-filter-root job-list'>

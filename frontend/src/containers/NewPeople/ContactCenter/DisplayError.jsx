@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Popover } from '@material-ui/core'
-import './newStyles.scss'
+import './styles.scss'
 
 const DisplayError = () => (
   <>
