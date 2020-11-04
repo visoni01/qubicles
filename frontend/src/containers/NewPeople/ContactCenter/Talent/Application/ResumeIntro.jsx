@@ -24,8 +24,8 @@ const ResumeIntro = () => {
           <Button
             onClick={ handleBackButton }
             classes={ {
-              root: 'MuiButtonBase-root button-primary-small',
-              label: 'MuiButton-label button-primary-small-label',
+              root: 'button-primary-small',
+              label: 'button-primary-small-label',
             } }
           >
             <FontAwesomeIcon icon={ faChevronLeft } className='mr-10' />

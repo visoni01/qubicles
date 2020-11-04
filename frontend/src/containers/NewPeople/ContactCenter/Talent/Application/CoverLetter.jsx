@@ -16,11 +16,11 @@ const CoverLetter = () => (
       <p className='para mb-10'>Areas like:</p>
       <div className='stengths-list'>
         <ul className='ml-15'>
-          <li> Determine potential prospect targets </li>
-          <li> Lead generation and list selection </li>
-          <li> An appealing website </li>
-          <li> CRM selection and deployment </li>
-          <li> Telephony selection and deployment </li>
+          <li className='para'> Determine potential prospect targets </li>
+          <li className='para'> Lead generation and list selection </li>
+          <li className='para'> An appealing website </li>
+          <li className='para'> CRM selection and deployment </li>
+          <li className='para'> Telephony selection and deployment </li>
         </ul>
       </div>
       <p className='para mt-10 mb-10'>

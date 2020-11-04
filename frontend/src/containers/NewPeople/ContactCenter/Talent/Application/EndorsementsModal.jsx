@@ -16,20 +16,26 @@ const Endorsements = ({
     disableScrollLock
     open={ open }
     onClose={ handleClose }
+    fullWidth
+    maxWidth='sm'
     classes={ { paper: 'endorsement-modal' } }
+    className='custom-modal'
   >
-    <div className='is-flex'>
-      <DialogTitle className='width-full'>
-        <h2> Endorsements </h2>
+    <div className='header'>
+      <DialogTitle>
+        <h2 className='h2'>Endorsements</h2>
       </DialogTitle>
       <DialogActions className='cross-button'>
-        <IconButton className='is-size-6 mt-10' onClick={ handleClose }>
-          <FontAwesomeIcon icon={ faTimes } />
+        <IconButton
+          className='is-size-6'
+          onClick={ handleClose }
+        >
+          <FontAwesomeIcon className='custom-fa-icon pointer' icon={ faTimes } />
         </IconButton>
       </DialogActions>
     </div>
     <DialogContent>
-      <h4> Customer Service </h4>
+      <h4 className='h4'> Customer Service </h4>
 
       {/* First Dummy Data */}
       <div className='endorsement-section'>
@@ -41,7 +47,7 @@ const Endorsements = ({
               className='rating-star'
               name='read-only'
               readOnly
-              size='large'
+              size='small'
               value={ 5 }
               precision={ 0.1 }
             />
@@ -49,7 +55,7 @@ const Endorsements = ({
           <p className='para light'> Customer Service Manager at Microsoft </p>
         </div>
       </div>
-      <Divider className='divider' />
+      <Divider className='divider mt-10 mb-10' />
 
       {/* Second Dummy Data */}
       <div className='endorsement-section'>
@@ -61,7 +67,7 @@ const Endorsements = ({
               className='rating-star'
               name='read-only'
               readOnly
-              size='large'
+              size='small'
               value={ 5 }
               precision={ 0.1 }
             />
@@ -69,7 +75,7 @@ const Endorsements = ({
           <p className='para light'> Customer Service Manager at BlueSail </p>
         </div>
       </div>
-      <Divider className='divider' />
+      <Divider className='divider mt-10 mb-10' />
 
       {/* Third Dummy Data */}
       <div className='endorsement-section'>
@@ -81,7 +87,7 @@ const Endorsements = ({
               className='rating-star'
               name='read-only'
               readOnly
-              size='large'
+              size='small'
               value={ 5 }
               precision={ 0.1 }
             />
@@ -89,7 +95,7 @@ const Endorsements = ({
           <p className='para light'> Customer Service Manager at Setonic </p>
         </div>
       </div>
-      <Divider className='divider' />
+      <Divider className='divider mt-10 mb-10' />
 
       {/* Fourth Dummy Data */}
       <div className='endorsement-section'>
@@ -101,7 +107,7 @@ const Endorsements = ({
               className='rating-star'
               name='read-only'
               readOnly
-              size='large'
+              size='small'
               value={ 5 }
               precision={ 0.1 }
             />
@@ -109,7 +115,7 @@ const Endorsements = ({
           <p className='para light'> Customer Service Manager at Microsoft </p>
         </div>
       </div>
-      <Divider className='divider' />
+      <Divider className='divider mt-10 mb-10' />
     </DialogContent>
   </Dialog>
 )

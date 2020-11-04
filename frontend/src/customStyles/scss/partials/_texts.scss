@@ -1,7 +1,7 @@
 /* Headings
 ==========================================================*/
 
-.headings {
+%headings {
   text-align: left;
   color: $color-headings;
   text-transform: none;
@@ -18,22 +18,22 @@
 }
 
 .h1 {
-  @extend .headings;
+  @extend %headings;
   font: normal normal 600 50px/76px $system-font;
 }
 
 .h2 {
-  @extend .headings;
+  @extend %headings;
   font: normal normal 600 32px/48px $system-font;
 }
 
 .h3 {
-  @extend .headings;
+  @extend %headings;
   font: normal normal 600 18px/27px $system-font;
 }
 
 .h4 {
-  @extend .headings;
+  @extend %headings;
   font: normal normal 600 14px/21px $system-font;
 }
 

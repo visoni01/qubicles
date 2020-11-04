@@ -27,22 +27,22 @@ const JobsList = () => (
         button
         selected
       >
-        <ListItemText primary='All' classes={ { primary: 'list-item' } } />
+        <ListItemText primary='All' classes={ { primary: 'list-item h4 light' } } />
       </ListItem>
       <ListItem
         button
       >
-        <ListItemText primary='Account Sales' classes={ { primary: 'list-item' } } />
+        <ListItemText primary='Account Sales' classes={ { primary: 'list-item h4 light' } } />
       </ListItem>
       <ListItem
         button
       >
-        <ListItemText primary='Client Service' classes={ { primary: 'list-item' } } />
+        <ListItemText primary='Client Service' classes={ { primary: 'list-item h4 light' } } />
       </ListItem>
       <ListItem
         button
       >
-        <ListItemText primary='Customer Service' classes={ { primary: 'list-item' } } />
+        <ListItemText primary='Customer Service' classes={ { primary: 'list-item h4 light' } } />
       </ListItem>
     </List>
   </Box>

@@ -1,5 +1,3 @@
-@import '../newStyles.scss';
-
 .top-talent-root{
   .top-talent {
     width: 100%;
@@ -129,11 +127,6 @@
       }
     }
   }
-
-  // .text-button {
-  //   align-self: center;
-  //   color: $color-primary;
-  // }
 }
 
 .work-history-root {
@@ -171,64 +164,14 @@
           margin-left: 0px;
         }
 
-        // .text-button {
-        //   color: $color-primary;
-        //   width: fit-content;
-        //   font-size: 13px;
-        //   padding: 0px;
-        //   :hover {
-        //     color: $color-primary;
-        //   }
-        // }
       }
     }
   }
 
-  .badges {
-    color: $color-primary;
-    font-size: 34px;
-    margin: 10px 0px;
-  }
+
 }
 
-// .paragraph-heading {
-//   @extend .para;
-//   font-weight: 400;
-// }
-
 .endorsement-modal {
-  width: 600px;
-
-  .MuiDialog-scrollPaper {
-    overflow-y: scroll;
-  }
-
-  .MuiDialog-paperScrollPaper {
-    max-height: none;
-    margin-top: auto;
-  }
-
-  .cross-button {
-    button {
-      .MuiIconButton-label {
-        color: $color-primary;
-      }
-    }
-  }
-
-  h2 {
-    @extend .h2;
-  }
-
-  h4 {
-    @extend .h4;
-    font-size: 18px;
-  }
-
-  .divider {
-    margin: 2px 0;
-  }
-
   .endorsement-section {
     display: inline-flex;
     justify-content: space-between;
@@ -239,31 +182,11 @@
       vertical-align: middle;
       margin: 15px 0;
     }
-
-    .MuiRating-root {
-      &.rating-star {
-        vertical-align: middle;
-        margin: 0 15px;
-        color: $color-primary;
-        vertical-align: text-bottom;
-        font-size: 16px;
-      }
-    }
   }
 }
 
 .cover-letter-root {
-  h3 {
-    @extend .h3;
-  }
-
-  p {
-    @extend .para;
-  }
-
   .stengths-list {
-    @extend .para;
-
     li {
       margin-left: 10px;
       list-style-type: initial;

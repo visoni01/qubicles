@@ -43,8 +43,8 @@ const WorkHistory = () => (
           />
           <Button
             classes={ {
-              root: 'MuiButtonBase-root button-primary-text',
-              label: 'MuiButton-label button-primary-text-label',
+              root: 'button-primary-text',
+              label: 'button-primary-text-label',
             } }
           >
             Show full feedback
@@ -52,7 +52,7 @@ const WorkHistory = () => (
         </div>
       </div>
       <p className='para bold'> Certificates and Awards </p>
-      <FontAwesomeIcon className='badges' icon={ faAward } />
+      <FontAwesomeIcon className='custom-fa-icon sz-xxl mt-5' icon={ faAward } />
       <Divider className='divider' />
 
       {/* Second Dummy Data */}

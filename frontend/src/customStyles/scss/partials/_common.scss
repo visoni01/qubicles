@@ -102,7 +102,6 @@
 }
 
 // Profile pic
-
 .profile-pic {
   width: 56px;
   height: 56px;
@@ -111,5 +110,87 @@
   &.large {
     width: 65px;
     height: 65px;
+  }
+}
+
+// Tags set
+.tags-set {
+  .tag-chip {
+    @extend .para;
+    margin-right: 15px;
+    margin-top: 10px;
+    padding: 0px 5px;
+    background-color: $color-primary-light;
+  }
+
+  .more {
+    color: $color-primary;
+    background-color: inherit;
+    margin: 0px 5px;
+    vertical-align: bottom;
+    & :hover {
+      color: $color-primary-dark;
+    }
+  }
+}
+
+// Divider
+.MuiDivider-root {
+  &.divider {
+    width: 100%;
+    margin: 15px 0;
+  }
+}
+
+
+// Primary text link
+.primary-text-link {
+  @extend .text-link;
+
+  &:hover {
+    @extend .text-link-underlined;
+  }
+}
+
+// Error overlay box
+.display-error-root {
+  &.box {
+    color: $color-pink;
+    // z-index: 10000;
+  }
+  .heading {
+    @extend .h3;
+    text-align: center;
+    font-weight: 600;
+  }
+  .error-message {
+    @extend .para;
+    margin-top: 15px;
+    text-align: center;
+    font-weight: 600;
+  }
+}
+
+// Text Divider
+.text-divider {
+  width: 100%;
+  margin: 10px 0;
+  .side {
+    align-self: center;
+
+    .border {
+      align-self: center;
+      border-bottom: 1px solid $color-border;
+    }
+  }
+
+  .middle {
+    text-align: center;
+    align-self: center;
+
+    .centered-text {
+      @extend .para;
+      color: $color-dark-grey;
+    }
   }
 }

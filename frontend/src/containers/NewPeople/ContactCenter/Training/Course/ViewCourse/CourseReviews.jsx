@@ -11,7 +11,7 @@ const CourseReviews = () => {
 
   return (
     <>
-      <Box className='box course-reviews-root'>
+      <Box className='custom-box course-reviews-root'>
         <div className='heading-section'>
           <h3 className='h3'>Reviews</h3>
           <div>

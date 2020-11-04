@@ -24,7 +24,7 @@ const CourseDescription = ({
 
   return (
     <>
-      <div className='box cover-letter-root has-fullwidth'>
+      <div className='custom-box cover-letter-root has-fullwidth'>
         <h3 className='h3'>
           {title}
         </h3>
@@ -58,7 +58,10 @@ const CourseDescription = ({
         </div>
         )}
         <Button
-          className='text-button mt-20'
+          classes={ {
+            root: 'button-primary-text',
+            label: 'button-primary-text-label',
+          } }
           onClick={ handleFullDescriptionCB }
         >
           { descriptionButtonName }

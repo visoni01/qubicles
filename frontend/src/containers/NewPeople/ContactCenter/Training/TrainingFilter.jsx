@@ -29,7 +29,7 @@ const TrainingFilter = () => (
         button
         selected
       >
-        <ListItemText primary='All' classes={ { primary: 'list-item' } } />
+        <ListItemText primary='All' classes={ { primary: 'list-item h4 light' } } />
       </ListItem>
       {
         courseCategories.map((categoryTitle) => (
@@ -37,7 +37,7 @@ const TrainingFilter = () => (
             key={ categoryTitle }
             button
           >
-            <ListItemText primary={ categoryTitle } classes={ { primary: 'list-item' } } />
+            <ListItemText primary={ categoryTitle } classes={ { primary: 'list-item h4 light' } } />
           </ListItem>
         ))
       }

@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react'
 import {
   TextField, Select,
   FormControl, InputLabel, RadioGroup,
-  FormControlLabel, Radio, InputBase,
+  FormControlLabel, Radio, InputBase, TextareaAutosize,
 } from '@material-ui/core'
 import './styles.scss'
 
@@ -27,7 +27,7 @@ const NewJobDetails = () => {
   const availableLanguages = [ 'English', 'French', 'Spanish' ]
 
   return (
-    <div className='box new-job-root job-details-root has-fullwidth'>
+    <div className='custom-box new-job-root job-details-root has-fullwidth'>
       <h3 className='mt-10 h3'> Details </h3>
       <div className='category-section mt-30'>
         <div className='is-halfwidth'>
@@ -81,16 +81,18 @@ const NewJobDetails = () => {
           </div>
 
           <h4 className='mt-30 h4'> Location </h4>
-          <TextField
-            margin='dense'
-            variant='outlined'
-            id='location'
-            className='locatiom'
-            name='location'
-            onChange={ setNewJobDetailsCB }
-            placeholder='Any (Remote)'
-            required
-          />
+          <div className='input-box location mt-5'>
+            <TextareaAutosize
+              id='location'
+              name='location'
+              aria-label='minimum height'
+              autoComplete='off'
+              rowsMin={ 1 }
+              placeholder='Any (Remote)'
+              onChange={ setNewJobDetailsCB }
+              required
+            />
+          </div>
         </div>
 
         <div className='is-halfwidth'>

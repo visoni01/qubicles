@@ -17,6 +17,8 @@ const CoursePreview = ({
     open={ open }
     onClose={ onClose }
     classes={ { paper: 'course-preview-modal' } }
+    className='custom-modal'
+    fullWidth
     maxWidth='lg'
   >
     <div className='display-inline-flex'>
@@ -25,20 +27,20 @@ const CoursePreview = ({
         <CourseContents />
       </div>
       <div className='dialog-right-side'>
-        <div className='is-flex'>
+        <div className='display-inline-flex justify-between no-padding-bottom'>
           <DialogTitle className='width-full'>
             <h4 className='h4 mt-10'> How to manage clients ? </h4>
           </DialogTitle>
           <DialogActions className='cross-button'>
-            <IconButton className='is-size-6 mt-10' onClick={ onClose }>
-              <FontAwesomeIcon icon={ faTimes } />
+            <IconButton className='is-size-6' onClick={ onClose }>
+              <FontAwesomeIcon className='custom-fa-icon' icon={ faTimes } />
             </IconButton>
           </DialogActions>
         </div>
         <DialogContent>
-          <h3 className='h3 section-heading'>
+          <h3 className='h3 mb-10 light'>
             Section 1:
-            <span> Values </span>
+            <span className='h3'> Values </span>
           </h3>
           <div className='post-image'>
             <img alt='post' src='https://picsum.photos/896/504' />

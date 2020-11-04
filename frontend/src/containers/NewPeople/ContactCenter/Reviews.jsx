@@ -14,7 +14,7 @@ const Reviews = ({
   review,
 }) => (
   <>
-    <div className='review-section'>
+    <div className='review-section list-divider'>
       <Avatar className='profile-pic' alt={ imageName } src={ imageSrc } />
       <div className='candidate-info'>
         <p className='para bold'>{reviewerName}</p>

@@ -15,17 +15,32 @@ const ViewCourse = () => (
     <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
       <CourseTrainerIntro />
     </Grid>
-    <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 4 }>
-      <CourseDescription
-        key={ courseDescription.title }
-        title={ courseDescription.title }
-        description={ courseDescription.description }
-        goals={ courseDescription.goals }
-        outcomes={ courseDescription.outcomes }
-        prerequisites={ courseDescription.prerequisites }
-      />
-      <CourseOverview />
-      <CourseReviews />
+    <Grid
+      container
+      direction='column'
+      item
+      spacing={ 3 }
+      xl={ 6 }
+      lg={ 6 }
+      md={ 6 }
+      sm={ 4 }
+    >
+      <Grid item>
+        <CourseDescription
+          key={ courseDescription.title }
+          title={ courseDescription.title }
+          description={ courseDescription.description }
+          goals={ courseDescription.goals }
+          outcomes={ courseDescription.outcomes }
+          prerequisites={ courseDescription.prerequisites }
+        />
+      </Grid>
+      <Grid item>
+        <CourseOverview />
+      </Grid>
+      <Grid item>
+        <CourseReviews />
+      </Grid>
     </Grid>
     <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
       <CourseActions />

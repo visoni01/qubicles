@@ -1,5 +1,3 @@
-@import '../../../../../../customStyles/scss/index.scss';
-
 .course-overview-root {
   .contents {
     svg {
@@ -43,40 +41,9 @@
   }
 }
 
-.cover-letter-root {
-  h3 {
-    @extend .h3;
-  }
-
-  p {
-    @extend .para;
-  }
-
-  .stengths-list {
-    @extend .para;
-
-    li {
-      margin-left: 10px;
-      list-style-type: initial;
-   }
-  }
-}
 
 // Course Preview Modal
 .course-preview-modal {
-
-  &.MuiDialog-scrollPaper {
-    overflow-y: scroll;
-  }
-
-  .cross-button {
-    button {
-      .MuiIconButton-label {
-        color: $color-primary;
-      }
-    }
-  }
-
   .dialog-left-side {
     width: 25%;
     margin: 20px;
@@ -86,15 +53,6 @@
     display: inline-flex;
     flex-direction: column;
     width: 75%;
-
-    .section-heading {
-      color: $color-dark-grey;
-      margin-bottom: 10px;
-
-      span {
-        color: $color-headings;
-      }
-    }
 
     .post-image {
       display: inline-block;

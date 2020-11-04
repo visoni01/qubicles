@@ -14,7 +14,7 @@ const CourseTrainerIntro = () => {
   })
   return (
     <>
-      <Box className='box contact-center-info-root'>
+      <Box className='custom-box contact-center-info-root'>
         <div className='mb-20'>
           <Button
             onClick={ handleBackButton }
@@ -39,7 +39,10 @@ const CourseTrainerIntro = () => {
           description={ courseTrainerIntroduction.description }
         />
         <Button
-          className='text-button mt-20'
+          classes={ {
+            root: 'button-primary-text mt-10',
+            label: 'button-primary-text-label',
+          } }
         >
           View Profile
         </Button>
