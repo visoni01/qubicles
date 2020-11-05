@@ -1,5 +1,52 @@
-@import '../../../customStyles/scss/index.scss';
+// Side Filter
+.side-filter-root {
+  .title {
+    margin: 25px 0px 8px 24px;
+  }
 
+  .subtitle {
+    margin: 0px 0px 0px 24px;
+    padding: 20px 0px;
+  }
+
+  .heading {
+    margin: 0px 0px 0px 24px;
+  }
+
+  .sub-heading {
+    margin: 0px 0px 0px 24px;
+    font-weight: 500;
+  }
+
+  .bold-filter-item {
+    .MuiTypography-root {
+      margin-left: 14px;
+      font-weight: bold;
+    }
+  }
+}
+
+// Side filter list items
+.filter-list-items {
+  .list-item {
+    font-weight: normal;
+  }
+
+  .MuiListItem-root {
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+  .MuiListItem-gutters {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .MuiTypography-displayBlock {
+    display: flex;
+  }
+}
+
+// Job List
 .job-list {
   .job-list-title {
     display: inline-flex;
@@ -12,11 +59,9 @@
   }
 }
 
-
+// Job Info // To be placed in job styles
 .job-info {
   .action-buttons {
-    display: inline-flex;
-    justify-content: space-between;
     width: 100%;
     padding: 10px 0;
 
@@ -29,81 +74,59 @@
   }
 }
 
-// job's Details section
-// .job-details-box {
-//   .job-owner {
-//     p {
-//       font-size: 14px;
-//       margin: auto 5px;
-//     }
-//     .owner-name {
-//       font-weight: 500;
-//       color: #444F5F;
-//     }
-//     .job-create-date {
-//       color: #999999;
-//     }
-//   }
-//   .job-title {
-//     font-size: 24px;
-//     font-weight: 600;
-//     color: #444F5F;
-//     margin: 10px 0;
-//   }
-//   .job-description {
-//     font-size: 14px;
-//     color: #4A4A4A;
-//   }
-//   .action-buttons{
-//     margin-top: 20px;
-//      li{
-//       margin-right: 20%;
-//         svg{
-//           margin-right: 5px;
-//         }
-//      }
-//   }
-// }
 
-// .textarea-input {
-//   display: inline-flex;
-//   width: 100%;
-//   .avatar {
-//     margin-right: 8px;
-//   }
-// 	textarea {
-// 		width: calc(100% - 80px);
-// 		margin: 0 auto;
-// 		display: flex;
-// 		height: 100%;
-// 		border: none;
-// 		resize: none;
-// 		border: 1px solid #DBDBDB;
-// 		border-radius: 8px;
-// 		padding: 10px;
-// 		font-family: 'Poppins', sans-serif;
-// 		&:focus {
-// 			outline: none;
-// 			box-shadow: inherit;
-// 		}
-// 	}
-// 	input[type="file"] {
-// 		right: 10px;
-// 		width: 20px;
-// 		top: 20px;
-// 		opacity: 0;
-// 		z-index: 9999;
-// 	}
-// }
+// Search Input
+.search-bar-people {
+  margin-bottom: 20px;
 
-// .galley-icon {
-//   svg {
-//     vertical-align: middle;
-//     font-size: 24px;
-//     height: 100%;
-//   }
-// }
+   .search-button {
+      margin-left: 25px;
+      width: 15%;
+      height: 40px !important;
+  }
+}
 
-// .job-divider {
-//   margin-bottom: 20px
-// }
+
+// Control Buttons wrapper
+.control-buttons-wrapper {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 30px;
+}
+
+// Right section Actions box
+.actions-box {
+  .heading {
+    margin-bottom: 30px;
+  }
+  .text {
+    margin-bottom: 15px;
+  }
+
+  .divider-padded {
+    margin-bottom: 15px;
+  }
+
+  .wide-button {
+    margin-bottom: 15px;
+  }
+}
+
+// review section
+.review-section {
+  width: 100%;
+  display: inline-flex;
+  margin-bottom: 20px;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .candidate-info {
+    align-self: center;
+    width: calc(100% - 60px);
+    margin-left: 10px;
+    margin-bottom: 10px;
+
+  }
+}

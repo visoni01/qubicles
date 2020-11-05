@@ -3,8 +3,7 @@ import {
   Box, Button,
 } from '@material-ui/core'
 import InviteAgent from './InviteAgent'
-import './styles.scss'
-import '../newStyles.scss'
+import '../styles.scss'
 
 const Actions = () => {
   const [ openInviteAgentModal, setOpenInviteAgentModal ] = useState(false)
@@ -15,8 +14,8 @@ const Actions = () => {
 
   return (
     <>
-      <Box className='box actions-box'>
-        <h3 className='heading'> Actions </h3>
+      <Box className='custom-box actions-box'>
+        <h3 className=' h3 heading'> Actions </h3>
 
         <Button
           className='wide-button'

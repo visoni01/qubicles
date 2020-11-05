@@ -1,0 +1,70 @@
+.course-overview-root {
+  .contents {
+    svg {
+      font-size: 5px;
+      vertical-align: middle;
+      margin: 0px 10px;
+    }
+  }
+}
+
+.course-contents-root {
+  .overview-list {
+    width: 100%;
+    border-radius: 6px;
+    margin-top: 20px;
+    box-shadow: none;
+    padding: 0;
+
+    .nested-list {
+      padding: 0 20px;
+
+      .text-link {
+        cursor: pointer;
+      }
+    }
+    .MuiListItemIcon-root {
+      min-width: 30px;
+    }
+  }
+}
+
+.course-reviews-root {
+  .heading-section {
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-between;
+
+    .filter-icon {
+      font-size: 14px;
+    }
+  }
+}
+
+
+// Course Preview Modal
+.course-preview-modal {
+  .dialog-left-side {
+    width: 25%;
+    margin: 20px;
+  }
+
+  .dialog-right-side {
+    display: inline-flex;
+    flex-direction: column;
+    width: 75%;
+
+    .post-image {
+      display: inline-block;
+      position: relative;
+
+      img {
+        height: auto;
+        width: 100%;
+        max-width: 100%;
+        border-radius: 6px;
+      }
+    }
+  }
+
+}

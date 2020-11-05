@@ -5,7 +5,6 @@ import {
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSlidersH, faSearch } from '@fortawesome/free-solid-svg-icons'
-import '../newStyles.scss'
 
 const JobsList = () => (
   <Box className='custom-box no-padding side-filter-root job-list'>
@@ -27,22 +26,30 @@ const JobsList = () => (
         button
         selected
       >
-        <ListItemText primary='All' classes={ { primary: 'list-item' } } />
+        <ListItemText classes={ { primary: 'list-item' } }>
+          <h4 className='h4 light unbold'>All</h4>
+        </ListItemText>
       </ListItem>
       <ListItem
         button
       >
-        <ListItemText primary='Account Sales' classes={ { primary: 'list-item' } } />
+        <ListItemText classes={ { primary: 'list-item' } }>
+          <h4 className='h4 light unbold'>Account Sales</h4>
+        </ListItemText>
       </ListItem>
       <ListItem
         button
       >
-        <ListItemText primary='Client Service' classes={ { primary: 'list-item' } } />
+        <ListItemText classes={ { primary: 'list-item' } }>
+          <h4 className='h4 light unbold'>Client Service</h4>
+        </ListItemText>
       </ListItem>
       <ListItem
         button
       >
-        <ListItemText primary='Customer Service' classes={ { primary: 'list-item' } } />
+        <ListItemText classes={ { primary: 'list-item' } }>
+          <h4 className='h4 light unbold'>Customer Service</h4>
+        </ListItemText>
       </ListItem>
     </List>
   </Box>

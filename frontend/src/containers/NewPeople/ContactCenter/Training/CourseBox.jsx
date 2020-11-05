@@ -4,9 +4,9 @@ import {
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { Rating } from '@material-ui/lab'
-import './style.scss'
 import { useHistory } from 'react-router-dom'
 import ROUTE_PATHS from '../../../../routes/routesPath'
+import './style.scss'
 
 const CourseCard = ({
   priceQbe, priceUsd, ratingValue, studentsCount, courseDescription, sectionsCount, language, imageUrl,
@@ -18,12 +18,12 @@ const CourseCard = ({
         className='course-card'
         onClick={ () => history.push(ROUTE_PATHS.VIEW_COURSE) }
       >
-        <Box className='price-overlay'>
-          <p className='h3 price-qbe'>
+        <Box className='custom-box no-padding price-overlay'>
+          <p className='h3 price-qbe text-center'>
             { `${ priceQbe } `}
             <span className='h3 unbold'>QBE</span>
           </p>
-          <p className='para light price-usd'>
+          <p className='para light price-usd text-center'>
             {`$${ priceUsd } USD`}
           </p>
         </Box>
@@ -31,7 +31,7 @@ const CourseCard = ({
           image={ imageUrl }
           className='course-image'
         />
-        <CardContent className='course-card-content'>
+        <CardContent className='course-card-content border-1'>
           <div className='rating-text'>
             <Rating
               className='rating-star no-margin'
@@ -41,14 +41,14 @@ const CourseCard = ({
               value={ ratingValue }
               precision={ 0.1 }
             />
-            <span className='para light total-students'>{`${ studentsCount } students`}</span>
+            <span className='para light margin-left-right-5 text-center'>{`${ studentsCount } students`}</span>
           </div>
-          <b className='h4 course-description'>
+          <b className='h4'>
             {courseDescription}
           </b>
-          <div className='course-sections'>
-            <span className='para light sections'>{`${ sectionsCount } Sections`}</span>
-            <span className='para light language'>{language}</span>
+          <div className='course-sections mt-10'>
+            <span className='para light mr-5'>{`${ sectionsCount } Sections`}</span>
+            <span className='para light ml-5'>{language}</span>
           </div>
         </CardContent>
       </Card>

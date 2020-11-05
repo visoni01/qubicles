@@ -37,6 +37,10 @@
   text-align: center;
   opacity: 1;
 
+  &.wide-button {
+    width: 100%;
+  }
+
 // Primary Large Default
   &.button-primary-large {
     @extend .primary-default;
@@ -75,6 +79,27 @@
     min-width: 86px;
     height: 30px;
     border-radius: 4px;
+  }
+
+// Primary Text Button
+  &.button-primary-text {
+    height: auto;
+    padding: 0;
+    width: fit-content;
+    color: $color-primary;
+    background-color: $color-white;
+
+    &.bold {
+      font-weight: 600;
+    }
+
+    &.center {
+      align-self: center;
+    }
+
+    &:disabled {
+      color: $color-dark-grey;
+    }
   }
 }
 
@@ -129,5 +154,13 @@
   &.button-secondary-small-label {
     @extend .secondary-label;
     font-size: 14px;
+  }
+
+  // Text button label
+  &.button-primary-text-label {
+
+    &:hover {
+      color: $color-primary-dark;
+    }
   }
 }

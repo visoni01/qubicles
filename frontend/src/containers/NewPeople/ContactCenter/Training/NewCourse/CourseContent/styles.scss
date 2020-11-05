@@ -1,0 +1,42 @@
+
+.content-section {
+  align-self: center;
+  width: 70%;
+
+  .content-options {
+    width: 100%;
+    margin: 20px 0;
+
+    .wide-button {
+      width: 49%;
+    }
+
+  }
+
+  .list-sections {
+    width: 100%;
+    border-radius: 6px;
+    margin-top: 20px;
+
+    .list-item {
+      width: 100%;
+      height: auto;
+      display: inline-flex;
+      vertical-align: middle;
+      justify-content: space-between;
+
+      .upload-content-button {
+        width: 120px;
+      }
+
+      .added-content {
+        flex-basis: auto;
+
+        .edit-button {
+          width: 120px;
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}

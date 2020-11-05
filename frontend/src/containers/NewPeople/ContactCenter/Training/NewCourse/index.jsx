@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid } from '@material-ui/core'
-import { newNavBar } from '../../../../../../hoc/navbar'
+import { newNavBar } from '../../../../../hoc/navbar'
 import NewCourseForm from './NewCourseForm'
 import NewCourseActions from './NewCourseActions'
 import './styles.scss'

@@ -3,15 +3,15 @@ import { faSlidersH } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button, IconButton } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
-import Reviews from '../../../Reviews'
-import { reviews } from '../../../testData'
+import Reviews from '../../Reviews'
+import { reviews } from '../../testData'
 
 const CourseReviews = () => {
   const history = useHistory()
 
   return (
     <>
-      <Box className='box course-reviews-root'>
+      <Box className='custom-box course-reviews-root'>
         <div className='heading-section'>
           <h3 className='h3'>Reviews</h3>
           <div>

@@ -18,6 +18,7 @@ TABLE OF CONTENTS
 9. Icon helpers
 10. Image helpers
 11. Shape helpers
+12. Border helpers
 =============================================================================
 ***/
 
@@ -111,6 +112,26 @@ TABLE OF CONTENTS
 //Inline flex display
 .display-inline-flex {
   display: inline-flex;
+
+  &.justify-between {
+    justify-content: space-between;
+  }
+
+  &.justify-around {
+    justify-content: space-around;
+  }
+
+  &.justify-evenly {
+    justify-content: space-evenly;
+  }
+
+  &.justify-start {
+    justify-content: flex-start;
+  }
+
+  &.justify-end {
+    justify-content: flex-end;
+  }
 }
 
 //Block display
@@ -521,6 +542,10 @@ TABLE OF CONTENTS
   left: 0;
 }
 
+.align-self-center {
+  align-self: center;
+}
+
 /* ==========================================================================
 7. States helpers
 ========================================================================== */
@@ -602,4 +627,16 @@ TABLE OF CONTENTS
 
 .rounded {
   border-radius: 30px;
+}
+
+/* ==========================================================================
+12. Border helpers
+========================================================================== */
+
+.border-1 {
+  border: 1px solid $color-border;
+}
+
+.border-2 {
+  border: 2px solid $color-border;
 }

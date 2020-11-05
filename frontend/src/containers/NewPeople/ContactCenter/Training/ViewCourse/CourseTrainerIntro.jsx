@@ -3,9 +3,9 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
-import { courseTrainerIntroduction } from '../../testData'
-import Introduction from '../../../Introduction'
-import ROUTE_PATHS from '../../../../../../routes/routesPath'
+import { courseTrainerIntroduction } from '../testData'
+import Introduction from '../../Introduction'
+import ROUTE_PATHS from '../../../../../routes/routesPath'
 
 const CourseTrainerIntro = () => {
   const history = useHistory()
@@ -14,7 +14,7 @@ const CourseTrainerIntro = () => {
   })
   return (
     <>
-      <Box className='box contact-center-info-root'>
+      <Box className='custom-box contact-center-info-root'>
         <div className='mb-20'>
           <Button
             onClick={ handleBackButton }
@@ -39,7 +39,10 @@ const CourseTrainerIntro = () => {
           description={ courseTrainerIntroduction.description }
         />
         <Button
-          className='text-button mt-20'
+          classes={ {
+            root: 'button-primary-text mt-10',
+            label: 'button-primary-text-label',
+          } }
         >
           View Profile
         </Button>

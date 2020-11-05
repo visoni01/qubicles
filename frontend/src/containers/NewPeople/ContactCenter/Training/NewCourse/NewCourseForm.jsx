@@ -9,8 +9,8 @@ const NewCourseForm = () => {
   const [ activeTab, setActiveTab ] = useState(0)
 
   return (
-    <Box className='box new-course-wrapper'>
-      <h2> New Course </h2>
+    <Box className='custom-box new-course-wrapper'>
+      <h2 className='h2'> New Course </h2>
       <div className='custom-active-tabs'>
         <Tabs
           value={ activeTab }

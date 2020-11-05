@@ -19,13 +19,13 @@ const ResumeIntro = () => {
   })
   return (
     <>
-      <Box className='box contact-center-info-root resume-intro-root'>
+      <Box className='custom-box resume-intro-root'>
         <div className='mb-20'>
           <Button
             onClick={ handleBackButton }
             classes={ {
-              root: 'MuiButtonBase-root button-primary-small',
-              label: 'MuiButton-label button-primary-small-label',
+              root: 'button-primary-small',
+              label: 'button-primary-small-label',
             } }
           >
             <FontAwesomeIcon icon={ faChevronLeft } className='mr-10' />
@@ -44,34 +44,34 @@ const ResumeIntro = () => {
           description={ testResumeIntroduction.description }
         />
         <Divider className='divider' />
-        <div className='display-inline-flex agent-specifications is-fullwidth'>
+        <div className='display-inline-flex justify-between is-fullwidth'>
           <div>
-            <h4 className='heading'> 7,233 </h4>
-            <p> Total Calls </p>
-            <h4 className='heading mt-20'> $5K+ </h4>
-            <p> Total Earnings </p>
+            <h4 className='h4'> 7,233 </h4>
+            <p className='para'> Total Calls </p>
+            <h4 className='h4 heading mt-20'> $5K+ </h4>
+            <p className='para'> Total Earnings </p>
           </div>
           <div>
-            <h4 className='heading'> 469h </h4>
-            <p> Hours Worked </p>
-            <h4 className='heading mt-20'> 12.50$/hour </h4>
-            <p> Hourly Wage </p>
+            <h4 className='h4'> 469h </h4>
+            <p className='para'> Hours Worked </p>
+            <h4 className='h4 mt-20'> 12.50 $/hour </h4>
+            <p className='para'> Hourly Wage </p>
           </div>
         </div>
 
         <Divider className='divider' />
         <div className='agent-specifications'>
-          <h4 className='heading  mt-10'>
+          <h4 className='h4 mt-10'>
             Highest Level of Education
           </h4>
-          <p className='personal-details'> high level graduate </p>
-          <h4 className='heading mt-20'>
+          <p className='para personal-details'> high level graduate </p>
+          <h4 className='h4 mt-20'>
             Years of Experience
           </h4>
-          <p className='personal-details'> 3+ years</p>
+          <p className='para personal-details'> 3+ years</p>
         </div>
         <Divider className='divider' />
-        <FontAwesomeIcon className='badges' icon={ faAward } />
+        <FontAwesomeIcon className='custom-fa-icon sz-xxl' icon={ faAward } />
       </Box>
     </>
   )

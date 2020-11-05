@@ -29,7 +29,9 @@ const TrainingFilter = () => (
         button
         selected
       >
-        <ListItemText primary='All' classes={ { primary: 'list-item' } } />
+        <ListItemText classes={ { primary: 'list-item' } }>
+          <h4 className='h4 light unbold'>All</h4>
+        </ListItemText>
       </ListItem>
       {
         courseCategories.map((categoryTitle) => (
@@ -37,7 +39,9 @@ const TrainingFilter = () => (
             key={ categoryTitle }
             button
           >
-            <ListItemText primary={ categoryTitle } classes={ { primary: 'list-item' } } />
+            <ListItemText classes={ { primary: 'list-item' } }>
+              <h4 className='h4 light unbold'>{categoryTitle}</h4>
+            </ListItemText>
           </ListItem>
         ))
       }

@@ -9,10 +9,16 @@ import NewJobActions from './NewJobActions'
 
 const NewJob = () => (
   <Grid container spacing={ 3 }>
-    <Grid item xl={ 9 } lg={ 9 } md={ 9 } sm={ 8 }>
-      <NewJobData />
-      <NewJobRequirements />
-      <NewJobDetails />
+    <Grid container item xl={ 9 } lg={ 9 } md={ 9 } sm={ 8 } spacing={ 3 } direction='column'>
+      <Grid item>
+        <NewJobData />
+      </Grid>
+      <Grid item>
+        <NewJobRequirements />
+      </Grid>
+      <Grid item>
+        <NewJobDetails />
+      </Grid>
     </Grid>
     <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
       <NewJobActions />

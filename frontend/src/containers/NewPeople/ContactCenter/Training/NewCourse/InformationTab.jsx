@@ -39,7 +39,7 @@ export default function InformationTab() {
   return (
     <div className='mt-30'>
       <div className='info-tab-section'>
-        <h3> Course Title </h3>
+        <h3 className='h3 mb-10'> Course Title </h3>
         <div className='input-box'>
           <TextareaAutosize
             aria-label='minimum height'
@@ -53,7 +53,7 @@ export default function InformationTab() {
       <Grid container spacing={ 4 }>
         <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 6 }>
           <div className='info-tab-section'>
-            <h3> Category </h3>
+            <h3 className='h3 mb-10'> Category </h3>
             <div>
               <FormControl variant='outlined' className='drop-down-bar'>
                 <InputLabel margin='dense' variant='outlined'>
@@ -79,7 +79,7 @@ export default function InformationTab() {
         </Grid>
         <Grid item xl={ 5 } lg={ 5 } md={ 6 } sm={ 6 }>
           <div className='info-tab-section'>
-            <h3> Price </h3>
+            <h3 className='h3 mb-10'> Price </h3>
             <RadioGroup
               className='radio-buttons'
               value={ priceType }
@@ -94,12 +94,12 @@ export default function InformationTab() {
                 />
                 <InputBase
                   placeholder='Eg 15'
-                  className='filter-input'
+                  className='para border-1 filter-input pl-10 pr-10'
                   value={ price }
                   onChange={ setPriceCB }
                   disabled={ !(priceType === 'price') }
                 />
-                <span className='input-label'>
+                <span className='para light input-label'>
                   {`QBE (${ price } USD)`}
                 </span>
                 <FormControlLabel value='free' control={ <Radio /> } label='Free' />
@@ -111,7 +111,7 @@ export default function InformationTab() {
 
         <Grid item xl={ 3 } lg={ 3 } md={ 12 } sm={ 6 }>
           <div className='info-tab-section'>
-            <h3> Visibility </h3>
+            <h3 className='h3 mb-10'> Visibility </h3>
             <RadioGroup
               className='radio-buttons'
             >
@@ -125,8 +125,8 @@ export default function InformationTab() {
       </Grid>
 
       <div className='info-tab-section'>
-        <h3> Description </h3>
-        <h4> Summary </h4>
+        <h3 className='h3 mb-10'> Description </h3>
+        <h4 className='h4 mb-10 mt-30'> Summary </h4>
         <div className='input-box'>
           <TextareaAutosize
             aria-label='minimum height'
@@ -135,7 +135,7 @@ export default function InformationTab() {
             placeholder='Add a short description outlining the scope of the course'
           />
         </div>
-        <h4> Goals </h4>
+        <h4 className='h4 mb-10 mt-30'> Goals </h4>
         <div className='input-box'>
           <TextareaAutosize
             aria-label='minimum height'
@@ -144,7 +144,7 @@ export default function InformationTab() {
             placeholder='Describe the goals of the course'
           />
         </div>
-        <h4> Outcomes </h4>
+        <h4 className='h4 mb-10 mt-30'> Outcomes </h4>
         <div className='input-box'>
           <TextareaAutosize
             aria-label='minimum height'
@@ -153,7 +153,7 @@ export default function InformationTab() {
             placeholder='Describe the outcomes of this course in detail'
           />
         </div>
-        <h4> Prerequisites </h4>
+        <h4 className='h4 mb-10 mt-30'> Prerequisites </h4>
         <div className='input-box'>
           <TextareaAutosize
             aria-label='minimum height'
@@ -162,7 +162,7 @@ export default function InformationTab() {
             placeholder='Let the students know it there are any prerequisites for this course'
           />
         </div>
-        <h4> Required Courses </h4>
+        <h4 className='h4 mb-10 mt-30'> Required Courses </h4>
         <Grid container spacing={ 2 }>
           <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 6 }>
             <div className='search-input'>

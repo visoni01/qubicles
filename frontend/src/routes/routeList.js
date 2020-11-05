@@ -104,13 +104,13 @@ const routes = [
   // Added extra route for new contact-center jobPost design.
   {
     path: ROUTE_PATHS.CREATE_COURSE,
-    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Training/Course/NewCourse/index')),
+    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Training/NewCourse/index')),
     auth: true,
   },
   // Temporarily added extra route for new contact-center newJob design.
   {
     path: ROUTE_PATHS.VIEW_COURSE,
-    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Training/Course/ViewCourse/index')),
+    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Training/ViewCourse/index')),
     auth: true,
   },
   // Temporarily added extra route for new contact-center Job application design.

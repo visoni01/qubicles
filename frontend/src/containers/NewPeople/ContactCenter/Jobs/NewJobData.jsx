@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import {
-  Button, TextField, Select, FormControl, InputLabel,
+  Button, TextField, Select, FormControl, InputLabel, TextareaAutosize,
 } from '@material-ui/core'
 import { faChevronLeft, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -31,7 +31,7 @@ const NewJobData = () => {
 
   const history = useHistory()
   return (
-    <div className='box new-job-root has-fullwidth'>
+    <div className='custom-box new-job-root has-fullwidth'>
       <div className='mb-20'>
         <Button
           classes={ {
@@ -90,16 +90,18 @@ const NewJobData = () => {
       </div>
 
       <h3 className='mt-30 h3'> Job Title</h3>
-      <TextField
-        margin='dense'
-        id='jobTitle'
-        name='jobTitle'
-        fullWidth
-        variant='outlined'
-        placeholder='Title'
-        onChange={ setNewJobDataCB }
-        required
-      />
+      <div className='input-box mt-10'>
+        <TextareaAutosize
+          id='jobTitle'
+          name='jobTitle'
+          aria-label='minimum height'
+          autoComplete='off'
+          rowsMin={ 1 }
+          placeholder='Title'
+          onChange={ setNewJobDataCB }
+          required
+        />
+      </div>
 
       <h3 className='mt-30 mb-10 h3'> Job Description </h3>
       <CKEditor

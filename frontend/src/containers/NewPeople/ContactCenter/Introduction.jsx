@@ -5,7 +5,7 @@ import { Avatar } from '@material-ui/core'
 import Rating from '@material-ui/lab/Rating'
 import PropTypes from 'prop-types'
 import { testResumeIntroduction } from './testData'
-import './newStyles.scss'
+import './styles.scss'
 
 const Introduction = ({
   imageName,
@@ -18,9 +18,9 @@ const Introduction = ({
   description,
 }) => (
   <div className='introduction-root'>
-    <div className='display-inline-flex head-section'>
-      <Avatar className='profile-pic' alt={ imageName } src={ imageSrc } />
-      <div className='info-wrapper'>
+    <div className='display-inline-flex is-fullwidth'>
+      <Avatar className='profile-pic large' alt={ imageName } src={ imageSrc } />
+      <div className='ml-15'>
         <Rating
           className='rating-star no-margin'
           name='read-only'
@@ -29,20 +29,20 @@ const Introduction = ({
           value={ rating }
           precision={ 0.1 }
         />
-        <h4>{name}</h4>
-        <p className='location'>
-          <FontAwesomeIcon icon={ faMapMarkerAlt } />
+        <h4 className='h4'>{name}</h4>
+        <p className='para light'>
+          <FontAwesomeIcon className='custom-fa-icon light mr-10' icon={ faMapMarkerAlt } />
           {location}
         </p>
-        <p className='date'>
+        <p className='para light'>
           {date}
         </p>
       </div>
     </div>
-    <h4 className='title'>
+    <h4 className='h4 margin-top-bottom-10'>
       {title}
     </h4>
-    <p className='description'>
+    <p className='para'>
       {description}
     </p>
   </div>

@@ -26,7 +26,7 @@ const NewJobRequirements = () => {
   const availableSkills = [ 'Skill 1', 'Skill 2', 'Skill 3', 'Skill 4' ]
 
   return (
-    <div className='box new-job-root job-requirements-root has-fullwidth'>
+    <div className='custom-box new-job-root job-requirements-root has-fullwidth'>
       <h3 className='mt-10 h3'> Requirements </h3>
       <div className='category-section mt-30'>
         <div className='is-halfwidth'>
@@ -53,7 +53,8 @@ const NewJobRequirements = () => {
           </div>
           <div className='mt-50'>
             <h4 className='h4 mb-10'> Required Courses</h4>
-            <div className='new-input-search'>
+
+            <div className='search-input'>
               <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 custom-fa-icon light' />
               <InputBase
                 placeholder='Search Courses'
@@ -88,7 +89,7 @@ const NewJobRequirements = () => {
           </div>
           <div className='mt-50'>
             <h4 className='h4 mb-10'> Bonus Courses</h4>
-            <div className='new-input-search'>
+            <div className='search-input'>
               <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 custom-fa-icon light' />
               <InputBase
                 placeholder='Search Courses'

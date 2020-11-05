@@ -1,6 +1,3 @@
-@import '../../../../customStyles/scss/index.scss';
-@import '../newStyles.scss';
-
 .top-talent-root{
   .top-talent {
     width: 100%;
@@ -88,79 +85,25 @@
 }
 
 .resume-intro-root {
-  .agent-specifications{
-    @extend .para;
-    justify-content: space-between;
-    margin: 10px 0px;
-
-    .heading {
-      @extend .h4;
-      font-weight: 600;
-    }
-
-    .personal-details{
-      text-transform: capitalize;
-    }
-  }
-
-  .badges {
-    color: $color-primary;
-    font-size: 34px;
+  .personal-details{
+    text-transform: capitalize;
   }
 }
 
-.courses-root{
-  .courses-heading {
-    @extend .h3;
-    width: 100%;
-    letter-spacing: 1px;
-  }
-
-  .course-section {
+.resume-root{
+  .resume-section {
     flex-direction: column;
-    width: 100%;
     margin: 10px 0px;
-
-    p {
-      @extend .para;
-    }
-
-    .author {
-      color: $color-dark-grey;
-      margin-bottom: 10px;
-    }
-
-    .text-button {
-      color: $color-primary;
-      font-size: 14px;
-      width: fit-content;
-      padding: 0px;
-      font-weight: 600;
-    }
   }
 }
 
 .skills-page-root{
   .skill-section {
-    .skill-set{
-      @extend .h4;
-    }
-
-    p {
-      @extend .para;
-    }
-
     .description{
-      color: $color-dark-grey;
       align-self: center;
       margin-left: 15px;
       font-size: 15px;
       cursor: pointer;
-    }
-
-    .text-button{
-      align-self: center;
-      margin: 20px 0px;
     }
   }
 }
@@ -179,30 +122,10 @@
       margin-left: 15px;
       margin-bottom: 10px;
 
-      p{
-        @extend .para;
-        font-size: 14px;
-      }
-
-      .reviewerName {
-        font-weight: 600;
-      }
-
       svg {
         font-size: 20px;
       }
-
-      .description {
-        @extend .para;
-        font-size: 14px;
-        color: $color-dark-grey;
-      }
     }
-  }
-
-  .text-button {
-    align-self: center;
-    color: $color-primary;
   }
 }
 
@@ -241,64 +164,14 @@
           margin-left: 0px;
         }
 
-        .text-button {
-          color: $color-primary;
-          width: fit-content;
-          font-size: 13px;
-          padding: 0px;
-          :hover {
-            color: $color-primary;
-          }
-        }
       }
     }
   }
 
-  .badges {
-    color: $color-primary;
-    font-size: 34px;
-    margin: 10px 0px;
-  }
-}
 
-.paragraph-heading {
-  @extend .para;
-  font-weight: 400;
 }
 
 .endorsement-modal {
-  width: 600px;
-
-  .MuiDialog-scrollPaper {
-    overflow-y: scroll;
-  }
-
-  .MuiDialog-paperScrollPaper {
-    max-height: none;
-    margin-top: auto;
-  }
-
-  .cross-button {
-    button {
-      .MuiIconButton-label {
-        color: $color-primary;
-      }
-    }
-  }
-
-  h2 {
-    @extend .h2;
-  }
-
-  h4 {
-    @extend .h4;
-    font-size: 18px;
-  }
-
-  .divider {
-    margin: 2px 0;
-  }
-
   .endorsement-section {
     display: inline-flex;
     justify-content: space-between;
@@ -309,31 +182,11 @@
       vertical-align: middle;
       margin: 15px 0;
     }
-
-    .MuiRating-root {
-      &.rating-star {
-        vertical-align: middle;
-        margin: 0 15px;
-        color: $color-primary;
-        vertical-align: text-bottom;
-        font-size: 16px;
-      }
-    }
   }
 }
 
 .cover-letter-root {
-  h3 {
-    @extend .h3;
-  }
-
-  p {
-    @extend .para;
-  }
-
   .stengths-list {
-    @extend .para;
-
     li {
       margin-left: 10px;
       list-style-type: initial;

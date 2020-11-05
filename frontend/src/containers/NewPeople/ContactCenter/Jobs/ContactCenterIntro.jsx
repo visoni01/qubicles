@@ -17,7 +17,7 @@ const ContactCenterIntro = () => {
   })
   return (
     <>
-      <Box className='box contact-center-info-root'>
+      <Box className='custom-box contact-center-info-root'>
         <div className='mb-20'>
           <Button
             onClick={ handleBackButton }
@@ -41,23 +41,26 @@ const ContactCenterIntro = () => {
           title={ contactCenterIntroduction.title }
           description={ contactCenterIntroduction.description }
         />
-        <div className='member-count'>
-          <b> 2K+  </b>
+        <div className='para mt-20'>
+          <span className='para bold'> 2K+  </span>
           <p className='mt-10'> Members </p>
         </div>
         <Divider className='divider' />
         <div className='job-post-stats'>
           <div className='data'>
-            <FontAwesomeIcon icon={ faUserFriends } />
-            6/50 Agents Hired
+            <FontAwesomeIcon className='custom-fa-icon light' icon={ faUserFriends } />
+            <span className='para bold'> 6/50 </span>
+            <span className='para light'> Agents Hired  </span>
           </div>
           <div className='data'>
-            <FontAwesomeIcon icon={ faRedo } />
-            3 Evaluating
+            <FontAwesomeIcon className='custom-fa-icon light' icon={ faRedo } />
+            <span className='para bold'> 3 </span>
+            <span className='para light'> Evaluating  </span>
           </div>
           <div className='data'>
-            <FontAwesomeIcon icon={ faEnvelope } />
-            2 Pending Apllication
+            <FontAwesomeIcon className='custom-fa-icon light' icon={ faEnvelope } />
+            <span className='para bold'> 2  </span>
+            <span className='para light'> Pending Apllication  </span>
           </div>
         </div>
       </Box>

@@ -4,8 +4,8 @@ import { Button, Box } from '@material-ui/core'
 export default function NewJobActions() {
   return (
     <>
-      <Box className='box actions-box'>
-        <h3 className='heading'> Actions </h3>
+      <Box className='custom-box actions-box'>
+        <h3 className='h3 heading'> Actions </h3>
 
         <Button
           className='wide-button'

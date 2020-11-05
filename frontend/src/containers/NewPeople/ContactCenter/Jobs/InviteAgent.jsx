@@ -33,15 +33,22 @@ const InviteAgent = ({
       disableScrollLock
       open={ open }
       onClose={ handleClose }
-      classes={ { paper: 'invite-agent-modal' } }
+      fullWidth
+      maxWidth='sm'
+      // classes={ { paper: 'invite-agent-modal' } }
+      className='custom-modal'
+
     >
-      <div className='is-flex'>
-        <DialogTitle className='width-full'>
-          Invitation
+      <div className='header'>
+        <DialogTitle>
+          <h2 className='h2'>Invitation</h2>
         </DialogTitle>
         <DialogActions className='cross-button'>
-          <IconButton className='is-size-6 mt-10' onClick={ handleClose }>
-            <FontAwesomeIcon icon={ faTimes } />
+          <IconButton
+            className='is-size-6'
+            onClick={ handleClose }
+          >
+            <FontAwesomeIcon className='custom-fa-icon pointer' icon={ faTimes } />
           </IconButton>
         </DialogActions>
       </div>
@@ -68,7 +75,7 @@ const InviteAgent = ({
             </Select>
           </FormControl>
         </div>
-        <h4 className='h4'>Message</h4>
+        <h4 className='h4 mt-20'>Message</h4>
         <TextField
           margin='dense'
           id='name'
@@ -83,11 +90,11 @@ const InviteAgent = ({
           name='inviteMessage'
         />
       </DialogContent>
-      <DialogActions>
+      <DialogActions className='modal-actions'>
         <Button
           color='secondary'
           className='cancel-button'
-          onClick={ handleCancelButton }
+          onClick={ handleClose }
         >
           Cancel
         </Button>

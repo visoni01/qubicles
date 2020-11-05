@@ -10,20 +10,20 @@ export default function AddedContent() {
     <div className='list-item'>
       <Grid container spacing={ 2 } justify='space-between'>
         <Grid item xl={ 4 } lg={ 4 } md={ 4 } sm={ 2 } container spacing={ 2 }>
-          <Grid className='article-icon' item xl={ 2 } lg={ 2 } md={ 2 } sm={ 2 }>
-            <FontAwesomeIcon className='article-icon' icon={ faFileAlt } />
+          <Grid className='align-self-center' item xl={ 2 } lg={ 2 } md={ 2 } sm={ 2 }>
+            <FontAwesomeIcon className='custom-fa-icon sz-lg' icon={ faFileAlt } />
           </Grid>
-          <Grid item className='unit-name' xl={ 10 } lg={ 10 } md={ 10 } sm={ 10 }>
+          <Grid item className='text-edit' xl={ 10 } lg={ 10 } md={ 10 } sm={ 10 }>
             <Input
               defaultValue='Unit 2'
-              className='unit-name'
+              className='text-edit'
             />
           </Grid>
         </Grid>
         <Grid item xl={ 8 } lg={ 8 } md={ 8 } sm={ 10 } className='added-content'>
-          <span className='article'> Article </span>
+          <span className='para light margin-left-right-10'> Article </span>
           <IconButton>
-            <FontAwesomeIcon className='delete-icon' icon={ faTrash } />
+            <FontAwesomeIcon className='custom-fa-icon sz-lg' icon={ faTrash } />
           </IconButton>
           <Button
             className='edit-button'
