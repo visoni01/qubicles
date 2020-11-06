@@ -11,7 +11,7 @@ import {
   ForumCreateCommentService,
   ImageUploadService,
   ForumTopicActivity
-} from '../services/newForum'
+} from '../services/forum'
 
 export default class ForumController {
   static async createGroup (req, res) {
