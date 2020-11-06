@@ -1,19 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import {
-  Box, IconButton, Button, Avatar, Divider,
+  Box, IconButton, Divider,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faComment, faEye, faHeart, faSlidersH,
-} from '@fortawesome/free-solid-svg-icons'
+import { faSlidersH } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import Pagination from '@material-ui/lab/Pagination'
-import { slice } from 'lodash'
-import { carolin } from '../../assets/images/avatar/index'
-import { formatDate } from '../../utils/common'
 import { groupTopicsFetchingStart } from '../../redux-saga/redux/actions'
 import ListSkeleton from './skeletons/topicsList'
+import TopicsListItem from './topicsListItem'
 
 const Topics = ({ groupId, groupTitle, setSelectedTopic }) => {
   const dispatch = useDispatch()
@@ -58,49 +54,11 @@ const Topics = ({ groupId, groupTitle, setSelectedTopic }) => {
       <div className='mt-10'>
         {topics.length ? topics.map((topic, index) => (
           <>
-            <div className='display-inline-flex topic-info width-100-per' key={ topic.id }>
-              <Avatar className='mr-10' src={ carolin } />
-              <div className='width-100-per'>
-                <Button
-                  className='h4 topic-name-button'
-                  onClick={ () => setSelectedTopic(index, topic.id) }
-                  classes={ {
-                    root: ' background-none-hover no-padding',
-                    label: 'text-align-left',
-                  } }
-                >
-                  {topic.title}
-                </Button>
-                <div className='display-inline-flex width-100-per'>
-                  <p className='para'>
-                    {topic.ownerName}
-                  </p>
-                  <p className='date ml-20'>
-                    {formatDate(topic.createdAt, 'MMMM DD YYYY, hh:mm a')}
-                  </p>
-                </div>
-                <div>
-                  <ul className='display-inline-flex action-buttons'>
-                    <li>
-                      <FontAwesomeIcon icon={ faHeart } />
-                      274 Likes
-                    </li>
-                    <li>
-                      <FontAwesomeIcon icon={ faComment } />
-                      {topic.commentsCount}
-                      {' '}
-                      Comments
-                    </li>
-                    <li>
-                      <FontAwesomeIcon icon={ faEye } />
-                      {topic.views}
-                      {' '}
-                      Views
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+            <TopicsListItem
+              topic={ topic }
+              index={ index }
+              setSelectedTopic={ setSelectedTopic }
+            />
             { (index + 1 < noOfTopicsPerPage) && <Divider className='mb-30' />}
           </>
         )) : (

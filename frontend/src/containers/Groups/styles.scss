@@ -398,3 +398,13 @@
 .text-align-left {
   text-align: left;
 }
+
+.liked-icon {
+  path{
+    color: $color-red;
+    stroke: $color-red;
+    &:hover {
+      color: $color-red;
+    }
+  }
+}

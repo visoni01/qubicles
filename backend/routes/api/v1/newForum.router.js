@@ -34,6 +34,9 @@ newForumRouter.route('/topics/:topic_id/comments')
 newForumRouter.route('/topics/:topic_id/comments')
   .post(isAuthenticated, forumController.createTopicComment)
 
+newForumRouter.route('/topics/:topic_id/activity')
+  .post(isAuthenticated, forumController.topicActivity)
+
 newForumRouter.route('/image')
   .post(multerUpload.single('file'), isAuthenticated, forumController.imageUpload)
 

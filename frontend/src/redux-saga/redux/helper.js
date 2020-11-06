@@ -18,6 +18,7 @@ import {
   SET_IS_COMMENT_LOADING,
   POST_TOPIC_COMMENT,
   LOAD_MORE_COMMENTS,
+  TOPIC_ACTIVITY,
 } from './constants'
 
 import {
@@ -83,6 +84,23 @@ export const updateGroupTopics = (state, payload) => {
             return {
               ...topic,
               [ payload.statType ]: topic[ payload.statType ] + 1,
+            }
+          }
+          return topic
+        }),
+      }
+      break
+    }
+    case TOPIC_ACTIVITY: {
+      const { topicId, activity } = payload
+      updatedState = {
+        ...state,
+        topics: state.topics.map((topic) => {
+          if (topic.id === topicId) {
+            return {
+              ...topic,
+              isTopicLiked: activity === 'like',
+              likesCount: activity === 'like' ? topic.likesCount + 1 : topic.likesCount - 1,
             }
           }
           return topic

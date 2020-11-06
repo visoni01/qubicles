@@ -36,6 +36,11 @@ class Forum {
     return response
   }
 
+  static async topicActivity({ topicId, ...data }) {
+    const response = await apiClient.postRequest(`/newForum/topics/${ topicId }/activity`, data)
+    return response
+  }
+
   static async postTopicComment({ topicId, ...data }) {
     const response = await apiClient.postRequest(`/newForum/topics/${ topicId }/comments`, data)
     return response

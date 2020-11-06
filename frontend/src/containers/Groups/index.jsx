@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Grid } from '@material-ui/core'
-import GroupsList from './groups'
+import GroupsList from './groupsList'
 import CreateGroup from './newGroup'
 import SelectedGroup from './group'
 import TrendingTopics from './trendingTopics'

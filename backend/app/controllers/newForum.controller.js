@@ -9,7 +9,8 @@ import {
   ForumCreateTopicService,
   ForumGetTopicCommentsService,
   ForumCreateCommentService,
-  ImageUploadService
+  ImageUploadService,
+  ForumTopicActivity
 } from '../services/newForum'
 
 export default class ForumController {
@@ -91,6 +92,15 @@ export default class ForumController {
       Responder.success(res, forumCreateCommentResult.result)
     } else {
       Responder.failed(res, forumCreateCommentResult.errors)
+    }
+  }
+
+  static async topicActivity (req, res) {
+    const forumTopicActivity = await ForumTopicActivity.execute({ ...req.body, ...req.params })
+    if (forumTopicActivity.successful) {
+      Responder.success(res, forumTopicActivity.result)
+    } else {
+      Responder.failed(res, forumTopicActivity.errors)
     }
   }
 

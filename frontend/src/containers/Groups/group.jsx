@@ -10,7 +10,7 @@ import {
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import moment from 'moment'
-import GroupsList from './groups'
+import GroupsList from './groupsList'
 import TrendingTopics from './trendingTopics'
 import { carolin } from '../../assets/images/avatar/index'
 import { groupTopicsFetchingStart, addNewGroupTopic, updateGroupTopicsList } from '../../redux-saga/redux/actions'
