@@ -5,9 +5,9 @@ import {
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
-import { carolin } from '../../assets/images/avatar/index'
-import { topicCommentsFetchingStart, loadMoreComments } from '../../redux-saga/redux/actions'
-import ListSkeleton from './skeletons/commentsList'
+import { carolin } from '../../../assets/images/avatar/index'
+import { topicCommentsFetchingStart, loadMoreComments } from '../../../redux-saga/redux/actions'
+import ListSkeleton from '../skeletons/commentsList'
 
 const Comments = ({ topicId, commentsCount }) => {
   const dispatch = useDispatch()

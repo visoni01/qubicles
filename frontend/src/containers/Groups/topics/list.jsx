@@ -7,9 +7,9 @@ import { faSlidersH } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import Pagination from '@material-ui/lab/Pagination'
-import { groupTopicsFetchingStart } from '../../redux-saga/redux/actions'
-import ListSkeleton from './skeletons/topicsList'
-import TopicsListItem from './topicsListItem'
+import { groupTopicsFetchingStart } from '../../../redux-saga/redux/actions'
+import ListSkeleton from '../skeletons/topicsList'
+import TopicsListItem from './listItem'
 
 const Topics = ({ groupId, groupTitle, setSelectedTopic }) => {
   const dispatch = useDispatch()

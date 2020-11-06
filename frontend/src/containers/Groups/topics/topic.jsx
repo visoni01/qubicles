@@ -9,10 +9,10 @@ import {
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
-import { carolin } from '../../assets/images/avatar/index'
-import { topicCommentsFetchingStart } from '../../redux-saga/redux/actions'
-import PostComment from './postComment'
-import Comments from './comments'
+import { carolin } from '../../../assets/images/avatar/index'
+import { topicCommentsFetchingStart } from '../../../redux-saga/redux/actions'
+import PostComment from '../comments/postComment'
+import Comments from '../comments/list'
 
 const SelectedTopic = ({ backToGroup, topicDetails, groupTitle }) => {
   const dispatch = useDispatch()

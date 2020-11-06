@@ -6,8 +6,8 @@ import CKEditor from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
-import MyUploadAdapter from '../../utils/uploadImage'
-import Loader from '../../components/loaders/circularLoader'
+import MyUploadAdapter from '../../../utils/uploadImage'
+import Loader from '../../../components/loaders/circularLoader'
 
 const initialData = {
   title: '',

@@ -11,8 +11,8 @@ import {
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
-import { postTopicComment } from '../../redux-saga/redux/actions'
-import { carolin } from '../../assets/images/avatar/index'
+import { postTopicComment } from '../../../redux-saga/redux/actions'
+import { carolin } from '../../../assets/images/avatar/index'
 
 const PostComment = ({ topicId }) => {
   const [ comment, setComment ] = useState('')

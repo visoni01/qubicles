@@ -10,10 +10,10 @@ import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import Pagination from '@material-ui/lab/Pagination'
 import { slice } from 'lodash'
-import { carolin } from '../../assets/images/avatar/index'
-import { formatDate } from '../../utils/common'
-import { groupTopicsFetchingStart, topicActivity } from '../../redux-saga/redux/actions'
-import ListSkeleton from './skeletons/topicsList'
+import { carolin } from '../../../assets/images/avatar/index'
+import { formatDate } from '../../../utils/common'
+import { groupTopicsFetchingStart, topicActivity } from '../../../redux-saga/redux/actions'
+import ListSkeleton from '../skeletons/topicsList'
 
 const ListItem = ({ topic, index, setSelectedTopic }) => {
   const dispatch = useDispatch()

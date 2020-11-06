@@ -6,8 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
-import { groupsFetchingStart } from '../../redux-saga/redux/actions'
-import ListSkeleton from './skeletons/groupsList'
+import { groupsFetchingStart } from '../../../redux-saga/redux/actions'
+import ListSkeleton from '../skeletons/groupsList'
 
 const Groups = ({ selectedGroup, setSelectedGroup }) => {
   const dispatch = useDispatch()
