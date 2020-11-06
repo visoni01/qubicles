@@ -26,7 +26,7 @@ const NewGroup = ({ handleSubmit, onCancelClick }) => {
   }
 
   return (
-    <Box className='primary-box padding-20'>
+    <Box className='custom-box'>
       <form>
         <Grid container spacing={ 3 }>
           <Grid item md={ 12 } sm={ 12 } xs={ 12 } className='mb-10'>
@@ -37,7 +37,7 @@ const NewGroup = ({ handleSubmit, onCancelClick }) => {
           <Grid item md={ 6 } xs={ 12 }>
             <h3 className='h3'>Title</h3>
             <input
-              className='primary-input-field mt-10 width-100-per'
+              className='primary-input-field mt-10 is-fullwidth'
               placeholder='Name of your group'
               value={ groupData.title }
               name='title'
@@ -49,7 +49,7 @@ const NewGroup = ({ handleSubmit, onCancelClick }) => {
             <RadioGroup
               name='permission'
               label='Permission'
-              className='is-display-block mt-10'
+              className='is-block mt-10'
               value={ groupData.permission }
               onChange={ updateData }
             >
@@ -72,7 +72,7 @@ const NewGroup = ({ handleSubmit, onCancelClick }) => {
               Description
             </h3>
             <TextareaAutosize
-              className='primary-input-field width-100-per mt-10 mb-10'
+              className='primary-input-field is-fullwidth mt-10 mb-10'
               rowsMin={ 6 }
               value={ groupData.description }
               name='description'

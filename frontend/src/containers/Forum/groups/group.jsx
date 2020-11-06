@@ -70,8 +70,8 @@ const SelectedGroup = ({ group }) => {
   return (
     <>
       <div>
-        <Box className='primary-box padding-20 mb-20'>
-          <div className='section-heading display-inline-flex width-100-per'>
+        <Box className='custom-box padding-20 mb-20'>
+          <div className='section-heading display-inline-flex is-fullwidth'>
             <h3 className='h3'>
               {title}
             </h3>
@@ -83,8 +83,8 @@ const SelectedGroup = ({ group }) => {
             {description}
           </p>
         </Box>
-        <div className='display-inline-flex width-100-per search-topic-bar'>
-          <div className='search-input primary-box'>
+        <div className='display-inline-flex is-fullwidth mb-20'>
+          <div className='search-input mr-10'>
             <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 custom-fa-icon light' />
             <InputBase
               placeholder='Search'
@@ -92,7 +92,7 @@ const SelectedGroup = ({ group }) => {
             />
           </div>
           <Button
-            className='new-topic-button'
+            className='is-fullheight'
             classes={ {
               label: 'MuiButton-label button-primary-small-label',
               root: 'MuiButtonBase-root button-primary-small',

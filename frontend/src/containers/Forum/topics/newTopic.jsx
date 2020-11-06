@@ -48,7 +48,7 @@ const NewTopic = ({ handleSubmit, handleCancel }) => {
   }
 
   return (
-    <Box className='primary-box padding-20'>
+    <Box className='custom-box'>
       <form>
         <h2 className='h2 mb-30'>
           New Topic
@@ -56,7 +56,7 @@ const NewTopic = ({ handleSubmit, handleCancel }) => {
         <div>
           <h3 className='h3'>Title</h3>
           <input
-            className='primary-input-field mt-10 width-100-per'
+            className='primary-input-field mt-10 is-fullwidth'
             placeholder='Name of your topic'
             value={ topicData.title }
             name='title'
@@ -80,7 +80,6 @@ const NewTopic = ({ handleSubmit, handleCancel }) => {
             } }
           />
           <Loader
-            className='add-status-loader'
             displayLoaderManually={ isImageUploading }
             enableOverlay={ false }
             size={ 50 }

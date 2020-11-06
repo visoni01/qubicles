@@ -51,7 +51,7 @@ const PostComment = ({ topicId }) => {
   }
 
   return (
-    <Box className='primary-box padding-20 mb-20'>
+    <Box className='custom-box mb-20'>
       <div className='textarea-input'>
         <Avatar className='avatar' src={ carolin } />
         <div className='comment-content'>

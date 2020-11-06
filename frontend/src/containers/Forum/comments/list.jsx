@@ -33,33 +33,33 @@ const Comments = ({ topicId, commentsCount }) => {
 
   if (isLoading) {
     return (
-      <Box className='group-list-root primary-box padding-20'>
+      <Box className='custom-box'>
         <ListSkeleton />
       </Box>
     )
   }
 
   return (
-    <Box className='primary-box padding-20 comments-list'>
-      <h3>
+    <Box className='custom-box comments-list'>
+      <h3 className='h3'>
         Comments
       </h3>
       <div>
         {comments.length ? comments.map((comment, index) => (
           <>
-            <div key={ comment.id } className='commentor-info'>
+            <div key={ comment.id } className='mt-20 mb-20'>
               <div className='display-inline-flex mb-10'>
                 <Avatar className='mr-10' src={ carolin } />
                 <div>
-                  <p className='commentor-name'>
+                  <p className='para bold sz-xs'>
                     {comment.ownerName}
                   </p>
-                  <p className='comment-date'>
+                  <p className='para light sz-xs'>
                     {moment(comment.createdAt).format('MMMM DD YY hh:mm a')}
                   </p>
                 </div>
               </div>
-              <p className='comment-description'>
+              <p className='para'>
                 {comment.comment}
               </p>
             </div>
@@ -73,8 +73,9 @@ const Comments = ({ topicId, commentsCount }) => {
       </div>
       {(comments.length < commentsCount) && (
       <Button
-        classes={ { root: 'load-more-comment' } }
+        classes={ { root: 'text-link-underlined' } }
         onClick={ handleMoreComments }
+        fullWidth
       >
         Load more comments
       </Button>

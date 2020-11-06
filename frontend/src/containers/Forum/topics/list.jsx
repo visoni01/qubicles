@@ -33,15 +33,15 @@ const Topics = ({ groupId, groupTitle, setSelectedTopic }) => {
 
   if (isLoading) {
     return (
-      <Box className='group-list-root primary-box padding-20'>
+      <Box className='custom-box'>
         <ListSkeleton />
       </Box>
     )
   }
 
   return (
-    <Box className='primary-box padding-20'>
-      <div className='section-heading display-inline-flex width-100-per'>
+    <Box className='custom-box'>
+      <div className='section-heading display-inline-flex is-fullwidth'>
         <h3 className='h3'>
           Topics in
           {' '}

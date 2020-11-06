@@ -30,9 +30,9 @@ const ListItem = ({ topic, index, setSelectedTopic }) => {
 
   return (
     <>
-      <div className='display-inline-flex topic-info width-100-per' key={ topic.id }>
+      <div className='display-inline-flex is-fullwidth' key={ topic.id }>
         <Avatar className='mr-10' src={ carolin } />
-        <div className='width-100-per'>
+        <div className='is-fullwidth'>
           <Button
             className='h4 topic-name-button'
             onClick={ changeSelectedTopic }
@@ -43,17 +43,17 @@ const ListItem = ({ topic, index, setSelectedTopic }) => {
           >
             {topic.title}
           </Button>
-          <div className='display-inline-flex width-100-per'>
+          <div className='display-inline-flex is-fullwidth'>
             <p className='para'>
               {topic.ownerName}
             </p>
-            <p className='date ml-20'>
+            <p className='para light ml-20'>
               {formatDate(topic.createdAt, 'MMMM DD YYYY, hh:mm a')}
             </p>
           </div>
-          <div>
-            <ul className='display-inline-flex action-buttons'>
-              <li>
+          <div className='section-stats'>
+            <ul className='display-inline-flex mb-15'>
+              <li className='para'>
                 <Button
                   disableRipple
                   classes={ { label: 'para light' } }
@@ -68,7 +68,7 @@ const ListItem = ({ topic, index, setSelectedTopic }) => {
                   {topic && topic.likesCount <= 1 ? 'Like' : 'Likes'}
                 </Button>
               </li>
-              <li>
+              <li className='para'>
                 <Button
                   disableRipple
                   classes={ { label: 'para light' } }
@@ -80,7 +80,7 @@ const ListItem = ({ topic, index, setSelectedTopic }) => {
                   {topic && topic.commentsCount <= 1 ? 'Comment' : 'Comments'}
                 </Button>
               </li>
-              <li>
+              <li className='para'>
                 <Button
                   disabled
                   classes={ { label: 'para light' } }

@@ -9,7 +9,7 @@ import {
 import { carolin } from '../../assets/images/avatar/index'
 
 const TrendingTopics = () => (
-  <Box className='primary-box trending-topic-root padding-20'>
+  <Box className='custom-box trending-topic-root'>
     <h3 className='h3 mb-10'>
       Trending Topics
     </h3>
@@ -17,23 +17,23 @@ const TrendingTopics = () => (
       <div key={ e }>
         <div className='topic-info'>
           <Avatar className='avatar-logo' src={ carolin } />
-          <p>User</p>
+          <p className='para margin-auto-5'>User</p>
           <div>
-            <FontAwesomeIcon icon={ faChevronRight } />
+            <FontAwesomeIcon icon={ faChevronRight } className='custom-fa-icon light sz-xs' />
           </div>
-          <p className='group-name'>Group Name</p>
+          <p className='h4 light fw-md margin-auto-5'>Group Name</p>
         </div>
-        <p className='description'>Display some topic's details.</p>
+        <p className='para'>Display some topic's details.</p>
         <ul className='display-inline-flex '>
-          <li>
+          <li className='para'>
             <FontAwesomeIcon icon={ faHeart } />
             274
           </li>
-          <li>
+          <li className='para'>
             <FontAwesomeIcon icon={ faComment } />
             17
           </li>
-          <li>
+          <li className='para'>
             <FontAwesomeIcon icon={ faEye } />
             349
           </li>

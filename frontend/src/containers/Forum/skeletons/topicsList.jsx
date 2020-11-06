@@ -11,7 +11,7 @@ const TopicsList = () => (
     />
     <div className='mt-10'>
       {[ ...Array(8).keys() ].map((key) => (
-        <div key={ key } className='display-inline-flex width-100-per'>
+        <div key={ key } className='display-inline-flex is-fullwidth'>
           <Skeleton
             animation='wave'
             className='mr-10 mt-10'
@@ -19,7 +19,7 @@ const TopicsList = () => (
             width={ 40 }
             variant='circle'
           />
-          <div className='width-100-per'>
+          <div className='is-fullwidth'>
             <Skeleton
               animation='wave'
               className='mb-10'
