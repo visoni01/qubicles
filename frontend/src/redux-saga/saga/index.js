@@ -26,6 +26,7 @@ import signupWithInvite from './inviteDetails'
 import forgetPassword from './forgetPassword'
 import resetPassword from './resetPassword'
 import peopleTalentCards from './newPeople/talent/talentCards'
+import peopleAgentResumeSkills from './newPeople/talent/agentResumeSkills'
 
 export default function* rootSaga() {
   yield all([
@@ -55,5 +56,6 @@ export default function* rootSaga() {
     forgetPassword(),
     resetPassword(),
     peopleTalentCards(),
+    peopleAgentResumeSkills(),
   ])
 }

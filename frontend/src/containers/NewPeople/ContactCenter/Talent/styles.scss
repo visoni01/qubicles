@@ -99,6 +99,9 @@
 
 .skills-page-root{
   .skill-section {
+    .skill-set {
+      margin-top: 5px;
+    }
     .description{
       align-self: center;
       margin-left: 15px;
@@ -167,14 +170,12 @@
       }
     }
   }
-
-
 }
 
 .endorsement-modal {
   .endorsement-section {
+    width: 100%;
     display: inline-flex;
-    justify-content: space-between;
     margin: 10px 0px;
 
     .middle-part{
