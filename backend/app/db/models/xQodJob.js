@@ -10,7 +10,11 @@ module.exports = (sequelize, DataTypes) => {
     client_id: DataTypes.INTEGER(11),
     user_id: DataTypes.INTEGER(11),
     category_id: DataTypes.INTEGER(11),
-    position_id: DataTypes.INTEGER(11),
+    // position_id: DataTypes.INTEGER(11),
+    required_skills: DataTypes.STRING(),
+    bonus_skills: DataTypes.STRING(),
+    required_courses: DataTypes.STRING(),
+    bonus_courses: DataTypes.STRING(),
     title: DataTypes.STRING(100),
     description: DataTypes.TEXT,
     job_type: {
@@ -41,6 +45,7 @@ module.exports = (sequelize, DataTypes) => {
     city: DataTypes.STRING(100),
     state: DataTypes.STRING(100),
     country: DataTypes.STRING(100),
+    languages: DataTypes.STRING(100),
     needed: DataTypes.INTEGER,
     fulfilled: DataTypes.INTEGER,
     pay_amount: DataTypes.DOUBLE,
@@ -55,7 +60,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     status: {
       type: DataTypes.ENUM,
-      values: ['recruiting', 'hired', 'cancelled'],
+      values: ['draft', 'recruiting', 'hired', 'cancelled'],
       defaultValue: 'recruiting'
     },
     is_public: {

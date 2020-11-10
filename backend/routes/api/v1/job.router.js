@@ -23,4 +23,10 @@ jobRouter.route('/:job_id')
 jobRouter.route('/')
   .post(isAuthenticated, jobController.addJob)
 
+jobRouter.route('/new/job-fields')
+  .get(isAuthenticated, jobController.getJobCategoriesTitlesAndSkills)
+
+jobRouter.route('/add-new-job')
+  .post(isAuthenticated, jobController.addNewJob)
+
 export { jobRouter }

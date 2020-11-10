@@ -3,7 +3,6 @@ import {
   XQodApplication,
   XQodCategory,
   XQodJobTitle,
-  XQodJobSkill,
   XQodSkill
 } from '../../db/models'
 import { Op } from 'sequelize'
@@ -182,11 +181,6 @@ export async function getJobApplicationCount (data) {
 export async function getJobTitles () {
   const jobTitles = await XQodJobTitle.findAll({ raw: true })
   return jobTitles
-}
-
-export async function getJobSkills () {
-  const jobSkills = await XQodJobSkill.findAll({ raw: true })
-  return jobSkills
 }
 
 export async function getSkills () {
