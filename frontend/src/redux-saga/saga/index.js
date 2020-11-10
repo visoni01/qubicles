@@ -28,6 +28,9 @@ import forgetPassword from './forgetPassword'
 import resetPassword from './resetPassword'
 import peopleTalentCards from './newPeople/talent/talentCards'
 import peopleAgentResumeSkills from './newPeople/talent/agentResumeSkills'
+import newCrudJob from './newPeople/crud'
+import newJobDetails from './newPeople/job'
+import newJobCategoryDataActivity from './newPeople/jobCategories'
 
 export default function* rootSaga() {
   yield all([
@@ -48,7 +51,7 @@ export default function* rootSaga() {
     crudGroupTopics(),
     GroupTopicActivity(),
     jobCategoryDataActivity(),
-    crudJob(),
+    // crudJob(),
     post(),
     statusPostActivity(),
     jobDetails(),
@@ -59,5 +62,8 @@ export default function* rootSaga() {
     resetPassword(),
     peopleTalentCards(),
     peopleAgentResumeSkills(),
+    newCrudJob(),
+    newJobDetails(),
+    newJobCategoryDataActivity(),
   ])
 }

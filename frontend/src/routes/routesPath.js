@@ -1,4 +1,5 @@
 export const USER_ROUTE = '/users/'
+export const JOB_POST_ROUTE = '/new/people/job/view'
 
 const ROUTE_PATHS = {
   HOME: '/',
@@ -19,7 +20,7 @@ const ROUTE_PATHS = {
   GROUP: '/group',
   PEOPLE: '/people',
   NEW_PEOPLE: '/new/people',
-  JOB_POST: '/new/people/jobpost',
+  JOB_POST: `${ JOB_POST_ROUTE }/:jobId`,
   NEW_JOB: '/new/people/new-job',
   VIEW_RESUME: '/new/people/view-resume',
   CREATE_COURSE: '/new/people/course/create',
