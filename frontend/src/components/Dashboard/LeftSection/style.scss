@@ -5,16 +5,10 @@
     margin-top: 10px;
     margin-bottom: 10px;
     .rating-text {
-      @extend .h3;
       position: relative;
       margin-left: 10px;
       margin-right: 10px;
       font-size: 24px;
-    }
-    .rating-info {
-      @include fa-icon-outlined($color-white);
-      font-size: 23px;
-      vertical-align: initial;
     }
 
     .rating-info {
@@ -53,11 +47,10 @@
 // Background Checking
 
 .background-check {
-
   .text {
-    @extend .para;
     margin-bottom: 15px;
   }
+
   .background-check-buttons {
     width: 100%;
     margin-top: 10px;
@@ -80,14 +73,11 @@
 
       .date {
         flex: 1;
-        @extend .para;
         margin: 5px;
         margin-right: 10px;
       }
 
       .text {
-        @extend .para;
-        @extend .text;
         flex: 5;
         align-self: center;
       }
@@ -110,14 +100,8 @@
       border-bottom: 1px solid $color-border;
       margin-bottom: 10px;
 
-      .title {
-        @extend .para;
+      .job-title {
         margin-bottom: 0px;
-      }
-
-      .applicants {
-        @extend .para;
-        margin-bottom: 10px;
       }
 
       &:last-child {

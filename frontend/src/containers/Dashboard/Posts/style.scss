@@ -170,31 +170,17 @@
     height: 56px;
   }
 
-  .user-name {
-    @extend .h4;
-  }
-
-  .post-details {
-    align-self: center;
-  }
-
   .profile-pic {
     margin: 10px;
     margin-left: 0px;
     flex: 1;
     align-self: center;
   }
-
-  .date {
-    @extend .para;
-    color: $color-dark-grey;
-  }
 }
 
 // Post Body
 .post-body {
   .post-text {
-    @extend .para;
     margin: 10px 0px 15px 0px;
   }
   .post-image {

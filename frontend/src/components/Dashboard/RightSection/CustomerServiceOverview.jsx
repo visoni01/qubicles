@@ -2,27 +2,21 @@ import React from 'react'
 import { Box } from '@material-ui/core'
 
 const CustomerServiceOverview = () => (
-  <Box className='box'>
+  <Box className='custom-box mb-25'>
     <div className='customer-service'>
-      <h3 className='heading'>
+      <h3 className='h3 mb-15'>
         Customer  Service Overview
       </h3>
 
       <div className='customer-service-content'>
         <p>
-          <span className='green-color'>
-            <b className='number green'>0.20</b>
-            {' '}
-          </span>
-          <span className='text'>Average speed of answer</span>
+          <b className='h3 number-color-green mr-10'>0.20</b>
+          <span className='para light'>Average speed of answer</span>
         </p>
 
-        <p>
-          <span className='dark-color'>
-            <b className='number'>2.45</b>
-            {' '}
-          </span>
-          <span className='text'>Marlon mars</span>
+        <p className='mt-10'>
+          <b className='h3 mr-10'>2.45</b>
+          <span className='para light'>Marlon mars</span>
         </p>
       </div>
     </div>

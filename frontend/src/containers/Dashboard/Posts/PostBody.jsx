@@ -82,7 +82,7 @@ const PostBody = ({
   return (
     // Post Body
     <div className='post-body'>
-      <p className='post-text'>
+      <p className='para post-text'>
         { activityValue}
       </p>
       {activityCustom && <img className='post-image' src={ activityCustom } alt='Helen' />}

@@ -8,16 +8,16 @@ const LatestAnnouncement = () => {
   return (
     <Box className='box'>
       <div className='announcement-section'>
-        <h3 className='heading'>
+        <h3 className='h3 mb-15'>
           Latest Announcements
         </h3>
         <ul className='announcement-list'>
           {!isLoading && announcements.map(({ date, title, id }) => (
             <li key={ `${ id }` } className='announcement-item'>
-              <span className='date'>
+              <span className='para date'>
                 <b>{formatDate(date)}</b>
               </span>
-              <p className='text'>
+              <p className='para text'>
                 {title}
               </p>
             </li>

@@ -39,6 +39,7 @@ const AddComment = ({ postComment, isCommentLoading }) => {
               value={ commentText }
               onChange={ handleCommentChange }
               placeholder='Leave a comment...'
+              className='para'
             />
           </div>
 

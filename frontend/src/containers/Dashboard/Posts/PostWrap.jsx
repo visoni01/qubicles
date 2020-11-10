@@ -10,7 +10,7 @@ const PostWrap = ({
   activityValue,
   activityCustom, createdAt, owner, userId, isPostLiked, likesCount, commentsCount, comments, commentLoading,
 }) => (
-  <Box className='box'>
+  <Box className='custom-box mb-25'>
     <PostHead
       owner={ owner }
       createdAt={ createdAt }

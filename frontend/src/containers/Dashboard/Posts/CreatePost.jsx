@@ -99,8 +99,7 @@ const NewCreatePost = () => {
   }, [])
 
   return (
-    <Box className='box'>
-
+    <Box className='custom-box mb-25'>
       <div
         className='create-post-container'
         style={ { pointerEvents: isLoading ? 'none' : 'auto' } }

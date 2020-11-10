@@ -21,15 +21,15 @@ const CheckrVerification = () => {
   }, [ isLoading, invitationLink ])
 
   return (
-    <Box className='box background-check' display={ isClosed ? 'none' : 'block' }>
+    <Box className='custom-box mb-25 background-check' display={ isClosed ? 'none' : 'block' }>
       <div>
         <IconButton size='small' className='pull-right' onClick={ () => setIsClosed(true) }>
           <FontAwesomeIcon icon={ faTimes } />
         </IconButton>
-        <h3 className='heading'>
+        <h3 className='h3 mb-15'>
           Background Screening
         </h3>
-        <p className='text'>
+        <p className='para text'>
           Companies are more likely to hire applicants that passed a background screening test.
         </p>
       </div>

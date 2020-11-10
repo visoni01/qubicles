@@ -1,22 +1,4 @@
-
-@mixin fa-icon-hover($color) {
-  path {
-    &:hover {
-      color: $color;
-    }
-  }
-}
-
-@mixin fa-icon-outlined($color) {
-  stroke: $color;
-  stroke-width: 20px;
-  .MuiIconButton-label {
-    &:hover {
-      color: $color;
-    }
-  }
-}
-
+@import './mixins';
 
 // Rating Star
 .MuiRating-root {

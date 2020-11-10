@@ -8,16 +8,16 @@ const RenderPostComments = ({
   commentText, ownerName, createdAt,
 }) => (
   <div>
-    <div className='comment-body'>
+    <div className='display-inline-flex mt-10'>
       <Avatar className='comment-avatar' alt='Remy Sharp' src={ terry } />
       <div>
-        <h4 className='user-name'>
+        <h4 className='h4'>
           {ownerName}
         </h4>
-        <p className='date'>
+        <p className='para light sz-sm'>
           {formatDate(createdAt, 'MMMM DD YYYY, hh:mm a')}
         </p>
-        <p className='post-text'>
+        <p className='para mb-10'>
           {commentText}
         </p>
       </div>
