@@ -1,17 +1,8 @@
-@import '../../customStyles/scss/index.scss';
+@import '../../customStyles/scss/partials/variables';
 
 .account-dropdown-list {
   top: 60px !important;
   left: calc(100% - 280px) !important;
-}
-
-.account-dropdown-icon {
-  margin-left: 0px;
-  margin-top: 50px;
-}
-
-.header-info-icons {
-  padding-left: 20px;
 }
 
 // USER MENU
@@ -32,21 +23,6 @@
     align-self: center;
   }
 
-  .user-name {
-    @extend .h3;
-    margin: 5px;
-    margin-top: 0px;
-    align-self: center;
-  }
-  .view-profile {
-    margin-bottom: 10px;
-    align-self: center;
-    font-size: 14px;
-  }
-  .divider {
-    // margin: auto;
-    margin-bottom: 10px;
-  }
   .options {
     display: flex;
     flex-direction: column;
@@ -64,9 +40,6 @@
         flex: 2;
         margin: 5px;
         font-size: 14px;
-      }
-      .logout-text {
-        color: $color-red;
       }
     }
   }
