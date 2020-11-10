@@ -1,29 +1,28 @@
 import React from 'react'
-import { Typography } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserFriends, faRedo, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
-import { jobCategoryCardValidator } from './jobsValidator'
-import ROUTE_PATHS from '../../../../routes/routesPath'
+import PropTypes from 'prop-types'
+import { JOB_POST_ROUTE } from '../../../../routes/routesPath'
 
 const JobCategoryCard = ({
-  categoryName, jobs,
+  categoryTitle, jobs, required, hired, evaluating, pending,
 }) => (
   <div className='job-category-card'>
     <div className='section-heading display-inline-flex is-fullwidth'>
       <h3 className='h3'>
-        { categoryName }
+        { categoryTitle }
       </h3>
     </div>
 
     <div className='mt-10 mb-30'>
       {jobs.map(({
-        jobId, title, required, hired, evaluating, pending,
+        jobId, title,
       }) => (
         <>
           <div className='job-info list-divider' key={ jobId }>
             <div className='job-details is-fullwidth'>
-              <Link to={ ROUTE_PATHS.JOB_POST }>
+              <Link to={ `${ JOB_POST_ROUTE }/${ jobId }` }>
                 <h4 className='h4'>
                   { title }
                 </h4>
@@ -55,5 +54,18 @@ const JobCategoryCard = ({
   </div>
 )
 
-JobCategoryCard.propTypes = jobCategoryCardValidator
+JobCategoryCard.propTypes = {
+  categoryTitle: PropTypes.string.isRequired,
+  required: PropTypes.isRequired,
+  hired: PropTypes.isRequired,
+  evaluating: PropTypes.isRequired,
+  pending: PropTypes.isRequired,
+  jobs: PropTypes.arrayOf(
+    PropTypes.shape({
+      jobId: PropTypes.number,
+      title: PropTypes.string,
+    }),
+  ).isRequired,
+}
+
 export default JobCategoryCard

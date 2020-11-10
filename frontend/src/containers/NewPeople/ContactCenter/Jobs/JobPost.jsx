@@ -1,70 +1,85 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Avatar, Box, Button, Divider, Chip,
 } from '@material-ui/core'
 import Rating from '@material-ui/lab/Rating'
 import PropTypes from 'prop-types'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import _ from 'lodash'
 import {
   terry, sally, kareem, ray, helen,
 } from '../../../../assets/images/avatar'
 import './styles.scss'
 import ROUTE_PATHS from '../../../../routes/routesPath'
+import { newJobDetailsFetchStart } from '../../../../redux-saga/redux/actions'
+import { getTimeFromNow } from '../../../../utils/common'
 
 const JobPost = ({
-  jobPostHeading, createdAt, jobDescription,
-  payment, duration, jobType,
-  location, experienceLevel, needed,
-  skillsTags, courses,
+  jobId, skillsTags, courses,
 }) => {
   const [ visibleProfileTags, setVisibleProfileTags ] = useState(skillsTags.filter((tag, index) => index < 3))
+  const { jobDetails, success } = useSelector((state) => state.newJobDetails)
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(newJobDetailsFetchStart({ jobId }))
+  }, [ dispatch ])
 
   return (
     <>
       <Box className='custom-box job-post-root'>
         <div className='display-inline-flex is-fullwidth'>
           <h3 className='h3 job-post-heading'>
-            {jobPostHeading}
+            {jobDetails.title}
           </h3>
           <Button
             classes={ {
               root: 'button-secondary-small',
               label: 'button-secondary-small-label',
             } }
+            onClick={ () => dispatch(newJobDetailsFetchStart({ jobId })) }
           >
             Edit Post
           </Button>
         </div>
         <p className='para light'>
-          {createdAt}
+          Posted
+          {' '}
+          {getTimeFromNow(jobDetails.createdOn)}
         </p>
         <Divider className='divider' />
 
         <div className='job-post-description is-fullwidth display-inline-flex'>
           <h4 className='h4 margin-top-bottom-10 text-link'> Account Sales </h4>
-          <p className='para'>
-            {jobDescription}
-          </p>
+          <p className='para' dangerouslySetInnerHTML={ { __html: jobDetails.description } } />
         </div>
         <Divider className='divider' />
 
         <div className='display-inline-flex job-post-specifications is-fullwidth'>
           <div>
-            <h4 className='h4'>{payment}</h4>
+            <h4 className='h4'>
+              $
+              {jobDetails.payAmount}
+              /hr
+            </h4>
             <p className='para'>Payment</p>
-            <h4 className='h4 mt-20'>{duration}</h4>
+            <h4 className='h4 mt-20'>{_.capitalize(jobDetails.durationType)}</h4>
             <p className='para'>Duration</p>
           </div>
           <div>
-            <h4 className='h4'>{jobType}</h4>
+            <h4 className='h4'>{_.capitalize(jobDetails.jobType)}</h4>
             <p className='para'>Job Type</p>
-            <h4 className='h4 mt-20'>{location}</h4>
+            <h4 className='h4 mt-20'>{_.capitalize(jobDetails.locationType)}</h4>
             <p className='para'>Location</p>
           </div>
           <div>
-            <h4 className='h4'>{experienceLevel}</h4>
+            <h4 className='h4'>{_.capitalize(jobDetails.experienceType)}</h4>
             <p className='para'>Experience Level</p>
-            <h4 className='h4 mt-20'>{needed}</h4>
+            <h4 className='h4 mt-20'>
+              {jobDetails.needed}
+            </h4>
             <p className='para'>Needed</p>
           </div>
         </div>
@@ -366,15 +381,7 @@ const JobPost = ({
 }
 
 JobPost.propTypes = {
-  jobPostHeading: PropTypes.string.isRequired,
-  createdAt: PropTypes.string.isRequired,
-  jobDescription: PropTypes.string.isRequired,
-  payment: PropTypes.string.isRequired,
-  duration: PropTypes.string.isRequired,
-  jobType: PropTypes.string.isRequired,
-  location: PropTypes.string.isRequired,
-  experienceLevel: PropTypes.string.isRequired,
-  needed: PropTypes.string.isRequired,
+  jobId: PropTypes.number.isRequired,
   skillsTags: PropTypes.arrayOf(PropTypes.string).isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   courses: PropTypes.object.isRequired,
