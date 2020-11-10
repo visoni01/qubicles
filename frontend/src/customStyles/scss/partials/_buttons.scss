@@ -101,6 +101,11 @@
       color: $color-dark-grey;
     }
   }
+
+  // Set full height
+  &.is-fullheight {
+    height: 100%;
+  }
 }
 
 /* Button Label Styles

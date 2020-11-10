@@ -1,7 +1,5 @@
-@import '../../customStyles/scss/index.scss';
+@import '../../customStyles/scss/partials/variables';
 
-/* Styles for new designed invite popup
-==========================================================*/
 .snackbar-div {
   padding: 15px;
   background-color: green;
@@ -29,6 +27,16 @@
     }
   }
 
+  .share-button {
+    color: $color-white;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .popup-section {
     .popup-bg {
       background-color: $color-white;
@@ -42,156 +50,40 @@
         margin-bottom: 25px;
       }
 
-      .invite-text {
-        @extend .h2;
-
-        h2 {
-          padding: 30px 0 20px;
-          font-weight: bold;
-          text-align: center;
-          &:hover {
-            color: $color-headings;
-          }
-        }
-
-        .price {
-          color: $color-primary;
-        }
-      }
-
-      .invite-content {
-        @extend .para;
-        text-align: center !important;
-
-        p {
-          font-size: 12px;
-          font-family: 'Poppins', sans-serif;
-          color: $color-dark-grey;
-          letter-spacing: 1px;
-          padding: 10px 0 30px 0;
-        }
-
-        b {
-          color: $color-paragraph;
-          &:hover {
-            color: $color-paragraph;
-            text-decoration: none;
-          }
-        }
-
-
-      }
-
-      .email-section {
-        @extend .para;
-
-        p {
-          font-size: 18px;
-          margin-bottom: 10px;
-          font-weight: bold;
-          font-family: 'Poppins', sans-serif;
-        }
+      .price {
+        color: $color-primary;
       }
 
       .email-align {
         input {
-          width: calc(100% - 145px);
-          margin-right: 20px;
-          height: 44px;
-          padding-left: 15px;
-          border-radius: 6px;
-          border: 1px solid $color-border;
-          font-family: 'Poppins', sans-serif;
-        }
-
-        .send-button {
-          width: 120px;
-          padding: 10px 32px;
-          height:40px;
-        }
-      }
-
-      .or {
-        padding: 10px;
-        color: $color-dark-grey;
-        display: block;
-        text-align: -webkit-center;
-      }
-
-      .gmail-contact {
-        button {
-          width: 100%;
-          padding: 10px;
-          border-radius: 5px;
-          margin-bottom: 30px;
-          margin-top: 10px;
-        }
-
-        .mail-icon {
-          margin-right: 15px;
+          width: calc(100% - 98px);
         }
       }
 
       .share-links {
-        @extend .para;
-
-        text-align: center;
-
-        p {
-          color: $color-headings;
-          font-size: 12px;
-          letter-spacing: 1px;
-        }
-
-        ul {
           list-style: none;
           justify-content: center;
           padding-top: 10px;
 
           .fb {
+            @extend .share-button;
             background-color: #3b579d;
-            color: $color-white;
-            height: 40px;
-            width: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
           }
 
           .tw {
+            @extend .share-button;
             background-color: #00acee;
-            color: $color-white;
-            height: 40px;
-            width: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
           }
 
           .in {
+            @extend .share-button;
             background-color: #0e76a8;
-            color: $color-white;
-            height: 40px;
-            width: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
           }
 
           .link {
+            @extend .share-button;
             background-color: $color-primary;
-            color: $color-white;
-            height: 40px;
-            width: 40px;
             margin-top: 6px;
-            margin-left: 12px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
 
             .MuiIconButton-label {
               &:hover {
@@ -212,7 +104,6 @@
               }
             }
           }
-        }
       }
     }
   }

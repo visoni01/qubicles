@@ -1,4 +1,4 @@
-@import '../customStyles/scss/index.scss';
+@import '../customStyles/scss/partials/variables';
 
 .navbar-root {
   display: inline-block;
@@ -96,15 +96,4 @@
 
 .container-max-width {
   max-width: 1480px !important;
-}
-
-// Common CSS which will be placed in common scss file.
-
-.custom-fa-icon light {
-  color: #999999;
-    path {
-      &:hover {
-        color: #999999;
-      }
-    }
 }

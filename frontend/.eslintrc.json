@@ -32,7 +32,7 @@
     "no-multiple-empty-lines": [2, { "max": 1, "maxEOF": 0, "maxBOF": 0 }],
     "semi": [2, "never"],
     "max-len": [1, 120, 2, { "ignoreComments": true }],
-    "no-unused-vars": 0,
+    "no-unused-vars": 1,
 
     // strings
     "quotes": [2, "single", "avoid-escape"],

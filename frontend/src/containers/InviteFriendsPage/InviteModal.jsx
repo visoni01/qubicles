@@ -71,8 +71,8 @@ const InviteModal = ({
           <div className='popup-image'>
             <img src={ invitePopup } alt='popup' />
           </div>
-          <div className='invite-text '>
-            <h2>
+          <div>
+            <h2 className='h2 pt-30 pb-20 text-center'>
               Invite friends &amp; earn up to
               {' '}
               <span className='price'>$100</span>
@@ -80,21 +80,19 @@ const InviteModal = ({
               in free tokens
             </h2>
           </div>
-          <div className='invite-content '>
-            <p>
-              <b>Earn $5 for inviting friends, plus 1 QBE token ($1 each)</b>
-              {' '}
-              for every
-              person that signs up using your link, up to $100. Your friend
-              <br />
-              also receives $5 credit to use toward the service.
-            </p>
-          </div>
-          <div className='email-section'>
-            <p className>
+          <p className='para pt-10 pb-30 text-center'>
+            <b>Earn $5 for inviting friends, plus 1 QBE token ($1 each)</b>
+            {' '}
+            for every
+            person that signs up using your link, up to $100. Your friend
+            <br />
+            also receives $5 credit to use toward the service.
+          </p>
+          <div>
+            <p className='h3'>
               Add emails
             </p>
-            <div className='email-align'>
+            <div className='email-align mt-10'>
               {/* Manual Invite */}
               <input
                 value={ manualEmails }
@@ -102,37 +100,42 @@ const InviteModal = ({
                 type='text'
                 name
                 placeholder='Separate emails with commas'
+                className='custom-text-input-field mr-10'
               />
               <Button
                 variant='contained'
                 color='primary'
-                className='button-primary-small send-button'
-                classes={ { label: 'primary-label' } }
+                classes={ {
+                  label: 'MuiButton-label button-primary-small-label',
+                  root: 'MuiButtonBase-root button-primary-small is-fullheight',
+                } }
                 onClick={ handleManualEmails }
               >
                 Send
               </Button>
             </div>
-            <div className='or'>
+            <p className='para bold light pt-10 pb-10 text-center'>
               or
-            </div>
-            <div className='gmail-contact'>
+            </p>
+            <div>
               <Button
                 variant='contained'
-                className='button-secondary-large'
-                classes={ { label: 'secondary-label' } }
-                color='primary'
+                classes={ {
+                  label: 'MuiButton-label button-secondary-large-label',
+                  root: 'MuiButtonBase-root button-secondary-large wide-button',
+                } }
+                className='mt-10 mb-30'
                 onClick={ handleInviteWithGoogle }
               >
-                <FontAwesomeIcon icon={ faEnvelope } className='mail-icon ' />
+                <FontAwesomeIcon icon={ faEnvelope } className='mr-15' />
                 Invite Gmail Contacts
               </Button>
             </div>
-            <div className='share-links'>
-              <p className='mt-3 mb-0 '>
+            <div>
+              <p className='h4 mt-10 mb-10 text-center'>
                 Share link via social media
               </p>
-              <ul className='columns is-flex'>
+              <div className='columns is-flex share-links'>
 
                 {/* Facebook Share Button */}
                 <FacebookShareButton
@@ -169,7 +172,7 @@ const InviteModal = ({
                 <IconButton className='link'>
                   <FontAwesomeIcon className='clip-icon' icon={ faPaperclip } onClick={ handleCopyToClipboard } />
                 </IconButton>
-              </ul>
+              </div>
             </div>
           </div>
         </div>

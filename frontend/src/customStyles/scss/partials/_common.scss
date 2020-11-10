@@ -194,3 +194,13 @@
     }
   }
 }
+
+// Text input field
+.custom-text-input-field {
+  @extend .para;
+  border: 1px solid $color-border;
+  border-radius: 6px;
+  background: $color-white;
+  padding: 10px;
+  outline: none;
+}
