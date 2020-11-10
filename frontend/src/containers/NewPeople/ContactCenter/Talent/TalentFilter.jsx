@@ -1,10 +1,12 @@
 import React, { useState, useCallback } from 'react'
 import {
-  Box, Divider, FormControl, InputLabel,
-  Select, RadioGroup, FormControlLabel, Radio,
-  Checkbox, InputBase, TextareaAutosize,
+  Box, Divider, FormControl,
+  RadioGroup, FormControlLabel, Radio,
+  Checkbox, TextareaAutosize,
 } from '@material-ui/core'
 import { Rating } from '@material-ui/lab'
+
+import MultiSelectChipItems from '../../MultiSelectChipItems'
 
 const TalentFilter = () => {
   const verificationsInitial = {
@@ -13,8 +15,8 @@ const TalentFilter = () => {
     idVerified: false,
   }
 
-  const [ selectedSkill, setSkill ] = useState('')
-  const [ selectedLanguage, setLanguage ] = useState('')
+  const [ selectedSkill, setSkill ] = useState([])
+  const [ selectedLanguage, setLanguage ] = useState([])
   const [ selectedTalentType, setTalentType ] = useState('Any')
   const [ selectedHourlyRate, setHourlyRate ] = useState('Any')
   const [ selectedRating, setRating ] = useState('Any')
@@ -33,16 +35,21 @@ const TalentFilter = () => {
   // console.log('selectedLocation =====', selectedLocation)
 
   // Skills
-  const availableSkills = [ 'Customer Service', 'Phone Calling', 'Email Support', 'Active Sales', 'Agent Support' ]
-  const setSkillCB = useCallback((e) => {
-    setSkill(e.target.value)
-  }, [])
+  const availableSkills = [
+    { id: 1, title: 'Customer Service', subtitle: 'Manager at microcomp' },
+    { id: 2, title: 'Phone Calling', subtitle: 'Manager at Microteck' },
+    { id: 3, title: 'Email Support', subtitle: 'Manager at LG' },
+    { id: 4, title: 'Active Sales', subtitle: 'Manager at Good phones' },
+    { id: 5, title: 'Agent Support', subtitle: 'Manager at microcomp' },
+  ]
 
   // Languages
-  const availableLanguages = [ 'English', 'French', 'German', 'Chinese', 'Turkish' ]
-  const setLanguageCB = useCallback((e) => {
-    setLanguage(e.target.value)
-  }, [])
+  const availableLanguages = [
+    { id: 1, title: 'Hindi' },
+    { id: 2, title: 'English' },
+    { id: 3, title: 'French' },
+    { id: 4, title: 'German' },
+  ]
 
   // Talent Type
   const availableTalentTypes = [ 'Freelancer', 'Contract', 'Employee' ]
@@ -86,47 +93,26 @@ const TalentFilter = () => {
 
       <div className='filter-section'>
         <h4 className='h4 heading'> Skills </h4>
-        <div>
-          <FormControl variant='outlined' className='drop-down-bar talent-filter-dropdown'>
-            <InputLabel margin='dense' variant='outlined'>Choose required skills</InputLabel>
-            <Select
-              native
-              margin='dense'
-              variant='outlined'
-              label='Choose required skills'
-              onChange={ setSkillCB }
-            >
-              <option aria-label='None' value='' />
-              {availableSkills.map((skill) => (
-                <option key={ skill } value={ skill }>
-                  {skill}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
+        <div className='talent-filter-dropdown'>
+          <MultiSelectChipItems
+            items={ availableSkills }
+            label='Choose Required Skills'
+            selectedItems={ selectedSkill }
+            setSelectedItems={ setSkill }
+            smallTag
+          />
         </div>
       </div>
-
       <div className='filter-section'>
         <h4 className='h4 heading'> Languages </h4>
-        <div>
-          <FormControl variant='outlined' className='drop-down-bar talent-filter-dropdown'>
-            <InputLabel margin='dense' variant='outlined'>Choose required languages</InputLabel>
-            <Select
-              native
-              margin='dense'
-              variant='outlined'
-              label='Choose required languages'
-              onChange={ setLanguageCB }
-            >
-              <option aria-label='None' value='' />
-              {availableLanguages.map((language) => (
-                <option key={ language } value={ language }>
-                  {language}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
+        <div className='talent-filter-dropdown'>
+          <MultiSelectChipItems
+            items={ availableLanguages }
+            label='Choose Languages'
+            selectedItems={ selectedLanguage }
+            setSelectedItems={ setLanguage }
+            smallTag
+          />
         </div>
       </div>
 
