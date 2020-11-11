@@ -25,16 +25,12 @@ const {
       ...initialState,
       isLoading: true,
     }),
-    newJobDetailsFetchSuccessful: (state, action) => {
-      console.log('action.payload ', action.payload, state)
-      return ({
-        ...state,
-        success: true,
-        isLoading: false,
-        jobDetails: getDataForReducer(action, initialState.jobDetails, 'jobDetails'),
-        // jobDetails: action.payload,
-      })
-    },
+    newJobDetailsFetchSuccessful: (state, action) => ({
+      ...state,
+      success: true,
+      isLoading: false,
+      jobDetails: getDataForReducer(action, initialState.jobDetails, 'jobDetails'),
+    }),
     newJobDetailsFetchFailure: (state, action) => ({
       ...state,
       error: true,

@@ -1,6 +1,6 @@
 import { takeEvery, put } from 'redux-saga/effects'
 import {
-  newJobDetailsFetchStart, jobDetailsFetchSuccessful, newUpdateJobsFields, newJobDetailsFetchSuccessful,
+  newJobDetailsFetchStart, newUpdateJobsFields, newJobDetailsFetchSuccessful,
 } from '../../redux/actions'
 import { NEW_JOB_FIELDS } from '../../redux/constants'
 import { showErrorMessage } from '../../redux/snackbar'
@@ -22,30 +22,27 @@ function* jobDetailsWorker(action) {
         const { jobId } = action.payload
         const reponse = yield People.getJobById(jobId)
         const { data } = reponse
-        console.log('data in job saga =====>>>>>', data)
         if (data) {
           yield put(newJobDetailsFetchSuccessful({
             jobDetails: {
-              jobId: data.job_id,
-              title: data.title,
-              description: data.description,
-              categoryId: data.category_id,
-              positionId: data.position_id,
-              jobType: data.job_type,
-              employmentType: data.employment_type,
-              durationType: data.duration_type,
-              experienceType: data.experience_type,
-              locationType: data.location_type,
-              payAmount: data.pay_amount,
-              city: data.city,
-              state: data.state,
-              country: data.country,
-              needed: data.needed,
-              bonusCourses: data.bonus_courses,
-              bonusSkills: data.bonus_skills,
-              requiredCourses: data.required_courses,
-              requiredSkills: data.required_skills,
-              createdOn: data.created_on,
+              jobId: data.jobDetails.job_id,
+              title: data.jobDetails.title,
+              description: data.jobDetails.description,
+              categoryId: data.jobDetails.category_id,
+              jobType: data.jobDetails.job_type,
+              employmentType: data.jobDetails.employment_type,
+              durationType: data.jobDetails.duration_type,
+              experienceType: data.jobDetails.experience_type,
+              locationType: data.jobDetails.location_type,
+              payAmount: data.jobDetails.pay_amount,
+              city: data.jobDetails.city,
+              state: data.jobDetails.state,
+              country: data.jobDetails.country,
+              needed: data.jobDetails.needed,
+              fulfilled: data.jobDetails.fulfilled,
+              createdOn: data.jobDetails.created_on,
+              jobSkillsData: data.jobSkillsData,
+              jobCoursesData: data.jobCoursesData,
             },
           }))
         }

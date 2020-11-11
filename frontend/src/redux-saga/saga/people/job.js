@@ -13,7 +13,6 @@ function* jobDetailsWorker(action) {
     switch (action.type) {
       case JOB_FIELDS: {
         const { data } = yield People.getJobCategoriesAndTitles()
-        console.log('data in job saga======>>>>', data)
         yield put(updateJobsFields({ jobFields: data }))
         break
       }

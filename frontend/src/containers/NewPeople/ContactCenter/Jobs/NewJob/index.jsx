@@ -16,10 +16,6 @@ const NewJob = () => {
     needed: '',
     title: '',
     description: '',
-    requiredSkills: '',
-    requiredCourses: '',
-    bonusCourses: '',
-    bonusSkills: '',
     jobType: 'contract',
     payAmount: '',
     durationType: 'ondemand',
@@ -32,7 +28,6 @@ const NewJob = () => {
   const [ newJobData, setNewJobData ] = useState(initialJobDetails)
   const setNewJobDataCB = useCallback((event) => {
     const { name, value } = event.target
-    // console.log('name, value ====>>>>', name, value)
     setNewJobData((currentNewJobData) => ({
       ...currentNewJobData,
       [ name ]: value,
@@ -57,8 +52,7 @@ const NewJob = () => {
         </Grid>
         <Grid item>
           <NewJobRequirements
-            newJobData={ newJobData }
-            setNewJobDataCB={ setNewJobDataCB }
+            setNewJobData={ setNewJobData }
             jobFields={ jobFields }
           />
         </Grid>

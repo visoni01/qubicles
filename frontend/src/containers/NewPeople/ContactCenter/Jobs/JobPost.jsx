@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+/* eslint-disable consistent-return */
+import React, { useEffect } from 'react'
 import {
   Avatar, Box, Button, Divider, Chip,
 } from '@material-ui/core'
@@ -16,13 +17,10 @@ import { newJobDetailsFetchStart } from '../../../../redux-saga/redux/actions'
 import { getTimeFromNow } from '../../../../utils/common'
 
 const JobPost = ({
-  jobId, skillsTags, courses,
+  jobId, courses,
 }) => {
-  const [ visibleProfileTags, setVisibleProfileTags ] = useState(skillsTags.filter((tag, index) => index < 3))
-  const { jobDetails, success } = useSelector((state) => state.newJobDetails)
-
+  const { jobDetails } = useSelector((state) => state.newJobDetails)
   const dispatch = useDispatch()
-
   useEffect(() => {
     dispatch(newJobDetailsFetchStart({ jobId }))
   }, [ dispatch ])
@@ -78,6 +76,7 @@ const JobPost = ({
             <h4 className='h4'>{_.capitalize(jobDetails.experienceType)}</h4>
             <p className='para'>Experience Level</p>
             <h4 className='h4 mt-20'>
+              {jobDetails.fulfilled}
               {jobDetails.needed}
             </h4>
             <p className='para'>Needed</p>
@@ -87,11 +86,17 @@ const JobPost = ({
         <div>
           <h3 className='h3 mt-10'> Required Skills</h3>
           <div className='tags-set mb-20'>
-            {visibleProfileTags.map((tag) => <Chip key={ tag } label={ tag } className='tag-chip' />)}
+            { jobDetails.jobSkillsData
+              && jobDetails.jobSkillsData.map((tag) => {
+                if (tag.skill_preference === 'required') { return (<Chip key={ tag.job_skill_id } label={ tag[ 'XQodSkill.skill_name' ] } className='tag-chip' />) }
+              })}
           </div>
           <h3 className='h3 mt-10'> Bonus Skills</h3>
           <div className='tags-set mb-20'>
-            {[ 'Customer Service' ].map((tag) => <Chip key={ tag } label={ tag } className='tag-chip' />)}
+            { jobDetails.jobSkillsData
+              && jobDetails.jobSkillsData.map((tag) => {
+                if (tag.skill_preference === 'plus') { return (<Chip key={ tag.job_skill_id } label={ tag[ 'XQodSkill.skill_name' ] } className='tag-chip' />) }
+              })}
           </div>
         </div>
         <div className='display-inline-flex course-section is-fullwidth'>
@@ -382,7 +387,6 @@ const JobPost = ({
 
 JobPost.propTypes = {
   jobId: PropTypes.number.isRequired,
-  skillsTags: PropTypes.arrayOf(PropTypes.string).isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   courses: PropTypes.object.isRequired,
 }

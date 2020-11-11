@@ -9,7 +9,6 @@ export default function NewJobActions({
 }) {
   const dispatch = useDispatch()
   const addNewJob = () => {
-    // console.log('newJobData in action', newJobData)
     dispatch(addJob({
       ...newJobData,
       status: 'draft',
