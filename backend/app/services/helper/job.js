@@ -3,7 +3,10 @@ import {
   XQodApplication,
   XQodCategory,
   XQodJobTitle,
-  XQodSkill
+  XQodSkill,
+  XQodJobSkill,
+  XQodJobCourse
+
 } from '../../db/models'
 import { Op } from 'sequelize'
 import { createNewEntity, getAll, aggregate, updateEntity } from '../helper'
@@ -45,6 +48,39 @@ export async function addJob (data) {
     model: XQodJob,
     data
   })
+  // Adding skills and courses data for newly added job.
+  const requiredCoursesEntities = data.required_courses.map(courseId => {
+    return ({
+      job_id: newJob.job_id,
+      course_id: courseId,
+      course_preference: 'required'
+    })
+  })
+  await XQodJobCourse.bulkCreate(requiredCoursesEntities)
+  const bonusCoursesEntities = data.bonus_courses.map(courseId => {
+    return ({
+      job_id: newJob.job_id,
+      course_id: courseId,
+      course_preference: 'plus'
+    })
+  })
+  await XQodJobCourse.bulkCreate(bonusCoursesEntities)
+  const requiredSkillsEntities = data.required_skills.map(skillId => {
+    return ({
+      job_id: newJob.job_id,
+      skill_id: skillId,
+      skill_preference: 'required'
+    })
+  })
+  await XQodJobSkill.bulkCreate(requiredSkillsEntities)
+  const bonusSkillsEntities = data.bonus_skills.map(skillId => {
+    return ({
+      job_id: newJob.job_id,
+      skill_id: skillId,
+      skill_preference: 'plus'
+    })
+  })
+  await XQodJobSkill.bulkCreate(bonusSkillsEntities)
   return newJob
 }
 
@@ -148,6 +184,25 @@ export async function getJobById ({ job_id }) {
   return jobDetails
 }
 
+export async function getSkillsByJobId ({ job_id }) {
+  const jobSKillsData = await XQodJobSkill.findAll({
+    include: [{
+      model: XQodSkill,
+      attributes: ['skill_name']
+    }],
+    where: {
+      job_id
+    },
+    raw: true
+  })
+  return jobSKillsData
+}
+
+export async function getCoursesByJobId ({ job_id }) {
+  const jobCourses = await XQodJobCourse.findAll({ where: { job_id }, raw: true })
+  return jobCourses
+}
+
 export async function getJobApplicationById ({ application_id }) {
   const jobApplicationDetails = await XQodApplication.findOne({ where: { application_id } })
   return jobApplicationDetails
@@ -186,6 +241,11 @@ export async function getJobTitles () {
 export async function getSkills () {
   const skills = await XQodSkill.findAll({ raw: true })
   return skills
+}
+
+export async function getSkillBySkillId ({ skill_id }) {
+  const skill = await XQodSkill.findOne({ where: { skill_id }, raw: true })
+  return skill
 }
 
 export async function getXQodApplications (queryObj) {

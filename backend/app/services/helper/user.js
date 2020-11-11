@@ -1,4 +1,4 @@
-import { User, XClientUser, UserDetail } from '../../db/models'
+import { User, XClientUser, UserDetail, XClient } from '../../db/models'
 import config from '../../../config/app'
 import jwt from 'jsonwebtoken'
 import { getOne } from './crud'
@@ -13,6 +13,13 @@ export const getClientIdByUserId = ({ user_id }) => {
 
 export const getClientUsers = ({ client_id }) => {
   return XClientUser.findAll({
+    where: { client_id },
+    raw: true
+  })
+}
+
+export const getClientData = ({ client_id }) => {
+  return XClient.findOne({
     where: { client_id },
     raw: true
   })

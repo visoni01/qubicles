@@ -1,7 +1,7 @@
 import ServiceBase from '../../common/serviceBase'
 import { ERRORS } from '../../utils/errors'
 import logger from '../../common/logger'
-import { getErrorMessageForService, addJob, getClientIdByUserId, getClientUsers } from '../helper'
+import { getErrorMessageForService, addJob, getClientIdByUserId, getClientData } from '../helper'
 
 const constraints = {
   user_id: {
@@ -60,7 +60,7 @@ export default class PeopleAddNewJobService extends ServiceBase {
     try {
       const { user_id, ...payload } = this.filteredArgs
       const { client_id } = await getClientIdByUserId({ user_id: this.user_id })
-      const { city, state } = await getClientUsers({ client_id })
+      const { city, state } = await getClientData({ client_id })
       const newJob = await addJob({ client_id, user_id, city, state, ...payload })
       return newJob
     } catch (err) {
