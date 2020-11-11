@@ -10,7 +10,6 @@ import AddNewJobService from '../services/newJob/create'
 
 export default class JobController {
   static async getJobsByCategory (req, res) {
-    console.log('getJobsByCategory in controller', { ...req.body })
     const jobs = await JobsByCategoryService.execute({ ...req.body, ...req.query })
     if (jobs.successful) {
       Responder.success(res, jobs.result)
