@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true
     },
     job_id: DataTypes.INTEGER(11),
-    skill_id: DataTypes.INTEGER(11),
     skill_preference: {
       type: DataTypes.ENUM,
       values: ['required', 'optional', 'plus']
@@ -23,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'x_qod_job_skills'
   })
   XQodJobSkill.associate = function (models) {
+    XQodJobSkill.belongsTo(models.XQodSkill, { foreignKey: 'skill_id' })
   }
   return XQodJobSkill
 }
