@@ -70,7 +70,7 @@ const routes = [
   },
   {
     path: ROUTE_PATHS.GROUP,
-    component: React.lazy(() => import('../containers/Groups')),
+    component: React.lazy(() => import('../containers/Forum')),
     auth: true,
   },
   {

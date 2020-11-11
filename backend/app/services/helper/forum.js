@@ -93,13 +93,22 @@ export async function getForumGroupTopics ({ user_id, group_id, limit, offset })
   })
 
   rows = await Promise.all(rows.map(async ({ owner_id, topic_id, topic_title, topic_description, views, createdAt }) => {
-    const commentsCount = await XUserActivity.count({
+    const counts = await XUserActivity.findAll({
       where: {
         record_type: 'topic',
         record_id: topic_id,
-        activity_type: 'comment'
-      }
+        is_deleted: false
+      },
+      attributes: [
+        [sequelize.fn('sum', { activity_type: 'like', user_id: owner_id }), 'isUserLiked'],
+        [sequelize.fn('sum', { activity_type: 'comment' }), 'commentsCount'],
+        [sequelize.fn('sum', { activity_type: 'like' }), 'likesCount']
+      ],
+      raw: true
     })
+
+    const { commentsCount, likesCount, isUserLiked } = counts && counts[0]
+
     ownerIds.push(owner_id)
     return ({
       id: topic_id,
@@ -108,7 +117,9 @@ export async function getForumGroupTopics ({ user_id, group_id, limit, offset })
       ownerId: owner_id,
       createdAt,
       views,
-      commentsCount
+      commentsCount: commentsCount || 0,
+      likesCount: likesCount || 0,
+      isTopicLiked: isUserLiked || 0
     })
   }))
 
@@ -204,4 +215,52 @@ export async function createForumComment ({ topic_id, comment, user_id }) {
   })
 
   return newComment
+}
+
+export async function topicActivity ({ topic_id, user_id, activity }) {
+  let response
+  response = await XUserActivity.findOrCreate({
+    where: {
+      user_id,
+      record_type: 'topic',
+      record_id: topic_id,
+      activity_type: 'like'
+    },
+    defaults: {
+      user_id,
+      record_type: 'topic',
+      record_id: topic_id,
+      activity_type: 'like',
+      is_deleted: 0
+    },
+    raw: true
+  })
+  switch (activity) {
+    case 'like': {
+      if (response[0] && response[0].is_deleted) {
+        response = await XUserActivity.update({
+          is_deleted: 0
+        }, {
+          where: {
+            user_activity_id: response[0].user_activity_id
+          }
+        })
+      }
+      break
+    }
+    case 'unlike': {
+      response = await XUserActivity.update({
+        is_deleted: 1
+      }, {
+        where: {
+          user_activity_id: response[0].user_activity_id
+        }
+      })
+      break
+    }
+    default:
+      break
+  }
+
+  return response
 }

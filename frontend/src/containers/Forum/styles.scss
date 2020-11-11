@@ -1,4 +1,4 @@
-@import '../../customStyles/scss/index.scss';
+@import '../../customStyles/scss/partials/variables';
 
 .section-stats {
   ul {
@@ -7,7 +7,6 @@
     padding: 0px 2px;
     margin-top: 7px;
     li {
-      @extend .para;
       margin-right: 10%;
       display: flex;
       color: $color-dark-grey;
@@ -38,12 +37,7 @@
     width: 100%;
     justify-content: space-between;
     padding: 0 16px;
-
-      .add-icon {
-        font-size: 18px;
-        color: #444F5F;
-      }
-    }
+  }
 
   .group-item {
     padding: 10px 20px
@@ -58,43 +52,21 @@
   }
 }
 
-.group-name {
-  font-size: 14px;
-  font-family: poppins;
-  color: #444F5F;
-  text-align: left;
-}
-
 .trending-topic-root{
   @extend .section-stats;
   .topic-info {
     display: flex;
-
     .avatar-logo {
       width: 30px;
       height: 30px;
     }
-    .group-name {
-      color: $color-dark-grey;
-    }
-    p {
-      @extend .para;
-      margin: auto 5px;
-    }
     svg {
-      font-size: 12px;
       vertical-align: text-bottom;
-      color: $color-paragraph;
     }
   }
   p {
-    @extend .para;
     padding: 6px 2px;
   }
-    li {
-      @extend .para;
-      color: $color-dark-grey;
-    }
   .divider {
     width: 100%;
     margin: 10px 0;
@@ -112,81 +84,11 @@
    }
 }
 
-.search-topic-bar {
-  margin-bottom: 20px;
-   .search-input {
-      width: calc(100% - 110px);
-      padding: 2px 0;
-      margin-right: 10px;
-
-      .search-field {
-        font: normal normal normal 14px/25px SF Pro Text;
-        text-align: left;
-        letter-spacing: 0px;
-        color: $color-dark-grey;
-      }
-   }
-   .new-topic-button {
-    height: 100%;
-    width: 100px;
-   }
-}
-
-.topic-info {
-  @extend .section-stats;
-  .action-buttons {
-    width: 100%;
-    padding: 10px 0;
-  }
-}
-
 .topics-pagination {
   height: 32px;
   margin: 30px 0 10px;
   ul {
     float: right;
-  }
-}
-
-.load-more-comment {
-  padding: 0;
-  background: white;
-  width: 100%;
-  span {
-    color: $color-primary-dark;
-    text-decoration: underline;
-  }
-}
-
-// Topic's Details section
-
-.topic-details-box {
-  .topic-owner {
-    p {
-      font-size: 14px;
-      margin: auto 5px;
-    }
-    .owner-name {
-      font-weight: 500;
-      color: #444F5F;
-    }
-    .topic-create-date {
-      color: #999999;
-    }
-  }
-  .topic-title {
-    font-size: 24px;
-    font-weight: 600;
-    color: #444F5F;
-    margin: 10px 0;
-  }
-  .topic-description {
-    font-size: 14px;
-    color: #4A4A4A;
-  }
-  .action-buttons{
-    @extend .section-stats;
-    margin-top: 20px;
   }
 }
 
@@ -272,71 +174,15 @@
 
 .post-comment-button {
   margin-top: 10px;
-  margin-left: calc(100% - 86px);
+  margin-left: calc(100% - 86px) !important;
 }
 
-.comments-list{
-  h3 {
-    font-size: 18px;
-    color: #444F5F;
-    font-family: 'Poppins', sans-serif;
-    font-weight: bold;
-    padding-bottom: 10px;
-  }
-  .commentor-info{
-    margin: 20px 0;
-    .commentor-name {
-      font-weight: 500;
-      color: #444F5F;
-      font-size: 12px;
-    }
-    .comment-date {
-      font-size: 12px;
-      color: #999999;
-    }
-    .comment-description {
-      font-size: 14px;
-      color: #4A4A4A;
-    }
-  }
+.topic-name-button {
+  min-width: min-content;
 }
 
-  .topic-name-button {
-    min-width: min-content;
-  }
-
-// ============== Common css ======================
-
-.margin-auto {
-  margin: auto;
-}
-
-.display-inline-flex {
-  display: inline-flex;
-}
-
-.width-100-per {
-  width: 100%;
-}
-
-.mt-10 {
-  margin-top: 10px;
-}
-
-.mb-10{
-  margin-bottom: 10px;
-}
-
-.mb-20{
-  margin-bottom: 20px;
-}
-
-.mb-30{
-  margin-bottom: 30px;
-}
-
-.size-14{
-  font-size: 14px;
+.margin-auto-5 {
+  margin: auto 5px;
 }
 
 .primary-input-field {
@@ -351,10 +197,6 @@
   outline: none;
 }
 
-.is-display-block {
-  display: block;
-}
-
 .is-max-width-100 {
   max-width: 100%;
 }
@@ -363,22 +205,8 @@
   float: right;
 }
 
-.primary-box {
-  background: #FFFFFF 0% 0% no-repeat padding-box;
-  border: 1px solid #DBDBDB;
-  border-radius: 8px;
-  opacity: 1;
-}
-
 .padding-20 {
   padding: 20px;
-}
-
-.date {
-  font: normal normal normal 14px/25px SF Pro Text;
-  letter-spacing: 0px;
-  color: #999999;
-  opacity: 1;
 }
 
 .background-none-hover {
@@ -387,14 +215,16 @@
   }
 }
 
-.text-align-center {
-  text-align: center;
-}
-
-.no-padding {
-  padding: 0
-}
-
 .text-align-left {
   text-align: left;
+}
+
+.liked-icon {
+  path{
+    color: $color-red;
+    stroke: $color-red;
+    &:hover {
+      color: $color-red;
+    }
+  }
 }

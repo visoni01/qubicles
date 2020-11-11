@@ -11,8 +11,8 @@ import {
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
-import { postTopicComment } from '../../redux-saga/redux/actions'
-import { carolin } from '../../assets/images/avatar/index'
+import { postTopicComment } from '../../../redux-saga/redux/actions'
+import { carolin } from '../../../assets/images/avatar/index'
 
 const PostComment = ({ topicId }) => {
   const [ comment, setComment ] = useState('')
@@ -51,7 +51,7 @@ const PostComment = ({ topicId }) => {
   }
 
   return (
-    <Box className='primary-box padding-20 mb-20'>
+    <Box className='custom-box mb-20'>
       <div className='textarea-input'>
         <Avatar className='avatar' src={ carolin } />
         <div className='comment-content'>

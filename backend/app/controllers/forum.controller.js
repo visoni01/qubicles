@@ -9,8 +9,9 @@ import {
   ForumCreateTopicService,
   ForumGetTopicCommentsService,
   ForumCreateCommentService,
-  ImageUploadService
-} from '../services/newForum'
+  ImageUploadService,
+  ForumTopicActivity
+} from '../services/forum'
 
 export default class ForumController {
   static async createGroup (req, res) {
@@ -91,6 +92,15 @@ export default class ForumController {
       Responder.success(res, forumCreateCommentResult.result)
     } else {
       Responder.failed(res, forumCreateCommentResult.errors)
+    }
+  }
+
+  static async topicActivity (req, res) {
+    const forumTopicActivity = await ForumTopicActivity.execute({ ...req.body, ...req.params })
+    if (forumTopicActivity.successful) {
+      Responder.success(res, forumTopicActivity.result)
+    } else {
+      Responder.failed(res, forumTopicActivity.errors)
     }
   }
 

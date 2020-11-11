@@ -10,16 +10,16 @@ import {
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import moment from 'moment'
-import GroupsList from './groups'
-import TrendingTopics from './trendingTopics'
-import { carolin } from '../../assets/images/avatar/index'
-import { groupTopicsFetchingStart, addNewGroupTopic, updateGroupTopicsList } from '../../redux-saga/redux/actions'
-import NewTopicForm from './newTopic'
-import { formatDate } from '../../utils/common'
-import SelectedTopic from './topic'
-import { UPDATE_TOPIC_STATS } from '../../redux-saga/redux/constants'
-import TopicsList from './topicsList'
-import ScrollToTop from '../../components/ScrollToTop'
+import GroupsList from './list'
+import TrendingTopics from '../trendingTopics'
+import { carolin } from '../../../assets/images/avatar/index'
+import { groupTopicsFetchingStart, addNewGroupTopic, updateGroupTopicsList } from '../../../redux-saga/redux/actions'
+import NewTopicForm from '../topics/newTopic'
+import { formatDate } from '../../../utils/common'
+import SelectedTopic from '../topics/topic'
+import { UPDATE_TOPIC_STATS } from '../../../redux-saga/redux/constants'
+import TopicsList from '../topics/list'
+import ScrollToTop from '../../../components/ScrollToTop'
 
 const SelectedGroup = ({ group }) => {
   const { id, title, description } = group
@@ -70,8 +70,8 @@ const SelectedGroup = ({ group }) => {
   return (
     <>
       <div>
-        <Box className='primary-box padding-20 mb-20'>
-          <div className='section-heading display-inline-flex width-100-per'>
+        <Box className='custom-box padding-20 mb-20'>
+          <div className='section-heading display-inline-flex is-fullwidth'>
             <h3 className='h3'>
               {title}
             </h3>
@@ -83,8 +83,8 @@ const SelectedGroup = ({ group }) => {
             {description}
           </p>
         </Box>
-        <div className='display-inline-flex width-100-per search-topic-bar'>
-          <div className='search-input primary-box'>
+        <div className='display-inline-flex is-fullwidth mb-20'>
+          <div className='search-input mr-10'>
             <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 custom-fa-icon light' />
             <InputBase
               placeholder='Search'
@@ -92,7 +92,7 @@ const SelectedGroup = ({ group }) => {
             />
           </div>
           <Button
-            className='new-topic-button'
+            className='is-fullheight'
             classes={ {
               label: 'MuiButton-label button-primary-small-label',
               root: 'MuiButtonBase-root button-primary-small',

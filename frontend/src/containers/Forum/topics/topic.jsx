@@ -9,10 +9,10 @@ import {
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
-import { carolin } from '../../assets/images/avatar/index'
-import { topicCommentsFetchingStart } from '../../redux-saga/redux/actions'
-import PostComment from './postComment'
-import Comments from './comments'
+import { carolin } from '../../../assets/images/avatar/index'
+import { topicCommentsFetchingStart } from '../../../redux-saga/redux/actions'
+import PostComment from '../comments/postComment'
+import Comments from '../comments/list'
 
 const SelectedTopic = ({ backToGroup, topicDetails, groupTitle }) => {
   const dispatch = useDispatch()
@@ -20,7 +20,7 @@ const SelectedTopic = ({ backToGroup, topicDetails, groupTitle }) => {
 
   return (
     <>
-      <Box className='primary-box padding-20 mb-20 topic-details-box'>
+      <Box className='custom-box mb-20'>
         <div className='mb-20'>
           <Button
             classes={ {
@@ -33,32 +33,37 @@ const SelectedTopic = ({ backToGroup, topicDetails, groupTitle }) => {
             {groupTitle}
           </Button>
         </div>
-        <div className='display-inline-flex width-100-per topic-owner'>
+        <div className='display-inline-flex is-fullwidth topic-owner'>
           <Avatar className='mr-10' src={ carolin } />
-          <p className='owner-name'>
+          <p className='para bold margin-auto-5'>
             {topicDetails.ownerName}
           </p>
-          <p className='topic-create-date'>
+          <p className='para light margin-auto-5'>
             {moment(topicDetails.createdAt).format('MMMM DD YY hh:mm a')}
           </p>
         </div>
-        <h3 className='topic-title'>
+        <h3 className='h2 mb-20 mt-10'>
           {topicDetails.title}
         </h3>
-        <p className='topic-description' dangerouslySetInnerHTML={ { __html: topicDetails.description } } />
-        <div className='action-buttons'>
-          <ul className='display-inline-flex action-buttons width-100-per'>
-            <li>
-              <FontAwesomeIcon icon={ faHeart } />
-              274 Likes
+        <p className='para' dangerouslySetInnerHTML={ { __html: topicDetails.description } } />
+        <div className='section-stats mt-20'>
+          <ul className='display-inline-flex is-fullwidth'>
+            <li className='para'>
+              <FontAwesomeIcon
+                icon={ faHeart }
+                className={ topicDetails.isTopicLiked ? 'liked-icon' : '' }
+              />
+              {topicDetails.likesCount}
+              {' '}
+              Likes
             </li>
-            <li>
+            <li className='para'>
               <FontAwesomeIcon icon={ faComment } />
               {topicDetails.commentsCount}
               {' '}
               Comments
             </li>
-            <li>
+            <li className='para'>
               <FontAwesomeIcon icon={ faEye } />
               {topicDetails.views}
               {' '}
