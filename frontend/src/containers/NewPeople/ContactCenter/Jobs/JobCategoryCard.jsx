@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import { JOB_POST_ROUTE } from '../../../../routes/routesPath'
 
 const JobCategoryCard = ({
-  categoryTitle, jobs, required, hired, evaluating, pending,
+  categoryTitle, jobs, needed, fulfilled, evaluating, pending,
 }) => (
   <div className='job-category-card'>
     <div className='section-heading display-inline-flex is-fullwidth'>
@@ -31,7 +31,7 @@ const JobCategoryCard = ({
                 <ul className='action-buttons display-inline-flex justify-between'>
                   <li>
                     <FontAwesomeIcon className='custom-fa-icon light' icon={ faUserFriends } />
-                    <span className='para bold'>{`${ hired }/${ required }`}</span>
+                    <span className='para bold'>{`${ fulfilled }/${ needed }`}</span>
                     <span className='para light ml-5'>Hired</span>
                   </li>
                   <li>
@@ -56,8 +56,8 @@ const JobCategoryCard = ({
 
 JobCategoryCard.propTypes = {
   categoryTitle: PropTypes.string.isRequired,
-  required: PropTypes.isRequired,
-  hired: PropTypes.isRequired,
+  needed: PropTypes.isRequired,
+  fulfilled: PropTypes.isRequired,
   evaluating: PropTypes.isRequired,
   pending: PropTypes.isRequired,
   jobs: PropTypes.arrayOf(

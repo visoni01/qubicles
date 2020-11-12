@@ -284,9 +284,11 @@ export async function getFilteredJobs ({ jobsByCategory }) {
       jobId: job.job_id,
       ownerId: job.user_id,
       categoryId: job.category_id,
-      notifications: 23,
+      needed: job.needed,
+      fulfilled: job.fulfilled,
       title: job.title,
       description: job.description,
+      evaluating: 4,
       noOfApplications
     })
   }

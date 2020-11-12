@@ -16,16 +16,20 @@ const NewJob = () => {
     needed: '',
     title: '',
     description: '',
+    status: 'recruiting',
     jobType: 'contract',
     payAmount: '',
-    durationType: 'ondemand',
-    experienceType: 'entrylevel',
+    durationType: 'on-demand',
+    durationMonths: 0,
+    experienceType: 'entry',
     languages: 'english',
   }
 
   const dispatch = useDispatch()
   const { jobFields, success } = useSelector((state) => state.newJobDetails)
   const [ newJobData, setNewJobData ] = useState(initialJobDetails)
+
+  // Setting jobData
   const setNewJobDataCB = useCallback((event) => {
     const { name, value } = event.target
     setNewJobData((currentNewJobData) => ({
@@ -44,7 +48,6 @@ const NewJob = () => {
       <Grid container item xl={ 9 } lg={ 9 } md={ 9 } sm={ 8 } spacing={ 3 } direction='column'>
         <Grid item>
           <NewJobData
-            newJobData={ newJobData }
             setNewJobData={ setNewJobData }
             jobFields={ jobFields }
             setNewJobDataCB={ setNewJobDataCB }

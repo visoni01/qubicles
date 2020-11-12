@@ -8,11 +8,15 @@ export default function NewJobActions({
   newJobData,
 }) {
   const dispatch = useDispatch()
-  const addNewJob = () => {
+  const saveDraft = () => {
     dispatch(addJob({
       ...newJobData,
       status: 'draft',
     }))
+  }
+
+  const publishJob = () => {
+    dispatch(addJob(newJobData))
   }
 
   return (
@@ -26,7 +30,9 @@ export default function NewJobActions({
             root: 'button-primary-small',
             label: 'button-primary-small-label',
           } }
+          onClick={ publishJob }
         >
+          >
           Publish
         </Button>
         <Button
@@ -35,7 +41,7 @@ export default function NewJobActions({
             root: 'button-secondary-small',
             label: 'button-secondary-small-label',
           } }
-          onClick={ addNewJob }
+          onClick={ saveDraft }
         >
           Save Draft
         </Button>

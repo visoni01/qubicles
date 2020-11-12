@@ -23,6 +23,7 @@ const JobsPage = () => {
     setSearchField(nextValue)
     callSearchApi(nextValue)
   }, [ callSearchApi ])
+
   return (
     <>
       <div className='display-inline-flex is-fullwidth mt-10 search-bar-people'>
@@ -55,7 +56,8 @@ const JobsPage = () => {
               key={ jobCategory.categoryId }
               categoryTitle={ jobCategory.categoryTitle }
               jobs={ jobCategory.jobs }
-              required={ 5 }
+              needed={ 10 }
+              fulfilled={ 0 }
               hired={ 2 }
               evaluating={ 2 }
               pending={ 0 }

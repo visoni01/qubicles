@@ -63,7 +63,11 @@ const JobPost = ({
               /hr
             </h4>
             <p className='para'>Payment</p>
-            <h4 className='h4 mt-20'>{_.capitalize(jobDetails.durationType)}</h4>
+            <h4 className='h4 mt-20'>
+              {jobDetails.durationMonths === 0 ? null : jobDetails.durationMonths }
+              {' '}
+              {_.capitalize(jobDetails.durationType)}
+            </h4>
             <p className='para'>Duration</p>
           </div>
           <div>
@@ -87,16 +91,20 @@ const JobPost = ({
           <h3 className='h3 mt-10'> Required Skills</h3>
           <div className='tags-set mb-20'>
             { jobDetails.jobSkillsData
-              && jobDetails.jobSkillsData.map((tag) => {
-                if (tag.skill_preference === 'required') { return (<Chip key={ tag.job_skill_id } label={ tag[ 'XQodSkill.skill_name' ] } className='tag-chip' />) }
-              })}
+              && jobDetails.jobSkillsData.map((tag) => (
+                (tag.skill_preference === 'required')
+                  ? (<Chip key={ tag.job_skill_id } label={ tag[ 'XQodSkill.skill_name' ] } className='tag-chip' />)
+                  : null
+              ))}
           </div>
           <h3 className='h3 mt-10'> Bonus Skills</h3>
           <div className='tags-set mb-20'>
             { jobDetails.jobSkillsData
-              && jobDetails.jobSkillsData.map((tag) => {
-                if (tag.skill_preference === 'plus') { return (<Chip key={ tag.job_skill_id } label={ tag[ 'XQodSkill.skill_name' ] } className='tag-chip' />) }
-              })}
+              && jobDetails.jobSkillsData.map((tag) => (
+                (tag.skill_preference === 'plus')
+                  ? (<Chip key={ tag.job_skill_id } label={ tag[ 'XQodSkill.skill_name' ] } className='tag-chip' />)
+                  : null
+              ))}
           </div>
         </div>
         <div className='display-inline-flex course-section is-fullwidth'>

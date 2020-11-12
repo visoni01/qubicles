@@ -24,12 +24,14 @@ function* jobCrudWorker(action) {
           bonusCourses,
           bonusSkills,
           payAmount,
+          durationMonths,
           ...rest
         } = action.payload
         const { data } = yield People.addNewJob({
           job_type: jobType,
           employment_type: employmentType,
           duration_type: durationType,
+          duration_months: durationMonths,
           category_id: categoryId,
           experience_type: experienceType,
           required_courses: requiredCourses,

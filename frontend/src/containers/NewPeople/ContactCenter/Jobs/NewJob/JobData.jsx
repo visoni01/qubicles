@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import {
-  Button, TextField, Select, FormControl, MenuItem,
+  Button, TextField, FormControl,
 } from '@material-ui/core'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -9,19 +9,24 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
+import _ from 'lodash'
+import { Autocomplete } from '@material-ui/lab'
 import ROUTE_PATHS from '../../../../../routes/routesPath'
 import MyUploadAdapter from '../../../../../utils/uploadImage'
 import '../styles.scss'
 
 const NewJobData = ({
-  newJobData,
   setNewJobData,
   jobFields,
   setNewJobDataCB,
 }) => {
-  // console.log('jobCategories in Newjobdata compo', jobCategories)
   const dispatch = useDispatch()
   const [ isImageUploading, setIsImageUploading ] = useState(false)
+  const [ inputValue, setInputValue ] = useState({
+    categoryInput: '',
+    titleInput: '',
+  })
+
   const handleDescriptionData = useCallback((event, editor) => {
     // eslint-disable-next-line
     setNewJobData((jobData) => ({
@@ -50,44 +55,68 @@ const NewJobData = ({
         <div className='is-halfwidth'>
           <h3 className='h3'> Category* </h3>
           <div className='mt-10'>
+
             <FormControl variant='outlined' className='drop-down-bar'>
-              <Select
-                margin='dense'
-                variant='outlined'
-                // native
-                name='categoryId'
-                placeholder='Choose job category'
-                onChange={ setNewJobDataCB }
-              >
-                {jobFields.jobCategories.map((category) => (
-                  <MenuItem key={ category } value={ category.value }>
-                    {category.name}
-                  </MenuItem>
-                ))}
-              </Select>
+              <Autocomplete
+                getOptionSelected={ (option) => option.value }
+                inputValue={ inputValue.categoryInput }
+                clearOnBlur
+                noOptionsText='no matches found'
+                onInputChange={ (event, value) => setInputValue((state) => ({ ...state, categoryInput: value })) }
+                onChange={ (event, currentValue) => {
+                  if (!_.isEmpty(currentValue)) {
+                    setNewJobData((jobData) => ({
+                      ...jobData,
+                      categoryId: currentValue.value,
+                    }))
+                  }
+                } }
+                options={ jobFields.jobCategories }
+                getOptionLabel={ (option) => option.name }
+                renderInput={ (params) => (
+                  <TextField
+                    { ...params }
+                    margin='dense'
+                    variant='outlined'
+                  />
+                ) }
+                renderOption={ (option) => <span className='para light'>{option.name}</span> }
+              />
             </FormControl>
           </div>
 
           <h3 className='mt-30 h3'> Job Title* </h3>
           <div className='mt-10'>
             <FormControl variant='outlined' className='drop-down-bar'>
-              <Select
-                margin='dense'
-                variant='outlined'
-                id='title'
-                name='title'
-                placeholder='Title'
-                onChange={ setNewJobDataCB }
-              >
-                {jobFields.jobTitles.map((title) => (
-                  <MenuItem key={ title.value } value={ title.name }>
-                    {title.name}
-                  </MenuItem>
-                ))}
-              </Select>
+              <Autocomplete
+                getOptionSelected={ (option) => option.name }
+                inputValue={ inputValue.titleInput }
+                clearOnBlur
+                noOptionsText='no matches found'
+                onInputChange={ (event, value) => setInputValue((state) => ({ ...state, titleInput: value })) }
+                onChange={ (event, currentValue) => {
+                  if (!_.isEmpty(currentValue)) {
+                    setNewJobData((jobData) => ({
+                      ...jobData,
+                      title: currentValue.name,
+                    }))
+                  }
+                } }
+                options={ jobFields.jobTitles }
+                getOptionLabel={ (option) => option.name }
+                renderInput={ (params) => (
+                  <TextField
+                    { ...params }
+                    margin='dense'
+                    variant='outlined'
+                  />
+                ) }
+                renderOption={ (option) => <span className='para light'>{option.name}</span> }
+              />
             </FormControl>
           </div>
         </div>
+
         <div className='is-halfwidth'>
           <h3 className='h3'> Needed* </h3>
           <div className='display-inline-flex '>
@@ -129,7 +158,6 @@ NewJobData.defaultProps = {
 }
 
 NewJobData.propTypes = {
-  newJobData: PropTypes.bool.isRequired,
   setNewJobData: PropTypes.func.isRequired,
   jobFields: PropTypes.arrayOf(PropTypes.string),
   setNewJobDataCB: PropTypes.func.isRequired,

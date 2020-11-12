@@ -24,13 +24,17 @@ module.exports = (sequelize, DataTypes) => {
     },
     duration_type: {
       type: DataTypes.ENUM,
-      values: ['ondemand', 'upto1month', 'upto3months', 'upto6months', 'morethan6months'],
-      defaultValue: 'ondemand'
+      values: ['on-demand', 'months', 'open-ended'],
+      defaultValue: 'on-demand'
+    },
+    duration_months: {
+      type: DataTypes.INTEGER(11),
+      defaultValue: 0
     },
     experience_type: {
       type: DataTypes.ENUM,
-      values: ['entrylevel', 'intermediate', 'expert'],
-      defaultValue: 'entrylevel'
+      values: ['entry', 'intermediate', 'expert'],
+      defaultValue: 'entry'
     },
     location_type: {
       type: DataTypes.ENUM,

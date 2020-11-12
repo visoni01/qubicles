@@ -32,6 +32,7 @@ function* jobDetailsWorker(action) {
               jobType: data.jobDetails.job_type,
               employmentType: data.jobDetails.employment_type,
               durationType: data.jobDetails.duration_type,
+              durationMonths: data.jobDetails.duration_months,
               experienceType: data.jobDetails.experience_type,
               locationType: data.jobDetails.location_type,
               payAmount: data.jobDetails.pay_amount,

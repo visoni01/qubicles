@@ -16,6 +16,9 @@ const constraints = {
   duration_type: {
     presence: { allowEmpty: true }
   },
+  duration_months: {
+    presence: { allowEmpty: true }
+  },
   experience_type: {
     presence: { allowEmpty: true }
   },

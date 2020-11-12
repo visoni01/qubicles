@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import {
   TextField, Select, MenuItem,
   FormControl, RadioGroup,
@@ -14,6 +14,31 @@ const NewJobDetails = ({
 }) => {
   const [ languages, setLanguages ] = useState([ 'english' ])
 
+  const setDurationMonthsCB = useCallback((e) => {
+    const month = e.target.value
+    setNewJobData((currentNewJobData) => ({
+      ...currentNewJobData,
+      durationType: 'months',
+      durationMonths: month,
+    }))
+  }, [ newJobData ])
+
+  const setDurationTypeCB = useCallback((e) => {
+    setNewJobData((currentNewJobData) => ({
+      ...currentNewJobData,
+      durationType: e.target.value,
+      durationMonths: 0,
+    }))
+  }, [ newJobData ])
+
+  // Avilable Languages
+  const availableLanguages = [
+    { name: 'English', value: 'english' },
+    { name: 'French', value: 'french' },
+    { name: 'Spanish', value: 'spanish' },
+  ]
+
+  // Set Languages
   const setLanguageCB = useCallback((event) => {
     setLanguages(event.target.value)
     const language = event.target.value.toString()
@@ -22,20 +47,6 @@ const NewJobDetails = ({
       languages: language,
     }))
   }, [ setLanguages, setNewJobData ])
-
-  const availableLanguages = [
-    { name: 'English', value: 'english' },
-    { name: 'French', value: 'french' },
-    { name: 'Spanish', value: 'spanish' },
-  ]
-
-  const durationTypes = [
-    { name: 'On demand', value: 'ondemand' },
-    { name: 'Upto 1 month', value: 'upto1month' },
-    { name: 'Upto 3 months', value: 'upto3months' },
-    { name: 'Upto 6 months', value: 'upto6months' },
-    { name: 'More than 6 months', value: 'morethan6months' },
-  ]
 
   return (
     <div className='custom-box new-job-root job-details-root has-fullwidth'>
@@ -73,21 +84,34 @@ const NewJobDetails = ({
 
           <div className='duration-section mt-30'>
             <h4 className='h4'> Duration* </h4>
-            <FormControl variant='outlined' margin='dense' className='drop-down-bar'>
-              <Select
-                margin='dense'
-                variant='outlined'
-                name='durationType'
-                value={ newJobData.durationType }
-                onChange={ setNewJobDataCB }
-              >
-                {durationTypes.map((duration) => (
-                  <MenuItem key={ duration.value } value={ duration.value }>
-                    {duration.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            <RadioGroup
+              className='radio-buttons'
+              name='durationType'
+              value={ newJobData.durationType }
+              onChange={ setDurationTypeCB }
+            >
+              <div className='display-inline-flex'>
+                <FormControlLabel value='on-demand' control={ <Radio /> } label='On-demand' />
+                <FormControlLabel
+                  value='months'
+                  control={ <Radio /> }
+                />
+                <TextField
+                  margin='dense'
+                  variant='outlined'
+                  className='duration-field'
+                  id='months'
+                  type='number'
+                  name='duration'
+                  value={ newJobData.durationMonths }
+                  disabled={ !(newJobData.durationType === 'months') }
+                  onChange={ setDurationMonthsCB }
+                  required
+                />
+                <p className='duration-label para mr-10'> Months </p>
+                <FormControlLabel value='open-ended' control={ <Radio /> } label='Open-ended' />
+              </div>
+            </RadioGroup>
           </div>
 
           <h4 className='mt-30 mb-5 h4'> Languages(s) </h4>
@@ -135,7 +159,7 @@ const NewJobDetails = ({
           >
             <div className='display-inline-flex'>
               <FormControlLabel
-                value='entrylevel'
+                value='entry'
                 control={ <Radio size='small' /> }
                 label='Entry'
                 className='para'
@@ -143,13 +167,13 @@ const NewJobDetails = ({
               <FormControlLabel
                 value='intermediate'
                 control={ <Radio size='small' /> }
-                label='Mid'
+                label='Intermediate'
                 className='para'
               />
               <FormControlLabel
                 value='expert'
                 control={ <Radio size='small' /> }
-                label='Senior'
+                label='Expert'
                 className='para'
               />
             </div>
@@ -162,7 +186,8 @@ const NewJobDetails = ({
 }
 
 NewJobDetails.propTypes = {
-  newJobData: PropTypes.bool.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  newJobData: PropTypes.object.isRequired,
   setNewJobData: PropTypes.func.isRequired,
   setNewJobDataCB: PropTypes.func.isRequired,
 }
