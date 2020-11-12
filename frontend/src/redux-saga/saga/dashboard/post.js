@@ -11,7 +11,9 @@ import {
   createStatusPostFailed,
   createStatusPostSuccess,
 } from '../../redux/actions'
-import { DELETE_POST_STATUS, UPDATE_POST } from '../../redux/constants'
+import {
+  DELETE_POST_STATUS, UPDATE_POST, CREATE_NEW_POST, POST_DATA_FETCH,
+} from '../../redux/constants'
 import Dashboard from '../../service/dashboard'
 
 function* postDataCrudWatcherStart() {
@@ -32,7 +34,7 @@ function* postDataFetchingWorker(action) {
     switch (action.type) {
       case postDataFetchingStart.type: {
         const { data } = yield Dashboard.fetchPosts()
-        yield put(updatePostData({ type: action.type, posts: data }))
+        yield put(updatePostData({ type: POST_DATA_FETCH, posts: data }))
         break
       }
       case createStatusPostStart.type: {
@@ -46,7 +48,7 @@ function* postDataFetchingWorker(action) {
         const { data } = yield Dashboard.addPost({ data: formData })
         const { userDetails } = yield select((state) => state.login)
         yield put(updatePostData({
-          type: action.type,
+          type: CREATE_NEW_POST,
           newPost: {
             ...data,
             owner: userDetails.full_name,

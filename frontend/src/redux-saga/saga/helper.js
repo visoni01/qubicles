@@ -1,3 +1,5 @@
+/* eslint-disable import/prefer-default-export */
+
 import {
   POST_SIGNUP_EMPLOYER_PREVIOUS_DATA_FETCH,
 } from '../redux/constants'
