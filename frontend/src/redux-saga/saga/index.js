@@ -31,6 +31,7 @@ import peopleAgentResumeSkills from './newPeople/talent/agentResumeSkills'
 import newCrudJob from './newPeople/crud'
 import newJobDetails from './newPeople/job'
 import newJobCategoryDataActivity from './newPeople/jobCategories'
+import jobsByCategory from './newPeople/jobsByCategory'
 
 export default function* rootSaga() {
   yield all([
@@ -65,5 +66,6 @@ export default function* rootSaga() {
     newCrudJob(),
     newJobDetails(),
     newJobCategoryDataActivity(),
+    jobsByCategory(),
   ])
 }

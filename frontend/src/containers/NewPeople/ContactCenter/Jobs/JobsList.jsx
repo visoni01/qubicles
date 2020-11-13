@@ -5,7 +5,11 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSlidersH, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from 'react-redux'
-import { newJobCategoriesFetchStart } from '../../../../redux-saga/redux/actions'
+import {
+  newJobCategoriesFetchStart,
+  getJobsByCategory,
+  resetJobsByCategorySelection,
+} from '../../../../redux-saga/redux/actions'
 
 const JobsList = () => {
   const [ searchCategories, setSearchCategories ] = useState(false)
@@ -50,7 +54,7 @@ const JobsList = () => {
           selected={ selectedCategory === 0 }
         >
           <ListItemText classes={ { primary: 'list-item' } }>
-            <h4 className='h4 light unbold'>All</h4>
+            <h4 className='h4 light unbold' onClick={ () => dispatch(resetJobsByCategorySelection()) }>All</h4>
           </ListItemText>
         </MenuItem>
 
@@ -63,7 +67,9 @@ const JobsList = () => {
               key={ jobCategory.categoryId }
             >
               <ListItemText classes={ { primary: 'list-item' } }>
-                <h4 className='h4 light unbold'>{jobCategory.categoryTitle}</h4>
+                <h4 className='h4 light unbold' onClick={ () => dispatch(getJobsByCategory({ categoryId: jobCategory.categoryId })) }>
+                  {jobCategory.categoryTitle}
+                </h4>
               </ListItemText>
             </MenuItem>
           ))

@@ -10,9 +10,42 @@ import JobCategoryCard from './JobCategoryCard'
 import ROUTE_PATHS from '../../../../routes/routesPath'
 import { newJobCategoriesFetchStart } from '../../../../redux-saga/redux/actions'
 
+const JobsData = ({ selectedCategoryId, newJobCategories }) => {
+  if (selectedCategoryId) {
+    const index = newJobCategories.findIndex((category) => category.categoryId === selectedCategoryId)
+    return (
+      <JobCategoryCard
+        key={ newJobCategories[ index ].categoryId }
+        categoryId={ newJobCategories[ index ].categoryId }
+        categoryTitle={ newJobCategories[ index ].categoryTitle }
+        jobs={ newJobCategories[ index ].jobs }
+        required={ 5 }
+        hired={ 2 }
+        evaluating={ 2 }
+        pending={ 0 }
+      />
+    )
+  }
+  return newJobCategories.map((jobCategory) => (
+    jobCategory.jobs.length > 0
+        && (
+        <JobCategoryCard
+          key={ jobCategory.categoryId }
+          categoryId={ jobCategory.categoryId }
+          categoryTitle={ jobCategory.categoryTitle }
+          jobs={ jobCategory.jobs }
+          required={ 5 }
+          hired={ 2 }
+          evaluating={ 2 }
+          pending={ 0 }
+        />
+        )
+  ))
+}
+
 const JobsPage = () => {
   const history = useHistory()
-  const { newJobCategories, isLoading } = useSelector((state) => state.newJobCategories)
+  const { newJobCategories, isLoading, selectedCategoryId } = useSelector((state) => state.newJobCategories)
   const [ searchField, setSearchField ] = useState('')
   const dispatch = useDispatch()
   const callSearchApi = useCallback(debounce((nextValue) => {
@@ -48,23 +81,10 @@ const JobsPage = () => {
         </Button>
       </div>
       <Box className='custom-box'>
-        {
-        newJobCategories.map((jobCategory) => (
-          jobCategory.jobs.length > 0
-            && (
-            <JobCategoryCard
-              key={ jobCategory.categoryId }
-              categoryTitle={ jobCategory.categoryTitle }
-              jobs={ jobCategory.jobs }
-              needed={ 10 }
-              fulfilled={ 0 }
-              hired={ 2 }
-              evaluating={ 2 }
-              pending={ 0 }
-            />
-            )
-        ))
-      }
+        <JobsData
+          selectedCategoryId={ selectedCategoryId }
+          newJobCategories={ newJobCategories }
+        />
       </Box>
     </>
   )
