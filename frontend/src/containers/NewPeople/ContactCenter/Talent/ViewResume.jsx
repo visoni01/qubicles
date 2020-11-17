@@ -10,25 +10,17 @@ import { newNavBar } from '../../../../hoc/navbar'
 import './styles.scss'
 
 const ViewResume = () => (
-  <Grid container spacing={ 3 }>
-    <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
+  <Grid container spacing={ 3 } justify='center'>
+    <Grid item xl={ 3 } lg={ 3 } md={ 4 } sm={ 12 }>
       <ResumeIntro />
     </Grid>
-    <Grid container direction='column' spacing={ 3 } item xl={ 6 } lg={ 6 } md={ 6 } sm={ 4 }>
-      <Grid item>
-        <SkillsPage />
-      </Grid>
-      <Grid item>
-        <WorkHistory />
-      </Grid>
-      <Grid item>
-        <Courses />
-      </Grid>
-      <Grid item>
-        <ResumeReviews />
-      </Grid>
+    <Grid item xl={ 6 } lg={ 6 } md={ 5 } sm={ 12 }>
+      <SkillsPage />
+      <WorkHistory />
+      <Courses />
+      <ResumeReviews />
     </Grid>
-    <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
+    <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 12 }>
       <Actions />
     </Grid>
   </Grid>

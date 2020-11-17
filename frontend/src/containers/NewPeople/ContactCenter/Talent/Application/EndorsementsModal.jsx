@@ -1,16 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent, DialogTitle, Divider, IconButton, Avatar,
+  Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Avatar,
 } from '@material-ui/core'
 import Rating from '@material-ui/lab/Rating'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import { ray, carolin, thomas } from '../../../../../assets/images/avatar'
 import '../styles.scss'
 
 const Endorsements = ({
-  open, handleClose,
+  open, handleClose, endorsementsList, skillName,
 }) => (
   <Dialog
     disableScrollLock
@@ -19,7 +18,7 @@ const Endorsements = ({
     fullWidth
     maxWidth='sm'
     classes={ { paper: 'endorsement-modal' } }
-    className='custom-modal'
+    className='custom-modal auto-height'
   >
     <div className='header'>
       <DialogTitle>
@@ -35,94 +34,53 @@ const Endorsements = ({
       </DialogActions>
     </div>
     <DialogContent>
-      <h4 className='h4'> Customer Service </h4>
-
-      {/* First Dummy Data */}
-      <div className='endorsement-section'>
-        <Avatar className='profile-pic' alt='carolin' src={ carolin } />
-        <div className='middle-part'>
-          <div className='display-inline-flex'>
-            <p className='para bold'> Jasmine Palmer </p>
-            <Rating
-              className='rating-star'
-              name='read-only'
-              readOnly
-              size='small'
-              value={ 5 }
-              precision={ 0.1 }
+      <h3 className='h3 mb-10'>
+        {skillName}
+      </h3>
+      <div className='mb-25'>
+        {endorsementsList.map((endorsement) => (
+          <div key={ endorsement.id } className='endorsement-section list-divider'>
+            <Avatar
+              className='profile-pic no-margin-left'
+              alt={ endorsement.userProfile.name }
+              src={ endorsement.userProfile.profilePic }
             />
+            <div className='middle-part'>
+              <div className='display-inline-flex'>
+                <p className='para bold'>
+                  {endorsement.userProfile.name}
+                </p>
+                <Rating
+                  className='rating-star'
+                  name='read-only'
+                  readOnly
+                  size='small'
+                  value={ endorsement.rating }
+                  precision={ 0.1 }
+                />
+              </div>
+              <p className='para light'> Customer Service Manager at Microsoft </p>
+            </div>
           </div>
-          <p className='para light'> Customer Service Manager at Microsoft </p>
-        </div>
+        ))}
       </div>
-      <Divider className='divider mt-10 mb-10' />
-
-      {/* Second Dummy Data */}
-      <div className='endorsement-section'>
-        <Avatar className='profile-pic' alt='ray' src={ ray } />
-        <div className='middle-part'>
-          <div className='display-inline-flex'>
-            <p className='para bold'> Ronnie Cooper </p>
-            <Rating
-              className='rating-star'
-              name='read-only'
-              readOnly
-              size='small'
-              value={ 5 }
-              precision={ 0.1 }
-            />
-          </div>
-          <p className='para light'> Customer Service Manager at BlueSail </p>
-        </div>
-      </div>
-      <Divider className='divider mt-10 mb-10' />
-
-      {/* Third Dummy Data */}
-      <div className='endorsement-section'>
-        <Avatar className='profile-pic' alt='thomas' src={ thomas } />
-        <div className='middle-part'>
-          <div className='display-inline-flex'>
-            <p className='para bold'> Kevin Banks </p>
-            <Rating
-              className='rating-star'
-              name='read-only'
-              readOnly
-              size='small'
-              value={ 5 }
-              precision={ 0.1 }
-            />
-          </div>
-          <p className='para light'> Customer Service Manager at Setonic </p>
-        </div>
-      </div>
-      <Divider className='divider mt-10 mb-10' />
-
-      {/* Fourth Dummy Data */}
-      <div className='endorsement-section'>
-        <Avatar className='profile-pic' alt='carolin' src={ carolin } />
-        <div className='middle-part'>
-          <div className='display-inline-flex'>
-            <p className='para bold'>Jasmine Palmer</p>
-            <Rating
-              className='rating-star'
-              name='read-only'
-              readOnly
-              size='small'
-              value={ 5 }
-              precision={ 0.1 }
-            />
-          </div>
-          <p className='para light'> Customer Service Manager at Microsoft </p>
-        </div>
-      </div>
-      <Divider className='divider mt-10 mb-10' />
     </DialogContent>
   </Dialog>
 )
 
+Endorsements.defaultProps = {
+  skillName: '',
+  endorsementsList: [],
+}
+
 Endorsements.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
+  skillName: PropTypes.string,
+  endorsementsList: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+  })),
 }
 
 export default Endorsements

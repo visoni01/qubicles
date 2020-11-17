@@ -4,7 +4,7 @@ import {
 } from '@material-ui/core'
 
 const Courses = () => (
-  <div className='custom-box resume-root has-fullwidth'>
+  <div className='mb-25 custom-box resume-root has-fullwidth'>
     <h3 className='h3 is-fullwidth mb-20'> Courses </h3>
     <div className='display-inline-flex resume-section is-fullwidth'>
       <Button

@@ -25,6 +25,7 @@ import sendVerificationMail from './sendVerificationMail'
 import signupWithInviteReducer from './inviteDetails'
 import forgetPasswordMailReducer from './forgetPasswordMail'
 import resetPasswordReducer from './resetPassword'
+import peopleReducers from './newPeople/reducers'
 
 const rootReducer = combineReducers({
   signup: signupReducer,
@@ -53,6 +54,7 @@ const rootReducer = combineReducers({
   signupWithInvite: signupWithInviteReducer,
   forgetPasswordMail: forgetPasswordMailReducer,
   resetPassword: resetPasswordReducer,
+  ...peopleReducers,
 })
 
 export default rootReducer

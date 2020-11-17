@@ -9,7 +9,7 @@ import { terry, carolin, thomas } from '../../../../../assets/images/avatar'
 import '../styles.scss'
 
 const WorkHistory = () => (
-  <div className='custom-box resume-root work-history-root has-fullwidth'>
+  <div className='mb-25 custom-box resume-root work-history-root has-fullwidth'>
     <h3 className='h3 is-fullwidth mb-20'> Work History </h3>
     <div className='display-inline-flex work-history-section'>
 
