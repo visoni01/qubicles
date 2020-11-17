@@ -28,7 +28,7 @@ const Header = () => (
         variant='outlined'
       />
     </div>
-    <div className='right is-2 pull-left header-info-icons'>
+    <div className='right is-2 pull-left pl-20'>
       <div className='icons'>
         <FontAwesomeIcon icon={ faComment } className='header-fa-icon' />
         <FontAwesomeIcon icon={ faEnvelope } className='header-fa-icon' />

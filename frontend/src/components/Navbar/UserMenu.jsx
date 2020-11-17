@@ -56,16 +56,15 @@ const UserMenu = () => {
       <Popover
         disableScrollLock
         open={ isDropdownOpen }
-        className='account-dropdown-icon'
+        className='mt-60'
         onClose={ toggleDropdownOpen }
         anchorEl={ anchorEl }
       >
-
         <div className='user-menu'>
           <Avatar className='profile-pic' alt='Remy Sharp' src={ kareem } />
-          <h2 className='user-name'>{userDetails.full_name}</h2>
-          <h3 className='view-profile'> View Profile</h3>
-          <Divider className='divider' variant='middle' />
+          <h2 className='h3 text-center mb-5'>{userDetails.full_name}</h2>
+          <h3 className='para mb-10 text-center'> View Profile</h3>
+          <Divider className='mb-10' variant='middle' />
           <div className='options'>
             <Button
               size='small'
@@ -95,7 +94,7 @@ const UserMenu = () => {
               onClick={ logOut }
               startIcon={ <img src={ logoutIcon } alt='' /> }
             >
-              <p className='option-name logout-text'> Logout </p>
+              <p className='option-name color-red'> Logout </p>
             </Button>
           </div>
         </div>

@@ -37,7 +37,7 @@ const NewGroup = ({ handleSubmit, onCancelClick }) => {
           <Grid item md={ 6 } xs={ 12 }>
             <h3 className='h3'>Title</h3>
             <input
-              className='primary-input-field mt-10 is-fullwidth'
+              className='custom-text-input-field mt-10 is-fullwidth'
               placeholder='Name of your group'
               value={ groupData.title }
               name='title'
@@ -72,7 +72,7 @@ const NewGroup = ({ handleSubmit, onCancelClick }) => {
               Description
             </h3>
             <TextareaAutosize
-              className='primary-input-field is-fullwidth mt-10 mb-10'
+              className='custom-text-input-field is-fullwidth mt-10 mb-10'
               rowsMin={ 6 }
               value={ groupData.description }
               name='description'

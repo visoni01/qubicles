@@ -43,32 +43,6 @@
   margin: 0px 10px 10px 0px;
 }
 
-// Post Comment Wrap
-.comments-wrap {
-  margin-top: 10px;
-
-  .comment-body {
-    display: inline-flex;
-    margin-top: 10px;
-
-    .user-name {
-      @extend .h4;
-      font-size: 14px;
-    }
-    .date {
-      @extend .para;
-      color: $color-dark-grey;
-      font-size: 13px;
-    }
-    .post-text {
-      @extend .para;
-      margin-top: 2px;
-    }
-  }
-}
-
-
-
 // View More Comments
 .view-more-comments-section {
   display: flex;
@@ -107,7 +81,6 @@
       padding: 10px;
 
       textarea {
-        @extend .para;
         width: 100%;
         margin: 0 auto;
         display: flex;

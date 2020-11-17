@@ -30,7 +30,7 @@ const PostCommentsWrap = ({
         )}
       </div>
     )}
-    <div className='comments-wrap'>
+    <div className='mt-10'>
       {comments.map((comment) => (
         <RenderPostComments
           key={ comment.user_activity_id }

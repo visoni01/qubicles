@@ -9,11 +9,11 @@ const PostHead = ({
 }) => (
   <div className='display-inline-flex post-head'>
     <Avatar className='profile-pic' alt='Remy Sharp' src={ carolin } />
-    <div className='post-details'>
-      <h4 className='user-name'>
+    <div className='margin-auto'>
+      <h4 className='h4'>
         {owner}
       </h4>
-      <p className='date'>
+      <p className='para light'>
         {formatDate(createdAt, 'MMMM DD YYYY, hh:mm a')}
       </p>
     </div>

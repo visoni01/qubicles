@@ -1,21 +1,5 @@
-@import '../../customStyles/scss/index.scss';
-
-.box {
-  border: 1px solid $color-border;
-	border-radius: 8px;
-	padding: 20px;
-  margin-bottom: 25px;
-  box-shadow: none;
-	p.detail {
-		font-size: 14px;
-	}
-}
-
-.heading {
-  @extend .h3;
-  margin-bottom: 15px;
-}
-
+@import '../../customStyles/scss/partials/variables';
+@import '../../customStyles/scss/partials/mixins';
 @import '../../components/Dashboard/LeftSection/style.scss';
 @import '../../components/Dashboard/RightSection/style.scss';
 @import './Posts/style.scss';

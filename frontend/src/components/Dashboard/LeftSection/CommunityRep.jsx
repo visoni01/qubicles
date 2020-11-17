@@ -13,8 +13,8 @@ const CommunityRep = () => {
   const followMsg = communityRep.subscribers === 1 ? 'person is following you' : 'people are following you'
   const { rating } = communityRep
   return (
-    <Box className='box community-rep'>
-      <h3 className='heading'>
+    <Box className='custom-box mb-25 community-rep'>
+      <h3 className='h3 mb-15'>
         Your Community Reputation
       </h3>
 
@@ -30,7 +30,7 @@ const CommunityRep = () => {
             precision={ 0.1 }
           />
         )}
-        <span className='rating-text'>
+        <span className='h3 rating-text'>
           {rating}
         </span>
         <FontAwesomeIcon icon={ faInfoCircle } className='rating-info' />

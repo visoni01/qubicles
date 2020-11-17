@@ -56,7 +56,7 @@ const NewTopic = ({ handleSubmit, handleCancel }) => {
         <div>
           <h3 className='h3'>Title</h3>
           <input
-            className='primary-input-field mt-10 is-fullwidth'
+            className='custom-text-input-field mt-10 is-fullwidth'
             placeholder='Name of your topic'
             value={ topicData.title }
             name='title'
