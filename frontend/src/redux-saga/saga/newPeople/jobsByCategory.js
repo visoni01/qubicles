@@ -12,6 +12,8 @@ function* jobsByCategoryWatcherStart() {
 function* jobsByCategoryWorker(action) {
   try {
     const { categoryId } = action.payload
+    // console.log('')
+    // debugger
     const { data: jobs } = yield People.fetchJobCategories({ categoryId })
     // Modifying the job data
     const data = yield select((state) => state.newJobCategories)

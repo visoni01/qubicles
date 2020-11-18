@@ -61,6 +61,7 @@ JobCategoryCard.propTypes = {
   fulfilled: PropTypes.isRequired,
   evaluating: PropTypes.isRequired,
   pending: PropTypes.isRequired,
+  categoryId: PropTypes.number.isRequired,
   jobs: PropTypes.arrayOf(
     PropTypes.shape({
       jobId: PropTypes.number,

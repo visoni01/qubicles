@@ -17,13 +17,15 @@ import { newJobDetailsFetchStart } from '../../../../redux-saga/redux/actions'
 import { getTimeFromNow } from '../../../../utils/common'
 
 const JobPost = ({
-  jobId, courses,
+  jobId, courses, jobDetails,
 }) => {
-  const { jobDetails } = useSelector((state) => state.newJobDetails)
+  // const { jobDetails } = useSelector((state) => state.newJobDetails)
   const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(newJobDetailsFetchStart({ jobId }))
-  }, [ dispatch ])
+  // useEffect(() => {
+  //   if (_.isEmpty(jobDetails)) {
+  //     dispatch(newJobDetailsFetchStart({ jobId }))
+  //   }
+  // }, [ dispatch ])
 
   return (
     <>

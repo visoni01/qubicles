@@ -53,6 +53,7 @@ const {
     }),
     resetJobsByCategorySelection: (state, action) => {
       debugger
+      console.log('action in resetJobsByCategorySelection', action)
       return {
         ...state,
         selectedCategoryId: '',

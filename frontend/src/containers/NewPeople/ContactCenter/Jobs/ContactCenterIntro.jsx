@@ -1,20 +1,35 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import {
   faChevronLeft, faUserFriends, faRedo, faEnvelope,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button, Divider } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import _ from 'lodash'
 import { contactCenterIntroduction } from '../testData'
 import Introduction from '../Introduction'
 import ROUTE_PATHS from '../../../../routes/routesPath'
 import './styles.scss'
+import { jobPostCompanyDetailsFetchStart } from '../../../../redux-saga/redux/actions'
 
-const ContactCenterIntro = () => {
+const ContactCenterIntro = ({ jobDetails }) => {
   const history = useHistory()
   const handleBackButton = useCallback(() => {
     history.push(ROUTE_PATHS.NEW_PEOPLE)
   })
+
+  // const { jobDetails } = useSelector((state) => state.newJobDetails)
+  const { companyDetails } = useSelector((state) => state.jobPostCompanyDetails)
+  console.log('clientId in contactCenterIntroduction', jobDetails.clientId)
+  console.log('companyDetails in contactCenterIntroduction', companyDetails)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    console.log('jobDetails in contactCenterIntroduction', jobDetails)
+    // if (_.isEmpty(jobDetails)) {
+    dispatch(jobPostCompanyDetailsFetchStart({ clientId: jobDetails.clientId }))
+    // }
+  }, [])
   return (
     <>
       <Box className='custom-box contact-center-info-root'>
@@ -49,7 +64,12 @@ const ContactCenterIntro = () => {
         <div className='job-post-stats'>
           <div className='data'>
             <FontAwesomeIcon className='custom-fa-icon light' icon={ faUserFriends } />
-            <span className='para bold'> 6/50 </span>
+            <span className='para bold'>
+              {' '}
+              0/
+              {/* {jobDetails.needed} */}
+              {' '}
+            </span>
             <span className='para light'> Agents Hired  </span>
           </div>
           <div className='data'>
