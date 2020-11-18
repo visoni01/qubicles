@@ -18,8 +18,6 @@ import snackbarReducer from './snackbar'
 import groupsReducer from './forum/groups'
 import groupTopicsReducer from './forum/groupTopics'
 import topicCommentsReducer from './forum/topicComments'
-import jobCategoriesReducer from './people/jobPage'
-import jobReducer from './people/job'
 import checkrAuthentication from './user/checkrAuthentication'
 import sendVerificationMail from './sendVerificationMail'
 import signupWithInviteReducer from './inviteDetails'
@@ -43,12 +41,10 @@ const rootReducer = combineReducers({
   groups: groupsReducer,
   groupTopics: groupTopicsReducer,
   topicComments: topicCommentsReducer,
-  jobCategories: jobCategoriesReducer,
   statusPosts: getPostsReducer,
   createPost: createPostReducer,
   commentsSection: commentsSectionReducer,
   comments: commentsReducer,
-  jobDetails: jobReducer,
   checkr: checkrAuthentication,
   verification: sendVerificationMail,
   signupWithInvite: signupWithInviteReducer,

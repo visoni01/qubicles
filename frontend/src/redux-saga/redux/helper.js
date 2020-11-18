@@ -1,17 +1,13 @@
 /* eslint-disable import/prefer-default-export */
 
 import {
-  DELETE_JOB,
   ADD_GROUP_TOPIC,
   UPDATE_TOPIC_STATS,
   LIKE_POST,
   UNLIKE_POST,
-  CREATE_POST_COMMENT_START,
   DELETE_POST_STATUS,
-  UPDATE_POST,
   DELETE_POST_COMMENT,
   ADD_JOB,
-  UPDATE_JOB,
   ADD_GROUP,
   ADD_COMMENT_TO_POST,
   FETCH_COMMENT_FOR_POST,
@@ -117,42 +113,12 @@ export const updateGroupTopics = (state, payload) => {
 export const getUpdatedJobsData = ({ state, payload }) => {
   let updatedJobCategories = []
   switch (payload.type) {
-    case DELETE_JOB: {
-      const { categoryId, jobId } = payload
-      updatedJobCategories = state.jobCategories.map((category) => {
-        let updatedJobs = category.jobs
-        if (category.categoryId === categoryId) {
-          updatedJobs = category.jobs.filter((job) => job.jobId !== jobId)
-        }
-        return { ...category, jobs: updatedJobs }
-      })
-      break
-    }
     case ADD_JOB: {
       const { newJob } = payload
       updatedJobCategories = state.jobCategories.map((category) => {
         let updatedJobs = category.jobs
         if (category.categoryId === newJob.categoryId) {
           updatedJobs = [ ...updatedJobs, newJob ]
-        }
-        return { ...category, jobs: updatedJobs }
-      })
-      break
-    }
-    case UPDATE_JOB: {
-      const { updatedJob } = payload
-      updatedJobCategories = state.jobCategories.map((category) => {
-        let updatedJobs = category.jobs
-        if (category.categoryId === updatedJob.categoryId) {
-          updatedJobs = updatedJobs.map((job) => {
-            if (job.jobId === updatedJob.jobId) {
-              return {
-                ownerId: job.ownerId,
-                ...updatedJob,
-              }
-            }
-            return job
-          })
         }
         return { ...category, jobs: updatedJobs }
       })

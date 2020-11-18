@@ -73,11 +73,6 @@ const routes = [
     component: React.lazy(() => import('../containers/Forum')),
     auth: true,
   },
-  {
-    path: ROUTE_PATHS.PEOPLE,
-    component: React.lazy(() => import('../containers/People')),
-    auth: true,
-  },
   // Added extra route for new people design, Remove it when people's pages get completely ready.
   {
     path: ROUTE_PATHS.NEW_PEOPLE,
