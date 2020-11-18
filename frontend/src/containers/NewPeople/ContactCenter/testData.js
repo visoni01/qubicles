@@ -238,7 +238,7 @@ const jobsCards = [
 ]
 
 const jobPostCard = {
-  jobPostId: 1,
+  jobId: 1,
   jobPostHeading: 'Looking for Experienced Customer service specialist',
   createdAt: 'Posted 2 days ago',
   jobDescription: `ICC is a strategic partner to the world's leading companies, bringing solutions and enhancing

@@ -10,7 +10,6 @@ module.exports = (sequelize, DataTypes) => {
     client_id: DataTypes.INTEGER(11),
     user_id: DataTypes.INTEGER(11),
     category_id: DataTypes.INTEGER(11),
-    position_id: DataTypes.INTEGER(11),
     title: DataTypes.STRING(100),
     description: DataTypes.TEXT,
     job_type: {
@@ -25,13 +24,17 @@ module.exports = (sequelize, DataTypes) => {
     },
     duration_type: {
       type: DataTypes.ENUM,
-      values: ['ondemand', 'upto1month', 'upto3months', 'upto6months', 'morethan6months'],
-      defaultValue: 'ondemand'
+      values: ['on-demand', 'months', 'open-ended'],
+      defaultValue: 'on-demand'
+    },
+    duration_months: {
+      type: DataTypes.INTEGER(11),
+      defaultValue: 0
     },
     experience_type: {
       type: DataTypes.ENUM,
-      values: ['entrylevel', 'intermediate', 'expert'],
-      defaultValue: 'entrylevel'
+      values: ['entry', 'intermediate', 'expert'],
+      defaultValue: 'entry'
     },
     location_type: {
       type: DataTypes.ENUM,
@@ -41,6 +44,7 @@ module.exports = (sequelize, DataTypes) => {
     city: DataTypes.STRING(100),
     state: DataTypes.STRING(100),
     country: DataTypes.STRING(100),
+    languages: DataTypes.STRING(100),
     needed: DataTypes.INTEGER,
     fulfilled: DataTypes.INTEGER,
     pay_amount: DataTypes.DOUBLE,
@@ -55,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     status: {
       type: DataTypes.ENUM,
-      values: ['recruiting', 'hired', 'cancelled'],
+      values: ['draft', 'recruiting', 'hired', 'cancelled'],
       defaultValue: 'recruiting'
     },
     is_public: {

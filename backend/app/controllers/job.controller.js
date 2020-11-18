@@ -5,6 +5,8 @@ import AddJobService from '../services/job/create'
 import GetJobCategoriesAndTitlesService from '../services/job/jobCatoriesAndTitles'
 import GetJobByIdService from '../services/job/jobById'
 import UpdateJobService from '../services/job/update'
+import GetJobCategoriesTitlesAndSkillsService from '../services/newJob/jobCategoriesTitlesAndSkills'
+import AddNewJobService from '../services/newJob/create'
 
 export default class JobController {
   static async getJobsByCategory (req, res) {
@@ -61,6 +63,29 @@ export default class JobController {
       Responder.success(res, updateJob.result)
     } else {
       Responder.failed(res, updateJob.errors)
+    }
+  }
+
+  // New Job
+
+  static async getJobCategoriesTitlesAndSkills (req, res) {
+    const jobTitles = await GetJobCategoriesTitlesAndSkillsService.execute({
+      user: req.body.user,
+      ...req.query
+    })
+    if (jobTitles.successful) {
+      Responder.success(res, jobTitles.result)
+    } else {
+      Responder.failed(res, jobTitles.errors)
+    }
+  }
+
+  static async addNewJob (req, res) {
+    const addJob = await AddNewJobService.execute({ ...req.body, ...req.params })
+    if (addJob.successful) {
+      Responder.success(res, addJob.result)
+    } else {
+      Responder.failed(res, addJob.errors)
     }
   }
 }

@@ -19,8 +19,9 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import {
   jobTypes, employmentType, durationTypes, experienceTypes, locationTypes,
 } from '../constants'
-import { addJob, getJobFields, updateJob } from '../../../redux-saga/redux/people/actions'
-import { jobDetailsFetchStart } from '../../../redux-saga/redux/actions'
+import {
+  jobDetailsFetchStart, addJob, getJobFields, updateJob,
+} from '../../../redux-saga/redux/actions'
 import '../style.scss'
 
 const initialJobDetails = {

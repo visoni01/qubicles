@@ -27,13 +27,25 @@ class People {
     return response
   }
 
-  static async getJobById(jobId) {
-    const response = await apiClient.getRequest(`/jobs/job/${ jobId }`)
+  static async updateJob({ jobId, ...payload }) {
+    const response = await apiClient.putRequest(`/jobs/${ jobId }`, payload)
     return response
   }
 
-  static async updateJob({ jobId, ...payload }) {
-    const response = await apiClient.putRequest(`/jobs/${ jobId }`, payload)
+  // New job section
+
+  static async addNewJob(payload) {
+    const response = await apiClient.postRequest('/jobs/add-new-job', payload)
+    return response
+  }
+
+  static async getJobCategoriesTitlesAndSkills(payload) {
+    const response = await apiClient.getRequest('/jobs/new/job-fields')
+    return response
+  }
+
+  static async getJobById(jobId) {
+    const response = await apiClient.getRequest(`/jobs/job/${ jobId }`)
     return response
   }
 }

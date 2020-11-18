@@ -52,7 +52,7 @@ export default function MultiSelectLinkItems({
           </IconButton>
           <div className='align-self-center'>
             {textLinkBase ? (
-              <Link to={ `${ textLinkBase }/${ item.id }` }>
+              <Link to={ `${ textLinkBase }/${ item.id }` } target='_blank'>
                 <span className='primary-text-link'>{item.title}</span>
               </Link>
             )

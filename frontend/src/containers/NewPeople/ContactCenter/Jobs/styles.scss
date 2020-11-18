@@ -108,7 +108,6 @@
 
     .drop-down-bar {
       width: 80%;
-      height: 30px;
     }
 
     .agent-field{
@@ -128,18 +127,8 @@
 
 .job-requirements-root {
 
-  .drop-down-bar {
+  .drop-down-field {
     width: 80%;
-    height: 30px;
-  }
-
-  .MuiFormControl-root {
-    width: 100%;
-
-    .course-search-input{
-      width: 70%;
-      height: 30px;
-    }
   }
 }
 
