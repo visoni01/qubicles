@@ -19,14 +19,7 @@ import { getTimeFromNow } from '../../../../utils/common'
 const JobPost = ({
   jobId, courses, jobDetails,
 }) => {
-  // const { jobDetails } = useSelector((state) => state.newJobDetails)
   const dispatch = useDispatch()
-  // useEffect(() => {
-  //   if (_.isEmpty(jobDetails)) {
-  //     dispatch(newJobDetailsFetchStart({ jobId }))
-  //   }
-  // }, [ dispatch ])
-
   return (
     <>
       <Box className='custom-box job-post-root'>
@@ -396,7 +389,7 @@ const JobPost = ({
 }
 
 JobPost.propTypes = {
-  jobId: PropTypes.number.isRequired,
+  jobId: PropTypes.string.isRequired,
   jobDetails: PropTypes.object.isRequired,
   courses: PropTypes.object.isRequired,
 }

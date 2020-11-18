@@ -22,7 +22,16 @@ export default class JobPostCompanyDetailsService extends ServiceBase {
       const { client_id } = this.filteredArgs
       const clientDetails = await getClientData({ client_id })
       console.log('clientDetails in JobPostCompanyDetailsService====>>>>>', clientDetails)
-      return clientDetails
+      const companyDetails = {
+        registrationDate: clientDetails.registration_date,
+        companyName: clientDetails.client_name,
+        clientId: clientDetails.client_id,
+        title: clientDetails.title,
+        summary: clientDetails.summary,
+        city: clientDetails.city,
+        state: clientDetails.state
+      }
+      return companyDetails
     } catch (err) {
       logger.error(`${getErrorMessageForService('JobPostCompanyDetailsService')} ${err}`)
       this.addError(ERRORS.INTERNAL)

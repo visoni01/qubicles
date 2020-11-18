@@ -17,6 +17,8 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 1
     },
     client_username: DataTypes.STRING(100),
+    title: DataTypes.STRING(100),
+    summary: DataTypes.STRING,
     address1: DataTypes.STRING(100),
     address2: DataTypes.STRING(100),
     city: DataTypes.STRING(100),

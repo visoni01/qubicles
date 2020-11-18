@@ -30,6 +30,6 @@ jobRouter.route('/add-new-job')
   .post(isAuthenticated, jobController.addNewJob)
 
 jobRouter.route('/job/company/:client_id')
-  .get(isAuthenticated, jobController.getJobCategoriesTitlesAndSkills)
+  .get(isAuthenticated, jobController.getJobPostCompanyDetails)
 
 export { jobRouter }

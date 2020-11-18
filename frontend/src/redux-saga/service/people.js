@@ -59,7 +59,6 @@ class People {
   }
 
   static async fetchJobPostCompanyDetails({ clientId }) {
-    debugger
     const response = await apiClient.getRequest(`/jobs/job/company/${ clientId }`)
     return response
   }

@@ -6,6 +6,7 @@ import Rating from '@material-ui/lab/Rating'
 import PropTypes from 'prop-types'
 import { testResumeIntroduction } from './testData'
 import './styles.scss'
+import { formatDate } from '../../../utils/common'
 
 const Introduction = ({
   imageName,
@@ -35,7 +36,9 @@ const Introduction = ({
           {location}
         </p>
         <p className='para light'>
-          {date}
+          Member since
+          {' '}
+          {formatDate(date, 'MM/YYYY')}
         </p>
       </div>
     </div>

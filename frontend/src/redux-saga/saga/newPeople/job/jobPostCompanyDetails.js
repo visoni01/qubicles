@@ -14,7 +14,6 @@ function* jobPostCompanyDataFetchingWatcherStart() {
 function* jobPostCompanyDataFetchingWorker(action) {
   try {
     const { clientId } = action.payload
-    debugger
     const { data } = yield People.fetchJobPostCompanyDetails({ clientId })
     yield put(jobPostCompanyDetailsFetchSuccessful({ companyDetails: data }))
   } catch (e) {

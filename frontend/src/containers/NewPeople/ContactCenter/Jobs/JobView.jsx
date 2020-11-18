@@ -16,9 +16,9 @@ const JobView = () => {
   const { jobDetails } = useSelector((state) => state.newJobDetails)
   const dispatch = useDispatch()
   useEffect(() => {
-    // if (_.isEmpty(jobDetails)) {
-    dispatch(newJobDetailsFetchStart({ jobId }))
-    // }
+    if (_.isEmpty(jobDetails)) {
+      dispatch(newJobDetailsFetchStart({ jobId }))
+    }
   }, [ dispatch ])
 
   return (
