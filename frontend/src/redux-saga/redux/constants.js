@@ -1,5 +1,4 @@
 export const ADD_JOB = 'ADD_JOB'
-export const DELETE_JOB = 'DELETE_JOB'
 export const ADD_POST = 'ADD_POST'
 export const DELETE_POST_STATUS = 'DELETE_POST_STATUS'
 export const ADD_POST_COMMENT = 'ADD_POST_COMMENT'
