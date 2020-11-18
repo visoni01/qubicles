@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import {
   Box, IconButton, List, ListItemText, InputBase, MenuItem,
 } from '@material-ui/core'
@@ -19,6 +19,16 @@ const JobsList = () => {
   useEffect(() => {
     dispatch(newJobCategoriesFetchStart({ searchKeyword: '' }))
   }, [ dispatch ])
+
+  const handleJobsByCategory = ({ jobCategory }) => {
+    dispatch(getJobsByCategory({ categoryId: jobCategory.categoryId }))
+    setSelectedCategory(jobCategory.categoryId)
+  }
+
+  const handleResetJobs = useCallback(() => {
+    dispatch(resetJobsByCategorySelection())
+    setSelectedCategory(0)
+  }, [ dispatch, selectedCategory ])
 
   return (
     <Box className='custom-box no-padding side-filter-root job-list'>
@@ -50,11 +60,11 @@ const JobsList = () => {
       <List className='filter-list-items'>
         <MenuItem
           button
-          onClick={ () => setSelectedCategory(0) }
+          onClick={ handleResetJobs }
           selected={ selectedCategory === 0 }
         >
           <ListItemText classes={ { primary: 'list-item' } }>
-            <h4 className='h4 light unbold' onClick={ () => dispatch(resetJobsByCategorySelection()) }>All</h4>
+            <h4 className='h4 light unbold'>All</h4>
           </ListItemText>
         </MenuItem>
 
@@ -62,12 +72,12 @@ const JobsList = () => {
           newJobCategories.map((jobCategory) => (
             <MenuItem
               button
-              onClick={ () => setSelectedCategory(jobCategory.categoryId) }
+              onClick={ () => handleJobsByCategory({ jobCategory }) }
               selected={ selectedCategory === jobCategory.categoryId }
               key={ jobCategory.categoryId }
             >
               <ListItemText classes={ { primary: 'list-item' } }>
-                <h4 className='h4 light unbold' onClick={ () => dispatch(getJobsByCategory({ categoryId: jobCategory.categoryId })) }>
+                <h4 className='h4 light unbold'>
                   {jobCategory.categoryTitle}
                 </h4>
               </ListItemText>

@@ -51,14 +51,10 @@ const {
       ...state,
       newJobCategories: getUpdatedJobsData({ state, payload: action.payload }),
     }),
-    resetJobsByCategorySelection: (state, action) => {
-      debugger
-      console.log('action in resetJobsByCategorySelection', action)
-      return {
-        ...state,
-        selectedCategoryId: '',
-      }
-    },
+    resetJobsByCategorySelection: (state, action) => ({
+      ...state,
+      selectedCategoryId: '',
+    }),
   },
 })
 

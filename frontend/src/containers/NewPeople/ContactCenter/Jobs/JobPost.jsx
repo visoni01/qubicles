@@ -1,4 +1,4 @@
-/* eslint-disable consistent-return */
+/* eslint-disable react/forbid-prop-types */
 import React, { useEffect } from 'react'
 import {
   Avatar, Box, Button, Divider, Chip,
@@ -397,7 +397,7 @@ const JobPost = ({
 
 JobPost.propTypes = {
   jobId: PropTypes.number.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
+  jobDetails: PropTypes.object.isRequired,
   courses: PropTypes.object.isRequired,
 }
 
