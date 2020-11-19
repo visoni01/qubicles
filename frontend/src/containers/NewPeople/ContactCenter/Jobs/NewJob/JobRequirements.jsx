@@ -5,16 +5,12 @@ import '../styles.scss'
 import MultiSelectChipItems from '../../../MultiSelectChipItems'
 import MultiSelectLinkItems from '../../../MultiSelectLinkItems'
 import ROUTE_PATHS from '../../../../../routes/routesPath'
+import { availableCourses } from '../../constants'
 
 const NewJobRequirements = ({
   setNewJobData,
   jobFields,
 }) => {
-  const availableSkills = [
-    { id: 1, title: 'How to talk to clients?', subtitle: 'Chris Porter, 2020' },
-    { id: 2, title: 'Email Communication', subtitle: 'Chris Porter, 2020' },
-    { id: 3, title: 'Managing Difficult Situation', subtitle: 'Roy Gordon, 2020' },
-  ]
   const [ selectedRequiredCourses, setSelectedRequiredCourses ] = useState([])
   const [ selectedRequiredSkills, setSelectedRequiredSkills ] = useState([])
   const [ selectedBonusCourses, setSelectedBonusCourses ] = useState([])
@@ -75,7 +71,7 @@ const NewJobRequirements = ({
             <h4 className='h4 mt-10 mb-10'> Required Courses* </h4>
             <div className='mr-30 drop-down-field'>
               <MultiSelectLinkItems
-                items={ availableSkills }
+                items={ availableCourses }
                 selectedItems={ selectedRequiredCourses }
                 setSelectedItems={ setSelectedRequiredCourses }
                 textLinkBase={ ROUTE_PATHS.VIEW_COURSE }
@@ -86,7 +82,7 @@ const NewJobRequirements = ({
             <h4 className='h4 mt-10 mb-10'> Bonus Courses</h4>
             <div className='mr-30 drop-down-field'>
               <MultiSelectLinkItems
-                items={ availableSkills }
+                items={ availableCourses }
                 selectedItems={ selectedBonusCourses }
                 setSelectedItems={ setSelectedBonusCourses }
                 textLinkBase={ ROUTE_PATHS.VIEW_COURSE }

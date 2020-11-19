@@ -26,7 +26,7 @@ const NewJob = () => {
   }
 
   const dispatch = useDispatch()
-  const { jobFields, jobDetails, success } = useSelector((state) => state.newJobDetails)
+  const { jobFields } = useSelector((state) => state.newJobDetails)
   const [ newJobData, setNewJobData ] = useState(initialJobDetails)
 
   // Setting jobData

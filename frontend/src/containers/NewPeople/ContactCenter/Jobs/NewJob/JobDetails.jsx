@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback } from 'react'
 import {
   TextField, Select, MenuItem,
   FormControl, RadioGroup,
@@ -6,6 +6,7 @@ import {
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import '../styles.scss'
+import { availableLanguages } from '../../constants'
 
 const NewJobDetails = ({
   newJobData,
@@ -30,13 +31,6 @@ const NewJobDetails = ({
       durationMonths: 0,
     }))
   }, [ newJobData ])
-
-  // Avilable Languages
-  const availableLanguages = [
-    { name: 'English', value: 'english' },
-    { name: 'French', value: 'french' },
-    { name: 'Spanish', value: 'spanish' },
-  ]
 
   // Set Languages
   const setLanguageCB = useCallback((event) => {

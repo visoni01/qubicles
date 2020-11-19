@@ -19,9 +19,7 @@ const JobsList = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (_.isEmpty(newJobCategories)) {
-      dispatch(newJobCategoriesFetchStart({ searchKeyword: '' }))
-    }
+    dispatch(newJobCategoriesFetchStart({ searchKeyword: '' }))
   }, [ dispatch ])
 
   const handleJobsByCategory = ({ jobCategory }) => {

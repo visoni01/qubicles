@@ -14,6 +14,7 @@ import { Autocomplete } from '@material-ui/lab'
 import ROUTE_PATHS from '../../../../../routes/routesPath'
 import MyUploadAdapter from '../../../../../utils/uploadImage'
 import '../styles.scss'
+import Loader from '../../../../../components/loaders/circularLoader'
 
 const NewJobData = ({
   setNewJobData,
@@ -148,6 +149,11 @@ const NewJobData = ({
             return new MyUploadAdapter(loader, setIsImageUploading, dispatch)
           }
         } }
+      />
+      <Loader
+        displayLoaderManually={ isImageUploading }
+        enableOverlay={ false }
+        size={ 50 }
       />
     </div>
   )

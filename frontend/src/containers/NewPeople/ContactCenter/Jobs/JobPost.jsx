@@ -1,11 +1,11 @@
 /* eslint-disable react/forbid-prop-types */
-import React, { useEffect } from 'react'
+import React from 'react'
 import {
   Avatar, Box, Button, Divider, Chip,
 } from '@material-ui/core'
 import Rating from '@material-ui/lab/Rating'
 import PropTypes from 'prop-types'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import _ from 'lodash'
 import {

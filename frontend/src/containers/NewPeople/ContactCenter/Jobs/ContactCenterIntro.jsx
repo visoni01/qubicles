@@ -20,7 +20,7 @@ const ContactCenterIntro = ({ jobDetails }) => {
     history.push(ROUTE_PATHS.NEW_PEOPLE)
   })
 
-  const { companyDetails, isLoading } = useSelector((state) => state.jobPostCompanyDetails)
+  const { companyDetails } = useSelector((state) => state.jobPostCompanyDetails)
   const dispatch = useDispatch()
   useEffect(() => {
     if (!_.isEmpty(jobDetails)) {
