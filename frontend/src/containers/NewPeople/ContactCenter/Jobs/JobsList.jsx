@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import {
-  Box, IconButton, List, ListItemText, InputBase, MenuItem,
+  Box, IconButton, List, ListItemText, InputBase, MenuItem, debounce,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSlidersH, faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -16,6 +16,8 @@ const JobsList = () => {
   const [ searchCategories, setSearchCategories ] = useState(false)
   const { newJobCategories, isLoading } = useSelector((state) => state.newJobCategories)
   const [ selectedCategory, setSelectedCategory ] = useState(0)
+  const [ searchField, setSearchField ] = useState('')
+
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -31,6 +33,16 @@ const JobsList = () => {
     dispatch(resetJobsByCategorySelection())
     setSelectedCategory(0)
   }, [ dispatch, selectedCategory ])
+
+  const callSearchApi = useCallback(debounce((nextValue) => {
+    dispatch(newJobCategoriesFetchStart({ searchKeyword: nextValue }))
+  }, 500), [ dispatch ])
+
+  const handleSearch = useCallback((e) => {
+    const nextValue = e.target.value
+    setSearchField(nextValue)
+    callSearchApi(nextValue)
+  }, [ callSearchApi ])
 
   return (
     <Box className='custom-box no-padding side-filter-root job-list'>
@@ -55,6 +67,8 @@ const JobsList = () => {
           placeholder='Search Categories'
           className='input-field'
           name='searchCategories'
+          onChange={ handleSearch }
+          value={ searchField }
         />
       </div>
       )}
