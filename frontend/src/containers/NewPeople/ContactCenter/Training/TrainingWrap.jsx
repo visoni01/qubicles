@@ -14,7 +14,6 @@ const TrainingWrap = () => {
   const handleCreateCourseButton = useCallback(() => {
     history.push(ROUTE_PATHS.CREATE_COURSE)
   })
-
   return (
     <div>
       <div className='display-inline-flex is-fullwidth mt-10 search-bar-people'>

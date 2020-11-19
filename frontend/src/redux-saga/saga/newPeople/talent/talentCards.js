@@ -10,8 +10,10 @@ function* talentCardsWatcherStart() {
 
 function* talentCardsWorker() {
   try {
-    const data = yield NewPeople.getTalentCards()
-    yield put(fetchTalentCardsSuccess(data))
+    const { data } = yield NewPeople.getTalentCards()
+    yield put(fetchTalentCardsSuccess({
+      talentCards: data,
+    }))
   } catch (e) {
     yield put(fetchTalentCardsFailed())
     yield put(showErrorMessage({ msg: e.errMsg }))

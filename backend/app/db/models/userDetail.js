@@ -33,12 +33,17 @@ module.exports = (sequelize, DataTypes) => {
     },
     is_online: DataTypes.BOOLEAN,
     profile_image: DataTypes.STRING,
+    work_title: DataTypes.STRING,
+    work_overview: DataTypes.TEXT,
     is_post_signup_completed: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     }
   },
   { tableName: 'x_user_details' })
+  UserDetail.associate = function (models) {
+    UserDetail.hasMany(models.XQodUserSkill, { as: 'userSkills', foreignKey: 'user_id' })
+  }
 
   return UserDetail
 }

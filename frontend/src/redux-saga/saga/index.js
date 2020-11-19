@@ -30,6 +30,7 @@ import newJobDetails from './newPeople/job'
 import newJobCategoryDataActivity from './newPeople/jobCategories'
 import jobsByCategory from './newPeople/jobsByCategory'
 import jobPostCompanyDetails from './newPeople/job/jobPostCompanyDetails'
+import updateTalentCards from './newPeople/talent/updateTalentCard'
 
 export default function* rootSaga() {
   yield all([
@@ -63,5 +64,6 @@ export default function* rootSaga() {
     newJobCategoryDataActivity(),
     jobsByCategory(),
     jobPostCompanyDetails(),
+    updateTalentCards(),
   ])
 }

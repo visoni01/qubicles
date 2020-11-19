@@ -92,8 +92,8 @@ const TalentFilter = () => {
       <Divider className='full-border' />
 
       <div className='filter-section'>
-        <h4 className='h4 heading'> Skills </h4>
         <div className='talent-filter-dropdown'>
+          <h4 className='h4'> Skills </h4>
           <MultiSelectChipItems
             items={ availableSkills }
             label='Choose Required Skills'
@@ -104,8 +104,8 @@ const TalentFilter = () => {
         </div>
       </div>
       <div className='filter-section'>
-        <h4 className='h4 heading'> Languages </h4>
         <div className='talent-filter-dropdown'>
+          <h4 className='h4'> Languages </h4>
           <MultiSelectChipItems
             items={ availableLanguages }
             label='Choose Languages'
@@ -117,8 +117,8 @@ const TalentFilter = () => {
       </div>
 
       <div className='filter-section'>
-        <h4 className='h4 heading'> Talent Type </h4>
         <div className='control-buttons-wrapper'>
+          <h4 className='h4'> Talent Type </h4>
           <RadioGroup
             className='radio-buttons'
             value={ selectedTalentType }
@@ -138,8 +138,8 @@ const TalentFilter = () => {
       </div>
 
       <div className='filter-section'>
-        <h4 className='h4 heading'> Hourly rate </h4>
         <div className='control-buttons-wrapper'>
+          <h4 className='h4'> Hourly rate </h4>
           <RadioGroup
             className='radio-buttons'
             value={ selectedHourlyRate }
@@ -155,8 +155,8 @@ const TalentFilter = () => {
       </div>
 
       <div className='filter-section'>
-        <h4 className='h4 heading'> Rating </h4>
         <div className='control-buttons-wrapper'>
+          <h4 className='h4'> Rating </h4>
           <RadioGroup
             className='radio-buttons'
             value={ selectedRating }
@@ -197,8 +197,8 @@ const TalentFilter = () => {
       </div>
 
       <div className='filter-section'>
-        <h4 className='h4 heading'> Verifications </h4>
         <div className='control-buttons-wrapper'>
+          <h4 className='h4'> Verifications </h4>
           <FormControl
             className='checkboxes'
           >
@@ -227,8 +227,8 @@ const TalentFilter = () => {
       </div>
 
       <div className='filter-section'>
-        <h4 className='h4 heading'> Availability </h4>
         <div className='control-buttons-wrapper'>
+          <h4 className='h4'> Availability </h4>
           <RadioGroup
             className='radio-buttons'
             value={ selectedAvailability }
@@ -243,8 +243,8 @@ const TalentFilter = () => {
       </div>
 
       <div className='filter-section'>
-        <h4 className='h4 heading'> Location </h4>
         <div className='control-buttons-wrapper'>
+          <h4 className='h4'> Location </h4>
           <div className='input-box mr-15'>
             <TextareaAutosize
               aria-label='minimum height'

@@ -7,7 +7,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       primaryKey: true
     },
-    user_id: DataTypes.INTEGER(11),
     desired_job_type: {
       type: DataTypes.ENUM,
       values: ['fulltime', 'parttime', 'contract', 'ondemand'],
@@ -50,12 +49,21 @@ module.exports = (sequelize, DataTypes) => {
       values: ['weekly', 'biweekly', 'monthly'],
       defaultValue: 'weekly'
     },
-    avg_peer_rating: DataTypes.INTEGER,
-    avg_owner_rating: DataTypes.INTEGER,
-    lifetime_pay: DataTypes.DOUBLE,
+    avg_peer_rating: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    avg_owner_rating: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    lifetime_pay: {
+      type: DataTypes.DOUBLE,
+      defaultValue: 0
+    },
     status: {
       type: DataTypes.ENUM,
-      values: ['available', 'unavailable', 'vacation']
+      values: ['available', 'unavailable', 'on vacation']
     },
     createdAt: {
       field: 'created_on',
@@ -71,6 +79,7 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: true
   })
   XQodResourceDef.associate = function (models) {
+    XQodResourceDef.belongsTo(models.UserDetail, { foreignKey: 'user_id' })
   }
   return XQodResourceDef
 }

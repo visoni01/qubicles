@@ -12,7 +12,9 @@ const TalentPage = () => {
   const { isLoading, talentCards } = useSelector((state) => state.peopleTalentCards)
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(fetchTalentCardsStart())
+    if (!talentCards) {
+      dispatch(fetchTalentCardsStart())
+    }
   }, [ dispatch ])
   return (
     <>
@@ -27,9 +29,10 @@ const TalentPage = () => {
       </div>
       <Box className='custom-box'>
         {/* Talent Cards */}
-        {!isLoading && talentCards.map((talentCard) => (
+        {!isLoading && talentCards && talentCards.map((talentCard) => (
           <TalentCard
             key={ talentCard.candidateId }
+            candidateId={ talentCard.candidateId }
             candidateName={ talentCard.candidateName }
             candidatePic={ talentCard.candidatePic }
             availability={ talentCard.availability }
@@ -39,7 +42,7 @@ const TalentPage = () => {
             ratePerHourDollar={ talentCard.ratePerHourDollar }
             profileName={ talentCard.profileName }
             profileDescription={ talentCard.profileDescription }
-            profileTags={ talentCard.profileTags }
+            skills={ talentCard.skills }
           />
         ))}
 

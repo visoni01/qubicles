@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getDataForReducer } from '../../../../utils/common'
+import { getUpdatedTalentCards } from '../helper'
 
 const initialState = {
   isLoading: null,
   error: null,
   success: null,
-  talentCards: [],
+  talentCards: null,
 }
 
 const {
@@ -13,6 +14,7 @@ const {
     fetchTalentCardsStart,
     fetchTalentCardsSuccess,
     fetchTalentCardsFailed,
+    updateTalentCards,
   }, reducer,
 } = createSlice({
   name: 'talentCards',
@@ -34,6 +36,11 @@ const {
       error: true,
       success: false,
     }),
+    updateTalentCards: (state, action) => ({
+      ...state,
+      talentCards: getUpdatedTalentCards({ state, payload: action.payload }),
+      isLoading: false,
+    }),
   },
 })
 
@@ -42,4 +49,5 @@ export {
   fetchTalentCardsStart,
   fetchTalentCardsSuccess,
   fetchTalentCardsFailed,
+  updateTalentCards,
 }

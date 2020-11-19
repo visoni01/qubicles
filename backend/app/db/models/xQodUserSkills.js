@@ -1,4 +1,5 @@
 'use strict'
+
 module.exports = (sequelize, DataTypes) => {
   const XQodUserSkill = sequelize.define('XQodUserSkill', {
     user_skill_id: {
@@ -7,9 +8,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       primaryKey: true
     },
-    user_id: DataTypes.INTEGER(11),
-    skill_id: DataTypes.INTEGER(11),
-    endorsed: DataTypes.INTEGER,
+    endorsed: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
     created_on: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -20,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'x_qod_user_skills'
   })
   XQodUserSkill.associate = function (models) {
+    XQodUserSkill.belongsTo(models.XQodSkill, { as: 'skill', foreignKey: 'skill_id' })
   }
   return XQodUserSkill
 }

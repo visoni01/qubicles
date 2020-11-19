@@ -5,7 +5,13 @@ class NewPeople {
   // Talent Api's
   static async getTalentCards() {
     // WIP Add Talent cards backend getter api
-    const response = { talentCards }
+    const response = await apiClient.getRequest('/newPeople/talent/cards')
+    return response
+  }
+
+  static async getUserSkills({ candidateId }) {
+    // WIP Add Talent cards backend getter api
+    const response = await apiClient.getRequest(`/newPeople/skills/${ candidateId }`)
     return response
   }
 
