@@ -1,11 +1,13 @@
-@import '../partials/colors';
-@import '../abstracts/variables';
+@import './variables';
+@import './cards';
 @import './pages-core';
+@import './layout-hero';
+@import './layout-navbar';
+@import './layout-footer';
+@import './layout-sections';
 @import './components-boxes';
 @import './components-pricing';
 @import './components-testimonials';
-@import './layout-navbar';
-@import './layout-footer';
 
 // Link buttons
 .button {
@@ -37,36 +39,4 @@
       opacity: 0.8;
   }
 
-}
-
-.button.primary-btn {
-  outline: none;
-  border-color: $primary;
-  background-color: $primary;
-  color: $white;
-  transition: all 0.5s;
-
-  &:hover {
-      color: $white;
-  }
-
-  &.raised:hover {
-      box-shadow: $primary-box-shadow;
-      opacity: 0.9 0.5;
-  }
-
-  &.btn-outlined {
-      border-color: $primary;
-      color: $primary;
-      background-color: transparent;
-
-      &:hover {
-          color: $white;
-          background-color: $primary;
-      }
-  }
-
-  &:focus {
-      border-color: $primary;
-  }
 }

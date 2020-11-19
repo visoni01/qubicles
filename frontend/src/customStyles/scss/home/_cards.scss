@@ -1,0 +1,157 @@
+/*! _cards.scss | Bulkit | CSS Ninja */
+
+/* ==========================================================================
+Card styles
+========================================================================== */
+
+.feature-card {
+    width: 300px;
+    height: 320px;
+    background-color: #fff;
+    border-radius: 3px;
+    margin: 0 auto;
+    transition: all 0.6s;
+
+    //sizes
+    &.card-md {
+        height: 350px;
+    }
+
+    &.hover-inset:hover {
+        box-shadow: inset rgba(143, 160, 241, 0.2) 0 0 0 1px, rgba(213, 220, 247, 0.59) 0 10px 20px;
+        cursor: pointer;
+    }
+
+    //borders
+    &.light-bordered {
+        border: 1px solid #e5e5e5 !important;
+    }
+
+    //title
+    .card-title h4 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: $blue-grey;
+    }
+
+    //Icons and images
+    .card-icon img {
+        height: 140px;
+        margin-top: 20px;
+    }
+
+    //description
+    .card-feature-description {
+        padding: 5px 30px !important;
+
+        span {
+            color: $basaltic-grey;
+            margin-top: 20px;
+        }
+    }
+}
+
+/* ==========================================================================
+1. Flex card
+========================================================================== */
+.flex-card {
+    position: relative;
+    background-color: #fff;
+    border: 1px solid darken($fade-grey, 4%);
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    //margin-bottom: 20px;
+    transition: all 0.5s;
+
+    //card title h3
+    h3.card-title {
+        margin-bottom: 10px;
+        margin-top: 10px;
+        font-size: 22px;
+        line-height: 30px;
+        text-decoration: none;
+        &.is-styled {
+            font-family: 'Nexa Bold', sans-serif;
+        }
+    }
+
+    //light border
+    &.light-bordered {
+        border: 1px solid #e5e5e5 !important;
+    }
+
+    &.light-raised {
+        box-shadow: 0 3px 10px 4px rgba(0, 0, 0, 0.04);
+    }
+
+    &.raised {
+        box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.2);
+    }
+
+    &.hover-inset:hover {
+        box-shadow: inset rgba(143, 160, 241, 0.2) 0 0 0 1px, rgba(213, 220, 247, 0.59) 0 10px 20px;
+        cursor: pointer;
+    }
+
+    //tabs inside cards
+    .tabs {
+        padding: 15px 0.7rem;
+    }
+
+    .navtab-content {
+        min-height: 190px;
+
+        p {
+            padding: 0 0.8rem 20px;
+        }
+    }
+
+    //Testimonial card variation
+    &.testimonial-card {
+        //title
+        .testimonial-title {
+            color: $primary;
+            font-weight: 500;
+            padding: 5px 0;
+        }
+
+        //text
+        .testimonial-text {
+            color: $muted-grey;
+            font-size: 0.9rem;
+            font-style: italic;
+            padding: 5px 0;
+        }
+
+        //user meta
+        .user-id {
+            display: flex;
+            justify-content: flex-start;
+            align-content: center;
+            align-items: center;
+            padding: 5px 0;
+
+            img {
+                height: 50px;
+                border-radius: 100px;
+            }
+
+            .info {
+                padding: 0 10px;
+
+                .name {
+                    font-size: 1.1rem;
+                    font-weight: 600;
+                    color: $blue-grey;
+                }
+
+                .position {
+                    font-size: 0.9rem;
+                    color: $placeholder;
+                }
+            }
+        }
+    }
+}

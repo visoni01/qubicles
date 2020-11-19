@@ -1,0 +1,57 @@
+/*! _footer.scss | Qubicles */
+
+/* ==========================================================================
+Footer styles
+========================================================================== */
+
+footer.footer-dark {
+    background: $blue-grey;
+    color: $white;
+    position: relative;
+    .columns {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+    .footer-logo {
+        padding: 10px 0;
+    }
+    .footer-column {
+        .footer-header {
+            padding: 10px 0;
+            h3 {
+                font-family: 'Nexa Bold', sans-serif;
+                font-weight:400;
+                font-size: 1.1rem;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                margin-bottom: 0 !important;
+                color: $light-grey;
+            }
+        }
+        ul.link-list {
+            line-height: 30px;
+            font-size: 1rem;
+            a {
+                color: $light-blue-grey;
+                font-weight: 400;
+                transition: all 0.5s;
+            }
+            :hover {
+                color: $smoke-white;
+            }
+        }
+        .level-item .icon {
+            color: $primary;
+            transition: all 0.5s;
+            i {
+                font-size: 20px;
+            }
+            :hover {
+                color: $smoke-white;
+            }
+        }
+        .copyright {
+            padding: 10px 0;
+        }
+    }
+}

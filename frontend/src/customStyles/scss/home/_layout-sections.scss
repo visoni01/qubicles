@@ -4,15 +4,6 @@
 Sections related styles
 ========================================================================== */
 
-/***
-TABLE OF CONTENTS
-=============================================================================
-0. Sections general styles
-1. Quick flex block
-2. Divider
-=============================================================================
-***/
-
 /* ==========================================================================
 0. Sections general styles
 ========================================================================== */
@@ -27,21 +18,8 @@ TABLE OF CONTENTS
     &.section-header-grey {
         background-color: $header-grey;
     }
-    &.section-feature-grey-accent {
-        background-color: $section-grey-accent;
-    }
     &.section-primary {
         background-color: $primary;
-    }
-    &.section-secondary {
-        background-color: $secondary;
-    }
-    //Bordered sections
-    &.has-border-bottom {
-        border-bottom: 1px solid $fade-grey;
-    }
-    &.has-border-top {
-        border-top: 1px solid $fade-grey;
     }
     //Helpers
     &.is-relative {
@@ -139,7 +117,6 @@ TABLE OF CONTENTS
     .title {
         &.section-title {
             font-size: 2.7rem;
-            color: $title-grey;
             font-weight: bold;
             font-family: 'Nexa Bold', sans-serif;
         }
@@ -147,25 +124,13 @@ TABLE OF CONTENTS
             font-size: 2.3rem;
             color: $title-grey;
         }
-        &.quick-feature {
-            font-size: 2.7rem;
-            color: $blue-grey;
-            position: relative;
-            .bg-number, .bg-symbol {
-                position: absolute;
-                font-weight: bolder;
-                top: -100px;
-                left: 40px;
-                font-size: 14rem;
-                z-index: 0;
-                opacity: 0.1;
-                color: #999;
-            }
-        }
         &.feature-title {
             font-weight: 600;
             color: $blue-grey;
             font-size: 2.2rem;
+        }
+        &.dark-text {
+          color: #444f60!important;
         }
 
     }
@@ -195,50 +160,9 @@ TABLE OF CONTENTS
             margin: 0 auto;
         }
     }
-    //Headline
-    h2.feature-headline {
-        color: $primary !important;
-        line-height: 1.2;
-        padding: 5px 0;
-        margin-bottom: 0 !important;
-    }
     //Feature description
     .section-feature-description {
         color: $basaltic-grey;
-    }
-    //Media icon box
-    .media.icon-box {
-        border-top: none !important;
-        .media-content .content p {
-            span.icon-box-title {
-                color: $blue-grey;
-                font-size: 1.2rem;
-                font-weight: 600;
-            }
-            span.icon-box-text {
-                color: $title-grey;
-                font-size: 1.1rem;
-                font-weight: 400;
-            }
-        }
-    }
-    //Flex-wrapper
-    .flex-wrapper {
-        display: flex;
-        align-content: center;
-        align-items: center;
-        &.flex-center {
-            justify-content: center;
-        }
-        &.flex-start {
-            justify-content: flex-start;
-        }
-        &.flex-end {
-            justify-content: flex-end;
-        }
-        img {
-            width: 23%;
-        }
     }
 }
 
@@ -252,27 +176,5 @@ TABLE OF CONTENTS
     align-items: center;
     &.center-flex {
         justify-content: center !important;
-    }
-}
-
-/* ==========================================================================
-2. Divider
-========================================================================== */
-.divider {
-    display: table;
-    white-space: nowrap;
-    margin-top: 20px;
-    padding: 0 20px;
-    .before-divider, .after-divider {
-        display: table-cell;
-        width: 50%;
-        border-bottom: 1px solid $fade-grey;
-        transform: translateY(-50%);
-        color: $muted-grey;
-    }
-    .children {
-        padding: 0 20px;
-        font-size: 14px;
-        color: $placeholder;
     }
 }
