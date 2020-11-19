@@ -21,7 +21,6 @@ export default class JobPostCompanyDetailsService extends ServiceBase {
     try {
       const { client_id } = this.filteredArgs
       const clientDetails = await getClientData({ client_id })
-      console.log('clientDetails in JobPostCompanyDetailsService====>>>>>', clientDetails)
       const companyDetails = {
         registrationDate: clientDetails.registration_date,
         companyName: clientDetails.client_name,
