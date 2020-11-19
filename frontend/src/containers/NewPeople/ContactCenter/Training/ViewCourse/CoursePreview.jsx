@@ -30,7 +30,7 @@ const CoursePreview = ({
       </div>
       <div className='dialog-right-side'>
         <div className='display-inline-flex justify-between no-padding-bottom'>
-          <DialogTitle className='width-full'>
+          <DialogTitle className='is-fullwidth'>
             <h4 className='h4 mt-10'> How to manage clients ? </h4>
           </DialogTitle>
           <DialogActions className='cross-button'>

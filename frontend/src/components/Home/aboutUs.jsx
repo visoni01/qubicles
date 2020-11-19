@@ -28,7 +28,7 @@ const AboutUs = () => {
       <div className='hero parallax is-cover is-relative is-default is-bold bg-for-about-us'>
         <Header />
         {/* Hero text */}
-        <div id='main-hero' className='hero-body pt-80 pb-80'>
+        <div id='main-hero' className='hero-body pt-80 pb-80 mt-20 mb-20'>
           <div className='container has-text-centered'>
             <div className='columns is-vcentered'>
               <div className='column is-6 is-offset-3 has-text-centered'>

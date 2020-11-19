@@ -62,7 +62,7 @@ const Topics = ({ groupId, groupTitle, setSelectedTopic }) => {
             { (index + 1 < noOfTopicsPerPage) && <Divider className='mb-30' />}
           </>
         )) : (
-          <h4 className='h4 text-align-center padding-20'>
+          <h4 className='h4 text-center padding-20'>
             No topics to show
           </h4>
         )}

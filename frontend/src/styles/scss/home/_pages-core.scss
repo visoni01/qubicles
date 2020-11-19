@@ -202,7 +202,7 @@ TABLE OF CONTENTS
 
 .title.main-title {
     font-family: 'Nexa Bold', sans-serif;
-    margin-bottom: 0;
+    margin-bottom: 10px;
     padding: 20px 0;
 }
 
@@ -256,6 +256,11 @@ TABLE OF CONTENTS
     font-size: 2.4rem !important;
     margin-bottom: 0 !important;
     padding: 10px 0;
+
+}
+
+.light-text {
+  color: #fff !important;
 }
 
 /* ==========================================================================
