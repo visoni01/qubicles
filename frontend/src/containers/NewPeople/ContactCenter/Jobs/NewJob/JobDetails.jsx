@@ -192,4 +192,4 @@ NewJobDetails.propTypes = {
   setNewJobDataCB: PropTypes.func.isRequired,
 }
 
-export default NewJobDetails
+export default React.memo(NewJobDetails)

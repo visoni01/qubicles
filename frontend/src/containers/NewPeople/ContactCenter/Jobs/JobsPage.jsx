@@ -19,8 +19,8 @@ const JobsData = ({ selectedCategoryId, newJobCategories }) => {
         categoryId={ newJobCategories[ index ].categoryId }
         categoryTitle={ newJobCategories[ index ].categoryTitle }
         jobs={ newJobCategories[ index ].jobs }
-        required={ 5 }
-        hired={ 2 }
+        needed={ 5 }
+        fulfilled={ 2 }
         evaluating={ 2 }
         pending={ 0 }
       />
@@ -34,8 +34,8 @@ const JobsData = ({ selectedCategoryId, newJobCategories }) => {
           categoryId={ jobCategory.categoryId }
           categoryTitle={ jobCategory.categoryTitle }
           jobs={ jobCategory.jobs }
-          required={ 5 }
-          hired={ 2 }
+          needed={ 5 }
+          fulfilled={ 2 }
           evaluating={ 2 }
           pending={ 0 }
         />

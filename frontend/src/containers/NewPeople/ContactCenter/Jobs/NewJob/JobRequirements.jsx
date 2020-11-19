@@ -104,4 +104,4 @@ NewJobRequirements.propTypes = {
   setNewJobData: PropTypes.func.isRequired,
 }
 
-export default NewJobRequirements
+export default React.memo(NewJobRequirements)

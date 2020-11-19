@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserFriends, faRedo, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { JOB_POST_ROUTE } from '../../../../routes/routesPath'
+import { JOB_ROUTE } from '../../../../routes/routesPath'
 
 const JobCategoryCard = ({
   categoryTitle, jobs, needed, fulfilled, evaluating, pending, categoryId,
@@ -22,7 +22,7 @@ const JobCategoryCard = ({
         <div key={ !jobId ? `${ index } ${ title } ${ categoryId }` : `${ jobId } ${ categoryId }` }>
           <div className='job-info list-divider'>
             <div className='job-details is-fullwidth'>
-              <Link to={ `${ JOB_POST_ROUTE }/${ jobId }` }>
+              <Link to={ `${ JOB_ROUTE }/post/${ jobId }` }>
                 <h4 className='h4'>
                   { title }
                 </h4>
@@ -61,7 +61,6 @@ JobCategoryCard.propTypes = {
   fulfilled: PropTypes.isRequired,
   evaluating: PropTypes.isRequired,
   pending: PropTypes.isRequired,
-  categoryId: PropTypes.number.isRequired,
   jobs: PropTypes.arrayOf(
     PropTypes.shape({
       jobId: PropTypes.number,

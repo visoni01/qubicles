@@ -26,11 +26,12 @@ const NewJob = () => {
   }
 
   const dispatch = useDispatch()
-  const { jobFields, success } = useSelector((state) => state.newJobDetails)
+  const { jobFields, jobDetails, success } = useSelector((state) => state.newJobDetails)
   const [ newJobData, setNewJobData ] = useState(initialJobDetails)
 
   // Setting jobData
   const setNewJobDataCB = useCallback((event) => {
+    event.persist()
     const { name, value } = event.target
     setNewJobData((currentNewJobData) => ({
       ...currentNewJobData,

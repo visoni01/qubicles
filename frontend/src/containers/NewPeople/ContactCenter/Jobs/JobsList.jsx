@@ -4,6 +4,7 @@ import {
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSlidersH, faSearch } from '@fortawesome/free-solid-svg-icons'
+import _ from 'lodash'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   newJobCategoriesFetchStart,
@@ -16,8 +17,11 @@ const JobsList = () => {
   const { newJobCategories, isLoading } = useSelector((state) => state.newJobCategories)
   const [ selectedCategory, setSelectedCategory ] = useState(0)
   const dispatch = useDispatch()
+
   useEffect(() => {
-    dispatch(newJobCategoriesFetchStart({ searchKeyword: '' }))
+    if (_.isEmpty(newJobCategories)) {
+      dispatch(newJobCategoriesFetchStart({ searchKeyword: '' }))
+    }
   }, [ dispatch ])
 
   const handleJobsByCategory = ({ jobCategory }) => {

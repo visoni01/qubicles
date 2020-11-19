@@ -16,10 +16,8 @@ const JobView = () => {
   const { jobDetails } = useSelector((state) => state.newJobDetails)
   const dispatch = useDispatch()
   useEffect(() => {
-    if (_.isEmpty(jobDetails)) {
-      dispatch(newJobDetailsFetchStart({ jobId }))
-    }
-  }, [ dispatch ])
+    dispatch(newJobDetailsFetchStart({ jobId }))
+  }, [ dispatch, jobId ])
 
   return (
     <Grid container spacing={ 3 }>
