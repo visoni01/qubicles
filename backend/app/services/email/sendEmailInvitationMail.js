@@ -74,7 +74,7 @@ function getHtml ({ inviteUrl, name, inviter_first_name, inviter_last_name }) {
   We hope you sign up today - even if it's just to collect this free money!
   <a href=${inviteUrl}>Click here to register for free and get paid.</a>
   `
-  const EMAIL_TEMPLATE_CLOSING = `Once you\'ve signed up, connect with
+  const EMAIL_TEMPLATE_CLOSING = `Once you/'ve signed up, connect with
     ${inviter_first_name} inside Qubicles. See you there!`
   return notificationEmailTemplate(EMAIL_TEMPLATE_GREETING, EMAIL_TEMPLATE_BODY, EMAIL_TEMPLATE_CLOSING)
 }
