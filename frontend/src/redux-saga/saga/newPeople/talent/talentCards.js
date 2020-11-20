@@ -8,9 +8,10 @@ function* talentCardsWatcherStart() {
   yield takeEvery(fetchTalentCardsStart.type, talentCardsWorker)
 }
 
-function* talentCardsWorker() {
+function* talentCardsWorker(action) {
   try {
-    const { data } = yield NewPeople.getTalentCards()
+    const { filter, requiredSkills } = action.payload
+    const { data } = yield NewPeople.getTalentCards({ filter, requiredSkills })
     yield put(fetchTalentCardsSuccess({
       talentCards: data,
     }))

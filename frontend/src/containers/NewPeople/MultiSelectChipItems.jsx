@@ -9,17 +9,18 @@ import PropTypes from 'prop-types'
 export default function MultiSelectChipItems({
   items, label, smallTag, selectedItems, setSelectedItems,
 }) {
+  const [ inputValue, setInputValue ] = useState('')
   const setSelectedItemsCB = useCallback((event, value) => {
     if (value) {
       setSelectedItems((state) => _.unionBy(state, [ value ], 'id'))
     }
   }, [])
-  const [ inputValue, setInputValue ] = useState('')
 
   return (
     <div>
       <FormControl variant='outlined' className='drop-down-bar'>
         <Autocomplete
+          value={ null }
           getOptionSelected={ (option) => option.title }
           inputValue={ inputValue }
           clearOnBlur
@@ -38,6 +39,7 @@ export default function MultiSelectChipItems({
             />
           ) }
           renderOption={ (option) => <span className='para light'>{option.title}</span> }
+          disableListWrap
         />
       </FormControl>
       <div className={ `tags-set ${ smallTag ? 'small' : '' }` }>
@@ -70,6 +72,9 @@ MultiSelectChipItems.propTypes = {
 
   label: PropTypes.string,
   smallTag: PropTypes.bool,
-  selectedItems: PropTypes.arrayOf(),
+  selectedItems: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+  })),
   setSelectedItems: PropTypes.func.isRequired,
 }

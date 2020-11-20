@@ -13,7 +13,10 @@ const TalentPage = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     if (!talentCards) {
-      dispatch(fetchTalentCardsStart())
+      dispatch(fetchTalentCardsStart({
+        filter: false,
+        requiredSkills: [],
+      }))
     }
   }, [ dispatch ])
   return (

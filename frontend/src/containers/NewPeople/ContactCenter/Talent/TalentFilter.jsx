@@ -1,14 +1,23 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import {
   Box, Divider, FormControl,
   RadioGroup, FormControlLabel, Radio,
-  Checkbox, TextareaAutosize,
+  Checkbox, TextareaAutosize, Button, Grid,
 } from '@material-ui/core'
 import { Rating } from '@material-ui/lab'
 
+import { useDispatch, useSelector } from 'react-redux'
 import MultiSelectChipItems from '../../MultiSelectChipItems'
+import { fetchJobSkillsStart, fetchTalentCardsStart } from '../../../../redux-saga/redux/actions'
 
 const TalentFilter = () => {
+  const dispatch = useDispatch()
+  const { jobSkills } = useSelector((state) => state.jobSkills)
+  useEffect(() => {
+    if (!jobSkills) {
+      dispatch(fetchJobSkillsStart())
+    }
+  }, [ dispatch ])
   const verificationsInitial = {
     backgroundCheck: false,
     phoneVerified: false,
@@ -24,6 +33,12 @@ const TalentFilter = () => {
   const [ selectedAvailability, setAvailability ] = useState('Any')
   const [ selectedLocation, setLocation ] = useState('')
 
+  const handleFilterApply = useCallback(() => {
+    dispatch((fetchTalentCardsStart({
+      filter: true,
+      requiredSkills: selectedSkill.map((skill) => skill.id),
+    })))
+  })
   // console.log('===============================')
   // console.log('selectedSkill =====', selectedSkill)
   // console.log('selectedLanguage =====', selectedLanguage)
@@ -34,21 +49,11 @@ const TalentFilter = () => {
   // console.log('selectedAvailability =====', selectedAvailability)
   // console.log('selectedLocation =====', selectedLocation)
 
-  // Skills
-  const availableSkills = [
-    { id: 1, title: 'Customer Service', subtitle: 'Manager at microcomp' },
-    { id: 2, title: 'Phone Calling', subtitle: 'Manager at Microteck' },
-    { id: 3, title: 'Email Support', subtitle: 'Manager at LG' },
-    { id: 4, title: 'Active Sales', subtitle: 'Manager at Good phones' },
-    { id: 5, title: 'Agent Support', subtitle: 'Manager at microcomp' },
-  ]
-
   // Languages
   const availableLanguages = [
-    { id: 1, title: 'Hindi' },
     { id: 2, title: 'English' },
     { id: 3, title: 'French' },
-    { id: 4, title: 'German' },
+    { id: 4, title: 'Spanish' },
   ]
 
   // Talent Type
@@ -88,14 +93,40 @@ const TalentFilter = () => {
   return (
     <Box className='custom-box no-padding side-filter-root talent-filter'>
       <h2 className='h2 title talent-title'>Talent</h2>
-      <h3 className='h3 subtitle talent-subtitle'> Filter </h3>
-      <Divider className='full-border' />
+      <h3 className='h3 subtitle'> Filter </h3>
 
+      <Grid container spacing={ 2 } justify='space-between' className='filter-buttons'>
+        <Grid item>
+          <Button
+            className='button-reset'
+            classes={ {
+              root: 'button-secondary-small',
+              label: 'button-secondary-small-label',
+            } }
+          >
+            Reset
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button
+            className='button-apply'
+            onClick={ handleFilterApply }
+            classes={ {
+              root: 'button-primary-small',
+              label: 'button-primary-small-label',
+            } }
+          >
+            Apply
+          </Button>
+        </Grid>
+      </Grid>
+
+      <Divider className='full-border' />
       <div className='filter-section'>
         <div className='talent-filter-dropdown'>
           <h4 className='h4'> Skills </h4>
           <MultiSelectChipItems
-            items={ availableSkills }
+            items={ jobSkills ? jobSkills.map((skill) => ({ id: skill.skillId, title: skill.skillName })) : [] }
             label='Choose Required Skills'
             selectedItems={ selectedSkill }
             setSelectedItems={ setSkill }
