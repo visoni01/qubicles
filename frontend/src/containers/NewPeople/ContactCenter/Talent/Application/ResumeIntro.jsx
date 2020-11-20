@@ -48,7 +48,7 @@ const ResumeIntro = () => {
           <div>
             <h4 className='h4'> 7,233 </h4>
             <p className='para'> Total Calls </p>
-            <h4 className='h4 heading mt-20'> $5K+ </h4>
+            <h4 className='h4 mt-20'> $5K+ </h4>
             <p className='para'> Total Earnings </p>
           </div>
           <div>

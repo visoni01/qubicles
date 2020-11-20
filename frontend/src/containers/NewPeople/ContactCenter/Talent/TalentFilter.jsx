@@ -39,6 +39,14 @@ const TalentFilter = () => {
       requiredSkills: selectedSkill.map((skill) => skill.id),
     })))
   })
+
+  const handleResetFilter = useCallback(() => {
+    setSkill([])
+    dispatch((fetchTalentCardsStart({
+      filter: false,
+      requiredSkills: [],
+    })))
+  })
   // console.log('===============================')
   // console.log('selectedSkill =====', selectedSkill)
   // console.log('selectedLanguage =====', selectedLanguage)
@@ -98,6 +106,7 @@ const TalentFilter = () => {
       <Grid container spacing={ 2 } justify='space-between' className='filter-buttons'>
         <Grid item>
           <Button
+            onClick={ handleResetFilter }
             className='button-reset'
             classes={ {
               root: 'button-secondary-small',

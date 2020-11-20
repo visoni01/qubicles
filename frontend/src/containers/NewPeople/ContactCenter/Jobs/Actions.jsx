@@ -15,8 +15,7 @@ const Actions = () => {
   return (
     <>
       <Box className='custom-box actions-box'>
-        <h3 className=' h3 heading'> Actions </h3>
-
+        <h3 className=' h3 mb-30'> Actions </h3>
         <Button
           className='wide-button'
           onClick={ handleOpenInviteAgentModal }

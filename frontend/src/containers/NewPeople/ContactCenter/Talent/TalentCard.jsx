@@ -7,11 +7,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAward, faMapMarkerAlt, faLanguage } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import { terry } from '../../../../assets/images/avatar'
-import ROUTE_PATHS from '../../../../routes/routesPath'
+import { VIEW_RESUME_ROUTE } from '../../../../routes/routesPath'
 import TalentCardSkills from './TalentCardSkills'
 
 const TalentCard = ({
-  candidateName, candidatePic, availability,
+  candidateId, candidateName, candidatePic, availability,
   candidateRating, location, languages,
   ratePerHourDollar, profileName,
   profileDescription, skills,
@@ -34,7 +34,7 @@ const TalentCard = ({
             <FontAwesomeIcon className='ml-10 custom-fa-icon light sz-lg' icon={ faAward } />
           </div>
           <Link
-            to={ ROUTE_PATHS.VIEW_RESUME }
+            to={ `${ VIEW_RESUME_ROUTE }/${ candidateId }` }
             className='primary-text-link  ml-10 mr-10'
           >
             View Resume
@@ -86,6 +86,7 @@ TalentCard.defaultProps = {
 }
 
 TalentCard.propTypes = {
+  candidateId: PropTypes.number.isRequired,
   candidateName: PropTypes.string,
   candidatePic: PropTypes.string,
   availability: PropTypes.string,
