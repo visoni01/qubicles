@@ -21,8 +21,45 @@ module.exports = {
       },
       {
         job_title_id: 5,
+        job_title_name: 'Business Development Specialist'
+      },
+      {
+        job_title_id: 6,
         job_title_name: 'Retail Sales Consultant'
+      },
+      {
+        job_title_id: 7,
+        job_title_name: 'Account Consultant'
+      },
+      {
+        job_title_id: 8,
+        job_title_name: 'Chief Customer Officer'
+      },
+      {
+        job_title_id: 9,
+        job_title_name: 'Customer Advocate'
+      },
+      {
+        job_title_id: 10,
+        job_title_name: 'Voice of the Customer'
+      },
+      {
+        job_title_id: 11,
+        job_title_name: 'Director of Customer Experience'
+      },
+      {
+        job_title_id: 12,
+        job_title_name: 'Customer Experience Manager'
+      },
+      {
+        job_title_id: 13,
+        job_title_name: 'Customer Success Team Lead'
+      },
+      {
+        job_title_id: 14,
+        job_title_name: 'Implementation Specialist'
       }
+
     ], {})
   },
 
