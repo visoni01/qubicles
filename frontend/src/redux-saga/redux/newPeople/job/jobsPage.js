@@ -42,7 +42,7 @@ const {
       isLoading: false,
       newJobCategories: action.payload.data,
     }),
-    newJobCategoriesFetchFailure: (state, action) => ({
+    newJobCategoriesFetchFailure: () => ({
       ...initialState,
       error: true,
       isLoading: false,
@@ -51,7 +51,7 @@ const {
       ...state,
       newJobCategories: getUpdatedJobsData({ state, payload: action.payload }),
     }),
-    resetJobsByCategorySelection: (state, action) => ({
+    resetJobsByCategorySelection: (state) => ({
       ...state,
       selectedCategoryId: '',
     }),

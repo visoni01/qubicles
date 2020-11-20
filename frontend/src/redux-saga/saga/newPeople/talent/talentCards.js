@@ -8,7 +8,7 @@ function* talentCardsWatcherStart() {
   yield takeEvery(fetchTalentCardsStart.type, talentCardsWorker)
 }
 
-function* talentCardsWorker(action) {
+function* talentCardsWorker() {
   try {
     const data = yield NewPeople.getTalentCards()
     yield put(fetchTalentCardsSuccess(data))

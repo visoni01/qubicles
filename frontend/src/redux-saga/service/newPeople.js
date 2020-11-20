@@ -1,4 +1,3 @@
-import apiClient from '../../utils/apiClient'
 import { talentCards } from '../../containers/NewPeople/ContactCenter/testData'
 import { agentResumeSkills } from '../../containers/NewPeople/ContactCenter/Talent/Application/testData'
 

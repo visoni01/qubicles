@@ -42,7 +42,7 @@ class ApiClient {
     return status
   }
 
-  getUser = async (token) => {
+  getUser = async () => {
     const user = await this.axios({
       url: '/user/profile',
       method: 'get',

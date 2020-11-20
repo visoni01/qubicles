@@ -28,7 +28,7 @@ const {
       success: true,
       talentCards: getDataForReducer(action, initialState.talentCards, 'talentCards'),
     }),
-    fetchTalentCardsFailed: (state, action) => ({
+    fetchTalentCardsFailed: (state) => ({
       ...state,
       isLoading: false,
       error: true,

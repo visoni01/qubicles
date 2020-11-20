@@ -11,7 +11,7 @@ function* agentResumeSkillsWatcherStart() {
   yield takeEvery(fetchAgentResumeSkillsStart.type, agentResumeSkillsWorker)
 }
 
-function* agentResumeSkillsWorker(action) {
+function* agentResumeSkillsWorker() {
   try {
     const data = yield NewPeople.getAgentResumeSkills()
     yield put(fetchAgentResumeSkillsSuccess(data))

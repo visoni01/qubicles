@@ -6,7 +6,6 @@ import {
   showErrorMessage,
   showSuccessMessage,
   fetchCommentsStart,
-  updatePostComments,
 } from '../../redux/actions'
 import {
   UNLIKE_POST,

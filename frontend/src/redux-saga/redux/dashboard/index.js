@@ -21,12 +21,12 @@ const {
       ...initialState,
       isLoading: true,
     }),
-    dashboardDataFetchingSuccessful: (state, action) => ({
+    dashboardDataFetchingSuccessful: () => ({
       ...initialState,
       success: true,
       isLoading: false,
     }),
-    dashboardDataFetchingFailure: (state, action) => ({
+    dashboardDataFetchingFailure: () => ({
       ...initialState,
       error: true,
       isLoading: false,

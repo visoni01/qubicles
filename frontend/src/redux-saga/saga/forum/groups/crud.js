@@ -16,7 +16,7 @@ function* groupCrudWorker(action) {
     switch (action.type) {
       case ADD_GROUP: {
         const {
-          title, description, permission,
+          title,
         } = action.payload
 
         const { data } = yield Forum.addGroup(action.payload)

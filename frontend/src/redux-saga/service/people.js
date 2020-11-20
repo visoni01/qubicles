@@ -31,7 +31,7 @@ class People {
     return response
   }
 
-  static async getJobCategoriesAndTitles(payload) {
+  static async getJobCategoriesAndTitles() {
     const response = await apiClient.getRequest('/jobs/job-fields')
     return response
   }
@@ -48,7 +48,7 @@ class People {
     return response
   }
 
-  static async getJobCategoriesTitlesAndSkills(payload) {
+  static async getJobCategoriesTitlesAndSkills() {
     const response = await apiClient.getRequest('/jobs/new/job-fields')
     return response
   }

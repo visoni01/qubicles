@@ -24,7 +24,7 @@ const {
   name: 'postSignUp',
   initialState,
   reducers: {
-    postSignUpStepStart: (state, action) => ({
+    postSignUpStepStart: (state) => ({
       ...state,
       isLoading: true,
       success: false,
@@ -62,7 +62,7 @@ const {
         currentStep: state.currentStep + 1,
       }
     },
-    postSignUpStepFailure: (state, action) => ({
+    postSignUpStepFailure: (state) => ({
       ...state,
       error: true,
       isLoading: false,

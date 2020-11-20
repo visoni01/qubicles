@@ -21,7 +21,7 @@ const {
   name: 'groups',
   initialState,
   reducers: {
-    groupsFetchingStart: (state, action) => ({
+    groupsFetchingStart: () => ({
       ...initialState,
       isLoading: true,
     }),
@@ -32,7 +32,7 @@ const {
       groups: getDataForReducer(action, initialState.groups, 'groups'),
       totalGroups: action.payload.count,
     }),
-    groupsFetchingFailure: (state, action) => ({
+    groupsFetchingFailure: (state) => ({
       ...state,
       error: true,
       isLoading: false,

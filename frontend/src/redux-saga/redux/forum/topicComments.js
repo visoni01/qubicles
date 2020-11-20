@@ -32,7 +32,7 @@ const {
       comments: getDataForReducer(action, initialState.comments, 'comments'),
       commentsCount: action.payload.commentsCount,
     }),
-    topicCommentsFetchingFailure: (state, action) => ({
+    topicCommentsFetchingFailure: (state) => ({
       ...state,
       error: true,
       isLoading: false,

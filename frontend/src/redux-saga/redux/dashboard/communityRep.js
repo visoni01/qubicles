@@ -29,7 +29,7 @@ const {
       isLoading: false,
       communityRep: getDataForReducer(action, initialState.communityRep, 'communityRep'),
     }),
-    communityRepDataFechingFailure: (state, action) => ({
+    communityRepDataFechingFailure: (state) => ({
       ...state,
       error: true,
       isLoading: false,

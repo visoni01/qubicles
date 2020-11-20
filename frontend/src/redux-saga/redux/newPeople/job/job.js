@@ -31,7 +31,7 @@ const {
       isLoading: false,
       jobDetails: getDataForReducer(action, initialState.jobDetails, 'jobDetails'),
     }),
-    newJobDetailsFetchFailure: (state, action) => ({
+    newJobDetailsFetchFailure: (state) => ({
       ...state,
       error: true,
       isLoading: false,

@@ -11,7 +11,7 @@ function* communityRepDataFechingWatcherStart() {
   yield takeEvery(communityRepDataFechingStart.type, communityRepDataFechingWorker)
 }
 
-function* communityRepDataFechingWorker(action) {
+function* communityRepDataFechingWorker() {
   try {
     const { data } = yield Dashboard.fetchCommunityRep()
     yield put(communityRepDataFechingSuccessful({ communityRep: data }))

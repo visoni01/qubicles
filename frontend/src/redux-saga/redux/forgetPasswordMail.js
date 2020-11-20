@@ -22,12 +22,12 @@ const {
       ...initialState,
       isLoading: true,
     }),
-    forgetPasswordMailSuccessful: (state, action) => ({
+    forgetPasswordMailSuccessful: () => ({
       ...initialState,
       success: true,
       isLoading: false,
     }),
-    forgetPasswordMailFailure: (state, action) => ({
+    forgetPasswordMailFailure: () => ({
       ...initialState,
       error: true,
       isLoading: false,
