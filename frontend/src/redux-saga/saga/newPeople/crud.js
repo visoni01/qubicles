@@ -1,10 +1,11 @@
 import { takeLatest, put } from 'redux-saga/effects'
-import { ADD_JOB } from '../../redux/constants'
+import { updateJobsData, newJobDetailsFetchSuccessful } from '../../redux/actions'
+import { ADD_JOB, UPDATE_JOB } from '../../redux/constants'
 import { showErrorMessage, showSuccessMessage } from '../../redux/snackbar'
 import People from '../../service/people'
 
 function* jobCrudWatcher() {
-  yield takeLatest([ ADD_JOB ], jobCrudWorker)
+  yield takeLatest([ ADD_JOB, UPDATE_JOB ], jobCrudWorker)
 }
 
 function* jobCrudWorker(action) {
@@ -41,20 +42,71 @@ function* jobCrudWorker(action) {
           ...rest,
         })
         // eslint-disable-next-line
-        // const { category_id, job_id, user_id, title, description } = data
-        // yield put(updateJobsData({
-        //   type: ADD_JOB,
-        //   newJob: {
-        //     categoryId: category_id,
-        //     jobId: job_id,
-        //     title,
-        //     description,
-        //     ownerId: user_id,
-        //     noOfApplications: 0,
-        //     notifications: 0,
-        //   },
-        // }))
+        const { category_id, job_id, user_id, title, description } = data
+        yield put(updateJobsData({
+          type: ADD_JOB,
+          newJob: {
+            categoryId: category_id,
+            jobId: job_id,
+            title,
+            description,
+            ownerId: user_id,
+            noOfApplications: 0,
+            notifications: 0,
+            evaluating: 4,
+            fulfilled: null,
+          },
+        }))
         msg = 'Job has been successfully created!'
+        break
+      }
+      case UPDATE_JOB: {
+        const {
+          categoryId,
+          jobType,
+          employmentType,
+          experienceType,
+          durationType,
+          requiredCourses,
+          requiredSkills,
+          bonusCourses,
+          bonusSkills,
+          payAmount,
+          durationMonths,
+          ...rest
+        } = action.payload
+        const { data } = yield People.updateJob({
+          job_type: jobType,
+          employment_type: employmentType,
+          duration_type: durationType,
+          duration_months: durationMonths,
+          category_id: categoryId,
+          experience_type: experienceType,
+          required_courses: requiredCourses,
+          required_skills: requiredSkills,
+          bonus_courses: bonusCourses,
+          bonus_skills: bonusSkills,
+          pay_amount: payAmount,
+          ...rest,
+        })
+        // eslint-disable-next-line
+        const { category_id, job_id, user_id, title, description } = data
+        yield put(updateJobsData({
+          type: UPDATE_JOB,
+          updatedJob: {
+            categoryId: category_id,
+            jobId: job_id,
+            title,
+            description,
+            ownerId: user_id,
+            noOfApplications: 0,
+            notifications: 0,
+            evaluating: 4,
+            fulfilled: null,
+          },
+        }))
+        yield put(newJobDetailsFetchSuccessful(action.payload))
+        msg = 'Job has been successfully updated!'
         break
       }
       default:

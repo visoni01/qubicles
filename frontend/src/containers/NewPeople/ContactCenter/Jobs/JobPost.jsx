@@ -5,21 +5,21 @@ import {
 } from '@material-ui/core'
 import Rating from '@material-ui/lab/Rating'
 import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { Link, useHistory } from 'react-router-dom'
 import _ from 'lodash'
 import {
   terry, sally, kareem, ray, helen,
 } from '../../../../assets/images/avatar'
 import './styles.scss'
-import ROUTE_PATHS from '../../../../routes/routesPath'
-import { newJobDetailsFetchStart } from '../../../../redux-saga/redux/actions'
+import ROUTE_PATHS, { JOB_ROUTE } from '../../../../routes/routesPath'
 import { getTimeFromNow } from '../../../../utils/common'
 
 const JobPost = ({
   jobId, courses, jobDetails,
 }) => {
-  const dispatch = useDispatch()
+  const { userDetails } = useSelector((state) => state.login)
+  const history = useHistory()
   return (
     <>
       <Box className='custom-box job-post-root'>
@@ -27,15 +27,19 @@ const JobPost = ({
           <h3 className='h3 job-post-heading'>
             {jobDetails.title}
           </h3>
+
+          { userDetails.user_id === jobDetails.jobPostOwnerId && (
           <Button
             classes={ {
               root: 'button-secondary-small',
               label: 'button-secondary-small-label',
             } }
-            onClick={ () => dispatch(newJobDetailsFetchStart({ jobId })) }
+            onClick={ () => history.push(`${ JOB_ROUTE }/${ jobId }/edit`) }
           >
             Edit Post
           </Button>
+          )}
+
         </div>
         <p className='para light'>
           Posted

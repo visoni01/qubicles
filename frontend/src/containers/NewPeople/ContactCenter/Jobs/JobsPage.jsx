@@ -10,39 +10,6 @@ import JobCategoryCard from './JobCategoryCard'
 import ROUTE_PATHS from '../../../../routes/routesPath'
 import { newJobCategoriesFetchStart } from '../../../../redux-saga/redux/actions'
 
-const JobsData = ({ selectedCategoryId, newJobCategories }) => {
-  if (selectedCategoryId) {
-    const index = newJobCategories.findIndex((category) => category.categoryId === selectedCategoryId)
-    return (
-      <JobCategoryCard
-        key={ newJobCategories[ index ].categoryId }
-        categoryId={ newJobCategories[ index ].categoryId }
-        categoryTitle={ newJobCategories[ index ].categoryTitle }
-        jobs={ newJobCategories[ index ].jobs }
-        needed={ 5 }
-        fulfilled={ 2 }
-        evaluating={ 2 }
-        pending={ 0 }
-      />
-    )
-  }
-  return newJobCategories.map((jobCategory) => (
-    jobCategory.jobs.length > 0
-        && (
-        <JobCategoryCard
-          key={ jobCategory.categoryId }
-          categoryId={ jobCategory.categoryId }
-          categoryTitle={ jobCategory.categoryTitle }
-          jobs={ jobCategory.jobs }
-          needed={ 5 }
-          fulfilled={ 2 }
-          evaluating={ 2 }
-          pending={ 0 }
-        />
-        )
-  ))
-}
-
 const JobsPage = () => {
   const history = useHistory()
   const { newJobCategories, selectedCategoryId } = useSelector((state) => state.newJobCategories)
@@ -88,6 +55,43 @@ const JobsPage = () => {
       </Box>
     </>
   )
+}
+
+const JobsData = ({ selectedCategoryId, newJobCategories }) => {
+  if (selectedCategoryId) {
+    const index = newJobCategories.findIndex((category) => category.categoryId === selectedCategoryId)
+    console.log('newJobCategories[ index ] in jobsPage===>>>>>', newJobCategories[ index ])
+    return (
+      <JobCategoryCard
+        key={ newJobCategories[ index ].categoryId }
+        categoryId={ newJobCategories[ index ].categoryId }
+        categoryTitle={ newJobCategories[ index ].categoryTitle }
+        jobs={ newJobCategories[ index ].jobs }
+        needed={ 5 }
+        fulfilled={ 2 }
+        evaluating={ 2 }
+        pending={ 0 }
+      />
+    )
+  }
+  return newJobCategories.map((jobCategory) => {
+    console.log('newJobCategories in second map in jobsPage===>>>>>', newJobCategories)
+    return (
+      jobCategory.jobs.length > 0
+        && (
+        <JobCategoryCard
+          key={ jobCategory.categoryId }
+          categoryId={ jobCategory.categoryId }
+          categoryTitle={ jobCategory.categoryTitle }
+          jobs={ jobCategory.jobs }
+          needed={ 5 }
+          fulfilled={ 2 }
+          evaluating={ 2 }
+          pending={ 0 }
+        />
+        )
+    )
+  })
 }
 
 export default JobsPage

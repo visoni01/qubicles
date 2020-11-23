@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import {
   Button, TextField, FormControl,
 } from '@material-ui/core'
@@ -8,7 +8,7 @@ import CKEditor from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
 import { Autocomplete } from '@material-ui/lab'
 import ROUTE_PATHS from '../../../../../routes/routesPath'
@@ -17,6 +17,7 @@ import '../styles.scss'
 import Loader from '../../../../../components/loaders/circularLoader'
 
 const NewJobData = ({
+  newJobData,
   setNewJobData,
   jobFields,
   setNewJobDataCB,
@@ -27,6 +28,18 @@ const NewJobData = ({
     categoryInput: '',
     titleInput: '',
   })
+  const { jobDetails } = useSelector((state) => state.newJobDetails)
+
+  // useEffect(() => {
+  //   console.log(' jobDetails in jobData ====>>>>>', jobDetails)
+  //   if (!_.isEmpty(jobId)) {
+  //     // dispatch(newJobDetailsFetchStart({ jobId }))
+  //     setNewJobData((currentNewJobData) => ({
+  //       ...currentNewJobData,
+  //       ...jobDetails,
+  //     }))
+  //   }
+  // })
 
   const handleDescriptionData = useCallback((event, editor) => {
     // eslint-disable-next-line
@@ -64,6 +77,7 @@ const NewJobData = ({
                 clearOnBlur
                 noOptionsText='no matches found'
                 onInputChange={ (event, value) => setInputValue((state) => ({ ...state, categoryInput: value })) }
+                // value={ newJobData.categoryId }
                 onChange={ (event, currentValue) => {
                   if (!_.isEmpty(currentValue)) {
                     setNewJobData((jobData) => ({
@@ -94,6 +108,7 @@ const NewJobData = ({
                 inputValue={ inputValue.titleInput }
                 clearOnBlur
                 noOptionsText='no matches found'
+                // value={ newJobData.title }
                 onInputChange={ (event, value) => setInputValue((state) => ({ ...state, titleInput: value })) }
                 onChange={ (event, currentValue) => {
                   if (!_.isEmpty(currentValue)) {
@@ -129,6 +144,7 @@ const NewJobData = ({
               className='agent-field'
               variant='outlined'
               placeholder='20'
+              value={ newJobData.needed }
               onChange={ setNewJobDataCB }
               required
             />
@@ -143,6 +159,7 @@ const NewJobData = ({
         onChange={ handleDescriptionData }
         className='mt-10'
         name='description'
+        data={ newJobData.description }
         onInit={ (editor) => {
           // eslint-disable-next-line
           editor.plugins.get('FileRepository').createUploadAdapter = function (loader) {
@@ -164,6 +181,8 @@ NewJobData.defaultProps = {
 }
 
 NewJobData.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  newJobData: PropTypes.object.isRequired,
   setNewJobData: PropTypes.func.isRequired,
   jobFields: PropTypes.arrayOf(PropTypes.string),
   setNewJobDataCB: PropTypes.func.isRequired,

@@ -17,6 +17,7 @@ import {
   POST_DATA_FETCH,
   UPDATE_POST_COMMENT,
   FETCH_COMMENTS_SUCCESS,
+  UPDATE_JOB,
 } from './constants'
 
 export const getUpdatedGroups = ({ state, payload }) => {
@@ -113,10 +114,29 @@ export const getUpdatedJobsData = ({ state, payload }) => {
   switch (payload.type) {
     case ADD_JOB: {
       const { newJob } = payload
-      updatedJobCategories = state.jobCategories.map((category) => {
+      updatedJobCategories = state.newJobCategories.map((category) => {
         let updatedJobs = category.jobs
         if (category.categoryId === newJob.categoryId) {
           updatedJobs = [ ...updatedJobs, newJob ]
+        }
+        return { ...category, jobs: updatedJobs }
+      })
+      break
+    }
+    case UPDATE_JOB: {
+      const { updatedJob } = payload
+      updatedJobCategories = state.newJobCategories.map((category) => {
+        let updatedJobs = category.jobs
+        if (category.categoryId === updatedJob.categoryId) {
+          updatedJobs = updatedJobs.map((job) => {
+            if (job.jobId === updatedJob.jobId) {
+              return {
+                ownerId: job.ownerId,
+                ...updatedJob,
+              }
+            }
+            return job
+          })
         }
         return { ...category, jobs: updatedJobs }
       })

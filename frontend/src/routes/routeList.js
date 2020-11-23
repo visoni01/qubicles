@@ -101,6 +101,11 @@ const routes = [
     component: React.lazy(() => import('../containers/NewPeople/ContactCenter/index')),
     auth: true,
   },
+  {
+    path: ROUTE_PATHS.EDIT_JOB,
+    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Jobs/EditJob')),
+    auth: true,
+  },
   // Temporarily added extra route for new contact-center talent viewResume design.
   {
     path: ROUTE_PATHS.VIEW_RESUME,

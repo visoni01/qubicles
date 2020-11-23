@@ -23,7 +23,7 @@ const ContactCenterIntro = ({ jobDetails }) => {
   const { companyDetails } = useSelector((state) => state.jobPostCompanyDetails)
   const dispatch = useDispatch()
   useEffect(() => {
-    if (!_.isEmpty(jobDetails)) {
+    if (!_.isEmpty(jobDetails) && _.isEmpty(companyDetails)) {
       dispatch(jobPostCompanyDetailsFetchStart({ clientId: jobDetails.clientId }))
     }
   }, [ dispatch, jobDetails ])

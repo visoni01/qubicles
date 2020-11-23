@@ -1,14 +1,17 @@
 import React from 'react'
 import { Button, Box } from '@material-ui/core'
+import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
-import { addJob } from '../../../../../redux-saga/redux/actions'
+import { addJob, updateJob } from '../../../../../redux-saga/redux/actions'
 import '../../styles.scss'
+import ROUTE_PATHS from '../../../../../routes/routesPath'
 
 export default function NewJobActions({
-  newJobData,
+  newJobData, isEdit,
 }) {
   const dispatch = useDispatch()
+  const history = useHistory()
   const saveDraft = () => {
     dispatch(addJob({
       ...newJobData,
@@ -17,7 +20,10 @@ export default function NewJobActions({
   }
 
   const publishJob = () => {
-    dispatch(addJob(newJobData))
+    if (true) {
+      dispatch(updateJob(newJobData))
+    } else { dispatch(addJob(newJobData)) }
+    history.push(ROUTE_PATHS.NEW_PEOPLE)
   }
 
   return (
@@ -63,4 +69,5 @@ export default function NewJobActions({
 
 NewJobActions.propTypes = {
   newJobData: PropTypes.bool.isRequired,
+  isEdit: PropTypes.bool.isRequired,
 }

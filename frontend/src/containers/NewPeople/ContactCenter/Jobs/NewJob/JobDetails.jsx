@@ -52,6 +52,7 @@ const NewJobDetails = ({
             name='jobType'
             label='jobType'
             className='is-display-block mt-10 radio-buttons'
+            value={ newJobData.jobType }
             onChange={ setNewJobDataCB }
           >
             <div className='display-inline-flex'>
@@ -138,6 +139,7 @@ const NewJobDetails = ({
               className='duration-field'
               name='payAmount'
               placeholder='10'
+              value={ newJobData.payAmount }
               onChange={ setNewJobDataCB }
               required
             />
@@ -147,6 +149,7 @@ const NewJobDetails = ({
           <h4 className='h4 mt-30'> Experience Level </h4>
           <RadioGroup
             name='experienceType'
+            value={ newJobData.experienceType }
             onChange={ setNewJobDataCB }
             label='experience'
             className='is-display-block mt-10 radio-buttons'

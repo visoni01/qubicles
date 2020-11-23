@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     client_id: DataTypes.INTEGER(11),
     user_id: DataTypes.INTEGER(11),
-    category_id: DataTypes.INTEGER(11),
+    // category_id: DataTypes.INTEGER(11),
     title: DataTypes.STRING(100),
     description: DataTypes.TEXT,
     job_type: {
@@ -88,6 +88,7 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'x_qod_jobs'
   })
   XQodJob.associate = function (models) {
+    XQodJob.belongsTo(models.XQodCategory, { foreignKey: 'category_id' })
   }
   return XQodJob
 }
