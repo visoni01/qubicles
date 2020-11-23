@@ -137,7 +137,7 @@ const Login = () => {
 
                   <>
                     {isSocialLogin && (
-                      <div className='margin-bottom-30'>
+                      <div className='mb-30'>
                         {SocialLoginButton('Login with Facebook', 'facebook', FacebookIcon)}
                         {SocialLoginButton('Login with Twitter', 'twitter', TwitterIcon)}
                         {SocialLoginButton('Login with LinkedIn', 'linkedin', LinkedinIcon)}
@@ -155,7 +155,7 @@ const Login = () => {
                       </div>
                     )}
                     {!isSocialLogin && (
-                      <div className='margin-bottom-30'>
+                      <div className='mb-30'>
                         <form onSubmit={ handleSubmit(onSubmit) } noValidate>
                           <div className='field pb-10'>
                             {inputField(

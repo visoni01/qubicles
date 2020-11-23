@@ -639,7 +639,7 @@ const Steps = ({ history }) => {
           <h2 className='title has-text-centered is-title-reveal pt-80'>
             {!isLoggedin && (
             <Link
-              className='button button-cta btn-align rounded raised primary-btn steps-button-color'
+              className='button button-cta btn-align rounded raised primary-btn steps-button-color mt-40'
               to='/login'
             >
               Get Started for Free

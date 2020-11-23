@@ -1,0 +1,180 @@
+/*! _sections.scss | Qubicles */
+
+/* ==========================================================================
+Sections related styles
+========================================================================== */
+
+/* ==========================================================================
+0. Sections general styles
+========================================================================== */
+.section {
+    //Section colors
+    &.section-light-grey {
+        background-color: $light-grey;
+    }
+    &.section-feature-grey {
+        background-color: $section-grey;
+    }
+    &.section-header-grey {
+        background-color: $header-grey;
+    }
+    &.section-primary {
+        background-color: $primary;
+    }
+    //Helpers
+    &.is-relative {
+        position: relative;
+    }
+    &.is-cover {
+        background-size: cover !important;
+    }
+    &.no-margin {
+        margin: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+    &.section-half {
+        height: 75vh !important;
+    }
+    //Slanted section
+    &.is-skewed-sm {
+        transform: skew(0deg,-3deg) translate(0,-45px);
+        padding-top: 140px !important;
+    &.is-medium {
+      padding: 9rem 1.5rem !important
+    }
+    }
+    //Reverse slant on container
+    .container {
+        z-index: 1;
+        &.is-reverse-skewed-sm {
+            transform: skew(0deg,3deg) translate(0,45px);
+        }
+        &.slanted-container {
+            margin-top: -100px;
+        }
+    }
+    //Content spacing
+    .content-wrapper {
+        padding-top: 40px;
+    }
+    //Spacing wrapper
+    .bottom-spacer {
+        padding-bottom: 200px;
+    }
+    //Section title wrapper
+    .section-title-wrapper {
+        position: relative;
+        padding: 40px 20px;
+        //Background numbers and symbols
+        .bg-number, .bg-symbol {
+            position: absolute;
+            text-align: center;
+            font-weight: bolder;
+            top: -18px;
+            margin-left: auto;
+            margin-right: auto;
+            left: 0;
+            right: 0;
+            font-size: 160px;
+            z-index: 0;
+            opacity: 0.1;
+            color: #4c4c4c;
+            width: 160px;
+            height: 160px;
+            line-height: 160px;
+            .material-icons {
+                font-size: 12rem;
+            }
+        }
+        //Small above subtitle
+        .top-subtitle {
+            text-transform: uppercase;
+            color: $primary;
+            font-family: 'Nexa Light', sans-serif;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+        //Icon subtitle
+        .icon-subtitle {
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            &.is-one i {
+                margin: 10px 5px 0 5px;
+                font-size: 2.2rem;
+                color: $secondary;
+            }
+            &.is-many i {
+                margin: 10px 5px 0 5px;
+                font-size: 1.4rem;
+                color: $secondary;
+            }
+        }
+    }
+    //Title
+    .title {
+        &.section-title {
+            font-size: 2.7rem;
+            font-weight: bold;
+            font-family: 'Nexa Bold', sans-serif;
+        }
+        &.section-subtitle {
+            font-size: 2.3rem;
+            color: $title-grey;
+        }
+        &.feature-title {
+            font-weight: 600;
+            color: $blue-grey;
+            font-size: 2.2rem;
+        }
+        &.dark-text {
+          color: #444f60!important;
+        }
+
+    }
+    //Single icon subtitle
+    .icon-subtitle i {
+        font-size: 2.4rem;
+        color: $primary;
+    }
+    //Detailed feature subtitle
+    .detailed-feature-subtitle {
+        text-transform: uppercase;
+        font-family: 'Nexa Light';
+        font-size: 15px;
+        color: $title-grey;
+        font-weight: 600;
+    }
+    //Divider
+    .title-divider {
+        margin: 10px 0;
+        width: 80px;
+        height: 5px;
+        background:  $primary;
+        &.is-right {
+            margin-left: auto;
+        }
+        &.is-centered {
+            margin: 0 auto;
+        }
+    }
+    //Feature description
+    .section-feature-description {
+        color: $basaltic-grey;
+    }
+}
+
+/* ==========================================================================
+1. Quick flex block
+========================================================================== */
+.content.content-flex, .content-flex {
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+    &.center-flex {
+        justify-content: center !important;
+    }
+}

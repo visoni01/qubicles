@@ -66,7 +66,7 @@ const Comments = ({ topicId, commentsCount }) => {
             { (index + 1 < comments.length) && <Divider />}
           </>
         )) : (
-          <h4 className='h4 text-align-center padding-20'>
+          <h4 className='h4 text-center padding-20'>
             No comments to show
           </h4>
         )}

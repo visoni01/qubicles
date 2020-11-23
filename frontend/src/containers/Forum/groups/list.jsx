@@ -54,7 +54,7 @@ const Groups = ({ selectedGroup, setSelectedGroup }) => {
             <div className='notification-number'>+2</div>
           </ListItem>
         )) : (
-          <h4 className='h4 text-align-center padding-20'>
+          <h4 className='h4 text-center padding-20'>
             No groups to show
           </h4>
         )}

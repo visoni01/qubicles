@@ -1,0 +1,70 @@
+/*! _hero.scss | Qubicles */
+
+/* ==========================================================================
+Hero related styles
+========================================================================== */
+
+/* ==========================================================================
+0. Hero general styles
+========================================================================== */
+.hero {
+    //Helpers
+    &.is-relative {
+        position: relative;
+    }
+    &.is-cover {
+        background-size: cover !important;
+    }
+}
+
+/* ==========================================================================
+1. Hero body
+========================================================================== */
+.hero-body {
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    //page title styles
+    .title {
+        &.main-title {
+            color:  #fff;
+            z-index: 999;
+            font-size: 3.5rem;
+        }
+        &.big-title {
+            color: #444F60;
+            z-index: 999;
+            font-size: 4rem;
+        }
+        &.page-title {
+            font-size: 3.5rem;
+        }
+        &.medium-title {
+            font-size: 2.5rem;
+        }
+        &.small-title {
+            font-size: 2rem;
+        }
+    }
+    //Subtitle styles
+    .subtitle {
+        &.page-subtitle {
+            font-size: 1.8rem;
+        }
+    }
+    //Helpers
+    &.is-relative {
+        position: relative;
+    }
+}
+
+/* ==========================================================================
+2. Hero footer
+========================================================================== */
+
+.hero-foot {
+    img.partner-logo {
+        height: 70px !important;
+        filter: opacity(.7);
+        padding:10px;
+    }
+}

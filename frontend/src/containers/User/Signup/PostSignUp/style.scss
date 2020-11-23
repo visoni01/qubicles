@@ -1,109 +1,8 @@
-@import '../../../../styles/scss/pages/app-signup';
+@import '../../../../customStyles/scss/home/variables';
 
 .error-message {
   font-weight: bold;
   color: red;
-}
-
-.process-bar-wrap {
-  padding: 30px 0 0 0;
-}
-
-.process-bar {
-  height: 18px;
-  background: $white;
-  border-radius: 100px;
-  max-width: 520px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-
-  .progress-wrap {
-    position: relative;
-    margin: 0 12px;
-    width: calc(100% - 24px);
-    height: 6px;
-    border-radius: 100px;
-
-    .track, .bar {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      border-radius: 100px;
-    }
-
-    .track {
-      background: lighten($medium-grey, 5%);
-      width: 100%;
-    }
-
-    .bar {
-      background: $accent;
-      width: 0;
-      transition: width 0.4s;
-    }
-
-    .dot {
-      position: absolute;
-      top: calc(50% - 19px);
-      height: 38px;
-      width: 38px;
-      background: $white;
-      border-radius: 50%;
-      border: 1.4px solid $fade-grey;
-      box-shadow: $light-box-shadow;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      pointer-events: none;
-
-      &.is-first {
-        left: -19px;
-      }
-
-      &.is-second {
-        left: calc(25% - 19px);
-      }
-
-      &.is-third {
-        left: calc(50% - 19px);
-      }
-
-      &.is-fourth {
-        left: calc(75% - 19px);
-      }
-
-      &.is-fifth {
-        right: -19px;
-      }
-
-      &.is-active {
-        border-color: $accent;
-        box-shadow: $accent-box-shadow;
-
-        svg {
-          stroke: $accent;
-        }
-      }
-
-      &.is-current {
-        border-color: $primary;
-        box-shadow: $primary-box-shadow;
-
-        svg {
-          stroke: $primary;
-        }
-      }
-
-      svg {
-        height: 16px;
-        width: 16px;
-        stroke: $placeholder;
-        transition: stroke 0.3s;
-      }
-    }
-  }
 }
 
 .outer-panel {
@@ -245,10 +144,6 @@
           padding-left: calc(0.75em - 1px);
           padding-right: calc(0.75em - 1px);
         }
-
-        .MuiInput-underline:after {
-          border-bottom: 2px solid #4877f4 !important;
-        }
       }
 
       .control {
@@ -271,47 +166,6 @@
               outline: none;
             }
           }
-        }
-      }
-    }
-
-    .success-image {
-      display: block;
-      max-width: 120px;
-      margin: 0 auto;
-    }
-
-    .success-text {
-      text-align: center;
-      margin: 12px auto;
-      max-width: 370px;
-
-      h3 {
-        font-weight: 500;
-        color: $dark-text;
-      }
-
-      p {
-        font-size: 0.9rem;
-        color: $muted-grey;
-      }
-
-      .button {
-        max-width: 280px;
-        color: $accent;
-        position: relative !important;
-        right: 0;
-        margin-left: 40px;
-        margin-bottom: 15px;
-        justify-content: flex-start;
-        background-color: #4677F4 !important;
-        color: white !important;
-
-        &:hover, &.is-loading {
-          border-color: $accent;
-          background: $accent;
-          color: $white;
-          box-shadow: $accent-box-shadow;
         }
       }
     }
@@ -473,4 +327,55 @@
 
 .intl-tel-input .country-list .divider {
   margin-top: 0px!important;
+}
+
+.fake-nav {
+  height: 55px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+
+  img {
+      display: block;
+  }
+}
+
+.signup-wrapper {
+  min-height: 100vh;
+  position: relative;
+
+  .outer-panel {
+      display: flex;
+      align-items: center;
+      min-height: calc(100vh - 133px);
+
+      .outer-panel-inner {
+          width: 100%;
+      }
+  }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+  .signup-wrapper {
+      .outer-panel {
+          .outer-panel-inner {
+              max-width: 740px;
+              margin: 0 auto;
+
+              .columns {
+                  display: flex;
+
+                  .account-type {
+                      padding: 20px;
+
+                      img {
+                          height: 110px;
+                      }
+                  }
+              }
+          }
+      }
+  }
 }

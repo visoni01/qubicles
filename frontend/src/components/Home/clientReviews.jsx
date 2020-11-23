@@ -26,7 +26,7 @@ const ClientReviews = () => {
           src={ image || 'https://via.placeholder.com/250x250' }
           alt=''
         />
-        <div className='vt-content width-full'>
+        <div className='vt-content is-fullwidth'>
           <div className='star-rating color-secondary is-hidden-mobile'>
             <StarRatings
               rating={ rating }

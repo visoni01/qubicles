@@ -1,0 +1,42 @@
+/*! _testimonials.scss | Qubicles */
+
+/* ==========================================================================
+Vertical testimonials
+========================================================================== */
+
+.vertical-testimonials {
+    margin-top: 90px;
+    //item
+    .vtestimonial-item {
+        margin: 5px;
+        border-radius: 12px;
+        &:last-child {
+            margin-bottom: 100px;
+        }
+        //avatar
+        .vt-avatar {
+            height:55px;
+            border-radius: 100px;
+        }
+        //content
+        .vt-content {
+            margin: 0 10px;
+            .vt-name {
+                font-family: 'Nexa Bold', sans-serif;
+                font-weight: 500;
+                color: $secondary;
+                margin-bottom: .7em !important;
+            }
+            .vt-text {
+                padding-right: 5px;
+                font-size: 12px;
+            }
+            .star-rating {
+                float: right;
+                position: relative;
+                top: 3px;
+                right: 15px;
+            }
+        }
+    }
+}
