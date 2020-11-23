@@ -20,7 +20,7 @@ export default function NewJobActions({
   }
 
   const publishJob = () => {
-    if (true) {
+    if (isEdit) {
       dispatch(updateJob(newJobData))
     } else { dispatch(addJob(newJobData)) }
     history.push(ROUTE_PATHS.NEW_PEOPLE)

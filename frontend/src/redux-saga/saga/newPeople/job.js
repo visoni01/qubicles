@@ -27,6 +27,7 @@ function* jobDetailsWorker(action) {
             jobDetails: {
               jobId: data.jobDetails.job_id,
               categoryId: data.jobDetails.category_id,
+              categoryName: data.jobDetails[ 'XQodCategory.category_name' ],
               jobPostOwnerId: data.jobDetails.user_id,
               clientId: data.jobDetails.client_id,
               title: data.jobDetails.title,

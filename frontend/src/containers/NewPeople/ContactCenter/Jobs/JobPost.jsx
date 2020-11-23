@@ -49,7 +49,11 @@ const JobPost = ({
         <Divider className='divider' />
 
         <div className='job-post-description is-fullwidth display-inline-flex'>
-          <h4 className='h4 margin-top-bottom-10 text-link'> Account Sales </h4>
+          <h4 className='h4 margin-top-bottom-10 text-link'>
+            {' '}
+            {jobDetails.categoryName}
+            {' '}
+          </h4>
           <p className='para' dangerouslySetInnerHTML={ { __html: jobDetails.description } } />
         </div>
         <Divider className='divider' />

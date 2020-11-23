@@ -185,7 +185,15 @@ export async function handleApplicantResponse ({ application_id, status }) {
 }
 
 export async function getJobById ({ job_id }) {
-  const jobDetails = await XQodJob.findOne({ where: { job_id, [Op.not]: [{ is_deleted: true }] }, raw: true })
+  const jobDetails = await XQodJob.findOne({
+    include: [{
+      model: XQodCategory,
+      attributes: ['category_name']
+    }],
+    where:
+    { job_id, [Op.not]: [{ is_deleted: true }] },
+    raw: true
+  })
   return jobDetails
 }
 
