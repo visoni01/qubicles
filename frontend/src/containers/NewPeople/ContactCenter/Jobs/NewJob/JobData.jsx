@@ -14,6 +14,7 @@ import { Autocomplete } from '@material-ui/lab'
 import ROUTE_PATHS from '../../../../../routes/routesPath'
 import MyUploadAdapter from '../../../../../utils/uploadImage'
 import '../styles.scss'
+import Loader from '../../../../../components/loaders/circularLoader'
 
 const NewJobData = ({
   setNewJobData,
@@ -149,6 +150,11 @@ const NewJobData = ({
           }
         } }
       />
+      <Loader
+        displayLoaderManually={ isImageUploading }
+        enableOverlay={ false }
+        size={ 50 }
+      />
     </div>
   )
 }
@@ -163,4 +169,4 @@ NewJobData.propTypes = {
   setNewJobDataCB: PropTypes.func.isRequired,
 }
 
-export default NewJobData
+export default React.memo(NewJobData)

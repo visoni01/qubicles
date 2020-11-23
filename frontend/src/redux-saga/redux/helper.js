@@ -334,3 +334,13 @@ export const updatePostCommentsData = ({ state, payload }) => {
   }
   return commentsData
 }
+
+export const getJobsByCategory = ({ state, payload }) => {
+  const { newJobCategories } = state
+  const index = newJobCategories.findIndex((category) => category.categoryId === payload.categoryId)
+  newJobCategories[ index ] = {
+    ...newJobCategories[ index ],
+    jobs: payload.jobs,
+  }
+  return newJobCategories
+}

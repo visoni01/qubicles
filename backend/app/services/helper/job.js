@@ -9,7 +9,7 @@ import {
 
 } from '../../db/models'
 import { Op } from 'sequelize'
-import { createNewEntity, getAll, aggregate, updateEntity } from '../helper'
+import { createNewEntity, getAll, getOne, aggregate, updateEntity } from '../helper'
 import _ from 'lodash'
 
 export async function getRecentJobsByClient ({ client_id, limit = 5 }) {
@@ -92,11 +92,16 @@ export async function updateJob (data) {
   return updatedJob
 }
 
-export async function getAllJobsSubDetails ({ search_keyword }) {
+export async function getAllJobsSubDetails ({ search_keyword, category_id }) {
   let query = { [Op.not]: [{ is_deleted: true }] }
   if (!_.isEmpty(search_keyword)) {
     query = { ...query, title: { [Op.startsWith]: search_keyword } }
   }
+
+  if (!_.isEmpty(category_id)) {
+    query = { ...query, category_id }
+  }
+
   const allJobsSubDetails = await XQodJob.findAll({
     where: query,
     raw: true
@@ -256,11 +261,17 @@ export async function getXQodApplications (queryObj) {
   return XQodApplication.findAll(query)
 }
 
-export async function getJobsDetailsForClient ({ user_id, client_id, search_keyword }) {
+export async function getJobsDetailsByCategoryForClient ({ category_id }) {
+  const jobs = await getAllJobsSubDetails({ category_id })
+  return jobs
+}
+
+export async function getJobsDetailsForClient ({ user_id, client_id, category_id, search_keyword }) {
   const promises = [
-    () => getAllJobsSubDetails({ search_keyword }),
-    () => getAllJobCategories()
+    () => getAllJobsSubDetails({ search_keyword, category_id }),
+    () => getAllJobCategories({ category_id })
   ]
+
   const [allJobs, jobCategories] = await Promise.all(promises.map(promise => promise()))
   const jobDetails = []
 

@@ -26,9 +26,11 @@ function* jobDetailsWorker(action) {
           yield put(newJobDetailsFetchSuccessful({
             jobDetails: {
               jobId: data.jobDetails.job_id,
+              categoryId: data.jobDetails.category_id,
+              jobPostOwnerId: data.jobDetails.user_id,
+              clientId: data.jobDetails.client_id,
               title: data.jobDetails.title,
               description: data.jobDetails.description,
-              categoryId: data.jobDetails.category_id,
               jobType: data.jobDetails.job_type,
               employmentType: data.jobDetails.employment_type,
               durationType: data.jobDetails.duration_type,

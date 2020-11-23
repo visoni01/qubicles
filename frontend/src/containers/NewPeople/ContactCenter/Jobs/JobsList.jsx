@@ -1,20 +1,48 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import {
-  Box, IconButton, List, ListItemText, InputBase, MenuItem,
+  Box, IconButton, List, ListItemText, InputBase, MenuItem, debounce,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSlidersH, faSearch } from '@fortawesome/free-solid-svg-icons'
+import _ from 'lodash'
 import { useDispatch, useSelector } from 'react-redux'
-import { newJobCategoriesFetchStart } from '../../../../redux-saga/redux/actions'
+import {
+  newJobCategoriesFetchStart,
+  getJobsByCategory,
+  resetJobsByCategorySelection,
+} from '../../../../redux-saga/redux/actions'
 
 const JobsList = () => {
   const [ searchCategories, setSearchCategories ] = useState(false)
   const { newJobCategories, isLoading } = useSelector((state) => state.newJobCategories)
   const [ selectedCategory, setSelectedCategory ] = useState(0)
+  const [ searchField, setSearchField ] = useState('')
+
   const dispatch = useDispatch()
+
   useEffect(() => {
     dispatch(newJobCategoriesFetchStart({ searchKeyword: '' }))
   }, [ dispatch ])
+
+  const handleJobsByCategory = ({ jobCategory }) => {
+    dispatch(getJobsByCategory({ categoryId: jobCategory.categoryId }))
+    setSelectedCategory(jobCategory.categoryId)
+  }
+
+  const handleResetJobs = useCallback(() => {
+    dispatch(resetJobsByCategorySelection())
+    setSelectedCategory(0)
+  }, [ dispatch, selectedCategory ])
+
+  const callSearchApi = useCallback(debounce((nextValue) => {
+    dispatch(newJobCategoriesFetchStart({ searchKeyword: nextValue }))
+  }, 500), [ dispatch ])
+
+  const handleSearch = useCallback((e) => {
+    const nextValue = e.target.value
+    setSearchField(nextValue)
+    callSearchApi(nextValue)
+  }, [ callSearchApi ])
 
   return (
     <Box className='custom-box no-padding side-filter-root job-list'>
@@ -39,6 +67,8 @@ const JobsList = () => {
           placeholder='Search Categories'
           className='input-field'
           name='searchCategories'
+          onChange={ handleSearch }
+          value={ searchField }
         />
       </div>
       )}
@@ -46,7 +76,7 @@ const JobsList = () => {
       <List className='filter-list-items'>
         <MenuItem
           button
-          onClick={ () => setSelectedCategory(0) }
+          onClick={ handleResetJobs }
           selected={ selectedCategory === 0 }
         >
           <ListItemText classes={ { primary: 'list-item' } }>
@@ -58,12 +88,14 @@ const JobsList = () => {
           newJobCategories.map((jobCategory) => (
             <MenuItem
               button
-              onClick={ () => setSelectedCategory(jobCategory.categoryId) }
+              onClick={ () => handleJobsByCategory({ jobCategory }) }
               selected={ selectedCategory === jobCategory.categoryId }
               key={ jobCategory.categoryId }
             >
               <ListItemText classes={ { primary: 'list-item' } }>
-                <h4 className='h4 light unbold'>{jobCategory.categoryTitle}</h4>
+                <h4 className='h4 light unbold'>
+                  {jobCategory.categoryTitle}
+                </h4>
               </ListItemText>
             </MenuItem>
           ))

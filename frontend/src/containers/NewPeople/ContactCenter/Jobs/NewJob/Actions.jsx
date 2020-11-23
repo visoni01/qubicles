@@ -3,6 +3,7 @@ import { Button, Box } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { addJob } from '../../../../../redux-saga/redux/actions'
+import '../../styles.scss'
 
 export default function NewJobActions({
   newJobData,
@@ -22,7 +23,7 @@ export default function NewJobActions({
   return (
     <>
       <Box className='custom-box actions-box'>
-        <h3 className='h3 heading'> Actions </h3>
+        <h3 className='h3 mb-20'> Actions </h3>
 
         <Button
           className='wide-button mb-15'

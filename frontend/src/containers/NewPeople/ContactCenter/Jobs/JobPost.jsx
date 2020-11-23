@@ -1,11 +1,11 @@
-/* eslint-disable consistent-return */
-import React, { useEffect } from 'react'
+/* eslint-disable react/forbid-prop-types */
+import React from 'react'
 import {
   Avatar, Box, Button, Divider, Chip,
 } from '@material-ui/core'
 import Rating from '@material-ui/lab/Rating'
 import PropTypes from 'prop-types'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import _ from 'lodash'
 import {
@@ -17,14 +17,9 @@ import { newJobDetailsFetchStart } from '../../../../redux-saga/redux/actions'
 import { getTimeFromNow } from '../../../../utils/common'
 
 const JobPost = ({
-  jobId, courses,
+  jobId, courses, jobDetails,
 }) => {
-  const { jobDetails } = useSelector((state) => state.newJobDetails)
   const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(newJobDetailsFetchStart({ jobId }))
-  }, [ dispatch ])
-
   return (
     <>
       <Box className='custom-box job-post-root'>
@@ -394,8 +389,8 @@ const JobPost = ({
 }
 
 JobPost.propTypes = {
-  jobId: PropTypes.number.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
+  jobId: PropTypes.string.isRequired,
+  jobDetails: PropTypes.object.isRequired,
   courses: PropTypes.object.isRequired,
 }
 

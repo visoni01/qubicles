@@ -1,20 +1,32 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import {
   faChevronLeft, faUserFriends, faRedo, faEnvelope,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button, Divider } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import PropTypes from 'prop-types'
+import _ from 'lodash'
 import { contactCenterIntroduction } from '../testData'
 import Introduction from '../Introduction'
 import ROUTE_PATHS from '../../../../routes/routesPath'
 import './styles.scss'
+import { jobPostCompanyDetailsFetchStart } from '../../../../redux-saga/redux/actions'
 
-const ContactCenterIntro = () => {
+const ContactCenterIntro = ({ jobDetails }) => {
   const history = useHistory()
   const handleBackButton = useCallback(() => {
     history.push(ROUTE_PATHS.NEW_PEOPLE)
   })
+
+  const { companyDetails } = useSelector((state) => state.jobPostCompanyDetails)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    if (!_.isEmpty(jobDetails)) {
+      dispatch(jobPostCompanyDetailsFetchStart({ clientId: jobDetails.clientId }))
+    }
+  }, [ jobDetails ])
   return (
     <>
       <Box className='custom-box contact-center-info-root'>
@@ -31,15 +43,15 @@ const ContactCenterIntro = () => {
           </Button>
         </div>
         <Introduction
-          key={ contactCenterIntroduction.name }
+          key={ companyDetails.clientId }
           imageName={ contactCenterIntroduction.imageName }
           rating={ contactCenterIntroduction.rating }
           imageSrc={ contactCenterIntroduction.imageSrc }
-          name={ contactCenterIntroduction.name }
-          location={ contactCenterIntroduction.location }
-          date={ contactCenterIntroduction.date }
-          title={ contactCenterIntroduction.title }
-          description={ contactCenterIntroduction.description }
+          name={ companyDetails.companyName }
+          location={ companyDetails.city }
+          date={ companyDetails.registrationDate }
+          title={ companyDetails.title }
+          description={ companyDetails.summary }
         />
         <div className='para mt-20'>
           <span className='para bold'> 2K+  </span>
@@ -49,7 +61,12 @@ const ContactCenterIntro = () => {
         <div className='job-post-stats'>
           <div className='data'>
             <FontAwesomeIcon className='custom-fa-icon light' icon={ faUserFriends } />
-            <span className='para bold'> 6/50 </span>
+            <span className='para bold'>
+              {' '}
+              0/
+              {jobDetails.needed}
+              {' '}
+            </span>
             <span className='para light'> Agents Hired  </span>
           </div>
           <div className='data'>
@@ -66,6 +83,10 @@ const ContactCenterIntro = () => {
       </Box>
     </>
   )
+}
+
+ContactCenterIntro.propTypes = {
+  jobDetails: PropTypes.object.isRequired,
 }
 
 export default ContactCenterIntro

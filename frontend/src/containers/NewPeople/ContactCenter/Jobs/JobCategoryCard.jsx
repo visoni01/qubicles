@@ -3,12 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserFriends, faRedo, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { JOB_POST_ROUTE } from '../../../../routes/routesPath'
+import { JOB_ROUTE } from '../../../../routes/routesPath'
 
 const JobCategoryCard = ({
-  categoryTitle, jobs, needed, fulfilled, evaluating, pending,
+  categoryTitle, jobs, needed, fulfilled, evaluating, pending, categoryId,
 }) => (
-  <div className='job-category-card'>
+  <div className='job-category-card' key={ categoryId }>
     <div className='section-heading display-inline-flex is-fullwidth'>
       <h3 className='h3'>
         { categoryTitle }
@@ -18,11 +18,11 @@ const JobCategoryCard = ({
     <div className='mt-10 mb-30'>
       {jobs.map(({
         jobId, title,
-      }) => (
-        <>
-          <div className='job-info list-divider' key={ jobId }>
+      }, index) => (
+        <div key={ !jobId ? `${ index } ${ title } ${ categoryId }` : `${ jobId } ${ categoryId }` }>
+          <div className='job-info list-divider'>
             <div className='job-details is-fullwidth'>
-              <Link to={ `${ JOB_POST_ROUTE }/${ jobId }` }>
+              <Link to={ `${ JOB_ROUTE }/post/${ jobId }` }>
                 <h4 className='h4'>
                   { title }
                 </h4>
@@ -48,7 +48,7 @@ const JobCategoryCard = ({
               </div>
             </div>
           </div>
-        </>
+        </div>
       ))}
     </div>
   </div>
@@ -56,6 +56,7 @@ const JobCategoryCard = ({
 
 JobCategoryCard.propTypes = {
   categoryTitle: PropTypes.string.isRequired,
+  categoryId: PropTypes.number.isRequired,
   needed: PropTypes.isRequired,
   fulfilled: PropTypes.isRequired,
   evaluating: PropTypes.isRequired,
