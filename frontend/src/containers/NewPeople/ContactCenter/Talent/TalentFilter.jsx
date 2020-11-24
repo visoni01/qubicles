@@ -5,7 +5,7 @@ import {
   Checkbox, TextareaAutosize, Button, Grid,
 } from '@material-ui/core'
 import { Rating } from '@material-ui/lab'
-
+import _ from 'lodash'
 import { useDispatch, useSelector } from 'react-redux'
 import MultiSelectChipItems from '../../MultiSelectChipItems'
 import { fetchJobSkillsStart, fetchTalentCardsStart } from '../../../../redux-saga/redux/actions'
@@ -15,7 +15,7 @@ const TalentFilter = () => {
   const { jobSkills } = useSelector((state) => state.jobSkills)
   useEffect(() => {
     if (!jobSkills) {
-      dispatch(fetchJobSkillsStart())
+      dispatch(fetchJobSkillsStart({}))
     }
   }, [ dispatch ])
   const verificationsInitial = {
@@ -26,26 +26,33 @@ const TalentFilter = () => {
 
   const [ selectedSkill, setSkill ] = useState([])
   const [ selectedLanguage, setLanguage ] = useState([])
-  const [ selectedTalentType, setTalentType ] = useState('Any')
-  const [ selectedHourlyRate, setHourlyRate ] = useState('Any')
-  const [ selectedRating, setRating ] = useState('Any')
+  const [ selectedTalentType, setTalentType ] = useState({ employmentType: null, name: 'Any' })
+  const [ selectedHourlyRate, setHourlyRate ] = useState({ lessThanEq: null, greaterThanEq: null, name: 'Any' })
+  const [ selectedRating, setRating ] = useState({ greaterThanEq: null, name: 'Any' })
   const [ selectedVerifications, setVerifications ] = useState(verificationsInitial)
-  const [ selectedAvailability, setAvailability ] = useState('Any')
+  const [ selectedAvailability, setAvailability ] = useState({ status: null, name: 'Any' })
   const [ selectedLocation, setLocation ] = useState('')
 
   const handleFilterApply = useCallback(() => {
     dispatch((fetchTalentCardsStart({
-      filter: true,
       requiredSkills: selectedSkill.map((skill) => skill.id),
+      requiredLanguages: selectedLanguage.map((lang) => lang.title),
+      requiredHourlyRate: selectedHourlyRate,
+      requiredRating: selectedRating,
+      requiredAvailability: selectedAvailability,
+      requiredTalentType: selectedTalentType,
     })))
   })
 
   const handleResetFilter = useCallback(() => {
     setSkill([])
-    dispatch((fetchTalentCardsStart({
-      filter: false,
-      requiredSkills: [],
-    })))
+    setLanguage([])
+    setHourlyRate({ lessThanEq: null, greaterThanEq: null, name: 'Any' })
+    setRating({ greaterThanEq: null, name: 'Any' })
+    setAvailability({ status: null, name: 'Any' })
+    setTalentType({ employmentType: null, name: 'Any' })
+
+    dispatch((fetchTalentCardsStart({})))
   })
   // console.log('===============================')
   // console.log('selectedSkill =====', selectedSkill)
@@ -59,25 +66,75 @@ const TalentFilter = () => {
 
   // Languages
   const availableLanguages = [
-    { id: 2, title: 'English' },
-    { id: 3, title: 'French' },
-    { id: 4, title: 'Spanish' },
+    { id: 1, title: 'english' },
+    { id: 2, title: 'french' },
+    { id: 3, title: 'spanish' },
   ]
 
   // Talent Type
-  const availableTalentTypes = [ 'Freelancer', 'Contract', 'Employee' ]
   const setTalentTypeCB = useCallback((e) => {
-    setTalentType(e.target.value)
+    // setTalentType(e.target.value)
+    switch (e.target.value) {
+      case 'freelancer': {
+        setTalentType({ employmentType: 'freelancer', name: 'freelancer' })
+        break
+      }
+      case 'employee': {
+        setTalentType({ employmentType: 'employee', name: 'employee' })
+        break
+      }
+      default: {
+        setTalentType({ employmentType: null, name: 'Any' })
+      }
+    }
   }, [])
 
   // Hourly Rate
   const setHourlyRateCB = useCallback((e) => {
-    setHourlyRate(e.target.value)
+    // setHourlyRate(e.target.value)
+    switch (e.target.value) {
+      case 'tenAndBelow': {
+        setHourlyRate({ lessThanEq: 10, greaterThanEq: null, name: 'tenAndBelow' })
+        break
+      }
+      case 'tenToFifteen': {
+        setHourlyRate({ lessThanEq: 15, greaterThanEq: 10, name: 'tenToFifteen' })
+        break
+      }
+      case 'fifteenToTwenty': {
+        setHourlyRate({ lessThanEq: 20, greaterThanEq: 15, name: 'fifteenToTwenty' })
+        break
+      }
+      case 'twentyAndAbove': {
+        setHourlyRate({ lessThanEq: null, greaterThanEq: 20, name: 'twentyAndAbove' })
+        break
+      }
+      default: {
+        setHourlyRate({ lessThanEq: null, greaterThanEq: null, name: 'Any' })
+      }
+    }
   }, [])
 
   // Rating
   const setRatingCB = useCallback((e) => {
-    setRating(e.target.value)
+    // setRating(e.target.value)
+    switch (e.target.value) {
+      case 'five': {
+        setRating({ greaterThanEq: 5, name: 'five' })
+        break
+      }
+      case 'fourAndAbove': {
+        setRating({ greaterThanEq: 4, name: 'fourAndAbove' })
+        break
+      }
+      case 'threeAndAbove': {
+        setRating({ greaterThanEq: 3, name: 'threeAndAbove' })
+        break
+      }
+      default: {
+        setRating({ greaterThanEq: null, name: 'Any' })
+      }
+    }
   }, [])
 
   // Verifications
@@ -90,7 +147,24 @@ const TalentFilter = () => {
 
   // Availability
   const setAvailabilityCB = useCallback((e) => {
-    setAvailability(e.target.value)
+    // setAvailability(e.target.value)
+    switch (e.target.value) {
+      case 'available': {
+        setAvailability({ status: 'available', name: 'available' })
+        break
+      }
+      case 'unavailable': {
+        setAvailability({ status: 'unavailable', name: 'unavailable' })
+        break
+      }
+      case 'on vacation': {
+        setAvailability({ status: 'on vacation', name: 'on vacation' })
+        break
+      }
+      default: {
+        setRating({ status: null, name: 'Any' })
+      }
+    }
   })
 
   // Location
@@ -147,7 +221,7 @@ const TalentFilter = () => {
         <div className='talent-filter-dropdown'>
           <h4 className='h4'> Languages </h4>
           <MultiSelectChipItems
-            items={ availableLanguages }
+            items={ availableLanguages.map((lang) => ({ ...lang, title: _.capitalize(lang.title) })) }
             label='Choose Languages'
             selectedItems={ selectedLanguage }
             setSelectedItems={ setLanguage }
@@ -161,18 +235,12 @@ const TalentFilter = () => {
           <h4 className='h4'> Talent Type </h4>
           <RadioGroup
             className='radio-buttons'
-            value={ selectedTalentType }
+            value={ selectedTalentType.name }
             onChange={ setTalentTypeCB }
           >
             <FormControlLabel value='Any' control={ <Radio /> } label='Any' />
-            {availableTalentTypes.map((talentType) => (
-              <FormControlLabel
-                key={ talentType }
-                value={ talentType }
-                control={ <Radio /> }
-                label={ talentType }
-              />
-            ))}
+            <FormControlLabel value='freelancer' control={ <Radio /> } label='Freelancer' />
+            <FormControlLabel value='employee' control={ <Radio /> } label='Employee' />
           </RadioGroup>
         </div>
       </div>
@@ -182,7 +250,7 @@ const TalentFilter = () => {
           <h4 className='h4'> Hourly rate </h4>
           <RadioGroup
             className='radio-buttons'
-            value={ selectedHourlyRate }
+            value={ selectedHourlyRate.name }
             onChange={ setHourlyRateCB }
           >
             <FormControlLabel value='Any' control={ <Radio /> } label='Any' />
@@ -199,7 +267,7 @@ const TalentFilter = () => {
           <h4 className='h4'> Rating </h4>
           <RadioGroup
             className='radio-buttons'
-            value={ selectedRating }
+            value={ selectedRating.name }
             onChange={ setRatingCB }
           >
             <FormControlLabel value='Any' control={ <Radio /> } label='Any Rating' />
@@ -271,13 +339,13 @@ const TalentFilter = () => {
           <h4 className='h4'> Availability </h4>
           <RadioGroup
             className='radio-buttons'
-            value={ selectedAvailability }
+            value={ selectedAvailability.name }
             onChange={ setAvailabilityCB }
           >
             <FormControlLabel value='Any' control={ <Radio /> } label='Any' />
             <FormControlLabel value='available' control={ <Radio /> } label='Available' />
             <FormControlLabel value='unavailable' control={ <Radio /> } label='Unavailable' />
-            <FormControlLabel value='onVacation' control={ <Radio /> } label='On Vacation' />
+            <FormControlLabel value='on vacation' control={ <Radio /> } label='On Vacation' />
           </RadioGroup>
         </div>
       </div>

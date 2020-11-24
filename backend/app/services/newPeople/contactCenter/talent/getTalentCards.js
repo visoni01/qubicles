@@ -7,12 +7,12 @@ const constraints = {
   user_id: {
     presence: { allowEmpty: false }
   },
-  filter: {
-    presence: { allowEmpty: false }
-  },
-  requiredSkills: {
-    presence: { allowEmpty: true }
-  }
+  requiredSkills: {},
+  requiredLanguages: {},
+  requiredHourlyRate: {},
+  requiredRating: {},
+  requiredAvailability: {},
+  requiredTalentType: {}
 }
 
 export class PeopleGetTalentCardsService extends ServiceBase {
@@ -21,10 +21,39 @@ export class PeopleGetTalentCardsService extends ServiceBase {
   }
 
   async run () {
-    let { requiredSkills } = this.filteredArgs
-    requiredSkills = JSON.parse(requiredSkills)
+    let {
+      requiredSkills,
+      requiredLanguages,
+      requiredHourlyRate,
+      requiredRating,
+      requiredAvailability,
+      requiredTalentType
+    } = this.filteredArgs
+
+    if (requiredSkills) {
+      requiredSkills = JSON.parse(requiredSkills)
+    }
+    if (requiredHourlyRate) {
+      requiredHourlyRate = JSON.parse(requiredHourlyRate)
+    }
+    if (requiredRating) {
+      requiredRating = JSON.parse(requiredRating)
+    }
+    if (requiredAvailability) {
+      requiredAvailability = JSON.parse(requiredAvailability)
+    }
+    if (requiredTalentType) {
+      requiredTalentType = JSON.parse(requiredTalentType)
+    }
+
     try {
-      const agentJobProfiles = await getAgentJobProfiles()
+      const agentJobProfiles = await getAgentJobProfiles({
+        requiredLanguages,
+        requiredHourlyRate,
+        requiredRating,
+        requiredAvailability,
+        requiredTalentType
+      })
       let talentCards = agentJobProfiles.map(profile => {
         const { UserDetail: userDetails } = profile
         return (
@@ -47,7 +76,7 @@ export class PeopleGetTalentCardsService extends ServiceBase {
           }
         )
       })
-      if (requiredSkills.length > 0) {
+      if (requiredSkills && requiredSkills.length > 0) {
         talentCards = talentCards.filter(profile => {
           const userSkills = profile.skills.map(skill => skill.skillId)
           return (

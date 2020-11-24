@@ -10,8 +10,8 @@ function* talentCardsWatcherStart() {
 
 function* talentCardsWorker(action) {
   try {
-    const { filter, requiredSkills } = action.payload
-    const { data } = yield NewPeople.getTalentCards({ filter, requiredSkills })
+    const filter = action.payload
+    const { data } = yield NewPeople.getTalentCards(filter)
     yield put(fetchTalentCardsSuccess({
       talentCards: data,
     }))

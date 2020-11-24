@@ -4,6 +4,7 @@ import {
 } from '../../db/models'
 import { createNewEntity } from './common'
 import { getOne } from './crud'
+import { Op } from 'sequelize'
 
 export async function createAgentJobProfile ({
   user_id,
@@ -79,7 +80,75 @@ export async function getAgentResourceDef ({ agent_resource_id }) {
   return agentResourceDef
 }
 
-export async function getAgentJobProfiles () {
+export async function getAgentJobProfiles ({
+  requiredLanguages = [],
+  requiredHourlyRate,
+  requiredRating,
+  requiredAvailability,
+  requiredTalentType
+}) {
+  let resourceDefQuery = {}
+
+  // Language filter
+  if (requiredLanguages.length > 0) {
+    resourceDefQuery = { ...resourceDefQuery, desired_languages: requiredLanguages }
+  }
+  if (requiredTalentType && requiredTalentType.employmentType) {
+    resourceDefQuery = {
+      ...resourceDefQuery,
+      desired_employment_type: requiredTalentType.employmentType
+    }
+  }
+  // Hourly rate filter
+  if (requiredHourlyRate) {
+    const { lessThanEq, greaterThanEq } = requiredHourlyRate
+    if (lessThanEq && !greaterThanEq) {
+      resourceDefQuery = {
+        ...resourceDefQuery,
+        desired_min_pay: {
+          [Op.lte]: lessThanEq
+        }
+      }
+    } else if (greaterThanEq && !lessThanEq) {
+      resourceDefQuery = {
+        ...resourceDefQuery,
+        desired_min_pay: {
+          [Op.gte]: greaterThanEq
+        }
+      }
+    } else if (greaterThanEq && lessThanEq) {
+      resourceDefQuery = {
+        ...resourceDefQuery,
+        desired_min_pay: {
+          [Op.and]: [
+            { [Op.lte]: lessThanEq },
+            { [Op.gte]: greaterThanEq }
+          ]
+        }
+      }
+    }
+  }
+  // Availability Filter
+  if (requiredAvailability && requiredAvailability.status) {
+    resourceDefQuery = {
+      ...resourceDefQuery,
+      status: requiredAvailability.status
+    }
+  }
+
+  // Rating Filter
+  if (requiredRating) {
+    const { greaterThanEq } = requiredRating
+    if (greaterThanEq) {
+      resourceDefQuery = {
+        ...resourceDefQuery,
+        avg_peer_rating: {
+          [Op.gte]: greaterThanEq
+        }
+      }
+    }
+  }
+
   const agentJobProfiles = await XQodResourceDef.findAll({
     include: [{
       model: UserDetail,
@@ -110,7 +179,8 @@ export async function getAgentJobProfiles () {
       'avg_peer_rating',
       'desired_min_pay',
       'desired_languages'
-    ]
+    ],
+    where: resourceDefQuery
   })
   return agentJobProfiles.map(profile => profile.get({ plain: true }))
 }

@@ -13,10 +13,7 @@ const TalentPage = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     if (!talentCards) {
-      dispatch(fetchTalentCardsStart({
-        filter: false,
-        requiredSkills: [],
-      }))
+      dispatch(fetchTalentCardsStart({}))
     }
   }, [ dispatch ])
   return (
@@ -32,7 +29,7 @@ const TalentPage = () => {
       </div>
       <Box className='custom-box'>
         {/* Talent Cards */}
-        {!isLoading && talentCards && talentCards.map((talentCard) => (
+        {!isLoading && talentCards && talentCards.length > 0 && talentCards.map((talentCard) => (
           <TalentCard
             key={ talentCard.candidateId }
             candidateId={ talentCard.candidateId }
@@ -48,7 +45,12 @@ const TalentPage = () => {
             skills={ talentCard.skills }
           />
         ))}
-
+        {!isLoading && talentCards && talentCards.length === 0 && (
+        <div className='mt-10 mb-10'>
+          <h3 className='h3 text-align-center'>No matching results found!</h3>
+          <h4 className='h4 unbold light text-align-center'> Please try again with other filter options...</h4>
+        </div>
+        )}
         {/* Talent Card Loading Skeleton */}
         {isLoading && (
         <>

@@ -3,13 +3,21 @@ import { agentResumeSkills } from '../../containers/NewPeople/ContactCenter/Tale
 
 class NewPeople {
   // Talent Api's
-  static async getTalentCards({ requiredSkills, filter }) {
-    // WIP Add Talent cards backend getter api
-    const response = await apiClient.getRequest('/newPeople/talent/cards', null,
-      {
-        requiredSkills: JSON.stringify(requiredSkills),
-        filter,
-      })
+  static async getTalentCards(filter) {
+    let talentFilter = filter
+    if (talentFilter.requiredSkills) {
+      talentFilter = {
+        ...talentFilter,
+        requiredSkills: JSON.stringify(talentFilter.requiredSkills),
+      }
+    }
+    if (talentFilter.requiredLanguges) {
+      talentFilter = {
+        ...talentFilter,
+        requiredLanguges: JSON.stringify(talentFilter.requiredLanguges),
+      }
+    }
+    const response = await apiClient.getRequest('/newPeople/talent/cards', null, talentFilter)
     return response
   }
 
