@@ -1,9 +1,11 @@
 /* eslint-disable complexity */
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Grid, Tabs, Tab,
 } from '@material-ui/core'
 import { useLocation, Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import lodash from 'lodash'
 import JobsList from './Jobs/JobsList'
 import JobsPage from './Jobs/JobsPage'
 import TalentFilter from './Talent/TalentFilter'
@@ -14,6 +16,7 @@ import TrainingFilter from './Training/TrainingFilter'
 import TrainingWrap from './Training/TrainingWrap'
 import './styles.scss'
 import ROUTE_PATHS from '../../../routes/routesPath'
+import { newJobCategoriesFetchStart } from '../../../redux-saga/redux/actions'
 
 const People = () => {
   const location = useLocation()
@@ -29,6 +32,14 @@ const People = () => {
 
   const spacingMid = currentPath === trainingRoute ? 9 : 6
   const spacingTab = currentPath === trainingRoute ? 8 : 12
+
+  const { newJobCategories } = useSelector((state) => state.newJobCategories)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    if (lodash.isEmpty(newJobCategories)) {
+      dispatch(newJobCategoriesFetchStart({ searchKeyword: '' }))
+    }
+  }, [ dispatch ])
 
   return (
     <div>

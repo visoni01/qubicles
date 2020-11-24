@@ -12,12 +12,12 @@ function* jobsByCategoryWatcherStart() {
 function* jobsByCategoryWorker(action) {
   try {
     const { categoryId } = action.payload
-    const { data: jobs } = yield People.fetchJobCategories({ categoryId })
+    const { data: jobsData } = yield People.fetchJobCategories({ categoryId })
     // Modifying the job data
     const data = yield select((state) => state.newJobCategories)
     const newJobCategories = _.cloneDeep(data.newJobCategories)
     const index = newJobCategories.findIndex((category) => category.categoryId === categoryId)
-    newJobCategories[ index ].jobs = jobs
+    newJobCategories[ index ].jobs = jobsData[ 0 ].jobs
     yield put(jobsByCategorySuccessful({ data: newJobCategories, categoryId }))
   } catch (e) {
     yield put(showErrorMessage({ msg: e.errMsg }))

@@ -60,7 +60,6 @@ const JobsPage = () => {
 const JobsData = ({ selectedCategoryId, newJobCategories }) => {
   if (selectedCategoryId) {
     const index = newJobCategories.findIndex((category) => category.categoryId === selectedCategoryId)
-    console.log('newJobCategories[ index ] in jobsPage===>>>>>', newJobCategories[ index ])
     return (
       <JobCategoryCard
         key={ newJobCategories[ index ].categoryId }
@@ -74,10 +73,8 @@ const JobsData = ({ selectedCategoryId, newJobCategories }) => {
       />
     )
   }
-  return newJobCategories.map((jobCategory) => {
-    console.log('newJobCategories in second map in jobsPage===>>>>>', newJobCategories)
-    return (
-      jobCategory.jobs.length > 0
+  return newJobCategories.map((jobCategory) => (
+    jobCategory.jobs.length > 0
         && (
         <JobCategoryCard
           key={ jobCategory.categoryId }
@@ -90,8 +87,7 @@ const JobsData = ({ selectedCategoryId, newJobCategories }) => {
           pending={ 0 }
         />
         )
-    )
-  })
+  ))
 }
 
 export default JobsPage

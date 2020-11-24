@@ -323,3 +323,30 @@ export async function deleteJob ({ job_id }) {
     { where: { job_id } })
   return jobs
 }
+
+export async function getAllJobs ({ category_id, client_id, search_keyword }) {
+  let query = {}
+
+  if (!_.isEmpty(search_keyword)) {
+    query = { ...query, category_name: { [Op.startsWith]: search_keyword } }
+  }
+
+  if (!_.isEmpty(category_id)) {
+    query = { ...query, category_id }
+  }
+
+  const allJobsSubDetails = await XQodCategory.findAll({
+    where: query,
+    attributes: [['category_id', 'categoryId'], ['category_name', 'categoryTitle']],
+    include: {
+      model: XQodJob,
+      as: 'jobs',
+      where: {
+        [Op.not]: [{ is_deleted: true }]
+      }
+    }
+    // raw: true
+  })
+  return allJobsSubDetails.map((job) => job.get({ plain: true })
+  )
+}

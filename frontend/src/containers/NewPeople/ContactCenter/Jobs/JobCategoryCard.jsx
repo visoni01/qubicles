@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserFriends, faRedo, faEnvelope } from '@fortawesome/free-solid-svg-icons'
@@ -6,7 +7,7 @@ import PropTypes from 'prop-types'
 import { JOB_ROUTE } from '../../../../routes/routesPath'
 
 const JobCategoryCard = ({
-  categoryTitle, jobs, needed, fulfilled, evaluating, pending, categoryId,
+  categoryTitle, jobs, fulfilled, evaluating, pending, categoryId,
 }) => (
   <div className='job-category-card' key={ categoryId }>
     <div className='section-heading display-inline-flex is-fullwidth'>
@@ -17,12 +18,12 @@ const JobCategoryCard = ({
 
     <div className='mt-10 mb-30'>
       {jobs.map(({
-        jobId, title,
+        job_id, title, needed,
       }, index) => (
-        <div key={ !jobId ? `${ index } ${ title } ${ categoryId }` : `${ jobId } ${ categoryId }` }>
+        <div key={ !job_id ? `${ index } ${ title } ${ categoryId }` : `${ job_id } ${ categoryId }` }>
           <div className='job-info list-divider'>
             <div className='job-details is-fullwidth'>
-              <Link to={ `${ JOB_ROUTE }/post/${ jobId }` }>
+              <Link to={ `${ JOB_ROUTE }/post/${ job_id }` }>
                 <h4 className='h4'>
                   { title }
                 </h4>
@@ -57,7 +58,6 @@ const JobCategoryCard = ({
 JobCategoryCard.propTypes = {
   categoryTitle: PropTypes.string.isRequired,
   categoryId: PropTypes.number.isRequired,
-  needed: PropTypes.isRequired,
   fulfilled: PropTypes.isRequired,
   evaluating: PropTypes.isRequired,
   pending: PropTypes.isRequired,
