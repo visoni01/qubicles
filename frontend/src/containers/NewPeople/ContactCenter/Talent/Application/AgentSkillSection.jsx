@@ -2,7 +2,8 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useCallback } from 'react'
 import { AvatarGroup } from '@material-ui/lab'
-import { Avatar, Button, Divider } from '@material-ui/core'
+import { Avatar } from '@material-ui/core'
+import PropTypes from 'prop-types'
 import EndorsementsModal from './EndorsementsModal'
 
 export default function AgentSkillSection({
@@ -65,4 +66,8 @@ export default function AgentSkillSection({
       />
     </>
   )
+}
+
+AgentSkillSection.propTypes = {
+  agentResumeSkills: PropTypes.instanceOf([]).isRequired,
 }

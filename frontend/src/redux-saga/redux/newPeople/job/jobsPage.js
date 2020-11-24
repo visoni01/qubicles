@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getDataForReducer } from '../../../../utils/common'
-// eslint-disable-next-line import/no-cycle
-import { getUpdatedJobsData, getJobsByCategory } from '../../helper'
+import { getUpdatedJobsData } from '../../helper'
 
 const initialState = {
   isLoading: null,

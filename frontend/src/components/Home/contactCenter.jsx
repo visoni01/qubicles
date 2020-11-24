@@ -52,7 +52,8 @@ const ContactCenter = () => {
             <div className='bg-number'>1</div>
             <h2 className='title section-title has-text-centered dark-text'> Great people, solid technology</h2>
             <div className='subtitle has-text-centered is-tablet-padded'>
-              Focus your team's energy and company resources on what makes you unique. Leave the people and technology up
+              Focus your team's energy and company resources on what makes you unique. Leave the people and technology
+              up
               to us.
             </div>
           </div>

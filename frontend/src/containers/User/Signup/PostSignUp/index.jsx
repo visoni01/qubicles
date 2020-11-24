@@ -86,11 +86,11 @@ const PostSignUp = () => {
       }
       {
         userCode === 'agent'
-        && <AgentMultipartForm role='agent' />
+        && <AgentMultipartForm />
       }
       {
         userCode === 'employer'
-        && <ContactCenterMultipartForm role='employer' />
+        && <ContactCenterMultipartForm />
       }
     </div>
   )
