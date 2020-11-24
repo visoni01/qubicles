@@ -17,11 +17,11 @@ const {
       ...initialState,
       isLoading: true,
     }),
-    userSignupSuccessful: (state, action) => ({
+    userSignupSuccessful: () => ({
       ...initialState,
       success: true,
     }),
-    userSignupFailure: (state, action) => ({
+    userSignupFailure: () => ({
       ...initialState,
       error: true,
     }),

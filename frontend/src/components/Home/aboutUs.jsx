@@ -55,8 +55,8 @@ const AboutUs = () => {
             <div
               className='subtitle has-text-centered is-tablet-padded'
             >
-              We started with a simple concept - increase access to contact center jobs and technology, and reward people
-              for their hard work.
+              We started with a simple concept - increase access to contact center jobs and technology, and reward
+              people for their hard work.
             </div>
           </div>
           <div className='content-wrapper'>
@@ -76,22 +76,28 @@ const AboutUs = () => {
                 <span className='section-feature-description'>
                   For a decade, I spent my career leading technology services for a large contact center and one of the
                   Best Places to Work in Miami, Florida.
+                  {' '}
                   <br />
                   <br />
+                  {' '}
                   That experience proved invaluable to what would end up becoming an important part of my journey:
                   creating an award-winning contact center software startup, Fenero,
                   that offered small and medium businesses the same features and functionality as the big boys -
-                  all while helping them lower costs and increase their sales, customer satisfaction, and retention rates.
+                  all while helping them lower costs and increase their sales, customer satisfaction, and retention
+                  rates.
                   <br />
                   <br />
+                  {' '}
                   Today, as Chief Executive of Qubicles and Founding Member of the
                   <a href='https://telos.net' target='_blank' rel='noopener noreferrer'> Telos </a>
+                  {' '}
                   blockchain,
                   we're bringing extensive experience in contact center services and blockchain to usher in a new phase
                   for our industry: a trusted network for contact center professionals to find or create jobs, network
                   and learn, and deliver exceptional customer experiences across the globe.
                   <br />
                   <br />
+                  {' '}
                   Welcome to the future. Welcome to Qubicles!
                 </span>
               </div>
@@ -205,6 +211,7 @@ const AboutUs = () => {
                 <div className='member-info'>
                   <h3 className='member-name'>
                     Marlon
+                    {' '}
                     <strong> Williams</strong>
                   </h3>
                   <span className='member-position color-blue'>Founder, CEO</span>
@@ -240,6 +247,7 @@ const AboutUs = () => {
                 <div className='member-info'>
                   <h3 className='member-name'>
                     Warren
+                    {' '}
                     <strong> Whitlock</strong>
                   </h3>
                   <span className='member-position color-blue'>Strategic Advisor</span>
@@ -274,6 +282,7 @@ const AboutUs = () => {
                 <div className='member-info'>
                   <h3 className='member-name'>
                     Judson
+                    {' '}
                     <strong> Noel</strong>
                   </h3>
                   <span className='member-position color-blue'>Customer Success</span>
@@ -308,6 +317,7 @@ const AboutUs = () => {
                 <div className='member-info'>
                   <h3 className='member-name'>
                     Michael
+                    {' '}
                     <strong> Terpin</strong>
                   </h3>
                   <span className='member-position color-blue'>Blockchain Advisor</span>
@@ -342,6 +352,7 @@ const AboutUs = () => {
                 <div className='member-info'>
                   <h3 className='member-name'>
                     Kate
+                    {' '}
                     <strong> Roberts </strong>
                   </h3>
                   <span className='member-position color-blue'>Growth Marketing</span>
@@ -376,6 +387,7 @@ const AboutUs = () => {
                 <div className='member-info'>
                   <h3 className='member-name'>
                     Rob
+                    {' '}
                     <strong> Duncan</strong>
                   </h3>
                   <span className='member-position color-blue'>Industry Advisor</span>

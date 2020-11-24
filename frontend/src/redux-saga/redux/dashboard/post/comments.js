@@ -36,7 +36,7 @@ const {
       isLoading: false,
       success: false,
     }),
-    resetPostComments: (state) => ({
+    resetPostComments: () => ({
       ...initialState,
     }),
     updatePostComments: (state, action) => ({

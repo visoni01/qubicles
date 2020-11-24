@@ -1,5 +1,3 @@
-/* eslint-disable import/prefer-default-export */
-
 import {
   ADD_GROUP_TOPIC,
   UPDATE_TOPIC_STATS,
@@ -15,11 +13,11 @@ import {
   POST_TOPIC_COMMENT,
   LOAD_MORE_COMMENTS,
   TOPIC_ACTIVITY,
+  CREATE_NEW_POST,
+  POST_DATA_FETCH,
+  UPDATE_POST_COMMENT,
+  FETCH_COMMENTS_SUCCESS,
 } from './constants'
-
-import {
-  postDataFetchingStart, createStatusPostStart, updatePostComments, fetchCommentsSuccess,
-} from './actions'
 
 export const getUpdatedGroups = ({ state, payload }) => {
   const { newGroup } = payload.data
@@ -195,11 +193,11 @@ export const getPostData = ({ state, payload }) => {
       break
     }
 
-    case createStatusPostStart.type: {
+    case CREATE_NEW_POST: {
       posts = [ payload.newPost, ...state.posts ]
       break
     }
-    case postDataFetchingStart.type: {
+    case POST_DATA_FETCH: {
       posts = payload.posts
       break
     }
@@ -271,7 +269,7 @@ export const getPostData = ({ state, payload }) => {
 export const updatePostCommentsData = ({ state, payload }) => {
   let commentsData
   switch (payload.type) {
-    case updatePostComments.type: {
+    case UPDATE_POST_COMMENT: {
       const { data } = payload
       commentsData = {
         count: state.data.count + 1,
@@ -279,7 +277,7 @@ export const updatePostCommentsData = ({ state, payload }) => {
       }
       break
     }
-    case fetchCommentsSuccess.type: {
+    case FETCH_COMMENTS_SUCCESS: {
       const { data } = payload
       commentsData = {
         count: data.count,

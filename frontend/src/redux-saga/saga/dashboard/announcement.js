@@ -11,7 +11,7 @@ function* announcementDataFetchingWatcherStart() {
   yield takeEvery(announcementDataFetchingStart.type, announcementDataFetchingWorker)
 }
 
-function* announcementDataFetchingWorker(action) {
+function* announcementDataFetchingWorker() {
   try {
     const { data } = yield Dashboard.fetchAnnouncement()
     yield put(announcementDataFetchingSuccessful({ announcements: data }))

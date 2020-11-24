@@ -86,7 +86,7 @@ const ContactCenterIntro = ({ jobDetails }) => {
 }
 
 ContactCenterIntro.propTypes = {
-  jobDetails: PropTypes.object.isRequired,
+  jobDetails: PropTypes.instanceOf({}).isRequired,
 }
 
 export default ContactCenterIntro

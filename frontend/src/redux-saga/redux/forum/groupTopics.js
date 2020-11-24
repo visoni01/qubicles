@@ -1,4 +1,4 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { getDataForReducer } from '../../../utils/common'
 import { updateGroupTopics } from '../helper'
 
@@ -33,7 +33,7 @@ const {
       topics: [ ...action.payload.topics ],
       topicsCount: getDataForReducer(action, initialState.topicsCount, 'topicsCount'),
     }),
-    groupTopicsFetchingFailure: (state, action) => ({
+    groupTopicsFetchingFailure: (state) => ({
       ...state,
       error: true,
       isLoading: false,

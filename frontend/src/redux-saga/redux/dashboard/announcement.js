@@ -29,7 +29,7 @@ const {
       isLoading: false,
       announcements: getDataForReducer(action, initialState.announcements, 'announcements'),
     }),
-    announcementDataFetchingFailure: (state, action) => ({
+    announcementDataFetchingFailure: () => ({
       ...initialState,
       error: true,
       isLoading: false,

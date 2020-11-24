@@ -28,7 +28,7 @@ const {
       success: true,
       agentResumeSkills: getDataForReducer(action, initialState.agentResumeSkills, 'agentResumeSkills'),
     }),
-    fetchAgentResumeSkillsFailed: (state, action) => ({
+    fetchAgentResumeSkillsFailed: (state) => ({
       ...state,
       isLoading: false,
       error: true,

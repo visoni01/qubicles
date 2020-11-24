@@ -1,5 +1,4 @@
 import { takeLatest, put } from 'redux-saga/effects'
-import { updateJobsData, newJobDetailsFetchSuccessful } from '../../redux/actions'
 import { ADD_JOB } from '../../redux/constants'
 import { showErrorMessage, showSuccessMessage } from '../../redux/snackbar'
 import People from '../../service/people'
@@ -27,7 +26,7 @@ function* jobCrudWorker(action) {
           durationMonths,
           ...rest
         } = action.payload
-        const { data } = yield People.addNewJob({
+        yield People.addNewJob({
           job_type: jobType,
           employment_type: employmentType,
           duration_type: durationType,

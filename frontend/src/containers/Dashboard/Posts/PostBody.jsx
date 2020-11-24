@@ -6,7 +6,7 @@ import PostCommentsWrap from '../PostComments/PostCommentsWrap'
 import AddComment from '../PostComments/AddComment'
 import config from '../../../utils/config'
 import {
-  addCommentToPost, fetchCommentForPost, setIsCommentLoading, updatePostData,
+  addCommentToPost, fetchCommentForPost, updatePostData,
 } from '../../../redux-saga/redux/actions'
 import { commentsArrayValidator } from '../postValidators'
 import { SET_IS_COMMENT_LOADING } from '../../../redux-saga/redux/constants'

@@ -27,8 +27,8 @@ const Agents = () => {
                   Easily find work, establish your rep and get paid
                 </h1>
                 <h2 className='subtitle is-5 light-text no-margin-bottom'>
-                  Become an independent agent and work from the comfort of your own home - in a marketplace powered by the
-                  same technology behind Bitcoin, with no middlemen involved.
+                  Become an independent agent and work from the comfort of your own home - in a marketplace powered by
+                  the same technology behind Bitcoin, with no middlemen involved.
                 </h2>
                 <br />
                 {!isLoggedin && (
@@ -112,8 +112,8 @@ const Agents = () => {
                   <p
                     className='box-content is-tablet-padded'
                   >
-                    Stand out from the crowd, increase your rank and earn crypto by taking courses and exceeding campaign
-                    goals.
+                    Stand out from the crowd, increase your rank and earn crypto by taking courses and exceeding
+                    campaign goals.
                   </p>
                 </div>
               </div>
@@ -140,8 +140,8 @@ const Agents = () => {
             <div className='bg-number'>2</div>
             <h2 className='title section-title has-text-centered dark-text'> Contact center in a box</h2>
             <div className='subtitle has-text-centered is-tablet-padded'>
-              A paid monthly subscription grants you full access to our all-in-one contact center software in a box, with
-              no limits.
+              A paid monthly subscription grants you full access to our all-in-one contact center software in a box,
+              with no limits.
             </div>
           </div>
           <div className='content-wrapper'>
@@ -157,8 +157,10 @@ const Agents = () => {
                   Our agent portal allows you to handle incoming calls from client-specific queues or easily place
                   outgoing calls and emails to customers. Its built-in web phone lets you perform these actions directly
                   within a browser with nothing to install on your device.
+                  {' '}
                   <br />
                   <br />
+                  {' '}
                   Some of the core features include working with multiple clients on inbound, outbound and blended
                   campaigns; blind and warm transfers; 3-way conferencing; call scripting and CRM access with detailed
                   interaction histories; and a dedicated phone number.
@@ -273,8 +275,8 @@ const Agents = () => {
             <div className='bg-number'>4</div>
             <h2 className='title section-title has-text-centered dark-text'> Affordable pricing</h2>
             <div className='subtitle has-text-centered is-tablet-padded'>
-              We eliminate the middlemen and connect agents directly to contact centers. That's why our prices are simple
-              and affordable.
+              We eliminate the middlemen and connect agents directly to contact centers. That's why our prices are
+              simple and affordable.
             </div>
           </div>
           <div className='content-wrapper'>
@@ -286,8 +288,10 @@ const Agents = () => {
                   <div className='plan-price'>
                     <span className='plan-price-amount'>
                       <span className='plan-price-currency'>$</span>
+                      {/**/}
                       0
                     </span>
+                    {/**/}
                     /month
                   </div>
                   <div className='plan-items'>
@@ -306,9 +310,11 @@ const Agents = () => {
                   <div className='plan-price'>
                     <span className='plan-price-amount color-blue'>
                       <span className='plan-price-currency color-blue'>$</span>
+                      {/**/}
                       19.99
                     </span>
                     /month
+                    {/**/}
                   </div>
                   <div className='plan-items'>
                     <div className='plan-item'>1 free background check</div>

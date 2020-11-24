@@ -1,0 +1,24 @@
+{
+  "name": "qubicles",
+  "version": "1.0.0",
+  "description": "Decentralized tools and services for the contact center industry.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qubicles/app2.0.git"
+  },
+  "author": "",
+  "license": "Copyright 2020. All rights reserved. Qubicles Inc",
+  "bugs": {
+    "url": "https://github.com/qubicles/app2.0/issues"
+  },
+  "homepage": "https://github.com/qubicles/app2.0#readme",
+  "devDependencies": {
+    "husky": "^4.2.5",
+    "lerna": "^3.22.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lerna run lint:fix"
+    }
+  }
+}

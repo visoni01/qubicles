@@ -31,7 +31,7 @@ const {
       invitationLink: getDataForReducer(action, initialState.invitationLink, 'invitationLink'),
       status: getDataForReducer(action, initialState.status, 'status'),
     }),
-    checkrInvitationFetchingFailure: (state, action) => ({
+    checkrInvitationFetchingFailure: () => ({
       ...initialState,
       error: true,
       isLoading: false,

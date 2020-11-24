@@ -30,7 +30,7 @@ const {
       email: action.payload.email,
       tokenType: action.payload.token_type,
     }),
-    emailVerificationFailure: (state, action) => ({
+    emailVerificationFailure: () => ({
       ...initialState,
       error: true,
       isLoading: false,

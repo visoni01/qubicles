@@ -11,7 +11,7 @@ function* checkrInvitationFetchingWatcherStart() {
   yield takeEvery(checkrInvitationFetchingStart.type, checkrInvitationFetchingWorker)
 }
 
-function* checkrInvitationFetchingWorker(action) {
+function* checkrInvitationFetchingWorker() {
   let msg
   try {
     const { data } = yield User.getCheckrInvitationLink()

@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getDataForReducer } from '../../../../utils/common'
-// eslint-disable-next-line import/no-cycle
-import { getUpdatedJobsData, getJobsByCategory } from '../../helper'
+import { getUpdatedJobsData } from '../../helper'
 
 const initialState = {
   isLoading: null,
@@ -42,7 +41,7 @@ const {
       isLoading: false,
       newJobCategories: action.payload.data,
     }),
-    newJobCategoriesFetchFailure: (state, action) => ({
+    newJobCategoriesFetchFailure: () => ({
       ...initialState,
       error: true,
       isLoading: false,
@@ -51,7 +50,7 @@ const {
       ...state,
       newJobCategories: getUpdatedJobsData({ state, payload: action.payload }),
     }),
-    resetJobsByCategorySelection: (state, action) => ({
+    resetJobsByCategorySelection: (state) => ({
       ...state,
       selectedCategoryId: '',
     }),

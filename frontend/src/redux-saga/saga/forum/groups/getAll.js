@@ -12,7 +12,7 @@ function* groupsFetchingWatcherStart() {
   yield takeEvery(groupsFetchingStart.type, groupsFetchingWorker)
 }
 
-function* groupsFetchingWorker(action) {
+function* groupsFetchingWorker() {
   try {
     const { data } = yield Forum.getAllGroups()
     yield put(groupsFetchingSuccessful({ groups: data && data.groups }))

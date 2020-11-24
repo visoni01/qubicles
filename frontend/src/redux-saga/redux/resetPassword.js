@@ -21,12 +21,12 @@ const {
       ...initialState,
       isLoading: true,
     }),
-    resetPasswordSuccessful: (state, action) => ({
+    resetPasswordSuccessful: () => ({
       ...initialState,
       success: true,
       isLoading: false,
     }),
-    resetPasswordFailure: (state, action) => ({
+    resetPasswordFailure: () => ({
       ...initialState,
       error: true,
       isLoading: false,

@@ -9,7 +9,7 @@ import {
 
 } from '../../db/models'
 import { Op } from 'sequelize'
-import { createNewEntity, getAll, getOne, aggregate, updateEntity } from '../helper'
+import { createNewEntity, getAll, aggregate, updateEntity } from '../helper'
 import _ from 'lodash'
 
 export async function getRecentJobsByClient ({ client_id, limit = 5 }) {

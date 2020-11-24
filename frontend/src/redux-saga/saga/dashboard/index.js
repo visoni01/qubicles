@@ -16,7 +16,7 @@ function* dashboardWatcher() {
   yield takeEvery(dashboardDataFetchingStart.type, dashboardWorker)
 }
 
-function* dashboardWorker(action) {
+function* dashboardWorker() {
   try {
     // Fetching announcements data
     yield put(announcementDataFetchingStart())

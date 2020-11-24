@@ -22,12 +22,12 @@ const {
       ...initialState,
       isLoading: true,
     }),
-    sendVerificationMailSuccessful: (state, action) => ({
+    sendVerificationMailSuccessful: () => ({
       ...initialState,
       success: true,
       isLoading: false,
     }),
-    sendVerificationMailFailure: (state, action) => ({
+    sendVerificationMailFailure: () => ({
       ...initialState,
       error: true,
       isLoading: false,

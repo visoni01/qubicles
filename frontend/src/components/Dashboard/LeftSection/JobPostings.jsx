@@ -12,7 +12,7 @@ const JobPostings = () => {
         </h3>
 
         <ul className='job-list'>
-          {!isLoading && jobPostings.length && jobPostings.map(({ jobTitle, applicants }, index) => (
+          {!isLoading && jobPostings.length && jobPostings.map(({ jobTitle, applicants }) => (
             <li className='job-item' key={ `${ jobTitle }-${ applicants }` }>
               <h4 className='h4 job-title'>{jobTitle}</h4>
               <p className='para applicants mb-10'>
