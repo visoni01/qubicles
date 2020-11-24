@@ -36,11 +36,6 @@ class People {
     return response
   }
 
-  static async addNewJob(payload) {
-    const response = await apiClient.postRequest('/jobs/add-new-job', payload)
-    return response
-  }
-
   static async getJobCategoriesTitlesAndSkills() {
     const response = await apiClient.getRequest('/jobs/new/job-fields')
     return response

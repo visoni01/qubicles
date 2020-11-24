@@ -105,6 +105,7 @@ NewJob.defaultProps = {
     durationType: 'on-demand',
     durationMonths: 0,
     experienceType: 'entry',
+    employmentType: 'freelancer',
     languages: 'english',
   },
   jobId: '',

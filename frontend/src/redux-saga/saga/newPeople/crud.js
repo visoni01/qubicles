@@ -27,7 +27,7 @@ function* jobCrudWorker(action) {
           durationMonths,
           ...rest
         } = action.payload
-        yield People.addNewJob({
+        const { data } = yield People.addJob({
           job_type: jobType,
           employment_type: employmentType,
           duration_type: durationType,
@@ -63,6 +63,7 @@ function* jobCrudWorker(action) {
       case UPDATE_JOB: {
         const {
           categoryId,
+          jobId,
           jobType,
           employmentType,
           experienceType,
@@ -76,6 +77,7 @@ function* jobCrudWorker(action) {
           ...rest
         } = action.payload
         const { data } = yield People.updateJob({
+          jobId,
           job_type: jobType,
           employment_type: employmentType,
           duration_type: durationType,

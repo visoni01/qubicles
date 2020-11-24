@@ -14,19 +14,16 @@ jobRouter.route('/:job_id')
 jobRouter.route('/job/:job_id')
   .get(isAuthenticated, jobController.getJobById)
 
-jobRouter.route('/job-fields')
-  .get(isAuthenticated, jobController.getJobCategoriesAndTitles)
-
 jobRouter.route('/:job_id')
   .delete(isAuthenticated, jobController.deleteJob)
 
-jobRouter.route('/')
-  .post(isAuthenticated, jobController.addJob)
+// jobRouter.route('/')
+//   .post(isAuthenticated, jobController.addJob)
 
 jobRouter.route('/new/job-fields')
   .get(isAuthenticated, jobController.getJobCategoriesTitlesAndSkills)
 
-jobRouter.route('/add-new-job')
+jobRouter.route('/')
   .post(isAuthenticated, jobController.addNewJob)
 
 jobRouter.route('/job/company/:client_id')

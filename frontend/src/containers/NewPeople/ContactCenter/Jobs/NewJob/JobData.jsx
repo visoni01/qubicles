@@ -135,7 +135,7 @@ const NewJobData = ({
 
         <div className='is-halfwidth'>
           <h3 className='h3'> Needed* </h3>
-          <div className='display-inline-flex '>
+          <div className='display-inline-flex mt-10'>
             <TextField
               margin='dense'
               id='agentNumber'
