@@ -6,6 +6,7 @@ import UpdateJobService from '../services/job/update'
 import GetJobCategoriesTitlesAndSkillsService from '../services/newJob/jobCategoriesTitlesAndSkills'
 import AddNewJobService from '../services/newJob/create'
 import JobPostCompanyDetailsService from '../services/newJob/jobPostCompanyDetails'
+import FetchJobCategoriesService from '../services/job/jobCategories'
 
 export default class JobController {
   static async getJobsByCategory (req, res) {
@@ -73,6 +74,15 @@ export default class JobController {
       Responder.success(res, jobPostCompanyDetails.result)
     } else {
       Responder.failed(res, jobPostCompanyDetails.errors)
+    }
+  }
+
+  static async getJobCategories (req, res) {
+    const jobs = await FetchJobCategoriesService.execute({ ...req.body, ...req.query })
+    if (jobs.successful) {
+      Responder.success(res, jobs.result)
+    } else {
+      Responder.failed(res, jobs.errors)
     }
   }
 }

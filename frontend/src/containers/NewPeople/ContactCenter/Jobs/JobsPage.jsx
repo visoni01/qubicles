@@ -15,9 +15,11 @@ const JobsPage = () => {
   const { newJobCategories, selectedCategoryId } = useSelector((state) => state.newJobCategories)
   const [ searchField, setSearchField ] = useState('')
   const dispatch = useDispatch()
+
   const callSearchApi = useCallback(debounce((nextValue) => {
     dispatch(newJobCategoriesFetchStart({ searchKeyword: nextValue }))
   }, 500), [ dispatch ])
+
   const handleSearch = useCallback((e) => {
     const nextValue = e.target.value
     setSearchField(nextValue)
@@ -61,6 +63,8 @@ const JobsData = ({ selectedCategoryId, newJobCategories }) => {
   if (selectedCategoryId) {
     const index = newJobCategories.findIndex((category) => category.categoryId === selectedCategoryId)
     return (
+      newJobCategories.length > 0
+      && (
       <JobCategoryCard
         key={ newJobCategories[ index ].categoryId }
         categoryId={ newJobCategories[ index ].categoryId }
@@ -71,6 +75,7 @@ const JobsData = ({ selectedCategoryId, newJobCategories }) => {
         evaluating={ 2 }
         pending={ 0 }
       />
+      )
     )
   }
   return newJobCategories.map((jobCategory) => (

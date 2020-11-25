@@ -21,6 +21,26 @@ class People {
     return response
   }
 
+  static async fetchJobCategoriesOnly({ searchKeyword, categoryId }) {
+    const url = '/jobs/categories'
+    const queryParams = {}
+    let response
+    if (searchKeyword && searchKeyword.trim()) {
+      queryParams.search_keyword = searchKeyword
+    }
+
+    if (categoryId) {
+      queryParams.category_id = categoryId
+    }
+
+    if (queryParams.search_keyword || queryParams.category_id) {
+      response = await apiClient.getRequest(url, null, queryParams)
+    } else {
+      response = await apiClient.getRequest(url)
+    }
+    return response
+  }
+
   static async deleteJob({ jobId }) {
     const response = await apiClient.deleteRequest(`jobs/${ jobId }`)
     return response

@@ -6,6 +6,7 @@ import jobPostCompanyDetailsReducer from './job/jobPostCompanyDetails'
 import jobSkillsReducer from './jobSkills'
 import agentResumeReducer from './talent/agentResume'
 import talentFilterReducer from './talent/talentFilter'
+import jobCategoriesOnlyReducer from './job/jobCategories'
 
 const peopleReducers = {
   jobSkills: jobSkillsReducer,
@@ -16,6 +17,7 @@ const peopleReducers = {
   jobPostCompanyDetails: jobPostCompanyDetailsReducer,
   agentResume: agentResumeReducer,
   talentFilter: talentFilterReducer,
+  jobCategoriesOnly: jobCategoriesOnlyReducer,
 }
 
 export default peopleReducers

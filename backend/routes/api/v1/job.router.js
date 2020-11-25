@@ -17,9 +17,6 @@ jobRouter.route('/job/:job_id')
 jobRouter.route('/:job_id')
   .delete(isAuthenticated, jobController.deleteJob)
 
-// jobRouter.route('/')
-//   .post(isAuthenticated, jobController.addJob)
-
 jobRouter.route('/new/job-fields')
   .get(isAuthenticated, jobController.getJobCategoriesTitlesAndSkills)
 
@@ -28,5 +25,8 @@ jobRouter.route('/')
 
 jobRouter.route('/job/company/:client_id')
   .get(isAuthenticated, jobController.getJobPostCompanyDetails)
+
+jobRouter.route('/categories')
+  .get(isAuthenticated, jobController.getJobCategories)
 
 export { jobRouter }

@@ -9,7 +9,7 @@ import {
 
 } from '../../db/models'
 import { Op } from 'sequelize'
-import { createNewEntity, getAll, aggregate, updateEntity } from '../helper'
+import { createNewEntity, aggregate, updateEntity } from '../helper'
 import _ from 'lodash'
 
 export async function getRecentJobsByClient ({ client_id, limit = 5 }) {
@@ -237,8 +237,16 @@ export async function flagApplicationsById ({ application_id, status }) {
   }
 }
 
-export async function getAllJobCategories () {
-  return getAll({ model: XQodCategory })
+export async function getAllJobCategories ({ search_keyword }) {
+  let query = {}
+  if (!_.isEmpty(search_keyword)) {
+    query = { ...query, category_name: { [Op.startsWith]: search_keyword } }
+  }
+  return XQodCategory.findAll({
+    where: query,
+    attributes: [['category_id', 'categoryId'], ['category_name', 'categoryTitle']],
+    raw: true
+  })
 }
 
 export async function getJobApplicationCount (data) {
@@ -324,11 +332,11 @@ export async function deleteJob ({ job_id }) {
   return jobs
 }
 
-export async function getAllJobs ({ category_id, client_id, search_keyword }) {
-  let query = {}
+export async function getAllJobs ({ client_id, category_id, search_keyword }) {
+  let query = { client_id }
 
   if (!_.isEmpty(search_keyword)) {
-    query = { ...query, category_name: { [Op.startsWith]: search_keyword } }
+    query = { ...query, title: { [Op.startsWith]: search_keyword } }
   }
 
   if (!_.isEmpty(category_id)) {
@@ -336,14 +344,12 @@ export async function getAllJobs ({ category_id, client_id, search_keyword }) {
   }
 
   const allJobsSubDetails = await XQodCategory.findAll({
-    where: query,
     attributes: [['category_id', 'categoryId'], ['category_name', 'categoryTitle']],
     include: {
       model: XQodJob,
       as: 'jobs',
-      where: {
-        [Op.not]: [{ is_deleted: true }]
-      }
+      where: query
+      // [Op.not]: [{ is_deleted: true }]
     }
     // raw: true
   })

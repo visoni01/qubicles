@@ -8,22 +8,22 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   newJobCategoriesFetchStart,
   getJobsByCategory,
-  resetJobsByCategorySelection,
+  jobCategoriesOnlyFetchStart,
 } from '../../../../redux-saga/redux/actions'
 
 const JobsList = () => {
   const [ searchCategories, setSearchCategories ] = useState(false)
-  const { newJobCategories } = useSelector((state) => state.newJobCategories)
+  const { jobCategoriesOnly } = useSelector((state) => state.jobCategoriesOnly)
   const [ selectedCategory, setSelectedCategory ] = useState(0)
   const [ searchField, setSearchField ] = useState('')
 
   const dispatch = useDispatch()
 
-  // useEffect(() => {
-  //   if (_.isEmpty(newJobCategories)) {
-  //     dispatch(newJobCategoriesFetchStart({ searchKeyword: '' }))
-  //   }
-  // }, [ dispatch ])
+  useEffect(() => {
+    if (_.isEmpty(jobCategoriesOnly)) {
+      dispatch(jobCategoriesOnlyFetchStart({ searchKeyword: '' }))
+    }
+  }, [ dispatch ])
 
   const handleJobsByCategory = ({ jobCategory }) => {
     dispatch(getJobsByCategory({ categoryId: jobCategory.categoryId }))
@@ -31,19 +31,20 @@ const JobsList = () => {
   }
 
   const handleResetJobs = useCallback(() => {
-    dispatch(resetJobsByCategorySelection())
+    // dispatch(resetJobsByCategorySelection())
+    dispatch(newJobCategoriesFetchStart({ searchKeyword: '' }))
     setSelectedCategory(0)
   }, [ dispatch ])
 
-  const callSearchApi = useCallback(debounce((nextValue) => {
-    dispatch(newJobCategoriesFetchStart({ searchKeyword: nextValue }))
+  const callSearchCategoriesApi = useCallback(debounce((nextValue) => {
+    dispatch(jobCategoriesOnlyFetchStart({ searchKeyword: nextValue }))
   }, 500), [ dispatch ])
 
   const handleSearch = useCallback((e) => {
     const nextValue = e.target.value
     setSearchField(nextValue)
-    callSearchApi(nextValue)
-  }, [ callSearchApi ])
+    callSearchCategoriesApi(nextValue)
+  }, [ callSearchCategoriesApi ])
 
   return (
     <Box className='custom-box no-padding side-filter-root job-list'>
@@ -86,7 +87,7 @@ const JobsList = () => {
         </MenuItem>
 
         {
-          newJobCategories.map((jobCategory) => (
+          jobCategoriesOnly.map((jobCategory) => (
             <MenuItem
               button
               onClick={ () => handleJobsByCategory({ jobCategory }) }

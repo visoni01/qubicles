@@ -33,7 +33,11 @@ export default class JobsByCategoryService extends ServiceBase {
       const client = await getClientIdByUserId({ user_id })
       let jobs = []
       if (client && client.client_id) {
-        jobs = await getAllJobs({ category_id, client_id: client.client_id, search_keyword })
+        const rest = {
+          category_id,
+          search_keyword
+        }
+        jobs = await getAllJobs({ client_id: client.client_id, ...rest })
       }
       //   if (category_id) {
       //     jobs = await getJobsDetailsByCategoryForClient({ category_id })
@@ -44,8 +48,10 @@ export default class JobsByCategoryService extends ServiceBase {
       //   // User is not an Employer
       //   jobs = getJobsDetailsForUser({ user_id })
       // }
+      console.log('jobs in service ======>>>>>', jobs)
       return jobs
     } catch (err) {
+      console.log('err============', err)
       logger.error(`${getErrorMessageForService('JobsByCategoryService')} ${err}`)
       this.addError(ERRORS.INTERNAL)
     }

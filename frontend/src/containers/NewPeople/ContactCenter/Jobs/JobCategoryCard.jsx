@@ -17,7 +17,7 @@ const JobCategoryCard = ({
     </div>
 
     <div className='mt-10 mb-30'>
-      {jobs.map(({
+      {jobs.length > 0 && jobs.map(({
         job_id, title, needed,
       }, index) => (
         <div key={ !job_id ? `${ index } ${ title } ${ categoryId }` : `${ job_id } ${ categoryId }` }>
