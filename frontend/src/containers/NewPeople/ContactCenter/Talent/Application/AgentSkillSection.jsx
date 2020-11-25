@@ -9,6 +9,8 @@ import EndorsementsModal from './EndorsementsModal'
 export default function AgentSkillSection({
   agentResumeSkills,
 }) {
+  const [ skills, setSkills ] = useState(agentResumeSkills.filter((skill, index) => index < 3))
+  const [ showAllSkills, setShowAllSkills ] = useState(false)
   const [ openEndorsementModal, setOpenEndorsementModal ] = useState(false)
   const [ endorsementData, setEndorsementData ] = useState({})
 
@@ -19,29 +21,40 @@ export default function AgentSkillSection({
     })
     setOpenEndorsementModal(true)
   }, [ endorsementData ])
+
+  const handleAllSkillsButton = useCallback(() => {
+    if (showAllSkills) {
+      setSkills(agentResumeSkills.filter((skill, index) => index < 3))
+    } else {
+      setSkills(agentResumeSkills)
+    }
+    setShowAllSkills((state) => !state)
+  })
   return (
     <>
       <div className='skill-section resume-section is-fullwidth'>
         <div className='skills-wrap'>
-          {agentResumeSkills.map((skill) => (
-            <div key={ skill.id } className='list-divider'>
+          {skills.map((skill) => (
+            <div key={ skill.skillId } className='list-divider'>
               <h4 className='h4 '>
-                {skill.name}
+                {skill.skillName}
               </h4>
               <div className='display-inline-flex mt-5 mb-20'>
-                <AvatarGroup max={ 3 } spacing='small' className='avatar-group'>
-                  { skill.endorsements.map((endorsement, index) => {
-                    if (index < 3) {
-                      return (
-                        <Avatar
-                          key={ endorsement.id }
-                          alt={ endorsement.userProfile.name }
-                          src={ endorsement.userProfile.profilePic }
-                        />
-                      )
-                    } return null
-                  })}
-                </AvatarGroup>
+                {skill.endorsedCount > 0 && (
+                  <AvatarGroup max={ 3 } spacing='small' className='avatar-group'>
+                    { skill.endorsements && skill.endorsements.map((endorsement, index) => {
+                      if (index < 3) {
+                        return (
+                          <Avatar
+                            key={ endorsement.id }
+                            alt={ endorsement.userProfile.name }
+                            src={ endorsement.userProfile.profilePic }
+                          />
+                        )
+                      } return null
+                    })}
+                  </AvatarGroup>
+                )}
                 <p
                   className='para light description'
                   onClick={ () => handleOpenEndorsementModal({
@@ -49,25 +62,41 @@ export default function AgentSkillSection({
                     endorsements: skill.endorsements,
                   }) }
                 >
-                  {`${ skill.endorsementsCount } people have given endorsements for this skill`}
+                  {`${ skill.endorsedCount } people have given endorsements for this skill`}
                 </p>
-
               </div>
             </div>
           ))}
         </div>
-
       </div>
-      <EndorsementsModal
-        open={ openEndorsementModal }
-        handleClose={ () => setOpenEndorsementModal(false) }
-        endorsementsList={ endorsementData.endorsements }
-        skillName={ endorsementData.skillName }
-      />
+      { agentResumeSkills.length > 3 && (
+      <Button
+        onClick={ handleAllSkillsButton }
+        className='is-fullwidth align-self-center'
+        classes={ {
+          root: 'button-primary-text center bold ',
+          label: 'button-primary-text-label',
+        } }
+      >
+        {showAllSkills ? 'Show Less Skills' : 'Show More Skills'}
+      </Button>
+      )}
+      {endorsementData.endorsements > 0 && (
+        <EndorsementsModal
+          open={ openEndorsementModal }
+          handleClose={ () => setOpenEndorsementModal(false) }
+          endorsementsList={ endorsementData.endorsements }
+          skillName={ endorsementData.skillName }
+        />
+      )}
     </>
   )
 }
 
+AgentSkillSection.defaultProps = {
+  agentResumeSkills: [],
+}
+
 AgentSkillSection.propTypes = {
-  agentResumeSkills: PropTypes.instanceOf([]).isRequired,
+  agentResumeSkills: PropTypes.arrayOf(PropTypes.any),
 }

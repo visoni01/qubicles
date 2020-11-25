@@ -5,7 +5,10 @@ const initialState = {
   isLoading: null,
   error: null,
   success: null,
-  agentResumeSkills: [],
+  agentResumeSkills: {
+    candidateId: null,
+    skills: [],
+  },
 }
 
 const {

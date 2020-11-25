@@ -2,6 +2,7 @@ import React, { useCallback } from 'react'
 import {
   faChevronLeft, faAward,
 } from '@fortawesome/free-solid-svg-icons'
+import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   Box, Button, Divider,
@@ -12,7 +13,17 @@ import Introduction from '../../Introduction'
 import { testResumeIntroduction } from '../../testData'
 import ROUTE_PATHS from '../../../../../routes/routesPath'
 
-const ResumeIntro = () => {
+const ResumeIntro = ({
+  candidateId,
+  candidateName,
+  candidateRating,
+  location,
+  profileName,
+  profileDescription,
+  ratePerHourDollar,
+  highestEducation,
+  yearsOfExpirience,
+}) => {
   const history = useHistory()
   const handleBackButton = useCallback(() => {
     history.push(ROUTE_PATHS.NEW_PEOPLE)
@@ -33,15 +44,15 @@ const ResumeIntro = () => {
           </Button>
         </div>
         <Introduction
-          key={ testResumeIntroduction.name }
+          key={ candidateId }
           imageName={ testResumeIntroduction.imageName }
-          rating={ testResumeIntroduction.rating }
+          rating={ candidateRating }
           imageSrc={ testResumeIntroduction.imageSrc }
-          name={ testResumeIntroduction.name }
-          location={ testResumeIntroduction.location }
+          name={ candidateName }
+          location={ location }
           date={ testResumeIntroduction.date }
-          title={ testResumeIntroduction.title }
-          description={ testResumeIntroduction.description }
+          title={ profileName }
+          description={ profileDescription }
         />
         <Divider className='divider' />
         <div className='display-inline-flex justify-between is-fullwidth'>
@@ -54,7 +65,9 @@ const ResumeIntro = () => {
           <div>
             <h4 className='h4'> 469h </h4>
             <p className='para'> Hours Worked </p>
-            <h4 className='h4 mt-20'> 12.50 $/hour </h4>
+            <h4 className='h4 mt-20'>
+              {`${ ratePerHourDollar }$/hour`}
+            </h4>
             <p className='para'> Hourly Wage </p>
           </div>
         </div>
@@ -64,17 +77,42 @@ const ResumeIntro = () => {
           <h4 className='h4 mt-10'>
             Highest Level of Education
           </h4>
-          <p className='para personal-details'> high level graduate </p>
+          <p className='para personal-details'>
+            {highestEducation}
+          </p>
           <h4 className='h4 mt-20'>
             Years of Experience
           </h4>
-          <p className='para personal-details'> 3+ years</p>
+          <p className='para personal-details'>{` ${ yearsOfExpirience }+ years`}</p>
         </div>
         <Divider className='divider' />
         <FontAwesomeIcon className='custom-fa-icon sz-xxl' icon={ faAward } />
       </Box>
     </>
   )
+}
+
+ResumeIntro.defaultProps = {
+  candidateId: null,
+  candidateName: '',
+  candidateRating: 0,
+  location: '',
+  profileName: '',
+  profileDescription: '',
+  ratePerHourDollar: 0,
+  highestEducation: '',
+  yearsOfExpirience: '',
+}
+ResumeIntro.propTypes = {
+  candidateId: PropTypes.number,
+  candidateName: PropTypes.string,
+  candidateRating: PropTypes.number,
+  location: PropTypes.string,
+  profileName: PropTypes.string,
+  profileDescription: PropTypes.string,
+  ratePerHourDollar: PropTypes.number,
+  highestEducation: PropTypes.string,
+  yearsOfExpirience: PropTypes.string,
 }
 
 export default ResumeIntro

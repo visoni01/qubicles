@@ -11,10 +11,11 @@ function* agentResumeSkillsWatcherStart() {
   yield takeEvery(fetchAgentResumeSkillsStart.type, agentResumeSkillsWorker)
 }
 
-function* agentResumeSkillsWorker() {
+function* agentResumeSkillsWorker(action) {
+  const { candidateId } = action.payload
   try {
-    const data = yield NewPeople.getAgentResumeSkills()
-    yield put(fetchAgentResumeSkillsSuccess(data))
+    const { data } = yield NewPeople.getUserSkills({ candidateId })
+    yield put(fetchAgentResumeSkillsSuccess({ agentResumeSkills: data }))
   } catch (e) {
     yield put(fetchAgentResumeSkillsFailed())
     yield put(showErrorMessage({ msg: e.errMsg }))

@@ -53,12 +53,11 @@ export async function getUserSkills ({ user_id }) {
   const userSkills = await XQodUserSkill.findAll({
     include: [{
       model: XQodSkill,
-      attributes: ['skill_name']
+      as: 'skill'
     }],
-    where: { user_id },
-    raw: true
+    where: { user_id }
   })
-  return userSkills
+  return userSkills && userSkills.map(skill => skill.get({ plain: true }))
 }
 
 export async function addJobSkills (skillNames) {
@@ -183,4 +182,39 @@ export async function getAgentJobProfiles ({
     where: resourceDefQuery
   })
   return agentJobProfiles.map(profile => profile.get({ plain: true }))
+}
+
+export async function getAgentResume ({ candidateId }) {
+  const agentResume = await XQodResourceDef.findOne({
+    include: [{
+      model: UserDetail,
+      attributes: [
+        'user_id',
+        'first_name',
+        'last_name',
+        'city',
+        'state',
+        'primary_language',
+        'other_languages',
+        'highest_education',
+        'years_of_experience',
+        'work_title',
+        'work_overview'
+      ],
+      include: [{
+        model: XQodUserSkill,
+        attributes: ['skill_id', 'endorsed'],
+        as: 'userSkills',
+        include: [{
+          model: XQodSkill,
+          attributes: ['skill_name'],
+          as: 'skill'
+        }]
+      }]
+    }],
+    where: {
+      user_id: candidateId
+    }
+  })
+  return agentResume && agentResume.get({ plain: true })
 }

@@ -1,9 +1,8 @@
 import React from 'react'
 import { Skeleton, AvatarGroup } from '@material-ui/lab'
 import './styles.scss'
-import { Avatar } from '@material-ui/core'
 
-export default function SkillsAndEndorsements() {
+export default function SkillsAndEndorsementsSkeleton() {
   return (
     <div className='skill-endorsements-skeleton list-divider'>
       <Skeleton

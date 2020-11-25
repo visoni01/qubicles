@@ -4,6 +4,7 @@ import {
 } from '../services/newPeople/contactCenter/talent'
 import Responder from '../../server/expressResponder'
 import { PeopleGetJobSkillsService } from '../services/newPeople/contactCenter'
+import { PeopleGetAgentResumeService } from '../services/newPeople/contactCenter/talent/getAgentResume'
 
 export default class TalentController {
   static async getTalentCards (req, res) {
@@ -30,6 +31,15 @@ export default class TalentController {
       Responder.success(res, skills.result)
     } else {
       Responder.failed(res, skills.errors)
+    }
+  }
+
+  static async getAgentResume (req, res) {
+    const agentResume = await PeopleGetAgentResumeService.execute({ ...req.params, ...req.body, ...req.query })
+    if (agentResume.successful) {
+      Responder.success(res, agentResume.result)
+    } else {
+      Responder.failed(res, agentResume.errors)
     }
   }
 }

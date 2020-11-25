@@ -14,4 +14,7 @@ newPeopleRouter.route('/skills/:candidate_id')
 newPeopleRouter.route('/skills')
   .get(isAuthenticated, talentController.getJobSkills)
 
+newPeopleRouter.route('/agent/resume/:candidate_id')
+  .get(isAuthenticated, talentController.getAgentResume)
+
 export { newPeopleRouter }

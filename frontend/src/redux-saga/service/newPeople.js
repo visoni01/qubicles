@@ -1,5 +1,4 @@
 import apiClient from '../../utils/apiClient'
-import { agentResumeSkills } from '../../containers/NewPeople/ContactCenter/Talent/Application/testData'
 
 class NewPeople {
   // Talent Api's
@@ -27,9 +26,8 @@ class NewPeople {
     return response
   }
 
-  static async getAgentResumeSkills() {
-    // WIP Add Agent Resume skills backend API
-    const response = { agentResumeSkills }
+  static async getAgentResume({ candidateId }) {
+    const response = await apiClient.getRequest(`/newPeople/agent/resume/${ candidateId }`)
     return response
   }
 

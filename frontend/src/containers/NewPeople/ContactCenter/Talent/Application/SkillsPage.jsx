@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react'
-
+import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
-import { Divider, Button } from '@material-ui/core'
+import _ from 'lodash'
+import { Divider } from '@material-ui/core'
 import { fetchAgentResumeSkillsStart } from '../../../../../redux-saga/redux/newPeople/talent/agentResumeSkills'
 import AgentSkillSection from './AgentSkillSection'
-import SkillsAndEndorsements from '../Skeletons/SkillsAndEndorsements'
-// import { agentResumeSkills } from './testData'
+import SkillsAndEndorsementsSkeleton from '../Skeletons/SkillsAndEndorsements'
 
-const SkillsPage = () => {
+const SkillsPage = ({
+  candidateId, languages,
+}) => {
   const dispatch = useDispatch()
   const { isLoading, agentResumeSkills } = useSelector((state) => state.agentResumeSkills)
   useEffect(() => {
-    dispatch(fetchAgentResumeSkillsStart())
+    dispatch(fetchAgentResumeSkillsStart({ candidateId }))
   }, [ dispatch ])
 
   return (
@@ -23,31 +25,35 @@ const SkillsPage = () => {
       <div className='skills-skeleton-wrapper'>
         {isLoading && (
           [ ...Array(3).keys() ].map((key) => (
-            <SkillsAndEndorsements key={ key } />
+            <SkillsAndEndorsementsSkeleton key={ key } />
           ))
         )}
       </div>
       {/* Agent Skills Section */}
       {!isLoading && (
       <AgentSkillSection
-        agentResumeSkills={ agentResumeSkills }
+        agentResumeSkills={ agentResumeSkills.skills }
       />
       )}
-      <Button
-        className='is-fullwidth align-self-center'
-        classes={ {
-          root: 'button-primary-text center bold ',
-          label: 'button-primary-text-label',
-        } }
-      >
-        View All Skills
-      </Button>
       <Divider className='divider' />
       <h4 className='h4 mt-30'> Languages </h4>
-      <p className='para mt-10'> English (Native or Bilingual) </p>
-      <p className='para mt-10 '> French (Native or Bilingual) </p>
+      {languages && languages.map((language) => (
+        <p key={ language } className='para mt-10'>
+          {`${ _.capitalize(language) } (Native or Bilingual) `}
+        </p>
+      ))}
     </div>
   )
+}
+
+SkillsPage.propTypes = {
+  candidateId: PropTypes.number,
+  languages: PropTypes.arrayOf(PropTypes.string),
+}
+
+SkillsPage.defaultProps = {
+  candidateId: null,
+  languages: [],
 }
 
 export default SkillsPage
