@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import {
-  Button, Divider, Tabs, Tab, Avatar,
+  Button, Tabs, Tab, Avatar,
 } from '@material-ui/core'
 import Rating from '@material-ui/lab/Rating'
-import { terry, carolin, helen } from '../../../../../assets/images/avatar'
+import { terry } from '../../../../../assets/images/avatar'
 import Reviews from '../../Reviews'
 import { reviews } from '../../testData'
 import '../styles.scss'

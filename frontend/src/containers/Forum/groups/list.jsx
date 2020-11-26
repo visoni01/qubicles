@@ -17,7 +17,7 @@ const Groups = ({ selectedGroup, setSelectedGroup }) => {
     dispatch(groupsFetchingStart())
   }, [ dispatch ])
 
-  const newGroupForm = useCallback(() => setSelectedGroup('new'), [])
+  const newGroupForm = useCallback(() => setSelectedGroup('new'), [ setSelectedGroup ])
 
   if (isLoading) {
     return (

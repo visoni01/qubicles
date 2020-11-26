@@ -32,7 +32,7 @@ const NewJobRequirements = ({
         skill.id
       )),
     }))
-  }, [ selectedRequiredCourses, selectedRequiredSkills, selectedBonusCourses, selectedBonusSkills ])
+  }, [ selectedRequiredCourses, selectedRequiredSkills, selectedBonusCourses, selectedBonusSkills, setNewJobData ])
 
   return (
     <div className='custom-box job-requirements-root has-fullwidth'>

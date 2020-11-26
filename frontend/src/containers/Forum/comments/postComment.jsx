@@ -1,14 +1,13 @@
 import React, {
-  useCallback, useEffect, useRef, useState,
+  useCallback, useRef, useState,
 } from 'react'
 import {
-  faChevronLeft, faComment, faEye, faHeart, faImage, faSatelliteDish, faTimesCircle,
+  faImage, faTimesCircle,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   Avatar, Box, Button, IconButton, TextareaAutosize,
 } from '@material-ui/core'
-import moment from 'moment'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { postTopicComment } from '../../../redux-saga/redux/actions'

@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  Button, Box, Divider, Grid,
+  Button, Box,
 } from '@material-ui/core'
 import TextDivider from '../../TextDivider'
 

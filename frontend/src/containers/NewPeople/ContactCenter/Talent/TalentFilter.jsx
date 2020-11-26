@@ -17,7 +17,7 @@ const TalentFilter = () => {
     if (!jobSkills) {
       dispatch(fetchJobSkillsStart({}))
     }
-  }, [ dispatch ])
+  }, [ dispatch, jobSkills ])
   const verificationsInitial = {
     backgroundCheck: false,
     phoneVerified: false,
@@ -42,7 +42,15 @@ const TalentFilter = () => {
       requiredAvailability: selectedAvailability,
       requiredTalentType: selectedTalentType,
     })))
-  })
+  }, [
+    selectedSkill,
+    selectedLanguage,
+    selectedHourlyRate,
+    selectedRating,
+    selectedAvailability,
+    selectedTalentType,
+    dispatch,
+  ])
 
   const handleResetFilter = useCallback(() => {
     setSkill([])
@@ -53,7 +61,7 @@ const TalentFilter = () => {
     setTalentType({ employmentType: null, name: 'Any' })
 
     dispatch((fetchTalentCardsStart({})))
-  })
+  }, [ dispatch ])
   // console.log('===============================')
   // console.log('selectedSkill =====', selectedSkill)
   // console.log('selectedLanguage =====', selectedLanguage)
@@ -143,7 +151,7 @@ const TalentFilter = () => {
       ...selectedVerifications,
       [ e.target.name ]: e.target.checked,
     })
-  })
+  }, [ selectedVerifications ])
 
   // Availability
   const setAvailabilityCB = useCallback((e) => {
@@ -162,15 +170,15 @@ const TalentFilter = () => {
         break
       }
       default: {
-        setRating({ status: null, name: 'Any' })
+        setAvailability({ status: null, name: 'Any' })
       }
     }
-  })
+  }, [ setAvailability ])
 
   // Location
   const setLocationCB = useCallback((e) => {
     setLocation(e.target.value)
-  })
+  }, [ setLocation ])
 
   return (
     <Box className='custom-box no-padding side-filter-root talent-filter'>

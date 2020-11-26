@@ -5,7 +5,7 @@ import {
 import Rating from '@material-ui/lab/Rating'
 import { faCircle, faAward } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { terry, carolin, thomas } from '../../../../../assets/images/avatar'
+import { carolin, thomas } from '../../../../../assets/images/avatar'
 import '../styles.scss'
 
 const WorkHistory = () => (

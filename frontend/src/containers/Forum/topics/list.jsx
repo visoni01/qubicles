@@ -29,7 +29,7 @@ const Topics = ({ groupId, groupTitle, setSelectedTopic }) => {
         offset: noOfTopicsPerPage * (currentPage - 1),
       }))
     }
-  }, [ currentPage, groupId ])
+  }, [ currentPage, groupId, dispatch ])
 
   if (isLoading) {
     return (

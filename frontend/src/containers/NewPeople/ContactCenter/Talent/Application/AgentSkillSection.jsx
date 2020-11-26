@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useCallback } from 'react'
 import { AvatarGroup } from '@material-ui/lab'
-import { Avatar } from '@material-ui/core'
+import { Avatar, Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import EndorsementsModal from './EndorsementsModal'
 
@@ -20,7 +20,7 @@ export default function AgentSkillSection({
       endorsements,
     })
     setOpenEndorsementModal(true)
-  }, [ endorsementData ])
+  }, [ ])
 
   const handleAllSkillsButton = useCallback(() => {
     if (showAllSkills) {
@@ -29,7 +29,7 @@ export default function AgentSkillSection({
       setSkills(agentResumeSkills)
     }
     setShowAllSkills((state) => !state)
-  })
+  }, [ agentResumeSkills, showAllSkills ])
   return (
     <>
       <div className='skill-section resume-section is-fullwidth'>

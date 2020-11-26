@@ -14,7 +14,7 @@ const SkillsPage = ({
   const { isLoading, agentResumeSkills } = useSelector((state) => state.agentResumeSkills)
   useEffect(() => {
     dispatch(fetchAgentResumeSkillsStart({ candidateId }))
-  }, [ dispatch ])
+  }, [ dispatch, candidateId ])
 
   return (
     <div className='mb-25 custom-box resume-root skills-page-root has-fullwidth'>

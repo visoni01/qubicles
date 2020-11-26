@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  Button, Box, Card, CardMedia, CardContent,
+  Button, Box, Card, CardMedia,
 } from '@material-ui/core'
 
 import '../style.scss'

@@ -19,7 +19,7 @@ const ViewResume = () => {
   const { agentResume } = useSelector((state) => state.agentResume)
   useEffect(() => {
     dispatch(fetchAgentResumeStart({ candidateId }))
-  }, [ dispatch ])
+  }, [ dispatch, candidateId ])
   return (
     <Grid container spacing={ 3 } justify='center'>
       <Grid item xl={ 3 } lg={ 3 } md={ 4 } sm={ 12 }>

@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import {
-  faChevronUp, faChevronDown, faPlayCircle, faFileAlt, faFile, faFileSignature,
+  faChevronUp, faChevronDown, faPlayCircle, faFileAlt, faFileSignature,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  Box, List, Button,
+  List, Button,
   ListItem, ListItemIcon,
   ListItemText, Collapse, Divider,
 } from '@material-ui/core'

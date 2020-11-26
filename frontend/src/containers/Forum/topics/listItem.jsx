@@ -1,32 +1,29 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import {
-  Box, IconButton, Button, Avatar, Divider,
+  Button, Avatar,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faComment, faEye, faHeart, faSlidersH,
+  faComment, faEye, faHeart,
 } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
-import Pagination from '@material-ui/lab/Pagination'
-import { slice } from 'lodash'
+import { useDispatch } from 'react-redux'
 import { carolin } from '../../../assets/images/avatar/index'
 import { formatDate } from '../../../utils/common'
-import { groupTopicsFetchingStart, topicActivity } from '../../../redux-saga/redux/actions'
-import ListSkeleton from '../skeletons/topicsList'
+import { topicActivity } from '../../../redux-saga/redux/actions'
 
 const ListItem = ({ topic, index, setSelectedTopic }) => {
   const dispatch = useDispatch()
   const changeSelectedTopic = useCallback(() => {
     setSelectedTopic(index, topic.id)
-  }, [ setSelectedTopic ])
+  }, [ setSelectedTopic, index, topic.id ])
 
   const handleLikeButton = useCallback(() => {
     dispatch(topicActivity({
       topicId: topic.id,
       activity: topic.isTopicLiked ? 'unlike' : 'like',
     }))
-  }, [ setSelectedTopic ])
+  }, [ dispatch, topic.id, topic.isTopicLiked ])
 
   return (
     <>

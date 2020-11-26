@@ -84,9 +84,21 @@ export async function getAgentJobProfiles ({
   requiredHourlyRate,
   requiredRating,
   requiredAvailability,
-  requiredTalentType
+  requiredTalentType,
+  searchKeyword
 }) {
   let resourceDefQuery = {}
+  let userDetailQuery = {}
+
+  if (searchKeyword) {
+    userDetailQuery = {
+      ...userDetailQuery,
+      work_title: {
+        [Op.startsWith]: searchKeyword
+      }
+
+    }
+  }
 
   // Language filter
   if (requiredLanguages.length > 0) {
@@ -161,6 +173,7 @@ export async function getAgentJobProfiles ({
         'work_title',
         'work_overview'
       ],
+      where: userDetailQuery,
       include: [{
         model: XQodUserSkill,
         attributes: ['skill_id', 'endorsed'],

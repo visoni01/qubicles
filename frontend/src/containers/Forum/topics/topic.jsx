@@ -1,6 +1,7 @@
-import React, { useCallback, useEffect } from 'react'
+/* eslint-disable react/no-danger */
+import React, { useCallback } from 'react'
 import {
-  faChevronLeft, faComment, faEye, faHeart, faImage,
+  faChevronLeft, faComment, faEye, faHeart,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -8,14 +9,11 @@ import {
 } from '@material-ui/core'
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
 import { carolin } from '../../../assets/images/avatar/index'
-import { topicCommentsFetchingStart } from '../../../redux-saga/redux/actions'
 import PostComment from '../comments/postComment'
 import Comments from '../comments/list'
 
 const SelectedTopic = ({ backToGroup, topicDetails, groupTitle }) => {
-  const dispatch = useDispatch()
   const backButton = useCallback(() => backToGroup(''), [ backToGroup ])
 
   return (

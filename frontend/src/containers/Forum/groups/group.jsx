@@ -1,21 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import {
-  Box, IconButton, InputBase, Button, Avatar, Divider,
+  Box, IconButton, InputBase, Button,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faComment,
-  faEllipsisV, faEye, faHeart, faSearch, faSlidersH,
+
+  faEllipsisV, faSearch,
 } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
-import moment from 'moment'
-import GroupsList from './list'
-import TrendingTopics from '../trendingTopics'
-import { carolin } from '../../../assets/images/avatar/index'
-import { groupTopicsFetchingStart, addNewGroupTopic, updateGroupTopicsList } from '../../../redux-saga/redux/actions'
+import { addNewGroupTopic, updateGroupTopicsList } from '../../../redux-saga/redux/actions'
 import NewTopicForm from '../topics/newTopic'
-import { formatDate } from '../../../utils/common'
 import SelectedTopic from '../topics/topic'
 import { UPDATE_TOPIC_STATS } from '../../../redux-saga/redux/constants'
 import TopicsList from '../topics/list'

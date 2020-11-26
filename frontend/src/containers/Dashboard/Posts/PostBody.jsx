@@ -22,7 +22,7 @@ const PostBody = ({
   const [ limit, setLimit ] = useState(1) // Initial Limit of 1 comment
   const [ offsetCount, changeOffsetCount ] = useState(0)
 
-  const setIsLoading = () => {
+  const setIsLoading = useCallback(() => {
     dispatch(updatePostData({
       type: SET_IS_COMMENT_LOADING,
       data: {
@@ -30,7 +30,7 @@ const PostBody = ({
         userActivityId,
       },
     }))
-  }
+  }, [ dispatch, userActivityId ])
 
   // View More Comments
   const loadMoreCommentsCB = useCallback(() => {
@@ -40,7 +40,7 @@ const PostBody = ({
       dispatch(fetchCommentForPost({ limit, offset: offsetCount, userActivityId }))
       changeOffsetCount((c) => c + limit)
     }
-  }, [ offsetCount, changeOffsetCount, limit, userActivityId, comments ])
+  }, [ offsetCount, changeOffsetCount, limit, userActivityId, commentLoading, dispatch, setIsLoading ])
 
   // Add New Comment
   const postComment = (commentText) => {
@@ -77,7 +77,10 @@ const PostBody = ({
     }
 
     setShowComments(!showComments)
-  }, [ commentLoading, showComments ])
+  }, [
+    showComments, commentsCount, dispatch, limit, loadInitialComments,
+    offsetCount, setIsLoading, userActivityId,
+  ])
 
   return (
     // Post Body

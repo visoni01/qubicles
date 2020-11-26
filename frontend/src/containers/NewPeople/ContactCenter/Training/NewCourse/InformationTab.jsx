@@ -7,14 +7,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 export default function InformationTab() {
-  const [ selectedCategory, setCategory ] = useState('')
   const [ price, setPrice ] = useState('')
   const [ priceType, setPriceType ] = useState('price')
 
   // Course Price
   const setPriceCB = useCallback((e) => {
     setPrice(e.target.value)
-  })
+  }, [])
 
   // Set Price Type
   const setPriceTypeCB = useCallback((e) => {
@@ -33,7 +32,6 @@ export default function InformationTab() {
   ]
 
   const setCategoryCB = useCallback((e) => {
-    setCategory(e.target.value)
   }, [])
 
   return (

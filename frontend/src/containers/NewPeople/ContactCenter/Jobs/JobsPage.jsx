@@ -45,7 +45,7 @@ const JobsData = ({ selectedCategoryId, newJobCategories }) => {
 
 const JobsPage = () => {
   const history = useHistory()
-  const { newJobCategories, isLoading, selectedCategoryId } = useSelector((state) => state.newJobCategories)
+  const { newJobCategories, selectedCategoryId } = useSelector((state) => state.newJobCategories)
   const [ searchField, setSearchField ] = useState('')
   const dispatch = useDispatch()
   const callSearchApi = useCallback(debounce((nextValue) => {

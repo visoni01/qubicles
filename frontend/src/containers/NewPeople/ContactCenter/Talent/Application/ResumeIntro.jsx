@@ -27,7 +27,7 @@ const ResumeIntro = ({
   const history = useHistory()
   const handleBackButton = useCallback(() => {
     history.push(ROUTE_PATHS.NEW_PEOPLE)
-  })
+  }, [ history ])
   return (
     <>
       <Box className='custom-box resume-intro-root'>

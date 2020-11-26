@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import {
-  FormControl, TextField, Chip, IconButton,
+  FormControl, TextField, IconButton,
 } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 import _ from 'lodash'
@@ -16,7 +16,7 @@ export default function MultiSelectLinkItems({
     if (value) {
       setSelectedItems((state) => _.unionBy(state, [ value ], 'id'))
     }
-  }, [])
+  }, [ setSelectedItems ])
   const [ inputValue, setInputValue ] = useState('')
 
   return (

@@ -22,7 +22,7 @@ const NewJobDetails = ({
       durationType: 'months',
       durationMonths: month,
     }))
-  }, [ newJobData ])
+  }, [ setNewJobData ])
 
   const setDurationTypeCB = useCallback((e) => {
     setNewJobData((currentNewJobData) => ({
@@ -30,7 +30,7 @@ const NewJobDetails = ({
       durationType: e.target.value,
       durationMonths: 0,
     }))
-  }, [ newJobData ])
+  }, [ setNewJobData ])
 
   // Set Languages
   const setLanguageCB = useCallback((event) => {

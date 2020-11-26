@@ -24,10 +24,6 @@ const InviteAgent = ({
     }))
   }, [ ])
 
-  const handleCancelButton = () => {
-    handleClose()
-  }
-
   return (
     <Dialog
       disableScrollLock

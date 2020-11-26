@@ -14,7 +14,7 @@ export default function MultiSelectChipItems({
     if (value) {
       setSelectedItems((state) => _.unionBy(state, [ value ], 'id'))
     }
-  }, [])
+  }, [ setSelectedItems ])
 
   return (
     <div>

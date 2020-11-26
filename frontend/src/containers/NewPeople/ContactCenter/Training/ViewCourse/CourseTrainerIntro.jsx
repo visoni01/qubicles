@@ -11,7 +11,7 @@ const CourseTrainerIntro = () => {
   const history = useHistory()
   const handleBackButton = useCallback(() => {
     history.push(ROUTE_PATHS.NEW_PEOPLE)
-  })
+  }, [ history ])
   return (
     <>
       <Box className='custom-box contact-center-info-root'>

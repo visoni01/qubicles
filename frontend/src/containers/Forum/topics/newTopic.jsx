@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import {
-  Box, FormControlLabel, Grid, Radio, RadioGroup, TextareaAutosize, Button,
+  Box, Button,
 } from '@material-ui/core'
 import CKEditor from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
@@ -40,11 +40,6 @@ const NewTopic = ({ handleSubmit, handleCancel }) => {
   const onSubmit = () => {
     handleSubmit(topicData)
     setTopicData(initialData)
-  }
-
-  const handleCloseModal = () => {
-    setTopicData(initialData)
-    handleCancel('')
   }
 
   return (

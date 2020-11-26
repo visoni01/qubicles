@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Box, InputBase } from '@material-ui/core'
+import { Box, InputBase, debounce } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import TalentCard from './TalentCard'
@@ -10,18 +10,31 @@ import './styles.scss'
 
 const TalentPage = () => {
   const { isLoading, talentCards } = useSelector((state) => state.peopleTalentCards)
+  const [ searchField, setSearchField ] = useState('')
   const dispatch = useDispatch()
   useEffect(() => {
     if (!talentCards) {
       dispatch(fetchTalentCardsStart({}))
     }
-  }, [ dispatch ])
+  }, [ dispatch, talentCards ])
+  const callSearchApi = useCallback(debounce((nextValue) => {
+    dispatch(fetchTalentCardsStart({ searchKeyword: nextValue }))
+  }, 500), [ dispatch ])
+
+  const handleSearch = useCallback((e) => {
+    const nextValue = e.target.value
+    setSearchField(nextValue)
+    callSearchApi(nextValue)
+  }, [ callSearchApi ])
+
   return (
     <>
       <div className='display-inline-flex is-fullwidth mt-10 search-bar-people'>
         <div className='search-input'>
           <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 custom-fa-icon light' />
           <InputBase
+            onChange={ handleSearch }
+            value={ searchField }
             placeholder='Search Talent'
             className='input-field'
           />

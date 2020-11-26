@@ -18,7 +18,7 @@ const ContactCenterIntro = ({ jobDetails }) => {
   const history = useHistory()
   const handleBackButton = useCallback(() => {
     history.push(ROUTE_PATHS.NEW_PEOPLE)
-  })
+  }, [ history ])
 
   const { companyDetails } = useSelector((state) => state.jobPostCompanyDetails)
   const dispatch = useDispatch()
@@ -26,7 +26,7 @@ const ContactCenterIntro = ({ jobDetails }) => {
     if (!_.isEmpty(jobDetails)) {
       dispatch(jobPostCompanyDetailsFetchStart({ clientId: jobDetails.clientId }))
     }
-  }, [ jobDetails ])
+  }, [ dispatch, jobDetails ])
   return (
     <>
       <Box className='custom-box contact-center-info-root'>

@@ -7,6 +7,7 @@ const constraints = {
   user_id: {
     presence: { allowEmpty: false }
   },
+  searchKeyword: {},
   requiredSkills: {},
   requiredLanguages: {},
   requiredHourlyRate: {},
@@ -27,7 +28,8 @@ export class PeopleGetTalentCardsService extends ServiceBase {
       requiredHourlyRate,
       requiredRating,
       requiredAvailability,
-      requiredTalentType
+      requiredTalentType,
+      searchKeyword
     } = this.filteredArgs
 
     if (requiredSkills) {
@@ -52,7 +54,8 @@ export class PeopleGetTalentCardsService extends ServiceBase {
         requiredHourlyRate,
         requiredRating,
         requiredAvailability,
-        requiredTalentType
+        requiredTalentType,
+        searchKeyword
       })
       let talentCards = agentJobProfiles.map(profile => {
         const { UserDetail: userDetails } = profile

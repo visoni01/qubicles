@@ -13,7 +13,7 @@ const TrainingWrap = () => {
   const history = useHistory()
   const handleCreateCourseButton = useCallback(() => {
     history.push(ROUTE_PATHS.CREATE_COURSE)
-  })
+  }, [ history ])
   return (
     <div>
       <div className='display-inline-flex is-fullwidth mt-10 search-bar-people'>

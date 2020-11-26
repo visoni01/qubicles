@@ -4,7 +4,6 @@ import {
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSlidersH, faSearch } from '@fortawesome/free-solid-svg-icons'
-import _ from 'lodash'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   newJobCategoriesFetchStart,
@@ -14,7 +13,7 @@ import {
 
 const JobsList = () => {
   const [ searchCategories, setSearchCategories ] = useState(false)
-  const { newJobCategories, isLoading } = useSelector((state) => state.newJobCategories)
+  const { newJobCategories } = useSelector((state) => state.newJobCategories)
   const [ selectedCategory, setSelectedCategory ] = useState(0)
   const [ searchField, setSearchField ] = useState('')
 
@@ -32,7 +31,7 @@ const JobsList = () => {
   const handleResetJobs = useCallback(() => {
     dispatch(resetJobsByCategorySelection())
     setSelectedCategory(0)
-  }, [ dispatch, selectedCategory ])
+  }, [ dispatch ])
 
   const callSearchApi = useCallback(debounce((nextValue) => {
     dispatch(newJobCategoriesFetchStart({ searchKeyword: nextValue }))

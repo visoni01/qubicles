@@ -24,4 +24,4 @@ const getUpdatedTalentCards = ({ state, payload }) => {
   return talentCards
 }
 
-export { getUpdatedTalentCards }
+export default getUpdatedTalentCards

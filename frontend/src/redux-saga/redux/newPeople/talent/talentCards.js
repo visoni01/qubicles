@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getDataForReducer } from '../../../../utils/common'
-import { getUpdatedTalentCards } from '../helper'
+import getUpdatedTalentCards from '../helper'
 
 const initialState = {
   isLoading: null,

@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Button } from '@material-ui/core'
-import AddArticleModal from './AddArticleModal'
 
 export default function SectionOptions() {
   return (
