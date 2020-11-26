@@ -1,4 +1,4 @@
-import { takeEvery, put, select } from 'redux-saga/effects'
+import { takeEvery, put } from 'redux-saga/effects'
 import _ from 'lodash'
 import {
   newJobCategoriesFetchStart,
@@ -18,13 +18,13 @@ function* jobsByCategoryWorker(action) {
     switch (action.type) {
       case GET_JOB_BY_CATEGORY: {
         const { categoryId } = action.payload
-        const { data: jobsData } = yield People.fetchJobCategories({ categoryId })
+        const { data: jobsData } = yield People.fetchJobCategoriesAndJobs({ categoryId })
         yield put(jobsByCategorySuccessful({ data: jobsData, categoryId }))
         break
       }
       case newJobCategoriesFetchStart.type: {
         const { searchKeyword } = action.payload
-        let { data } = yield People.fetchJobCategories({ searchKeyword })
+        let { data } = yield People.fetchJobCategoriesAndJobs({ searchKeyword })
         data = data.sort((category1, category2) => category2.jobs.length - category1.jobs.length)
         if (!_.isEmpty(searchKeyword)) {
           data = data.filter((category) => !_.isEmpty(category.jobs))

@@ -8,7 +8,7 @@ export default class JobCategoriesTitlesAndSkills extends ServiceBase {
     try {
       const promises = [
         () => getJobTitles(),
-        () => getAllJobCategories(),
+        () => getAllJobCategories({ search_keyword: '' }),
         () => getSkills()
       ]
       const [jobTitles, jobCategories, jobSkills] = await Promise.all(promises.map(promise => promise()))

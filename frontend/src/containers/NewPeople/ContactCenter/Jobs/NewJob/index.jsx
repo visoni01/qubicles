@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useEffect } from 'react'
 import { Grid } from '@material-ui/core'
-import { useParams } from 'react-router-dom'
+// s
 import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
@@ -10,29 +10,13 @@ import NewJobDetails from './JobDetails'
 import navBar from '../../../../../hoc/navbar'
 import NewJobActions from './Actions'
 import '../styles.scss'
-import { getNewJobFields, newJobDetailsFetchStart } from '../../../../../redux-saga/redux/actions'
+import { getNewJobFields } from '../../../../../redux-saga/redux/actions'
 
-const NewJob = ({ jobData, jobId, isEdit }) => {
-  // const initialJobDetails = {
-  //   jobId: '',
-  //   categoryId: '',
-  //   needed: '',
-  //   title: '',
-  //   description: '',
-  //   status: 'recruiting',
-  //   jobType: 'contract',
-  //   payAmount: '',
-  //   durationType: 'on-demand',
-  //   durationMonths: 0,
-  //   experienceType: 'entry',
-  //   languages: 'english',
-  // }
-
+const NewJob = (props) => {
+  const { jobData, jobId, isEdit } = props
   const dispatch = useDispatch()
-  const [ newJobData, setNewJobData ] = useState({ ...jobData })
+  const [ newJobData, setNewJobData ] = useState('')
   const { jobFields, jobDetails, success } = useSelector((state) => state.newJobDetails)
-
-  console.log(' jobData, jobId, isEdit in index  ====>>>>>', jobData, jobId)
 
   // Setting jobData
   const setNewJobDataCB = useCallback((event) => {
@@ -52,11 +36,9 @@ const NewJob = ({ jobData, jobId, isEdit }) => {
   useEffect(() => (
     setNewJobData((currentNewJobData) => ({
       ...currentNewJobData,
-      ...jobData,
+      ...jobDetails,
     }))
   ), [])
-
-  console.log(' newJobData in index ***** ====>>>>>', newJobData)
 
   return (
     <Grid container spacing={ 3 }>

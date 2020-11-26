@@ -8,8 +8,7 @@ import { newJobDetailsFetchStart } from '../../../../redux-saga/redux/actions'
 
 const EditJob = () => {
   const dispatch = useDispatch()
-  const { jobDetails, success } = useSelector((state) => state.newJobDetails)
-
+  const { jobDetails } = useSelector((state) => state.newJobDetails)
   const { jobId } = useParams()
 
   // setNewJobData((currentNewJobData) => ({

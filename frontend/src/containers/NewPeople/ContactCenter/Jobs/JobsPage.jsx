@@ -9,10 +9,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import JobCategoryCard from './JobCategoryCard'
 import ROUTE_PATHS from '../../../../routes/routesPath'
 import { newJobCategoriesFetchStart } from '../../../../redux-saga/redux/actions'
+import JobsSkeleton from '../SkeletonLoader/JobsSkeleton'
 
 const JobsPage = () => {
   const history = useHistory()
-  const { newJobCategories, selectedCategoryId } = useSelector((state) => state.newJobCategories)
+  const { newJobCategories, selectedCategoryId, isLoading } = useSelector((state) => state.newJobCategories)
   const [ searchField, setSearchField ] = useState('')
   const dispatch = useDispatch()
 
@@ -25,6 +26,14 @@ const JobsPage = () => {
     setSearchField(nextValue)
     callSearchApi(nextValue)
   }, [ callSearchApi ])
+
+  if (isLoading) {
+    return (
+      <>
+        <JobsSkeleton />
+      </>
+    )
+  }
 
   return (
     <>

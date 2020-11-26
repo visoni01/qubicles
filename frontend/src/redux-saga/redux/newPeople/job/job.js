@@ -40,7 +40,7 @@ const {
       const { jobFields } = action.payload
       let { jobTitles, jobCategories, jobSkills } = jobFields
       jobTitles = jobTitles.map((title) => ({ name: title.job_title_name, value: title.job_title_id }))
-      jobCategories = jobCategories.map((category) => ({ name: category.category_name, value: category.category_id }))
+      jobCategories = jobCategories.map((category) => ({ name: category.categoryTitle, value: category.categoryId }))
       jobSkills = jobSkills.map((skill) => ({ name: skill.skill_name, value: skill.skill_id }))
       return ({
         ...state,

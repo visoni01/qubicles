@@ -12,7 +12,7 @@ import { newJobDetailsFetchStart } from '../../../../redux-saga/redux/actions'
 
 const JobView = () => {
   const { jobId } = useParams()
-  const { jobDetails } = useSelector((state) => state.newJobDetails)
+  const { jobDetails, isLoading } = useSelector((state) => state.newJobDetails)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(newJobDetailsFetchStart({ jobId }))
@@ -30,6 +30,7 @@ const JobView = () => {
           key={ jobId }
           jobId={ jobId }
           jobDetails={ jobDetails }
+          isLoading={ isLoading }
           courses={ jobPostCard.courses }
         />
       </Grid>

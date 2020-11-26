@@ -1,8 +1,5 @@
 import ServiceBase from '../../common/serviceBase'
 import {
-  getJobsDetailsForClient,
-  getJobsDetailsForUser,
-  getJobsDetailsByCategoryForClient,
   getAllJobs,
   getErrorMessageForService
 } from '../helper'
@@ -39,19 +36,8 @@ export default class JobsByCategoryService extends ServiceBase {
         }
         jobs = await getAllJobs({ client_id: client.client_id, ...rest })
       }
-      //   if (category_id) {
-      //     jobs = await getJobsDetailsByCategoryForClient({ category_id })
-      //   } else {
-      //     jobs = await getJobsDetailsForClient({ user_id, category_id, client_id: client.client_id, search_keyword })
-      //   }
-      // } else {
-      //   // User is not an Employer
-      //   jobs = getJobsDetailsForUser({ user_id })
-      // }
-      console.log('jobs in service ======>>>>>', jobs)
       return jobs
     } catch (err) {
-      console.log('err============', err)
       logger.error(`${getErrorMessageForService('JobsByCategoryService')} ${err}`)
       this.addError(ERRORS.INTERNAL)
     }

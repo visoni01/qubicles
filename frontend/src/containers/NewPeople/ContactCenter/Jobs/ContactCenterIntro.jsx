@@ -13,6 +13,7 @@ import Introduction from '../Introduction'
 import ROUTE_PATHS from '../../../../routes/routesPath'
 import './styles.scss'
 import { jobPostCompanyDetailsFetchStart } from '../../../../redux-saga/redux/actions'
+import ContactCenterSkeleton from '../SkeletonLoader/ContactCenterSkeleton'
 
 const ContactCenterIntro = ({ jobDetails }) => {
   const history = useHistory()
@@ -20,13 +21,20 @@ const ContactCenterIntro = ({ jobDetails }) => {
     history.push(ROUTE_PATHS.PEOPLE_JOBS_TAB)
   }, [ history ])
 
-  const { companyDetails } = useSelector((state) => state.jobPostCompanyDetails)
+  const { companyDetails, success, isLoading } = useSelector((state) => state.jobPostCompanyDetails)
   const dispatch = useDispatch()
   useEffect(() => {
     if (!_.isEmpty(jobDetails) && _.isEmpty(companyDetails)) {
       dispatch(jobPostCompanyDetailsFetchStart({ clientId: jobDetails.clientId }))
     }
-  }, [ dispatch, jobDetails ])
+  }, [ jobDetails ])
+
+  if (isLoading && !success) {
+    return (
+      <ContactCenterSkeleton />
+    )
+  }
+
   return (
     <>
       <Box className='custom-box contact-center-info-root'>

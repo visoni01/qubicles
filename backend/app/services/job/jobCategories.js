@@ -9,9 +9,6 @@ const constraints = {
   },
   search_keyword: {
     presence: false
-  },
-  category_id: {
-    presence: false
   }
 }
 

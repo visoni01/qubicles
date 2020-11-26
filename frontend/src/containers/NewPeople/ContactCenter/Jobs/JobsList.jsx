@@ -10,10 +10,12 @@ import {
   getJobsByCategory,
   jobCategoriesOnlyFetchStart,
 } from '../../../../redux-saga/redux/actions'
+import JobsFilterSkeleton from '../SkeletonLoader/JobsFilterSkeleton'
+import './styles.scss'
 
 const JobsList = () => {
   const [ searchCategories, setSearchCategories ] = useState(false)
-  const { jobCategoriesOnly } = useSelector((state) => state.jobCategoriesOnly)
+  const { jobCategoriesOnly, isLoading } = useSelector((state) => state.jobCategoriesOnly)
   const [ selectedCategory, setSelectedCategory ] = useState(0)
   const [ searchField, setSearchField ] = useState('')
 
@@ -31,7 +33,6 @@ const JobsList = () => {
   }
 
   const handleResetJobs = useCallback(() => {
-    // dispatch(resetJobsByCategorySelection())
     dispatch(newJobCategoriesFetchStart({ searchKeyword: '' }))
     setSelectedCategory(0)
   }, [ dispatch ])
@@ -45,6 +46,12 @@ const JobsList = () => {
     setSearchField(nextValue)
     callSearchCategoriesApi(nextValue)
   }, [ callSearchCategoriesApi ])
+
+  if (isLoading) {
+    return (
+      <JobsFilterSkeleton />
+    )
+  }
 
   return (
     <Box className='custom-box no-padding side-filter-root job-list'>

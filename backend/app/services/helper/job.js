@@ -349,9 +349,7 @@ export async function getAllJobs ({ client_id, category_id, search_keyword }) {
       model: XQodJob,
       as: 'jobs',
       where: query
-      // [Op.not]: [{ is_deleted: true }]
     }
-    // raw: true
   })
   return allJobsSubDetails.map((job) => job.get({ plain: true })
   )
