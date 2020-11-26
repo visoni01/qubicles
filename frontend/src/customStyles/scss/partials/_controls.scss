@@ -33,7 +33,7 @@
   @extend %control-buttons;
 
   .MuiRadio-colorSecondary {
-    color: $color-primary;
+    color: $color-primary !important;
   }
 }
 
@@ -42,7 +42,7 @@
   @extend %control-buttons;
 
   .MuiCheckbox-colorSecondary {
-    color: $color-primary;
+    color: $color-primary !important;
   }
 }
 

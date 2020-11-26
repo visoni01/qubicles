@@ -1,45 +1,25 @@
-import React, { useEffect, useCallback, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Box, InputBase, debounce } from '@material-ui/core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { Box } from '@material-ui/core'
 import TalentCard from './TalentCard'
 import { fetchTalentCardsStart } from '../../../../redux-saga/redux/actions'
 import TalentCardSkeleton from './Skeletons/TalentCardSkeleton'
 import './styles.scss'
+import TalentSearch from './TalentSearch'
 
 const TalentPage = () => {
   const { isLoading, talentCards } = useSelector((state) => state.peopleTalentCards)
-  const [ searchField, setSearchField ] = useState('')
+
   const dispatch = useDispatch()
   useEffect(() => {
     if (!talentCards) {
       dispatch(fetchTalentCardsStart({}))
     }
   }, [ dispatch, talentCards ])
-  const callSearchApi = useCallback(debounce((nextValue) => {
-    dispatch(fetchTalentCardsStart({ searchKeyword: nextValue }))
-  }, 500), [ dispatch ])
-
-  const handleSearch = useCallback((e) => {
-    const nextValue = e.target.value
-    setSearchField(nextValue)
-    callSearchApi(nextValue)
-  }, [ callSearchApi ])
 
   return (
     <>
-      <div className='display-inline-flex is-fullwidth mt-10 search-bar-people'>
-        <div className='search-input'>
-          <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 custom-fa-icon light' />
-          <InputBase
-            onChange={ handleSearch }
-            value={ searchField }
-            placeholder='Search Talent'
-            className='input-field'
-          />
-        </div>
-      </div>
+      <TalentSearch />
       <Box className='custom-box'>
         {/* Talent Cards */}
         {!isLoading && talentCards && talentCards.length > 0 && talentCards.map((talentCard) => (
@@ -60,8 +40,10 @@ const TalentPage = () => {
         ))}
         {!isLoading && talentCards && talentCards.length === 0 && (
         <div className='mt-10 mb-10'>
-          <h3 className='h3 text-align-center'>No matching results found!</h3>
-          <h4 className='h4 unbold light text-align-center'> Please try again with other filter options...</h4>
+          <div className='text-align-last-center'>
+            <h3 className=' h3'>No matching results found!</h3>
+            <h4 className='h4 unbold light'> Please try again with different filter options...</h4>
+          </div>
         </div>
         )}
         {/* Talent Card Loading Skeleton */}

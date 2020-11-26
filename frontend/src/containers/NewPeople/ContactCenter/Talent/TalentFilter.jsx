@@ -8,32 +8,43 @@ import { Rating } from '@material-ui/lab'
 import _ from 'lodash'
 import { useDispatch, useSelector } from 'react-redux'
 import MultiSelectChipItems from '../../MultiSelectChipItems'
-import { fetchJobSkillsStart, fetchTalentCardsStart } from '../../../../redux-saga/redux/actions'
+import {
+  fetchJobSkillsStart, fetchTalentCardsStart, updateTalentFilter, resetTalentFilter,
+} from '../../../../redux-saga/redux/actions'
+import { initialState } from '../../../../redux-saga/redux/newPeople/talent/talentFilter'
 
 const TalentFilter = () => {
   const dispatch = useDispatch()
   const { jobSkills } = useSelector((state) => state.jobSkills)
+  const { talentFilter } = useSelector((state) => state.talentFilter)
+
+  const [ selectedSkill, setSkill ] = useState(talentFilter.selectedSkill)
+  const [ selectedLanguage, setLanguage ] = useState(talentFilter.selectedLanguage)
+  const [ selectedTalentType, setTalentType ] = useState(talentFilter.selectedTalentType)
+  const [ selectedHourlyRate, setHourlyRate ] = useState(talentFilter.selectedHourlyRate)
+  const [ selectedRating, setRating ] = useState(talentFilter.selectedRating)
+  const [ selectedVerifications, setVerifications ] = useState(talentFilter.selectedVerifications)
+  const [ selectedAvailability, setAvailability ] = useState(talentFilter.selectedAvailability)
+  const [ selectedLocation, setLocation ] = useState(talentFilter.selectedLocation)
+
   useEffect(() => {
     if (!jobSkills) {
       dispatch(fetchJobSkillsStart({}))
     }
-  }, [ dispatch, jobSkills ])
-  const verificationsInitial = {
-    backgroundCheck: false,
-    phoneVerified: false,
-    idVerified: false,
-  }
+    // Update Talent Filter in Store
+    dispatch(updateTalentFilter({
+      talentFilter: {
+        ...talentFilter,
+        selectedSkill,
+        selectedLanguage,
+        selectedHourlyRate,
+        selectedRating,
+        selectedAvailability,
+        selectedTalentType,
+      },
+    }))
 
-  const [ selectedSkill, setSkill ] = useState([])
-  const [ selectedLanguage, setLanguage ] = useState([])
-  const [ selectedTalentType, setTalentType ] = useState({ employmentType: null, name: 'Any' })
-  const [ selectedHourlyRate, setHourlyRate ] = useState({ lessThanEq: null, greaterThanEq: null, name: 'Any' })
-  const [ selectedRating, setRating ] = useState({ greaterThanEq: null, name: 'Any' })
-  const [ selectedVerifications, setVerifications ] = useState(verificationsInitial)
-  const [ selectedAvailability, setAvailability ] = useState({ status: null, name: 'Any' })
-  const [ selectedLocation, setLocation ] = useState('')
-
-  const handleFilterApply = useCallback(() => {
+    // Apply search on filter change
     dispatch((fetchTalentCardsStart({
       requiredSkills: selectedSkill.map((skill) => skill.id),
       requiredLanguages: selectedLanguage.map((lang) => lang.title),
@@ -41,36 +52,33 @@ const TalentFilter = () => {
       requiredRating: selectedRating,
       requiredAvailability: selectedAvailability,
       requiredTalentType: selectedTalentType,
+      searchKeyword: talentFilter.searchKeyword,
     })))
+    // To prevent maximum depth warning in dependency array
+    // eslint-disable-next-line
   }, [
+    dispatch,
+    jobSkills,
     selectedSkill,
     selectedLanguage,
     selectedHourlyRate,
     selectedRating,
     selectedAvailability,
     selectedTalentType,
-    dispatch,
   ])
 
+  const { talentFilter: talentFilterInitial } = initialState
   const handleResetFilter = useCallback(() => {
-    setSkill([])
-    setLanguage([])
-    setHourlyRate({ lessThanEq: null, greaterThanEq: null, name: 'Any' })
-    setRating({ greaterThanEq: null, name: 'Any' })
-    setAvailability({ status: null, name: 'Any' })
-    setTalentType({ employmentType: null, name: 'Any' })
+    setSkill(talentFilterInitial.selectedSkill)
+    setLanguage(talentFilterInitial.selectedLanguage)
+    setHourlyRate(talentFilterInitial.selectedHourlyRate)
+    setRating(talentFilterInitial.selectedRating)
+    setAvailability(talentFilterInitial.selectedAvailability)
+    setTalentType(talentFilterInitial.selectedTalentType)
 
+    dispatch(resetTalentFilter())
     dispatch((fetchTalentCardsStart({})))
-  }, [ dispatch ])
-  // console.log('===============================')
-  // console.log('selectedSkill =====', selectedSkill)
-  // console.log('selectedLanguage =====', selectedLanguage)
-  // console.log('selectedTalentType =====', selectedTalentType)
-  // console.log('selectedHourlyRate =====', selectedHourlyRate)
-  // console.log('selectedRating =====', selectedRating)
-  // console.log('selectedVerifications =====', selectedVerifications)
-  // console.log('selectedAvailability =====', selectedAvailability)
-  // console.log('selectedLocation =====', selectedLocation)
+  }, [ dispatch, talentFilterInitial ])
 
   // Languages
   const availableLanguages = [
@@ -183,9 +191,11 @@ const TalentFilter = () => {
   return (
     <Box className='custom-box no-padding side-filter-root talent-filter'>
       <h2 className='h2 title talent-title'>Talent</h2>
-      <h3 className='h3 subtitle'> Filter </h3>
 
-      <Grid container spacing={ 2 } justify='space-between' className='filter-buttons'>
+      <Grid container justify='space-between' className='filter-buttons'>
+        <Grid item>
+          <h3 className='h3'> Filter </h3>
+        </Grid>
         <Grid item>
           <Button
             onClick={ handleResetFilter }
@@ -195,19 +205,7 @@ const TalentFilter = () => {
               label: 'button-secondary-small-label',
             } }
           >
-            Reset
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button
-            className='button-apply'
-            onClick={ handleFilterApply }
-            classes={ {
-              root: 'button-primary-small',
-              label: 'button-primary-small-label',
-            } }
-          >
-            Apply
+            Reset All
           </Button>
         </Grid>
       </Grid>
@@ -215,7 +213,19 @@ const TalentFilter = () => {
       <Divider className='full-border' />
       <div className='filter-section'>
         <div className='talent-filter-dropdown'>
-          <h4 className='h4'> Skills </h4>
+          <div className='is-fullwidth display-inline-flex justify-between'>
+            <h4 className='h4'> Skills </h4>
+            <Button
+              onClick={ () => { setSkill(talentFilterInitial.selectedSkill) } }
+              className='align-self-center'
+              classes={ {
+                root: 'button-primary-text light',
+                label: 'button-primary-text-label underlined dark',
+              } }
+            >
+              Clear All
+            </Button>
+          </div>
           <MultiSelectChipItems
             items={ jobSkills ? jobSkills.map((skill) => ({ id: skill.skillId, title: skill.skillName })) : [] }
             label='Choose Required Skills'
@@ -227,7 +237,19 @@ const TalentFilter = () => {
       </div>
       <div className='filter-section'>
         <div className='talent-filter-dropdown'>
-          <h4 className='h4'> Languages </h4>
+          <div className='is-fullwidth display-inline-flex justify-between'>
+            <h4 className='h4'> Languages </h4>
+            <Button
+              onClick={ () => { setLanguage(talentFilterInitial.selectedLanguage) } }
+              className='align-self-center'
+              classes={ {
+                root: 'button-primary-text light',
+                label: 'button-primary-text-label underlined dark',
+              } }
+            >
+              Clear All
+            </Button>
+          </div>
           <MultiSelectChipItems
             items={ availableLanguages.map((lang) => ({ ...lang, title: _.capitalize(lang.title) })) }
             label='Choose Languages'
@@ -240,7 +262,19 @@ const TalentFilter = () => {
 
       <div className='filter-section'>
         <div className='control-buttons-wrapper'>
-          <h4 className='h4'> Talent Type </h4>
+          <div className='is-fullwidth display-inline-flex justify-between'>
+            <h4 className='h4'> Talent Type </h4>
+            <Button
+              onClick={ () => { setTalentType(talentFilterInitial.selectedTalentType) } }
+              className='align-self-center'
+              classes={ {
+                root: 'button-primary-text light',
+                label: 'button-primary-text-label underlined dark',
+              } }
+            >
+              Reset
+            </Button>
+          </div>
           <RadioGroup
             className='radio-buttons'
             value={ selectedTalentType.name }
@@ -255,7 +289,19 @@ const TalentFilter = () => {
 
       <div className='filter-section'>
         <div className='control-buttons-wrapper'>
-          <h4 className='h4'> Hourly rate </h4>
+          <div className='is-fullwidth display-inline-flex justify-between'>
+            <h4 className='h4'> Hourly rate </h4>
+            <Button
+              onClick={ () => { setHourlyRate(talentFilterInitial.selectedHourlyRate) } }
+              className='align-self-center'
+              classes={ {
+                root: 'button-primary-text light',
+                label: 'button-primary-text-label underlined dark',
+              } }
+            >
+              Reset
+            </Button>
+          </div>
           <RadioGroup
             className='radio-buttons'
             value={ selectedHourlyRate.name }
@@ -272,7 +318,19 @@ const TalentFilter = () => {
 
       <div className='filter-section'>
         <div className='control-buttons-wrapper'>
-          <h4 className='h4'> Rating </h4>
+          <div className='is-fullwidth display-inline-flex justify-between'>
+            <h4 className='h4'> Rating </h4>
+            <Button
+              onClick={ () => { setRating(talentFilterInitial.selectedRating) } }
+              className='align-self-center'
+              classes={ {
+                root: 'button-primary-text light',
+                label: 'button-primary-text-label underlined dark',
+              } }
+            >
+              Reset
+            </Button>
+          </div>
           <RadioGroup
             className='radio-buttons'
             value={ selectedRating.name }
@@ -280,31 +338,48 @@ const TalentFilter = () => {
           >
             <FormControlLabel value='Any' control={ <Radio /> } label='Any Rating' />
             <div className='rating-filter'>
-              <FormControlLabel value='five' control={ <Radio /> } />
-              <Rating
-                readOnly
-                className='rating-star no-margin'
-                size='small'
-                value={ 5 }
+              <FormControlLabel
+                value='five'
+                control={ <Radio /> }
+                label={ (
+                  <Rating
+                    readOnly
+                    className='rating-star no-margin'
+                    size='small'
+                    value={ 5 }
+                  />
+                ) }
               />
+              {/* <FormControlLabel value='five' label='' /> */}
             </div>
             <div className='rating-filter'>
-              <FormControlLabel value='fourAndAbove' control={ <Radio /> } />
-              <Rating
-                readOnly
-                className='rating-star no-margin'
-                size='small'
-                value={ 4 }
+              <FormControlLabel
+                value='fourAndAbove'
+                control={ <Radio /> }
+                label={ (
+                  <Rating
+                    readOnly
+                    className='rating-star no-margin'
+                    size='small'
+                    value={ 4 }
+                  />
+                ) }
               />
+
               <span className='para'> & up </span>
             </div>
             <div className='rating-filter'>
-              <FormControlLabel value='threeAndAbove' control={ <Radio /> } />
-              <Rating
-                readOnly
-                className='rating-star no-margin'
-                size='small'
-                value={ 3 }
+              <FormControlLabel
+                value='threeAndAbove'
+                control={ <Radio /> }
+                label={ (
+                  <Rating
+                    readOnly
+                    className='rating-star no-margin'
+                    size='small'
+                    value={ 3 }
+                  />
+                ) }
               />
               <span className='para'> & up </span>
             </div>
@@ -314,7 +389,19 @@ const TalentFilter = () => {
 
       <div className='filter-section'>
         <div className='control-buttons-wrapper'>
-          <h4 className='h4'> Verifications </h4>
+          <div className='is-fullwidth display-inline-flex justify-between'>
+            <h4 className='h4'> Verifications </h4>
+            <Button
+              onClick={ () => { setVerifications(talentFilterInitial.selectedVerifications) } }
+              className='align-self-center'
+              classes={ {
+                root: 'button-primary-text light',
+                label: 'button-primary-text-label underlined dark',
+              } }
+            >
+              Reset
+            </Button>
+          </div>
           <FormControl
             className='checkboxes'
           >
@@ -344,7 +431,20 @@ const TalentFilter = () => {
 
       <div className='filter-section'>
         <div className='control-buttons-wrapper'>
-          <h4 className='h4'> Availability </h4>
+          {/* <h4 className='h4'> Availability </h4> */}
+          <div className='is-fullwidth display-inline-flex justify-between'>
+            <h4 className='h4'> Availability </h4>
+            <Button
+              onClick={ () => { setAvailability(talentFilterInitial.selectedAvailability) } }
+              className='align-self-center'
+              classes={ {
+                root: 'button-primary-text light',
+                label: 'button-primary-text-label underlined dark',
+              } }
+            >
+              Reset
+            </Button>
+          </div>
           <RadioGroup
             className='radio-buttons'
             value={ selectedAvailability.name }

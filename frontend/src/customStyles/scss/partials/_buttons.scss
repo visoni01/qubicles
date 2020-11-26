@@ -167,5 +167,11 @@
     &:hover {
       color: $color-primary-dark;
     }
+    &.underlined {
+      text-decoration: underline;
+    }
+    &.dark {
+      color: $color-dark-grey;
+    }
   }
 }
