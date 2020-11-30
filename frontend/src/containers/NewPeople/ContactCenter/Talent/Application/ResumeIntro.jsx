@@ -26,7 +26,7 @@ const ResumeIntro = ({
 }) => {
   const history = useHistory()
   const handleBackButton = useCallback(() => {
-    history.push(ROUTE_PATHS.NEW_PEOPLE)
+    history.push(ROUTE_PATHS.PEOPLE_TALENT_TAB)
   }, [ history ])
   return (
     <>

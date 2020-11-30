@@ -43,6 +43,18 @@
     @include fa-icon-hover($color-dark-grey);
   }
 
+  &.dark {
+    color: $color-headings;
+    @include fa-icon-hover($color-headings);
+  }
+
+  &.shallow {
+    color: white;
+    font-size: 20px;
+    @include fa-icon-hover($color-headings);
+    @include fa-icon-outlined($color-headings);
+  }
+
   &.pointer {
     cursor: pointer;
   }

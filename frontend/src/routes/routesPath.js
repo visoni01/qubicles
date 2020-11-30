@@ -2,6 +2,7 @@ export const USER_ROUTE = '/users/'
 export const JOB_ROUTE = '/new/people/job'
 export const JOB_POST_ROUTE = '/new/people/job/view'
 export const VIEW_RESUME_ROUTE = '/new/people/talent/resume'
+export const NEW_PEOPLE = '/new/people'
 
 const ROUTE_PATHS = {
   HOME: '/',
@@ -29,6 +30,9 @@ const ROUTE_PATHS = {
   VIEW_COURSE: '/new/people/course/view',
   VIEW_JOB_APPLICATION: '/new/people/job/application',
   EDIT_JOB: `${ JOB_ROUTE }/:jobId/edit`,
+  PEOPLE_TALENT_TAB: `${ NEW_PEOPLE }/talent`,
+  PEOPLE_JOBS_TAB: `${ NEW_PEOPLE }/jobs`,
+  PEOPLE_TRAINING_TAB: `${ NEW_PEOPLE }/training`,
 }
 
 export default ROUTE_PATHS

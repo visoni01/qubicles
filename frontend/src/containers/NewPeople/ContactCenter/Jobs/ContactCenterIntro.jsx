@@ -17,7 +17,7 @@ import { jobPostCompanyDetailsFetchStart } from '../../../../redux-saga/redux/ac
 const ContactCenterIntro = ({ jobDetails }) => {
   const history = useHistory()
   const handleBackButton = useCallback(() => {
-    history.push(ROUTE_PATHS.NEW_PEOPLE)
+    history.push(ROUTE_PATHS.PEOPLE_JOBS_TAB)
   }, [ history ])
 
   const { companyDetails } = useSelector((state) => state.jobPostCompanyDetails)

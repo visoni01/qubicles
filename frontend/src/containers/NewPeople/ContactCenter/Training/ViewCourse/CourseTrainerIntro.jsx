@@ -10,7 +10,7 @@ import ROUTE_PATHS from '../../../../../routes/routesPath'
 const CourseTrainerIntro = () => {
   const history = useHistory()
   const handleBackButton = useCallback(() => {
-    history.push(ROUTE_PATHS.NEW_PEOPLE)
+    history.push(ROUTE_PATHS.PEOPLE_TRAINING_TAB)
   }, [ history ])
   return (
     <>

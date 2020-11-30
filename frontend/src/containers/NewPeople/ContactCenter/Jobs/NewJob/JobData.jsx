@@ -45,7 +45,7 @@ const NewJobData = ({
             root: 'MuiButtonBase-root button-primary-small',
             label: 'MuiButton-label button-primary-small-label',
           } }
-          onClick={ () => history.push(ROUTE_PATHS.NEW_PEOPLE) }
+          onClick={ () => history.push(ROUTE_PATHS.PEOPLE_JOBS_TAB) }
         >
           <FontAwesomeIcon icon={ faChevronLeft } className='mr-10' />
           Back
