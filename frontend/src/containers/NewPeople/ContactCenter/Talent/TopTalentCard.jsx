@@ -2,9 +2,7 @@ import React from 'react'
 import { Avatar } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { Rating } from '@material-ui/lab'
-import { Link } from 'react-router-dom'
 import { terry } from '../../../../assets/images/avatar'
-import ROUTE_PATHS from '../../../../routes/routesPath'
 
 const TopTalentCard = ({
   candidateName,
@@ -29,12 +27,11 @@ const TopTalentCard = ({
         <p className='para light'>
           {profileName}
         </p>
-        <Link
-          to={ ROUTE_PATHS.VIEW_RESUME }
+        <span
           className='primary-text-link'
         >
           View Resume
-        </Link>
+        </span>
       </div>
     </div>
   </div>

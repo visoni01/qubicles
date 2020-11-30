@@ -1,33 +1,32 @@
 import React from 'react'
 import { Box, Divider } from '@material-ui/core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faComments, faBriefcase, faLaptop, faUser,
-} from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
-import ROUTE_PATHS from '../../../routes/routesPath'
+import ROUTE_PATHS from '../../../../routes/routesPath'
+import {
+  briefcaseSmall, chatSmall, mediaSmall, userSmall,
+} from '../../../../assets/images/icons/peopleNavigationIcons'
 
 export default function PeopleNavigationActions() {
   return (
     <Box className='custom-box actions-box people-navigation-actions'>
       <h2 className=' h2 mb-30'> People </h2>
       <div className='people-info'>
-        <FontAwesomeIcon icon={ faBriefcase } className='custom-fa-icon sz-md shallow' />
+        <img src={ briefcaseSmall } alt='briefcase' className='icon' />
         <span className='para bold'>5,223</span>
         <span className='para'>Open Jobs</span>
       </div>
       <div className='people-info'>
-        <FontAwesomeIcon icon={ faComments } className='custom-fa-icon sz-md shallow' />
+        <img src={ chatSmall } alt='briefcase' className='icon' />
         <span className='para bold'>839</span>
         <span className='para'>Groups</span>
       </div>
       <div className='people-info'>
-        <FontAwesomeIcon icon={ faLaptop } className='custom-fa-icon sz-md shallow' />
+        <img src={ mediaSmall } alt='briefcase' className='icon' />
         <span className='para bold'>731</span>
         <span className='para'>Courses</span>
       </div>
       <div className='people-info'>
-        <FontAwesomeIcon icon={ faUser } className='custom-fa-icon sz-md shallow' />
+        <img src={ userSmall } alt='briefcase' className='icon' />
         <span className='para bold'>533</span>
         <span className='para'>Agents</span>
       </div>
@@ -38,7 +37,7 @@ export default function PeopleNavigationActions() {
         <p className='primary-text-link mb-5'>New Job </p>
       </Link>
 
-      <Link to={ ROUTE_PATHS.CREATE_COURSE }>
+      <Link to={ ROUTE_PATHS.GROUP }>
         <p className='primary-text-link mb-5'>New Group </p>
       </Link>
 

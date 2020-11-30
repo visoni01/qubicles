@@ -76,7 +76,7 @@ const routes = [
   // Added extra route for new people design, Remove it when people's pages get completely ready.
   {
     path: NEW_PEOPLE,
-    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/PeopleNavigation')),
+    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Navigation/PeopleNavigation')),
     auth: true,
   },
   // Added extra route for new contact-center jobPost design.

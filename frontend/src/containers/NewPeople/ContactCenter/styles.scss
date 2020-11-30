@@ -128,33 +128,5 @@
     width: calc(100% - 60px);
     margin-left: 10px;
     margin-bottom: 10px;
-
-  }
-}
-
-.navigation-page {
-
-  .navigation-card {
-    height: 280px;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: none;
-    cursor: pointer;
-
-    .image {
-      height: 100px;
-    }
-  }
-
-}
-.people-navigation-actions {
-  .people-info {
-    margin: 10px 0px;
-    .people-icon {
-      width: max-content;
-    }
-    span {
-      margin-left: 12px;
-    }
   }
 }

@@ -1,0 +1,31 @@
+.navigation-page {
+  .navigation-card {
+    height: 280px;
+    padding: 10px;
+    padding-top: 35px;
+    border-radius: 10px;
+    box-shadow: none;
+    cursor: pointer;
+    .image {
+      height: 70px;
+      margin: auto;
+    }
+  }
+  :hover {
+    border-color: #4877F4;
+    border-width: 2px;
+  }
+
+}
+
+.people-navigation-actions {
+  .people-info {
+    margin: 10px 0px;
+    .icon {
+      vertical-align: bottom;
+    }
+    span {
+      margin-left: 12px;
+    }
+  }
+}

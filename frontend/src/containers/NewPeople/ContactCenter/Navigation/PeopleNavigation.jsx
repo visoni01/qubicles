@@ -1,12 +1,15 @@
 import React from 'react'
 import {
-  Grid, Card, CardMedia, CardContent,
+  Grid, Card, CardContent,
 } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import { newNavBar } from '../../../hoc/navbar'
+import { newNavBar } from '../../../../hoc/navbar'
+import {
+  searchProperty, breifcaseIcon, chatIcon, mediaIcon, networkIcon,
+} from '../../../../assets/images/icons/peopleNavigationIcons'
 import './styles.scss'
 
-import ROUTE_PATHS from '../../../routes/routesPath'
+import ROUTE_PATHS from '../../../../routes/routesPath'
 import PeopleNavigationActions from './PeopleNavigationActions'
 
 function PeopleNavigation() {
@@ -14,32 +17,38 @@ function PeopleNavigation() {
     {
       id: 1,
       title: 'Jobs',
-      description: 'blabla',
+      description: '',
       route: ROUTE_PATHS.PEOPLE_JOBS_TAB,
+      icon: breifcaseIcon,
     },
     {
       id: 2,
       title: 'Talent',
-      description: 'blabla',
+      description: '',
       route: ROUTE_PATHS.PEOPLE_TALENT_TAB,
+      icon: searchProperty,
     },
     {
       id: 3,
       title: 'Training',
-      description: 'blabla',
+      description: '',
       route: ROUTE_PATHS.PEOPLE_TRAINING_TAB,
+      icon: mediaIcon,
     },
     {
       id: 4,
       title: 'Groups',
-      description: 'blabla',
+      description: '',
       route: ROUTE_PATHS.GROUP,
+      icon: chatIcon,
     },
     {
       id: 5,
       title: 'Network',
-      description: 'blabla',
+      description: '',
+      icon: networkIcon,
     },
+
   ]
   return (
     <div>
@@ -57,7 +66,8 @@ function PeopleNavigation() {
               >
                 <Link to={ card.route }>
                   <Card className='navigation-card border-1'>
-                    <CardMedia image='https://picsum.photos/400/300' className='image' />
+                    <img src={ card.icon } alt='Chat Icon' className='image' />
+                    {/* <CardMedia image='https://picsum.photos/400/300' className='image' /> */}
                     <CardContent>
                       <h3 className='h3 text-center mt-10 mb-10'>
                         {card.title}
