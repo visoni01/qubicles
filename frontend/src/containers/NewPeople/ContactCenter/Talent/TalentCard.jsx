@@ -60,9 +60,9 @@ const TalentCard = ({
       <h4 className='mt-10 h4'>
         {profileName}
       </h4>
-      <p className='mb-10 mt-5 para'>
-        {`${ profileDescription.substring(0, 270) }...`}
-      </p>
+      <div className='mb-10 mt-5 para short-description'>
+        {`${ profileDescription }`}
+      </div>
     </div>
     <TalentCardSkills
       userSkills={ skills }

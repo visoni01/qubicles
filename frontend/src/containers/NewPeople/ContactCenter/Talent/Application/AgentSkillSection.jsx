@@ -81,7 +81,7 @@ export default function AgentSkillSection({
         {showAllSkills ? 'Show Less Skills' : 'Show More Skills'}
       </Button>
       )}
-      {endorsementData.endorsements > 0 && (
+      {endorsementData.endorsements && (
         <EndorsementsModal
           open={ openEndorsementModal }
           handleClose={ () => setOpenEndorsementModal(false) }
