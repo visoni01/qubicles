@@ -28,18 +28,14 @@ const NewJobData = ({
     categoryInput: '',
     titleInput: '',
   })
-  const { jobDetails } = useSelector((state) => state.newJobDetails)
-
-  // useEffect(() => {
-  //   console.log(' jobDetails in jobData ====>>>>>', jobDetails)
-  //   if (!_.isEmpty(jobId)) {
-  //     // dispatch(newJobDetailsFetchStart({ jobId }))
-  //     setNewJobData((currentNewJobData) => ({
-  //       ...currentNewJobData,
-  //       ...jobDetails,
-  //     }))
-  //   }
-  // })
+  console.log('INPUT VVALUE-=====', inputValue.categoryInput)
+  useEffect(() => {
+    // setInputValue((current) => ({
+    //   ...current,
+    //   categoryInput: newJobData.categoryName,
+    //   titleInput: newJobData.title,
+    // }))
+  }, [ dispatch ])
 
   const handleDescriptionData = useCallback((event, editor) => {
     // eslint-disable-next-line
@@ -73,16 +69,18 @@ const NewJobData = ({
             <FormControl variant='outlined' className='drop-down-bar'>
               <Autocomplete
                 getOptionSelected={ (option) => option.value }
+                // value={ { name: newJobData.categoryName, value: newJobData.categoryId } }
                 inputValue={ inputValue.categoryInput }
                 clearOnBlur
                 noOptionsText='no matches found'
                 onInputChange={ (event, value) => setInputValue((state) => ({ ...state, categoryInput: value })) }
-                // value={ newJobData.categoryId }
+                // value={ newJobData.categoryTitle }
                 onChange={ (event, currentValue) => {
                   if (!_.isEmpty(currentValue)) {
-                    setNewJobData((jobData) => ({
-                      ...jobData,
+                    setNewJobData((current) => ({
+                      ...current,
                       categoryId: currentValue.value,
+                      categoryName: currentValue.name,
                     }))
                   }
                 } }
@@ -108,12 +106,12 @@ const NewJobData = ({
                 inputValue={ inputValue.titleInput }
                 clearOnBlur
                 noOptionsText='no matches found'
-                // value={ newJobData.title }
+                value={ { name: newJobData.title } }
                 onInputChange={ (event, value) => setInputValue((state) => ({ ...state, titleInput: value })) }
                 onChange={ (event, currentValue) => {
                   if (!_.isEmpty(currentValue)) {
-                    setNewJobData((jobData) => ({
-                      ...jobData,
+                    setNewJobData((current) => ({
+                      ...current,
                       title: currentValue.name,
                     }))
                   }
@@ -161,6 +159,7 @@ const NewJobData = ({
         name='description'
         data={ newJobData.description }
         onInit={ (editor) => {
+          editor.setData(newJobData.description)
           // eslint-disable-next-line
           editor.plugins.get('FileRepository').createUploadAdapter = function (loader) {
             return new MyUploadAdapter(loader, setIsImageUploading, dispatch)
@@ -181,8 +180,7 @@ NewJobData.defaultProps = {
 }
 
 NewJobData.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  newJobData: PropTypes.object.isRequired,
+  newJobData: PropTypes.shape(PropTypes.any).isRequired,
   setNewJobData: PropTypes.func.isRequired,
   jobFields: PropTypes.arrayOf(PropTypes.string),
   setNewJobDataCB: PropTypes.func.isRequired,

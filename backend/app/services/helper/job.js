@@ -49,34 +49,34 @@ export async function addJob (data) {
     data
   })
   // Adding skills and courses data for newly added job.
-  const requiredCoursesEntities = data.required_courses.map(courseId => {
+  const requiredCoursesEntities = data.required_courses.map(course => {
     return ({
       job_id: newJob.job_id,
-      course_id: courseId,
+      course_id: course.courseId,
       course_preference: 'required'
     })
   })
   await XQodJobCourse.bulkCreate(requiredCoursesEntities)
-  const bonusCoursesEntities = data.bonus_courses.map(courseId => {
+  const bonusCoursesEntities = data.bonus_courses.map(course => {
     return ({
       job_id: newJob.job_id,
-      course_id: courseId,
+      course_id: course.courseId,
       course_preference: 'plus'
     })
   })
   await XQodJobCourse.bulkCreate(bonusCoursesEntities)
-  const requiredSkillsEntities = data.required_skills.map(skillId => {
+  const requiredSkillsEntities = data.required_skills.map(skill => {
     return ({
       job_id: newJob.job_id,
-      skill_id: skillId,
+      skill_id: skill.skillId,
       skill_preference: 'required'
     })
   })
   await XQodJobSkill.bulkCreate(requiredSkillsEntities)
-  const bonusSkillsEntities = data.bonus_skills.map(skillId => {
+  const bonusSkillsEntities = data.bonus_skills.map(skill => {
     return ({
       job_id: newJob.job_id,
-      skill_id: skillId,
+      skill_id: skill.skillId,
       skill_preference: 'plus'
     })
   })

@@ -1,13 +1,13 @@
 import { takeEvery, put } from 'redux-saga/effects'
 import {
-  newJobDetailsFetchStart, newUpdateJobsFields, newJobDetailsFetchSuccessful,
+  newJobDetailsFetchStart, newUpdateJobsFields, newJobDetailsFetchSuccessful, createJobData,
 } from '../../redux/actions'
 import { NEW_JOB_FIELDS } from '../../redux/constants'
 import { showErrorMessage } from '../../redux/snackbar'
 import People from '../../service/people'
 
 function* jobDetailsWatcher() {
-  yield takeEvery([ newJobDetailsFetchStart.type, NEW_JOB_FIELDS ], jobDetailsWorker)
+  yield takeEvery([ newJobDetailsFetchStart.type, NEW_JOB_FIELDS, createJobData.type ], jobDetailsWorker)
 }
 
 function* jobDetailsWorker(action) {
@@ -23,6 +23,50 @@ function* jobDetailsWorker(action) {
         const reponse = yield People.getJobById(jobId)
         const { data } = reponse
         if (data) {
+          const requiredCourses = []
+          const bonusCourses = []
+          const requiredSkills = []
+          const bonusSkills = []
+          data.jobCoursesData.map((course) => {
+            if (course.course_preference === 'required') {
+              requiredCourses.push({
+                jobCourseId: course.job_course_id,
+                coursePreference: course.course_preference,
+                courseId: course.course_id,
+              })
+            } else {
+              bonusCourses.push({
+                jobCourseId: course.job_course_id,
+                coursePreference: course.course_preference,
+                courseId: course.course_id,
+              })
+            }
+            return { requiredCourses, bonusCourses }
+          })
+          data.jobSkillsData.map((skill) => {
+            if (skill.skill_preference === 'required') {
+              requiredSkills.push({
+                jobSkillId: skill.job_skill_id,
+                skillPreference: skill.skill_preference,
+                skillId: skill.skill_id,
+                skillName: skill[ 'XQodSkill.skill_name' ],
+              })
+            } else {
+              bonusSkills.push({
+                jobSkillId: skill.job_skill_id,
+                skillPreference: skill.skill_preference,
+                skillId: skill.skill_id,
+                skillName: skill[ 'XQodSkill.skill_name' ],
+              })
+            }
+            return { requiredSkills, bonusSkills }
+          })
+          // const jobSkillsData = data.jobSkillsData.map((skill) => ({
+          //   jobSkillId: skill.job_skill_id,
+          //   skillPreference: skill.skill_preference,
+          //   skillId: skill.skill_id,
+          //   skillName: skill[ 'XQodSkill.skill_name' ],
+          // }))
           yield put(newJobDetailsFetchSuccessful({
             jobDetails: {
               jobId: data.jobDetails.job_id,
@@ -45,8 +89,14 @@ function* jobDetailsWorker(action) {
               needed: data.jobDetails.needed,
               fulfilled: data.jobDetails.fulfilled,
               createdOn: data.jobDetails.created_on,
-              jobSkillsData: data.jobSkillsData,
-              jobCoursesData: data.jobCoursesData,
+              jobCoursesData: {
+                requiredCourses,
+                bonusCourses,
+              },
+              jobSkillsData: {
+                requiredSkills,
+                bonusSkills,
+              },
             },
           }))
         }

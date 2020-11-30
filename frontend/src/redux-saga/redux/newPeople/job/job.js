@@ -6,7 +6,12 @@ const initialState = {
   error: null,
   success: false,
   jobFields: { jobTitles: [], jobCategories: [], jobSkills: [] },
-  jobDetails: {},
+  jobDetails: {}, // single job Id
+  jobData: {
+    jobSkillsData: {
+      requiredSkills: [],
+    },
+  },
 }
 
 const {
@@ -15,6 +20,7 @@ const {
     newJobDetailsFetchSuccessful,
     newJobDetailsFetchFailure,
     newUpdateJobsFields,
+    createJobData,
   },
   reducer,
 } = createSlice({
@@ -47,6 +53,16 @@ const {
         jobFields: { jobTitles, jobCategories, jobSkills },
       })
     },
+    createJobData: (state, action) => {
+      const { jobData } = action.payload
+      return ({
+        ...state,
+        success: true,
+        error: false,
+        isLoading: false,
+        jobData,
+      })
+    },
   },
 })
 
@@ -56,4 +72,5 @@ export {
   newJobDetailsFetchSuccessful,
   newJobDetailsFetchFailure,
   newUpdateJobsFields,
+  createJobData,
 }

@@ -19,10 +19,8 @@ function* jobCrudWorker(action) {
           employmentType,
           experienceType,
           durationType,
-          requiredCourses,
-          requiredSkills,
-          bonusCourses,
-          bonusSkills,
+          jobCoursesData,
+          jobSkillsData,
           payAmount,
           durationMonths,
           ...rest
@@ -34,13 +32,14 @@ function* jobCrudWorker(action) {
           duration_months: durationMonths,
           category_id: categoryId,
           experience_type: experienceType,
-          required_courses: requiredCourses,
-          required_skills: requiredSkills,
-          bonus_courses: bonusCourses,
-          bonus_skills: bonusSkills,
+          required_courses: jobCoursesData.requiredCourses,
+          required_skills: jobSkillsData.requiredSkills,
+          bonus_courses: jobCoursesData.bonusCourses,
+          bonus_skills: jobSkillsData.bonusSkills,
           pay_amount: payAmount,
           ...rest,
         })
+        debugger
         // eslint-disable-next-line
         const { category_id, job_id, user_id, title, description } = data
         yield put(updateJobsData({
@@ -68,10 +67,12 @@ function* jobCrudWorker(action) {
           employmentType,
           experienceType,
           durationType,
-          requiredCourses,
-          requiredSkills,
-          bonusCourses,
-          bonusSkills,
+          jobCoursesData,
+          jobSkillsData,
+          // requiredCourses,
+          // requiredSkills,
+          // bonusCourses,
+          // bonusSkills,
           payAmount,
           durationMonths,
           ...rest
@@ -84,10 +85,10 @@ function* jobCrudWorker(action) {
           duration_months: durationMonths,
           category_id: categoryId,
           experience_type: experienceType,
-          required_courses: requiredCourses,
-          required_skills: requiredSkills,
-          bonus_courses: bonusCourses,
-          bonus_skills: bonusSkills,
+          required_courses: jobCoursesData.requiredCourses,
+          required_skills: jobSkillsData.requiredSkills,
+          bonus_courses: jobCoursesData.bonusCourses,
+          bonus_skills: jobSkillsData.bonusSkills,
           pay_amount: payAmount,
           ...rest,
         })

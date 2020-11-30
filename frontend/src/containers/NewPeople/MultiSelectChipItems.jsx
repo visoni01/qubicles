@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import {
   FormControl, TextField, Chip,
 } from '@material-ui/core'
@@ -7,14 +7,22 @@ import _ from 'lodash'
 import PropTypes from 'prop-types'
 
 export default function MultiSelectChipItems({
-  items, label, smallTag, selectedItems, setSelectedItems,
+  items, label, smallTag, onChange,
 }) {
   const [ inputValue, setInputValue ] = useState('')
+  const [ selectedItems, setSelectedItems ] = useState([])
   const setSelectedItemsCB = useCallback((event, value) => {
     if (value) {
       setSelectedItems((state) => _.unionBy(state, [ value ], 'id'))
     }
   }, [ setSelectedItems ])
+
+  useEffect(() => {
+    if (onChange) {
+      console.log('SELECTD ITEM MUI', selectedItems)
+      onChange(selectedItems)
+    }
+  }, [ selectedItems ])
 
   return (
     <div>

@@ -1,29 +1,37 @@
 import React from 'react'
 import { Button, Box } from '@material-ui/core'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
-import { addJob, updateJob } from '../../../../../redux-saga/redux/actions'
+import { addJob, updateJob, createJobData } from '../../../../../redux-saga/redux/actions'
 import '../../styles.scss'
 import ROUTE_PATHS from '../../../../../routes/routesPath'
 
-export default function NewJobActions({
-  newJobData, isEdit,
+export default function CreatePreviewActions({
+  newJobData, isEdit, isPreview,
 }) {
   const dispatch = useDispatch()
   const history = useHistory()
   const saveDraft = () => {
-    dispatch(addJob({
-      ...newJobData,
-      status: 'draft',
-    }))
+    debugger
+    // dispatch(addJob({
+    //   ...newJobData,
+    //   status: 'draft',
+    // }))
   }
 
   const publishJob = () => {
+    debugger
     if (isEdit) {
-      dispatch(updateJob({ ...newJobData, jobId: 1 }))
-    } else { dispatch(addJob(newJobData)) }
+      dispatch(updateJob({ ...newJobData, status: 'recruiting', jobId: 1 }))
+    } else { dispatch(addJob({ ...newJobData, status: 'recruiting' })) }
     history.push(ROUTE_PATHS.NEW_PEOPLE)
+  }
+
+  const previewJob = () => {
+    debugger
+    dispatch(createJobData({ jobData: newJobData }))
+    history.push(ROUTE_PATHS.JOB_PREVIEW)
   }
 
   return (
@@ -42,32 +50,59 @@ export default function NewJobActions({
           >
           Publish
         </Button>
+
+        { !isPreview && (
+        <>
+          <Button
+            className='wide-button mb-15'
+            classes={ {
+              root: 'button-secondary-small',
+              label: 'button-secondary-small-label',
+            } }
+            onClick={ saveDraft }
+          >
+            Save Draft
+          </Button>
+
+          <Button
+            className='wide-button mb-15'
+            classes={ {
+              root: 'button-secondary-small',
+              label: 'button-secondary-small-label',
+            } }
+            onClick={ previewJob }
+          >
+            Preview
+          </Button>
+        </>
+        )}
+
+        { isPreview && (
         <Button
           className='wide-button mb-15'
           classes={ {
             root: 'button-secondary-small',
             label: 'button-secondary-small-label',
           } }
-          onClick={ saveDraft }
+          onClick={ () => history.push(ROUTE_PATHS.NEW_JOB) }
         >
-          Save Draft
+          End Preview
         </Button>
-        <Button
-          className='wide-button mb-15'
-          classes={ {
-            root: 'button-secondary-small',
-            label: 'button-secondary-small-label',
-          } }
-        >
-          Preview
-        </Button>
+        )}
+
       </Box>
 
     </>
   )
 }
 
-NewJobActions.propTypes = {
-  newJobData: PropTypes.bool.isRequired,
-  isEdit: PropTypes.bool.isRequired,
+CreatePreviewActions.defaultProps = {
+  isEdit: false,
+  isPreview: false,
+}
+
+CreatePreviewActions.propTypes = {
+  newJobData: PropTypes.shape(PropTypes.any).isRequired,
+  isEdit: PropTypes.bool,
+  isPreview: PropTypes.bool,
 }

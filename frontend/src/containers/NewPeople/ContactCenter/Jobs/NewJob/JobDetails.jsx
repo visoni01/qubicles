@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import {
   TextField, Select, MenuItem,
   FormControl, RadioGroup,
@@ -41,6 +41,10 @@ const NewJobDetails = ({
       languages: language,
     }))
   }, [ setLanguages, setNewJobData ])
+
+  useEffect(() => {
+
+  }, [])
 
   return (
     <div className='custom-box new-job-root job-details-root has-fullwidth'>
@@ -183,8 +187,7 @@ const NewJobDetails = ({
 }
 
 NewJobDetails.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  newJobData: PropTypes.object.isRequired,
+  newJobData: PropTypes.shape(PropTypes.any).isRequired,
   setNewJobData: PropTypes.func.isRequired,
   setNewJobDataCB: PropTypes.func.isRequired,
 }

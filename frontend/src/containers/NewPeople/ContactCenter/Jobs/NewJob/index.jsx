@@ -1,8 +1,6 @@
 import React, { useCallback, useState, useEffect } from 'react'
 import { Grid } from '@material-ui/core'
-// s
 import { useDispatch, useSelector } from 'react-redux'
-import _ from 'lodash'
 import PropTypes from 'prop-types'
 import NewJobData from './JobData'
 import NewJobRequirements from './JobRequirements'
@@ -13,10 +11,35 @@ import '../styles.scss'
 import { getNewJobFields } from '../../../../../redux-saga/redux/actions'
 
 const NewJob = (props) => {
-  const { jobData, jobId, isEdit } = props
+  const { jobsData, jobId, isEdit } = props
   const dispatch = useDispatch()
-  const [ newJobData, setNewJobData ] = useState('')
-  const { jobFields, jobDetails, success } = useSelector((state) => state.newJobDetails)
+  const defaultJobData = {
+    jobId: '',
+    categoryId: '',
+    needed: '',
+    title: '',
+    description: '',
+    status: 'recruiting',
+    jobType: 'contract',
+    payAmount: '',
+    durationType: 'on-demand',
+    durationMonths: 0,
+    experienceType: 'entry',
+    employmentType: 'freelancer',
+    languages: 'english',
+    jobSkillsData: {
+      requiredSkills: [],
+      bonusSkills: [ ],
+    },
+    jobCoursesData: {
+      requiredCourses: [],
+      bonusCourses: [ ],
+    },
+  }
+  const [ newJobData, setNewJobData ] = useState(defaultJobData)
+  const { jobFields, jobDetails, jobData } = useSelector((state) => state.newJobDetails)
+
+  console.log('New job data in index===', newJobData)
 
   // Setting jobData
   const setNewJobDataCB = useCallback((event) => {
@@ -33,12 +56,20 @@ const NewJob = (props) => {
     dispatch(getNewJobFields())
   }
 
-  useEffect(() => (
+  useEffect(() => {
+    // if(true)
+    if (isEdit) {
+      setNewJobData((currentNewJobData) => ({
+        ...currentNewJobData,
+        // ...jobsData,
+        ...jobDetails,
+      }))
+    }
     setNewJobData((currentNewJobData) => ({
       ...currentNewJobData,
-      ...jobDetails,
+      ...jobData,
     }))
-  ), [])
+  }, [ jobData, jobDetails ])
 
   return (
     <Grid container spacing={ 3 }>
@@ -68,14 +99,14 @@ const NewJob = (props) => {
         </Grid>
       </Grid>
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
-        <NewJobActions newJobData={ newJobData } isEdit={ isEdit } />
+        <NewJobActions newJobData={ newJobData } isEdit={ isEdit } isPreview={ false } />
       </Grid>
     </Grid>
   )
 }
 
 NewJob.defaultProps = {
-  jobData: {
+  jobsData: {
     jobId: '',
     categoryId: '',
     needed: '',
@@ -89,14 +120,21 @@ NewJob.defaultProps = {
     experienceType: 'entry',
     employmentType: 'freelancer',
     languages: 'english',
+    jobSkillsData: {
+      requiredSkills: [],
+      bonusSkills: [ ],
+    },
+    jobCoursesData: {
+      requiredCourses: [],
+      bonusCourses: [ ],
+    },
   },
   jobId: '',
   isEdit: false,
 }
 
 NewJob.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  jobData: PropTypes.object,
+  jobsData: PropTypes.shape(PropTypes.any),
   jobId: PropTypes.number,
   isEdit: PropTypes.bool,
 }

@@ -24,7 +24,7 @@ const EditJob = () => {
 
   return (
     <NewJob
-      jobData={ jobDetails }
+      jobsData={ jobDetails }
       jobId={ jobId }
       isEdit
     />

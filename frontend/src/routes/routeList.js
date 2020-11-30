@@ -85,6 +85,11 @@ const routes = [
     component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Jobs/JobView')),
     auth: true,
   },
+  {
+    path: ROUTE_PATHS.JOB_PREVIEW,
+    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Jobs/JobPreview')),
+    auth: true,
+  },
   // Temporarily added extra route for new contact-center newJob design.
   {
     path: ROUTE_PATHS.PEOPLE_JOBS_TAB,
