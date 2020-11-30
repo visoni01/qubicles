@@ -71,12 +71,12 @@ const JobPostDetails = ({
         </div>
         <h3 className='h3 mt-10'> Bonus Skills</h3>
         <div className='tags-set mb-20'>
-          {/* { jobDetails.jobSkillsData
+          { jobDetails.jobSkillsData
               && jobDetails.jobSkillsData.bonusSkills.map((tag) => (
                 (tag.skillPreference === 'plus')
                   ? (<Chip key={ tag.jobSkillId } label={ tag.skillName } className='tag-chip' />)
                   : null
-              ))} */}
+              ))}
         </div>
       </div>
       <div className='display-inline-flex course-section is-fullwidth'>

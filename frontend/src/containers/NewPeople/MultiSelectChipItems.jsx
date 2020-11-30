@@ -7,22 +7,25 @@ import _ from 'lodash'
 import PropTypes from 'prop-types'
 
 export default function MultiSelectChipItems({
-  items, label, smallTag, onChange,
+  items, label, smallTag, onChange, initialData,
 }) {
   const [ inputValue, setInputValue ] = useState('')
-  const [ selectedItems, setSelectedItems ] = useState([])
+  const [ selectedItems, setSelectedItems ] = useState(initialData || [])
   const setSelectedItemsCB = useCallback((event, value) => {
     if (value) {
-      setSelectedItems((state) => _.unionBy(state, [ value ], 'id'))
+      setSelectedItems((state) => {
+        const updatedState = _.unionBy(state, [ value ], 'id')
+        if (onChange) {
+          onChange(updatedState)
+        }
+        return (updatedState)
+      })
     }
   }, [ setSelectedItems ])
 
   useEffect(() => {
-    if (onChange) {
-      console.log('SELECTD ITEM MUI', selectedItems)
-      onChange(selectedItems)
-    }
-  }, [ selectedItems ])
+    setSelectedItems(initialData)
+  }, [ initialData ])
 
   return (
     <div>
@@ -51,7 +54,7 @@ export default function MultiSelectChipItems({
         />
       </FormControl>
       <div className={ `tags-set ${ smallTag ? 'small' : '' }` }>
-        {selectedItems.map((tag) => (
+        {selectedItems && selectedItems.map((tag) => (
           <Chip
             size={ smallTag ? 'small' : 'medium' }
             key={ tag.id }
@@ -69,8 +72,7 @@ MultiSelectChipItems.defaultProps = {
   items: [],
   label: '',
   smallTag: false,
-  selectedItems: [],
-  setSelectedItems: null,
+  initialData: [],
 }
 
 MultiSelectChipItems.propTypes = {
@@ -81,9 +83,9 @@ MultiSelectChipItems.propTypes = {
 
   label: PropTypes.string,
   smallTag: PropTypes.bool,
-  selectedItems: PropTypes.arrayOf(PropTypes.shape({
+  initialData: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
   })),
-  setSelectedItems: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
 }

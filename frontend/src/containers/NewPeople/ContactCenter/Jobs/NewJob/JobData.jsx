@@ -8,7 +8,7 @@ import CKEditor from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import _ from 'lodash'
 import { Autocomplete } from '@material-ui/lab'
 import ROUTE_PATHS from '../../../../../routes/routesPath'
@@ -28,13 +28,7 @@ const NewJobData = ({
     categoryInput: '',
     titleInput: '',
   })
-  console.log('INPUT VVALUE-=====', inputValue.categoryInput)
   useEffect(() => {
-    // setInputValue((current) => ({
-    //   ...current,
-    //   categoryInput: newJobData.categoryName,
-    //   titleInput: newJobData.title,
-    // }))
   }, [ dispatch ])
 
   const handleDescriptionData = useCallback((event, editor) => {
@@ -69,7 +63,7 @@ const NewJobData = ({
             <FormControl variant='outlined' className='drop-down-bar'>
               <Autocomplete
                 getOptionSelected={ (option) => option.value }
-                // value={ { name: newJobData.categoryName, value: newJobData.categoryId } }
+                value={ { name: newJobData.categoryName, value: newJobData.categoryId } }
                 inputValue={ inputValue.categoryInput }
                 clearOnBlur
                 noOptionsText='no matches found'

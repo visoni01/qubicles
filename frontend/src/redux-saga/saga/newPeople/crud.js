@@ -39,7 +39,6 @@ function* jobCrudWorker(action) {
           pay_amount: payAmount,
           ...rest,
         })
-        debugger
         // eslint-disable-next-line
         const { category_id, job_id, user_id, title, description } = data
         yield put(updateJobsData({
@@ -69,10 +68,6 @@ function* jobCrudWorker(action) {
           durationType,
           jobCoursesData,
           jobSkillsData,
-          // requiredCourses,
-          // requiredSkills,
-          // bonusCourses,
-          // bonusSkills,
           payAmount,
           durationMonths,
           ...rest

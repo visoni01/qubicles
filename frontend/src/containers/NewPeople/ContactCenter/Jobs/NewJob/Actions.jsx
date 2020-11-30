@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Box } from '@material-ui/core'
-import { useHistory, Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { addJob, updateJob, createJobData } from '../../../../../redux-saga/redux/actions'
@@ -13,15 +13,13 @@ export default function CreatePreviewActions({
   const dispatch = useDispatch()
   const history = useHistory()
   const saveDraft = () => {
-    debugger
-    // dispatch(addJob({
-    //   ...newJobData,
-    //   status: 'draft',
-    // }))
+    dispatch(addJob({
+      ...newJobData,
+      status: 'draft',
+    }))
   }
 
   const publishJob = () => {
-    debugger
     if (isEdit) {
       dispatch(updateJob({ ...newJobData, status: 'recruiting', jobId: 1 }))
     } else { dispatch(addJob({ ...newJobData, status: 'recruiting' })) }
@@ -29,7 +27,6 @@ export default function CreatePreviewActions({
   }
 
   const previewJob = () => {
-    debugger
     dispatch(createJobData({ jobData: newJobData }))
     history.push(ROUTE_PATHS.JOB_PREVIEW)
   }

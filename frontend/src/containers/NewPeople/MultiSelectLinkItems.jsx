@@ -10,14 +10,21 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 
 export default function MultiSelectLinkItems({
-  items, label, selectedItems, setSelectedItems, textLinkBase,
+  items, label, onChange, initialData, textLinkBase,
 }) {
+  const [ inputValue, setInputValue ] = useState('')
+  const [ selectedItems, setSelectedItems ] = useState(initialData || [])
   const setSelectedItemsCB = useCallback((event, value) => {
     if (value) {
-      setSelectedItems((state) => _.unionBy(state, [ value ], 'id'))
+      setSelectedItems((state) => {
+        const updatedState = _.unionBy(state, [ value ], 'id')
+        if (onChange) {
+          onChange(updatedState)
+        }
+        return (updatedState)
+      })
     }
   }, [ setSelectedItems ])
-  const [ inputValue, setInputValue ] = useState('')
 
   return (
     <div>
@@ -42,7 +49,7 @@ export default function MultiSelectLinkItems({
           renderOption={ (option) => <span className='para light'>{option.title}</span> }
         />
       </FormControl>
-      {selectedItems.map((item) => (
+      {selectedItems && selectedItems.map((item) => (
         <div key={ item.id } className='display-inline-flex justify-between mr-10 mt-10'>
           <IconButton
             onClick={ () => setSelectedItems((state) => state.filter((filteredskill) => filteredskill.id !== item.id)) }
@@ -71,7 +78,7 @@ MultiSelectLinkItems.defaultProps = {
   items: [],
   label: '',
   smallTag: false,
-  selectedItems: [],
+  initialData: [],
   textLinkBase: '',
 }
 
@@ -79,12 +86,14 @@ MultiSelectLinkItems.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-
   })),
 
   label: PropTypes.string,
   textLinkBase: PropTypes.string,
   smallTag: PropTypes.bool,
-  selectedItems: PropTypes.arrayOf(),
-  setSelectedItems: PropTypes.func.isRequired,
+  initialData: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+  })),
+  onChange: PropTypes.func.isRequired,
 }

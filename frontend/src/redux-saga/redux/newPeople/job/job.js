@@ -6,10 +6,11 @@ const initialState = {
   error: null,
   success: false,
   jobFields: { jobTitles: [], jobCategories: [], jobSkills: [] },
-  jobDetails: {}, // single job Id
+  jobDetails: {},
   jobData: {
     jobSkillsData: {
       requiredSkills: [],
+      bonusSkills: [],
     },
   },
 }

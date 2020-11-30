@@ -1,5 +1,4 @@
 import { takeEvery, put } from 'redux-saga/effects'
-import _ from 'lodash'
 import {
   jobCategoriesOnlyFetchStart,
   jobCategoriesOnlyFetchSuccessful,
