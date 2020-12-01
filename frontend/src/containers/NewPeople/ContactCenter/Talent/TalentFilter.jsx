@@ -229,8 +229,8 @@ const TalentFilter = () => {
           <MultiSelectChipItems
             items={ jobSkills ? jobSkills.map((skill) => ({ id: skill.skillId, title: skill.skillName })) : [] }
             label='Choose Required Skills'
-            selectedItems={ selectedSkill }
-            setSelectedItems={ setSkill }
+            initialData={ selectedSkill }
+            onChange={ (items) => setSkill(items) }
             smallTag
           />
         </div>
@@ -253,8 +253,8 @@ const TalentFilter = () => {
           <MultiSelectChipItems
             items={ availableLanguages.map((lang) => ({ ...lang, title: _.capitalize(lang.title) })) }
             label='Choose Languages'
-            selectedItems={ selectedLanguage }
-            setSelectedItems={ setLanguage }
+            initialData={ selectedLanguage }
+            onChange={ (items) => setLanguage(items) }
             smallTag
           />
         </div>

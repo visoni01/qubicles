@@ -20,6 +20,7 @@ export default function MultiSelectChipItems({
         }
         return (updatedState)
       })
+      setInputValue('')
     }
   }, [ setSelectedItems ])
 
@@ -58,7 +59,13 @@ export default function MultiSelectChipItems({
           <Chip
             size={ smallTag ? 'small' : 'medium' }
             key={ tag.id }
-            onDelete={ () => setSelectedItems((state) => state.filter((skill) => skill.id !== tag.id)) }
+            onDelete={ () => {
+              setSelectedItems((state) => {
+                const updatedState = state.filter((skill) => skill.id !== tag.id)
+                onChange(updatedState)
+                setSelectedItems(updatedState)
+              })
+            } }
             label={ tag.title }
             className='tag-chip'
           />
