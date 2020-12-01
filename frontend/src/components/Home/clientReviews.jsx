@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import StarRatings from 'react-star-ratings'
 import classNames from 'classnames'
+import Rating from '@material-ui/lab/Rating'
 import { reviews } from './data'
 
 const ClientReviews = () => {
@@ -28,12 +28,11 @@ const ClientReviews = () => {
         />
         <div className='vt-content is-fullwidth'>
           <div className='star-rating color-secondary is-hidden-mobile'>
-            <StarRatings
-              rating={ rating }
-              starRatedColor='#7F00FF'
-              numberOfStars={ 5 }
-              starDimension='17px'
-              starSpacing='1px'
+            <Rating
+              value={ rating }
+              name='read-only'
+              readOnly
+              size='small'
             />
           </div>
           <h6 className='vt-name'>{ name }</h6>
