@@ -21,16 +21,16 @@ const Home = () => {
       script.defer = true
 
       eventListener.innerHTML = `window.addEventListener('LPLeadboxesReady', () => {
-        LPLeadboxes.addDelayedLeadbox('kNzQaTguSZNBfdEwN6QFH2', {
-          delay: '20s', views: 0, dontShowFor: '1d', domain: 'go.fenero.io',
-        })
-      })`
+      window.temp = window.setTimeout(() => (LPLeadboxes.addDelayedLeadbox('kNzQaTguSZNBfdEwN6QFH2', {
+        delay: '0s', views: 0, dontShowFor: '1d', domain: 'go.fenero.io',
+      })), 20000)
+    })`
 
       document.body.appendChild(script)
       document.body.appendChild(eventListener)
       return () => {
         document.body.removeChild(script)
-        document.body.removeChild(eventListener)
+        window.clearTimeout(window.temp)
       }
     }
   }, [])
