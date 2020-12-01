@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import NewJobData from './JobData'
 import NewJobRequirements from './JobRequirements'
 import NewJobDetails from './JobDetails'
-import { newNavBar } from '../../../../../hoc/navbar'
+import navBar from '../../../../../hoc/navbar'
 import NewJobActions from './Actions'
 import '../styles.scss'
 import { getNewJobFields } from '../../../../../redux-saga/redux/actions'
@@ -75,4 +75,4 @@ const NewJob = () => {
   )
 }
 
-export default newNavBar(NewJob)
+export default navBar(NewJob)

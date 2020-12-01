@@ -5,7 +5,7 @@ import GroupsList from './groups/list'
 import CreateGroup from './groups/newGroup'
 import SelectedGroup from './groups/group'
 import TrendingTopics from './trendingTopics'
-import { newNavBar } from '../../hoc/navbar'
+import navBar from '../../hoc/navbar'
 import './styles.scss'
 import { addNewGroup } from '../../redux-saga/redux/actions'
 
@@ -43,4 +43,4 @@ const Groups = () => {
   )
 }
 
-export default newNavBar(Groups)
+export default navBar(Groups)

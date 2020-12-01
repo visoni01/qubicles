@@ -1,4 +1,4 @@
-import Header from './header'
-import SideBar from './sideBar'
+import SideBar from './menuBar'
+import TopBar from './topBar'
 
-export { Header, SideBar }
+export { SideBar, TopBar }

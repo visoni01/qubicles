@@ -8,7 +8,7 @@ import JobsPage from './Jobs/JobsPage'
 import TalentFilter from './Talent/TalentFilter'
 import TalentPage from './Talent/TalentPage'
 import TopTalent from './Talent/TopTalent'
-import { newNavBar } from '../../../hoc/navbar'
+import navBar from '../../../hoc/navbar'
 import TrainingFilter from './Training/TrainingFilter'
 import TrainingWrap from './Training/TrainingWrap'
 import './styles.scss'
@@ -63,4 +63,4 @@ const People = () => {
   )
 }
 
-export default newNavBar(People)
+export default navBar(People)

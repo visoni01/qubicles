@@ -8,7 +8,7 @@ import {
 import {
   chatIcon, walletIcon, bellIcon,
 } from '../../assets/images/icons/navBarIcons'
-import UserMenu from './UserMenu'
+import UserMenu from './userMenu'
 
 const TopBar = () => (
   <AppBar

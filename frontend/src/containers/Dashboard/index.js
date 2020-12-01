@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Grid } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
-import { newNavBar } from '../../hoc/navbar'
+import navBar from '../../hoc/navbar'
 import CommunityRep from '../../components/Dashboard/LeftSection/CommunityRep'
 import JobPostings from '../../components/Dashboard/LeftSection/JobPostings'
 import { dashboardDataFetchingStart } from '../../redux-saga/redux/actions'
@@ -49,4 +49,4 @@ const Dashboard = () => {
   )
 }
 
-export default newNavBar(Dashboard)
+export default navBar(Dashboard)
