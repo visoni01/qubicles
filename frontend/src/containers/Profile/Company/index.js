@@ -1,0 +1,72 @@
+/* eslint-disable complexity */
+import React, { useState } from 'react'
+import { Grid, Tabs, Tab } from '@material-ui/core'
+import { newNavBar } from '../../../hoc/navbar'
+import LeftSection from './Settings/LeftSection'
+import RightSection from './RightSection'
+import Settings from './Settings'
+import SettingsLeft from './Settings/SettingsLeft'
+
+const ContactCenterProfile = () => {
+  const [ activeTab, setActiveTab ] = useState(2)
+  const spacingMid = activeTab === 2 ? 9 : 6
+  const spacingTab = activeTab === 2 ? 8 : 12
+  return (
+    <div>
+      <Grid container spacing={ 3 }>
+        <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 } alignItems='flex-start'>
+          <div>
+            { activeTab === 0 && <LeftSection />}
+            { activeTab === 1 && <LeftSection />}
+            { activeTab === 2 && <SettingsLeft />}
+          </div>
+        </Grid>
+        <Grid
+          item
+          spacing={ 10 }
+          xl={ spacingMid }
+          lg={ spacingMid }
+          md={ spacingMid }
+          sm={ spacingMid }
+          className='custom-active-tabs'
+        >
+          <Grid item xl={ spacingTab } lg={ spacingTab } md={ spacingTab } sm={ spacingTab }>
+            <Tabs
+              value={ activeTab }
+              onChange={ (_, val) => setActiveTab(val) }
+            >
+              <Tab
+                className={ activeTab === 0 ? 'active-tab' : 'inactive-tab' }
+                label='Feed'
+              />
+              <Tab
+                className={ activeTab === 1 ? 'active-tab' : 'inactive-tab' }
+                label='About'
+              />
+              <Tab
+                className={ activeTab === 2 ? 'active-tab' : 'inactive-tab' }
+                label='Settings'
+              />
+
+            </Tabs>
+          </Grid>
+          <Grid item xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 }>
+            <div>
+              { activeTab === 0 && <Settings />}
+              { activeTab === 1 && <Settings />}
+              { activeTab === 2 && <Settings />}
+            </div>
+          </Grid>
+        </Grid>
+
+        <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
+          {activeTab !== 2 && (
+          <RightSection />
+          )}
+        </Grid>
+      </Grid>
+    </div>
+  )
+}
+
+export default newNavBar(ContactCenterProfile)

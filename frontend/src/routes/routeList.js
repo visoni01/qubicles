@@ -124,6 +124,12 @@ const routes = [
     component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Talent/Application/JobApplicationPage')),
     auth: true,
   },
+  // Company Profile
+  {
+    path: ROUTE_PATHS.COMPANY_PROFILE,
+    component: React.lazy(() => import('../containers/Profile/Company')),
+    auth: true,
+  },
 
 ]
 
