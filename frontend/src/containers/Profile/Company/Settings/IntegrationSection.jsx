@@ -38,7 +38,7 @@ export default function IntegrationSection() {
           <p className='para mb-20'> Enter your FTP information in the fields below. We will use this to push data from us to you, such as call recordings, etc. </p>
           <div className='inline-block flex mb-20'>
             <h4 className='h4 mr-30'>Active </h4>
-            <Switch />
+            <Switch className='switches' color='primary' />
           </div>
           <Grid container spacing={ 3 }>
             <Grid container item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 } spacing={ 6 }>

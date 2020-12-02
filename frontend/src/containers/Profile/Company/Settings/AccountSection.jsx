@@ -146,11 +146,11 @@ export default function AccountSection() {
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
               <div className='row-section small-width'>
                 <h4 className='h4'>SMS Notifications</h4>
-                <Switch />
+                <Switch className='switches' color='primary' />
               </div>
               <div className='row-section small-width'>
                 <h4 className='h4'>Email Notifications</h4>
-                <Switch />
+                <Switch className='switches' color='primary' />
               </div>
             </Grid>
           </Grid>

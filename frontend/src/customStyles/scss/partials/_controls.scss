@@ -46,6 +46,28 @@
   }
 }
 
+.switches {
+  &.MuiSwitch-root {
+
+    .MuiSwitch-switchBase {
+      color: $color-primary !important;
+    }
+
+    .MuiSwitch-colorSecondary{
+      color: $color-primary !important;
+    }
+
+    .MuiSwitch-track {
+      background-color: $color-white;
+      border: 3px solid $color-primary-dark;
+    }
+
+    :hover {
+      color: $color-primary !important;
+    }
+  }
+}
+
 /* Custom Active Tabs styles */
 .custom-active-tabs {
   .MuiTabs-flexContainer {
