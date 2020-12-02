@@ -5,19 +5,20 @@ import {
 import './styles.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye } from '@fortawesome/free-solid-svg-icons'
+import MultiSelectChipItems from '../../../NewPeople/MultiSelectChipItems'
 
 export default function AccountSection() {
   return (
     <Box className='custom-box'>
       <h2 className='h2 mb-30'>Account</h2>
-      <div className='basic-info'>
-        <h3 className='h3 mb-20'> Basic Information</h3>
+      <div className='settings-section'>
+        <h3 className='h3 mb-10'> Basic Information</h3>
         <Grid container spacing={ 3 } direction='column'>
 
           {/* Id and Name */}
 
-          <Grid item container justify='space-between' spacing={ 3 }>
-            <Grid item xl={ 6 } lg={ 6 } sm={ 6 } xs={ 12 }>
+          <Grid item container justify='space-between' spacing={ 6 }>
+            <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
               <div className='row-section'>
                 <h4 className='h4'>Company ID</h4>
               </div>
@@ -25,7 +26,7 @@ export default function AccountSection() {
                 <span className='para'> fenero </span>
               </div>
             </Grid>
-            <Grid item xl={ 6 } lg={ 6 } sm={ 6 } xs={ 12 }>
+            <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
               <div className='row-section'>
                 <h4 className='h4'>Company Name</h4>
                 <Button
@@ -45,8 +46,8 @@ export default function AccountSection() {
 
           {/* Password and Address */}
 
-          <Grid item container justify='space-between' spacing={ 3 }>
-            <Grid item xl={ 6 } lg={ 6 } sm={ 6 } xs={ 12 }>
+          <Grid item container justify='space-between' spacing={ 6 }>
+            <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
               <div className='row-section'>
                 <h4 className='h4'>Password</h4>
                 <Button
@@ -68,7 +69,7 @@ export default function AccountSection() {
                 </IconButton>
               </div>
             </Grid>
-            <Grid item xl={ 6 } lg={ 6 } sm={ 6 } xs={ 12 }>
+            <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
               <div className='row-section'>
                 <h4 className='h4'>Address</h4>
                 <Button
@@ -89,8 +90,8 @@ export default function AccountSection() {
           <Divider className='divider' />
           {/* Email and phone */}
 
-          <Grid item container justify='space-between' spacing={ 3 }>
-            <Grid item xl={ 6 } lg={ 6 } sm={ 6 } xs={ 12 }>
+          <Grid item container justify='space-between' spacing={ 6 }>
+            <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
               <div className='row-section'>
                 <h4 className='h4'>Email</h4>
                 <Button
@@ -106,7 +107,7 @@ export default function AccountSection() {
                 <span className='para'> fenero@qubicles.io </span>
               </div>
             </Grid>
-            <Grid item xl={ 6 } lg={ 6 } sm={ 6 } xs={ 12 }>
+            <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
               <div className='row-section'>
                 <h4 className='h4'>Home Phone</h4>
                 <Button
@@ -125,8 +126,8 @@ export default function AccountSection() {
           </Grid>
 
           {/* Mobile phone and notifications */}
-          <Grid item container justify='space-between' spacing={ 3 }>
-            <Grid item xl={ 6 } lg={ 6 } sm={ 6 } xs={ 12 }>
+          <Grid item container justify='space-between' spacing={ 6 }>
+            <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
               <div className='row-section'>
                 <h4 className='h4'>Mobile Phone</h4>
                 <Button
@@ -142,12 +143,12 @@ export default function AccountSection() {
                 <span className='para'> 7289882838 </span>
               </div>
             </Grid>
-            <Grid item xl={ 6 } lg={ 6 } sm={ 6 } xs={ 12 }>
-              <div className='row-section'>
+            <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
+              <div className='row-section small-width'>
                 <h4 className='h4'>SMS Notifications</h4>
                 <Switch />
               </div>
-              <div className='row-section'>
+              <div className='row-section small-width'>
                 <h4 className='h4'>Email Notifications</h4>
                 <Switch />
               </div>
@@ -156,8 +157,8 @@ export default function AccountSection() {
 
           {/* Website and Timezone  */}
 
-          <Grid item container justify='space-between' spacing={ 3 }>
-            <Grid item xl={ 6 } lg={ 6 } sm={ 6 } xs={ 12 }>
+          <Grid item container justify='space-between' spacing={ 6 }>
+            <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
               <div className='row-section'>
                 <h4 className='h4'>Website</h4>
                 <Button
@@ -173,11 +174,13 @@ export default function AccountSection() {
                 <span className='para'> www.qubicles.io</span>
               </div>
             </Grid>
-            <Grid item xl={ 6 } lg={ 6 } sm={ 6 } xs={ 12 }>
+            <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
               <div className='row-section'>
                 <h4 className='h4'>Timezone</h4>
               </div>
-              <div className='row-fields' />
+              <div className='row-fields no-padding-left'>
+                <MultiSelectChipItems />
+              </div>
             </Grid>
           </Grid>
 

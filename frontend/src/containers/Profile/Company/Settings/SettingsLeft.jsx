@@ -5,7 +5,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 export default function SettingsLeft() {
   return (
-    <Box className='custom-box'>
+    <Box className='custom-box no-padding-top no-padding-bottom'>
       <div className='list-divider'>
         <div className='display-inline-flex is-fullwidth '>
           <FontAwesomeIcon icon={ faUser } className='custom-fa-icon' />
