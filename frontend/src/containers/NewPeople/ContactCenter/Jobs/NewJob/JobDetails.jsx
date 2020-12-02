@@ -13,7 +13,8 @@ const NewJobDetails = ({
   setNewJobData,
   setNewJobDataCB,
 }) => {
-  const [ languages, setLanguages ] = useState([ 'english' ])
+  // eslint-disable-next-line no-unused-vars
+  const [ languages, setLanguages ] = useState([ 'english', 'spanish' ])
 
   const setDurationMonthsCB = useCallback((e) => {
     const month = e.target.value
@@ -120,7 +121,7 @@ const NewJobDetails = ({
               margin='dense'
               variant='outlined'
               name='languages'
-              value={ languages }
+              value={ newJobData.languages.split(',') }
               onChange={ setLanguageCB }
             >
               {availableLanguages.map((language) => (
@@ -186,8 +187,35 @@ const NewJobDetails = ({
   )
 }
 
+NewJobDetails.defaultProps = {
+  newJobData: {
+    jobId: '',
+    categoryId: '',
+    categoryName: '',
+    needed: 0,
+    title: '',
+    description: '',
+    status: 'recruiting',
+    jobType: 'contract',
+    payAmount: 0,
+    durationType: 'on-demand',
+    durationMonths: 0,
+    experienceType: 'entry',
+    employmentType: 'freelancer',
+    languages: 'english',
+    jobSkillsData: {
+      requiredSkills: [],
+      bonusSkills: [ ],
+    },
+    jobCoursesData: {
+      requiredCourses: [],
+      bonusCourses: [ ],
+    },
+  },
+}
+
 NewJobDetails.propTypes = {
-  newJobData: PropTypes.shape(PropTypes.any).isRequired,
+  newJobData: PropTypes.shape(PropTypes.any),
   setNewJobData: PropTypes.func.isRequired,
   setNewJobDataCB: PropTypes.func.isRequired,
 }

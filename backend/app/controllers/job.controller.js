@@ -1,12 +1,12 @@
 import Responder from '../../server/expressResponder'
-import JobsByCategoryService from '../services/job/jobsByCategory'
-import DeleteJobService from '../services/job/delete'
-import GetJobByIdService from '../services/job/jobById'
-import UpdateJobService from '../services/job/update'
-import GetJobCategoriesTitlesAndSkillsService from '../services/newJob/jobCategoriesTitlesAndSkills'
-import AddNewJobService from '../services/newJob/create'
-import JobPostCompanyDetailsService from '../services/newJob/jobPostCompanyDetails'
-import FetchJobCategoriesService from '../services/job/jobCategories'
+import JobsByCategoryService from '../services/people/contactCenter/job/jobsByCategory'
+import DeleteJobService from '../services/people/contactCenter/job/delete'
+import GetJobByIdService from '../services/people/contactCenter/job/jobById'
+import UpdateJobService from '../services/people/contactCenter/job/update'
+import GetJobCategoriesTitlesAndSkillsService from '../services/people/contactCenter/job/jobCategoriesTitlesAndSkills'
+import AddNewJobService from '../services/people/contactCenter/job/create'
+import JobPostCompanyDetailsService from '../services/people/contactCenter/job/jobPostCompanyDetails'
+import FetchJobCategoriesService from '../services/people/contactCenter/job/jobCategories'
 
 export default class JobController {
   static async getJobsByCategory (req, res) {
@@ -44,8 +44,6 @@ export default class JobController {
       Responder.failed(res, updateJob.errors)
     }
   }
-
-  // New Job
 
   static async getJobCategoriesTitlesAndSkills (req, res) {
     const jobTitles = await GetJobCategoriesTitlesAndSkillsService.execute({

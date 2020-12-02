@@ -2,26 +2,27 @@ import React, { useCallback, useState, useEffect } from 'react'
 import { Grid } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
-import NewJobData from './JobData'
-import NewJobRequirements from './JobRequirements'
-import NewJobDetails from './JobDetails'
+import JobData from './JobData'
+import JobRequirements from './JobRequirements'
+import JobDetails from './JobDetails'
 import navBar from '../../../../../hoc/navbar'
-import NewJobActions from './Actions'
+import CreatePreviewActions from './Actions'
 import '../styles.scss'
 import { getNewJobFields } from '../../../../../redux-saga/redux/actions'
 
-const NewJob = (props) => {
+export const NewJob = (props) => {
   const { jobsData, jobId, isEdit } = props
   const dispatch = useDispatch()
   const defaultJobData = {
     jobId: '',
     categoryId: '',
-    needed: '',
+    categoryName: '',
+    needed: 0,
     title: '',
     description: '',
     status: 'recruiting',
     jobType: 'contract',
-    payAmount: '',
+    payAmount: 0,
     durationType: 'on-demand',
     durationMonths: 0,
     experienceType: 'entry',
@@ -37,9 +38,8 @@ const NewJob = (props) => {
     },
   }
   const [ newJobData, setNewJobData ] = useState(defaultJobData)
-  const { jobFields, jobDetails, jobData } = useSelector((state) => state.newJobDetails)
-
-  console.log('New job data in index===', newJobData)
+  const { jobFields } = useSelector((state) => state.newJobDetails)
+  const { createJobData } = useSelector((state) => state.createJobData)
 
   // Setting jobData
   const setNewJobDataCB = useCallback((event) => {
@@ -57,41 +57,40 @@ const NewJob = (props) => {
   }
 
   useEffect(() => {
-    // if(true)
     if (isEdit) {
       setNewJobData((currentNewJobData) => ({
         ...currentNewJobData,
-        // ...jobsData,
-        ...jobDetails,
+        ...jobsData,
       }))
     }
     setNewJobData((currentNewJobData) => ({
       ...currentNewJobData,
-      ...jobData,
+      ...createJobData,
     }))
-  }, [ jobData, jobDetails ])
+  }, [ createJobData, jobsData ])
 
   return (
     <Grid container spacing={ 3 }>
       <Grid container item xl={ 9 } lg={ 9 } md={ 9 } sm={ 8 } spacing={ 3 } direction='column'>
         <Grid item>
-          <NewJobData
+          <JobData
             newJobData={ newJobData }
             setNewJobData={ setNewJobData }
             jobFields={ jobFields }
             setNewJobDataCB={ setNewJobDataCB }
             jobId={ jobId }
+            isEdit={ isEdit }
           />
         </Grid>
         <Grid item>
-          <NewJobRequirements
+          <JobRequirements
             newJobData={ newJobData }
             setNewJobData={ setNewJobData }
             jobFields={ jobFields }
           />
         </Grid>
         <Grid item>
-          <NewJobDetails
+          <JobDetails
             newJobData={ newJobData }
             setNewJobData={ setNewJobData }
             setNewJobDataCB={ setNewJobDataCB }
@@ -99,7 +98,12 @@ const NewJob = (props) => {
         </Grid>
       </Grid>
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
-        <NewJobActions newJobData={ newJobData } isEdit={ isEdit } isPreview={ false } />
+        <CreatePreviewActions
+          newJobData={ newJobData }
+          isEdit={ isEdit }
+          isPreview={ false }
+          jobId={ jobId }
+        />
       </Grid>
     </Grid>
   )
@@ -109,12 +113,13 @@ NewJob.defaultProps = {
   jobsData: {
     jobId: '',
     categoryId: '',
-    needed: '',
+    categoryName: '',
+    needed: 0,
     title: '',
     description: '',
     status: 'recruiting',
     jobType: 'contract',
-    payAmount: '',
+    payAmount: 0,
     durationType: 'on-demand',
     durationMonths: 0,
     experienceType: 'entry',

@@ -117,7 +117,7 @@ export const getUpdatedJobsData = ({ state, payload }) => {
       updatedJobCategories = state.newJobCategories.map((category) => {
         let updatedJobs = category.jobs
         if (category.categoryId === newJob.categoryId) {
-          updatedJobs = [ ...updatedJobs, newJob ]
+          updatedJobs = [ ...updatedJobs, ...newJob ]
         }
         return { ...category, jobs: updatedJobs }
       })
@@ -129,9 +129,9 @@ export const getUpdatedJobsData = ({ state, payload }) => {
         let updatedJobs = category.jobs
         if (category.categoryId === updatedJob.categoryId) {
           updatedJobs = updatedJobs.map((job) => {
-            if (job.jobId === updatedJob.jobId) {
+            if (job.job_id === updatedJob.jobId) {
               return {
-                ownerId: job.ownerId,
+                ...job,
                 ...updatedJob,
               }
             }

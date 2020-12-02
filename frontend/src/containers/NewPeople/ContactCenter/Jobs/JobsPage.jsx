@@ -1,31 +1,31 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback } from 'react'
 import {
-  Box, InputBase, Button, debounce,
+  Box, InputBase, Button,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import PropTypes from 'prop-types'
 import JobCategoryCard from './JobCategoryCard'
 import ROUTE_PATHS from '../../../../routes/routesPath'
-import { newJobCategoriesFetchStart } from '../../../../redux-saga/redux/actions'
+import { resetJobDetails } from '../../../../redux-saga/redux/actions'
 import JobsSkeleton from '../SkeletonLoader/JobsSkeleton'
 
-const JobsPage = () => {
+const JobsPage = ({ searchField, setSearchField }) => {
   const history = useHistory()
-  const { newJobCategories, selectedCategoryId, isLoading } = useSelector((state) => state.newJobCategories)
-  const [ searchField, setSearchField ] = useState('')
+  const { newJobCategories, isLoading } = useSelector((state) => state.newJobCategories)
   const dispatch = useDispatch()
-
-  const callSearchApi = useCallback(debounce((nextValue) => {
-    dispatch(newJobCategoriesFetchStart({ searchKeyword: nextValue }))
-  }, 500), [ dispatch ])
 
   const handleSearch = useCallback((e) => {
     const nextValue = e.target.value
     setSearchField(nextValue)
-    callSearchApi(nextValue)
-  }, [ callSearchApi ])
+  }, [ ])
+
+  const handleNewJob = () => {
+    history.push(ROUTE_PATHS.NEW_JOB)
+    dispatch(resetJobDetails())
+  }
 
   if (isLoading) {
     return (
@@ -49,7 +49,7 @@ const JobsPage = () => {
         </div>
         <Button
           className='search-button'
-          onClick={ () => history.push(ROUTE_PATHS.NEW_JOB) }
+          onClick={ handleNewJob }
           classes={ {
             root: 'button-primary-small',
             label: 'button-primary-small-label',
@@ -59,49 +59,31 @@ const JobsPage = () => {
         </Button>
       </div>
       <Box className='custom-box'>
-        <JobsData
-          selectedCategoryId={ selectedCategoryId }
-          newJobCategories={ newJobCategories }
-        />
+        { newJobCategories.map((jobCategory) => (
+          jobCategory.jobs.length > 0 && (
+            <JobCategoryCard
+              key={ jobCategory.categoryId }
+              categoryId={ jobCategory.categoryId }
+              categoryTitle={ jobCategory.categoryTitle }
+              jobs={ jobCategory.jobs }
+              inNeed={ jobCategory.needed }
+              fulfilled={ 2 }
+              evaluating={ 2 }
+              pending={ 0 }
+            />
+          )))}
       </Box>
     </>
   )
 }
 
-const JobsData = ({ selectedCategoryId, newJobCategories }) => {
-  if (selectedCategoryId) {
-    const index = newJobCategories.findIndex((category) => category.categoryId === selectedCategoryId)
-    return (
-      newJobCategories.length > 0
-      && (
-      <JobCategoryCard
-        key={ newJobCategories[ index ].categoryId }
-        categoryId={ newJobCategories[ index ].categoryId }
-        categoryTitle={ newJobCategories[ index ].categoryTitle }
-        jobs={ newJobCategories[ index ].jobs }
-        needed={ 5 }
-        fulfilled={ 2 }
-        evaluating={ 2 }
-        pending={ 0 }
-      />
-      )
-    )
-  }
-  return newJobCategories.map((jobCategory) => (
-    jobCategory.jobs.length > 0
-        && (
-        <JobCategoryCard
-          key={ jobCategory.categoryId }
-          categoryId={ jobCategory.categoryId }
-          categoryTitle={ jobCategory.categoryTitle }
-          jobs={ jobCategory.jobs }
-          needed={ 5 }
-          fulfilled={ 2 }
-          evaluating={ 2 }
-          pending={ 0 }
-        />
-        )
-  ))
+JobsPage.defaultProps = {
+  searchField: '',
+}
+
+JobsPage.propTypes = {
+  searchField: PropTypes.string,
+  setSearchField: PropTypes.func.isRequired,
 }
 
 export default JobsPage

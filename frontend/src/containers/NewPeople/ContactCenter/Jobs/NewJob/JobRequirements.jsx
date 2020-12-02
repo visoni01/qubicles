@@ -135,8 +135,35 @@ const NewJobRequirements = ({
   )
 }
 
+NewJobRequirements.defaultProps = {
+  newJobData: {
+    jobId: '',
+    categoryId: '',
+    categoryName: '',
+    needed: 0,
+    title: '',
+    description: '',
+    status: 'recruiting',
+    jobType: 'contract',
+    payAmount: 0,
+    durationType: 'on-demand',
+    durationMonths: 0,
+    experienceType: 'entry',
+    employmentType: 'freelancer',
+    languages: 'english',
+    jobSkillsData: {
+      requiredSkills: [],
+      bonusSkills: [ ],
+    },
+    jobCoursesData: {
+      requiredCourses: [],
+      bonusCourses: [ ],
+    },
+  },
+}
+
 NewJobRequirements.propTypes = {
-  newJobData: PropTypes.shape(PropTypes.any).isRequired,
+  newJobData: PropTypes.shape(PropTypes.any),
   jobFields: PropTypes.arrayOf(PropTypes.string).isRequired,
   setNewJobData: PropTypes.func.isRequired,
 }

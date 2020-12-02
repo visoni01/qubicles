@@ -1,13 +1,13 @@
 import { takeEvery, put } from 'redux-saga/effects'
 import {
-  newJobDetailsFetchStart, newUpdateJobsFields, newJobDetailsFetchSuccessful, createJobData,
-} from '../../redux/actions'
-import { NEW_JOB_FIELDS } from '../../redux/constants'
-import { showErrorMessage } from '../../redux/snackbar'
-import People from '../../service/people'
+  newJobDetailsFetchStart, newUpdateJobsFields, newJobDetailsFetchSuccessful,
+} from '../../../redux/actions'
+import { NEW_JOB_FIELDS } from '../../../redux/constants'
+import { showErrorMessage } from '../../../redux/snackbar'
+import People from '../../../service/people'
 
 function* jobDetailsWatcher() {
-  yield takeEvery([ newJobDetailsFetchStart.type, NEW_JOB_FIELDS, createJobData.type ], jobDetailsWorker)
+  yield takeEvery([ newJobDetailsFetchStart.type, NEW_JOB_FIELDS ], jobDetailsWorker)
 }
 
 function* jobDetailsWorker(action) {
@@ -20,8 +20,7 @@ function* jobDetailsWorker(action) {
       }
       case newJobDetailsFetchStart.type: {
         const { jobId } = action.payload
-        const reponse = yield People.getJobById(jobId)
-        const { data } = reponse
+        const { data } = yield People.getJobById(jobId)
         if (data) {
           const requiredCourses = []
           const bonusCourses = []
@@ -61,12 +60,6 @@ function* jobDetailsWorker(action) {
             }
             return { requiredSkills, bonusSkills }
           })
-          // const jobSkillsData = data.jobSkillsData.map((skill) => ({
-          //   jobSkillId: skill.job_skill_id,
-          //   skillPreference: skill.skill_preference,
-          //   skillId: skill.skill_id,
-          //   skillName: skill[ 'XQodSkill.skill_name' ],
-          // }))
           yield put(newJobDetailsFetchSuccessful({
             jobDetails: {
               jobId: data.jobDetails.job_id,
@@ -83,6 +76,7 @@ function* jobDetailsWorker(action) {
               experienceType: data.jobDetails.experience_type,
               locationType: data.jobDetails.location_type,
               payAmount: data.jobDetails.pay_amount,
+              languages: data.jobDetails.languages,
               city: data.jobDetails.city,
               state: data.jobDetails.state,
               country: data.jobDetails.country,

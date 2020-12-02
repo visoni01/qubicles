@@ -1,17 +1,14 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback } from 'react'
 import {
-  Button, TextField, FormControl,
+  Button, TextField,
 } from '@material-ui/core'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CKEditor from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
-import _ from 'lodash'
-import { Autocomplete } from '@material-ui/lab'
-import ROUTE_PATHS from '../../../../../routes/routesPath'
+import SingleSelect from '../../../SingleSelect'
 import MyUploadAdapter from '../../../../../utils/uploadImage'
 import '../styles.scss'
 import Loader from '../../../../../components/loaders/circularLoader'
@@ -21,15 +18,10 @@ const NewJobData = ({
   setNewJobData,
   jobFields,
   setNewJobDataCB,
+  isEdit,
 }) => {
   const dispatch = useDispatch()
   const [ isImageUploading, setIsImageUploading ] = useState(false)
-  const [ inputValue, setInputValue ] = useState({
-    categoryInput: '',
-    titleInput: '',
-  })
-  useEffect(() => {
-  }, [ dispatch ])
 
   const handleDescriptionData = useCallback((event, editor) => {
     // eslint-disable-next-line
@@ -39,7 +31,6 @@ const NewJobData = ({
     }))
   }, [ setNewJobData ])
 
-  const history = useHistory()
   return (
     <div className='custom-box new-job-root has-fullwidth'>
       <div className='mb-20'>
@@ -48,80 +39,62 @@ const NewJobData = ({
             root: 'MuiButtonBase-root button-primary-small',
             label: 'MuiButton-label button-primary-small-label',
           } }
-          onClick={ () => history.push(ROUTE_PATHS.PEOPLE_JOBS_TAB) }
+          onClick={ () => window.history.back() }
         >
           <FontAwesomeIcon icon={ faChevronLeft } className='mr-10' />
           Back
         </Button>
       </div>
-      <h2 className='h2 '> New Job Post</h2>
+      <h2 className='h2'>
+        {!isEdit ? 'New Job Post' : 'Edit Job Post'}
+      </h2>
       <div className='category-section mt-20'>
         <div className='is-halfwidth'>
           <h3 className='h3'> Category* </h3>
           <div className='mt-10'>
+            <SingleSelect
+              items={ jobFields.jobCategories.map((category) => ({
+                id: category.value,
+                title: category.name,
+              })) }
 
-            <FormControl variant='outlined' className='drop-down-bar'>
-              <Autocomplete
-                getOptionSelected={ (option) => option.value }
-                value={ { name: newJobData.categoryName, value: newJobData.categoryId } }
-                inputValue={ inputValue.categoryInput }
-                clearOnBlur
-                noOptionsText='no matches found'
-                onInputChange={ (event, value) => setInputValue((state) => ({ ...state, categoryInput: value })) }
-                // value={ newJobData.categoryTitle }
-                onChange={ (event, currentValue) => {
-                  if (!_.isEmpty(currentValue)) {
-                    setNewJobData((current) => ({
-                      ...current,
-                      categoryId: currentValue.value,
-                      categoryName: currentValue.name,
-                    }))
-                  }
-                } }
-                options={ jobFields.jobCategories }
-                getOptionLabel={ (option) => option.name }
-                renderInput={ (params) => (
-                  <TextField
-                    { ...params }
-                    margin='dense'
-                    variant='outlined'
-                  />
-                ) }
-                renderOption={ (option) => <span className='para light'>{option.name}</span> }
-              />
-            </FormControl>
+              onChange={
+                (changedValue) => {
+                  setNewJobData((current) => ({
+                    ...current,
+                    categoryId: changedValue && changedValue.id,
+                    categoryName: changedValue && changedValue.title,
+                  }))
+                }
+              }
+              label='Choose job category'
+              value={ (newJobData.categoryId !== '' && newJobData.categoryId) ? {
+                id: newJobData.categoryId,
+                title: newJobData.categoryName,
+              } : null }
+            />
           </div>
 
           <h3 className='mt-30 h3'> Job Title* </h3>
           <div className='mt-10'>
-            <FormControl variant='outlined' className='drop-down-bar'>
-              <Autocomplete
-                getOptionSelected={ (option) => option.name }
-                inputValue={ inputValue.titleInput }
-                clearOnBlur
-                noOptionsText='no matches found'
-                value={ { name: newJobData.title } }
-                onInputChange={ (event, value) => setInputValue((state) => ({ ...state, titleInput: value })) }
-                onChange={ (event, currentValue) => {
-                  if (!_.isEmpty(currentValue)) {
-                    setNewJobData((current) => ({
-                      ...current,
-                      title: currentValue.name,
-                    }))
-                  }
-                } }
-                options={ jobFields.jobTitles }
-                getOptionLabel={ (option) => option.name }
-                renderInput={ (params) => (
-                  <TextField
-                    { ...params }
-                    margin='dense'
-                    variant='outlined'
-                  />
-                ) }
-                renderOption={ (option) => <span className='para light'>{option.name}</span> }
-              />
-            </FormControl>
+            <SingleSelect
+              items={ jobFields.jobTitles.map((jobTitle) => ({
+                title: jobTitle.name,
+              })) }
+
+              onChange={
+                (changedValue) => {
+                  setNewJobData((current) => ({
+                    ...current,
+                    title: changedValue && changedValue.title,
+                  }))
+                }
+              }
+              label='Choose job title'
+              value={ (newJobData.title !== '' && newJobData.title) ? {
+                title: newJobData.title,
+              } : null }
+            />
           </div>
         </div>
 
@@ -171,13 +144,39 @@ const NewJobData = ({
 
 NewJobData.defaultProps = {
   jobFields: { jobCategories: [ 'Accounting', 'Client Service', 'Customer Service' ] },
+  isEdit: false,
+  newJobData: {
+    jobId: '',
+    categoryId: '',
+    categoryName: '',
+    needed: 0,
+    title: '',
+    description: '',
+    status: 'recruiting',
+    jobType: 'contract',
+    payAmount: 0,
+    durationType: 'on-demand',
+    durationMonths: 0,
+    experienceType: 'entry',
+    employmentType: 'freelancer',
+    languages: 'english',
+    jobSkillsData: {
+      requiredSkills: [],
+      bonusSkills: [ ],
+    },
+    jobCoursesData: {
+      requiredCourses: [],
+      bonusCourses: [ ],
+    },
+  },
 }
 
 NewJobData.propTypes = {
-  newJobData: PropTypes.shape(PropTypes.any).isRequired,
+  newJobData: PropTypes.shape(PropTypes.any),
   setNewJobData: PropTypes.func.isRequired,
   jobFields: PropTypes.arrayOf(PropTypes.string),
   setNewJobDataCB: PropTypes.func.isRequired,
+  isEdit: PropTypes.bool,
 }
 
 export default React.memo(NewJobData)

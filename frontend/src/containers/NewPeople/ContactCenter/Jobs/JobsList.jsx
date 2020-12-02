@@ -6,18 +6,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSlidersH, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
+import PropTypes from 'prop-types'
 import {
-  newJobCategoriesFetchStart,
-  getJobsByCategory,
   jobCategoriesOnlyFetchStart,
 } from '../../../../redux-saga/redux/actions'
 import JobsFilterSkeleton from '../SkeletonLoader/JobsFilterSkeleton'
 import './styles.scss'
 
-const JobsList = () => {
+const JobsList = ({
+  selectedCategory,
+  setSelectedCategory,
+}) => {
   const [ searchCategories, setSearchCategories ] = useState(false)
   const { jobCategoriesOnly, isLoading } = useSelector((state) => state.jobCategoriesOnly)
-  const [ selectedCategory, setSelectedCategory ] = useState(0)
   const [ searchField, setSearchField ] = useState('')
 
   const dispatch = useDispatch()
@@ -28,16 +29,7 @@ const JobsList = () => {
     }
   }, [ dispatch ])
 
-  const handleJobsByCategory = ({ jobCategory }) => {
-    dispatch(getJobsByCategory({ categoryId: jobCategory.categoryId }))
-    setSelectedCategory(jobCategory.categoryId)
-  }
-
-  const handleResetJobs = useCallback(() => {
-    dispatch(newJobCategoriesFetchStart({ searchKeyword: '' }))
-    setSelectedCategory(0)
-  }, [ dispatch ])
-
+  // Search categories
   const callSearchCategoriesApi = useCallback(debounce((nextValue) => {
     dispatch(jobCategoriesOnlyFetchStart({ searchKeyword: nextValue }))
   }, 500), [ dispatch ])
@@ -47,6 +39,14 @@ const JobsList = () => {
     setSearchField(nextValue)
     callSearchCategoriesApi(nextValue)
   }, [ callSearchCategoriesApi ])
+
+  const handleJobsByCategory = ({ jobCategory }) => {
+    setSelectedCategory(jobCategory.categoryId)
+  }
+
+  const handleResetJobs = useCallback(() => {
+    setSelectedCategory(0)
+  }, [ dispatch ])
 
   if (isLoading) {
     return (
@@ -115,4 +115,13 @@ const JobsList = () => {
   )
 }
 
-export default JobsList
+JobsList.defaultProps = {
+  selectedCategory: 0,
+}
+
+JobsList.propTypes = {
+  selectedCategory: PropTypes.number,
+  setSelectedCategory: PropTypes.func.isRequired,
+}
+
+export default React.memo(JobsList)

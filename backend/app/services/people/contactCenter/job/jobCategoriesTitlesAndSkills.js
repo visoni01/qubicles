@@ -1,7 +1,7 @@
-import ServiceBase from '../../common/serviceBase'
-import { getJobTitles, getAllJobCategories, getErrorMessageForService, getSkills } from '../helper'
-import logger from '../../common/logger'
-import { ERRORS } from '../../utils/errors'
+import ServiceBase from '../../../../common/serviceBase'
+import { getJobTitles, getAllJobCategories, getErrorMessageForService, getSkills } from '../../../helper'
+import logger from '../../../../common/logger'
+import { ERRORS } from '../../../../utils/errors'
 
 export default class JobCategoriesTitlesAndSkills extends ServiceBase {
   async run () {

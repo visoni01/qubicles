@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { FormControl, TextField } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 import PropTypes from 'prop-types'
@@ -16,6 +16,7 @@ export default function SingleSelect({
     }
   }, [ ])
 
+  useEffect(() => setSelectedItem(() => value), [ value ])
   return (
     <FormControl variant='outlined' className='drop-down-bar'>
       <Autocomplete

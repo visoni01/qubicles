@@ -89,6 +89,23 @@ export async function updateJob (data) {
     model: XQodJob,
     data
   })
+  // Updating skills data
+  const requiredSkillsEntities = data.required_skills.map(skill => {
+    return ({
+      job_id: data.jobId,
+      skill_id: skill.skillId,
+      skill_preference: 'required'
+    })
+  })
+  await XQodJobSkill.bulkCreate(requiredSkillsEntities)
+  const bonusSkillsEntities = data.bonus_skills.map(skill => {
+    return ({
+      job_id: data.job_id,
+      skill_id: skill.skillId,
+      skill_preference: 'plus'
+    })
+  })
+  await XQodJobSkill.bulkCreate(bonusSkillsEntities)
   return updatedJob
 }
 

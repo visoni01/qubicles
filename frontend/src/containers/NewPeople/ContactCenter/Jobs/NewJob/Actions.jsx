@@ -3,7 +3,13 @@ import { Button, Box } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
-import { addJob, updateJob, createJobData } from '../../../../../redux-saga/redux/actions'
+import {
+  addJob,
+  updateJob,
+  createJobDataFetchSuccessful,
+  resetJobDetails,
+  resetJobData,
+} from '../../../../../redux-saga/redux/actions'
 import '../../styles.scss'
 import ROUTE_PATHS from '../../../../../routes/routesPath'
 
@@ -21,13 +27,17 @@ export default function CreatePreviewActions({
 
   const publishJob = () => {
     if (isEdit) {
-      dispatch(updateJob({ ...newJobData, status: 'recruiting', jobId: 1 }))
-    } else { dispatch(addJob({ ...newJobData, status: 'recruiting' })) }
+      dispatch(updateJob({ ...newJobData, status: 'recruiting' }))
+      dispatch(resetJobDetails())
+    } else {
+      dispatch(addJob({ ...newJobData, status: 'recruiting' }))
+      dispatch(resetJobData())
+    }
     history.push(ROUTE_PATHS.NEW_PEOPLE)
   }
 
   const previewJob = () => {
-    dispatch(createJobData({ jobData: newJobData }))
+    dispatch(createJobDataFetchSuccessful({ createJobData: newJobData }))
     history.push(ROUTE_PATHS.JOB_PREVIEW)
   }
 
@@ -35,7 +45,6 @@ export default function CreatePreviewActions({
     <>
       <Box className='custom-box actions-box'>
         <h3 className='h3 mb-20'> Actions </h3>
-
         <Button
           className='wide-button mb-15'
           classes={ {
@@ -81,7 +90,7 @@ export default function CreatePreviewActions({
             root: 'button-secondary-small',
             label: 'button-secondary-small-label',
           } }
-          onClick={ () => history.push(ROUTE_PATHS.NEW_JOB) }
+          onClick={ () => { window.history.back() } }
         >
           End Preview
         </Button>

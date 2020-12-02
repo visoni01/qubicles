@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import { JOB_ROUTE } from '../../../../routes/routesPath'
 
 const JobCategoryCard = ({
-  categoryTitle, jobs, fulfilled, evaluating, pending, categoryId,
+  categoryTitle, jobs, fulfilled, inNeed, evaluating, pending, categoryId,
 }) => (
   <div className='job-category-card' key={ categoryId }>
     <div className='section-heading display-inline-flex is-fullwidth'>
@@ -32,7 +32,7 @@ const JobCategoryCard = ({
                 <ul className='action-buttons display-inline-flex justify-between'>
                   <li>
                     <FontAwesomeIcon className='custom-fa-icon light' icon={ faUserFriends } />
-                    <span className='para bold'>{`${ fulfilled }/${ needed }`}</span>
+                    <span className='para bold'>{`${ fulfilled }/${ needed || inNeed }`}</span>
                     <span className='para light ml-5'>Hired</span>
                   </li>
                   <li>
@@ -59,8 +59,9 @@ JobCategoryCard.propTypes = {
   categoryTitle: PropTypes.string.isRequired,
   categoryId: PropTypes.number.isRequired,
   fulfilled: PropTypes.isRequired,
-  evaluating: PropTypes.isRequired,
-  pending: PropTypes.isRequired,
+  evaluating: PropTypes.number.isRequired,
+  pending: PropTypes.number.isRequired,
+  inNeed: PropTypes.number.isRequired,
   jobs: PropTypes.arrayOf(
     PropTypes.shape({
       jobId: PropTypes.number,

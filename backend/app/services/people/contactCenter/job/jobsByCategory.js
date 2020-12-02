@@ -1,11 +1,11 @@
-import ServiceBase from '../../common/serviceBase'
+import ServiceBase from '../../../../common/serviceBase'
 import {
   getAllJobs,
   getErrorMessageForService
-} from '../helper'
-import { getClientIdByUserId } from '../helper/user'
-import { ERRORS } from '../../utils/errors'
-import logger from '../../common/logger'
+} from '../../../helper'
+import { getClientIdByUserId } from '../../../helper/user'
+import { ERRORS } from '../../../../utils/errors'
+import logger from '../../../../common/logger'
 
 const constraints = {
   user_id: {

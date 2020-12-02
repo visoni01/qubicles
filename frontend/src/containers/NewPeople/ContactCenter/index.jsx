@@ -4,8 +4,7 @@ import {
   Grid, Tabs, Tab,
 } from '@material-ui/core'
 import { useLocation, Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import lodash from 'lodash'
+import { useDispatch } from 'react-redux'
 import JobsList from './Jobs/JobsList'
 import JobsPage from './Jobs/JobsPage'
 import TalentFilter from './Talent/TalentFilter'
@@ -32,21 +31,26 @@ const People = () => {
 
   const spacingMid = currentPath === trainingRoute ? 9 : 6
   const spacingTab = currentPath === trainingRoute ? 8 : 12
+  const [ selectedCategory, setSelectedCategory ] = useState(0)
+  const [ searchField, setSearchField ] = useState('')
 
-  const { newJobCategories } = useSelector((state) => state.newJobCategories)
   const dispatch = useDispatch()
+
   useEffect(() => {
-    if (lodash.isEmpty(newJobCategories)) {
-      dispatch(newJobCategoriesFetchStart({ searchKeyword: '' }))
-    }
-  }, [ dispatch ])
+    dispatch(newJobCategoriesFetchStart({ categoryId: selectedCategory, searchKeyword: searchField }))
+  }, [ dispatch, selectedCategory, searchField ])
 
   return (
     <div>
       <Grid container spacing={ 3 }>
         <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 } alignItems='flex-start'>
           <div>
-            { currentPath === jobsRoute && <JobsList />}
+            { currentPath === jobsRoute && (
+            <JobsList
+              setSelectedCategory={ setSelectedCategory }
+              selectedCategory={ selectedCategory }
+            />
+            )}
             { currentPath === talentRoute && <TalentFilter />}
             { currentPath === trainingRoute && <TrainingFilter />}
           </div>
@@ -86,7 +90,12 @@ const People = () => {
           </Grid>
           <Grid item xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 }>
             <div>
-              { currentPath === jobsRoute && <JobsPage />}
+              { currentPath === jobsRoute && (
+              <JobsPage
+                setSearchField={ setSearchField }
+                searchField={ searchField }
+              />
+              )}
               { currentPath === talentRoute && <TalentPage />}
               { currentPath === trainingRoute && <TrainingWrap />}
             </div>

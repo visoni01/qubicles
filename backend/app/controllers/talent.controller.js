@@ -1,10 +1,10 @@
 import {
   PeopleGetTalentCardsService,
   PeopleGetUserSkillsService
-} from '../services/newPeople/contactCenter/talent'
+} from '../services/people/contactCenter/talent'
 import Responder from '../../server/expressResponder'
-import { PeopleGetJobSkillsService } from '../services/newPeople/contactCenter'
-import { PeopleGetAgentResumeService } from '../services/newPeople/contactCenter/talent/getAgentResume'
+import { PeopleGetJobSkillsService } from '../services/people/contactCenter'
+import { PeopleGetAgentResumeService } from '../services/people/contactCenter/talent/getAgentResume'
 
 export default class TalentController {
   static async getTalentCards (req, res) {

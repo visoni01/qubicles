@@ -2,7 +2,8 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
-import NewJob from './NewJob/index'
+import { newNavBar } from '../../../../hoc/navbar'
+import { NewJob } from './NewJob/index'
 import '../styles.scss'
 import { newJobDetailsFetchStart } from '../../../../redux-saga/redux/actions'
 
@@ -11,13 +12,8 @@ const EditJob = () => {
   const { jobDetails } = useSelector((state) => state.newJobDetails)
   const { jobId } = useParams()
 
-  // setNewJobData((currentNewJobData) => ({
-  //   ...currentNewJobData,
-  //   ...jobDetails,
-  // }))
-
   useEffect(() => {
-    if (_.isEmpty(jobDetails) && !_.isEmpty(jobId)) {
+    if (jobId) {
       dispatch(newJobDetailsFetchStart({ jobId }))
     }
   }, [ dispatch ])
@@ -31,4 +27,4 @@ const EditJob = () => {
   )
 }
 
-export default EditJob
+export default newNavBar(EditJob)

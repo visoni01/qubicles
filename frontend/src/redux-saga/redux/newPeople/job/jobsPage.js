@@ -8,14 +8,12 @@ const initialState = {
   error: null,
   success: false,
   newJobCategories: [],
-  selectedCategoryId: '',
 }
 
 const {
   actions: {
     newJobCategoriesFetchStart,
     newJobCategoriesFetchSuccessful,
-    jobsByCategorySuccessful,
     newJobCategoriesFetchFailure,
     updateJobsData,
     resetJobsByCategorySelection,
@@ -34,13 +32,6 @@ const {
       success: true,
       isLoading: false,
       newJobCategories: getDataForReducer(action, initialState.newJobCategories, 'newJobCategories'),
-    }),
-    jobsByCategorySuccessful: (state, action) => ({
-      ...state,
-      success: true,
-      selectedCategoryId: action.payload.categoryId,
-      isLoading: false,
-      newJobCategories: action.payload.data,
     }),
     newJobCategoriesFetchFailure: () => ({
       ...initialState,
@@ -62,7 +53,6 @@ export default reducer
 export {
   newJobCategoriesFetchStart,
   newJobCategoriesFetchSuccessful,
-  jobsByCategorySuccessful,
   newJobCategoriesFetchFailure,
   updateJobsData,
   resetJobsByCategorySelection,

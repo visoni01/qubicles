@@ -25,9 +25,9 @@ import forgetPassword from './forgetPassword'
 import resetPassword from './resetPassword'
 import peopleTalentCards from './newPeople/talent/talentCards'
 import peopleAgentResumeSkills from './newPeople/talent/agentResumeSkills'
-import newCrudJob from './newPeople/crud'
-import newJobDetails from './newPeople/job'
-import jobsByCategory from './newPeople/jobsByCategory'
+import crudJob from './newPeople/job/crud'
+import jobDetails from './newPeople/job/job'
+import jobsByCategory from './newPeople/job/jobsByCategory'
 import jobPostCompanyDetails from './newPeople/job/jobPostCompanyDetails'
 import updateTalentCards from './newPeople/talent/updateTalentCard'
 import jobSkills from './newPeople/jobSkills'
@@ -62,8 +62,8 @@ export default function* rootSaga() {
     resetPassword(),
     peopleTalentCards(),
     peopleAgentResumeSkills(),
-    newCrudJob(),
-    newJobDetails(),
+    crudJob(),
+    jobDetails(),
     jobsByCategory(),
     jobPostCompanyDetails(),
     updateTalentCards(),

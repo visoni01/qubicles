@@ -5,7 +5,6 @@ import {
 } from '@material-ui/core'
 import Rating from '@material-ui/lab/Rating'
 import { Link } from 'react-router-dom'
-import _ from 'lodash'
 import {
   terry, sally, kareem, ray, helen,
 } from '../../../../assets/images/avatar'

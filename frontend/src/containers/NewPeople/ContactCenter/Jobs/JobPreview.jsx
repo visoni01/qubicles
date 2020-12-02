@@ -9,7 +9,7 @@ import CreatePreviewActions from './NewJob/Actions'
 import { newNavBar } from '../../../../hoc/navbar'
 
 const JobPreview = () => {
-  const { jobData, isLoading } = useSelector((state) => state.newJobDetails)
+  const { createJobData, isLoading } = useSelector((state) => state.createJobData)
   return (
     <>
       <Grid container spacing={ 3 }>
@@ -18,19 +18,19 @@ const JobPreview = () => {
             <h2 className='h2'> Preview </h2>
             <div className='display-inline-flex is-fullwidth'>
               <h3 className='h3 job-post-heading'>
-                {jobData.title}
+                {createJobData.title}
               </h3>
             </div>
             <JobPostDetails
               courses={ jobPostCard.courses }
-              jobDetails={ jobData }
+              jobDetails={ createJobData }
               isLoading={ isLoading }
             />
           </Box>
         </Grid>
         <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 }>
           <CreatePreviewActions
-            newJobData={ jobData }
+            newJobData={ createJobData }
             isEdit={ false }
             isPreview
           />
