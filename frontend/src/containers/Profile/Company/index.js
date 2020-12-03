@@ -2,8 +2,8 @@
 import React, { useState, useRef, useCallback } from 'react'
 import { Grid, Tabs, Tab } from '@material-ui/core'
 import navBar from '../../../hoc/navbar'
-import LeftSection from '../../../components/Profile/Company/LeftSection'
-import RightSection from '../../../components/Profile/Company/RightSection'
+import ContactCenterEditProfile from './LeftRightSection/index'
+import Wallet from './LeftRightSection/wallet'
 import Settings from './Settings'
 import SettingsLeft from './Settings/SettingsLeft'
 
@@ -26,8 +26,8 @@ const ContactCenterProfile = () => {
       <Grid container spacing={ 3 }>
         <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 }>
           <div className='left-section'>
-            { activeTab === 0 && <LeftSection />}
-            { activeTab === 1 && <LeftSection />}
+            { activeTab === 0 && <ContactCenterEditProfile />}
+            { activeTab === 1 && <ContactCenterEditProfile />}
             { activeTab === 2 && (
             <SettingsLeft
               setSelectedMenuItem={ setSelectedMenuItem }
@@ -83,7 +83,7 @@ const ContactCenterProfile = () => {
 
         <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
           {activeTab !== 2 && (
-          <RightSection />
+          <Wallet />
           )}
         </Grid>
       </Grid>
