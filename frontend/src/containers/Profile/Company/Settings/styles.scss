@@ -47,6 +47,13 @@
 
 .left-section {
  position: sticky;
- top: 90px;
- margin-top: 20px;
+ top: 95px;
+}
+
+.settings-menu {
+  padding: 20px 20px 0px 20px;
+
+  .menu-item {
+    cursor: pointer;
+  }
 }

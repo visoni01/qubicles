@@ -15,6 +15,10 @@
   &.light {
     color: $color-dark-grey;
   }
+
+  &.primary {
+    color: $color-primary;
+  }
 }
 
 .h1 {
@@ -62,6 +66,8 @@
   &.light {
     color: $color-dark-grey;
   }
+
+
 
   &.italic {
     font-style: italic;

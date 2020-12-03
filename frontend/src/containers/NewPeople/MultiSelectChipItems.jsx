@@ -62,6 +62,7 @@ MultiSelectChipItems.defaultProps = {
   label: '',
   smallTag: false,
   selectedItems: [],
+  setSelectedItems: null,
 }
 
 MultiSelectChipItems.propTypes = {
@@ -76,5 +77,5 @@ MultiSelectChipItems.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
   })),
-  setSelectedItems: PropTypes.func.isRequired,
+  setSelectedItems: PropTypes.func,
 }

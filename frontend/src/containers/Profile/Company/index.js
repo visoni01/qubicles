@@ -1,5 +1,5 @@
 /* eslint-disable complexity */
-import React, { useState } from 'react'
+import React, { useState, useRef, useCallback } from 'react'
 import { Grid, Tabs, Tab } from '@material-ui/core'
 import { newNavBar } from '../../../hoc/navbar'
 import LeftSection from './Settings/LeftSection'
@@ -11,19 +11,33 @@ const ContactCenterProfile = () => {
   const [ activeTab, setActiveTab ] = useState(2)
   const spacingMid = activeTab === 2 ? 9 : 6
   const spacingTab = activeTab === 2 ? 8 : 12
+
+  const currentSectionRef = useRef()
+  const otherSectionRef = useRef()
+
+  const [ selectedMenuItem, setSelectedMenuItem ] = useState(0)
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [])
+
   return (
     <div>
       <Grid container spacing={ 3 }>
-        <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 } alignItems='flex-start'>
+        <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 }>
           <div className='left-section'>
             { activeTab === 0 && <LeftSection />}
             { activeTab === 1 && <LeftSection />}
-            { activeTab === 2 && <SettingsLeft />}
+            { activeTab === 2 && (
+            <SettingsLeft
+              setSelectedMenuItem={ setSelectedMenuItem }
+              selectedMenuItem={ selectedMenuItem }
+              scrollToTop={ scrollToTop }
+            />
+            )}
           </div>
         </Grid>
         <Grid
           item
-          spacing={ 10 }
           xl={ spacingMid }
           lg={ spacingMid }
           md={ spacingMid }
@@ -54,7 +68,14 @@ const ContactCenterProfile = () => {
             <div>
               { activeTab === 0 && <Settings />}
               { activeTab === 1 && <Settings />}
-              { activeTab === 2 && <Settings />}
+              { activeTab === 2 && (
+              <Settings
+                selectedMenuItem={ selectedMenuItem }
+                currentSectionRef={ currentSectionRef }
+                otherSectionRef={ otherSectionRef }
+                scrollToTop={ scrollToTop }
+              />
+              )}
             </div>
           </Grid>
         </Grid>
