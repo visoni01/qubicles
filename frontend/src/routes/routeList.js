@@ -92,6 +92,12 @@ const routes = [
   },
   // Temporarily added extra route for new contact-center newJob design.
   {
+    path: ROUTE_PATHS.NEW_JOB,
+    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Jobs/NewJob/index')),
+    auth: true,
+  },
+  // Temporarily added extra route for new contact-center newJob design.
+  {
     path: ROUTE_PATHS.PEOPLE_JOBS_TAB,
     component: React.lazy(() => import('../containers/NewPeople/ContactCenter/index')),
     auth: true,
