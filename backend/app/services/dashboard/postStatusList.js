@@ -1,11 +1,12 @@
 import ServiceBase from '../../common/serviceBase'
-import { XUserActivity } from '../../db/models'
+// import { XUserActivity } from '../../db/models'
 import logger from '../../common/logger'
 import {
   getErrorMessageForService,
   checkVisibility,
   getUserById, isUserLikedPost, getStatusLikesCount,
-  getStatusCommentsCount
+  getStatusCommentsCount,
+  getAllActivityStatus
 } from '../helper'
 import { ERRORS } from '../../utils/errors'
 import _ from 'lodash'
@@ -13,6 +14,9 @@ import _ from 'lodash'
 const constraints = {
   user_id: {
     presence: { allowEmpty: false }
+  },
+  owner_id: {
+    presence: false
   }
 }
 
@@ -23,16 +27,19 @@ export class GellAllPostStatusListService extends ServiceBase {
 
   async run () {
     try {
-      let statusList = await XUserActivity.findAll({
-        where: {
-          record_id: 0,
-          record_type: 'activity',
-          activity_type: 'status',
-          is_deleted: false
-        },
-        order: [['created_on', 'DESC']],
-        raw: true
-      })
+      console.log('this.owner_id', this.owner_id)
+      // let statusList = await XUserActivity.findAll({
+      //   where: {
+      //     record_id: 0,
+      //     record_type: 'activity',
+      //     activity_type: 'status',
+      //     is_deleted: false
+      //   },
+      //   order: [['created_on', 'DESC']],
+      //   raw: true
+      // })
+
+      let statusList = await getAllActivityStatus({ owner_id: this.owner_id })
 
       statusList = await Promise.all(statusList.map(async (data) => {
         const isValidUser = await checkVisibility({

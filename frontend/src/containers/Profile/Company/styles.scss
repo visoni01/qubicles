@@ -1,3 +1,7 @@
+@import '../../../customStyles/scss/partials/variables';
+@import '../../../customStyles/scss/partials/mixins';
+@import '../../Dashboard/Posts/style.scss';
+
 .top-talent-root{
   .top-talent {
     width: 100%;

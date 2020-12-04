@@ -4,11 +4,11 @@ import { postDataFetchingStart } from '../../../redux-saga/redux/actions'
 import PostWrap from './PostWrap'
 import PostSkeleton from './PostSkeleton'
 
-const RenderPosts = () => {
+const RenderPosts = ({ ownerId }) => {
   const { posts, isLoading } = useSelector((state) => state.statusPosts)
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(postDataFetchingStart())
+    dispatch(postDataFetchingStart({ ownerId }))
   }, [ dispatch ])
 
   if (isLoading) {

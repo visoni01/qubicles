@@ -36,7 +36,25 @@ class Dashboard {
   }
 
   static async fetchPosts() {
+    debugger
     const response = await apiClient.getRequest('/dashboard/post-status-list')
+    return response
+  }
+
+  static async fetchPostsData({ ownerId }) {
+    debugger
+    const url = '/dashboard/post-status-list'
+    const queryParams = {}
+    let response
+    if (ownerId) {
+      queryParams.owner_id = ownerId
+    }
+    if (queryParams.owner_id) {
+      response = await apiClient.getRequest(url, null, queryParams)
+    } else {
+      response = await apiClient.getRequest(url)
+    }
+    debugger
     return response
   }
 

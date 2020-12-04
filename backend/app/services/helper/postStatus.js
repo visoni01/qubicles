@@ -174,6 +174,24 @@ export async function getStatusCommentsCount ({ record_id }) {
   return (totalComments || 0)
 }
 
+export async function getAllActivityStatus ({ owner_id }) {
+  const query = {
+    record_id: 0,
+    record_type: 'activity',
+    activity_type: 'status',
+    is_deleted: false
+  }
+  if (owner_id) {
+    query.user_id = owner_id
+  }
+  const allStatuses = await XUserActivity.findAll({
+    where: query,
+    order: [['created_on', 'DESC']],
+    raw: true
+  })
+  return allStatuses
+}
+
 export async function getStatusUpdates ({ user_id }) {
   const allStatuses = await XUserActivity.findAll({
     where: {

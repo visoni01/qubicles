@@ -5,6 +5,7 @@ import navBar from '../../../hoc/navbar'
 import ContactCenterEditProfile from './LeftRightSection/index'
 import Wallet from './LeftRightSection/wallet'
 import Settings from './Settings'
+import ContactCenterFeed from './Feed/index'
 import SettingsLeft from './Settings/SettingsLeft'
 
 const ContactCenterProfile = () => {
@@ -67,7 +68,7 @@ const ContactCenterProfile = () => {
           </Grid>
           <Grid item xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 }>
             <div>
-              { activeTab === 0 && <Settings />}
+              { activeTab === 0 && <ContactCenterFeed />}
               { activeTab === 1 && <Settings />}
               { activeTab === 2 && (
               <Settings
