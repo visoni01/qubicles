@@ -48,12 +48,6 @@ const JobsList = ({
     setSelectedCategory(0)
   }, [ dispatch ])
 
-  if (isLoading) {
-    return (
-      <JobsFilterSkeleton />
-    )
-  }
-
   return (
     <Box className='custom-box no-padding side-filter-root job-list'>
       <h2 className='h2 title'>Jobs</h2>
@@ -82,19 +76,20 @@ const JobsList = ({
         />
       </div>
       )}
+      {isLoading ? (<JobsFilterSkeleton />)
+        : (
+          <List className='filter-list-items'>
+            <MenuItem
+              button
+              onClick={ handleResetJobs }
+              selected={ selectedCategory === 0 }
+            >
+              <ListItemText classes={ { primary: 'list-item' } }>
+                <h4 className='h4 light unbold'>All</h4>
+              </ListItemText>
+            </MenuItem>
 
-      <List className='filter-list-items'>
-        <MenuItem
-          button
-          onClick={ handleResetJobs }
-          selected={ selectedCategory === 0 }
-        >
-          <ListItemText classes={ { primary: 'list-item' } }>
-            <h4 className='h4 light unbold'>All</h4>
-          </ListItemText>
-        </MenuItem>
-
-        {
+            {
           jobCategoriesOnly.map((jobCategory) => (
             <MenuItem
               button
@@ -110,7 +105,8 @@ const JobsList = ({
             </MenuItem>
           ))
         }
-      </List>
+          </List>
+        )}
     </Box>
   )
 }

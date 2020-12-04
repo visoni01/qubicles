@@ -11,7 +11,7 @@ import {
   resetJobData,
 } from '../../../../../redux-saga/redux/actions'
 import '../../styles.scss'
-import ROUTE_PATHS from '../../../../../routes/routesPath'
+import ROUTE_PATHS, { NEW_PEOPLE } from '../../../../../routes/routesPath'
 
 export default function CreatePreviewActions({
   newJobData, isEdit, isPreview,
@@ -33,7 +33,7 @@ export default function CreatePreviewActions({
       dispatch(addJob({ ...newJobData, status: 'recruiting' }))
       dispatch(resetJobData())
     }
-    history.push(ROUTE_PATHS.NEW_PEOPLE)
+    history.push(NEW_PEOPLE)
   }
 
   const previewJob = () => {
