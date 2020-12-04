@@ -8,26 +8,31 @@ import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
 import {
-  jobCategoriesOnlyFetchStart,
+  jobCategoriesOnlyFetchStart, updateJobsFilter, newJobCategoriesFetchStart,
 } from '../../../../redux-saga/redux/actions'
 import JobsFilterSkeleton from '../SkeletonLoader/JobsFilterSkeleton'
 import './styles.scss'
 
-const JobsList = ({
-  selectedCategory,
-  setSelectedCategory,
-}) => {
+const JobsList = () => {
   const [ searchCategories, setSearchCategories ] = useState(false)
   const { jobCategoriesOnly, isLoading } = useSelector((state) => state.jobCategoriesOnly)
-  const [ searchField, setSearchField ] = useState('')
+  const [ searchCategory, setSearchCategory ] = useState('')
 
+  const { searchField } = useSelector((state) => state.newJobCategories)
+  const [ selectedCategory, setSelectedCategory ] = useState(0)
   const dispatch = useDispatch()
 
   useEffect(() => {
     if (_.isEmpty(jobCategoriesOnly)) {
       dispatch(jobCategoriesOnlyFetchStart({ searchKeyword: '' }))
     }
-  }, [ dispatch ])
+
+    dispatch(updateJobsFilter({
+      categoryId: selectedCategory,
+    }))
+
+    dispatch(newJobCategoriesFetchStart({ categoryId: selectedCategory, searchKeyword: searchField }))
+  }, [ dispatch, selectedCategory ])
 
   // Search categories
   const callSearchCategoriesApi = useCallback(debounce((nextValue) => {
@@ -36,7 +41,7 @@ const JobsList = ({
 
   const handleSearch = useCallback((e) => {
     const nextValue = e.target.value
-    setSearchField(nextValue)
+    setSearchCategory(nextValue)
     callSearchCategoriesApi(nextValue)
   }, [ callSearchCategoriesApi ])
 
@@ -72,7 +77,7 @@ const JobsList = ({
           className='input-field'
           name='searchCategories'
           onChange={ handleSearch }
-          value={ searchField }
+          value={ searchCategory }
         />
       </div>
       )}
@@ -109,15 +114,6 @@ const JobsList = ({
         )}
     </Box>
   )
-}
-
-JobsList.defaultProps = {
-  selectedCategory: 0,
-}
-
-JobsList.propTypes = {
-  selectedCategory: PropTypes.number,
-  setSelectedCategory: PropTypes.func.isRequired,
 }
 
 export default React.memo(JobsList)

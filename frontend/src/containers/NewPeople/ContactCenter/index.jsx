@@ -1,10 +1,11 @@
 /* eslint-disable complexity */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import {
   Grid, Tabs, Tab,
 } from '@material-ui/core'
 import { useLocation, Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import { debounce } from 'redux-saga/effects'
 import JobsList from './Jobs/JobsList'
 import JobsPage from './Jobs/JobsPage'
 import TalentFilter from './Talent/TalentFilter'
@@ -31,14 +32,10 @@ const People = () => {
 
   const spacingMid = currentPath === trainingRoute ? 9 : 6
   const spacingTab = currentPath === trainingRoute ? 8 : 12
-  const [ selectedCategory, setSelectedCategory ] = useState(0)
-  const [ searchField, setSearchField ] = useState('')
+  // const [ selectedCategory, setSelectedCategory ] = useState(0)
+  // const [ searchField, setSearchField ] = useState('')
 
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(newJobCategoriesFetchStart({ categoryId: selectedCategory, searchKeyword: searchField }))
-  }, [ dispatch, selectedCategory, searchField ])
 
   return (
     <div>
@@ -46,10 +43,7 @@ const People = () => {
         <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 } alignItems='flex-start'>
           <div>
             { currentPath === jobsRoute && (
-            <JobsList
-              setSelectedCategory={ setSelectedCategory }
-              selectedCategory={ selectedCategory }
-            />
+            <JobsList />
             )}
             { currentPath === talentRoute && <TalentFilter />}
             { currentPath === trainingRoute && <TrainingFilter />}
@@ -91,10 +85,7 @@ const People = () => {
           <Grid item xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 }>
             <div>
               { currentPath === jobsRoute && (
-              <JobsPage
-                setSearchField={ setSearchField }
-                searchField={ searchField }
-              />
+              <JobsPage />
               )}
               { currentPath === talentRoute && <TalentPage />}
               { currentPath === trainingRoute && <TrainingWrap />}

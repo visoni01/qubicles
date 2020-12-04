@@ -8,6 +8,8 @@ const initialState = {
   error: null,
   success: false,
   newJobCategories: [],
+  selectedCategoryId: 0,
+  searchField: '',
 }
 
 const {
@@ -17,6 +19,7 @@ const {
     newJobCategoriesFetchFailure,
     updateJobsData,
     resetJobsByCategorySelection,
+    updateJobsFilter,
   },
   reducer,
 } = createSlice({
@@ -46,6 +49,11 @@ const {
       ...state,
       selectedCategoryId: '',
     }),
+    updateJobsFilter: (state, action) => ({
+      ...state,
+      searchField: action.payload.searchkeyword ? action.payload.searchkeyword : state.searchField,
+      selectedCategoryId: action.payload.categoryId ? action.payload.categoryId : state.selectedCategoryId,
+    }),
   },
 })
 
@@ -56,4 +64,5 @@ export {
   newJobCategoriesFetchFailure,
   updateJobsData,
   resetJobsByCategorySelection,
+  updateJobsFilter,
 }
