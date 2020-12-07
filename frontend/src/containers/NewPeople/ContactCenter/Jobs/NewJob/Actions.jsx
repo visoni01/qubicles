@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button, Box } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import {
   addJob,
@@ -9,9 +9,10 @@ import {
   createJobDataFetchSuccessful,
   resetJobDetails,
   resetJobData,
+  resetJobPublishStatus,
 } from '../../../../../redux-saga/redux/actions'
 import '../../styles.scss'
-import ROUTE_PATHS, { NEW_PEOPLE } from '../../../../../routes/routesPath'
+import ROUTE_PATHS, { JOB_ROUTE } from '../../../../../routes/routesPath'
 
 export default function CreatePreviewActions({
   newJobData, isEdit, isPreview,
@@ -25,6 +26,15 @@ export default function CreatePreviewActions({
     }))
   }
 
+  const { publishedJobId, jobPublishSuccess } = useSelector((state) => state.createJobData)
+
+  useEffect(() => {
+    if (jobPublishSuccess && publishedJobId) {
+      history.push(`${ JOB_ROUTE }/post/${ publishedJobId }`)
+      dispatch(resetJobPublishStatus())
+    }
+  }, [ jobPublishSuccess, publishedJobId, dispatch, history ])
+
   const publishJob = () => {
     if (isEdit) {
       dispatch(updateJob({ ...newJobData, status: 'recruiting' }))
@@ -33,7 +43,6 @@ export default function CreatePreviewActions({
       dispatch(addJob({ ...newJobData, status: 'recruiting' }))
       dispatch(resetJobData())
     }
-    history.push(NEW_PEOPLE)
   }
 
   const previewJob = () => {

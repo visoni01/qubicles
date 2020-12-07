@@ -22,7 +22,7 @@ export default function MultiSelectChipItems({
       })
       setInputValue('')
     }
-  }, [ setSelectedItems ])
+  }, [ setSelectedItems, onChange ])
 
   useEffect(() => {
     setSelectedItems(initialData)

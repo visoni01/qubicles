@@ -27,7 +27,7 @@ const ContactCenterIntro = ({ jobDetails }) => {
     if (!_.isEmpty(jobDetails) && _.isEmpty(companyDetails)) {
       dispatch(jobPostCompanyDetailsFetchStart({ clientId: jobDetails.clientId }))
     }
-  }, [ jobDetails ])
+  }, [ jobDetails, dispatch, companyDetails ])
 
   if (isLoading && !success) {
     return (

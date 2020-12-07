@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react'
+import React, { useCallback, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { InputBase, debounce } from '@material-ui/core'
@@ -10,21 +10,19 @@ export default function JobsSearch() {
   const { selectedCategoryId } = useSelector((state) => state.newJobCategories)
   const [ searchJobsField, setSearchJobsField ] = useState('')
 
-  console.log('CATEGORY++++', selectedCategoryId)
-
   const searchJobsApi = useCallback(debounce((nextValue) => {
-    dispatch(newJobCategoriesFetchStart({ categoryId: selectedCategoryId, searchKeyword: nextValue }))
-
+    dispatch(newJobCategoriesFetchStart({ categoryId: selectedCategoryId, searchKeyword: nextValue || '' }))
     dispatch(updateJobsFilter({
-      searchKeyword: searchJobsField,
+      searchKeyword: nextValue,
+      categoryId: selectedCategoryId,
     }))
-  }, 500), [ dispatch ])
+  }, 500), [ dispatch, selectedCategoryId ])
 
   const handleSearch = useCallback((e) => {
     const nextValue = e.target.value
     setSearchJobsField(nextValue)
     searchJobsApi(nextValue)
-  }, [ dispatch ])
+  }, [ searchJobsApi ])
 
   return (
     <div className='search-input'>

@@ -24,7 +24,7 @@ export default function MultiSelectLinkItems({
         return (updatedState)
       })
     }
-  }, [ setSelectedItems ])
+  }, [ setSelectedItems, onChange ])
 
   return (
     <div>

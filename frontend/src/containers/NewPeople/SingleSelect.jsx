@@ -14,7 +14,7 @@ export default function SingleSelect({
       onChange(changedValue)
       setSelectedItem(() => changedValue)
     }
-  }, [ ])
+  }, [ onChange ])
 
   useEffect(() => setSelectedItem(() => value), [ value ])
   return (

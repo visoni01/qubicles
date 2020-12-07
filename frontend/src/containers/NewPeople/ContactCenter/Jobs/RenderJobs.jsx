@@ -30,6 +30,13 @@ export default function RenderJobs() {
           pending={ 0 }
         />
         )))}
+      {newJobCategories && newJobCategories.length === 0 && (
+      <div className='mt-10 mb-10'>
+        <div className='text-align-last-center'>
+          <h3 className=' h3'>No jobs found!</h3>
+        </div>
+      </div>
+      )}
     </Box>
   )
 }

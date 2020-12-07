@@ -48,6 +48,7 @@ export async function addJob (data) {
     model: XQodJob,
     data
   })
+
   // Adding skills and courses data for newly added job.
   const requiredCoursesEntities = data.required_courses.map(course => {
     return ({
@@ -89,15 +90,25 @@ export async function updateJob (data) {
     model: XQodJob,
     data
   })
-  // Updating skills data
+
+  // Destroying previous records of requiredSkills and bonusSkills
+  await XQodJobSkill.destroy({
+    where: {
+      job_id: data.job_id
+    }
+  })
+
+  // Updating new required skills data
   const requiredSkillsEntities = data.required_skills.map(skill => {
     return ({
-      job_id: data.jobId,
+      job_id: data.job_id,
       skill_id: skill.skillId,
       skill_preference: 'required'
     })
   })
   await XQodJobSkill.bulkCreate(requiredSkillsEntities)
+
+  // Updating new bonus skills data
   const bonusSkillsEntities = data.bonus_skills.map(skill => {
     return ({
       job_id: data.job_id,
@@ -106,6 +117,7 @@ export async function updateJob (data) {
     })
   })
   await XQodJobSkill.bulkCreate(bonusSkillsEntities)
+
   return updatedJob
 }
 

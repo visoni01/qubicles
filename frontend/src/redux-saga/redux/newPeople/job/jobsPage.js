@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import _ from 'lodash'
 import { getDataForReducer } from '../../../../utils/common'
 // eslint-disable-next-line import/no-cycle
 import { getUpdatedJobsData } from '../../helper'
@@ -18,7 +19,6 @@ const {
     newJobCategoriesFetchSuccessful,
     newJobCategoriesFetchFailure,
     updateJobsData,
-    resetJobsByCategorySelection,
     updateJobsFilter,
   },
   reducer,
@@ -26,8 +26,8 @@ const {
   name: 'newJobCategories',
   initialState,
   reducers: {
-    newJobCategoriesFetchStart: () => ({
-      ...initialState,
+    newJobCategoriesFetchStart: (state) => ({
+      ...state,
       isLoading: true,
     }),
     newJobCategoriesFetchSuccessful: (state, action) => ({
@@ -36,8 +36,8 @@ const {
       isLoading: false,
       newJobCategories: getDataForReducer(action, initialState.newJobCategories, 'newJobCategories'),
     }),
-    newJobCategoriesFetchFailure: () => ({
-      ...initialState,
+    newJobCategoriesFetchFailure: (state) => ({
+      ...state,
       error: true,
       isLoading: false,
     }),
@@ -45,14 +45,10 @@ const {
       ...state,
       newJobCategories: getUpdatedJobsData({ state, payload: action.payload }),
     }),
-    resetJobsByCategorySelection: (state) => ({
-      ...state,
-      selectedCategoryId: '',
-    }),
     updateJobsFilter: (state, action) => ({
       ...state,
-      searchField: action.payload.searchkeyword ? action.payload.searchkeyword : state.searchField,
-      selectedCategoryId: action.payload.categoryId ? action.payload.categoryId : state.selectedCategoryId,
+      searchField: action.payload.searchKeyword,
+      selectedCategoryId: action.payload.categoryId,
     }),
   },
 })
@@ -63,6 +59,5 @@ export {
   newJobCategoriesFetchSuccessful,
   newJobCategoriesFetchFailure,
   updateJobsData,
-  resetJobsByCategorySelection,
   updateJobsFilter,
 }

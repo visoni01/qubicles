@@ -73,7 +73,8 @@ function PeopleNavigation() {
                         {card.title}
                       </h3>
                       <p className='para text-center'>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, quae inventore rerum ratione enim voluptatum
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Numquam, quae inventore rerum ratione enim voluptatum
                       </p>
                     </CardContent>
                   </Card>

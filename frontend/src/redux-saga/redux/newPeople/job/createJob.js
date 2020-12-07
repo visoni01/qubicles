@@ -5,6 +5,8 @@ const initialState = {
   error: null,
   success: false,
   createJobData: { },
+  jobPublishSuccess: false,
+  publishedJobId: null,
 }
 
 const {
@@ -13,6 +15,9 @@ const {
     createJobDataFetchSuccessful,
     createJobDataFetchFailure,
     resetJobData,
+    jobPublishSuccessful,
+    jobPublishFailure,
+    resetJobPublishStatus,
   },
   reducer,
 } = createSlice({
@@ -45,6 +50,20 @@ const {
       error: false,
       isLoading: false,
     }),
+    jobPublishSuccessful: (state, action) => ({
+      ...state,
+      jobPublishSuccess: true,
+      publishedJobId: action.payload.publishedJobId,
+    }),
+    jobPublishFailure: (state) => ({
+      ...state,
+      jobPublishSuccess: false,
+    }),
+    resetJobPublishStatus: (state) => ({
+      ...state,
+      jobPublishSuccess: false,
+      publishedJobId: null,
+    }),
   },
 })
 
@@ -54,4 +73,7 @@ export {
   createJobDataFetchSuccessful,
   createJobDataFetchFailure,
   resetJobData,
+  jobPublishSuccessful,
+  jobPublishFailure,
+  resetJobPublishStatus,
 }

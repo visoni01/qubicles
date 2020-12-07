@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSlidersH, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
-import PropTypes from 'prop-types'
 import {
   jobCategoriesOnlyFetchStart, updateJobsFilter, newJobCategoriesFetchStart,
 } from '../../../../redux-saga/redux/actions'
@@ -14,25 +13,30 @@ import JobsFilterSkeleton from '../SkeletonLoader/JobsFilterSkeleton'
 import './styles.scss'
 
 const JobsList = () => {
-  const [ searchCategories, setSearchCategories ] = useState(false)
+  const [ displaySearchCategories, setDisplaySearchCategories ] = useState(false)
   const { jobCategoriesOnly, isLoading } = useSelector((state) => state.jobCategoriesOnly)
   const [ searchCategory, setSearchCategory ] = useState('')
 
-  const { searchField } = useSelector((state) => state.newJobCategories)
-  const [ selectedCategory, setSelectedCategory ] = useState(0)
+  const { searchField, selectedCategoryId } = useSelector((state) => state.newJobCategories)
+  const [ selectedCategory, setSelectedCategory ] = useState(selectedCategoryId)
   const dispatch = useDispatch()
 
   useEffect(() => {
     if (_.isEmpty(jobCategoriesOnly)) {
-      dispatch(jobCategoriesOnlyFetchStart({ searchKeyword: '' }))
+      dispatch(jobCategoriesOnlyFetchStart({ searchKeyword: searchCategory }))
     }
+  }, [ dispatch, searchCategory ])
 
-    dispatch(updateJobsFilter({
-      categoryId: selectedCategory,
-    }))
-
+  useEffect(() => {
     dispatch(newJobCategoriesFetchStart({ categoryId: selectedCategory, searchKeyword: searchField }))
   }, [ dispatch, selectedCategory ])
+
+  useEffect(() => {
+    dispatch(updateJobsFilter({
+      categoryId: selectedCategory,
+      searchKeyword: searchField,
+    }))
+  }, [ dispatch, selectedCategory, searchField ])
 
   // Search categories
   const callSearchCategoriesApi = useCallback(debounce((nextValue) => {
@@ -51,7 +55,7 @@ const JobsList = () => {
 
   const handleResetJobs = useCallback(() => {
     setSelectedCategory(0)
-  }, [ dispatch ])
+  }, [ ])
 
   return (
     <Box className='custom-box no-padding side-filter-root job-list'>
@@ -59,7 +63,7 @@ const JobsList = () => {
       <div className='job-list-title'>
         <h3 className='h3 subtitle'> Categories </h3>
         <div className='job-list-icon'>
-          <IconButton onClick={ () => setSearchCategories((initialState) => !initialState) }>
+          <IconButton onClick={ () => setDisplaySearchCategories((initialState) => !initialState) }>
             <FontAwesomeIcon icon={ faSearch } className='custom-fa-icon light' />
           </IconButton>
           <IconButton>
@@ -68,7 +72,7 @@ const JobsList = () => {
         </div>
       </div>
 
-      {searchCategories && (
+      {displaySearchCategories && (
       <div className='search-input mb-10'>
         <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 custom-fa-icon light' />
         <InputBase

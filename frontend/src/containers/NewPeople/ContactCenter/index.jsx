@@ -1,11 +1,9 @@
 /* eslint-disable complexity */
-import React, { useState, useEffect, useCallback } from 'react'
+import React from 'react'
 import {
   Grid, Tabs, Tab,
 } from '@material-ui/core'
 import { useLocation, Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { debounce } from 'redux-saga/effects'
 import JobsList from './Jobs/JobsList'
 import JobsPage from './Jobs/JobsPage'
 import TalentFilter from './Talent/TalentFilter'
@@ -16,7 +14,6 @@ import TrainingFilter from './Training/TrainingFilter'
 import TrainingWrap from './Training/TrainingWrap'
 import './styles.scss'
 import ROUTE_PATHS from '../../../routes/routesPath'
-import { newJobCategoriesFetchStart } from '../../../redux-saga/redux/actions'
 
 const People = () => {
   const location = useLocation()
@@ -32,10 +29,6 @@ const People = () => {
 
   const spacingMid = currentPath === trainingRoute ? 9 : 6
   const spacingTab = currentPath === trainingRoute ? 8 : 12
-  // const [ selectedCategory, setSelectedCategory ] = useState(0)
-  // const [ searchField, setSearchField ] = useState('')
-
-  const dispatch = useDispatch()
 
   return (
     <div>
@@ -65,19 +58,16 @@ const People = () => {
               <Link to={ jobsRoute } className={ currentPath === jobsRoute ? 'active-tab' : 'inactive-tab' }>
                 <Tab
                   label='Jobs'
-                  // value={ jobsRoute }
                 />
               </Link>
               <Link to={ talentRoute } className={ currentPath === talentRoute ? 'active-tab' : 'inactive-tab' }>
                 <Tab
                   label='Talent'
-                  // value={ talentRoute }
                 />
               </Link>
               <Link to={ trainingRoute } className={ currentPath === trainingRoute ? 'active-tab' : 'inactive-tab' }>
                 <Tab
                   label='Training'
-                  // value={ trainingRoute }
                 />
               </Link>
             </Tabs>

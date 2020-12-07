@@ -24,6 +24,7 @@ const NewJobRequirements = ({
         })),
       },
     }))
+    // eslint-disable-next-line
   }, [])
 
   const setBonusSkillsCB = useCallback((items) => {
@@ -38,6 +39,7 @@ const NewJobRequirements = ({
         })),
       },
     }))
+    // eslint-disable-next-line
   }, [ ])
 
   const setRequiredCoursesCB = useCallback((items) => {
@@ -52,6 +54,7 @@ const NewJobRequirements = ({
         })),
       },
     }))
+    // eslint-disable-next-line
   }, [])
 
   const setBonusCoursesCB = useCallback((items) => {
@@ -66,6 +69,7 @@ const NewJobRequirements = ({
         })),
       },
     }))
+    // eslint-disable-next-line
   }, [])
 
   return (

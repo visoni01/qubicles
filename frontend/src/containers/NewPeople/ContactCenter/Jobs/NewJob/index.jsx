@@ -52,9 +52,11 @@ export const NewJob = (props) => {
   }, [ ])
 
   // Fetching job fields i.e. job categories, titles and skills to select.
-  if (!(jobFields.jobTitles && jobFields.jobTitles.length)) {
-    dispatch(getNewJobFields())
-  }
+  useEffect(() => {
+    if (!(jobFields.jobTitles && jobFields.jobTitles.length)) {
+      dispatch(getNewJobFields())
+    }
+  }, [ jobFields, dispatch ])
 
   useEffect(() => {
     if (isEdit) {
@@ -67,7 +69,7 @@ export const NewJob = (props) => {
       ...currentNewJobData,
       ...createJobData,
     }))
-  }, [ createJobData, jobsData ])
+  }, [ createJobData, jobsData, isEdit ])
 
   return (
     <Grid container spacing={ 3 }>

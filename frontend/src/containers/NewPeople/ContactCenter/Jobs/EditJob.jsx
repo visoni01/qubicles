@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import _ from 'lodash'
-import { newNavBar } from '../../../../hoc/navbar'
+import navBar from '../../../../hoc/navbar'
 import { NewJob } from './NewJob/index'
 import '../styles.scss'
 import { newJobDetailsFetchStart } from '../../../../redux-saga/redux/actions'
@@ -16,7 +15,7 @@ const EditJob = () => {
     if (jobId) {
       dispatch(newJobDetailsFetchStart({ jobId }))
     }
-  }, [ dispatch ])
+  }, [ dispatch, jobId ])
 
   return (
     <NewJob
@@ -27,4 +26,4 @@ const EditJob = () => {
   )
 }
 
-export default newNavBar(EditJob)
+export default navBar(EditJob)

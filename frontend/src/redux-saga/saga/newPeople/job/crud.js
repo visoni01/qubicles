@@ -1,5 +1,7 @@
 import { takeLatest, put } from 'redux-saga/effects'
-import { updateJobsData, newJobDetailsFetchSuccessful } from '../../../redux/actions'
+import {
+  updateJobsData, newJobDetailsFetchSuccessful, jobPublishSuccessful, jobPublishFailure,
+} from '../../../redux/actions'
 import { ADD_JOB, UPDATE_JOB } from '../../../redux/constants'
 import { showErrorMessage, showSuccessMessage } from '../../../redux/snackbar'
 import People from '../../../service/people'
@@ -43,6 +45,7 @@ function* jobCrudWorker(action) {
           type: ADD_JOB,
           newJob: data,
         }))
+        yield put(jobPublishSuccessful({ publishedJobId: data.job_id }))
         msg = 'Job has been successfully created!'
         break
       }
@@ -99,6 +102,7 @@ function* jobCrudWorker(action) {
           },
         }))
         yield put(newJobDetailsFetchSuccessful(action.payload))
+        yield put(jobPublishSuccessful({ publishedJobId: jobId }))
         msg = 'Job has been successfully updated!'
         break
       }
@@ -107,6 +111,7 @@ function* jobCrudWorker(action) {
     }
     yield put(showSuccessMessage({ msg }))
   } catch (e) {
+    yield put(jobPublishFailure())
     yield put(showErrorMessage({ msg: e.errMsg }))
   }
 }
