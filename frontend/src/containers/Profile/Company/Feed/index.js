@@ -1,18 +1,12 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import CreatePost from '../../../Dashboard/Posts/CreatePost'
 import RenderPosts from '../../../Dashboard/Posts/RenderPosts'
-import { dashboardDataFetchingStart } from '../../../../redux-saga/redux/actions'
 import '../styles.scss'
 
 const ContactCenterFeed = () => {
-  const dispatch = useDispatch()
   const { userDetails } = useSelector((state) => state.login)
 
-  // Fetching dashboard data
-  useEffect(() => {
-    dispatch(dashboardDataFetchingStart())
-  }, [ dispatch ])
   return (
     <>
       {/* Create new post */}

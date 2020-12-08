@@ -1,15 +1,20 @@
 /* eslint-disable complexity */
-import React, { useState, useRef, useCallback } from 'react'
+import React, {
+  useState, useRef, useCallback, useEffect,
+} from 'react'
 import { Grid, Tabs, Tab } from '@material-ui/core'
+import { useDispatch } from 'react-redux'
 import navBar from '../../../hoc/navbar'
 import ContactCenterEditProfile from './LeftRightSection/index'
 import Wallet from './LeftRightSection/wallet'
 import Settings from './Settings'
 import ContactCenterFeed from './Feed/index'
 import SettingsLeft from './Settings/SettingsLeft'
+import { fetchCompanyProfileSettingsStart } from '../../../redux-saga/redux/actions'
+import About from './About/index'
 
 const ContactCenterProfile = () => {
-  const [ activeTab, setActiveTab ] = useState(2)
+  const [ activeTab, setActiveTab ] = useState(0)
   const spacingMid = activeTab === 2 ? 9 : 6
   const spacingTab = activeTab === 2 ? 8 : 12
 
@@ -21,6 +26,11 @@ const ContactCenterProfile = () => {
   const scrollToTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [])
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(fetchCompanyProfileSettingsStart())
+  }, [ dispatch ])
 
   return (
     <div>
@@ -69,7 +79,7 @@ const ContactCenterProfile = () => {
           <Grid item xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 }>
             <div>
               { activeTab === 0 && <ContactCenterFeed />}
-              { activeTab === 1 && <Settings />}
+              { activeTab === 1 && <About />}
               { activeTab === 2 && (
               <Settings
                 selectedMenuItem={ selectedMenuItem }

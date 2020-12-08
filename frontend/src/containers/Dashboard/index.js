@@ -36,7 +36,7 @@ const Dashboard = () => {
         {/* Create new post */}
         <CreatePost />
         {/* Render Posts */}
-        <RenderPosts />
+        <RenderPosts ownerId={ null } />
       </Grid>
 
       {/* Right Section */}
