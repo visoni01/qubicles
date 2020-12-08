@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {
   Box, List, ListItem,
 } from '@material-ui/core'
-import settingMenuItems from './SettingsMenu'
+import settingMenuItems from '../../../../components/Profile/Company/SettingsMenu'
 
 export default function SettingsLeft({
   setSelectedMenuItem, selectedMenuItem,

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Grid } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import settingMenuItems from './SettingsMenu'
+import settingMenuItems from '../../../../components/Profile/Company/SettingsMenu'
 
 export default function Settings({
   selectedMenuItem, currentSectionRef, otherSectionRef, scrollToTop,

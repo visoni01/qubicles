@@ -4,7 +4,7 @@ import {
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye } from '@fortawesome/free-solid-svg-icons'
-import MultiSelectChipItems from '../../../NewPeople/MultiSelectChipItems'
+import MultiSelectChipItems from '../../../containers/NewPeople/MultiSelectChipItems'
 
 export default function IntegrationSection() {
   return (
@@ -35,7 +35,10 @@ export default function IntegrationSection() {
         {/* FTP Section */}
         <div className='sub-section'>
           <h3 className='h3 mb-20'>FTP </h3>
-          <p className='para mb-20'> Enter your FTP information in the fields below. We will use this to push data from us to you, such as call recordings, etc. </p>
+          <p className='para mb-20'>
+            Enter your FTP information in the fields below.
+            We will use this to push data from us to you, such as call recordings, etc.
+          </p>
           <div className='inline-block flex mb-20'>
             <h4 className='h4 mr-30'>Active </h4>
             <Switch className='switches' color='primary' />

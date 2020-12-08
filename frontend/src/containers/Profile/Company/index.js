@@ -2,8 +2,8 @@
 import React, { useState, useRef, useCallback } from 'react'
 import { Grid, Tabs, Tab } from '@material-ui/core'
 import navBar from '../../../hoc/navbar'
-import LeftSection from './Settings/LeftSection'
-import RightSection from './RightSection'
+import LeftSection from '../../../components/Profile/Company/LeftSection'
+import RightSection from '../../../components/Profile/Company/RightSection'
 import Settings from './Settings'
 import SettingsLeft from './Settings/SettingsLeft'
 

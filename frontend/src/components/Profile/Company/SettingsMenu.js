@@ -1,5 +1,5 @@
-const { AccountIcon, IntegrationIcon, RatesIcon } = require('../../../../assets/images/icons/profileSettingsIcons')
-const { default: AccountSection } = require('./AccountSection')
+const { AccountIcon, IntegrationIcon, RatesIcon } = require('../../../assets/images/icons/profileSettingsIcons')
+const { default: AccountSection } = require('../../../containers/Profile/Company/Settings/AccountSection')
 const { default: IntegrationSection } = require('./IntegrationSection')
 const { default: RatesSection } = require('./RatesSection')
 
