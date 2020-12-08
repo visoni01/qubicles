@@ -29,7 +29,7 @@ const {
       isLoading: false,
       companyDetails: getDataForReducer(action, initialState.companyDetails, 'companyDetails'),
     }),
-    jobPostCompanyDetailsFetchFailure: (state, action) => ({
+    jobPostCompanyDetailsFetchFailure: (state) => ({
       ...state,
       error: true,
       isLoading: false,

@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react'
 import {
   IconButton, Avatar, Button, Divider, Popover,
 } from '@material-ui/core'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import './style.scss'
 import User from '../../redux-saga/service/user'
@@ -13,6 +13,7 @@ import { kareem } from '../../assets/images/avatar'
 import {
   chatIcon, walletIcon, settingIcon, logoutIcon,
 } from '../../assets/images/icons/navBarIcons'
+import ROUTE_PATHS from '../../routes/routesPath'
 
 const UserMenu = () => {
   const history = useHistory()
@@ -63,7 +64,10 @@ const UserMenu = () => {
         <div className='user-menu'>
           <Avatar className='profile-pic' alt='Remy Sharp' src={ kareem } />
           <h2 className='h3 text-center mb-5'>{userDetails.full_name}</h2>
-          <h3 className='para mb-10 text-center'> View Profile</h3>
+
+          <Link to={ ROUTE_PATHS.COMPANY_PROFILE } className='mb-10 text-center primary-text-link'>
+            View Profile
+          </Link>
           <Divider className='mb-10' variant='middle' />
           <div className='options'>
             <Button

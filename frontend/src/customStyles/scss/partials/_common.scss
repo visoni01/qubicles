@@ -87,11 +87,11 @@
 
 // List Divider
 .list-divider {
-  margin: 15px 0;
-  border-bottom: 1px solid $color-border;
+  margin: 15px 0 !important;
+  border-bottom: 1px solid $color-border !important;
 
   &:last-child {
-    border: none;
+    border: none !important;
   }
 }
 
@@ -210,4 +210,12 @@
   background: $color-white;
   padding: 10px;
   outline: none;
+}
+
+.custom-svg-icon{
+  &.color-primary {
+    path {
+      stroke: $color-primary;
+    }
+  }
 }

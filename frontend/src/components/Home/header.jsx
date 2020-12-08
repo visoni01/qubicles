@@ -68,7 +68,20 @@ const Header = () => {
               </div>
             )
               : (
-                <AccountSettings />
+                <div className='display-inline-flex align-items-center'>
+                  <div className='navbar-end'>
+                    {/* Sign up button */}
+                    <div className='navbar-item'>
+                      <Link
+                        to='/dashboard'
+                        className='custom-login-button'
+                      >
+                        Go to Dashboard
+                      </Link>
+                    </div>
+                  </div>
+                  <AccountSettings />
+                </div>
               )}
           </div>
         </div>

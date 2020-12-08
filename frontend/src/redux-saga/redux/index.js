@@ -24,6 +24,7 @@ import signupWithInviteReducer from './inviteDetails'
 import forgetPasswordMailReducer from './forgetPasswordMail'
 import resetPasswordReducer from './resetPassword'
 import peopleReducers from './newPeople/reducers'
+import companyProfile from './profile/company'
 
 const rootReducer = combineReducers({
   signup: signupReducer,
@@ -51,6 +52,7 @@ const rootReducer = combineReducers({
   forgetPasswordMail: forgetPasswordMailReducer,
   resetPassword: resetPasswordReducer,
   ...peopleReducers,
+  ...companyProfile,
 })
 
 export default rootReducer

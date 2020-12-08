@@ -132,6 +132,20 @@ TABLE OF CONTENTS
   &.justify-end {
     justify-content: flex-end;
   }
+
+  // Align items
+
+  &.align-items-center {
+    align-items: center;
+  }
+
+  &.align-items-start {
+    align-items: flex-start;
+  }
+
+  &.align-items-end {
+    align-items: flex-end;
+  }
 }
 
 //Block display
