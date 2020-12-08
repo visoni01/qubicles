@@ -61,4 +61,7 @@ userRouter.route('/checkr-invitation')
 userRouter.route('/update')
   .post(isAuthenticated, userController.updateUserDataController)
 
+userRouter.route('/upload')
+  .post(isAuthenticated, userController.updateProfileImage)
+
 export { userRouter }

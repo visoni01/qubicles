@@ -33,10 +33,9 @@ function* postDataFetchingWorker(action) {
     let msg
     switch (action.type) {
       case postDataFetchingStart.type: {
-        const payloadData = action.payload
-        const { data } = yield Dashboard.fetchPostsData({ ownerId: payloadData.ownerId })
-        debugger
-        // const { data } = yield Dashboard.fetchPosts()
+        const { ownerId } = action.payload
+
+        const { data } = yield Dashboard.fetchPosts({ ownerId })
         yield put(updatePostData({ type: POST_DATA_FETCH, posts: data }))
         break
       }
@@ -98,7 +97,6 @@ function* postDataFetchingWorker(action) {
       yield put(showSuccessMessage({ msg }))
     }
   } catch (e) {
-    console.log('error in saga ============', e)
     yield put(showErrorMessage({ msg: e.errMsg }))
 
     if (action.type === createStatusPostStart.type) {
