@@ -1,7 +1,7 @@
 /* eslint-disable complexity */
 import React, { useState, useRef, useCallback } from 'react'
 import { Grid, Tabs, Tab } from '@material-ui/core'
-import { newNavBar } from '../../../hoc/navbar'
+import navBar from '../../../hoc/navbar'
 import LeftSection from './Settings/LeftSection'
 import RightSection from './RightSection'
 import Settings from './Settings'
@@ -91,4 +91,4 @@ const ContactCenterProfile = () => {
   )
 }
 
-export default newNavBar(ContactCenterProfile)
+export default navBar(ContactCenterProfile)
