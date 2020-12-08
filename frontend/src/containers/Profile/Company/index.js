@@ -16,6 +16,7 @@ const ContactCenterProfile = () => {
   const otherSectionRef = useRef()
 
   const [ selectedMenuItem, setSelectedMenuItem ] = useState(0)
+
   const scrollToTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [])

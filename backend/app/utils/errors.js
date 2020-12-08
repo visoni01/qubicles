@@ -17,6 +17,7 @@ export const APP_ERROR_CODES = {
 }
 
 export const MESSAGES = {
+  USER_NOT_FOUND: 'User not found',
   SERVER_ERROR: 'An error occurred while processing your request. Please try again later.',
   CLIENT_NOT_FOUND: 'Client does not exist for this user, Please complete step 1 First',
   UNAUTHORIZED: 'You don\'t have permission to access this page',

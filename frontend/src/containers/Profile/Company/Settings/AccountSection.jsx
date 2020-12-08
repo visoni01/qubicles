@@ -1,13 +1,42 @@
-import React from 'react'
+/* eslint-disable complexity */
+import React, { useState, useCallback, useEffect } from 'react'
 import {
   Box, Grid, Button, IconButton, Input, Divider, Switch,
 } from '@material-ui/core'
 import './styles.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye } from '@fortawesome/free-solid-svg-icons'
+import { useSelector, useDispatch } from 'react-redux'
 import MultiSelectChipItems from '../../../NewPeople/MultiSelectChipItems'
+import { fetchCompanyProfileSettingsStart } from '../../../../redux-saga/redux/actions'
 
 export default function AccountSection() {
+  const { settings, isLoading } = useSelector((state) => state.companyProfileSettings)
+  const [ accountSettingInfo, setAccountSettingInfo ] = useState(settings)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fetchCompanyProfileSettingsStart())
+  }, [ dispatch ])
+
+  useEffect(() => {
+    setAccountSettingInfo(settings)
+  }, [ settings ])
+
+  const handleSmsNotificationSwitch = useCallback(() => {
+    setAccountSettingInfo((currentSetting) => ({
+      ...currentSetting,
+      smsNotification: !currentSetting.smsNotification,
+    }))
+  }, [])
+
+  const handleEmailNotificationSwitch = useCallback(() => {
+    setAccountSettingInfo((currentSetting) => ({
+      ...currentSetting,
+      emailNotification: !currentSetting.emailNotification,
+    }))
+  }, [])
+
   return (
     <Box className='custom-box'>
       <h2 className='h2 mb-30'>Account</h2>
@@ -23,7 +52,11 @@ export default function AccountSection() {
                 <h4 className='h4'>Company ID</h4>
               </div>
               <div className='row-fields'>
-                <span className='para'> fenero </span>
+                {!isLoading && (
+                <span className='para'>
+                  {accountSettingInfo.companyId}
+                </span>
+                )}
               </div>
             </Grid>
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
@@ -39,7 +72,11 @@ export default function AccountSection() {
                 </Button>
               </div>
               <div className='row-fields'>
-                <span className='para'> Qubicles </span>
+                {!isLoading && (
+                <span className='para'>
+                  {accountSettingInfo.companyName}
+                </span>
+                )}
               </div>
             </Grid>
           </Grid>
@@ -60,10 +97,12 @@ export default function AccountSection() {
                 </Button>
               </div>
               <div className='row-fields flex'>
+                {!isLoading && (
                 <Input
                   defaultValue='****************'
                   className='text-edit'
                 />
+                )}
                 <IconButton>
                   <FontAwesomeIcon icon={ faEye } className='custom-fa-icon light' />
                 </IconButton>
@@ -81,8 +120,17 @@ export default function AccountSection() {
                   Change Address
                 </Button>
               </div>
-              <div className='row-fields small-width'>
-                <span className='para '> 4416  Sunrise Road , Mount Charleston</span>
+              <div className='row-fields'>
+                {!isLoading && (
+                <span className='para'>
+                  <p>
+                    {`${ accountSettingInfo.address }` }
+                  </p>
+                  <p>
+                    {`${ accountSettingInfo.city } ${ accountSettingInfo.zip }, ${ accountSettingInfo.state } ` }
+                  </p>
+                </span>
+                )}
               </div>
             </Grid>
           </Grid>
@@ -104,7 +152,11 @@ export default function AccountSection() {
                 </Button>
               </div>
               <div className='row-fields'>
-                <span className='para'> fenero@qubicles.io </span>
+                {!isLoading && (
+                <span className='para'>
+                  {accountSettingInfo.email}
+                </span>
+                )}
               </div>
             </Grid>
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
@@ -120,7 +172,11 @@ export default function AccountSection() {
                 </Button>
               </div>
               <div className='row-fields '>
-                <span className='para '> 9768456672</span>
+                {!isLoading && (
+                <span className='para '>
+                  {accountSettingInfo.homePhone}
+                </span>
+                )}
               </div>
             </Grid>
           </Grid>
@@ -140,17 +196,35 @@ export default function AccountSection() {
                 </Button>
               </div>
               <div className='row-fields'>
-                <span className='para'> 7289882838 </span>
+                {!isLoading && (
+                <span className='para'>
+                  {accountSettingInfo.mobilePhone}
+                </span>
+                )}
               </div>
             </Grid>
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
               <div className='row-section small-width'>
                 <h4 className='h4'>SMS Notifications</h4>
-                <Switch className='switches' color='primary' />
+                {!isLoading && (
+                <Switch
+                  className='switches'
+                  color='primary'
+                  checked={ accountSettingInfo.smsNotification }
+                  onChange={ handleSmsNotificationSwitch }
+                />
+                )}
               </div>
               <div className='row-section small-width'>
                 <h4 className='h4'>Email Notifications</h4>
-                <Switch className='switches' color='primary' />
+                {!isLoading && (
+                <Switch
+                  className='switches'
+                  color='primary'
+                  checked={ accountSettingInfo.emailNotification }
+                  onChange={ handleEmailNotificationSwitch }
+                />
+                )}
               </div>
             </Grid>
           </Grid>
@@ -171,7 +245,11 @@ export default function AccountSection() {
                 </Button>
               </div>
               <div className='row-fields '>
-                <span className='para'> www.qubicles.io</span>
+                {!isLoading && (
+                <span className='para'>
+                  {accountSettingInfo.website}
+                </span>
+                )}
               </div>
             </Grid>
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
@@ -179,11 +257,12 @@ export default function AccountSection() {
                 <h4 className='h4'>Timezone</h4>
               </div>
               <div className='row-fields no-padding-left'>
+                {!isLoading && (
                 <MultiSelectChipItems />
+                )}
               </div>
             </Grid>
           </Grid>
-
         </Grid>
       </div>
     </Box>

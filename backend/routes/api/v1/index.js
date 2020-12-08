@@ -9,6 +9,7 @@ import { dashboardRouter } from './dashboard.router'
 import { forumRouter } from './forum.router'
 import { newPeopleRouter } from './newPeople.router'
 import { jobRouter } from './job.router'
+import { companyProfileRouter } from './companyProfile.router'
 
 const router = express.Router()
 const NAMESPACE = 'v1'
@@ -24,5 +25,6 @@ router.use(`/${NAMESPACE}/dashboard`, dashboardRouter)
 router.use(`/${NAMESPACE}/jobs`, jobRouter)
 router.use(`/${NAMESPACE}/forum`, forumRouter)
 router.use(`/${NAMESPACE}/newPeople`, newPeopleRouter)
+router.use(`/${NAMESPACE}/profile/company`, companyProfileRouter)
 
 export default router
