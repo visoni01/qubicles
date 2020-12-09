@@ -89,7 +89,7 @@ const courseCards = [
     imageUrl: 'https://picsum.photos/400/300',
   },
   {
-    courseId: 6,
+    courseId: 7,
     priceQbe: 18,
     priceUsd: 18,
     ratingValue: 4,

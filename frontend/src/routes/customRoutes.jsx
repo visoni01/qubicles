@@ -48,12 +48,14 @@ const Redirector = ({ component: Component, redirectToDashboard }) => (
 )
 
 Validator.propTypes = {
-  component: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  component: PropTypes.any.isRequired,
   path: PropTypes.string.isRequired,
 }
 
 Redirector.propTypes = {
-  component: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  component: PropTypes.any.isRequired,
   redirectToDashboard: PropTypes.bool,
 }
 

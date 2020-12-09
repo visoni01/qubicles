@@ -25,7 +25,8 @@ const JobsList = () => {
     if (_.isEmpty(jobCategoriesOnly)) {
       dispatch(jobCategoriesOnlyFetchStart({ searchKeyword: searchCategory }))
     }
-  }, [ dispatch, searchCategory, jobCategoriesOnly ])
+    // eslint-disable-next-line
+  }, [ dispatch, searchCategory ])
 
   useEffect(() => {
     dispatch(newJobCategoriesFetchStart({ categoryId: selectedCategory, searchKeyword: searchField }))
@@ -78,6 +79,7 @@ const JobsList = () => {
         <InputBase
           type='text'
           placeholder='Search Categories'
+          autoComplete='off'
           className='input-field'
           name='searchCategories'
           onChange={ handleSearch }

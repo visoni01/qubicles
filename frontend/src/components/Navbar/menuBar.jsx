@@ -2,7 +2,6 @@ import React from 'react'
 import {
   List, ListItem, ListItemIcon, Typography,
 } from '@material-ui/core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
 import menuItems from './menuList'
 
@@ -11,7 +10,6 @@ const listItem = (item) => (
     { item.link ? (
       <Link to={ item.link }>
         <ListItemIcon className='menu-item-icon'>
-          <FontAwesomeIcon icon={ item.icon } />
           <img src={ item.icon } alt='' />
           <Typography className='menu-item-title'>
             {item.title}
@@ -20,7 +18,6 @@ const listItem = (item) => (
       </Link>
     ) : (
       <ListItemIcon className='menu-item-icon'>
-        <FontAwesomeIcon icon={ item.icon } />
         <img src={ item.icon } alt='' />
         <Typography className='menu-item-title'>
           {item.title}

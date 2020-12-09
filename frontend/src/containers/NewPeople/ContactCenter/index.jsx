@@ -33,7 +33,7 @@ const People = () => {
   return (
     <div>
       <Grid container spacing={ 3 }>
-        <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 } alignItems='flex-start'>
+        <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 }>
           <div>
             { currentPath === jobsRoute && (
             <JobsList />
@@ -44,7 +44,6 @@ const People = () => {
         </Grid>
         <Grid
           item
-          spacing={ 10 }
           xl={ spacingMid }
           lg={ spacingMid }
           md={ spacingMid }
