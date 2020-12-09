@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import _ from 'lodash'
 import { getDataForReducer } from '../../../../utils/common'
 // eslint-disable-next-line import/no-cycle
 import { getUpdatedJobsData } from '../../helper'

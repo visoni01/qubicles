@@ -25,11 +25,11 @@ const JobsList = () => {
     if (_.isEmpty(jobCategoriesOnly)) {
       dispatch(jobCategoriesOnlyFetchStart({ searchKeyword: searchCategory }))
     }
-  }, [ dispatch, searchCategory ])
+  }, [ dispatch, searchCategory, jobCategoriesOnly ])
 
   useEffect(() => {
     dispatch(newJobCategoriesFetchStart({ categoryId: selectedCategory, searchKeyword: searchField }))
-  }, [ dispatch, selectedCategory ])
+  }, [ dispatch, selectedCategory, searchField ])
 
   useEffect(() => {
     dispatch(updateJobsFilter({

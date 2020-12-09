@@ -24,9 +24,9 @@ const InviteAgent = ({
   const { jobCategoriesOnly } = useSelector((state) => state.jobCategoriesOnly)
   useEffect(() => {
     if (_.isEmpty(jobCategoriesOnly)) {
-      dispatch(jobCategoriesOnlyFetchStart({ searchKeyword: null }))
+      dispatch(jobCategoriesOnlyFetchStart({ searchKeyword: '' }))
     }
-  }, [ dispatch ])
+  }, [ dispatch, jobCategoriesOnly ])
 
   const setInviteAgentDataCB = useCallback((event) => {
     const { name, value } = event.target

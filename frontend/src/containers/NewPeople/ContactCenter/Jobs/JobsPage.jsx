@@ -1,6 +1,5 @@
 import React from 'react'
 import { Button } from '@material-ui/core'
-
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import ROUTE_PATHS from '../../../../routes/routesPath'
