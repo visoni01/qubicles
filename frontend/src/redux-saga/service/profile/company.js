@@ -7,7 +7,7 @@ class CompanyProfile {
   }
 
   static async updateCompanyTitleSummary(data) {
-    const response = await apiClient.postRequest('/user/edit', { ...data })
+    const response = await apiClient.putRequest('/employer/edit', data)
     return response
   }
 }

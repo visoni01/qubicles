@@ -9,7 +9,8 @@ import {
   InviteManualService,
   UpdateUserDataService,
   PostSignUpEmployerDataService,
-  PostSignUpAgentDataService
+  PostSignUpAgentDataService,
+  UploadProfileImageService
 } from '../services/user'
 import { getNewTokenAfterUserCodeChanged } from '../services/helper'
 import config from '../../config/app'
@@ -111,6 +112,15 @@ export default class UserController {
       Responder.success(res, updateUserDataService.result)
     } else {
       Responder.failed(res, updateUserDataService.errors)
+    }
+  }
+
+  static async updateProfileImage (req, res) {
+    const UploadProfileImage = await UploadProfileImageService.execute({ ...req.body, file: req.file, ...req.params })
+    if (UploadProfileImage.successful) {
+      Responder.success(res, UploadProfileImage.result)
+    } else {
+      Responder.failed(res, UploadProfileImage.errors)
     }
   }
 }

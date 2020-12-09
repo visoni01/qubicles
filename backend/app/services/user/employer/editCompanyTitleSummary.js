@@ -33,7 +33,10 @@ export class EditCompanyTitleSummaryService extends ServiceBase {
 
       const updatedData = await XClient.update(this.data, { where: { client_id: clientUserData.client_id } })
       console.log('updatedData ', updatedData)
-      return this.data
+      return {
+        title: this.data.title,
+        summary: this.data.summary
+      }
     } catch (e) {
       logger.error(`${getErrorMessageForService('EditCompanyTitleSummaryService')} ${e}`)
       this.addError(ERRORS.INTERNAL)

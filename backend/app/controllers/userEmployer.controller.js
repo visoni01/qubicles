@@ -41,7 +41,7 @@ export default class UserEmployerController {
 
   static async editCompanyTitleSummary (req, res) {
     const editCompanyTitleSummaryResult = await EditCompanyTitleSummaryService.execute({ ...req.body })
-    if (editCompanyTitleSummaryResult.success) {
+    if (editCompanyTitleSummaryResult.successful) {
       Responder.success(res, editCompanyTitleSummaryResult.result)
     } else {
       Responder.failed(res, editCompanyTitleSummaryResult.errors)

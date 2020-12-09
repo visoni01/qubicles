@@ -1,5 +1,5 @@
 import React, {
-  useRef, useCallback, useState,
+  useCallback, useState, useEffect,
 } from 'react'
 import PropTypes from 'prop-types'
 import {
@@ -17,8 +17,6 @@ import { updateCompanyTitleSummaryStart } from '../../../../redux-saga/redux/act
 const EditProfileModal = ({
   open, handleClose,
 }) => {
-  const fileInput = useRef()
-  const [ fileSrc, setFileSrc ] = useState('')
   const { settings, isLoading } = useSelector((state) => state.companyProfileSettings)
   const [ title, setTitle ] = useState(settings.title)
   const [ summary, setSummary ] = useState(settings.summary)
@@ -28,19 +26,24 @@ const EditProfileModal = ({
   const handleUpdateTitle = useCallback((e) => {
     const data = e.target.value
     setTitle(data)
-  }, [])
+  })
 
   const handleUpdateSummary = useCallback((e) => {
     const data = e.target.value
     setSummary(data)
-  }, [])
+  })
+
+  useEffect(() => {
+    setTitle(settings.title)
+    setSummary(settings.summary)
+  }, [ settings ])
 
   const onSubmit = useCallback(() => {
     dispatch(updateCompanyTitleSummaryStart({
       title,
       summary,
     }))
-  })
+  }, [ title, summary ])
 
   return (
     <Dialog
@@ -83,7 +86,7 @@ const EditProfileModal = ({
             </span>
             <img
               id='upload-preview'
-              src={ fileSrc || good }
+              src={ good }
               data-demo-src='assets/img/avatars/avatar-w.png'
               alt=''
             />
@@ -98,6 +101,7 @@ const EditProfileModal = ({
           Company Title
         </h3>
         <div className='input-box'>
+          {!isLoading && (
           <TextareaAutosize
             aria-label='minimum height'
             autoComplete='off'
@@ -106,11 +110,13 @@ const EditProfileModal = ({
             defaultValue={ title }
             onChange={ handleUpdateTitle }
           />
+          )}
         </div>
         <h3 className='h3 mt-20 mb-10'>
           Bio
         </h3>
         <div className='input-box'>
+          {!isLoading && (
           <TextareaAutosize
             aria-label='minimum height'
             autoComplete='off'
@@ -119,6 +125,7 @@ const EditProfileModal = ({
             onChange={ handleUpdateSummary }
             placeholder='Add a short description about your company'
           />
+          )}
         </div>
         <h3 className='h3  mt-20 mb-10'>
           Primary Contacts
@@ -186,14 +193,9 @@ const EditProfileModal = ({
   )
 }
 
-EditProfileModal.defaultProps = {
-
-}
-
 EditProfileModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-
 }
 
 export default EditProfileModal
