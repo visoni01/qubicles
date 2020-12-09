@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'x_qod_categories'
   })
   XQodCategory.associate = function (models) {
+    XQodCategory.hasMany(models.XQodJob, { as: 'jobs', foreignKey: 'category_id' })
   }
   return XQodCategory
 }

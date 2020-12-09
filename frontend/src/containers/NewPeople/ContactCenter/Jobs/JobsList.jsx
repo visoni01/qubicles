@@ -5,43 +5,58 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSlidersH, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from 'react-redux'
+import _ from 'lodash'
 import {
-  newJobCategoriesFetchStart,
-  getJobsByCategory,
-  resetJobsByCategorySelection,
+  jobCategoriesOnlyFetchStart, updateJobsFilter, newJobCategoriesFetchStart,
 } from '../../../../redux-saga/redux/actions'
+import JobsFilterSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/JobsFilterSkeleton'
+import './styles.scss'
 
 const JobsList = () => {
-  const [ searchCategories, setSearchCategories ] = useState(false)
-  const { newJobCategories } = useSelector((state) => state.newJobCategories)
-  const [ selectedCategory, setSelectedCategory ] = useState(0)
-  const [ searchField, setSearchField ] = useState('')
+  const [ displaySearchCategories, setDisplaySearchCategories ] = useState(false)
+  const { jobCategoriesOnly, isLoading } = useSelector((state) => state.jobCategoriesOnly)
+  const [ searchCategory, setSearchCategory ] = useState('')
 
+  const { searchField, selectedCategoryId } = useSelector((state) => state.newJobCategories)
+  const [ selectedCategory, setSelectedCategory ] = useState(selectedCategoryId)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(newJobCategoriesFetchStart({ searchKeyword: '' }))
-  }, [ dispatch ])
+    if (_.isEmpty(jobCategoriesOnly)) {
+      dispatch(jobCategoriesOnlyFetchStart({ searchKeyword: searchCategory }))
+    }
+    // eslint-disable-next-line
+  }, [ dispatch, searchCategory ])
 
-  const handleJobsByCategory = ({ jobCategory }) => {
-    dispatch(getJobsByCategory({ categoryId: jobCategory.categoryId }))
-    setSelectedCategory(jobCategory.categoryId)
-  }
+  useEffect(() => {
+    dispatch(newJobCategoriesFetchStart({ categoryId: selectedCategory, searchKeyword: searchField }))
+  }, [ dispatch, selectedCategory, searchField ])
 
-  const handleResetJobs = useCallback(() => {
-    dispatch(resetJobsByCategorySelection())
-    setSelectedCategory(0)
-  }, [ dispatch ])
+  useEffect(() => {
+    dispatch(updateJobsFilter({
+      categoryId: selectedCategory,
+      searchKeyword: searchField,
+    }))
+  }, [ dispatch, selectedCategory, searchField ])
 
-  const callSearchApi = useCallback(debounce((nextValue) => {
-    dispatch(newJobCategoriesFetchStart({ searchKeyword: nextValue }))
+  // Search categories
+  const callSearchCategoriesApi = useCallback(debounce((nextValue) => {
+    dispatch(jobCategoriesOnlyFetchStart({ searchKeyword: nextValue }))
   }, 500), [ dispatch ])
 
   const handleSearch = useCallback((e) => {
     const nextValue = e.target.value
-    setSearchField(nextValue)
-    callSearchApi(nextValue)
-  }, [ callSearchApi ])
+    setSearchCategory(nextValue)
+    callSearchCategoriesApi(nextValue)
+  }, [ callSearchCategoriesApi ])
+
+  const handleJobsByCategory = ({ jobCategory }) => {
+    setSelectedCategory(jobCategory.categoryId)
+  }
+
+  const handleResetJobs = useCallback(() => {
+    setSelectedCategory(0)
+  }, [ ])
 
   return (
     <Box className='custom-box no-padding side-filter-root job-list'>
@@ -49,7 +64,7 @@ const JobsList = () => {
       <div className='job-list-title'>
         <h3 className='h3 subtitle'> Categories </h3>
         <div className='job-list-icon'>
-          <IconButton onClick={ () => setSearchCategories((initialState) => !initialState) }>
+          <IconButton onClick={ () => setDisplaySearchCategories((initialState) => !initialState) }>
             <FontAwesomeIcon icon={ faSearch } className='custom-fa-icon light' />
           </IconButton>
           <IconButton>
@@ -58,33 +73,35 @@ const JobsList = () => {
         </div>
       </div>
 
-      {searchCategories && (
+      {displaySearchCategories && (
       <div className='search-input mb-10'>
         <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 custom-fa-icon light' />
         <InputBase
           type='text'
           placeholder='Search Categories'
+          autoComplete='off'
           className='input-field'
           name='searchCategories'
           onChange={ handleSearch }
-          value={ searchField }
+          value={ searchCategory }
         />
       </div>
       )}
+      {isLoading ? (<JobsFilterSkeleton />)
+        : (
+          <List className='filter-list-items'>
+            <MenuItem
+              button
+              onClick={ handleResetJobs }
+              selected={ selectedCategory === 0 }
+            >
+              <ListItemText classes={ { primary: 'list-item' } }>
+                <h4 className='h4 light unbold'>All</h4>
+              </ListItemText>
+            </MenuItem>
 
-      <List className='filter-list-items'>
-        <MenuItem
-          button
-          onClick={ handleResetJobs }
-          selected={ selectedCategory === 0 }
-        >
-          <ListItemText classes={ { primary: 'list-item' } }>
-            <h4 className='h4 light unbold'>All</h4>
-          </ListItemText>
-        </MenuItem>
-
-        {
-          newJobCategories.map((jobCategory) => (
+            {
+          jobCategoriesOnly.map((jobCategory) => (
             <MenuItem
               button
               onClick={ () => handleJobsByCategory({ jobCategory }) }
@@ -99,9 +116,10 @@ const JobsList = () => {
             </MenuItem>
           ))
         }
-      </List>
+          </List>
+        )}
     </Box>
   )
 }
 
-export default JobsList
+export default React.memo(JobsList)

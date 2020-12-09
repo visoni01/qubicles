@@ -8,20 +8,21 @@ import JobPost from './JobPost'
 import TopTalent from '../Talent/TopTalent'
 import navBar from '../../../../hoc/navbar'
 import './styles.scss'
-import { newJobDetailsFetchStart } from '../../../../redux-saga/redux/actions'
+import { jobDetailsFetchStart } from '../../../../redux-saga/redux/actions'
 
 const JobView = () => {
   const { jobId } = useParams()
-  const { jobDetails } = useSelector((state) => state.newJobDetails)
+  const { jobDetails, isLoading } = useSelector((state) => state.jobDetails)
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(newJobDetailsFetchStart({ jobId }))
+    dispatch(jobDetailsFetchStart({ jobId }))
   }, [ dispatch, jobId ])
 
   return (
     <Grid container spacing={ 3 }>
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
         <ContactCenterIntro
+          key={ jobId }
           jobDetails={ jobDetails }
         />
       </Grid>
@@ -30,6 +31,7 @@ const JobView = () => {
           key={ jobId }
           jobId={ jobId }
           jobDetails={ jobDetails }
+          isLoading={ isLoading }
           courses={ jobPostCard.courses }
         />
       </Grid>

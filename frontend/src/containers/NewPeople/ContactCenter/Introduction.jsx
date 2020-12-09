@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Avatar } from '@material-ui/core'
 import Rating from '@material-ui/lab/Rating'
 import PropTypes from 'prop-types'
-import { testResumeIntroduction } from './testData'
 import './styles.scss'
 import { formatDate } from '../../../utils/common'
 
@@ -52,26 +51,15 @@ const Introduction = ({
   </div>
 )
 
-Introduction.defaultProps = {
-  imageName: testResumeIntroduction.imageName,
-  rating: testResumeIntroduction.rating,
-  imageSrc: testResumeIntroduction.imageSrc,
-  name: testResumeIntroduction.name,
-  location: testResumeIntroduction.location,
-  date: testResumeIntroduction.date,
-  title: testResumeIntroduction.title,
-  description: testResumeIntroduction.description,
-}
-
 Introduction.propTypes = {
-  imageName: PropTypes.string,
-  rating: PropTypes.number,
-  imageSrc: PropTypes.string,
-  name: PropTypes.string,
-  location: PropTypes.string,
-  date: PropTypes.string,
-  title: PropTypes.string,
-  description: PropTypes.string,
+  imageName: PropTypes.string.isRequired,
+  rating: PropTypes.number.isRequired,
+  imageSrc: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
 }
 
 export default Introduction

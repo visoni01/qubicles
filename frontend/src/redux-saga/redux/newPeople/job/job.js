@@ -11,49 +11,58 @@ const initialState = {
 
 const {
   actions: {
-    newJobDetailsFetchStart,
-    newJobDetailsFetchSuccessful,
-    newJobDetailsFetchFailure,
-    newUpdateJobsFields,
+    jobDetailsFetchStart,
+    jobDetailsFetchSuccessful,
+    jobDetailsFetchFailure,
+    updateJobsFields,
+    resetJobDetails,
   },
   reducer,
 } = createSlice({
-  name: 'newJobDetails',
+  name: 'jobDetails',
   initialState,
   reducers: {
-    newJobDetailsFetchStart: () => ({
+    jobDetailsFetchStart: () => ({
       ...initialState,
       isLoading: true,
     }),
-    newJobDetailsFetchSuccessful: (state, action) => ({
+    jobDetailsFetchSuccessful: (state, action) => ({
       ...state,
       success: true,
       isLoading: false,
       jobDetails: getDataForReducer(action, initialState.jobDetails, 'jobDetails'),
     }),
-    newJobDetailsFetchFailure: (state) => ({
+    jobDetailsFetchFailure: (state) => ({
       ...state,
       error: true,
       isLoading: false,
     }),
-    newUpdateJobsFields: (state, action) => {
+    updateJobsFields: (state, action) => {
       const { jobFields } = action.payload
       let { jobTitles, jobCategories, jobSkills } = jobFields
       jobTitles = jobTitles.map((title) => ({ name: title.job_title_name, value: title.job_title_id }))
-      jobCategories = jobCategories.map((category) => ({ name: category.category_name, value: category.category_id }))
+      jobCategories = jobCategories.map((category) => ({ name: category.categoryTitle, value: category.categoryId }))
       jobSkills = jobSkills.map((skill) => ({ name: skill.skill_name, value: skill.skill_id }))
       return ({
         ...state,
         jobFields: { jobTitles, jobCategories, jobSkills },
       })
     },
+    resetJobDetails: (state) => ({
+      ...state,
+      jobDetails: {},
+      success: true,
+      error: false,
+      isLoading: false,
+    }),
   },
 })
 
 export default reducer
 export {
-  newJobDetailsFetchStart,
-  newJobDetailsFetchSuccessful,
-  newJobDetailsFetchFailure,
-  newUpdateJobsFields,
+  jobDetailsFetchStart,
+  jobDetailsFetchSuccessful,
+  jobDetailsFetchFailure,
+  updateJobsFields,
+  resetJobDetails,
 }

@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getDataForReducer } from '../../../../utils/common'
+// eslint-disable-next-line import/no-cycle
 import { getUpdatedJobsData } from '../../helper'
 
 const initialState = {
@@ -7,25 +8,25 @@ const initialState = {
   error: null,
   success: false,
   newJobCategories: [],
-  selectedCategoryId: '',
+  selectedCategoryId: 0,
+  searchField: '',
 }
 
 const {
   actions: {
     newJobCategoriesFetchStart,
     newJobCategoriesFetchSuccessful,
-    jobsByCategorySuccessful,
     newJobCategoriesFetchFailure,
     updateJobsData,
-    resetJobsByCategorySelection,
+    updateJobsFilter,
   },
   reducer,
 } = createSlice({
   name: 'newJobCategories',
   initialState,
   reducers: {
-    newJobCategoriesFetchStart: () => ({
-      ...initialState,
+    newJobCategoriesFetchStart: (state) => ({
+      ...state,
       isLoading: true,
     }),
     newJobCategoriesFetchSuccessful: (state, action) => ({
@@ -34,15 +35,8 @@ const {
       isLoading: false,
       newJobCategories: getDataForReducer(action, initialState.newJobCategories, 'newJobCategories'),
     }),
-    jobsByCategorySuccessful: (state, action) => ({
+    newJobCategoriesFetchFailure: (state) => ({
       ...state,
-      success: true,
-      selectedCategoryId: action.payload.categoryId,
-      isLoading: false,
-      newJobCategories: action.payload.data,
-    }),
-    newJobCategoriesFetchFailure: () => ({
-      ...initialState,
       error: true,
       isLoading: false,
     }),
@@ -50,9 +44,10 @@ const {
       ...state,
       newJobCategories: getUpdatedJobsData({ state, payload: action.payload }),
     }),
-    resetJobsByCategorySelection: (state) => ({
+    updateJobsFilter: (state, action) => ({
       ...state,
-      selectedCategoryId: '',
+      searchField: action.payload.searchKeyword,
+      selectedCategoryId: action.payload.categoryId,
     }),
   },
 })
@@ -61,8 +56,7 @@ export default reducer
 export {
   newJobCategoriesFetchStart,
   newJobCategoriesFetchSuccessful,
-  jobsByCategorySuccessful,
   newJobCategoriesFetchFailure,
   updateJobsData,
-  resetJobsByCategorySelection,
+  updateJobsFilter,
 }

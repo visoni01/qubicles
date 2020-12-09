@@ -31,78 +31,7 @@
     width: 90%;
     letter-spacing: 1px;
   }
-
-  .job-post-description {
-    flex-direction: column;
-  }
-
-  .job-post-specifications {
-    justify-content: space-between;
-    margin: 10px;
-    margin-bottom: 40px;
-  }
-
-  .course-section {
-    flex-direction: column;
-  }
 }
-
-.job-application-root{
-  h3 {
-    padding-bottom: 10px;
-  }
-
-  p{
-    margin-bottom: 15px;
-  }
-
-  .job-application-head {
-    width: 100%;
-
-    .candidate-info {
-      align-self: center;
-      width: 100%;
-
-      .head-with-link {
-        width: 100%;
-        display: inline-flex;
-        justify-content: space-between;
-      }
-
-      .candidate-head {
-        display: inline-flex;
-      }
-    }
-  }
-
-  .pending-application-buttons {
-    display: inline-flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 10px 0;
-
-    .MuiButton-contained {
-      box-shadow: none;
-    }
-
-    .message-button {
-      margin-right: 20px;
-    }
-
-    .hire-button {
-      float:right;
-    }
-  }
-
-  .hired-application {
-    float: right !important;
-    width: 40%!important;
-    .hire-message{
-      margin-left: 150px !important;
-    }
-  }
-}
-
 
 .new-job-root {
   .category-section {
@@ -121,6 +50,11 @@
       align-self: center;
       margin-left: 10px;
     }
+  }
+
+  .ck-focused, .ck-blurred {
+    min-height: 120px;
+    max-height: 250px;
   }
 
   .search-input {

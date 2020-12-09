@@ -33,16 +33,17 @@ const People = () => {
   return (
     <div>
       <Grid container spacing={ 3 }>
-        <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 } alignItems='flex-start'>
+        <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 }>
           <div>
-            { currentPath === jobsRoute && <JobsList />}
+            { currentPath === jobsRoute && (
+            <JobsList />
+            )}
             { currentPath === talentRoute && <TalentFilter />}
             { currentPath === trainingRoute && <TrainingFilter />}
           </div>
         </Grid>
         <Grid
           item
-          spacing={ 10 }
           xl={ spacingMid }
           lg={ spacingMid }
           md={ spacingMid }
@@ -56,26 +57,25 @@ const People = () => {
               <Link to={ jobsRoute } className={ currentPath === jobsRoute ? 'active-tab' : 'inactive-tab' }>
                 <Tab
                   label='Jobs'
-                  // value={ jobsRoute }
                 />
               </Link>
               <Link to={ talentRoute } className={ currentPath === talentRoute ? 'active-tab' : 'inactive-tab' }>
                 <Tab
                   label='Talent'
-                  // value={ talentRoute }
                 />
               </Link>
               <Link to={ trainingRoute } className={ currentPath === trainingRoute ? 'active-tab' : 'inactive-tab' }>
                 <Tab
                   label='Training'
-                  // value={ trainingRoute }
                 />
               </Link>
             </Tabs>
           </Grid>
           <Grid item xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 }>
             <div>
-              { currentPath === jobsRoute && <JobsPage />}
+              { currentPath === jobsRoute && (
+              <JobsPage />
+              )}
               { currentPath === talentRoute && <TalentPage />}
               { currentPath === trainingRoute && <TrainingWrap />}
             </div>

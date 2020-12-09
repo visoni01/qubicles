@@ -9,7 +9,7 @@ import {
 
 } from '../../db/models'
 import { Op } from 'sequelize'
-import { createNewEntity, getAll, aggregate, updateEntity } from '../helper'
+import { createNewEntity, aggregate, updateEntity } from '../helper'
 import _ from 'lodash'
 
 export async function getRecentJobsByClient ({ client_id, limit = 5 }) {
@@ -48,35 +48,36 @@ export async function addJob (data) {
     model: XQodJob,
     data
   })
+
   // Adding skills and courses data for newly added job.
-  const requiredCoursesEntities = data.required_courses.map(courseId => {
+  const requiredCoursesEntities = data.required_courses.map(course => {
     return ({
       job_id: newJob.job_id,
-      course_id: courseId,
+      course_id: course.courseId,
       course_preference: 'required'
     })
   })
   await XQodJobCourse.bulkCreate(requiredCoursesEntities)
-  const bonusCoursesEntities = data.bonus_courses.map(courseId => {
+  const bonusCoursesEntities = data.bonus_courses.map(course => {
     return ({
       job_id: newJob.job_id,
-      course_id: courseId,
+      course_id: course.courseId,
       course_preference: 'plus'
     })
   })
   await XQodJobCourse.bulkCreate(bonusCoursesEntities)
-  const requiredSkillsEntities = data.required_skills.map(skillId => {
+  const requiredSkillsEntities = data.required_skills.map(skill => {
     return ({
       job_id: newJob.job_id,
-      skill_id: skillId,
+      skill_id: skill.skillId,
       skill_preference: 'required'
     })
   })
   await XQodJobSkill.bulkCreate(requiredSkillsEntities)
-  const bonusSkillsEntities = data.bonus_skills.map(skillId => {
+  const bonusSkillsEntities = data.bonus_skills.map(skill => {
     return ({
       job_id: newJob.job_id,
-      skill_id: skillId,
+      skill_id: skill.skillId,
       skill_preference: 'plus'
     })
   })
@@ -89,6 +90,34 @@ export async function updateJob (data) {
     model: XQodJob,
     data
   })
+
+  // Destroying previous records of requiredSkills and bonusSkills
+  await XQodJobSkill.destroy({
+    where: {
+      job_id: data.job_id
+    }
+  })
+
+  // Updating new required skills data
+  const requiredSkillsEntities = data.required_skills.map(skill => {
+    return ({
+      job_id: data.job_id,
+      skill_id: skill.skillId,
+      skill_preference: 'required'
+    })
+  })
+  await XQodJobSkill.bulkCreate(requiredSkillsEntities)
+
+  // Updating new bonus skills data
+  const bonusSkillsEntities = data.bonus_skills.map(skill => {
+    return ({
+      job_id: data.job_id,
+      skill_id: skill.skillId,
+      skill_preference: 'plus'
+    })
+  })
+  await XQodJobSkill.bulkCreate(bonusSkillsEntities)
+
   return updatedJob
 }
 
@@ -185,7 +214,15 @@ export async function handleApplicantResponse ({ application_id, status }) {
 }
 
 export async function getJobById ({ job_id }) {
-  const jobDetails = await XQodJob.findOne({ where: { job_id, [Op.not]: [{ is_deleted: true }] }, raw: true })
+  const jobDetails = await XQodJob.findOne({
+    include: [{
+      model: XQodCategory,
+      attributes: ['category_name']
+    }],
+    where:
+    { job_id, [Op.not]: [{ is_deleted: true }] },
+    raw: true
+  })
   return jobDetails
 }
 
@@ -229,8 +266,16 @@ export async function flagApplicationsById ({ application_id, status }) {
   }
 }
 
-export async function getAllJobCategories () {
-  return getAll({ model: XQodCategory })
+export async function getAllJobCategories ({ search_keyword }) {
+  let query = {}
+  if (!_.isEmpty(search_keyword)) {
+    query = { ...query, category_name: { [Op.startsWith]: search_keyword } }
+  }
+  return XQodCategory.findAll({
+    where: query,
+    attributes: [['category_id', 'categoryId'], ['category_name', 'categoryTitle']],
+    raw: true
+  })
 }
 
 export async function getJobApplicationCount (data) {
@@ -314,4 +359,27 @@ export async function deleteJob ({ job_id }) {
   const jobs = await XQodJob.update({ is_deleted: true },
     { where: { job_id } })
   return jobs
+}
+
+export async function getAllJobs ({ client_id, category_id, search_keyword }) {
+  let query = { client_id }
+
+  if (!_.isEmpty(search_keyword)) {
+    query = { ...query, title: { [Op.startsWith]: search_keyword } }
+  }
+
+  if (!_.isEmpty(category_id)) {
+    query = { ...query, category_id }
+  }
+
+  const allJobsSubDetails = await XQodCategory.findAll({
+    attributes: [['category_id', 'categoryId'], ['category_name', 'categoryTitle']],
+    include: {
+      model: XQodJob,
+      as: 'jobs',
+      where: query
+    }
+  })
+  return allJobsSubDetails.map((job) => job.get({ plain: true })
+  )
 }

@@ -1,13 +1,12 @@
 import Responder from '../../server/expressResponder'
-import JobsByCategoryService from '../services/job/jobsByCategory'
-import DeleteJobService from '../services/job/delete'
-import AddJobService from '../services/job/create'
-import GetJobCategoriesAndTitlesService from '../services/job/jobCatoriesAndTitles'
-import GetJobByIdService from '../services/job/jobById'
-import UpdateJobService from '../services/job/update'
-import GetJobCategoriesTitlesAndSkillsService from '../services/newJob/jobCategoriesTitlesAndSkills'
-import AddNewJobService from '../services/newJob/create'
-import JobPostCompanyDetailsService from '../services/newJob/jobPostCompanyDetails'
+import JobsByCategoryService from '../services/people/contactCenter/job/jobsByCategory'
+import DeleteJobService from '../services/people/contactCenter/job/delete'
+import GetJobByIdService from '../services/people/contactCenter/job/jobById'
+import UpdateJobService from '../services/people/contactCenter/job/update'
+import GetJobCategoriesTitlesAndSkillsService from '../services/people/contactCenter/job/jobCategoriesTitlesAndSkills'
+import AddNewJobService from '../services/people/contactCenter/job/create'
+import JobPostCompanyDetailsService from '../services/people/contactCenter/job/jobPostCompanyDetails'
+import FetchJobCategoriesService from '../services/people/contactCenter/job/jobCategories'
 
 export default class JobController {
   static async getJobsByCategory (req, res) {
@@ -19,33 +18,12 @@ export default class JobController {
     }
   }
 
-  static async getJobCategoriesAndTitles (req, res) {
-    const jobTitles = await GetJobCategoriesAndTitlesService.execute({
-      user: req.body.user,
-      ...req.query
-    })
-    if (jobTitles.successful) {
-      Responder.success(res, jobTitles.result)
-    } else {
-      Responder.failed(res, jobTitles.errors)
-    }
-  }
-
   static async deleteJob (req, res) {
     const deleteJob = await DeleteJobService.execute({ ...req.body, ...req.params })
     if (deleteJob.successful) {
       Responder.success(res, deleteJob.result)
     } else {
       Responder.failed(res, deleteJob.errors)
-    }
-  }
-
-  static async addJob (req, res) {
-    const addJob = await AddJobService.execute({ ...req.body, ...req.params })
-    if (addJob.successful) {
-      Responder.success(res, addJob.result)
-    } else {
-      Responder.failed(res, addJob.errors)
     }
   }
 
@@ -66,8 +44,6 @@ export default class JobController {
       Responder.failed(res, updateJob.errors)
     }
   }
-
-  // New Job
 
   static async getJobCategoriesTitlesAndSkills (req, res) {
     const jobTitles = await GetJobCategoriesTitlesAndSkillsService.execute({
@@ -96,6 +72,15 @@ export default class JobController {
       Responder.success(res, jobPostCompanyDetails.result)
     } else {
       Responder.failed(res, jobPostCompanyDetails.errors)
+    }
+  }
+
+  static async getJobCategories (req, res) {
+    const jobs = await FetchJobCategoriesService.execute({ ...req.body, ...req.query })
+    if (jobs.successful) {
+      Responder.success(res, jobs.result)
+    } else {
+      Responder.failed(res, jobs.errors)
     }
   }
 }

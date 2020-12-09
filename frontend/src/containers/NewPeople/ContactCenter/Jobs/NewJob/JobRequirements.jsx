@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useCallback } from 'react'
 import { Grid } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import '../styles.scss'
@@ -8,31 +8,69 @@ import ROUTE_PATHS from '../../../../../routes/routesPath'
 import { availableCourses } from '../../constants'
 
 const NewJobRequirements = ({
+  newJobData,
   setNewJobData,
   jobFields,
 }) => {
-  const [ selectedRequiredCourses, setSelectedRequiredCourses ] = useState([])
-  const [ selectedRequiredSkills, setSelectedRequiredSkills ] = useState([])
-  const [ selectedBonusCourses, setSelectedBonusCourses ] = useState([])
-  const [ selectedBonusSkills, setSelectedBonusSkills ] = useState([])
-
-  useEffect(() => {
+  const setRequiredSkillsCB = useCallback((items) => {
     setNewJobData((currentNewJobData) => ({
       ...currentNewJobData,
-      requiredCourses: selectedRequiredCourses.map((course) => (
-        course.id
-      )),
-      requiredSkills: selectedRequiredSkills.map((skill) => (
-        skill.id
-      )),
-      bonusCourses: selectedBonusCourses.map((course) => (
-        course.id
-      )),
-      bonusSkills: selectedBonusSkills.map((skill) => (
-        skill.id
-      )),
+      jobSkillsData: {
+        ...currentNewJobData.jobSkillsData,
+        requiredSkills: items.map((skill) => ({
+          skillPreference: 'required',
+          skillId: skill.id,
+          skillName: skill.title,
+        })),
+      },
     }))
-  }, [ selectedRequiredCourses, selectedRequiredSkills, selectedBonusCourses, selectedBonusSkills, setNewJobData ])
+    // eslint-disable-next-line
+  }, [])
+
+  const setBonusSkillsCB = useCallback((items) => {
+    setNewJobData((currentNewJobData) => ({
+      ...currentNewJobData,
+      jobSkillsData: {
+        ...currentNewJobData.jobSkillsData,
+        bonusSkills: items.map((skill) => ({
+          skillPreference: 'plus',
+          skillId: skill.id,
+          skillName: skill.title,
+        })),
+      },
+    }))
+    // eslint-disable-next-line
+  }, [ ])
+
+  const setRequiredCoursesCB = useCallback((items) => {
+    setNewJobData((currentNewJobData) => ({
+      ...currentNewJobData,
+      jobCoursesData: {
+        ...currentNewJobData.jobCoursesData,
+        requiredCourses: items.map((course) => ({
+          coursePreference: 'required',
+          courseId: course.id,
+          courseName: course.title,
+        })),
+      },
+    }))
+    // eslint-disable-next-line
+  }, [])
+
+  const setBonusCoursesCB = useCallback((items) => {
+    setNewJobData((currentNewJobData) => ({
+      ...currentNewJobData,
+      jobCoursesData: {
+        ...currentNewJobData.jobCoursesData,
+        bonusCourses: items.map((course) => ({
+          coursePreference: 'plus',
+          courseId: course.id,
+          courseName: course.title,
+        })),
+      },
+    }))
+    // eslint-disable-next-line
+  }, [])
 
   return (
     <div className='custom-box job-requirements-root has-fullwidth'>
@@ -47,8 +85,12 @@ const NewJobRequirements = ({
                   id: item.value,
                   title: item.name,
                 })) }
-                selectedItems={ selectedRequiredSkills }
-                setSelectedItems={ setSelectedRequiredSkills }
+                initialData={ newJobData.jobSkillsData.requiredSkills.map((skill) => (
+                  {
+                    id: skill.skillId,
+                    title: skill.skillName,
+                  })) }
+                onChange={ (items) => setRequiredSkillsCB(items) }
               />
             </div>
           </Grid>
@@ -60,8 +102,12 @@ const NewJobRequirements = ({
                   id: item.value,
                   title: item.name,
                 })) }
-                selectedItems={ selectedBonusSkills }
-                setSelectedItems={ setSelectedBonusSkills }
+                initialData={ newJobData.jobSkillsData.bonusSkills.map((skill) => (
+                  {
+                    id: skill.skillId,
+                    title: skill.skillName,
+                  })) }
+                onChange={ (items) => setBonusSkillsCB(items) }
               />
             </div>
           </Grid>
@@ -72,9 +118,8 @@ const NewJobRequirements = ({
             <div className='mr-30 drop-down-field'>
               <MultiSelectLinkItems
                 items={ availableCourses }
-                selectedItems={ selectedRequiredCourses }
-                setSelectedItems={ setSelectedRequiredCourses }
                 textLinkBase={ ROUTE_PATHS.VIEW_COURSE }
+                onChange={ (items) => setRequiredCoursesCB(items) }
               />
             </div>
           </Grid>
@@ -83,9 +128,8 @@ const NewJobRequirements = ({
             <div className='mr-30 drop-down-field'>
               <MultiSelectLinkItems
                 items={ availableCourses }
-                selectedItems={ selectedBonusCourses }
-                setSelectedItems={ setSelectedBonusCourses }
                 textLinkBase={ ROUTE_PATHS.VIEW_COURSE }
+                onChange={ (items) => setBonusCoursesCB(items) }
               />
             </div>
           </Grid>
@@ -95,7 +139,35 @@ const NewJobRequirements = ({
   )
 }
 
+NewJobRequirements.defaultProps = {
+  newJobData: {
+    jobId: '',
+    categoryId: '',
+    categoryName: '',
+    needed: 0,
+    title: '',
+    description: '',
+    status: 'recruiting',
+    jobType: 'contract',
+    payAmount: 0,
+    durationType: 'on-demand',
+    durationMonths: 0,
+    experienceType: 'entry',
+    employmentType: 'freelancer',
+    languages: 'english',
+    jobSkillsData: {
+      requiredSkills: [],
+      bonusSkills: [ ],
+    },
+    jobCoursesData: {
+      requiredCourses: [],
+      bonusCourses: [ ],
+    },
+  },
+}
+
 NewJobRequirements.propTypes = {
+  newJobData: PropTypes.shape(PropTypes.any),
   jobFields: PropTypes.arrayOf(PropTypes.string).isRequired,
   setNewJobData: PropTypes.func.isRequired,
 }

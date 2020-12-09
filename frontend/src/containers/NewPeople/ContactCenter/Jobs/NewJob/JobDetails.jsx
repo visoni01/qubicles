@@ -13,7 +13,8 @@ const NewJobDetails = ({
   setNewJobData,
   setNewJobDataCB,
 }) => {
-  const [ languages, setLanguages ] = useState([ 'english' ])
+  // eslint-disable-next-line no-unused-vars
+  const [ languages, setLanguages ] = useState([ 'english', 'spanish' ])
 
   const setDurationMonthsCB = useCallback((e) => {
     const month = e.target.value
@@ -52,19 +53,20 @@ const NewJobDetails = ({
             name='jobType'
             label='jobType'
             className='is-display-block mt-10 radio-buttons'
+            value={ newJobData.jobType }
             onChange={ setNewJobDataCB }
           >
             <div className='display-inline-flex'>
               <FormControlLabel
                 value='fulltime'
                 control={ <Radio size='small' /> }
-                label='Fulltime'
+                label='Full time'
                 className='para'
               />
               <FormControlLabel
                 value='parttime'
                 control={ <Radio size='small' /> }
-                label='Parttime'
+                label='Part time'
                 className='para'
               />
               <FormControlLabel
@@ -96,6 +98,8 @@ const NewJobDetails = ({
                   className='duration-field'
                   id='months'
                   type='number'
+                  InputProps={ { inputProps: { min: 0, step: 1 } } }
+                  error={ newJobData.durationMonths < 0 }
                   name='duration'
                   value={ newJobData.durationMonths }
                   disabled={ !(newJobData.durationType === 'months') }
@@ -115,7 +119,7 @@ const NewJobDetails = ({
               margin='dense'
               variant='outlined'
               name='languages'
-              value={ languages }
+              value={ newJobData.languages.split(',') }
               onChange={ setLanguageCB }
             >
               {availableLanguages.map((language) => (
@@ -135,9 +139,12 @@ const NewJobDetails = ({
               variant='outlined'
               id='payAmount'
               type='number'
+              InputProps={ { inputProps: { min: 0, step: 1 } } }
+              error={ newJobData.payAmount < 0 }
               className='duration-field'
               name='payAmount'
               placeholder='10'
+              value={ newJobData.payAmount }
               onChange={ setNewJobDataCB }
               required
             />
@@ -147,6 +154,7 @@ const NewJobDetails = ({
           <h4 className='h4 mt-30'> Experience Level </h4>
           <RadioGroup
             name='experienceType'
+            value={ newJobData.experienceType }
             onChange={ setNewJobDataCB }
             label='experience'
             className='is-display-block mt-10 radio-buttons'
@@ -179,9 +187,35 @@ const NewJobDetails = ({
   )
 }
 
+NewJobDetails.defaultProps = {
+  newJobData: {
+    jobId: '',
+    categoryId: '',
+    categoryName: '',
+    needed: 0,
+    title: '',
+    description: '',
+    status: 'recruiting',
+    jobType: 'contract',
+    payAmount: 0,
+    durationType: 'on-demand',
+    durationMonths: 0,
+    experienceType: 'entry',
+    employmentType: 'freelancer',
+    languages: 'english',
+    jobSkillsData: {
+      requiredSkills: [],
+      bonusSkills: [ ],
+    },
+    jobCoursesData: {
+      requiredCourses: [],
+      bonusCourses: [ ],
+    },
+  },
+}
+
 NewJobDetails.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  newJobData: PropTypes.object.isRequired,
+  newJobData: PropTypes.shape(PropTypes.any),
   setNewJobData: PropTypes.func.isRequired,
   setNewJobDataCB: PropTypes.func.isRequired,
 }

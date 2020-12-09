@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import {
   FormControl, TextField, Chip,
 } from '@material-ui/core'
@@ -7,14 +7,26 @@ import _ from 'lodash'
 import PropTypes from 'prop-types'
 
 export default function MultiSelectChipItems({
-  items, label, smallTag, selectedItems, setSelectedItems,
+  items, label, smallTag, onChange, initialData,
 }) {
   const [ inputValue, setInputValue ] = useState('')
+  const [ selectedItems, setSelectedItems ] = useState(initialData || [])
   const setSelectedItemsCB = useCallback((event, value) => {
     if (value) {
-      setSelectedItems((state) => _.unionBy(state, [ value ], 'id'))
+      setSelectedItems((state) => {
+        const updatedState = _.unionBy(state, [ value ], 'id')
+        if (onChange) {
+          onChange(updatedState)
+        }
+        return (updatedState)
+      })
+      setInputValue('')
     }
-  }, [ setSelectedItems ])
+  }, [ setSelectedItems, onChange ])
+
+  useEffect(() => {
+    setSelectedItems(initialData)
+  }, [ initialData ])
 
   return (
     <div>
@@ -43,11 +55,17 @@ export default function MultiSelectChipItems({
         />
       </FormControl>
       <div className={ `tags-set ${ smallTag ? 'small' : '' }` }>
-        {selectedItems.map((tag) => (
+        {selectedItems && selectedItems.map((tag) => (
           <Chip
             size={ smallTag ? 'small' : 'medium' }
             key={ tag.id }
-            onDelete={ () => setSelectedItems((state) => state.filter((skill) => skill.id !== tag.id)) }
+            onDelete={ () => {
+              setSelectedItems((state) => {
+                const updatedState = state.filter((skill) => skill.id !== tag.id)
+                onChange(updatedState)
+                setSelectedItems(updatedState)
+              })
+            } }
             label={ tag.title }
             className='tag-chip'
           />
@@ -61,8 +79,7 @@ MultiSelectChipItems.defaultProps = {
   items: [],
   label: '',
   smallTag: false,
-  selectedItems: [],
-  setSelectedItems: null,
+  initialData: [],
 }
 
 MultiSelectChipItems.propTypes = {
@@ -73,9 +90,9 @@ MultiSelectChipItems.propTypes = {
 
   label: PropTypes.string,
   smallTag: PropTypes.bool,
-  selectedItems: PropTypes.arrayOf(PropTypes.shape({
+  initialData: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
   })),
-  setSelectedItems: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
 }

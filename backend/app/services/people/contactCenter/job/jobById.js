@@ -1,7 +1,7 @@
-import ServiceBase from '../../common/serviceBase'
-import { getJobById, getErrorMessageForService, getSkillsByJobId, getCoursesByJobId } from '../helper'
-import { ERRORS } from '../../utils/errors'
-import logger from '../../common/logger'
+import ServiceBase from '../../../../common/serviceBase'
+import { getJobById, getErrorMessageForService, getSkillsByJobId, getCoursesByJobId } from '../../../helper'
+import { ERRORS } from '../../../../utils/errors'
+import logger from '../../../../common/logger'
 const constraints = {
   job_id: {
     presence: { allowEmpty: false }

@@ -1,12 +1,16 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
   Dialog, DialogActions, DialogContent,
   DialogTitle, TextField, Button,
-  IconButton, Select, FormControl, InputLabel,
+  IconButton,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { useSelector, useDispatch } from 'react-redux'
+import _ from 'lodash'
+import SingleSelect from '../../SingleSelect'
+import { jobCategoriesOnlyFetchStart } from '../../../../redux-saga/redux/actions'
 
 const InviteAgent = ({
   open, handleClose,
@@ -15,7 +19,15 @@ const InviteAgent = ({
     jobType: '',
     inviteMessage: '',
   })
-  const availableCategories = [ 'Customer Service', 'Phone Calling', 'Email Support', 'Active Sales', 'Agent Support' ]
+  const [ selectedCategory, setSelectedCategory ] = useState(null)
+  const dispatch = useDispatch()
+  const { jobCategoriesOnly } = useSelector((state) => state.jobCategoriesOnly)
+  useEffect(() => {
+    if (_.isEmpty(jobCategoriesOnly)) {
+      dispatch(jobCategoriesOnlyFetchStart({ searchKeyword: '' }))
+    }
+  }, [ dispatch, jobCategoriesOnly ])
+
   const setInviteAgentDataCB = useCallback((event) => {
     const { name, value } = event.target
     setInviteAgentData((currentInviteAgentData) => ({
@@ -31,7 +43,6 @@ const InviteAgent = ({
       onClose={ handleClose }
       fullWidth
       maxWidth='sm'
-      // classes={ { paper: 'invite-agent-modal' } }
       className='custom-modal'
 
     >
@@ -51,25 +62,15 @@ const InviteAgent = ({
       <DialogContent>
         <h4 className='h4'>Invite for following position</h4>
         <div>
-          <FormControl variant='outlined' className='drop-down-bar'>
-            <InputLabel margin='dense' variant='outlined'>Choose job category</InputLabel>
-            <Select
-              margin='dense'
-              variant='outlined'
-              native
-              label='Choose job category'
-              onChange={ setInviteAgentDataCB }
-              className='dropdown'
-              name='jobType'
-            >
-              <option aria-label='None' value='' />
-              {availableCategories.map((skill) => (
-                <option key={ skill } value={ skill }>
-                  {skill}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
+          <SingleSelect
+            items={ jobCategoriesOnly.map((category) => ({
+              id: category.categoryId,
+              title: category.categoryTitle,
+            })) }
+            onChange={ (selectedValue) => setSelectedCategory(selectedValue) }
+            value={ selectedCategory }
+            label='Select Category'
+          />
         </div>
         <h4 className='h4 mt-20'>Message</h4>
         <TextField
