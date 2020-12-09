@@ -32,7 +32,7 @@ const constraints = {
     presence: { allowEmpty: false }
   },
   required_courses: {
-    presence: { allowEmpty: false }
+    presence: { allowEmpty: true }
   },
   bonus_courses: {
     presence: { allowEmpty: true }

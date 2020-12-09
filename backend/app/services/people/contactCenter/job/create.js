@@ -38,7 +38,7 @@ const constraints = {
     presence: { allowEmpty: true }
   },
   required_skills: {
-    presence: { allowEmpty: false }
+    presence: { allowEmpty: true }
   },
   bonus_skills: {
     presence: { allowEmpty: true }

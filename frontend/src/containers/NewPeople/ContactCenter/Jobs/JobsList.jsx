@@ -9,7 +9,7 @@ import _ from 'lodash'
 import {
   jobCategoriesOnlyFetchStart, updateJobsFilter, newJobCategoriesFetchStart,
 } from '../../../../redux-saga/redux/actions'
-import JobsFilterSkeleton from '../SkeletonLoader/JobsFilterSkeleton'
+import JobsFilterSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/JobsFilterSkeleton'
 import './styles.scss'
 
 const JobsList = () => {

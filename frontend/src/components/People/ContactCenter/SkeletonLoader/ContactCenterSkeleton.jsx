@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box } from '@material-ui/core'
 import Skeleton from '@material-ui/lab/Skeleton'
-import '../styles.scss'
+import './styles.scss'
 
 const IntroductionSkeleton = () => (
   <>

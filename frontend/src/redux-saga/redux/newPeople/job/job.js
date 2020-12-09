@@ -11,33 +11,33 @@ const initialState = {
 
 const {
   actions: {
-    newJobDetailsFetchStart,
-    newJobDetailsFetchSuccessful,
-    newJobDetailsFetchFailure,
-    newUpdateJobsFields,
+    jobDetailsFetchStart,
+    jobDetailsFetchSuccessful,
+    jobDetailsFetchFailure,
+    updateJobsFields,
     resetJobDetails,
   },
   reducer,
 } = createSlice({
-  name: 'newJobDetails',
+  name: 'jobDetails',
   initialState,
   reducers: {
-    newJobDetailsFetchStart: () => ({
+    jobDetailsFetchStart: () => ({
       ...initialState,
       isLoading: true,
     }),
-    newJobDetailsFetchSuccessful: (state, action) => ({
+    jobDetailsFetchSuccessful: (state, action) => ({
       ...state,
       success: true,
       isLoading: false,
       jobDetails: getDataForReducer(action, initialState.jobDetails, 'jobDetails'),
     }),
-    newJobDetailsFetchFailure: (state) => ({
+    jobDetailsFetchFailure: (state) => ({
       ...state,
       error: true,
       isLoading: false,
     }),
-    newUpdateJobsFields: (state, action) => {
+    updateJobsFields: (state, action) => {
       const { jobFields } = action.payload
       let { jobTitles, jobCategories, jobSkills } = jobFields
       jobTitles = jobTitles.map((title) => ({ name: title.job_title_name, value: title.job_title_id }))
@@ -60,9 +60,9 @@ const {
 
 export default reducer
 export {
-  newJobDetailsFetchStart,
-  newJobDetailsFetchSuccessful,
-  newJobDetailsFetchFailure,
-  newUpdateJobsFields,
+  jobDetailsFetchStart,
+  jobDetailsFetchSuccessful,
+  jobDetailsFetchFailure,
+  updateJobsFields,
   resetJobDetails,
 }

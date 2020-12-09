@@ -2,23 +2,21 @@ import React from 'react'
 import { Box } from '@material-ui/core'
 import { useSelector } from 'react-redux'
 import JobCategoryCard from './JobCategoryCard'
-import JobsSkeleton from '../SkeletonLoader/JobsSkeleton'
+import JobsSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/JobsSkeleton'
 
 export default function RenderJobs() {
   const { newJobCategories, isLoading } = useSelector((state) => state.newJobCategories)
 
   if (isLoading) {
     return (
-      <>
-        <JobsSkeleton />
-      </>
+      <JobsSkeleton />
     )
   }
 
   return (
     <Box className='custom-box'>
       { newJobCategories.map((jobCategory) => (
-        jobCategory.jobs.length > 0 && (
+        jobCategory.jobs.length && (
         <JobCategoryCard
           key={ jobCategory.categoryId }
           categoryId={ jobCategory.categoryId }

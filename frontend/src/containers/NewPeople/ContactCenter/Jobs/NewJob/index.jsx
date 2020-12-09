@@ -38,7 +38,7 @@ export const NewJob = (props) => {
     },
   }
   const [ newJobData, setNewJobData ] = useState(defaultJobData)
-  const { jobFields } = useSelector((state) => state.newJobDetails)
+  const { jobFields } = useSelector((state) => state.jobDetails)
   const { createJobData } = useSelector((state) => state.createJobData)
 
   // Setting jobData
@@ -65,11 +65,14 @@ export const NewJob = (props) => {
         ...jobsData,
       }))
     }
+  }, [ isEdit, jobsData ])
+
+  useEffect(() => {
     setNewJobData((currentNewJobData) => ({
       ...currentNewJobData,
       ...createJobData,
     }))
-  }, [ createJobData, jobsData, isEdit ])
+  }, [ createJobData ])
 
   return (
     <Grid container spacing={ 3 }>

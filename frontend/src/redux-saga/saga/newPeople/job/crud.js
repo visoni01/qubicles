@@ -1,6 +1,6 @@
 import { takeLatest, put } from 'redux-saga/effects'
 import {
-  updateJobsData, newJobDetailsFetchSuccessful, jobPublishSuccessful, jobPublishFailure,
+  updateJobsData, jobDetailsFetchSuccessful, jobPublishSuccessful, jobPublishFailure,
 } from '../../../redux/actions'
 import { ADD_JOB, UPDATE_JOB } from '../../../redux/constants'
 import { showErrorMessage, showSuccessMessage } from '../../../redux/snackbar'
@@ -101,7 +101,7 @@ function* jobCrudWorker(action) {
             needed,
           },
         }))
-        yield put(newJobDetailsFetchSuccessful(action.payload))
+        yield put(jobDetailsFetchSuccessful(action.payload))
         yield put(jobPublishSuccessful({ publishedJobId: jobId }))
         msg = 'Job has been successfully updated!'
         break

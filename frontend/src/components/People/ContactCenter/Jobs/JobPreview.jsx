@@ -3,13 +3,13 @@ import { useSelector } from 'react-redux'
 import {
   Box, Grid,
 } from '@material-ui/core'
-import { jobPostCard } from '../testData'
+import { jobPostCard } from '../../../../containers/NewPeople/ContactCenter/testData'
 import JobPostDetails from './JobPostDetails'
-import CreatePreviewActions from './NewJob/Actions'
+import CreatePreviewActions from '../../../../containers/NewPeople/ContactCenter/Jobs/NewJob/Actions'
 import navBar from '../../../../hoc/navbar'
 
 const JobPreview = () => {
-  const { createJobData, isLoading } = useSelector((state) => state.createJobData)
+  const { createJobData, isUpdatedData, isLoading } = useSelector((state) => state.createJobData)
   return (
     <>
       <Grid container spacing={ 3 }>
@@ -31,7 +31,7 @@ const JobPreview = () => {
         <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 }>
           <CreatePreviewActions
             newJobData={ createJobData }
-            isEdit={ false }
+            isEdit={ isUpdatedData }
             isPreview
           />
         </Grid>

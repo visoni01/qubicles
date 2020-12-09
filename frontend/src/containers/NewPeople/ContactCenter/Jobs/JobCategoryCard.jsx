@@ -17,7 +17,7 @@ const JobCategoryCard = ({
     </div>
 
     <div className='mt-10 mb-30'>
-      {jobs.length > 0 && jobs.map(({
+      {jobs.length && jobs.map(({
         job_id, title, needed,
       }, index) => (
         <div key={ !job_id ? `${ index } ${ title } ${ categoryId }` : `${ job_id } ${ categoryId }` }>
@@ -55,13 +55,20 @@ const JobCategoryCard = ({
   </div>
 )
 
+JobCategoryCard.defaultProps = {
+  fulfilled: 0,
+  evaluating: 0,
+  pending: 0,
+  inNeed: 0,
+}
+
 JobCategoryCard.propTypes = {
   categoryTitle: PropTypes.string.isRequired,
   categoryId: PropTypes.number.isRequired,
-  fulfilled: PropTypes.isRequired,
-  evaluating: PropTypes.number.isRequired,
-  pending: PropTypes.number.isRequired,
-  inNeed: PropTypes.number.isRequired,
+  fulfilled: PropTypes.number,
+  evaluating: PropTypes.number,
+  pending: PropTypes.number,
+  inNeed: PropTypes.number,
   jobs: PropTypes.arrayOf(
     PropTypes.shape({
       jobId: PropTypes.number,

@@ -39,6 +39,7 @@ export default function CreatePreviewActions({
     if (isEdit) {
       dispatch(updateJob({ ...newJobData, status: 'recruiting' }))
       dispatch(resetJobDetails())
+      dispatch(resetJobData())
     } else {
       dispatch(addJob({ ...newJobData, status: 'recruiting' }))
       dispatch(resetJobData())
@@ -46,7 +47,7 @@ export default function CreatePreviewActions({
   }
 
   const previewJob = () => {
-    dispatch(createJobDataFetchSuccessful({ createJobData: newJobData }))
+    dispatch(createJobDataFetchSuccessful({ createJobData: newJobData, isUpdatedData: isEdit }))
     history.push(ROUTE_PATHS.JOB_PREVIEW)
   }
 
@@ -62,8 +63,7 @@ export default function CreatePreviewActions({
           } }
           onClick={ publishJob }
         >
-          >
-          Publish
+          {isEdit ? '> Update' : '> Publish'}
         </Button>
 
         { !isPreview && (

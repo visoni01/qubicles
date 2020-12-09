@@ -1,13 +1,13 @@
 import { takeEvery, put } from 'redux-saga/effects'
 import {
-  newJobDetailsFetchStart, newUpdateJobsFields, newJobDetailsFetchSuccessful,
+  jobDetailsFetchStart, updateJobsFields, jobDetailsFetchSuccessful,
 } from '../../../redux/actions'
 import { NEW_JOB_FIELDS } from '../../../redux/constants'
 import { showErrorMessage } from '../../../redux/snackbar'
 import People from '../../../service/people'
 
 function* jobDetailsWatcher() {
-  yield takeEvery([ newJobDetailsFetchStart.type, NEW_JOB_FIELDS ], jobDetailsWorker)
+  yield takeEvery([ jobDetailsFetchStart.type, NEW_JOB_FIELDS ], jobDetailsWorker)
 }
 
 function* jobDetailsWorker(action) {
@@ -15,10 +15,10 @@ function* jobDetailsWorker(action) {
     switch (action.type) {
       case NEW_JOB_FIELDS: {
         const { data } = yield People.getJobCategoriesTitlesAndSkills()
-        yield put(newUpdateJobsFields({ jobFields: data }))
+        yield put(updateJobsFields({ jobFields: data }))
         break
       }
-      case newJobDetailsFetchStart.type: {
+      case jobDetailsFetchStart.type: {
         const { jobId } = action.payload
         const { data } = yield People.getJobById(jobId)
         if (data) {
@@ -60,7 +60,7 @@ function* jobDetailsWorker(action) {
             }
             return { requiredSkills, bonusSkills }
           })
-          yield put(newJobDetailsFetchSuccessful({
+          yield put(jobDetailsFetchSuccessful({
             jobDetails: {
               jobId: data.jobDetails.job_id,
               categoryId: data.jobDetails.category_id,

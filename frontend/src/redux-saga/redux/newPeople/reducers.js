@@ -13,7 +13,7 @@ const peopleReducers = {
   jobSkills: jobSkillsReducer,
   peopleTalentCards: talentCardsReducer,
   agentResumeSkills: agentResumeSkillsReducer,
-  newJobDetails: newJobReducer,
+  jobDetails: newJobReducer,
   newJobCategories: newJobCategoriesReducer,
   jobPostCompanyDetails: jobPostCompanyDetailsReducer,
   agentResume: agentResumeReducer,

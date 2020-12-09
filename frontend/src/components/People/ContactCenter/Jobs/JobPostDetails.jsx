@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 import './styles.scss'
 import JobPostSkeleton from '../SkeletonLoader/JobPostSkeleton'
+import { checkJobType } from '../../../../utils/common'
 
 const JobPostDetails = ({
   courses, jobDetails, isLoading,
@@ -43,7 +44,7 @@ const JobPostDetails = ({
           <p className='para'>Duration</p>
         </div>
         <div>
-          <h4 className='h4'>{_.capitalize(jobDetails.jobType)}</h4>
+          <h4 className='h4'>{checkJobType(jobDetails.jobType)}</h4>
           <p className='para'>Job Type</p>
           <h4 className='h4 mt-20'>{_.capitalize(jobDetails.locationType) || 'Remote'}</h4>
           <p className='para'>Location</p>

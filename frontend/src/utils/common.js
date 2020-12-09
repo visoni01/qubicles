@@ -139,3 +139,13 @@ export const formatSSN = (value) => {
   newVal += val
   return newVal.substring(0, 11)
 }
+
+export const checkJobType = (jobType) => {
+  if (jobType === 'fulltime') {
+    return 'Full time'
+  }
+  if (jobType === 'parttime') {
+    return 'Part time'
+  }
+  return 'Contract'
+}

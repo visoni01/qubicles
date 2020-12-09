@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback } from 'react'
 import {
   TextField, Select, MenuItem,
   FormControl, RadioGroup,
@@ -43,10 +43,6 @@ const NewJobDetails = ({
     }))
   }, [ setLanguages, setNewJobData ])
 
-  useEffect(() => {
-
-  }, [])
-
   return (
     <div className='custom-box new-job-root job-details-root has-fullwidth'>
       <h3 className='mt-10 h3'> Details </h3>
@@ -64,13 +60,13 @@ const NewJobDetails = ({
               <FormControlLabel
                 value='fulltime'
                 control={ <Radio size='small' /> }
-                label='Fulltime'
+                label='Full time'
                 className='para'
               />
               <FormControlLabel
                 value='parttime'
                 control={ <Radio size='small' /> }
-                label='Parttime'
+                label='Part time'
                 className='para'
               />
               <FormControlLabel
@@ -102,6 +98,8 @@ const NewJobDetails = ({
                   className='duration-field'
                   id='months'
                   type='number'
+                  InputProps={ { inputProps: { min: 0, step: 1 } } }
+                  error={ newJobData.durationMonths < 0 }
                   name='duration'
                   value={ newJobData.durationMonths }
                   disabled={ !(newJobData.durationType === 'months') }
@@ -141,6 +139,8 @@ const NewJobDetails = ({
               variant='outlined'
               id='payAmount'
               type='number'
+              InputProps={ { inputProps: { min: 0, step: 1 } } }
+              error={ newJobData.payAmount < 0 }
               className='duration-field'
               name='payAmount'
               placeholder='10'

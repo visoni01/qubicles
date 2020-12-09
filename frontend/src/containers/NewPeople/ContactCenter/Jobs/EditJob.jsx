@@ -4,18 +4,19 @@ import { useDispatch, useSelector } from 'react-redux'
 import navBar from '../../../../hoc/navbar'
 import { NewJob } from './NewJob/index'
 import '../styles.scss'
-import { newJobDetailsFetchStart } from '../../../../redux-saga/redux/actions'
+import { jobDetailsFetchStart } from '../../../../redux-saga/redux/actions'
 
 const EditJob = () => {
   const dispatch = useDispatch()
-  const { jobDetails } = useSelector((state) => state.newJobDetails)
+  const { jobDetails } = useSelector((state) => state.jobDetails)
+  const { isUpdatedData } = useSelector((state) => state.createJobData)
   const { jobId } = useParams()
 
   useEffect(() => {
-    if (jobId) {
-      dispatch(newJobDetailsFetchStart({ jobId }))
+    if (jobId && !isUpdatedData) {
+      dispatch(jobDetailsFetchStart({ jobId }))
     }
-  }, [ dispatch, jobId ])
+  }, [ dispatch, jobId, isUpdatedData ])
 
   return (
     <NewJob

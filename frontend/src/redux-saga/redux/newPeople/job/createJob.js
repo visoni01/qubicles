@@ -5,6 +5,7 @@ const initialState = {
   error: null,
   success: false,
   createJobData: { },
+  isUpdatedData: false,
   jobPublishSuccess: false,
   publishedJobId: null,
 }
@@ -29,13 +30,14 @@ const {
       isLoading: true,
     }),
     createJobDataFetchSuccessful: (state, action) => {
-      const { createJobData } = action.payload
+      const { createJobData, isUpdatedData } = action.payload
       return ({
         ...state,
         success: true,
         error: false,
         isLoading: false,
         createJobData,
+        isUpdatedData,
       })
     },
     createJobDataFetchFailure: (state) => ({
@@ -43,11 +45,12 @@ const {
       error: true,
       isLoading: false,
     }),
-    resetJobData: (state, action) => ({
+    resetJobData: (state) => ({
       ...state,
       createJobData: {},
       success: true,
       error: false,
+      isUpdatedData: false,
       isLoading: false,
     }),
     jobPublishSuccessful: (state, action) => ({

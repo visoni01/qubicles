@@ -102,9 +102,11 @@ const NewJobData = ({
           <h3 className='h3'> Needed* </h3>
           <div className='display-inline-flex mt-10'>
             <TextField
+              error={ newJobData.needed < 0 }
               margin='dense'
               id='agentNumber'
               name='needed'
+              InputProps={ { inputProps: { min: 0, step: 1 } } }
               type='number'
               className='agent-field'
               variant='outlined'

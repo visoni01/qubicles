@@ -4,7 +4,7 @@ import { Button } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import ROUTE_PATHS from '../../../../routes/routesPath'
-import { resetJobDetails } from '../../../../redux-saga/redux/actions'
+import { resetJobDetails, resetJobData } from '../../../../redux-saga/redux/actions'
 import JobsSearch from './JobsSearch'
 import RenderJobs from './RenderJobs'
 
@@ -16,6 +16,7 @@ const JobsPage = () => {
   const handleNewJob = () => {
     history.push(ROUTE_PATHS.NEW_JOB)
     dispatch(resetJobDetails())
+    dispatch(resetJobData())
   }
 
   return (

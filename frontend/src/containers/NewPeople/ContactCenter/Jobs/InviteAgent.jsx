@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
   Dialog, DialogActions, DialogContent,
@@ -7,7 +7,10 @@ import {
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { useSelector, useDispatch } from 'react-redux'
+import _ from 'lodash'
 import SingleSelect from '../../SingleSelect'
+import { jobCategoriesOnlyFetchStart } from '../../../../redux-saga/redux/actions'
 
 const InviteAgent = ({
   open, handleClose,
@@ -17,21 +20,14 @@ const InviteAgent = ({
     inviteMessage: '',
   })
   const [ selectedCategory, setSelectedCategory ] = useState(null)
-  const availableCategories = [
-    {
-      id: 1,
-      title: 'Customer Service Expert',
-    },
-    {
-      id: 2,
-      title: 'Customer Service Specialist',
-    },
-    {
-      id: 3,
-      title: 'Customer Service Manager',
-    },
+  const dispatch = useDispatch()
+  const { jobCategoriesOnly } = useSelector((state) => state.jobCategoriesOnly)
+  useEffect(() => {
+    if (_.isEmpty(jobCategoriesOnly)) {
+      dispatch(jobCategoriesOnlyFetchStart({ searchKeyword: null }))
+    }
+  }, [ dispatch ])
 
-  ]
   const setInviteAgentDataCB = useCallback((event) => {
     const { name, value } = event.target
     setInviteAgentData((currentInviteAgentData) => ({
@@ -47,7 +43,6 @@ const InviteAgent = ({
       onClose={ handleClose }
       fullWidth
       maxWidth='sm'
-      // classes={ { paper: 'invite-agent-modal' } }
       className='custom-modal'
 
     >
@@ -68,7 +63,10 @@ const InviteAgent = ({
         <h4 className='h4'>Invite for following position</h4>
         <div>
           <SingleSelect
-            items={ availableCategories }
+            items={ jobCategoriesOnly.map((category) => ({
+              id: category.categoryId,
+              title: category.categoryTitle,
+            })) }
             onChange={ (selectedValue) => setSelectedCategory(selectedValue) }
             value={ selectedCategory }
             label='Select Category'

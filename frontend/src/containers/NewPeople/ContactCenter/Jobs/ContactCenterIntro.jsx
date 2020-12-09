@@ -13,7 +13,7 @@ import Introduction from '../Introduction'
 import ROUTE_PATHS from '../../../../routes/routesPath'
 import './styles.scss'
 import { jobPostCompanyDetailsFetchStart } from '../../../../redux-saga/redux/actions'
-import ContactCenterSkeleton from '../SkeletonLoader/ContactCenterSkeleton'
+import ContactCenterSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/ContactCenterSkeleton'
 
 const ContactCenterIntro = ({ jobDetails }) => {
   const history = useHistory()
@@ -21,7 +21,7 @@ const ContactCenterIntro = ({ jobDetails }) => {
     history.push(ROUTE_PATHS.PEOPLE_JOBS_TAB)
   }, [ history ])
 
-  const { companyDetails, success, isLoading } = useSelector((state) => state.jobPostCompanyDetails)
+  const { companyDetails, success, isCompanyDetailsLoading } = useSelector((state) => state.jobPostCompanyDetails)
   const dispatch = useDispatch()
   useEffect(() => {
     if (!_.isEmpty(jobDetails) && _.isEmpty(companyDetails)) {
@@ -29,7 +29,7 @@ const ContactCenterIntro = ({ jobDetails }) => {
     }
   }, [ jobDetails, dispatch, companyDetails ])
 
-  if (isLoading && !success) {
+  if (isCompanyDetailsLoading && !success) {
     return (
       <ContactCenterSkeleton />
     )
