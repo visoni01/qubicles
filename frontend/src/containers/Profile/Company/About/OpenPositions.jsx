@@ -3,7 +3,6 @@ import { Box } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import _ from 'lodash'
 import JobsSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/JobsSkeleton'
-import JobCategoryCard from '../../../NewPeople/ContactCenter/Jobs/JobCategoryCard'
 import { newJobCategoriesFetchStart } from '../../../../redux-saga/redux/actions'
 import OpenJobPositionCard from './OpenJobPositionCard'
 
@@ -13,11 +12,12 @@ export default function OpenPositions() {
 
   useEffect(() => {
     if (_.isEmpty(newJobCategories)) { dispatch(newJobCategoriesFetchStart({ categoryId: 0, searchKeyword: '' })) }
+    // eslint-disable-next-line
   }, [ dispatch ])
 
   return (
     <Box className='custom-box'>
-      <h3 className='h3 mb-30'> Open Positions </h3>
+      <h3 className='h3 mb-20'> Open Positions </h3>
       {!isLoading ? (
         newJobCategories.map((jobCategory) => (
           jobCategory.jobs.length && (

@@ -12,7 +12,7 @@ const ResumeReviews = () => {
   const [ activeTab, setActivetab ] = useState(0)
   return (
     <div className='mb-25 custom-box resume-root reviews-root has-fullwidth'>
-      <h3 className='h3 is-fullwidth mb-20'> Reviews </h3>
+      <h3 className='h3 is-fullwidth'> Reviews </h3>
       <div className='custom-active-tabs'>
         <Tabs
           value={ activeTab }

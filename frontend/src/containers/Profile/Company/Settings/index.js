@@ -15,7 +15,7 @@ export default function Settings({
   })
 
   return (
-    <Grid container spacing={ 5 } direction='column'>
+    <Grid container spacing={ 4 }>
       {settingMenuItems.map((item) => (
         <Grid
           ref={ selectedMenuItem === item.id ? currentSectionRef : otherSectionRef }
