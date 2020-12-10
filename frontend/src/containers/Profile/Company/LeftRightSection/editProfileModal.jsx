@@ -28,12 +28,12 @@ const EditProfileModal = ({
   const handleUpdateTitle = useCallback((e) => {
     const data = e.target.value
     setTitle(data)
-  })
+  }, [])
 
   const handleUpdateSummary = useCallback((e) => {
     const data = e.target.value
     setSummary(data)
-  })
+  }, [])
 
   const handleCancel = useCallback(() => {
     setTitle(settings.title)

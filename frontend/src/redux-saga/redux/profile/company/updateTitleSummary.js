@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getDataForReducer } from '../../../../utils/common'
 
 const initialState = {
   isLoading: null,
