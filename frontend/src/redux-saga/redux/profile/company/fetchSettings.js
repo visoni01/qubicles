@@ -3,6 +3,9 @@ import { getDataForReducer } from '../../../../utils/common'
 
 const initialState = {
   isLoading: null,
+  updateLoading: null,
+  updateSuccess: null,
+  updateFail: null,
   error: null,
   success: null,
   settings: {},
@@ -13,6 +16,8 @@ const {
     fetchCompanyProfileSettingsStart,
     fetchCompanyProfileSettingsSuccessful,
     fetchCompanyProfileSettingsFailure,
+    updateCompanyProfileSettingsStart,
+    updateCompanyProfileSettingsSuccessful,
   },
   reducer,
 } = createSlice({
@@ -36,6 +41,16 @@ const {
       isLoading: false,
       success: false,
     }),
+    updateCompanyProfileSettingsStart: (action, state) => ({
+      ...state,
+      updateLoading: true,
+    }),
+    updateCompanyProfileSettingsSuccessful: (action, state) => ({
+      ...state,
+      settings: { ...state.settings, ...getDataForReducer(action, initialState, 'updatedSettings') },
+      updateLoading: false,
+      updateSuccess: true,
+    }),
   },
 })
 
@@ -44,4 +59,6 @@ export {
   fetchCompanyProfileSettingsStart,
   fetchCompanyProfileSettingsSuccessful,
   fetchCompanyProfileSettingsFailure,
+  updateCompanyProfileSettingsStart,
+  updateCompanyProfileSettingsSuccessful,
 }

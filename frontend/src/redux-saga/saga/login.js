@@ -26,6 +26,7 @@ function* loginWorker(action) {
         const userDetails = getUserDetails()
         yield put(showSuccessMessage({ msg: `Welcome ${ userDetails && userDetails.full_name }` }))
         yield put(userLoginSuccessful({ userDetails }))
+
         break
       }
       case userUpdateStart.type: {

@@ -1,9 +1,9 @@
-import settings from './settings'
+import settingsReducer from './fetchSettings'
 import updateTitleSummaryReducer from './updateTitleSummary'
 import uploadProfileImageReducer from '../uploadProfileImage'
 
 const companyProfile = {
-  companyProfileSettings: settings,
+  companyProfileSettings: settingsReducer,
   updateTitleSummary: updateTitleSummaryReducer,
   uploadProfileImage: uploadProfileImageReducer,
 }
