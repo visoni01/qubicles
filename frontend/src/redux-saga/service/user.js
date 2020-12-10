@@ -1,4 +1,4 @@
-import apiClient from '../../utils/apiClient'
+import apiClient, { axiosInst } from '../../utils/apiClient'
 
 class User {
   static async login(body) {
@@ -38,6 +38,16 @@ class User {
 
   static async resetPassword(data) {
     const response = await apiClient.postRequest('/auth/reset-password', { ...data })
+    return response
+  }
+
+  static async uploadProfileImage({ data }) {
+    const response = await axiosInst({
+      method: 'post',
+      url: '/user/upload-profile-image',
+      data,
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
     return response
   }
 }

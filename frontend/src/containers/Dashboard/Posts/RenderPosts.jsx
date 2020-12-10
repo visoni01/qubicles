@@ -9,7 +9,7 @@ const RenderPosts = ({ ownerId }) => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(postDataFetchingStart({ ownerId }))
-  }, [ dispatch ])
+  }, [ dispatch, ownerId ])
 
   if (isLoading) {
     return (

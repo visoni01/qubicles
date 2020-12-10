@@ -1,5 +1,5 @@
 import {
-  kareem, terry, sally, good, carolin, helen, thomas,
+  kareem, terry, sally,
 } from '../../../assets/images/avatar'
 
 const primaryContacts = [

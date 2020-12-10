@@ -5,7 +5,6 @@ const initialState = {
   isLoading: null,
   error: null,
   success: null,
-  editCompanyData: {},
 }
 
 const {
@@ -24,11 +23,10 @@ const {
       isLoading: true,
       success: false,
     }),
-    updateCompanyTitleSummarySuccessful: (state, action) => ({
+    updateCompanyTitleSummarySuccessful: (state) => ({
       ...state,
       success: true,
       isLoading: false,
-      editCompanyData: getDataForReducer(action, initialState, 'editCompanyData'),
     }),
     updateCompanyTitleSummaryFailure: (state) => ({
       ...state,

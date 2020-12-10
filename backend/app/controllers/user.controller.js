@@ -116,7 +116,7 @@ export default class UserController {
   }
 
   static async updateProfileImage (req, res) {
-    const UploadProfileImage = await UploadProfileImageService.execute({ ...req.body, file: req.file, ...req.params })
+    const UploadProfileImage = await UploadProfileImageService.execute({ ...req.body, file: req.file })
     if (UploadProfileImage.successful) {
       Responder.success(res, UploadProfileImage.result)
     } else {

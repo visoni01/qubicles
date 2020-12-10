@@ -4,6 +4,8 @@ import { isAuthenticated } from './../../../app/middlewares/isAuthenticated'
 import passport from 'passport'
 import config from '../../../config/app'
 import Responder from '../../../server/expressResponder'
+import multer from 'multer'
+const multerUpload = multer()
 
 const args = { mergeParams: true }
 const userRouter = express.Router(args)
@@ -61,7 +63,7 @@ userRouter.route('/checkr-invitation')
 userRouter.route('/update')
   .post(isAuthenticated, userController.updateUserDataController)
 
-userRouter.route('/upload')
-  .post(isAuthenticated, userController.updateProfileImage)
+userRouter.route('/upload-profile-image')
+  .post(multerUpload.single('file'), isAuthenticated, userController.updateProfileImage)
 
 export { userRouter }

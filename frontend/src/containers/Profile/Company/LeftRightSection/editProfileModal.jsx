@@ -1,5 +1,5 @@
 import React, {
-  useCallback, useState, useEffect,
+  useCallback, useState, useEffect, useRef,
 } from 'react'
 import PropTypes from 'prop-types'
 import {
@@ -12,7 +12,7 @@ import { faTimes, faPlus } from '@fortawesome/free-solid-svg-icons'
 import '../styles.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { good } from '../../../../assets/images/avatar'
-import { updateCompanyTitleSummaryStart } from '../../../../redux-saga/redux/actions'
+import { updateCompanyTitleSummaryStart, uploadProfileImageStart } from '../../../../redux-saga/redux/actions'
 
 const EditProfileModal = ({
   open, handleClose,
@@ -20,7 +20,9 @@ const EditProfileModal = ({
   const { settings, isLoading } = useSelector((state) => state.companyProfileSettings)
   const [ title, setTitle ] = useState(settings.title)
   const [ summary, setSummary ] = useState(settings.summary)
+  const [ fileSrc, setFileSrc ] = useState('')
 
+  const fileInput = useRef()
   const dispatch = useDispatch()
 
   const handleUpdateTitle = useCallback((e) => {
@@ -38,12 +40,28 @@ const EditProfileModal = ({
     setSummary(settings.summary)
   }, [ settings ])
 
+  const handleFileInputChange = useCallback((event) => {
+    event.preventDefault()
+    const file = event.target.files[ 0 ]
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onloadend = () => {
+      setFileSrc(
+        reader.result,
+      )
+    }
+  })
+
   const onSubmit = useCallback(() => {
+    const uploadImage = {
+      file: fileInput.current.files && fileInput.current.files[ 0 ],
+    }
     dispatch(updateCompanyTitleSummaryStart({
       title,
       summary,
     }))
-  }, [ title, summary ])
+    dispatch(uploadProfileImageStart(uploadImage))
+  }, [ dispatch, title, summary ])
 
   return (
     <Dialog
@@ -75,25 +93,20 @@ const EditProfileModal = ({
         <div className='photo-upload'>
           <div className='preview'>
             <span className='upload-button'>
-              <FontAwesomeIcon icon={ faPlus } />
-              {/* <input
+              { fileSrc ? (<FontAwesomeIcon icon={ faTimes } />) : (<FontAwesomeIcon icon={ faPlus } />)}
+              <input
                 type='file'
                 className='position-absolute'
                 id='photo-input'
                 accept='image/*'
                 ref={ fileInput }
-              /> */}
+                onChange={ handleFileInputChange }
+              />
             </span>
             <img
               id='upload-preview'
-              src={ good }
-              data-demo-src='assets/img/avatars/avatar-w.png'
+              src={ fileSrc || good }
               alt=''
-            />
-            <form
-              id='profile-pic-dz'
-              className='dropzone is-hidden'
-              action='/'
             />
           </div>
         </div>

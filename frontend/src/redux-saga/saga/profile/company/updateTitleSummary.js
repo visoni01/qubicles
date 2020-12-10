@@ -5,6 +5,7 @@ import {
   showErrorMessage,
   showSuccessMessage,
   fetchCompanyProfileSettingsSuccessful,
+  updateCompanyTitleSummarySuccessful,
 } from '../../../redux/actions'
 
 import CompanyProfile from '../../../service/profile/company'
@@ -25,6 +26,7 @@ function* updateCompanyTitleSummaryWorker(action) {
         summary: response.data.summary,
       },
     }))
+    yield put(updateCompanyTitleSummarySuccessful())
     const msg = 'Title and Summary succesfully updated!'
     yield put(showSuccessMessage({ msg }))
   } catch (e) {
