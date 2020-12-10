@@ -1,14 +1,13 @@
 import React from 'react'
-import { Box } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
+import OpenPositions from './OpenPositions'
 
 export default function About() {
   return (
-    <div>
-      <Box className='custom-box'>
-        <h2 className='h2'>
-          About
-        </h2>
-      </Box>
-    </div>
+    <Grid container spacing={ 5 } direction='column'>
+      <Grid item>
+        <OpenPositions />
+      </Grid>
+    </Grid>
   )
 }
