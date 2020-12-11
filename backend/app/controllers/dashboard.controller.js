@@ -52,7 +52,7 @@ export default class DashboardController {
   }
 
   static async getAllPostStatusList (req, res) {
-    const postStatusList = await GellAllPostStatusListService.execute({ ...req.body })
+    const postStatusList = await GellAllPostStatusListService.execute({ ...req.body, ...req.query })
     if (postStatusList.successful) {
       Responder.success(res, postStatusList.result)
     } else {

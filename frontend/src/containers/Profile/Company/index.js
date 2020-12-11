@@ -1,14 +1,20 @@
 /* eslint-disable complexity */
-import React, { useState, useRef, useCallback } from 'react'
+import React, {
+  useState, useRef, useCallback, useEffect,
+} from 'react'
 import { Grid, Tabs, Tab } from '@material-ui/core'
+import { useDispatch } from 'react-redux'
 import navBar from '../../../hoc/navbar'
-import LeftSection from '../../../components/Profile/Company/LeftSection'
-import RightSection from '../../../components/Profile/Company/RightSection'
+import ContactCenterEditProfile from './LeftRightSection/index'
+import Wallet from './LeftRightSection/wallet'
 import Settings from './Settings'
+import ContactCenterFeed from './Feed/index'
 import SettingsLeft from './Settings/SettingsLeft'
+import { fetchCompanyProfileSettingsStart } from '../../../redux-saga/redux/actions'
+import About from './About/index'
 
 const ContactCenterProfile = () => {
-  const [ activeTab, setActiveTab ] = useState(2)
+  const [ activeTab, setActiveTab ] = useState(0)
   const spacingMid = activeTab === 2 ? 9 : 6
   const spacingTab = activeTab === 2 ? 8 : 12
 
@@ -21,13 +27,18 @@ const ContactCenterProfile = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [])
 
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(fetchCompanyProfileSettingsStart())
+  }, [ dispatch ])
+
   return (
     <div>
       <Grid container spacing={ 3 }>
         <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 }>
           <div className='left-section'>
-            { activeTab === 0 && <LeftSection />}
-            { activeTab === 1 && <LeftSection />}
+            { activeTab === 0 && <ContactCenterEditProfile />}
+            { activeTab === 1 && <ContactCenterEditProfile />}
             { activeTab === 2 && (
             <SettingsLeft
               setSelectedMenuItem={ setSelectedMenuItem }
@@ -67,8 +78,8 @@ const ContactCenterProfile = () => {
           </Grid>
           <Grid item xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 }>
             <div>
-              { activeTab === 0 && <Settings />}
-              { activeTab === 1 && <Settings />}
+              { activeTab === 0 && <ContactCenterFeed />}
+              { activeTab === 1 && <About />}
               { activeTab === 2 && (
               <Settings
                 selectedMenuItem={ selectedMenuItem }
@@ -83,7 +94,7 @@ const ContactCenterProfile = () => {
 
         <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
           {activeTab !== 2 && (
-          <RightSection />
+          <Wallet />
           )}
         </Grid>
       </Grid>

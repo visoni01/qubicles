@@ -1,11 +1,12 @@
 import React from 'react'
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Avatar } from '@material-ui/core'
+import { Avatar, Button } from '@material-ui/core'
 import Rating from '@material-ui/lab/Rating'
 import PropTypes from 'prop-types'
 import './styles.scss'
 import { formatDate } from '../../../utils/common'
+import { contactCenterIntroduction } from './testData'
 
 const Introduction = ({
   imageName,
@@ -16,6 +17,9 @@ const Introduction = ({
   date,
   title,
   description,
+  isEdit,
+  editText,
+  handleEditModal,
 }) => (
   <div className='introduction-root'>
     <div className='display-inline-flex is-fullwidth'>
@@ -42,6 +46,20 @@ const Introduction = ({
       </div>
     </div>
 
+    {isEdit && (
+      <div className=' mt-20 mb-20'>
+        <Button
+          className='wide-button'
+          classes={ {
+            root: 'button-primary-small',
+            label: 'button-primary-small-label',
+          } }
+          onClick={ handleEditModal }
+        >
+          {editText}
+        </Button>
+      </div>
+    )}
     <h4 className='h4 margin-top-bottom-10'>
       {title}
     </h4>
@@ -51,15 +69,32 @@ const Introduction = ({
   </div>
 )
 
+Introduction.defaultProps = {
+  imageName: contactCenterIntroduction.imageName,
+  rating: contactCenterIntroduction.rating,
+  imageSrc: contactCenterIntroduction.imageSrc,
+  name: contactCenterIntroduction.name,
+  location: contactCenterIntroduction.location,
+  date: contactCenterIntroduction.date,
+  title: contactCenterIntroduction.title,
+  description: contactCenterIntroduction.description,
+  isEdit: false,
+  editText: '',
+}
+
 Introduction.propTypes = {
-  imageName: PropTypes.string.isRequired,
-  rating: PropTypes.number.isRequired,
-  imageSrc: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  location: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  imageName: PropTypes.string,
+  rating: PropTypes.number,
+  imageSrc: PropTypes.string,
+  name: PropTypes.string,
+  location: PropTypes.string,
+  date: PropTypes.string,
+  title: PropTypes.string,
+  description: PropTypes.string,
+  isEdit: PropTypes.bool,
+  editText: PropTypes.string,
+  // eslint-disable-next-line react/require-default-props
+  handleEditModal: PropTypes.func,
 }
 
 export default Introduction

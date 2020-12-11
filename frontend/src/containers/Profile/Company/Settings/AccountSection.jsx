@@ -6,18 +6,12 @@ import {
 import './styles.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye } from '@fortawesome/free-solid-svg-icons'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import MultiSelectChipItems from '../../../NewPeople/MultiSelectChipItems'
-import { fetchCompanyProfileSettingsStart } from '../../../../redux-saga/redux/actions'
 
 export default function AccountSection() {
   const { settings, isLoading } = useSelector((state) => state.companyProfileSettings)
   const [ accountSettingInfo, setAccountSettingInfo ] = useState(settings)
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(fetchCompanyProfileSettingsStart())
-  }, [ dispatch ])
 
   useEffect(() => {
     setAccountSettingInfo(settings)

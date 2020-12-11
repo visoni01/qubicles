@@ -1,0 +1,93 @@
+@import '../../../customStyles/scss/partials/variables';
+@import '../../../customStyles/scss/partials/mixins';
+@import '../../Dashboard/Posts/style.scss';
+@import '../../Dashboard/PostComments/style.scss';
+
+.top-talent-root{
+  .top-talent {
+    width: 100%;
+
+    .profile-pic {
+      width: 56px;
+      height: 56px;
+      margin: 10px;
+      margin-left: 0px;
+    }
+
+    .candidate-info {
+      align-self: center;
+      width: calc(100% - 60px);
+    }
+  }
+}
+
+.wallet-root {
+  .price-green {
+    color: #23E8B5;
+  }
+
+  .price-red {
+    color: #F14667;
+  }
+}
+
+.custom-modal {
+  .MuiDialog-scrollPaper {
+    overflow-y: scroll !important;
+    height: auto;
+  }
+
+  .MuiDialog-paperScrollPaper {
+    max-height: none;
+    // margin-top: auto;
+  }
+
+.editProfile-modal {
+  .photo-upload {
+    .preview {
+      position: relative;
+      height: 120px;
+      width: 120px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      border: 1.4px solid #cecece;;
+      margin: 0 auto;
+
+      img {
+        display: block;
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+      }
+
+      .upload-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 36px;
+        width: 36px;
+        border-radius: 50%;
+        border: 3px solid #fff;
+        background: #cecece;
+        transition: all 0.3s;
+
+        &:hover {
+          background: #4877F4;
+        }
+
+        svg {
+          height: 14px;
+          width: 14px;
+          stroke: #fff;
+          stroke-width: 3px;
+        }
+      }
+    }
+  }
+}
+}

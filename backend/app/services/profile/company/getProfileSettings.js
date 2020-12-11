@@ -49,6 +49,8 @@ export class GetCompanyProfileSettingsService extends ServiceBase {
         smsNotification: userDetails.notify_email,
         emailNotification: userDetails.notify_sms,
         website: clientDetails.website,
+        summary: clientDetails.summary,
+        title: clientDetails.title,
         timezone: ''
       }
 

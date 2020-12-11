@@ -33,7 +33,9 @@ function* postDataFetchingWorker(action) {
     let msg
     switch (action.type) {
       case postDataFetchingStart.type: {
-        const { data } = yield Dashboard.fetchPosts()
+        const { ownerId } = action.payload
+
+        const { data } = yield Dashboard.fetchPosts({ ownerId })
         yield put(updatePostData({ type: POST_DATA_FETCH, posts: data }))
         break
       }

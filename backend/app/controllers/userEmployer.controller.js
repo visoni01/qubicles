@@ -7,6 +7,7 @@ import {
   PostSignupEmployerStep4Service
 } from '../services/user/employer/postSignupEmployer'
 import { getTokenAfterPostSignupCompleted } from '../services/helper'
+import { EditCompanyTitleSummaryService } from '../services/user'
 
 export default class UserEmployerController {
   static async postSignupEmployer (req, res) {
@@ -35,6 +36,15 @@ export default class UserEmployerController {
       Responder.success(res, postSignupEmployerResult.result)
     } else {
       Responder.failed(res, postSignupEmployerResult.errors)
+    }
+  }
+
+  static async editCompanyTitleSummary (req, res) {
+    const editCompanyTitleSummaryResult = await EditCompanyTitleSummaryService.execute({ ...req.body })
+    if (editCompanyTitleSummaryResult.successful) {
+      Responder.success(res, editCompanyTitleSummaryResult.result)
+    } else {
+      Responder.failed(res, editCompanyTitleSummaryResult.errors)
     }
   }
 }
