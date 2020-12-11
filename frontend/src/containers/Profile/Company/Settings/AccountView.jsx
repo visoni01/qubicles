@@ -1,12 +1,10 @@
 /* eslint-disable complexity */
 import React, { useCallback } from 'react'
 import {
-  Box, Grid, Button, IconButton, Input, Divider, Switch,
+  Box, Grid, Button, Divider, Switch,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import './styles.scss'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEye } from '@fortawesome/free-solid-svg-icons'
 import MultiSelectChipItems from '../../../NewPeople/MultiSelectChipItems'
 import { accountSettingInfoPropTypes, accountSettingInfoDefaultProps } from './settingsProps'
 
@@ -50,14 +48,6 @@ export default function AccountView({
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
               <div className='row-section'>
                 <h4 className='h4'>Company Name</h4>
-                <Button
-                  classes={ {
-                    root: 'button-primary-text',
-                    label: 'button-primary-text-label',
-                  } }
-                >
-                  Change Name
-                </Button>
               </div>
               <div className='row-fields'>
                 <span className='para'>
@@ -84,13 +74,9 @@ export default function AccountView({
                 </Button>
               </div>
               <div className='row-fields flex'>
-                <Input
-                  defaultValue='****************'
-                  className='text-edit'
-                />
-                <IconButton>
-                  <FontAwesomeIcon icon={ faEye } className='custom-fa-icon light' />
-                </IconButton>
+                <span className='para'>
+                  **************
+                </span>
               </div>
             </Grid>
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
@@ -132,6 +118,7 @@ export default function AccountView({
                     root: 'button-primary-text',
                     label: 'button-primary-text-label',
                   } }
+                  onClick={ () => setOpenDrawer((current) => ({ ...current, emailDrawer: true })) }
                 >
                   Change Email
                 </Button>
@@ -144,19 +131,20 @@ export default function AccountView({
             </Grid>
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
               <div className='row-section'>
-                <h4 className='h4'>Home Phone</h4>
+                <h4 className='h4'>Business Phone</h4>
                 <Button
                   classes={ {
                     root: 'button-primary-text',
                     label: 'button-primary-text-label',
                   } }
+                  onClick={ () => setOpenDrawer((current) => ({ ...current, numberDrawer: true })) }
                 >
                   Change Number
                 </Button>
               </div>
               <div className='row-fields '>
                 <span className='para '>
-                  {accountSettingInfo.homePhone}
+                  {accountSettingInfo.phoneNumber}
                 </span>
               </div>
             </Grid>
@@ -164,24 +152,6 @@ export default function AccountView({
 
           {/* Mobile phone and notifications */}
           <Grid item container justify='space-between' spacing={ 6 }>
-            <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
-              <div className='row-section'>
-                <h4 className='h4'>Mobile Phone</h4>
-                <Button
-                  classes={ {
-                    root: 'button-primary-text',
-                    label: 'button-primary-text-label',
-                  } }
-                >
-                  Change Number
-                </Button>
-              </div>
-              <div className='row-fields'>
-                <span className='para'>
-                  {accountSettingInfo.mobilePhone}
-                </span>
-              </div>
-            </Grid>
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
               <div className='row-section small-width'>
                 <h4 className='h4'>SMS Notifications</h4>
@@ -192,6 +162,8 @@ export default function AccountView({
                   onChange={ handleSmsNotificationSwitch }
                 />
               </div>
+            </Grid>
+            <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
               <div className='row-section small-width'>
                 <h4 className='h4'>Email Notifications</h4>
                 <Switch
@@ -215,6 +187,7 @@ export default function AccountView({
                     root: 'button-primary-text',
                     label: 'button-primary-text-label',
                   } }
+                  onClick={ () => setOpenDrawer((current) => ({ ...current, websiteDrawer: true })) }
                 >
                   Change Website
                 </Button>
