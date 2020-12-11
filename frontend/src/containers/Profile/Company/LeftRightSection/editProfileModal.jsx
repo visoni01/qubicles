@@ -35,33 +35,48 @@ const EditProfileModal = ({
     setSummary(data)
   })
 
+  const handleCancel = useCallback(() => {
+    setTitle(settings.title)
+    setSummary(settings.summary)
+    handleClose()
+  }, [ settings ])
+
   useEffect(() => {
     setTitle(settings.title)
     setSummary(settings.summary)
   }, [ settings ])
 
-  const handleFileInputChange = useCallback((event) => {
-    event.preventDefault()
-    const file = event.target.files[ 0 ]
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onloadend = () => {
-      setFileSrc(
-        reader.result,
-      )
+  const { success } = useSelector((state) => state.updateTitleSummary)
+
+  // WIP edit profile image
+
+  // const handleFileInputChange = useCallback((event) => {
+  //   event.preventDefault()
+  //   const file = event.target.files[ 0 ]
+  //   const reader = new FileReader()
+  //   reader.readAsDataURL(file)
+  //   reader.onloadend = () => {
+  //     setFileSrc(
+  //       reader.result,
+  //     )
+  //   }
+  // })
+  useEffect(() => {
+    if (success) {
+      handleClose()
     }
-  })
+  }, [ success ])
 
   const onSubmit = useCallback(() => {
-    const uploadImage = {
-      file: fileInput.current.files && fileInput.current.files[ 0 ],
-    }
+    // const uploadImage = {
+    //   file: fileInput.current.files && fileInput.current.files[ 0 ],
+    // }
     dispatch(updateCompanyTitleSummaryStart({
       title,
       summary,
     }))
-    dispatch(uploadProfileImageStart(uploadImage))
-  }, [ dispatch, title, summary ])
+    // dispatch(uploadProfileImageStart(uploadImage))
+  }, [ dispatch, title, summary, success ])
 
   return (
     <Dialog
@@ -94,14 +109,14 @@ const EditProfileModal = ({
           <div className='preview'>
             <span className='upload-button'>
               { fileSrc ? (<FontAwesomeIcon icon={ faTimes } />) : (<FontAwesomeIcon icon={ faPlus } />)}
-              <input
+              {/* <input
                 type='file'
                 className='position-absolute'
                 id='photo-input'
                 accept='image/*'
                 ref={ fileInput }
                 onChange={ handleFileInputChange }
-              />
+              /> */}
             </span>
             <img
               id='upload-preview'
@@ -188,7 +203,7 @@ const EditProfileModal = ({
             root: 'button-secondary-small-red',
             label: 'button-secondary-small-label',
           } }
-          onClick={ handleClose }
+          onClick={ handleCancel }
         >
           Cancel
         </Button>

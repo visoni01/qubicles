@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Box, Divider } from '@material-ui/core'
 import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 import { contactCenterIntroduction } from '../../../NewPeople/ContactCenter/testData'
 import Introduction from '../../../NewPeople/ContactCenter/Introduction'
 import PrimaryContact from './primaryContact'
@@ -20,6 +21,7 @@ const ContactCenterEditProfile = ({
   const handleEditProfileModal = () => {
     setOpenEditProfileModal(true)
   }
+  const { settings } = useSelector((state) => state.companyProfileSettings)
 
   return (
     <>
@@ -32,8 +34,8 @@ const ContactCenterEditProfile = ({
           name={ companyName }
           location={ location }
           date={ registrationDate }
-          title={ title }
-          description={ summary }
+          title={ settings.title }
+          description={ settings.summary }
           isEdit
           editText='Edit Profile'
           handleEditModal={ handleEditProfileModal }

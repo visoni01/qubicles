@@ -22,6 +22,8 @@ const ContactCenterIntro = ({ jobDetails }) => {
   }, [ history ])
 
   const { companyDetails, success, isCompanyDetailsLoading } = useSelector((state) => state.jobPostCompanyDetails)
+  const { settings } = useSelector((state) => state.companyProfileSettings)
+
   const dispatch = useDispatch()
   useEffect(() => {
     if (!_.isEmpty(jobDetails) && _.isEmpty(companyDetails)) {
@@ -58,8 +60,8 @@ const ContactCenterIntro = ({ jobDetails }) => {
           name={ companyDetails.companyName }
           location={ companyDetails.city }
           date={ companyDetails.registrationDate }
-          title={ companyDetails.title }
-          description={ companyDetails.summary }
+          title={ settings.title }
+          description={ settings.summary }
         />
         <div className='para mt-20'>
           <span className='para bold'> 2K+  </span>
