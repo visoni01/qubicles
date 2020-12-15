@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  isLoading: null,
+  uploadingImage: null,
   error: null,
-  success: null,
+  uploadSuccess: null,
 }
 
 const {
@@ -19,17 +19,17 @@ const {
   reducers: {
     uploadProfileImageStart: (state) => ({
       ...state,
-      isLoading: true,
+      uploadingImage: true,
     }),
     uploadProfileImageFailed: (state) => ({
       ...state,
-      isLoading: false,
-      success: false,
+      uploadingImage: false,
+      uploadSuccess: false,
     }),
     uploadProfileImageSuccess: (state) => ({
       ...state,
-      isLoading: false,
-      success: true,
+      uploadingImage: false,
+      uploadSuccess: true,
     }),
   },
 })

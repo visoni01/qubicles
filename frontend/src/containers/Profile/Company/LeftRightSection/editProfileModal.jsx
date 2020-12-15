@@ -9,11 +9,13 @@ import {
   FormControl, Select,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import '../styles.scss'
 import { useSelector, useDispatch } from 'react-redux'
-import { good } from '../../../../assets/images/avatar'
-import { updateCompanyTitleSummaryStart } from '../../../../redux-saga/redux/actions'
+import _ from 'lodash'
+import { defaultUser } from '../../../../assets/images/avatar'
+import { updateCompanyTitleSummaryStart, uploadProfileImageStart } from '../../../../redux-saga/redux/actions'
+import Loader from '../../../../components/loaders/circularLoader'
 
 const EditProfileModal = ({
   open, handleClose,
@@ -24,6 +26,7 @@ const EditProfileModal = ({
   const [ fileSrc, setFileSrc ] = useState('')
 
   const fileInput = useRef()
+
   const dispatch = useDispatch()
 
   const handleUpdateTitle = useCallback((e) => {
@@ -48,37 +51,51 @@ const EditProfileModal = ({
   }, [ settings ])
 
   const { success } = useSelector((state) => state.updateTitleSummary)
+  const { uploadSuccess, uploadingImage } = useSelector((state) => state.uploadProfileImage)
 
   // WIP edit profile image
 
-  // const handleFileInputChange = useCallback((event) => {
-  //   event.preventDefault()
-  //   const file = event.target.files[ 0 ]
-  //   const reader = new FileReader()
-  //   reader.readAsDataURL(file)
-  //   reader.onloadend = () => {
-  //     setFileSrc(
-  //       reader.result,
-  //     )
-  //   }
-  // })
+  const handleFileInputChange = useCallback((event) => {
+    event.preventDefault()
+    const file = event.target.files[ 0 ]
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onloadend = () => {
+      setFileSrc(
+        reader.result,
+      )
+    }
+  })
+
+  const handleChooseFile = () => {
+    fileInput.current.click()
+  }
+
+  const handleDelete = () => {
+    fileInput.current.value = ''
+    setFileSrc('')
+  }
+
   useEffect(() => {
-    if (success) {
+    if (success || uploadSuccess) {
       handleClose()
     }
-  }, [ success, handleClose ])
+  }, [ success, uploadSuccess ])
 
   const onSubmit = useCallback(() => {
-    // const uploadImage = {
-    //   file: fileInput.current.files && fileInput.current.files[ 0 ],
-    // }
-    dispatch(updateCompanyTitleSummaryStart({
-      title,
-      summary,
-    }))
-    // dispatch(uploadProfileImageStart(uploadImage))
-    // eslint-disable-next-line
-  }, [ dispatch, title, summary, success ])
+    const uploadImage = {
+      file: fileInput.current.files && fileInput.current.files[ 0 ],
+    }
+    if (title !== settings.title || summary !== settings.summary) {
+      dispatch(updateCompanyTitleSummaryStart({
+        title,
+        summary,
+      }))
+    }
+    if (!_.isEmpty(fileInput.current.files)) {
+      dispatch(uploadProfileImageStart(uploadImage))
+    }
+  }, [ dispatch, title, summary ])
 
   return (
     <Dialog
@@ -109,23 +126,49 @@ const EditProfileModal = ({
         </h3>
         <div className='photo-upload'>
           <div className='preview'>
-            <span className='upload-button'>
-              { fileSrc ? (<FontAwesomeIcon icon={ faTimes } />) : (<FontAwesomeIcon icon={ faPlus } />)}
-              {/* <input
-                type='file'
-                className='position-absolute'
-                id='photo-input'
-                accept='image/*'
-                ref={ fileInput }
-                onChange={ handleFileInputChange }
-              /> */}
-            </span>
+            {fileSrc && (
+              <span className='close-button'>
+                <IconButton onClick={ handleDelete }>
+                  <FontAwesomeIcon icon={ faTimes } />
+                </IconButton>
+              </span>
+            )}
             <img
               id='upload-preview'
-              src={ fileSrc || good }
+              src={ fileSrc || defaultUser }
               alt=''
             />
+            <div>
+              { uploadingImage && (
+              <Loader
+                className='add-status-loader'
+                displayLoaderManually
+                enableOverlay={ false }
+                size={ 30 }
+              />
+              )}
+            </div>
           </div>
+        </div>
+        <div className='choose-image'>
+          <Button
+            classes={ {
+              root: 'button-primary-small',
+              label: 'button-primary-small-label',
+            } }
+            className='choose-file-button'
+            onClick={ handleChooseFile }
+          >
+            Choose Image
+          </Button>
+          <input
+            type='file'
+            className='position-absolute'
+            id='photo-input'
+            accept='image/*'
+            ref={ fileInput }
+            onChange={ handleFileInputChange }
+          />
         </div>
         <h3 className='h3 mb-10'>
           Company Title
