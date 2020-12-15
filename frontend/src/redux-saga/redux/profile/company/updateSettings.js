@@ -1,51 +1,50 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getDataForReducer } from '../../../../utils/common'
 
 const initialState = {
   isLoading: null,
   error: null,
   success: null,
-  settings: {},
+
 }
 
 const {
   actions: {
-    fetchCompanyProfileSettingsStart,
-    fetchCompanyProfileSettingsSuccessful,
-    fetchCompanyProfileSettingsFailure,
+    updateCompanyProfileSettingsStart,
+    updateCompanyProfileSettingsSuccessful,
+    updateCompanyProfileSettingsFailure,
+    resetUpdateCompanyProfileSettings,
   },
   reducer,
 } = createSlice({
-  name: 'companyProfileDetails',
+  name: 'updateCompanyProfile',
   initialState,
   reducers: {
-    fetchCompanyProfileSettingsStart: (state) => ({
+    updateCompanyProfileSettingsStart: (state) => ({
       ...state,
       isLoading: true,
       success: false,
     }),
-    fetchCompanyProfileSettingsSuccessful: (state, action) => ({
+    updateCompanyProfileSettingsSuccessful: (state) => ({
       ...state,
       success: true,
       isLoading: false,
-      settings: getDataForReducer(action, initialState, 'companySettings'),
     }),
-    fetchCompanyProfileSettingsFailure: (state) => ({
+    updateCompanyProfileSettingsFailure: (state) => ({
       ...state,
       error: true,
       isLoading: false,
       success: false,
     }),
-    updateCompanyProfileSettings: (action, state) => ({
-      ...state,
-      settings: getDataForReducer(action, initialState, 'updatedSettings'),
+    resetUpdateCompanyProfileSettings: () => ({
+      ...initialState,
     }),
   },
 })
 
 export default reducer
 export {
-  fetchCompanyProfileSettingsStart,
-  fetchCompanyProfileSettingsSuccessful,
-  fetchCompanyProfileSettingsFailure,
+  updateCompanyProfileSettingsStart,
+  updateCompanyProfileSettingsSuccessful,
+  updateCompanyProfileSettingsFailure,
+  resetUpdateCompanyProfileSettings,
 }

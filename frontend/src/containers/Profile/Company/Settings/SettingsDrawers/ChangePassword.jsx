@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
   Drawer, IconButton, Button, form, TextField,
@@ -7,13 +7,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  updateCompanyProfileSettingsStart,
+  resetUpdateCompanyProfileSettings,
+} from '../../../../../redux-saga/redux/actions'
 
 export default function ChangePassword({ open, setOpen }) {
+  const { isLoading, success } = useSelector((state) => state.updateCompanyProfileSettings)
+
   const [ visible, setVisible ] = useState({
     currentPassword: false,
     newPassword: false,
     confirmPassword: false,
   })
+  const dispatch = useDispatch()
 
   const { register, handleSubmit, errors } = useForm({
     defaultValues: {
@@ -33,6 +41,15 @@ export default function ChangePassword({ open, setOpen }) {
   })
 
   const onSubmit = (data) => {
+    if (!isLoading) {
+      dispatch(updateCompanyProfileSettingsStart({
+        updatedDataType: 'password',
+        updatedData: {
+          currentPassword: data.currentPassword,
+          newPassword: data.newPassword,
+        },
+      }))
+    }
   }
 
   const handleCancelPasswordChange = useCallback(() => {
@@ -44,6 +61,13 @@ export default function ChangePassword({ open, setOpen }) {
     setOpen(false)
   }, [ setOpen ])
 
+  useEffect(() => {
+    if (!isLoading && success) {
+      setOpen(false)
+      dispatch(resetUpdateCompanyProfileSettings())
+    }
+  }, [ success, isLoading, dispatch, setOpen ])
+
   return (
     <Drawer
       anchor='right'
@@ -54,12 +78,13 @@ export default function ChangePassword({ open, setOpen }) {
       <div>
         <h3 className='h3 mb-30'> Change Password </h3>
         <form className='is-fullwidth' onSubmit={ handleSubmit(onSubmit) }>
-          <div className='pl-10 pr-10 mr-50'>
+          <div className='pl-10 pr-10'>
             <div className='mb-40'>
               <h4 className='h4 mb-5'> Current Password </h4>
               <TextField
                 name='currentPassword'
                 type={ visible.currentPassword ? 'text' : 'password' }
+                autoComplete='off'
                 placeholder='Enter your current password'
                 className='is-fullwidth'
                 inputRef={ register }
@@ -90,6 +115,7 @@ export default function ChangePassword({ open, setOpen }) {
                 type={ visible.newPassword ? 'text' : 'password' }
                 className='is-fullwidth'
                 placeholder='Enter your new password'
+                autoComplete='off'
                 inputRef={ register }
                 error={ errors.newPassword }
                 helperText={ errors.newPassword ? errors.newPassword.message : '' }
@@ -117,6 +143,7 @@ export default function ChangePassword({ open, setOpen }) {
                 name='confirmPassword'
                 type={ visible.confirmPassword ? 'text' : 'password' }
                 className='is-fullwidth'
+                autoComplete='off'
                 placeholder='Repeat your new password'
                 inputRef={ register }
                 error={ errors.confirmPassword }

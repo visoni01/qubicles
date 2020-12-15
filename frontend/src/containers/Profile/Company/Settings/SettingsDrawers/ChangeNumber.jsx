@@ -1,13 +1,20 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
   Drawer, Button, form, TextField,
 } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
+import { useSelector, useDispatch } from 'react-redux'
 import { accountSettingInfoDefaultProps, accountSettingInfoPropTypes } from '../settingsProps'
+import {
+  updateCompanyProfileSettingsStart,
+  resetUpdateCompanyProfileSettings,
+} from '../../../../../redux-saga/redux/actions'
 
 export default function ChangeNumber({ open, setOpen, accountSettingInfo }) {
+  const { isLoading, success } = useSelector((state) => state.updateCompanyProfileSettings)
+  const dispatch = useDispatch()
   const { register, handleSubmit, errors } = useForm({
     defaultValues: {
       newNumber: '',
@@ -19,11 +26,26 @@ export default function ChangeNumber({ open, setOpen, accountSettingInfo }) {
   })
 
   const onSubmit = (data) => {
+    if (!isLoading) {
+      dispatch(updateCompanyProfileSettingsStart({
+        updatedDataType: 'number',
+        updatedData: {
+          phoneNumber: data.newNumber,
+        },
+      }))
+    }
   }
 
   const handleCancelNumberChange = useCallback(() => {
     setOpen(false)
   }, [ setOpen ])
+
+  useEffect(() => {
+    if (!isLoading && success) {
+      setOpen(false)
+      dispatch(resetUpdateCompanyProfileSettings())
+    }
+  }, [ success, isLoading, dispatch, setOpen ])
 
   return (
     <Drawer

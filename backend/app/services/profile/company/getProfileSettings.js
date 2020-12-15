@@ -36,17 +36,16 @@ export class GetCompanyProfileSettingsService extends ServiceBase {
       const clientDetails = await getClientData({ client_id: clientUser.client_id })
 
       const companyAccountSettings = {
-        companyId: userDetails.wallet_address,
+        companyId: clientDetails.client_id,
         companyName: clientDetails.client_name,
-        password: '',
-        address: clientDetails.address1,
+        street: clientDetails.address1,
         city: clientDetails.city,
         state: clientDetails.state,
         zip: clientDetails.zip,
         email: user.email,
         phoneNumber: clientDetails.phone_number,
-        smsNotification: !!userDetails.notify_email,
-        emailNotification: !!userDetails.notify_sms,
+        smsNotification: !!userDetails.notify_sms,
+        emailNotification: !!userDetails.notify_email,
         website: clientDetails.website,
         summary: clientDetails.summary,
         title: clientDetails.title,

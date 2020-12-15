@@ -1,13 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
   Drawer, Button, Grid, TextField,
 } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
+import { useDispatch, useSelector } from 'react-redux'
 import { accountSettingInfoPropTypes, accountSettingInfoDefaultProps } from '../settingsProps'
+import {
+  updateCompanyProfileSettingsStart,
+  resetUpdateCompanyProfileSettings,
+} from '../../../../../redux-saga/redux/actions'
 
 export default function ChangeAddress({ open, setOpen, accountSettingInfo }) {
+  const dispatch = useDispatch()
+  const { isLoading, success } = useSelector((state) => state.updateCompanyProfileSettings)
+
   const { register, handleSubmit, errors } = useForm({
     validationSchema: yup.object().shape({
       street: yup.string()
@@ -22,8 +30,25 @@ export default function ChangeAddress({ open, setOpen, accountSettingInfo }) {
   })
 
   const onSubmit = (data) => {
-    console.log('data===', data)
+    if (!isLoading) {
+      dispatch(updateCompanyProfileSettingsStart({
+        updatedDataType: 'address',
+        updatedData: {
+          street: data.street,
+          city: data.city,
+          state: data.state,
+          zip: data.zip,
+        },
+      }))
+    }
   }
+
+  useEffect(() => {
+    if (!isLoading && success) {
+      setOpen(false)
+      dispatch(resetUpdateCompanyProfileSettings())
+    }
+  }, [ success, isLoading, dispatch, setOpen ])
 
   return (
     <Drawer
@@ -40,9 +65,10 @@ export default function ChangeAddress({ open, setOpen, accountSettingInfo }) {
               <h4 className='h4 mb-5'> Street </h4>
               <TextField
                 name='street'
-                defaultValue={ accountSettingInfo.address }
+                defaultValue={ accountSettingInfo.street }
                 className='is-fullwidth'
                 inputRef={ register }
+                autoComplete='off'
                 error={ errors.street }
                 helperText={ errors.street ? errors.street.message : '' }
                 variant='outlined'
@@ -57,6 +83,7 @@ export default function ChangeAddress({ open, setOpen, accountSettingInfo }) {
                     name='zip'
                     className='is-fullwidth'
                     inputRef={ register }
+                    autoComplete='off'
                     defaultValue={ accountSettingInfo.zip }
                     error={ errors.zip }
                     helperText={ errors.zip ? errors.zip.message : '' }
@@ -70,6 +97,7 @@ export default function ChangeAddress({ open, setOpen, accountSettingInfo }) {
                     name='city'
                     className='is-fullwidth'
                     inputRef={ register }
+                    autoComplete='off'
                     defaultValue={ accountSettingInfo.city }
                     error={ errors.city }
                     helperText={ errors.city ? errors.city.message : '' }
@@ -85,6 +113,7 @@ export default function ChangeAddress({ open, setOpen, accountSettingInfo }) {
                 name='state'
                 className='is-fullwidth'
                 inputRef={ register }
+                autoComplete='off'
                 defaultValue={ accountSettingInfo.state }
                 error={ errors.state }
                 helperText={ errors.state ? errors.state.message : '' }

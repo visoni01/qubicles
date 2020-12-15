@@ -1,7 +1,8 @@
-import { ERRORS, MESSAGES } from '../../../utils/errors'
+import { ERRORS, MESSAGES, APP_ERROR_CODES } from '../../../utils/errors'
 import { updateProfileSettings } from '../../helper/companyProfile'
-import { getUserById, getClientIdByUserId, getErrorMessageForService } from '../../helper'
+import { getClientIdByUserId, getErrorMessageForService } from '../../helper'
 import ServiceBase from '../../../common/serviceBase'
+import { User } from '../../../db/models'
 
 const constraints = {
   user_id: {
@@ -25,7 +26,7 @@ export class UpdateCompanyProfileSettingsService extends ServiceBase {
 
     try {
       const promises = [
-        () => getUserById({ user_id }),
+        () => User.findOne({ where: { user_id } }),
         () => getClientIdByUserId({ user_id })
       ]
       const [user, clientUser] = await Promise.all(promises.map(promise => promise()))
@@ -37,30 +38,16 @@ export class UpdateCompanyProfileSettingsService extends ServiceBase {
         this.addError(ERRORS.NOT_FOUND, MESSAGES.CLIENT_NOT_FOUND)
       }
 
-      const result = await updateProfileSettings({ user_id, updatedData, updatedDataType })
+      try {
+        await updateProfileSettings({ user, clientUser, updatedData, updatedDataType })
+      } catch (error) {
+        if (error.message === APP_ERROR_CODES.INCORRECT_PASSWORD) {
+          this.addError(ERRORS.BAD_REQUEST, 'Current Password is Incorrect')
+        }
+      }
 
-      // const clientDetails = await getClientData({ client_id: clientUser.client_id })
-
-      // const companyAccountSettings = {
-      //   companyId: userDetails.wallet_address,
-      //   companyName: clientDetails.client_name,
-      //   password: '',
-      //   address: clientDetails.address1,
-      //   city: clientDetails.city,
-      //   state: clientDetails.state,
-      //   zip: clientDetails.zip,
-      //   email: user.email,
-      //   homePhone: '9342144124',
-      //   mobilePhone: '956472334',
-      //   smsNotification: userDetails.notify_email,
-      //   emailNotification: userDetails.notify_sms,
-      //   website: clientDetails.website,
-      //   timezone: ''
-      // }
-
-      return result
+      return { updatedDataType }
     } catch (err) {
-      console.log(err)
       getErrorMessageForService('UpdateCompanyProfileSettingsService')
     }
   }
