@@ -60,7 +60,7 @@ export default function ChangeAddress({ open, setOpen, accountSettingInfo }) {
       <div>
         <h3 className='h3 mb-30'> Change Address </h3>
         <form className='is-fullwidth' onSubmit={ handleSubmit(onSubmit) }>
-          <div className='pl-10 pr-10 mr-20'>
+          <div className='pl-10 pr-10'>
             <div className='mb-20'>
               <h4 className='h4 mb-5'> Street </h4>
               <TextField

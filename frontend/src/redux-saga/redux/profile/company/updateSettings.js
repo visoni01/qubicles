@@ -4,6 +4,7 @@ const initialState = {
   isLoading: null,
   error: null,
   success: null,
+  errorMessage: null,
 
 }
 
@@ -29,11 +30,12 @@ const {
       success: true,
       isLoading: false,
     }),
-    updateCompanyProfileSettingsFailure: (state) => ({
+    updateCompanyProfileSettingsFailure: (state, action) => ({
       ...state,
       error: true,
       isLoading: false,
       success: false,
+      errorMessage: action.payload.message,
     }),
     resetUpdateCompanyProfileSettings: () => ({
       ...initialState,

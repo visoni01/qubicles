@@ -11,40 +11,26 @@ import { accountSettingInfoPropTypes, accountSettingInfoDefaultProps } from './s
 import { updateCompanyProfileSettingsStart } from '../../../../redux-saga/redux/actions'
 
 export default function AccountView({
-  setOpenDrawer, accountSettingInfo, setAccountSettingInfo,
+  setOpenDrawer, accountSettingInfo,
 }) {
   const dispatch = useDispatch()
-  const handleSmsNotificationSwitch = useCallback(() => {
-    setAccountSettingInfo((currentSetting) => {
-      dispatch(updateCompanyProfileSettingsStart({
-        updatedDataType: 'Sms Notification',
-        updatedData: {
-          smsNotification: !currentSetting.smsNotification,
-        },
-      }))
+  const handleSmsNotificationSwitch = useCallback((e) => {
+    dispatch(updateCompanyProfileSettingsStart({
+      updatedDataType: 'Sms Notification',
+      updatedData: {
+        smsNotification: e.target.checked,
+      },
+    }))
+  }, [ dispatch ])
 
-      return ({
-        ...currentSetting,
-        smsNotification: !currentSetting.smsNotification,
-      })
-    })
-  }, [ setAccountSettingInfo, dispatch ])
-
-  const handleEmailNotificationSwitch = useCallback(() => {
-    setAccountSettingInfo((currentSetting) => {
-      dispatch(updateCompanyProfileSettingsStart({
-        updatedDataType: 'Email Notification',
-        updatedData: {
-          emailNotification: !currentSetting.emailNotification,
-        },
-      }))
-
-      return ({
-        ...currentSetting,
-        emailNotification: !currentSetting.emailNotification,
-      })
-    })
-  }, [ setAccountSettingInfo, dispatch ])
+  const handleEmailNotificationSwitch = useCallback((e) => {
+    dispatch(updateCompanyProfileSettingsStart({
+      updatedDataType: 'Email Notification',
+      updatedData: {
+        emailNotification: e.target.checked,
+      },
+    }))
+  }, [ dispatch ])
 
   return (
     <Box className='custom-box'>
@@ -237,7 +223,6 @@ export default function AccountView({
 AccountView.propTypes = {
   setOpenDrawer: PropTypes.func.isRequired,
   accountSettingInfo: accountSettingInfoPropTypes,
-  setAccountSettingInfo: PropTypes.func.isRequired,
 }
 
 AccountView.defaultProps = {

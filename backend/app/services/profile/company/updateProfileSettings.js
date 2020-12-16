@@ -44,6 +44,9 @@ export class UpdateCompanyProfileSettingsService extends ServiceBase {
         if (error.message === APP_ERROR_CODES.INCORRECT_PASSWORD) {
           this.addError(ERRORS.BAD_REQUEST, 'Current Password is Incorrect')
         }
+        if (error.message === APP_ERROR_CODES.EMAIL_NOT_AVAILABLE) {
+          this.addError(ERRORS.BAD_REQUEST, 'Email address already in use, please try with different email address')
+        }
       }
 
       return { updatedDataType }

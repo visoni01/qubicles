@@ -57,7 +57,7 @@ export default function ChangeNumber({ open, setOpen, accountSettingInfo }) {
       <div>
         <h3 className='h3 mb-30'> Change Number </h3>
         <form className='is-fullwidth' onSubmit={ handleSubmit(onSubmit) }>
-          <div className='pl-10 pr-10 mr-50'>
+          <div className='pl-10 pr-10 '>
             <div className='mb-20'>
               <h4 className='h4 mb-10'> Current Number </h4>
               <div className='mt-10 mb-10'>
@@ -71,6 +71,7 @@ export default function ChangeNumber({ open, setOpen, accountSettingInfo }) {
               <TextField
                 name='newNumber'
                 className='is-fullwidth'
+                autoComplete='off'
                 placeholder='Enter your new number'
                 inputRef={ register }
                 error={ errors.newNumber }

@@ -70,6 +70,16 @@ export const updateProfileSettings = async ({ user, clientUser, updatedData, upd
         website: updatedData.website
       },
       { where: { client_id: clientUser.client_id } })
+      break
+    }
+
+    // Update Email
+    case 'email': {
+      if (await User.findOne({ where: { email: updatedData.email }, raw: true })) {
+        throw new Error(APP_ERROR_CODES.EMAIL_NOT_AVAILABLE)
+      } else {
+
+      }
     }
   }
   return result
