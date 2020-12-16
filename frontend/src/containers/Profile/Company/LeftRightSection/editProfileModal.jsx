@@ -25,17 +25,20 @@ const EditProfileModal = ({
   const [ fileSrc, setFileSrc ] = useState('')
 
   const fileInput = useRef()
-
   const dispatch = useDispatch()
 
+  // updating title
   const handleUpdateTitle = useCallback((e) => {
     const data = e.target.value
     setTitle(data)
+    // eslint-disable-next-line
   }, [])
 
+  // updating summary
   const handleUpdateSummary = useCallback((e) => {
     const data = e.target.value
     setSummary(data)
+    // eslint-disable-next-line
   }, [])
 
   const handleCancel = useCallback(() => {
@@ -52,8 +55,7 @@ const EditProfileModal = ({
   const { success } = useSelector((state) => state.updateTitleSummary)
   const { uploadSuccess, uploadingImage } = useSelector((state) => state.uploadProfileImage)
 
-  // WIP edit profile image
-
+  // to preview selected image
   const handleFileInputChange = useCallback((event) => {
     event.preventDefault()
     const file = event.target.files[ 0 ]
@@ -64,7 +66,8 @@ const EditProfileModal = ({
         reader.result,
       )
     }
-  })
+    // eslint-disable-next-line
+  }, [])
 
   const handleChooseFile = () => {
     fileInput.current.click()
@@ -79,7 +82,7 @@ const EditProfileModal = ({
     if (success || uploadSuccess) {
       handleClose()
     }
-  }, [ success, uploadSuccess ])
+  }, [ success, uploadSuccess, handleClose ])
 
   const onSubmit = useCallback(() => {
     const uploadImage = {
@@ -94,7 +97,7 @@ const EditProfileModal = ({
     if (!_.isEmpty(fileInput.current.files)) {
       dispatch(uploadProfileImageStart(uploadImage))
     }
-  }, [ dispatch, title, summary ])
+  }, [ dispatch, title, summary, settings ])
 
   return (
     <Dialog
