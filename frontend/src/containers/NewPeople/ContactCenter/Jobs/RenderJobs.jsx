@@ -9,7 +9,10 @@ export default function RenderJobs() {
 
   if (isLoading) {
     return (
-      <JobsSkeleton />
+      <Box className='custom-box'>
+        <JobsSkeleton />
+        <JobsSkeleton />
+      </Box>
     )
   }
 

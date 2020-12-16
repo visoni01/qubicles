@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, {
   useCallback, useState, useEffect, useRef,
 } from 'react'
@@ -12,7 +13,7 @@ import { faTimes, faPlus } from '@fortawesome/free-solid-svg-icons'
 import '../styles.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { good } from '../../../../assets/images/avatar'
-import { updateCompanyTitleSummaryStart, uploadProfileImageStart } from '../../../../redux-saga/redux/actions'
+import { updateCompanyTitleSummaryStart } from '../../../../redux-saga/redux/actions'
 
 const EditProfileModal = ({
   open, handleClose,
@@ -28,18 +29,18 @@ const EditProfileModal = ({
   const handleUpdateTitle = useCallback((e) => {
     const data = e.target.value
     setTitle(data)
-  })
+  }, [])
 
   const handleUpdateSummary = useCallback((e) => {
     const data = e.target.value
     setSummary(data)
-  })
+  }, [])
 
   const handleCancel = useCallback(() => {
     setTitle(settings.title)
     setSummary(settings.summary)
     handleClose()
-  }, [ settings ])
+  }, [ settings, handleClose ])
 
   useEffect(() => {
     setTitle(settings.title)
@@ -65,7 +66,7 @@ const EditProfileModal = ({
     if (success) {
       handleClose()
     }
-  }, [ success ])
+  }, [ success, handleClose ])
 
   const onSubmit = useCallback(() => {
     // const uploadImage = {
@@ -76,6 +77,7 @@ const EditProfileModal = ({
       summary,
     }))
     // dispatch(uploadProfileImageStart(uploadImage))
+    // eslint-disable-next-line
   }, [ dispatch, title, summary, success ])
 
   return (

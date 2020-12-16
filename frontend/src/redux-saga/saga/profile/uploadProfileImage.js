@@ -17,7 +17,7 @@ function* uploadProfileImageWorker(action) {
     const formData = new FormData()
     const { file } = action.payload
     formData.append('file', file)
-    const { data } = yield User.uploadProfileImage({ data: formData })
+    yield User.uploadProfileImage({ data: formData })
     yield put(uploadProfileImageSuccess())
   } catch (e) {
     yield put(showErrorMessage({ msg: e.errMsg }))

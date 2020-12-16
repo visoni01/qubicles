@@ -73,9 +73,7 @@ const People = () => {
           </Grid>
           <Grid item xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 }>
             <div>
-              { currentPath === jobsRoute && (
-              <JobsPage />
-              )}
+              { currentPath === jobsRoute && (<JobsPage />)}
               { currentPath === talentRoute && <TalentPage />}
               { currentPath === trainingRoute && <TrainingWrap />}
             </div>
@@ -83,7 +81,7 @@ const People = () => {
         </Grid>
 
         <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
-          {currentPath !== 2 && (
+          {currentPath !== trainingRoute && (
             <TopTalent heading='Top Talent' />
           )}
         </Grid>
