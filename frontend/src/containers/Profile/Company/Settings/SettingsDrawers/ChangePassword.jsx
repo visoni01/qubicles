@@ -14,7 +14,7 @@ import {
 } from '../../../../../redux-saga/redux/actions'
 
 export default function ChangePassword({ open, setOpen }) {
-  const { isLoading, success } = useSelector((state) => state.updateCompanyProfileSettings)
+  const { isLoading, success, updatedDataType } = useSelector((state) => state.updateCompanyProfileSettings)
 
   const [ visible, setVisible ] = useState({
     currentPassword: false,
@@ -62,11 +62,11 @@ export default function ChangePassword({ open, setOpen }) {
   }, [ setOpen ])
 
   useEffect(() => {
-    if (!isLoading && success) {
+    if (!isLoading && success && updatedDataType === 'password') {
       setOpen(false)
       dispatch(resetUpdateCompanyProfileSettings())
     }
-  }, [ success, isLoading, dispatch, setOpen ])
+  }, [ success, isLoading, dispatch, setOpen, updatedDataType ])
 
   return (
     <Drawer

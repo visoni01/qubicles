@@ -30,6 +30,7 @@ export default class SendVerificationMailService extends ServiceBase {
         },
         config.get('jwt.emailVerificationTokenSecret'),
         { expiresIn: config.get('jwt.emailVerificationTokenExpiry') })
+
         await SendEmailVerificationMailService.execute({ token, email })
       }
       return 'Mail sent successfully'

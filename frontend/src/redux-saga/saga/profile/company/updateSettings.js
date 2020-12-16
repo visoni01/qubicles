@@ -23,7 +23,14 @@ function* updateCompanyProfileWorker(action) {
     const { data } = yield CompanyProfile.updateCompanyProfileSettings({ updatedDataType, updatedData })
 
     yield put(updateCompanyProfileSettingsSuccessful())
-    yield put(showSuccessMessage({ msg: _.capitalize(`${ data.updatedDataType } changed successfully`) }))
+    switch (data.updatedDataType) {
+      case 'email': {
+        break
+      }
+      default: {
+        yield put(showSuccessMessage({ msg: _.capitalize(`${ data.updatedDataType } changed successfully`) }))
+      }
+    }
   } catch (e) {
     yield put(updateCompanyProfileSettingsFailure({ message: e.errMsg }))
     yield put(showErrorMessage({ msg: e.errMsg }))

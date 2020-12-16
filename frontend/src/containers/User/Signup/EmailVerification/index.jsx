@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import Loader from '../../../../components/loaders/circularLoader'
 import { emailVerificationStart } from '../../../../redux-saga/redux/emailVerification'
 import './style.scss'
+import { showSuccessMessage } from '../../../../redux-saga/redux/actions'
+import ROUTE_PATHS from '../../../../routes/routesPath'
 
 const EmailVerification = () => {
   const { token } = useParams()
@@ -24,6 +26,10 @@ const EmailVerification = () => {
           Link is expired or invalid!!
         </div>
       )
+    }
+    if (success && tokenType === 'resetEmail') {
+      dispatch(showSuccessMessage({ msg: 'Email Changed Successfully' }))
+      return <Redirect to={ ROUTE_PATHS.COMPANY_PROFILE } />
     }
     return (
       <>

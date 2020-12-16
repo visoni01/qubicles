@@ -14,7 +14,7 @@ import {
 
 export default function ChangeAddress({ open, setOpen, accountSettingInfo }) {
   const dispatch = useDispatch()
-  const { isLoading, success } = useSelector((state) => state.updateCompanyProfileSettings)
+  const { isLoading, success, updatedDataType } = useSelector((state) => state.updateCompanyProfileSettings)
 
   const { register, handleSubmit, errors } = useForm({
     validationSchema: yup.object().shape({
@@ -44,11 +44,11 @@ export default function ChangeAddress({ open, setOpen, accountSettingInfo }) {
   }
 
   useEffect(() => {
-    if (!isLoading && success) {
+    if (!isLoading && success && updatedDataType === 'address') {
       setOpen(false)
       dispatch(resetUpdateCompanyProfileSettings())
     }
-  }, [ success, isLoading, dispatch, setOpen ])
+  }, [ success, isLoading, dispatch, setOpen, updatedDataType ])
 
   return (
     <Drawer

@@ -4,7 +4,7 @@ const initialState = {
   isLoading: null,
   error: null,
   success: null,
-  errorMessage: null,
+  updatedDataType: null,
 
 }
 
@@ -20,10 +20,11 @@ const {
   name: 'updateCompanyProfile',
   initialState,
   reducers: {
-    updateCompanyProfileSettingsStart: (state) => ({
+    updateCompanyProfileSettingsStart: (state, action) => ({
       ...state,
       isLoading: true,
       success: false,
+      updatedDataType: action.payload.updatedDataType,
     }),
     updateCompanyProfileSettingsSuccessful: (state) => ({
       ...state,

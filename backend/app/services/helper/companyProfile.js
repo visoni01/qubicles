@@ -1,6 +1,10 @@
 import bcrypt from 'bcrypt'
 import { XClient, User, UserDetail } from '../../db/models'
 import { APP_ERROR_CODES } from '../../utils/errors'
+import jwt from 'jsonwebtoken'
+import config from '../../../config/app'
+import { CONSTANTS } from '../../utils/success'
+import SendResetEmailVerificationMailService from '../email/sendResetEmailVerificationMail'
 
 export const updateProfileSettings = async ({ user, clientUser, updatedData, updatedDataType }) => {
   let result
@@ -78,7 +82,20 @@ export const updateProfileSettings = async ({ user, clientUser, updatedData, upd
       if (await User.findOne({ where: { email: updatedData.email }, raw: true })) {
         throw new Error(APP_ERROR_CODES.EMAIL_NOT_AVAILABLE)
       } else {
+        const token = jwt.sign({
+          email: user.email,
+          user_id: user.user_id,
+          user_code: user.user_code,
+          token_type: CONSTANTS.RESET_EMAIL_TOKEN_TYPE,
+          newEmail: updatedData.email
+        },
+        config.get('jwt.emailVerificationTokenSecret'),
+        { expiresIn: config.get('jwt.emailVerificationTokenExpiry') })
 
+        SendResetEmailVerificationMailService.execute({
+          email: updatedData.email,
+          token
+        })
       }
     }
   }
