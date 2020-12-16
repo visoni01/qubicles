@@ -7,16 +7,17 @@ import { newJobCategoriesFetchStart, updateJobsFilter } from '../../../../redux-
 
 export default function JobsSearch() {
   const dispatch = useDispatch()
-  const { selectedCategoryId } = useSelector((state) => state.newJobCategories)
-  const [ searchJobsField, setSearchJobsField ] = useState('')
+  const { selectedCategoryId, status, searchField } = useSelector((state) => state.newJobCategories)
+  const [ searchJobsField, setSearchJobsField ] = useState(searchField)
 
   const searchJobsApi = useCallback(debounce((nextValue) => {
-    dispatch(newJobCategoriesFetchStart({ categoryId: selectedCategoryId, searchKeyword: nextValue || '' }))
+    dispatch(newJobCategoriesFetchStart({ categoryId: selectedCategoryId, searchKeyword: nextValue || '', status }))
     dispatch(updateJobsFilter({
       searchKeyword: nextValue,
       categoryId: selectedCategoryId,
+      status,
     }))
-  }, 500), [ dispatch, selectedCategoryId ])
+  }, 500), [ dispatch, selectedCategoryId, status ])
 
   const handleSearch = useCallback((e) => {
     const nextValue = e.target.value

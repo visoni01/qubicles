@@ -16,6 +16,9 @@ const constraints = {
   },
   category_id: {
     presence: false
+  },
+  status: {
+    presence: false
   }
 }
 
@@ -26,13 +29,14 @@ export default class JobsByCategoryService extends ServiceBase {
 
   async run () {
     try {
-      const { user_id, search_keyword, category_id } = this.filteredArgs
+      const { user_id, search_keyword, category_id, status } = this.filteredArgs
       const client = await getClientIdByUserId({ user_id })
       let jobs = []
       if (client && client.client_id) {
         const rest = {
           category_id,
-          search_keyword
+          search_keyword,
+          status
         }
         jobs = await getAllJobs({ client_id: client.client_id, ...rest })
       }

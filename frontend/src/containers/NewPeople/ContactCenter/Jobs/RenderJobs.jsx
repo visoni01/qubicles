@@ -20,16 +20,16 @@ export default function RenderJobs() {
     <Box className='custom-box'>
       { newJobCategories.map((jobCategory) => (
         jobCategory.jobs.length && (
-        <JobCategoryCard
-          key={ jobCategory.categoryId }
-          categoryId={ jobCategory.categoryId }
-          categoryTitle={ jobCategory.categoryTitle }
-          jobs={ jobCategory.jobs }
-          inNeed={ jobCategory.needed }
-          fulfilled={ 2 }
-          evaluating={ 2 }
-          pending={ 0 }
-        />
+          <JobCategoryCard
+            key={ jobCategory.categoryId }
+            categoryId={ jobCategory.categoryId }
+            categoryTitle={ jobCategory.categoryTitle }
+            jobs={ jobCategory.jobs }
+            inNeed={ jobCategory.needed }
+            fulfilled={ 2 }
+            evaluating={ 2 }
+            pending={ 0 }
+          />
         )))}
       {newJobCategories && newJobCategories.length === 0 && (
       <div className='mt-10 mb-10'>

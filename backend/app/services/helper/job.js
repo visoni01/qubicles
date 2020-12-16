@@ -361,7 +361,7 @@ export async function deleteJob ({ job_id }) {
   return jobs
 }
 
-export async function getAllJobs ({ client_id, category_id, search_keyword }) {
+export async function getAllJobs ({ client_id, category_id, search_keyword, status }) {
   let query = { client_id }
 
   if (!_.isEmpty(search_keyword)) {
@@ -370,6 +370,10 @@ export async function getAllJobs ({ client_id, category_id, search_keyword }) {
 
   if (!_.isEmpty(category_id)) {
     query = { ...query, category_id }
+  }
+
+  if (!_.isEmpty(status)) {
+    query = { ...query, status }
   }
 
   const allJobsSubDetails = await XQodCategory.findAll({

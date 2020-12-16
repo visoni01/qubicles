@@ -10,6 +10,7 @@ const initialState = {
   newJobCategories: [],
   selectedCategoryId: 0,
   searchField: '',
+  status: '',
 }
 
 const {
@@ -48,7 +49,9 @@ const {
       ...state,
       searchField: action.payload.searchKeyword,
       selectedCategoryId: action.payload.categoryId,
-    }),
+      status: action.payload.status,
+    })
+    ,
   },
 })
 

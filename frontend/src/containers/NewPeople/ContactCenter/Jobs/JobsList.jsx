@@ -11,13 +11,14 @@ import {
 } from '../../../../redux-saga/redux/actions'
 import JobsFilterSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/JobsFilterSkeleton'
 import './styles.scss'
+import JobsFilter from './JobsFilter'
 
 const JobsList = () => {
   const [ displaySearchCategories, setDisplaySearchCategories ] = useState(false)
   const { jobCategoriesOnly, isLoading } = useSelector((state) => state.jobCategoriesOnly)
   const [ searchCategory, setSearchCategory ] = useState('')
 
-  const { searchField, selectedCategoryId } = useSelector((state) => state.newJobCategories)
+  const { searchField, selectedCategoryId, status } = useSelector((state) => state.newJobCategories)
   const [ selectedCategory, setSelectedCategory ] = useState(selectedCategoryId)
   const dispatch = useDispatch()
 
@@ -29,34 +30,50 @@ const JobsList = () => {
   }, [ dispatch, searchCategory ])
 
   useEffect(() => {
-    dispatch(newJobCategoriesFetchStart({ categoryId: selectedCategory, searchKeyword: searchField }))
-  }, [ dispatch, selectedCategory, searchField ])
+    dispatch(newJobCategoriesFetchStart({ categoryId: selectedCategory, searchKeyword: searchField, status }))
+  }, [ dispatch, selectedCategory ])
 
   useEffect(() => {
     dispatch(updateJobsFilter({
       categoryId: selectedCategory,
       searchKeyword: searchField,
+      status,
     }))
   }, [ dispatch, selectedCategory, searchField ])
 
-  // Search categories
+  // Fetch searched category
   const callSearchCategoriesApi = useCallback(debounce((nextValue) => {
     dispatch(jobCategoriesOnlyFetchStart({ searchKeyword: nextValue }))
   }, 500), [ dispatch ])
 
+  // Search category
   const handleSearch = useCallback((e) => {
     const nextValue = e.target.value
     setSearchCategory(nextValue)
     callSearchCategoriesApi(nextValue)
   }, [ callSearchCategoriesApi ])
 
+  // Set selectedCategory to set list item to particular category
   const handleJobsByCategory = ({ jobCategory }) => {
     setSelectedCategory(jobCategory.categoryId)
   }
 
+  // Reset selectedCategory to set list item to 'ALL'
   const handleResetJobs = useCallback(() => {
     setSelectedCategory(0)
   }, [ ])
+
+  // Job filter popover
+  const [ anchorEl, setAnchorEl ] = useState(null)
+  const open = Boolean(anchorEl)
+  const id = open ? 'simple-popover' : undefined
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
 
   return (
     <Box className='custom-box no-padding side-filter-root job-list'>
@@ -67,9 +84,19 @@ const JobsList = () => {
           <IconButton onClick={ () => setDisplaySearchCategories((initialState) => !initialState) }>
             <FontAwesomeIcon icon={ faSearch } className='custom-fa-icon light' />
           </IconButton>
-          <IconButton>
+          <IconButton
+            onClick={ handleClick }
+            aria-describedby={ id }
+          >
             <FontAwesomeIcon icon={ faSlidersH } className='custom-fa-icon light' />
           </IconButton>
+          <JobsFilter
+            id={ id }
+            anchorEl={ anchorEl }
+            setAnchorEl={ setAnchorEl }
+            open={ open }
+            handleClose={ handleClose }
+          />
         </div>
       </div>
 
@@ -118,6 +145,7 @@ const JobsList = () => {
         }
           </List>
         )}
+
     </Box>
   )
 }
