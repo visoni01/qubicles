@@ -54,11 +54,10 @@
         border: 1.4px solid $color-light-grey;
         margin: 0 auto;
 
-        img {
-          display: block;
-          height: 100%;
-          width: auto;
-          border-radius: 50%;
+        .profile-pic-preview {
+          height: 118px;
+          width: 118px;
+          margin: auto;
         }
 
         .close-button {
@@ -73,10 +72,11 @@
           border-radius: 50%;
           border: 3px solid $color-white;
           background: $color-light-grey;
+          opacity: 0.9;
           transition: all 0.3s;
 
           &:hover {
-            background:  $color-primary;
+            opacity: 1.5;
           }
 
           svg {

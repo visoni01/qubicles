@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import {
   Dialog, DialogActions, DialogContent, DialogTitle,
   IconButton, Button, TextareaAutosize, Grid,
-  FormControl, Select,
+  FormControl, Select, Avatar,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -128,6 +128,7 @@ const EditProfileModal = ({
         </h3>
         <div className='photo-upload'>
           <div className='preview'>
+            <Avatar className='profile-pic-preview' alt='' src={ fileSrc || defaultUser } />
             {fileSrc && (
               <span className='close-button'>
                 <IconButton onClick={ handleDelete }>
@@ -135,11 +136,6 @@ const EditProfileModal = ({
                 </IconButton>
               </span>
             )}
-            <img
-              id='upload-preview'
-              src={ fileSrc || defaultUser }
-              alt=''
-            />
             <div>
               { uploadingImage && (
               <Loader
