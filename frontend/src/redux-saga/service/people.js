@@ -1,7 +1,7 @@
 import apiClient from '../../utils/apiClient'
 
 class People {
-  static async fetchJobCategoriesAndJobs({ searchKeyword, categoryId }) {
+  static async fetchJobCategoriesAndJobs({ searchKeyword, categoryId, status }) {
     const url = '/jobs'
     const queryParams = {}
     let response
@@ -13,7 +13,11 @@ class People {
       queryParams.category_id = categoryId
     }
 
-    if (queryParams.search_keyword || queryParams.category_id) {
+    if (status) {
+      queryParams.status = status
+    }
+
+    if (queryParams.search_keyword || queryParams.category_id || queryParams.status) {
       response = await apiClient.getRequest(url, null, queryParams)
     } else {
       response = await apiClient.getRequest(url)

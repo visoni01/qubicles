@@ -18,7 +18,7 @@ const JobCategoryCard = ({
 
     <div className='mt-10 mb-30'>
       {jobs.length && jobs.map(({
-        job_id, title, needed,
+        job_id, title, needed, status,
       }, index) => (
         <div key={ !job_id ? `${ index } ${ title } ${ categoryId }` : `${ job_id } ${ categoryId }` }>
           <div className='job-info list-divider'>
@@ -26,6 +26,7 @@ const JobCategoryCard = ({
               <Link to={ `${ JOB_ROUTE }/post/${ job_id }` }>
                 <h4 className='h4'>
                   { title }
+                  { status === 'draft' ? ' [Draft] ' : null}
                 </h4>
               </Link>
               <div>
