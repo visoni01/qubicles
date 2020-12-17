@@ -4,10 +4,9 @@ import React, {
 import PropTypes from 'prop-types'
 import {
   Radio,
-  ListItem,
-  ListItemText,
-  List,
   Popover,
+  RadioGroup,
+  FormControlLabel,
 } from '@material-ui/core'
 import '../styles.scss'
 import { useSelector, useDispatch } from 'react-redux'
@@ -23,7 +22,7 @@ const JobFilterModal = ({
   const setStatusCB = useCallback((event) => {
     const checkedStatus = event.target.value
     setJobStatus(checkedStatus)
-  }, [ dispatch, jobStatus ])
+  }, [ ])
 
   useEffect(() => {
     dispatch(newJobCategoriesFetchStart({
@@ -37,6 +36,7 @@ const JobFilterModal = ({
       status: jobStatus,
     }))
     setAnchorEl(null)
+    // eslint-disable-next-line
   }, [ dispatch, jobStatus ])
 
   return (
@@ -55,60 +55,57 @@ const JobFilterModal = ({
         horizontal: 'right',
       } }
     >
-      <List className='filter-list-items'>
-        <ListItem className='permission-list-item'>
-          <ListItemText classes={ { primary: 'list-item' } }>
+      <RadioGroup
+        className='radio-buttons border-2 jobs-filter'
+        value={ jobStatus }
+        onChange={ setStatusCB }
+      >
+        <FormControlLabel
+          value='all'
+          className='display-inline-flex justify-between mt-5'
+          control={ <Radio /> }
+          labelPlacement='start'
+          label={
+            <h4 className='h4'> All Jobs </h4>
+        }
+        />
+        <FormControlLabel
+          value='recruiting'
+          className='display-inline-flex justify-between mt-5'
+          control={ <Radio /> }
+          labelPlacement='start'
+          label={
             <h4 className='h4'> Open Jobs </h4>
-          </ListItemText>
-          <Radio
-            checked={ jobStatus === 'recruiting' }
-            onChange={ setStatusCB }
-            value='recruiting'
-            name='recruiting'
-            color='primary'
-            inputProps={ { 'aria-label': 'recruiting' } }
-          />
-        </ListItem>
-        <ListItem className='permission-list-item'>
-          <ListItemText classes={ { primary: 'list-item' } }>
+        }
+        />
+        <FormControlLabel
+          value='hired'
+          className='display-inline-flex justify-between mt-5'
+          control={ <Radio /> }
+          labelPlacement='start'
+          label={
             <h4 className='h4'> Hired Positions </h4>
-          </ListItemText>
-          <Radio
-            checked={ jobStatus === 'hired' }
-            onChange={ setStatusCB }
-            value='hired'
-            name='hired'
-            color='primary'
-            inputProps={ { 'aria-label': 'hired' } }
-          />
-        </ListItem>
-        <ListItem className='permission-list-item'>
-          <ListItemText classes={ { primary: 'list-item' } }>
-            <h4 className='h4'> Cancelled Job Postings </h4>
-          </ListItemText>
-          <Radio
-            checked={ jobStatus === 'cancelled' }
-            onChange={ setStatusCB }
-            value='cancelled'
-            name='cancelled'
-            color='primary'
-            inputProps={ { 'aria-label': 'cancelled' } }
-          />
-        </ListItem>
-        <ListItem className='permission-list-item'>
-          <ListItemText classes={ { primary: 'list-item' } }>
-            <h4 className='h4'> Drafted Jobs </h4>
-          </ListItemText>
-          <Radio
-            checked={ jobStatus === 'draft' }
-            onChange={ setStatusCB }
-            value='draft'
-            name='draft'
-            color='primary'
-            inputProps={ { 'aria-label': 'draft' } }
-          />
-        </ListItem>
-      </List>
+        }
+        />
+        <FormControlLabel
+          value='cancelled'
+          className='display-inline-flex justify-between mt-5'
+          control={ <Radio /> }
+          labelPlacement='start'
+          label={
+            <h4 className='h4'> Cancelled Jobs </h4>
+      }
+        />
+        <FormControlLabel
+          value='draft'
+          className='display-inline-flex justify-between mt-5'
+          control={ <Radio /> }
+          labelPlacement='start'
+          label={
+            <h4 className='h4'>  Drafted Jobs </h4>
+      }
+        />
+      </RadioGroup>
     </Popover>
   )
 }

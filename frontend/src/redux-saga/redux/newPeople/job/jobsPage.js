@@ -10,7 +10,7 @@ const initialState = {
   newJobCategories: [],
   selectedCategoryId: 0,
   searchField: '',
-  status: '',
+  status: 'all',
 }
 
 const {

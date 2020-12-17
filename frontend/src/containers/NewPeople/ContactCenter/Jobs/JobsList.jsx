@@ -31,6 +31,7 @@ const JobsList = () => {
 
   useEffect(() => {
     dispatch(newJobCategoriesFetchStart({ categoryId: selectedCategory, searchKeyword: searchField, status }))
+    // eslint-disable-next-line
   }, [ dispatch, selectedCategory ])
 
   useEffect(() => {
@@ -39,7 +40,7 @@ const JobsList = () => {
       searchKeyword: searchField,
       status,
     }))
-  }, [ dispatch, selectedCategory, searchField ])
+  }, [ dispatch, selectedCategory, searchField, status ])
 
   // Fetch searched category
   const callSearchCategoriesApi = useCallback(debounce((nextValue) => {
