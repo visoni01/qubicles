@@ -82,7 +82,8 @@ const EditProfileModal = ({
     if (success || uploadSuccess) {
       handleClose()
     }
-  }, [ success, uploadSuccess, handleClose ])
+    // eslint-disable-next-line
+  }, [ success, uploadSuccess ])
 
   const onSubmit = useCallback(() => {
     const uploadImage = {

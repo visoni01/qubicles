@@ -22,7 +22,8 @@ const ContactCenterIntro = ({ jobDetails }) => {
   }, [ history ])
 
   const { companyDetails, success, isCompanyDetailsLoading } = useSelector((state) => state.jobPostCompanyDetails)
-  const { settings } = useSelector((state) => state.companyProfileSettings)
+  // WIP - Will change once common client reducer will be created.
+  // const { settings } = useSelector((state) => state.companyProfileSettings)
 
   const dispatch = useDispatch()
   useEffect(() => {
@@ -60,9 +61,13 @@ const ContactCenterIntro = ({ jobDetails }) => {
           name={ companyDetails.companyName }
           location={ companyDetails.city }
           date={ companyDetails.registrationDate }
-          title={ settings.title }
-          description={ settings.summary }
         />
+        <h4 className='h4 margin-top-bottom-10'>
+          {companyDetails.title}
+        </h4>
+        <p className='para'>
+          {companyDetails.summary}
+        </p>
         <div className='para mt-20'>
           <span className='para bold'> 2K+  </span>
           <p className='mt-10'> Members </p>
