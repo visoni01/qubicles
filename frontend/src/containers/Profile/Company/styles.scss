@@ -23,11 +23,11 @@
 
 .wallet-root {
   .price-green {
-    color: #23E8B5;
+    color: $color-green;
   }
 
   .price-red {
-    color: #F14667;
+    color: $color-red;
   }
 }
 
@@ -39,55 +39,70 @@
 
   .MuiDialog-paperScrollPaper {
     max-height: none;
-    // margin-top: auto;
   }
 
-.editProfile-modal {
-  .photo-upload {
-    .preview {
-      position: relative;
-      height: 120px;
-      width: 120px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 50%;
-      border: 1.4px solid #cecece;;
-      margin: 0 auto;
-
-      img {
-        display: block;
-        height: 100px;
-        width: 100px;
-        border-radius: 50%;
-      }
-
-      .upload-button {
-        position: absolute;
-        top: 0;
-        right: 0;
+  .editProfile-modal {
+    .photo-upload {
+      .preview {
+        position: relative;
+        height: 120px;
+        width: 120px;
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 36px;
-        width: 36px;
         border-radius: 50%;
-        border: 3px solid #fff;
-        background: #cecece;
-        transition: all 0.3s;
+        border: 1.4px solid $color-light-grey;
+        margin: 0 auto;
 
-        &:hover {
-          background: #4877F4;
+        .profile-pic-preview {
+          height: 118px;
+          width: 118px;
+          margin: auto;
         }
 
-        svg {
-          height: 14px;
-          width: 14px;
-          stroke: #fff;
-          stroke-width: 3px;
+        .close-button {
+          position: absolute;
+          top: 0;
+          right: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 36px;
+          width: 36px;
+          border-radius: 50%;
+          border: 3px solid $color-white;
+          background: $color-light-grey;
+          opacity: 0.9;
+          transition: all 0.3s;
+
+          &:hover {
+            opacity: 1.5;
+          }
+
+          svg {
+            height: 14px;
+            width: 14px;
+            stroke: $color-white;
+            stroke-width: 3px;
+          }
         }
       }
     }
+
+    .choose-image {
+      display: inline-flex;
+      justify-content: center;
+      width: 100%;
+
+      .choose-file-button {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width: 120px;
+      }
+
+      input[type="file"] {
+        display: none;
+      }
+    }
   }
-}
 }

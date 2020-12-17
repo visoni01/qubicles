@@ -51,9 +51,13 @@ const ResumeIntro = ({
           name={ candidateName }
           location={ location }
           date={ testResumeIntroduction.date }
-          title={ profileName }
-          description={ profileDescription }
         />
+        <h4 className='h4 margin-top-bottom-10'>
+          {profileName}
+        </h4>
+        <p className='para'>
+          {profileDescription}
+        </p>
         <Divider className='divider' />
         <div className='display-inline-flex justify-between is-fullwidth'>
           <div>

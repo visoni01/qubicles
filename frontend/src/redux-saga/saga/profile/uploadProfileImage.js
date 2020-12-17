@@ -4,6 +4,7 @@ import {
   uploadProfileImageFailed,
   uploadProfileImageSuccess,
   showErrorMessage,
+  showSuccessMessage,
 } from '../../redux/actions'
 
 import User from '../../service/user'
@@ -19,6 +20,7 @@ function* uploadProfileImageWorker(action) {
     formData.append('file', file)
     yield User.uploadProfileImage({ data: formData })
     yield put(uploadProfileImageSuccess())
+    yield put(showSuccessMessage({ msg: 'Profile Image Successfully Updated!' }))
   } catch (e) {
     yield put(showErrorMessage({ msg: e.errMsg }))
     yield put(uploadProfileImageFailed())

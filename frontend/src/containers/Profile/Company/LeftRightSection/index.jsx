@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Divider } from '@material-ui/core'
+import { Box, Divider, Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { contactCenterIntroduction } from '../../../NewPeople/ContactCenter/testData'
@@ -14,13 +14,12 @@ const ContactCenterEditProfile = ({
   location,
   companyName,
   registrationDate,
+  // eslint-disable-next-line no-unused-vars
   title,
+  // eslint-disable-next-line no-unused-vars
   summary,
 }) => {
   const [ openEditProfileModal, setOpenEditProfileModal ] = useState(false)
-  const handleEditProfileModal = () => {
-    setOpenEditProfileModal(true)
-  }
   const { settings } = useSelector((state) => state.companyProfileSettings)
 
   return (
@@ -34,12 +33,25 @@ const ContactCenterEditProfile = ({
           name={ companyName }
           location={ location }
           date={ registrationDate }
-          title={ settings.title }
-          description={ settings.summary }
-          isEdit
-          editText='Edit Profile'
-          handleEditModal={ handleEditProfileModal }
         />
+        <div className=' mt-20 mb-20'>
+          <Button
+            className='wide-button'
+            classes={ {
+              root: 'button-primary-small',
+              label: 'button-primary-small-label',
+            } }
+            onClick={ () => setOpenEditProfileModal(true) }
+          >
+            Edit Profile
+          </Button>
+        </div>
+        <h4 className='h4 margin-top-bottom-10'>
+          {settings.title}
+        </h4>
+        <p className='para'>
+          {settings.summary}
+        </p>
         <Divider className='divider' />
         <div className='display-inline-flex justify-between is-fullwidth'>
           <div>

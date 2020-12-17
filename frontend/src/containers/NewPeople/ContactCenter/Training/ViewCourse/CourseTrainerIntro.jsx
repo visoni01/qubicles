@@ -35,9 +35,13 @@ const CourseTrainerIntro = () => {
           name={ courseTrainerIntroduction.name }
           location={ courseTrainerIntroduction.location }
           date={ courseTrainerIntroduction.date }
-          title={ courseTrainerIntroduction.title }
-          description={ courseTrainerIntroduction.description }
         />
+        <h4 className='h4 margin-top-bottom-10'>
+          {courseTrainerIntroduction.title}
+        </h4>
+        <p className='para mb-10'>
+          {courseTrainerIntroduction.description}
+        </p>
         <Button
           classes={ {
             root: 'button-primary-text mt-10',

@@ -1,7 +1,7 @@
 import React from 'react'
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Avatar, Button } from '@material-ui/core'
+import { Avatar } from '@material-ui/core'
 import Rating from '@material-ui/lab/Rating'
 import PropTypes from 'prop-types'
 import './styles.scss'
@@ -15,11 +15,6 @@ const Introduction = ({
   name,
   location,
   date,
-  title,
-  description,
-  isEdit,
-  editText,
-  handleEditModal,
 }) => (
   <div className='introduction-root'>
     <div className='display-inline-flex is-fullwidth'>
@@ -45,27 +40,6 @@ const Introduction = ({
         </p>
       </div>
     </div>
-
-    {isEdit && (
-      <div className=' mt-20 mb-20'>
-        <Button
-          className='wide-button'
-          classes={ {
-            root: 'button-primary-small',
-            label: 'button-primary-small-label',
-          } }
-          onClick={ handleEditModal }
-        >
-          {editText}
-        </Button>
-      </div>
-    )}
-    <h4 className='h4 margin-top-bottom-10'>
-      {title}
-    </h4>
-    <p className='para'>
-      {description}
-    </p>
   </div>
 )
 
@@ -76,10 +50,6 @@ Introduction.defaultProps = {
   name: contactCenterIntroduction.name,
   location: contactCenterIntroduction.location,
   date: contactCenterIntroduction.date,
-  title: contactCenterIntroduction.title,
-  description: contactCenterIntroduction.description,
-  isEdit: false,
-  editText: '',
 }
 
 Introduction.propTypes = {
@@ -89,12 +59,6 @@ Introduction.propTypes = {
   name: PropTypes.string,
   location: PropTypes.string,
   date: PropTypes.string,
-  title: PropTypes.string,
-  description: PropTypes.string,
-  isEdit: PropTypes.bool,
-  editText: PropTypes.string,
-  // eslint-disable-next-line react/require-default-props
-  handleEditModal: PropTypes.func,
 }
 
 export default Introduction
