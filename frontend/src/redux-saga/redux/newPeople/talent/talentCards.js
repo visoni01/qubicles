@@ -6,7 +6,7 @@ const initialState = {
   isLoading: null,
   error: null,
   success: null,
-  talentCards: null,
+  talentCards: [],
 }
 
 const {
