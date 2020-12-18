@@ -12,7 +12,7 @@ export const availableLanguages = [
 ]
 
 export const jobFilterStatus = {
-  all: 'Jobs',
+  all: 'Job Postings',
   recruiting: 'Open Positions',
   hired: 'Hired Positions',
   cancelled: 'Cancelled Positions',

@@ -11,7 +11,7 @@ const initialState = {
   selectedCategoryId: 0,
   searchField: '',
   status: 'all',
-  statusTitle: 'Jobs',
+  statusTitle: 'Job Postings',
 }
 
 const {

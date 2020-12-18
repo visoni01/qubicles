@@ -6,7 +6,6 @@ const JobsSkeleton = () => (
   <>
     <div className='job-list-skeleton-container'>
       <Skeleton animation='wave' classes={ { root: 'custom-skeleton-heading' } } />
-      <Skeleton animation='wave' classes={ { root: 'custom-skeleton-heading' } } />
       <Skeleton animation='wave' classes={ { root: 'custom-skeleton-title' } } />
       <div className='job-status-tray'>
         <Skeleton animation='wave' classes={ { root: 'job-status-item' } } />

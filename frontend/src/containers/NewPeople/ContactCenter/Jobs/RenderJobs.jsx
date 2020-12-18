@@ -11,6 +11,10 @@ export default function RenderJobs() {
   if (isLoading) {
     return (
       <Box className='custom-box'>
+        <h3 className='h3 light'>
+          {`${ statusTitle }`}
+        </h3>
+        <Divider className='divider' />
         <JobsSkeleton />
       </Box>
     )
@@ -18,12 +22,11 @@ export default function RenderJobs() {
 
   return (
     <Box className='custom-box'>
-      <div>
-        <h3 className='h3 light'>
-          {`${ statusTitle }`}
-        </h3>
-        <Divider className='divider' />
-      </div>
+      <h3 className='h3 light'>
+        {`${ statusTitle }`}
+      </h3>
+      <Divider className='divider' />
+
       { newJobCategories.map((jobCategory) => (
         jobCategory.jobs.length && (
           <JobCategoryCard
