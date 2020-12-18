@@ -1,5 +1,15 @@
 import { SqlHelper } from './sql'
 import { formatDate } from '../services/helper'
+import _ from 'lodash'
+
+const singleQuoteEscape = (input) => {
+  let filteredInput = input
+  // Reference link: https://stackoverflow.com/questions/1912095/how-to-insert-a-value-that-contains-an-apostrophe-single-quote
+  if (!_.isEmpty(input) && _.isString(input)) {
+    filteredInput = input.replace(/'/g, "''")
+  }
+  return filteredInput
+}
 
 const QueryMethods = {
   getGroupsByClient: ({ tableName, client_id }) => {
@@ -65,9 +75,9 @@ const QueryMethods = {
         // If we have multiple primary keys (composite key) then we also need
         // to use AND in the where clause
         if (hasWhereClause) {
-          whereClause += ` AND \`${property}\` = '${data[property]}'`
+          whereClause += ` AND \`${property}\` = '${singleQuoteEscape(data[property])}'`
         } else {
-          whereClause = ` WHERE \`${property}\` = '${data[property]}'`
+          whereClause = ` WHERE \`${property}\` = '${singleQuoteEscape(data[property])}'`
         }
 
         hasWhereClause = true
@@ -78,7 +88,7 @@ const QueryMethods = {
         }
 
         // Setting the property field name and value
-        sql += `\`${property}\` = '${data[property]}',`
+        sql += `\`${property}\` = '${singleQuoteEscape(data[property])}',`
       }
     })
 
@@ -104,9 +114,9 @@ const QueryMethods = {
         // If we have multiple primary keys (composite key) then we also need
         // to use AND in the where clause
         if (hasWhereClause) {
-          whereClause += ` AND \`${property}\` = '${data[property]}'`
+          whereClause += ` AND \`${property}\` = '${singleQuoteEscape(data[property])}'`
         } else {
-          whereClause = ` WHERE \`${property}\` = '${data[property]}'`
+          whereClause = ` WHERE \`${property}\` = '${singleQuoteEscape(data[property])}'`
         }
 
         hasWhereClause = true
@@ -134,7 +144,7 @@ const QueryMethods = {
         if (modelProperties[property].type.key === 'DATE' || modelProperties[property].type === 'TIMESTAMP') {
           values += `'${formatDate(data[property])}'`
         } else {
-          values += `'${data[property]}'`
+          values += `'${singleQuoteEscape(data[property])}'`
         }
 
         if (index !== (objProperties.length - 1)) {
