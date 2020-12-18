@@ -9,6 +9,7 @@ import {
 import '../styles.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateJobsFilter } from '../../../../redux-saga/redux/actions'
+import { jobFilterStatus } from '../constants'
 
 const JobFilterModal = ({
   open, handleClose, anchorEl, setAnchorEl, id,
@@ -22,8 +23,11 @@ const JobFilterModal = ({
       categoryId: selectedCategoryId,
       searchKeyword: searchField,
       status: checkedStatus,
+      statusTitle: jobFilterStatus[ checkedStatus ],
     }))
-    setAnchorEl(null)
+    setTimeout(() => {
+      setAnchorEl(null)
+    }, 400)
   }, [ dispatch, selectedCategoryId, searchField, setAnchorEl ])
 
   return (
@@ -47,51 +51,20 @@ const JobFilterModal = ({
         value={ status }
         onChange={ setStatusCB }
       >
-        <FormControlLabel
-          value='all'
-          className='display-inline-flex justify-between mt-5'
-          control={ <Radio /> }
-          labelPlacement='start'
-          label={
-            <h4 className='h4'> All Jobs </h4>
-        }
-        />
-        <FormControlLabel
-          value='recruiting'
-          className='display-inline-flex justify-between mt-5'
-          control={ <Radio /> }
-          labelPlacement='start'
-          label={
-            <h4 className='h4'> Open Jobs </h4>
-        }
-        />
-        <FormControlLabel
-          value='hired'
-          className='display-inline-flex justify-between mt-5'
-          control={ <Radio /> }
-          labelPlacement='start'
-          label={
-            <h4 className='h4'> Hired Positions </h4>
-        }
-        />
-        <FormControlLabel
-          value='cancelled'
-          className='display-inline-flex justify-between mt-5'
-          control={ <Radio /> }
-          labelPlacement='start'
-          label={
-            <h4 className='h4'> Cancelled Jobs </h4>
-      }
-        />
-        <FormControlLabel
-          value='draft'
-          className='display-inline-flex justify-between mt-5'
-          control={ <Radio /> }
-          labelPlacement='start'
-          label={
-            <h4 className='h4'>  Drafted Jobs </h4>
-      }
-        />
+        {Object.keys(jobFilterStatus).map((item) => (
+          <FormControlLabel
+            key={ item }
+            value={ item }
+            className='display-inline-flex justify-between mt-5'
+            control={ <Radio /> }
+            labelPlacement='start'
+            label={ (
+              <h4 className='h4'>
+                {item !== 'all' ? jobFilterStatus[ item ] : 'All Jobs'}
+              </h4>
+            ) }
+          />
+        ))}
       </RadioGroup>
     </Popover>
   )

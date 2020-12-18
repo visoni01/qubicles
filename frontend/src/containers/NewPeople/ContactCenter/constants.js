@@ -10,3 +10,11 @@ export const availableLanguages = [
   { name: 'French', value: 'french' },
   { name: 'Spanish', value: 'spanish' },
 ]
+
+export const jobFilterStatus = {
+  all: 'Jobs',
+  recruiting: 'Open Positions',
+  hired: 'Hired Positions',
+  cancelled: 'Cancelled Positions',
+  draft: 'Drafted Positions',
+}

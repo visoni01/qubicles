@@ -14,9 +14,9 @@ import './styles.scss'
 import JobsFilter from './JobsFilter'
 
 const JobsList = () => {
-  const [ displaySearchCategories, setDisplaySearchCategories ] = useState(false)
-  const { jobCategoriesOnly, isLoading } = useSelector((state) => state.jobCategoriesOnly)
-  const [ searchCategory, setSearchCategory ] = useState('')
+  const [ displaySearchCategories, setDisplaySearchCategories ] = useState(true)
+  const { jobCategoriesOnly, isLoading, searchKeyword } = useSelector((state) => state.jobCategoriesOnly)
+  const [ searchCategory, setSearchCategory ] = useState(searchKeyword)
 
   const { searchField, selectedCategoryId, status } = useSelector((state) => state.newJobCategories)
   const [ selectedCategory, setSelectedCategory ] = useState(selectedCategoryId)

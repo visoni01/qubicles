@@ -11,6 +11,7 @@ const initialState = {
   selectedCategoryId: 0,
   searchField: '',
   status: 'all',
+  statusTitle: 'Jobs',
 }
 
 const {
@@ -50,6 +51,7 @@ const {
       searchField: action.payload.searchKeyword,
       selectedCategoryId: action.payload.categoryId,
       status: action.payload.status,
+      statusTitle: action.payload.statusTitle ? action.payload.statusTitle : state.statusTitle,
     })
     ,
   },
