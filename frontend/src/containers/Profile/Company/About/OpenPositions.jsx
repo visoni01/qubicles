@@ -1,17 +1,31 @@
 import React, { useEffect } from 'react'
 import { Box } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
-import _ from 'lodash'
 import JobsSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/JobsSkeleton'
-import { newJobCategoriesFetchStart } from '../../../../redux-saga/redux/actions'
+import { newJobCategoriesFetchStart, updateJobsFilter } from '../../../../redux-saga/redux/actions'
 import OpenJobPositionCard from './OpenJobPositionCard'
 
 export default function OpenPositions() {
   const { newJobCategories, isLoading } = useSelector((state) => state.newJobCategories)
+  const { status } = useSelector((state) => state.newJobCategories)
+
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (_.isEmpty(newJobCategories)) { dispatch(newJobCategoriesFetchStart({ categoryId: 0, searchKeyword: '' })) }
+    if (status !== 'recruiting') {
+      dispatch(newJobCategoriesFetchStart({
+        categoryId: 0,
+        searchKeyword: '',
+        status: 'recruiting',
+      }))
+
+      dispatch(updateJobsFilter({
+        categoryId: 0,
+        searchKeyword: '',
+        status: 'recruiting',
+      }))
+    }
+
     // eslint-disable-next-line
   }, [ dispatch ])
 
