@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { InputBase, debounce } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
-import { newJobCategoriesFetchStart, updateJobsFilter } from '../../../../redux-saga/redux/actions'
+import { updateJobsFilter } from '../../../../redux-saga/redux/actions'
 
 export default function JobsSearch() {
   const dispatch = useDispatch()
@@ -11,7 +11,6 @@ export default function JobsSearch() {
   const [ searchJobsField, setSearchJobsField ] = useState(searchField)
 
   const searchJobsApi = useCallback(debounce((nextValue) => {
-    dispatch(newJobCategoriesFetchStart({ categoryId: selectedCategoryId, searchKeyword: nextValue || '', status }))
     dispatch(updateJobsFilter({
       searchKeyword: nextValue,
       categoryId: selectedCategoryId,

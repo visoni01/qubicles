@@ -7,7 +7,7 @@ import { faSlidersH, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
 import {
-  jobCategoriesOnlyFetchStart, updateJobsFilter, newJobCategoriesFetchStart,
+  jobCategoriesOnlyFetchStart, updateJobsFilter,
 } from '../../../../redux-saga/redux/actions'
 import JobsFilterSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/JobsFilterSkeleton'
 import './styles.scss'
@@ -28,11 +28,6 @@ const JobsList = () => {
     }
     // eslint-disable-next-line
   }, [ dispatch, searchCategory ])
-
-  useEffect(() => {
-    dispatch(newJobCategoriesFetchStart({ categoryId: selectedCategory, searchKeyword: searchField, status }))
-    // eslint-disable-next-line
-  }, [ dispatch, selectedCategory ])
 
   useEffect(() => {
     dispatch(updateJobsFilter({

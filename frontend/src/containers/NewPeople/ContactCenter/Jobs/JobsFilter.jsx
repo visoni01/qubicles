@@ -1,6 +1,4 @@
-import React, {
-  useState, useCallback, useEffect,
-} from 'react'
+import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import {
   Radio,
@@ -10,7 +8,7 @@ import {
 } from '@material-ui/core'
 import '../styles.scss'
 import { useSelector, useDispatch } from 'react-redux'
-import { newJobCategoriesFetchStart, updateJobsFilter } from '../../../../redux-saga/redux/actions'
+import { updateJobsFilter } from '../../../../redux-saga/redux/actions'
 
 const JobFilterModal = ({
   open, handleClose, anchorEl, setAnchorEl, id,
@@ -18,26 +16,15 @@ const JobFilterModal = ({
   const { selectedCategoryId, searchField, status } = useSelector((state) => state.newJobCategories)
   const dispatch = useDispatch()
 
-  const [ jobStatus, setJobStatus ] = useState(status)
   const setStatusCB = useCallback((event) => {
     const checkedStatus = event.target.value
-    setJobStatus(checkedStatus)
-  }, [ ])
-
-  useEffect(() => {
-    dispatch(newJobCategoriesFetchStart({
-      categoryId: selectedCategoryId,
-      searchKeyword: searchField,
-      status: jobStatus,
-    }))
     dispatch(updateJobsFilter({
       categoryId: selectedCategoryId,
       searchKeyword: searchField,
-      status: jobStatus,
+      status: checkedStatus,
     }))
     setAnchorEl(null)
-    // eslint-disable-next-line
-  }, [ dispatch, jobStatus ])
+  }, [ dispatch, selectedCategoryId, searchField, setAnchorEl ])
 
   return (
     <Popover
@@ -57,7 +44,7 @@ const JobFilterModal = ({
     >
       <RadioGroup
         className='radio-buttons border-2 jobs-filter'
-        value={ jobStatus }
+        value={ status }
         onChange={ setStatusCB }
       >
         <FormControlLabel
