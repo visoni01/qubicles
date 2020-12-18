@@ -1,0 +1,17 @@
+.company-suggestions-root{
+  .top-talent {
+    width: 100%;
+
+    .profile-pic {
+      width: 56px;
+      height: 56px;
+      margin: 10px;
+      margin-left: 0px;
+    }
+
+    .candidate-info {
+      align-self: center;
+      width: calc(100% - 60px);
+    }
+  }
+}

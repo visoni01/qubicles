@@ -36,6 +36,7 @@ const ROUTE_PATHS = {
   PEOPLE_TRAINING_TAB: `${ NEW_PEOPLE }/training`,
   COMPANY_PROFILE: '/profile/company',
   JOB_PREVIEW: `${ JOB_ROUTE }/preview`,
+  OTHER_COMPANY_PROFILE: '/profile/company/:companyId',
 }
 
 export default ROUTE_PATHS
