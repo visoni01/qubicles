@@ -5,25 +5,32 @@ import {
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import './styles.scss'
+import { useDispatch } from 'react-redux'
 import MultiSelectChipItems from '../../../NewPeople/MultiSelectChipItems'
 import { accountSettingInfoPropTypes, accountSettingInfoDefaultProps } from './settingsProps'
+import { updateCompanyProfileSettingsStart } from '../../../../redux-saga/redux/actions'
 
 export default function AccountView({
-  setOpenDrawer, accountSettingInfo, setAccountSettingInfo,
+  setOpenDrawer, accountSettingInfo,
 }) {
-  const handleSmsNotificationSwitch = useCallback(() => {
-    setAccountSettingInfo((currentSetting) => ({
-      ...currentSetting,
-      smsNotification: !currentSetting.smsNotification,
+  const dispatch = useDispatch()
+  const handleSmsNotificationSwitch = useCallback((e) => {
+    dispatch(updateCompanyProfileSettingsStart({
+      updatedDataType: 'Sms Notification',
+      updatedData: {
+        smsNotification: e.target.checked,
+      },
     }))
-  }, [ setAccountSettingInfo ])
+  }, [ dispatch ])
 
-  const handleEmailNotificationSwitch = useCallback(() => {
-    setAccountSettingInfo((currentSetting) => ({
-      ...currentSetting,
-      emailNotification: !currentSetting.emailNotification,
+  const handleEmailNotificationSwitch = useCallback((e) => {
+    dispatch(updateCompanyProfileSettingsStart({
+      updatedDataType: 'Email Notification',
+      updatedData: {
+        emailNotification: e.target.checked,
+      },
     }))
-  }, [ setAccountSettingInfo ])
+  }, [ dispatch ])
 
   return (
     <Box className='custom-box'>
@@ -96,7 +103,7 @@ export default function AccountView({
               <div className='row-fields'>
                 <span className='para'>
                   <p>
-                    {`${ accountSettingInfo.address }` }
+                    {`${ accountSettingInfo.street }` }
                   </p>
                   <p>
                     {`${ accountSettingInfo.city } ${ accountSettingInfo.zip }, ${ accountSettingInfo.state } ` }
@@ -158,7 +165,7 @@ export default function AccountView({
                 <Switch
                   className='switches'
                   color='primary'
-                  checked={ !!accountSettingInfo.smsNotification }
+                  checked={ accountSettingInfo.smsNotification }
                   onChange={ handleSmsNotificationSwitch }
                 />
               </div>
@@ -169,7 +176,7 @@ export default function AccountView({
                 <Switch
                   className='switches'
                   color='primary'
-                  checked={ !!accountSettingInfo.emailNotification }
+                  checked={ accountSettingInfo.emailNotification }
                   onChange={ handleEmailNotificationSwitch }
                 />
               </div>
@@ -216,7 +223,6 @@ export default function AccountView({
 AccountView.propTypes = {
   setOpenDrawer: PropTypes.func.isRequired,
   accountSettingInfo: accountSettingInfoPropTypes,
-  setAccountSettingInfo: PropTypes.func.isRequired,
 }
 
 AccountView.defaultProps = {

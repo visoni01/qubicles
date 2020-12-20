@@ -32,10 +32,11 @@ import jobPostCompanyDetails from './newPeople/job/jobPostCompanyDetails'
 import updateTalentCards from './newPeople/talent/updateTalentCard'
 import jobSkills from './newPeople/jobSkills'
 import agentResume from './newPeople/talent/agentResume'
-import companyProfileSettings from './profile/company/settings'
 import jobCategoriesOnly from './newPeople/job/jobCategoriesOnly'
 import updateTitleSummary from './profile/company/updateTitleSummary'
 import uploadProfileImage from './profile/uploadProfileImage'
+import companyProfileSettings from './profile/company/fetchSettings'
+import updateProfileSettings from './profile/company/updateSettings'
 
 export default function* rootSaga() {
   yield all([
@@ -75,5 +76,6 @@ export default function* rootSaga() {
     jobCategoriesOnly(),
     updateTitleSummary(),
     uploadProfileImage(),
+    updateProfileSettings(),
   ])
 }

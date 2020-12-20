@@ -10,6 +10,11 @@ class CompanyProfile {
     const response = await apiClient.putRequest('/employer/edit', data)
     return response
   }
+
+  static async updateCompanyProfileSettings(payload) {
+    const response = await apiClient.putRequest('/profile/company/settings/update', payload)
+    return response
+  }
 }
 
 export default CompanyProfile

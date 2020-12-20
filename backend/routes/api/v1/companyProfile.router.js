@@ -8,4 +8,7 @@ const companyProfileRouter = express.Router(args)
 companyProfileRouter.route('/settings')
   .get(isAuthenticated, CompanyProfileController.getProfileSettings)
 
+companyProfileRouter.route('/settings/update')
+  .put(isAuthenticated, CompanyProfileController.updateProfileSettigns)
+
 export { companyProfileRouter }

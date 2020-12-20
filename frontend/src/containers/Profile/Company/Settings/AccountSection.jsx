@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import './styles.scss'
 import AccountView from './AccountView'
@@ -16,12 +16,7 @@ export default function AccountSection() {
     websiteDrawer: false,
     numberDrawer: false,
   })
-  const { settings, isLoading } = useSelector((state) => state.companyProfileSettings)
-  const [ accountSettingInfo, setAccountSettingInfo ] = useState(settings)
-
-  useEffect(() => {
-    setAccountSettingInfo(settings)
-  }, [ settings ])
+  const { settings: accountSettingInfo, isLoading } = useSelector((state) => state.companyProfileSettings)
 
   return (
     <div>
@@ -31,7 +26,6 @@ export default function AccountSection() {
             openDrawer={ openDrawer }
             setOpenDrawer={ setOpenDrawer }
             accountSettingInfo={ accountSettingInfo }
-            setAccountSettingInfo={ setAccountSettingInfo }
           />
           <ChangePassword
             open={ openDrawer.passwordDrawer }

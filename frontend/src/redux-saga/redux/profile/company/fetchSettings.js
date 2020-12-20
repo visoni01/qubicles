@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getDataForReducer } from '../../../../utils/common'
+import getUpdatedCompanySettings from './helper'
 
 const initialState = {
   isLoading: null,
@@ -13,6 +14,7 @@ const {
     fetchCompanyProfileSettingsStart,
     fetchCompanyProfileSettingsSuccessful,
     fetchCompanyProfileSettingsFailure,
+    updateCompanyProfileSettings,
   },
   reducer,
 } = createSlice({
@@ -36,6 +38,10 @@ const {
       isLoading: false,
       success: false,
     }),
+    updateCompanyProfileSettings: (state, action) => ({
+      ...state,
+      settings: getUpdatedCompanySettings({ state, action }),
+    }),
   },
 })
 
@@ -44,4 +50,5 @@ export {
   fetchCompanyProfileSettingsStart,
   fetchCompanyProfileSettingsSuccessful,
   fetchCompanyProfileSettingsFailure,
+  updateCompanyProfileSettings,
 }

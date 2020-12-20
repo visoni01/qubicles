@@ -15,6 +15,7 @@ const ROUTE_PATHS = {
   VERIFY_EMAIL: '/verify-email',
   FORGET_PASSWORD: '/forget-password',
   VERIFY_TOKEN: '/verify-token/:token',
+  RESET_EMAIL: '/reset-email/:token',
   RESET_NEW_PASSWORD: '/reset-new-password',
   DASHBOARD: '/dashboard',
   POST_SIGN_UP: '/post-signup',

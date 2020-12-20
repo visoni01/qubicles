@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 
 export const accountSettingInfoPropTypes = PropTypes.shape(
   {
-    companyId: PropTypes.string,
+    companyId: PropTypes.number,
     companyName: PropTypes.string,
     address: PropTypes.string,
     city: PropTypes.string,
@@ -18,7 +18,7 @@ export const accountSettingInfoPropTypes = PropTypes.shape(
 )
 
 export const accountSettingInfoDefaultProps = {
-  companyId: '',
+  companyId: 0,
   companyName: '',
   address: '',
   city: '',

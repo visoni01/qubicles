@@ -9,5 +9,6 @@ export const SUCCESS_MESSAGES = {
 
 export const CONSTANTS = {
   FORGET_PASSWORD_TOKEN_TYPE: 'forgetPassword',
-  VERIFY_EMAIL_TOKEN_TYPE: 'verifyEmail'
+  VERIFY_EMAIL_TOKEN_TYPE: 'verifyEmail',
+  RESET_EMAIL_TOKEN_TYPE: 'resetEmail'
 }

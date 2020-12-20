@@ -24,7 +24,7 @@ export default class VerifyTokenService extends ServiceBase {
         return
       }
       if (jwtVerified) {
-        const user = await User.findOne({ where: { email: jwtVerified.email }, raw: true })
+        const user = await User.findOne({ where: { user_id: jwtVerified.user_id }, raw: true })
         if (!(user.email_verified)) {
           // Create User Group
           const newUserGroup = await CreateUserGroupService.execute({
@@ -60,6 +60,20 @@ export default class VerifyTokenService extends ServiceBase {
               message: 'Forget Password Email Verified Successfully!!',
               token_type: CONSTANTS.FORGET_PASSWORD_TOKEN_TYPE,
               email: jwtVerified.email
+            }
+          }
+          if (jwtVerified.token_type === CONSTANTS.RESET_EMAIL_TOKEN_TYPE) {
+            const result = await User.update({
+              email: jwtVerified.newEmail
+            },
+            { where: { user_id: user.user_id } })
+
+            if (result) {
+              return {
+                message: 'Email Reset and Verified Successfully!!',
+                token_type: CONSTANTS.RESET_EMAIL_TOKEN_TYPE,
+                email: jwtVerified.newEmail
+              }
             }
           }
           return 'Email already verified Successfully!!'

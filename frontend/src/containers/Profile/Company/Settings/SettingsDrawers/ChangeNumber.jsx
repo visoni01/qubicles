@@ -1,13 +1,20 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
   Drawer, Button, form, TextField,
 } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
+import { useSelector, useDispatch } from 'react-redux'
 import { accountSettingInfoDefaultProps, accountSettingInfoPropTypes } from '../settingsProps'
+import {
+  updateCompanyProfileSettingsStart,
+  resetUpdateCompanyProfileSettings,
+} from '../../../../../redux-saga/redux/actions'
 
 export default function ChangeNumber({ open, setOpen, accountSettingInfo }) {
+  const { isLoading, success, updatedDataType } = useSelector((state) => state.updateCompanyProfileSettings)
+  const dispatch = useDispatch()
   const { register, handleSubmit, errors } = useForm({
     defaultValues: {
       newNumber: '',
@@ -19,11 +26,26 @@ export default function ChangeNumber({ open, setOpen, accountSettingInfo }) {
   })
 
   const onSubmit = (data) => {
+    if (!isLoading) {
+      dispatch(updateCompanyProfileSettingsStart({
+        updatedDataType: 'number',
+        updatedData: {
+          phoneNumber: data.newNumber,
+        },
+      }))
+    }
   }
 
   const handleCancelNumberChange = useCallback(() => {
     setOpen(false)
   }, [ setOpen ])
+
+  useEffect(() => {
+    if (!isLoading && success && updatedDataType === 'number') {
+      setOpen(false)
+      dispatch(resetUpdateCompanyProfileSettings())
+    }
+  }, [ success, isLoading, dispatch, setOpen, updatedDataType ])
 
   return (
     <Drawer
@@ -35,7 +57,7 @@ export default function ChangeNumber({ open, setOpen, accountSettingInfo }) {
       <div>
         <h3 className='h3 mb-30'> Change Number </h3>
         <form className='is-fullwidth' onSubmit={ handleSubmit(onSubmit) }>
-          <div className='pl-10 pr-10 mr-50'>
+          <div className='pl-10 pr-10 '>
             <div className='mb-20'>
               <h4 className='h4 mb-10'> Current Number </h4>
               <div className='mt-10 mb-10'>
@@ -49,6 +71,7 @@ export default function ChangeNumber({ open, setOpen, accountSettingInfo }) {
               <TextField
                 name='newNumber'
                 className='is-fullwidth'
+                autoComplete='off'
                 placeholder='Enter your new number'
                 inputRef={ register }
                 error={ errors.newNumber }

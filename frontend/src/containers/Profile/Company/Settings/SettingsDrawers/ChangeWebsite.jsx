@@ -1,13 +1,20 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
   Drawer, Button, TextField,
 } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
+import { useDispatch, useSelector } from 'react-redux'
 import { accountSettingInfoDefaultProps, accountSettingInfoPropTypes } from '../settingsProps'
+import {
+  updateCompanyProfileSettingsStart,
+  resetUpdateCompanyProfileSettings,
+} from '../../../../../redux-saga/redux/actions'
 
 export default function ChangeWebsite({ open, setOpen, accountSettingInfo }) {
+  const { isLoading, success, updatedDataType } = useSelector((state) => state.updateCompanyProfileSettings)
+  const dispatch = useDispatch()
   const { register, handleSubmit, errors } = useForm({
     defaultValues: {
       newWebsite: '',
@@ -19,11 +26,26 @@ export default function ChangeWebsite({ open, setOpen, accountSettingInfo }) {
   })
 
   const onSubmit = (data) => {
+    if (!isLoading) {
+      dispatch(updateCompanyProfileSettingsStart({
+        updatedDataType: 'website',
+        updatedData: {
+          website: data.newWebsite,
+        },
+      }))
+    }
   }
 
   const handleCancelWebsiteChange = useCallback(() => {
     setOpen(false)
   }, [ setOpen ])
+
+  useEffect(() => {
+    if (!isLoading && success && updatedDataType === 'website') {
+      setOpen(false)
+      dispatch(resetUpdateCompanyProfileSettings())
+    }
+  }, [ success, isLoading, dispatch, setOpen, updatedDataType ])
 
   return (
     <Drawer
@@ -35,7 +57,7 @@ export default function ChangeWebsite({ open, setOpen, accountSettingInfo }) {
       <div>
         <h3 className='h3 mb-30'> Change Website </h3>
         <form className='is-fullwidth' onSubmit={ handleSubmit(onSubmit) }>
-          <div className='pl-10 pr-10 mr-50'>
+          <div className='pl-10 pr-10'>
             <div className='mb-20'>
               <h4 className='h4 mb-10'> Current Website </h4>
               <div className='mt-10 mb-10'>

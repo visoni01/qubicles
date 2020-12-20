@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  Route, Redirect, Switch,
+  Route, Redirect, Switch, useLocation,
 } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import routes from './routeList'
@@ -22,6 +22,7 @@ const CustomRoutes = (routeData) => (
 )
 
 const Validator = ({ component: Component, path }) => {
+  const location = useLocation()
   const token = getToken()
   let userDetails
   let component
@@ -31,7 +32,7 @@ const Validator = ({ component: Component, path }) => {
   if (!token) {
     if (path === '/reset-new-password') {
       component = <Redirect to='/reset-new-password' />
-    } else { component = <Redirect to={ `/login?return_url=${ path }` } /> }
+    } else { component = <Redirect to={ `/login?return_url=${ location.pathname }` } /> }
   } else if (!userDetails.is_post_signup_completed && path !== '/post-signup') {
     component = <Redirect to='/post-signup' />
   } else if (userDetails.is_post_signup_completed && path === '/post-signup') {
@@ -43,9 +44,12 @@ const Validator = ({ component: Component, path }) => {
   return component
 }
 
-const Redirector = ({ component: Component, redirectToDashboard }) => (
-  (getToken() && redirectToDashboard) ? <Redirect to='/dashboard' /> : <Component />
-)
+const Redirector = ({ component: Component, redirectToDashboard }) => {
+  if (getToken() && redirectToDashboard) {
+    return (<Redirect to='/dashboard' />)
+  }
+  return (<Component />)
+}
 
 Validator.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
