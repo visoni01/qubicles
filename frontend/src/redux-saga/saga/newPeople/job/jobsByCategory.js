@@ -12,11 +12,14 @@ function* jobsByCategoryWatcherStart() {
 
 function* jobsByCategoryWorker(action) {
   try {
-    const { categoryId, searchKeyword, status } = action.payload
+    const {
+      categoryId, searchKeyword, status, clientId,
+    } = action.payload
     const { data } = yield People.fetchJobCategoriesAndJobs({
       categoryId,
       searchKeyword,
       status: status === 'all' ? '' : status,
+      clientId,
     })
     yield put(newJobCategoriesFetchSuccessful({ newJobCategories: data }))
   } catch (e) {

@@ -151,9 +151,15 @@ const routes = [
     component: React.lazy(() => import('../containers/Profile/Company')),
     auth: true,
   },
-  // Other Company Profile
+  // Other Company Feed
   {
-    path: ROUTE_PATHS.OTHER_COMPANY_PROFILE,
+    path: ROUTE_PATHS.OTHER_COMPANY_FEED,
+    component: React.lazy(() => import('../containers/Profile/OtherCompany/index')),
+    auth: true,
+  },
+  // Other Company About
+  {
+    path: ROUTE_PATHS.OTHER_COMPANY_ABOUT,
     component: React.lazy(() => import('../containers/Profile/OtherCompany/index')),
     auth: true,
   },

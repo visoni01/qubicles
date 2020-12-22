@@ -1,6 +1,7 @@
 import React from 'react'
 import { Grid } from '@material-ui/core'
-import OpenPositions from '../../Company/About/OpenPositions'
+import PropTypes from 'prop-types'
+import OtherCompanyOpenPositionsList from './otherCompanyOpenPositionsList'
 import CoursesSection from '../../Company/About/CoursesSection'
 import ResumeReviews from '../../../NewPeople/ContactCenter/Talent/Application/ResumeReviews'
 
@@ -8,7 +9,7 @@ export default function OtherCompanyAbout() {
   return (
     <Grid container spacing={ 4 } justify='flex-start'>
       <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-        <OpenPositions />
+        <OtherCompanyOpenPositionsList />
       </Grid>
       <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
         <CoursesSection />

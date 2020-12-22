@@ -4,7 +4,7 @@ import { Box, Button, Divider } from '@material-ui/core'
 import OpenPositionsCard from './openPositionsCard'
 
 export default function OpenPosition() {
-  const { newJobCategories, isLoading } = useSelector((state) => state.newJobCategories)
+  const { newJobCategories } = useSelector((state) => state.newJobCategories)
 
   return (
     <Box className='custom-box'>

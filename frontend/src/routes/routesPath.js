@@ -1,8 +1,13 @@
+import { Profiler } from 'react'
+
 export const USER_ROUTE = '/users/'
 export const JOB_ROUTE = '/new/people/job'
 export const JOB_POST_ROUTE = '/new/people/job/view'
 export const VIEW_RESUME_ROUTE = '/new/people/talent/resume'
 export const NEW_PEOPLE = '/new/people'
+export const OTHER_COMPANY_PROFILE_ROUTE = '/profile/company'
+
+// export const getOtherCompanyProfileRoute = ({ companyId }) => `${ OTHER_COMPANY_PROFILE_ROUTE }/${ companyId }`
 
 const ROUTE_PATHS = {
   HOME: '/',
@@ -36,7 +41,8 @@ const ROUTE_PATHS = {
   PEOPLE_TRAINING_TAB: `${ NEW_PEOPLE }/training`,
   COMPANY_PROFILE: '/profile/company',
   JOB_PREVIEW: `${ JOB_ROUTE }/preview`,
-  OTHER_COMPANY_PROFILE: '/profile/company/:companyId',
+  OTHER_COMPANY_FEED: `${ OTHER_COMPANY_PROFILE_ROUTE }/:companyId/feed`,
+  OTHER_COMPANY_ABOUT: `${ OTHER_COMPANY_PROFILE_ROUTE }/:companyId/about`,
 }
 
 export default ROUTE_PATHS
