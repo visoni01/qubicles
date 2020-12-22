@@ -1,6 +1,4 @@
-import React, {
-  useState, useCallback, useEffect,
-} from 'react'
+import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import {
   Radio,
@@ -10,7 +8,8 @@ import {
 } from '@material-ui/core'
 import '../styles.scss'
 import { useSelector, useDispatch } from 'react-redux'
-import { newJobCategoriesFetchStart, updateJobsFilter } from '../../../../redux-saga/redux/actions'
+import { updateJobsFilter } from '../../../../redux-saga/redux/actions'
+import { jobFilterStatus } from '../constants'
 
 const JobFilterModal = ({
   open, handleClose, anchorEl, setAnchorEl, id,
@@ -18,26 +17,18 @@ const JobFilterModal = ({
   const { selectedCategoryId, searchField, status } = useSelector((state) => state.newJobCategories)
   const dispatch = useDispatch()
 
-  const [ jobStatus, setJobStatus ] = useState(status)
   const setStatusCB = useCallback((event) => {
     const checkedStatus = event.target.value
-    setJobStatus(checkedStatus)
-  }, [ ])
-
-  useEffect(() => {
-    dispatch(newJobCategoriesFetchStart({
-      categoryId: selectedCategoryId,
-      searchKeyword: searchField,
-      status: jobStatus,
-    }))
     dispatch(updateJobsFilter({
       categoryId: selectedCategoryId,
       searchKeyword: searchField,
-      status: jobStatus,
+      status: checkedStatus,
+      statusTitle: jobFilterStatus[ checkedStatus ],
     }))
-    setAnchorEl(null)
-    // eslint-disable-next-line
-  }, [ dispatch, jobStatus ])
+    setTimeout(() => {
+      setAnchorEl(null)
+    }, 400)
+  }, [ dispatch, selectedCategoryId, searchField, setAnchorEl ])
 
   return (
     <Popover
@@ -57,54 +48,23 @@ const JobFilterModal = ({
     >
       <RadioGroup
         className='radio-buttons border-2 jobs-filter'
-        value={ jobStatus }
+        value={ status }
         onChange={ setStatusCB }
       >
-        <FormControlLabel
-          value='all'
-          className='display-inline-flex justify-between mt-5'
-          control={ <Radio /> }
-          labelPlacement='start'
-          label={
-            <h4 className='h4'> All Jobs </h4>
-        }
-        />
-        <FormControlLabel
-          value='recruiting'
-          className='display-inline-flex justify-between mt-5'
-          control={ <Radio /> }
-          labelPlacement='start'
-          label={
-            <h4 className='h4'> Open Jobs </h4>
-        }
-        />
-        <FormControlLabel
-          value='hired'
-          className='display-inline-flex justify-between mt-5'
-          control={ <Radio /> }
-          labelPlacement='start'
-          label={
-            <h4 className='h4'> Hired Positions </h4>
-        }
-        />
-        <FormControlLabel
-          value='cancelled'
-          className='display-inline-flex justify-between mt-5'
-          control={ <Radio /> }
-          labelPlacement='start'
-          label={
-            <h4 className='h4'> Cancelled Jobs </h4>
-      }
-        />
-        <FormControlLabel
-          value='draft'
-          className='display-inline-flex justify-between mt-5'
-          control={ <Radio /> }
-          labelPlacement='start'
-          label={
-            <h4 className='h4'>  Drafted Jobs </h4>
-      }
-        />
+        {Object.keys(jobFilterStatus).map((item) => (
+          <FormControlLabel
+            key={ item }
+            value={ item }
+            className='display-inline-flex justify-between mt-5'
+            control={ <Radio /> }
+            labelPlacement='start'
+            label={ (
+              <h4 className='h4'>
+                {item !== 'all' ? jobFilterStatus[ item ] : 'All Jobs'}
+              </h4>
+            ) }
+          />
+        ))}
       </RadioGroup>
     </Popover>
   )

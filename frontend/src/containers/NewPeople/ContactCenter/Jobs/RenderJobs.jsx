@@ -1,16 +1,20 @@
 import React from 'react'
-import { Box } from '@material-ui/core'
+import { Box, Divider } from '@material-ui/core'
 import { useSelector } from 'react-redux'
 import JobCategoryCard from './JobCategoryCard'
 import JobsSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/JobsSkeleton'
 
 export default function RenderJobs() {
   const { newJobCategories, isLoading } = useSelector((state) => state.newJobCategories)
+  const { statusTitle } = useSelector((state) => state.newJobCategories)
 
   if (isLoading) {
     return (
       <Box className='custom-box'>
-        <JobsSkeleton />
+        <h3 className='h3 light'>
+          {`${ statusTitle }`}
+        </h3>
+        <Divider className='divider' />
         <JobsSkeleton />
       </Box>
     )
@@ -18,6 +22,11 @@ export default function RenderJobs() {
 
   return (
     <Box className='custom-box'>
+      <h3 className='h3 light'>
+        {`${ statusTitle }`}
+      </h3>
+      <Divider className='divider' />
+
       { newJobCategories.map((jobCategory) => (
         jobCategory.jobs.length && (
           <JobCategoryCard

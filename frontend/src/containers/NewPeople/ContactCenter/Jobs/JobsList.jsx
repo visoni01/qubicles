@@ -7,16 +7,16 @@ import { faSlidersH, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
 import {
-  jobCategoriesOnlyFetchStart, updateJobsFilter, newJobCategoriesFetchStart,
+  jobCategoriesOnlyFetchStart, updateJobsFilter,
 } from '../../../../redux-saga/redux/actions'
 import JobsFilterSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/JobsFilterSkeleton'
 import './styles.scss'
 import JobsFilter from './JobsFilter'
 
 const JobsList = () => {
-  const [ displaySearchCategories, setDisplaySearchCategories ] = useState(false)
-  const { jobCategoriesOnly, isLoading } = useSelector((state) => state.jobCategoriesOnly)
-  const [ searchCategory, setSearchCategory ] = useState('')
+  const [ displaySearchCategories, setDisplaySearchCategories ] = useState(true)
+  const { jobCategoriesOnly, isLoading, searchKeyword } = useSelector((state) => state.jobCategoriesOnly)
+  const [ searchCategory, setSearchCategory ] = useState(searchKeyword)
 
   const { searchField, selectedCategoryId, status } = useSelector((state) => state.newJobCategories)
   const [ selectedCategory, setSelectedCategory ] = useState(selectedCategoryId)
@@ -28,11 +28,6 @@ const JobsList = () => {
     }
     // eslint-disable-next-line
   }, [ dispatch, searchCategory ])
-
-  useEffect(() => {
-    dispatch(newJobCategoriesFetchStart({ categoryId: selectedCategory, searchKeyword: searchField, status }))
-    // eslint-disable-next-line
-  }, [ dispatch, selectedCategory ])
 
   useEffect(() => {
     dispatch(updateJobsFilter({

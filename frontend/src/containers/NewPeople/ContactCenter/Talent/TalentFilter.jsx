@@ -28,9 +28,6 @@ const TalentFilter = () => {
   const [ selectedLocation, setLocation ] = useState(talentFilter.selectedLocation)
 
   useEffect(() => {
-    if (!jobSkills) {
-      dispatch(fetchJobSkillsStart({}))
-    }
     // Update Talent Filter in Store
     dispatch(updateTalentFilter({
       talentFilter: {
@@ -58,7 +55,6 @@ const TalentFilter = () => {
     // eslint-disable-next-line
   }, [
     dispatch,
-    jobSkills,
     selectedSkill,
     selectedLanguage,
     selectedHourlyRate,
@@ -66,6 +62,13 @@ const TalentFilter = () => {
     selectedAvailability,
     selectedTalentType,
   ])
+
+  useEffect(() => {
+    if (!jobSkills) {
+      // Get Skills in store if not present
+      dispatch(fetchJobSkillsStart({}))
+    }
+  }, [ dispatch, jobSkills ])
 
   const { talentFilter: talentFilterInitial } = initialState
   const handleResetFilter = useCallback(() => {
@@ -77,7 +80,6 @@ const TalentFilter = () => {
     setTalentType(talentFilterInitial.selectedTalentType)
 
     dispatch(resetTalentFilter())
-    dispatch((fetchTalentCardsStart({})))
   }, [ dispatch, talentFilterInitial ])
 
   // Languages

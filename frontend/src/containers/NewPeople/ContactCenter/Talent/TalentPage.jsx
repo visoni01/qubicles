@@ -1,21 +1,13 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import { Box } from '@material-ui/core'
 import TalentCard from './TalentCard'
-import { fetchTalentCardsStart } from '../../../../redux-saga/redux/actions'
 import TalentCardSkeleton from './Skeletons/TalentCardSkeleton'
 import './styles.scss'
 import TalentSearch from './TalentSearch'
 
 const TalentPage = () => {
   const { isLoading, talentCards } = useSelector((state) => state.peopleTalentCards)
-
-  const dispatch = useDispatch()
-  useEffect(() => {
-    if (!talentCards) {
-      dispatch(fetchTalentCardsStart({}))
-    }
-  }, [ dispatch, talentCards ])
 
   return (
     <>

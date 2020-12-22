@@ -5,6 +5,7 @@ const initialState = {
   isLoading: null,
   error: null,
   success: false,
+  searchKeyword: '',
   jobCategoriesOnly: [],
 }
 
@@ -19,15 +20,17 @@ const {
   name: 'jobCategoriesOnly',
   initialState,
   reducers: {
-    jobCategoriesOnlyFetchStart: () => ({
+    jobCategoriesOnlyFetchStart: (state, action) => ({
       ...initialState,
       isLoading: true,
+      searchKeyword: action.payload.searchKeyword,
     }),
     jobCategoriesOnlyFetchSuccessful: (state, action) => ({
       ...state,
       success: true,
       isLoading: false,
       jobCategoriesOnly: getDataForReducer(action, initialState.jobCategoriesOnly, 'jobCategoriesOnly'),
+
     }),
     jobCategoriesOnlyFetchFailure: (state, action) => ({
       ...initialState,
