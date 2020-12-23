@@ -1,7 +1,7 @@
 import talentCardsReducer from './talent/talentCards'
 import agentResumeSkillsReducer from './talent/agentResumeSkills'
 import newJobReducer from './job/job'
-import newJobCategoriesReducer from './job/jobsPage'
+import jobsWithCategoriesReducer from './job/jobsPage'
 import jobPostCompanyDetailsReducer from './job/jobPostCompanyDetails'
 import jobSkillsReducer from './jobSkills'
 import agentResumeReducer from './talent/agentResume'
@@ -14,7 +14,7 @@ const peopleReducers = {
   peopleTalentCards: talentCardsReducer,
   agentResumeSkills: agentResumeSkillsReducer,
   jobDetails: newJobReducer,
-  newJobCategories: newJobCategoriesReducer,
+  jobsWithCategories: jobsWithCategoriesReducer,
   jobPostCompanyDetails: jobPostCompanyDetailsReducer,
   agentResume: agentResumeReducer,
   talentFilter: talentFilterReducer,

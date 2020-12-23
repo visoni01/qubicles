@@ -114,7 +114,7 @@ export const getUpdatedJobsData = ({ state, payload }) => {
   switch (payload.type) {
     case ADD_JOB: {
       const { newJob } = payload
-      updatedJobCategories = state.newJobCategories.map((category) => {
+      updatedJobCategories = state.jobsWithCategories.map((category) => {
         let updatedJobs = category.jobs
         if (category.categoryId === newJob.categoryId) {
           updatedJobs = [ ...updatedJobs, ...newJob ]
@@ -125,7 +125,7 @@ export const getUpdatedJobsData = ({ state, payload }) => {
     }
     case UPDATE_JOB: {
       const { updatedJob } = payload
-      updatedJobCategories = state.newJobCategories.map((category) => {
+      updatedJobCategories = state.jobsWithCategories.map((category) => {
         let updatedJobs = category.jobs
         if (category.categoryId === updatedJob.categoryId) {
           updatedJobs = updatedJobs.map((job) => {
@@ -320,11 +320,11 @@ export const updatePostCommentsData = ({ state, payload }) => {
 }
 
 export const getJobsByCategory = ({ state, payload }) => {
-  const { newJobCategories } = state
-  const index = newJobCategories.findIndex((category) => category.categoryId === payload.categoryId)
-  newJobCategories[ index ] = {
-    ...newJobCategories[ index ],
+  const { jobsWithCategories } = state
+  const index = jobsWithCategories.findIndex((category) => category.categoryId === payload.categoryId)
+  jobsWithCategories[ index ] = {
+    ...jobsWithCategories[ index ],
     jobs: payload.jobs,
   }
-  return newJobCategories
+  return jobsWithCategories
 }

@@ -7,7 +7,7 @@ const initialState = {
   isLoading: null,
   error: null,
   success: false,
-  newJobCategories: [],
+  jobsWithCategories: [],
   selectedCategoryId: 0,
   searchField: '',
   status: 'all',
@@ -17,36 +17,36 @@ const initialState = {
 
 const {
   actions: {
-    newJobCategoriesFetchStart,
-    newJobCategoriesFetchSuccessful,
-    newJobCategoriesFetchFailure,
+    jobsWithCategoriesFetchStart,
+    jobsWithCategoriesFetchSuccessful,
+    jobsWithCategoriesFetchFailure,
     updateJobsData,
     updateJobsFilter,
   },
   reducer,
 } = createSlice({
-  name: 'newJobCategories',
+  name: 'jobsWithCategories',
   initialState,
   reducers: {
-    newJobCategoriesFetchStart: (state) => ({
+    jobsWithCategoriesFetchStart: (state) => ({
       ...state,
       isLoading: true,
     }),
-    newJobCategoriesFetchSuccessful: (state, action) => ({
+    jobsWithCategoriesFetchSuccessful: (state, action) => ({
       ...state,
       success: true,
       isLoading: false,
-      newJobCategories: getDataForReducer(action, initialState.newJobCategories, 'newJobCategories'),
+      jobsWithCategories: getDataForReducer(action, initialState.jobsWithCategories, 'jobsWithCategories'),
       isAllJobsFetched: getDataForReducer(action, initialState.isAllJobsFetched, 'isAllJobsFetched'),
     }),
-    newJobCategoriesFetchFailure: (state) => ({
+    jobsWithCategoriesFetchFailure: (state) => ({
       ...state,
       error: true,
       isLoading: false,
     }),
     updateJobsData: (state, action) => ({
       ...state,
-      newJobCategories: getUpdatedJobsData({ state, payload: action.payload }),
+      jobsWithCategories: getUpdatedJobsData({ state, payload: action.payload }),
     }),
     updateJobsFilter: (state, action) => ({
       ...state,
@@ -61,9 +61,9 @@ const {
 
 export default reducer
 export {
-  newJobCategoriesFetchStart,
-  newJobCategoriesFetchSuccessful,
-  newJobCategoriesFetchFailure,
+  jobsWithCategoriesFetchStart,
+  jobsWithCategoriesFetchSuccessful,
+  jobsWithCategoriesFetchFailure,
   updateJobsData,
   updateJobsFilter,
 }

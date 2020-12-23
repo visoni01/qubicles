@@ -7,7 +7,7 @@ import { updateJobsFilter } from '../../../../redux-saga/redux/actions'
 
 export default function JobsSearch() {
   const dispatch = useDispatch()
-  const { selectedCategoryId, status, searchField } = useSelector((state) => state.newJobCategories)
+  const { selectedCategoryId, status, searchField } = useSelector((state) => state.jobsWithCategories)
   const [ searchJobsField, setSearchJobsField ] = useState(searchField)
 
   const searchJobsApi = useCallback(debounce((nextValue) => {

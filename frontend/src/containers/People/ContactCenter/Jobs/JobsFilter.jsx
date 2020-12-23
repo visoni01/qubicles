@@ -14,7 +14,7 @@ import { jobFilterStatus } from '../constants'
 const JobFilterModal = ({
   open, handleClose, anchorEl, setAnchorEl, id,
 }) => {
-  const { selectedCategoryId, searchField, status } = useSelector((state) => state.newJobCategories)
+  const { selectedCategoryId, searchField, status } = useSelector((state) => state.jobsWithCategories)
   const dispatch = useDispatch()
 
   const setStatusCB = useCallback((event) => {

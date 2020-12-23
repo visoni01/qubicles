@@ -4,16 +4,16 @@ import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import JobsSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/JobsSkeleton'
 import OtherCompanyOpenPositionsCard from './otherCompanyOpenPositionsCard'
-import { newJobCategoriesFetchStart } from '../../../../redux-saga/redux/actions'
+import { jobsWithCategoriesFetchStart } from '../../../../redux-saga/redux/actions'
 
 export default function OtherCompanyOpenPositionsList({ companyId }) {
-  const { newJobCategories, isAllJobsFetched, isLoading } = useSelector((state) => state.newJobCategories)
+  const { jobsWithCategories, isAllJobsFetched, isLoading } = useSelector((state) => state.jobsWithCategories)
 
   const dispatch = useDispatch()
 
   const fetchJobs = useCallback(() => {
     if (!isAllJobsFetched) {
-      dispatch(newJobCategoriesFetchStart({
+      dispatch(jobsWithCategoriesFetchStart({
         clientId: companyId,
       }))
     }
@@ -26,7 +26,7 @@ export default function OtherCompanyOpenPositionsList({ companyId }) {
     <Box className='custom-box'>
       <h3 className='h3 mb-20'> Open Positions </h3>
       {(
-        newJobCategories.map((jobCategory) => (
+        jobsWithCategories.map((jobCategory) => (
           jobCategory.jobs.length && (
           <OtherCompanyOpenPositionsCard
             key={ jobCategory.categoryId }

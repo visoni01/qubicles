@@ -3,17 +3,17 @@ import { Button } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import ROUTE_PATHS from '../../../../routes/routesPath'
-import { resetJobDetails, resetJobData, newJobCategoriesFetchStart } from '../../../../redux-saga/redux/actions'
+import { resetJobDetails, resetJobData, jobsWithCategoriesFetchStart } from '../../../../redux-saga/redux/actions'
 import JobsSearch from './JobsSearch'
 import RenderJobs from './RenderJobs'
 
 const JobsPage = () => {
   const history = useHistory()
   const dispatch = useDispatch()
-  const { selectedCategoryId, searchField, status } = useSelector((state) => state.newJobCategories)
+  const { selectedCategoryId, searchField, status } = useSelector((state) => state.jobsWithCategories)
 
   useEffect(() => {
-    dispatch(newJobCategoriesFetchStart({
+    dispatch(jobsWithCategoriesFetchStart({
       categoryId: selectedCategoryId,
       searchKeyword: searchField,
       status,
