@@ -1,8 +1,8 @@
 export const USER_ROUTE = '/users/'
-export const JOB_ROUTE = '/new/people/job'
-export const JOB_POST_ROUTE = '/new/people/job/view'
-export const VIEW_RESUME_ROUTE = '/new/people/talent/resume'
 export const PEOPLE_ROUTE = '/people'
+export const JOB_ROUTE = `${ PEOPLE_ROUTE }/job`
+export const JOB_POST_ROUTE = `${ PEOPLE_ROUTE }/job/view`
+export const VIEW_RESUME_ROUTE = `${ PEOPLE_ROUTE }/talent/resume`
 export const OTHER_COMPANY_PROFILE_ROUTE = '/profile/company'
 
 const ROUTE_PATHS = {
@@ -23,13 +23,13 @@ const ROUTE_PATHS = {
   INVITE_LINK: '/invite/:walletId',
   AUTH: '/auth',
   GROUP: '/group',
-  PEOPLE_ROUTE: '/people',
+  PEOPLE: '/people',
   JOB_POST: `${ JOB_ROUTE }/post/:jobId`,
   NEW_JOB: `${ JOB_ROUTE }/create`,
   VIEW_RESUME: `${ VIEW_RESUME_ROUTE }/:candidateId`,
-  CREATE_COURSE: '/new/people/course/create',
-  VIEW_COURSE: '/new/people/course/view',
-  VIEW_JOB_APPLICATION: '/new/people/job/application',
+  CREATE_COURSE: `${ PEOPLE_ROUTE }/course/create`,
+  VIEW_COURSE: `${ PEOPLE_ROUTE }/course/view`,
+  VIEW_JOB_APPLICATION: `${ PEOPLE_ROUTE }/job/application`,
   EDIT_JOB: `${ JOB_ROUTE }/:jobId/edit`,
   PEOPLE_TALENT_TAB: `${ PEOPLE_ROUTE }/talent`,
   PEOPLE_JOBS_TAB: `${ PEOPLE_ROUTE }/jobs`,
