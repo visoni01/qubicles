@@ -5,11 +5,11 @@ import OtherCompanyOpenPositionsList from './otherCompanyOpenPositionsList'
 import CoursesSection from '../../Company/About/CoursesSection'
 import ResumeReviews from '../../../NewPeople/ContactCenter/Talent/Application/ResumeReviews'
 
-export default function OtherCompanyAbout() {
+export default function OtherCompanyAbout({ companyId }) {
   return (
     <Grid container spacing={ 4 } justify='flex-start'>
       <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-        <OtherCompanyOpenPositionsList />
+        <OtherCompanyOpenPositionsList companyId={ companyId } />
       </Grid>
       <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
         <CoursesSection />
@@ -19,4 +19,8 @@ export default function OtherCompanyAbout() {
       </Grid>
     </Grid>
   )
+}
+
+OtherCompanyAbout.propTypes = {
+  companyId: PropTypes.string.isRequired,
 }

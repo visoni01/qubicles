@@ -31,7 +31,11 @@ const OtherContactCenterProfile = () => {
 
   useEffect(() => {
     if (_.isEmpty(newJobCategories)) {
-      dispatch(newJobCategoriesFetchStart({ categoryId: 0, searchKeyword: '', clientId: companyId }))
+      dispatch(newJobCategoriesFetchStart({
+        clientId: companyId,
+        limit: 3,
+        offset: 0,
+      }))
     }
     // eslint-disable-next-line
   }, [ dispatch ])
@@ -71,13 +75,13 @@ const OtherContactCenterProfile = () => {
           <Grid item xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 }>
             <div>
               { currentPath === feedRoute && (<OtherContactCenterFeed companyId={ companyId } />)}
-              { currentPath === aboutRoute && (<OtherCompanyAbout />)}
+              { currentPath === aboutRoute && (<OtherCompanyAbout companyId={ companyId } />)}
             </div>
           </Grid>
         </Grid>
 
         <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
-          { currentPath === feedRoute && (<OpenPosition />)}
+          { currentPath === feedRoute && (<OpenPosition companyId={ companyId } />)}
           <SimilarCompanies heading='Similar Companies' />
         </Grid>
       </Grid>

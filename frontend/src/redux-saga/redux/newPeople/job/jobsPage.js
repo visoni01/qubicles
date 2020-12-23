@@ -12,6 +12,7 @@ const initialState = {
   searchField: '',
   status: 'all',
   statusTitle: 'Job Postings',
+  isAllJobsFetched: null,
 }
 
 const {
@@ -36,6 +37,7 @@ const {
       success: true,
       isLoading: false,
       newJobCategories: getDataForReducer(action, initialState.newJobCategories, 'newJobCategories'),
+      isAllJobsFetched: getDataForReducer(action, initialState.isAllJobsFetched, 'isAllJobsFetched'),
     }),
     newJobCategoriesFetchFailure: (state) => ({
       ...state,

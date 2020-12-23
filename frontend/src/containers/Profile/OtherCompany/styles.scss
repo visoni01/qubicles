@@ -1,5 +1,5 @@
-.company-suggestions-root{
-  .top-talent {
+.company-suggestions-root {
+  .suggested-company {
     width: 100%;
 
     .profile-pic {
@@ -18,4 +18,13 @@
 
 .other-company-title {
   width: 100%;
+}
+
+.right-section-open-position {
+  display: inline-flex;
+  flex-direction: column;
+
+  .view-job-post-button {
+    padding: 0px;
+  }
 }

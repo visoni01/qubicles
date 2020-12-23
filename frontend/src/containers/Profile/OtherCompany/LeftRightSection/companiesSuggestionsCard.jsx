@@ -7,7 +7,7 @@ const CompaniesSuggestionsCard = ({
   companyName,
   companyRating,
 }) => (
-  <div className='top-talent list-divider'>
+  <div className='suggested-company list-divider'>
     <div className='display-inline-flex mb-10'>
       <Avatar className='profile-pic' alt={ companyName } src={ companyName[ 0 ].toUpperCase() } />
       <div className='candidate-info'>

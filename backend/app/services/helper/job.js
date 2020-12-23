@@ -6,7 +6,6 @@ import {
   XQodSkill,
   XQodJobSkill,
   XQodJobCourse
-
 } from '../../db/models'
 import { Op } from 'sequelize'
 import { createNewEntity, aggregate, updateEntity } from '../helper'
@@ -361,8 +360,9 @@ export async function deleteJob ({ job_id }) {
   return jobs
 }
 
-export async function getAllJobs ({ client_id, category_id, search_keyword, status }) {
+export async function getAllJobs ({ client_id, category_id, search_keyword, status, limit, offset }) {
   let query = { client_id }
+  let additionalParams = {}
 
   if (!_.isEmpty(search_keyword)) {
     query = { ...query, title: { [Op.startsWith]: search_keyword } }
@@ -376,14 +376,23 @@ export async function getAllJobs ({ client_id, category_id, search_keyword, stat
     query = { ...query, status }
   }
 
-  const allJobsSubDetails = await XQodCategory.findAll({
+  if (!_.isUndefined(limit)) {
+    additionalParams = { limit: parseInt(limit) }
+  }
+
+  if (!_.isUndefined(offset)) {
+    additionalParams = { ...additionalParams, offset: parseInt(offset) }
+  }
+
+  const allJobsSubDetails = await XQodCategory.findAndCountAll({
     attributes: [['category_id', 'categoryId'], ['category_name', 'categoryTitle']],
     include: {
       model: XQodJob,
       as: 'jobs',
       where: query
-    }
+    },
+    ...additionalParams
   })
-  return allJobsSubDetails.map((job) => job.get({ plain: true })
-  )
+
+  return allJobsSubDetails.rows.map((job) => (job.get({ plain: true })))
 }

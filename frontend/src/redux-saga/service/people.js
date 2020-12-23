@@ -1,12 +1,13 @@
+import _ from 'lodash'
 import apiClient from '../../utils/apiClient'
 
 class People {
+  // eslint-disable-next-line complexity
   static async fetchJobCategoriesAndJobs({
-    searchKeyword, categoryId, status, clientId,
+    searchKeyword, categoryId, status, clientId, limit, offset,
   }) {
     const url = '/jobs'
     const queryParams = {}
-    let response
     if (searchKeyword && searchKeyword.trim()) {
       queryParams.search_keyword = searchKeyword
     }
@@ -23,11 +24,15 @@ class People {
       queryParams.client_id = clientId
     }
 
-    if (queryParams.search_keyword || queryParams.category_id || queryParams.status || queryParams.client_id) {
-      response = await apiClient.getRequest(url, null, queryParams)
-    } else {
-      response = await apiClient.getRequest(url)
+    if (limit) {
+      queryParams.limit = limit
     }
+
+    if (!_.isUndefined(offset)) {
+      queryParams.offset = offset
+    }
+
+    const response = await apiClient.getRequest(url, null, queryParams)
     return response
   }
 

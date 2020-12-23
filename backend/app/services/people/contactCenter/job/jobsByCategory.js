@@ -3,9 +3,10 @@ import {
   getAllJobs,
   getErrorMessageForService
 } from '../../../helper'
-import { getClientIdByUserId } from '../../../helper/user'
-import { ERRORS } from '../../../../utils/errors'
+import { getClientIdByUserId, getClientData } from '../../../helper/user'
+import { ERRORS, MESSAGES } from '../../../../utils/errors'
 import logger from '../../../../common/logger'
+import _ from 'lodash'
 
 const constraints = {
   user_id: {
@@ -19,6 +20,15 @@ const constraints = {
   },
   status: {
     presence: false
+  },
+  client_id: {
+    presence: false
+  },
+  limit: {
+    presence: false
+  },
+  offset: {
+    presence: false
   }
 }
 
@@ -29,20 +39,30 @@ export default class JobsByCategoryService extends ServiceBase {
 
   async run () {
     try {
-      const { user_id, search_keyword, category_id, status } = this.filteredArgs
-      const client = await getClientIdByUserId({ user_id })
+      const { user_id, search_keyword, category_id, status, client_id, limit, offset } = this.filteredArgs
       let jobs = []
-      if (client && client.client_id) {
-        const rest = {
-          category_id,
-          search_keyword,
-          status
+      if (client_id) {
+        const clientData = await getClientData({ client_id })
+        if (clientData && clientData.client_id) {
+          jobs = await getAllJobs({ client_id: clientData.client_id, limit, offset })
+        } else {
+          this.addError(ERRORS.NOT_FOUND, MESSAGES.DATA_NOT_FOUND)
+          return
         }
-        jobs = await getAllJobs({ client_id: client.client_id, ...rest })
+      } else {
+        const client = await getClientIdByUserId({ user_id })
+        if (client && client.client_id) {
+          const rest = {
+            category_id,
+            search_keyword,
+            status
+          }
+          jobs = await getAllJobs({ client_id: client.client_id, ...rest })
+        }
       }
-      return jobs
-    } catch (err) {
-      logger.error(`${getErrorMessageForService('JobsByCategoryService')} ${err}`)
+      return { jobs, isAllJobsFetched: _.isUndefined(limit) }
+    } catch (e) {
+      logger.error(`${getErrorMessageForService('JobsByCategoryService')} ${e}`)
       this.addError(ERRORS.INTERNAL)
     }
   }

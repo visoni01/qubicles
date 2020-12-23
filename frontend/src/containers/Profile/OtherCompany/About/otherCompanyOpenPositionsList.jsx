@@ -1,17 +1,27 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Box, Button } from '@material-ui/core'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import JobsSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/JobsSkeleton'
 import OtherCompanyOpenPositionsCard from './otherCompanyOpenPositionsCard'
+import { newJobCategoriesFetchStart } from '../../../../redux-saga/redux/actions'
 
-export default function OtherCompanyOpenPositionsList() {
-  const { newJobCategories, isLoading } = useSelector((state) => state.newJobCategories)
+export default function OtherCompanyOpenPositionsList({ companyId }) {
+  const { newJobCategories, isAllJobsFetched, isLoading } = useSelector((state) => state.newJobCategories)
+
+  const dispatch = useDispatch()
+
+  const fetchJobs = useCallback(() => {
+    if (!isAllJobsFetched) {
+      dispatch(newJobCategoriesFetchStart({
+        clientId: companyId,
+      }))
+    }
+  }, [ dispatch, companyId, isAllJobsFetched ])
 
   if (isLoading) {
     return <JobsSkeleton />
   }
-
   return (
     <Box className='custom-box'>
       <h3 className='h3 mb-20'> Open Positions </h3>
@@ -28,16 +38,24 @@ export default function OtherCompanyOpenPositionsList() {
           />
           )))
         )}
+
+      {!isAllJobsFetched && (
       <div className=' mt-20 mb-20 is-flex is-center'>
-        <Button classes={ {
-          root: 'button-primary-text',
-          label: 'button-primary-text-label',
-        } }
+        <Button
+          classes={ {
+            root: 'button-primary-text',
+            label: 'button-primary-text-label',
+          } }
+          onClick={ fetchJobs }
         >
           View All Open Positions
         </Button>
       </div>
-
+      )}
     </Box>
   )
+}
+
+OtherCompanyOpenPositionsList.propTypes = {
+  companyId: PropTypes.string.isRequired,
 }

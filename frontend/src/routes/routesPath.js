@@ -1,13 +1,9 @@
-import { Profiler } from 'react'
-
 export const USER_ROUTE = '/users/'
 export const JOB_ROUTE = '/new/people/job'
 export const JOB_POST_ROUTE = '/new/people/job/view'
 export const VIEW_RESUME_ROUTE = '/new/people/talent/resume'
 export const NEW_PEOPLE = '/new/people'
 export const OTHER_COMPANY_PROFILE_ROUTE = '/profile/company'
-
-// export const getOtherCompanyProfileRoute = ({ companyId }) => `${ OTHER_COMPANY_PROFILE_ROUTE }/${ companyId }`
 
 const ROUTE_PATHS = {
   HOME: '/',
