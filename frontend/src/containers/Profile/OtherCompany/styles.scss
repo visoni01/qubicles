@@ -1,0 +1,30 @@
+.company-suggestions-root {
+  .suggested-company {
+    width: 100%;
+
+    .profile-pic {
+      width: 56px;
+      height: 56px;
+      margin: 10px;
+      margin-left: 0px;
+    }
+
+    .candidate-info {
+      align-self: center;
+      width: calc(100% - 60px);
+    }
+  }
+}
+
+.other-company-title {
+  width: 100%;
+}
+
+.right-section-open-position {
+  display: inline-flex;
+  flex-direction: column;
+
+  .view-job-post-button {
+    padding: 0px;
+  }
+}
