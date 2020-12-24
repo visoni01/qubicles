@@ -19,12 +19,12 @@ function* updateCompanyProfileWorker(action) {
   try {
     const { updatedDataType, updatedData } = action.payload
     yield put(updateCompanyProfileSettings({ updatedDataType, updatedData }))
-
     const { data } = yield CompanyProfile.updateCompanyProfileSettings({ updatedDataType, updatedData })
 
     yield put(updateCompanyProfileSettingsSuccessful())
     switch (data.updatedDataType) {
       case 'email': {
+        yield put(showSuccessMessage({ msg: 'Email Verification mail sent successfully' }))
         break
       }
       default: {

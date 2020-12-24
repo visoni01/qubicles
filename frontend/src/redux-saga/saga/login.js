@@ -5,15 +5,19 @@ import {
   userUpdateStart,
   userUpdateSuccess,
   userLoginFailure,
+  userLogoutSuccessful,
 } from '../redux/login'
+import {
+  resetCompanyProfileSettingsData,
+  setShowVerifyMailButton, getCompanyProfileSettingsApiStart,
+} from '../redux/actions'
 import User from '../service/user'
 import { getUserDetails } from '../../utils/common'
 import { showSuccessMessage, showErrorMessage } from '../redux/snackbar'
 import { startLoader, stopLoader } from '../redux/loader'
-import { setShowVerifyMailButton } from '../redux/actions'
 
 function* loginWatcher() {
-  yield takeLatest([ userLoginStart.type, userUpdateStart.type ], loginWorker)
+  yield takeLatest([ userLoginStart.type, userUpdateStart.type, userLogoutSuccessful.type ], loginWorker)
 }
 
 // TODO: modify login to user
@@ -27,6 +31,9 @@ function* loginWorker(action) {
         yield put(showSuccessMessage({ msg: `Welcome ${ userDetails && userDetails.full_name }` }))
         yield put(userLoginSuccessful({ userDetails }))
 
+        if (userDetails.user_code && userDetails.user_code === 'employer') {
+          yield put(getCompanyProfileSettingsApiStart())
+        }
         break
       }
       case userUpdateStart.type: {
@@ -35,6 +42,10 @@ function* loginWorker(action) {
         yield User.updateUser({ user_code: role })
         yield put(userUpdateSuccess())
         yield put(stopLoader())
+        break
+      }
+      case userLogoutSuccessful.type: {
+        yield put(resetCompanyProfileSettingsData())
         break
       }
       default:

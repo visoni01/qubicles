@@ -37,6 +37,7 @@ import updateTitleSummary from './profile/company/updateTitleSummary'
 import uploadProfileImage from './profile/uploadProfileImage'
 import companyProfileSettings from './profile/company/fetchSettings'
 import updateProfileSettings from './profile/company/updateSettings'
+import clientDetailsWatcher from './profile/company2/fetchSettings'
 
 export default function* rootSaga() {
   yield all([
@@ -77,5 +78,6 @@ export default function* rootSaga() {
     updateTitleSummary(),
     uploadProfileImage(),
     updateProfileSettings(),
+    clientDetailsWatcher(),
   ])
 }
