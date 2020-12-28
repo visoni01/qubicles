@@ -20,7 +20,7 @@ export default function ChangeWebsite({ open, setOpen, accountSettingInfo }) {
       newWebsite: '',
     },
     validationSchema: yup.object().shape({
-      newWebsite: yup.string()
+      newWebsite: yup.string().url('*Please enter valid website url')
         .required('*Required'),
     }),
   })
@@ -76,7 +76,8 @@ export default function ChangeWebsite({ open, setOpen, accountSettingInfo }) {
               <TextField
                 name='newWebsite'
                 className='is-fullwidth'
-                placeholder='Enter your new website'
+                placeholder='Enter your new website url'
+                autoComplete='off'
                 inputRef={ register }
                 error={ errors.newWebsite }
                 helperText={ errors.newWebsite ? errors.newWebsite.message : '' }

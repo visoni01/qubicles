@@ -143,7 +143,6 @@ export default function ChangePassword({ open, setOpen }) {
                 name='confirmPassword'
                 type={ visible.confirmPassword ? 'text' : 'password' }
                 className='is-fullwidth'
-                autoComplete='off'
                 placeholder='Repeat your new password'
                 inputRef={ register }
                 error={ errors.confirmPassword }

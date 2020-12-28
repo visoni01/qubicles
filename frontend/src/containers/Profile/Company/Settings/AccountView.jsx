@@ -1,19 +1,24 @@
 /* eslint-disable complexity */
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import {
   Box, Grid, Button, Divider, Switch,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import './styles.scss'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import MultiSelectChipItems from '../../../People/MultiSelectChipItems'
 import { accountSettingInfoPropTypes, accountSettingInfoDefaultProps } from './settingsProps'
-import { updateCompanyProfileSettingsStart } from '../../../../redux-saga/redux/actions'
+import {
+  updateCompanyProfileSettingsStart,
+  resetUpdateCompanyProfileSettings,
+} from '../../../../redux-saga/redux/actions'
 
 export default function AccountView({
   setOpenDrawer, accountSettingInfo,
 }) {
   const dispatch = useDispatch()
+  const { isLoading, success, updatedDataType } = useSelector((state) => state.updateCompanyProfileSettings)
+
   const handleSmsNotificationSwitch = useCallback((e) => {
     dispatch(updateCompanyProfileSettingsStart({
       updatedDataType: 'Sms Notification',
@@ -31,6 +36,13 @@ export default function AccountView({
       },
     }))
   }, [ dispatch ])
+
+  useEffect(() => {
+    if (!isLoading && success
+      && (updatedDataType === 'Sms Notification' || updatedDataType === 'Email Notification')) {
+      dispatch(resetUpdateCompanyProfileSettings())
+    }
+  }, [ success, isLoading, dispatch, updatedDataType ])
 
   return (
     <Box className='custom-box'>
