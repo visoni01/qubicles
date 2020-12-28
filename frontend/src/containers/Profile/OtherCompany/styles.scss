@@ -28,3 +28,30 @@
     padding: 0px;
   }
 }
+
+.custom-modal {
+  .MuiDialog-scrollPaper {
+    overflow-y: scroll !important;
+    height: auto;
+  }
+
+  .MuiDialog-paperScrollPaper {
+    max-height: none;
+  }
+}
+
+.job-post-root {
+  .job-post-description {
+    flex-direction: column;
+  }
+
+  .job-post-specifications {
+    justify-content: space-between;
+    margin: 10px;
+    margin-bottom: 40px;
+  }
+
+  .course-section {
+    flex-direction: column;
+  }
+}
