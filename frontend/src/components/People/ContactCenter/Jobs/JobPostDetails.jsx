@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 import './styles.scss'
 import JobPostSkeleton from '../SkeletonLoader/JobPostSkeleton'
+import { jobPostCard } from '../../../../containers/People/ContactCenter/testData'
 import { checkJobType } from '../../../../utils/common'
 
 const JobPostDetails = ({
@@ -112,11 +113,12 @@ const JobPostDetails = ({
 
 JobPostDetails.defaultProps = {
   isLoading: null,
+  courses: jobPostCard.courses,
 }
 
 JobPostDetails.propTypes = {
   jobDetails: PropTypes.shape(PropTypes.any).isRequired,
-  courses: PropTypes.shape(PropTypes.any).isRequired,
+  courses: PropTypes.shape(PropTypes.any),
   isLoading: PropTypes.bool,
 }
 

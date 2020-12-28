@@ -1,26 +1,32 @@
 /* eslint-disable react/no-danger */
 /* eslint-disable camelcase */
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faUserFriends, faCalendar, faBriefcase, faDollarSign,
 } from '@fortawesome/free-solid-svg-icons'
-import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Button } from '@material-ui/core'
 import _ from 'lodash'
-import { JOB_ROUTE } from '../../../../routes/routesPath'
 import { checkJobType } from '../../../../utils/common'
+import JobPostModal from './jobPostModal'
 import '../styles.scss'
 
 const OpenJobPositionCard = ({
   categoryTitle, jobs, fulfilled, inNeed, categoryId,
 }) => {
-  const history = useHistory()
+  const [ currentJobId, setCurrentJobId ] = useState(null)
 
-  const handleViewJobPost = (job_id) => {
-    history.push(`${ JOB_ROUTE }/post/${ job_id }`)
-  }
+  const [ openJobPostModal, setOpenJobPostModal ] = useState(false)
+  const handleOpenJobPostModal = useCallback(
+    (job_id) => {
+      setOpenJobPostModal((currentState) => !currentState)
+      if (!openJobPostModal) {
+        setCurrentJobId(job_id)
+      }
+    }, [ openJobPostModal ],
+  )
+
   return (
     <div className='job-category-card list-divider' key={ categoryId }>
       <div className='section-heading display-inline-flex is-fullwidth'>
@@ -49,7 +55,7 @@ const OpenJobPositionCard = ({
                       root: 'button-primary-text',
                       label: 'button-primary-text-label',
                     } }
-                    onClick={ () => handleViewJobPost(job_id) }
+                    onClick={ () => handleOpenJobPostModal(job_id) }
                   >
                     View Job Post
                   </Button>
@@ -89,6 +95,13 @@ const OpenJobPositionCard = ({
             </div>
           </div>
         ))}
+      </div>
+      <div>
+        <JobPostModal
+          open={ openJobPostModal }
+          handleClose={ handleOpenJobPostModal }
+          jobId={ currentJobId }
+        />
       </div>
     </div>
   )
