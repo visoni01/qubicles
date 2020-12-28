@@ -1,6 +1,6 @@
 import ServiceBase from '../../../../common/serviceBase'
 import { getErrorMessageForService } from '../../../helper'
-import { getAgentJobProfiles } from '../../../helper/newPeople'
+import { getAgentJobProfiles } from '../../../helper/people'
 import _ from 'lodash'
 
 const constraints = {

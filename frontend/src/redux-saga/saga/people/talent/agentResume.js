@@ -3,8 +3,8 @@ import {
   fetchAgentResumeStart,
   fetchAgentResumeSuccess,
   fetchAgentResumeFailed,
-} from '../../../redux/newPeople/talent/agentResume'
-import NewPeople from '../../../service/newPeople'
+} from '../../../redux/people/talent/agentResume'
+import People from '../../../service/people'
 import { showErrorMessage } from '../../../redux/actions'
 
 function* agentResumeSkillsWatcherStart() {
@@ -14,7 +14,7 @@ function* agentResumeSkillsWatcherStart() {
 function* agentResumeSkillsWorker(action) {
   try {
     const { candidateId } = action.payload
-    const { data } = yield NewPeople.getAgentResume({ candidateId })
+    const { data } = yield People.getAgentResume({ candidateId })
     yield put(fetchAgentResumeSuccess({ agentResume: data }))
   } catch (e) {
     yield put(fetchAgentResumeFailed())

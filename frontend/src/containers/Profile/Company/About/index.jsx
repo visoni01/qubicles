@@ -2,7 +2,7 @@ import React from 'react'
 import { Grid } from '@material-ui/core'
 import OpenPositions from './OpenPositions'
 import CoursesSection from './CoursesSection'
-import ResumeReviews from '../../../NewPeople/ContactCenter/Talent/Application/ResumeReviews'
+import ResumeReviews from '../../../People/ContactCenter/Talent/Application/ResumeReviews'
 
 export default function About() {
   return (

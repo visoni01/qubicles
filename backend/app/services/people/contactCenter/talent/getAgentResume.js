@@ -1,6 +1,6 @@
 import ServiceBase from '../../../../common/serviceBase'
 import { getErrorMessageForService } from '../../../helper'
-import { getAgentResume } from '../../../helper/newPeople'
+import { getAgentResume } from '../../../helper/people'
 
 const constraints = {
   user_id: {

@@ -1,5 +1,5 @@
 import { put, takeEvery } from 'redux-saga/effects'
-import NewPeople from '../../../service/newPeople'
+import People from '../../../service/people'
 import { fetchTalentCardsStart, fetchTalentCardsSuccess, fetchTalentCardsFailed } from '../../../redux/actions'
 
 const { showErrorMessage } = require('../../../redux/actions')
@@ -11,7 +11,7 @@ function* talentCardsWatcherStart() {
 function* talentCardsWorker(action) {
   try {
     const filter = action.payload
-    const { data } = yield NewPeople.getTalentCards(filter)
+    const { data } = yield People.getTalentCards(filter)
     yield put(fetchTalentCardsSuccess({
       talentCards: data,
     }))

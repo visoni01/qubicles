@@ -4,7 +4,7 @@ import {
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye } from '@fortawesome/free-solid-svg-icons'
-import MultiSelectChipItems from '../../../containers/NewPeople/MultiSelectChipItems'
+import MultiSelectChipItems from '../../../containers/People/MultiSelectChipItems'
 
 export default function IntegrationSection() {
   return (

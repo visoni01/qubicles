@@ -23,7 +23,7 @@ import sendVerificationMail from './sendVerificationMail'
 import signupWithInviteReducer from './inviteDetails'
 import forgetPasswordMailReducer from './forgetPasswordMail'
 import resetPasswordReducer from './resetPassword'
-import peopleReducers from './newPeople/reducers'
+import peopleReducers from './people/reducers'
 import companyProfile from './profile/company'
 
 const rootReducer = combineReducers({
