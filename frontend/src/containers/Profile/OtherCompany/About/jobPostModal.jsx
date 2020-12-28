@@ -24,7 +24,6 @@ const JobPostModal = ({
   }, [ dispatch, jobId ])
   return (
     <Dialog
-      disableScrollLock
       open={ open }
       onClose={ handleClose }
       fullWidth
