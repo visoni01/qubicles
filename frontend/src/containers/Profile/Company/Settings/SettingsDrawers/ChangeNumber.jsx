@@ -11,6 +11,7 @@ import {
   updateCompanyProfileSettingsStart,
   resetUpdateCompanyProfileSettings,
 } from '../../../../../redux-saga/redux/actions'
+import { regExpPhone } from '../../../../../utils/common'
 
 export default function ChangeNumber({ open, setOpen, accountSettingInfo }) {
   const { isLoading, success, updatedDataType } = useSelector((state) => state.updateCompanyProfileSettings)
@@ -20,8 +21,7 @@ export default function ChangeNumber({ open, setOpen, accountSettingInfo }) {
       newNumber: '',
     },
     validationSchema: yup.object().shape({
-      newNumber: yup.string()
-        .required('*Required'),
+      newNumber: yup.string().matches(regExpPhone, '*Please enter a valid number'),
     }),
   })
 

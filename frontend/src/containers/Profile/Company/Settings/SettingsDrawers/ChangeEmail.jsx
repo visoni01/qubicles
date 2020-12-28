@@ -1,14 +1,14 @@
 import React, { useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Drawer, Button, TextField,
+  Drawer, Button, TextField, Grid,
 } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { useSelector, useDispatch } from 'react-redux'
 import { accountSettingInfoDefaultProps, accountSettingInfoPropTypes } from '../settingsProps'
 import {
-  updateCompanyProfileSettingsStart,
+  updateCompanyProfileSettingsStart, resetUpdateCompanyProfileSettings,
 } from '../../../../../redux-saga/redux/actions'
 
 export default function ChangeEmail({ open, setOpen, accountSettingInfo }) {
@@ -16,14 +16,14 @@ export default function ChangeEmail({ open, setOpen, accountSettingInfo }) {
     isLoading, success,
   } = useSelector((state) => state.updateCompanyProfileSettings)
 
-  const [ newEmail, setNewEmail ] = useState('client11@yopmail.com')
+  const [ newEmail, setNewEmail ] = useState('')
   const dispatch = useDispatch()
   const { register, handleSubmit, errors } = useForm({
     defaultValues: {
       newEmail: '',
     },
     validationSchema: yup.object().shape({
-      newEmail: yup.string()
+      newEmail: yup.string().email('*Please enter a valid email')
         .required('*Required'),
     }),
   })
@@ -131,15 +131,30 @@ export default function ChangeEmail({ open, setOpen, accountSettingInfo }) {
               </span>
             </div>
             <div className='mt-20 mb-10'>
-              <Button
-                classes={ {
-                  root: 'button-secondary-small',
-                  label: 'button-secondary-small-label',
-                } }
-                onClick={ handleResendButton }
-              >
-                Resend Verification Mail
-              </Button>
+              <Grid container justify='space-between' spacing={ 3 }>
+                <Grid item>
+                  <Button
+                    classes={ {
+                      root: 'button-secondary-small',
+                      label: 'button-secondary-small-label',
+                    } }
+                    onClick={ handleResendButton }
+                  >
+                    Resend Verification Mail
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button
+                    classes={ {
+                      root: 'button-secondary-small',
+                      label: 'button-secondary-small-label',
+                    } }
+                    onClick={ () => dispatch(resetUpdateCompanyProfileSettings()) }
+                  >
+                    Re Enter New Email
+                  </Button>
+                </Grid>
+              </Grid>
             </div>
           </div>
         )}
