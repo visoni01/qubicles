@@ -1,6 +1,6 @@
 import React from 'react'
 import Auth from '../components/User/Auth'
-import ROUTE_PATHS, { NEW_PEOPLE } from './routesPath'
+import ROUTE_PATHS, { PEOPLE_ROUTE } from './routesPath'
 
 const routes = [
   {
@@ -80,14 +80,14 @@ const routes = [
   },
   // Added extra route for new people design, Remove it when people's pages get completely ready.
   {
-    path: NEW_PEOPLE,
-    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Navigation/PeopleNavigation')),
+    path: PEOPLE_ROUTE,
+    component: React.lazy(() => import('../containers/People/ContactCenter/Navigation/PeopleNavigation')),
     auth: true,
   },
   // Added extra route for new contact-center jobPost design.
   {
     path: ROUTE_PATHS.JOB_POST,
-    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Jobs/JobView')),
+    component: React.lazy(() => import('../containers/People/ContactCenter/Jobs/JobView')),
     auth: true,
   },
   {
@@ -98,51 +98,51 @@ const routes = [
   // Temporarily added extra route for new contact-center newJob design.
   {
     path: ROUTE_PATHS.NEW_JOB,
-    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Jobs/NewJob/index')),
+    component: React.lazy(() => import('../containers/People/ContactCenter/Jobs/NewJob/index')),
     auth: true,
   },
   // Temporarily added extra route for new contact-center newJob design.
   {
     path: ROUTE_PATHS.PEOPLE_JOBS_TAB,
-    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/index')),
+    component: React.lazy(() => import('../containers/People/ContactCenter/index')),
     auth: true,
   },
   {
     path: ROUTE_PATHS.PEOPLE_TALENT_TAB,
-    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/index')),
+    component: React.lazy(() => import('../containers/People/ContactCenter/index')),
     auth: true,
   },
   {
     path: ROUTE_PATHS.PEOPLE_TRAINING_TAB,
-    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/index')),
+    component: React.lazy(() => import('../containers/People/ContactCenter/index')),
     auth: true,
   },
   {
     path: ROUTE_PATHS.EDIT_JOB,
-    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Jobs/EditJob')),
+    component: React.lazy(() => import('../containers/People/ContactCenter/Jobs/EditJob')),
     auth: true,
   },
   // Temporarily added extra route for new contact-center talent viewResume design.
   {
     path: ROUTE_PATHS.VIEW_RESUME,
-    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Talent/ViewResume')),
+    component: React.lazy(() => import('../containers/People/ContactCenter/Talent/ViewResume')),
   },
   // Added extra route for new contact-center jobPost design.
   {
     path: ROUTE_PATHS.CREATE_COURSE,
-    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Training/NewCourse/index')),
+    component: React.lazy(() => import('../containers/People/ContactCenter/Training/NewCourse/index')),
     auth: true,
   },
   // Temporarily added extra route for new contact-center newJob design.
   {
     path: ROUTE_PATHS.VIEW_COURSE,
-    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Training/ViewCourse/index')),
+    component: React.lazy(() => import('../containers/People/ContactCenter/Training/ViewCourse/index')),
     auth: true,
   },
   // Temporarily added extra route for new contact-center Job application design.
   {
     path: ROUTE_PATHS.VIEW_JOB_APPLICATION,
-    component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Talent/Application/JobApplicationPage')),
+    component: React.lazy(() => import('../containers/People/ContactCenter/Talent/Application/JobApplicationPage')),
     auth: true,
   },
   // Company Profile

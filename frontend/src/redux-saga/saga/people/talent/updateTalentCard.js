@@ -1,5 +1,5 @@
 import { put, takeEvery } from 'redux-saga/effects'
-import NewPeople from '../../../service/newPeople'
+import People from '../../../service/people'
 import { GET_TALENT_SKILL_TAGS, SET_TALENT_SKILL_TAGS } from '../../../redux/constants'
 import { updateTalentCards } from '../../../redux/actions'
 
@@ -17,7 +17,7 @@ function* updateTalentCardsWorker(action) {
     switch (action.type) {
       case GET_TALENT_SKILL_TAGS: {
         const { candidateId } = action.payload
-        const { data } = yield NewPeople.getUserSkills({ candidateId })
+        const { data } = yield People.getUserSkills({ candidateId })
 
         yield put(updateTalentCards({
           type: SET_TALENT_SKILL_TAGS,

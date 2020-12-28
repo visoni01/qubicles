@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
 import { Divider } from '@material-ui/core'
-import { fetchAgentResumeSkillsStart } from '../../../../../redux-saga/redux/newPeople/talent/agentResumeSkills'
+import { fetchAgentResumeSkillsStart } from '../../../../../redux-saga/redux/people/talent/agentResumeSkills'
 import AgentSkillSection from './AgentSkillSection'
 import SkillsAndEndorsementsSkeleton from '../Skeletons/SkillsAndEndorsements'
 

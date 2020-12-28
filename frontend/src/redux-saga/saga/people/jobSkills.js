@@ -5,7 +5,7 @@ import {
   fetchJobSkillsFailed,
 } from '../../redux/actions'
 import { showErrorMessage } from '../../redux/snackbar'
-import NewPeople from '../../service/newPeople'
+import People from '../../service/people'
 
 function* jobSkillsWatcherStart() {
   yield takeEvery(fetchJobSkillsStart.type, jobSkillsWorker)
@@ -13,7 +13,7 @@ function* jobSkillsWatcherStart() {
 
 function* jobSkillsWorker() {
   try {
-    const { data } = yield NewPeople.getJobSkills()
+    const { data } = yield People.getJobSkills()
     yield put(fetchJobSkillsSuccess({ jobSkills: data }))
   } catch (e) {
     yield put(fetchJobSkillsFailed())

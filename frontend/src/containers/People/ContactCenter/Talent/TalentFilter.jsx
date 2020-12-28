@@ -11,7 +11,7 @@ import MultiSelectChipItems from '../../MultiSelectChipItems'
 import {
   fetchJobSkillsStart, fetchTalentCardsStart, updateTalentFilter, resetTalentFilter,
 } from '../../../../redux-saga/redux/actions'
-import { initialState } from '../../../../redux-saga/redux/newPeople/talent/talentFilter'
+import { initialState } from '../../../../redux-saga/redux/people/talent/talentFilter'
 
 const TalentFilter = () => {
   const dispatch = useDispatch()

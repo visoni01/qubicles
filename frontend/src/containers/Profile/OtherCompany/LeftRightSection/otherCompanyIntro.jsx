@@ -1,8 +1,8 @@
 import React from 'react'
 import { Box, Divider, Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import { contactCenterIntroduction } from '../../../NewPeople/ContactCenter/testData'
-import Introduction from '../../../NewPeople/ContactCenter/Introduction'
+import { contactCenterIntroduction } from '../../../People/ContactCenter/testData'
+import Introduction from '../../../People/ContactCenter/Introduction'
 import PrimaryContact from '../../Company/LeftRightSection/primaryContact'
 
 const OtherCompanyIntro = ({

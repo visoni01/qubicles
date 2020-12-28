@@ -7,7 +7,7 @@ import { userRouter } from './user.router'
 import { flowRouter } from './flow.router'
 import { dashboardRouter } from './dashboard.router'
 import { forumRouter } from './forum.router'
-import { newPeopleRouter } from './newPeople.router'
+import { peopleRouter } from './people.router'
 import { jobRouter } from './job.router'
 import { companyProfileRouter } from './companyProfile.router'
 
@@ -24,7 +24,7 @@ router.use(`/${NAMESPACE}/flows`, flowRouter)
 router.use(`/${NAMESPACE}/dashboard`, dashboardRouter)
 router.use(`/${NAMESPACE}/jobs`, jobRouter)
 router.use(`/${NAMESPACE}/forum`, forumRouter)
-router.use(`/${NAMESPACE}/newPeople`, newPeopleRouter)
+router.use(`/${NAMESPACE}/people`, peopleRouter)
 router.use(`/${NAMESPACE}/profile/company`, companyProfileRouter)
 
 export default router

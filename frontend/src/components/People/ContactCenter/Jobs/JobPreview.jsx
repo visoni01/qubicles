@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux'
 import {
   Box, Grid,
 } from '@material-ui/core'
-import { jobPostCard } from '../../../../containers/NewPeople/ContactCenter/testData'
+import { jobPostCard } from '../../../../containers/People/ContactCenter/testData'
 import JobPostDetails from './JobPostDetails'
-import CreatePreviewActions from '../../../../containers/NewPeople/ContactCenter/Jobs/NewJob/Actions'
+import CreatePreviewActions from '../../../../containers/People/ContactCenter/Jobs/NewJob/Actions'
 import navBar from '../../../../hoc/navbar'
 
 const JobPreview = () => {
