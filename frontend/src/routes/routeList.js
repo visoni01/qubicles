@@ -1,6 +1,6 @@
 import React from 'react'
 import Auth from '../components/User/Auth'
-import ROUTE_PATHS, { NEW_PEOPLE } from './routesPath'
+import ROUTE_PATHS, { PEOPLE_ROUTE } from './routesPath'
 
 const routes = [
   {
@@ -80,7 +80,7 @@ const routes = [
   },
   // Added extra route for new people design, Remove it when people's pages get completely ready.
   {
-    path: NEW_PEOPLE,
+    path: PEOPLE_ROUTE,
     component: React.lazy(() => import('../containers/NewPeople/ContactCenter/Navigation/PeopleNavigation')),
     auth: true,
   },

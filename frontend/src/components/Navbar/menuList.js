@@ -1,7 +1,7 @@
 import {
   walletIcon, homeIcon, settingIcon, peopleIcon,
 } from '../../assets/images/icons/navBarIcons'
-import ROUTE_PATHS, { NEW_PEOPLE } from '../../routes/routesPath'
+import ROUTE_PATHS, { PEOPLE_ROUTE } from '../../routes/routesPath'
 
 const menuItems = [
   {
@@ -14,7 +14,7 @@ const menuItems = [
     icon: peopleIcon,
     title: 'People',
     id: 2,
-    link: NEW_PEOPLE,
+    link: PEOPLE_ROUTE,
   },
   {
     icon: walletIcon,

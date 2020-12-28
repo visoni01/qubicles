@@ -9,7 +9,7 @@ import {
 } from '../../../../assets/images/icons/peopleNavigationIcons'
 import './styles.scss'
 
-import ROUTE_PATHS, { NEW_PEOPLE } from '../../../../routes/routesPath'
+import ROUTE_PATHS, { PEOPLE_ROUTE } from '../../../../routes/routesPath'
 import PeopleNavigationActions from './PeopleNavigationActions'
 
 function PeopleNavigation() {
@@ -47,7 +47,7 @@ function PeopleNavigation() {
       title: 'Network',
       description: '',
       icon: networkIcon,
-      route: NEW_PEOPLE,
+      route: PEOPLE_ROUTE,
     },
 
   ]
