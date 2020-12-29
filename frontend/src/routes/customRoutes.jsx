@@ -17,7 +17,9 @@ const suspenseWrapper = (Component) => (
 const CustomRoutes = () => (
   <Switch>
     {
-      routes.map(({ path, auth, ...rest }) => (
+      routes.map(({
+        path, auth, exact, ...rest
+      }) => (
         <Route
           path={ path }
           key={ path }
