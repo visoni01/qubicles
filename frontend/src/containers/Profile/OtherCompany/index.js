@@ -44,7 +44,7 @@ const OtherContactCenterProfile = () => {
       <Grid container spacing={ 3 }>
         <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 }>
           <div className='left-section'>
-            <OtherCompanyIntro />
+            <OtherCompanyIntro key={ companyId } clientId={ companyId } />
           </div>
         </Grid>
         <Grid

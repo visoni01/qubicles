@@ -1,5 +1,5 @@
 import ServiceBase from '../../../../common/serviceBase'
-import { ERRORS } from '../../../../utils/errors'
+import { ERRORS, MESSAGES } from '../../../../utils/errors'
 import logger from '../../../../common/logger'
 import { getErrorMessageForService, getClientData } from '../../../helper'
 
@@ -21,6 +21,10 @@ export default class JobPostCompanyDetailsService extends ServiceBase {
     try {
       const { client_id } = this.filteredArgs
       const clientDetails = await getClientData({ client_id })
+      if (!clientDetails) {
+        this.addError(ERRORS.NOT_FOUND, MESSAGES.DATA_NOT_FOUND)
+        return
+      }
       const companyDetails = {
         registrationDate: clientDetails.registration_date,
         companyName: clientDetails.client_name,

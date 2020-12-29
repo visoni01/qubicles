@@ -1,4 +1,4 @@
-import { takeEvery, put } from 'redux-saga/effects'
+import { takeLatest, put } from 'redux-saga/effects'
 import {
   jobPostCompanyDetailsFetchStart,
   jobPostCompanyDetailsFetchSuccessful,
@@ -7,7 +7,7 @@ import { showErrorMessage } from '../../../redux/snackbar'
 import People from '../../../service/people'
 
 function* jobPostCompanyDataFetchingWatcherStart() {
-  yield takeEvery(jobPostCompanyDetailsFetchStart.type, jobPostCompanyDataFetchingWorker)
+  yield takeLatest(jobPostCompanyDetailsFetchStart.type, jobPostCompanyDataFetchingWorker)
 }
 
 function* jobPostCompanyDataFetchingWorker(action) {
