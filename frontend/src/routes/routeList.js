@@ -124,22 +124,9 @@ const routes = [
   },
   // Temporarily added extra route for new contact-center newJob design.
   {
-    path: ROUTE_PATHS.PEOPLE_JOBS_TAB,
+    path: [ ROUTE_PATHS.PEOPLE_JOBS_TAB, ROUTE_PATHS.PEOPLE_TALENT_TAB, ROUTE_PATHS.PEOPLE_TRAINING_TAB ],
     component: React.lazy(() => import('../containers/People/ContactCenter/index')),
     auth: true,
-    exact: true,
-  },
-  {
-    path: ROUTE_PATHS.PEOPLE_TALENT_TAB,
-    component: React.lazy(() => import('../containers/People/ContactCenter/index')),
-    auth: true,
-    exact: true,
-  },
-  {
-    path: ROUTE_PATHS.PEOPLE_TRAINING_TAB,
-    component: React.lazy(() => import('../containers/People/ContactCenter/index')),
-    auth: true,
-    exact: true,
   },
   {
     path: ROUTE_PATHS.EDIT_JOB,
@@ -181,21 +168,13 @@ const routes = [
     auth: true,
     exact: true,
   },
-  // Other Company Feed
+  // Other Company profile
   {
-    path: ROUTE_PATHS.OTHER_COMPANY_FEED,
+    path: [ ROUTE_PATHS.OTHER_COMPANY_FEED, ROUTE_PATHS.OTHER_COMPANY_ABOUT ],
     component: React.lazy(() => import('../containers/Profile/OtherCompany/index')),
     auth: true,
     exact: true,
   },
-  // Other Company About
-  {
-    path: ROUTE_PATHS.OTHER_COMPANY_ABOUT,
-    component: React.lazy(() => import('../containers/Profile/OtherCompany/index')),
-    auth: true,
-    exact: true,
-  },
-
 ]
 
 export default routes

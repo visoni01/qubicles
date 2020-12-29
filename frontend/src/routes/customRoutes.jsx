@@ -70,7 +70,10 @@ const Redirector = ({ component: Component, redirectToDashboard }) => {
 Validator.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   component: PropTypes.any.isRequired,
-  path: PropTypes.string.isRequired,
+  path: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array,
+  ]).isRequired,
 }
 
 Redirector.propTypes = {
