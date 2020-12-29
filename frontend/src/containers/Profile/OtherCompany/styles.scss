@@ -29,20 +29,25 @@
   .view-job-post-button {
     padding: 0px;
   }
+
+  .jobsCard-divider {
+    margin: 10px 0;
+  }
 }
 
 .custom-modal {
   .MuiDialog-scrollPaper {
-    overflow-y: scroll !important;
+    overflow-y: scroll;
     height: auto;
-  }
-
-  .MuiDialog-paperScrollPaper {
-    max-height: none;
   }
 }
 
 .job-post-root {
+
+  .jobPost-modal-title {
+    padding: 8px 18px 0;
+  }
+
   .job-post-description {
     flex-direction: column;
   }
