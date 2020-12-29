@@ -6,7 +6,6 @@ import {
 import { jobPostCard } from '../../../../containers/People/ContactCenter/testData'
 import JobPostDetails from './JobPostDetails'
 import CreatePreviewActions from '../../../../containers/People/ContactCenter/Jobs/NewJob/Actions'
-import navBar from '../../../../hoc/navbar'
 
 const JobPreview = () => {
   const { createJobData, isUpdatedData, isLoading } = useSelector((state) => state.createJobData)
@@ -40,4 +39,4 @@ const JobPreview = () => {
   )
 }
 
-export default navBar(JobPreview)
+export default JobPreview

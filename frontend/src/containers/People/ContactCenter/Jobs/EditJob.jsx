@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import navBar from '../../../../hoc/navbar'
 import { NewJob } from './NewJob/index'
 import '../styles.scss'
 import { jobDetailsFetchStart } from '../../../../redux-saga/redux/actions'
@@ -27,4 +26,4 @@ const EditJob = () => {
   )
 }
 
-export default navBar(EditJob)
+export default EditJob

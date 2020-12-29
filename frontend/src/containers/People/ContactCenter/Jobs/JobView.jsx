@@ -6,7 +6,6 @@ import ContactCenterIntro from './ContactCenterIntro'
 import { jobPostCard } from '../testData'
 import JobPost from './JobPost'
 import TopTalent from '../Talent/TopTalent'
-import navBar from '../../../../hoc/navbar'
 import './styles.scss'
 import { jobDetailsFetchStart } from '../../../../redux-saga/redux/actions'
 
@@ -42,4 +41,4 @@ const JobView = () => {
   )
 }
 
-export default navBar(JobView)
+export default JobView

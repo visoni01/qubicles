@@ -8,7 +8,6 @@ import SkillsPage from './Application/SkillsPage'
 import ResumeReviews from './Application/ResumeReviews'
 import WorkHistory from './Application/WorkHistory'
 import Actions from '../Jobs/Actions'
-import navBar from '../../../../hoc/navbar'
 import './styles.scss'
 import { fetchAgentResumeStart } from '../../../../redux-saga/redux/actions'
 
@@ -51,4 +50,4 @@ const ViewResume = () => {
   )
 }
 
-export default navBar(ViewResume)
+export default ViewResume

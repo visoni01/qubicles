@@ -1,6 +1,5 @@
 import React from 'react'
 import { Grid } from '@material-ui/core'
-import navBar from '../../../../../hoc/navbar'
 import NewCourseForm from './NewCourseForm'
 import NewCourseActions from './NewCourseActions'
 import './styles.scss'
@@ -18,4 +17,4 @@ const NewCourse = () => (
   )
 )
 
-export default navBar(NewCourse)
+export default NewCourse

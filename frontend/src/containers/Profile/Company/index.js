@@ -3,7 +3,7 @@ import React, {
   useState, useRef, useCallback,
 } from 'react'
 import { Grid, Tabs, Tab } from '@material-ui/core'
-import navBar from '../../../hoc/navbar'
+import { useDispatch } from 'react-redux'
 import ContactCenterEditProfile from './LeftRightSection/index'
 import Wallet from './LeftRightSection/wallet'
 import Settings from './Settings'
@@ -95,4 +95,4 @@ const ContactCenterProfile = () => {
   )
 }
 
-export default navBar(ContactCenterProfile)
+export default ContactCenterProfile

@@ -3,7 +3,6 @@ import {
   Grid, Card, CardContent,
 } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import navBar from '../../../../hoc/navbar'
 import {
   searchProperty, breifcaseIcon, chatIcon, mediaIcon, networkIcon,
 } from '../../../../assets/images/icons/peopleNavigationIcons'
@@ -93,4 +92,4 @@ function PeopleNavigation() {
   )
 }
 
-export default navBar(PeopleNavigation)
+export default PeopleNavigation

@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import JobData from './JobData'
 import JobRequirements from './JobRequirements'
 import JobDetails from './JobDetails'
-import navBar from '../../../../../hoc/navbar'
 import CreatePreviewActions from './Actions'
 import '../styles.scss'
 import { getNewJobFields } from '../../../../../redux-saga/redux/actions'
@@ -149,4 +148,4 @@ NewJob.propTypes = {
   isEdit: PropTypes.bool,
 }
 
-export default navBar(NewJob)
+export default NewJob

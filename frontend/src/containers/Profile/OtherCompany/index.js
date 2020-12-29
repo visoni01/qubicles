@@ -4,7 +4,6 @@ import { Grid, Tabs, Tab } from '@material-ui/core'
 import { useParams, useLocation, Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import _ from 'lodash'
-import navBar from '../../../hoc/navbar'
 import OtherCompanyIntro from './LeftRightSection/otherCompanyIntro'
 import SimilarCompanies from './LeftRightSection/similarCompanies'
 import OtherContactCenterFeed from './Feed/index'
@@ -89,4 +88,4 @@ const OtherContactCenterProfile = () => {
   )
 }
 
-export default navBar(OtherContactCenterProfile)
+export default OtherContactCenterProfile
