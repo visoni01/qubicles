@@ -20,7 +20,7 @@ const NavBar = ({ children }) => (
 )
 
 NavBar.propTypes = {
-  children: PropTypes.elementType.isRequired,
+  children: PropTypes.shape({}).isRequired,
 }
 
 export default NavBar
