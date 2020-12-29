@@ -11,14 +11,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import '../styles.scss'
 import { useSelector, useDispatch } from 'react-redux'
-import _ from 'lodash'
-import { defaultUser } from '../../../../assets/images/avatar'
 import {
   uploadProfileImageStart,
   updateCompanyProfileSettingsApiStart,
   resetUpdateProfileSettingsFlags,
+  resetUploadProfileImage,
 } from '../../../../redux-saga/redux/actions'
 import Loader from '../../../../components/loaders/circularLoader'
+import { defaultUser } from '../../../../assets/images/avatar'
 
 const EditProfileModal = ({
   open, handleClose, companyInfo,
@@ -26,7 +26,7 @@ const EditProfileModal = ({
   const { isUpdateSuccess, isUpdateLoading } = useSelector((state) => state.clientDetails)
   const [ title, setTitle ] = useState(companyInfo.title)
   const [ summary, setSummary ] = useState(companyInfo.summary)
-  const [ fileSrc, setFileSrc ] = useState('')
+  const [ fileSrc, setFileSrc ] = useState(companyInfo.profilePic)
 
   const fileInput = useRef()
   const dispatch = useDispatch()
@@ -52,6 +52,7 @@ const EditProfileModal = ({
   useEffect(() => {
     setTitle(companyInfo.title)
     setSummary(companyInfo.summary)
+    setFileSrc(companyInfo.profilePic)
   }, [ companyInfo ])
 
   const { uploadSuccess, uploadingImage } = useSelector((state) => state.uploadProfileImage)
@@ -76,12 +77,17 @@ const EditProfileModal = ({
 
   const handleDelete = () => {
     fileInput.current.value = ''
-    setFileSrc('')
+    setFileSrc(null)
   }
 
   useEffect(() => {
     if (isUpdateSuccess || uploadSuccess) {
-      dispatch(resetUpdateProfileSettingsFlags())
+      if (isUpdateSuccess) {
+        dispatch(resetUpdateProfileSettingsFlags())
+      }
+      if (uploadSuccess) {
+        dispatch(resetUploadProfileImage())
+      }
       handleClose()
     }
   }, [ isUpdateSuccess, uploadSuccess, dispatch, handleClose ])
@@ -99,10 +105,10 @@ const EditProfileModal = ({
         },
       }))
     }
-    if (!_.isEmpty(fileInput.current.files)) {
+    if (fileSrc !== companyInfo.profilePic) {
       dispatch(uploadProfileImageStart(uploadImage))
     }
-  }, [ dispatch, title, summary, companyInfo ])
+  }, [ dispatch, title, summary, companyInfo, fileSrc ])
 
   return (
     <Dialog
@@ -261,6 +267,12 @@ const EditProfileModal = ({
             label: 'button-primary-small-label',
           } }
           onClick={ onSubmit }
+          disabled={
+            !(title !== companyInfo.title
+              || summary !== companyInfo.summary
+              || fileSrc !== companyInfo.profilePic
+            )
+          }
         >
           Save
         </Button>
@@ -275,6 +287,7 @@ EditProfileModal.propTypes = {
   companyInfo: PropTypes.shape({
     title: PropTypes.string.isRequired,
     summary: PropTypes.string.isRequired,
+    profilePic: PropTypes.string.isRequired,
   }).isRequired,
 }
 

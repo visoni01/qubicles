@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import getUpdatedCompanySettings from '../company/helper'
+import getUpdatedCompanySettings from './helper'
 import { getDataForReducer } from '../../../../utils/common'
 
 const initialState = {

@@ -24,7 +24,7 @@ export default function ChangeEmail({ open, setOpen, accountSettingInfo }) {
     validationSchema: yup.object().shape({
       newEmail: yup.string().email('*Please enter a valid email')
         .required('*Required')
-        .notOneOf([ accountSettingInfo.email ], '*Should not match current email'),
+        .notOneOf([ accountSettingInfo.email ], '*Must be different from Current Email'),
 
     }),
   })

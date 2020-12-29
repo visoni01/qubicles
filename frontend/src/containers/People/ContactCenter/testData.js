@@ -1,5 +1,5 @@
 import {
-  kareem, terry, sally, good, carolin, helen, thomas,
+  kareem, terry, sally, carolin, helen, thomas, defaultUser,
 } from '../../../assets/images/avatar'
 
 const courseCategories = [
@@ -281,7 +281,7 @@ const jobPostCard = {
 const contactCenterIntroduction = {
   imageName: 'good',
   rating: 5,
-  imageSrc: good,
+  imageSrc: defaultUser,
   name: 'Good Call Center',
   location: 'San Francisco, CA',
   date: 'Member since 11/2020',

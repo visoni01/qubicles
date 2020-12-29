@@ -11,6 +11,7 @@ const {
     uploadProfileImageStart,
     uploadProfileImageFailed,
     uploadProfileImageSuccess,
+    resetUploadProfileImage,
   },
   reducer,
 } = createSlice({
@@ -31,6 +32,9 @@ const {
       uploadingImage: false,
       uploadSuccess: true,
     }),
+    resetUploadProfileImage: () => ({
+      ...initialState,
+    }),
   },
 })
 
@@ -39,4 +43,5 @@ export {
   uploadProfileImageStart,
   uploadProfileImageFailed,
   uploadProfileImageSuccess,
+  resetUploadProfileImage,
 }

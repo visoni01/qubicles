@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import './styles.scss'
 import { formatDate } from '../../../utils/common'
 import { contactCenterIntroduction } from './testData'
+import { defaultUser } from '../../../assets/images/avatar'
 
 const Introduction = ({
   imageName,
@@ -18,8 +19,8 @@ const Introduction = ({
 }) => (
   <div className='introduction-root'>
     <div className='display-inline-flex is-fullwidth'>
-      <Avatar className='profile-pic large' alt={ imageName } src={ imageSrc } />
-      <div className='ml-15'>
+      <Avatar className='profile-pic large' alt={ imageName } src={ imageSrc || defaultUser } />
+      <div className='ml-10'>
         <Rating
           className='rating-star no-margin'
           name='read-only'
