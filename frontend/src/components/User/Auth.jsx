@@ -16,7 +16,7 @@ const Auth = () => {
       getUser()
     }
 
-    async function getUser(token) {
+    async function getUser() {
       // user object will be stored in redux store or localstorage
       await apiClient.getUser()
       if (window.opener) {

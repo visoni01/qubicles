@@ -10,7 +10,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import CourseContents from './CourseContents'
 
 const CoursePreview = ({
-  open, onClose, onSubmit,
+  open, onClose,
 }) => (
   <Dialog
     disableScrollLock
@@ -56,7 +56,6 @@ const CoursePreview = ({
 CoursePreview.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
 }
 
 export default CoursePreview

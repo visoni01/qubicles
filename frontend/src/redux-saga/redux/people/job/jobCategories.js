@@ -32,7 +32,7 @@ const {
       jobCategoriesOnly: getDataForReducer(action, initialState.jobCategoriesOnly, 'jobCategoriesOnly'),
 
     }),
-    jobCategoriesOnlyFetchFailure: (state, action) => ({
+    jobCategoriesOnlyFetchFailure: () => ({
       ...initialState,
       error: true,
       isLoading: false,
