@@ -9,7 +9,7 @@ import {
 } from '../redux/login'
 import {
   resetCompanyProfileSettingsData,
-  setShowVerifyMailButton, getCompanyProfileSettingsApiStart,
+  setShowVerifyMailButton,
 } from '../redux/actions'
 import User from '../service/user'
 import { getUserDetails } from '../../utils/common'
@@ -30,10 +30,6 @@ function* loginWorker(action) {
         const userDetails = getUserDetails()
         yield put(showSuccessMessage({ msg: `Welcome ${ userDetails && userDetails.full_name }` }))
         yield put(userLoginSuccessful({ userDetails }))
-
-        if (userDetails.user_code && userDetails.user_code === 'employer') {
-          yield put(getCompanyProfileSettingsApiStart())
-        }
         break
       }
       case userUpdateStart.type: {

@@ -3,12 +3,13 @@ import getUpdatedCompanySettings from '../company/helper'
 import { getDataForReducer } from '../../../../utils/common'
 
 const initialState = {
-  isFetchLoading: null,
-  isFetchError: null,
-  isFetchSuccess: null,
+  isFetchLoading: false,
+  isFetchError: false,
+  isFetchSuccess: false,
   isUpdateLoading: null,
   isUpdateSuccess: null,
   isUpdateError: null,
+  updatedDataType: null,
   settings: {},
 }
 
@@ -20,6 +21,7 @@ const {
     updateCompanyProfileSettingsApiStart,
     updateCompanyProfileSettingsApiSuccess,
     updateCompanyProfileSettingsApiFailure,
+    resetUpdateProfileSettingsFlags,
     resetCompanyProfileSettingsData,
   },
   reducer,
@@ -30,7 +32,6 @@ const {
     getCompanyProfileSettingsApiStart: (state) => ({
       ...state,
       isFetchLoading: true,
-      isFetchSuccess: false,
     }),
 
     getCompanyProfileSettingsApiSuccess: (state, action) => ({
@@ -46,10 +47,11 @@ const {
       isFetchSuccess: false,
       isFetchError: true,
     }),
-    updateCompanyProfileSettingsApiStart: (state) => ({
+    updateCompanyProfileSettingsApiStart: (state, action) => ({
       ...state,
       isUpdateLoading: true,
       isUpdateSuccess: false,
+      updatedDataType: action.payload.updatedDataType,
     }),
     updateCompanyProfileSettingsApiSuccess: (state, action) => ({
       ...state,
@@ -63,6 +65,7 @@ const {
       isUpdateLoading: null,
       isUpdateSuccess: null,
       isUpdateError: null,
+      updatedDataType: null,
     }),
     resetCompanyProfileSettingsData: () => ({
       ...initialState,
@@ -78,5 +81,6 @@ export {
   updateCompanyProfileSettingsApiStart,
   updateCompanyProfileSettingsApiSuccess,
   updateCompanyProfileSettingsApiFailure,
+  resetUpdateProfileSettingsFlags,
   resetCompanyProfileSettingsData,
 }

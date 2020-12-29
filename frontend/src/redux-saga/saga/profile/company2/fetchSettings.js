@@ -1,4 +1,5 @@
 import { put, takeEvery } from 'redux-saga/effects'
+import _ from 'lodash'
 import {
   getCompanyProfileSettingsApiStart,
   getCompanyProfileSettingsApiSuccess,
@@ -6,8 +7,8 @@ import {
   updateCompanyProfileSettingsApiStart,
   updateCompanyProfileSettingsApiSuccess,
   updateCompanyProfileSettingsApiFailure,
-
   showErrorMessage,
+  showSuccessMessage,
 } from '../../../redux/actions'
 import CompanyProfile from '../../../service/profile/company'
 
@@ -28,8 +29,17 @@ function* companyProfileWorker(action) {
       }
       case updateCompanyProfileSettingsApiStart.type: {
         const { updatedDataType, updatedData } = action.payload
-        yield CompanyProfile.updateCompanyProfileSettings({ updatedDataType, updatedData })
         yield put(updateCompanyProfileSettingsApiSuccess({ updatedDataType, updatedData }))
+        yield CompanyProfile.updateCompanyProfileSettings({ updatedDataType, updatedData })
+        switch (updatedDataType) {
+          case 'email': {
+            yield put(showSuccessMessage({ msg: 'Email Verification mail sent successfully' }))
+            break
+          }
+          default: {
+            yield put(showSuccessMessage({ msg: _.capitalize(`${ updatedDataType } changed successfully`) }))
+          }
+        }
         break
       }
       default: break

@@ -8,12 +8,12 @@ import * as yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux'
 import { accountSettingInfoDefaultProps, accountSettingInfoPropTypes } from '../settingsProps'
 import {
-  updateCompanyProfileSettingsStart,
-  resetUpdateCompanyProfileSettings,
+  updateCompanyProfileSettingsApiStart,
+  resetUpdateProfileSettingsFlags,
 } from '../../../../../redux-saga/redux/actions'
 
 export default function ChangeWebsite({ open, setOpen, accountSettingInfo }) {
-  const { isLoading, success, updatedDataType } = useSelector((state) => state.updateCompanyProfileSettings)
+  const { isUpdateLoading, isUpdateSuccess, updatedDataType } = useSelector((state) => state.clientDetails)
   const dispatch = useDispatch()
   const { register, handleSubmit, errors } = useForm({
     defaultValues: {
@@ -26,8 +26,8 @@ export default function ChangeWebsite({ open, setOpen, accountSettingInfo }) {
   })
 
   const onSubmit = (data) => {
-    if (!isLoading) {
-      dispatch(updateCompanyProfileSettingsStart({
+    if (!isUpdateLoading) {
+      dispatch(updateCompanyProfileSettingsApiStart({
         updatedDataType: 'website',
         updatedData: {
           website: data.newWebsite,
@@ -41,11 +41,11 @@ export default function ChangeWebsite({ open, setOpen, accountSettingInfo }) {
   }, [ setOpen ])
 
   useEffect(() => {
-    if (!isLoading && success && updatedDataType === 'website') {
+    if (!isUpdateLoading && isUpdateSuccess && updatedDataType === 'website') {
       setOpen(false)
-      dispatch(resetUpdateCompanyProfileSettings())
+      dispatch(resetUpdateProfileSettingsFlags())
     }
-  }, [ success, isLoading, dispatch, setOpen, updatedDataType ])
+  }, [ isUpdateSuccess, isUpdateLoading, dispatch, setOpen, updatedDataType ])
 
   return (
     <Drawer

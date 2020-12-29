@@ -8,13 +8,13 @@ import * as yup from 'yup'
 import { useSelector, useDispatch } from 'react-redux'
 import { accountSettingInfoDefaultProps, accountSettingInfoPropTypes } from '../settingsProps'
 import {
-  updateCompanyProfileSettingsStart,
-  resetUpdateCompanyProfileSettings,
+  updateCompanyProfileSettingsApiStart,
+  resetUpdateProfileSettingsFlags,
 } from '../../../../../redux-saga/redux/actions'
 import { regExpPhone } from '../../../../../utils/common'
 
 export default function ChangeNumber({ open, setOpen, accountSettingInfo }) {
-  const { isLoading, success, updatedDataType } = useSelector((state) => state.updateCompanyProfileSettings)
+  const { isUpdateLoading, isUpdateSuccess, updatedDataType } = useSelector((state) => state.clientDetails)
   const dispatch = useDispatch()
   const { register, handleSubmit, errors } = useForm({
     defaultValues: {
@@ -26,8 +26,8 @@ export default function ChangeNumber({ open, setOpen, accountSettingInfo }) {
   })
 
   const onSubmit = (data) => {
-    if (!isLoading) {
-      dispatch(updateCompanyProfileSettingsStart({
+    if (!isUpdateLoading) {
+      dispatch(updateCompanyProfileSettingsApiStart({
         updatedDataType: 'number',
         updatedData: {
           phoneNumber: data.newNumber,
@@ -41,11 +41,11 @@ export default function ChangeNumber({ open, setOpen, accountSettingInfo }) {
   }, [ setOpen ])
 
   useEffect(() => {
-    if (!isLoading && success && updatedDataType === 'number') {
+    if (!isUpdateLoading && isUpdateSuccess && updatedDataType === 'number') {
       setOpen(false)
-      dispatch(resetUpdateCompanyProfileSettings())
+      dispatch(resetUpdateProfileSettingsFlags())
     }
-  }, [ success, isLoading, dispatch, setOpen, updatedDataType ])
+  }, [ isUpdateSuccess, isUpdateLoading, dispatch, setOpen, updatedDataType ])
 
   return (
     <Drawer

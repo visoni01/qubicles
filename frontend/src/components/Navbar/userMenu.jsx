@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import {
   IconButton, Avatar, Button, Divider, Popover,
 } from '@material-ui/core'
@@ -14,13 +14,23 @@ import {
   chatIcon, walletIcon, settingIcon, logoutIcon,
 } from '../../assets/images/icons/navBarIcons'
 import ROUTE_PATHS from '../../routes/routesPath'
+import { getCompanyProfileSettingsApiStart } from '../../redux-saga/redux/actions'
 
 const UserMenu = () => {
   const history = useHistory()
   const dispatch = useDispatch()
   const [ isDropdownOpen, setIsDropdownOpen ] = useState(false)
   const { userDetails } = useSelector((state) => state.login)
+  const { isFetchSuccess, isFetchLoading } = useSelector((state) => state.clientDetails)
   const [ anchorEl, setAnchorEl ] = useState(null)
+
+  useEffect(() => {
+    if (userDetails.user_code === 'employer') {
+      if (!isFetchLoading && !isFetchSuccess) {
+        dispatch(getCompanyProfileSettingsApiStart())
+      }
+    }
+  }, [ dispatch, userDetails, isFetchLoading, isFetchSuccess ])
 
   const toggleDropdownOpen = useCallback((event) => {
     setAnchorEl(event.currentTarget)

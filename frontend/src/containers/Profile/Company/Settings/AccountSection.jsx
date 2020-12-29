@@ -16,7 +16,7 @@ export default function AccountSection() {
     websiteDrawer: false,
     numberDrawer: false,
   })
-  const { settings: accountSettingInfo, isLoading } = useSelector((state) => state.companyProfileSettings)
+  const { settings: accountSettingInfo, isFetchLoading: isLoading } = useSelector((state) => state.clientDetails)
 
   return (
     <div>

@@ -3,50 +3,19 @@ const getUpdatedCompanySettings = ({ state, action }) => {
   const { updatedDataType, updatedData } = action.payload
 
   switch (updatedDataType) {
-    case 'address': {
+    case 'password': {
       settings = {
         ...settings,
-        state: updatedData.state,
-        city: updatedData.city,
-        street: updatedData.street,
-        zip: updatedData.zip,
       }
       break
     }
 
-    case 'Sms Notification': {
+    default: {
       settings = {
         ...settings,
-        smsNotification: updatedData.smsNotification,
+        ...updatedData,
       }
-      break
     }
-
-    case 'Email Notification': {
-      settings = {
-        ...settings,
-        emailNotification: updatedData.emailNotification,
-      }
-      break
-    }
-
-    case 'number': {
-      settings = {
-        ...settings,
-        phoneNumber: updatedData.phoneNumber,
-      }
-      break
-    }
-
-    case 'website': {
-      settings = {
-        ...settings,
-        website: updatedData.website,
-      }
-      break
-    }
-
-    default: break
   }
   return settings
 }

@@ -9,18 +9,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import MultiSelectChipItems from '../../../People/MultiSelectChipItems'
 import { accountSettingInfoPropTypes, accountSettingInfoDefaultProps } from './settingsProps'
 import {
-  updateCompanyProfileSettingsStart,
-  resetUpdateCompanyProfileSettings,
+  updateCompanyProfileSettingsApiStart,
+  resetUpdateProfileSettingsFlags,
 } from '../../../../redux-saga/redux/actions'
 
 export default function AccountView({
   setOpenDrawer, accountSettingInfo,
 }) {
   const dispatch = useDispatch()
-  const { isLoading, success, updatedDataType } = useSelector((state) => state.updateCompanyProfileSettings)
+  const { isUpdateLoading, isUpdateSuccess, updatedDataType } = useSelector((state) => state.clientDetails)
 
   const handleSmsNotificationSwitch = useCallback((e) => {
-    dispatch(updateCompanyProfileSettingsStart({
+    dispatch(updateCompanyProfileSettingsApiStart({
       updatedDataType: 'Sms Notification',
       updatedData: {
         smsNotification: e.target.checked,
@@ -29,7 +29,7 @@ export default function AccountView({
   }, [ dispatch ])
 
   const handleEmailNotificationSwitch = useCallback((e) => {
-    dispatch(updateCompanyProfileSettingsStart({
+    dispatch(updateCompanyProfileSettingsApiStart({
       updatedDataType: 'Email Notification',
       updatedData: {
         emailNotification: e.target.checked,
@@ -38,11 +38,11 @@ export default function AccountView({
   }, [ dispatch ])
 
   useEffect(() => {
-    if (!isLoading && success
+    if (!isUpdateLoading && isUpdateSuccess
       && (updatedDataType === 'Sms Notification' || updatedDataType === 'Email Notification')) {
-      dispatch(resetUpdateCompanyProfileSettings())
+      dispatch(resetUpdateProfileSettingsFlags())
     }
-  }, [ success, isLoading, dispatch, updatedDataType ])
+  }, [ isUpdateSuccess, isUpdateLoading, dispatch, updatedDataType ])
 
   return (
     <Box className='custom-box'>
