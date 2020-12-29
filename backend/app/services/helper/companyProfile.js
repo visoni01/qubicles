@@ -55,10 +55,6 @@ export const updateProfileSettings = async ({ user, clientUser, updatedData, upd
       break
     }
 
-    default : {
-      break
-    }
-
     // Update Phone number
     case 'number': {
       result = await XClient.update({
@@ -97,6 +93,20 @@ export const updateProfileSettings = async ({ user, clientUser, updatedData, upd
           token
         })
       }
+      break
+    }
+
+    case 'Company Info': {
+      result = await XClient.update({
+        title: updatedData.title,
+        summary: updatedData.summary
+      },
+      { where: { client_id: clientUser.client_id } })
+      break
+    }
+
+    default : {
+      break
     }
   }
   return result

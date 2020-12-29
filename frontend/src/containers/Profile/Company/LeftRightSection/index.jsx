@@ -20,7 +20,7 @@ const ContactCenterEditProfile = ({
   summary,
 }) => {
   const [ openEditProfileModal, setOpenEditProfileModal ] = useState(false)
-  const { settings } = useSelector((state) => state.companyProfileSettings)
+  const { settings } = useSelector((state) => state.clientDetails)
 
   return (
     <>
@@ -74,6 +74,10 @@ const ContactCenterEditProfile = ({
         <EditProfileModal
           open={ openEditProfileModal }
           handleClose={ () => setOpenEditProfileModal(false) }
+          companyInfo={ {
+            title: settings.title,
+            summary: settings.summary,
+          } }
         />
       </Box>
       <Box className='mt-20'>
