@@ -71,7 +71,9 @@
     color: $color-primary;
   }
 
-
+  &.red {
+    color: $color-red;
+  }
 
   &.italic {
     font-style: italic;

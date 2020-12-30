@@ -55,6 +55,11 @@
     @include fa-icon-outlined($color-headings);
   }
 
+  &.red {
+    color: $color-red;
+    @include fa-icon-hover($color-red);
+  }
+
   &.pointer {
     cursor: pointer;
   }
