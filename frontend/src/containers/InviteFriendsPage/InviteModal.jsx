@@ -20,7 +20,7 @@ const InviteModal = ({
   const dispatch = useDispatch()
   const inviteReducerStore = useSelector((state) => state.invitePage)
   const { userDetails } = useSelector((state) => state.login)
-  const { inviteLink } = userDetails
+  const inviteLink = userDetails && userDetails.inviteLink
   const [ manualEmails, setManualEmails ] = useState()
 
   const {
