@@ -7,7 +7,6 @@ import WorkHistory from './WorkHistory'
 import Courses from './Courses'
 import ResumeReviews from './ResumeReviews'
 import JobApplicationActions from '../../Jobs/JobApplicationActions'
-import navBar from '../../../../../hoc/navbar'
 
 function JobApplicationPage() {
   return (
@@ -39,4 +38,4 @@ function JobApplicationPage() {
   )
 }
 
-export default navBar(JobApplicationPage)
+export default JobApplicationPage

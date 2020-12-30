@@ -11,7 +11,7 @@ import classNames from 'classnames'
 // displayLoaderManually: Show loader when this property is set to true.
 
 const Loader = ({
-  size, color, displayLoaderManually, className, enableOverlay,
+  size, displayLoaderManually, className, enableOverlay,
 }) => {
   const { loading } = useSelector((state) => state.loader)
 
@@ -44,7 +44,6 @@ const Loader = ({
 
 Loader.defaultProps = {
   size: 80,
-  color: '#123abc',
   enableOverlay: true,
   className: '',
   displayLoaderManually: false,
@@ -52,7 +51,6 @@ Loader.defaultProps = {
 
 Loader.propTypes = {
   size: PropTypes.number,
-  color: PropTypes.string,
   enableOverlay: PropTypes.bool,
   displayLoaderManually: PropTypes.bool,
   className: PropTypes.string,

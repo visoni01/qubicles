@@ -7,7 +7,6 @@ const CourseDescription = ({
   description,
   goals,
   outcomes,
-  prerequisites,
 }) => {
   const [ showFullDescription, setShowFullDescription ] = useState(false)
   let descriptionButtonName
@@ -76,7 +75,6 @@ CourseDescription.defaultProps = {
   description: 'description',
   goals: 'goals',
   outcomes: 'outcomes',
-  prerequisites: 'prerequisites',
 }
 
 CourseDescription.propTypes = {
@@ -84,7 +82,6 @@ CourseDescription.propTypes = {
   description: PropTypes.string,
   goals: PropTypes.string,
   outcomes: PropTypes.string,
-  prerequisites: PropTypes.string,
 }
 
 export default CourseDescription

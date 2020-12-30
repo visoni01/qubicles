@@ -31,7 +31,7 @@ export default function InformationTab() {
     'Agent Support',
   ]
 
-  const setCategoryCB = useCallback((e) => {
+  const setCategoryCB = useCallback(() => {
   }, [])
 
   return (

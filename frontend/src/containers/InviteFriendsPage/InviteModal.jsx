@@ -53,7 +53,7 @@ const InviteModal = ({
 
   return (
     <Dialog
-      disableScrollLock
+      scroll='body'
       open={ open }
       onClose={ handleClose }
       maxWidth='sm'

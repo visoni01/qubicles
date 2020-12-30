@@ -38,3 +38,101 @@
     }
   }
 }
+
+.navbar-root {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  background-color: #F8F9FD;
+
+  .left-bar {
+    float: left;
+    border-right: 1px solid $color-border;
+    max-width: 80px;
+    height: 100vh;
+    background-color: #FFFFFF;
+    position: fixed;
+  }
+
+  .right-section {
+		float: right;
+    width: calc(100% - 80px);
+    .route-component {
+      margin-top: 84px;
+      padding: 10px 30px 30px;
+    }
+	}
+}
+
+.topbar-root {
+  width: inherit !important;
+  background-color: #F8F9FD !important;
+  .topbar-toolbar {
+    padding: 12px 30px;
+  }
+  .search-input {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #DBDBDB;
+    border-radius: 8px;
+    opacity: 1;
+    height: 45px;
+    width: 60%;
+    margin: auto;
+      .input-field {
+        height: 100%;
+        width: calc(100% - 36px);
+      }
+  }
+
+  .notification-icons {
+    display: flex;
+    justify-content: flex-end;
+      img{
+      width: 24px;
+      height: 24px
+    }
+    .notification-button {
+      width: 64px;
+    }
+  }
+
+  .topbar-avatar {
+    margin: auto 0px auto 0px;
+    background-color: $color-background;
+    .avatar {
+      margin: auto
+    }
+  }
+}
+
+.sidebar-root{
+  .qubicles-logo{
+    text-align: center;
+    margin-bottom: 20px;
+    img {
+        max-width: 80px !important;
+      }
+  }
+  .menu-list {
+    a {
+      padding: 0em;
+    }
+    .menu-item {
+      padding-left: 13px;
+      .menu-item-icon {
+        display: inline-block;
+        text-align: center;
+          img{
+            margin: auto;
+          }
+          .menu-item-title {
+            color: #999999;
+          }
+      }
+    }
+  }
+}
+
+.container-max-width {
+  max-width: 1480px !important;
+}

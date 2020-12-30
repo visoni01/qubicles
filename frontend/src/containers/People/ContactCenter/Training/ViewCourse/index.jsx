@@ -5,7 +5,6 @@ import CourseDescription from './CourseDescription'
 import CourseOverview from './CourseOverview'
 import CourseReviews from './CourseReviews'
 import { courseDescription } from '../testData'
-import navBar from '../../../../../hoc/navbar'
 import './styles.scss'
 import CourseActions from './CourseActions'
 
@@ -47,4 +46,4 @@ const ViewCourse = () => (
   </Grid>
 )
 
-export default navBar(ViewCourse)
+export default ViewCourse
