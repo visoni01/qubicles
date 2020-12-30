@@ -95,6 +95,19 @@
 
 // Job Info
 .job-info {
+  .job-title {
+    display: inline-block;
+    width: 100%;
+
+    a {
+      color: #444F5F;
+    }
+
+    .job-options-ellipsis-button {
+      padding: 0;
+    }
+  }
+
   .action-buttons {
     width: 100%;
     padding: 10px 0;

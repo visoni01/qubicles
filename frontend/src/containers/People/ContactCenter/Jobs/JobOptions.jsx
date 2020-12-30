@@ -35,7 +35,7 @@ const JobOptions = ({ categoryId, jobId }) => {
     <>
       <IconButton
         onClick={ handleJoboOptionsClick }
-        className='pull-right'
+        className='job-options-ellipsis-button pull-right'
       >
         <FontAwesomeIcon icon={ faEllipsisV } className='custom-fa-icon sz-md dark' />
       </IconButton>
