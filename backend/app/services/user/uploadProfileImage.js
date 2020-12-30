@@ -3,8 +3,7 @@ import { UserDetail } from '../../db/models'
 import {
   getErrorMessageForService,
   validateImageFile,
-  uploadFileToIPFS,
-  updateEntity
+  uploadFileToIPFS
 } from '../helper'
 import logger from '../../common/logger'
 import { ERRORS, MESSAGES } from '../../utils/errors'
@@ -47,15 +46,18 @@ export class UploadProfileImageService extends ServiceBase {
           return
         }
       }
-
       const updateProfileImage = {
         user_id: this.user_id,
         profile_image: url || null
       }
 
-      await updateEntity({
-        model: UserDetail,
-        data: updateProfileImage
+      await UserDetail.update({
+        profile_image: updateProfileImage.profile_image
+      },
+      { where: { user_id: updateProfileImage.user_id } })
+
+      return ({
+        profilePicUrl: url
       })
     } catch (e) {
       logger.error(`${getErrorMessageForService('UploadProfileImageService')} ${e}`)

@@ -9,12 +9,12 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  updateCompanyProfileSettingsStart,
-  resetUpdateCompanyProfileSettings,
+  updateCompanyProfileSettingsApiStart,
+  resetUpdateProfileSettingsFlags,
 } from '../../../../../redux-saga/redux/actions'
 
 export default function ChangePassword({ open, setOpen }) {
-  const { isLoading, success, updatedDataType } = useSelector((state) => state.updateCompanyProfileSettings)
+  const { isUpdateLoading, isUpdateSuccess, updatedDataType } = useSelector((state) => state.clientDetails)
 
   const [ visible, setVisible ] = useState({
     currentPassword: false,
@@ -41,8 +41,8 @@ export default function ChangePassword({ open, setOpen }) {
   })
 
   const onSubmit = (data) => {
-    if (!isLoading) {
-      dispatch(updateCompanyProfileSettingsStart({
+    if (!isUpdateLoading) {
+      dispatch(updateCompanyProfileSettingsApiStart({
         updatedDataType: 'password',
         updatedData: {
           currentPassword: data.currentPassword,
@@ -62,11 +62,11 @@ export default function ChangePassword({ open, setOpen }) {
   }, [ setOpen ])
 
   useEffect(() => {
-    if (!isLoading && success && updatedDataType === 'password') {
+    if (!isUpdateLoading && isUpdateSuccess && updatedDataType === 'password') {
       setOpen(false)
-      dispatch(resetUpdateCompanyProfileSettings())
+      dispatch(resetUpdateProfileSettingsFlags())
     }
-  }, [ success, isLoading, dispatch, setOpen, updatedDataType ])
+  }, [ isUpdateSuccess, isUpdateLoading, dispatch, setOpen, updatedDataType ])
 
   return (
     <Drawer

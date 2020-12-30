@@ -49,7 +49,8 @@ export class GetCompanyProfileSettingsService extends ServiceBase {
         website: clientDetails.website,
         summary: clientDetails.summary,
         title: clientDetails.title,
-        timezone: ''
+        timezone: '',
+        profilePic: userDetails.profile_image
       }
 
       return companyAccountSettings

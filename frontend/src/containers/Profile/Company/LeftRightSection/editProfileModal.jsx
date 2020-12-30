@@ -11,18 +11,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import '../styles.scss'
 import { useSelector, useDispatch } from 'react-redux'
-import _ from 'lodash'
-import { defaultUser } from '../../../../assets/images/avatar'
-import { updateCompanyTitleSummaryStart, uploadProfileImageStart } from '../../../../redux-saga/redux/actions'
+import {
+  uploadProfileImageStart,
+  updateCompanyProfileSettingsApiStart,
+  resetUpdateProfileSettingsFlags,
+  resetUploadProfileImage,
+} from '../../../../redux-saga/redux/actions'
 import Loader from '../../../../components/loaders/circularLoader'
+import { defaultUser } from '../../../../assets/images/avatar'
 
 const EditProfileModal = ({
-  open, handleClose,
+  open, handleClose, companyInfo,
 }) => {
-  const { settings, isLoading } = useSelector((state) => state.companyProfileSettings)
-  const [ title, setTitle ] = useState(settings.title)
-  const [ summary, setSummary ] = useState(settings.summary)
-  const [ fileSrc, setFileSrc ] = useState('')
+  const { isUpdateSuccess, isUpdateLoading } = useSelector((state) => state.clientDetails)
+  const [ title, setTitle ] = useState(companyInfo.title)
+  const [ summary, setSummary ] = useState(companyInfo.summary)
+  const [ fileSrc, setFileSrc ] = useState(companyInfo.profilePic)
 
   const fileInput = useRef()
   const dispatch = useDispatch()
@@ -31,28 +35,26 @@ const EditProfileModal = ({
   const handleUpdateTitle = useCallback((e) => {
     const data = e.target.value
     setTitle(data)
-    // eslint-disable-next-line
   }, [])
 
   // updating summary
   const handleUpdateSummary = useCallback((e) => {
     const data = e.target.value
     setSummary(data)
-    // eslint-disable-next-line
   }, [])
 
   const handleCancel = useCallback(() => {
-    setTitle(settings.title)
-    setSummary(settings.summary)
+    setTitle(companyInfo.title)
+    setSummary(companyInfo.summary)
     handleClose()
-  }, [ settings, handleClose ])
+  }, [ companyInfo, handleClose ])
 
   useEffect(() => {
-    setTitle(settings.title)
-    setSummary(settings.summary)
-  }, [ settings ])
+    setTitle(companyInfo.title)
+    setSummary(companyInfo.summary)
+    setFileSrc(companyInfo.profilePic)
+  }, [ companyInfo ])
 
-  const { success } = useSelector((state) => state.updateTitleSummary)
   const { uploadSuccess, uploadingImage } = useSelector((state) => state.uploadProfileImage)
 
   // to preview selected image
@@ -75,30 +77,38 @@ const EditProfileModal = ({
 
   const handleDelete = () => {
     fileInput.current.value = ''
-    setFileSrc('')
+    setFileSrc(null)
   }
 
   useEffect(() => {
-    if (success || uploadSuccess) {
+    if (isUpdateSuccess || uploadSuccess) {
+      if (isUpdateSuccess) {
+        dispatch(resetUpdateProfileSettingsFlags())
+      }
+      if (uploadSuccess) {
+        dispatch(resetUploadProfileImage())
+      }
       handleClose()
     }
-    // eslint-disable-next-line
-  }, [ success, uploadSuccess ])
+  }, [ isUpdateSuccess, uploadSuccess, dispatch, handleClose ])
 
   const onSubmit = useCallback(() => {
     const uploadImage = {
       file: fileInput.current.files && fileInput.current.files[ 0 ],
     }
-    if (title !== settings.title || summary !== settings.summary) {
-      dispatch(updateCompanyTitleSummaryStart({
-        title,
-        summary,
+    if (title !== companyInfo.title || summary !== companyInfo.summary) {
+      dispatch(updateCompanyProfileSettingsApiStart({
+        updatedDataType: 'Company Info',
+        updatedData: {
+          title,
+          summary,
+        },
       }))
     }
-    if (!_.isEmpty(fileInput.current.files)) {
+    if (fileSrc !== companyInfo.profilePic) {
       dispatch(uploadProfileImageStart(uploadImage))
     }
-  }, [ dispatch, title, summary, settings ])
+  }, [ dispatch, title, summary, companyInfo, fileSrc ])
 
   return (
     <Dialog
@@ -173,7 +183,7 @@ const EditProfileModal = ({
           Company Title
         </h3>
         <div className='input-box'>
-          {!isLoading && (
+          {!isUpdateLoading && (
           <TextareaAutosize
             aria-label='minimum height'
             autoComplete='off'
@@ -188,7 +198,7 @@ const EditProfileModal = ({
           Bio
         </h3>
         <div className='input-box'>
-          {!isLoading && (
+          {!isUpdateLoading && (
           <TextareaAutosize
             aria-label='minimum height'
             autoComplete='off'
@@ -257,6 +267,12 @@ const EditProfileModal = ({
             label: 'button-primary-small-label',
           } }
           onClick={ onSubmit }
+          disabled={
+            !(title !== companyInfo.title
+              || summary !== companyInfo.summary
+              || fileSrc !== companyInfo.profilePic
+            )
+          }
         >
           Save
         </Button>
@@ -268,6 +284,11 @@ const EditProfileModal = ({
 EditProfileModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
+  companyInfo: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    summary: PropTypes.string.isRequired,
+    profilePic: PropTypes.string.isRequired,
+  }).isRequired,
 }
 
 export default EditProfileModal

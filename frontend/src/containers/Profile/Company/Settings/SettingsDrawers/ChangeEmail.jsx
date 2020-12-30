@@ -8,13 +8,12 @@ import * as yup from 'yup'
 import { useSelector, useDispatch } from 'react-redux'
 import { accountSettingInfoDefaultProps, accountSettingInfoPropTypes } from '../settingsProps'
 import {
-  updateCompanyProfileSettingsStart, resetUpdateCompanyProfileSettings,
+  updateCompanyProfileSettingsApiStart,
+  resetUpdateProfileSettingsFlags,
 } from '../../../../../redux-saga/redux/actions'
 
 export default function ChangeEmail({ open, setOpen, accountSettingInfo }) {
-  const {
-    isLoading, success,
-  } = useSelector((state) => state.updateCompanyProfileSettings)
+  const { isUpdateLoading, isUpdateSuccess } = useSelector((state) => state.clientDetails)
 
   const [ newEmail, setNewEmail ] = useState('')
   const dispatch = useDispatch()
@@ -24,13 +23,15 @@ export default function ChangeEmail({ open, setOpen, accountSettingInfo }) {
     },
     validationSchema: yup.object().shape({
       newEmail: yup.string().email('*Please enter a valid email')
-        .required('*Required'),
+        .required('*Required')
+        .notOneOf([ accountSettingInfo.email ], '*Must be different from Current Email'),
+
     }),
   })
 
   const onSubmit = (data) => {
-    if (!isLoading) {
-      dispatch(updateCompanyProfileSettingsStart({
+    if (!isUpdateLoading) {
+      dispatch(updateCompanyProfileSettingsApiStart({
         updatedDataType: 'email',
         updatedData: {
           email: data.newEmail,
@@ -45,15 +46,15 @@ export default function ChangeEmail({ open, setOpen, accountSettingInfo }) {
   }, [ setOpen ])
 
   const handleResendButton = useCallback(() => {
-    if (!isLoading) {
-      dispatch(updateCompanyProfileSettingsStart({
+    if (!isUpdateLoading) {
+      dispatch(updateCompanyProfileSettingsApiStart({
         updatedDataType: 'email',
         updatedData: {
           email: newEmail,
         },
       }))
     }
-  }, [ dispatch, newEmail, isLoading ])
+  }, [ dispatch, newEmail, isUpdateLoading ])
 
   return (
     <Drawer
@@ -64,7 +65,7 @@ export default function ChangeEmail({ open, setOpen, accountSettingInfo }) {
     >
       <div>
         <h3 className='h3 mb-30'> Change Email </h3>
-        {!isLoading && !success && (
+        {!isUpdateLoading && !isUpdateSuccess && (
           <form className='is-fullwidth' onSubmit={ handleSubmit(onSubmit) }>
             <div className='pl-10 pr-10'>
               <div className='mb-20'>
@@ -113,7 +114,7 @@ export default function ChangeEmail({ open, setOpen, accountSettingInfo }) {
             </div>
           </form>
         )}
-        {!isLoading && success && (
+        {!isUpdateLoading && isUpdateSuccess && (
           <div className='mt-30 mr-20'>
             <p className='para sz-lg bold'>Please verify your new email</p>
             <div className='mt-10 mb-5'>
@@ -149,7 +150,7 @@ export default function ChangeEmail({ open, setOpen, accountSettingInfo }) {
                       root: 'button-secondary-small',
                       label: 'button-secondary-small-label',
                     } }
-                    onClick={ () => dispatch(resetUpdateCompanyProfileSettings()) }
+                    onClick={ () => dispatch(resetUpdateProfileSettingsFlags()) }
                   >
                     Re Enter New Email
                   </Button>

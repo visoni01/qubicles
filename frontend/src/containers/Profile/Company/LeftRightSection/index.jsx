@@ -2,36 +2,28 @@ import React, { useState } from 'react'
 import { Box, Divider, Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
-import { contactCenterIntroduction } from '../../../People/ContactCenter/testData'
 import Introduction from '../../../People/ContactCenter/Introduction'
 import PrimaryContact from './primaryContact'
 import EditProfileModal from './editProfileModal'
 
 const ContactCenterEditProfile = ({
   clientId,
-  imageName,
   companyRating,
-  location,
-  companyName,
   registrationDate,
-  // eslint-disable-next-line no-unused-vars
-  title,
-  // eslint-disable-next-line no-unused-vars
-  summary,
 }) => {
   const [ openEditProfileModal, setOpenEditProfileModal ] = useState(false)
-  const { settings } = useSelector((state) => state.companyProfileSettings)
+  const { settings } = useSelector((state) => state.clientDetails)
 
   return (
     <>
       <Box className='custom-box contact-center-info-root'>
         <Introduction
           key={ clientId }
-          imageName={ imageName }
+          imageName={ settings.companyName }
           rating={ companyRating }
-          imageSrc={ contactCenterIntroduction.imageSrc }
-          name={ companyName }
-          location={ location }
+          imageSrc={ settings.profilePic }
+          name={ settings.companyName }
+          location={ `${ settings.city }, ${ settings.state } ` }
           date={ registrationDate }
         />
         <div className=' mt-20 mb-20'>
@@ -74,6 +66,11 @@ const ContactCenterEditProfile = ({
         <EditProfileModal
           open={ openEditProfileModal }
           handleClose={ () => setOpenEditProfileModal(false) }
+          companyInfo={ {
+            title: settings.title,
+            summary: settings.summary,
+            profilePic: settings.profilePic,
+          } }
         />
       </Box>
       <Box className='mt-20'>
@@ -85,28 +82,13 @@ const ContactCenterEditProfile = ({
 
 ContactCenterEditProfile.defaultProps = {
   clientId: null,
-  imageName: 'good',
   companyRating: 5,
-  location: 'San Francisco, CA',
-  companyName: 'Good Call Center',
   registrationDate: '2020-11-18',
-  title: 'innovative Call Center',
-  summary: `Whether you are looking for work in a contact center, seeking cloud-based contact center software
-  or you are in the market for talent, we have got you covered. Powered by blockchain smart contracts with no
-  middlemen involved, our patent-pending technology ensures the right agent is matched to the right position at
-  the right time. Members of our team have been on the battlefield as agents, supervisors and executives. We know
-  firsthand how irate customers respond, what makes employees happy, the key performance metrics for contact centers,
-  and how the right technology can make a difference.`,
 }
 ContactCenterEditProfile.propTypes = {
   clientId: PropTypes.number,
-  imageName: PropTypes.string,
   companyRating: PropTypes.number,
-  location: PropTypes.string,
-  companyName: PropTypes.string,
   registrationDate: PropTypes.string,
-  title: PropTypes.string,
-  summary: PropTypes.string,
 }
 
 export default ContactCenterEditProfile

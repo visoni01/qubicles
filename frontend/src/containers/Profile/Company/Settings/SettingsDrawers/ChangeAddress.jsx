@@ -8,13 +8,13 @@ import * as yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux'
 import { accountSettingInfoPropTypes, accountSettingInfoDefaultProps } from '../settingsProps'
 import {
-  updateCompanyProfileSettingsStart,
-  resetUpdateCompanyProfileSettings,
+  updateCompanyProfileSettingsApiStart,
+  resetUpdateProfileSettingsFlags,
 } from '../../../../../redux-saga/redux/actions'
 
 export default function ChangeAddress({ open, setOpen, accountSettingInfo }) {
   const dispatch = useDispatch()
-  const { isLoading, success, updatedDataType } = useSelector((state) => state.updateCompanyProfileSettings)
+  const { isUpdateLoading, isUpdateSuccess, updatedDataType } = useSelector((state) => state.clientDetails)
 
   const { register, handleSubmit, errors } = useForm({
     validationSchema: yup.object().shape({
@@ -30,8 +30,8 @@ export default function ChangeAddress({ open, setOpen, accountSettingInfo }) {
   })
 
   const onSubmit = (data) => {
-    if (!isLoading) {
-      dispatch(updateCompanyProfileSettingsStart({
+    if (!isUpdateLoading) {
+      dispatch(updateCompanyProfileSettingsApiStart({
         updatedDataType: 'address',
         updatedData: {
           street: data.street,
@@ -44,11 +44,11 @@ export default function ChangeAddress({ open, setOpen, accountSettingInfo }) {
   }
 
   useEffect(() => {
-    if (!isLoading && success && updatedDataType === 'address') {
+    if (!isUpdateLoading && isUpdateSuccess && updatedDataType === 'address') {
       setOpen(false)
-      dispatch(resetUpdateCompanyProfileSettings())
+      dispatch(resetUpdateProfileSettingsFlags())
     }
-  }, [ success, isLoading, dispatch, setOpen, updatedDataType ])
+  }, [ isUpdateSuccess, isUpdateLoading, dispatch, setOpen, updatedDataType ])
 
   return (
     <Drawer

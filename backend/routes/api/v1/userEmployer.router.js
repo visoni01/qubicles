@@ -8,7 +8,4 @@ const userEmployerRouter = express.Router(args)
 userEmployerRouter.route('/post-signup/:step')
   .post(isAuthenticated, userEmployerController.postSignupEmployer)
 
-userEmployerRouter.route('/edit')
-  .put(isAuthenticated, userEmployerController.editCompanyTitleSummary)
-
 export { userEmployerRouter }
