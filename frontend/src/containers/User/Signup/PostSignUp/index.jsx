@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import './style.scss'
-import { Button } from '@material-ui/core'
+import { Button, Grid } from '@material-ui/core'
 import { userUpdateStart } from '../../../../redux-saga/redux/actions'
 import AgentMultipartForm from './AgentMultipartForm'
 import ContactCenterMultipartForm from './ContactCenterMultipartForm'
@@ -27,8 +27,8 @@ const RoleSetup = () => {
           </h1>
         </div>
         <div id='signup-panel-1' className=' is-active'>
-          <div className='role-selector'>
-            <div className='column is-4'>
+          <Grid container justify='center' className='role-selector' spacing={ 8 }>
+            <Grid item>
               <div className='account-type'>
                 <img src={ contactCenter } alt='Center logo' className='intro-logo' />
                 <h3 className='h3'>For a Contact Center</h3>
@@ -45,8 +45,8 @@ const RoleSetup = () => {
                   Continue
                 </Button>
               </div>
-            </div>
-            <div className='column is-4'>
+            </Grid>
+            <Grid item>
               <div className='account-type'>
                 <img src={ agent } alt='Agent logo' className='intro-logo' />
                 <h3 className='h3'>As an Agent or Manager</h3>
@@ -64,8 +64,8 @@ const RoleSetup = () => {
                   Continue
                 </Button>
               </div>
-            </div>
-          </div>
+            </Grid>
+          </Grid>
         </div>
       </div>
     </div>

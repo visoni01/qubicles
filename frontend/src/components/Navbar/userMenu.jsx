@@ -25,7 +25,7 @@ const UserMenu = () => {
   const [ anchorEl, setAnchorEl ] = useState(null)
 
   useEffect(() => {
-    if (userDetails.user_code === 'employer') {
+    if (userDetails && userDetails.is_post_signup_completed && userDetails.user_code === 'employer') {
       if (!isFetchLoading && !isFetchSuccess) {
         dispatch(getCompanyProfileSettingsApiStart())
       }
