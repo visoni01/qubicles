@@ -18,6 +18,7 @@ import {
   UPDATE_POST_COMMENT,
   FETCH_COMMENTS_SUCCESS,
   UPDATE_JOB,
+  DELETE_JOB,
 } from './constants'
 
 export const getUpdatedGroups = ({ state, payload }) => {
@@ -137,6 +138,17 @@ export const getUpdatedJobsData = ({ state, payload }) => {
             }
             return job
           })
+        }
+        return { ...category, jobs: updatedJobs }
+      })
+      break
+    }
+    case DELETE_JOB: {
+      const { deletedJobId } = payload
+      updatedJobCategories = state.newJobCategories.map((category) => {
+        let updatedJobs = category.jobs
+        if (category.categoryId === deletedJobId.categoryId) {
+          updatedJobs = updatedJobs.filter((job) => (job.job_id !== deletedJobId.jobId))
         }
         return { ...category, jobs: updatedJobs }
       })

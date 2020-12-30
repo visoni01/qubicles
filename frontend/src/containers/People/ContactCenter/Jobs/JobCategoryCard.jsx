@@ -1,10 +1,13 @@
 /* eslint-disable camelcase */
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserFriends, faRedo, faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import {
+  faUserFriends, faRedo, faEnvelope,
+} from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { JOB_ROUTE } from '../../../../routes/routesPath'
+import JobOptions from './JobOptions'
 
 const JobCategoryCard = ({
   categoryTitle, jobs, fulfilled, inNeed, evaluating, pending, categoryId,
@@ -23,12 +26,15 @@ const JobCategoryCard = ({
         <div key={ !job_id ? `${ index } ${ title } ${ categoryId }` : `${ job_id } ${ categoryId }` }>
           <div className='job-info list-divider'>
             <div className='job-details is-fullwidth'>
-              <Link to={ `${ JOB_ROUTE }/post/${ job_id }` }>
-                <h4 className='h4'>
+
+              <h4 className='h4'>
+                <Link to={ `${ JOB_ROUTE }/post/${ job_id }` }>
                   { title }
                   { status === 'draft' ? ' [Draft] ' : null}
-                </h4>
-              </Link>
+                </Link>
+                <JobOptions key={ job_id } categoryId={ categoryId } jobId={ job_id } />
+              </h4>
+
               <div>
                 <ul className='action-buttons display-inline-flex justify-between'>
                   <li>
