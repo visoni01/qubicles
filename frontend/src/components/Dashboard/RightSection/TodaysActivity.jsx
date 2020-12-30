@@ -1,6 +1,6 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Box } from '@material-ui/core'
+import { Box, Grid } from '@material-ui/core'
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 
 const TodayActivity = () => (
@@ -10,8 +10,8 @@ const TodayActivity = () => (
         Today's Activity
         <FontAwesomeIcon icon={ faEllipsisV } className='pull-right' />
       </h3>
-      <div>
-        <ul>
+      <Grid container spacing={ 1 } justify='space-between'>
+        <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 12 }>
           <li>
             <p className=' h3 green'>
               3.282
@@ -20,6 +20,8 @@ const TodayActivity = () => (
               Calls
             </p>
           </li>
+        </Grid>
+        <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 12 }>
           <li>
             <p className=' h3 green'>
               680
@@ -28,6 +30,8 @@ const TodayActivity = () => (
               Sales
             </p>
           </li>
+        </Grid>
+        <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 12 }>
           <li>
             <p className=' h3 yellow'>
               558
@@ -36,9 +40,8 @@ const TodayActivity = () => (
               Working
             </p>
           </li>
-        </ul>
-
-        <ul>
+        </Grid>
+        <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 12 }>
           <li>
             <p className=' h3 green'>
               754
@@ -47,6 +50,8 @@ const TodayActivity = () => (
               Live
             </p>
           </li>
+        </Grid>
+        <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 12 }>
           <li>
             <p className=' h3 red'>
               599
@@ -55,6 +60,8 @@ const TodayActivity = () => (
               Online
             </p>
           </li>
+        </Grid>
+        <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 12 }>
           <li>
             <p className=' h3 yellow'>
               260
@@ -63,8 +70,8 @@ const TodayActivity = () => (
               On a Call
             </p>
           </li>
-        </ul>
-      </div>
+        </Grid>
+      </Grid>
     </div>
   </Box>
 )
