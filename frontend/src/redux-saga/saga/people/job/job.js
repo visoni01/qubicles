@@ -2,18 +2,18 @@ import { takeEvery, put } from 'redux-saga/effects'
 import {
   jobDetailsFetchStart, updateJobsFields, jobDetailsFetchSuccessful,
 } from '../../../redux/actions'
-import { NEW_JOB_FIELDS } from '../../../redux/constants'
+import { JOB_FIELDS } from '../../../redux/constants'
 import { showErrorMessage } from '../../../redux/snackbar'
 import People from '../../../service/people'
 
 function* jobDetailsWatcher() {
-  yield takeEvery([ jobDetailsFetchStart.type, NEW_JOB_FIELDS ], jobDetailsWorker)
+  yield takeEvery([ jobDetailsFetchStart.type, JOB_FIELDS ], jobDetailsWorker)
 }
 
 function* jobDetailsWorker(action) {
   try {
     switch (action.type) {
-      case NEW_JOB_FIELDS: {
+      case JOB_FIELDS: {
         const { data } = yield People.getJobCategoriesTitlesAndSkills()
         yield put(updateJobsFields({ jobFields: data }))
         break

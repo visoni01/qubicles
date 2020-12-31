@@ -95,14 +95,12 @@ const routes = [
     auth: true,
     exact: true,
   },
-  // Added extra route for new people design, Remove it when people's pages get completely ready.
   {
     path: PEOPLE_ROUTE,
     component: React.lazy(() => import('../containers/People/ContactCenter/Navigation/PeopleNavigation')),
     auth: true,
     exact: true,
   },
-  // Added extra route for new contact-center jobPost design.
   {
     path: ROUTE_PATHS.JOB_POST,
     component: React.lazy(() => import('../containers/People/ContactCenter/Jobs/JobView')),
@@ -115,14 +113,12 @@ const routes = [
     auth: true,
     exact: true,
   },
-  // Temporarily added extra route for new contact-center newJob design.
   {
     path: ROUTE_PATHS.NEW_JOB,
     component: React.lazy(() => import('../containers/People/ContactCenter/Jobs/NewJob/index')),
     auth: true,
     exact: true,
   },
-  // Temporarily added extra route for new contact-center newJob design.
   {
     path: [ ROUTE_PATHS.PEOPLE_JOBS_TAB, ROUTE_PATHS.PEOPLE_TALENT_TAB, ROUTE_PATHS.PEOPLE_TRAINING_TAB ],
     component: React.lazy(() => import('../containers/People/ContactCenter/index')),
@@ -134,27 +130,24 @@ const routes = [
     auth: true,
     exact: true,
   },
-  // Temporarily added extra route for new contact-center talent viewResume design.
   {
     path: ROUTE_PATHS.VIEW_RESUME,
     component: React.lazy(() => import('../containers/People/ContactCenter/Talent/ViewResume')),
+    auth: true,
     exact: true,
   },
-  // Added extra route for new contact-center jobPost design.
   {
     path: ROUTE_PATHS.CREATE_COURSE,
     component: React.lazy(() => import('../containers/People/ContactCenter/Training/NewCourse/index')),
     auth: true,
     exact: true,
   },
-  // Temporarily added extra route for new contact-center newJob design.
   {
     path: ROUTE_PATHS.VIEW_COURSE,
     component: React.lazy(() => import('../containers/People/ContactCenter/Training/ViewCourse/index')),
     auth: true,
     exact: true,
   },
-  // Temporarily added extra route for new contact-center Job application design.
   {
     path: ROUTE_PATHS.VIEW_JOB_APPLICATION,
     component: React.lazy(() => import('../containers/People/ContactCenter/Talent/Application/JobApplicationPage')),

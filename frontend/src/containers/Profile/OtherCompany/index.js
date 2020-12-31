@@ -10,7 +10,7 @@ import OtherContactCenterFeed from './Feed/index'
 import OtherCompanyAbout from './About/index'
 import OpenPosition from './LeftRightSection/openPosition'
 import { OTHER_COMPANY_PROFILE_ROUTE } from '../../../routes/routesPath'
-import { newJobCategoriesFetchStart } from '../../../redux-saga/redux/actions'
+import { jobsWithCategoriesFetchStart } from '../../../redux-saga/redux/actions'
 
 const OtherContactCenterProfile = () => {
   const location = useLocation()
@@ -24,13 +24,13 @@ const OtherContactCenterProfile = () => {
     feedRoute, aboutRoute,
   ]
 
-  const { newJobCategories } = useSelector((state) => state.newJobCategories)
+  const { jobsWithCategories } = useSelector((state) => state.jobsWithCategories)
 
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (_.isEmpty(newJobCategories)) {
-      dispatch(newJobCategoriesFetchStart({
+    if (_.isEmpty(jobsWithCategories)) {
+      dispatch(jobsWithCategoriesFetchStart({
         clientId: companyId,
         limit: 3,
         offset: 0,

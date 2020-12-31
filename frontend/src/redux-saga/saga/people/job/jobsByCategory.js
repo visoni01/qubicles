@@ -1,13 +1,13 @@
 import { takeEvery, put } from 'redux-saga/effects'
 import {
-  newJobCategoriesFetchStart,
-  newJobCategoriesFetchSuccessful,
+  jobsWithCategoriesFetchStart,
+  jobsWithCategoriesFetchSuccessful,
 } from '../../../redux/actions'
 import { showErrorMessage } from '../../../redux/snackbar'
 import People from '../../../service/people'
 
 function* jobsByCategoryWatcherStart() {
-  yield takeEvery([ newJobCategoriesFetchStart.type ], jobsByCategoryWorker)
+  yield takeEvery([ jobsWithCategoriesFetchStart.type ], jobsByCategoryWorker)
 }
 
 function* jobsByCategoryWorker(action) {
@@ -24,8 +24,8 @@ function* jobsByCategoryWorker(action) {
       offset,
     })
 
-    yield put(newJobCategoriesFetchSuccessful({
-      newJobCategories: data.jobs,
+    yield put(jobsWithCategoriesFetchSuccessful({
+      jobsWithCategories: data.jobs,
       isAllJobsFetched: data.isAllJobsFetched,
     }))
   } catch (e) {

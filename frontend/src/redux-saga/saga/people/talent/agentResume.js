@@ -3,9 +3,9 @@ import {
   fetchAgentResumeStart,
   fetchAgentResumeSuccess,
   fetchAgentResumeFailed,
-} from '../../../redux/people/talent/agentResume'
+  showErrorMessage,
+} from '../../../redux/actions'
 import People from '../../../service/people'
-import { showErrorMessage } from '../../../redux/actions'
 
 function* agentResumeSkillsWatcherStart() {
   yield takeEvery(fetchAgentResumeStart.type, agentResumeSkillsWorker)

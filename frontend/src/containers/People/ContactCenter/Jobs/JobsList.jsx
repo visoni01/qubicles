@@ -18,7 +18,7 @@ const JobsList = () => {
   const { jobCategoriesOnly, isLoading, searchKeyword } = useSelector((state) => state.jobCategoriesOnly)
   const [ searchCategory, setSearchCategory ] = useState(searchKeyword)
 
-  const { searchField, selectedCategoryId, status } = useSelector((state) => state.newJobCategories)
+  const { searchField, selectedCategoryId, status } = useSelector((state) => state.jobsWithCategories)
   const [ selectedCategory, setSelectedCategory ] = useState(selectedCategoryId)
   const dispatch = useDispatch()
 

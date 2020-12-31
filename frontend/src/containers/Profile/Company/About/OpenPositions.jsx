@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { newJobCategoriesFetchStart, updateJobsFilter } from '../../../../redux-saga/redux/actions'
+import { jobsWithCategoriesFetchStart, updateJobsFilter } from '../../../../redux-saga/redux/actions'
 import { jobFilterStatus } from '../../../People/ContactCenter/constants'
 import RenderJobs from '../../../People/ContactCenter/Jobs/RenderJobs'
 
 export default function OpenPositions() {
-  const { status } = useSelector((state) => state.newJobCategories)
+  const { status } = useSelector((state) => state.jobsWithCategories)
 
   const dispatch = useDispatch()
 
   useEffect(() => {
     if (status !== 'recruiting') {
-      dispatch(newJobCategoriesFetchStart({
+      dispatch(jobsWithCategoriesFetchStart({
         categoryId: 0,
         searchKeyword: '',
         status: 'recruiting',

@@ -2,6 +2,8 @@ import _ from 'lodash'
 import apiClient from '../../utils/apiClient'
 
 class People {
+  // Job section's API
+
   // eslint-disable-next-line complexity
   static async fetchJobCategoriesAndJobs({
     searchKeyword, categoryId, status, clientId, limit, offset,

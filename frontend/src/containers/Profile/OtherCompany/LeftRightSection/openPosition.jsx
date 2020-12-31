@@ -8,12 +8,12 @@ import { OTHER_COMPANY_PROFILE_ROUTE } from '../../../../routes/routesPath'
 
 export default function OpenPosition({ companyId }) {
   const history = useHistory()
-  let { newJobCategories } = useSelector((state) => state.newJobCategories)
-  newJobCategories = newJobCategories.filter((job, index) => index < 3)
+  let { jobsWithCategories } = useSelector((state) => state.jobsWithCategories)
+  jobsWithCategories = jobsWithCategories.filter((job, index) => index < 3)
   return (
     <Box className='custom-box'>
       <h3 className='h3'> Open Positions</h3>
-      { newJobCategories.map((jobCategory) => (
+      { jobsWithCategories.map((jobCategory) => (
         jobCategory.jobs.length && (
         <OpenPositionsCard
           key={ jobCategory.categoryId }
