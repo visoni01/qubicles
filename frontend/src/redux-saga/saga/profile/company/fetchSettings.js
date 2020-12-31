@@ -29,8 +29,8 @@ function* companyProfileWorker(action) {
       }
       case updateCompanyProfileSettingsApiStart.type: {
         const { updatedDataType, updatedData } = action.payload
-        yield put(updateCompanyProfileSettingsApiSuccess({ updatedDataType, updatedData }))
         yield CompanyProfile.updateCompanyProfileSettings({ updatedDataType, updatedData })
+        yield put(updateCompanyProfileSettingsApiSuccess({ updatedDataType, updatedData }))
         switch (updatedDataType) {
           case 'email': {
             yield put(showSuccessMessage({ msg: 'Email Verification mail sent successfully' }))

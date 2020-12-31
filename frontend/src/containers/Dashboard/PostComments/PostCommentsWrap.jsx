@@ -22,7 +22,7 @@ const PostCommentsWrap = ({
         {/* <p onClick={ loadMoreCommentsCB }>View more comments</p> */}
         {isCommentLoading && (
         <Loader
-          className='view-more-comments-loader'
+          className='static-small-loader mr-10'
           enableOverlay={ false }
           displayLoaderManually
           size={ 23 }

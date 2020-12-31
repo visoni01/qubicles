@@ -12,6 +12,7 @@ import {
   updateCompanyProfileSettingsApiStart,
   resetUpdateProfileSettingsFlags,
 } from '../../../../redux-saga/redux/actions'
+import Loader from '../../../../components/loaders/circularLoader'
 
 export default function AccountView({
   setOpenDrawer, accountSettingInfo,
@@ -174,23 +175,44 @@ export default function AccountView({
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
               <div className='row-section small-width'>
                 <h4 className='h4'>SMS Notifications</h4>
-                <Switch
-                  className='switches'
-                  color='primary'
-                  checked={ accountSettingInfo.smsNotification }
-                  onChange={ handleSmsNotificationSwitch }
-                />
+                <div className='display-inline-flex align-items-end justify-end'>
+                  {/* {true && ( */}
+                  {isUpdateLoading && updatedDataType === 'Sms Notification' && (
+                  <Loader
+                    className='static-small-loader'
+                    enableOverlay={ false }
+                    displayLoaderManually
+                    size={ 23 }
+                  />
+                  )}
+                  <Switch
+                    className='switches'
+                    color='primary'
+                    checked={ accountSettingInfo.smsNotification }
+                    onChange={ handleSmsNotificationSwitch }
+                  />
+                </div>
               </div>
             </Grid>
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
               <div className='row-section small-width'>
                 <h4 className='h4'>Email Notifications</h4>
-                <Switch
-                  className='switches'
-                  color='primary'
-                  checked={ accountSettingInfo.emailNotification }
-                  onChange={ handleEmailNotificationSwitch }
-                />
+                <div className='display-inline-flex align-items-end justify-end'>
+                  {isUpdateLoading && updatedDataType === 'Email Notification' && (
+                  <Loader
+                    className='static-small-loader'
+                    enableOverlay={ false }
+                    displayLoaderManually
+                    size={ 23 }
+                  />
+                  )}
+                  <Switch
+                    className='switches'
+                    color='primary'
+                    checked={ accountSettingInfo.emailNotification }
+                    onChange={ handleEmailNotificationSwitch }
+                  />
+                </div>
               </div>
             </Grid>
           </Grid>

@@ -13,7 +13,7 @@ import {
 } from '../../../../../redux-saga/redux/actions'
 
 export default function ChangeEmail({ open, setOpen, accountSettingInfo }) {
-  const { isUpdateLoading, isUpdateSuccess } = useSelector((state) => state.clientDetails)
+  const { isUpdateLoading, isUpdateSuccess, updatedDataType } = useSelector((state) => state.clientDetails)
 
   const [ newEmail, setNewEmail ] = useState('')
   const dispatch = useDispatch()
@@ -65,7 +65,7 @@ export default function ChangeEmail({ open, setOpen, accountSettingInfo }) {
     >
       <div>
         <h3 className='h3 mb-30'> Change Email </h3>
-        {!isUpdateLoading && !isUpdateSuccess && (
+        {!isUpdateSuccess && (
           <form className='is-fullwidth' onSubmit={ handleSubmit(onSubmit) }>
             <div className='pl-10 pr-10'>
               <div className='mb-20'>
@@ -106,6 +106,7 @@ export default function ChangeEmail({ open, setOpen, accountSettingInfo }) {
                     root: 'button-primary-small',
                     label: 'button-primary-small-label',
                   } }
+                  disabled={ isUpdateLoading }
                   onClick={ () => setOpen(true) }
                 >
                   Next
@@ -114,7 +115,7 @@ export default function ChangeEmail({ open, setOpen, accountSettingInfo }) {
             </div>
           </form>
         )}
-        {!isUpdateLoading && isUpdateSuccess && (
+        {!isUpdateLoading && isUpdateSuccess && updatedDataType === 'email' && (
           <div className='mt-30 mr-20'>
             <p className='para sz-lg bold'>Please verify your new email</p>
             <div className='mt-10 mb-5'>
