@@ -133,6 +133,7 @@ const routes = [
   {
     path: ROUTE_PATHS.VIEW_RESUME,
     component: React.lazy(() => import('../containers/People/ContactCenter/Talent/ViewResume')),
+    auth: true,
     exact: true,
   },
   {

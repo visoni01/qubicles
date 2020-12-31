@@ -23,7 +23,6 @@ const ROUTE_PATHS = {
   INVITE_LINK: '/invite/:walletId',
   AUTH: '/auth',
   GROUP: '/group',
-  PEOPLE: '/people',
   JOB_POST: `${ JOB_ROUTE }/post/:jobId`,
   NEW_JOB: `${ JOB_ROUTE }/create`,
   VIEW_RESUME: `${ VIEW_RESUME_ROUTE }/:candidateId`,
