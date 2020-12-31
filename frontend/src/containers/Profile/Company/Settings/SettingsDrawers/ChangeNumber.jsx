@@ -96,6 +96,7 @@ export default function ChangeNumber({ open, setOpen, accountSettingInfo }) {
                   root: 'button-primary-small',
                   label: 'button-primary-small-label',
                 } }
+                disabled={ isUpdateLoading }
                 onClick={ () => setOpen(true) }
               >
                 Save
