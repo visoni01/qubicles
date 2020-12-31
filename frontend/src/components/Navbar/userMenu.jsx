@@ -25,7 +25,7 @@ const UserMenu = () => {
   const [ anchorEl, setAnchorEl ] = useState(null)
 
   useEffect(() => {
-    if (userDetails.user_code === 'employer') {
+    if (userDetails && userDetails.is_post_signup_completed && userDetails.user_code === 'employer') {
       if (!isFetchLoading && !isFetchSuccess) {
         dispatch(getCompanyProfileSettingsApiStart())
       }
@@ -73,7 +73,7 @@ const UserMenu = () => {
       >
         <div className='user-menu'>
           <Avatar className='profile-pic' alt='Remy Sharp' src={ kareem } />
-          <h2 className='h3 text-center mb-5'>{userDetails.full_name}</h2>
+          <h2 className='h3 text-center mb-5'>{userDetails && userDetails.full_name}</h2>
 
           <Link to={ ROUTE_PATHS.COMPANY_PROFILE } className='mb-10 text-center primary-text-link'>
             View Profile

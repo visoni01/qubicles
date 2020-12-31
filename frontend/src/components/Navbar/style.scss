@@ -76,7 +76,6 @@
     border-radius: 8px;
     opacity: 1;
     height: 45px;
-    width: 60%;
     margin: auto;
       .input-field {
         height: 100%;
@@ -85,8 +84,7 @@
   }
 
   .notification-icons {
-    display: flex;
-    justify-content: flex-end;
+    display: inline-flex;
       img{
       width: 24px;
       height: 24px

@@ -1,40 +1,36 @@
 // Activity Section
 .activity-section {
-	ul {
-    display: inline-flex;
-    justify-content: space-between;
-    margin-top: 15px;
-    width: 100%;
-		li {
-			list-style: none;
-      text-align: center;
-			p {
-				&:first-child {
-					color: $color-white;
-					border-radius: 10px;
-					width: 70px;
-					height: 60px;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-				}
-				&:nth-child(2) {
-          text-align: center;
-          color: $color-dark-grey;
-          margin-top: 5px;
-				}
-			}
-			p.green {
-				background-color: $color-green;
-			}
-			p.yellow {
-				background-color: $color-yellow;
-			}
-			p.red {
-				background-color: $color-red;
-			}
-		}
-	}
+
+  li {
+    list-style: none;
+    text-align: center;
+    p {
+      &:first-child {
+        color: $color-white;
+        border-radius: 10px;
+        width: auto;
+        height: 60px;
+        margin: 0px 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      &:nth-child(2) {
+        text-align: center;
+        color: $color-dark-grey;
+        margin-top: 5px;
+      }
+    }
+    p.green {
+      background-color: $color-green;
+    }
+    p.yellow {
+      background-color: $color-yellow;
+    }
+    p.red {
+      background-color: $color-red;
+    }
+  }
 }
 
 .number-color-green {

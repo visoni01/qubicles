@@ -1,23 +1,26 @@
 /* eslint-disable complexity */
 import React, {
-  useState, useRef, useCallback,
+  useState, useRef, useCallback, useEffect,
 } from 'react'
 import { Grid, Tabs, Tab } from '@material-ui/core'
-import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import ContactCenterEditProfile from './LeftRightSection/index'
 import Wallet from './LeftRightSection/wallet'
 import Settings from './Settings'
 import ContactCenterFeed from './Feed/index'
 import SettingsLeft from './Settings/SettingsLeft'
 import About from './About/index'
+import ROUTE_PATHS from '../../../routes/routesPath'
 
 const ContactCenterProfile = () => {
   const [ activeTab, setActiveTab ] = useState(0)
   const spacingMid = activeTab === 2 ? 9 : 6
   const spacingTab = activeTab === 2 ? 8 : 12
-
   const currentSectionRef = useRef()
   const otherSectionRef = useRef()
+  const { userDetails } = useSelector((state) => state.login)
+  const history = useHistory()
 
   const [ selectedMenuItem, setSelectedMenuItem ] = useState(0)
 
@@ -25,10 +28,16 @@ const ContactCenterProfile = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [])
 
+  useEffect(() => {
+    if (userDetails && userDetails.user_code !== 'employer') {
+      history.push(ROUTE_PATHS.DASHBOARD)
+    }
+  }, [ userDetails, history ])
+
   return (
     <div>
       <Grid container spacing={ 3 }>
-        <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 }>
+        <Grid item xl={ 3 } lg={ 3 } md={ 4 } sm={ 12 } xs={ 12 }>
           <div className='left-section'>
             { activeTab === 0 && <ContactCenterEditProfile />}
             { activeTab === 1 && <ContactCenterEditProfile />}
@@ -43,13 +52,15 @@ const ContactCenterProfile = () => {
         </Grid>
         <Grid
           item
+          justify='flex-start'
           xl={ spacingMid }
           lg={ spacingMid }
-          md={ spacingMid }
-          sm={ spacingMid }
+          md={ 8 }
+          sm={ 12 }
+          xs={ 12 }
           className='custom-active-tabs'
         >
-          <Grid item xl={ spacingTab } lg={ spacingTab } md={ spacingTab } sm={ spacingTab }>
+          <Grid item xl={ spacingTab } lg={ spacingTab } md={ 12 } sm={ 12 } xs={ 12 }>
             <Tabs
               value={ activeTab }
               onChange={ (_, val) => setActiveTab(val) }
@@ -85,7 +96,7 @@ const ContactCenterProfile = () => {
           </Grid>
         </Grid>
 
-        <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
+        <Grid item xl={ 3 } lg={ 3 } md={ 4 } sm={ 12 } xs={ 12 }>
           {activeTab !== 2 && (
           <Wallet />
           )}
