@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import * as yup from 'yup'
@@ -14,6 +14,8 @@ import {
 } from '../../redux-saga/redux/actions'
 import '../User/Signup/SignUp/style.scss'
 
+import ROUTE_PATHS from '../../routes/routesPath'
+
 const schema = yup.object().shape({
   password: yup.string().required('*Required'),
   confirmPassword: yup.string().required('*Required').oneOf([ yup.ref('password'), null ], 'Passwords must match'),
@@ -23,7 +25,7 @@ const ResetNewPassword = () => {
   const { register, errors, handleSubmit } = useForm({
     validationSchema: schema,
   })
-  const { email } = useSelector((state) => state.emailVerification)
+  const { email, success: verifySuccess, tokenType } = useSelector((state) => state.emailVerification)
   const { success } = useSelector((state) => state.resetPassword)
   const history = useHistory()
   const dispatch = useDispatch()
@@ -33,6 +35,12 @@ const ResetNewPassword = () => {
       dispatch(resetPasswordStart({ email, pass: data.password }))
     }
   }
+
+  useEffect(() => {
+    if (!verifySuccess && tokenType !== 'forgetPassword') {
+      history.push(ROUTE_PATHS.LOG_IN)
+    }
+  }, [ verifySuccess, tokenType ])
 
   const inputField = (
     name,
