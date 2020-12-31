@@ -60,6 +60,12 @@ const {
       isUpdateError: false,
       settings: getUpdatedCompanySettings({ state, action }),
     }),
+    updateCompanyProfileSettingsApiFailure: (state) => ({
+      ...state,
+      isUpdateLoading: false,
+      isUpdateSuccess: false,
+      isUpdateError: true,
+    }),
     resetUpdateProfileSettingsFlags: (state) => ({
       ...state,
       isUpdateLoading: null,

@@ -181,6 +181,7 @@ export default function ChangePassword({ open, setOpen }) {
                   root: 'button-primary-small',
                   label: 'button-primary-small-label',
                 } }
+                disabled={ isUpdateLoading }
                 onClick={ () => setOpen(true) }
               >
                 Save

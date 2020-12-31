@@ -10,6 +10,13 @@ const getUpdatedCompanySettings = ({ state, action }) => {
       break
     }
 
+    case 'email': {
+      settings = {
+        ...settings,
+      }
+      break
+    }
+
     default: {
       settings = {
         ...settings,
