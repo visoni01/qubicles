@@ -39,7 +39,7 @@ const CheckrVerification = () => {
         spacing={ 2 }
         className='background-check-buttons'
       >
-        <Grid item xl={ 4 } lg={ 4 } sm={ 5 } xs={ 12 }>
+        <Grid item xl={ 4 } lg={ 4 } sm={ 5 } xs={ 12 } className='text-align-last-center'>
           <Button
             onClick={ () => setIsClosed(true) }
             classes={ {
@@ -50,7 +50,7 @@ const CheckrVerification = () => {
             Not Now
           </Button>
         </Grid>
-        <Grid item xl={ 4 } lg={ 4 } sm={ 5 } xs={ 12 }>
+        <Grid item xl={ 4 } lg={ 4 } sm={ 5 } xs={ 12 } className='text-align-last-center'>
           <Button
             onClick={ handleClickButton }
             classes={ {

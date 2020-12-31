@@ -37,7 +37,7 @@ const ContactCenterProfile = () => {
   return (
     <div>
       <Grid container spacing={ 3 }>
-        <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 }>
+        <Grid item xl={ 3 } lg={ 3 } md={ 4 } sm={ 12 } xs={ 12 }>
           <div className='left-section'>
             { activeTab === 0 && <ContactCenterEditProfile />}
             { activeTab === 1 && <ContactCenterEditProfile />}
@@ -52,13 +52,15 @@ const ContactCenterProfile = () => {
         </Grid>
         <Grid
           item
+          justify='flex-start'
           xl={ spacingMid }
           lg={ spacingMid }
-          md={ spacingMid }
-          sm={ spacingMid }
+          md={ 8 }
+          sm={ 12 }
+          xs={ 12 }
           className='custom-active-tabs'
         >
-          <Grid item xl={ spacingTab } lg={ spacingTab } md={ spacingTab } sm={ spacingTab }>
+          <Grid item xl={ spacingTab } lg={ spacingTab } md={ 12 } sm={ 12 } xs={ 12 }>
             <Tabs
               value={ activeTab }
               onChange={ (_, val) => setActiveTab(val) }
@@ -94,7 +96,7 @@ const ContactCenterProfile = () => {
           </Grid>
         </Grid>
 
-        <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
+        <Grid item xl={ 3 } lg={ 3 } md={ 4 } sm={ 12 } xs={ 12 }>
           {activeTab !== 2 && (
           <Wallet />
           )}

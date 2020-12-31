@@ -32,7 +32,7 @@ const People = () => {
   return (
     <div>
       <Grid container spacing={ 3 }>
-        <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 }>
+        <Grid item xl={ 3 } lg={ 3 } md={ 4 } sm={ 12 } xs={ 12 }>
           <div>
             { currentPath === jobsRoute && (
             <JobsList />
@@ -45,11 +45,12 @@ const People = () => {
           item
           xl={ spacingMid }
           lg={ spacingMid }
-          md={ spacingMid }
-          sm={ spacingMid }
+          md={ 8 }
+          sm={ 12 }
+          xs={ 12 }
           className='custom-active-tabs'
         >
-          <Grid item xl={ spacingTab } lg={ spacingTab } md={ spacingTab } sm={ spacingTab }>
+          <Grid item xl={ spacingTab } lg={ spacingTab } md={ 12 } sm={ 12 } xs={ 12 }>
             <Tabs
               value={ temp.indexOf(currentPath) }
             >
@@ -79,7 +80,7 @@ const People = () => {
           </Grid>
         </Grid>
 
-        <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
+        <Grid item xl={ 3 } lg={ 3 } md={ 4 } sm={ 12 } xs={ 12 }>
           {currentPath !== trainingRoute && (
             <TopTalent heading='Top Talent' />
           )}

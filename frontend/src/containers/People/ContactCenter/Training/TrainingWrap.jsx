@@ -28,7 +28,7 @@ const TrainingWrap = () => {
           className='search-button'
           classes={ {
             root: 'button-primary-small',
-            label: 'button-primary-small-label',
+            label: 'button-primary-small-label pl-10 pr-10',
           } }
           onClick={ handleCreateCourseButton }
         >

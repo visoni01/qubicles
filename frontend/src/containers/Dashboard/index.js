@@ -22,7 +22,7 @@ const Dashboard = () => {
   return (
     <Grid container spacing={ 3 }>
       {/*  Left Section */}
-      <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
+      <Grid item xl={ 3 } lg={ 3 } md={ 4 } sm={ 12 } xs={ 12 }>
         <CheckrVerification />
         <CommunityRep />
         {/* WIP: Refactor latest announcement */}
@@ -31,7 +31,7 @@ const Dashboard = () => {
       </Grid>
 
       {/* Center Section */}
-      <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 4 }>
+      <Grid item xl={ 6 } lg={ 6 } md={ 8 } sm={ 12 } xs={ 12 }>
         {/* Create new post */}
         <CreatePost />
         {/* Render Posts */}
@@ -39,7 +39,7 @@ const Dashboard = () => {
       </Grid>
 
       {/* Right Section */}
-      <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
+      <Grid item xl={ 3 } lg={ 3 } md={ 4 } sm={ 12 } xs={ 12 }>
         <TodayActivity />
         <CustomerServiceOverview />
         <SelfProductivity />
