@@ -3,7 +3,7 @@ export const PEOPLE_ROUTE = '/people'
 export const JOB_ROUTE = `${ PEOPLE_ROUTE }/job`
 export const JOB_POST_ROUTE = `${ PEOPLE_ROUTE }/job/view`
 export const VIEW_RESUME_ROUTE = `${ PEOPLE_ROUTE }/talent/resume`
-export const OTHER_COMPANY_PROFILE_ROUTE = '/profile/company'
+export const PROFILE_ROUTE = '/profile'
 
 const ROUTE_PATHS = {
   HOME: '/',
@@ -33,10 +33,9 @@ const ROUTE_PATHS = {
   PEOPLE_TALENT_TAB: `${ PEOPLE_ROUTE }/talent`,
   PEOPLE_JOBS_TAB: `${ PEOPLE_ROUTE }/jobs`,
   PEOPLE_TRAINING_TAB: `${ PEOPLE_ROUTE }/training`,
-  COMPANY_PROFILE: '/profile/company',
   JOB_PREVIEW: `${ JOB_ROUTE }/preview`,
-  OTHER_COMPANY_FEED: `${ OTHER_COMPANY_PROFILE_ROUTE }/:companyId/feed`,
-  OTHER_COMPANY_ABOUT: `${ OTHER_COMPANY_PROFILE_ROUTE }/:companyId/about`,
+  OTHER_COMPANY_FEED: `${ PROFILE_ROUTE }/:companyId/feed`,
+  OTHER_COMPANY_ABOUT: `${ PROFILE_ROUTE }/:companyId/about`,
 }
 
 export default ROUTE_PATHS
