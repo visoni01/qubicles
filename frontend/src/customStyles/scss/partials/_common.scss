@@ -60,6 +60,11 @@
     @include fa-icon-hover($color-red);
   }
 
+  &.white {
+    color: $color-white;
+    @include fa-icon-hover($color-white);
+  }
+
   &.pointer {
     cursor: pointer;
   }
