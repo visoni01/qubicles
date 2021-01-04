@@ -38,7 +38,10 @@ PostWrap.propTypes = {
   userId: PropTypes.number.isRequired,
   userActivityId: PropTypes.number.isRequired,
   activityCustom: PropTypes.string,
-  owner: PropTypes.string.isRequired,
+  owner: PropTypes.shape({
+    fullName: PropTypes.string.isRequired,
+    userId: PropTypes.number.isRequired,
+  }).isRequired,
   activityValue: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
   likesCount: PropTypes.number.isRequired,

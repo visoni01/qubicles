@@ -27,18 +27,6 @@ export class GellAllPostStatusListService extends ServiceBase {
 
   async run () {
     try {
-      console.log('this.owner_id', this.owner_id)
-      // let statusList = await XUserActivity.findAll({
-      //   where: {
-      //     record_id: 0,
-      //     record_type: 'activity',
-      //     activity_type: 'status',
-      //     is_deleted: false
-      //   },
-      //   order: [['created_on', 'DESC']],
-      //   raw: true
-      // })
-
       let statusList = await getAllActivityStatus({ owner_id: this.owner_id })
 
       statusList = await Promise.all(statusList.map(async (data) => {
@@ -50,7 +38,10 @@ export class GellAllPostStatusListService extends ServiceBase {
 
         if (isValidUser) {
           const user = await getUserById({ user_id: data.user_id })
-          data['owner'] = user.full_name
+          data['owner'] = {
+            userId: user.user_id,
+            fullName: user.full_name
+          }
           data['likesCount'] = await getStatusLikesCount({ record_id: data.user_activity_id })
           data['isPostLiked'] = await isUserLikedPost({ user_id: this.user_id, user_activity_id: data.user_activity_id })
           data['commentsCount'] = await getStatusCommentsCount({ record_id: data.user_activity_id })

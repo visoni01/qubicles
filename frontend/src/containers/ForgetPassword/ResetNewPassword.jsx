@@ -40,7 +40,7 @@ const ResetNewPassword = () => {
     if (!verifySuccess && tokenType !== 'forgetPassword') {
       history.push(ROUTE_PATHS.LOG_IN)
     }
-  }, [ verifySuccess, tokenType ])
+  }, [ verifySuccess, tokenType, history ])
 
   const inputField = (
     name,
