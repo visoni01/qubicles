@@ -145,7 +145,7 @@ export const getUpdatedJobsData = ({ state, payload }) => {
     }
     case DELETE_JOB: {
       const { deletedJobId } = payload
-      updatedJobCategories = state.newJobCategories.map((category) => {
+      updatedJobCategories = state.jobsWithCategories.map((category) => {
         let updatedJobs = category.jobs
         if (category.categoryId === deletedJobId.categoryId) {
           updatedJobs = updatedJobs.filter((job) => (job.job_id !== deletedJobId.jobId))

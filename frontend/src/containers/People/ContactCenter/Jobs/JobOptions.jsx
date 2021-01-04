@@ -29,7 +29,7 @@ const JobOptions = ({ categoryId, jobId }) => {
       categoryId,
       jobId,
     }))
-  }, [])
+  }, [ categoryId, jobId, dispatch ])
 
   return (
     <>

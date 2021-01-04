@@ -20,7 +20,7 @@ const OtherCompanyIntro = ({
     if (_.isEmpty(companyDetails)) {
       dispatch(jobPostCompanyDetailsFetchStart({ clientId }))
     }
-  }, [ dispatch, companyDetails ])
+  }, [ dispatch, companyDetails, clientId ])
 
   if (isCompanyDetailsLoading && !success) {
     return (
