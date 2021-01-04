@@ -1,7 +1,7 @@
 import ServiceBase from '../../common/serviceBase'
 import { ERRORS, MESSAGES } from '../../utils/errors'
 import logger from '../../common/logger'
-import { getErrorMessageForService, getUserActivityDataById, deleteStatusPost } from '../helper'
+import { getErrorMessageForService, getUserActivityById, deleteStatusPost } from '../helper'
 
 const constraints = {
   user_id: {
@@ -20,7 +20,7 @@ export class DashboardDeletePostStatusService extends ServiceBase {
   async run () {
     try {
       const { user_id, user_activity_id } = this.filteredArgs
-      const userActivityData = await getUserActivityDataById({ user_activity_id })
+      const userActivityData = await getUserActivityById({ user_activity_id })
       if (userActivityData) {
         if (userActivityData.user_id === user_id) {
           await deleteStatusPost({ user_activity_id })

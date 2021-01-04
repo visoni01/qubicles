@@ -14,6 +14,7 @@ const PostWrap = ({
     <PostHead
       owner={ owner }
       createdAt={ createdAt }
+      postId={ userActivityId }
     />
 
     <PostBody

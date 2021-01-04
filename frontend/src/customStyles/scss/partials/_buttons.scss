@@ -73,11 +73,18 @@
     border-radius: 4px;
   }
 
-// Secondary Red Button
+// Secondary Red Small Button
   &.button-secondary-small-red {
     @include secondary-default($color-red);
     min-width: 86px;
     height: 30px;
+    border-radius: 4px;
+  }
+// Secondary Red Large Button
+  &.button-secondary-large-red {
+    @include secondary-default($color-red);
+    min-width: 137px;
+    height: 40px;
     border-radius: 4px;
   }
 

@@ -53,7 +53,10 @@ function* postDataFetchingWorker(action) {
           type: CREATE_NEW_POST,
           newPost: {
             ...data,
-            owner: userDetails.full_name,
+            owner: {
+              fullName: userDetails.full_name,
+              userId: userDetails.user_id,
+            },
             isPostLiked: false,
             likesCount: 0,
             commentsCount: 0,

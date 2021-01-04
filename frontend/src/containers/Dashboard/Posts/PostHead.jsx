@@ -7,7 +7,7 @@ import { carolin } from '../../../assets/images/avatar'
 import PostOptions from './PostOptions'
 
 const PostHead = ({
-  owner, createdAt,
+  owner, createdAt, postId,
 }) => {
   const { userDetails } = useSelector((state) => state.login)
   return (
@@ -24,7 +24,11 @@ const PostHead = ({
         </div>
       </div>
       {owner.userId === userDetails.user_id
-        && <PostOptions />}
+        && (
+        <PostOptions
+          postId={ postId }
+        />
+        )}
     </div>
   )
 }
@@ -34,6 +38,7 @@ PostHead.propTypes = {
     fullName: PropTypes.string.isRequired,
     userId: PropTypes.number.isRequired,
   }).isRequired,
+  postId: PropTypes.number.isRequired,
   createdAt: PropTypes.string.isRequired,
 }
 
