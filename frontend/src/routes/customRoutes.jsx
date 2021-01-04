@@ -72,16 +72,23 @@ Validator.propTypes = {
     PropTypes.string,
     PropTypes.array,
   ]).isRequired,
+  propsToPass: PropTypes.shape({}),
+}
+
+Validator.defaultProps = {
+  propsToPass: {},
 }
 
 Redirector.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   component: PropTypes.any.isRequired,
   redirectToDashboard: PropTypes.bool,
+  propsToPass: PropTypes.shape({}),
 }
 
 Redirector.defaultProps = {
   redirectToDashboard: false,
+  propsToPass: {},
 }
 
 export default CustomRoutes

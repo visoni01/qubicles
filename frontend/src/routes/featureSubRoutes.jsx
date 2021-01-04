@@ -18,7 +18,14 @@ const Routes = ({ routes }) => (
 )
 
 Routes.propTypes = {
-  routes: PropTypes.shape([]).isRequired,
+  routes: PropTypes.arrayOf(PropTypes.shape({
+    path: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.array ]).isRequired,
+    exact: PropTypes.bool.isRequired,
+    component: PropTypes.func.isRequired,
+
+  })).isRequired,
 }
 
 export default Routes
