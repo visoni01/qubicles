@@ -10,17 +10,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faChevronDown, faImage, faTimesCircle,
 } from '@fortawesome/free-solid-svg-icons'
+import PropTypes from 'prop-types'
 import { createStatusPostStart } from '../../../redux-saga/redux/actions'
 import Loader from '../../../components/loaders/circularLoader'
 import { terry } from '../../../assets/images/avatar'
 import { postStatusPermissions } from '../../People/ContactCenter/constants'
 
-const CreateOrEditPost = () => {
-  const [ postText, setPostText ] = useState('sd')
-  const [ permission, setPermission ] = useState({
-    value: 'public', label: 'Public',
-  })
-  const [ fileSrc, setFileSrc ] = useState('')
+const CreateOrEditPost = ({
+  isEdit, editPostData,
+}) => {
+  const [ postText, setPostText ] = useState(editPostData.postText)
+  const [ permission, setPermission ] = useState(editPostData.permission)
+  const [ fileSrc, setFileSrc ] = useState(editPostData.fileSrc)
   const [ anchorEl, setAnchorEl ] = useState(null)
 
   const open = Boolean(anchorEl)
@@ -41,7 +42,7 @@ const CreateOrEditPost = () => {
       return
     }
     const postData = {
-      activityPermission: permission.value,
+      activityPermission: permission,
       file: fileInput.current.files && fileInput.current.files[ 0 ],
       text: postText,
     }
@@ -53,19 +54,14 @@ const CreateOrEditPost = () => {
   }, [])
 
   const setPermissionCB = useCallback((event) => {
-    setPermission({
-      value: event.target.value,
-      label: event.target.name,
-    })
+    setPermission(event.target.value)
     setAnchorEl(null)
   }, [])
 
   const { isLoading, success } = useSelector((state) => state.createPost)
   const clear = () => {
     setPostText('')
-    setPermission({
-      value: 'public', label: 'Public',
-    })
+    setPermission('public')
     fileInput.current.value = ''
     setFileSrc('')
   }
@@ -78,9 +74,7 @@ const CreateOrEditPost = () => {
   useEffect(() => {
     if (success) {
       setPostText('')
-      setPermission({
-        value: 'public', label: 'Public',
-      })
+      setPermission('public')
       fileInput.current.value = ''
       setFileSrc('')
     }
@@ -159,7 +153,7 @@ const CreateOrEditPost = () => {
                   endIcon={ <FontAwesomeIcon className='custom-fa-icon white' icon={ faChevronDown } /> }
                   onClick={ handleClick }
                 >
-                  {permission.label}
+                  {postStatusPermissions[ permission ].label}
                 </Button>
               </Grid>
               <Grid item>
@@ -209,29 +203,29 @@ const CreateOrEditPost = () => {
             vertical: 'top',
             horizontal: 'center',
           } }
+          classes={ { paper: 'mt-10' } }
         >
           <RadioGroup
             className='radio-buttons border-2 activity-permission-filter'
-            value={ permission.value }
+            value={ permission }
             onChange={ setPermissionCB }
           >
-            <div className='margin-10'>
+            <div className='mt-5 ml-10 mr-10'>
               <h4 className='h4'> Who can see your posts ? </h4>
             </div>
-            {postStatusPermissions.map((item) => (
+            {Object.keys(postStatusPermissions).map((item) => (
               <FormControlLabel
-                key={ item.value }
-                value={ item.value }
+                key={ item }
+                value={ item }
                 className='display-inline-flex justify-between mt-5'
                 control={ <Radio /> }
                 labelPlacement='start'
-                name={ item.label }
                 label={ (
                   <div className='mt-5'>
                     <h4 className='h4'>
-                      {item.label}
+                      {postStatusPermissions[ item ].label}
                     </h4>
-                    <p className='para'>{item.secondaryLabel}</p>
+                    <p className='para'>{postStatusPermissions[ item ].secondaryLabel}</p>
                   </div>
                 ) }
               />
@@ -241,6 +235,24 @@ const CreateOrEditPost = () => {
       </div>
     </Box>
   )
+}
+
+CreateOrEditPost.defaultProps = {
+  isEdit: false,
+  editPostData: {
+    postText: '',
+    fileSrc: '',
+    permission: 'public',
+  },
+}
+
+CreateOrEditPost.propTypes = {
+  isEdit: PropTypes.bool,
+  editPostData: PropTypes.shape({
+    postText: PropTypes.string.isRequired,
+    fileSrc: PropTypes.string.isRequired,
+    permission: PropTypes.string.isRequired,
+  }),
 }
 
 export default CreateOrEditPost

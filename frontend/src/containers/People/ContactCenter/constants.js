@@ -19,30 +19,25 @@ export const jobFilterStatus = {
   draft: 'Drafted Positions',
 }
 
-export const postStatusPermissions = [
-  {
-    value: 'public',
+export const postStatusPermissions = {
+  public: {
     label: 'Public',
     secondaryLabel: 'Anyone on Qubicles',
   },
-  {
-    value: 'managers',
+  managers: {
     label: 'Managers',
     secondaryLabel: 'Managers of your company',
   },
-  {
-    value: 'followers',
+  followers: {
     label: 'Followers',
     secondaryLabel: 'Your followers',
   },
-  {
-    value: 'company',
+  company: {
     label: 'Company',
     secondaryLabel: 'Members of your company',
   },
-  {
-    value: 'admins',
+  admins: {
     label: 'Admins',
     secondaryLabel: 'Admins of your company',
   },
-]
+}

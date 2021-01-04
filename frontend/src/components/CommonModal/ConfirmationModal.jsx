@@ -15,7 +15,7 @@ const ConfirmationModal = ({
     onClose={ handleClose }
     aria-labelledby='delete-dialog-title'
     className='custom-modal auto-height'
-    maxWidth='sm'
+    maxWidth='xs'
     fullWidth
   >
     <Grid container>
