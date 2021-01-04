@@ -9,7 +9,7 @@ import SimilarCompanies from './LeftRightSection/similarCompanies'
 import OtherContactCenterFeed from './Feed/index'
 import OtherCompanyAbout from './About/index'
 import OpenPosition from './LeftRightSection/openPosition'
-import { OTHER_COMPANY_PROFILE_ROUTE } from '../../../routes/routesPath'
+import { PROFILE_ROUTE } from '../../../routes/routesPath'
 import { jobsWithCategoriesFetchStart } from '../../../redux-saga/redux/actions'
 
 const OtherContactCenterProfile = () => {
@@ -17,8 +17,8 @@ const OtherContactCenterProfile = () => {
   const currentPath = location.pathname
   const { companyId } = useParams()
 
-  const feedRoute = `${ OTHER_COMPANY_PROFILE_ROUTE }/${ companyId }/feed`
-  const aboutRoute = `${ OTHER_COMPANY_PROFILE_ROUTE }/${ companyId }/about`
+  const feedRoute = `${ PROFILE_ROUTE }/${ companyId }/feed`
+  const aboutRoute = `${ PROFILE_ROUTE }/${ companyId }/about`
 
   const temp = [
     feedRoute, aboutRoute,

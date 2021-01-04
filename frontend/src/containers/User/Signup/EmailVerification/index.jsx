@@ -5,7 +5,7 @@ import Loader from '../../../../components/loaders/circularLoader'
 import { emailVerificationStart } from '../../../../redux-saga/redux/emailVerification'
 import './style.scss'
 import { showSuccessMessage } from '../../../../redux-saga/redux/actions'
-import ROUTE_PATHS from '../../../../routes/routesPath'
+import { PROFILE_ROUTE } from '../../../../routes/routesPath'
 
 const EmailVerification = () => {
   const { token } = useParams()
@@ -29,7 +29,7 @@ const EmailVerification = () => {
     }
     if (success && tokenType === 'resetEmail') {
       dispatch(showSuccessMessage({ msg: 'Email Changed Successfully' }))
-      return <Redirect to={ ROUTE_PATHS.COMPANY_PROFILE } />
+      return <Redirect to={ PROFILE_ROUTE } />
     }
     return (
       <>

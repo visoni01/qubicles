@@ -4,7 +4,7 @@ import { Box, Button } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import OpenPositionsCard from './openPositionsCard'
-import { OTHER_COMPANY_PROFILE_ROUTE } from '../../../../routes/routesPath'
+import { PROFILE_ROUTE } from '../../../../routes/routesPath'
 
 export default function OpenPosition({ companyId }) {
   const history = useHistory()
@@ -27,7 +27,7 @@ export default function OpenPosition({ companyId }) {
             root: 'button-primary-text',
             label: 'button-primary-text-label',
           } }
-          onClick={ () => history.push(`${ OTHER_COMPANY_PROFILE_ROUTE }/${ companyId }/about`) }
+          onClick={ () => history.push(`${ PROFILE_ROUTE }/${ companyId }/about`) }
         >
           View All Jobs
         </Button>

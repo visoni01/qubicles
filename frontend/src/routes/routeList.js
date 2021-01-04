@@ -105,21 +105,7 @@ const routes = [
     auth: true,
     exact: true,
   },
-  // // Company Profile
-  // {
-  //   path: ROUTE_PATHS.COMPANY_PROFILE,
-  //   component: React.lazy(() => import('../containers/Profile/Company')),
-  //   auth: true,
-  //   exact: true,
-  // },
-  // // Other Company profile
-  // {
-  //   path: [ ROUTE_PATHS.OTHER_COMPANY_FEED, ROUTE_PATHS.OTHER_COMPANY_ABOUT ],
-  //   component: React.lazy(() => import('../containers/Profile/OtherCompany/index')),
-  //   auth: true,
-  //   exact: true,
-  // },
-  // People feature routes
+  // People feature
   {
     path: PEOPLE_ROUTE,
     component: RenderFeatureSubRoutes,
@@ -127,6 +113,7 @@ const routes = [
     auth: true,
     exact: false,
   },
+  // Profile feature
   {
     path: PROFILE_ROUTE,
     component: RenderFeatureSubRoutes,
