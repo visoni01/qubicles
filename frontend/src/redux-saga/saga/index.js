@@ -21,6 +21,7 @@ import statusPostActivity from './dashboard/statusPostActivity'
 import checkrInvitation from './user/checkrAuthentication'
 import sendVerificationMail from './sendVerificationMail'
 import signupWithInvite from './inviteDetails'
+import handleInvite from './invitePage'
 import forgetPassword from './forgetPassword'
 import resetPassword from './resetPassword'
 import peopleTalentCards from './people/talent/talentCards'
@@ -59,6 +60,7 @@ export default function* rootSaga() {
     checkrInvitation(),
     sendVerificationMail(),
     signupWithInvite(),
+    handleInvite(),
     forgetPassword(),
     resetPassword(),
     peopleTalentCards(),

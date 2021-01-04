@@ -131,12 +131,11 @@ const InviteModal = ({
                 Invite Gmail Contacts
               </Button>
             </div>
-            <div>
+            <div className='mt-10'>
               <p className='h4 mt-10 mb-10 text-center'>
                 Share link via social media
               </p>
               <div className='columns is-flex share-links'>
-
                 {/* Facebook Share Button */}
                 <FacebookShareButton
                   url={ inviteLink || 'Invite Link' }

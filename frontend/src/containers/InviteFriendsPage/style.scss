@@ -52,7 +52,6 @@
       }
 
       .share-links {
-          list-style: none;
           justify-content: center;
           padding-top: 10px;
 
@@ -74,7 +73,7 @@
           .link {
             @extend .share-button;
             background-color: $color-primary;
-            margin-top: 6px;
+            margin: 6px 0 0 10px;
 
             .MuiIconButton-label {
               &:hover {
