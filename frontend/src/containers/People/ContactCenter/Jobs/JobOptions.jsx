@@ -3,16 +3,21 @@ import {
   Popover, IconButton, Button,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisV, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faEllipsisV, faTrash, faPen } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
+import { useHistory } from 'react-router-dom'
 import { deleteJob } from '../../../../redux-saga/redux/actions'
+import ConfirmationModal from '../../../../components/CommonModal/ConfirmationModal'
+import { JOB_ROUTE } from '../../../../routes/routesPath'
 
 const JobOptions = ({ categoryId, jobId }) => {
   const [ openOptions, setOpenOptions ] = useState(false)
   const [ anchorEl, setAnchorEl ] = useState(null)
+  const [ openConfirmDeleteModal, setOpenConfirmDelete ] = useState(false)
 
   const dispatch = useDispatch()
+  const history = useHistory()
 
   const handleClose = () => {
     setOpenOptions(false)
@@ -22,6 +27,12 @@ const JobOptions = ({ categoryId, jobId }) => {
   const handleJoboOptionsClick = useCallback((e) => {
     setOpenOptions((current) => !current)
     setAnchorEl(e.currentTarget)
+  }, [])
+
+  const handleCancelActivity = useCallback(() => {
+    setAnchorEl(null)
+    setOpenOptions(false)
+    setOpenConfirmDelete(false)
   }, [])
 
   const handleDeleteJob = useCallback(() => {
@@ -58,13 +69,29 @@ const JobOptions = ({ categoryId, jobId }) => {
             size='small'
             className='option'
             classes={ { label: 'option-label' } }
+            startIcon={ <FontAwesomeIcon icon={ faPen } className='custom-fa-icon dark mr-5' /> }
+            onClick={ () => history.push(`${ JOB_ROUTE }/${ jobId }/edit`) }
+          >
+            <p className='para'> Edit </p>
+          </Button>
+          <Button
+            size='small'
+            className='option'
+            classes={ { label: 'option-label' } }
             startIcon={ <FontAwesomeIcon icon={ faTrash } className='custom-fa-icon dark mr-5' /> }
-            onClick={ handleDeleteJob }
+            onClick={ () => setOpenConfirmDelete(true) }
           >
             <p className='para red'> Delete </p>
           </Button>
         </div>
       </Popover>
+      <ConfirmationModal
+        open={ openConfirmDeleteModal }
+        handleClose={ handleCancelActivity }
+        message='Are you sure you want to delete this job ?'
+        confirmButtonText='Delete'
+        handleConfirm={ handleDeleteJob }
+      />
     </>
   )
 }

@@ -22,7 +22,7 @@ export default class JobPostCompanyDetailsService extends ServiceBase {
       const { client_id } = this.filteredArgs
       const clientDetails = await getClientData({ client_id })
       if (!clientDetails) {
-        this.addError(ERRORS.NOT_FOUND, MESSAGES.DATA_NOT_FOUND)
+        this.addError(ERRORS.NOT_FOUND, MESSAGES.CLIENT_NOT_EXIST)
         return
       }
       const companyDetails = {
