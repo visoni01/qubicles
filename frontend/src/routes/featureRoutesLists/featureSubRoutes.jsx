@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 const Routes = ({ routes }) => (
   <Switch>
-    {routes.map(({
+    {routes.length && routes.map(({
       path, exact, component,
     }) => (
       <Route

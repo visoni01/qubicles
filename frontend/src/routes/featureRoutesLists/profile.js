@@ -1,6 +1,8 @@
+import React from 'react'
 import ROUTE_PATHS, { PROFILE_ROUTE } from '../routesPath'
 import CompanyProfile from '../../containers/Profile/Company'
 import OtherCompanyProfile from '../../containers/Profile/OtherCompany/index'
+import RouteRenderer from './featureSubRoutes'
 
 const List = [
   {
@@ -15,4 +17,6 @@ const List = [
   },
 ]
 
-export default List
+const SubRoutes = () => (<RouteRenderer routes={ List } />)
+
+export default SubRoutes

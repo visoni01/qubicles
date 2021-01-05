@@ -1,3 +1,4 @@
+import React from 'react'
 import ROUTE_PATHS from '../routesPath'
 import JobPost from '../../containers/People/ContactCenter/Jobs/JobView'
 import JobPreview from '../../components/People/ContactCenter/Jobs/JobPreview'
@@ -8,6 +9,7 @@ import ViewResume from '../../containers/People/ContactCenter/Talent/ViewResume'
 import CreateCourse from '../../containers/People/ContactCenter/Training/NewCourse/index'
 import ViewCourse from '../../containers/People/ContactCenter/Training/ViewCourse/index'
 import ViewJobApplication from '../../containers/People/ContactCenter/Talent/Application/JobApplicationPage'
+import RouteRenderer from './featureSubRoutes'
 
 const List = [
   {
@@ -56,5 +58,6 @@ const List = [
     exact: true,
   },
 ]
+const SubRoutes = () => (<RouteRenderer routes={ List } />)
 
-export default List
+export default SubRoutes
