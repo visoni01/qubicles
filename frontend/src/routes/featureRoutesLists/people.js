@@ -28,6 +28,7 @@ const List = [
   {
     path: [ ROUTE_PATHS.PEOPLE_JOBS_TAB, ROUTE_PATHS.PEOPLE_TALENT_TAB, ROUTE_PATHS.PEOPLE_TRAINING_TAB ],
     component: Peoplepage,
+    exact: true,
   },
   {
     path: ROUTE_PATHS.EDIT_JOB,
