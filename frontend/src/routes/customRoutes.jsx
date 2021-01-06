@@ -8,9 +8,9 @@ import routes from './routeList'
 import { getToken, getUserDetails } from '../utils/common'
 import Navbar from '../components/Navbar'
 
-const suspenseWrapper = (Component) => (
+const suspenseWrapper = (Component, propsToPass) => (
   <Suspense fallback={ <LinearProgress /> }>
-    <Component />
+    <Component { ...propsToPass } />
   </Suspense>
 )
 
@@ -23,7 +23,7 @@ const CustomRoutes = () => (
         <Route
           path={ path }
           key={ path }
-          exact
+          exact={ exact }
           render={ () => (auth ? <Validator { ...rest } path={ path } /> : <Redirector { ...rest } />) }
         />
       ))
@@ -31,7 +31,7 @@ const CustomRoutes = () => (
   </Switch>
 )
 
-const Validator = ({ component: Component, path }) => {
+const Validator = ({ component: Component, path, propsToPass }) => {
   const location = useLocation()
   const token = getToken()
   let userDetails
@@ -48,7 +48,7 @@ const Validator = ({ component: Component, path }) => {
   } else {
     component = (
       <Navbar>
-        {suspenseWrapper(Component)}
+        {suspenseWrapper(Component, propsToPass)}
       </Navbar>
     )
   }
@@ -56,12 +56,12 @@ const Validator = ({ component: Component, path }) => {
   return component
 }
 
-const Redirector = ({ component: Component, redirectToDashboard }) => {
+const Redirector = ({ component: Component, redirectToDashboard, propsToPass }) => {
   if (getToken() && redirectToDashboard) {
     return (<Redirect to='/dashboard' />)
   }
   return (
-    suspenseWrapper(Component)
+    suspenseWrapper(Component, propsToPass)
   )
 }
 
@@ -72,16 +72,23 @@ Validator.propTypes = {
     PropTypes.string,
     PropTypes.array,
   ]).isRequired,
+  propsToPass: PropTypes.shape({}),
+}
+
+Validator.defaultProps = {
+  propsToPass: {},
 }
 
 Redirector.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   component: PropTypes.any.isRequired,
   redirectToDashboard: PropTypes.bool,
+  propsToPass: PropTypes.shape({}),
 }
 
 Redirector.defaultProps = {
   redirectToDashboard: false,
+  propsToPass: {},
 }
 
 export default CustomRoutes

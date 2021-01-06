@@ -13,7 +13,7 @@ import { kareem } from '../../assets/images/avatar'
 import {
   chatIcon, walletIcon, settingIcon, logoutIcon,
 } from '../../assets/images/icons/navBarIcons'
-import ROUTE_PATHS from '../../routes/routesPath'
+import { PROFILE_ROUTE } from '../../routes/routesPath'
 import { getCompanyProfileSettingsApiStart } from '../../redux-saga/redux/actions'
 
 const UserMenu = () => {
@@ -75,7 +75,7 @@ const UserMenu = () => {
           <Avatar className='profile-pic' alt='Remy Sharp' src={ kareem } />
           <h2 className='h3 text-center mb-5'>{userDetails && userDetails.full_name}</h2>
 
-          <Link to={ ROUTE_PATHS.COMPANY_PROFILE } className='mb-10 text-center primary-text-link'>
+          <Link to={ PROFILE_ROUTE } className='mb-10 text-center primary-text-link'>
             View Profile
           </Link>
           <Divider className='mb-10' variant='middle' />
