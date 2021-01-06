@@ -28,13 +28,13 @@ import peopleAgentResumeSkills from './people/talent/agentResumeSkills'
 import crudJob from './people/job/crud'
 import jobDetails from './people/job/job'
 import jobsByCategory from './people/job/jobsByCategory'
-import jobPostCompanyDetails from './people/job/jobPostCompanyDetails'
 import updateTalentCards from './people/talent/updateTalentCard'
 import jobSkills from './people/jobSkills'
 import agentResume from './people/talent/agentResume'
 import jobCategoriesOnly from './people/job/jobCategoriesOnly'
 import uploadProfileImage from './profile/uploadProfileImage'
 import companyProfileSettings from './profile/company/fetchSettings'
+import fetchCompanyDetails from './profile/company/fetchCompanyDetails'
 
 export default function* rootSaga() {
   yield all([
@@ -66,12 +66,12 @@ export default function* rootSaga() {
     crudJob(),
     jobDetails(),
     jobsByCategory(),
-    jobPostCompanyDetails(),
     updateTalentCards(),
     jobSkills(),
     agentResume(),
     companyProfileSettings(),
     jobCategoriesOnly(),
     uploadProfileImage(),
+    fetchCompanyDetails(),
   ])
 }

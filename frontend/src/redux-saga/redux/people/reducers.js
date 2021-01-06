@@ -2,7 +2,6 @@ import talentCardsReducer from './talent/talentCards'
 import agentResumeSkillsReducer from './talent/agentResumeSkills'
 import jobReducer from './job/job'
 import jobsWithCategoriesReducer from './job/jobsPage'
-import jobPostCompanyDetailsReducer from './job/jobPostCompanyDetails'
 import jobSkillsReducer from './jobSkills'
 import agentResumeReducer from './talent/agentResume'
 import talentFilterReducer from './talent/talentFilter'
@@ -15,7 +14,6 @@ const peopleReducers = {
   agentResumeSkills: agentResumeSkillsReducer,
   jobDetails: jobReducer,
   jobsWithCategories: jobsWithCategoriesReducer,
-  jobPostCompanyDetails: jobPostCompanyDetailsReducer,
   agentResume: agentResumeReducer,
   talentFilter: talentFilterReducer,
   jobCategoriesOnly: jobCategoriesOnlyReducer,

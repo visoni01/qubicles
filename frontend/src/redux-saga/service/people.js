@@ -79,11 +79,6 @@ class People {
     return response
   }
 
-  static async fetchJobPostCompanyDetails({ clientId }) {
-    const response = await apiClient.getRequest(`/jobs/job/company/${ clientId }`)
-    return response
-  }
-
   // Talent Api's
   static async getTalentCards(filter) {
     let talentFilter = filter

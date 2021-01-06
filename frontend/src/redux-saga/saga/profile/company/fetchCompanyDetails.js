@@ -4,20 +4,20 @@ import {
   jobPostCompanyDetailsFetchSuccessful,
 } from '../../../redux/actions'
 import { showErrorMessage } from '../../../redux/snackbar'
-import People from '../../../service/people'
+import CompanyProfile from '../../../service/profile/company'
 
-function* jobPostCompanyDataFetchingWatcherStart() {
-  yield takeLatest(jobPostCompanyDetailsFetchStart.type, jobPostCompanyDataFetchingWorker)
+function* companyDataFetchingWatcherStart() {
+  yield takeLatest(jobPostCompanyDetailsFetchStart.type, companyDataFetchingWorker)
 }
 
-function* jobPostCompanyDataFetchingWorker(action) {
+function* companyDataFetchingWorker(action) {
   try {
     const { clientId } = action.payload
-    const { data } = yield People.fetchJobPostCompanyDetails({ clientId })
+    const { data } = yield CompanyProfile.fetchCompanyDetails({ clientId })
     yield put(jobPostCompanyDetailsFetchSuccessful({ companyDetails: data }))
   } catch (e) {
     yield put(showErrorMessage({ msg: e.errMsg }))
   }
 }
 
-export default jobPostCompanyDataFetchingWatcherStart
+export default companyDataFetchingWatcherStart

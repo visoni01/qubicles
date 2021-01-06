@@ -10,6 +10,11 @@ class CompanyProfile {
     const response = await apiClient.putRequest('/profile/company/settings/update', payload)
     return response
   }
+
+  static async fetchCompanyDetails({ clientId }) {
+    const response = await apiClient.getRequest(`/profile/company/${ clientId }`)
+    return response
+  }
 }
 
 export default CompanyProfile

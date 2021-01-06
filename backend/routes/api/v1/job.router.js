@@ -23,9 +23,6 @@ jobRouter.route('/new/job-fields')
 jobRouter.route('/')
   .post(isAuthenticated, jobController.addNewJob)
 
-jobRouter.route('/job/company/:client_id')
-  .get(isAuthenticated, jobController.getJobPostCompanyDetails)
-
 jobRouter.route('/categories')
   .get(isAuthenticated, jobController.getJobCategories)
 

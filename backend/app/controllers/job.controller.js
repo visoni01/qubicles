@@ -8,7 +8,6 @@ import {
   AddNewJobService,
   FetchJobCategoriesService
 } from '../services/people/contactCenter/job'
-import JobPostCompanyDetailsService from '../services/people/contactCenter/job/jobPostCompanyDetails'
 
 export default class JobController {
   static async getJobsByCategory (req, res) {
@@ -65,15 +64,6 @@ export default class JobController {
       Responder.success(res, addJob.result)
     } else {
       Responder.failed(res, addJob.errors)
-    }
-  }
-
-  static async getJobPostCompanyDetails (req, res) {
-    const jobPostCompanyDetails = await JobPostCompanyDetailsService.execute({ ...req.body, ...req.params })
-    if (jobPostCompanyDetails.successful) {
-      Responder.success(res, jobPostCompanyDetails.result)
-    } else {
-      Responder.failed(res, jobPostCompanyDetails.errors)
     }
   }
 

@@ -6,15 +6,15 @@ import _ from 'lodash'
 import { contactCenterIntroduction } from '../../../People/ContactCenter/testData'
 import Introduction from '../../../People/ContactCenter/Introduction'
 import PrimaryContact from '../../Company/LeftRightSection/primaryContact'
-import { jobPostCompanyDetailsFetchStart } from '../../../../redux-saga/redux/actions'
 import ContactCenterSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/ContactCenterSkeleton'
+import { jobPostCompanyDetailsFetchStart } from '../../../../redux-saga/redux/actions'
 
 const OtherCompanyIntro = ({
   clientId,
   imageName,
   companyRating,
 }) => {
-  const { companyDetails, success, isCompanyDetailsLoading } = useSelector((state) => state.jobPostCompanyDetails)
+  const { companyDetails, success, isCompanyDetailsLoading } = useSelector((state) => state.companyDetailsForProfile)
   const dispatch = useDispatch()
   useEffect(() => {
     if (_.isEmpty(companyDetails)) {
@@ -101,7 +101,7 @@ OtherCompanyIntro.defaultProps = {
   companyRating: 5,
 }
 OtherCompanyIntro.propTypes = {
-  clientId: PropTypes.number,
+  clientId: PropTypes.string,
   imageName: PropTypes.string,
   companyRating: PropTypes.number,
 }

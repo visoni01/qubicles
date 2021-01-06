@@ -11,4 +11,7 @@ companyProfileRouter.route('/settings')
 companyProfileRouter.route('/settings/update')
   .put(isAuthenticated, CompanyProfileController.updateProfileSettigns)
 
+companyProfileRouter.route('/:client_id')
+  .get(isAuthenticated, CompanyProfileController.getCompanyDetails)
+
 export { companyProfileRouter }
