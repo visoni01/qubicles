@@ -11,13 +11,14 @@ import {
   faChevronDown, faImage, faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
-import { createStatusPostStart } from '../../../redux-saga/redux/actions'
+import _ from 'lodash'
+import { updatePostStatus } from '../../../redux-saga/redux/actions'
 import Loader from '../../../components/loaders/circularLoader'
 import { postStatusPermissions } from '../../People/ContactCenter/constants'
 import PostHead from './PostHead'
 
 const EditPost = ({
-  initialPostData, owner, createdAt, handleCancelEdit,
+  postId, initialPostData, owner, createdAt, handleCancelEdit,
 }) => {
   const [ postText, setPostText ] = useState(initialPostData.postText)
   const [ permission, setPermission ] = useState(initialPostData.permission)
@@ -36,18 +37,20 @@ const EditPost = ({
 
   const fileInput = useRef()
   const dispatch = useDispatch()
-
-  const post = useCallback(() => {
+  const updatePost = useCallback(() => {
     if (!(postText && postText.trim())) {
       return
     }
     const postData = {
-      activityPermission: permission,
+      // activityPermission: permission,
+      userActivityId: postId,
       file: fileInput.current.files && fileInput.current.files[ 0 ],
       text: postText,
+      removeCurrentImage: _.isEmpty(fileSrc),
     }
-    dispatch(createStatusPostStart(postData))
-  }, [ postText, fileInput, permission, dispatch ])
+    dispatch(updatePostStatus(postData))
+    handleCancelEdit()
+  }, [ postText, postId, fileInput, fileSrc, dispatch, handleCancelEdit ])
 
   const setPostTextCB = useCallback((event) => {
     setPostText(event.target.value)
@@ -97,7 +100,6 @@ const EditPost = ({
         className='create-post-container text-align-end'
         style={ { pointerEvents: isLoading ? 'none' : 'auto' } }
       >
-
         <Grid container spacing={ 3 } justify='space-between' className='pr-10 pb-10' alignItems='flex-end'>
           <Grid item xs={ 12 } sm={ 12 } md={ 6 } lg={ 6 } xl={ 6 }>
             <PostHead
@@ -192,7 +194,7 @@ const EditPost = ({
                 root: 'button-primary-small',
                 label: 'button-primary-small-label',
               } }
-              onClick={ post }
+              onClick={ updatePost }
             >
               Save Post
             </Button>
@@ -257,6 +259,7 @@ EditPost.defaultProps = {
 }
 
 EditPost.propTypes = {
+  postId: PropTypes.number.isRequired,
   initialPostData: PropTypes.shape({
     postText: PropTypes.string.isRequired,
     postImage: PropTypes.string.isRequired,

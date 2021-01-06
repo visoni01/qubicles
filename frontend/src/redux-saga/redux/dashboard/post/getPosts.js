@@ -32,6 +32,7 @@ const {
       isLoading: false,
       posts: getPostData({ state, payload: action.payload }),
     }),
+
   },
 })
 

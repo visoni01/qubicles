@@ -48,6 +48,7 @@ export default function EditPostModal({
           owner={ owner }
           createdAt={ createdAt }
           handleCancelEdit={ handleClose }
+          postId={ postId }
         />
       </DialogContent>
     </Dialog>
