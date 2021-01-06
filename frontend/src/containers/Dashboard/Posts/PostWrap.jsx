@@ -1,35 +1,52 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Box } from '@material-ui/core'
+import { useSelector } from 'react-redux'
 import PostHead from './PostHead'
 import PostBody from './PostBody'
 import { commentsArrayValidator } from '../postValidators'
+import PostOptions from './PostOptions'
 
 const PostWrap = ({
-  userActivityId,
-  activityValue,
-  activityCustom, createdAt, owner, userId, isPostLiked, likesCount, commentsCount, comments, commentLoading,
-}) => (
-  <Box className='custom-box mb-25'>
-    <PostHead
-      owner={ owner }
-      createdAt={ createdAt }
-      postId={ userActivityId }
-    />
+  userActivityId, activityValue, activityCustom,
+  createdAt, owner, userId, isPostLiked,
+  likesCount, commentsCount, comments, commentLoading, permission,
+}) => {
+  const { userDetails } = useSelector((state) => state.login)
+  return (
+    <Box className='custom-box mb-25'>
+      <div className='display-inline-flex justify-between is-fullwidth align-items-start'>
+        <PostHead
+          owner={ owner }
+          createdAt={ createdAt }
+        />
+        {owner.userId === userDetails.user_id
+        && (
+        <PostOptions
+          owner={ owner }
+          createdAt={ createdAt }
+          postId={ userActivityId }
+          postText={ activityValue }
+          postImage={ activityCustom }
+          permission={ permission }
+        />
+        )}
+      </div>
 
-    <PostBody
-      userActivityId={ userActivityId }
-      activityValue={ activityValue }
-      activityCustom={ activityCustom }
-      userId={ userId }
-      isPostLiked={ isPostLiked }
-      likesCount={ likesCount }
-      commentsCount={ commentsCount }
-      comments={ comments }
-      commentLoading={ commentLoading }
-    />
-  </Box>
-)
+      <PostBody
+        userActivityId={ userActivityId }
+        activityValue={ activityValue }
+        activityCustom={ activityCustom }
+        userId={ userId }
+        isPostLiked={ isPostLiked }
+        likesCount={ likesCount }
+        commentsCount={ commentsCount }
+        comments={ comments }
+        commentLoading={ commentLoading }
+      />
+    </Box>
+  )
+}
 
 PostWrap.defaultProps = {
   activityCustom: null,
@@ -50,6 +67,7 @@ PostWrap.propTypes = {
   commentsCount: PropTypes.number.isRequired,
   comments: commentsArrayValidator.isRequired,
   commentLoading: PropTypes.bool.isRequired,
+  permission: PropTypes.bool.isRequired,
 }
 
 export default React.memo(PostWrap)

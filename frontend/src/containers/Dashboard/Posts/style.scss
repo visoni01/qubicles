@@ -12,10 +12,6 @@
   .comment-avatar {
     margin: 0px 10px 10px 0px;
   }
-
-  display: inline-flex;
-  width: 100%;
-
   .create-post {
     width: calc(100% - 100px);
 
@@ -44,6 +40,8 @@
       .post-image {
         display: inline-block;
         position: relative;
+        margin-top: 10px;
+        align-self: center;
 
         img {
           height: auto;
@@ -287,4 +285,9 @@
   width: 230px;
   padding: 10px 15px 10px 5px ;
   border-radius: 8px;
+}
+
+.edit-post-content {
+  overflow-y: hidden;
+  margin-bottom: 20px;
 }
