@@ -3,23 +3,25 @@ import React, {
 } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  Button, Avatar, List, ListItem, IconButton,
-  ListItemText, Radio, Divider, Popover, TextareaAutosize, Box,
+  Button, Avatar, IconButton,
+  Radio, Popover, TextareaAutosize, Box, RadioGroup, FormControlLabel, Grid,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faChevronDown, faImage, faTimesCircle,
 } from '@fortawesome/free-solid-svg-icons'
+import PropTypes from 'prop-types'
 import { createStatusPostStart } from '../../../redux-saga/redux/actions'
 import Loader from '../../../components/loaders/circularLoader'
 import { terry } from '../../../assets/images/avatar'
+import { postStatusPermissions } from '../../People/ContactCenter/constants'
 
-const NewCreatePost = () => {
-  const [ postText, setPostText ] = useState('')
-  const [ permission, setPermission ] = useState({
-    value: 'public', label: 'Public',
-  })
-  const [ fileSrc, setFileSrc ] = useState('')
+const CreateOrEditPost = ({
+  isEdit, editPostData,
+}) => {
+  const [ postText, setPostText ] = useState(editPostData.postText)
+  const [ permission, setPermission ] = useState(editPostData.permission)
+  const [ fileSrc, setFileSrc ] = useState(editPostData.fileSrc)
   const [ anchorEl, setAnchorEl ] = useState(null)
 
   const open = Boolean(anchorEl)
@@ -40,7 +42,7 @@ const NewCreatePost = () => {
       return
     }
     const postData = {
-      activityPermission: permission.value,
+      activityPermission: permission,
       file: fileInput.current.files && fileInput.current.files[ 0 ],
       text: postText,
     }
@@ -52,19 +54,14 @@ const NewCreatePost = () => {
   }, [])
 
   const setPermissionCB = useCallback((event) => {
-    setPermission({
-      value: event.target.value,
-      label: event.target.name,
-    })
+    setPermission(event.target.value)
     setAnchorEl(null)
   }, [])
 
   const { isLoading, success } = useSelector((state) => state.createPost)
   const clear = () => {
     setPostText('')
-    setPermission({
-      value: 'public', label: 'Public',
-    })
+    setPermission('public')
     fileInput.current.value = ''
     setFileSrc('')
   }
@@ -77,9 +74,7 @@ const NewCreatePost = () => {
   useEffect(() => {
     if (success) {
       setPostText('')
-      setPermission({
-        value: 'public', label: 'Public',
-      })
+      setPermission('public')
       fileInput.current.value = ''
       setFileSrc('')
     }
@@ -130,13 +125,14 @@ const NewCreatePost = () => {
           <div className='postButtons'>
             <Button
               disabled={ isLoading }
-              color='secondary'
-              className='cancel-button'
+              classes={ {
+                root: 'button-secondary-small-red',
+                label: 'button-secondary-small-red-label',
+              } }
               onClick={ clear }
             >
               Cancel
             </Button>
-
             <div>
               { isLoading && (
               <Loader
@@ -147,124 +143,33 @@ const NewCreatePost = () => {
               />
               )}
             </div>
-
-            <div>
-              <Button
-                variant='contained'
-                aria-describedby={ id }
-                disabled={ isLoading }
-                aria-controls='customized-menu'
-                aria-haspopup='true'
-                className='button-secondary-small permission-button'
-                classes={ { label: 'secondary-label' } }
-                endIcon={ <FontAwesomeIcon className='icon-hover' icon={ faChevronDown } /> }
-                onClick={ handleClick }
-              >
-                {permission.label}
-              </Button>
-              <Popover
-                id={ id }
-                open={ open }
-                anchorEl={ anchorEl }
-                onClose={ handleClose }
-                elevation={ 0 }
-                anchorOrigin={ {
-                  vertical: 'bottom',
-                  horizontal: 'center',
-                } }
-                transformOrigin={ {
-                  vertical: 'top',
-                  horizontal: 'center',
-                } }
-              >
-                <List component='nav' aria-label='permission-list' className='permission-list-container'>
-                  <ListItemText primary='Who can see your posts?' />
-                  <ListItem className='permission-list-item'>
-                    <ListItemText
-                      primary='Public'
-                      secondary='Anyone on Qubicles'
-                    />
-                    <Radio
-                      checked={ permission.value === 'public' }
-                      onChange={ setPermissionCB }
-                      value='public'
-                      name='Public'
-                      color='primary'
-                      inputProps={ { 'aria-label': 'public' } }
-                    />
-                  </ListItem>
-                  <Divider component='li' />
-                  <ListItem className='permission-list-item'>
-                    <ListItemText
-                      primary='Followers'
-                      secondary='Your followers'
-                    />
-                    <Radio
-                      checked={ permission.value === 'followers' }
-                      onChange={ setPermissionCB }
-                      value='followers'
-                      name='Followers'
-                      color='primary'
-                      inputProps={ { 'aria-label': 'followers' } }
-                    />
-                  </ListItem>
-                  <Divider component='li' />
-                  <ListItem className='permission-list-item'>
-                    <ListItemText
-                      primary='Company'
-                      secondary='Members of your company'
-                    />
-                    <Radio
-                      checked={ permission.value === 'company' }
-                      onChange={ setPermissionCB }
-                      value='company'
-                      name='Company'
-                      color='primary'
-                      inputProps={ { 'aria-label': 'company' } }
-                    />
-                  </ListItem>
-                  <Divider component='li' />
-                  <ListItem className='permission-list-item'>
-                    <ListItemText
-                      primary='Admins'
-                      secondary='Admins of your company'
-                    />
-                    <Radio
-                      checked={ permission.value === 'admins' }
-                      onChange={ setPermissionCB }
-                      value='admins'
-                      name='Admins'
-                      color='primary'
-                      inputProps={ { 'aria-label': 'admins' } }
-                    />
-                  </ListItem>
-                  <Divider component='li' />
-                  <ListItem className='permission-list-item'>
-                    <ListItemText
-                      primary='Managers'
-                      secondary='Managers of your company'
-                    />
-                    <Radio
-                      checked={ permission.value === 'managers' }
-                      onChange={ setPermissionCB }
-                      value='managers'
-                      name='Managers'
-                      color='primary'
-                      inputProps={ { 'aria-label': 'managers' } }
-                    />
-                  </ListItem>
-                </List>
-              </Popover>
-              <Button
-                variant='contained'
-                disabled={ isLoading }
-                className='button-primary-small post-button'
-                classes={ { label: 'primary-label' } }
-                onClick={ post }
-              >
-                Post
-              </Button>
-            </div>
+            <Grid container spacing={ 3 } justify='flex-end'>
+              <Grid item>
+                <Button
+                  classes={ {
+                    root: 'button-primary-small',
+                    label: 'button-primary-small-label pl-5 pr-5',
+                  } }
+                  endIcon={ <FontAwesomeIcon className='custom-fa-icon white' icon={ faChevronDown } /> }
+                  onClick={ handleClick }
+                >
+                  {postStatusPermissions[ permission ].label}
+                </Button>
+              </Grid>
+              <Grid item>
+                <Button
+                  variant='contained'
+                  disabled={ isLoading }
+                  classes={ {
+                    root: 'button-primary-small',
+                    label: 'button-primary-small-label',
+                  } }
+                  onClick={ post }
+                >
+                  Post
+                </Button>
+              </Grid>
+            </Grid>
           </div>
           )}
         </div>
@@ -284,9 +189,70 @@ const NewCreatePost = () => {
             </label>
           </p>
         </form>
+        <Popover
+          id={ id }
+          open={ open }
+          anchorEl={ anchorEl }
+          onClose={ handleClose }
+          elevation={ 0 }
+          anchorOrigin={ {
+            vertical: 'bottom',
+            horizontal: 'center',
+          } }
+          transformOrigin={ {
+            vertical: 'top',
+            horizontal: 'center',
+          } }
+          classes={ { paper: 'mt-10' } }
+        >
+          <RadioGroup
+            className='radio-buttons border-2 activity-permission-filter'
+            value={ permission }
+            onChange={ setPermissionCB }
+          >
+            <div className='mt-5 ml-10 mr-10'>
+              <h4 className='h4'> Who can see your posts ? </h4>
+            </div>
+            {Object.keys(postStatusPermissions).map((item) => (
+              <FormControlLabel
+                key={ item }
+                value={ item }
+                className='display-inline-flex justify-between mt-5'
+                control={ <Radio /> }
+                labelPlacement='start'
+                label={ (
+                  <div className='mt-5'>
+                    <h4 className='h4'>
+                      {postStatusPermissions[ item ].label}
+                    </h4>
+                    <p className='para'>{postStatusPermissions[ item ].secondaryLabel}</p>
+                  </div>
+                ) }
+              />
+            ))}
+          </RadioGroup>
+        </Popover>
       </div>
     </Box>
   )
 }
 
-export default NewCreatePost
+CreateOrEditPost.defaultProps = {
+  isEdit: false,
+  editPostData: {
+    postText: '',
+    fileSrc: '',
+    permission: 'public',
+  },
+}
+
+CreateOrEditPost.propTypes = {
+  isEdit: PropTypes.bool,
+  editPostData: PropTypes.shape({
+    postText: PropTypes.string.isRequired,
+    fileSrc: PropTypes.string.isRequired,
+    permission: PropTypes.string.isRequired,
+  }),
+}
+
+export default CreateOrEditPost

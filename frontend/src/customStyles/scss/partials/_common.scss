@@ -55,6 +55,16 @@
     @include fa-icon-outlined($color-headings);
   }
 
+  &.red {
+    color: $color-red;
+    @include fa-icon-hover($color-red);
+  }
+
+  &.white {
+    color: $color-white;
+    @include fa-icon-hover($color-white);
+  }
+
   &.pointer {
     cursor: pointer;
   }
@@ -221,5 +231,33 @@
     path {
       stroke: $color-primary;
     }
+  }
+}
+
+// Ellipsis Options
+.ellipsis-options-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-content: space-around;
+  border-radius: 8px;
+  padding: 5px;
+
+  .option {
+    display: flex;
+    justify-content: flex-start;
+    background-color: $color-white;
+    .option-icon {
+      flex: 1;
+      margin: auto;
+    }
+    .option-name {
+      flex: 2;
+      margin: 5px;
+      font-size: 14px;
+    }
+  }
+  .option-label {
+    margin: 2px 6px;
   }
 }

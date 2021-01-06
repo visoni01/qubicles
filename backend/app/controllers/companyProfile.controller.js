@@ -1,6 +1,7 @@
 import Responder from '../../server/expressResponder'
 import { GetCompanyProfileSettingsService } from '../services/profile/company/getProfileSettings'
 import { UpdateCompanyProfileSettingsService } from '../services/profile/company/updateProfileSettings'
+import CompanyDetailsService from '../services/profile/company/companyDetails'
 
 export default class CompanyProfileController {
   static async getProfileSettings (req, res) {
@@ -18,6 +19,15 @@ export default class CompanyProfileController {
       Responder.success(res, updatedProfileSettings.result)
     } else {
       Responder.failed(res, updatedProfileSettings.errors)
+    }
+  }
+
+  static async getCompanyDetails (req, res) {
+    const companyDetails = await CompanyDetailsService.execute({ ...req.body, ...req.params })
+    if (companyDetails.successful) {
+      Responder.success(res, companyDetails.result)
+    } else {
+      Responder.failed(res, companyDetails.errors)
     }
   }
 }

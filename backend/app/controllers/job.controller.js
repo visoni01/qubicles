@@ -1,12 +1,13 @@
 import Responder from '../../server/expressResponder'
-import JobsByCategoryService from '../services/people/contactCenter/job/jobsByCategory'
-import DeleteJobService from '../services/people/contactCenter/job/delete'
-import GetJobByIdService from '../services/people/contactCenter/job/jobById'
-import UpdateJobService from '../services/people/contactCenter/job/update'
-import GetJobCategoriesTitlesAndSkillsService from '../services/people/contactCenter/job/jobCategoriesTitlesAndSkills'
-import AddNewJobService from '../services/people/contactCenter/job/create'
-import JobPostCompanyDetailsService from '../services/people/contactCenter/job/jobPostCompanyDetails'
-import FetchJobCategoriesService from '../services/people/contactCenter/job/jobCategories'
+import {
+  JobsByCategoryService,
+  DeleteJobService,
+  GetJobByIdService,
+  UpdateJobService,
+  GetJobCategoriesTitlesAndSkillsService,
+  AddNewJobService,
+  FetchJobCategoriesService
+} from '../services/people/contactCenter/job'
 
 export default class JobController {
   static async getJobsByCategory (req, res) {
@@ -63,15 +64,6 @@ export default class JobController {
       Responder.success(res, addJob.result)
     } else {
       Responder.failed(res, addJob.errors)
-    }
-  }
-
-  static async getJobPostCompanyDetails (req, res) {
-    const jobPostCompanyDetails = await JobPostCompanyDetailsService.execute({ ...req.body, ...req.params })
-    if (jobPostCompanyDetails.successful) {
-      Responder.success(res, jobPostCompanyDetails.result)
-    } else {
-      Responder.failed(res, jobPostCompanyDetails.errors)
     }
   }
 

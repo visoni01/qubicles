@@ -12,7 +12,7 @@ const constraints = {
   }
 }
 
-export default class ForumDeleteJobService extends ServiceBase {
+export class DeleteJobService extends ServiceBase {
   get constraints () {
     return constraints
   }
@@ -36,7 +36,7 @@ export default class ForumDeleteJobService extends ServiceBase {
         return
       }
     } catch (err) {
-      logger.error(`${getErrorMessageForService('ForumDeleteJobService')} ${err}`)
+      logger.error(`${getErrorMessageForService('DeleteJobService')} ${err}`)
       this.addError(ERRORS.INTERNAL)
     }
   }

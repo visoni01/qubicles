@@ -28,7 +28,7 @@ export default function RenderJobs() {
       <Divider className='divider' />
 
       { jobsWithCategories.map((jobCategory) => (
-        jobCategory.jobs.length && (
+        jobCategory.jobs.length > 0 && (
           <JobCategoryCard
             key={ jobCategory.categoryId }
             categoryId={ jobCategory.categoryId }
@@ -40,7 +40,7 @@ export default function RenderJobs() {
             pending={ 0 }
           />
         )))}
-      {jobsWithCategories && jobsWithCategories.length === 0 && (
+      {((jobsWithCategories && jobsWithCategories.length === 0) || (jobsWithCategories[ 0 ].jobs.length === 0)) && (
       <div className='mt-10 mb-10'>
         <div className='text-align-last-center'>
           <h3 className=' h3'>No jobs found!</h3>

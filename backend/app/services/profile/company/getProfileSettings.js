@@ -31,7 +31,7 @@ export class GetCompanyProfileSettingsService extends ServiceBase {
         this.addError(ERRORS.NOT_FOUND, MESSAGES.USER_NOT_FOUND)
       }
       if (!(clientUser && clientUser.client_id)) {
-        this.addError(ERRORS.NOT_FOUND, MESSAGES.CLIENT_NOT_FOUND)
+        this.addError(ERRORS.NOT_FOUND, MESSAGES.CLIENT_NOT_EXIST)
       }
       const clientDetails = await getClientData({ client_id: clientUser.client_id })
 
@@ -42,6 +42,7 @@ export class GetCompanyProfileSettingsService extends ServiceBase {
         city: clientDetails.city,
         state: clientDetails.state,
         zip: clientDetails.zip,
+        registrationDate: clientDetails.registration_date,
         email: user.email,
         phoneNumber: clientDetails.phone_number,
         smsNotification: !!userDetails.notify_sms,
@@ -51,6 +52,7 @@ export class GetCompanyProfileSettingsService extends ServiceBase {
         title: clientDetails.title,
         timezone: '',
         profilePic: userDetails.profile_image
+
       }
 
       return companyAccountSettings

@@ -92,3 +92,29 @@
   padding: 10px 15px 10px 5px ;
   border-radius: 8px;
 }
+
+// Job Info
+.job-info {
+  .job-title {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    a {
+      color: #444F5F;
+    }
+
+  }
+
+  .action-buttons {
+    width: 100%;
+
+    li {
+      margin-right: 10%;
+        svg {
+          margin-right: 5px;
+        }
+    }
+  }
+}

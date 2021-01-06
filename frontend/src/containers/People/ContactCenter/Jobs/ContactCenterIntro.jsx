@@ -1,19 +1,15 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback } from 'react'
 import {
   faChevronLeft, faUserFriends, faRedo, faEnvelope,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button, Divider } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
-import _ from 'lodash'
-import { contactCenterIntroduction } from '../testData'
 import Introduction from '../Introduction'
 import ROUTE_PATHS from '../../../../routes/routesPath'
 import './styles.scss'
-import { jobPostCompanyDetailsFetchStart } from '../../../../redux-saga/redux/actions'
-import ContactCenterSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/ContactCenterSkeleton'
 
 const ContactCenterIntro = ({ jobDetails }) => {
   const history = useHistory()
@@ -21,23 +17,7 @@ const ContactCenterIntro = ({ jobDetails }) => {
     history.push(ROUTE_PATHS.PEOPLE_JOBS_TAB)
   }, [ history ])
 
-  const { companyDetails, success, isCompanyDetailsLoading } = useSelector((state) => state.jobPostCompanyDetails)
-  // WIP - Will change once common client reducer will be created.
-  // const { settings } = useSelector((state) => state.companyProfileSettings)
-
-  const dispatch = useDispatch()
-  useEffect(() => {
-    if (!_.isEmpty(jobDetails) && _.isEmpty(companyDetails)) {
-      dispatch(jobPostCompanyDetailsFetchStart({ clientId: jobDetails.clientId }))
-    }
-  }, [ jobDetails, dispatch, companyDetails ])
-
-  if (isCompanyDetailsLoading && !success) {
-    return (
-      <ContactCenterSkeleton />
-    )
-  }
-
+  const { settings } = useSelector((state) => state.clientDetails)
   return (
     <>
       <Box className='custom-box contact-center-info-root'>
@@ -54,19 +34,19 @@ const ContactCenterIntro = ({ jobDetails }) => {
           </Button>
         </div>
         <Introduction
-          key={ companyDetails.clientId }
-          imageName={ contactCenterIntroduction.imageName }
-          rating={ contactCenterIntroduction.rating }
-          imageSrc={ contactCenterIntroduction.imageSrc }
-          name={ companyDetails.companyName }
-          location={ companyDetails.city }
-          date={ companyDetails.registrationDate }
+          key={ jobDetails.clientId }
+          imageName={ settings.companyName }
+          rating='4'
+          imageSrc={ settings.profilePic }
+          name={ settings.companyName }
+          location={ `${ settings.city }, ${ settings.state } ` }
+          date={ settings.registrationDate }
         />
         <h4 className='h4 margin-top-bottom-10'>
-          {companyDetails.title}
+          {settings.title}
         </h4>
         <p className='para'>
-          {companyDetails.summary}
+          {settings.summary}
         </p>
         <div className='para mt-20'>
           <span className='para bold'> 2K+  </span>

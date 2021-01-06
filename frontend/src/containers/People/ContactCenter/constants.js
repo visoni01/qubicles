@@ -18,3 +18,26 @@ export const jobFilterStatus = {
   cancelled: 'Cancelled Positions',
   draft: 'Drafted Positions',
 }
+
+export const postStatusPermissions = {
+  public: {
+    label: 'Public',
+    secondaryLabel: 'Anyone on Qubicles',
+  },
+  managers: {
+    label: 'Managers',
+    secondaryLabel: 'Managers of your company',
+  },
+  followers: {
+    label: 'Followers',
+    secondaryLabel: 'Your followers',
+  },
+  company: {
+    label: 'Company',
+    secondaryLabel: 'Members of your company',
+  },
+  admins: {
+    label: 'Admins',
+    secondaryLabel: 'Admins of your company',
+  },
+}

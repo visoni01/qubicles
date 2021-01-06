@@ -361,7 +361,10 @@ export async function deleteJob ({ job_id }) {
 }
 
 export async function getAllJobs ({ client_id, category_id, search_keyword, status, limit, offset }) {
-  let query = { client_id }
+  let query = {
+    client_id,
+    [Op.not]: [{ is_deleted: true }]
+  }
   let additionalParams = {}
 
   if (!_.isEmpty(search_keyword)) {

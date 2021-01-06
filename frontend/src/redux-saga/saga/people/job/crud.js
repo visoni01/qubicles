@@ -2,12 +2,12 @@ import { takeLatest, put } from 'redux-saga/effects'
 import {
   updateJobsData, jobDetailsFetchSuccessful, jobPublishSuccessful, jobPublishFailure,
 } from '../../../redux/actions'
-import { ADD_JOB, UPDATE_JOB } from '../../../redux/constants'
+import { ADD_JOB, UPDATE_JOB, DELETE_JOB } from '../../../redux/constants'
 import { showErrorMessage, showSuccessMessage } from '../../../redux/snackbar'
 import People from '../../../service/people'
 
 function* jobCrudWatcher() {
-  yield takeLatest([ ADD_JOB, UPDATE_JOB ], jobCrudWorker)
+  yield takeLatest([ ADD_JOB, UPDATE_JOB, DELETE_JOB ], jobCrudWorker)
 }
 
 function* jobCrudWorker(action) {
@@ -104,6 +104,19 @@ function* jobCrudWorker(action) {
         yield put(jobDetailsFetchSuccessful(action.payload))
         yield put(jobPublishSuccessful({ publishedJobId: jobId }))
         msg = 'Job has been successfully updated!'
+        break
+      }
+      case DELETE_JOB: {
+        const { jobId, categoryId } = action.payload
+        yield People.deleteJob({ jobId })
+        yield put(updateJobsData({
+          type: DELETE_JOB,
+          deletedJobId: {
+            jobId,
+            categoryId,
+          },
+        }))
+        msg = 'Job has been succesfully deleted!'
         break
       }
       default:
