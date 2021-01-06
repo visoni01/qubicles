@@ -3,7 +3,7 @@ import { getJobTitles, getAllJobCategories, getErrorMessageForService, getSkills
 import logger from '../../../../common/logger'
 import { ERRORS } from '../../../../utils/errors'
 
-export default class JobCategoriesTitlesAndSkills extends ServiceBase {
+export class GetJobCategoriesTitlesAndSkillsService extends ServiceBase {
   async run () {
     try {
       const promises = [
@@ -14,7 +14,7 @@ export default class JobCategoriesTitlesAndSkills extends ServiceBase {
       const [jobTitles, jobCategories, jobSkills] = await Promise.all(promises.map(promise => promise()))
       return { jobTitles, jobCategories, jobSkills }
     } catch (err) {
-      logger.error(`${getErrorMessageForService('JobCategoriesTitlesAndSkills')} ${err}`)
+      logger.error(`${getErrorMessageForService('GetJobCategoriesTitlesAndSkillsService')} ${err}`)
       this.addError(ERRORS.INTERNAL)
     }
   }

@@ -8,7 +8,7 @@ const constraints = {
   }
 }
 
-export default class JobByIdService extends ServiceBase {
+export class GetJobByIdService extends ServiceBase {
   get constraints () {
     return constraints
   }
@@ -25,7 +25,7 @@ export default class JobByIdService extends ServiceBase {
       const [jobDetails, jobSkillsData, jobCoursesData] = await Promise.all(promises.map(promise => promise()))
       return { jobDetails, jobSkillsData, jobCoursesData }
     } catch (err) {
-      logger.error(`${getErrorMessageForService('JobByIdService')} ${err}`)
+      logger.error(`${getErrorMessageForService('GetJobByIdService')} ${err}`)
       this.addError(ERRORS.INTERNAL)
     }
   }

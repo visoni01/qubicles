@@ -32,7 +32,7 @@ const constraints = {
   }
 }
 
-export default class JobsByCategoryService extends ServiceBase {
+export class JobsByCategoryService extends ServiceBase {
   get constraints () {
     return constraints
   }

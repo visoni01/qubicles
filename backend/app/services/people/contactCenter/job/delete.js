@@ -12,7 +12,7 @@ const constraints = {
   }
 }
 
-export default class DeleteJobService extends ServiceBase {
+export class DeleteJobService extends ServiceBase {
   get constraints () {
     return constraints
   }

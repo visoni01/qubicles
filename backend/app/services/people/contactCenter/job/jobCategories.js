@@ -12,7 +12,7 @@ const constraints = {
   }
 }
 
-export default class FetchJobCategoriesService extends ServiceBase {
+export class FetchJobCategoriesService extends ServiceBase {
   get constraints () {
     return constraints
   }

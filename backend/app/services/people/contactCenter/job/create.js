@@ -54,7 +54,7 @@ const constraints = {
   }
 }
 
-export default class PeopleAddNewJobService extends ServiceBase {
+export class AddNewJobService extends ServiceBase {
   get constraints () {
     return constraints
   }
@@ -67,7 +67,7 @@ export default class PeopleAddNewJobService extends ServiceBase {
       const newJob = await addJob({ client_id, user_id, city, state, ...payload })
       return newJob
     } catch (err) {
-      logger.error(`${getErrorMessageForService('PeopleAddNewJobService')} ${err}`)
+      logger.error(`${getErrorMessageForService('AddNewJobService')} ${err}`)
       this.addError(ERRORS.INTERNAL)
     }
   }
