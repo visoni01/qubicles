@@ -88,7 +88,11 @@ const PostBody = ({
       <p className='para post-text'>
         { activityValue}
       </p>
-      {activityCustom && <img className='post-image' src={ activityCustom } alt='Helen' />}
+      {activityCustom && (
+      <div className='render-post-image-container'>
+        <img className='post-image' src={ activityCustom } alt='Helen' />
+      </div>
+      )}
 
       {/* Post Like and comment */}
 

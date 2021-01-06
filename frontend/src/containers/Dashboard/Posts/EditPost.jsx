@@ -1,7 +1,7 @@
 import React, {
   useState, useRef, useCallback, useEffect,
 } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import {
   Button, IconButton,
   Radio, Popover, TextareaAutosize, RadioGroup, FormControlLabel, Grid,
@@ -13,7 +13,6 @@ import {
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import { updatePostStatus } from '../../../redux-saga/redux/actions'
-import Loader from '../../../components/loaders/circularLoader'
 import { postStatusPermissions } from '../../People/ContactCenter/constants'
 import PostHead from './PostHead'
 
@@ -24,6 +23,12 @@ const EditPost = ({
   const [ permission, setPermission ] = useState(initialPostData.permission)
   const [ fileSrc, setFileSrc ] = useState(initialPostData.postImage)
   const [ anchorEl, setAnchorEl ] = useState(null)
+
+  useEffect(() => {
+    setPostText(initialPostData.postText)
+    setPermission(initialPostData.permission)
+    setFileSrc(initialPostData.postImage)
+  }, [ initialPostData ])
 
   const open = Boolean(anchorEl)
   const id = open ? 'simple-popover' : undefined
@@ -61,7 +66,6 @@ const EditPost = ({
     setAnchorEl(null)
   }, [])
 
-  const { isLoading, success } = useSelector((state) => state.createPost)
   const clear = () => {
     handleCancelEdit()
   }
@@ -70,15 +74,6 @@ const EditPost = ({
     fileInput.current.value = ''
     setFileSrc('')
   }
-
-  useEffect(() => {
-    if (success) {
-      setPostText('')
-      setPermission('public')
-      fileInput.current.value = ''
-      setFileSrc('')
-    }
-  }, [ success, isLoading ])
 
   const handleFileInputChange = useCallback((event) => {
     event.preventDefault()
@@ -95,10 +90,9 @@ const EditPost = ({
 
   return (
     <>
-
       <div
         className='create-post-container text-align-end'
-        style={ { pointerEvents: isLoading ? 'none' : 'auto' } }
+        style={ { pointerEvents: 'auto' } }
       >
         <Grid container spacing={ 3 } justify='space-between' className='pr-10 pb-10' alignItems='flex-end'>
           <Grid item xs={ 12 } sm={ 12 } md={ 6 } lg={ 6 } xl={ 6 }>
@@ -168,7 +162,6 @@ const EditPost = ({
           { postText && (
           <div className='postButtons'>
             <Button
-              disabled={ isLoading }
               classes={ {
                 root: 'button-secondary-small-red',
                 label: 'button-secondary-small-red-label',
@@ -177,19 +170,8 @@ const EditPost = ({
             >
               Cancel
             </Button>
-            <div>
-              { isLoading && (
-              <Loader
-                className='add-status-loader'
-                displayLoaderManually
-                enableOverlay={ false }
-                size={ 30 }
-              />
-              )}
-            </div>
             <Button
               variant='contained'
-              disabled={ isLoading }
               classes={ {
                 root: 'button-primary-small',
                 label: 'button-primary-small-label',

@@ -92,6 +92,7 @@ const PostOptions = ({
         confirmButtonText='Delete'
         handleConfirm={ handleConfirmDeletePost }
       />
+      {openEditPostModal && (
       <EditPostModal
         open={ openEditPostModal }
         handleClose={ handleCancelActivity }
@@ -102,6 +103,7 @@ const PostOptions = ({
         postImage={ postImage }
         permission={ permission }
       />
+      )}
     </>
   )
 }
