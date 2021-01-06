@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faChevronDown, faImage, faTimesCircle,
+  faChevronDown, faImage, faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import { createStatusPostStart } from '../../../redux-saga/redux/actions'
@@ -99,13 +99,13 @@ const EditPost = ({
       >
 
         <Grid container spacing={ 3 } justify='space-between' className='pr-10 pb-10' alignItems='flex-end'>
-          <Grid item xs={ 12 } sm={ 12 } md={ 9 } lg={ 9 } xl={ 9 }>
+          <Grid item xs={ 12 } sm={ 12 } md={ 6 } lg={ 6 } xl={ 6 }>
             <PostHead
               owner={ owner }
               createdAt={ createdAt }
             />
           </Grid>
-          <Grid item container justify='flex-end' xs={ 12 } sm={ 12 } md={ 3 } lg={ 3 } xl={ 3 } spacing={ 1 }>
+          <Grid item container justify='flex-end' xs={ 12 } sm={ 12 } md={ 6 } lg={ 6 } xl={ 6 } spacing={ 1 }>
             <Grid item>
               <Button
                 classes={ {
@@ -150,11 +150,15 @@ const EditPost = ({
             />
 
             {fileSrc && (
-            <div className='post-image'>
-              <img alt='post' src={ fileSrc } height='300px' />
-              <IconButton onClick={ handleDelete }>
-                <FontAwesomeIcon icon={ faTimesCircle } />
-              </IconButton>
+            <div className='post-image-container'>
+              <div className='post-image'>
+                <div className='image-container'>
+                  <img alt='post' src={ fileSrc } height='300px' />
+                  <IconButton onClick={ handleDelete }>
+                    <FontAwesomeIcon className='custom-fa-icon white pointer' icon={ faTimes } />
+                  </IconButton>
+                </div>
+              </div>
             </div>
             )}
           </div>

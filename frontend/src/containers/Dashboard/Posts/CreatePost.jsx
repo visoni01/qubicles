@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faChevronDown, faImage, faTimesCircle,
+  faChevronDown, faImage, faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import { createStatusPostStart } from '../../../redux-saga/redux/actions'
@@ -111,12 +111,16 @@ const CreatePost = ({ initialPostData }) => {
             />
 
             {fileSrc && (
-            <div className='post-image'>
-              <img alt='post' src={ fileSrc } height='300px' />
-              <IconButton onClick={ handleDelete }>
-                <FontAwesomeIcon icon={ faTimesCircle } />
-              </IconButton>
-            </div>
+              <div className='post-image-container'>
+                <div className='post-image'>
+                  <div className='image-container'>
+                    <img alt='post' src={ fileSrc } height='300px' />
+                    <IconButton onClick={ handleDelete }>
+                      <FontAwesomeIcon className='custom-fa-icon white pointer' icon={ faTimes } />
+                    </IconButton>
+                  </div>
+                </div>
+              </div>
             )}
           </div>
 

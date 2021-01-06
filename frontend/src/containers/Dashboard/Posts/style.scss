@@ -37,28 +37,37 @@
         }
       }
 
-      .post-image {
-        display: inline-block;
-        position: relative;
-        margin-top: 10px;
-        align-self: center;
+      .post-image-container {
+        width: 100%;
+        text-align-last: left ;
 
-        img {
-          height: auto;
-          max-width: 100%;
-          border-radius: 6px;
-        }
+        .post-image {
+          display: inline-block;
+          position: relative;
+          margin-top: 10px;
+          align-self: center;
+          width: 100%;
+          max-height: 350px;
+          overflow-y: auto;
 
-        .MuiButtonBase-root {
-          position: absolute;
-          top: 0;
-          right: 0;
-          color: $color-white !important;
-        }
+          img {
+            height: auto;
+            max-width: 100%;
+            border-radius: 6px;
+            width: 100%;
+          }
 
-        .MuiIconButton-label {
-          &:hover {
-            color: $color-white;
+          .MuiButtonBase-root {
+            position: absolute;
+            top: 0;
+            right: 0;
+            mix-blend-mode: difference;
+          }
+
+          .MuiIconButton-label {
+            &:hover {
+              color: $color-white;
+            }
           }
         }
       }
@@ -285,6 +294,10 @@
   width: 230px;
   padding: 10px 15px 10px 5px ;
   border-radius: 8px;
+}
+
+.edit-post-modal {
+  width: 800px;
 }
 
 .edit-post-content {

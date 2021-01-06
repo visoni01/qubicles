@@ -16,6 +16,7 @@ export default function EditPostModal({
       onClose={ handleClose }
       aria-labelledby='delete-dialog-title'
       className='custom-modal'
+      classes={ { paper: 'edit-post-modal' } }
       maxWidth='md'
       fullWidth
       scroll='body'
