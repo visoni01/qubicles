@@ -11,6 +11,8 @@ function* groupCrudWatcher() {
 }
 
 function* groupCrudWorker(action) {
+  console.log('action', action)
+  console.log('action.payload', action.payload)
   try {
     let msg
     switch (action.type) {
@@ -56,6 +58,42 @@ function* groupCrudWorker(action) {
         } = action.payload
 
         yield Forum.deleteGroup(action.payload)
+        // eslint-disable-next-line
+        yield put(updateGroupsList({
+          type: DELETE_GROUP,
+          data: {
+            groupId,
+          },
+        }))
+        msg = 'Group Deleted!'
+        break
+      }
+
+      case UPDATE_GROUP: {
+        const {
+          groupId,
+          groupData,
+        } = action.payload
+
+        const { data } = yield Forum.updateGroup(action.payload)
+        // eslint-disable-next-line
+        yield put(updateGroupsList({
+          type: UPDATE_GROUP,
+          data: {
+            groupId,
+            updatedGroup: groupData,
+          },
+        }))
+        msg = 'Group has been Updated!'
+        break
+      }
+
+      case DELETE_GROUP: {
+        const {
+          groupId,
+        } = action.payload
+
+        const { data } = yield Forum.deleteGroup(action.payload)
         // eslint-disable-next-line
         yield put(updateGroupsList({
           type: DELETE_GROUP,
