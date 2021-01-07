@@ -99,6 +99,17 @@ const SelectedGroup = ({ group }) => {
     )
   }
 
+  if (openUpdateGroup) {
+    return (
+      <UpdateGroup
+        handleCloseModal={ handleUpdateGroupToggle }
+        updateGroup={ handleUpdateGroup }
+        groupUpdateData={ group }
+        isUpdate
+      />
+    )
+  }
+
   if (typeof (selectedTopic) === 'number' && selectedTopic !== 'new') {
     return (
       <>
