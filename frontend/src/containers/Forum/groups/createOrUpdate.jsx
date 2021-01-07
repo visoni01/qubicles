@@ -4,7 +4,7 @@ import {
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 
-const initialFormData = {
+let initialFormData = {
   title: '',
   permission: 'public',
   description: '',
@@ -13,11 +13,12 @@ const initialFormData = {
 const CreateOrUpdate = ({
   handleSubmit, onCancelClick, handleCloseModal, updateGroup, groupUpdateData, isUpdate,
 }) => {
-  const newInitialFormData = isUpdate ? groupUpdateData : initialFormData
-  const [ groupData, setGroupData ] = useState(newInitialFormData)
+  initialFormData = isUpdate ? groupUpdateData : initialFormData
+
+  const [ groupData, setGroupData ] = useState(initialFormData)
 
   useEffect(() => {
-    if (isUpdate) setGroupData(groupUpdateData)
+    setGroupData(groupUpdateData)
   }, [ groupUpdateData ])
 
   const updateData = (event) => {
@@ -68,13 +69,13 @@ const CreateOrUpdate = ({
             >
               <FormControlLabel
                 value='public'
-                control={ <Radio color='primary' size='small' /> }
+                control={ <Radio size='small' /> }
                 label='Public'
                 className='para'
               />
               <FormControlLabel
                 value='private'
-                control={ <Radio color='primary' size='small' /> }
+                control={ <Radio size='small' /> }
                 label='Private'
                 className='para'
               />
