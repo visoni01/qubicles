@@ -279,6 +279,8 @@ export const getPostData = ({ state, payload }) => {
           ...post,
           activity_custom: isPost ? editedPost.activity_custom : post.activity_custom,
           activity_value: isPost ? editedPost.activity_value : post.activity_value,
+          activity_permission: isPost ? editedPost.activity_permission : post.activity_permission,
+          updatedAt: isPost ? Date.now() : post.updatedAt,
         }
       })
       break

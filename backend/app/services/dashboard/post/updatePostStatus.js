@@ -25,6 +25,9 @@ const constraints = {
   },
   text: {
     presence: { allowEmpty: false }
+  },
+  permission: {
+    presence: { allowEmpty: false }
   }
 }
 
@@ -79,6 +82,7 @@ export class UpdatePostStatusService extends ServiceBase {
           user_id: postData.user_id,
           user_activity_id: postData.user_activity_id,
           activity_value: this.text,
+          activity_permission: this.permission,
           activity_custom: url || postData.activity_custom
         }
         if (this.remove_image === 'true') {

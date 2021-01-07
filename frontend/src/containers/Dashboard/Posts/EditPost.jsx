@@ -47,15 +47,15 @@ const EditPost = ({
       return
     }
     const postData = {
-      // activityPermission: permission,
       userActivityId: postId,
       file: fileInput.current.files && fileInput.current.files[ 0 ],
       text: postText,
       removeCurrentImage: _.isEmpty(fileSrc),
+      permission,
     }
     dispatch(updatePostStatus(postData))
     handleCancelEdit()
-  }, [ postText, postId, fileInput, fileSrc, dispatch, handleCancelEdit ])
+  }, [ postText, postId, permission, fileInput, fileSrc, dispatch, handleCancelEdit ])
 
   const setPostTextCB = useCallback((event) => {
     setPostText(event.target.value)
@@ -176,6 +176,12 @@ const EditPost = ({
                 root: 'button-primary-small',
                 label: 'button-primary-small-label',
               } }
+              disabled={
+                (postText === initialPostData.postText
+                  && fileSrc === initialPostData.postImage
+                  && permission === initialPostData.permission
+                  )
+                }
               onClick={ updatePost }
             >
               Save Post

@@ -9,7 +9,7 @@ import PostOptions from './PostOptions'
 
 const PostWrap = ({
   userActivityId, activityValue, activityCustom,
-  createdAt, owner, userId, isPostLiked,
+  createdAt, updatedAt, owner, userId, isPostLiked,
   likesCount, commentsCount, comments, commentLoading, permission,
 }) => {
   const { userDetails } = useSelector((state) => state.login)
@@ -19,6 +19,7 @@ const PostWrap = ({
         <PostHead
           owner={ owner }
           createdAt={ createdAt }
+          updatedAt={ updatedAt }
         />
         {owner.userId === userDetails.user_id
         && (
@@ -62,6 +63,7 @@ PostWrap.propTypes = {
   }).isRequired,
   activityValue: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
+  updatedAt: PropTypes.string.isRequired,
   likesCount: PropTypes.number.isRequired,
   isPostLiked: PropTypes.bool.isRequired,
   commentsCount: PropTypes.number.isRequired,
