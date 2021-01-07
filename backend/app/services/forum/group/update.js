@@ -28,6 +28,7 @@ export class ForumUpdateGroupService extends ServiceBase {
 
   async run () {
     const { user_id, title, description, permission, group_id } = this.filteredArgs
+    console.log('this.filteredArgs',this.filteredArgs)
     try {
       await updateForumGroup({
         group_id,
@@ -48,6 +49,7 @@ export class ForumUpdateGroupService extends ServiceBase {
         }
       }
     } catch (err) {
+      console.log('EROR==',err)
       logger.error(getErrorMessageForService('ForumUpdateGroupService'), err)
       this.addError(ERRORS.INTERNAL)
     }

@@ -36,6 +36,8 @@ export async function getAllForumGroups ({ user_id }) {
     }
   })
 
+  console.log('groups>>>>>>>'.groups)
+
   groups = groups.map((group) => ({
     id: group.group_id,
     title: group.group_title,
