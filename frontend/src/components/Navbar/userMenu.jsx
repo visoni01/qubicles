@@ -13,7 +13,7 @@ import { kareem } from '../../assets/images/avatar'
 import {
   chatIcon, walletIcon, settingIcon, logoutIcon,
 } from '../../assets/images/icons/navBarIcons'
-import { PROFILE_ROUTE } from '../../routes/routesPath'
+import ROUTE_PATHS, { PROFILE_ROUTE } from '../../routes/routesPath'
 import { getCompanyProfileSettingsApiStart } from '../../redux-saga/redux/actions'
 
 const UserMenu = () => {
@@ -92,6 +92,7 @@ const UserMenu = () => {
               size='small'
               className='option'
               startIcon={ <img src={ walletIcon } alt='' /> }
+              onClick={ () => history.push(ROUTE_PATHS.WALLET) }
             >
               <p className='option-name'> Wallet </p>
             </Button>

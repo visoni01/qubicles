@@ -1,0 +1,42 @@
+@import '../../customStyles/scss/partials/variables';
+@import '../../customStyles//scss//partials/mixins';
+
+.wallet-root {
+  .wallet-header {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    .wallet-address {
+      opacity: 0.5;
+    }
+  }
+
+  .wallet-details {
+    .credit-card-pic {
+      transform: scale(1.35);
+    }
+
+    .price-green {
+      color: $color-green;
+    }
+
+    .price-red {
+      color: $color-red;
+    }
+
+  }
+
+  .referral-list {
+    list-style-type: disc;
+    li {
+      margin-bottom: 5px;
+    }
+  }
+
+  .payment-card {
+    display: inline-flex;
+    flex-direction: column;
+  }
+}

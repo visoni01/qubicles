@@ -37,6 +37,7 @@ const ROUTE_PATHS = {
   JOB_PREVIEW: `${ JOB_ROUTE }/preview`,
   OTHER_COMPANY_FEED: `${ PROFILE_ROUTE }/:companyId/feed`,
   OTHER_COMPANY_ABOUT: `${ PROFILE_ROUTE }/:companyId/about`,
+  WALLET: '/wallet',
 }
 
 export default ROUTE_PATHS
