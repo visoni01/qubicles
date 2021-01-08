@@ -154,6 +154,11 @@ TABLE OF CONTENTS
   &.align-items-end {
     align-items: flex-end;
   }
+
+  // direction
+  &.direction-column {
+    flex-direction: column;
+  }
 }
 
 //Block display

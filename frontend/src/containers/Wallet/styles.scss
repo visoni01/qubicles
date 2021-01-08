@@ -35,8 +35,10 @@
     }
   }
 
-  .payment-card {
+  .sendQBEModal-buttons {
     display: inline-flex;
+    justify-content: space-between;
     flex-direction: column;
+    align-items: center;
   }
 }

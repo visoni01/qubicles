@@ -3,19 +3,19 @@ const paymentCardData = [
     id: 1,
     bankName: 'Chase bank',
     paymentCardType: 'Bank Account',
-    cardDetails: '1234-5678-1234-8234',
+    cardDetails: '****8234',
   },
   {
     id: 2,
-    bankName: 'Revoult bank',
+    bankName: 'Revoult',
     paymentCardType: 'Credit Card',
-    cardDetails: '1234-5678-1234-3312',
+    cardDetails: '****3312',
   },
   {
     id: 3,
     bankName: 'Barclaycard',
     paymentCardType: 'Credit Card',
-    cardDetails: '1234-5678-1234-9584',
+    cardDetails: '****9584',
   },
 ]
 

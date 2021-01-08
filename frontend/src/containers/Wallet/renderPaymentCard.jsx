@@ -13,11 +13,12 @@ const RenderPaymentCard = ({
         icon={ paymentCard.paymentCardType === 'Credit Card' ? faCreditCard : faUniversity }
         className='custom-fa-icon sz-lg light'
       />
-      <div className='payment-card'>
-        <p className='para bold'>{paymentCard.bankName}</p>
-        <p className='para'>
-          {paymentCard.cardDetails}
-        </p>
+      <div className='display-inline-flex direction-column'>
+        <p className='para bold heading-color'>{paymentCard.bankName}</p>
+        <div className='display-inline-flex'>
+          <p className='para'>{paymentCard.paymentCardType}</p>
+          <p className='ml-10 para'>{paymentCard.cardDetails}</p>
+        </div>
       </div>
       <IconButton
         className='ml-50 mr-10'

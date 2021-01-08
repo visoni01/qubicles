@@ -67,6 +67,10 @@
     font-weight: bold;
   }
 
+  &.heading-color {
+    color: $color-headings;
+  }
+
   &.light {
     color: $color-dark-grey;
   }
