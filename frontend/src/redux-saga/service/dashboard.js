@@ -100,6 +100,11 @@ class Dashboard {
     const response = await apiClient.deleteRequest(`/dashboard/post/comments/${ userActivityId }`, { data })
     return response
   }
+
+  static async updatePostComment({ userActivityId, data }) {
+    const response = await apiClient.putRequest(`/dashboard/post/comments/${ userActivityId }`, { data })
+    return response
+  }
 }
 
 export default Dashboard

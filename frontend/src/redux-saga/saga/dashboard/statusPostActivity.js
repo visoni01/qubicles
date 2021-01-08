@@ -56,7 +56,12 @@ function* statusPostActivityFetchingWorker(action) {
 
       case DELETE_POST_COMMENT: {
         const { commentId, postId } = action.payload
-
+        yield Dashboard.deletePostComment({
+          userActivityId: commentId,
+          data: {
+            postUserActivityId: postId,
+          },
+        })
         yield put(updatePostData({
           type: action.type,
           data: {
@@ -69,7 +74,13 @@ function* statusPostActivityFetchingWorker(action) {
 
       case UPDATE_POST_COMMENT: {
         const { commentId, postId, updatedComment } = action.payload
-
+        yield Dashboard.updatePostComment({
+          userActivityId: commentId,
+          data: {
+            postUserActivityId: postId,
+            updatedCommentText: updatedComment,
+          },
+        })
         yield put(updatePostData({
           type: action.type,
           data: {

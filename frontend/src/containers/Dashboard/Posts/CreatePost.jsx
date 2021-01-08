@@ -80,7 +80,7 @@ const CreatePost = ({ initialPostData }) => {
 
   const handleFileInputChange = useCallback((event) => {
     event.preventDefault()
-    const file = event.target.files[ 0 ]
+    const file = event.target.files && event.target.files[ 0 ]
     const reader = new FileReader()
 
     reader.onloadend = () => {

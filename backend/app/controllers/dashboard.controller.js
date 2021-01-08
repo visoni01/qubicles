@@ -11,7 +11,8 @@ import {
   AddPostStatusCommentService,
   UpdatePostStatusService,
   DeletePostCommentsService,
-  DashboardStatusActivityService
+  DashboardStatusActivityService,
+  UpdatePostCommentService
 } from '../services/dashboard/index'
 
 export default class DashboardController {
@@ -120,6 +121,15 @@ export default class DashboardController {
       Responder.success(res, deletePostComment.result)
     } else {
       Responder.failed(res, deletePostComment.errors)
+    }
+  }
+
+  static async updatePostComment (req, res) {
+    const updatePostComment = await UpdatePostCommentService.execute({ ...req.body, ...req.params })
+    if (updatePostComment.successful) {
+      Responder.success(res, updatePostComment.result)
+    } else {
+      Responder.failed(res, updatePostComment.errors)
     }
   }
 }

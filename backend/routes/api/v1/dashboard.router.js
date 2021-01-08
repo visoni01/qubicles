@@ -43,4 +43,7 @@ dashboardRouter.route('/post/comments/:user_activity_id')
 dashboardRouter.route('/post/comments/:user_activity_id')
   .delete(isAuthenticated, dashboardController.deletePostComment)
 
+dashboardRouter.route('/post/comments/:user_activity_id')
+  .put(isAuthenticated, dashboardController.updatePostComment)
+
 export { dashboardRouter }
