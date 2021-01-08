@@ -16,9 +16,9 @@ const RenderPostComments = ({
     <>
       {!isEditing && (
       <div className='comment-body'>
-        <div className='display-inline-flex mt-10'>
+        <div className='profile-head-info'>
           <Avatar className='comment-avatar' alt='Remy Sharp' src={ terry } />
-          <div>
+          <div className='pt-5'>
             <h4 className='h4 sz-sm'>
               {ownerName}
             </h4>
@@ -30,7 +30,7 @@ const RenderPostComments = ({
                 {updatedAt && updatedAt !== createdAt && 'Edited'}
               </p>
             </div>
-            <p className='para mb-10 mt-5'>
+            <p className='para mb-10'>
               {commentText}
             </p>
           </div>

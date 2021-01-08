@@ -46,8 +46,8 @@
 // View More Comments
 .view-more-comments-section {
   display: flex;
-  margin-top: 20px;
   height: 35px;
+
   .MuiButtonBase-root {
     color: $color-primary;
     background-color: $color-white;
@@ -69,7 +69,7 @@
 
 // Add New Comment
 .post-add-new-comment {
-  margin-top: 20px;
+  margin-top: 15px;
   display: inline-flex;
   width: 100%;
 
@@ -127,7 +127,17 @@
   display: inline-flex;
   justify-content: space-between;
   align-items: flex-start;
+  margin-top: 15px;
   width: 100%;
+
+  .profile-head-info {
+    display: inline-flex;
+  }
+
+  &:first-child {
+    margin-top: 0px;
+  }
+
 }
 
 .comment-body:hover .comment-option-button-hidden {

@@ -1,5 +1,4 @@
 import React from 'react'
-import _ from 'lodash'
 import PropTypes from 'prop-types'
 import { Divider, Button } from '@material-ui/core'
 import RenderPostComments from './RenderPostComments'
@@ -10,7 +9,9 @@ const PostCommentsWrap = ({
   postId, comments, commentsCount, loadMoreCommentsCB, isCommentLoading,
 }) => (
   <>
-    {!_.isEmpty(comments) && <Divider />}
+    <div className='mb-10'>
+      <Divider />
+    </div>
     {comments.length < commentsCount && (
       <div className='view-more-comments-section'>
         <Button
@@ -19,7 +20,6 @@ const PostCommentsWrap = ({
         >
           View More Comments
         </Button>
-        {/* <p onClick={ loadMoreCommentsCB }>View more comments</p> */}
         {isCommentLoading && (
         <Loader
           className='static-small-loader mr-10'
@@ -30,7 +30,7 @@ const PostCommentsWrap = ({
         )}
       </div>
     )}
-    <div className='mt-10'>
+    <div className='mt-20 pl-5'>
       {comments.map((comment) => (
         <RenderPostComments
           postId={ postId }
