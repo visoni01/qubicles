@@ -39,7 +39,11 @@ export class GetPostCommentsService extends ServiceBase {
       }
 
       if (user_id !== activityData.user_id) {
-        const isValidPermission = await checkVisibility({ activity_permission: activityData.activity_permission, user_id, owner_id: activityData.user_id })
+        const isValidPermission = await checkVisibility({
+          activity_permission: activityData.activity_permission,
+          user_id,
+          owner_id: activityData.user_id
+        })
         if (!isValidPermission) {
           this.addError(ERRORS.UNAUTHORIZED, MESSAGES.UNAUTHORIZED_MSG)
           return
@@ -60,7 +64,8 @@ export class GetPostCommentsService extends ServiceBase {
           owner_id: comment.user_id,
           activity_value: comment.activity_value,
           owner: comment.owner,
-          createdAt: comment.createdAt
+          createdAt: comment.createdAt,
+          updatedAt: comment.updatedAt
         }
       }))
       return { commentsData, count, user_activity_id: parseInt(user_activity_id) }

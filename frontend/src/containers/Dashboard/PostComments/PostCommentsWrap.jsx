@@ -7,7 +7,7 @@ import Loader from '../../../components/loaders/circularLoader'
 import { commentsArrayValidator } from '../postValidators'
 
 const PostCommentsWrap = ({
-  comments, commentsCount, loadMoreCommentsCB, isCommentLoading,
+  postId, comments, commentsCount, loadMoreCommentsCB, isCommentLoading,
 }) => (
   <>
     {!_.isEmpty(comments) && <Divider />}
@@ -33,12 +33,14 @@ const PostCommentsWrap = ({
     <div className='mt-10'>
       {comments.map((comment) => (
         <RenderPostComments
+          postId={ postId }
           key={ comment.user_activity_id }
           commentText={ comment.activity_value }
           ownerName={ comment.owner }
           ownerId={ comment.owner_id }
           createdAt={ comment.createdAt }
-          userActivityId={ comment.user_activity_id }
+          updatedAt={ comment.updatedAt }
+          commentId={ comment.user_activity_id }
         />
       ))}
     </div>
@@ -46,6 +48,7 @@ const PostCommentsWrap = ({
 )
 
 PostCommentsWrap.propTypes = {
+  postId: PropTypes.number.isRequired,
   comments: commentsArrayValidator.isRequired,
   commentsCount: PropTypes.number.isRequired,
   loadMoreCommentsCB: PropTypes.func.isRequired,

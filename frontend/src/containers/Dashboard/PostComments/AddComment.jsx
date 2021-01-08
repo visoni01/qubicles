@@ -35,7 +35,7 @@ const AddComment = ({ postComment, isCommentLoading }) => {
             <TextareaAutosize
               aria-label='minimum height'
               autoComplete='off'
-              rowsMin={ 1 }
+              rowsMin={ 2 }
               value={ commentText }
               onChange={ handleCommentChange }
               placeholder='Leave a comment...'
@@ -55,7 +55,6 @@ const AddComment = ({ postComment, isCommentLoading }) => {
             </Button>
 
             <div>
-
               <Button
                 variant='contained'
                 className='button-primary-small post-button'
