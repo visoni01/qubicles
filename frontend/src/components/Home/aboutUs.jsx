@@ -289,7 +289,7 @@ const AboutUs = () => {
                 </div>
               </article>
               {/* Team member */}
-              <article className='modern-team-item circle-mask rotate-zoom-effect'>
+              <article className='modern-team-item circle-mask zoom-effect'>
                 <div className='item-wrapper'>
                   <div className='item-img'>
                     <img className='member-avatar' alt='' src={ teamTerpin } />
