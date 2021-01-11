@@ -72,7 +72,6 @@ const ListItem = ({
               </p>
 
             </div>
-
           </div>
           <div className='section-stats'>
             <ul className='display-inline-flex mb-15'>

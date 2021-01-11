@@ -16,9 +16,9 @@ const CreateOrUpdate = ({
   const newInitialFormData = isUpdate ? groupUpdateData : initialFormData
   const [ groupData, setGroupData ] = useState(newInitialFormData)
 
-  useEffect(() => {
-    if (isUpdate) setGroupData(groupUpdateData)
-  }, [ groupUpdateData ])
+  // useEffect(() => {
+  //   if (isUpdate) setGroupData(groupUpdateData)
+  // }, [ groupUpdateData ])
 
   const updateData = (event) => {
     setGroupData({

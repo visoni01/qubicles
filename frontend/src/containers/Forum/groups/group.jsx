@@ -84,6 +84,17 @@ const SelectedGroup = ({ group }) => {
     )
   }
 
+  if (openUpdateTopic) {
+    return (
+      <CreateOrUpdateTopicForm
+        // handleCancel={ handleUpdateTopicToggle }
+        updateTopic={ handleUpdateTopic }
+        topicUpdateData={ selectedUpdateTopic }
+        isUpdate
+      />
+    )
+  }
+
   if (selectedTopic === 'new') {
     return <CreateOrUpdateTopicForm handleCancel={ changeTopicFormStatus } handleSubmit={ handleCreateTopic } />
   }

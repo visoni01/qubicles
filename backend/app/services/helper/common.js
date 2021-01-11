@@ -25,6 +25,8 @@ export const createNewEntity = async ({ model, data }) => {
 }
 
 export const updateEntity = async ({ model, data }) => {
+  console.log('model',model)
+  console.log('data',data)
   return executeUpdateQuery({
     method: 'update',
     model,
