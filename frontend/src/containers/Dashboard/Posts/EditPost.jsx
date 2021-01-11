@@ -1,26 +1,34 @@
 import React, {
   useState, useRef, useCallback, useEffect,
 } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import {
-  Button, Avatar, IconButton,
-  Radio, Popover, TextareaAutosize, Box, RadioGroup, FormControlLabel, Grid,
+  Button, IconButton,
+  Radio, Popover, TextareaAutosize, RadioGroup, FormControlLabel, Grid,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faChevronDown, faImage, faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
-import { createStatusPostStart } from '../../../redux-saga/redux/actions'
-import Loader from '../../../components/loaders/circularLoader'
-import { terry } from '../../../assets/images/avatar'
+import _ from 'lodash'
+import { updatePostStatus } from '../../../redux-saga/redux/actions'
 import { postStatusPermissions } from '../../People/ContactCenter/constants'
+import PostHead from './PostHead'
 
-const CreatePost = ({ initialPostData }) => {
+const EditPost = ({
+  postId, initialPostData, owner, createdAt, handleCancelEdit,
+}) => {
   const [ postText, setPostText ] = useState(initialPostData.postText)
   const [ permission, setPermission ] = useState(initialPostData.permission)
-  const [ fileSrc, setFileSrc ] = useState(initialPostData.fileSrc)
+  const [ fileSrc, setFileSrc ] = useState(initialPostData.postImage)
   const [ anchorEl, setAnchorEl ] = useState(null)
+
+  useEffect(() => {
+    setPostText(initialPostData.postText)
+    setPermission(initialPostData.permission)
+    setFileSrc(initialPostData.postImage)
+  }, [ initialPostData ])
 
   const open = Boolean(anchorEl)
   const id = open ? 'simple-popover' : undefined
@@ -34,18 +42,20 @@ const CreatePost = ({ initialPostData }) => {
 
   const fileInput = useRef()
   const dispatch = useDispatch()
-
-  const post = useCallback(() => {
+  const updatePost = useCallback(() => {
     if (!(postText && postText.trim())) {
       return
     }
     const postData = {
-      activityPermission: permission,
+      userActivityId: postId,
       file: fileInput.current.files && fileInput.current.files[ 0 ],
       text: postText,
+      removeCurrentImage: _.isEmpty(fileSrc),
+      permission,
     }
-    dispatch(createStatusPostStart(postData))
-  }, [ postText, fileInput, permission, dispatch ])
+    dispatch(updatePostStatus(postData))
+    handleCancelEdit()
+  }, [ postText, postId, permission, fileInput, fileSrc, dispatch, handleCancelEdit ])
 
   const setPostTextCB = useCallback((event) => {
     setPostText(event.target.value)
@@ -56,27 +66,14 @@ const CreatePost = ({ initialPostData }) => {
     setAnchorEl(null)
   }, [])
 
-  const { isLoading, success } = useSelector((state) => state.createPost)
   const clear = () => {
-    setPostText('')
-    setPermission('public')
-    fileInput.current.value = ''
-    setFileSrc('')
+    handleCancelEdit()
   }
 
   const handleDelete = () => {
     fileInput.current.value = ''
     setFileSrc('')
   }
-
-  useEffect(() => {
-    if (success) {
-      setPostText('')
-      setPermission('public')
-      fileInput.current.value = ''
-      setFileSrc('')
-    }
-  }, [ success, isLoading ])
 
   const handleFileInputChange = useCallback((event) => {
     event.preventDefault()
@@ -92,13 +89,51 @@ const CreatePost = ({ initialPostData }) => {
   }, [])
 
   return (
-    <Box className='custom-box mb-25'>
+    <>
       <div
-        className='create-post-container display-inline-flex is-fullwidth'
-        style={ { pointerEvents: isLoading ? 'none' : 'auto' } }
+        className='create-post-container text-align-end'
+        style={ { pointerEvents: 'auto' } }
       >
-        <Avatar className='comment-avatar' alt='Remy Sharp' src={ terry } />
-        <div className='create-post'>
+        <Grid container spacing={ 3 } justify='space-between' className='pr-10 pb-10' alignItems='flex-end'>
+          <Grid item xs={ 12 } sm={ 12 } md={ 6 } lg={ 6 } xl={ 6 }>
+            <PostHead
+              owner={ owner }
+              createdAt={ createdAt }
+            />
+          </Grid>
+          <Grid item container justify='flex-end' xs={ 12 } sm={ 12 } md={ 6 } lg={ 6 } xl={ 6 } spacing={ 1 }>
+            <Grid item>
+              <Button
+                classes={ {
+                  root: 'button-primary-small',
+                  label: 'button-primary-small-label pl-5 pr-5',
+                } }
+                endIcon={ <FontAwesomeIcon className='custom-fa-icon white' icon={ faChevronDown } /> }
+                onClick={ handleClick }
+              >
+                {postStatusPermissions[ permission ].label}
+              </Button>
+            </Grid>
+            <Grid item>
+              <form onReset={ clear }>
+                <p className='galley-icon'>
+                  <input
+                    type='file'
+                    className='position-absolute'
+                    id='edit-post-photo-input'
+                    accept='image/*'
+                    ref={ fileInput }
+                    onChange={ handleFileInputChange }
+                  />
+                  <label htmlFor='edit-post-photo-input'>
+                    <FontAwesomeIcon icon={ faImage } className='image-icon' />
+                  </label>
+                </p>
+              </form>
+            </Grid>
+          </Grid>
+        </Grid>
+        <div className='create-post is-fullwidth'>
           <div className='post-content'>
             <TextareaAutosize
               aria-label='minimum height'
@@ -111,23 +146,22 @@ const CreatePost = ({ initialPostData }) => {
             />
 
             {fileSrc && (
-              <div className='post-image-container'>
-                <div className='post-image'>
-                  <div className='image-container'>
-                    <img alt='post' src={ fileSrc } height='300px' />
-                    <IconButton onClick={ handleDelete }>
-                      <FontAwesomeIcon className='custom-fa-icon white pointer' icon={ faTimes } />
-                    </IconButton>
-                  </div>
+            <div className='post-image-container'>
+              <div className='post-image'>
+                <div className='image-container'>
+                  <img alt='post' src={ fileSrc } height='300px' />
+                  <IconButton onClick={ handleDelete }>
+                    <FontAwesomeIcon className='custom-fa-icon white pointer' icon={ faTimes } />
+                  </IconButton>
                 </div>
               </div>
+            </div>
             )}
           </div>
 
           { postText && (
           <div className='postButtons'>
             <Button
-              disabled={ isLoading }
               classes={ {
                 root: 'button-secondary-small-red',
                 label: 'button-secondary-small-red-label',
@@ -136,62 +170,26 @@ const CreatePost = ({ initialPostData }) => {
             >
               Cancel
             </Button>
-            <div>
-              { isLoading && (
-              <Loader
-                className='add-status-loader'
-                displayLoaderManually
-                enableOverlay={ false }
-                size={ 30 }
-              />
-              )}
-            </div>
-            <Grid container spacing={ 3 } justify='flex-end'>
-              <Grid item>
-                <Button
-                  classes={ {
-                    root: 'button-primary-small',
-                    label: 'button-primary-small-label pl-5 pr-5',
-                  } }
-                  endIcon={ <FontAwesomeIcon className='custom-fa-icon white' icon={ faChevronDown } /> }
-                  onClick={ handleClick }
-                >
-                  {postStatusPermissions[ permission ].label}
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button
-                  variant='contained'
-                  disabled={ isLoading }
-                  classes={ {
-                    root: 'button-primary-small',
-                    label: 'button-primary-small-label',
-                  } }
-                  onClick={ post }
-                >
-                  Post
-                </Button>
-              </Grid>
-            </Grid>
+            <Button
+              variant='contained'
+              classes={ {
+                root: 'button-primary-small',
+                label: 'button-primary-small-label',
+              } }
+              disabled={
+                (postText === initialPostData.postText
+                  && fileSrc === initialPostData.postImage
+                  && permission === initialPostData.permission
+                  )
+                }
+              onClick={ updatePost }
+            >
+              Save Post
+            </Button>
+
           </div>
           )}
         </div>
-
-        <form onReset={ clear }>
-          <p className='galley-icon'>
-            <input
-              type='file'
-              className='position-absolute'
-              id='create-post-photo-input'
-              accept='image/*'
-              ref={ fileInput }
-              onChange={ handleFileInputChange }
-            />
-            <label htmlFor='create-post-photo-input'>
-              <FontAwesomeIcon icon={ faImage } className='image-icon' />
-            </label>
-          </p>
-        </form>
         <Popover
           id={ id }
           open={ open }
@@ -236,24 +234,31 @@ const CreatePost = ({ initialPostData }) => {
           </RadioGroup>
         </Popover>
       </div>
-    </Box>
+    </>
   )
 }
 
-CreatePost.defaultProps = {
+EditPost.defaultProps = {
   initialPostData: {
     postText: '',
-    fileSrc: '',
+    postImage: '',
     permission: 'public',
   },
 }
 
-CreatePost.propTypes = {
+EditPost.propTypes = {
+  postId: PropTypes.number.isRequired,
   initialPostData: PropTypes.shape({
     postText: PropTypes.string.isRequired,
-    fileSrc: PropTypes.string.isRequired,
+    postImage: PropTypes.string.isRequired,
     permission: PropTypes.string.isRequired,
   }),
+  owner: PropTypes.shape({
+    fullName: PropTypes.string.isRequired,
+    userId: PropTypes.number.isRequired,
+  }).isRequired,
+  createdAt: PropTypes.string.isRequired,
+  handleCancelEdit: PropTypes.func.isRequired,
 }
 
-export default CreatePost
+export default EditPost

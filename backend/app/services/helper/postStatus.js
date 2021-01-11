@@ -23,11 +23,15 @@ export async function postStatusUpdate ({ user_id, activity_value, activity_cust
   })
 }
 
-export async function updatePostStatus ({ user_id, user_activity_id, activity_value, activity_custom }) {
+export async function updatePostStatus ({
+  user_id, user_activity_id,
+  activity_value, activity_custom, activity_permission
+}) {
   // To update post status activity_value & activity_custom data entry.
   await XUserActivity.update({
     activity_value,
-    activity_custom
+    activity_custom,
+    activity_permission
   }, {
     where: {
       user_id,

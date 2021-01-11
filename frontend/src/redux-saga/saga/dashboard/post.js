@@ -77,11 +77,12 @@ function* postDataFetchingWorker(action) {
       case UPDATE_POST: {
         const formData = new FormData()
         const {
-          file, text, removeCurrentImage, userActivityId,
+          file, text, removeCurrentImage, userActivityId, permission,
         } = action.payload
         formData.append('file', file)
         formData.set('text', text)
         formData.set('remove_image', removeCurrentImage)
+        formData.set('permission', permission)
         const { data } = yield Dashboard.editPost({ data: formData, userActivityId })
         yield put(updatePostData({
           type: action.type,

@@ -21,14 +21,15 @@ const RenderPosts = ({ ownerId }) => {
       </>
     )
   }
-
   return (
     posts.map((post) => (
       <PostWrap
         userActivityId={ post.user_activity_id }
         activityValue={ post.activity_value }
         activityCustom={ post.activity_custom }
+        permission={ post.activity_permission }
         createdAt={ post.createdAt }
+        updatedAt={ post.updatedAt }
         owner={ post.owner }
         userId={ post.user_id }
         isPostLiked={ post.isPostLiked }

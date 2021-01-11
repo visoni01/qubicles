@@ -8,13 +8,16 @@ import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { deletePostStatus } from '../../../redux-saga/redux/actions'
 import ConfirmationModal from '../../../components/CommonModal/ConfirmationModal'
+import EditPostModal from './EditPostModal'
 
 const PostOptions = ({
-  postId,
+  postId, postText, postImage, permission, owner, createdAt,
 }) => {
   const [ openOptions, setOpenOptions ] = useState(false)
   const [ anchorEl, setAnchorEl ] = useState(null)
   const [ openConfirmDeleteModal, setOpenConfirmDelete ] = useState(false)
+  const [ openEditPostModal, setOpenEditPostModal ] = useState(false)
+
   const dispatch = useDispatch()
 
   const handleClose = () => {
@@ -31,6 +34,7 @@ const PostOptions = ({
     setAnchorEl(null)
     setOpenOptions(false)
     setOpenConfirmDelete(false)
+    setOpenEditPostModal(false)
   }, [])
 
   const handleConfirmDeletePost = useCallback(() => {
@@ -66,6 +70,7 @@ const PostOptions = ({
             className='option'
             classes={ { label: 'option-label' } }
             startIcon={ <FontAwesomeIcon icon={ faPen } className='custom-fa-icon dark mr-5' /> }
+            onClick={ () => setOpenEditPostModal(true) }
           >
             <p className='para'> Edit </p>
           </Button>
@@ -87,12 +92,32 @@ const PostOptions = ({
         confirmButtonText='Delete'
         handleConfirm={ handleConfirmDeletePost }
       />
+      {openEditPostModal && (
+      <EditPostModal
+        open={ openEditPostModal }
+        handleClose={ handleCancelActivity }
+        owner={ owner }
+        createdAt={ createdAt }
+        postId={ postId }
+        postText={ postText }
+        postImage={ postImage }
+        permission={ permission }
+      />
+      )}
     </>
   )
 }
 
 PostOptions.propTypes = {
+  owner: PropTypes.shape({
+    fullName: PropTypes.string.isRequired,
+    userId: PropTypes.number.isRequired,
+  }).isRequired,
+  createdAt: PropTypes.string.isRequired,
   postId: PropTypes.number.isRequired,
+  postText: PropTypes.string.isRequired,
+  postImage: PropTypes.string.isRequired,
+  permission: PropTypes.bool.isRequired,
 }
 
 export default PostOptions

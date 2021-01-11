@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import {
   ADD_GROUP_TOPIC,
   UPDATE_TOPIC_STATS,
@@ -19,6 +20,7 @@ import {
   FETCH_COMMENTS_SUCCESS,
   UPDATE_JOB,
   DELETE_JOB,
+  UPDATE_POST,
 } from './constants'
 
 export const getUpdatedGroups = ({ state, payload }) => {
@@ -269,20 +271,20 @@ export const getPostData = ({ state, payload }) => {
       break
     }
 
-    // WIP ACTIONS
-
-    // case UPDATE_POST: {
-    //   const { editedPost } = payload
-    //   posts = state.posts.map((post) => {
-    //     const isPost = (post.user_activity_id === editedPost.user_activity_id)
-    //     return {
-    //       ...post,
-    //       activity_custom: isPost ? editedPost.activity_custom : post.activity_custom,
-    //       activity_value: isPost ? editedPost.activity_value : post.activity_value,
-    //     }
-    //   })
-    //   break
-    // }
+    case UPDATE_POST: {
+      const { editedPost } = payload
+      posts = state.posts.map((post) => {
+        const isPost = (post.user_activity_id === editedPost.user_activity_id)
+        return {
+          ...post,
+          activity_custom: isPost ? editedPost.activity_custom : post.activity_custom,
+          activity_value: isPost ? editedPost.activity_value : post.activity_value,
+          activity_permission: isPost ? editedPost.activity_permission : post.activity_permission,
+          updatedAt: isPost ? Date.now() : post.updatedAt,
+        }
+      })
+      break
+    }
 
     case DELETE_POST_COMMENT: {
       const { postUserActivityId } = payload
