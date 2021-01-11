@@ -2,26 +2,20 @@ import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import {
   Dialog, DialogActions, DialogContent,
-  DialogTitle, TextField, Button,
-  IconButton,
-  InputBase,
+  DialogTitle, Button, IconButton, InputBase, Switch,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faExchangeAlt } from '@fortawesome/free-solid-svg-icons'
 
-const SendQBEToken = ({
+const RemoveFromSavings = ({
   open, onClose, onSubmit,
 }) => {
-  const [ sendQBETokenData, setSendQBETokenData ] = useState({
-    recipientAddress: '',
-    amount: '',
-    memo: '',
-  })
+  const [ savingsAmount, setSavingsAmount ] = useState(0)
 
-  const setSendQBETokenDataCB = useCallback((event) => {
+  const setSavingsAmountCB = useCallback((event) => {
     const { name, value } = event.target
-    setSendQBETokenData((currentQBETokenData) => ({
-      ...currentQBETokenData,
+    setSavingsAmount((amount) => ({
+      ...amount,
       [ name ]: value,
     }))
   }, [ ])
@@ -34,11 +28,11 @@ const SendQBEToken = ({
       fullWidth
       maxWidth='sm'
       className='custom-modal wallet-root'
-
+      classes={ { paper: 'wallet-modals' } }
     >
       <div className='header'>
         <DialogTitle>
-          <h2 className='h2'>Send</h2>
+          <h2 className='h2'>Remove from Savings</h2>
         </DialogTitle>
         <DialogActions className='cross-button'>
           <IconButton
@@ -51,14 +45,15 @@ const SendQBEToken = ({
       </div>
       <DialogContent>
         <div className='display-inline-flex direction-column is-fullwidth'>
-          <h4 className='h4 light text-center'> Max Spendable Amount </h4>
+          <h4 className='h4 light text-center'> Max available balance </h4>
           <h3 className='h3 bold text-center'> 2,631 QBE </h3>
         </div>
-        <h4 className='h4 mt-30'>Recipient Address</h4>
-        <InputBase
-          placeholder='example.qbe'
-          className='search-input mt-10'
-        />
+
+        <p className='para mt-30'>
+          Removed funds will be available after 72 hours. You can skip this waiting period by paying 1% fee based
+          on the amount you want to remove from your savings.
+        </p>
+
         <h4 className='h4 mt-30'>Amount</h4>
         <div className='display-inline-flex justify-between align-items-center is-fullwidth'>
           <InputBase
@@ -66,30 +61,24 @@ const SendQBEToken = ({
             type='number'
             placeholder='QBE'
             className='search-input mt-10'
+            defaultValue={ savingsAmount }
+            onChange={ setSavingsAmountCB }
           />
           <FontAwesomeIcon className='custom-fa-icon light ml-10 mr-10 mt-5' icon={ faExchangeAlt } />
           <InputBase
-            InputProps={ { inputProps: { min: 0, step: 1 } } }
-            type='number'
             placeholder='USD'
             className='search-input mt-10'
+            InputProps={ { inputProps: { min: 0, step: 1 } } }
+            type='number'
           />
         </div>
-        <h4 className='h4 mt-30'>Memo</h4>
-        <TextField
-          margin='dense'
-          id='name'
-          fullWidth
-          rows={ 7 }
-          multiline
-          variant='outlined'
-          placeholder='Max 256 characters'
-          defaultValue={ sendQBETokenData.amount }
-          onChange={ setSendQBETokenDataCB }
-          required
-          name='memo'
-          className='mt-10'
-        />
+        <div className='display-inline-flex justify-between align-items-center is-halfwidth mt-30'>
+          <h4 className='h4'>Instant(1% fee)</h4>
+          <Switch
+            className='switches'
+            color='primary'
+          />
+        </div>
       </DialogContent>
       <DialogActions className='modal-actions'>
         <div className='sendQBEModal-buttons is-fullwidth'>
@@ -99,7 +88,7 @@ const SendQBEToken = ({
             classes={ { root: 'button-primary-small', label: 'button-primary-small-label' } }
             onClick={ onSubmit }
           >
-            Send
+            Remove from Savings
           </Button>
           <Button
             color='secondary'
@@ -114,10 +103,10 @@ const SendQBEToken = ({
   )
 }
 
-SendQBEToken.propTypes = {
+RemoveFromSavings.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
 }
 
-export default SendQBEToken
+export default RemoveFromSavings

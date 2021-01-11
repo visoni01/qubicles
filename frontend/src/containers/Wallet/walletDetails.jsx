@@ -8,9 +8,18 @@ import creditCard from '../../assets/images/creditcard.svg'
 import TransactionDetails from './transactionDetails'
 import { transactionDetails } from './testData'
 import SendQBETokenModal from './sendQBETokenModal'
+import AddToSavingsModal from './addToSavings'
+import RemoveFromSavingsModal from './removeFromSavings'
+import AddFundsModal from './addFunds'
+import WithdrawFundsModal from './withdrawFunds'
 
 const WalletDetails = () => {
-  const [ openSendQBEModal, setOpenSendQBE ] = useState(true)
+  const [ openSendQBEModal, setOpenSendQBE ] = useState(false)
+  const [ openAddToSavingsModal, setOpenAddToSavingsModal ] = useState(false)
+  const [ openRemoveFromSavingsModal, setOpenRemoveFromSavingsModal ] = useState(false)
+  const [ openAddFundsModal, setOpenAddFundsModal ] = useState(false)
+  const [ openWithdrawFundsModal, setOpenWithdrawFundsModal ] = useState(false)
+
   return (
     <>
       <Box className='custom-box wallet-root'>
@@ -31,11 +40,11 @@ const WalletDetails = () => {
         <div>
           <div className='mt-50 wallet-details'>
             <Grid container spacing={ 3 }>
-              <Grid item xl={ 5 } lg={ 5 } md={ 5 } sm={ 6 }>
+              <Grid item xl={ 5 } lg={ 5 } md={ 12 } sm={ 12 } xs={ 12 }>
                 {/* Card Pic */}
                 <img src={ creditCard } alt='creditCard' className='credit-card-pic h4' />
               </Grid>
-              <Grid item xl={ 7 } lg={ 7 } md={ 7 } sm={ 6 }>
+              <Grid item xl={ 7 } lg={ 7 } md={ 12 } sm={ 12 } xs={ 12 }>
                 <div>
                   <p className='para light'> Total </p>
                   <div className='display-inline-flex'>
@@ -48,28 +57,37 @@ const WalletDetails = () => {
                 </div>
                 <div className='mt-20'>
                   <Grid container spacing={ 4 }>
-                    <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 6 }>
+                    <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 12 }>
                       <p className='para light'> Available </p>
                       <h3 className='h3'> 2,631 QBE </h3>
                       <h3 className='h3 light'> $2,631 USD </h3>
-                      <div className='display-inline-flex justify-between is-fullwidth mt-15'>
-                        <Button
-                          classes={ {
-                            root: 'button-primary-small',
-                            label: 'button-primary-small-label',
-                          } }
-                        >
-                          Add Funds
-                        </Button>
-                        <Button
-                          classes={ {
-                            root: 'button-primary-small',
-                            label: 'button-primary-small-label',
-                          } }
-                          onClick={ () => setOpenSendQBE(true) }
-                        >
-                          Send
-                        </Button>
+                      <div className='mt-15'>
+                        <Grid container spacing={ 3 } justify='space-between'>
+                          <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 12 } xs={ 12 }>
+                            <Button
+                              classes={ {
+                                root: 'button-primary-small',
+                                label: 'button-primary-small-label',
+                              } }
+                              className='is-fullwidth'
+                              onClick={ () => setOpenAddFundsModal(true) }
+                            >
+                              Add Funds
+                            </Button>
+                          </Grid>
+                          <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 12 } xs={ 12 }>
+                            <Button
+                              classes={ {
+                                root: 'button-primary-small',
+                                label: 'button-primary-small-label',
+                              } }
+                              className='is-fullwidth'
+                              onClick={ () => setOpenSendQBE(true) }
+                            >
+                              Send
+                            </Button>
+                          </Grid>
+                        </Grid>
                       </div>
                       <div className='mt-15'>
                         <Button
@@ -78,18 +96,19 @@ const WalletDetails = () => {
                             root: 'button-secondary-small',
                             label: 'button-secondary-small-label',
                           } }
+                          onClick={ () => setOpenWithdrawFundsModal(true) }
                         >
                           Withdraw
                         </Button>
                       </div>
                     </Grid>
-                    <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 6 }>
+                    <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 12 }>
                       <p className='para light'> Savings </p>
-                      <div className='display-inline-flex'>
+                      <div className='display-inline-flex mr-10'>
                         <h3 className='h3'> 10,452 QBE </h3>
                         <h3 className='h3 price-green ml-10'> +120 QBE </h3>
                       </div>
-                      <div className='display-inline-flex'>
+                      <div className='display-inline-flex mr-10'>
                         <h3 className='h3 light'> $10,452 USD </h3>
                         <h3 className='h3 light price-green ml-10'> +$120 USD </h3>
                       </div>
@@ -100,6 +119,7 @@ const WalletDetails = () => {
                             root: 'button-primary-small',
                             label: 'button-primary-small-label',
                           } }
+                          onClick={ () => setOpenAddToSavingsModal(true) }
                         >
                           Add to savings
                         </Button>
@@ -111,6 +131,7 @@ const WalletDetails = () => {
                             root: 'button-secondary-small',
                             label: 'button-secondary-small-label',
                           } }
+                          onClick={ () => setOpenRemoveFromSavingsModal(true) }
                         >
                           Remove from Savings
                         </Button>
@@ -182,6 +203,26 @@ const WalletDetails = () => {
         open={ openSendQBEModal }
         onClose={ () => setOpenSendQBE(false) }
         onSubmit={ () => setOpenSendQBE(false) }
+      />
+      <AddToSavingsModal
+        open={ openAddToSavingsModal }
+        onClose={ () => setOpenAddToSavingsModal(false) }
+        onSubmit={ () => setOpenAddToSavingsModal(false) }
+      />
+      <RemoveFromSavingsModal
+        open={ openRemoveFromSavingsModal }
+        onClose={ () => setOpenRemoveFromSavingsModal(false) }
+        onSubmit={ () => setOpenRemoveFromSavingsModal(false) }
+      />
+      <AddFundsModal
+        open={ openAddFundsModal }
+        onClose={ () => setOpenAddFundsModal(false) }
+        onSubmit={ () => setOpenAddFundsModal(false) }
+      />
+      <WithdrawFundsModal
+        open={ openWithdrawFundsModal }
+        onClose={ () => setOpenWithdrawFundsModal(false) }
+        onSubmit={ () => setOpenWithdrawFundsModal(false) }
       />
     </>
   )
