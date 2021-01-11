@@ -11,6 +11,7 @@ const {
     inviteRequestStart,
     inviteRequestSuccessful,
     inviteRequestFailure,
+    resetInviteRequest,
   },
   reducer,
 } = createSlice({
@@ -39,6 +40,12 @@ const {
       success: false,
       result: null,
     }),
+    resetInviteRequest: (state) => ({
+      ...state,
+      loading: null,
+      error: null,
+      success: false,
+    }),
   },
 })
 
@@ -47,4 +54,5 @@ export {
   inviteRequestStart,
   inviteRequestSuccessful,
   inviteRequestFailure,
+  resetInviteRequest,
 }

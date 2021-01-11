@@ -10,7 +10,7 @@ import {
   TwitterIcon, LinkedinIcon, FacebookIcon, TwitterShareButton, FacebookShareButton, LinkedinShareButton,
 } from 'react-share'
 import { useDispatch, useSelector } from 'react-redux'
-import { showSuccessMessage } from '../../redux-saga/redux/actions'
+import { showSuccessMessage, resetInviteRequest } from '../../redux-saga/redux/actions'
 import { inviteRequestStart } from '../../redux-saga/redux/invitePage'
 import invitePopup from '../../assets/images/popup.png'
 
@@ -38,8 +38,8 @@ const InviteModal = ({
     }
     if (success) {
       setManualEmails('')
-      dispatch(showSuccessMessage({ msg: 'Successfully Invited' }))
     }
+    dispatch(resetInviteRequest())
     // eslint-disable-next-line
   }, [ isLoading, dispatch, type ])
 
