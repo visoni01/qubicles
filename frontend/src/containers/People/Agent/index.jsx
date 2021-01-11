@@ -7,11 +7,10 @@ import { useLocation, Link } from 'react-router-dom'
 import ROUTE_PATHS from '../../../routes/routesPath'
 import TrainingFilter from '../ContactCenter/Training/TrainingFilter'
 import TrainingWrap from '../ContactCenter/Training/TrainingWrap'
-import JobsList from '../ContactCenter/Jobs/JobsList'
-import TalentFilter from '../ContactCenter/Talent/TalentFilter'
-import JobsPage from '../ContactCenter/Jobs/JobsPage'
 import TalentPage from '../ContactCenter/Talent/TalentPage'
 import TopTalent from '../ContactCenter/Talent/TopTalent'
+import AgentJobsFilter from './Jobs/AgentJobsFilter'
+import AgentJobsPage from './Jobs/AgentJobsPage'
 
 const AgentContactCenter = () => {
   const location = useLocation()
@@ -33,8 +32,8 @@ const AgentContactCenter = () => {
       <Grid container spacing={ 3 }>
         <Grid item xl={ 3 } lg={ 3 } md={ 4 } sm={ 12 } xs={ 12 }>
           <div>
-            { currentPath === jobsRoute && (<JobsList />)}
-            { currentPath === talentRoute && <TalentFilter />}
+            { currentPath === jobsRoute && (<AgentJobsFilter />)}
+            { currentPath === talentRoute && <AgentJobsFilter />}
             { currentPath === trainingRoute && <TrainingFilter />}
           </div>
         </Grid>
@@ -70,7 +69,7 @@ const AgentContactCenter = () => {
           </Grid>
           <Grid item xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 }>
             <div>
-              { currentPath === jobsRoute && (<JobsPage />)}
+              { currentPath === jobsRoute && (<AgentJobsPage />)}
               { currentPath === talentRoute && <TalentPage />}
               { currentPath === trainingRoute && <TrainingWrap />}
             </div>

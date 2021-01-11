@@ -1,24 +1,24 @@
 import React from 'react'
 import { Avatar } from '@material-ui/core'
-import _ from 'lodash'
 import PropTypes from 'prop-types'
 import { Rating } from '@material-ui/lab'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAward, faMapMarkerAlt, faLanguage } from '@fortawesome/free-solid-svg-icons'
+import {
+  faMapMarkerAlt, faUserFriends, faBriefcase, faSuitcase,
+} from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
-import { terry } from '../../../../assets/images/avatar'
+import { good } from '../../../../assets/images/avatar'
 import { VIEW_RESUME_ROUTE } from '../../../../routes/routesPath'
-import TalentCardSkills from './TalentCardSkills'
 
-const TalentCard = ({
-  candidateId, candidateName, candidatePic, availability,
-  candidateRating, location, languages,
+const AgentJobCard = ({
+  candidateId, candidateName, candidatePic,
+  candidateRating, location,
   ratePerHourDollar, profileName,
-  profileDescription, skills,
+  profileDescription,
 }) => (
-  <div className='list-divider mt-10 mb-20'>
+  <div className='list-divider pb-10'>
     <div className='display-inline-flex talent-head'>
-      <Avatar alt={ candidateName } src={ candidatePic } classes={ { root: 'avatar-lg' } } />
+      <Avatar alt={ candidateName } src={ candidatePic } classes={ { root: 'avatar-md' } } />
       <div className='talent-details'>
         <div className='username'>
           <div className='display-inline-flex'>
@@ -31,27 +31,19 @@ const TalentCard = ({
               value={ candidateRating }
               precision={ 0.1 }
             />
-            <FontAwesomeIcon className='ml-10 custom-fa-icon light sz-lg' icon={ faAward } />
           </div>
           <Link
             to={ `${ VIEW_RESUME_ROUTE }/${ candidateId }` }
             className='primary-text-link  ml-10 mr-10'
           >
-            View Resume
+            View Job Post
           </Link>
         </div>
-        <p className='para light location'>
+        <p className='para light languages'>
           <FontAwesomeIcon icon={ faMapMarkerAlt } className='ml-10 custom-fa-icon light' />
           {location}
-          <span className='ml-20 para italic'>
-            {_.startCase(_.toLower(availability))}
-          </span>
-        </p>
-        <p className='para light languages'>
-          <FontAwesomeIcon icon={ faLanguage } className='ml-10 custom-fa-icon light' />
-          {_.capitalize(languages)}
-          <span className='rate para'>
-            {`${ ratePerHourDollar } $/hr`}
+          <span className='rate para bold mt-5 mr-10'>
+            {`$${ ratePerHourDollar }/hr`}
           </span>
         </p>
       </div>
@@ -64,39 +56,48 @@ const TalentCard = ({
         {`${ profileDescription }`}
       </div>
     </div>
-    <TalentCardSkills
-      userSkills={ skills }
-    />
+    <div className='mb-10 pl-10 pr-10'>
+      <ul className='action-buttons display-inline-flex justify-between'>
+        <li>
+          <FontAwesomeIcon className='custom-fa-icon light' icon={ faUserFriends } />
+          <span className='para bold'>{`${ 3 }/${ 4 }`}</span>
+          <span className='para light ml-5'>Hired</span>
+        </li>
+        <li>
+          <FontAwesomeIcon className='custom-fa-icon light' icon={ faBriefcase } />
+          <span className='para light ml-5'>Part-time</span>
+        </li>
+        <li>
+          <FontAwesomeIcon className='custom-fa-icon light' icon={ faSuitcase } />
+          <span className='para light ml-5'>Open-ended</span>
+        </li>
+      </ul>
+    </div>
   </div>
 )
 
-TalentCard.defaultProps = {
-  candidateName: 'Terry Garret',
-  candidatePic: terry,
-  availability: 'available',
-  candidateRating: 5,
+AgentJobCard.defaultProps = {
+  candidateName: 'Good Call Center',
+  candidatePic: good,
+  candidateRating: 4.5,
   location: 'San Francisco, CA',
-  languages: 'english',
-  ratePerHourDollar: 12.50,
-  profileName: 'Customer Service Expert',
+  ratePerHourDollar: 13,
+  profileName: 'Looking For Expirienced Customer Service Expert',
   profileDescription: `I have over 15 years of experience in telemarketing and lead generation.
   I also have over 5 years of experience in management, quality control and supervision.
-  I do have the ability and update your contact list in real time...`,
-  skills: [],
+  I do have the ability and update your contact list in real time of experience in management, quality
+  control and supervision.I do have the ability and update your contact list in real time `,
 }
 
-TalentCard.propTypes = {
+AgentJobCard.propTypes = {
   candidateId: PropTypes.number.isRequired,
   candidateName: PropTypes.string,
   candidatePic: PropTypes.string,
-  availability: PropTypes.string,
   candidateRating: PropTypes.number,
   location: PropTypes.string,
-  languages: PropTypes.string,
   ratePerHourDollar: PropTypes.number,
   profileName: PropTypes.string,
   profileDescription: PropTypes.string,
-  skills: PropTypes.arrayOf(PropTypes.any),
 }
 
-export default TalentCard
+export default AgentJobCard
