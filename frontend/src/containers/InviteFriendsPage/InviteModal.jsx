@@ -33,15 +33,14 @@ const InviteModal = ({
   }
 
   useEffect(() => {
-    if (type === 'invite-with-google' && !isLoading && success) {
-      window.open(result, '_blank')
-    }
-    if (success) {
-      setManualEmails('')
+    if (!isLoading && success) {
+      if (type === 'invite-with-google') { window.open(result, '_blank') }
+      if (type === 'invite-manual') {
+        setManualEmails('')
+      }
     }
     dispatch(resetInviteRequest())
-    // eslint-disable-next-line
-  }, [ isLoading, dispatch, type ])
+  }, [ isLoading, dispatch, type, success, result ])
 
   const handleManualEmails = () => {
     if (!manualEmails) return
@@ -102,12 +101,11 @@ const InviteModal = ({
                 type='text'
                 name
                 placeholder='Separate emails with commas'
-                className='custom-text-input-field mr-10'
+                className='custom-text-input-field is-fullwidth mr-10'
               />
               <Button
-                variant='contained'
                 classes={ {
-                  root: 'button-primary-small',
+                  root: 'button-primary-small send-button',
                   label: 'button-primary-small-label',
                 } }
                 onClick={ handleManualEmails }
@@ -126,8 +124,10 @@ const InviteModal = ({
                   label: 'button-secondary-large-label',
                 } }
                 onClick={ handleInviteWithGoogle }
+                startIcon={
+                  <FontAwesomeIcon icon={ faEnvelope } className='mr-10' />
+                }
               >
-                <FontAwesomeIcon icon={ faEnvelope } className='mr-15' />
                 Invite Gmail Contacts
               </Button>
             </div>

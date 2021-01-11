@@ -46,8 +46,13 @@
       }
 
       .email-align {
-        input {
-          width: calc(100% - 98px);
+        display: inline-flex;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+
+        .send-button {
+          height: 38px;
         }
       }
 
