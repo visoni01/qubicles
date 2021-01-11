@@ -14,12 +14,14 @@ const PostHead = ({
         <h4 className='h4'>
           {owner.fullName}
         </h4>
-        <p className='para light'>
-          {formatDate(createdAt, 'MMMM DD YYYY, hh:mm a')}
-        </p>
-        <p className='para light sz-sm'>
-          {updatedAt && updatedAt !== createdAt && '(edited)'}
-        </p>
+        <div className='display-inline-flex'>
+          <p className='para light'>
+            {formatDate(createdAt, 'MMMM DD YYYY, hh:mm a')}
+          </p>
+          <p className='para light ml-5'>
+            {updatedAt && updatedAt !== createdAt && '(edited)'}
+          </p>
+        </div>
       </div>
     </div>
   </div>

@@ -1,13 +1,12 @@
 .button-root {
-    width: 15px;
-    height: 15px;
-    padding: 0px !important;
-    display: block;
+  margin-right: 15px !important;
+  opacity: 0.95;
+  display: block;
 
-    .MuiButton-label {
-        color: white;
-        font-weight: bold;
-    }
+  .MuiButton-label {
+      color: white;
+      font-weight: bolder;
+  }
 }
 
 .MuiSnackbarContent-message {

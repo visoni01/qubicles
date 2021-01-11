@@ -1,10 +1,12 @@
 import React, { useCallback } from 'react'
-import Button from '@material-ui/core/Button'
 import Snackbar from '@material-ui/core/Snackbar'
 import { useSelector, useDispatch } from 'react-redux'
 import SnackbarContent from '@material-ui/core/SnackbarContent'
-import { hideMessage } from '../../redux-saga/redux/actions'
 import './style.scss'
+import { IconButton } from '@material-ui/core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { hideMessage } from '../../redux-saga/redux/actions'
 
 // Note: Component for displaying the message on top right corner
 // This component will only be called through the redux action
@@ -29,9 +31,19 @@ const CustomSnackbar = () => {
       open={ open }
     >
       <SnackbarContent
-        style={ { backgroundColor: error ? '#f4443e' : '#4caf50' } }
+        style={ { backgroundColor: error ? '#F14667' : '#4877F4' } }
         message={ msg }
-        action={ <Button size='small' className='button-root' onClick={ hideSnackbar }>x</Button> }
+        classes={ {
+          message: 'font-size-14x',
+        } }
+        action={ (
+          <IconButton
+            className='button-root'
+            onClick={ hideSnackbar }
+          >
+            <FontAwesomeIcon className='custom-fa-icon white pointer sz-sm' icon={ faTimes } />
+          </IconButton>
+        ) }
       />
     </Snackbar>
   )
