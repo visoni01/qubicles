@@ -7,21 +7,21 @@ import { useLocation, Link } from 'react-router-dom'
 import ROUTE_PATHS from '../../../routes/routesPath'
 import TrainingFilter from '../ContactCenter/Training/TrainingFilter'
 import TrainingWrap from '../ContactCenter/Training/TrainingWrap'
-import TalentPage from '../ContactCenter/Talent/TalentPage'
 import TopTalent from '../ContactCenter/Talent/TopTalent'
 import AgentJobsFilter from './Jobs/AgentJobsFilter'
 import AgentJobsPage from './Jobs/AgentJobsPage'
+import ApplicationsPage from './Applications/ApplicationsPage'
 
 const AgentContactCenter = () => {
   const location = useLocation()
   const currentPath = location.pathname
 
   const jobsRoute = ROUTE_PATHS.PEOPLE_JOBS_TAB
-  const talentRoute = ROUTE_PATHS.PEOPLE_TALENT_TAB
+  const applicationRoute = ROUTE_PATHS.PEOPLE_APPLICATIONS_TAB
   const trainingRoute = ROUTE_PATHS.PEOPLE_TRAINING_TAB
 
   const temp = [
-    jobsRoute, talentRoute, trainingRoute,
+    jobsRoute, applicationRoute, trainingRoute,
   ]
 
   const spacingMid = currentPath === trainingRoute ? 9 : 6
@@ -33,7 +33,7 @@ const AgentContactCenter = () => {
         <Grid item xl={ 3 } lg={ 3 } md={ 4 } sm={ 12 } xs={ 12 }>
           <div>
             { currentPath === jobsRoute && (<AgentJobsFilter />)}
-            { currentPath === talentRoute && <AgentJobsFilter />}
+            { currentPath === applicationRoute && <AgentJobsFilter />}
             { currentPath === trainingRoute && <TrainingFilter />}
           </div>
         </Grid>
@@ -55,7 +55,7 @@ const AgentContactCenter = () => {
                   label='Jobs'
                 />
               </Link>
-              <Link to={ talentRoute } className={ currentPath === talentRoute ? 'active-tab' : 'inactive-tab' }>
+              <Link to={ applicationRoute } className={ currentPath === applicationRoute ? 'active-tab' : 'inactive-tab' }>
                 <Tab
                   label='Applications'
                 />
@@ -70,7 +70,7 @@ const AgentContactCenter = () => {
           <Grid item xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 }>
             <div>
               { currentPath === jobsRoute && (<AgentJobsPage />)}
-              { currentPath === talentRoute && <TalentPage />}
+              { currentPath === applicationRoute && <ApplicationsPage />}
               { currentPath === trainingRoute && <TrainingWrap />}
             </div>
           </Grid>

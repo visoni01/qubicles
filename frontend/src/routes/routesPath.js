@@ -32,6 +32,7 @@ const ROUTE_PATHS = {
   VIEW_JOB_APPLICATION: `${ PEOPLE_ROUTE }/job/application`,
   EDIT_JOB: `${ JOB_ROUTE }/:jobId/edit`,
   PEOPLE_TALENT_TAB: `${ PEOPLE_ROUTE }/talent`,
+  PEOPLE_APPLICATIONS_TAB: `${ PEOPLE_ROUTE }/applications`,
   PEOPLE_JOBS_TAB: `${ PEOPLE_ROUTE }/jobs`,
   PEOPLE_TRAINING_TAB: `${ PEOPLE_ROUTE }/training`,
   JOB_PREVIEW: `${ JOB_ROUTE }/preview`,

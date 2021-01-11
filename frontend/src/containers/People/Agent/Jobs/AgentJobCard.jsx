@@ -8,10 +8,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import { good } from '../../../../assets/images/avatar'
-import { VIEW_RESUME_ROUTE } from '../../../../routes/routesPath'
+import ROUTE_PATHS from '../../../../routes/routesPath'
 
 const AgentJobCard = ({
-  candidateId, candidateName, candidatePic,
+  candidateName, candidatePic,
   candidateRating, location,
   ratePerHourDollar, profileName,
   profileDescription,
@@ -33,7 +33,7 @@ const AgentJobCard = ({
             />
           </div>
           <Link
-            to={ `${ VIEW_RESUME_ROUTE }/${ candidateId }` }
+            to={ `${ ROUTE_PATHS.PEOPLE_JOBS_TAB }` }
             className='primary-text-link  ml-10 mr-10'
           >
             View Job Post
@@ -90,7 +90,6 @@ AgentJobCard.defaultProps = {
 }
 
 AgentJobCard.propTypes = {
-  candidateId: PropTypes.number.isRequired,
   candidateName: PropTypes.string,
   candidatePic: PropTypes.string,
   candidateRating: PropTypes.number,

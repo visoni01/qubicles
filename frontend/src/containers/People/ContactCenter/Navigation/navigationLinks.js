@@ -53,7 +53,7 @@ const agentPeopleNavigations = [
     id: 2,
     title: 'Applications',
     description: '',
-    route: ROUTE_PATHS.PEOPLE_TALENT_TAB,
+    route: ROUTE_PATHS.PEOPLE_APPLICATIONS_TAB,
     icon: searchProperty,
   },
   {
