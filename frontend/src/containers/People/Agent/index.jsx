@@ -4,17 +4,16 @@ import {
   Grid, Tabs, Tab,
 } from '@material-ui/core'
 import { useLocation, Link } from 'react-router-dom'
-import JobsList from './Jobs/JobsList'
-import JobsPage from './Jobs/JobsPage'
-import TalentFilter from './Talent/TalentFilter'
-import TalentPage from './Talent/TalentPage'
-import TopTalent from './Talent/TopTalent'
-import TrainingFilter from './Training/TrainingFilter'
-import TrainingWrap from './Training/TrainingWrap'
-import './styles.scss'
 import ROUTE_PATHS from '../../../routes/routesPath'
+import TrainingFilter from '../ContactCenter/Training/TrainingFilter'
+import TrainingWrap from '../ContactCenter/Training/TrainingWrap'
+import JobsList from '../ContactCenter/Jobs/JobsList'
+import TalentFilter from '../ContactCenter/Talent/TalentFilter'
+import JobsPage from '../ContactCenter/Jobs/JobsPage'
+import TalentPage from '../ContactCenter/Talent/TalentPage'
+import TopTalent from '../ContactCenter/Talent/TopTalent'
 
-const PeopleContactCenter = () => {
+const AgentContactCenter = () => {
   const location = useLocation()
   const currentPath = location.pathname
 
@@ -34,9 +33,7 @@ const PeopleContactCenter = () => {
       <Grid container spacing={ 3 }>
         <Grid item xl={ 3 } lg={ 3 } md={ 4 } sm={ 12 } xs={ 12 }>
           <div>
-            { currentPath === jobsRoute && (
-            <JobsList />
-            )}
+            { currentPath === jobsRoute && (<JobsList />)}
             { currentPath === talentRoute && <TalentFilter />}
             { currentPath === trainingRoute && <TrainingFilter />}
           </div>
@@ -61,7 +58,7 @@ const PeopleContactCenter = () => {
               </Link>
               <Link to={ talentRoute } className={ currentPath === talentRoute ? 'active-tab' : 'inactive-tab' }>
                 <Tab
-                  label='Talent'
+                  label='Applications'
                 />
               </Link>
               <Link to={ trainingRoute } className={ currentPath === trainingRoute ? 'active-tab' : 'inactive-tab' }>
@@ -82,7 +79,7 @@ const PeopleContactCenter = () => {
 
         <Grid item xl={ 3 } lg={ 3 } md={ 4 } sm={ 12 } xs={ 12 }>
           {currentPath !== trainingRoute && (
-            <TopTalent heading='Top Talent' />
+            <TopTalent heading='Top Comapnies' />
           )}
         </Grid>
       </Grid>
@@ -90,4 +87,4 @@ const PeopleContactCenter = () => {
   )
 }
 
-export default PeopleContactCenter
+export default AgentContactCenter
