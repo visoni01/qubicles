@@ -26,7 +26,7 @@ const RenderPostComments = ({
               <p className='para light sz-sm'>
                 {formatDate(createdAt, 'MMMM DD YYYY, hh:mm a')}
               </p>
-              <p className='para sz-sm light ml-10'>
+              <p className='para sz-sm light ml-5'>
                 {updatedAt && updatedAt !== createdAt && 'Edited'}
               </p>
             </div>
