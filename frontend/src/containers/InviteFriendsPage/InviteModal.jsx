@@ -41,7 +41,7 @@ const InviteModal = ({
       dispatch(showSuccessMessage({ msg: 'Successfully Invited' }))
     }
     // eslint-disable-next-line
-  }, [ isLoading, dispatch ])
+  }, [ isLoading, dispatch, type ])
 
   const handleManualEmails = () => {
     if (!manualEmails) return
@@ -53,11 +53,13 @@ const InviteModal = ({
 
   return (
     <Dialog
+      disableScrollLock
       scroll='body'
       open={ open }
       onClose={ handleClose }
+      fullWidth
       maxWidth='sm'
-      className='invite-container'
+      className='custom-modal invite-container'
     >
       <div className='is-flex'>
         <DialogActions className='cross-button'>
@@ -104,10 +106,9 @@ const InviteModal = ({
               />
               <Button
                 variant='contained'
-                color='primary'
                 classes={ {
-                  label: 'MuiButton-label button-primary-small-label',
-                  root: 'MuiButtonBase-root button-primary-small is-fullheight',
+                  root: 'button-primary-small',
+                  label: 'button-primary-small-label',
                 } }
                 onClick={ handleManualEmails }
               >
@@ -119,12 +120,11 @@ const InviteModal = ({
             </p>
             <div>
               <Button
-                variant='contained'
+                className='mt-10 mb-30 wide-button'
                 classes={ {
-                  label: 'MuiButton-label button-secondary-large-label',
-                  root: 'MuiButtonBase-root button-secondary-large wide-button',
+                  root: 'button-secondary-large',
+                  label: 'button-secondary-large-label',
                 } }
-                className='mt-10 mb-30'
                 onClick={ handleInviteWithGoogle }
               >
                 <FontAwesomeIcon icon={ faEnvelope } className='mr-15' />
@@ -132,7 +132,7 @@ const InviteModal = ({
               </Button>
             </div>
             <div className='mt-10'>
-              <p className='h4 mt-10 mb-10 text-center'>
+              <p className='mt-10 mb-10 para bold text-center'>
                 Share link via social media
               </p>
               <div className='columns is-flex share-links'>
