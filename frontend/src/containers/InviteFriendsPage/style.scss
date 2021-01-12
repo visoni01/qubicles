@@ -46,13 +46,17 @@
       }
 
       .email-align {
-        input {
-          width: calc(100% - 98px);
+        display: inline-flex;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+
+        .send-button {
+          height: 38px;
         }
       }
 
       .share-links {
-          list-style: none;
           justify-content: center;
           padding-top: 10px;
 
@@ -74,7 +78,7 @@
           .link {
             @extend .share-button;
             background-color: $color-primary;
-            margin-top: 6px;
+            margin: 6px 0 0 10px;
 
             .MuiIconButton-label {
               &:hover {
@@ -98,4 +102,8 @@
       }
     }
   }
+}
+
+.invite-success-box {
+  height: 60vh;
 }

@@ -21,6 +21,7 @@ const ROUTE_PATHS = {
   DASHBOARD: '/dashboard',
   POST_SIGN_UP: '/post-signup',
   INVITE_LINK: '/invite/:walletId',
+  INVITE_CALLBACK: '/invite-gmail/callback',
   AUTH: '/auth',
   GROUP: '/group',
   JOB_POST: `${ JOB_ROUTE }/post/:jobId`,

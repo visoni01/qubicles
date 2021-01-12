@@ -114,10 +114,12 @@ const UserMenu = () => {
         </div>
 
       </Popover>
-      <InviteModal
-        open={ openInviteDialog }
-        handleClose={ toggleInviteDialogOpen }
-      />
+      {openInviteDialog && (
+        <InviteModal
+          open={ openInviteDialog }
+          handleClose={ toggleInviteDialogOpen }
+        />
+      )}
     </>
   )
 }

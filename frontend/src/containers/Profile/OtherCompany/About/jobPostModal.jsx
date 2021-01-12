@@ -28,10 +28,12 @@ const JobPostModal = ({
       onClose={ handleClose }
       fullWidth
       maxWidth='sm'
-      className='custom-modal job-post-root'
+      classes={ { paper: 'job-post-root' } }
+      className='custom-modal '
+      scroll='body'
     >
       <div className='header'>
-        <DialogTitle>
+        <DialogTitle className='jobPost-modal-title'>
           <h2 className='h2'>Job Post</h2>
         </DialogTitle>
         <DialogActions className='cross-button'>

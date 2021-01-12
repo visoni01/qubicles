@@ -116,6 +116,14 @@ const routes = [
     auth: true,
     exact: false,
   },
+  // Invite Gmail Callback
+  {
+    path: ROUTE_PATHS.INVITE_CALLBACK,
+    component: lazy(() => import('../containers/InviteFriendsPage/InviteSuccess')),
+    auth: true,
+    exact: true,
+    propsToPass: { inviteSuccess: true },
+  },
 ]
 
 export default routes

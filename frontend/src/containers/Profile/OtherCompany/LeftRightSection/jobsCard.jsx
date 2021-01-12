@@ -37,7 +37,7 @@ export default function JobsCard({
         >
           View Job Post
         </Button>
-        <Divider className='divider' />
+        <Divider className='divider jobsCard-divider' />
       </div>
       <div>
         <JobPostModal

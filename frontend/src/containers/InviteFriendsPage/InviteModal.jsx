@@ -10,7 +10,7 @@ import {
   TwitterIcon, LinkedinIcon, FacebookIcon, TwitterShareButton, FacebookShareButton, LinkedinShareButton,
 } from 'react-share'
 import { useDispatch, useSelector } from 'react-redux'
-import { showSuccessMessage } from '../../redux-saga/redux/actions'
+import { showSuccessMessage, resetInviteRequest } from '../../redux-saga/redux/actions'
 import { inviteRequestStart } from '../../redux-saga/redux/invitePage'
 import invitePopup from '../../assets/images/popup.png'
 
@@ -33,15 +33,14 @@ const InviteModal = ({
   }
 
   useEffect(() => {
-    if (type === 'invite-with-google' && !isLoading && success) {
-      window.open(result, '_blank')
+    if (!isLoading && success) {
+      if (type === 'invite-with-google') { window.open(result, '_blank') }
+      if (type === 'invite-manual') {
+        setManualEmails('')
+      }
     }
-    if (success) {
-      setManualEmails('')
-      dispatch(showSuccessMessage({ msg: 'Successfully Invited' }))
-    }
-    // eslint-disable-next-line
-  }, [ isLoading, dispatch ])
+    dispatch(resetInviteRequest())
+  }, [ isLoading, dispatch, type, success, result ])
 
   const handleManualEmails = () => {
     if (!manualEmails) return
@@ -53,11 +52,13 @@ const InviteModal = ({
 
   return (
     <Dialog
+      disableScrollLock
       scroll='body'
       open={ open }
       onClose={ handleClose }
+      fullWidth
       maxWidth='sm'
-      className='invite-container'
+      className='custom-modal invite-container'
     >
       <div className='is-flex'>
         <DialogActions className='cross-button'>
@@ -100,14 +101,12 @@ const InviteModal = ({
                 type='text'
                 name
                 placeholder='Separate emails with commas'
-                className='custom-text-input-field mr-10'
+                className='custom-text-input-field is-fullwidth mr-10'
               />
               <Button
-                variant='contained'
-                color='primary'
                 classes={ {
-                  label: 'MuiButton-label button-primary-small-label',
-                  root: 'MuiButtonBase-root button-primary-small is-fullheight',
+                  root: 'button-primary-small send-button',
+                  label: 'button-primary-small-label',
                 } }
                 onClick={ handleManualEmails }
               >
@@ -119,24 +118,24 @@ const InviteModal = ({
             </p>
             <div>
               <Button
-                variant='contained'
+                className='mt-10 mb-30 wide-button'
                 classes={ {
-                  label: 'MuiButton-label button-secondary-large-label',
-                  root: 'MuiButtonBase-root button-secondary-large wide-button',
+                  root: 'button-secondary-large',
+                  label: 'button-secondary-large-label',
                 } }
-                className='mt-10 mb-30'
                 onClick={ handleInviteWithGoogle }
+                startIcon={
+                  <FontAwesomeIcon icon={ faEnvelope } className='mr-10' />
+                }
               >
-                <FontAwesomeIcon icon={ faEnvelope } className='mr-15' />
                 Invite Gmail Contacts
               </Button>
             </div>
-            <div>
-              <p className='h4 mt-10 mb-10 text-center'>
+            <div className='mt-10'>
+              <p className='mt-10 mb-10 para bold text-center'>
                 Share link via social media
               </p>
               <div className='columns is-flex share-links'>
-
                 {/* Facebook Share Button */}
                 <FacebookShareButton
                   url={ inviteLink || 'Invite Link' }

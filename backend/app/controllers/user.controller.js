@@ -46,7 +46,7 @@ export default class UserController {
   static async inviteWithGoogleCallback (req, res) {
     const inviteWithGoogleCbResult = await InviteWithGoogleCallbackService.execute(req.query)
     if (inviteWithGoogleCbResult.successful) {
-      Responder.success(res, inviteWithGoogleCbResult.result)
+      res.redirect(`${config.get('webApp.baseUrl')}/invite-gmail/callback`)
     } else {
       Responder.failed(res, inviteWithGoogleCbResult.errors)
     }
