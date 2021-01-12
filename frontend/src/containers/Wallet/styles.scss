@@ -46,4 +46,30 @@
     width: 500px;
     height: fit-content;
   }
+
+  .payment-method-button {
+    &.button-secondary-large {
+      min-width: 200px;
+      width: 230px;
+      height: 80px;
+      border-radius: 6px;
+
+      &:hover {
+        background-color: white;
+        color: #4877F4;
+      }
+
+      .button-secondary-large-label {
+        &:hover {
+          color: #4877F4;
+        }
+
+        .MuiButton-startIcon {
+          &:hover, &:focus {
+            color: #4877F4;
+          }
+        }
+      }
+    }
+  }
 }
