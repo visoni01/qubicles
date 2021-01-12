@@ -4,7 +4,7 @@ import {
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV, faTrash, faPen } from '@fortawesome/free-solid-svg-icons'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { deleteGroupTopic } from '../../../redux-saga/redux/actions'
 import ConfirmationModal from '../../../components/CommonModal/ConfirmationModal'

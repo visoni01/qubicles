@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import {
   Box, Button,
 } from '@material-ui/core'
@@ -21,12 +21,6 @@ const CreateAndUpdateTopic = ({
   const [ topicData, setTopicData ] = useState(newInitialData)
   const [ isImageUploading, setIsImageUploading ] = useState(false)
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    console.log('topicUpdateData', topicUpdateData)
-    console.log('isUpdate', isUpdate)
-    if (isUpdate) setTopicData(topicUpdateData)
-  }, [ topicUpdateData ])
 
   const handleChange = useCallback((event) => {
     event.persist()
