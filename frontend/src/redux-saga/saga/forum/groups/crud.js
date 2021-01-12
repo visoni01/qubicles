@@ -11,8 +11,6 @@ function* groupCrudWatcher() {
 }
 
 function* groupCrudWorker(action) {
-  console.log('action', action)
-  console.log('action.payload', action.payload)
   try {
     let msg
     switch (action.type) {
