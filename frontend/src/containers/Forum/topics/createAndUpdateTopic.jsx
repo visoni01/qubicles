@@ -15,7 +15,7 @@ const initialData = {
 }
 
 const CreateAndUpdateTopic = ({
-  handleSubmit, handleCancel, isUpdate, topicUpdateData, updateTopic,
+  handleSubmit, updateTopicAndToggle, isUpdate, topicUpdateData, updateTopic,
 }) => {
   const newInitialData = isUpdate ? topicUpdateData : initialData
   const [ topicData, setTopicData ] = useState(newInitialData)
@@ -92,7 +92,7 @@ const CreateAndUpdateTopic = ({
           <Button
             color='secondary'
             className='cancel-button'
-            onClick={ handleCancel }
+            onClick={ updateTopicAndToggle }
           >
             Cancel
           </Button>
@@ -112,14 +112,14 @@ const CreateAndUpdateTopic = ({
 
 CreateAndUpdateTopic.defaultProps = {
   handleSubmit: () => {},
-  handleCancel: () => {},
+  updateTopicAndToggle: () => {},
   updateTopic: () => {},
   topicUpdateData: {},
 }
 
 CreateAndUpdateTopic.propTypes = {
   handleSubmit: PropTypes.func,
-  handleCancel: PropTypes.func,
+  updateTopicAndToggle: PropTypes.func,
   updateTopic: PropTypes.func,
   isUpdate: PropTypes.bool.isRequired,
   topicUpdateData: PropTypes.shape,
