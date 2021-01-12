@@ -315,3 +315,16 @@ export async function deleteStatusPostComment ({ user_activity_id }) {
   )
   return deletedPostComment
 }
+
+export async function updateStatusPostComment ({ user_activity_id, updatedCommentText }) {
+  const updatedPostComment = await XUserActivity.update({ activity_value: updatedCommentText },
+    {
+      where: {
+        user_activity_id,
+        record_type: 'activity',
+        activity_type: 'comment'
+      }
+    }
+  )
+  return updatedPostComment
+}

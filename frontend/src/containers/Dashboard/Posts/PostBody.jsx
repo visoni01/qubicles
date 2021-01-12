@@ -107,6 +107,7 @@ const PostBody = ({
       {showComments && (
         <>
           <PostCommentsWrap
+            postId={ userActivityId }
             loadMoreCommentsCB={ loadMoreCommentsCB }
             userActivityId={ userActivityId }
             comments={ comments }

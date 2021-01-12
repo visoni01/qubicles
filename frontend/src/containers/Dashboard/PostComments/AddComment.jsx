@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {
-  Avatar, Divider, TextareaAutosize, Button,
+  Avatar, TextareaAutosize, Button,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { terry } from '../../../assets/images/avatar'
@@ -25,9 +25,8 @@ const AddComment = ({ postComment, isCommentLoading }) => {
     <>
       {isCommentLoading
       && <PostCommentSkeleton />}
-      <Divider />
       <div
-        className='post-add-new-comment'
+        className='post-add-new-comment pl-5'
       >
         <Avatar className='comment-avatar' alt='Remy Sharp' src={ terry } />
         <div className='create-comment'>
@@ -35,7 +34,7 @@ const AddComment = ({ postComment, isCommentLoading }) => {
             <TextareaAutosize
               aria-label='minimum height'
               autoComplete='off'
-              rowsMin={ 1 }
+              rowsMin={ 2 }
               value={ commentText }
               onChange={ handleCommentChange }
               placeholder='Leave a comment...'
@@ -55,7 +54,6 @@ const AddComment = ({ postComment, isCommentLoading }) => {
             </Button>
 
             <div>
-
               <Button
                 variant='contained'
                 className='button-primary-small post-button'

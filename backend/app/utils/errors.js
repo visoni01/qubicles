@@ -41,6 +41,7 @@ export const MESSAGES = {
   UNLIKE_ERROR_MESSAGE: 'You have already unliked this post!',
   COMMENT_UPDATED_SUCCESSFULLY: 'Topic comment successfully updated',
   POST_COMMENT_DELETED_SUCCESSFULLY: 'Post comment successfully deleted',
+  POST_COMMENT_UPDATED_SUCCESSFULLY: 'Post comment successfully updated',
   PHONE_NUMBER_IS_INVALID: 'Phone number is invalid',
   EMAIL_ALREADY_REGISTERED: 'Email already registered! Please login',
   FORUM_GROUP_NOT_EXIST: 'Forum group does not exist or deleted',

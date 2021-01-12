@@ -287,10 +287,28 @@ export const getPostData = ({ state, payload }) => {
     }
 
     case DELETE_POST_COMMENT: {
-      const { postUserActivityId } = payload
+      const { postId, commentId } = payload.data
       posts = state.posts.map((post) => ({
         ...post,
-        commentsCount: post.user_activity_id === postUserActivityId ? post.commentsCount - 1 : post.commentsCount,
+        commentsCount: post.user_activity_id === postId ? post.commentsCount - 1 : post.commentsCount,
+        comments: post.user_activity_id === postId
+          ? post.comments.filter((comment) => comment.user_activity_id !== commentId) : post.comments,
+      }))
+      break
+    }
+
+    case UPDATE_POST_COMMENT: {
+      const { postId, commentId, updatedComment } = payload.data
+      posts = state.posts.map((post) => ({
+        ...post,
+        comments: post.user_activity_id === postId
+          ? post.comments.map((comment) => {
+            if (comment.user_activity_id === commentId) {
+              return { ...comment, activity_value: updatedComment, updatedAt: Date.now() }
+            }
+            return comment
+          })
+          : post.comments,
       }))
       break
     }
@@ -303,27 +321,11 @@ export const getPostData = ({ state, payload }) => {
 export const updatePostCommentsData = ({ state, payload }) => {
   let commentsData
   switch (payload.type) {
-    case UPDATE_POST_COMMENT: {
-      const { data } = payload
-      commentsData = {
-        count: state.data.count + 1,
-        comments: [ ...state.data.comments, data ],
-      }
-      break
-    }
     case FETCH_COMMENTS_SUCCESS: {
       const { data } = payload
       commentsData = {
         count: data.count,
         comments: [ ...state.data.comments, ...data.comments ],
-      }
-      break
-    }
-    case DELETE_POST_COMMENT: {
-      const { userActivityId } = payload
-      commentsData = {
-        count: state.data.count - 1,
-        comments: state.data.comments.filter((comment) => comment.user_activity_id !== userActivityId),
       }
       break
     }

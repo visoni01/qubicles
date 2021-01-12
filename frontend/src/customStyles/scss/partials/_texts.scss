@@ -47,6 +47,10 @@
   &.fw-md {
     font-weight: 500;
   }
+
+  &.sz-sm {
+    font: normal normal 600 13px/10px $system-font;
+  }
 }
 
 /* Paragraphs

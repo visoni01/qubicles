@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faChevronDown, faImage, faTimes,
+  faChevronDown, faImage, faTimesCircle,
 } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
@@ -85,7 +85,9 @@ const EditPost = ({
         reader.result,
       )
     }
-    reader.readAsDataURL(file)
+    if (event.target.files[ 0 ]) {
+      reader.readAsDataURL(file)
+    }
   }, [])
 
   return (
@@ -151,7 +153,7 @@ const EditPost = ({
                 <div className='image-container'>
                   <img alt='post' src={ fileSrc } height='300px' />
                   <IconButton onClick={ handleDelete }>
-                    <FontAwesomeIcon className='custom-fa-icon white pointer' icon={ faTimes } />
+                    <FontAwesomeIcon className='custom-fa-icon white pointer sz-xl' icon={ faTimesCircle } />
                   </IconButton>
                 </div>
               </div>
