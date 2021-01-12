@@ -10,17 +10,15 @@ const TopTalent = ({ heading }) => (
     <h3 className='h3'>
       {heading}
     </h3>
-    {
-        topTalents.map((talent) => (
-          <TopTalentCard
-            key={ talent.candidateId }
-            candidateName={ talent.candidateName }
-            candidateRating={ talent.candidateRating }
-            candidatePic={ talent.candidatePic }
-            profileName={ talent.profileName }
-          />
-        ))
-      }
+    {topTalents.map((talent) => (
+      <TopTalentCard
+        key={ talent.candidateId }
+        candidateName={ talent.candidateName }
+        candidateRating={ talent.candidateRating }
+        candidatePic={ talent.candidatePic }
+        profileName={ talent.profileName }
+      />
+    ))}
   </Box>
 )
 

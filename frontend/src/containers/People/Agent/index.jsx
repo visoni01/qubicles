@@ -7,10 +7,11 @@ import { useLocation, Link } from 'react-router-dom'
 import ROUTE_PATHS from '../../../routes/routesPath'
 import TrainingFilter from '../ContactCenter/Training/TrainingFilter'
 import TrainingWrap from '../ContactCenter/Training/TrainingWrap'
-import TopTalent from '../ContactCenter/Talent/TopTalent'
 import AgentJobsFilter from './Jobs/AgentJobsFilter'
 import AgentJobsPage from './Jobs/AgentJobsPage'
 import ApplicationsPage from './Applications/ApplicationsPage'
+import ApplicationFilter from './Applications/ApplicationFilter'
+import TopComapnies from './Common/TopComapnies'
 
 const AgentContactCenter = () => {
   const location = useLocation()
@@ -33,7 +34,7 @@ const AgentContactCenter = () => {
         <Grid item xl={ 3 } lg={ 3 } md={ 4 } sm={ 12 } xs={ 12 }>
           <div>
             { currentPath === jobsRoute && (<AgentJobsFilter />)}
-            { currentPath === applicationRoute && <AgentJobsFilter />}
+            { currentPath === applicationRoute && <ApplicationFilter />}
             { currentPath === trainingRoute && <TrainingFilter />}
           </div>
         </Grid>
@@ -78,7 +79,7 @@ const AgentContactCenter = () => {
 
         <Grid item xl={ 3 } lg={ 3 } md={ 4 } sm={ 12 } xs={ 12 }>
           {currentPath !== trainingRoute && (
-            <TopTalent heading='Top Comapnies' />
+            <TopComapnies heading='Top Companies' />
           )}
         </Grid>
       </Grid>
