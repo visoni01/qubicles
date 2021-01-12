@@ -48,7 +48,6 @@ export class ForumUpdateGroupService extends ServiceBase {
         }
       }
     } catch (err) {
-      console.log('EROR==',err)
       logger.error(getErrorMessageForService('ForumUpdateGroupService'), err)
       this.addError(ERRORS.INTERNAL)
     }
