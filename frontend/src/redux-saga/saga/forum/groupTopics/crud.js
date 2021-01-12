@@ -17,6 +17,7 @@ function* groupTopicsCrudWorker(action) {
       case ADD_GROUP_TOPIC: {
         const { title, ownerName } = action.payload
         const { data } = yield Forum.addGroupTopic(action.payload)
+        console.log('data', data)
         // eslint-disable-next-line
         yield put(updateGroupTopicsList({
           type: ADD_GROUP_TOPIC,
@@ -62,6 +63,7 @@ function* groupTopicsCrudWorker(action) {
     }
     yield put(showSuccessMessage({ msg }))
   } catch (e) {
+    console.log('error', e)
     yield put(showErrorMessage({ msg: e.errMsg }))
   }
 }
