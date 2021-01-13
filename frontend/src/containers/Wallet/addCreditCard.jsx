@@ -15,7 +15,7 @@ const AddCreditCard = ({
     open={ open }
     onClose={ onClose }
     fullWidth
-    maxWidth='sm'
+    maxWidth='xs'
     className='custom-modal wallet-root'
     classes={ { paper: 'wallet-modals' } }
   >
@@ -41,7 +41,7 @@ const AddCreditCard = ({
       <InputBase
         InputProps={ { inputProps: { min: 0, step: 1 } } }
         type='number'
-        placeholder='e.g. 100'
+        placeholder='e.g. XXXX XXXX XXXX 1234 '
         className='search-input mt-10'
       />
       <div className='display-inline-flex justify-between align-items-center is-fullwidth'>
@@ -50,7 +50,7 @@ const AddCreditCard = ({
           <InputBase
             InputProps={ { inputProps: { min: 0, step: 1 } } }
             type='number'
-            placeholder='e.g. 100'
+            placeholder='e.g. 01/01/2025'
             className='search-input mt-10'
           />
         </div>

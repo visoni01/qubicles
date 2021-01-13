@@ -34,7 +34,7 @@ const SendQBEToken = ({
       fullWidth
       maxWidth='sm'
       className='custom-modal wallet-root'
-
+      classes={ { paper: 'wallet-modals' } }
     >
       <div className='header'>
         <DialogTitle>

@@ -41,28 +41,21 @@ const AddBankAccount = ({
       <InputBase
         InputProps={ { inputProps: { min: 0, step: 1 } } }
         type='number'
-        placeholder='e.g. 100'
+        placeholder='e.g. 023984284'
         className='search-input mt-10'
       />
       <h4 className='h4 mt-30'>Account Number</h4>
       <InputBase
         InputProps={ { inputProps: { min: 0, step: 1 } } }
         type='number'
-        placeholder='e.g. 100'
+        placeholder='e.g. 63738283127'
         className='search-input mt-10'
       />
       <h4 className='h4 mt-30'>Confirm Account Number</h4>
       <InputBase
         InputProps={ { inputProps: { min: 0, step: 1 } } }
         type='number'
-        placeholder='e.g. 100'
-        className='search-input mt-10'
-      />
-      <h4 className='h4 mt-30'>Choose amount</h4>
-      <InputBase
-        InputProps={ { inputProps: { min: 0, step: 1 } } }
-        type='number'
-        placeholder='e.g. 100'
+        placeholder='e.g. 63738283127'
         className='search-input mt-10'
       />
     </DialogContent>

@@ -14,8 +14,22 @@
   }
 
   .wallet-details {
+    margin: 10px 0 !important;
+    border-bottom: 1px solid $color-border !important;
+
+    &:last-child {
+      border: none !important;
+    }
+
     .credit-card-pic {
       transform: scale(1.35);
+    }
+
+    .shorten-transaction-id {
+      width: 300px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .price-green {
@@ -25,6 +39,17 @@
     .price-red {
       color: $color-red;
     }
+
+    .memo-box {
+      width: 100%;
+      border: 1px solid $color-border;
+      border-radius: 6px;
+
+      .memo-description {
+        padding: 10px;
+      }
+    }
+
 
   }
 
@@ -43,7 +68,7 @@
   }
 
   .wallet-modals {
-    width: 500px;
+    width: fit-content;
     height: fit-content;
   }
 

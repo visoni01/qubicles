@@ -1,33 +1,42 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Divider } from '@material-ui/core'
+import TransactionReceiptModal from './transactionReceipt'
 
 const TransactionDetails = ({
   transaction,
-}) => (
-  <div className='wallet-details'>
-    <div className='display-inline-flex justify-between align-items-center is-fullwidth'>
-      <p className='para bold'>
-        {transaction.date}
-      </p>
-      <p className='para bold'>
-        {transaction.course}
-      </p>
-      <p className='para text-link'>
-        {transaction.transactionId}
-      </p>
-      <div className='display-inline-flex'>
-        <p className={ `para ${ transaction.transactionType === 'credit' ? 'price-green' : 'price-red' }` }>
-          {transaction.QBEtoken}
-        </p>
-        <p className='para light ml-20'>
-          {transaction.price}
-        </p>
+}) => {
+  const [ openTransactionReceiptModal, setOpenTransactionReceiptModal ] = useState(false)
+  return (
+    <>
+      <div className='wallet-details pb-10'>
+        <div className='display-inline-flex justify-between align-items-center is-fullwidth'>
+          <p className='para bold'>
+            {transaction.date}
+          </p>
+          <p className='para bold'>
+            {transaction.course}
+          </p>
+          <p className='para text-link shorten-transaction-id'>
+            {transaction.transactionId}
+          </p>
+          <div className='display-inline-flex'>
+            <p className={ `para ${ transaction.transactionType === 'credit' ? 'price-green' : 'price-red' }` }>
+              {transaction.QBEtoken}
+            </p>
+            <p className='para light ml-20'>
+              {transaction.price}
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
-    <Divider className='divider' />
-  </div>
-)
+      <TransactionReceiptModal
+        open={ openTransactionReceiptModal }
+        onClose={ setOpenTransactionReceiptModal }
+        transaction={ transaction }
+      />
+    </>
+  )
+}
 
 TransactionDetails.propTypes = {
   transaction: PropTypes.shape({

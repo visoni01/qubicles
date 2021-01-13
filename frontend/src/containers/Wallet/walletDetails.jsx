@@ -56,7 +56,7 @@ const WalletDetails = () => {
                   </div>
                 </div>
                 <div className='mt-20'>
-                  <Grid container spacing={ 4 }>
+                  <Grid container spacing={ 4 } alignItems='flex-end'>
                     <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 12 }>
                       <p className='para light'> Available </p>
                       <h3 className='h3'> 2,631 QBE </h3>
@@ -163,7 +163,6 @@ const WalletDetails = () => {
                       className='search-input '
                     />
                   </div>
-
                 </div>
               </Grid>
               <Grid item xl={ 8 } lg={ 8 } md={ 8 } sm={ 6 }>
