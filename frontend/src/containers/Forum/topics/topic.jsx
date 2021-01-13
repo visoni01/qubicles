@@ -92,7 +92,9 @@ const SelectedTopic = ({ backToGroup, topicDetails }) => {
         </div>
       </Box>
 
-      <PostComment topicId={ topicDetails.id } />
+      <PostComment
+        topicId={ topicDetails.id }
+      />
 
       <Comments topicId={ topicDetails.id } commentsCount={ topicDetails.commentsCount } />
     </>

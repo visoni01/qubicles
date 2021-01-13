@@ -8,11 +8,11 @@ import PropTypes from 'prop-types'
 import { carolin } from '../../../assets/images/avatar/index'
 import { topicCommentsFetchingStart, loadMoreComments } from '../../../redux-saga/redux/actions'
 import ListSkeleton from '../skeletons/commentsList'
+import CommentOptions from './commentOptions'
 
 const Comments = ({ topicId, commentsCount }) => {
   const dispatch = useDispatch()
   const { comments, isLoading } = useSelector((state) => state.topicComments)
-
   const noOfCommentsPerReq = 10
 
   const handleMoreComments = () => (
@@ -57,6 +57,13 @@ const Comments = ({ topicId, commentsCount }) => {
                   <p className='para light sz-xs'>
                     {moment(comment.createdAt).format('MMMM DD YY hh:mm a')}
                   </p>
+                </div>
+                <div>
+                  <CommentOptions
+                    topicId={ comment.topicId }
+                    activityId={ comment.id }
+                    ownerId={ comment.ownerId }
+                  />
                 </div>
               </div>
               <p className='para'>

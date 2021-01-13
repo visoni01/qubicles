@@ -97,9 +97,13 @@ const PostComment = ({ topicId }) => {
     </Box>
   )
 }
+PostComment.defaultProps = {
+  isUpdate: false,
+}
 
 PostComment.propTypes = {
   topicId: PropTypes.number.isRequired,
+  isUpdate: PropTypes.bool,
 }
 
 export default PostComment
