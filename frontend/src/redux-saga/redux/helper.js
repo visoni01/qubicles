@@ -12,6 +12,7 @@ import {
   FETCH_COMMENT_FOR_POST,
   SET_IS_COMMENT_LOADING,
   POST_TOPIC_COMMENT,
+  DELETE_TOPIC_COMMENT,
   LOAD_MORE_COMMENTS,
   TOPIC_ACTIVITY,
   CREATE_NEW_POST,
@@ -75,6 +76,16 @@ export const getUpdatedTopicComments = ({ state, payload }) => {
       updatedState = {
         ...state,
         comments: [ payload.newComment, ...state.comments ],
+      }
+      break
+    }
+    case DELETE_TOPIC_COMMENT: {
+      const {
+        activityId,
+      } = payload.data
+      updatedState = {
+        ...state,
+        comments: state.comments.filter((comment) => comment.id !== activityId),
       }
       break
     }
