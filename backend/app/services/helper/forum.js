@@ -221,12 +221,13 @@ export async function getForumTopicComments ({ topic_id, limit, offset }) {
     raw: true
   })
 
-  topicComments = topicComments.map(({ user_activity_id, user_id, activity_value, created_on }) => {
+  topicComments = topicComments.map(({ user_activity_id, user_id, activity_value, created_on,record_id }) => {
     ownerIds.push(user_id)
     return {
       id: user_activity_id,
       comment: activity_value,
       ownerId: user_id,
+      topicId:record_id,
       created_on
     }
   })
@@ -262,6 +263,42 @@ export async function createForumComment ({ topic_id, comment, user_id }) {
   })
 
   return newComment
+}
+
+export async function updateForumComment ({ topic_id, comment, user_id }) {
+  const data = {
+    user_id,
+    record_type: 'topic',
+    record_id: topic_id,
+    activity_type: 'comment',
+    activity_value: comment
+  }
+  const updateComment = await XUserActivity.update(
+    data, {
+    where: {
+      user_id,
+      record_type: 'topic',
+      record_id: topic_id,
+      activity_type: 'comment'
+    }
+  })
+
+
+  return updateComment
+}
+
+export async function deleteForumComment ({ id,topic_id,user_id }) {
+  const deleteComment = await XUserActivity.update({
+    is_deleted: true
+  }, {
+    where: {
+      user_activity_id:id,
+      user_id:user_id,
+      record_id: topic_id,
+    }
+  })
+
+  return deleteComment
 }
 
 export async function topicActivity ({ topic_id, user_id, activity }) {
