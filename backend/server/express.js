@@ -59,10 +59,6 @@ function initMiddleware () {
   app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }))
   app.use(passport.initialize())
   app.use(passport.session())
-  // app.use((req)=>{
-  //   console.log('req++++++++++++++++',req.origin)
-  //   console.log('req++++++++++++++++',req.url)
-  // })
 
   app.get('/', function (req, res) {
     res.render('login')
