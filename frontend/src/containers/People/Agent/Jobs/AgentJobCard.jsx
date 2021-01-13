@@ -11,24 +11,24 @@ import { good } from '../../../../assets/images/avatar'
 import ROUTE_PATHS from '../../../../routes/routesPath'
 
 const AgentJobCard = ({
-  candidateName, candidatePic,
-  candidateRating, location,
-  ratePerHourDollar, profileName,
-  profileDescription,
+  clientName, clientPic,
+  clientRating, location,
+  ratePerHourDollar, jobTitle,
+  jobDescription,
 }) => (
   <div className='list-divider pb-10'>
     <div className='display-inline-flex talent-head'>
-      <Avatar alt={ candidateName } src={ candidatePic } classes={ { root: 'avatar-md' } } />
+      <Avatar alt={ clientName } src={ clientPic } classes={ { root: 'avatar-md' } } />
       <div className='talent-details'>
         <div className='username'>
           <div className='display-inline-flex'>
-            <h4 className='h4'>{candidateName}</h4>
+            <h4 className='h4'>{clientName}</h4>
             <Rating
               className='rating-star'
               name='read-only'
               readOnly
               size='small'
-              value={ candidateRating }
+              value={ clientRating }
               precision={ 0.1 }
             />
           </div>
@@ -50,10 +50,10 @@ const AgentJobCard = ({
     </div>
     <div className='talent-content'>
       <h4 className='mt-10 h4'>
-        {profileName}
+        {jobTitle}
       </h4>
       <div className='mb-10 mt-5 para short-description'>
-        {`${ profileDescription }`}
+        {`${ jobDescription }`}
       </div>
     </div>
     <div className='mb-10 pl-10 pr-10'>
@@ -77,26 +77,26 @@ const AgentJobCard = ({
 )
 
 AgentJobCard.defaultProps = {
-  candidateName: 'Good Call Center',
-  candidatePic: good,
-  candidateRating: 4.5,
+  clientName: 'Good Call Center',
+  clientPic: good,
+  clientRating: 4.5,
   location: 'San Francisco, CA',
   ratePerHourDollar: 13,
-  profileName: 'Looking For Expirienced Customer Service Expert',
-  profileDescription: `I have over 15 years of experience in telemarketing and lead generation.
+  jobTitle: 'Looking For Expirienced Customer Service Expert',
+  jobDescription: `I have over 15 years of experience in telemarketing and lead generation.
   I also have over 5 years of experience in management, quality control and supervision.
   I do have the ability and update your contact list in real time of experience in management, quality
   control and supervision.I do have the ability and update your contact list in real time `,
 }
 
 AgentJobCard.propTypes = {
-  candidateName: PropTypes.string,
-  candidatePic: PropTypes.string,
-  candidateRating: PropTypes.number,
+  clientName: PropTypes.string,
+  clientPic: PropTypes.string,
+  clientRating: PropTypes.number,
   location: PropTypes.string,
   ratePerHourDollar: PropTypes.number,
-  profileName: PropTypes.string,
-  profileDescription: PropTypes.string,
+  jobTitle: PropTypes.string,
+  jobDescription: PropTypes.string,
 }
 
 export default AgentJobCard

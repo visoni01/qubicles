@@ -9,57 +9,50 @@ import _ from 'lodash'
 import { useDispatch, useSelector } from 'react-redux'
 import MultiSelectChipItems from '../../MultiSelectChipItems'
 import {
-  fetchJobSkillsStart, fetchTalentCardsStart, updateTalentFilter, resetTalentFilter,
+  fetchJobSkillsStart, jobCategoriesOnlyFetchStart,
 } from '../../../../redux-saga/redux/actions'
-import { initialState } from '../../../../redux-saga/redux/people/talent/talentFilter'
+import {
+  jobFilterInitialState,
+  resetJobFilter, updateJobFilter,
+} from '../../../../redux-saga/redux/people/job/jobFilter'
 
 const AgentJobsFilter = () => {
   const dispatch = useDispatch()
   const { jobSkills } = useSelector((state) => state.jobSkills)
-  const { talentFilter } = useSelector((state) => state.talentFilter)
+  const { jobCategoriesOnly, success: jobCategoryFetchSuccess } = useSelector((state) => state.jobCategoriesOnly)
+  const { jobFilter } = useSelector((state) => state.jobFilter)
 
-  const [ selectedSkill, setSkill ] = useState(talentFilter.selectedSkill)
-  const [ selectedLanguage, setLanguage ] = useState(talentFilter.selectedLanguage)
-  const [ selectedTalentType, setTalentType ] = useState(talentFilter.selectedTalentType)
-  const [ selectedHourlyRate, setHourlyRate ] = useState(talentFilter.selectedHourlyRate)
-  const [ selectedRating, setRating ] = useState(talentFilter.selectedRating)
-  const [ selectedAvailability, setAvailability ] = useState(talentFilter.selectedAvailability)
-  const [ selectedLocation, setLocation ] = useState(talentFilter.selectedLocation)
+  const [ selectedSkill, setSkill ] = useState(jobFilter.selectedSkill)
+  const [ selectedCategory, setCategory ] = useState(jobFilter.selectedCategory)
+  const [ selectedLanguage, setLanguage ] = useState(jobFilter.selectedLanguage)
+  const [ selectedEmploymentType, setEmploymentType ] = useState(jobFilter.selectedEmploymentType)
+  const [ selectedHourlyRate, setHourlyRate ] = useState(jobFilter.selectedHourlyRate)
+  const [ selectedRating, setRating ] = useState(jobFilter.selectedRating)
+  const [ selectedLocation, setLocation ] = useState(jobFilter.selectedLocation)
 
   useEffect(() => {
     // Update Talent Filter in Store
-    dispatch(updateTalentFilter({
-      talentFilter: {
-        ...talentFilter,
+    dispatch(updateJobFilter({
+      jobFilter: {
+        ...jobFilter,
+        selectedCategory,
         selectedSkill,
         selectedLanguage,
         selectedHourlyRate,
         selectedRating,
-        selectedAvailability,
-        selectedTalentType,
+        selectedEmploymentType,
       },
     }))
-
-    // Apply search on filter change
-    dispatch((fetchTalentCardsStart({
-      requiredSkills: selectedSkill.map((skill) => skill.id),
-      requiredLanguages: selectedLanguage.map((lang) => lang.title),
-      requiredHourlyRate: selectedHourlyRate,
-      requiredRating: selectedRating,
-      requiredAvailability: selectedAvailability,
-      requiredTalentType: selectedTalentType,
-      searchKeyword: talentFilter.searchKeyword,
-    })))
     // To prevent maximum depth warning in dependency array
     // eslint-disable-next-line
   }, [
     dispatch,
+    selectedCategory,
     selectedSkill,
     selectedLanguage,
     selectedHourlyRate,
     selectedRating,
-    selectedAvailability,
-    selectedTalentType,
+    selectedEmploymentType,
   ])
 
   useEffect(() => {
@@ -67,19 +60,23 @@ const AgentJobsFilter = () => {
       // Get Skills in store if not present
       dispatch(fetchJobSkillsStart({}))
     }
-  }, [ dispatch, jobSkills ])
 
-  const { talentFilter: talentFilterInitial } = initialState
+    if (_.isEmpty(jobCategoriesOnly) && !jobCategoryFetchSuccess) {
+      dispatch(jobCategoriesOnlyFetchStart({ searchKeyword: '' }))
+    }
+  }, [ dispatch, jobSkills, jobCategoriesOnly, jobCategoryFetchSuccess ])
+
+  const { jobFilter: jobFilterInitial } = jobFilterInitialState
   const handleResetFilter = useCallback(() => {
-    setSkill(talentFilterInitial.selectedSkill)
-    setLanguage(talentFilterInitial.selectedLanguage)
-    setHourlyRate(talentFilterInitial.selectedHourlyRate)
-    setRating(talentFilterInitial.selectedRating)
-    setAvailability(talentFilterInitial.selectedAvailability)
-    setTalentType(talentFilterInitial.selectedTalentType)
+    setCategory(jobFilterInitial.selectedCategory)
+    setSkill(jobFilterInitial.selectedSkill)
+    setLanguage(jobFilterInitial.selectedLanguage)
+    setHourlyRate(jobFilterInitial.selectedHourlyRate)
+    setRating(jobFilterInitial.selectedRating)
+    setEmploymentType(jobFilterInitial.selectedEmploymentType)
 
-    dispatch(resetTalentFilter())
-  }, [ dispatch, talentFilterInitial ])
+    dispatch(resetJobFilter())
+  }, [ dispatch, jobFilterInitial ])
 
   // Languages
   const availableLanguages = [
@@ -90,18 +87,18 @@ const AgentJobsFilter = () => {
 
   // Talent Type
   const setTalentTypeCB = useCallback((e) => {
-    // setTalentType(e.target.value)
+    // setEmploymentType(e.target.value)
     switch (e.target.value) {
       case 'freelancer': {
-        setTalentType({ employmentType: 'freelancer', name: 'freelancer' })
+        setEmploymentType({ employmentType: 'freelancer', name: 'freelancer' })
         break
       }
       case 'employee': {
-        setTalentType({ employmentType: 'employee', name: 'employee' })
+        setEmploymentType({ employmentType: 'employee', name: 'employee' })
         break
       }
       default: {
-        setTalentType({ employmentType: null, name: 'Any' })
+        setEmploymentType({ employmentType: null, name: 'Any' })
       }
     }
   }, [])
@@ -154,28 +151,6 @@ const AgentJobsFilter = () => {
     }
   }, [])
 
-  // Availability
-  const setAvailabilityCB = useCallback((e) => {
-    // setAvailability(e.target.value)
-    switch (e.target.value) {
-      case 'available': {
-        setAvailability({ status: 'available', name: 'available' })
-        break
-      }
-      case 'unavailable': {
-        setAvailability({ status: 'unavailable', name: 'unavailable' })
-        break
-      }
-      case 'on vacation': {
-        setAvailability({ status: 'on vacation', name: 'on vacation' })
-        break
-      }
-      default: {
-        setAvailability({ status: null, name: 'Any' })
-      }
-    }
-  }, [ setAvailability ])
-
   // Location
   const setLocationCB = useCallback((e) => {
     setLocation(e.target.value)
@@ -209,7 +184,7 @@ const AgentJobsFilter = () => {
           <div className='is-fullwidth display-inline-flex justify-between'>
             <h4 className='h4'> Category </h4>
             <Button
-              onClick={ () => { setSkill(talentFilterInitial.selectedSkill) } }
+              onClick={ () => { setCategory(jobFilterInitial.selectedCategory) } }
               className='align-self-center'
               classes={ {
                 root: 'button-primary-text light',
@@ -220,10 +195,12 @@ const AgentJobsFilter = () => {
             </Button>
           </div>
           <MultiSelectChipItems
-            items={ jobSkills ? jobSkills.map((skill) => ({ id: skill.skillId, title: skill.skillName })) : [] }
+            items={ jobCategoriesOnly
+              ? jobCategoriesOnly.map((category) => ({ id: category.categoryId, title: category.categoryTitle }))
+              : [] }
             label='Choose Category'
-            initialData={ selectedSkill }
-            onChange={ (items) => setSkill(items) }
+            initialData={ selectedCategory }
+            onChange={ (items) => setCategory(items) }
             smallTag
           />
         </div>
@@ -233,7 +210,7 @@ const AgentJobsFilter = () => {
           <div className='is-fullwidth display-inline-flex justify-between'>
             <h4 className='h4'> Skills </h4>
             <Button
-              onClick={ () => { setSkill(talentFilterInitial.selectedSkill) } }
+              onClick={ () => { setSkill(jobFilterInitial.selectedSkill) } }
               className='align-self-center'
               classes={ {
                 root: 'button-primary-text light',
@@ -257,7 +234,7 @@ const AgentJobsFilter = () => {
           <div className='is-fullwidth display-inline-flex justify-between'>
             <h4 className='h4'> Languages </h4>
             <Button
-              onClick={ () => { setLanguage(talentFilterInitial.selectedLanguage) } }
+              onClick={ () => { setLanguage(jobFilterInitial.selectedLanguage) } }
               className='align-self-center'
               classes={ {
                 root: 'button-primary-text light',
@@ -297,7 +274,7 @@ const AgentJobsFilter = () => {
           <div className='is-fullwidth display-inline-flex justify-between'>
             <h4 className='h4'> Employment Type </h4>
             <Button
-              onClick={ () => { setTalentType(talentFilterInitial.selectedTalentType) } }
+              onClick={ () => { setEmploymentType(jobFilterInitial.selectedEmploymentType) } }
               className='align-self-center'
               classes={ {
                 root: 'button-primary-text light',
@@ -309,7 +286,7 @@ const AgentJobsFilter = () => {
           </div>
           <RadioGroup
             className='radio-buttons'
-            value={ selectedTalentType.name }
+            value={ selectedEmploymentType.name }
             onChange={ setTalentTypeCB }
           >
             <FormControlLabel value='Any' control={ <Radio /> } label='Any' />
@@ -324,7 +301,7 @@ const AgentJobsFilter = () => {
           <div className='is-fullwidth display-inline-flex justify-between'>
             <h4 className='h4'> Hourly rate </h4>
             <Button
-              onClick={ () => { setHourlyRate(talentFilterInitial.selectedHourlyRate) } }
+              onClick={ () => { setHourlyRate(jobFilterInitial.selectedHourlyRate) } }
               className='align-self-center'
               classes={ {
                 root: 'button-primary-text light',
@@ -353,7 +330,7 @@ const AgentJobsFilter = () => {
           <div className='is-fullwidth display-inline-flex justify-between'>
             <h4 className='h4'> Employer's Rating </h4>
             <Button
-              onClick={ () => { setRating(talentFilterInitial.selectedRating) } }
+              onClick={ () => { setRating(jobFilterInitial.selectedRating) } }
               className='align-self-center'
               classes={ {
                 root: 'button-primary-text light',
@@ -382,7 +359,6 @@ const AgentJobsFilter = () => {
                   />
                 ) }
               />
-              {/* <FormControlLabel value='five' label='' /> */}
             </div>
             <div className='rating-filter'>
               <FormControlLabel
@@ -418,38 +394,6 @@ const AgentJobsFilter = () => {
           </RadioGroup>
         </div>
       </div>
-
-      <div className='filter-section'>
-        <div className='control-buttons-wrapper'>
-          {/* <h4 className='h4'> Availability </h4> */}
-          <div className='is-fullwidth display-inline-flex justify-between'>
-            <h4 className='h4'> Duration </h4>
-            <Button
-              onClick={ () => { setAvailability(talentFilterInitial.selectedAvailability) } }
-              className='align-self-center'
-              classes={ {
-                root: 'button-primary-text light',
-                label: 'button-primary-text-label underlined dark',
-              } }
-            >
-              Reset
-            </Button>
-          </div>
-          <RadioGroup
-            className='radio-buttons'
-            value={ selectedAvailability.name }
-            onChange={ setAvailabilityCB }
-          >
-            <FormControlLabel value='Any' control={ <Radio /> } label='Any' />
-            <FormControlLabel value='available' control={ <Radio /> } label='On demand' />
-            <FormControlLabel value='unavailable' control={ <Radio /> } label='1-3 months' />
-            <FormControlLabel value='on vacation' control={ <Radio /> } label='3-6 months' />
-            <FormControlLabel value='on vacation' control={ <Radio /> } label='6-12 months' />
-            <FormControlLabel value='on vacation' control={ <Radio /> } label='Open ended' />
-          </RadioGroup>
-        </div>
-      </div>
-
     </Box>
   )
 }

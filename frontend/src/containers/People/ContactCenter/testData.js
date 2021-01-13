@@ -1,5 +1,5 @@
 import {
-  kareem, terry, sally, carolin, helen, thomas, defaultUser, good,
+  kareem, terry, sally, carolin, helen, thomas, defaultUser,
 } from '../../../assets/images/avatar'
 
 const courseCategories = [
@@ -179,49 +179,41 @@ const topCompanies = [
     clientId: 0,
     clientName: 'Lacus',
     clientRating: 5,
-    clientPic: 'https://picsum.photos/200/300',
   },
   {
     clientId: 1,
     clientName: 'Oberlo',
     clientRating: 5,
-    clientPic: 'https://picsum.photos/300/300',
   },
   {
     clientId: 2,
     clientName: 'Wordlab',
     clientRating: 5,
-    clientPic: 'https://picsum.photos/400/300',
   },
   {
     clientId: 3,
     clientName: 'Canon',
     clientRating: 5,
-    clientPic: 'https://picsum.photos/200/400',
   },
   {
     clientId: 4,
     clientName: 'Lacus',
     clientRating: 5,
-    clientPic: 'https://picsum.photos/300/500',
   },
   {
     clientId: 5,
     clientName: 'Getsocio',
     clientRating: 5,
-    clientPic: 'https://picsum.photos/400/600',
   },
   {
     clientId: 6,
     clientName: 'Lacus',
     clientRating: 5,
-    clientPic: 'https://picsum.photos/200/300',
   },
   {
     clientId: 7,
     clientName: 'Good',
     clientRating: 5,
-    clientPic: good,
   },
 ]
 
