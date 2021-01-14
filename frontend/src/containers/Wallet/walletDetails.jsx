@@ -145,27 +145,27 @@ const WalletDetails = () => {
             </Grid>
           </div>
           <div className='mt-50'>
-            <h3 className='h3'> Transaction History </h3>
-            <div className='mt-10 display-inline-flex'>
-              <h4 className='h4 mr-20'> Start Date</h4>
-              <h4 className='h4 ml-60'> End Date</h4>
-            </div>
-            <Grid container spacing={ 4 }>
-              <Grid item xl={ 4 } lg={ 4 } md={ 4 } sm={ 6 }>
-                <div className='mt-10 display-inline-flex'>
+            <h3 className='h3 mb-10'> Transaction History </h3>
+            <Grid container spacing={ 4 } alignItems='flex-end'>
+              <Grid container item xl={ 4 } lg={ 4 } md={ 4 } sm={ 6 } spacing={ 2 }>
+                <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 6 }>
+                  <h4 className='h4'> Start Date</h4>
                   <div className='search-input'>
                     <InputBase
                       placeholder='Start Date'
                       className='input-field'
                     />
                   </div>
-                  <div className='ml-30 search-input'>
+                </Grid>
+                <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 6 }>
+                  <h4 className='h4'> End Date</h4>
+                  <div className='search-input'>
                     <InputBase
                       placeholder='End Date'
                       className='input-field'
                     />
                   </div>
-                </div>
+                </Grid>
               </Grid>
               <Grid item xl={ 8 } lg={ 8 } md={ 8 } sm={ 6 }>
                 <div className='mt-10 display-inline-flex justify-between align-items-center is-fullwidth'>

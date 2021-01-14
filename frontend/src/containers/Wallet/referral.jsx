@@ -1,12 +1,15 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useState } from 'react'
-import { Box, Link } from '@material-ui/core'
+import { Box } from '@material-ui/core'
+import { useHistory } from 'react-router-dom'
 import ROUTE_PATHS from '../../routes/routesPath'
 import InviteModal from '../InviteFriendsPage/InviteModal'
 
 const Referral = () => {
   const [ openInviteModal, setOpenInviteModal ] = useState(false)
+  const history = useHistory()
   return (
     <>
       <Box className='custom-box wallet-root mt-30'>
@@ -32,10 +35,12 @@ const Referral = () => {
             </li>
             <li>
               <p className='para'>
-                {' '}
-                <Link to={ ROUTE_PATHS.CREATE_COURSE }>
-                  <span className='primary-text-link'> Create courses </span>
-                </Link>
+                <span
+                  className='primary-text-link'
+                  onClick={ () => history.push(ROUTE_PATHS.CREATE_COURSE) }
+                >
+                  Create courses
+                </span>
                 {' '}
                 and earn with each enrollment
               </p>

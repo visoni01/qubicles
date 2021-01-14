@@ -21,11 +21,11 @@ const paymentCardData = [
 
 const transactionDetails = [
   {
-    transactionId: 'f4184fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e11',
+    transactionId: '0xcca15825ea98c16bdfa5adfe4c75c605f6356fbc91338530e9831e9e11',
     date: '04 Sep',
     course: 'Sale Course: Managing difficult situation',
-    QBEtoken: '1200 QBE',
-    price: '$1200 USD',
+    QBEtoken: '12 QBE',
+    price: '$12 USD',
     sender: 'jamesdec.qbe',
     recipient: 'marlonwil.qbe',
     transactionType: 'credit',
@@ -36,11 +36,11 @@ const transactionDetails = [
     Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
     Aldus PageMaker including versions of Lorem Ipsum.`,
   }, {
-    transactionId: 'f4184fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e12',
+    transactionId: '0xcca15825ea98c16bdfa5adfe4c75c605f6356fbc91338530e9831e9e12',
     date: '04 Sep',
     course: 'Sale Course: Managing difficult situation',
-    QBEtoken: '10000 QBE',
-    price: '$10000 USD',
+    QBEtoken: '100 QBE',
+    price: '$100 USD',
     sender: 'jamesdec.qbe',
     recipient: 'marlonwil.qbe',
     transactionType: 'debit',
@@ -51,7 +51,7 @@ const transactionDetails = [
     Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
     Aldus PageMaker including versions of Lorem Ipsum.`,
   }, {
-    transactionId: 'f4184fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e13',
+    transactionId: '0xcca15825ea98c16bdfa5adfe4c75c605f6356fbc91338530e9831e9e13',
     date: '04 Sep',
     course: 'Sale Course: Managing difficult situation',
     QBEtoken: '12 QBE',
@@ -66,7 +66,7 @@ const transactionDetails = [
     Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
     Aldus PageMaker including versions of Lorem Ipsum.`,
   }, {
-    transactionId: 'f4184fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e14',
+    transactionId: '0xcca15825ea98c16bdfa5adfe4c75c605f6356fbc91338530e9831e9e14',
     date: '04 Sep',
     course: 'Sale Course: Managing difficult situation',
     QBEtoken: '12 QBE',
@@ -81,7 +81,7 @@ const transactionDetails = [
     Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
     Aldus PageMaker including versions of Lorem Ipsum.`,
   }, {
-    transactionId: 'f4184fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e15',
+    transactionId: '0xcca15825ea98c16bdfa5adfe4c75c605f6356fbc91338530e9831e9e15',
     date: '04 Sep',
     course: 'Sale Course: Managing difficult situation',
     QBEtoken: '12 QBE',
@@ -96,7 +96,7 @@ const transactionDetails = [
     Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
     Aldus PageMaker including versions of Lorem Ipsum.`,
   }, {
-    transactionId: 'f4184fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e16',
+    transactionId: '0xcca15825ea98c16bdfa5adfe4c75c605f6356fbc91338530e9831e9e16',
     date: '04 Sep',
     course: 'Sale Course: Managing difficult situation',
     QBEtoken: '12 QBE',
