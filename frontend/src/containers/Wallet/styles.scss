@@ -20,13 +20,15 @@
     &:last-child {
       border: none !important;
     }
+    .transaction-price {
+      text-align-last: right;
+    }
 
     .credit-card-pic {
       transform: scale(1.35);
     }
 
     .shorten-transaction-id {
-      width: 300px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -97,4 +99,19 @@
       }
     }
   }
+
+  .wallet-settings {
+    width: 550px;
+
+    .wallet-settings-input {
+      width: 12%;
+    }
+  }
+
+  .wallet-active-tabs {
+    .MuiTabs-fixed {
+      margin-top: 0px;
+    }
+  }
+
 }

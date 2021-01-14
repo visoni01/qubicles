@@ -17,7 +17,7 @@ const PaymentCardDetails = () => {
               paymentCard={ paymentCard }
             />
           ))}
-          <div className='text-center mb-10'>
+          <div className='text-center'>
             <Button
               classes={ {
                 root: 'button-primary-text',

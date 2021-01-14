@@ -12,6 +12,7 @@ import AddToSavingsModal from './addToSavings'
 import RemoveFromSavingsModal from './removeFromSavings'
 import AddFundsModal from './addFunds'
 import WithdrawFundsModal from './withdrawFunds'
+import WalletSettingsModal from './settings/index'
 
 const WalletDetails = () => {
   const [ openSendQBEModal, setOpenSendQBE ] = useState(false)
@@ -19,7 +20,7 @@ const WalletDetails = () => {
   const [ openRemoveFromSavingsModal, setOpenRemoveFromSavingsModal ] = useState(false)
   const [ openAddFundsModal, setOpenAddFundsModal ] = useState(false)
   const [ openWithdrawFundsModal, setOpenWithdrawFundsModal ] = useState(false)
-
+  const [ openWalletSettingsModal, setOpenWalletSettingsModal ] = useState(false)
   return (
     <>
       <Box className='custom-box wallet-root'>
@@ -33,6 +34,7 @@ const WalletDetails = () => {
               root: 'button-primary-small',
               label: 'button-primary-small-label',
             } }
+            onClick={ () => setOpenWalletSettingsModal(true) }
           >
             Wallet Settings
           </Button>
@@ -151,16 +153,16 @@ const WalletDetails = () => {
             <Grid container spacing={ 4 }>
               <Grid item xl={ 4 } lg={ 4 } md={ 4 } sm={ 6 }>
                 <div className='mt-10 display-inline-flex'>
-                  <div>
+                  <div className='search-input'>
                     <InputBase
                       placeholder='Start Date'
-                      className='search-input'
+                      className='input-field'
                     />
                   </div>
-                  <div className='ml-30'>
+                  <div className='ml-30 search-input'>
                     <InputBase
                       placeholder='End Date'
-                      className='search-input '
+                      className='input-field'
                     />
                   </div>
                 </div>
@@ -198,31 +200,47 @@ const WalletDetails = () => {
           </div>
         </div>
       </Box>
+      {openSendQBEModal && (
       <SendQBETokenModal
         open={ openSendQBEModal }
         onClose={ () => setOpenSendQBE(false) }
         onSubmit={ () => setOpenSendQBE(false) }
       />
+      )}
+      {openAddToSavingsModal && (
       <AddToSavingsModal
         open={ openAddToSavingsModal }
         onClose={ () => setOpenAddToSavingsModal(false) }
         onSubmit={ () => setOpenAddToSavingsModal(false) }
       />
+      )}
+      {openRemoveFromSavingsModal && (
       <RemoveFromSavingsModal
         open={ openRemoveFromSavingsModal }
         onClose={ () => setOpenRemoveFromSavingsModal(false) }
         onSubmit={ () => setOpenRemoveFromSavingsModal(false) }
       />
+      )}
+      {openAddFundsModal && (
       <AddFundsModal
         open={ openAddFundsModal }
         onClose={ () => setOpenAddFundsModal(false) }
         onSubmit={ () => setOpenAddFundsModal(false) }
       />
+      )}
+      {openWithdrawFundsModal && (
       <WithdrawFundsModal
         open={ openWithdrawFundsModal }
         onClose={ () => setOpenWithdrawFundsModal(false) }
         onSubmit={ () => setOpenWithdrawFundsModal(false) }
       />
+      )}
+      {openWalletSettingsModal && (
+      <WalletSettingsModal
+        open={ openWalletSettingsModal }
+        onClose={ () => setOpenWalletSettingsModal(false) }
+      />
+      )}
     </>
   )
 }
