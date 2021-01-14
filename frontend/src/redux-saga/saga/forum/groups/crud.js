@@ -73,7 +73,7 @@ function* groupCrudWorker(action) {
           groupData,
         } = action.payload
 
-        const { data } = yield Forum.updateGroup(action.payload)
+        yield Forum.updateGroup(action.payload)
         // eslint-disable-next-line
         yield put(updateGroupsList({
           type: UPDATE_GROUP,
