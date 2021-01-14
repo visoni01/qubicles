@@ -154,6 +154,11 @@ TABLE OF CONTENTS
   &.align-items-end {
     align-items: flex-end;
   }
+
+  // direction
+  &.direction-column {
+    flex-direction: column;
+  }
 }
 
 //Block display
@@ -535,8 +540,16 @@ TABLE OF CONTENTS
   width: 100px !important;
 }
 
+.is-width-30-per {
+  width: 30% !important;
+}
+
 .is-halfwidth {
   width: 50% !important;
+}
+
+.is-width-80-per {
+  width: 80% !important;
 }
 
 .is-fullwidth {

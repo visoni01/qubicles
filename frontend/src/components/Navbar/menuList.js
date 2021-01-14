@@ -20,6 +20,7 @@ const menuItems = [
     icon: walletIcon,
     title: 'Wallet',
     id: 3,
+    link: ROUTE_PATHS.WALLET,
   },
   {
     icon: settingIcon,

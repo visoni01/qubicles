@@ -1,0 +1,117 @@
+@import '../../customStyles/scss/partials/variables';
+@import '../../customStyles//scss//partials/mixins';
+
+.wallet-root {
+  .wallet-header {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    .wallet-address {
+      opacity: 0.5;
+    }
+  }
+
+  .wallet-details {
+    margin: 10px 0 !important;
+    border-bottom: 1px solid $color-border !important;
+
+    &:last-child {
+      border: none !important;
+    }
+    .transaction-price {
+      text-align-last: right;
+    }
+
+    .credit-card-pic {
+      transform: scale(1.35);
+    }
+
+    .shorten-transaction-id {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .price-green {
+      color: $color-green;
+    }
+
+    .price-red {
+      color: $color-red;
+    }
+
+    .memo-box {
+      width: 100%;
+      border: 1px solid $color-border;
+      border-radius: 6px;
+
+      .memo-description {
+        padding: 10px;
+      }
+    }
+
+
+  }
+
+  .referral-list {
+    list-style-type: disc;
+    li {
+      margin-bottom: 5px;
+    }
+  }
+
+  .sendQBEModal-buttons {
+    display: inline-flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .wallet-modals {
+    width: fit-content;
+    height: fit-content;
+  }
+
+  .payment-method-button {
+    &.button-secondary-large {
+      min-width: 200px;
+      width: 230px;
+      height: 80px;
+      border-radius: 6px;
+
+      &:hover {
+        background-color: white;
+        color: #4877F4;
+      }
+
+      .button-secondary-large-label {
+        &:hover {
+          color: #4877F4;
+        }
+
+        .MuiButton-startIcon {
+          &:hover, &:focus {
+            color: #4877F4;
+          }
+        }
+      }
+    }
+  }
+
+  .wallet-settings {
+    width: 550px;
+
+    .wallet-settings-input {
+      width: 12%;
+    }
+  }
+
+  .wallet-active-tabs {
+    .MuiTabs-fixed {
+      margin-top: 0px;
+    }
+  }
+
+}

@@ -29,6 +29,7 @@
     @extend .para;
     height: auto;
     width: calc(100% - 36px);
+    padding-left: 10px;
   }
 }
 
@@ -78,6 +79,12 @@
   &.sz-sm {
     font-size: 14px;
   }
+
+  // Medium
+  &.sz-md {
+    font-size: 18px;
+  }
+
 
   // Large
   &.sz-lg {

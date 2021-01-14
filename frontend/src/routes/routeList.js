@@ -124,6 +124,13 @@ const routes = [
     exact: true,
     propsToPass: { inviteSuccess: true },
   },
+  // Wallet
+  {
+    path: [ ROUTE_PATHS.WALLET ],
+    component: lazy(() => import('../containers/Wallet/index')),
+    auth: true,
+    exact: true,
+  },
 ]
 
 export default routes
