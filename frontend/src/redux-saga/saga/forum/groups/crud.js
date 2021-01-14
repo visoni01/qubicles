@@ -91,7 +91,7 @@ function* groupCrudWorker(action) {
           groupId,
         } = action.payload
 
-        const { data } = yield Forum.deleteGroup(action.payload)
+        yield Forum.deleteGroup(action.payload)
         // eslint-disable-next-line
         yield put(updateGroupsList({
           type: DELETE_GROUP,
