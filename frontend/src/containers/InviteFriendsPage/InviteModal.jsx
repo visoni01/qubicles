@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import {
   Dialog, DialogActions, Button, IconButton,
@@ -10,9 +10,11 @@ import {
   TwitterIcon, LinkedinIcon, FacebookIcon, TwitterShareButton, FacebookShareButton, LinkedinShareButton,
 } from 'react-share'
 import { useDispatch, useSelector } from 'react-redux'
+import _ from 'lodash'
 import { showSuccessMessage, resetInviteRequest } from '../../redux-saga/redux/actions'
 import { inviteRequestStart } from '../../redux-saga/redux/invitePage'
 import invitePopup from '../../assets/images/popup.png'
+import InviteManual from './InviteManual'
 
 const InviteModal = ({
   open, handleClose,
@@ -21,7 +23,7 @@ const InviteModal = ({
   const inviteReducerStore = useSelector((state) => state.invitePage)
   const { userDetails } = useSelector((state) => state.login)
   const inviteLink = userDetails && userDetails.inviteLink
-  const [ manualEmails, setManualEmails ] = useState()
+  const [ manualEmails, setManualEmails ] = useState([ ])
 
   const {
     isLoading, success, result, type,
@@ -36,17 +38,16 @@ const InviteModal = ({
     if (!isLoading && success) {
       if (type === 'invite-with-google') { window.open(result, '_blank') }
       if (type === 'invite-manual') {
-        setManualEmails('')
+        setManualEmails([])
+        dispatch(showSuccessMessage({ msg: 'Emails Invited Successfully!' }))
       }
     }
     dispatch(resetInviteRequest())
   }, [ isLoading, dispatch, type, success, result ])
 
-  const handleManualEmails = () => {
-    if (!manualEmails) return
-    const emails = manualEmails.split(',')
-    dispatch(inviteRequestStart({ type: 'invite-manual', body: { emails } }))
-  }
+  const handleManualEmails = useCallback(() => {
+    dispatch(inviteRequestStart({ type: 'invite-manual', body: { emails: manualEmails } }))
+  }, [ manualEmails, dispatch ])
 
   const handleInviteWithGoogle = () => dispatch(inviteRequestStart({ type: 'invite-with-google' }))
 
@@ -93,15 +94,11 @@ const InviteModal = ({
             <p className='h3'>
               Add emails
             </p>
+            {/* Manual Invite */}
             <div className='email-align mt-10'>
-              {/* Manual Invite */}
-              <input
-                value={ manualEmails }
-                onChange={ (event) => setManualEmails(event.target && event.target.value) }
-                type='text'
-                name
-                placeholder='Separate emails with commas'
-                className='custom-text-input-field is-fullwidth mr-10'
+              <InviteManual
+                setManualEmails={ setManualEmails }
+                manualEmails={ manualEmails }
               />
               <Button
                 classes={ {
@@ -109,6 +106,7 @@ const InviteModal = ({
                   label: 'button-primary-small-label',
                 } }
                 onClick={ handleManualEmails }
+                disabled={ _.isEmpty(manualEmails) }
               >
                 Send
               </Button>
