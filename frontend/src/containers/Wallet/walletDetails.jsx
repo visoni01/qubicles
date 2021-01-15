@@ -13,6 +13,7 @@ import RemoveFromSavingsModal from './removeFromSavings'
 import AddFundsModal from './addFunds'
 import WithdrawFundsModal from './withdrawFunds'
 import WalletSettingsModal from './settings/index'
+import OrderPaymentCardModal from './orderPaymentCard'
 
 const WalletDetails = () => {
   const [ openSendQBEModal, setOpenSendQBE ] = useState(false)
@@ -21,6 +22,8 @@ const WalletDetails = () => {
   const [ openAddFundsModal, setOpenAddFundsModal ] = useState(false)
   const [ openWithdrawFundsModal, setOpenWithdrawFundsModal ] = useState(false)
   const [ openWalletSettingsModal, setOpenWalletSettingsModal ] = useState(false)
+  const [ openOrderPaymentCardModal, setOpenOrderPaymentCardModal ] = useState(false)
+
   return (
     <>
       <Box className='custom-box wallet-root'>
@@ -239,6 +242,12 @@ const WalletDetails = () => {
       <WalletSettingsModal
         open={ openWalletSettingsModal }
         onClose={ () => setOpenWalletSettingsModal(false) }
+      />
+      )}
+      {openOrderPaymentCardModal && (
+      <OrderPaymentCardModal
+        open={ openOrderPaymentCardModal }
+        onClose={ () => setOpenOrderPaymentCardModal(false) }
       />
       )}
     </>

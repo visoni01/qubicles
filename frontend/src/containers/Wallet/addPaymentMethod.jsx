@@ -50,7 +50,7 @@ const AddPaymentMethod = ({
           </DialogActions>
         </div>
         <DialogContent>
-          <div className='text-center mb-20'>
+          <div className='text-center mb-30'>
             <Button
               className='payment-method-button'
               classes={ {
@@ -63,7 +63,7 @@ const AddPaymentMethod = ({
               Add Bank Account
             </Button>
           </div>
-          <div className='text-center mb-20'>
+          <div className='text-center mb-30'>
             <Button
               className='payment-method-button'
               classes={ {
