@@ -127,11 +127,21 @@
   display: inline-flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-top: 15px;
+  margin-top: 5px;
   width: 100%;
 
   .profile-head-info {
     display: inline-flex;
+    width: 95%;
+
+    .avatar {
+      margin: 7px 5px 10px 0px;
+    }
+    .comment-box {
+      padding: 10px 20px 5px 10px;
+      border-radius: 12px;
+      background: rgba(72,119,244,0.08);
+    }
   }
 
   &:first-child {

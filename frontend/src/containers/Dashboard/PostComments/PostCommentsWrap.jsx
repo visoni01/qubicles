@@ -30,7 +30,7 @@ const PostCommentsWrap = ({
         )}
       </div>
     )}
-    <div className='mt-20 pl-5'>
+    <div className='mt-15 pl-5'>
       {comments.map((comment) => (
         <RenderPostComments
           postId={ postId }

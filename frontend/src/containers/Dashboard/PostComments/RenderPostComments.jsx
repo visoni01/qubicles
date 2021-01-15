@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Avatar } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
-import { formatDate } from '../../../utils/common'
+import { getTimeFromNow } from '../../../utils/common'
 import { terry } from '../../../assets/images/avatar'
 import CommentOptions from './CommentOptions'
 import EditComment from './EditComment'
@@ -17,22 +17,24 @@ const RenderPostComments = ({
       {!isEditing && (
       <div className='comment-body'>
         <div className='profile-head-info'>
-          <Avatar className='comment-avatar' alt='Remy Sharp' src={ terry } />
+          <Avatar className='avatar' alt='Remy Sharp' src={ terry } />
           <div className='pt-5'>
-            <h4 className='h4 sz-sm'>
-              {ownerName}
-            </h4>
-            <div className='display-inline-flex'>
-              <p className='para light sz-sm'>
-                {formatDate(createdAt, 'MMMM DD YYYY, hh:mm a')}
-              </p>
-              <p className='para sz-sm light ml-5'>
-                {updatedAt && updatedAt !== createdAt && 'Edited'}
+            <div className='comment-box'>
+              <h4 className='h4 sz-sm'>
+                {ownerName}
+              </h4>
+              <p className='para mt-5'>
+                {commentText}
               </p>
             </div>
-            <p className='para mb-10'>
-              {commentText}
-            </p>
+            <div className='display-inline-flex pl-10'>
+              <p className='para light sz-sm'>
+                {getTimeFromNow(createdAt)}
+              </p>
+              <p className='para sz-sm light ml-5'>
+                {updatedAt && updatedAt !== createdAt && '(edited)'}
+              </p>
+            </div>
           </div>
         </div>
         {userDetails.user_id === ownerId && (
