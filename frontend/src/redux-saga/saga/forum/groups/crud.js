@@ -66,42 +66,6 @@ function* groupCrudWorker(action) {
         msg = 'Group Deleted!'
         break
       }
-
-      case UPDATE_GROUP: {
-        const {
-          groupId,
-          groupData,
-        } = action.payload
-
-        yield Forum.updateGroup(action.payload)
-        // eslint-disable-next-line
-        yield put(updateGroupsList({
-          type: UPDATE_GROUP,
-          data: {
-            groupId,
-            updatedGroup: groupData,
-          },
-        }))
-        msg = 'Group has been Updated!'
-        break
-      }
-
-      case DELETE_GROUP: {
-        const {
-          groupId,
-        } = action.payload
-
-        yield Forum.deleteGroup(action.payload)
-        // eslint-disable-next-line
-        yield put(updateGroupsList({
-          type: DELETE_GROUP,
-          data: {
-            groupId,
-          },
-        }))
-        msg = 'Group Deleted!'
-        break
-      }
       default:
         break
     }
