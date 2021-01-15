@@ -1,27 +1,36 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import {
-  Box, IconButton, InputBase, Button,
+  Box, InputBase, Button,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-
-  faEllipsisV, faSearch,
+  faSearch,
 } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
-import { addNewGroupTopic, updateGroupTopicsList } from '../../../redux-saga/redux/actions'
-import NewTopicForm from '../topics/newTopic'
+import {
+  addNewGroupTopic, updateGroupTopicsList, updateExistingGroup, updateExistingTopic,
+} from '../../../redux-saga/redux/actions'
+import CreateOrUpdateTopicForm from '../topics/createAndUpdateTopic'
 import SelectedTopic from '../topics/topic'
 import { UPDATE_TOPIC_STATS } from '../../../redux-saga/redux/constants'
 import TopicsList from '../topics/list'
 import ScrollToTop from '../../../components/ScrollToTop'
+import GroupOptions from './groupOptions'
+import UpdateGroup from './createOrUpdate'
 
 const SelectedGroup = ({ group }) => {
-  const { id, title, description } = group
+  const {
+    id, title, description, ownerId,
+  } = group
   const dispatch = useDispatch()
   const [ selectedTopic, setSelectedTopic ] = useState('')
-  const { topics } = useSelector((state) => state.groupTopics)
+  const [ selectedUpdateTopic, setSelectedUpdateTopic ] = useState(null)
+  const [ openUpdateGroup, setUpdateOpenGroup ] = useState(false)
+  const [ openUpdateTopic, setUpdateOpenTopic ] = useState(false)
+
   const { userDetails } = useSelector((state) => state.login)
+  const { topics } = useSelector((state) => state.groupTopics)
 
   useEffect(() => {
     setSelectedTopic('')
@@ -45,8 +54,49 @@ const SelectedGroup = ({ group }) => {
     }))
   }
 
+  const handleUpdateGroupToggle = useCallback(() => {
+    setUpdateOpenGroup((state) => !state)
+  }, [ setUpdateOpenGroup ])
+
+  const handleUpdateGroup = useCallback((groupData) => {
+    dispatch(updateExistingGroup({ groupData, groupId: id }))
+    handleUpdateGroupToggle()
+  }, [ handleUpdateGroupToggle, id ])
+
+  const updateTopicAndToggle = (childData) => {
+    setSelectedUpdateTopic(childData)
+    setUpdateOpenTopic(!openUpdateTopic)
+  }
+
+  const handleUpdateTopic = (topicData) => {
+    dispatch(updateExistingTopic({ topicData, topicId: topicData.id }))
+    updateTopicAndToggle()
+  }
+
+  if (openUpdateTopic) {
+    return (
+      <CreateOrUpdateTopicForm
+        handleCancel={ updateTopicAndToggle }
+        updateTopic={ handleUpdateTopic }
+        topicUpdateData={ selectedUpdateTopic }
+        isUpdate
+      />
+    )
+  }
+
   if (selectedTopic === 'new') {
-    return <NewTopicForm handleCancel={ changeTopicFormStatus } handleSubmit={ handleCreateTopic } />
+    return <CreateOrUpdateTopicForm handleCancel={ changeTopicFormStatus } handleSubmit={ handleCreateTopic } />
+  }
+
+  if (openUpdateGroup) {
+    return (
+      <UpdateGroup
+        handleCloseModal={ handleUpdateGroupToggle }
+        updateGroup={ handleUpdateGroup }
+        groupUpdateData={ group }
+        isUpdate
+      />
+    )
   }
 
   if (typeof (selectedTopic) === 'number' && selectedTopic !== 'new') {
@@ -67,12 +117,15 @@ const SelectedGroup = ({ group }) => {
       <div>
         <Box className='custom-box padding-20 mb-20'>
           <div className='section-heading display-inline-flex is-fullwidth'>
-            <h3 className='h3'>
+            <h3 className='h3 group-title'>
               {title}
             </h3>
-            <IconButton className='action-button'>
-              <FontAwesomeIcon icon={ faEllipsisV } />
-            </IconButton>
+            {userDetails.user_id === ownerId && (
+              <GroupOptions
+                groupId={ id }
+                handleOpenModal={ handleUpdateGroupToggle }
+              />
+            )}
           </div>
           <p className='para'>
             {description}
@@ -98,7 +151,12 @@ const SelectedGroup = ({ group }) => {
           </Button>
         </div>
       </div>
-      <TopicsList groupId={ id } groupTitle={ title } setSelectedTopic={ selectTopic } />
+      <TopicsList
+        groupId={ id }
+        groupTitle={ title }
+        setSelectedTopic={ selectTopic }
+        updateTopicAndToggle={ updateTopicAndToggle }
+      />
     </>
   )
 }
@@ -114,6 +172,7 @@ SelectedGroup.propTypes = {
   group: {
     title: PropTypes.string,
     description: PropTypes.string,
+    handleOpenModal: PropTypes.func.isRequired,
   },
 }
 

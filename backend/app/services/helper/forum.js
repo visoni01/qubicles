@@ -39,7 +39,9 @@ export async function getAllForumGroups ({ user_id }) {
   groups = groups.map((group) => ({
     id: group.group_id,
     title: group.group_title,
-    description: group.group_description
+    description: group.group_description,
+    permission: group.permission,
+    ownerId: group.owner_id
   }))
 
   return groups
@@ -67,6 +69,12 @@ export async function deleteForumGroup ({ user_id, group_id }) {
     }
   })
 
+  await XUserActivity.update({ is_deleted: true }, {
+    where: {
+      record_id: group_id
+    }
+  })
+
   return deletedGroup
 }
 
@@ -84,15 +92,16 @@ export async function getForumGroupTopics ({ user_id, group_id, limit, offset })
   let ownerIds = Array(0)
   let { rows, count } = await XForumTopic.findAndCountAll({
     where: {
-      owner_id: user_id,
-      group_id
+      // owner_id: user_id,
+      group_id,
+      is_deleted: false
     },
     limit: JSON.parse(limit),
     offset: JSON.parse(offset),
     raw: true
   })
 
-  rows = await Promise.all(rows.map(async ({ owner_id, topic_id, topic_title, topic_description, views, createdAt }) => {
+  rows = await Promise.all(rows.map(async ({ owner_id, topic_id, group_id, topic_title, topic_description, views, createdAt }) => {
     const counts = await XUserActivity.findAll({
       where: {
         record_type: 'topic',
@@ -115,6 +124,7 @@ export async function getForumGroupTopics ({ user_id, group_id, limit, offset })
       title: topic_title,
       description: topic_description,
       ownerId: owner_id,
+      groupId: group_id,
       createdAt,
       views,
       commentsCount: commentsCount || 0,
@@ -132,7 +142,8 @@ export async function getForumGroupTopics ({ user_id, group_id, limit, offset })
     const ownerName = find(ownersNames, (owner) => owner.user_id === ownerId)
     return {
       ...rest,
-      ownerName: ownerName && ownerName.full_name
+      ownerName: ownerName && ownerName.full_name,
+      ownerId: ownerId
     }
   })
 
@@ -150,6 +161,42 @@ export async function createForumTopic ({ topic_title, owner_id, topic_descripti
     }
   })
   return newTopic
+}
+
+export async function updateForumTopic ({ topic_id, topic_title, owner_id, topic_description, group_id }) {
+  const updatedGroup = await updateEntity({
+    model: XForumTopic,
+    data: {
+      topic_id,
+      topic_title,
+      owner_id,
+      group_id,
+      topic_description
+    }
+  })
+
+  return updatedGroup
+}
+
+export async function deleteForumGroupTopic ({ topic_id, group_id, owner_id }) {
+  try {
+    const deletedTopic = await XForumTopic.update({ is_deleted: true }, {
+      where: {
+        group_id,
+        topic_id,
+        owner_id
+      }
+    })
+    await XUserActivity.update({ is_deleted: true }, {
+      where: {
+        record_id: topic_id
+      }
+    })
+
+    return deletedTopic
+  } catch (error) {
+    return error
+  }
 }
 
 export async function getForumTopicComments ({ topic_id, limit, offset }) {

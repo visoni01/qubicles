@@ -21,10 +21,16 @@ import {
   UPDATE_JOB,
   DELETE_JOB,
   UPDATE_POST,
+  UPDATE_GROUP,
+  DELETE_GROUP,
+  DELETE_GROUP_TOPIC,
+  UPDATE_GROUP_TOPIC,
 } from './constants'
 
 export const getUpdatedGroups = ({ state, payload }) => {
-  const { newGroup } = payload.data
+  const {
+    newGroup, groupId, updatedGroup,
+  } = payload.data
   let updatedState
   switch (payload.type) {
     case ADD_GROUP: {
@@ -34,6 +40,28 @@ export const getUpdatedGroups = ({ state, payload }) => {
       }
       break
     }
+
+    case UPDATE_GROUP: {
+      updatedState = {
+        ...state,
+        groups: state.groups.map((group) => {
+          if (group.id === updatedGroup.id) {
+            return updatedGroup
+          }
+          return group
+        }),
+      }
+      break
+    }
+
+    case DELETE_GROUP: {
+      updatedState = {
+        ...state,
+        groups: state.groups.filter((group) => group.id !== groupId),
+      }
+      break
+    }
+
     default:
       break
   }
@@ -74,6 +102,32 @@ export const updateGroupTopics = (state, payload) => {
       }
       break
     }
+
+    case UPDATE_GROUP_TOPIC: {
+      const {
+        topicId, updatedTopic,
+      } = payload.data
+      updatedState = {
+        ...state,
+        topics: state.topics.map((topic) => {
+          if (topic.id === topicId) {
+            return updatedTopic
+          }
+          return topic
+        }),
+      }
+      break
+    }
+
+    case DELETE_GROUP_TOPIC: {
+      updatedState = {
+        ...state,
+        topics: state.topics.filter((topic) => topic.id !== payload.data.topicId),
+        topicsCount: state.topicsCount - 1,
+      }
+      break
+    }
+
     case UPDATE_TOPIC_STATS: {
       updatedState = {
         ...state,

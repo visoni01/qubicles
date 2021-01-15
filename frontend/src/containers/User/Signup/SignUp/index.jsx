@@ -9,17 +9,18 @@ import {
   faUser,
   faLock,
 } from '@fortawesome/free-solid-svg-icons'
-
 import {
   useHistory, useLocation, Link,
 } from 'react-router-dom'
+import { regSplChar } from '../../../../utils/common'
+
 import { userSignupStart } from '../../../../redux-saga/redux/signup'
 import { setIsSocialLogin } from '../../../../redux-saga/redux/actions'
 import './style.scss'
 
 const schema = yup.object().shape({
-  first_name: yup.string().required('*Required'),
-  last_name: yup.string().required('*Required'),
+  first_name: yup.string().required('*Required').matches(regSplChar, 'Special characters not allowed'),
+  last_name: yup.string().required('*Required').matches(regSplChar, 'Special characters not allowed'),
   email: yup.string().email().required('*Required'),
   pass: yup.string().required('*Required'),
 })

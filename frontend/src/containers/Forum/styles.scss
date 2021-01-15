@@ -10,8 +10,8 @@
       margin-right: 10%;
       display: flex;
       color: $color-dark-grey;
+      align-items: center;
         svg {
-          margin-top: 2px;
           margin-right: 6px;
           stroke: $color-dark-grey;
           stroke-width: 60px;
@@ -36,7 +36,11 @@
     display: inline-flex;
     width: 100%;
     justify-content: space-between;
-    padding: 0 16px;
+    padding: 0 8px 0 16px;
+
+    .add-new-group-icon {
+      padding: 16px
+    }
   }
 
   .group-item {
@@ -49,6 +53,12 @@
     background-color: #4877F4;
     color: #FFFFFF;
     font-size: 12px;
+  }
+
+  .groups-list-item {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
 }
 
@@ -215,4 +225,45 @@
       color: $color-red;
     }
   }
+}
+
+// Group Options
+.group-options {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-content: space-around;
+  border-radius: 8px;
+  padding: 5px;
+
+  .option {
+    display: flex;
+    justify-content: flex-start;
+    background-color: $color-white;
+    .option-icon {
+      flex: 1;
+      margin: auto;
+    }
+    .option-name {
+      flex: 2;
+      margin: 5px;
+      font-size: 14px;
+    }
+  }
+  .option-label {
+    margin: 2px 6px;
+  }
+}
+
+.group-title {
+  margin: auto 0;
+  width: calc(100% - 30px);
+}
+
+.topic-action-button {
+  padding: 4px 12px;
+}
+
+.topics-list-action-icon {
+  width: calc(100% - 30px);
 }

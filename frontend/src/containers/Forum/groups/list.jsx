@@ -29,9 +29,9 @@ const Groups = ({ selectedGroup, setSelectedGroup }) => {
 
   return (
     <Box className='group-list-root custom-box'>
-      <div className='group-list-title'>
-        <h3 className='h2 mb-10'>Groups</h3>
-        <IconButton onClick={ newGroupForm }>
+      <div className='group-list-title mb-10'>
+        <h3 className='h2'>Groups</h3>
+        <IconButton onClick={ newGroupForm } className='add-new-group-icon'>
           <FontAwesomeIcon icon={ faPlus } className='custom-fa-icon light pointer sz-lg' />
         </IconButton>
       </div>
@@ -48,7 +48,7 @@ const Groups = ({ selectedGroup, setSelectedGroup }) => {
           >
             <ListItemText
               primary={ title }
-              classes={ { primary: 'h4 light fw-md' } }
+              classes={ { primary: 'h4 light fw-md groups-list-item' } }
             />
             {/** Notification number logic still not clear */}
             <div className='notification-number'>+2</div>

@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Grid } from '@material-ui/core'
 import GroupsList from './groups/list'
-import CreateGroup from './groups/newGroup'
+import CreateGroup from './groups/createOrUpdate'
 import SelectedGroup from './groups/group'
 import TrendingTopics from './trendingTopics'
 import './styles.scss'
@@ -12,6 +12,12 @@ const Groups = () => {
   const dispatch = useDispatch()
   const { groups, isLoading } = useSelector((state) => state.groups)
   const [ selectedGroup, setSelectedGroup ] = useState(0)
+
+  useEffect(() => {
+    if (selectedGroup === groups.length) {
+      setSelectedGroup(0)
+    }
+  }, [ groups ])
 
   const createGroup = (groupData) => {
     dispatch(addNewGroup(groupData))
@@ -24,7 +30,11 @@ const Groups = () => {
     if ((selectedGroup === 'new') || (!isLoading && groups.length === 0)) {
       return <CreateGroup handleSubmit={ createGroup } onCancelClick={ removeNewGroupForm } />
     }
-    return <SelectedGroup group={ groups && groups[ selectedGroup ] } />
+    return (
+      <SelectedGroup
+        group={ groups && groups[ selectedGroup ] }
+      />
+    )
   }
 
   return (

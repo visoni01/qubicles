@@ -42,7 +42,10 @@ const CoursePreview = ({
         <DialogContent>
           <h3 className='h3 mb-10 light'>
             Section 1:
-            <span className='h3'> Values </span>
+            {' '}
+            <span className='h3'>
+              Values
+            </span>
           </h3>
           <div className='post-image'>
             <img alt='post' src='https://picsum.photos/896/504' />

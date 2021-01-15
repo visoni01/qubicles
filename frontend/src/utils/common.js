@@ -10,6 +10,8 @@ import MESSAGES from './messages'
 export const regExpPhone = /^[+](\d{1,4})?\s(\d{10})$/
 export const regExpSSN = /^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$/
 export const regExpZip = /^[0-9]{5}(?:-[0-9]{4})?$/
+export const regSplChar = /^[^!@#$%^&*(),.?":{}|<>]*$/
+// export const regSplChar = /^[^<>'\"/;`%]*$/
 
 export const formatDate = (date, format = 'DD MMM') => moment(date).format(format)
 

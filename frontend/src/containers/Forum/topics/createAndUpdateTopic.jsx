@@ -14,8 +14,11 @@ const initialData = {
   description: '',
 }
 
-const NewTopic = ({ handleSubmit, handleCancel }) => {
-  const [ topicData, setTopicData ] = useState(initialData)
+const CreateAndUpdateTopic = ({
+  handleSubmit, handleCancel, isUpdate, topicUpdateData, updateTopic,
+}) => {
+  const newInitialData = isUpdate ? topicUpdateData : initialData
+  const [ topicData, setTopicData ] = useState(newInitialData)
   const [ isImageUploading, setIsImageUploading ] = useState(false)
   const dispatch = useDispatch()
 
@@ -38,15 +41,20 @@ const NewTopic = ({ handleSubmit, handleCancel }) => {
   }, [ setTopicData ])
 
   const onSubmit = () => {
-    handleSubmit(topicData)
-    setTopicData(initialData)
+    if (isUpdate) {
+      updateTopic(topicData)
+    } else {
+      handleSubmit(topicData)
+      setTopicData(initialData)
+    }
   }
 
   return (
     <Box className='custom-box'>
       <form>
         <h2 className='h2 mb-30'>
-          New Topic
+          {isUpdate ? 'Update Topic' : 'New Topic'}
+
         </h2>
         <div>
           <h3 className='h3'>Title</h3>
@@ -94,7 +102,7 @@ const NewTopic = ({ handleSubmit, handleCancel }) => {
             classes={ { label: 'primary-label' } }
             onClick={ onSubmit }
           >
-            Create
+            {isUpdate ? 'Update' : 'Create'}
           </Button>
         </div>
       </form>
@@ -102,14 +110,20 @@ const NewTopic = ({ handleSubmit, handleCancel }) => {
   )
 }
 
-NewTopic.defaultProps = {
+CreateAndUpdateTopic.defaultProps = {
   handleSubmit: () => {},
   handleCancel: () => {},
+  updateTopic: () => {},
+  topicUpdateData: {},
 }
 
-NewTopic.propTypes = {
+CreateAndUpdateTopic.propTypes = {
   handleSubmit: PropTypes.func,
   handleCancel: PropTypes.func,
+  updateTopic: PropTypes.func,
+  isUpdate: PropTypes.bool.isRequired,
+  topicUpdateData: PropTypes.shape,
+
 }
 
-export default NewTopic
+export default CreateAndUpdateTopic

@@ -1,5 +1,7 @@
 import * as yup from 'yup'
-import { regExpPhone, regExpSSN, regExpZip } from '../../../../../utils/common'
+import {
+  regExpPhone, regExpSSN, regExpZip, regSplChar,
+} from '../../../../../utils/common'
 
 const steps = {
   1: {
@@ -15,7 +17,7 @@ const steps = {
     } ],
     schema: yup.object().shape({
       dob: yup.date().required('*Required'),
-      gender: yup.string().required('*Required'),
+      gender: yup.string().required('*Required').matches(regSplChar, 'Special characters not allowed'),
       ssn: yup.string().required('*Required').matches(regExpSSN, 'SSN is invalid, eg:- 111-11-2001'),
     }),
   },
@@ -30,10 +32,10 @@ const steps = {
     ],
     schema: yup.object().shape({
       street_address: yup.string(),
-      city: yup.string(),
-      state: yup.string(),
+      city: yup.string().matches(regSplChar, 'Special characters not allowed'),
+      state: yup.string().matches(regSplChar, 'Special characters not allowed'),
       zip: yup.string().required('*Required').matches(regExpZip, 'Zipcode is invalid, eg:- 90401'),
-      home_phone: yup.string(),
+      home_phone: yup.string().matches(regSplChar, 'Special characters not allowed'),
       mobile_phone: yup.string().max(15).required('*Required')
         .matches(regExpPhone, 'Phone number is invalid, eg:- 5555555555'),
     }),
@@ -64,8 +66,8 @@ const steps = {
       },
     ],
     schema: yup.object().shape({
-      years_of_experience: yup.string(),
-      highest_education: yup.string(),
+      years_of_experience: yup.string().matches(regSplChar, 'Special characters not allowed'),
+      highest_education: yup.string().matches(regSplChar, 'Special characters not allowed'),
       primary_language: yup.string().required('*Required'),
       other_languages: yup.string().required('*Required'),
     }),

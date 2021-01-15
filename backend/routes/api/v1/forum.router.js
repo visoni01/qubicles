@@ -28,6 +28,12 @@ forumRouter.route('/groups/:group_id/topics')
 forumRouter.route('/groups/:group_id/topics')
   .post(isAuthenticated, forumController.createTopic)
 
+forumRouter.route('/groups/:topic_id/:group_id/topics')
+  .put(isAuthenticated, forumController.updateTopic)
+
+forumRouter.route('/groups/:topic_id/:group_id/:owner_id/topics')
+  .delete(isAuthenticated, forumController.deleteTopic)
+
 forumRouter.route('/topics/:topic_id/comments')
   .get(isAuthenticated, forumController.getTopicComments)
 

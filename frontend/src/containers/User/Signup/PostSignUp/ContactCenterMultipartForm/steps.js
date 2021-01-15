@@ -1,5 +1,5 @@
 import * as yup from 'yup'
-import { regExpPhone, regExpZip } from '../../../../../utils/common'
+import { regExpPhone, regExpZip, regSplChar } from '../../../../../utils/common'
 
 const steps = {
   1: {
@@ -12,10 +12,10 @@ const steps = {
       { label: 'Contact Phone', type: 'text', name: 'phone_number' },
     ],
     schema: yup.object().shape({
-      client_name: yup.string().max(45).required('*Required'),
+      client_name: yup.string().max(45).required('*Required').matches(regSplChar, 'Special characters not allowed'),
       address1: yup.string().max(100).required('*Required'),
-      city: yup.string().max(100),
-      state: yup.string().max(100),
+      city: yup.string().max(100).matches(regSplChar, 'Special characters not allowed'),
+      state: yup.string().max(100).matches(regSplChar, 'Special characters not allowed'),
       zip: yup.string().required('*Required').matches(regExpZip, 'Zipcode is invalid, eg:- 90401'),
       phone_number: yup.string().required('*Required').max(15)
         .matches(regExpPhone, 'Phone number is invalid, eg:- 5555555555'),
@@ -49,7 +49,8 @@ const steps = {
     ],
     schema: yup.object().shape({
       source: yup.string().max(100).required('*Required'),
-      interactions_per_month: yup.string().max(100).required('*Required'),
+      interactions_per_month: yup.string().max(100).required('*Required')
+        .matches(regSplChar, 'Special characters not allowed'),
       website: yup.string().max(100).required('*Required'),
     }),
   },

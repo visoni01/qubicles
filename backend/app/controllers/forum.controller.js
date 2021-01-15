@@ -7,6 +7,8 @@ import {
   ForumGetOneGroupService,
   ForumGetGroupTopicsService,
   ForumCreateTopicService,
+  ForumUpdateTopicService,
+  ForumDeleteTopicService,
   ForumGetTopicCommentsService,
   ForumCreateCommentService,
   ImageUploadService,
@@ -74,6 +76,24 @@ export default class ForumController {
       Responder.success(res, forumCreateGroupResult.result)
     } else {
       Responder.failed(res, forumCreateGroupResult.errors)
+    }
+  }
+
+  static async updateTopic (req, res) {
+    const forumUpdateTopicResult = await ForumUpdateTopicService.execute({ ...req.body, ...req.params })
+    if (forumUpdateTopicResult.successful) {
+      Responder.success(res, forumUpdateTopicResult.result)
+    } else {
+      Responder.failed(res, forumUpdateTopicResult.errors)
+    }
+  }
+
+  static async deleteTopic (req, res) {
+    const forumDeleteGroupResult = await ForumDeleteTopicService.execute({ ...req.body, ...req.params })
+    if (forumDeleteGroupResult.successful) {
+      Responder.success(res, [])
+    } else {
+      Responder.failed(res, forumDeleteGroupResult.errors)
     }
   }
 

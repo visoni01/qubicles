@@ -67,8 +67,8 @@ const ContactCenter = () => {
                   </div>
                   <div className='box-title'>Instant access to talent</div>
                   <p className='box-content is-tablet-padded'>
-                    Using our global network of contact center professionals gives you access to a massive pool of proven
-                    and vetted talent 24x7x365.
+                    Using our global network of contact center professionals gives you access to a massive pool of
+                    proven and vetted talent 24x7x365.
                   </p>
                 </div>
                 {/* Icon block */}
@@ -146,9 +146,9 @@ const ContactCenter = () => {
                   A new standard
                 </h2>
                 <span className='section-feature-description'>
-                  As previous users of contact center software, we have seen them all. That's why we embarked on a journey
-                  to create a new standard for contact center software. Something powerful, yet simple for the average
-                  user.
+                  As previous users of contact center software, we have seen them all. That's why we embarked on a
+                  journey to create a new standard for contact center software. Something powerful, yet simple for the
+                  average user.
                 </span>
                 <br />
                 <br />

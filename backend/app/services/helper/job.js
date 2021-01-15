@@ -368,7 +368,7 @@ export async function getAllJobs ({ client_id, category_id, search_keyword, stat
   let additionalParams = {}
 
   if (!_.isEmpty(search_keyword)) {
-    query = { ...query, title: { [Op.startsWith]: search_keyword } }
+    query = { ...query, title: { [Op.substring]: search_keyword } }
   }
 
   if (!_.isEmpty(category_id)) {

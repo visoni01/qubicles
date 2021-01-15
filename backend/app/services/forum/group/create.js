@@ -38,7 +38,9 @@ export class ForumCreateGroupService extends ServiceBase {
         newGroup: {
           id: newForumGroup.group_id,
           title: newForumGroup.group_title,
-          description: newForumGroup.group_description
+          description: newForumGroup.group_description,
+          permission: newForumGroup.permission,
+          ownerId: newForumGroup.owner_id
         }
       }
     } catch (err) {

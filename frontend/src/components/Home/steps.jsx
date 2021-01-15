@@ -15,7 +15,7 @@ import {
   globalNetworkImage, qbeTeam, userSnapshot, projectUi, ipads, lifeSaver, wallet, building, chatUser,
 } from '../../assets/images/landingPage'
 
-const Steps = ({ history }) => {
+const Steps = () => {
   const { userDetails } = useSelector((state) => state.login)
   const isLoggedin = Boolean(userDetails && userDetails.user_id)
 
@@ -458,7 +458,8 @@ const Steps = ({ history }) => {
               {/* Card */}
               <div className='column is-one-third'>
                 <div
-                  className='feature-card card-md is-startup light-bordered hover-inset has-text-centered is-card-reveal'
+                  className='feature-card card-md is-startup light-bordered hover-inset has-text-centered
+                    is-card-reveal'
                 >
                   {/* Card icon */}
                   <div className='card-icon'>
@@ -487,7 +488,8 @@ const Steps = ({ history }) => {
               {/* Card */}
               <div className='column'>
                 <div
-                  className='feature-card card-md is-startup light-bordered hover-inset has-text-centered is-card-reveal'
+                  className='feature-card card-md is-startup light-bordered hover-inset has-text-centered
+                    is-card-reveal'
                 >
                   {/* Card icon */}
                   <div className='card-icon'>
@@ -508,7 +510,8 @@ const Steps = ({ history }) => {
               {/* Card */}
               <div className='column'>
                 <div
-                  className='feature-card card-md is-startup light-bordered hover-inset has-text-centered is-card-reveal'
+                  className='feature-card card-md is-startup light-bordered hover-inset has-text-centered
+                    is-card-reveal'
                 >
                   {/* Card icon */}
                   <div className='card-icon'>

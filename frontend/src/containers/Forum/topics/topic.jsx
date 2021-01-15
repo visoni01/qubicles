@@ -9,12 +9,22 @@ import {
 } from '@material-ui/core'
 import moment from 'moment'
 import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
 import { carolin } from '../../../assets/images/avatar/index'
 import PostComment from '../comments/postComment'
 import Comments from '../comments/list'
+import { topicActivity } from '../../../redux-saga/redux/actions'
 
-const SelectedTopic = ({ backToGroup, topicDetails, groupTitle }) => {
+const SelectedTopic = ({ backToGroup, topicDetails }) => {
   const backButton = useCallback(() => backToGroup(''), [ backToGroup ])
+  const dispatch = useDispatch()
+
+  const handleLikeButton = useCallback(() => {
+    dispatch(topicActivity({
+      topicId: topicDetails.id,
+      activity: topicDetails.isTopicLiked ? 'unlike' : 'like',
+    }))
+  }, [ dispatch, topicDetails.id, topicDetails.isTopicLiked ])
 
   return (
     <>
@@ -28,7 +38,7 @@ const SelectedTopic = ({ backToGroup, topicDetails, groupTitle }) => {
             onClick={ backButton }
           >
             <FontAwesomeIcon icon={ faChevronLeft } className='mr-10' />
-            {groupTitle}
+            back to group
           </Button>
         </div>
         <div className='display-inline-flex is-fullwidth topic-owner'>
@@ -45,27 +55,38 @@ const SelectedTopic = ({ backToGroup, topicDetails, groupTitle }) => {
         </h3>
         <p className='para' dangerouslySetInnerHTML={ { __html: topicDetails.description } } />
         <div className='section-stats mt-20'>
-          <ul className='display-inline-flex is-fullwidth'>
+          <ul className='display-inline-flex mb-15'>
             <li className='para'>
-              <FontAwesomeIcon
-                icon={ faHeart }
-                className={ topicDetails.isTopicLiked ? 'liked-icon' : '' }
-              />
-              {topicDetails.likesCount}
-              {' '}
-              Likes
+              <Button
+                disableRipple
+                classes={ { label: 'para light' } }
+                onClick={ handleLikeButton }
+              >
+                <FontAwesomeIcon
+                  icon={ faHeart }
+                  className={ topicDetails.isTopicLiked ? 'liked-icon' : '' }
+                />
+                {topicDetails && topicDetails.likesCount}
+                {' '}
+                {topicDetails && topicDetails.likesCount <= 1 ? 'Like' : 'Likes'}
+              </Button>
             </li>
             <li className='para'>
               <FontAwesomeIcon icon={ faComment } />
-              {topicDetails.commentsCount}
+              {topicDetails && topicDetails.commentsCount}
               {' '}
-              Comments
+              {topicDetails && topicDetails.commentsCount <= 1 ? 'Comment' : 'Comments'}
             </li>
             <li className='para'>
-              <FontAwesomeIcon icon={ faEye } />
-              {topicDetails.views}
-              {' '}
-              Views
+              <Button
+                disabled
+                classes={ { label: 'para light' } }
+              >
+                <FontAwesomeIcon icon={ faEye } />
+                {topicDetails.views}
+                {' '}
+                Views
+              </Button>
             </li>
           </ul>
         </div>
@@ -79,7 +100,6 @@ const SelectedTopic = ({ backToGroup, topicDetails, groupTitle }) => {
 }
 
 SelectedTopic.defaultProps = {
-  groupTitle: '',
   topicDetails: {
     id: '',
     comment: '',
@@ -93,7 +113,6 @@ SelectedTopic.defaultProps = {
 SelectedTopic.propTypes = {
   backToGroup: PropTypes.func.isRequired,
   topicDetails: PropTypes.instanceOf({}),
-  groupTitle: PropTypes.string,
 }
 
 export default SelectedTopic

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Box, FormControlLabel, Grid, Radio, RadioGroup, TextareaAutosize, Button,
 } from '@material-ui/core'
@@ -10,8 +10,15 @@ const initialFormData = {
   description: '',
 }
 
-const NewGroup = ({ handleSubmit, onCancelClick }) => {
-  const [ groupData, setGroupData ] = useState(initialFormData)
+const CreateOrUpdate = ({
+  handleSubmit, onCancelClick, handleCloseModal, updateGroup, groupUpdateData, isUpdate,
+}) => {
+  const newInitialFormData = isUpdate ? groupUpdateData : initialFormData
+  const [ groupData, setGroupData ] = useState(newInitialFormData)
+
+  useEffect(() => {
+    if (isUpdate) setGroupData(groupUpdateData)
+  }, [ groupUpdateData ])
 
   const updateData = (event) => {
     setGroupData({
@@ -21,8 +28,12 @@ const NewGroup = ({ handleSubmit, onCancelClick }) => {
   }
 
   const onSubmitClick = () => {
-    handleSubmit(groupData)
-    setGroupData(initialFormData)
+    if (isUpdate) {
+      updateGroup(groupData)
+    } else {
+      handleSubmit(groupData)
+      setGroupData(initialFormData)
+    }
   }
 
   return (
@@ -31,7 +42,9 @@ const NewGroup = ({ handleSubmit, onCancelClick }) => {
         <Grid container spacing={ 3 }>
           <Grid item md={ 12 } sm={ 12 } xs={ 12 } className='mb-10'>
             <h2 className='h2'>
-              Create new group
+              {isUpdate ? 'Update' : 'Create'}
+              {' '}
+              new group
             </h2>
           </Grid>
           <Grid item md={ 6 } xs={ 12 }>
@@ -55,13 +68,13 @@ const NewGroup = ({ handleSubmit, onCancelClick }) => {
             >
               <FormControlLabel
                 value='public'
-                control={ <Radio size='small' /> }
+                control={ <Radio color='primary' size='small' /> }
                 label='Public'
                 className='para'
               />
               <FormControlLabel
                 value='private'
-                control={ <Radio size='small' /> }
+                control={ <Radio color='primary' size='small' /> }
                 label='Private'
                 className='para'
               />
@@ -75,6 +88,7 @@ const NewGroup = ({ handleSubmit, onCancelClick }) => {
               className='custom-text-input-field is-fullwidth mt-10 mb-10'
               rowsMin={ 6 }
               value={ groupData.description }
+
               name='description'
               onChange={ updateData }
 
@@ -85,7 +99,7 @@ const NewGroup = ({ handleSubmit, onCancelClick }) => {
           <Button
             color='secondary'
             className='cancel-button'
-            onClick={ onCancelClick }
+            onClick={ () => (isUpdate ? handleCloseModal() : onCancelClick()) }
           >
             Cancel
           </Button>
@@ -95,7 +109,7 @@ const NewGroup = ({ handleSubmit, onCancelClick }) => {
             classes={ { label: 'primary-label' } }
             onClick={ onSubmitClick }
           >
-            Create
+            {isUpdate ? 'Update' : 'Create'}
           </Button>
         </div>
       </form>
@@ -103,14 +117,22 @@ const NewGroup = ({ handleSubmit, onCancelClick }) => {
   )
 }
 
-NewGroup.defaultProps = {
+CreateOrUpdate.defaultProps = {
   handleSubmit: () => {},
   onCancelClick: () => {},
+  updateGroup: () => {},
+  handleCloseModal: () => {},
+  groupUpdateData: {},
+  isUpdate: false,
 }
 
-NewGroup.propTypes = {
+CreateOrUpdate.propTypes = {
   handleSubmit: PropTypes.func,
   onCancelClick: PropTypes.func,
+  handleCloseModal: PropTypes.func,
+  updateGroup: PropTypes.func,
+  isUpdate: PropTypes.bool,
+  groupUpdateData: PropTypes.shape,
 }
 
-export default NewGroup
+export default CreateOrUpdate

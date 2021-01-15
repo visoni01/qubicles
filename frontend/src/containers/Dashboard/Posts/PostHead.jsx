@@ -1,6 +1,7 @@
 import React from 'react'
 import { Avatar } from '@material-ui/core'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
 import { formatDate } from '../../../utils/common'
 import { carolin } from '../../../assets/images/avatar'
 
@@ -12,7 +13,7 @@ const PostHead = ({
       <Avatar className='profile-pic' alt='Remy Sharp' src={ carolin } />
       <div className='margin-auto'>
         <h4 className='h4'>
-          {owner.fullName}
+          {_.startCase(_.upperFirst(owner.fullName))}
         </h4>
         <div className='display-inline-flex'>
           <p className='para light'>
