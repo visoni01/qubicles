@@ -174,6 +174,49 @@ const topTalents = [
   },
 ]
 
+const topCompanies = [
+  {
+    clientId: 0,
+    clientName: 'Lacus',
+    clientRating: 5,
+  },
+  {
+    clientId: 1,
+    clientName: 'Oberlo',
+    clientRating: 5,
+  },
+  {
+    clientId: 2,
+    clientName: 'Wordlab',
+    clientRating: 5,
+  },
+  {
+    clientId: 3,
+    clientName: 'Canon',
+    clientRating: 5,
+  },
+  {
+    clientId: 4,
+    clientName: 'Lacus',
+    clientRating: 5,
+  },
+  {
+    clientId: 5,
+    clientName: 'Getsocio',
+    clientRating: 5,
+  },
+  {
+    clientId: 6,
+    clientName: 'Lacus',
+    clientRating: 5,
+  },
+  {
+    clientId: 7,
+    clientName: 'Good',
+    clientRating: 5,
+  },
+]
+
 const jobsCards = [
   {
     categoryId: 0,
@@ -360,6 +403,7 @@ export {
   talentCards,
   jobsCards,
   topTalents,
+  topCompanies,
   contactCenterIntroduction,
   testResumeIntroduction,
   jobPostCard,

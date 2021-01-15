@@ -18,7 +18,7 @@ const TalentCard = ({
 }) => (
   <div className='list-divider mt-10 mb-20'>
     <div className='display-inline-flex talent-head'>
-      <Avatar alt={ candidateName } src={ candidatePic } />
+      <Avatar alt={ candidateName } src={ candidatePic } classes={ { root: 'avatar-lg' } } />
       <div className='talent-details'>
         <div className='username'>
           <div className='display-inline-flex'>

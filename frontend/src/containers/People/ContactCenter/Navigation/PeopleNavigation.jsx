@@ -1,55 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Grid, Card, CardContent,
 } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import {
-  searchProperty, breifcaseIcon, chatIcon, mediaIcon, networkIcon,
-} from '../../../../assets/images/icons/peopleNavigationIcons'
+import { useSelector } from 'react-redux'
 import './styles.scss'
-
-import ROUTE_PATHS, { PEOPLE_ROUTE } from '../../../../routes/routesPath'
 import PeopleNavigationActions from './PeopleNavigationActions'
+import { companyPeopleNavigations, agentPeopleNavigations } from './navigationLinks'
 
 function PeopleNavigation() {
-  const navigations = [
-    {
-      id: 1,
-      title: 'Jobs',
-      description: '',
-      route: ROUTE_PATHS.PEOPLE_JOBS_TAB,
-      icon: breifcaseIcon,
-    },
-    {
-      id: 2,
-      title: 'Talent',
-      description: '',
-      route: ROUTE_PATHS.PEOPLE_TALENT_TAB,
-      icon: searchProperty,
-    },
-    {
-      id: 3,
-      title: 'Training',
-      description: '',
-      route: ROUTE_PATHS.PEOPLE_TRAINING_TAB,
-      icon: mediaIcon,
-    },
-    {
-      id: 4,
-      title: 'Groups',
-      description: '',
-      route: ROUTE_PATHS.GROUP,
-      icon: chatIcon,
-    },
-    {
-      id: 5,
-      title: 'Network',
-      description: '',
-      icon: networkIcon,
-      route: PEOPLE_ROUTE,
-    },
-
-  ]
+  const { userDetails } = useSelector((state) => state.login)
+  const [ navigations, setnavigations ] = useState([])
+  useEffect(() => {
+    if (userDetails && userDetails.is_post_signup_completed && userDetails.user_code === 'employer') {
+      setnavigations(companyPeopleNavigations)
+    }
+    if (userDetails && userDetails.is_post_signup_completed && userDetails.user_code === 'agent') {
+      setnavigations(agentPeopleNavigations)
+    }
+  }, [ userDetails ])
   return (
     <div>
       <Grid container spacing={ 3 }>

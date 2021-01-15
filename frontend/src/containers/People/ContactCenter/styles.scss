@@ -32,13 +32,26 @@
     font-weight: normal;
   }
 
+  .MuiTouchRipple-root {
+    opacity: 0.3;
+  }
+
   .MuiListItem-root {
     padding-top: 4px;
     padding-bottom: 4px;
   }
+
   .MuiListItem-gutters {
     padding-right: 12px;
     padding-left: 12px;
+  }
+
+  .MuiListItem-button:hover {
+    background-color: rgba(72, 119, 244, 0.15);
+  }
+
+  .Mui-selected {
+    background-color: rgba(72, 119, 244, 0.27);
   }
 
   .MuiTypography-displayBlock {

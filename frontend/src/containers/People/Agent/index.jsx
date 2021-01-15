@@ -4,26 +4,25 @@ import {
   Grid, Tabs, Tab,
 } from '@material-ui/core'
 import { useLocation, Link } from 'react-router-dom'
-import JobsList from './Jobs/JobsList'
-import JobsPage from './Jobs/JobsPage'
-import TalentFilter from './Talent/TalentFilter'
-import TalentPage from './Talent/TalentPage'
-import TopTalent from './Talent/TopTalent'
-import TrainingFilter from './Training/TrainingFilter'
-import TrainingWrap from './Training/TrainingWrap'
-import './styles.scss'
 import ROUTE_PATHS from '../../../routes/routesPath'
+import TrainingFilter from '../ContactCenter/Training/TrainingFilter'
+import TrainingWrap from '../ContactCenter/Training/TrainingWrap'
+import AgentJobsFilter from './Jobs/AgentJobsFilter'
+import AgentJobsPage from './Jobs/AgentJobsPage'
+import ApplicationsPage from './Applications/ApplicationsPage'
+import ApplicationFilter from './Applications/ApplicationFilter'
+import TopComapnies from './Common/TopComapnies'
 
-const PeopleContactCenter = () => {
+const AgentContactCenter = () => {
   const location = useLocation()
   const currentPath = location.pathname
 
   const jobsRoute = ROUTE_PATHS.PEOPLE_JOBS_TAB
-  const talentRoute = ROUTE_PATHS.PEOPLE_TALENT_TAB
+  const applicationRoute = ROUTE_PATHS.PEOPLE_APPLICATIONS_TAB
   const trainingRoute = ROUTE_PATHS.PEOPLE_TRAINING_TAB
 
   const temp = [
-    jobsRoute, talentRoute, trainingRoute,
+    jobsRoute, applicationRoute, trainingRoute,
   ]
 
   const spacingMid = currentPath === trainingRoute ? 9 : 6
@@ -34,10 +33,8 @@ const PeopleContactCenter = () => {
       <Grid container spacing={ 3 }>
         <Grid item xl={ 3 } lg={ 3 } md={ 4 } sm={ 12 } xs={ 12 }>
           <div>
-            { currentPath === jobsRoute && (
-            <JobsList />
-            )}
-            { currentPath === talentRoute && <TalentFilter />}
+            { currentPath === jobsRoute && (<AgentJobsFilter />)}
+            { currentPath === applicationRoute && <ApplicationFilter />}
             { currentPath === trainingRoute && <TrainingFilter />}
           </div>
         </Grid>
@@ -59,9 +56,9 @@ const PeopleContactCenter = () => {
                   label='Jobs'
                 />
               </Link>
-              <Link to={ talentRoute } className={ currentPath === talentRoute ? 'active-tab' : 'inactive-tab' }>
+              <Link to={ applicationRoute } className={ currentPath === applicationRoute ? 'active-tab' : 'inactive-tab' }>
                 <Tab
-                  label='Talent'
+                  label='Applications'
                 />
               </Link>
               <Link to={ trainingRoute } className={ currentPath === trainingRoute ? 'active-tab' : 'inactive-tab' }>
@@ -73,8 +70,8 @@ const PeopleContactCenter = () => {
           </Grid>
           <Grid item xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 }>
             <div>
-              { currentPath === jobsRoute && (<JobsPage />)}
-              { currentPath === talentRoute && <TalentPage />}
+              { currentPath === jobsRoute && (<AgentJobsPage />)}
+              { currentPath === applicationRoute && <ApplicationsPage />}
               { currentPath === trainingRoute && <TrainingWrap />}
             </div>
           </Grid>
@@ -82,7 +79,7 @@ const PeopleContactCenter = () => {
 
         <Grid item xl={ 3 } lg={ 3 } md={ 4 } sm={ 12 } xs={ 12 }>
           {currentPath !== trainingRoute && (
-            <TopTalent heading='Top Talent' />
+            <TopComapnies heading='Top Companies' />
           )}
         </Grid>
       </Grid>
@@ -90,4 +87,4 @@ const PeopleContactCenter = () => {
   )
 }
 
-export default PeopleContactCenter
+export default AgentContactCenter

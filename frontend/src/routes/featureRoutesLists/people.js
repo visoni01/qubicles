@@ -3,7 +3,7 @@ import ROUTE_PATHS from '../routesPath'
 import JobPost from '../../containers/People/ContactCenter/Jobs/JobView'
 import JobPreview from '../../components/People/ContactCenter/Jobs/JobPreview'
 import NewJobModal from '../../containers/People/ContactCenter/Jobs/NewJob/index'
-import Peoplepage from '../../containers/People/ContactCenter/index'
+import Peoplepage from '../../containers/People/index'
 import EditJob from '../../containers/People/ContactCenter/Jobs/EditJob'
 import ViewResume from '../../containers/People/ContactCenter/Talent/ViewResume'
 import CreateCourse from '../../containers/People/ContactCenter/Training/NewCourse/index'
@@ -28,7 +28,12 @@ const List = [
     exact: true,
   },
   {
-    path: [ ROUTE_PATHS.PEOPLE_JOBS_TAB, ROUTE_PATHS.PEOPLE_TALENT_TAB, ROUTE_PATHS.PEOPLE_TRAINING_TAB ],
+    path: [
+      ROUTE_PATHS.PEOPLE_JOBS_TAB,
+      ROUTE_PATHS.PEOPLE_TALENT_TAB,
+      ROUTE_PATHS.PEOPLE_TRAINING_TAB,
+      ROUTE_PATHS.PEOPLE_APPLICATIONS_TAB,
+    ],
     component: Peoplepage,
     exact: true,
   },
