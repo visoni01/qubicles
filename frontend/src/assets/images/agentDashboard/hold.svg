@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20.5" height="20.5" viewBox="0 0 20.5 20.5">
+  <g id="btn-play" transform="translate(-1.25 -1.25)">
+    <circle id="Ellipse_338" data-name="Ellipse 338" cx="9.5" cy="9.5" r="9.5" transform="translate(2 2)" stroke-width="1.5" stroke="#4877f4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="none"/>
+    <g id="Rectangle_485" data-name="Rectangle 485" transform="translate(8 8)" fill="none" stroke="#4877f4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5">
+      <rect width="2" height="7" stroke="none"/>
+      <rect x="0.75" y="0.75" width="0.5" height="5.5" fill="none"/>
+    </g>
+    <g id="Rectangle_486" data-name="Rectangle 486" transform="translate(13 8)" fill="none" stroke="#4877f4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5">
+      <rect width="2" height="7" stroke="none"/>
+      <rect x="0.75" y="0.75" width="0.5" height="5.5" fill="none"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <g id="Group_1234" data-name="Group 1234" transform="translate(-1601 -910)">
+    <circle id="Ellipse_346" data-name="Ellipse 346" cx="24" cy="24" r="24" transform="translate(1601 910)" fill="#4877f4"/>
+    <g id="phone" transform="translate(1612.146 921.106)">
+      <path id="Path_1124" data-name="Path 1124" d="M16.523,15.323l-1.955,2.445a20.625,20.625,0,0,1-7.335-7.335L9.678,8.478a1.661,1.661,0,0,0,.48-1.971L7.929,1.487A1.661,1.661,0,0,0,5.993.554L1.75,1.653A1.674,1.674,0,0,0,.516,3.5,24.652,24.652,0,0,0,21.5,24.485a1.67,1.67,0,0,0,1.845-1.234l1.1-4.242a1.661,1.661,0,0,0-.933-1.936l-5.019-2.229a1.664,1.664,0,0,0-1.971.478Z" transform="translate(0 0)" fill="rgba(255,255,255,0)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>
