@@ -6,6 +6,7 @@ const config = {
   APP_BASE_URL: process.env.REACT_APP_BASE_URL || 'http://localhost:3000',
   NODE_ENV: process.env.NODE_ENV || 'development',
   COMMENTS_LIMIT: process.env.COMMENTS_LIMIT || 3,
+  GOOGLE_TAG_MANAGER_ID: process.env.REACT_APP_GOOGLE_TAG_MANAGER_ID || 'GTM-NGLQDFH',
 }
 
 export default config
