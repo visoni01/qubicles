@@ -24,7 +24,6 @@ export const updateExistingTopic = createAction(UPDATE_GROUP_TOPIC)
 // Group Topic's Comment
 export const postTopicComment = createAction(POST_TOPIC_COMMENT)
 export const deleteTopicComment = createAction(DELETE_TOPIC_COMMENT)
-
 export const updateTopicComment = createAction(UPDATE_TOPIC_COMMENT)
 
 export const loadMoreComments = createAction(LOAD_MORE_COMMENTS)

@@ -16,17 +16,21 @@ function* topicCommentsCrudWorker(action) {
     let msg
     switch (action.type) {
       case POST_TOPIC_COMMENT: {
-        const { ownerName, topicId, ...rest } = action.payload
+        const {
+          ownerName, ownerId, topicId, ...rest
+        } = action.payload
         const { data } = yield Forum.postTopicComment({ ...rest, topicId })
         yield put(updateGroupTopicsList({
           type: UPDATE_TOPIC_STATS,
           topicId,
-          statType: 'commentsCount',
+          statType: 'commentsCountUp',
         }))
 
         yield put(updateTopicComments({
           type: POST_TOPIC_COMMENT,
-          newComment: { ...data.newComment, ownerName },
+          newComment: {
+            ...data.newComment, ownerName, ownerId, topicId,
+          },
         }))
 
         msg = 'Topic comment has been successfully posted!'
@@ -34,11 +38,11 @@ function* topicCommentsCrudWorker(action) {
       }
 
       case UPDATE_TOPIC_COMMENT: {
-        // const { ownerName, topicId, ...rest } = action.payload
-        const { data } = yield Forum.updateTopicComment({ ...rest, topicId })
+        const { ownerName, topicId, ...rest } = action.payload
+        yield Forum.updateTopicComment({ topicId, ...rest })
         yield put(updateTopicComments({
           type: UPDATE_TOPIC_COMMENT,
-          // newComment: { ...data.newComment, ownerName },
+          data: { updatedComment: action.payload },
         }))
 
         msg = 'Topic comment has been successfully updated!'
@@ -47,9 +51,12 @@ function* topicCommentsCrudWorker(action) {
 
       case DELETE_TOPIC_COMMENT: {
         const { activityId, topicId, ownerId } = action.payload
-        // console.log('action.payload', action.payload)
-        console.log('activityId, topicId ', activityId, topicId)
-        const { data } = yield Forum.deleteTopicComment({ activityId, topicId, ownerId })
+        yield Forum.deleteTopicComment({ activityId, topicId, ownerId })
+        yield put(updateGroupTopicsList({
+          type: UPDATE_TOPIC_STATS,
+          topicId,
+          statType: 'commentsCountDown',
+        }))
         yield put(updateTopicComments({
           type: DELETE_TOPIC_COMMENT,
           data: {

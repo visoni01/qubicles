@@ -56,7 +56,10 @@ const AgentContactCenter = () => {
                   label='Jobs'
                 />
               </Link>
-              <Link to={ applicationRoute } className={ currentPath === applicationRoute ? 'active-tab' : 'inactive-tab' }>
+              <Link
+                to={ applicationRoute }
+                className={ currentPath === applicationRoute ? 'active-tab' : 'inactive-tab' }
+              >
                 <Tab
                   label='Applications'
                 />

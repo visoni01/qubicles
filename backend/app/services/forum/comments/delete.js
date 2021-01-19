@@ -12,7 +12,7 @@ const constraints = {
   },
   topic_id: {
     presence: { allowEmpty: false }
-  },
+  }
 }
 
 export class ForumDeleteCommentService extends ServiceBase {

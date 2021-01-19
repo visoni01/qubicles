@@ -12,6 +12,9 @@ const constraints = {
   },
   comment: {
     presence: { allowEmpty: false }
+  },
+  id: {
+    presence: { allowEmpty: false }
   }
 }
 
@@ -21,12 +24,13 @@ export class ForumUpdateCommentService extends ServiceBase {
   }
 
   async run () {
-    const { user_id, topic_id, comment } = this.filteredArgs
+    const { user_id, topic_id, comment, id } = this.filteredArgs
     try {
       const updatedComment = await updateForumComment({
         topic_id,
         comment,
-        user_id
+        user_id,
+        id
       })
 
       return {

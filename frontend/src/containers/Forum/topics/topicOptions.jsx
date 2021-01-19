@@ -40,7 +40,7 @@ const TopicOptions = ({
     dispatch(deleteGroupTopic({
       topicId, ownerId, groupId,
     }))
-  }, [ topicId, dispatch ])
+  }, [ topicId, dispatch, ownerId, groupId ])
 
   return (
     <>

@@ -26,6 +26,7 @@ import {
   DELETE_GROUP,
   DELETE_GROUP_TOPIC,
   UPDATE_GROUP_TOPIC,
+  UPDATE_TOPIC_COMMENT,
 } from './constants'
 
 export const getUpdatedGroups = ({ state, payload }) => {
@@ -89,6 +90,21 @@ export const getUpdatedTopicComments = ({ state, payload }) => {
       }
       break
     }
+    case UPDATE_TOPIC_COMMENT: {
+      const {
+        updatedComment,
+      } = payload.data
+      updatedState = {
+        ...state,
+        comments: state.comments.map((comment) => {
+          if (comment.id === updatedComment.id) {
+            return updatedComment
+          }
+          return comment
+        }),
+      }
+      break
+    }
     case LOAD_MORE_COMMENTS: {
       updatedState = {
         ...state,
@@ -140,13 +156,15 @@ export const updateGroupTopics = (state, payload) => {
     }
 
     case UPDATE_TOPIC_STATS: {
+      const { statType } = payload
       updatedState = {
         ...state,
         topics: state.topics.map((topic) => {
           if (topic.id === payload.topicId) {
             return {
               ...topic,
-              [ payload.statType ]: topic[ payload.statType ] + 1,
+              [ payload.statType ]: statType === 'commentsCountUp'
+                ? topic[ payload.statType ] + 1 : topic[ payload.statType ] - 1,
             }
           }
           return topic

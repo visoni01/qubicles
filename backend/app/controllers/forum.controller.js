@@ -12,6 +12,7 @@ import {
   ForumGetTopicCommentsService,
   ForumDeleteCommentService,
   ForumCreateCommentService,
+  ForumUpdateCommentService,
   ImageUploadService,
   ForumTopicActivity
 } from '../services/forum'
@@ -133,8 +134,6 @@ export default class ForumController {
       Responder.failed(res, forumDeleteCommentResult.errors)
     }
   }
-
-
 
   static async topicActivity (req, res) {
     const forumTopicActivity = await ForumTopicActivity.execute({ ...req.body, ...req.params })

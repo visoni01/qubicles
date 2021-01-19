@@ -61,7 +61,7 @@ const SelectedGroup = ({ group }) => {
   const handleUpdateGroup = useCallback((groupData) => {
     dispatch(updateExistingGroup({ groupData, groupId: id }))
     handleUpdateGroupToggle()
-  }, [ handleUpdateGroupToggle, id ])
+  }, [ dispatch, handleUpdateGroupToggle, id ])
 
   const updateTopicAndToggle = (childData) => {
     setSelectedUpdateTopic(childData)

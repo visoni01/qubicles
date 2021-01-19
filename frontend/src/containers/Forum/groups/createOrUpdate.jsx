@@ -18,7 +18,7 @@ const CreateOrUpdate = ({
 
   useEffect(() => {
     if (isUpdate) setGroupData(groupUpdateData)
-  }, [ groupUpdateData ])
+  }, [ groupUpdateData, isUpdate ])
 
   const updateData = (event) => {
     setGroupData({

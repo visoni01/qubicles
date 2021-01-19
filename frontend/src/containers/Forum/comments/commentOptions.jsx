@@ -9,10 +9,9 @@ import PropTypes from 'prop-types'
 import { deleteTopicComment } from '../../../redux-saga/redux/actions'
 import ConfirmationModal from '../../../components/CommonModal/ConfirmationModal'
 
-const GroupOptions = ({
-  topicId, activityId, ownerId, handleOpenModal,
+const CommentOptions = ({
+  topicId, activityId, ownerId, handleEdit,
 }) => {
-  console.log('topicId, activityId,  OPTIONS', topicId, activityId, ownerId)
   const [ openOptions, setOpenOptions ] = useState(false)
   const [ anchorEl, setAnchorEl ] = useState(null)
   const [ openConfirmDeleteModal, setOpenConfirmDelete ] = useState(false)
@@ -41,7 +40,9 @@ const GroupOptions = ({
     dispatch(deleteTopicComment({
       topicId, activityId, ownerId,
     }))
-  }, [ activityId, dispatch ])
+  }, [ activityId, dispatch, topicId, ownerId ])
+
+  const openConfirmationModal = useCallback(() => (setOpenConfirmDelete(true)), [ setOpenConfirmDelete ])
 
   return (
     <>
@@ -69,7 +70,7 @@ const GroupOptions = ({
             size='small'
             className='option'
             classes={ { label: 'option-label' } }
-            onClick={ () => handleOpenModal() }
+            onClick={ handleEdit }
             startIcon={ <FontAwesomeIcon icon={ faPen } className='custom-fa-icon dark mr-5' /> }
           >
             <p className='para'> Edit </p>
@@ -78,7 +79,7 @@ const GroupOptions = ({
             size='small'
             className='option'
             classes={ { label: 'option-label' } }
-            onClick={ () => setOpenConfirmDelete(true) }
+            onClick={ openConfirmationModal }
             startIcon={ <FontAwesomeIcon icon={ faTrash } className='custom-fa-icon dark mr-5' /> }
           >
             <p className='para red'> Delete </p>
@@ -96,11 +97,11 @@ const GroupOptions = ({
   )
 }
 
-GroupOptions.propTypes = {
+CommentOptions.propTypes = {
   activityId: PropTypes.number.isRequired,
   ownerId: PropTypes.number.isRequired,
   topicId: PropTypes.number.isRequired,
-  handleOpenModal: PropTypes.func.isRequired,
+  handleEdit: PropTypes.func.isRequired,
 }
 
-export default GroupOptions
+export default CommentOptions
