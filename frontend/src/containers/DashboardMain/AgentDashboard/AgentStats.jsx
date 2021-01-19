@@ -1,6 +1,8 @@
 import React from 'react'
 import { Grid, Card, CardContent } from '@material-ui/core'
-import { breifcaseIcon } from '../../../assets/images/icons/peopleNavigationIcons'
+import {
+  callsTodayIcon, waitTimeIcon, talkTimeIcon, salesIcon, callsInQueueIcon,
+} from '../../../assets/images/agentDashboard'
 
 export default function AgentStats() {
   return (
@@ -8,7 +10,7 @@ export default function AgentStats() {
       <Grid container spacing={ 4 } className='agent-stats-cards'>
         <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 12 }>
           <Card className='stat-card border-1'>
-            <img src={ breifcaseIcon } alt='Chat Icon' className='image' />
+            <img src={ callsTodayIcon } alt='Chat Icon' className='image' />
             <CardContent>
               <div className='stat-val'>
                 <h2 className='h2 text-center primary-val color-green'>
@@ -24,7 +26,7 @@ export default function AgentStats() {
         </Grid>
         <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 12 }>
           <Card className='stat-card border-1'>
-            <img src={ breifcaseIcon } alt='Chat Icon' className='image' />
+            <img src={ waitTimeIcon } alt='Chat Icon' className='image' />
             <CardContent>
               <h2 className='h2 text-center stat-val '>
                 0.5
@@ -37,7 +39,7 @@ export default function AgentStats() {
         </Grid>
         <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 12 }>
           <Card className='stat-card border-1'>
-            <img src={ breifcaseIcon } alt='Chat Icon' className='image' />
+            <img src={ talkTimeIcon } alt='Chat Icon' className='image' />
             <CardContent>
               <h2 className='h2 text-center stat-val '>
                 3.53
@@ -50,7 +52,7 @@ export default function AgentStats() {
         </Grid>
         <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 12 }>
           <Card className='stat-card border-1'>
-            <img src={ breifcaseIcon } alt='Chat Icon' className='image' />
+            <img src={ salesIcon } alt='Chat Icon' className='image' />
             <CardContent>
               <div className='stat-val'>
                 <h2 className='h2 text-center primary-val color-yellow'>
@@ -66,7 +68,7 @@ export default function AgentStats() {
         </Grid>
         <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 12 }>
           <Card className='stat-card border-1'>
-            <img src={ breifcaseIcon } alt='Chat Icon' className='image' />
+            <img src={ callsInQueueIcon } alt='Chat Icon' className='image' />
             <CardContent>
               <div className='stat-val'>
                 <h2 className='h2 text-center primary-val color-red'>

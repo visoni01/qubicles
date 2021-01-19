@@ -1,3 +1,5 @@
+@import '../../../customStyles/scss/partials/variables';
+
 .agent-today-activity {
   .login-info {
     display: inline-flex;
@@ -27,13 +29,13 @@
 
       .primary-val {
         &.color-red {
-          color: #F14667;
+          color: $color-red;
         }
         &.color-green {
-          color: #23E8B5;
+          color: $color-green;
         }
         &.color-yellow {
-          color: #FFDD57;
+          color: $color-yellow;
         }
       }
 
@@ -50,10 +52,36 @@
 }
 
 .calls-buttons {
-
-  .call-btn-label {
+  .wait-btn-label {
     font-size: 15px;
     padding: 0px 5px;
     text-align: center;
+    color: $color-white;
+    &:hover {
+      color: $color-white;
+    }
+  }
+
+  .wait-btn-active {
+    background-color: $color-green;
+    &:hover {
+      background-color: $color-green;
+    }
+  }
+
+  .dial-buttons {
+    &:hover {
+      background-color: $color-white;
+      color: $color-primary;
+    }
+  }
+
+  .dial-buttons-label {
+    font-size: 15px;
+    padding: 0px 5px;
+    text-align: center;
+    &:hover {
+      color: $color-primary;
+    }
   }
 }

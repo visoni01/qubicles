@@ -1,0 +1,95 @@
+import React from 'react'
+import { Grid, Button } from '@material-ui/core'
+import PropTypes from 'prop-types'
+import {
+  dialPadIcon, dialNextIcon, contactsIcon, callLogsIcon, callbacksBlueIcon,
+} from '../../../assets/images/agentDashboard'
+
+export default function InactiveCallPanel({
+  setOpenContactsModal, setOpenCallbackModal, setOpenCallLogsModal,
+}) {
+  return (
+    <Grid item container justify='flex-start' spacing={ 3 } lg={ 9 }>
+      <Grid item>
+        <Button
+          classes={ {
+            root: 'button-secondary-large dial-buttons',
+            label: 'button-secondary-large-label dial-buttons-label',
+          } }
+          startIcon={
+            <img src={ dialPadIcon } alt='Chat Icon' />
+        }
+        >
+          Manual Dial
+        </Button>
+      </Grid>
+      <Grid item>
+        <Button
+          classes={ {
+            root: 'button-secondary-large dial-buttons',
+            label: 'button-secondary-large-label dial-buttons-label',
+          } }
+          startIcon={
+            <img src={ dialNextIcon } alt='Chat Icon' />
+        }
+        >
+          Dial Next
+        </Button>
+      </Grid>
+      <Grid item>
+        <Button
+          classes={ {
+            root: 'button-secondary-large dial-buttons',
+            label: 'button-secondary-large-label dial-buttons-label',
+          } }
+          startIcon={
+            <img src={ contactsIcon } alt='Chat Icon' />
+        }
+          onClick={ () => setOpenContactsModal(true) }
+        >
+          Contacts
+        </Button>
+      </Grid>
+      <Grid item>
+        <Button
+          classes={ {
+            root: 'button-secondary-large dial-buttons',
+            label: 'button-secondary-large-label dial-buttons-label',
+          } }
+          startIcon={
+            <img src={ callLogsIcon } alt='Chat Icon' />
+        }
+          onClick={ () => setOpenCallLogsModal(true) }
+        >
+          Call Logs
+        </Button>
+      </Grid>
+      <Grid item>
+        <Button
+          classes={ {
+            root: 'button-secondary-large dial-buttons',
+            label: 'button-secondary-large-label dial-buttons-label',
+          } }
+          startIcon={
+            <img src={ callbacksBlueIcon } alt='Chat Icon' />
+        }
+          onClick={ () => setOpenCallbackModal(true) }
+        >
+          Callbacks
+        </Button>
+      </Grid>
+    </Grid>
+  )
+}
+
+InactiveCallPanel.defaultProps = {
+  setOpenContactsModal: () => {},
+  setOpenCallbackModal: () => {},
+  setOpenCallLogsModal: () => {},
+}
+
+InactiveCallPanel.propTypes = {
+  setOpenContactsModal: PropTypes.func,
+  setOpenCallbackModal: PropTypes.func,
+  setOpenCallLogsModal: PropTypes.func,
+}

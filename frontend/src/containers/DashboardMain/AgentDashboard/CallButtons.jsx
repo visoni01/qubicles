@@ -1,88 +1,65 @@
-import React from 'react'
-import { Grid, Button } from '@material-ui/core'
+import React, { useState } from 'react'
+import {
+  Grid, Button, Box,
+} from '@material-ui/core'
+import PropTypes from 'prop-types'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBriefcase } from '@fortawesome/free-solid-svg-icons'
+import InactiveCallPanel from './InactiveCallPanel'
+import ActiveCallPanel from './ActiveCallPanel'
 
-export default function CallButtons() {
+export default function CallButtons({
+  setOpenContactsModal, setOpenCallbackModal, setOpenCallLogsModal,
+}) {
+  const [ activeCall, setActiveCall ] = useState(false)
   return (
-    <Grid item container spacing={ 3 } direction='row' className='calls-buttons'>
-      <Grid item lg={ 2 }>
-        <Button
-          classes={ {
-            root: 'button-primary-large',
-            label: 'button-primary-large-label call-btn-label pl-10 pr-20',
-          } }
-        >
-          Waiting For A Call
-        </Button>
+    <Box className='custom-box is-fullwidth mt-10 mb-20'>
+      <Grid item container spacing={ 3 } direction='row' className='calls-buttons' alignItems='center'>
+        <Grid item lg={ 3 } classes={ { item: 'mt-20 mb-20' } }>
+          <Button
+            classes={ {
+              root: `button-primary-large is-fullwidth ${ activeCall ? '' : 'wait-btn-active' }`,
+              label: 'button-primary-large-label wait-btn-label pl-10 pr-20',
+            } }
+            onClick={ () => setActiveCall((current) => !current) }
+          >
+            <div className='display-inline-flex is-fullwidth justify-between align-items-center'>
+              <span className='para wait-btn-label'>
+                {activeCall ? 'Waiting For A Call' : 'Active Call'}
+              </span>
+              <div>
+                <span className='para wait-btn-label'>
+                  2:43
+                </span>
+                <FontAwesomeIcon icon={ faChevronDown } className='ml-20 custom-fa-icon white' />
+              </div>
+            </div>
+          </Button>
+        </Grid>
+        {activeCall ? (
+          <InactiveCallPanel
+            setOpenContactsModal={ setOpenContactsModal }
+            setOpenCallbackModal={ setOpenCallbackModal }
+            setOpenCallLogsModal={ setOpenCallLogsModal }
+          />
+        ) : (
+          <ActiveCallPanel
+            setOpenContactsModal={ setOpenContactsModal }
+          />
+        )}
       </Grid>
-      <Grid item container justify='flex-start' spacing={ 2 } lg={ 10 }>
-        <Grid item>
-          <Button
-            classes={ {
-              root: 'button-secondary-large',
-              label: 'button-secondary-large-label call-btn-label',
-            } }
-            startIcon={
-              <FontAwesomeIcon icon={ faBriefcase } className='custom-fa-icon' />
-            }
-          >
-            Manual Dial
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button
-            classes={ {
-              root: 'button-secondary-large',
-              label: 'button-secondary-large-label call-btn-label',
-            } }
-            startIcon={
-              <FontAwesomeIcon icon={ faBriefcase } className='custom-fa-icon' />
-            }
-          >
-            Manual Dial
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button
-            classes={ {
-              root: 'button-secondary-large',
-              label: 'button-secondary-large-label call-btn-label',
-            } }
-            startIcon={
-              <FontAwesomeIcon icon={ faBriefcase } className='custom-fa-icon' />
-            }
-          >
-            Manual Dial
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button
-            classes={ {
-              root: 'button-secondary-large',
-              label: 'button-secondary-large-label call-btn-label',
-            } }
-            startIcon={
-              <FontAwesomeIcon icon={ faBriefcase } className='custom-fa-icon' />
-            }
-          >
-            Manual Dial
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button
-            classes={ {
-              root: 'button-secondary-large',
-              label: 'button-secondary-large-label call-btn-label',
-            } }
-            startIcon={
-              <FontAwesomeIcon icon={ faBriefcase } className='custom-fa-icon' />
-            }
-          >
-            Manual Dial
-          </Button>
-        </Grid>
-      </Grid>
-    </Grid>
+    </Box>
   )
+}
+
+CallButtons.defaultProps = {
+  setOpenContactsModal: () => {},
+  setOpenCallbackModal: () => {},
+  setOpenCallLogsModal: () => {},
+}
+
+CallButtons.propTypes = {
+  setOpenContactsModal: PropTypes.func,
+  setOpenCallbackModal: PropTypes.func,
+  setOpenCallLogsModal: PropTypes.func,
 }

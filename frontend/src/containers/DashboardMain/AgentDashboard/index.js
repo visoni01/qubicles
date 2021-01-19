@@ -14,8 +14,12 @@ const AgentDashboard = () => {
   const [ openCallLogsModal, setOpenCallLogsModal ] = useState(false)
   return (
     <div>
-      <Grid container spacing={ 3 }>
-        <CallButtons />
+      <Grid container>
+        <CallButtons
+          setOpenContactsModal={ setOpenContactsModal }
+          setOpenCallbackModal={ setOpenCallbackModal }
+          setOpenCallLogsModal={ setOpenCallLogsModal }
+        />
         <Grid item container spacing={ 4 }>
           {/*  Left Section */}
           <Grid item xl={ 3 } lg={ 3 } md={ 12 } sm={ 12 } xs={ 12 }>
