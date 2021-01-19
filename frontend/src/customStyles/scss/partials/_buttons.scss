@@ -88,6 +88,10 @@
     border-radius: 4px;
   }
 
+  &.static {
+    @include secondary-default($color-white);
+  }
+
 // Primary Text Button
   &.button-primary-text {
     height: auto;
