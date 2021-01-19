@@ -5,9 +5,13 @@ import AgentTodayActivity from './AgentTodayActivity'
 import './style.scss'
 import AgentStats from './AgentStats'
 import CallButtons from './CallButtons'
+import CallbackModal from './callback'
+import CallLogsModal from './callLogs'
 
 const AgentDashboard = () => {
   const [ openContactsModal, setOpenContactsModal ] = useState(false)
+  const [ openCallbackModal, setOpenCallbackModal ] = useState(false)
+  const [ openCallLogsModal, setOpenCallLogsModal ] = useState(false)
   return (
     <div>
       <Grid container spacing={ 3 }>
@@ -23,6 +27,16 @@ const AgentDashboard = () => {
               open={ openContactsModal }
               onClose={ () => setOpenContactsModal(false) }
               onSubmit={ () => setOpenContactsModal(false) }
+            />
+            <CallbackModal
+              open={ openCallbackModal }
+              onClose={ () => setOpenCallbackModal(false) }
+              onSubmit={ () => setOpenCallbackModal(false) }
+            />
+            <CallLogsModal
+              open={ openCallLogsModal }
+              onClose={ () => setOpenCallLogsModal(false) }
+              onSubmit={ () => setOpenCallLogsModal(false) }
             />
           </Grid>
         </Grid>
