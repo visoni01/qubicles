@@ -61,7 +61,7 @@ const SelectedGroup = ({ group }) => {
   const handleUpdateGroup = useCallback((groupData) => {
     dispatch(updateExistingGroup({ groupData, groupId: id }))
     handleUpdateGroupToggle()
-  }, [ handleUpdateGroupToggle, id ])
+  }, [ dispatch, handleUpdateGroupToggle, id ])
 
   const updateTopicAndToggle = (childData) => {
     setSelectedUpdateTopic(childData)
@@ -84,8 +84,30 @@ const SelectedGroup = ({ group }) => {
     )
   }
 
+  if (openUpdateTopic) {
+    return (
+      <CreateOrUpdateTopicForm
+        // handleCancel={ handleUpdateTopicToggle }
+        updateTopic={ handleUpdateTopic }
+        topicUpdateData={ selectedUpdateTopic }
+        isUpdate
+      />
+    )
+  }
+
   if (selectedTopic === 'new') {
     return <CreateOrUpdateTopicForm handleCancel={ changeTopicFormStatus } handleSubmit={ handleCreateTopic } />
+  }
+
+  if (openUpdateGroup) {
+    return (
+      <UpdateGroup
+        handleCloseModal={ handleUpdateGroupToggle }
+        updateGroup={ handleUpdateGroup }
+        groupUpdateData={ group }
+        isUpdate
+      />
+    )
   }
 
   if (openUpdateGroup) {

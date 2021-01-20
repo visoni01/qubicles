@@ -1,18 +1,16 @@
 import React, { useEffect } from 'react'
 import {
-  Avatar, Box, Button, Divider,
+  Box, Button, Divider,
 } from '@material-ui/core'
-import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
-import { carolin } from '../../../assets/images/avatar/index'
 import { topicCommentsFetchingStart, loadMoreComments } from '../../../redux-saga/redux/actions'
 import ListSkeleton from '../skeletons/commentsList'
+import Comment from './listItem'
 
 const Comments = ({ topicId, commentsCount }) => {
   const dispatch = useDispatch()
   const { comments, isLoading } = useSelector((state) => state.topicComments)
-
   const noOfCommentsPerReq = 10
 
   const handleMoreComments = () => (
@@ -47,22 +45,7 @@ const Comments = ({ topicId, commentsCount }) => {
       <div>
         {comments.length ? comments.map((comment, index) => (
           <>
-            <div key={ comment.id } className='mt-20 mb-20'>
-              <div className='display-inline-flex mb-10'>
-                <Avatar className='mr-10' src={ carolin } />
-                <div>
-                  <p className='para bold sz-xs'>
-                    {comment.ownerName}
-                  </p>
-                  <p className='para light sz-xs'>
-                    {moment(comment.createdAt).format('MMMM DD YY hh:mm a')}
-                  </p>
-                </div>
-              </div>
-              <p className='para'>
-                {comment.comment}
-              </p>
-            </div>
+            <Comment comment={ comment } />
             { (index + 1 < comments.length) && <Divider />}
           </>
         )) : (

@@ -182,11 +182,6 @@
   }
 }
 
-.post-comment-button {
-  margin-top: 10px;
-  margin-left: calc(100% - 86px) !important;
-}
-
 .topic-name-button {
   min-width: min-content;
 }
@@ -266,4 +261,16 @@
 
 .topics-list-action-icon {
   width: calc(100% - 30px);
+}
+
+.comment-action-button {
+  width: calc(100% - 80px);
+}
+
+.edit-comment-buttons{
+ justify-content: space-between;
+}
+
+.post-comment-button{
+ justify-content: flex-end;
 }

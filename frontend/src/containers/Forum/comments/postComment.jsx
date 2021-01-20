@@ -10,11 +10,14 @@ import {
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
-import { postTopicComment } from '../../../redux-saga/redux/actions'
+import classNames from 'classnames'
+import { postTopicComment, updateTopicComment } from '../../../redux-saga/redux/actions'
 import { carolin } from '../../../assets/images/avatar/index'
 
-const PostComment = ({ topicId }) => {
-  const [ comment, setComment ] = useState('')
+const PostComment = ({
+  topicId, isEdit, closeEditModal, commentDetails,
+}) => {
+  const [ comment, setComment ] = useState(commentDetails.comment)
   const [ imageFile, setImageFile ] = useState()
   const { userDetails } = useSelector((state) => state.login)
   const fileInput = useRef()
@@ -41,12 +44,22 @@ const PostComment = ({ topicId }) => {
   const handleDelete = useCallback(() => setImageFile(''), [])
 
   const handlePostComment = () => {
-    dispatch(postTopicComment({
-      topicId,
-      comment,
-      ownerName: userDetails.full_name,
-    }))
-    setComment('')
+    if (isEdit) {
+      dispatch(updateTopicComment({
+        ...commentDetails,
+        comment,
+      }))
+      setComment('')
+      closeEditModal()
+    } else {
+      dispatch(postTopicComment({
+        topicId,
+        comment,
+        ownerName: userDetails.full_name,
+        ownerId: userDetails.user_id,
+      }))
+      setComment('')
+    }
   }
 
   return (
@@ -84,22 +97,52 @@ const PostComment = ({ topicId }) => {
           </label>
         </p>
       </div>
-      <Button
-        className='post-comment-button'
-        classes={ {
-          root: 'MuiButtonBase-root button-primary-small',
-          label: 'MuiButton-label button-primary-small-label',
-        } }
-        onClick={ handlePostComment }
+      <div className={
+        classNames(
+          'display-inline-flex is-fullwidth pr-30 mt-10',
+          isEdit ? ' edit-comment-buttons pl-30' : 'post-comment-button',
+        )
+      }
       >
-        Post
-      </Button>
+        {isEdit && (
+        <Button
+          classes={ {
+            root: 'MuiButtonBase-root button-primary-small',
+            label: 'MuiButton-label button-primary-small-label',
+          } }
+          onClick={ closeEditModal }
+        >
+          Cancel
+        </Button>
+        )}
+        <Button
+          classes={ {
+            root: 'MuiButtonBase-root button-primary-small',
+            label: 'MuiButton-label button-primary-small-label',
+          } }
+          onClick={ handlePostComment }
+        >
+          {isEdit ? 'Update' : 'Post' }
+        </Button>
+      </div>
     </Box>
   )
+}
+PostComment.defaultProps = {
+  isEdit: false,
+  closeEditModal: () => {},
+  commentDetails: {
+    comment: '',
+  },
 }
 
 PostComment.propTypes = {
   topicId: PropTypes.number.isRequired,
+  isEdit: PropTypes.bool,
+  closeEditModal: PropTypes.func,
+  commentDetails: PropTypes.shape({
+    comment: PropTypes.string,
+  }),
 }
 
 export default PostComment

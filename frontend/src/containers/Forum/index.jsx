@@ -17,7 +17,7 @@ const Groups = () => {
     if (selectedGroup === groups.length) {
       setSelectedGroup(0)
     }
-  }, [ groups ])
+  }, [ groups, setSelectedGroup, selectedGroup ])
 
   const createGroup = (groupData) => {
     dispatch(addNewGroup(groupData))

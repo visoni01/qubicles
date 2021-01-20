@@ -12,6 +12,7 @@ import {
   FETCH_COMMENT_FOR_POST,
   SET_IS_COMMENT_LOADING,
   POST_TOPIC_COMMENT,
+  DELETE_TOPIC_COMMENT,
   LOAD_MORE_COMMENTS,
   TOPIC_ACTIVITY,
   CREATE_NEW_POST,
@@ -25,6 +26,7 @@ import {
   DELETE_GROUP,
   DELETE_GROUP_TOPIC,
   UPDATE_GROUP_TOPIC,
+  UPDATE_TOPIC_COMMENT,
 } from './constants'
 
 export const getUpdatedGroups = ({ state, payload }) => {
@@ -75,6 +77,31 @@ export const getUpdatedTopicComments = ({ state, payload }) => {
       updatedState = {
         ...state,
         comments: [ payload.newComment, ...state.comments ],
+      }
+      break
+    }
+    case DELETE_TOPIC_COMMENT: {
+      const {
+        activityId,
+      } = payload.data
+      updatedState = {
+        ...state,
+        comments: state.comments.filter((comment) => comment.id !== activityId),
+      }
+      break
+    }
+    case UPDATE_TOPIC_COMMENT: {
+      const {
+        updatedComment,
+      } = payload.data
+      updatedState = {
+        ...state,
+        comments: state.comments.map((comment) => {
+          if (comment.id === updatedComment.id) {
+            return updatedComment
+          }
+          return comment
+        }),
       }
       break
     }
@@ -129,13 +156,15 @@ export const updateGroupTopics = (state, payload) => {
     }
 
     case UPDATE_TOPIC_STATS: {
+      const { statType, toIncrement = true } = payload
       updatedState = {
         ...state,
         topics: state.topics.map((topic) => {
           if (topic.id === payload.topicId) {
             return {
               ...topic,
-              [ payload.statType ]: topic[ payload.statType ] + 1,
+              [ statType ]: toIncrement
+                ? topic[ statType ] + 1 : topic[ statType ] - 1,
             }
           }
           return topic

@@ -40,6 +40,12 @@ forumRouter.route('/topics/:topic_id/comments')
 forumRouter.route('/topics/:topic_id/comments')
   .post(isAuthenticated, forumController.createTopicComment)
 
+forumRouter.route('/topics/:topic_id/comments/:id')
+  .put(isAuthenticated, forumController.updateTopicComment)
+
+forumRouter.route('/topics/:topic_id/comments/:id')
+  .delete(isAuthenticated, forumController.deleteTopicComment)
+
 forumRouter.route('/topics/:topic_id/activity')
   .post(isAuthenticated, forumController.topicActivity)
 

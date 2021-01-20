@@ -39,7 +39,7 @@ const ListItem = ({
       <div className='display-inline-flex is-fullwidth' key={ topic.id }>
         <Avatar className='mr-10' src={ carolin } />
         <div className='is-fullwidth'>
-          <div className='display-inline-flex  is-fullwidth'>
+          <div className='display-inline-flex is-fullwidth'>
             <div className='group-title'>
               <Button
                 className='topic-name-button'
@@ -72,7 +72,6 @@ const ListItem = ({
               </p>
 
             </div>
-
           </div>
           <div className='section-stats'>
             <ul className='display-inline-flex mb-15'>

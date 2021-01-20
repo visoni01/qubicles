@@ -10,7 +10,9 @@ import {
   ForumUpdateTopicService,
   ForumDeleteTopicService,
   ForumGetTopicCommentsService,
+  ForumDeleteCommentService,
   ForumCreateCommentService,
+  ForumUpdateCommentService,
   ImageUploadService,
   ForumTopicActivity
 } from '../services/forum'
@@ -112,6 +114,24 @@ export default class ForumController {
       Responder.success(res, forumCreateCommentResult.result)
     } else {
       Responder.failed(res, forumCreateCommentResult.errors)
+    }
+  }
+
+  static async updateTopicComment (req, res) {
+    const forumUpdateCommentResult = await ForumUpdateCommentService.execute({ ...req.body, ...req.params })
+    if (forumUpdateCommentResult.successful) {
+      Responder.success(res, forumUpdateCommentResult.result)
+    } else {
+      Responder.failed(res, forumUpdateCommentResult.errors)
+    }
+  }
+
+  static async deleteTopicComment (req, res) {
+    const forumDeleteCommentResult = await ForumDeleteCommentService.execute({ ...req.body, ...req.params })
+    if (forumDeleteCommentResult.successful) {
+      Responder.success(res, forumDeleteCommentResult.result)
+    } else {
+      Responder.failed(res, forumDeleteCommentResult.errors)
     }
   }
 

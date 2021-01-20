@@ -6,11 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV, faTrash, faPen } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
-import { deleteGroupTopic } from '../../../redux-saga/redux/actions'
+import { deleteTopicComment } from '../../../redux-saga/redux/actions'
 import ConfirmationModal from '../../../components/CommonModal/ConfirmationModal'
 
-const TopicOptions = ({
-  topicId, ownerId, groupId, childTopicData,
+const CommentOptions = ({
+  topicId, activityId, ownerId, handleEdit,
 }) => {
   const [ openOptions, setOpenOptions ] = useState(false)
   const [ anchorEl, setAnchorEl ] = useState(null)
@@ -22,7 +22,7 @@ const TopicOptions = ({
     setAnchorEl(null)
   }
 
-  const handleTopicOptionClick = useCallback((e) => {
+  const handleGroupOptionClick = useCallback((e) => {
     setOpenOptions((current) => !current)
     setAnchorEl(e.currentTarget)
   }, [])
@@ -33,20 +33,21 @@ const TopicOptions = ({
     setOpenConfirmDelete(false)
   }, [])
 
-  const handleConfirmDeleteTopic = useCallback(() => {
+  const handleConfirmTopicComment = useCallback(() => {
     setOpenConfirmDelete(false)
     setOpenOptions(false)
     setAnchorEl(null)
-    dispatch(deleteGroupTopic({
-      topicId, ownerId, groupId,
+    dispatch(deleteTopicComment({
+      topicId, activityId, ownerId,
     }))
-  }, [ topicId, dispatch, ownerId, groupId ])
+  }, [ activityId, dispatch, topicId, ownerId ])
+
+  const openConfirmationModal = useCallback(() => (setOpenConfirmDelete(true)), [ setOpenConfirmDelete ])
 
   return (
     <>
       <IconButton
-        onClick={ handleTopicOptionClick }
-        classes={ { root: 'topic-action-button' } }
+        onClick={ handleGroupOptionClick }
       >
         <FontAwesomeIcon icon={ faEllipsisV } className='custom-fa-icon sz-md dark' />
       </IconButton>
@@ -69,7 +70,7 @@ const TopicOptions = ({
             size='small'
             className='option'
             classes={ { label: 'option-label' } }
-            onClick={ childTopicData }
+            onClick={ handleEdit }
             startIcon={ <FontAwesomeIcon icon={ faPen } className='custom-fa-icon dark mr-5' /> }
           >
             <p className='para'> Edit </p>
@@ -78,7 +79,7 @@ const TopicOptions = ({
             size='small'
             className='option'
             classes={ { label: 'option-label' } }
-            onClick={ () => setOpenConfirmDelete(true) }
+            onClick={ openConfirmationModal }
             startIcon={ <FontAwesomeIcon icon={ faTrash } className='custom-fa-icon dark mr-5' /> }
           >
             <p className='para red'> Delete </p>
@@ -88,19 +89,19 @@ const TopicOptions = ({
       <ConfirmationModal
         open={ openConfirmDeleteModal }
         handleClose={ handleCancelActivity }
-        message='Are you sure you want to delete this topic ?'
+        message='Are you sure you want to delete this group ?'
         confirmButtonText='Delete'
-        handleConfirm={ handleConfirmDeleteTopic }
+        handleConfirm={ handleConfirmTopicComment }
       />
     </>
   )
 }
 
-TopicOptions.propTypes = {
-  topicId: PropTypes.number.isRequired,
+CommentOptions.propTypes = {
+  activityId: PropTypes.number.isRequired,
   ownerId: PropTypes.number.isRequired,
-  groupId: PropTypes.number.isRequired,
-  childTopicData: PropTypes.func.isRequired,
+  topicId: PropTypes.number.isRequired,
+  handleEdit: PropTypes.func.isRequired,
 }
 
-export default TopicOptions
+export default CommentOptions

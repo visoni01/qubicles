@@ -67,6 +67,16 @@ class Forum {
     const response = await apiClient.postRequest(`/forum/topics/${ topicId }/comments`, data)
     return response
   }
+
+  static async updateTopicComment({ topicId, id, ...data }) {
+    const response = await apiClient.putRequest(`/forum/topics/${ topicId }/comments/${ id }`, data)
+    return response
+  }
+
+  static async deleteTopicComment({ activityId, topicId }) {
+    const response = await apiClient.deleteRequest(`/forum/topics/${ topicId }/comments/${ activityId }`)
+    return response
+  }
 }
 
 export default Forum
