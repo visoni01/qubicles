@@ -1,17 +1,18 @@
 import React, { useState } from 'react'
 import { Grid } from '@material-ui/core'
-import ContactsModal from './contacts'
-import AgentTodayActivity from './AgentTodayActivity'
-import './style.scss'
-import AgentStats from './AgentStats'
 import CallButtons from './CallButtons'
+import './style.scss'
+import AgentActiveCallPage from './agentActiveCallPage'
+import AgentInactiveCallPage from './agentInactiveCallPage'
 import CallbackModal from './callback'
 import CallLogsModal from './callLogs'
+import ContactsModal from './contacts'
 
 const AgentDashboard = () => {
   const [ openContactsModal, setOpenContactsModal ] = useState(false)
   const [ openCallbackModal, setOpenCallbackModal ] = useState(false)
   const [ openCallLogsModal, setOpenCallLogsModal ] = useState(false)
+  const [ activeCall, setActiveCall ] = useState(true)
   return (
     <div>
       <Grid container>
@@ -19,32 +20,31 @@ const AgentDashboard = () => {
           setOpenContactsModal={ setOpenContactsModal }
           setOpenCallbackModal={ setOpenCallbackModal }
           setOpenCallLogsModal={ setOpenCallLogsModal }
+          activeCall={ activeCall }
+          setActiveCall={ setActiveCall }
         />
-        <Grid item container spacing={ 4 }>
-          {/*  Left Section */}
-          <Grid item xl={ 3 } lg={ 3 } md={ 12 } sm={ 12 } xs={ 12 }>
-            <AgentTodayActivity />
-          </Grid>
-          <Grid item xl={ 9 } lg={ 9 } md={ 12 } sm={ 12 } xs={ 12 }>
-            <AgentStats />
-            <ContactsModal
-              open={ openContactsModal }
-              onClose={ () => setOpenContactsModal(false) }
-              onSubmit={ () => setOpenContactsModal(false) }
-            />
-            <CallbackModal
-              open={ openCallbackModal }
-              onClose={ () => setOpenCallbackModal(false) }
-              onSubmit={ () => setOpenCallbackModal(false) }
-            />
-            <CallLogsModal
-              open={ openCallLogsModal }
-              onClose={ () => setOpenCallLogsModal(false) }
-              onSubmit={ () => setOpenCallLogsModal(false) }
-            />
-          </Grid>
-        </Grid>
       </Grid>
+      {activeCall
+        ? (
+          <AgentInactiveCallPage />)
+        : (
+          <AgentActiveCallPage />
+        )}
+      <ContactsModal
+        open={ openContactsModal }
+        onClose={ () => setOpenContactsModal(false) }
+        onSubmit={ () => setOpenContactsModal(false) }
+      />
+      <CallbackModal
+        open={ openCallbackModal }
+        onClose={ () => setOpenCallbackModal(false) }
+        onSubmit={ () => setOpenCallbackModal(false) }
+      />
+      <CallLogsModal
+        open={ openCallLogsModal }
+        onClose={ () => setOpenCallLogsModal(false) }
+        onSubmit={ () => setOpenCallLogsModal(false) }
+      />
     </div>
   )
 }

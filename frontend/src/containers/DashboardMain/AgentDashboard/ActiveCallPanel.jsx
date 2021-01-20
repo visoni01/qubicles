@@ -32,10 +32,13 @@ export default function ActiveCallPanel({
         md={ 6 }
         sm={ 8 }
         xs={ 12 }
+        classes={ { item: 'no-padding pl-20 pr-20' } }
         alignItems='flex-end'
       >
         <Grid item>
-          <IconButton>
+          <IconButton
+            classes={ { root: 'no-padding-bottom' } }
+          >
             <div className='text-align-last-center'>
               <img src={ holdIcon } alt='Chat Icon' />
               <p className='para'> Hold</p>
@@ -43,7 +46,9 @@ export default function ActiveCallPanel({
           </IconButton>
         </Grid>
         <Grid item>
-          <IconButton>
+          <IconButton
+            classes={ { root: 'no-padding-bottom' } }
+          >
             <div className='text-align-last-center'>
               <img src={ transferIcon } alt='Chat Icon' />
               <p className='para'> X-Fer</p>
@@ -51,7 +56,9 @@ export default function ActiveCallPanel({
           </IconButton>
         </Grid>
         <Grid item>
-          <IconButton>
+          <IconButton
+            classes={ { root: 'no-padding-bottom' } }
+          >
             <div className='text-align-last-center'>
               <img src={ volumeIcon } alt='Chat Icon' />
               <p className='para'> Volume</p>
@@ -59,7 +66,9 @@ export default function ActiveCallPanel({
           </IconButton>
         </Grid>
         <Grid item>
-          <IconButton>
+          <IconButton
+            classes={ { root: 'no-padding-bottom' } }
+          >
             <div className='text-align-last-center'>
               <img src={ muteIcon } alt='Chat Icon' />
               <p className='para'> Mute</p>
@@ -67,7 +76,9 @@ export default function ActiveCallPanel({
           </IconButton>
         </Grid>
         <Grid item>
-          <IconButton>
+          <IconButton
+            classes={ { root: 'no-padding-bottom' } }
+          >
             <div className='text-align-last-center'>
               <img src={ endCallIcon } alt='Chat Icon' />
               <p className='para'> End Call</p>

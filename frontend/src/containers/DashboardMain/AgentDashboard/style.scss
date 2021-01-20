@@ -85,3 +85,12 @@
     }
   }
 }
+
+.call-center-agent-tabs-indicator {
+  background-color: $color-dark-grey;
+}
+
+.call-center-agent-tab-root {
+ min-width: unset;
+ margin: 15px 10px 0px 10px;
+}
