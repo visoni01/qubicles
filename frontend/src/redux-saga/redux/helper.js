@@ -156,15 +156,15 @@ export const updateGroupTopics = (state, payload) => {
     }
 
     case UPDATE_TOPIC_STATS: {
-      const { statType } = payload
+      const { statType, toIncrement = true } = payload
       updatedState = {
         ...state,
         topics: state.topics.map((topic) => {
           if (topic.id === payload.topicId) {
             return {
               ...topic,
-              [ payload.statType ]: statType === 'commentsCountUp'
-                ? topic[ payload.statType ] + 1 : topic[ payload.statType ] - 1,
+              [ statType ]: toIncrement
+                ? topic[ statType ] + 1 : topic[ statType ] - 1,
             }
           }
           return topic

@@ -23,7 +23,7 @@ function* topicCommentsCrudWorker(action) {
         yield put(updateGroupTopicsList({
           type: UPDATE_TOPIC_STATS,
           topicId,
-          statType: 'commentsCountUp',
+          statType: 'commentsCount',
         }))
 
         yield put(updateTopicComments({
@@ -55,7 +55,8 @@ function* topicCommentsCrudWorker(action) {
         yield put(updateGroupTopicsList({
           type: UPDATE_TOPIC_STATS,
           topicId,
-          statType: 'commentsCountDown',
+          statType: 'commentsCount',
+          toIncrement: false,
         }))
         yield put(updateTopicComments({
           type: DELETE_TOPIC_COMMENT,
