@@ -9,7 +9,7 @@ import ManualDialModal from './manualDial'
 export default function InactiveCallPanel({
   setOpenContactsModal, setOpenCallbackModal, setOpenCallLogsModal,
 }) {
-  const [ openManualDialModal, setOpenManualDialModal ] = useState(true)
+  const [ openManualDialModal, setOpenManualDialModal ] = useState(false)
   return (
     <>
       <Grid item container justify='flex-start' spacing={ 3 } lg={ 9 }>
