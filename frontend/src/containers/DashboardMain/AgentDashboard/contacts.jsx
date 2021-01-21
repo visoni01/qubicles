@@ -33,8 +33,7 @@ const Contacts = ({
       onClose={ onClose }
       fullWidth
       maxWidth='md'
-      className='custom-modal wallet-root'
-      classes={ { paper: 'wallet-modals' } }
+      className='custom-modal agent-root'
     >
       <div className='header'>
         <DialogTitle>

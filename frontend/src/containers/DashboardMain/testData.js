@@ -37,9 +37,24 @@ const callbackData = [ {
   alt: 'Manual',
   hangup: 'Agent',
   timezone: -4.01,
-},
+} ]
 
+const agentsData = [
+  {
+    id: 1,
+    agentName: 'Terry',
+  },
+  {
+    id: 2,
+    agentName: 'Jackson',
+  },
+  {
+    id: 3,
+    agentName: 'Edwin',
+  },
 ]
 
-// eslint-disable-next-line import/prefer-default-export
-export { callbackData }
+export {
+  callbackData,
+  agentsData,
+}

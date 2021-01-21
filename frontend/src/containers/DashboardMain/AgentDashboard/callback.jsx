@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { callbackData } from '../testData'
 import CallbackList from './callbackList'
+import './style.scss'
 
 const Callback = ({
   open, onClose,
@@ -17,8 +18,7 @@ const Callback = ({
     onClose={ onClose }
     fullWidth
     maxWidth='lg'
-    className='custom-modal wallet-root'
-    classes={ { paper: 'wallet-modals' } }
+    className='custom-modal agent-root'
   >
     <div className='header'>
       <DialogTitle>
@@ -34,45 +34,45 @@ const Callback = ({
       </DialogActions>
     </div>
     <DialogContent>
-      <Grid container spacing={ 1 } justify='space-between' alignItems='flex-start'>
-        <Grid item xl={ 1 } lg={ 1 } md={ 1 } sm={ 1 } xs={ 12 }>
+      <Grid container spacing={ 1 } justify='space-between' alignItems='center'>
+        <Grid item xl={ 1 } lg={ 1 } md={ 1 } sm={ 12 } xs={ 12 }>
           <h4 className='h4'>
             #
           </h4>
         </Grid>
-        <Grid item xl={ 2 } lg={ 2 } md={ 2 } sm={ 2 } xs={ 12 }>
+        <Grid item xl={ 2 } lg={ 2 } md={ 2 } sm={ 12 } xs={ 12 }>
           <h4 className='h4 '>
             Callback Date/Time
           </h4>
         </Grid>
-        <Grid item xl={ 2 } lg={ 2 } md={ 2 } sm={ 2 } xs={ 12 }>
+        <Grid item xl={ 2 } lg={ 2 } md={ 2 } sm={ 12 } xs={ 12 }>
           <h4 className='h4'>
             Name
           </h4>
         </Grid>
-        <Grid item xl={ 2 } lg={ 2 } md={ 2 } sm={ 2 } xs={ 12 }>
+        <Grid item xl={ 2 } lg={ 2 } md={ 2 } sm={ 12 } xs={ 12 }>
           <h4
             className='h4'
           >
             Phone
           </h4>
         </Grid>
-        <Grid item xl={ 1 } lg={ 1 } md={ 1 } sm={ 1 } xs={ 12 }>
+        <Grid item xl={ 1 } lg={ 1 } md={ 1 } sm={ 12 } xs={ 12 }>
           <h4 className='h4'>
             Status
           </h4>
         </Grid>
-        <Grid item xl={ 1 } lg={ 1 } md={ 1 } sm={ 1 } xs={ 12 }>
+        <Grid item xl={ 1 } lg={ 1 } md={ 1 } sm={ 12 } xs={ 12 }>
           <h4 className='h4'>
             Campaign
           </h4>
         </Grid>
-        <Grid item xl={ 2 } lg={ 2 } md={ 2 } sm={ 2 } xs={ 12 }>
+        <Grid item xl={ 2 } lg={ 2 } md={ 2 } sm={ 12 } xs={ 12 }>
           <h4 className='h4'>
             Last Call Date/Time
           </h4>
         </Grid>
-        <Grid item xl={ 1 } lg={ 1 } md={ 1 } sm={ 1 } xs={ 12 }>
+        <Grid item xl={ 1 } lg={ 1 } md={ 1 } sm={ 12 } xs={ 12 }>
           <h4 className='h4'>
             Timezone
           </h4>

@@ -12,7 +12,7 @@ const AgentDashboard = () => {
   const [ openContactsModal, setOpenContactsModal ] = useState(false)
   const [ openCallbackModal, setOpenCallbackModal ] = useState(false)
   const [ openCallLogsModal, setOpenCallLogsModal ] = useState(false)
-  const [ activeCall, setActiveCall ] = useState(true)
+  const [ activeCall, setActiveCall ] = useState(false)
   return (
     <div>
       <Grid container>

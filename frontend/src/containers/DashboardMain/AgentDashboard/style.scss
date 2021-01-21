@@ -94,3 +94,60 @@
  min-width: unset;
  margin: 15px 10px 0px 10px;
 }
+
+.agent-root {
+
+  .agentDashboardModal-buttons {
+    display: inline-flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    .MuiButtonBase-root{
+      height: 40px;
+    }
+  }
+
+  .agent-modals {
+    width: fit-content;
+    height: fit-content;
+  }
+
+  .control {
+    width: 100%;
+    input {
+      border: 1px solid #DBDBDB;
+      height: 45px;
+      border-radius: 6px;
+      width: 100%;
+      background: #FFFFFF;
+      margin-top: 11px;
+      font-family: "SF Pro Text", Regular;
+      font-weight: normal;
+      color: #4A4A4A;
+    }
+
+    &.custom-intl-tel-input {
+      input {
+        font-size: 1.2rem !important;
+        &:hover, &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    &.intl-tel-input .country-list {
+      width: 100%;
+
+    .country.highlight {
+      margin-bottom: 0px!important;
+      }
+
+      .divider {
+      margin-top: 0px!important;
+      }
+    }
+  }
+
+}
