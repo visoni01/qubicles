@@ -57,14 +57,14 @@ const XferOnHold = ({
             />
           </div>
         </DialogContent>
-        <DialogActions className='modal-actions'>
-          <div className='agentDashboardModal-buttons'>
+        <DialogActions>
+          <div className='is-fullwidth'>
             <div className='mt-10 is-fullwidth'>
               <Button
                 className='wide-button'
                 classes={ {
-                  root: 'button-primary-small',
-                  label: 'button-primary-small-label',
+                  root: 'button-secondary-large',
+                  label: 'button-secondary-large-label agent-lg-btn-label',
                 } }
                 onClick={ () => setOpenXferConferenceModal(true) }
               >
@@ -76,8 +76,8 @@ const XferOnHold = ({
                 onClick={ onClose }
                 className='wide-button'
                 classes={ {
-                  root: 'button-secondary-small',
-                  label: 'button-secondary-small-label',
+                  root: 'button-secondary-large',
+                  label: 'button-secondary-large-label agent-lg-btn-label',
                 } }
               >
                 Hangup 3rd Party

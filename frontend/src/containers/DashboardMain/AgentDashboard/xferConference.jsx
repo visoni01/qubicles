@@ -53,15 +53,15 @@ const XferOnConference = ({
         />
       </div>
     </DialogContent>
-    <DialogActions className='modal-actions'>
-      <div className='agentDashboardModal-buttons'>
+    <DialogActions>
+      <div className='is-fullwidth'>
         <div className='mt-10 is-fullwidth'>
           <Button
             onClick={ onClose }
             className='wide-button'
             classes={ {
-              root: 'button-secondary-small',
-              label: 'button-secondary-small-label',
+              root: 'button-secondary-large',
+              label: 'button-secondary-large-label agent-lg-btn-label',
             } }
           >
             Hangup 3rd Party
@@ -72,8 +72,8 @@ const XferOnConference = ({
             onClick={ onClose }
             className='wide-button'
             classes={ {
-              root: 'button-secondary-small',
-              label: 'button-secondary-small-label',
+              root: 'button-secondary-large',
+              label: 'button-secondary-large-label agent-lg-btn-label',
             } }
           >
             Hold 3rd Party
@@ -84,8 +84,8 @@ const XferOnConference = ({
             onClick={ onClose }
             className='wide-button'
             classes={ {
-              root: 'button-secondary-small',
-              label: 'button-secondary-small-label',
+              root: 'button-secondary-large',
+              label: 'button-secondary-large-label agent-lg-btn-label',
             } }
           >
             Leave 3-Way
@@ -96,8 +96,8 @@ const XferOnConference = ({
             onClick={ onClose }
             className='wide-button'
             classes={ {
-              root: 'button-secondary-small-red',
-              label: 'button-secondary-small-label-red',
+              root: 'button-secondary-large-red',
+              label: 'button-secondary-large-label-red',
             } }
           >
             Hangup Both

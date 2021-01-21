@@ -59,8 +59,8 @@ const Xfer = ({
             <Button
               className='wide-button'
               classes={ {
-                root: 'button-primary-small',
-                label: 'button-primary-small-label',
+                root: 'button-primary-large',
+                label: 'button-primary-large-label agent-lg-btn-label',
               } }
               onClick={ onSubmit }
             >
@@ -71,8 +71,8 @@ const Xfer = ({
                 onClick={ onClose }
                 className='wide-button'
                 classes={ {
-                  root: 'button-secondary-small',
-                  label: 'button-secondary-small-label',
+                  root: 'button-secondary-large',
+                  label: 'button-secondary-large-label agent-lg-btn-label',
                 } }
               >
                 Warm X-fer
@@ -83,8 +83,8 @@ const Xfer = ({
                 onClick={ () => setOpenXferOnHoldModal(true) }
                 className='wide-button'
                 classes={ {
-                  root: 'button-secondary-small',
-                  label: 'button-secondary-small-label',
+                  root: 'button-secondary-large',
+                  label: 'button-secondary-large-label agent-lg-btn-label',
                 } }
               >
                 Hold & Dial

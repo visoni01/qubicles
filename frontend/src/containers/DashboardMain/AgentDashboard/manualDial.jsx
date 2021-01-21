@@ -52,26 +52,32 @@ const ManualDial = ({
         />
       </div>
 
-      <div className='agentDashboardModal-buttons'>
-        <div className='mt-10 is-fullwidth'>
+      <div className='is-fullwidth'>
+        <div className='mt-10'>
           <Button
             className='wide-button '
-            classes={ { root: 'button-primary-small', label: 'button-primary-small-label' } }
+            classes={ {
+              root: 'button-primary-large',
+              label: 'button-primary-large-label agent-lg-btn-label',
+            } }
             onClick={ onSubmit }
           >
             Dial Now
           </Button>
         </div>
-        <div className='mt-10 is-fullwidth'>
+        <div className='mt-10'>
           <Button
             className='wide-button'
-            classes={ { root: 'button-secondary-small', label: 'button-secondary-small-label' } }
+            classes={ {
+              root: 'button-secondary-large',
+              label: 'button-secondary-large-label agent-lg-btn-label',
+            } }
             onClick={ onSubmit }
           >
             Preview Dial
           </Button>
         </div>
-        <div className='text-center mt-10 is-fullwidth '>
+        <div className='text-center mt-10'>
           <Button
             color='secondary'
             onClick={ onClose }
