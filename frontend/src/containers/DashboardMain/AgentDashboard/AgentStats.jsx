@@ -1,8 +1,11 @@
 import React from 'react'
-import { Grid, Card, CardContent } from '@material-ui/core'
+import {
+  Grid, Card, CardContent,
+} from '@material-ui/core'
 import {
   callsTodayIcon, waitTimeIcon, talkTimeIcon, salesIcon, callsInQueueIcon,
 } from '../../../assets/images/agentDashboard'
+import CallDialer from './callDialer'
 
 export default function AgentStats() {
   return (
@@ -82,6 +85,9 @@ export default function AgentStats() {
           </Card>
         </Grid>
       </Grid>
+      <div className='display-inline-flex justify-end is-fullwidth'>
+        <CallDialer />
+      </div>
     </div>
   )
 }
