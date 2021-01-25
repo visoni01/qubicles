@@ -14,22 +14,21 @@ export default function ActiveCallPanel({
   const [ openXferModal, setOpenXferModal ] = useState(false)
   const [ volumeLevel, setVolumeLevel ] = useState(30)
   const [ anchorEl, setAnchorEl ] = useState(null)
-  const [ open, setOpen ] = useState(!!anchorEl)
-  const id = open ? 'simple-popover' : undefined
+  const [ openVolumeSlider, setOpenVolumeSlider ] = useState(false)
 
-  const handleClick = (event) => {
+  const handleVolumeSliderOpen = useCallback((event) => {
     setAnchorEl(event.currentTarget)
-    setOpen(true)
-  }
+    setOpenVolumeSlider(true)
+  }, [])
 
   const handleClose = useCallback(() => {
     setAnchorEl(null)
-    setOpen(false)
+    setOpenVolumeSlider(false)
   }, [])
 
-  const handleSliderChange = (event, newValue) => {
+  const handleSliderChange = useCallback((event, newValue) => {
     setVolumeLevel(newValue)
-  }
+  }, [])
 
   return (
     <>
@@ -83,42 +82,11 @@ export default function ActiveCallPanel({
           <Grid item>
             <IconButton
               classes={ { root: 'no-padding-bottom' } }
-              aria-describedby={ id }
-              onClick={ handleClick }
+              onClick={ handleVolumeSliderOpen }
             >
               <div className='text-align-last-center'>
                 <img src={ volumeIcon } alt='Chat Icon' />
                 <p className='para' id='volume-slider'>Volume</p>
-                <div className='is-fullwidth'>
-                  <Popover
-                    id={ id }
-                    open={ open }
-                    anchorEl={ anchorEl }
-                    onClose={ handleClose }
-                    elevation={ 2 }
-                    anchorOrigin={ {
-                      vertical: 'bottom',
-                      horizontal: 'center',
-                    } }
-                    transformOrigin={ {
-                      vertical: 'top',
-                      horizontal: 'center',
-                    } }
-                    classes={ {
-                      paper: 'mt-10 call-volume-popover',
-                    } }
-                  >
-                    <Slider
-                      orientation='vertical'
-                      value={ volumeLevel }
-                      onChange={ handleSliderChange }
-                      classes={ {
-                        vertical: 'call-volume-slider',
-                        thumb: 'volume-slider-thumb',
-                      } }
-                    />
-                  </Popover>
-                </div>
               </div>
             </IconButton>
           </Grid>
@@ -149,6 +117,33 @@ export default function ActiveCallPanel({
         onClose={ () => setOpenXferModal(false) }
         onSubmit={ () => setOpenXferModal(false) }
       />
+      <Popover
+        open={ openVolumeSlider }
+        anchorEl={ anchorEl }
+        onClose={ handleClose }
+        elevation={ 2 }
+        anchorOrigin={ {
+          vertical: 'bottom',
+          horizontal: 'center',
+        } }
+        transformOrigin={ {
+          vertical: 'top',
+          horizontal: 'center',
+        } }
+        classes={ {
+          paper: 'mt-10 call-volume-popover',
+        } }
+      >
+        <Slider
+          orientation='vertical'
+          value={ volumeLevel }
+          onChange={ handleSliderChange }
+          classes={ {
+            vertical: 'call-volume-slider',
+            thumb: 'volume-slider-thumb',
+          } }
+        />
+      </Popover>
     </>
   )
 }
