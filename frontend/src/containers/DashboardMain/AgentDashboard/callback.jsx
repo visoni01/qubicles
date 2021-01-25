@@ -68,7 +68,7 @@ const Callback = ({
           </h4>
         </Grid>
         <Grid item xl={ 2 } lg={ 2 } md={ 2 } sm={ 12 } xs={ 12 }>
-          <h4 className='h4'>
+          <h4 className='h4 text-align-end'>
             Last Call Date/Time
           </h4>
         </Grid>

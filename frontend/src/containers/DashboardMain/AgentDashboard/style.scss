@@ -104,6 +104,26 @@
   }
 }
 
+.call-volume-popover {
+  vertical-align: middle;
+  min-height: 140px;
+  overflow-y: hidden;
+  width: 40px;
+}
+
+.volume-slider-thumb {
+  color:  $color-primary;
+  &:hover {
+    color:  $color-primary;
+  }
+}
+
+.call-volume-slider {
+  color:  $color-primary;
+  min-height: 140px;
+  margin: 15px 0 15px 6px;
+}
+
 .agent-root {
   .agent-modals {
     width: fit-content;

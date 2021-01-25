@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
-import { Grid, Button, IconButton } from '@material-ui/core'
+import React, { useState, useCallback } from 'react'
+import {
+  Grid, Button, IconButton, Slider, Popover,
+} from '@material-ui/core'
 import PropTypes from 'prop-types'
 import {
   contactsIcon, holdIcon, transferIcon, volumeIcon, muteIcon, endCallIcon,
@@ -10,6 +12,25 @@ export default function ActiveCallPanel({
   setOpenContactsModal,
 }) {
   const [ openXferModal, setOpenXferModal ] = useState(false)
+  const [ volumeLevel, setVolumeLevel ] = useState(30)
+  const [ anchorEl, setAnchorEl ] = useState(null)
+  const [ open, setOpen ] = useState(!!anchorEl)
+  const id = open ? 'simple-popover' : undefined
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget)
+    setOpen(true)
+  }
+
+  const handleClose = useCallback(() => {
+    setAnchorEl(null)
+    setOpen(false)
+  }, [])
+
+  const handleSliderChange = (event, newValue) => {
+    setVolumeLevel(newValue)
+  }
+
   return (
     <>
       <Grid item container justify='flex-start' spacing={ 3 } lg={ 9 } alignItems='center'>
@@ -62,10 +83,42 @@ export default function ActiveCallPanel({
           <Grid item>
             <IconButton
               classes={ { root: 'no-padding-bottom' } }
+              aria-describedby={ id }
+              onClick={ handleClick }
             >
               <div className='text-align-last-center'>
                 <img src={ volumeIcon } alt='Chat Icon' />
-                <p className='para'> Volume</p>
+                <p className='para' id='volume-slider'>Volume</p>
+                <div className='is-fullwidth'>
+                  <Popover
+                    id={ id }
+                    open={ open }
+                    anchorEl={ anchorEl }
+                    onClose={ handleClose }
+                    elevation={ 2 }
+                    anchorOrigin={ {
+                      vertical: 'bottom',
+                      horizontal: 'center',
+                    } }
+                    transformOrigin={ {
+                      vertical: 'top',
+                      horizontal: 'center',
+                    } }
+                    classes={ {
+                      paper: 'mt-10 call-volume-popover',
+                    } }
+                  >
+                    <Slider
+                      orientation='vertical'
+                      value={ volumeLevel }
+                      onChange={ handleSliderChange }
+                      classes={ {
+                        vertical: 'call-volume-slider',
+                        thumb: 'volume-slider-thumb',
+                      } }
+                    />
+                  </Popover>
+                </div>
               </div>
             </IconButton>
           </Grid>

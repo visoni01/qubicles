@@ -109,7 +109,7 @@ const CallDialer = () => {
                   </IconButton>
                 </div>
                 <div className='history-list'>
-                  {[ 0, 1, 2, 3, 4 ].map((val) => (
+                  {[ 0, 1, 2, 3, 4, 5, 6, 7, 8 ].map((val) => (
                     <div key={ val } className='list-divider no-margin pb-10 pt-10'>
                       <div className='display-inline-flex align-items-center'>
                         <img src={ outboundCallIcon } alt='Outbound' className='mr-20' />

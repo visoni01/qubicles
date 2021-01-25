@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Grid, Divider } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfoCircle, faPhoneAlt } from '@fortawesome/free-solid-svg-icons'
 
 const CallbackList = ({ callback }) => (
-  <div className='mt-20'>
+  <div className='mt-20 list-divider no-margin pb-10 pt-10'>
     <Grid container spacing={ 1 } justify='space-between' alignItems='flex-start'>
       <Grid item xl={ 1 } lg={ 1 } md={ 1 } sm={ 12 } xs={ 12 }>
         <p className='para'>
@@ -49,7 +49,6 @@ const CallbackList = ({ callback }) => (
           { callback.timezone}
         </p>
       </Grid>
-      <Divider className='divider' />
     </Grid>
   </div>
 )
