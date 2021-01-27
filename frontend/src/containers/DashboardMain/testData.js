@@ -73,6 +73,39 @@ const dummyCallLogsData = [
   },
 ]
 
+const dummyCallbackData = [
+  {
+    id: 0,
+    dateTime: '08/28/2020 1:41:25 AM',
+    name: 'Jessica Mendoza',
+    phoneNumber: '(288)608-2640',
+    status: 'Active',
+    campaign: 'OLIVETN2',
+    lastCallDateTime: '08/28/2020 1:41:25 AM',
+    timezone: '-4.00',
+  },
+  {
+    id: 1,
+    dateTime: '08/28/2020 1:41:25 AM',
+    name: 'Martha Henderson',
+    phoneNumber: '(288)608-2640',
+    status: 'Active',
+    campaign: 'OLIVETN2',
+    lastCallDateTime: '08/28/2020 1:41:25 AM',
+    timezone: '-4.00',
+  },
+  {
+    id: 2,
+    dateTime: '08/28/2020 1:41:25 AM',
+    name: 'Rachael Cunningham',
+    phoneNumber: '(288)608-2640',
+    status: 'Active',
+    campaign: 'OLIVETN2',
+    lastCallDateTime: '08/28/2020 1:41:25 AM',
+    timezone: '-4.00',
+  },
+]
+
 const agentsData = [
   {
     id: 1,
@@ -133,6 +166,7 @@ const contactDetails = [
 
 export {
   dummyCallLogsData,
+  dummyCallbackData,
   agentsData,
   contactDetails,
 }

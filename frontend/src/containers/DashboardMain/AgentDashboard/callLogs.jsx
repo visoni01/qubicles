@@ -18,8 +18,7 @@ const CallLogs = ({
     disableScrollLock
     open={ open }
     onClose={ onClose }
-    fullWidth
-    maxWidth='lg'
+    maxWidth='xl'
     className='custom-modal agent-root'
   >
     <div className='header'>
