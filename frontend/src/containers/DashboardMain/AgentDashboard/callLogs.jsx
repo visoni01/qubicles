@@ -1,12 +1,14 @@
 import React from 'react'
 import {
-  DialogTitle, Dialog, DialogActions, IconButton, DialogContent, Grid, InputBase,
+  DialogTitle, Dialog, DialogActions, IconButton, DialogContent, Grid, TextField, Button,
+  TableContainer, TableHead, TableRow, TableCell, TableBody,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import { callbackData } from '../testData'
-import CallLogsList from './callLogsList'
+import {
+  faTimes, faPhoneAlt, faInfoCircle,
+} from '@fortawesome/free-solid-svg-icons'
+import { dummyCallLogsData } from '../testData'
 import './style.scss'
 
 const CallLogs = ({
@@ -33,97 +35,93 @@ const CallLogs = ({
         </IconButton>
       </DialogActions>
     </div>
-    <DialogContent>
-      <Grid container spacing={ 4 } alignItems='flex-end'>
-        <Grid container item xl={ 4 } lg={ 4 } md={ 4 } sm={ 6 } spacing={ 2 }>
-          <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 6 }>
-            <h4 className='h4 mb-10'> Start Date</h4>
-            <div className='search-input'>
-              <InputBase
-                placeholder='Start Date'
-                className='input-field'
-              />
-            </div>
+    <DialogContent classes={ { root: 'list-modal-content' } }>
+      <div className='out-div'>
+        <Grid container spacing={ 3 } justify='flex-start' alignItems='flex-end'>
+          <Grid item xl={ 2 } lg={ 2 } md={ 3 } sm={ 6 } xs={ 6 }>
+            <h4 className='h4 mb-5'> Start Date</h4>
+            <TextField
+              className='text-field-para is-fullwidth'
+              type='date'
+              variant='outlined'
+              margin='dense'
+            />
           </Grid>
-          <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 6 }>
-            <h4 className='h4 mb-10'> End Date</h4>
-            <div className='search-input'>
-              <InputBase
-                placeholder='End Date'
-                className='input-field'
-              />
-            </div>
+          <Grid item xl={ 2 } lg={ 2 } md={ 3 } sm={ 6 } xs={ 6 }>
+            <h4 className='h4 mb-5'> End Date</h4>
+            <TextField
+              className='text-field-para is-fullwidth'
+              type='date'
+              variant='outlined'
+              margin='dense'
+            />
           </Grid>
-        </Grid>
-        <Grid item xl={ 8 } lg={ 8 } md={ 8 } sm={ 6 }>
-          <div className='mt-10 display-inline-flex justify-between align-items-center is-fullwidth'>
-            <p className='para text-link ml-30'> Today </p>
-            <p className='para text-link ml-30'> This Week </p>
-            <p className='para text-link ml-30'> This Month </p>
-            <p className='para text-link ml-30'> This Year </p>
-            <p className='para text-link ml-30'> All </p>
-          </div>
-        </Grid>
-      </Grid>
-      <div className='mt-30'>
-        <Grid container spacing={ 1 } justify='space-between' alignItems='center'>
-          <Grid item xl={ 1 } lg={ 1 } md={ 1 } sm={ 12 } xs={ 12 }>
-            <h4 className='h4'>
-              #
-            </h4>
-          </Grid>
-          <Grid item xl={ 2 } lg={ 2 } md={ 2 } sm={ 12 } xs={ 12 }>
-            <h4 className='h4 '>
-              Date/Time
-            </h4>
-          </Grid>
-          <Grid item xl={ 1 } lg={ 1 } md={ 1 } sm={ 12 } xs={ 12 }>
-            <h4 className='h4 '>
-              Length
-            </h4>
-          </Grid>
-          <Grid item xl={ 2 } lg={ 2 } md={ 2 } sm={ 12 } xs={ 12 }>
-            <h4 className='h4'>
-              Name
-            </h4>
-          </Grid>
-          <Grid item xl={ 1 } lg={ 1 } md={ 1 } sm={ 12 } xs={ 12 }>
-            <h4
-              className='h4'
-            >
-              Phone
-            </h4>
-          </Grid>
-          <Grid item xl={ 1 } lg={ 1 } md={ 1 } sm={ 12 } xs={ 12 }>
-            <h4 className='h4'>
-              Status
-            </h4>
-          </Grid>
-          <Grid item xl={ 1 } lg={ 1 } md={ 1 } sm={ 12 } xs={ 12 }>
-            <h4 className='h4'>
-              Campaign
-            </h4>
-          </Grid>
-          <Grid item xl={ 1 } lg={ 1 } md={ 1 } sm={ 12 } xs={ 12 }>
-            <h4 className='h4'>
-              In/Out
-            </h4>
-          </Grid>
-          <Grid item xl={ 1 } lg={ 1 } md={ 1 } sm={ 12 } xs={ 12 }>
-            <h4 className='h4'>
-              Alt
-            </h4>
-          </Grid>
-          <Grid item xl={ 1 } lg={ 1 } md={ 1 } sm={ 12 } xs={ 12 }>
-            <h4 className='h4'>
-              Hangup
-            </h4>
+          <Grid item container xl={ 6 } lg={ 6 } md={ 6 } sm={ 12 } xs={ 12 } alignItems='flex-end'>
+            {[ 'Today', 'This Week', 'This Month', 'This Year' ].map((timeFilter) => (
+              <Grid key={ timeFilter } item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 } xs={ 3 }>
+                <Button classes={ {
+                  root: 'button-primary-text large-height',
+                  laebl: 'button-primary-text-label',
+                } }
+                >
+                  {timeFilter}
+                </Button>
+              </Grid>
+            ))}
           </Grid>
         </Grid>
       </div>
-      <div className='mt-10'>
-        {callbackData.map((callback) => <CallLogsList key={ callback.id } callback={ callback } />)}
-      </div>
+      <TableContainer className='mt-20 no-padding'>
+        <TableHead>
+          <TableRow>
+            {[ '#', 'Date/Time', 'Length', 'Status',
+              'Phone', 'Name', 'Campaign', 'In/Out', 'Alt', 'Hangup',
+            ].map((rowItem) => (
+              <TableCell key={ rowItem }>
+                <h4 className='h4'>{rowItem}</h4>
+              </TableCell>
+            ))}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {dummyCallLogsData.map((rowItem) => (
+            <TableRow key={ rowItem.id }>
+              <TableCell>
+                <span className='para'>{rowItem.id}</span>
+              </TableCell>
+              <TableCell>
+                <span className='para'>{rowItem.dateTime}</span>
+              </TableCell>
+              <TableCell>
+                <span className='para'>{rowItem.length}</span>
+              </TableCell>
+              <TableCell>
+                <span className='para'>{rowItem.status}</span>
+              </TableCell>
+              <TableCell>
+                <FontAwesomeIcon icon={ faPhoneAlt } className='custom-fa-icon mr-5' />
+                <span className='para primary'>{rowItem.phoneNumber}</span>
+              </TableCell>
+              <TableCell>
+                <FontAwesomeIcon icon={ faInfoCircle } className='custom-fa-icon mr-5' />
+                <span className='para primary'>{rowItem.name}</span>
+              </TableCell>
+              <TableCell>
+                <span className='para'>{rowItem.campaign}</span>
+              </TableCell>
+              <TableCell>
+                <span className='para'>{rowItem.inOut}</span>
+              </TableCell>
+              <TableCell>
+                <span className='para'>{rowItem.alt}</span>
+              </TableCell>
+              <TableCell>
+                <span className='para'>{rowItem.hangup}</span>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </TableContainer>
 
     </DialogContent>
   </Dialog>

@@ -5,8 +5,6 @@ import {
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import { callbackData } from '../testData'
-import CallbackList from './callbackList'
 import './style.scss'
 
 const Callback = ({
@@ -78,10 +76,6 @@ const Callback = ({
           </h4>
         </Grid>
       </Grid>
-      <div className='mt-10'>
-        {callbackData.map((callback) => <CallbackList key={ callback.id } callback={ callback } />)}
-      </div>
-
     </DialogContent>
   </Dialog>
 )
