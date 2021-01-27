@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   Dialog, DialogActions, DialogContent,
-  DialogTitle, Button, IconButton, InputBase, Switch,
+  DialogTitle, Button, IconButton, Switch, TextField,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -15,8 +15,7 @@ const XferOnConference = ({
     disableScrollLock
     open={ open }
     onClose={ onClose }
-    fullWidth
-    maxWidth='sm'
+    maxWidth='md'
     className='custom-modal agent-root'
     classes={ { paper: 'agent-modals' } }
   >
@@ -38,11 +37,12 @@ const XferOnConference = ({
     </div>
     <DialogContent>
       <h4 className='h4 mt-30'>Phone Number</h4>
-      <InputBase
-        InputProps={ { inputProps: { min: 0, step: 1 } } }
+      <TextField
+        className='text-field-para is-fullwidth'
+        variant='outlined'
+        margin='dense'
         type='number'
         placeholder='e.g. 1234567890'
-        className='search-input mt-10'
       />
 
       <div className='display-inline-flex justify-between align-items-center is-halfwidth mt-30'>
@@ -52,8 +52,6 @@ const XferOnConference = ({
           color='primary'
         />
       </div>
-    </DialogContent>
-    <DialogActions>
       <div className='is-fullwidth'>
         <div className='mt-10 is-fullwidth'>
           <Button
@@ -104,7 +102,7 @@ const XferOnConference = ({
           </Button>
         </div>
       </div>
-    </DialogActions>
+    </DialogContent>
   </Dialog>
 )
 

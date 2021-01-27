@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import {
   Dialog, DialogActions, DialogContent,
-  DialogTitle, Button, IconButton, InputBase,
-  Switch, Grid, FormControl, InputLabel, Select,
+  DialogTitle, Button, IconButton,
+  Switch, Grid, FormControl, InputLabel, Select, TextField,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -21,10 +21,10 @@ const Xfer = ({
         disableScrollLock
         open={ open }
         onClose={ onClose }
-        fullWidth
-        maxWidth='sm'
+        scroll='paper'
+        maxWidth='md'
         className='custom-modal agent-root'
-        classes={ { paper: 'agent-modals' } }
+        classes={ { paper: 'agent-modals xfer-modal' } }
       >
         <div className='header'>
           <DialogTitle>
@@ -39,16 +39,17 @@ const Xfer = ({
             </IconButton>
           </DialogActions>
         </div>
-        <DialogContent>
-          <h4 className='h4 mt-30'>Phone Number</h4>
-          <InputBase
-            InputProps={ { inputProps: { min: 0, step: 1 } } }
+        <DialogContent classes={ { root: 'xfer-modal-content' } }>
+          <h4 className='h4 mt-20'>Phone Number</h4>
+          <TextField
+            className='text-field-para is-fullwidth'
+            variant='outlined'
+            margin='dense'
             type='number'
             placeholder='e.g. 1234567890'
-            className='search-input mt-10'
           />
 
-          <div className='display-inline-flex justify-between align-items-center is-halfwidth mt-30'>
+          <div className='display-inline-flex justify-between align-items-center is-halfwidth mt-10'>
             <h4 className='h4'>Internal Warm X-fer</h4>
             <Switch
               className='switches'
@@ -93,7 +94,7 @@ const Xfer = ({
           </div>
           <div className='mt-20'>
             <Grid container spacing={ 3 }>
-              <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 12 } xs={ 12 }>
+              <Grid item xl={ 5 } lg={ 5 } md={ 5 } sm={ 12 } xs={ 12 }>
                 <div className='mt-20'>
                   <h4 className='h4 '> Presets </h4>
                   <p className='para mt-10 text-link'> Technical Support </p>
@@ -103,7 +104,7 @@ const Xfer = ({
                   <p className='para mt-10 text-link'> Adispicing porta </p>
                 </div>
               </Grid>
-              <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 12 } xs={ 12 }>
+              <Grid item xl={ 7 } lg={ 7 } md={ 7 } sm={ 12 } xs={ 12 }>
                 <div className='mt-20'>
                   <h4 className='h4 '> Select An Agent To Transfer This Call To </h4>
                   <FormControl variant='outlined' className='drop-down-bar'>
@@ -129,10 +130,11 @@ const Xfer = ({
                     <Button
                       className='wide-button'
                       classes={ {
-                        root: 'button-primary-small',
-                        label: 'button-primary-small-label',
+                        root: 'button-primary-large',
+                        label: 'button-primary-large-label agent-lg-btn-label',
                       } }
                       onClick={ onSubmit }
+                      disabled
                     >
                       X-fer To Agent
                     </Button>
