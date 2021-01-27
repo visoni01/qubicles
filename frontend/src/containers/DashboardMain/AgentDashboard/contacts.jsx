@@ -18,7 +18,6 @@ const Contacts = ({
       disableScrollLock
       open={ open }
       onClose={ onClose }
-      fullWidth
       maxWidth='md'
       className='custom-modal agent-root'
       classes={ { root: 'agent-modal' } }

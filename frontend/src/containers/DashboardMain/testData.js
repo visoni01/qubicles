@@ -121,7 +121,7 @@ const agentsData = [
   },
 ]
 
-const contactDetails = [
+const dummySearchContactsResults = [
   {
     id: 1,
     status: 'NoAnsw',
@@ -168,5 +168,5 @@ export {
   dummyCallLogsData,
   dummyCallbackData,
   agentsData,
-  contactDetails,
+  dummySearchContactsResults,
 }

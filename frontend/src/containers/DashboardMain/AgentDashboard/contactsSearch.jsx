@@ -1,64 +1,63 @@
 import React from 'react'
-import { Grid } from '@material-ui/core'
-import { contactDetails } from '../testData'
-import ContactsSearchList from './contactsSearchList'
+import {
+  TableContainer, TableHead, TableRow, TableCell, TableBody,
+} from '@material-ui/core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faInfoCircle, faPhoneAlt } from '@fortawesome/free-solid-svg-icons'
+import { dummySearchContactsResults } from '../testData'
 
 const ContactsSearch = () => (
   <div>
     <h3 className='h3'>
       Search Results
       {' '}
-      <span className='para light'>
+      <span className='para light sz-lg'>
         (4 matches)
       </span>
     </h3>
-    <div className='mt-30'>
-      <Grid container spacing={ 3 } justify='space-between' alignItems='center'>
-        <Grid item xl={ 1 } lg={ 1 } md={ 1 } sm={ 12 } xs={ 12 }>
-          <h4 className='h4'>
-            #
-          </h4>
-        </Grid>
-        <Grid item xl={ 2 } lg={ 2 } md={ 2 } sm={ 12 } xs={ 12 }>
-          <h4 className='h4'>
-            Name
-          </h4>
-        </Grid>
-        <Grid item xl={ 2 } lg={ 2 } md={ 2 } sm={ 12 } xs={ 12 }>
-          <h4 className='h4 '>
-            Phone
-          </h4>
-        </Grid>
-        <Grid item xl={ 1 } lg={ 1 } md={ 1 } sm={ 12 } xs={ 12 }>
-          <h4 className='h4'>
-            Status
-          </h4>
-        </Grid>
-        <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 12 } xs={ 12 }>
-          <h4 className='h4'>
-            Last Call
-          </h4>
-        </Grid>
-        <Grid item xl={ 1 } lg={ 1 } md={ 1 } sm={ 12 } xs={ 12 }>
-          <h4 className='h4'>
-            City
-          </h4>
-        </Grid>
-        <Grid item xl={ 1 } lg={ 1 } md={ 1 } sm={ 12 } xs={ 12 }>
-          <h4 className='h4'>
-            State
-          </h4>
-        </Grid>
-        <Grid item xl={ 1 } lg={ 1 } md={ 1 } sm={ 12 } xs={ 12 }>
-          <h4 className='h4'>
-            Zip
-          </h4>
-        </Grid>
-      </Grid>
-    </div>
-    <div className='mt-10'>
-      {contactDetails.map((contact) => <ContactsSearchList key={ contact.id } contact={ contact } />)}
-    </div>
+    <TableContainer>
+      <TableHead>
+        <TableRow>
+          {[ '#', 'Name', 'Phone', 'Status', 'Last Call', 'City', 'State', 'Zip' ].map((rowItem) => (
+            <TableCell key={ rowItem }>
+              <h4 className='h4'>{rowItem}</h4>
+            </TableCell>
+          ))}
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {dummySearchContactsResults.map((rowItem) => (
+          <TableRow key={ rowItem.id }>
+            <TableCell>
+              <span className='para'>{rowItem.id}</span>
+            </TableCell>
+            <TableCell>
+              <FontAwesomeIcon icon={ faInfoCircle } className='custom-fa-icon mr-5' />
+              <span className='para primary'>{rowItem.name}</span>
+            </TableCell>
+            <TableCell>
+              <FontAwesomeIcon icon={ faPhoneAlt } className='custom-fa-icon mr-5' />
+              <span className='para primary'>{rowItem.phoneNumber}</span>
+            </TableCell>
+            <TableCell>
+              <span className='para'>{rowItem.status}</span>
+            </TableCell>
+            <TableCell>
+              <span className='para'>{rowItem.lastCall}</span>
+            </TableCell>
+            <TableCell>
+              <span className='para'>{rowItem.city}</span>
+            </TableCell>
+            <TableCell>
+              <span className='para'>{rowItem.state}</span>
+            </TableCell>
+            <TableCell>
+              <span className='para'>{rowItem.zip}</span>
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </TableContainer>
   </div>
 )
 
