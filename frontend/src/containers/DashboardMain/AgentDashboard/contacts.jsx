@@ -1,8 +1,8 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import {
   Dialog, DialogActions, DialogContent,
-  DialogTitle, Button, IconButton, InputBase, Grid,
+  DialogTitle, Button, IconButton, Grid, TextField,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
@@ -11,22 +11,6 @@ import ContactsSearch from './contactsSearch'
 const Contacts = ({
   open, onClose,
 }) => {
-  const [ address, setAddress ] = useState({
-    street: '',
-    zip: '',
-    city: '',
-    state: '',
-    country: '',
-  })
-
-  const setAddressCB = useCallback((event) => {
-    const { name, value } = event.target
-    setAddress((currentAddress) => ({
-      ...currentAddress,
-      [ name ]: value,
-    }))
-  }, [ ])
-
   const [ openContactInfo, setOpenContactInfo ] = useState(false)
 
   return (
@@ -70,88 +54,72 @@ const Contacts = ({
       <DialogContent>
         {!openContactInfo && (
           <div>
-            <p className='para'>
-              Quickly search for contact using one of the fields below. Hint: Phone number is the best and faster
-              search option.
-            </p>
-
             <Grid container spacing={ 3 }>
-              <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 6 } xs={ 12 }>
-                <h4 className='h4 mt-30'>Phone Number</h4>
-                <div className='search-input mt-10'>
-                  <InputBase
-                    name='phoneNumber'
-                    InputProps={ { inputProps: { min: 0, step: 1 } } }
-                    type='number'
-                    placeholder='e.g. 1234567890'
-                    onChange={ setAddressCB }
-                  />
-                </div>
+              <Grid item xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 } xs={ 12 }>
+                <p className='para'>
+                  Quickly search for contact using one of the fields below. Hint: Phone number is the best and faster
+                  search option.
+                </p>
               </Grid>
-              <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 6 } xs={ 12 }>
-                <h4 className='h4 mt-30'>City</h4>
-                <div className='search-input mt-10'>
-                  <InputBase
-                    name='city'
-                    className='input-field'
-                    defaultValue={ address.city }
-                    onChange={ setAddressCB }
-                  />
-                </div>
+              <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 12 } xs={ 12 }>
+                <h4 className='h4'>Phone Number</h4>
+                <TextField
+                  className='text-field-para is-fullwidth'
+                  type='number'
+                  variant='outlined'
+                  margin='dense'
+                  placeholder='e.g. 1234567890'
+                />
               </Grid>
-              <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 6 } xs={ 12 }>
-                <h4 className='h4 mt-30'>Lead ID</h4>
-                <div className='search-input mt-10'>
-                  <InputBase
-                    name='leadId'
-                    InputProps={ { inputProps: { min: 0, step: 1 } } }
-                    type='number'
-                    placeholder='e.g. 12345'
-                    onChange={ setAddressCB }
-                  />
-                </div>
+              <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 12 } xs={ 12 }>
+                <h4 className='h4'>City</h4>
+                <TextField
+                  className='text-field-para is-fullwidth'
+                  variant='outlined'
+                  margin='dense'
+                />
               </Grid>
-              <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 6 } xs={ 12 }>
-                <h4 className='h4 mt-30'>State</h4>
-                <div className='search-input mt-10'>
-                  <InputBase
-                    name='state'
-                    className='input-field'
-                    defaultValue={ address.state }
-                  />
-                </div>
+              <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 12 } xs={ 12 }>
+                <h4 className='h4'>Lead ID</h4>
+                <TextField
+                  className='text-field-para is-fullwidth'
+                  variant='outlined'
+                  margin='dense'
+                />
               </Grid>
-              <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 6 } xs={ 12 }>
-                <h4 className='h4 mt-30'>First Name</h4>
-                <div className='search-input mt-10'>
-                  <InputBase
-                    name='firstName'
-                    className='input-field'
-                    defaultValue={ address.firstName }
-                  />
-                </div>
+              <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 12 } xs={ 12 }>
+                <h4 className='h4'>State</h4>
+                <TextField
+                  className='text-field-para is-fullwidth'
+                  variant='outlined'
+                  margin='dense'
+                />
               </Grid>
-              <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 6 } xs={ 12 }>
-                <h4 className='h4 mt-30'>Last Name</h4>
-                <div className='search-input mt-10'>
-                  <InputBase
-                    name='lastName'
-                    className='input-field'
-                    defaultValue={ address.lastName }
-                  />
-                </div>
+              <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 12 } xs={ 12 }>
+                <h4 className='h4'>First Name</h4>
+                <TextField
+                  className='text-field-para is-fullwidth'
+                  variant='outlined'
+                  margin='dense'
+                />
               </Grid>
-              <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 6 } xs={ 12 }>
-                <h4 className='h4 mt-30'>Zip Code</h4>
-                <div className='search-input mt-10'>
-                  <InputBase
-                    name='zip'
-                    InputProps={ { inputProps: { min: 0, step: 1 } } }
-                    type='number'
-                    placeholder='e.g. 12345'
-                    onChange={ setAddressCB }
-                  />
-                </div>
+              <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 12 } xs={ 12 }>
+                <h4 className='h4'>Last Name</h4>
+                <TextField
+                  className='text-field-para is-fullwidth'
+                  variant='outlined'
+                  margin='dense'
+                />
+              </Grid>
+              <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 12 } xs={ 12 }>
+                <h4 className='h4'>Zip Code</h4>
+                <TextField
+                  className='text-field-para is-fullwidth'
+                  variant='outlined'
+                  type='number'
+                  margin='dense'
+                  placeholder='e.g. 12345'
+                />
               </Grid>
             </Grid>
           </div>

@@ -52,6 +52,7 @@ const ContactInfo = () => (
       </Grid>
       <Grid item xl={ 7 } lg={ 7 } md={ 12 } sm={ 12 } xs={ 12 }>
         <Box className='custom-box'>
+          <h3 className='h3'>History</h3>
           <HistoryTab />
         </Box>
       </Grid>

@@ -107,7 +107,6 @@
 .call-volume-popover {
   vertical-align: middle;
   min-height: 140px;
-  // overflow-y: hidden;
   width: 40px;
 }
 
@@ -146,7 +145,7 @@
 
     &.custom-intl-tel-input {
       input {
-        font-size: 1.2rem !important;
+        font: normal normal normal 15px/20px $pro-font;
         &:hover, &:focus {
           outline: none;
         }
