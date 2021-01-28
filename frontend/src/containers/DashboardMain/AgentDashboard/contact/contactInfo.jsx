@@ -2,12 +2,27 @@ import React from 'react'
 import {
   Box, Avatar, Divider, Button, Grid,
 } from '@material-ui/core'
-import { terry } from '../../../assets/images/avatar'
-import { callIcon } from '../../../assets/images/agentDashboard'
-import HistoryTab from './ActiveCallTabs/historyTab'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import PropTypes from 'prop-types'
+import { terry } from '../../../../assets/images/avatar'
+import { callIcon } from '../../../../assets/images/agentDashboard'
+import HistoryTab from '../ActiveCallTabs/historyTab'
 
-const ContactInfo = () => (
+const ContactInfo = ({ setActivePage }) => (
   <>
+    <div className='mb-30 mt-10'>
+      <Button
+        classes={ {
+          root: 'MuiButtonBase-root button-primary-small',
+          label: 'MuiButton-label button-primary-small-label',
+        } }
+        onClick={ () => setActivePage(1) }
+      >
+        <FontAwesomeIcon icon={ faChevronLeft } className='mr-10' />
+        Back
+      </Button>
+    </div>
     <Grid item container spacing={ 4 }>
       <Grid item xl={ 5 } lg={ 5 } md={ 12 } sm={ 12 } xs={ 12 }>
         <Box className='custom-box'>
@@ -59,5 +74,13 @@ const ContactInfo = () => (
     </Grid>
   </>
 )
+
+ContactInfo.defaultProps = {
+  setActivePage: () => {},
+}
+
+ContactInfo.propTypes = {
+  setActivePage: PropTypes.func,
+}
 
 export default ContactInfo

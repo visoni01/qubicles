@@ -1,13 +1,28 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react'
 import {
-  TableContainer, TableHead, TableRow, TableCell, TableBody,
+  TableContainer, TableHead, TableRow, TableCell, TableBody, Button,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faInfoCircle, faPhoneAlt } from '@fortawesome/free-solid-svg-icons'
-import { dummySearchContactsResults } from '../testData'
+import { faInfoCircle, faPhoneAlt, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import PropTypes from 'prop-types'
+import { dummySearchContactsResults } from '../../testData'
 
-const ContactsSearch = () => (
+const ContactsSearch = ({ setActivePage }) => (
   <div>
+    <div className='mb-30 mt-10'>
+      <Button
+        classes={ {
+          root: 'MuiButtonBase-root button-primary-small',
+          label: 'MuiButton-label button-primary-small-label',
+        } }
+        onClick={ () => setActivePage(0) }
+      >
+        <FontAwesomeIcon icon={ faChevronLeft } className='mr-10' />
+        Back
+      </Button>
+    </div>
     <h3 className='h3'>
       Search Results
       {' '}
@@ -33,7 +48,7 @@ const ContactsSearch = () => (
             </TableCell>
             <TableCell>
               <FontAwesomeIcon icon={ faInfoCircle } className='custom-fa-icon mr-5' />
-              <span className='para primary'>{rowItem.name}</span>
+              <span className='para primary text-link' onClick={ () => setActivePage(2) }>{rowItem.name}</span>
             </TableCell>
             <TableCell>
               <FontAwesomeIcon icon={ faPhoneAlt } className='custom-fa-icon mr-5' />
@@ -60,5 +75,13 @@ const ContactsSearch = () => (
     </TableContainer>
   </div>
 )
+
+ContactsSearch.defaultProps = {
+  setActivePage: () => {},
+}
+
+ContactsSearch.propTypes = {
+  setActivePage: PropTypes.func,
+}
 
 export default ContactsSearch

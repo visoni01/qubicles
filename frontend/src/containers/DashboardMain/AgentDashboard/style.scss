@@ -123,6 +123,16 @@
   margin: 15px 0 15px 6px;
 }
 
+
+.contact-search-modal {
+  min-height: 60vh;
+  .dialog-content {
+    overflow-y: hidden;
+  }
+}
+
+
+
 .agent-root {
   .agent-modals {
     width: fit-content;

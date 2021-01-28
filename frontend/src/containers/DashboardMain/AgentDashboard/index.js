@@ -6,7 +6,7 @@ import AgentActiveCallPage from './agentActiveCallPage'
 import AgentInactiveCallPage from './agentInactiveCallPage'
 import CallbackModal from './callback'
 import CallLogsModal from './callLogs'
-import ContactsModal from './contacts'
+import ContactsModal from './contact/index'
 
 const AgentDashboard = () => {
   const [ openContactsModal, setOpenContactsModal ] = useState(false)
