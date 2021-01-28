@@ -179,7 +179,7 @@ const Login = () => {
                             <button
                               type='submit'
                               id='sendVerificationCode'
-                              className='login-button custom-login-button'
+                              className='login-button custom-signup-button'
                             >
                               Login
                             </button>

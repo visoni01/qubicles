@@ -4,9 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faUserPlus, faDollarSign, faAddressCard, faSeedling, faLaptop, faTabletAlt,
 } from '@fortawesome/free-solid-svg-icons'
-import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { Clients, Header, Footer } from './index'
+import { Clients, Header, Footer, CustomLink } from './index'
 import { qubiclesAgent, ipads, agentWorkFlow } from '../../assets/images/landingPage'
 import '../../containers/Home/style.scss'
 
@@ -32,12 +31,12 @@ const Agents = () => {
                 </h2>
                 <br />
                 {!isLoggedin && (
-                <Link
+                <CustomLink
                   to='/signup'
                   className='button btn-align button-cta secondary-btn steps-button-color raised rounded'
                 >
                   Join for Free
-                </Link>
+                </CustomLink>
                 )}
               </div>
             </div>
@@ -121,12 +120,12 @@ const Agents = () => {
             {/* CTA */}
             <div className='has-text-centered pt-40 pb-40'>
               {!isLoggedin && (
-              <Link
+              <CustomLink
                 to='/signup'
                 className='button button-cta primary-btn rounded raised is-title-reveal steps-button-color'
               >
                 Sign up for a Free account
-              </Link>
+              </CustomLink>
               )}
             </div>
           </div>
@@ -167,12 +166,12 @@ const Agents = () => {
                 </span>
                 <div className='pt-20 pb-20'>
                   {!isLoggedin && (
-                  <Link
+                  <CustomLink
                     to='/signup'
                     className='button button-cta primary-btn rounded raised steps-button-color'
                   >
                     Access portal now
-                  </Link>
+                  </CustomLink>
                   )}
                 </div>
               </div>
@@ -331,12 +330,12 @@ const Agents = () => {
           </div>
           <div className='has-text-centered pt-80 pb-40'>
             {!isLoggedin && (
-            <Link
+            <CustomLink
               to='/signup'
               className='button button-cta primary-btn rounded raised steps-button-color'
             >
               Give it a try!
-            </Link>
+            </CustomLink>
             )}
           </div>
         </div>

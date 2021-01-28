@@ -7,6 +7,7 @@ import {
 } from 'react-share'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCopyright } from '@fortawesome/free-solid-svg-icons'
+import { CustomLink } from './index'
 
 const Footer = () => (
   <footer className='footer footer-dark'>
@@ -32,7 +33,7 @@ const Footer = () => (
             <ul className='link-list'>
               <li><Link to='/about'>About</Link></li>
               <li><Link to='/contactus'>Contact Us</Link></li>
-              <li><Link to='/signup'>Sign Up</Link></li>
+              <li><CustomLink to='/signup'>Sign Up</CustomLink></li>
             </ul>
             <div style={ { marginTop: '5px' } }>
               <a
