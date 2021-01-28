@@ -6,7 +6,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from 'react-redux'
 import { Clients, Header, Footer, CustomLink } from './index'
-import { centerDash, bars, idleUsage } from '../../assets/images/landingPage'
+import { uiPeopleDash, bars, uiTalent } from '../../assets/images/landingPage'
 import '../../containers/Home/style.scss'
 
 const ContactCenter = () => {
@@ -176,7 +176,7 @@ const ContactCenter = () => {
               </div>
               {/* Large UI */}
               <div className='column is-9 is-offset-2'>
-                <img src={ centerDash } alt='center dashboard' />
+                <img src={ uiPeopleDash } alt='center dashboard' />
               </div>
             </div>
           </div>
@@ -235,7 +235,7 @@ const ContactCenter = () => {
               <div className='column is-7'>
                 <div>
                   <figure className='image is-4-by-3'>
-                    <img className='first' src={ idleUsage } alt='Idle usage' />
+                    <img className='first' src={ uiTalent } alt='Idle usage' />
                   </figure>
                 </div>
               </div>

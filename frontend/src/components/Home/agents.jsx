@@ -6,7 +6,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from 'react-redux'
 import { Clients, Header, Footer, CustomLink } from './index'
-import { qubiclesAgent, ipads, agentWorkFlow } from '../../assets/images/landingPage'
+import { uiAgent, uiTraining, uiWallet } from '../../assets/images/landingPage'
 import '../../containers/Home/style.scss'
 
 const Agents = () => {
@@ -177,7 +177,7 @@ const Agents = () => {
               </div>
               {/* Large UI */}
               <div className='column is-9 is-offset-2'>
-                <img src={ qubiclesAgent } alt='' />
+                <img src={ uiAgent } alt='' />
               </div>
             </div>
           </div>
@@ -222,7 +222,7 @@ const Agents = () => {
             </div>
             {/* Featured image */}
             <div className='column is-6 is-offset-1'>
-              <img className='featured-svg' src={ agentWorkFlow } alt='' />
+              <img className='featured-svg' src={ uiWallet } alt='' />
             </div>
           </div>
         </div>
@@ -245,7 +245,7 @@ const Agents = () => {
               <div className='column is-7'>
                 <div>
                   <figure className='image is-4-by-3'>
-                    <img className='first' src={ ipads } alt='' />
+                    <img className='first' src={ uiTraining } alt='' />
                   </figure>
                 </div>
               </div>
