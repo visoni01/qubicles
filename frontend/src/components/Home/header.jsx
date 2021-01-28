@@ -59,18 +59,18 @@ const Header = () => {
                 {/* Sign up button */}
                 <div className='navbar-item'>
                   <Link
-                    to='/signup'
-                    className='custom-signup-button'
+                    to='/login'
+                    className='custom-login-button'
                   >
-                    Sign Up
+                    Login
                   </Link>
                 </div>
                 <div className='navbar-item'>
                   <Link
-                    to='/login'
-                    className='custom-login-button'
+                    to='/signup'
+                    className='custom-signup-button'
                   >
-                    Log In
+                    Signup
                   </Link>
                 </div>
               </div>
