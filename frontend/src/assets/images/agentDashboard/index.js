@@ -25,6 +25,7 @@ import volumeIcon from './volume.svg'
 import waitTimeIcon from './wait-time.svg'
 import webFormIcon from './web-form.svg'
 import webphoneIcon from './webphone.svg'
+import greenPhoneIcon from './green-phone.svg'
 
 export {
   cInfoIcon,
@@ -54,4 +55,5 @@ export {
   waitTimeIcon,
   webFormIcon,
   webphoneIcon,
+  greenPhoneIcon,
 }

@@ -1,13 +1,25 @@
-import React from 'react'
+import React, { useState, useCallback } from 'react'
 import {
-  Grid, Card, CardContent,
+  Grid, Card, CardContent, IconButton,
 } from '@material-ui/core'
 import {
-  callsTodayIcon, waitTimeIcon, talkTimeIcon, salesIcon, callsInQueueIcon,
+  callsTodayIcon, waitTimeIcon, talkTimeIcon, salesIcon, callsInQueueIcon, webphoneIcon,
 } from '../../../assets/images/agentDashboard'
 import CallDialer from './callDialer'
 
 export default function AgentStats() {
+  const [ open, setOpen ] = useState(false)
+  const [ anchorEl, setAnchorEl ] = useState(null)
+
+  const handleOpen = useCallback((e) => {
+    setAnchorEl(e.currentTarget)
+    setOpen(true)
+  }, [])
+
+  const handleClose = useCallback(() => {
+    setOpen(false)
+  }, [])
+
   return (
     <div>
       <Grid container spacing={ 4 } className='agent-stats-cards'>
@@ -86,7 +98,20 @@ export default function AgentStats() {
         </Grid>
       </Grid>
       <div className='display-inline-flex justify-end is-fullwidth'>
-        <CallDialer />
+        <IconButton
+          onClick={ handleOpen }
+        >
+          <img src={ webphoneIcon } alt='Webphone' />
+        </IconButton>
+        {open && (
+        <CallDialer
+          open={ open }
+          setOpen={ setOpen }
+          anchorEl={ anchorEl }
+          setAnchorEl={ setAnchorEl }
+          handleClose={ handleClose }
+        />
+        )}
       </div>
     </div>
   )

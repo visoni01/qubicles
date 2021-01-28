@@ -182,36 +182,41 @@
 
 
 .call-dialer-popover {
-  width: 290px;
-  max-height: 500px;
-  border-radius: 8px;
+  width: 300px;
+  max-height: 600px;
+  border-radius: 10px;
   overflow: hidden;
 }
 
-.manual-dial {
-  .dial-button {
-    border: 2px solid $color-primary;
-    border-radius: 50%;
-    min-width: unset;
-    width: 55px;
-    height: 55px;
-    &:hover {
-      background-color: $color-white;
-      color: $color-primary;
-    }
-  }
-  .dial-button-label {
-    font-size: 25px;
-    &:hover {
-      color: $color-primary;
-    }
-  }
-}
+.web-phone-container {
+  height: 380px;
 
-.call-history {
-  .history-list {
-    height: 340px;
-    max-height: 340px;;
-    overflow: auto;
+  .manual-dial {
+    .dial-button {
+      border: 2px solid $color-primary;
+      border-radius: 50%;
+      min-width: unset;
+      width: 55px;
+      height: 55px;
+      &:hover {
+        background-color: $color-white;
+        color: $color-primary;
+      }
+    }
+    .dial-button-label {
+      font-size: 25px;
+      &:hover {
+        color: $color-primary;
+      }
+    }
+  }
+
+  .call-history {
+    .history-list {
+      height: 310px;
+      margin-right: 15px;
+      margin-top: 10px;
+      overflow: auto;
+    }
   }
 }
