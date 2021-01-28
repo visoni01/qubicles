@@ -33,7 +33,7 @@ const ContactCenter = () => {
                 <br />
                 {/* Signup form */}
                 {!isLoggedin && (
-                  <Link to='/login' className='button btn-align secondary-btn raised'>Try for Free</Link>
+                  <Link to='/login' className='button btn-align button-cta secondary-btn steps-button-color raised rounded'>Try for Free</Link>
                 )}
               </div>
             </div>

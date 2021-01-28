@@ -34,7 +34,7 @@ const Agents = () => {
                 {!isLoggedin && (
                 <Link
                   to='/login'
-                  className='button btn-align secondary-btn raised'
+                  className='button btn-align button-cta secondary-btn steps-button-color raised rounded'
                 >
                   Join for Free
                 </Link>
