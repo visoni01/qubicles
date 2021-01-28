@@ -4,10 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faUserPlus, faDollarSign, faAddressCard, faSeedling, faLaptop, faTabletAlt,
 } from '@fortawesome/free-solid-svg-icons'
-import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { Clients, Header, Footer } from './index'
-import { qubiclesAgent, ipads, agentWorkFlow } from '../../assets/images/landingPage'
+import { Clients, Header, Footer, CustomLink } from './index'
+import { uiAgent, uiTraining, uiWallet } from '../../assets/images/landingPage'
 import '../../containers/Home/style.scss'
 
 const Agents = () => {
@@ -32,12 +31,12 @@ const Agents = () => {
                 </h2>
                 <br />
                 {!isLoggedin && (
-                <Link
-                  to='/login'
-                  className='button btn-align secondary-btn raised'
+                <CustomLink
+                  to='/signup'
+                  className='button btn-align button-cta secondary-btn steps-button-color raised rounded'
                 >
                   Join for Free
-                </Link>
+                </CustomLink>
                 )}
               </div>
             </div>
@@ -121,12 +120,12 @@ const Agents = () => {
             {/* CTA */}
             <div className='has-text-centered pt-40 pb-40'>
               {!isLoggedin && (
-              <Link
-                to='/login'
+              <CustomLink
+                to='/signup'
                 className='button button-cta primary-btn rounded raised is-title-reveal steps-button-color'
               >
                 Sign up for a Free account
-              </Link>
+              </CustomLink>
               )}
             </div>
           </div>
@@ -167,18 +166,18 @@ const Agents = () => {
                 </span>
                 <div className='pt-20 pb-20'>
                   {!isLoggedin && (
-                  <Link
-                    to='/login'
+                  <CustomLink
+                    to='/signup'
                     className='button button-cta primary-btn rounded raised steps-button-color'
                   >
                     Access portal now
-                  </Link>
+                  </CustomLink>
                   )}
                 </div>
               </div>
               {/* Large UI */}
               <div className='column is-9 is-offset-2'>
-                <img src={ qubiclesAgent } alt='' />
+                <img src={ uiAgent } alt='' />
               </div>
             </div>
           </div>
@@ -212,7 +211,7 @@ const Agents = () => {
                   {!isLoggedin
                   && (
                   <a
-                    href='/login'
+                    href='/signup'
                     className='button button-cta light-btn btn-outlined rounded is-bold is-title-reveal'
                   >
                     See how it works
@@ -223,7 +222,7 @@ const Agents = () => {
             </div>
             {/* Featured image */}
             <div className='column is-6 is-offset-1'>
-              <img className='featured-svg' src={ agentWorkFlow } alt='' />
+              <img className='featured-svg' src={ uiWallet } alt='' />
             </div>
           </div>
         </div>
@@ -246,7 +245,7 @@ const Agents = () => {
               <div className='column is-7'>
                 <div>
                   <figure className='image is-4-by-3'>
-                    <img className='first' src={ ipads } alt='' />
+                    <img className='first' src={ uiTraining } alt='' />
                   </figure>
                 </div>
               </div>
@@ -331,12 +330,12 @@ const Agents = () => {
           </div>
           <div className='has-text-centered pt-80 pb-40'>
             {!isLoggedin && (
-            <Link
-              to='/login'
+            <CustomLink
+              to='/signup'
               className='button button-cta primary-btn rounded raised steps-button-color'
             >
               Give it a try!
-            </Link>
+            </CustomLink>
             )}
           </div>
         </div>

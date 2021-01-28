@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux'
 import {
   globalNetworkImage, qbeTeam, userSnapshot, projectUi, ipads, lifeSaver, wallet, building, chatUser,
 } from '../../assets/images/landingPage'
+import { CustomLink } from './index'
 
 const Steps = () => {
   const { userDetails } = useSelector((state) => state.login)
@@ -427,12 +428,12 @@ const Steps = () => {
             {/* /Feature */}
             <h2 className='title has-text-centered is-title-reveal'>
               {!isLoggedin && (
-              <Link
+              <CustomLink
                 className='button button-cta btn-align rounded raised primary-btn steps-button-color'
-                to='/login'
+                to='/signup'
               >
                 Get Started for Free
-              </Link>
+              </CustomLink>
               )}
             </h2>
           </div>
@@ -641,12 +642,13 @@ const Steps = () => {
           </div>
           <h2 className='title has-text-centered is-title-reveal pt-80'>
             {!isLoggedin && (
-            <Link
+            <CustomLink
               className='button button-cta btn-align rounded raised primary-btn steps-button-color mt-40'
-              to='/login'
+              to='/signup'
+
             >
               Get Started for Free
-            </Link>
+            </CustomLink>
             )}
           </h2>
         </div>

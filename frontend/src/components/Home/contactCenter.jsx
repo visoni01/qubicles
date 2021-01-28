@@ -1,13 +1,12 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { Divider } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faUserGraduate, faCertificate, faChartBar, faLaptop, faTabletAlt, faUserClock,
 } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from 'react-redux'
-import { Clients, Header, Footer } from './index'
-import { centerDash, bars, idleUsage } from '../../assets/images/landingPage'
+import { Clients, Header, Footer, CustomLink } from './index'
+import { uiPeopleDash, bars, uiTalent } from '../../assets/images/landingPage'
 import '../../containers/Home/style.scss'
 
 const ContactCenter = () => {
@@ -33,7 +32,7 @@ const ContactCenter = () => {
                 <br />
                 {/* Signup form */}
                 {!isLoggedin && (
-                  <Link to='/login' className='button btn-align secondary-btn raised'>Try for Free</Link>
+                  <CustomLink to='/signup' className='button btn-align button-cta secondary-btn steps-button-color raised rounded'>Try for Free</CustomLink>
                 )}
               </div>
             </div>
@@ -111,12 +110,12 @@ const ContactCenter = () => {
             {/* CTA */}
             <div className='has-text-centered pt-40 pb-40'>
               {!isLoggedin && (
-              <Link
-                to='/login'
+              <CustomLink
+                to='/signup'
                 className='button button-cta primary-btn rounded raised is-title-reveal steps-button-color'
               >
                 Get started for Free
-              </Link>
+              </CustomLink>
               )}
             </div>
           </div>
@@ -166,18 +165,18 @@ const ContactCenter = () => {
                 </div>
                 <div className='pt-20 pb-20'>
                   {!isLoggedin && (
-                  <Link
-                    to='/login'
+                  <CustomLink
+                    to='/signup'
                     className='button button-cta primary-btn rounded raised steps-button-color'
                   >
                     Try it now
-                  </Link>
+                  </CustomLink>
                   )}
                 </div>
               </div>
               {/* Large UI */}
               <div className='column is-9 is-offset-2'>
-                <img src={ centerDash } alt='center dashboard' />
+                <img src={ uiPeopleDash } alt='center dashboard' />
               </div>
             </div>
           </div>
@@ -201,12 +200,12 @@ const ContactCenter = () => {
                 </p>
                 <div className='pb-10 pt-10'>
                   {!isLoggedin && (
-                  <Link
-                    to='/login'
+                  <CustomLink
+                    to='/signup'
                     className='button button-cta light-btn btn-outlined rounded is-bold is-title-reveal'
                   >
                     Take a look
-                  </Link>
+                  </CustomLink>
                   )}
                 </div>
               </div>
@@ -236,7 +235,7 @@ const ContactCenter = () => {
               <div className='column is-7'>
                 <div>
                   <figure className='image is-4-by-3'>
-                    <img className='first' src={ idleUsage } alt='Idle usage' />
+                    <img className='first' src={ uiTalent } alt='Idle usage' />
                   </figure>
                 </div>
               </div>
@@ -346,12 +345,12 @@ const ContactCenter = () => {
             </div>
             <div className='has-text-centered pt-80'>
               {!isLoggedin && (
-              <Link
-                to='/login'
+              <CustomLink
+                to='/signup'
                 className='button button-cta primary-btn rounded raised steps-button-color'
               >
                 Try now, with no obligation
-              </Link>
+              </CustomLink>
               )}
             </div>
           </div>

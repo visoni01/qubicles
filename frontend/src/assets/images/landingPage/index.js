@@ -27,6 +27,14 @@ import teamRob from './team-rob.png'
 import teamTerpin from './team-terpin.jpg'
 import teamWarren from './team-warren.jpeg'
 import teamKate from './Kate.jpg'
+import uiAgent from './ui-agent.png'
+import uiDashboard from './ui-dashboard.png'
+import uiJobs from './ui-jobs.png'
+import uiPeopleDash from './ui-people-dash.png'
+import uiReferral from './ui-referral.png'
+import uiTalent from './ui-talent.png'
+import uiTraining from './ui-training.png'
+import uiWallet from './ui-wallet.png'
 
 export {
   globalNetworkImage,
@@ -58,4 +66,12 @@ export {
   teamWarren,
   teamTerpin,
   teamKate,
+  uiAgent,
+  uiDashboard,
+  uiJobs,
+  uiPeopleDash,
+  uiReferral,
+  uiTalent,
+  uiTraining,
+  uiWallet,
 }

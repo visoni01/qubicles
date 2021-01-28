@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import AccountSettings from '../Navbar/userMenu'
+import { CustomLink } from './index'
 
 const Header = () => {
   const { userDetails } = useSelector((state) => state.login)
@@ -58,12 +59,20 @@ const Header = () => {
               <div className='navbar-end'>
                 {/* Sign up button */}
                 <div className='navbar-item'>
-                  <Link
-                    to='/login'
+                  <CustomLink
+                    to='http://manager.qubicles.io/account/logon'
                     className='custom-login-button'
                   >
-                    Log In
-                  </Link>
+                    Login
+                  </CustomLink>
+                </div>
+                <div className='navbar-item'>
+                  <CustomLink
+                    to='/signup'
+                    className='custom-signup-button'
+                  >
+                    Signup
+                  </CustomLink>
                 </div>
               </div>
             )
@@ -76,7 +85,7 @@ const Header = () => {
                         to='/dashboard'
                         className='custom-login-button'
                       >
-                        Go to Dashboard
+                        My Account
                       </Link>
                     </div>
                   </div>

@@ -129,7 +129,7 @@ const ResetNewPassword = () => {
                           <button
                             type='submit'
                             id='resetPassword'
-                            className='signup-button custom-login-button'
+                            className='signup-button custom-signup-button'
                           >
                             Submit
                           </button>

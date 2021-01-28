@@ -4,7 +4,8 @@ import Steps from './steps'
 import Header from './header'
 import Footer from './footer'
 import ClientReviews from './clientReviews'
+import CustomLink from './customLink'
 
 export {
-  Clients, Slide, Steps, Header, Footer, ClientReviews,
+  Clients, Slide, Steps, Header, Footer, ClientReviews, CustomLink,
 }

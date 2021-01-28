@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { CustomLink } from './index'
 
 const Slide = ({
   heading, detail, buttonName, slideBg,
@@ -29,12 +29,12 @@ const Slide = ({
                   </span>
                   <div className='action'>
                     {!isLoggedin && (
-                    <Link
-                      to='/login'
-                      className='button button-cta primary-btn rounded steps-button-color'
+                    <CustomLink
+                      to='/signup'
+                      className='button button-cta primary-btn rounded raised steps-button-color'
                     >
                       {buttonName}
-                    </Link>
+                    </CustomLink>
                     )}
                   </div>
                 </div>

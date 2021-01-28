@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faLaptop, faVolumeUp, faDollarSign, faHeadset, faGlobe, faUsers, faPhoneAlt,
 } from '@fortawesome/free-solid-svg-icons'
-import { Link } from 'react-router-dom'
 import { TwitterIcon, LinkedinIcon } from 'react-share'
 import { useSelector } from 'react-redux'
 import {
@@ -15,7 +14,7 @@ import {
   teamTerpin,
   teamKate,
 } from '../../assets/images/landingPage'
-import { Header, Footer, ClientReviews } from './index'
+import { Header, Footer, ClientReviews, CustomLink } from './index'
 import '../../containers/Home/style.scss'
 
 const AboutUs = () => {
@@ -161,12 +160,12 @@ const AboutUs = () => {
           </div>
           <div className='has-text-centered pt-40 pb-40 is-title-reveal'>
             {!isLoggedin && (
-            <Link
+            <CustomLink
               className='button is-bold btn-outlined rounded button-color-blue-hover color-blue '
-              to='/login'
+              to='/signup'
             >
               Sign Up Today for FREE
-            </Link>
+            </CustomLink>
             )}
           </div>
         </div>
@@ -285,7 +284,7 @@ const AboutUs = () => {
                     {' '}
                     <strong> Noel</strong>
                   </h3>
-                  <span className='member-position color-blue'>Customer Success</span>
+                  <span className='member-position color-blue'>VP, Customer Success</span>
                 </div>
               </article>
               {/* Team member */}
@@ -355,7 +354,7 @@ const AboutUs = () => {
                     {' '}
                     <strong> Roberts </strong>
                   </h3>
-                  <span className='member-position color-blue'>Growth Marketing</span>
+                  <span className='member-position color-blue'>VP, Growth Marketing</span>
                 </div>
               </article>
               {/* Team member */}
@@ -468,12 +467,12 @@ const AboutUs = () => {
         </div>
         <div className='has-text-centered pt-80'>
           {!isLoggedin && (
-          <Link
-            to='/login'
+          <CustomLink
+            to='/signup'
             className='button button-cta primary-btn rounded raised steps-button-color'
           >
             Join the movement today!
-          </Link>
+          </CustomLink>
           )}
         </div>
       </div>
