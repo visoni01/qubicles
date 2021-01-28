@@ -33,7 +33,7 @@ const ContactCenter = () => {
                 <br />
                 {/* Signup form */}
                 {!isLoggedin && (
-                  <Link to='/login' className='button btn-align button-cta secondary-btn steps-button-color raised rounded'>Try for Free</Link>
+                  <Link to='/signup' className='button btn-align button-cta secondary-btn steps-button-color raised rounded'>Try for Free</Link>
                 )}
               </div>
             </div>
@@ -112,7 +112,7 @@ const ContactCenter = () => {
             <div className='has-text-centered pt-40 pb-40'>
               {!isLoggedin && (
               <Link
-                to='/login'
+                to='/signup'
                 className='button button-cta primary-btn rounded raised is-title-reveal steps-button-color'
               >
                 Get started for Free
@@ -167,7 +167,7 @@ const ContactCenter = () => {
                 <div className='pt-20 pb-20'>
                   {!isLoggedin && (
                   <Link
-                    to='/login'
+                    to='/signup'
                     className='button button-cta primary-btn rounded raised steps-button-color'
                   >
                     Try it now
@@ -202,7 +202,7 @@ const ContactCenter = () => {
                 <div className='pb-10 pt-10'>
                   {!isLoggedin && (
                   <Link
-                    to='/login'
+                    to='/signup'
                     className='button button-cta light-btn btn-outlined rounded is-bold is-title-reveal'
                   >
                     Take a look
@@ -347,7 +347,7 @@ const ContactCenter = () => {
             <div className='has-text-centered pt-80'>
               {!isLoggedin && (
               <Link
-                to='/login'
+                to='/signup'
                 className='button button-cta primary-btn rounded raised steps-button-color'
               >
                 Try now, with no obligation

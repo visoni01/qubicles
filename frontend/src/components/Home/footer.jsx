@@ -32,7 +32,7 @@ const Footer = () => (
             <ul className='link-list'>
               <li><Link to='/about'>About</Link></li>
               <li><Link to='/contactus'>Contact Us</Link></li>
-              <li><Link to='/login'>Sign Up</Link></li>
+              <li><Link to='/signup'>Sign Up</Link></li>
             </ul>
             <div style={ { marginTop: '5px' } }>
               <a
@@ -112,7 +112,7 @@ const Footer = () => (
             </div>
             <div>
               <span className='moto light-text'>
-                Copyright 2020
+                Copyright 2012 - 2021
                 <FontAwesomeIcon icon={ faCopyright } className='ml-5 mr-5' />
                 Qubicles, Inc.
               </span>

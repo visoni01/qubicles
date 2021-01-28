@@ -163,7 +163,7 @@ const AboutUs = () => {
             {!isLoggedin && (
             <Link
               className='button is-bold btn-outlined rounded button-color-blue-hover color-blue '
-              to='/login'
+              to='/signup'
             >
               Sign Up Today for FREE
             </Link>
@@ -469,7 +469,7 @@ const AboutUs = () => {
         <div className='has-text-centered pt-80'>
           {!isLoggedin && (
           <Link
-            to='/login'
+            to='/signup'
             className='button button-cta primary-btn rounded raised steps-button-color'
           >
             Join the movement today!
