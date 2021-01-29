@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid } from '@material-ui/core'
-import AgentTodayActivity from './AgentTodayActivity'
-import AgentStats from './AgentStats'
+import AgentTodayActivity from './agentTodayActivity'
+import AgentStats from './agentStats'
 
 const AgentActiveCallPage = () => (
   <Grid item container spacing={ 4 }>

@@ -7,7 +7,7 @@ import {
 } from '../../../assets/images/agentDashboard'
 import CallDialer from './callDialer'
 
-export default function AgentStats() {
+const AgentStats = () => {
   const [ open, setOpen ] = useState(false)
   const [ anchorEl, setAnchorEl ] = useState(null)
 
@@ -116,3 +116,5 @@ export default function AgentStats() {
     </div>
   )
 }
+
+export default AgentStats

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid } from '@material-ui/core'
-import CallContact from './CallContact'
+import CallContact from './callContact'
 import ContactMainTabs from './contactMainTabsWrapper'
 
 const AgentInactiveCallPage = () => (
