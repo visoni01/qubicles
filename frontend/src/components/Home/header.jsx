@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import AccountSettings from '../Navbar/userMenu'
-import { CustomLink } from './index'
+import CustomLink from './customLink'
 
 const Header = () => {
   const { userDetails } = useSelector((state) => state.login)

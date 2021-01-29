@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="62" viewBox="0 0 48 62">
+  <g id="hourglass" transform="translate(-8.5 -1.5)">
+    <line id="Line_28" data-name="Line 28" x2="47" transform="translate(9 2)" fill="none" stroke="#4877f4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1"/>
+    <line id="Line_29" data-name="Line 29" x2="47" transform="translate(9 63)" fill="none" stroke="#4877f4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1"/>
+    <path id="Path_1094" data-name="Path 1094" d="M14,63V51.924a10.166,10.166,0,0,1,1.789-5.759L25.183,32.5,15.789,18.835A10.167,10.167,0,0,1,14,13.076V2" transform="translate(0.083)" fill="none" stroke="#4877f4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1"/>
+    <path id="Path_1095" data-name="Path 1095" d="M50.183,2V13.076a10.166,10.166,0,0,1-1.789,5.759L39,32.5l9.394,13.665a10.167,10.167,0,0,1,1.789,5.759V63" transform="translate(0.5)" fill="none" stroke="#4877f4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1"/>
+    <path id="Path_1096" data-name="Path 1096" d="M22,54.3V51.99a4.067,4.067,0,0,1,.712-2.3l9.455-13.747,9.455,13.747a4.067,4.067,0,0,1,.712,2.3V54.3Z" transform="translate(0.217 0.566)" fill="none" stroke="#4877f4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1"/>
+  </g>
+</svg>

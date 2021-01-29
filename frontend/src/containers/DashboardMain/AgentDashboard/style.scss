@@ -1,0 +1,232 @@
+@import '../../../customStyles/scss/partials/variables';
+
+.agent-today-activity {
+  .login-info {
+    display: inline-flex;
+    align-items: baseline;
+  }
+}
+
+
+.agent-stats-cards {
+  .stat-card {
+    height: 200px;
+    padding: 10px;
+    padding-top: 25px;
+    border-radius: 10px;
+    box-shadow: none;
+    text-align: center;
+
+    cursor: pointer;
+    .image {
+      height: 60px;
+      margin: auto;
+    }
+
+    .stat-val {
+      display: inline-flex;
+      align-items: center;
+
+      .primary-val {
+        &.color-red {
+          color: $color-red;
+        }
+        &.color-green {
+          color: $color-green;
+        }
+        &.color-yellow {
+          color: $color-yellow;
+        }
+      }
+
+      .secondary-val {
+        font-size: 20px;
+        opacity: 0.5;
+      }
+    }
+
+    .title {
+      text-align: center;
+    }
+  }
+}
+
+.calls-buttons {
+  .wait-btn-label {
+    font-size: 15px;
+    padding: 0px 5px;
+    text-align: center;
+    color: $color-white;
+    &:hover {
+      color: $color-white;
+    }
+  }
+
+  .wait-btn-active {
+    background-color: $color-green;
+    &:hover {
+      background-color: $color-green;
+    }
+  }
+
+  .dial-buttons {
+    &:hover {
+      background-color: $color-white;
+      color: $color-primary;
+    }
+  }
+
+  .dial-buttons-label {
+    font-size: 15px;
+    padding: 0px 5px;
+    text-align: center;
+    &:hover {
+      color: $color-primary;
+    }
+  }
+}
+
+.call-center-agent-tabs-indicator {
+  background-color: $color-dark-grey;
+}
+
+.call-center-agent-tab-root {
+ min-width: unset;
+ margin: 15px 10px 0px 10px;
+}
+
+.agent-lg-btn-label {
+  padding: 0px 5px;
+  text-align: center;
+
+  &.button-primary-large-label, &.button-secondary-large-label {
+    font-size: 15px;
+  }
+}
+
+.call-volume-popover {
+  vertical-align: middle;
+  min-height: 140px;
+  width: 40px;
+}
+
+.volume-slider-thumb {
+  color:  $color-primary;
+  &:hover {
+    color:  $color-primary;
+  }
+}
+
+.call-volume-slider {
+  color:  $color-primary;
+  min-height: 140px;
+  margin: 15px 0 15px 6px;
+}
+
+
+.contact-search-modal {
+  min-height: 60vh;
+  .dialog-content {
+    overflow-y: hidden;
+  }
+}
+
+
+
+.agent-root {
+  .agent-modals {
+    width: fit-content;
+    height: fit-content;
+  }
+
+  .control {
+    width: 100%;
+    input {
+      border: 1px solid #DBDBDB;
+      height: 45px;
+      border-radius: 6px;
+      width: 100%;
+      background: #FFFFFF;
+      margin-top: 11px;
+      font-family: "SF Pro Text", Regular;
+      font-weight: normal;
+      color: #4A4A4A;
+    }
+
+    &.custom-intl-tel-input {
+      input {
+        font: normal normal normal 15px/20px $pro-font;
+        &:hover, &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    &.intl-tel-input .country-list {
+      width: 100%;
+
+    .country.highlight {
+      margin-bottom: 0px!important;
+      }
+
+      .divider {
+      margin-top: 0px!important;
+      }
+    }
+  }
+}
+
+.list-modal-content {
+  padding-left: 15px;
+
+  .out-div {
+    padding-left: 15px;
+  }
+}
+
+.xfer-modal {
+  .xfer-modal-content {
+    overflow-y: visible;
+  }
+}
+
+
+.call-dialer-popover {
+  width: 300px;
+  max-height: 600px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.web-phone-container {
+  height: 380px;
+
+  .manual-dial {
+    .dial-button {
+      border: 2px solid $color-primary;
+      border-radius: 50%;
+      min-width: unset;
+      width: 55px;
+      height: 55px;
+      &:hover {
+        background-color: $color-white;
+        color: $color-primary;
+      }
+    }
+    .dial-button-label {
+      font-size: 25px;
+      &:hover {
+        color: $color-primary;
+      }
+    }
+  }
+
+  .call-history {
+    .history-list {
+      height: 310px;
+      margin-right: 15px;
+      margin-top: 10px;
+      overflow: auto;
+    }
+  }
+}

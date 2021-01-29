@@ -7,7 +7,7 @@ import {
 } from 'react-share'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCopyright } from '@fortawesome/free-solid-svg-icons'
-import { CustomLink } from './index'
+import CustomLink from './customLink'
 
 const Footer = () => (
   <footer className='footer footer-dark'>

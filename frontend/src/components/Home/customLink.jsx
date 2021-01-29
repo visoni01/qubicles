@@ -1,25 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom';
-import isExternal from 'is-url-external';
-
-const propTypes = {
-  to: PropTypes.string.isRequired,
-};
+import { Link } from 'react-router-dom'
+import isExternal from 'is-url-external'
 
 /**
  * Link that also works for external URL's
  */
-export default class CustomLink extends Component {
-  render() {
-    return isExternal(this.props.to) ?
+
+const CustomLink = (props) => {
+  const { to } = props
+  return (
+    isExternal(to) ? (
+    // eslint-disable-next-line jsx-a11y/anchor-has-content
       <a
-        href={this.props.to}
-        {...this.props}
+        href={ to }
+        { ...props }
       />
-      :
-      <Link {...this.props} />;
-  }
+    ) : <Link { ...props } />
+  )
 }
 
-CustomLink.propTypes = propTypes;
+CustomLink.propTypes = {
+  to: PropTypes.string.isRequired,
+}
+
+export default CustomLink

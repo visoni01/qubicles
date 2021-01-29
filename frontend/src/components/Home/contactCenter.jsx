@@ -5,7 +5,9 @@ import {
   faUserGraduate, faCertificate, faChartBar, faLaptop, faTabletAlt, faUserClock,
 } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from 'react-redux'
-import { Clients, Header, Footer, CustomLink } from './index'
+import {
+  Clients, Header, Footer, CustomLink,
+} from './index'
 import { uiPeopleDash, bars, uiTalent } from '../../assets/images/landingPage'
 import '../../containers/Home/style.scss'
 

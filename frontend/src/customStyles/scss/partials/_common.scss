@@ -130,6 +130,11 @@
     width: 65px;
     height: 65px;
   }
+
+  &.small {
+    width: 25px;
+    height: 25px;
+  }
 }
 
 // Tags set
@@ -270,5 +275,11 @@
   }
   .option-label {
     margin: 2px 6px;
+  }
+}
+
+.text-field-para {
+  input {
+    @extend .para;
   }
 }

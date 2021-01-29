@@ -14,7 +14,9 @@ import {
   teamTerpin,
   teamKate,
 } from '../../assets/images/landingPage'
-import { Header, Footer, ClientReviews, CustomLink } from './index'
+import {
+  Header, Footer, ClientReviews, CustomLink,
+} from './index'
 import '../../containers/Home/style.scss'
 
 const AboutUs = () => {
