@@ -6,9 +6,9 @@ import {
 } from '../../../assets/images/agentDashboard'
 import ManualDialModal from './manualDial'
 
-export default function InactiveCallPanel({
+const InactiveCallPanel = ({
   setOpenContactsModal, setOpenCallbackModal, setOpenCallLogsModal,
-}) {
+}) => {
   const [ openManualDialModal, setOpenManualDialModal ] = useState(false)
   return (
     <>
@@ -103,3 +103,5 @@ InactiveCallPanel.propTypes = {
   setOpenCallbackModal: PropTypes.func,
   setOpenCallLogsModal: PropTypes.func,
 }
+
+export default InactiveCallPanel

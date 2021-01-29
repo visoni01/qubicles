@@ -8,9 +8,9 @@ import {
 } from '../../../assets/images/agentDashboard'
 import XferModal from './xfer'
 
-export default function ActiveCallPanel({
+const ActiveCallPanel = ({
   setOpenContactsModal,
-}) {
+}) => {
   const [ openXferModal, setOpenXferModal ] = useState(false)
   const [ volumeLevel, setVolumeLevel ] = useState(30)
   const [ anchorEl, setAnchorEl ] = useState(null)
@@ -156,3 +156,5 @@ ActiveCallPanel.defaultProps = {
 ActiveCallPanel.propTypes = {
   setOpenContactsModal: PropTypes.func,
 }
+
+export default ActiveCallPanel

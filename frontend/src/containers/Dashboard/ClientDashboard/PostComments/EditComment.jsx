@@ -4,8 +4,8 @@ import {
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
-import { terry } from '../../../assets/images/avatar'
-import { updatePostComment } from '../../../redux-saga/redux/actions'
+import { terry } from '../../../../assets/images/avatar'
+import { updatePostComment } from '../../../../redux-saga/redux/actions'
 
 const EditComment = ({
   postId, commentId, setIsEditing, oldComment,

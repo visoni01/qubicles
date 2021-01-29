@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Divider } from '@material-ui/core'
 
-export default function AgentTodayActivity() {
+const AgentTodayActivity = () => {
   const agentAnnouncements = [
     {
       id: 0,
@@ -48,3 +48,5 @@ export default function AgentTodayActivity() {
     </>
   )
 }
+
+export default AgentTodayActivity

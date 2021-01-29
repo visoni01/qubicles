@@ -6,8 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV, faTrash, faPen } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
-import { deletePostStatus } from '../../../redux-saga/redux/actions'
-import ConfirmationModal from '../../../components/CommonModal/ConfirmationModal'
+import { deletePostStatus } from '../../../../redux-saga/redux/actions'
+import ConfirmationModal from '../../../../components/CommonModal/ConfirmationModal'
 import EditPostModal from './EditPostModal'
 
 const PostOptions = ({

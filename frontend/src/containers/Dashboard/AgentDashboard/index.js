@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Grid } from '@material-ui/core'
-import CallButtons from './CallButtons'
+import CallButtons from './callButtons'
 import './style.scss'
 import AgentActiveCallPage from './agentActiveCallPage'
 import AgentInactiveCallPage from './agentInactiveCallPage'

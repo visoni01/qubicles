@@ -69,7 +69,7 @@ const routes = [
   },
   {
     path: ROUTE_PATHS.DASHBOARD,
-    component: lazy(() => import('../containers/DashboardMain')),
+    component: lazy(() => import('../containers/Dashboard')),
     auth: true,
     exact: true,
   },

@@ -11,10 +11,10 @@ import {
   faChevronDown, faImage, faTimesCircle,
 } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
-import { createStatusPostStart } from '../../../redux-saga/redux/actions'
-import Loader from '../../../components/loaders/circularLoader'
-import { terry } from '../../../assets/images/avatar'
-import { postStatusPermissions } from '../../People/ContactCenter/constants'
+import { createStatusPostStart } from '../../../../redux-saga/redux/actions'
+import Loader from '../../../../components/loaders/circularLoader'
+import { terry } from '../../../../assets/images/avatar'
+import { postStatusPermissions } from '../../../People/ContactCenter/constants'
 
 const CreatePost = ({ initialPostData }) => {
   const [ postText, setPostText ] = useState(initialPostData.postText)

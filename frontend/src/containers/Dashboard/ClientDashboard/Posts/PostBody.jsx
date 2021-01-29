@@ -4,12 +4,12 @@ import { useDispatch } from 'react-redux'
 import PostIconsTray from './PostIconsTray'
 import PostCommentsWrap from '../PostComments/PostCommentsWrap'
 import AddComment from '../PostComments/AddComment'
-import config from '../../../utils/config'
+import config from '../../../../utils/config'
 import {
   addCommentToPost, fetchCommentForPost, updatePostData,
-} from '../../../redux-saga/redux/actions'
+} from '../../../../redux-saga/redux/actions'
 import { commentsArrayValidator } from '../postValidators'
-import { SET_IS_COMMENT_LOADING } from '../../../redux-saga/redux/constants'
+import { SET_IS_COMMENT_LOADING } from '../../../../redux-saga/redux/constants'
 
 const PostBody = ({
   userActivityId, activityValue, activityCustom, isPostLiked, likesCount, commentsCount, comments, commentLoading,

@@ -1,8 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import CreatePost from '../../../Dashboard/Posts/CreatePost'
-import RenderPosts from '../../../Dashboard/Posts/RenderPosts'
+
 import '../styles.scss'
+import CreatePost from '../../../Dashboard/ClientDashboard/Posts/CreatePost'
+import RenderPosts from '../../../Dashboard/ClientDashboard/Posts/RenderPosts'
 
 const ContactCenterFeed = () => {
   const { userDetails } = useSelector((state) => state.login)
