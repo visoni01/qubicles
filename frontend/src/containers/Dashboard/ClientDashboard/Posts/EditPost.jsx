@@ -12,8 +12,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
-import { updatePostStatus } from '../../../redux-saga/redux/actions'
-import { postStatusPermissions } from '../../People/ContactCenter/constants'
+import { updatePostStatus } from '../../../../redux-saga/redux/actions'
+import { postStatusPermissions } from '../../../People/ContactCenter/constants'
 import PostHead from './PostHead'
 
 const EditPost = ({

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { postDataFetchingStart } from '../../../redux-saga/redux/actions'
+import { postDataFetchingStart } from '../../../../redux-saga/redux/actions'
 import PostWrap from './PostWrap'
 import PostSkeleton from './PostSkeleton'
 
