@@ -15,9 +15,9 @@ import {
 import { carolin } from '../../../assets/images/avatar'
 
 const CallDialer = ({
-  open, setOpen, anchorEl, setAnchorEl, handleClose,
+  open, anchorEl, handleClose,
 }) => {
-  const [ openManualDial, setOpenManualDial ] = useState(true)
+  const [ openManualDial, setOpenManualDial ] = useState(false)
   const [ isInputFocused, setInputFocused ] = useState(true)
   const dialInputFieldRef = useRef()
 
@@ -181,9 +181,7 @@ const CallDialer = ({
 
 CallDialer.propTypes = {
   open: PropTypes.bool.isRequired,
-  setOpen: PropTypes.func.isRequired,
   anchorEl: PropTypes.bool.isRequired,
-  setAnchorEl: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
 }
 

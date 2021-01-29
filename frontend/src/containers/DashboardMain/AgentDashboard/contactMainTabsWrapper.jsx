@@ -6,7 +6,7 @@ import CallbackTab from './ActiveCallTabs/callbackTab'
 import HistoryTab from './ActiveCallTabs/historyTab'
 
 const ContactMainTabsWrapper = () => {
-  const [ activeTab, setActiveTab ] = useState(4)
+  const [ activeTab, setActiveTab ] = useState(2)
   return (
     <Box className='custom-box no-padding'>
       <ContactMainActiveTabs
