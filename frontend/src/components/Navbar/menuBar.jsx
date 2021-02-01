@@ -1,41 +1,51 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
-  List, ListItem, ListItemIcon, Typography,
+  List, ListItemIcon, Typography, ListItem,
 } from '@material-ui/core'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import menuItems from './menuList'
 
-const listItem = (item) => (
-  <ListItem key={ item.id } className='menu-item' button>
-    { item.link ? (
-      <Link to={ item.link }>
-        <ListItemIcon className='menu-item-icon'>
-          <img src={ item.icon } alt='' />
-          <Typography className='menu-item-title'>
-            {item.title}
-          </Typography>
-        </ListItemIcon>
-      </Link>
-    ) : (
-      <ListItemIcon className='menu-item-icon'>
-        <img src={ item.icon } alt='' />
-        <Typography className='menu-item-title'>
-          {item.title}
-        </Typography>
-      </ListItemIcon>
-    )}
-  </ListItem>
-)
+const SideBar = () => {
+  const [ selectedNav, setSelectedNav ] = useState(0)
+  const history = useHistory()
 
-const SideBar = () => (
-  <div className='sidebar-root'>
-    <div className='qubicles-logo'>
-      <img src='https://i.imgur.com/y2vEn7E.png' alt='Qubicles log' />
+  const handleNavButtonClick = (item) => {
+    setSelectedNav(item.id)
+
+    if (item.link) {
+      history.push(item.link)
+    }
+  }
+
+  return (
+    <div className='sidebar-root'>
+      <div className='qubicles-logo'>
+        <img src='https://i.imgur.com/y2vEn7E.png' alt='Qubicles log' />
+      </div>
+      <List className='menu-list'>
+        {menuItems.map((item) => (
+          <ListItem
+            key={ item.id }
+            button
+            onClick={ () => handleNavButtonClick(item) }
+            classes={ {
+              gutters: 'menu-item-gutter',
+              root: 'menu-item-root',
+            } }
+          >
+            <ListItemIcon classes={ { root: 'menu-item-icon-root' } }>
+              <item.icon
+                className={ `custom-svg-icon ${ selectedNav === item.id ? 'color-primary' : '' }` }
+              />
+            </ListItemIcon>
+            <Typography className={ `menu-item-title para light ${ selectedNav === item.id ? 'primary' : '' }` }>
+              {item.title}
+            </Typography>
+          </ListItem>
+        ))}
+      </List>
     </div>
-    <List className='menu-list'>
-      {menuItems.map((item) => listItem(item))}
-    </List>
-  </div>
-)
+  )
+}
 
 export default SideBar

@@ -1,31 +1,40 @@
 import {
-  walletIcon, homeIcon, settingIcon, peopleIcon,
+  HomeIcon, SettingIcon, PeopleIcon, ProgramsIcon, InsightsIcon, SupportIcon,
 } from '../../assets/images/icons/navBarIcons'
 import ROUTE_PATHS, { PEOPLE_ROUTE } from '../../routes/routesPath'
 
 const menuItems = [
   {
-    icon: homeIcon,
+    icon: HomeIcon,
     title: 'Floor',
-    id: 1,
+    id: 0,
     link: ROUTE_PATHS.DASHBOARD,
   },
   {
-    icon: peopleIcon,
+    icon: PeopleIcon,
     title: 'People',
-    id: 2,
+    id: 1,
     link: PEOPLE_ROUTE,
   },
   {
-    icon: walletIcon,
-    title: 'Wallet',
-    id: 3,
-    link: ROUTE_PATHS.WALLET,
+    icon: ProgramsIcon,
+    title: 'Programs',
+    id: 2,
   },
   {
-    icon: settingIcon,
+    icon: InsightsIcon,
+    title: 'Insights',
+    id: 3,
+  },
+  {
+    icon: SettingIcon,
     title: 'Settings',
     id: 4,
+  },
+  {
+    icon: SupportIcon,
+    title: 'Support',
+    id: 5,
   },
 ]
 
