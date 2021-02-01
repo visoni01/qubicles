@@ -42,22 +42,21 @@
 .navbar-root {
   display: inline-block;
   width: 100%;
-  height: 100%;
-  background-color: #F8F9FD;
 
   .left-bar {
     float: left;
     border-right: 1px solid $color-border;
     max-width: 80px;
     height: 100vh;
-    background-color: #FFFFFF;
+    background-color: $color-white;
     position: fixed;
   }
 
   .right-section {
+    background-color: $color-background;
+    min-height: 100vh;
 		float: right;
     width: calc(100% - 80px);
-    height: 100vh;
     .route-component {
       margin-top: 84px;
       padding: 10px 30px 30px;
@@ -67,13 +66,13 @@
 
 .topbar-root {
   width: inherit !important;
-  background-color: #F8F9FD !important;
+  background-color: $color-background !important;
   .topbar-toolbar {
     padding: 12px 30px;
   }
   .search-input {
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    border: 1px solid #DBDBDB;
+    background: $color-white 0% 0% no-repeat padding-box;
+    border: 1px solid $color-border;
     border-radius: 8px;
     opacity: 1;
     height: 45px;
@@ -125,7 +124,7 @@
             margin: auto;
           }
           .menu-item-title {
-            color: #999999;
+            color: $color-dark-grey;
           }
       }
     }
