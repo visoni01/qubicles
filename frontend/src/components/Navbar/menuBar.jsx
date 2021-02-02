@@ -1,17 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   List, ListItemIcon, Typography, ListItem,
 } from '@material-ui/core'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import menuItems from './menuList'
 
 const SideBar = () => {
+  const location = useLocation()
   const [ selectedNav, setSelectedNav ] = useState(0)
   const history = useHistory()
-
+  useEffect(() => {
+    const currentMenu = menuItems.filter((item) => {
+      if (item.link) {
+        // Check all sub-routes
+        return location.pathname.split('/')[ 1 ] === item.link.split('/')[ 1 ]
+      }
+      return null
+    })
+    if (currentMenu && currentMenu.length === 1 && currentMenu[ 0 ]) {
+      setSelectedNav(currentMenu[ 0 ].id)
+    } else {
+      setSelectedNav(0)
+    }
+  }, [ location ])
   const handleNavButtonClick = (item) => {
-    setSelectedNav(item.id)
-
     if (item.link) {
       history.push(item.link)
     }
@@ -32,6 +44,7 @@ const SideBar = () => {
               gutters: 'menu-item-gutter',
               root: 'menu-item-root',
             } }
+            disabled={ item.id === 5 }
           >
             <ListItemIcon classes={ { root: 'menu-item-icon-root' } }>
               <item.icon

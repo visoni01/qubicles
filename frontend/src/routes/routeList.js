@@ -1,6 +1,8 @@
 import { lazy } from 'react'
 import Auth from '../components/User/Auth'
-import ROUTE_PATHS, { PEOPLE_ROUTE, PROFILE_ROUTE } from './routesPath'
+import ROUTE_PATHS, {
+  PEOPLE_ROUTE, PROFILE_ROUTE, PROGRAMS_NAVIGATION_ROUTE, INSIGHTS_NAVIGATION_ROUTE, SETTINGS_NAVIGATION_ROUTE,
+} from './routesPath'
 
 const routes = [
   {
@@ -97,7 +99,12 @@ const routes = [
   },
   // Navigation Route for people, group, and network.
   {
-    path: PEOPLE_ROUTE,
+    path: [
+      PEOPLE_ROUTE,
+      PROGRAMS_NAVIGATION_ROUTE,
+      INSIGHTS_NAVIGATION_ROUTE,
+      SETTINGS_NAVIGATION_ROUTE,
+    ],
     component: lazy(() => import('../containers/People/ContactCenter/Navigation/PeopleNavigation')),
     auth: true,
     exact: true,

@@ -1,5 +1,8 @@
 export const USER_ROUTE = '/users/'
 export const PEOPLE_ROUTE = '/people'
+export const PROGRAMS_NAVIGATION_ROUTE = '/programs'
+export const INSIGHTS_NAVIGATION_ROUTE = '/insights'
+export const SETTINGS_NAVIGATION_ROUTE = '/settings'
 export const JOB_ROUTE = `${ PEOPLE_ROUTE }/job`
 export const JOB_POST_ROUTE = `${ PEOPLE_ROUTE }/job/view`
 export const VIEW_RESUME_ROUTE = `${ PEOPLE_ROUTE }/talent/resume`
