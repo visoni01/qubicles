@@ -2,7 +2,7 @@ import React from 'react'
 import { Divider } from '@material-ui/core'
 import {
   briefcaseSmall, chatSmall, mediaSmall, userSmall,
-} from '../../../../assets/images/icons/peopleNavigationIcons'
+} from '../../assets/images/icons/peopleNavigationIcons'
 
 const PeopleNavStats = () => (
   <div>

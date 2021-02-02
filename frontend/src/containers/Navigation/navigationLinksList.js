@@ -5,9 +5,10 @@ import {
   realtimeStatsIcon, reportsIcon, qaIcon, scorecardsIcon, stationsIcon, soundwaveIcon,
   filterIcon,
   addUsersIcon,
-} from '../../../../assets/images/icons/peopleNavigationIcons'
+  syncDevicesIcon,
+} from '../../assets/images/icons/peopleNavigationIcons'
 
-import ROUTE_PATHS from '../../../../routes/routesPath'
+import ROUTE_PATHS from '../../routes/routesPath'
 
 const companyPeopleNavigations = [
   {
@@ -120,7 +121,7 @@ const programsNavigations = [
     id: 3,
     title: 'DNIS & ACR',
     description: 'Manage local lines, toll-free numbers and area code routing rules for your programs',
-    icon: mediaIcon,
+    icon: syncDevicesIcon,
   },
   {
     id: 4,

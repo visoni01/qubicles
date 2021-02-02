@@ -105,7 +105,7 @@ const routes = [
       INSIGHTS_NAVIGATION_ROUTE,
       SETTINGS_NAVIGATION_ROUTE,
     ],
-    component: lazy(() => import('../containers/People/ContactCenter/Navigation/PeopleNavigation')),
+    component: lazy(() => import('../containers/Navigation')),
     auth: true,
     exact: true,
   },

@@ -3,7 +3,7 @@ import { Box } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import Quicklinks from './quicklinks'
 
-const PeopleNavigationActions = ({
+const NavigationActions = ({
   title, quickLinks, ChildComponent,
 }) => (
   <Box className='custom-box actions-box people-navigation-actions'>
@@ -19,11 +19,11 @@ const PeopleNavigationActions = ({
   </Box>
 )
 
-PeopleNavigationActions.defaultProps = {
+NavigationActions.defaultProps = {
   ChildComponent: null,
 }
 
-PeopleNavigationActions.propTypes = {
+NavigationActions.propTypes = {
   title: PropTypes.string.isRequired,
   quickLinks: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
@@ -35,4 +35,4 @@ PeopleNavigationActions.propTypes = {
   ChildComponent: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]),
 }
 
-export default PeopleNavigationActions
+export default NavigationActions

@@ -6,7 +6,10 @@ import {
 import { Link, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import './styles.scss'
-import PeopleNavigationActions from './PeopleNavigationActions'
+import {
+  programsQuicklinks, insightsQuicklinks, settingsQuicklinks, peopleClientQuicklinks,
+} from './navigationActionsList'
+import NavigationActions from './navigationActions'
 import {
   companyPeopleNavigations,
   agentPeopleNavigations,
@@ -14,17 +17,14 @@ import {
   insightsNavigations,
   settingsNavigations,
 
-} from './navigationLinks'
+} from './navigationLinksList'
 import {
   PEOPLE_ROUTE,
   PROGRAMS_NAVIGATION_ROUTE,
   INSIGHTS_NAVIGATION_ROUTE,
   SETTINGS_NAVIGATION_ROUTE,
-} from '../../../../routes/routesPath'
+} from '../../routes/routesPath'
 import PeopleNavStats from './peopleNavStats'
-import {
-  programsQuicklinks, insightsQuicklinks, settingsQuicklinks, peopleClientQuicklinks,
-} from './navigationActions'
 
 const navCard = (card) => (
   <Card className='navigation-card border-1'>
@@ -40,7 +40,7 @@ const navCard = (card) => (
   </Card>
 )
 
-function PeopleNavigation() {
+function NavigationPage() {
   const { userDetails } = useSelector((state) => state.login)
   const [ navigationCardsList, setNavigationCardsList ] = useState([])
   const [ navigationQuickLinks, setNavigationQuickLink ] = useState([])
@@ -100,7 +100,7 @@ function PeopleNavigation() {
           </Grid>
         </Grid>
         <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
-          <PeopleNavigationActions
+          <NavigationActions
             ChildComponent={ navigationTitle === 'People' ? PeopleNavStats : null }
             quickLinks={ navigationQuickLinks }
             title={ navigationTitle }
@@ -111,4 +111,4 @@ function PeopleNavigation() {
   )
 }
 
-export default PeopleNavigation
+export default NavigationPage

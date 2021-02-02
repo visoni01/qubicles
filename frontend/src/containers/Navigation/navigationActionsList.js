@@ -1,4 +1,4 @@
-import ROUTE_PATHS from '../../../../routes/routesPath'
+import ROUTE_PATHS from '../../routes/routesPath'
 
 const peopleClientQuicklinks = [
   {
@@ -125,7 +125,7 @@ const settingsQuicklinks = [
   },
   {
     id: 5,
-    title: 'Uphold Music On Hold',
+    title: 'Upload Music On Hold',
     hasBreak: false,
   },
   {
