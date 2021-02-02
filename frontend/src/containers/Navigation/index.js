@@ -51,11 +51,11 @@ function NavigationPage() {
       case PEOPLE_ROUTE: {
         if (userDetails && userDetails.is_post_signup_completed && userDetails.user_code === 'employer') {
           setNavigationCardsList(companyPeopleNavigations)
-          setNavigationQuickLink(peopleClientQuicklinks)
         }
         if (userDetails && userDetails.is_post_signup_completed && userDetails.user_code === 'agent') {
           setNavigationCardsList(agentPeopleNavigations)
         }
+        setNavigationQuickLink(peopleClientQuicklinks)
         setNavigationTitle('People')
         break
       }
