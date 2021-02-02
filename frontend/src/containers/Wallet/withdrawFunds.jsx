@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   Dialog, DialogActions, DialogContent,
-  DialogTitle, Button, IconButton, InputBase,
-  FormControl, Select, InputLabel,
+  DialogTitle, Button, IconButton,
+  FormControl, Select, InputLabel, TextField,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faExchangeAlt } from '@fortawesome/free-solid-svg-icons'
@@ -61,18 +61,22 @@ const WithdrawFunds = ({
       </FormControl>
       <h4 className='h4 mt-30'>Amount</h4>
       <div className='display-inline-flex justify-between align-items-center is-fullwidth'>
-        <InputBase
+        <TextField
+          className='text-field-para is-fullwidth mt-10'
           InputProps={ { inputProps: { min: 0, step: 1 } } }
           type='number'
           placeholder='QBE'
-          className='search-input mt-10'
+          variant='outlined'
+          margin='dense'
         />
         <FontAwesomeIcon className='custom-fa-icon light ml-10 mr-10 mt-5' icon={ faExchangeAlt } />
-        <InputBase
-          placeholder='USD'
-          className='search-input mt-10'
+        <TextField
+          className='text-field-para is-fullwidth mt-10'
           InputProps={ { inputProps: { min: 0, step: 1 } } }
           type='number'
+          placeholder='USD'
+          variant='outlined'
+          margin='dense'
         />
       </div>
 

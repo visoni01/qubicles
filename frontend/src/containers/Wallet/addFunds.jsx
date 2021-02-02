@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   Dialog, DialogActions, DialogContent,
-  DialogTitle, Button, IconButton, InputBase,
-  FormControl, Select, InputLabel,
+  DialogTitle, Button, IconButton,
+  FormControl, Select, InputLabel, TextField,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -56,13 +56,14 @@ const AddFunds = ({
         </Select>
       </FormControl>
       <h4 className='h4 mt-30'>Choose amount</h4>
-      <InputBase
+      <TextField
+        className='text-field-para is-fullwidth mt-10'
         InputProps={ { inputProps: { min: 0, step: 1 } } }
         type='number'
+        variant='outlined'
+        margin='dense'
         placeholder='e.g. 100'
-        className='search-input mt-10'
       />
-
     </DialogContent>
     <DialogActions className='modal-actions'>
       <div className='sendQBEModal-buttons is-fullwidth'>

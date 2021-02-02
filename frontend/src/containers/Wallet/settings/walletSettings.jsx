@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  FormControl, InputLabel, Select, Switch, InputBase, Button,
+  FormControl, InputLabel, Select, Switch, Button, TextField,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { paymentCardData } from '../testData'
@@ -17,18 +17,22 @@ const WalletSettings = ({ onClose }) => (
     <h4 className='h4 bold mt-20'>Refill Amount</h4>
     <div className='display-inline-flex justify-between align-items-center is-fullwidth'>
       <span className='para'> Automaticall buy </span>
-      <InputBase
-        placeholder='USD'
-        type='number'
+      <TextField
+        className='text-field-para wallet-settings-input'
         InputProps={ { inputProps: { min: 0, step: 1 } } }
-        className='search-input wallet-settings-input'
+        type='number'
+        variant='outlined'
+        margin='dense'
+        placeholder='USD'
       />
       <span className='para'> QBE when available balance is less than </span>
-      <InputBase
-        placeholder='USD'
-        type='number'
+      <TextField
+        className='text-field-para wallet-settings-input'
         InputProps={ { inputProps: { min: 0, step: 1 } } }
-        className='search-input wallet-settings-input'
+        type='number'
+        variant='outlined'
+        margin='dense'
+        placeholder='USD'
       />
     </div>
     <div className='is-halfwidth mt-20'>

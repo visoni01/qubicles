@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   Dialog, DialogActions, DialogContent,
-  DialogTitle, Button, IconButton, InputBase,
+  DialogTitle, Button, IconButton, TextField,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -38,25 +38,31 @@ const AddBankAccount = ({
         <para className='para mt-30'> James Barnett</para>
       </div>
       <h4 className='h4 mt-30'>Routing Number (ACH or ABA)</h4>
-      <InputBase
+      <TextField
+        className='text-field-para is-fullwidth mt-10'
         InputProps={ { inputProps: { min: 0, step: 1 } } }
         type='number'
+        variant='outlined'
+        margin='dense'
         placeholder='e.g. 023984284'
-        className='search-input mt-10'
       />
       <h4 className='h4 mt-30'>Account Number</h4>
-      <InputBase
+      <TextField
+        className='text-field-para is-fullwidth mt-10'
         InputProps={ { inputProps: { min: 0, step: 1 } } }
         type='number'
+        variant='outlined'
+        margin='dense'
         placeholder='e.g. 63738283127'
-        className='search-input mt-10'
       />
       <h4 className='h4 mt-30'>Confirm Account Number</h4>
-      <InputBase
+      <TextField
+        className='text-field-para is-fullwidth mt-10'
         InputProps={ { inputProps: { min: 0, step: 1 } } }
         type='number'
+        variant='outlined'
+        margin='dense'
         placeholder='e.g. 63738283127'
-        className='search-input mt-10'
       />
     </DialogContent>
     <DialogActions className='modal-actions'>

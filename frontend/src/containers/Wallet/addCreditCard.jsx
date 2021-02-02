@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   Dialog, DialogActions, DialogContent,
-  DialogTitle, Button, IconButton, InputBase,
+  DialogTitle, Button, IconButton, TextField,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -38,29 +38,35 @@ const AddCreditCard = ({
         <para className='para mt-30'> James Barnett</para>
       </div>
       <h4 className='h4 mt-30'>Card Number</h4>
-      <InputBase
+      <TextField
+        className='text-field-para is-fullwidth mt-10'
         InputProps={ { inputProps: { min: 0, step: 1 } } }
         type='number'
-        placeholder='e.g. XXXX XXXX XXXX 1234 '
-        className='search-input mt-10'
+        variant='outlined'
+        margin='dense'
+        placeholder='e.g. XXXX XXXX XXXX 1234'
       />
       <div className='display-inline-flex justify-between align-items-center is-fullwidth'>
         <div className='mr-20'>
           <h4 className='h4 mt-30'>Expiration Date</h4>
-          <InputBase
+          <TextField
+            className='text-field-para is-fullwidth mt-10'
             InputProps={ { inputProps: { min: 0, step: 1 } } }
-            type='number'
+            type='date'
+            variant='outlined'
+            margin='dense'
             placeholder='e.g. 01/01/2025'
-            className='search-input mt-10'
           />
         </div>
         <div>
           <h4 className='h4 mt-30'>CVV</h4>
-          <InputBase
+          <TextField
+            className='text-field-para is-fullwidth mt-10'
             InputProps={ { inputProps: { min: 0, step: 1 } } }
             type='number'
+            variant='outlined'
+            margin='dense'
             placeholder='e.g. 100'
-            className='search-input mt-10'
           />
         </div>
       </div>
