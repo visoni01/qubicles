@@ -1,41 +1,64 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
-  List, ListItem, ListItemIcon, Typography,
+  List, ListItemIcon, Typography, ListItem,
 } from '@material-ui/core'
-import { Link } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import menuItems from './menuList'
 
-const listItem = (item) => (
-  <ListItem key={ item.id } className='menu-item' button>
-    { item.link ? (
-      <Link to={ item.link }>
-        <ListItemIcon className='menu-item-icon'>
-          <img src={ item.icon } alt='' />
-          <Typography className='menu-item-title'>
-            {item.title}
-          </Typography>
-        </ListItemIcon>
-      </Link>
-    ) : (
-      <ListItemIcon className='menu-item-icon'>
-        <img src={ item.icon } alt='' />
-        <Typography className='menu-item-title'>
-          {item.title}
-        </Typography>
-      </ListItemIcon>
-    )}
-  </ListItem>
-)
+const SideBar = () => {
+  const location = useLocation()
+  const [ selectedNav, setSelectedNav ] = useState(0)
+  const history = useHistory()
+  useEffect(() => {
+    const currentMenu = menuItems.filter((item) => {
+      if (item.link) {
+        // Check all sub-routes
+        return location.pathname.split('/')[ 1 ] === item.link.split('/')[ 1 ]
+      }
+      return null
+    })
+    if (currentMenu && currentMenu.length === 1 && currentMenu[ 0 ]) {
+      setSelectedNav(currentMenu[ 0 ].id)
+    } else {
+      setSelectedNav(0)
+    }
+  }, [ location ])
+  const handleNavButtonClick = (item) => {
+    if (item.link) {
+      history.push(item.link)
+    }
+  }
 
-const SideBar = () => (
-  <div className='sidebar-root'>
-    <div className='qubicles-logo'>
-      <img src='https://i.imgur.com/y2vEn7E.png' alt='Qubicles log' />
+  return (
+    <div className='sidebar-root'>
+      <div className='qubicles-logo'>
+        <img src='https://i.imgur.com/y2vEn7E.png' alt='Qubicles log' />
+      </div>
+      <List className='menu-list'>
+        {menuItems.map((item) => (
+          <ListItem
+            key={ item.id }
+            button
+            onClick={ () => handleNavButtonClick(item) }
+            classes={ {
+              gutters: 'menu-item-gutter',
+              root: 'menu-item-root',
+            } }
+            disabled={ item.id === 5 }
+          >
+            <ListItemIcon classes={ { root: 'menu-item-icon-root' } }>
+              <item.icon
+                className={ `custom-svg-icon ${ selectedNav === item.id ? 'color-primary' : '' }` }
+              />
+            </ListItemIcon>
+            <Typography className={ `menu-item-title para light ${ selectedNav === item.id ? 'primary' : '' }` }>
+              {item.title}
+            </Typography>
+          </ListItem>
+        ))}
+      </List>
     </div>
-    <List className='menu-list'>
-      {menuItems.map((item) => listItem(item))}
-    </List>
-  </div>
-)
+  )
+}
 
 export default SideBar
