@@ -151,3 +151,29 @@ export const checkJobType = (jobType) => {
   }
   return 'Contract'
 }
+
+export const setDoumentTitle = ({ location }) => {
+  let title = 'award-winning contact center blockchain company'
+
+  // First level path name check
+  if (location && location.pathname && location.pathname.split('/').length > 1) {
+    const pathArray = location.pathname.split('/')
+    const rootDir = pathArray[ 1 ]
+
+    if ([ 'people', 'dashboard', 'profile', 'groups',
+      'wallet', 'programs', 'insights', 'settings' ].includes(rootDir)) {
+      // Second level path name check
+      if (pathArray.length > 2) {
+        const firstChildDir = pathArray[ 2 ]
+
+        // People Sub Pages
+        if (rootDir === 'people') {
+          if ([ 'jobs', 'talent', 'training', 'applications' ].includes(firstChildDir)) {
+            title = firstChildDir
+          }
+        }
+      } else title = rootDir
+    }
+  }
+  document.title = `qubicles.io – ${ title }`
+}
