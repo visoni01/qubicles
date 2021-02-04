@@ -91,7 +91,7 @@ export const getLeadByPhone = async ({ phone_number, user, clients }) => {
     columnValue: phone_number,
     extraQueryAttributes: 'LIMIT 100'
   })
-  return getFirstElement(lead)
+  return lead
 }
 
 export const updateLeadInCustomTable = async ({ lead }) => {

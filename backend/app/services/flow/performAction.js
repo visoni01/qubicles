@@ -469,7 +469,7 @@ export class PerformActionService extends ServiceBase {
                 variableName = `@${fieldName} `
               }
 
-              const customLeadFieldValue = customLead[fieldName].toString()
+              const customLeadFieldValue = customLead[fieldName]
               const fieldNameInLowerCase = fieldName.toLowerCase()
 
               if (emailBody.includes(variableName)) {
