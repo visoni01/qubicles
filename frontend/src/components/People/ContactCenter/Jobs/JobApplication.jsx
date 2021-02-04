@@ -70,7 +70,7 @@ const JobApplication = () => (
               label: 'button-primary-small-label',
             } }
           >
-            Hire
+            Evaluate
           </Button>
         </div>
       </div>

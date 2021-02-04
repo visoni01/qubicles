@@ -11,6 +11,14 @@
     &.no-margin {
       margin: 0;
     }
+
+    &:hover, :active {
+      color: $color-primary;
+    }
+
+    .rating-star-label {
+      color: $color-primary;
+    }
   }
 }
 

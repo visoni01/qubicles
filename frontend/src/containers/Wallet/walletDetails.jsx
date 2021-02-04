@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {
-  Box, Button, Grid, InputBase, IconButton,
+  Box, Button, Grid, InputBase, IconButton, TextField,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faDownload } from '@fortawesome/free-solid-svg-icons'
@@ -149,25 +149,25 @@ const WalletDetails = () => {
           </div>
           <div className='mt-50'>
             <h3 className='h3 mb-10'> Transaction History </h3>
-            <Grid container spacing={ 4 } alignItems='flex-end'>
-              <Grid container item xl={ 4 } lg={ 4 } md={ 4 } sm={ 6 } spacing={ 2 }>
+            <Grid container spacing={ 3 } alignItems='flex-end'>
+              <Grid container item xl={ 4 } lg={ 4 } md={ 4 } sm={ 6 } spacing={ 1 }>
                 <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 6 }>
                   <h4 className='h4'> Start Date</h4>
-                  <div className='search-input'>
-                    <InputBase
-                      placeholder='Start Date'
-                      className='input-field'
-                    />
-                  </div>
+                  <TextField
+                    className='text-field-para is-fullwidth'
+                    type='date'
+                    variant='outlined'
+                    margin='dense'
+                  />
                 </Grid>
                 <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 6 }>
                   <h4 className='h4'> End Date</h4>
-                  <div className='search-input'>
-                    <InputBase
-                      placeholder='End Date'
-                      className='input-field'
-                    />
-                  </div>
+                  <TextField
+                    className='text-field-para is-fullwidth'
+                    type='date'
+                    variant='outlined'
+                    margin='dense'
+                  />
                 </Grid>
               </Grid>
               <Grid item xl={ 8 } lg={ 8 } md={ 8 } sm={ 6 }>
