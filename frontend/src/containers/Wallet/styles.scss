@@ -15,7 +15,6 @@
 
   .wallet-details {
     margin: 10px 0 !important;
-    border-bottom: 1px solid $color-border !important;
 
     &:last-child {
       border: none !important;
@@ -104,7 +103,7 @@
     width: 550px;
 
     .wallet-settings-input {
-      width: 12%;
+      width: 15%;
     }
   }
 
