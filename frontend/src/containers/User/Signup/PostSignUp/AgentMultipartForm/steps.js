@@ -16,7 +16,7 @@ const steps = {
       ],
     } ],
     schema: yup.object().shape({
-      dob: yup.date().required('*Required'),
+      dob: yup.string().required('*Required'),
       gender: yup.string().required('*Required').matches(regSplChar, 'Special characters not allowed'),
       ssn: yup.string().required('*Required').matches(regExpSSN, 'SSN is invalid, eg:- 111-11-2001'),
     }),
@@ -43,15 +43,19 @@ const steps = {
   3: {
     fields: [
       { label: 'Years of Experience', type: 'text', name: 'years_of_experience' },
-      { label: 'Highest Level of Education', type: 'text', name: 'highest_education' },
       {
-        label: 'Other Languages Spoken',
+        label: 'Highest Level of Education',
         type: 'select',
-        name: 'other_languages',
+        name: 'highest_education',
         options: [
-          { label: 'English', value: 'English' },
-          { label: 'French', value: 'French' },
-          { label: 'Spanish', value: 'Spanish' },
+          { label: 'High school or equivalent', value: 'High school or equivalent' },
+          { label: 'Technical or occupational certificate', value: 'Technical or occupational certificate' },
+          { label: 'Associate degree', value: 'Associate degree' },
+          { label: 'Some college coursework completed', value: 'Some college coursework completed' },
+          { label: 'Bachelor\'s degree', value: 'Bachelor\'s degree' },
+          { label: 'Master\'s degree', value: 'Master\'s degree' },
+          { label: 'Doctorate', value: 'Doctorate' },
+          { label: 'Professional', value: 'Professional' },
         ],
       },
       {
@@ -64,12 +68,22 @@ const steps = {
           [ 'Spanish', 'spanish', 'Spanish' ],
         ],
       },
+      {
+        label: 'Other Languages Spoken',
+        type: 'select',
+        name: 'other_languages',
+        options: [
+          { label: 'English', value: 'English' },
+          { label: 'French', value: 'French' },
+          { label: 'Spanish', value: 'Spanish' },
+        ],
+      },
     ],
     schema: yup.object().shape({
       years_of_experience: yup.string().matches(regSplChar, 'Special characters not allowed'),
       highest_education: yup.string().matches(regSplChar, 'Special characters not allowed'),
       primary_language: yup.string().required('*Required'),
-      other_languages: yup.string().required('*Required'),
+      other_languages: yup.string(),
     }),
   },
   5: {

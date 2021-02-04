@@ -49,6 +49,8 @@ const Validator = ({ component: Component, path, propsToPass }) => {
     component = <Redirect to='/post-signup' />
   } else if (userDetails.is_post_signup_completed && path === '/post-signup') {
     component = <Redirect to='/dashboard' />
+  } else if (!userDetails.is_post_signup_completed && path === '/post-signup') {
+    component = suspenseWrapper(Component, propsToPass)
   } else {
     component = (
       <Navbar>

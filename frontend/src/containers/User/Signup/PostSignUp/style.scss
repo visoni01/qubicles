@@ -15,8 +15,8 @@
     width: 100%;
 
     .process-title {
-      max-width: 840px;
-      margin: 0 auto;
+      max-width: 750px;
+      margin: 40px auto 80px auto;
       text-align: center;
 
       h1 {
@@ -38,11 +38,10 @@
         width: 340px;
         height: 377px;
         background: $white;
-        border: 1px solid #DBDBDB !important;
+        border: 2px solid #DBDBDB !important;
         border-radius: 10px !important;;
         text-align: center;
         margin: auto;
-        opacity: 1;
         padding: 25px;
 
         img {
@@ -59,20 +58,6 @@
           margin-top: 16px;
           margin-bottom: 25px;
           text-align: center;
-          // white-space: pre-wrap;
-        }
-
-        .button {
-          margin-top: 20px;
-          border-width: 1.4px;
-          color: $muted-grey;
-
-          &:hover, &.is-loading {
-              border-color: $accent;
-              background: $accent;
-              color: $white;
-              box-shadow: $accent-box-shadow;
-          }
         }
       }
     }
@@ -80,7 +65,7 @@
 }
 
 .process-panel-wrap {
-  display: none;
+  display: grid;
   animation: fadeInLeft .5s;
   max-width: 850px;
   max-height: 850px;
@@ -94,11 +79,10 @@
   padding: 25px;
 
   &.is-active {
-    display: block;
+    display: grid;
   }
 
   .form-panel {
-
     .MuiGrid-item {
       height: 120px;
     }
@@ -234,29 +218,15 @@
   }
 
   .registration-buttons {
-    padding: 20px 0;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: absolute;
-    top: 580px;
-
-    .MuiGrid-item {
-      width: 290px;
-    }
+    width: 100%;
 
     .back-button {
-      button {
-        margin-left: 30px;
-        margin-top: 10px;
-      }
+      text-align: start;
     }
 
     .next-button {
-      button {
-        margin-left: 170px;
-        margin-top: 10px;
-      }
+      text-align: end;
     }
   }
 }

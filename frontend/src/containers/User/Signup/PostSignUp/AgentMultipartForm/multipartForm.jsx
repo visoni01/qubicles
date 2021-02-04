@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import {
-  Select, MenuItem, Button, Grid,
+  Select, MenuItem, Button, Grid, FormControlLabel, Radio, RadioGroup,
 } from '@material-ui/core/'
 import moment from 'moment'
 import IntlTelInput from 'react-intl-tel-input'
@@ -96,23 +96,23 @@ const StepForm = ({
         <>
           <label>{label}</label>
           <div key={ `${ name }${ label }` } className='control check-box'>
-            {options
-            && options.map(([ inputName, value, inputLabel ]) => (
-              <div key={ `${ inputName }` } className='check-box-div'>
-                <input
-                  onChange={ handleRadioChange(name) }
-                  type={ type }
-                  id={ inputName }
-                  name={ name }
-                  defaultValue={ value }
-                  defaultChecked={ isChecked(name, value) }
-                />
-                <label htmlFor={ value } className='checkbox-label'>
-                  {inputLabel}
-                </label>
-                <br />
+            <RadioGroup
+              className='radio-buttons'
+              onChange={ handleRadioChange(name) }
+            >
+              <div className='display-inline-flex mt-10'>
+                {options && options.map(([ inputName, value, inputLabel ]) => (
+                  <div key={ inputName }>
+                    <FormControlLabel
+                      value={ value }
+                      control={ <Radio /> }
+                      label={ inputLabel }
+                      checked={ isChecked(name, value) }
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
+            </RadioGroup>
           </div>
         </>
       )
@@ -211,7 +211,7 @@ const StepForm = ({
     && steps[ step ].fields.map(({
       name, label, type, ...rest
     }) => (
-      <Grid item xs={ type === 'radio' ? 12 : 6 } key={ `${ name }${ label }` }>
+      <Grid item xs={ (name === 'source' || name === 'service') ? 12 : 6 } key={ `${ name }${ label }` }>
         <div className='field' key={ `${ name }${ label }` }>
           {inputField({
             name, label, type, ...rest,
@@ -267,15 +267,16 @@ const StepForm = ({
           )}
         </div>
 
-        <div className='registration-buttons'>
-          <Grid container spacing={ 3 }>
+        <div item className='registration-buttons'>
+          <Grid container spacing={ 3 } justify='space-between' alignItems='flex-end'>
             <Grid item xs={ 6 }>
               {step > 1 && (
                 <div className='back-button'>
                   <Button
-                    variant='contained'
-                    className='button-secondary-large'
-                    classes={ { label: 'secondary-label' } }
+                    classes={ {
+                      root: 'button-primary-large',
+                      label: 'button-primary-large-label',
+                    } }
                     onClick={ onBack }
                   >
                     Back
@@ -286,9 +287,10 @@ const StepForm = ({
             <Grid item xs={ 6 }>
               <div className='next-button'>
                 <Button
-                  variant='contained'
-                  className='button-primary-large'
-                  classes={ { label: 'primary-label' } }
+                  classes={ {
+                    root: 'button-primary-large',
+                    label: 'button-primary-large-label',
+                  } }
                   onClick={ handleSubmit(step === 5 ? onSubmit : onNext) }
                 >
                   {step === 5 ? 'Submit' : 'Next'}
