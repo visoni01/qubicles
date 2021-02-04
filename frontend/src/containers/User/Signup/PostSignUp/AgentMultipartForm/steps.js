@@ -1,40 +1,54 @@
 import * as yup from 'yup'
 import {
-  regExpPhone, regExpSSN, regExpZip, regSplChar,
+  regExpPhone, regExpSSN, regSplChar,
 } from '../../../../../utils/common'
 
 const steps = {
   1: {
-    fields: [ { label: 'Date of Birth', type: 'date', name: 'dob' }, {
-      label: 'SSN', type: 'text', name: 'ssn', placeholder: '111-11-2001',
-    }, {
-      label: 'Gender',
-      type: 'radio',
-      name: 'gender',
-      options: [
-        [ 'Male', 'male', 'Male' ], [ 'Female', 'female', 'Female' ], [ 'Other', 'other', 'Other' ],
-      ],
-    } ],
+    fields: [
+      {
+        label: 'Date of Birth', type: 'date', name: 'dob', placeholder: 'DD/MM/YYYY',
+      }, {
+        label: 'SSN', type: 'text', name: 'ssn', placeholder: 'AAA-GG-SSSS',
+      }, {
+        label: 'Gender',
+        type: 'radio',
+        name: 'gender',
+        options: [
+          [ 'Male', 'male', 'Male' ], [ 'Female', 'female', 'Female' ], [ 'Other', 'other', 'Other' ],
+        ],
+      } ],
     schema: yup.object().shape({
       dob: yup.string().required('*Required'),
-      gender: yup.string().required('*Required').matches(regSplChar, 'Special characters not allowed'),
+      gender: yup.string().required('*Required'),
       ssn: yup.string().required('*Required').matches(regExpSSN, 'SSN is invalid, eg:- 111-11-2001'),
     }),
   },
   2: {
     fields: [
-      { label: 'Street Address', type: 'text', name: 'street_address' },
-      { label: 'City', type: 'text', name: 'city' },
-      { label: 'State', type: 'text', name: 'state' },
-      { label: 'Zip', type: 'text', name: 'zip' },
-      { label: 'Home Phone', type: 'text', name: 'home_phone' },
-      { label: 'Mobile Phone', type: 'text', name: 'mobile_phone' },
+      {
+        label: 'Street Address', type: 'text', name: 'street_address', placeholder: 'e.g. 37 Main Road, apr. 2',
+      }, {
+        label: 'City', type: 'text', name: 'city', placeholder: 'City (optional)',
+      },
+      {
+        label: 'State', type: 'text', name: 'state', placeholder: 'State (optional)',
+      },
+      {
+        label: 'Zip', type: 'text', name: 'zip', placeholder: 'e.g. 15201',
+      },
+      {
+        label: 'Home Phone', type: 'text', name: 'home_phone', placeholder: '(optional)',
+      },
+      {
+        label: 'Mobile Phone', type: 'text', name: 'mobile_phone',
+      },
     ],
     schema: yup.object().shape({
       street_address: yup.string(),
       city: yup.string().matches(regSplChar, 'Special characters not allowed'),
       state: yup.string().matches(regSplChar, 'Special characters not allowed'),
-      zip: yup.string().required('*Required').matches(regExpZip, 'Zipcode is invalid, eg:- 90401'),
+      zip: yup.string().matches(regSplChar, 'Special characters not allowed').required('*Required'),
       home_phone: yup.string().matches(regSplChar, 'Special characters not allowed'),
       mobile_phone: yup.string().max(15).required('*Required')
         .matches(regExpPhone, 'Phone number is invalid, eg:- 5555555555'),
@@ -42,11 +56,14 @@ const steps = {
   },
   3: {
     fields: [
-      { label: 'Years of Experience', type: 'text', name: 'years_of_experience' },
+      {
+        label: 'Years of Experience', type: 'number', name: 'years_of_experience', placeholder: 'Experience (in years)',
+      },
       {
         label: 'Highest Level of Education',
-        type: 'select',
+        type: 'singleSelect',
         name: 'highest_education',
+        placeholder: 'Level of education',
         options: [
           { label: 'High school or equivalent', value: 'High school or equivalent' },
           { label: 'Technical or occupational certificate', value: 'Technical or occupational certificate' },
@@ -60,12 +77,22 @@ const steps = {
       },
       {
         label: 'Primary Language',
-        type: 'radio',
+        type: 'singleSelect',
         name: 'primary_language',
         options: [
-          [ 'English', 'english', 'English' ],
-          [ 'French', 'french', 'French' ],
-          [ 'Spanish', 'spanish', 'Spanish' ],
+          { label: 'English', value: 'English' },
+          { label: 'French', value: 'French' },
+          { label: 'Spanish', value: 'Spanish' },
+          { label: 'Arabic', value: 'Arabic' },
+          { label: 'Bengali', value: 'Bengali' },
+          { label: 'Chinese', value: 'Chinese' },
+          { label: 'German', value: 'German' },
+          { label: 'Hindi', value: 'Hindi' },
+          { label: 'Indonesian', value: 'Indonesian' },
+          { label: 'Japanese', value: 'Japanese' },
+          { label: 'Portuguese', value: 'Portuguese' },
+          { label: 'Russian', value: 'Russian' },
+          { label: 'Urdu', value: 'Urdu' },
         ],
       },
       {
@@ -76,12 +103,22 @@ const steps = {
           { label: 'English', value: 'English' },
           { label: 'French', value: 'French' },
           { label: 'Spanish', value: 'Spanish' },
+          { label: 'Arabic', value: 'Arabic' },
+          { label: 'Bengali', value: 'Bengali' },
+          { label: 'Chinese', value: 'Chinese' },
+          { label: 'German', value: 'German' },
+          { label: 'Hindi', value: 'Hindi' },
+          { label: 'Indonesian', value: 'Indonesian' },
+          { label: 'Japanese', value: 'Japanese' },
+          { label: 'Portuguese', value: 'Portuguese' },
+          { label: 'Russian', value: 'Russian' },
+          { label: 'Urdu', value: 'Urdu' },
         ],
       },
     ],
     schema: yup.object().shape({
-      years_of_experience: yup.string().matches(regSplChar, 'Special characters not allowed'),
-      highest_education: yup.string().matches(regSplChar, 'Special characters not allowed'),
+      years_of_experience: yup.string(),
+      highest_education: yup.string().required('*Required'),
       primary_language: yup.string().required('*Required'),
       other_languages: yup.string(),
     }),

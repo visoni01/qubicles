@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="135.535" height="135.535" viewBox="0 0 135.535 135.535">
+  <g id="face-recognition" transform="translate(2 2)">
+    <path id="Path_305" data-name="Path 305" d="M26.607.5H.5V26.607" fill="none" stroke="#4877f4" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+    <path id="Path_306" data-name="Path 306" d="M26.607,38.607H.5V12.5" transform="translate(0 92.428)" fill="none" stroke="#4877f4" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+    <path id="Path_307" data-name="Path 307" d="M12.5.5H38.607V26.607" transform="translate(92.428)" fill="none" stroke="#4877f4" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+    <path id="Path_308" data-name="Path 308" d="M12.5,38.607H38.607V12.5" transform="translate(92.428 92.428)" fill="none" stroke="#4877f4" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+    <path id="Path_309" data-name="Path 309" d="M3.5,98.226l14.2-4.734a17.4,17.4,0,0,0,11.9-16.534v-3.8A41.267,41.267,0,0,1,12.2,37.31V34.7A31.616,31.616,0,0,1,41.024,2.544,30.458,30.458,0,0,1,73.119,32.959V37.31a41.267,41.267,0,0,1-17.4,35.862v3.751A17.4,17.4,0,0,0,67.619,93.5l14.2,4.725" transform="translate(23.107 15.404)" fill="none" stroke="#4877f4" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+  </g>
+</svg>

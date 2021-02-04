@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import PropTypes from 'prop-types'
 import IntlTelInput from 'react-intl-tel-input'
-import { Button, Grid } from '@material-ui/core'
+import {
+  Button, Grid, RadioGroup, FormControlLabel, Radio,
+} from '@material-ui/core'
 import steps from './steps'
 import 'react-intl-tel-input/dist/main.css'
 import { spreadArgs, phoneNumberFormatter } from '../../../../../utils/common'
@@ -11,18 +13,52 @@ const Form = ({
   step, onNext, onBack, onSubmit, stepData,
 }) => {
   const [ formValues, setValues ] = useState(stepData || {})
-
-  useEffect(() => {
-    setValues(stepData)
-  }, [ stepData ])
-
   const {
-    register, errors, handleSubmit, control,
+    register, errors, handleSubmit, control, setValue, unregister, getValues,
   } = useForm({
     validationSchema: steps[ step ] && steps[ step ].schema,
   })
+
+  useEffect(() => {
+    setValues(stepData)
+    if (steps[ step ]) {
+      steps[ step ].fields.map((field) => {
+        // Manually registering radio and select fields in the react-hook-form.
+        if (field.type === 'radio') {
+          register(field.name)
+        }
+        // Setting value in the registered field if exists.
+        if (stepData[ field.name ]) {
+          setValue(field.name, stepData[ field.name ])
+        }
+        return null
+      })
+      if (Object.keys(getValues()).length !== steps[ step ].fields.length) {
+        steps[ step ].fields.map((field) => {
+          // Registering and setting value if it misses.
+          if (field.type === 'text') {
+            register(field.name)
+            setValue(field.name, stepData[ field.name ])
+          }
+          return null
+        })
+      }
+    }
+    return () => {
+      if (steps[ step ]) {
+        steps[ step ].fields.map((field) => {
+          // Unregistering fields.
+          unregister(field.name)
+          return null
+        })
+      }
+    }
+    // eslint-disable-next-line
+  }, [ stepData ])
+
   const handleValueChange = (name) => (event) => {
     setValues({ ...formValues, [ name ]: event.target.value })
+    setValue(name, event.target.value)
   }
 
   const handlePhoneNumberChange = (isValid, value, selectedCountryData, fullNumber) => {
@@ -39,32 +75,32 @@ const Form = ({
 
   const inputField = (fieldData) => {
     const {
-      label, type, name, checkTypes,
+      label, type, name, placeholder, checkTypes,
     } = fieldData
 
-    if (type === 'radio' || type === 'checkbox') {
+    if (type === 'radio') {
       return (
         <>
           <label>{label}</label>
-          <div className='control check-box'>
-            {checkTypes
-              && checkTypes.map(([ inputName, value, inputLabel ]) => (
-                <div key={ `${ inputName }` } className='check-box-div'>
-                  <input
-                    type={ type }
-                    onChange={ handleValueChange(name) }
-                    id={ inputName }
-                    name={ name }
-                    value={ value }
-                    ref={ register }
-                    checked={ isChecked(name, value) }
-                  />
-                  <label htmlFor={ value } className='checkbox-label'>
-                    {inputLabel}
-                  </label>
-                  <br />
-                </div>
-              ))}
+          <div key={ `${ name }${ label }` } className='control check-box'>
+            <RadioGroup
+              className={ `radio-buttons ${ (name === 'source') ? 'label-sz-sm' : '' }` }
+              onChange={ handleValueChange(name) }
+              name={ name }
+            >
+              <div className='display-inline-flex mt-15'>
+                {checkTypes && checkTypes.map(([ inputName, value, inputLabel ]) => (
+                  <div key={ inputName }>
+                    <FormControlLabel
+                      value={ value }
+                      control={ <Radio /> }
+                      label={ inputLabel }
+                      checked={ isChecked(name, value) }
+                    />
+                  </div>
+                ))}
+              </div>
+            </RadioGroup>
           </div>
         </>
       )
@@ -104,7 +140,9 @@ const Form = ({
                   onChange={ handleValueChange(name) }
                   type={ type }
                   className='input'
+                  placeholder={ placeholder }
                   name={ name }
+                  autoComplete='off'
                   ref={ register }
                   defaultValue={ formValues[ name ] }
                 />
@@ -118,12 +156,12 @@ const Form = ({
   const fields = () => steps
     && steps[ step ]
     && steps[ step ].fields.map(({
-      name, label, type, ...rest
+      name, label, type, placeholder, ...rest
     }) => (
-      <Grid item xs={ type === 'radio' ? 12 : 6 } key={ `${ name }${ label }` }>
+      <Grid item xs={ (type === 'radio' || name === 'client_ein') ? 12 : 6 } key={ `${ name }${ label }` }>
         <div className='field' key={ `${ name }${ label }` }>
           {inputField({
-            name, label, type, ...rest,
+            name, label, type, placeholder, ...rest,
           })}
           {errors && errors[ name ] && (
           <div className='error-message'>
@@ -148,9 +186,10 @@ const Form = ({
               {step > 1 && (
                 <div className='back-button'>
                   <Button
-                    variant='contained'
-                    className='button-secondary-large'
-                    classes={ { label: 'secondary-label' } }
+                    classes={ {
+                      root: 'button-primary-large',
+                      label: 'button-primary-large-label',
+                    } }
                     onClick={ onBack }
                   >
                     Back
@@ -161,9 +200,10 @@ const Form = ({
             <Grid item xs={ 6 }>
               <div className='next-button'>
                 <Button
-                  variant='contained'
-                  className='button-primary-large'
-                  classes={ { label: 'primary-label' } }
+                  classes={ {
+                    root: 'button-primary-large',
+                    label: 'button-primary-large-label',
+                  } }
                   onClick={ handleSubmit(step === 5 ? onSubmit : onNext) }
                 >
                   {step === 3 ? 'Submit' : 'Next'}

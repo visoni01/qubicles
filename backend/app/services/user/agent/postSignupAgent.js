@@ -142,7 +142,7 @@ const constraintsStep3 = {
     presence: { allowEmpty: false }
   },
   other_languages: {
-    presence: { allowEmpty: true }
+    presence: false
   }
 }
 
