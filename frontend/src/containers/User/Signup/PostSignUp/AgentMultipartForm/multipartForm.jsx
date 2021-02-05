@@ -9,7 +9,7 @@ import moment from 'moment'
 import IntlTelInput from 'react-intl-tel-input'
 import steps from './steps'
 import 'react-intl-tel-input/dist/main.css'
-import { spreadArgs, phoneNumberFormatter, formatSSN } from '../../../../../utils/common'
+import { phoneNumberFormatter, formatSSN } from '../../../../../utils/common'
 import { uploadDocumentIcon } from '../../../../../assets/images/icons/profileSettingsIcons'
 
 const StepForm = ({
@@ -19,14 +19,13 @@ const StepForm = ({
   const {
     register, errors, handleSubmit, control, setValue, getValues, unregister,
   } = useForm({
-    validationSchema: steps[ step ] && steps[ step ].schema,
+    validationSchema: steps[ step ] && steps[ step ].schema, mode: 'onBlur',
   })
 
   const handleRadioChange = (name) => (event) => {
     setValue(name, event.target.value)
     setValues({ ...formValues, [ name ]: event.target.value })
   }
-
   useEffect(() => {
     setValues(stepData)
     if (steps[ step ]) {
@@ -72,12 +71,14 @@ const StepForm = ({
     }
     setValues({ ...formValues, [ name ]: value })
   }
-  const handlePhoneNumberChange = (isValid, value, selectedCountryData, fullNumber) => {
+  const handlePhoneNumberChange = ({ args, name }) => {
+    const [ isValid, value, selectedCountryData, fullNumber ] = args
     const nextValue = isValid
       ? fullNumber.replace(/([()])|-/g, '')
       : phoneNumberFormatter(value, selectedCountryData)
+
     if (isValid) {
-      setValues({ ...formValues, mobile_phone: nextValue })
+      setValues({ ...formValues, [ name ]: nextValue })
     }
     return nextValue
   }
@@ -176,7 +177,7 @@ const StepForm = ({
     return (
       <div className='control'>
         {
-          (name === 'mobile_phone') ? (
+          (name === 'mobile_phone') || (name === 'home_phone') ? (
             <>
               <div>
                 <label>{label}</label>
@@ -192,13 +193,12 @@ const StepForm = ({
                 formatOnInit
                 name={ name }
                 onChangeName='onPhoneNumberChange'
-                onChange={ spreadArgs(handlePhoneNumberChange) }
+                onChange={ (args) => handlePhoneNumberChange({ args, name }) }
                 telInputProps={ {
                   required: true,
                 } }
                 defaultValue={ formValues[ name ] }
                 placeholder={ placeholder }
-
               />
             </>
           ) : (

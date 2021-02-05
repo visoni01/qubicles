@@ -38,7 +38,7 @@ const steps = {
         label: 'Zip', type: 'text', name: 'zip', placeholder: 'e.g. 15201',
       },
       {
-        label: 'Home Phone', type: 'text', name: 'home_phone', placeholder: '(optional)',
+        label: 'Home Phone', type: 'text', name: 'home_phone', placeholder: 'Phone number (optional)',
       },
       {
         label: 'Mobile Phone', type: 'text', name: 'mobile_phone',
@@ -49,9 +49,8 @@ const steps = {
       city: yup.string().matches(regSplChar, 'Special characters not allowed'),
       state: yup.string().matches(regSplChar, 'Special characters not allowed'),
       zip: yup.string().matches(regSplChar, 'Special characters not allowed').required('*Required'),
-      home_phone: yup.string().matches(regSplChar, 'Special characters not allowed'),
-      mobile_phone: yup.string().max(15).required('*Required')
-        .matches(regExpPhone, 'Phone number is invalid, eg:- 5555555555'),
+      home_phone: yup.string(),
+      mobile_phone: yup.string().required('*Required'),
     }),
   },
   3: {

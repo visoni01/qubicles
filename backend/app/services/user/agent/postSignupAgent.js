@@ -80,7 +80,7 @@ const constraintsStep2 = {
     presence: { allowEmpty: false }
   },
   home_phone: {
-    presence: { allowEmpty: true }
+    presence: false
   },
   mobile_phone: {
     presence: { allowEmpty: false }
