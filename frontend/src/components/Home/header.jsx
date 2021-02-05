@@ -89,7 +89,7 @@ const Header = () => {
                       </Link>
                     </div>
                   </div>
-                  <AccountSettings />
+                  {userDetails.is_post_signup_completed && <AccountSettings />}
                 </div>
               )}
           </div>
