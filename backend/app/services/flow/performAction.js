@@ -230,7 +230,7 @@ export class PerformActionService extends ServiceBase {
       }
 
       case 'NEWLEAD': {
-        const existingLeadId = parseInt(this.value)
+        const existingLeadId = parseInt(this.leadId)
         if (existingLeadId > 0) {
           // get our current lead
           let lead = await getLeadByLeadId({ lead_id: existingLeadId, user, clients })
