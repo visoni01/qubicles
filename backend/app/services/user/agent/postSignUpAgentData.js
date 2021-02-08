@@ -59,7 +59,7 @@ export class PostSignUpAgentDataService extends ServiceBase {
         city,
         zip,
         state,
-        home_phone,
+        home_phone: home_phone ? phoneNumberFormatter(home_phone) : '',
         mobile_phone: mobile_phone ? phoneNumberFormatter(mobile_phone) : '',
         years_of_experience,
         highest_education,

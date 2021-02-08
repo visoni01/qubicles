@@ -41,7 +41,7 @@ const steps = {
         label: 'Home Phone', type: 'text', name: 'home_phone', placeholder: 'Phone number (optional)',
       },
       {
-        label: 'Mobile Phone', type: 'text', name: 'mobile_phone', placeholder: 'Mobile number number',
+        label: 'Mobile Phone', type: 'text', name: 'mobile_phone', placeholder: 'Mobile number',
       },
     ],
     schema: yup.object().shape({
