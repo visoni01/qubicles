@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import AccountSettings from '../Navbar/userMenu'
 import CustomLink from './customLink'
+import ROUTE_PATHS from '../../routes/routesPath'
 
 const Header = () => {
   const { userDetails } = useSelector((state) => state.login)
@@ -82,7 +83,7 @@ const Header = () => {
                     {/* Sign up button */}
                     <div className='navbar-item'>
                       <Link
-                        to='/dashboard'
+                        to={ userDetails.is_post_signup_completed ? ROUTE_PATHS.DASHBOARD : ROUTE_PATHS.POST_SIGN_UP }
                         className='custom-login-button'
                       >
                         My Account

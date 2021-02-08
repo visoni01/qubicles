@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 import {
-  regExpPhone, regExpSSN, regSplChar,
+  regExpSSN, regSplChar,
 } from '../../../../../utils/common'
 
 const steps = {
@@ -41,7 +41,7 @@ const steps = {
         label: 'Home Phone', type: 'text', name: 'home_phone', placeholder: 'Phone number (optional)',
       },
       {
-        label: 'Mobile Phone', type: 'text', name: 'mobile_phone',
+        label: 'Mobile Phone', type: 'text', name: 'mobile_phone', placeholder: 'Mobile number number',
       },
     ],
     schema: yup.object().shape({
