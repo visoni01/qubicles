@@ -60,7 +60,7 @@ const Login = () => {
       className={ classNames('control has-icons-right required', 'input-fields') }
     >
       <input
-        className='input'
+        className='input login-input'
         type={ type }
         id={ id }
         name={ name }

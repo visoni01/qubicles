@@ -9,7 +9,7 @@ import MESSAGES from './messages'
 
 export const regExpPhone = /^[+](\d{1,4})?\s(\d{10})$/
 export const regExpSSN = /^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$/
-export const regExpZip = /^[0-9]{5}(?:-[0-9]{4})?$/
+export const regExpZip = /^([a-zA-Z][0-9][a-zA-Z])\s*([0-9][a-zA-Z][0-9])$/
 export const regSplChar = /^[^!@#$%^&*(),.?":{}|<>]*$/
 // export const regSplChar = /^[^<>'\"/;`%]*$/
 
@@ -150,4 +150,30 @@ export const checkJobType = (jobType) => {
     return 'Part time'
   }
   return 'Contract'
+}
+
+export const setDoumentTitle = ({ location }) => {
+  let title = 'award-winning contact center blockchain company'
+
+  // First level path name check
+  if (location && location.pathname && location.pathname.split('/').length > 1) {
+    const pathArray = location.pathname.split('/')
+    const rootDir = pathArray[ 1 ]
+
+    if ([ 'people', 'dashboard', 'profile', 'groups',
+      'wallet', 'programs', 'insights', 'settings' ].includes(rootDir)) {
+      // Second level path name check
+      if (pathArray.length > 2) {
+        const firstChildDir = pathArray[ 2 ]
+
+        // People Sub Pages
+        if (rootDir === 'people') {
+          if ([ 'jobs', 'talent', 'training', 'applications' ].includes(firstChildDir)) {
+            title = firstChildDir
+          }
+        }
+      } else title = rootDir
+    }
+  }
+  document.title = `qubicles.io – ${ title }`
 }

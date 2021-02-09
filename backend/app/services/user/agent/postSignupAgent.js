@@ -80,7 +80,7 @@ const constraintsStep2 = {
     presence: { allowEmpty: false }
   },
   home_phone: {
-    presence: { allowEmpty: true }
+    presence: false
   },
   mobile_phone: {
     presence: { allowEmpty: false }
@@ -112,8 +112,8 @@ export class PostSignupAgentStep2Service extends ServiceBase {
           city: this.city,
           state: this.state || state,
           zip: this.zip,
-          home_phone: this.home_phone,
-          mobile_phone: this.mobile_phone.substring(1, 15)
+          home_phone: this.home_phone ? this.home_phone.substring(1, 20) : null,
+          mobile_phone: this.mobile_phone.substring(1, 20)
         }, { where: { user_id: this.user_id } })
 
         return 'User Updated Successfully'
@@ -142,7 +142,7 @@ const constraintsStep3 = {
     presence: { allowEmpty: false }
   },
   other_languages: {
-    presence: { allowEmpty: true }
+    presence: false
   }
 }
 

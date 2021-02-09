@@ -5,7 +5,7 @@ import {
 import PropTypes from 'prop-types'
 import { LinearProgress } from '@material-ui/core'
 import routes from './routeList'
-import { getToken, getUserDetails } from '../utils/common'
+import { getToken, getUserDetails, setDoumentTitle } from '../utils/common'
 import Navbar from '../components/Navbar'
 
 const suspenseWrapper = (Component, propsToPass) => (
@@ -33,6 +33,10 @@ const CustomRoutes = () => (
 
 const Validator = ({ component: Component, path, propsToPass }) => {
   const location = useLocation()
+
+  // Add the document title for the application current location
+  setDoumentTitle({ location })
+
   const token = getToken()
   let userDetails
   let component
@@ -41,6 +45,8 @@ const Validator = ({ component: Component, path, propsToPass }) => {
   }
   if (!token) {
     component = <Redirect to={ `/login?return_url=${ location.pathname }` } />
+  } else if (!userDetails.is_post_signup_completed && path === '/post-signup') {
+    component = suspenseWrapper(Component, propsToPass)
   } else if (!userDetails.is_post_signup_completed && path !== '/post-signup') {
     component = <Redirect to='/post-signup' />
   } else if (userDetails.is_post_signup_completed && path === '/post-signup') {

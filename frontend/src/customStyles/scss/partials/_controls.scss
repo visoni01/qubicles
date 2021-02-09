@@ -32,8 +32,24 @@
 .radio-buttons {
   @extend %control-buttons;
 
+  &.unset-label {
+    .MuiTypography-root {
+      font: normal normal normal 16px/24px 'SF Pro Text';
+    }
+  }
+
+  &.label-sz-sm {
+    .MuiTypography-root {
+      font: normal normal normal 14px/20px 'SF Pro Text';
+    }
+  }
+
   .MuiRadio-colorSecondary {
     color: $color-primary !important;
+
+    .Mui-checked:hover {
+      color: #ffffff;
+    }
   }
 }
 
@@ -41,8 +57,17 @@
 .checkboxes {
   @extend %control-buttons;
 
+  &.unset-label {
+    .MuiTypography-root {
+      font: normal normal normal 16px/24px 'SF Pro Text';
+    }
+  }
+
   .MuiCheckbox-colorSecondary {
     color: $color-primary !important;
+    .Mui-checked:hover {
+      background-color: #ffffff;
+    }
   }
 }
 

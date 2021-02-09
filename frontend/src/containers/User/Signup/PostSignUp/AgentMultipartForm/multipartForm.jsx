@@ -2,16 +2,15 @@
 import React, { useState, useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import PropTypes from 'prop-types'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import {
-  Select, MenuItem, Button, Grid,
+  Select, MenuItem, Button, Grid, FormControlLabel, Radio, RadioGroup, Checkbox, ListItemText,
 } from '@material-ui/core/'
 import moment from 'moment'
 import IntlTelInput from 'react-intl-tel-input'
 import steps from './steps'
 import 'react-intl-tel-input/dist/main.css'
-import { spreadArgs, phoneNumberFormatter, formatSSN } from '../../../../../utils/common'
+import { phoneNumberFormatter, formatSSN } from '../../../../../utils/common'
+import { uploadDocumentIcon } from '../../../../../assets/images/icons/profileSettingsIcons'
 
 const StepForm = ({
   step, onNext, onBack, onSubmit, stepData,
@@ -20,19 +19,19 @@ const StepForm = ({
   const {
     register, errors, handleSubmit, control, setValue, getValues, unregister,
   } = useForm({
-    validationSchema: steps[ step ] && steps[ step ].schema,
+    validationSchema: steps[ step ] && steps[ step ].schema, mode: 'onBlur',
   })
+
   const handleRadioChange = (name) => (event) => {
     setValue(name, event.target.value)
     setValues({ ...formValues, [ name ]: event.target.value })
   }
-
   useEffect(() => {
     setValues(stepData)
     if (steps[ step ]) {
       steps[ step ].fields.map((field) => {
         // Manually registering radio and select fields in the react-hook-form.
-        if (field.type === 'radio' || field.type === 'select') {
+        if (field.type === 'radio' || field.type === 'select' || field.type === 'singleSelect') {
           register(field.name)
         }
         // Setting value in the registered field if exists.
@@ -72,13 +71,14 @@ const StepForm = ({
     }
     setValues({ ...formValues, [ name ]: value })
   }
-
-  const handlePhoneNumberChange = (isValid, value, selectedCountryData, fullNumber) => {
+  const handlePhoneNumberChange = ({ args, name }) => {
+    const [ isValid, value, selectedCountryData, fullNumber ] = args
     const nextValue = isValid
       ? fullNumber.replace(/([()])|-/g, '')
       : phoneNumberFormatter(value, selectedCountryData)
+
     if (isValid) {
-      setValues({ ...formValues, mobile_phone: nextValue })
+      setValues({ ...formValues, [ name ]: nextValue })
     }
     return nextValue
   }
@@ -88,35 +88,36 @@ const StepForm = ({
   // eslint-disable-next-line complexity
   const inputField = (fieldData) => {
     const {
-      type, name, options, label,
+      type, name, options, label, placeholder,
     } = fieldData
 
-    if (type === 'radio' || type === 'checkbox') {
+    if (type === 'radio') {
       return (
         <>
           <label>{label}</label>
-          <div key={ `${ name }${ label }` } className='control check-box'>
-            {options
-            && options.map(([ inputName, value, inputLabel ]) => (
-              <div key={ `${ inputName }` } className='check-box-div'>
-                <input
-                  onChange={ handleRadioChange(name) }
-                  type={ type }
-                  id={ inputName }
-                  name={ name }
-                  defaultValue={ value }
-                  defaultChecked={ isChecked(name, value) }
-                />
-                <label htmlFor={ value } className='checkbox-label'>
-                  {inputLabel}
-                </label>
-                <br />
+          <div key={ `${ name }${ label }` }>
+            <RadioGroup
+              className={ `radio-buttons unset-label
+              ${ (name === 'source' || name === 'service') ? 'label-sz-sm' : '' }` }
+              onChange={ handleRadioChange(name) }
+            >
+              <div className='display-inline-flex mt-15'>
+                {options && options.map(([ inputName, value, inputLabel ]) => (
+                  <div key={ inputName }>
+                    <FormControlLabel
+                      value={ value }
+                      control={ <Radio /> }
+                      label={ inputLabel }
+                      checked={ isChecked(name, value) }
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
+            </RadioGroup>
           </div>
         </>
       )
-    } if (type === 'select') {
+    } if (type === 'select' || type === 'singleSelect') {
       let selectFieldValue
       if (Array.isArray(formValues[ name ])) {
         selectFieldValue = formValues[ name ]
@@ -136,17 +137,30 @@ const StepForm = ({
                 vertical: 'bottom',
                 horizontal: 'left',
               },
+              classes: {
+                paper: 'select-menu-paper',
+              },
             } }
+            classes={ { select: 'select-root' } }
             name={ name }
             id={ name }
+            disableUnderline
             value={ selectFieldValue }
-            multiple
+            multiple={ !(type === 'singleSelect') }
+            renderValue={ (selected) => selected.join(', ') }
             onChange={ handleRadioChange(name) }
             className='dropdown'
           >
             {options && options.map(({ label: optionLabel, value }) => (
               <MenuItem key={ value } value={ value }>
-                {optionLabel}
+                {type === 'singleSelect' ? (
+                  <ListItemText primary={ optionLabel } />
+                ) : (
+                  <div className='checkboxes unset-label display-inline-flex align-items-start'>
+                    <Checkbox checked={ selectFieldValue.indexOf(value) > -1 } />
+                    <ListItemText primary={ optionLabel } />
+                  </div>
+                ) }
               </MenuItem>
             ))}
           </Select>
@@ -163,7 +177,7 @@ const StepForm = ({
     return (
       <div className='control'>
         {
-          (name === 'mobile_phone') ? (
+          (name === 'mobile_phone') || (name === 'home_phone') ? (
             <>
               <div>
                 <label>{label}</label>
@@ -179,11 +193,12 @@ const StepForm = ({
                 formatOnInit
                 name={ name }
                 onChangeName='onPhoneNumberChange'
-                onChange={ spreadArgs(handlePhoneNumberChange) }
+                onChange={ (args) => handlePhoneNumberChange({ args, name }) }
                 telInputProps={ {
                   required: true,
                 } }
                 defaultValue={ formValues[ name ] }
+                placeholder={ placeholder }
               />
             </>
           ) : (
@@ -192,9 +207,12 @@ const StepForm = ({
                 <label>{label}</label>
               </div>
               <input
+                autoComplete='off'
+                placeholder={ placeholder }
                 onChange={ handleValueChange(name) }
                 defaultValue={ value }
                 type={ type }
+                min={ 0 }
                 className='input'
                 name={ name }
                 ref={ register }
@@ -209,12 +227,12 @@ const StepForm = ({
   const fields = () => steps
     && steps[ step ]
     && steps[ step ].fields.map(({
-      name, label, type, ...rest
+      name, label, type, placeholder, ...rest
     }) => (
-      <Grid item xs={ type === 'radio' ? 12 : 6 } key={ `${ name }${ label }` }>
+      <Grid item xs={ (name === 'source' || name === 'service') ? 12 : 6 } key={ `${ name }${ label }` }>
         <div className='field' key={ `${ name }${ label }` }>
           {inputField({
-            name, label, type, ...rest,
+            name, label, type, placeholder, ...rest,
           })}
           {errors && errors[ name ] && (
           <div className='error-message'>
@@ -231,33 +249,31 @@ const StepForm = ({
         <div className='form-panel'>
           {step === 4 ? (
             <div className='photo-upload'>
-              <div className='preview'>
-                <span className='upload-button'>
-                  <FontAwesomeIcon icon={ faPlus } />
-                </span>
-                <img
-                  id='upload-preview'
-                  src='https://via.placeholder.com/150x150'
-                  data-demo-src='assets/img/avatars/avatar-w.png'
-                  alt=''
+              <img
+                className='padding-30'
+                src={ uploadDocumentIcon }
+                alt=''
+              />
+              <p className='mt-10'>Upload copy of government identification card</p>
+              <div className='upload-button text-align-last-center mt-20'>
+                {/* WIP Document Upload */}
+                <input
+                  disabled
+                  accept='image/*'
+                  id='contained-button-file'
+                  type='file'
                 />
-                <form
-                  id='profile-pic-dz'
-                  className='dropzone is-hidden'
-                  action='/'
-                />
-              </div>
-              <div className='limitation'>
-                <small>Upload copy of government identification card</small>
-                <div className='upload-button'>
+                <label htmlFor='contained-button-file'>
                   <Button
-                    variant='contained'
-                    className='button-primary-large'
-                    classes={ { label: 'primary-label' } }
+                    classes={ {
+                      root: 'button-primary-small',
+                      label: 'button-primary-small-label',
+                    } }
+                    component='span'
                   >
-                    Upload
+                    Upload from Computer
                   </Button>
-                </div>
+                </label>
               </div>
             </div>
           ) : (
@@ -267,15 +283,16 @@ const StepForm = ({
           )}
         </div>
 
-        <div className='registration-buttons'>
-          <Grid container spacing={ 3 }>
+        <div item className='registration-buttons'>
+          <Grid container spacing={ 3 } justify='space-between' alignItems='flex-end'>
             <Grid item xs={ 6 }>
               {step > 1 && (
                 <div className='back-button'>
                   <Button
-                    variant='contained'
-                    className='button-secondary-large'
-                    classes={ { label: 'secondary-label' } }
+                    classes={ {
+                      root: 'button-primary-large',
+                      label: 'button-primary-large-label',
+                    } }
                     onClick={ onBack }
                   >
                     Back
@@ -286,9 +303,10 @@ const StepForm = ({
             <Grid item xs={ 6 }>
               <div className='next-button'>
                 <Button
-                  variant='contained'
-                  className='button-primary-large'
-                  classes={ { label: 'primary-label' } }
+                  classes={ {
+                    root: 'button-primary-large',
+                    label: 'button-primary-large-label',
+                  } }
                   onClick={ handleSubmit(step === 5 ? onSubmit : onNext) }
                 >
                   {step === 5 ? 'Submit' : 'Next'}

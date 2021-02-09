@@ -37,9 +37,10 @@ const RoleSetup = () => {
                   center
                 </p>
                 <Button
-                  variant='contained'
-                  className='button-primary-large'
-                  classes={ { label: 'button-primary-large-label' } }
+                  classes={ {
+                    root: 'button-primary-large',
+                    label: 'button-primary-large-label',
+                  } }
                   onClick={ updateEmpployeeRoleCB }
                 >
                   Continue
@@ -56,9 +57,10 @@ const RoleSetup = () => {
                   <br />
                 </p>
                 <Button
-                  variant='contained'
-                  className='button-primary-large'
-                  classes={ { label: 'button-primary-large-label' } }
+                  classes={ {
+                    root: 'button-primary-large',
+                    label: 'button-primary-large-label',
+                  } }
                   onClick={ updateAgentRoleCB }
                 >
                   Continue

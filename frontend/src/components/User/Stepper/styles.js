@@ -3,7 +3,7 @@ import StepConnector from '@material-ui/core/StepConnector'
 
 const useStepperStyles = makeStyles({
   container: {
-    width: '50%',
+    width: '650px',
   },
 
   stepperRoot: {
