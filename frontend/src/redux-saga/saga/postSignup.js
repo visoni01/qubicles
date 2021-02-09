@@ -15,7 +15,7 @@ import { startLoader, stopLoader } from '../redux/loader'
 import { showErrorMessage } from '../redux/snackbar'
 import SignUp from '../service/signup'
 import { getPostSignUpStepsData } from './helper'
-import { resetUserDetails } from '../redux/login'
+import { resetUserDetails, showInvitePopup } from '../redux/login'
 
 function* postSignupStepWatcher() {
   yield takeLatest([
@@ -32,7 +32,10 @@ function* postSignupStepWorker(action) {
         const { type, step, data } = action.payload
         if (step === 1) data.user_code = type
         yield apiClient.postSignUp(type, step, data)
-        if ((type === 'employer' && step === 3) || (type === 'agent' && step === 5)) yield put(resetUserDetails())
+        if ((type === 'employer' && step === 3) || (type === 'agent' && step === 5)) {
+          yield put(resetUserDetails())
+          yield put(showInvitePopup())
+        }
         yield put(postSignUpStepSuccessful({ step, data }))
         yield put(stopLoader())
         break

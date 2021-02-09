@@ -13,13 +13,13 @@ const singleQuoteEscape = (input) => {
 
 // This method is used for inserting the primary key values in existing object data
 const setPrimaryKeyValue = ({ ids, model, data }) => {
-  const pKeyValue = ids[0];
-  const modelProperties = model.rawAttributes;
-  const objProperties = Object.keys(data);
+  const pKeyValue = ids[0]
+  const modelProperties = model.rawAttributes
+  const objProperties = Object.keys(data)
   for (let index = 0; index < objProperties.length; index++) {
     if (modelProperties[objProperties[index]] && modelProperties[objProperties[index]].primaryKey) {
       data[objProperties[index]] = pKeyValue
-      break;
+      break
     }
   }
 }
@@ -188,8 +188,7 @@ export const executeUpdateQuery = ({ method, ...restArgs }) => {
 export const executeInsertQuery = async ({ method, ...restArgs }) => {
   const insertedRecords = await SqlHelper.insert(QueryMethods[method](restArgs))
   // Setting the primary key values in existing object
-  setPrimaryKeyValue({ ids: insertedRecords, ...restArgs });
-  return;
+  setPrimaryKeyValue({ ids: insertedRecords, ...restArgs })
 }
 
 export const executeDeleteQuery = ({ method, ...restArgs }) => {
