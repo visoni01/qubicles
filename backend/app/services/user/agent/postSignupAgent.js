@@ -112,7 +112,7 @@ export class PostSignupAgentStep2Service extends ServiceBase {
           city: this.city,
           state: this.state || state,
           zip: this.zip,
-          home_phone: this.home_phone.substring(1, 20),
+          home_phone: this.home_phone ? this.home_phone.substring(1, 20) : null,
           mobile_phone: this.mobile_phone.substring(1, 20)
         }, { where: { user_id: this.user_id } })
 
