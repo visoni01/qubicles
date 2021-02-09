@@ -42,12 +42,13 @@ export default class SocialSignupService extends ServiceBase {
         [this.type]: this.id
       }
       const user = await createNewEntity({ model: User, data: userObj })
+      const fullName = this.full_name.split(' ')
       await createNewEntity({
         model: UserDetail,
         data: {
           user_id: user.user_id,
-          first_name: this.first_name,
-          last_name: this.last_name,
+          first_name: fullName[0],
+          last_name: fullName.slice(1).join(' '),
           wallet_address: walletAddress
         }
       })
