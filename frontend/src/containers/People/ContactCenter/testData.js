@@ -364,10 +364,7 @@ const reviews = [
     position: 'Customer Service Manager at Microsoft',
     review: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
     industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
-    it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
-    typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
-    containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including
-    versions of Lorem Ipsum.`,
+    it to make a type specimen book.`,
   }, {
     imageName: 'helen',
     rating: 5,
@@ -376,11 +373,8 @@ const reviews = [
     date: 'September 06, 2020',
     position: 'Customer Service Manager at Microsoft',
     review: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
-    it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
-    typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
-    containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including
-    versions of Lorem Ipsum.`,
+    industry's standard dummy text ever since the 1500 It has survived not only five centuries,
+    but also the leap into electronic typesetting, remaining essentially unchanged.`,
   }, {
     imageName: 'thomas',
     rating: 5,
@@ -389,13 +383,46 @@ const reviews = [
     date: 'September 06, 2020',
     position: 'Customer Service Manager at Microsoft',
     review: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
-    it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
-    typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
-    containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including
-    versions of Lorem Ipsum.`,
+    industry's standard dummy text ever since the 1500 `,
   },
 ]
+
+const newReviews = {
+  recieved: [
+    {
+      id: 0,
+      rating: 5,
+      review: 'I have experience in voice-over work as well for different businesses.',
+    },
+    {
+      id: 1,
+      rating: 4,
+      review: 'Lorem Ipsum passages, and more recently with desktop publishing software',
+    },
+    {
+      id: 2,
+      rating: 5,
+      review: 'I have experience in voice-over work as well for different businesses.',
+    },
+  ],
+  given: [
+    {
+      id: 3,
+      rating: 5,
+      review: 'I have experience in voice-over work as well for different businesses.',
+    },
+    {
+      id: 4,
+      rating: 4,
+      review: 'Lorem Ipsum passages, and more recently with desktop publishing software',
+    },
+    {
+      id: 5,
+      rating: 5,
+      review: 'I have experience in voice-over work as well for different businesses.',
+    },
+  ],
+}
 
 export {
   courseCategories,
@@ -408,4 +435,5 @@ export {
   testResumeIntroduction,
   jobPostCard,
   reviews,
+  newReviews,
 }

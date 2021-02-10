@@ -2,7 +2,7 @@ import React from 'react'
 import { Grid } from '@material-ui/core'
 import OpenPositions from './OpenPositions'
 import CoursesSection from './CoursesSection'
-import ResumeReviews from '../../../People/ContactCenter/Talent/Application/ResumeReviews'
+import ReviewsSection from '../../OtherAgent/ReviewsSection'
 
 export default function About() {
   return (
@@ -14,7 +14,7 @@ export default function About() {
         <CoursesSection />
       </Grid>
       <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-        <ResumeReviews />
+        <ReviewsSection />
       </Grid>
     </Grid>
   )

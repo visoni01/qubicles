@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom'
 import ResumeIntro from './Application/ResumeIntro'
 import Courses from './Application/Courses'
 import SkillsPage from './Application/SkillsPage'
-import ResumeReviews from './Application/ResumeReviews'
 import WorkHistory from './Application/WorkHistory'
 import Actions from '../Jobs/Actions'
 import './styles.scss'
@@ -41,7 +40,8 @@ const ViewResume = () => {
         />
         <WorkHistory />
         <Courses />
-        <ResumeReviews />
+        {/* WIP Reviews Section */}
+        {/* <ResumeReviews /> */}
       </Grid>
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 12 }>
         <Actions />

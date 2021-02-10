@@ -14,7 +14,7 @@ import About from './About/index'
 import ROUTE_PATHS from '../../../routes/routesPath'
 
 const ContactCenterProfile = () => {
-  const [ activeTab, setActiveTab ] = useState(0)
+  const [ activeTab, setActiveTab ] = useState(1)
   const spacingMid = activeTab === 2 ? 9 : 6
   const spacingTab = activeTab === 2 ? 8 : 12
   const currentSectionRef = useRef()

@@ -3,7 +3,7 @@ import { Grid } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import OtherCompanyOpenPositionsList from './otherCompanyOpenPositionsList'
 import CoursesSection from '../../Company/About/CoursesSection'
-import ResumeReviews from '../../../People/ContactCenter/Talent/Application/ResumeReviews'
+import ResumeReviews from '../../OtherAgent/ReviewsSection'
 
 export default function OtherCompanyAbout({ companyId }) {
   return (

@@ -5,7 +5,6 @@ import CoverLetter from './CoverLetter'
 import SkillsPage from './SkillsPage'
 import WorkHistory from './WorkHistory'
 import Courses from './Courses'
-import ResumeReviews from './ResumeReviews'
 import JobApplicationActions from '../../Jobs/JobApplicationActions'
 
 function JobApplicationPage() {
@@ -27,9 +26,10 @@ function JobApplicationPage() {
         <Grid item>
           <Courses />
         </Grid>
-        <Grid item>
+        {/* WIP Reviews Section */}
+        {/* <Grid item>
           <ResumeReviews />
-        </Grid>
+        </Grid> */}
       </Grid>
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
         <JobApplicationActions />

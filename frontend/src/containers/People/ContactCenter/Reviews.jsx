@@ -9,29 +9,23 @@ const Reviews = ({
   rating,
   imageSrc,
   reviewerName,
-  date,
   position,
   review,
 }) => (
   <>
-    <div className='review-section list-divider'>
-      <Avatar className='profile-pic' alt={ imageName } src={ imageSrc } />
+    <div className='display-inline-flex pb-20 list-divider'>
+      <Avatar className='profile-pic no-margin-top' alt={ imageName } src={ imageSrc } />
       <div className='candidate-info'>
         <p className='para bold'>{reviewerName}</p>
-        <p className='para light'>
-          {position}
-        </p>
-        <div className='display-inline-flex mt-10'>
-          <Rating
-            className='rating-star no-margin'
-            name='read-only'
-            readOnly
-            size='small'
-            value={ rating }
-            precision={ 0.1 }
-          />
-          {date && <p className='para light ml-10'>{date}</p> }
-        </div>
+        <p className='para light'>{position}</p>
+        <Rating
+          className='rating-star no-margin'
+          name='read-only'
+          readOnly
+          size='small'
+          value={ rating }
+          precision={ 1 }
+        />
         <p className='para mt-5'>
           {review}
         </p>
@@ -45,7 +39,6 @@ Reviews.defaultProps = {
   rating: 5,
   imageSrc: 'C',
   reviewerName: 'Carolin Palmer',
-  date: 'September 06, 2020',
   position: 'Customer Service Manager at Microsoft',
   review: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
   industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
@@ -60,7 +53,6 @@ Reviews.propTypes = {
   rating: PropTypes.number,
   imageSrc: PropTypes.string,
   reviewerName: PropTypes.string,
-  date: PropTypes.string,
   position: PropTypes.string,
   review: PropTypes.string,
 }
