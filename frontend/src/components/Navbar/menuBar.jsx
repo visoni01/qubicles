@@ -3,11 +3,14 @@ import {
   List, ListItemIcon, Typography, ListItem,
 } from '@material-ui/core'
 import { useHistory, useLocation } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import menuItems from './menuList'
 
 const SideBar = () => {
   const location = useLocation()
   const [ selectedNav, setSelectedNav ] = useState(0)
+  const [ userMenuApps, setUserMenuApps ] = useState([])
+  const { userDetails } = useSelector((state) => state.login)
   const history = useHistory()
   useEffect(() => {
     const currentMenu = menuItems.filter((item) => {
@@ -23,6 +26,15 @@ const SideBar = () => {
       setSelectedNav(0)
     }
   }, [ location ])
+
+  useEffect(() => {
+    if (userDetails.user_code === 'employer') {
+      setUserMenuApps(menuItems)
+    } else {
+      setUserMenuApps(menuItems.filter((item) => [ 0, 1, 3, 5 ].includes(item.id)))
+    }
+  }, [ userDetails ])
+
   const handleNavButtonClick = (item) => {
     if (item.link) {
       history.push(item.link)
@@ -35,7 +47,7 @@ const SideBar = () => {
         <img src='https://i.imgur.com/y2vEn7E.png' alt='Qubicles log' />
       </div>
       <List className='menu-list'>
-        {menuItems.map((item) => (
+        {userMenuApps.map((item) => (
           <ListItem
             key={ item.id }
             button

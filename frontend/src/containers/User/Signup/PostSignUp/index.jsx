@@ -77,7 +77,6 @@ const RoleSetup = () => {
 const PostSignUp = () => {
   const userData = useSelector((state) => state.login)
   const userCode = userData && userData.userDetails && userData.userDetails.user_code
-
   return (
     <div className='signup-wrapper'>
       <div className='fake-nav'>

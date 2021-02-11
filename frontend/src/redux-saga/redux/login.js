@@ -9,6 +9,7 @@ const initialState = {
   userDetails: getUserDetails(),
   showVerifyMailButton: false,
   socialLogin: true,
+  openInvitePopup: false,
 }
 
 const {
@@ -24,6 +25,8 @@ const {
     setShowVerifyMailButton,
     resetShowVerifyMailButton,
     resetUserDetails,
+    showInvitePopup,
+    hideInvitePopup,
   },
   reducer,
 } = createSlice({
@@ -91,6 +94,14 @@ const {
       ...state,
       userDetails: getUserDetails(),
     }),
+    showInvitePopup: (state) => ({
+      ...state,
+      openInvitePopup: true,
+    }),
+    hideInvitePopup: (state) => ({
+      ...state,
+      openInvitePopup: false,
+    }),
   },
 })
 
@@ -107,4 +118,6 @@ export {
   resetShowVerifyMailButton,
   setIsSocialLogin,
   resetUserDetails,
+  showInvitePopup,
+  hideInvitePopup,
 }

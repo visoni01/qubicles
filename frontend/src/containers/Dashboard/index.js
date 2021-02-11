@@ -1,18 +1,31 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState, useCallback } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import ClientDashboard from './ClientDashboard/index'
 import AgentDashboard from './AgentDashboard/index'
+import InviteModal from '../InviteFriendsPage/InviteModal'
+import { hideInvitePopup } from '../../redux-saga/redux/login'
 
 export default function DashboardMain() {
-  const { userDetails } = useSelector((state) => state.login)
-  if (userDetails && userDetails.is_post_signup_completed && userDetails.user_code === 'employer') {
+  const { userDetails, openInvitePopup } = useSelector((state) => state.login)
+  const [ openInviteModal, setOpenInviteModal ] = useState(openInvitePopup)
+  const dispatch = useDispatch()
+
+  const handleCloseInviteModal = useCallback(() => {
+    setOpenInviteModal(false)
+    dispatch(hideInvitePopup())
+  }, [ dispatch ])
+
+  if (userDetails && userDetails.is_post_signup_completed) {
     return (
-      <ClientDashboard />
+      <>
+        { userDetails.user_code === 'employer' && (<ClientDashboard />)}
+        { userDetails.user_code !== 'employer' && (<AgentDashboard />)}
+        <InviteModal
+          open={ openInviteModal }
+          handleClose={ handleCloseInviteModal }
+        />
+      </>
     )
   }
-  if (userDetails && userDetails.is_post_signup_completed && userDetails.user_code === 'agent') {
-    return (
-      <AgentDashboard />
-    )
-  }
+  return (<> </>)
 }
