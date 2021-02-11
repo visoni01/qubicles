@@ -32,7 +32,7 @@ function* postSignupStepWorker(action) {
         const { type, step, data } = action.payload
         if (step === 1) data.user_code = type
         yield apiClient.postSignUp(type, step, data)
-        if ((type === 'employer' && step === 3) || (type === 'agent' && step === 5)) {
+        if ((type === 'employer' && step === 3) || (type !== 'employer' && step === 5)) {
           yield put(resetUserDetails())
           yield put(showInvitePopup())
         }

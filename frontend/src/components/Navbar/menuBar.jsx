@@ -30,8 +30,7 @@ const SideBar = () => {
   useEffect(() => {
     if (userDetails.user_code === 'employer') {
       setUserMenuApps(menuItems)
-    }
-    if (userDetails.user_code === 'agent') {
+    } else {
       setUserMenuApps(menuItems.filter((item) => [ 0, 1, 3, 5 ].includes(item.id)))
     }
   }, [ userDetails ])

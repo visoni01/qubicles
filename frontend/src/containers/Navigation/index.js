@@ -52,7 +52,7 @@ function NavigationPage() {
         if (userDetails && userDetails.is_post_signup_completed && userDetails.user_code === 'employer') {
           setNavigationCardsList(companyPeopleNavigations)
         }
-        if (userDetails && userDetails.is_post_signup_completed && userDetails.user_code === 'agent') {
+        if (userDetails && userDetails.is_post_signup_completed && userDetails.user_code !== 'employer') {
           setNavigationCardsList(agentPeopleNavigations)
         }
         setNavigationQuickLink(peopleClientQuicklinks)

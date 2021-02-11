@@ -19,7 +19,7 @@ export default function DashboardMain() {
     return (
       <>
         { userDetails.user_code === 'employer' && (<ClientDashboard />)}
-        { userDetails.user_code === 'agent' && (<AgentDashboard />)}
+        { userDetails.user_code !== 'employer' && (<AgentDashboard />)}
         <InviteModal
           open={ openInviteModal }
           handleClose={ handleCloseInviteModal }
