@@ -1,13 +1,13 @@
 import React from 'react'
 import ROUTE_PATHS, { PROFILE_ROUTE } from '../routesPath'
-import CompanyProfile from '../../containers/Profile/Company'
+import UserProfile from '../../containers/Profile'
 import OtherCompanyProfile from '../../containers/Profile/OtherCompany/index'
 import RouteRenderer from './featureSubRoutes'
 
 const List = [
   {
     path: PROFILE_ROUTE,
-    component: CompanyProfile,
+    component: UserProfile,
     exact: true,
   },
   {

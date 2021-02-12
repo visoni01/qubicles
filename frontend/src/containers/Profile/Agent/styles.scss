@@ -1,0 +1,22 @@
+.skills-endorsements-box {
+  display: inline-flex;
+  position: relative;
+  width: 100%;
+
+  button {
+    position: absolute;
+    right: 0
+  }
+}
+
+.skills-chip {
+  background-color: #D5DFFC;
+}
+
+.rating-star-color {
+  color: #4877F4
+}
+
+.hourly-rate-input {
+  width: 60px;
+}
