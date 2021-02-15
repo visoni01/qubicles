@@ -1,25 +1,36 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Button, Tabs, Tab, Divider,
 } from '@material-ui/core'
+import { useSelector } from 'react-redux'
 import Reviews from '../../People/ContactCenter/Reviews'
-import { reviews } from '../../People/ContactCenter/testData'
 import ReviewModal from './reviewModal'
-// import '../styles.scss'
 import { clientRatingLabels } from './ratingLabels'
 import ViewAllRatings from './viewAllRatings'
 
 const ReviewsSection = () => {
   const [ activeTab, setActivetab ] = useState(0)
+  const [ reviewsList, setReviewsList ] = useState([])
   const [ openReviewModal, setOpenReviewModal ] = useState(false)
+  const {
+    recievedReviews, givenReviews, viewRatings,
+  } = useSelector((state) => state.companyReviews)
   const [ rating, setRating ] = useState({
     cultureRating: 0,
     leadershipRating: 0,
     careerAdvancementRating: 0,
     compensationRating: 0,
   })
-
   const [ reviewText, setReviewText ] = useState('')
+
+  useEffect(() => {
+    if (activeTab === 0) {
+      setReviewsList(recievedReviews)
+    } else if (activeTab === 1) {
+      setReviewsList(givenReviews)
+    }
+  }, [ activeTab, recievedReviews, givenReviews ])
+
   return (
     <>
       <div className='mb-25 custom-box resume-root reviews-root has-fullwidth'>
@@ -48,17 +59,17 @@ const ReviewsSection = () => {
           <ViewAllRatings
             subRatingLabels={ clientRatingLabels }
             subRatingValues={ {
-              cultureRating: 4.3,
-              leadershipRating: 3,
-              careerAdvancementRating: 5,
-              compensationRating: 4,
+              cultureRating: viewRatings.cultureRating,
+              leadershipRating: viewRatings.leadershipRating,
+              careerAdvancementRating: viewRatings.careerAdvancementRating,
+              compensationRating: viewRatings.compensationRating,
             } }
-            totalAverageRating={ 4.3 }
-            totalAverageRaters={ 12 }
+            totalAverageRating={ viewRatings.totalAverageRating }
+            totalAverageRaters={ viewRatings.totalAverageRaters }
           />
         </div>
         <Divider className='divider' />
-        {reviews.map((reviewData) => (
+        {reviewsList.map((reviewData) => (
           <Reviews
             key={ reviewData.reviewerName }
             imageName={ reviewData.imageName }
