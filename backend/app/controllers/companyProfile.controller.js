@@ -2,6 +2,8 @@ import Responder from '../../server/expressResponder'
 import { GetCompanyProfileSettingsService } from '../services/profile/company/getProfileSettings'
 import { UpdateCompanyProfileSettingsService } from '../services/profile/company/updateProfileSettings'
 import CompanyDetailsService from '../services/profile/company/companyDetails'
+import PostCompanyReviewService from '../services/profile/company/postCompanyReview'
+import GetCompanyRatingsService from '../services/profile/company/getCompanyRatings'
 
 export default class CompanyProfileController {
   static async getProfileSettings (req, res) {
@@ -28,6 +30,24 @@ export default class CompanyProfileController {
       Responder.success(res, companyDetails.result)
     } else {
       Responder.failed(res, companyDetails.errors)
+    }
+  }
+
+  static async postCompanyReview (req, res) {
+    const companyReviewResult = await PostCompanyReviewService.execute({ ...req.body, ...req.params })
+    if (companyReviewResult.successful) {
+      Responder.success(res, companyReviewResult.result)
+    } else {
+      Responder.failed(res, companyReviewResult.errors)
+    }
+  }
+
+  static async getCompanyRatings (req, res) {
+    const companyReviewResult = await GetCompanyRatingsService.execute({ ...req.body, ...req.params })
+    if (companyReviewResult.successful) {
+      Responder.success(res, companyReviewResult.result)
+    } else {
+      Responder.failed(res, companyReviewResult.errors)
     }
   }
 }

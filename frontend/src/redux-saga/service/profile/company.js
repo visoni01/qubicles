@@ -16,8 +16,8 @@ class CompanyProfile {
     return response
   }
 
-  static async fetchCompanyReviews({ clientId, type }) {
-    const response = await apiClient.getRequest(`/profile/company/reviews/${ clientId }`, null, { type })
+  static async fetchCompanyRatings({ clientId }) {
+    const response = await apiClient.getRequest(`/profile/company/ratings/${ clientId }`)
     return response
   }
 

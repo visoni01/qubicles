@@ -14,4 +14,10 @@ companyProfileRouter.route('/settings/update')
 companyProfileRouter.route('/:client_id')
   .get(isAuthenticated, CompanyProfileController.getCompanyDetails)
 
+companyProfileRouter.route('/ratings/:client_id')
+  .get(isAuthenticated, CompanyProfileController.getCompanyRatings)
+
+companyProfileRouter.route('/reviews/:client_id')
+  .post(isAuthenticated, CompanyProfileController.postCompanyReview)
+
 export { companyProfileRouter }

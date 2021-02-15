@@ -2,26 +2,30 @@ import React, { useState, useEffect } from 'react'
 import {
   Button, Tabs, Tab, Divider,
 } from '@material-ui/core'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import Reviews from '../../People/ContactCenter/Reviews'
 import ReviewModal from './reviewModal'
 import { clientRatingLabels } from './ratingLabels'
 import ViewAllRatings from './viewAllRatings'
+import { companyRatingsFetchStart } from '../../../redux-saga/redux/actions'
 
 const ReviewsSection = () => {
   const [ activeTab, setActivetab ] = useState(0)
   const [ reviewsList, setReviewsList ] = useState([])
   const [ openReviewModal, setOpenReviewModal ] = useState(false)
-  const {
-    recievedReviews, givenReviews, viewRatings,
-  } = useSelector((state) => state.companyReviews)
+
+  const { recievedReviews, givenReviews } = useSelector((state) => state.companyReviews)
+  const { viewRatings } = useSelector((state) => state.companyRatings)
+
   const [ rating, setRating ] = useState({
     cultureRating: 0,
     leadershipRating: 0,
     careerAdvancementRating: 0,
     compensationRating: 0,
   })
+
   const [ reviewText, setReviewText ] = useState('')
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (activeTab === 0) {
@@ -30,6 +34,12 @@ const ReviewsSection = () => {
       setReviewsList(givenReviews)
     }
   }, [ activeTab, recievedReviews, givenReviews ])
+
+  useEffect(() => {
+    dispatch(companyRatingsFetchStart({
+      clientId: 1,
+    }))
+  }, [ dispatch ])
 
   return (
     <>

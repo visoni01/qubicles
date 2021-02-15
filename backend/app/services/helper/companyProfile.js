@@ -1,10 +1,11 @@
 import bcrypt from 'bcrypt'
-import { XClient, User, UserDetail } from '../../db/models'
+import { XClient, User, UserDetail, XUserActivity } from '../../db/models'
 import { APP_ERROR_CODES } from '../../utils/errors'
 import jwt from 'jsonwebtoken'
 import config from '../../../config/app'
 import { CONSTANTS } from '../../utils/success'
 import SendResetEmailVerificationMailService from '../email/sendResetEmailVerificationMail'
+import { getAll } from './crud'
 
 export const updateProfileSettings = async ({ user, clientUser, updatedData, updatedDataType }) => {
   let result
@@ -110,4 +111,87 @@ export const updateProfileSettings = async ({ user, clientUser, updatedData, upd
     }
   }
   return result
+}
+
+export const addCompanyReviewAndRating = async ({ user_id, client_id, reviewData }) => {
+  const ratingTypesActivity = {
+    cultureRating: `culture|${reviewData.cultureRating}`,
+    leadershipRating: `leadership|${reviewData.leadershipRating}`,
+    careerRating: `career|${reviewData.careerRating}`,
+    compensationRating: `compensation|${reviewData.compensationRating}`
+  }
+  const ratingActivities = Object.keys(ratingTypesActivity).map((key, index) => {
+    const ratingActivity = {
+      user_id,
+      record_type: 'client',
+      record_id: client_id,
+      activity_type: 'rating',
+      activity_value: ratingTypesActivity[key]
+    }
+
+    // Adding review text to first rating entity
+    if (index === 0) {
+      ratingActivity.activity_custom = reviewData.reviewText
+    }
+
+    return ratingActivity
+  })
+  return XUserActivity.bulkCreate(ratingActivities)
+}
+
+export const getSortedSubratings = ({ typeValues, ratingsActivities }) => {
+  const ratingTypesValues = typeValues
+  const types = Object.keys(ratingTypesValues)
+  ratingsActivities.map(item => {
+    const activityValue = item.activity_value
+    if (activityValue.split('|').length === 2 && types.includes(activityValue.split('|')[0])) {
+      const type = activityValue.split('|')[0]
+      const value = activityValue.split('|')[1]
+      ratingTypesValues[type].value += parseInt(value)
+      ratingTypesValues[type].count += 1
+    }
+  })
+  return ratingTypesValues
+}
+
+export const fetchCompanyRatings = async ({ client_id }) => {
+  const ratings = await getAll({
+    model: XUserActivity,
+    data: {
+      record_type: 'client',
+      record_id: client_id,
+      activity_type: 'rating'
+    }
+  })
+
+  const typeValues = {
+    culture: { value: 0, count: 0 },
+    leadership: { value: 0, count: 0 },
+    career: { value: 0, count: 0 },
+    compensation: { value: 0, count: 0 }
+  }
+
+  const sortedSubRatings = getSortedSubratings({
+    typeValues,
+    ratingsActivities: ratings
+  })
+
+  const resultAverageSubRatings = {}
+  let totalRating = 0
+  let totalCount = 0
+  const typeValuesKeys = Object.keys(typeValues)
+  typeValuesKeys.map(key => {
+    if (sortedSubRatings[key].count > 0) {
+      resultAverageSubRatings[key] = parseFloat((sortedSubRatings[key].value / sortedSubRatings[key].count).toFixed(1))
+      totalRating += sortedSubRatings[key].value
+      totalCount += sortedSubRatings[key].count
+    } else {
+      resultAverageSubRatings[key] = 0
+    }
+  })
+  return {
+    ...resultAverageSubRatings,
+    totalAverageRating: totalCount > 0 ? parseFloat((totalRating / totalCount).toFixed(1)) : 0,
+    totalAverageRaters: typeValuesKeys.length > 0 ? parseInt(totalCount / typeValuesKeys.length) : 0
+  }
 }

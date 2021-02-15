@@ -1,4 +1,4 @@
-import { takeEvery, put } from 'redux-saga/effects'
+import { put, takeLatest } from 'redux-saga/effects'
 import {
   companyReviewsFetchStart,
   showSuccessMessage,
@@ -12,7 +12,7 @@ import {
 import CompanyProfile from '../../../service/profile/company'
 
 function* companyReviewsWatcher() {
-  yield takeEvery([
+  yield takeLatest([
     companyReviewsFetchStart,
     companyReviewPostStart,
   ], companyReviewsWorker)
@@ -21,13 +21,11 @@ function* companyReviewsWatcher() {
 function* companyReviewsWorker(action) {
   try {
     switch (action.type) {
-      case companyReviewsFetchStart: {
-        const { type, clientId } = action.payload
-        const { data } = CompanyProfile.fetchCompanyReviews({ clientId, type })
-        yield put(companyReviewsFetchSuccessful({ rating: data.rating, reviews: data.reviews, type }))
+      case companyReviewsFetchStart.type: {
+        yield put(companyReviewsFetchSuccessful())
         break
       }
-      case companyReviewPostStart: {
+      case companyReviewPostStart.type: {
         const { reviewData, clientId } = action.payload
         const { data } = CompanyProfile.postCompanyReview({ clientId, reviewData })
         yield put(companyReviewPostSuccessful({ review: data.review }))
@@ -38,11 +36,11 @@ function* companyReviewsWorker(action) {
     }
   } catch (e) {
     switch (action.type) {
-      case companyReviewsFetchStart: {
+      case companyReviewsFetchStart.type: {
         yield put(companyReviewsFetchFailure())
         break
       }
-      case companyReviewPostStart: {
+      case companyReviewPostStart.type: {
         yield put(companyReviewPostFailure())
         break
       }
