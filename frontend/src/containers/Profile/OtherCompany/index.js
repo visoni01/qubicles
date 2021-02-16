@@ -15,7 +15,8 @@ import { jobsWithCategoriesFetchStart } from '../../../redux-saga/redux/actions'
 const OtherContactCenterProfile = () => {
   const location = useLocation()
   const currentPath = location.pathname
-  const { companyId } = useParams()
+  let { companyId } = useParams()
+  companyId = parseInt(companyId, 10)
 
   const feedRoute = `${ PROFILE_ROUTE }/${ companyId }/feed`
   const aboutRoute = `${ PROFILE_ROUTE }/${ companyId }/about`

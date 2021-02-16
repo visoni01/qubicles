@@ -46,5 +46,6 @@ export const MESSAGES = {
   EMAIL_ALREADY_REGISTERED: 'Email already registered! Please login',
   FORUM_GROUP_NOT_EXIST: 'Forum group does not exist or deleted',
   DATA_NOT_FOUND: 'Requested data not found!',
-  CLIENT_NOT_EXIST: 'Client does not exist'
+  CLIENT_NOT_EXIST: 'Client does not exist',
+  REVIEW_ALREADY_ADDED: 'Review Already Added'
 }

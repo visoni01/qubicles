@@ -22,7 +22,7 @@ class CompanyProfile {
   }
 
   static async postCompanyReview({ clientId, reviewData }) {
-    const response = await apiClient.postRequest(`/profile/company/reviews/${ clientId }`, reviewData)
+    const response = await apiClient.postRequest(`/profile/company/reviews/${ clientId }`, { reviewData })
     return response
   }
 }

@@ -52,7 +52,7 @@ const ReviewModal = ({
         fullWidth
         rows={ 5 }
         value={ reviewText }
-        onChange={ (_, val) => setReviewText(val) }
+        onChange={ (e) => setReviewText(e.target.value) }
         multiline
         placeholder='Write your review...'
         className='text-field-para'

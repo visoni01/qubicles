@@ -1,31 +1,46 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import {
   Button, Tabs, Tab, Divider,
 } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
+import PropTypes from 'prop-types'
 import Reviews from '../../People/ContactCenter/Reviews'
 import ReviewModal from './reviewModal'
 import { clientRatingLabels } from './ratingLabels'
 import ViewAllRatings from './viewAllRatings'
-import { companyRatingsFetchStart } from '../../../redux-saga/redux/actions'
 
-const ReviewsSection = () => {
+import { companyRatingsFetchStart, companyReviewPostStart } from '../../../redux-saga/redux/actions'
+
+const ReviewsSection = ({
+  companyId,
+}) => {
   const [ activeTab, setActivetab ] = useState(0)
   const [ reviewsList, setReviewsList ] = useState([])
+  const { userDetails } = useSelector((state) => state.login)
   const [ openReviewModal, setOpenReviewModal ] = useState(false)
-
   const { recievedReviews, givenReviews } = useSelector((state) => state.companyReviews)
   const { viewRatings } = useSelector((state) => state.companyRatings)
-
   const [ rating, setRating ] = useState({
     cultureRating: 0,
     leadershipRating: 0,
     careerAdvancementRating: 0,
     compensationRating: 0,
   })
-
   const [ reviewText, setReviewText ] = useState('')
   const dispatch = useDispatch()
+
+  const handleSubmitReview = useCallback(() => {
+    dispatch(companyReviewPostStart({
+      clientId: companyId,
+      reviewData: {
+        cultureRating: rating.cultureRating,
+        leadershipRating: rating.leadershipRating,
+        careerRating: rating.careerAdvancementRating,
+        compensationRating: rating.compensationRating,
+        reviewText,
+      },
+    }))
+  }, [ dispatch, rating, reviewText, companyId ])
 
   useEffect(() => {
     if (activeTab === 0) {
@@ -37,15 +52,16 @@ const ReviewsSection = () => {
 
   useEffect(() => {
     dispatch(companyRatingsFetchStart({
-      clientId: 1,
+      clientId: companyId,
     }))
-  }, [ dispatch ])
+  }, [ dispatch, companyId ])
 
   return (
     <>
       <div className='mb-25 custom-box resume-root reviews-root has-fullwidth'>
         <div className='display-inline-flex is-fullwidth'>
           <h3 className='h3 is-fullwidth'> Reviews </h3>
+          {userDetails.user_id !== companyId && (
           <Button
             classes={ {
               root: 'button-secondary-small review-button',
@@ -55,6 +71,7 @@ const ReviewsSection = () => {
           >
             Leave Review
           </Button>
+          )}
         </div>
         <div className='custom-active-tabs'>
           <Tabs
@@ -96,7 +113,7 @@ const ReviewsSection = () => {
       <ReviewModal
         open={ openReviewModal }
         onClose={ () => setOpenReviewModal(false) }
-        onSubmit={ () => setOpenReviewModal(false) }
+        onSubmit={ handleSubmitReview }
         reviewHeading=' Please rate your work with the company regarding the different criteria below'
         ratingLabels={ clientRatingLabels }
         rating={ rating }
@@ -107,6 +124,10 @@ const ReviewsSection = () => {
       )}
     </>
   )
+}
+
+ReviewsSection.propTypes = {
+  companyId: PropTypes.number.isRequired,
 }
 
 export default ReviewsSection

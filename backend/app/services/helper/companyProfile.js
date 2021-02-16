@@ -195,3 +195,16 @@ export const fetchCompanyRatings = async ({ client_id }) => {
     totalAverageRaters: typeValuesKeys.length > 0 ? parseInt(totalCount / typeValuesKeys.length) : 0
   }
 }
+
+export const getClientReviewByUser = ({ user_id, client_id }) => {
+  const clientReview = getAll({
+    model: XUserActivity,
+    data: {
+      user_id: user_id,
+      record_type: 'client',
+      record_id: client_id,
+      activity_type: 'rating'
+    }
+  })
+  return clientReview
+}

@@ -27,8 +27,8 @@ function* companyReviewsWorker(action) {
       }
       case companyReviewPostStart.type: {
         const { reviewData, clientId } = action.payload
-        const { data } = CompanyProfile.postCompanyReview({ clientId, reviewData })
-        yield put(companyReviewPostSuccessful({ review: data.review }))
+        yield CompanyProfile.postCompanyReview({ clientId, reviewData })
+        yield put(companyReviewPostSuccessful())
         yield put(showSuccessMessage({ mesg: 'Added Review Successfully!' }))
         break
       }

@@ -15,7 +15,7 @@ export default function OtherCompanyAbout({ companyId }) {
         <CoursesSection />
       </Grid>
       <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-        <ResumeReviews />
+        <ResumeReviews companyId={ companyId } />
       </Grid>
     </Grid>
   )
