@@ -4,6 +4,7 @@ import { UpdateCompanyProfileSettingsService } from '../services/profile/company
 import CompanyDetailsService from '../services/profile/company/companyDetails'
 import PostCompanyReviewService from '../services/profile/company/postCompanyReview'
 import GetCompanyRatingsService from '../services/profile/company/getCompanyRatings'
+import GetCompanyReviewsService from '../services/profile/company/getCompanyReviews'
 
 export default class CompanyProfileController {
   static async getProfileSettings (req, res) {
@@ -43,7 +44,16 @@ export default class CompanyProfileController {
   }
 
   static async getCompanyRatings (req, res) {
-    const companyReviewResult = await GetCompanyRatingsService.execute({ ...req.body, ...req.params })
+    const companyRatingsResult = await GetCompanyRatingsService.execute({ ...req.body, ...req.params })
+    if (companyRatingsResult.successful) {
+      Responder.success(res, companyRatingsResult.result)
+    } else {
+      Responder.failed(res, companyRatingsResult.errors)
+    }
+  }
+
+  static async getCompanyReviews (req, res) {
+    const companyReviewResult = await GetCompanyReviewsService.execute({ ...req.body, ...req.params })
     if (companyReviewResult.successful) {
       Responder.success(res, companyReviewResult.result)
     } else {

@@ -6,6 +6,8 @@ import config from '../../../config/app'
 import { CONSTANTS } from '../../utils/success'
 import SendResetEmailVerificationMailService from '../email/sendResetEmailVerificationMail'
 import { getAll } from './crud'
+import _ from 'lodash'
+import { Op } from 'sequelize'
 
 export const updateProfileSettings = async ({ user, clientUser, updatedData, updatedDataType }) => {
   let result
@@ -131,7 +133,7 @@ export const addCompanyReviewAndRating = async ({ user_id, client_id, reviewData
 
     // Adding review text to first rating entity
     if (index === 0) {
-      ratingActivity.activity_custom = reviewData.reviewText
+      if (!_.isEmpty(reviewData.reviewText)) { ratingActivity.activity_custom = reviewData.reviewText }
     }
 
     return ratingActivity
@@ -207,4 +209,24 @@ export const getClientReviewByUser = ({ user_id, client_id }) => {
     }
   })
   return clientReview
+}
+
+export const fetchCompanyReviews = async ({ user_id, client_id, type }) => {
+  let activityQuery = {}
+  if (type === 'recieved') {
+    activityQuery = {
+      ...activityQuery,
+      record_type: 'client',
+      record_id: client_id,
+      activity_type: 'rating',
+      activity_custom: { [Op.ne]: null }
+    }
+  }
+
+  const reviewsList = await XUserActivity.findAll({
+    where: activityQuery
+    // attributes: ['activity_value', 'activity_custom']
+  })
+
+  return reviewsList
 }

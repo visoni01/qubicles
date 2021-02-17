@@ -17,12 +17,17 @@ class CompanyProfile {
   }
 
   static async fetchCompanyRatings({ clientId }) {
-    const response = await apiClient.getRequest(`/profile/company/ratings/${ clientId }`)
+    const response = await apiClient.getRequest(`/profile/company/${ clientId }/ratings`)
     return response
   }
 
   static async postCompanyReview({ clientId, reviewData }) {
-    const response = await apiClient.postRequest(`/profile/company/reviews/${ clientId }`, { reviewData })
+    const response = await apiClient.postRequest(`/profile/company/${ clientId }/reviews`, { reviewData })
+    return response
+  }
+
+  static async fetchCompanyReviews({ clientId }) {
+    const response = await apiClient.getRequest(`/profile/company/${ clientId }/reviews`)
     return response
   }
 }

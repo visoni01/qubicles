@@ -14,10 +14,13 @@ companyProfileRouter.route('/settings/update')
 companyProfileRouter.route('/:client_id')
   .get(isAuthenticated, CompanyProfileController.getCompanyDetails)
 
-companyProfileRouter.route('/ratings/:client_id')
+companyProfileRouter.route('/:client_id/ratings')
   .get(isAuthenticated, CompanyProfileController.getCompanyRatings)
 
-companyProfileRouter.route('/reviews/:client_id')
+companyProfileRouter.route('/:client_id/reviews')
   .post(isAuthenticated, CompanyProfileController.postCompanyReview)
+
+companyProfileRouter.route('/:client_id/reviews')
+  .get(isAuthenticated, CompanyProfileController.getCompanyReviews)
 
 export { companyProfileRouter }
