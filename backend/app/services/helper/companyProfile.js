@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt'
-import { XClient, User, UserDetail, XUserActivity } from '../../db/models'
+import { XClient, User, UserDetail, XUserActivity, Sequelize } from '../../db/models'
 import { APP_ERROR_CODES } from '../../utils/errors'
 import jwt from 'jsonwebtoken'
 import config from '../../../config/app'
@@ -8,6 +8,7 @@ import SendResetEmailVerificationMailService from '../email/sendResetEmailVerifi
 import { getAll } from './crud'
 import _ from 'lodash'
 import { Op } from 'sequelize'
+import { getUserDetails } from './user'
 
 export const updateProfileSettings = async ({ user, clientUser, updatedData, updatedDataType }) => {
   let result
@@ -116,86 +117,66 @@ export const updateProfileSettings = async ({ user, clientUser, updatedData, upd
 }
 
 export const addCompanyReviewAndRating = async ({ user_id, client_id, reviewData }) => {
-  const ratingTypesActivity = {
-    cultureRating: `culture|${reviewData.cultureRating}`,
-    leadershipRating: `leadership|${reviewData.leadershipRating}`,
-    careerRating: `career|${reviewData.careerRating}`,
-    compensationRating: `compensation|${reviewData.compensationRating}`
-  }
-  const ratingActivities = Object.keys(ratingTypesActivity).map((key, index) => {
+  const ratingTypes = [
+    { ratingType: 'rating_culture', ratingValue: reviewData.cultureRating },
+    { ratingType: 'rating_leadership', ratingValue: reviewData.leadershipRating },
+    { ratingType: 'rating_career', ratingValue: reviewData.careerRating },
+    { ratingType: 'rating_compensation', ratingValue: reviewData.compensationRating }
+  ]
+
+  const ratingActivities = ratingTypes.map((item, index) => {
     const ratingActivity = {
       user_id,
       record_type: 'client',
       record_id: client_id,
-      activity_type: 'rating',
-      activity_value: ratingTypesActivity[key]
+      activity_type: item.ratingType,
+      activity_value: item.ratingValue
     }
 
-    // Adding review text to first rating entity
-    if (index === 0) {
-      if (!_.isEmpty(reviewData.reviewText)) { ratingActivity.activity_custom = reviewData.reviewText }
-    }
+    // Adding review text to custom activity
+    if (!_.isEmpty(reviewData.reviewText)) { ratingActivity.activity_custom = reviewData.reviewText }
 
     return ratingActivity
   })
+
   return XUserActivity.bulkCreate(ratingActivities)
 }
 
-export const getSortedSubratings = ({ typeValues, ratingsActivities }) => {
-  const ratingTypesValues = typeValues
-  const types = Object.keys(ratingTypesValues)
-  ratingsActivities.map(item => {
-    const activityValue = item.activity_value
-    if (activityValue.split('|').length === 2 && types.includes(activityValue.split('|')[0])) {
-      const type = activityValue.split('|')[0]
-      const value = activityValue.split('|')[1]
-      ratingTypesValues[type].value += parseInt(value)
-      ratingTypesValues[type].count += 1
-    }
-  })
-  return ratingTypesValues
-}
-
 export const fetchCompanyRatings = async ({ client_id }) => {
-  const ratings = await getAll({
-    model: XUserActivity,
-    data: {
+  let ratings = await XUserActivity.findAll({
+    where: {
       record_type: 'client',
       record_id: client_id,
-      activity_type: 'rating'
-    }
+      activity_type: ['rating_culture', 'rating_leadership', 'rating_career', 'rating_compensation']
+    },
+    attributes: [
+      'activity_type',
+      [Sequelize.fn('AVG', Sequelize.col('activity_value')), 'average_rating'],
+      [Sequelize.fn('COUNT', Sequelize.col('activity_value')), 'count']
+    ],
+    group: ['activity_type']
   })
 
-  const typeValues = {
-    culture: { value: 0, count: 0 },
-    leadership: { value: 0, count: 0 },
-    career: { value: 0, count: 0 },
-    compensation: { value: 0, count: 0 }
+  ratings = ratings.map(item => item.get({ plain: true }))
+
+  const result = {
+    culture: 0,
+    leadership: 0,
+    career: 0,
+    compensation: 0,
+    totalAverageRating: 0,
+    totalAverageRaters: 0
   }
 
-  const sortedSubRatings = getSortedSubratings({
-    typeValues,
-    ratingsActivities: ratings
+  ratings.map(item => {
+    result[item['activity_type'].split('_')[1]] = Number(parseFloat(item.average_rating).toFixed(1))
+    result.totalAverageRaters = item.count
   })
 
-  const resultAverageSubRatings = {}
-  let totalRating = 0
-  let totalCount = 0
-  const typeValuesKeys = Object.keys(typeValues)
-  typeValuesKeys.map(key => {
-    if (sortedSubRatings[key].count > 0) {
-      resultAverageSubRatings[key] = parseFloat((sortedSubRatings[key].value / sortedSubRatings[key].count).toFixed(1))
-      totalRating += sortedSubRatings[key].value
-      totalCount += sortedSubRatings[key].count
-    } else {
-      resultAverageSubRatings[key] = 0
-    }
-  })
-  return {
-    ...resultAverageSubRatings,
-    totalAverageRating: totalCount > 0 ? parseFloat((totalRating / totalCount).toFixed(1)) : 0,
-    totalAverageRaters: typeValuesKeys.length > 0 ? parseInt(totalCount / typeValuesKeys.length) : 0
-  }
+  result.totalAverageRating = result.totalAverageRaters === 0
+    ? 0
+    : Number(parseFloat((result.career + result.compensation + result.leadership + result.culture) / 4).toFixed(1))
+  return result
 }
 
 export const getClientReviewByUser = ({ user_id, client_id }) => {
@@ -205,28 +186,51 @@ export const getClientReviewByUser = ({ user_id, client_id }) => {
       user_id: user_id,
       record_type: 'client',
       record_id: client_id,
-      activity_type: 'rating'
+      activity_type: ['rating_culture', 'rating_leadership', 'rating_career', 'rating_compensation']
     }
   })
   return clientReview
 }
 
 export const fetchCompanyReviews = async ({ user_id, client_id, type }) => {
-  let activityQuery = {}
+  let activityQuery = {
+    record_type: 'client',
+    activity_type: ['rating_culture', 'rating_leadership', 'rating_career', 'rating_compensation'],
+    activity_custom: { [Op.ne]: null }
+  }
   if (type === 'recieved') {
     activityQuery = {
       ...activityQuery,
-      record_type: 'client',
-      record_id: client_id,
-      activity_type: 'rating',
-      activity_custom: { [Op.ne]: null }
+      record_id: client_id
+    }
+  } else if (type === 'given') {
+    activityQuery = {
+      ...activityQuery,
+      user_id: user_id
     }
   }
 
-  const reviewsList = await XUserActivity.findAll({
-    where: activityQuery
-    // attributes: ['activity_value', 'activity_custom']
+  let reviewsList = await XUserActivity.findAll({
+    where: activityQuery,
+    attributes: [
+      'user_id',
+      ['activity_custom', 'reviewText'],
+      [Sequelize.fn('AVG', Sequelize.col('activity_value')), 'rating']
+    ],
+    group: ['user_id']
   })
 
-  return reviewsList
+  reviewsList = reviewsList.map(item => item.get({ plain: true }))
+
+  const reviewDetails = Promise.all(reviewsList.map(async (review) => {
+    const userDetail = await getUserDetails({ user_id: review.user_id })
+    return {
+      ...review,
+      userDetails: {
+        name: userDetail.first_name + ' ' + userDetail.last_name,
+        profilePic: userDetail.profile_image
+      }
+    }
+  }))
+  return reviewDetails
 }
