@@ -16,12 +16,13 @@ function* companyReviewsWorker(action) {
     const { clientId } = action.payload
     const { data } = yield CompanyProfile.fetchCompanyRatings({ clientId })
     yield put(companyRatingsFetchSuccessful({
-      totalAverageRating: data.totalAverageRating,
-      totalAverageRaters: data.totalAverageRaters,
-      cultureRating: data.culture,
-      leadershipRating: data.leadership,
-      careerAdvancementRating: data.career,
-      compensationRating: data.compensation,
+      totalAverageRating: data.ratings.totalAverageRating,
+      totalAverageRaters: data.ratings.totalAverageRaters,
+      cultureRating: data.ratings.culture,
+      leadershipRating: data.ratings.leadership,
+      careerAdvancementRating: data.ratings.career,
+      compensationRating: data.ratings.compensation,
+      addReviewAccess: data.addReviewAccess,
     }))
   } catch (e) {
     yield put(companyRatingsFetchFailure())

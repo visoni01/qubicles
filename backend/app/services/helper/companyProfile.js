@@ -8,7 +8,7 @@ import SendResetEmailVerificationMailService from '../email/sendResetEmailVerifi
 import { getAll } from './crud'
 import _ from 'lodash'
 import { Op } from 'sequelize'
-import { getUserDetails } from './user'
+import { getUserDetails, getUserById } from './user'
 
 export const updateProfileSettings = async ({ user, clientUser, updatedData, updatedDataType }) => {
   let result
@@ -233,4 +233,28 @@ export const fetchCompanyReviews = async ({ user_id, client_id, type }) => {
     }
   }))
   return reviewDetails
+}
+
+export const getAddReviewAccess = async ({ user_id, client_id }) => {
+  const user = await getUserById({ user_id })
+  if (!(user.user_code === 'agent')) {
+    return false
+  }
+
+  // WIP Access Permission for employee or ex employee
+
+  /* const isEmployee = await getOne({
+    model: XQodApplication,
+    data: {
+      user_id,
+      client_id,
+      status: ['hired', 'resigned', 'terminated']
+    }
+  })
+
+  if (!isEmployee) {
+    return false
+  } */
+
+  return true
 }

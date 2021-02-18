@@ -5,6 +5,9 @@ const initialState = {
   fetchLoading: null,
   fetchError: null,
   fetchSuccess: false,
+  postLoading: null,
+  postError: null,
+  postSuccess: false,
   recievedReviews: [
     {
       id: 0,
@@ -75,11 +78,12 @@ const {
     }),
     companyReviewPostStart: (state) => ({
       ...state,
-      fetchLoading: true,
+      postLoading: true,
     }),
     companyReviewPostSuccessful: (state) => ({
       ...state,
-      fetchSuccess: true,
+      postLoading: false,
+      postSuccess: true,
     }),
     companyReviewPostFailure: (state) => ({
       ...state,

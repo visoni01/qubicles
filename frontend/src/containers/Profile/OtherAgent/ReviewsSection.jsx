@@ -8,24 +8,28 @@ import Reviews from '../../People/ContactCenter/Reviews'
 import ReviewModal from './reviewModal'
 import { clientRatingLabels } from './ratingLabels'
 import ViewAllRatings from './viewAllRatings'
-
 import { companyRatingsFetchStart, companyReviewPostStart } from '../../../redux-saga/redux/actions'
+import Loader from '../../../components/loaders/circularLoader'
 
 const ReviewsSection = ({
   companyId,
 }) => {
   const [ activeTab, setActivetab ] = useState(0)
   const [ reviewsList, setReviewsList ] = useState([])
-  const { userDetails } = useSelector((state) => state.login)
   const [ openReviewModal, setOpenReviewModal ] = useState(false)
-  const { recievedReviews, givenReviews } = useSelector((state) => state.companyReviews)
-  const { viewRatings } = useSelector((state) => state.companyRatings)
+  const {
+    recievedReviews, givenReviews, postLoading,
+  } = useSelector((state) => state.companyReviews)
+  const {
+    viewRatings, addReviewAccess, fetchLoading, fetchSuccess,
+  } = useSelector((state) => state.companyRatings)
   const [ rating, setRating ] = useState({
     cultureRating: 0,
     leadershipRating: 0,
     careerAdvancementRating: 0,
     compensationRating: 0,
   })
+
   const [ reviewText, setReviewText ] = useState('')
   const dispatch = useDispatch()
 
@@ -51,17 +55,20 @@ const ReviewsSection = ({
   }, [ activeTab, recievedReviews, givenReviews ])
 
   useEffect(() => {
-    dispatch(companyRatingsFetchStart({
-      clientId: companyId,
-    }))
-  }, [ dispatch, companyId ])
+    if (!postLoading) {
+      dispatch(companyRatingsFetchStart({
+        clientId: companyId,
+      }))
+      setOpenReviewModal(false)
+    }
+  }, [ dispatch, companyId, postLoading ])
 
   return (
     <>
       <div className='mb-25 custom-box resume-root reviews-root has-fullwidth'>
         <div className='display-inline-flex is-fullwidth'>
           <h3 className='h3 is-fullwidth'> Reviews </h3>
-          {userDetails.user_id !== companyId && (
+          {addReviewAccess && (
           <Button
             classes={ {
               root: 'button-secondary-small review-button',
@@ -83,18 +90,28 @@ const ReviewsSection = ({
           </Tabs>
         </div>
         <div className='review-section-rating-view'>
-          <ViewAllRatings
-            subRatingLabels={ clientRatingLabels }
-            subRatingValues={ {
-              cultureRating: viewRatings.cultureRating,
-              leadershipRating: viewRatings.leadershipRating,
-              careerAdvancementRating: viewRatings.careerAdvancementRating,
-              compensationRating: viewRatings.compensationRating,
-            } }
-            totalAverageRating={ viewRatings.totalAverageRating }
-            totalAverageRaters={ viewRatings.totalAverageRaters }
-          />
+          {fetchLoading && !fetchSuccess ? (
+            <Loader
+              className='custom-loader'
+              size={ 75 }
+              enableOverlay={ false }
+              displayLoaderManually
+            />
+          ) : (
+            <ViewAllRatings
+              subRatingLabels={ clientRatingLabels }
+              subRatingValues={ {
+                cultureRating: viewRatings.cultureRating,
+                leadershipRating: viewRatings.leadershipRating,
+                careerAdvancementRating: viewRatings.careerAdvancementRating,
+                compensationRating: viewRatings.compensationRating,
+              } }
+              totalAverageRating={ viewRatings.totalAverageRating }
+              totalAverageRaters={ viewRatings.totalAverageRaters }
+            />
+          )}
         </div>
+
         <Divider className='divider' />
         {reviewsList.map((reviewData) => (
           <Reviews

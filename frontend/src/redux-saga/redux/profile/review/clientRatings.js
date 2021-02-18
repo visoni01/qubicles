@@ -13,6 +13,7 @@ const initialState = {
     careerAdvancementRating: 0,
     compensationRating: 0,
   },
+  addReviewAccess: false,
 }
 
 const {
@@ -33,18 +34,23 @@ const {
     companyRatingsFetchSuccessful: (state, action) => ({
       ...state,
       fetchSuccess: true,
+      fetchLoading: false,
       viewRatings: {
         totalAverageRating: getDataForReducer(action, state.viewRatings.totalAverageRating, 'totalAverageRating'),
         totalAverageRaters: getDataForReducer(action, state.viewRatings.totalAverageRaters, 'totalAverageRaters'),
         cultureRating: getDataForReducer(action, state.viewRatings.cultureRating, 'cultureRating'),
         leadershipRating: getDataForReducer(action, state.viewRatings.leadershipRating, 'leadershipRating'),
-        careerAdvancementRating: getDataForReducer(action, state.viewRatings.careerAdvancementRating, 'careerAdvancementRating'),
+        careerAdvancementRating: getDataForReducer(
+          action, state.viewRatings.careerAdvancementRating, 'careerAdvancementRating',
+        ),
         compensationRating: getDataForReducer(action, state.viewRatings.compensationRating, 'compensationRating'),
       },
+      addReviewAccess: getDataForReducer(action, state.addReviewAccess, 'addReviewAccess'),
     }),
     companyRatingsFetchFailure: (state) => ({
       ...state,
       fetchError: true,
+      fetchLoading: false,
     }),
   },
 })

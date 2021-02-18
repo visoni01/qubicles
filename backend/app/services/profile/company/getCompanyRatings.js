@@ -2,7 +2,7 @@ import ServiceBase from '../../../common/serviceBase'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
 import logger from '../../../common/logger'
 import { getErrorMessageForService, getClientData } from '../../helper'
-import { fetchCompanyRatings } from '../../helper/companyProfile'
+import { fetchCompanyRatings, getAddReviewAccess } from '../../helper/companyProfile'
 
 const constraints = {
   user_id: {
@@ -26,8 +26,9 @@ export default class GetCompanyRatingsService extends ServiceBase {
         this.addError(ERRORS.NOT_FOUND, MESSAGES.CLIENT_NOT_EXIST)
         return
       }
+      const addReviewAccess = await getAddReviewAccess({ user_id, client_id })
       const ratings = await fetchCompanyRatings({ user_id, client_id })
-      return ratings
+      return { ratings, addReviewAccess }
     } catch (err) {
       logger.error(`${getErrorMessageForService('GetCompanyRatingsService')} ${err}`)
       this.addError(ERRORS.INTERNAL)
