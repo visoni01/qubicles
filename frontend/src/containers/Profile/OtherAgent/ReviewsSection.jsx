@@ -8,7 +8,10 @@ import Reviews from '../../People/ContactCenter/Reviews'
 import ReviewModal from './reviewModal'
 import { clientRatingLabels } from './ratingLabels'
 import ViewAllRatings from './viewAllRatings'
-import { companyRatingsFetchStart, companyReviewPostStart } from '../../../redux-saga/redux/actions'
+import {
+  companyRatingsFetchStart, companyReviewPostStart,
+  companyReviewsFetchStart,
+} from '../../../redux-saga/redux/actions'
 import Loader from '../../../components/loaders/circularLoader'
 
 const ReviewsSection = ({
@@ -18,7 +21,7 @@ const ReviewsSection = ({
   const [ reviewsList, setReviewsList ] = useState([])
   const [ openReviewModal, setOpenReviewModal ] = useState(false)
   const {
-    recievedReviews, givenReviews, postLoading,
+    recievedReviews, givenReviews, postLoading, postSuccess,
   } = useSelector((state) => state.companyReviews)
   const {
     viewRatings, addReviewAccess, fetchLoading, fetchSuccess,
@@ -33,6 +36,7 @@ const ReviewsSection = ({
   const [ reviewText, setReviewText ] = useState('')
   const dispatch = useDispatch()
 
+  // Handle post Review
   const handleSubmitReview = useCallback(() => {
     dispatch(companyReviewPostStart({
       clientId: companyId,
@@ -55,13 +59,23 @@ const ReviewsSection = ({
   }, [ activeTab, recievedReviews, givenReviews ])
 
   useEffect(() => {
-    if (!postLoading) {
-      dispatch(companyRatingsFetchStart({
-        clientId: companyId,
-      }))
+    dispatch(companyRatingsFetchStart({
+      clientId: companyId,
+    }))
+  }, [ dispatch, companyId ])
+
+  useEffect(() => {
+    if (!postLoading && postSuccess) {
       setOpenReviewModal(false)
     }
-  }, [ dispatch, companyId, postLoading ])
+  }, [ postLoading, postSuccess ])
+
+  useEffect(() => {
+    dispatch(companyReviewsFetchStart({
+      type: activeTab === 0 ? 'recieved' : 'given',
+      clientId: companyId,
+    }))
+  }, [ dispatch, companyId, activeTab ])
 
   return (
     <>
@@ -111,20 +125,19 @@ const ReviewsSection = ({
             />
           )}
         </div>
-
-        <Divider className='divider' />
-        {reviewsList.map((reviewData) => (
-          <Reviews
-            key={ reviewData.reviewerName }
-            imageName={ reviewData.imageName }
-            rating={ reviewData.rating }
-            imageSrc={ reviewData.imageSrc }
-            reviewerName={ reviewData.reviewerName }
-            date={ reviewData.date }
-            position={ reviewData.position }
-            review={ reviewData.review }
-          />
-        ))}
+        {reviewsList.length > 0 && (
+          <>
+            <Divider className='divider' />
+            {reviewsList.map((reviewData) => (
+              <Reviews
+                key={ reviewData.id }
+                reviewText={ reviewData.reviewText }
+                rating={ reviewData.rating }
+                userDetails={ reviewData.userDetails }
+              />
+            ))}
+          </>
+        )}
       </div>
       {openReviewModal && (
       <ReviewModal

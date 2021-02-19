@@ -44,15 +44,15 @@ const ReviewModal = ({
       />
       <h4 className='h4 mt-30'>
         <span>Review</span>
-        <span className='para light ml-5'>(Optional)</span>
+        <span className='para light ml-5'>{`(Optional, ${ 255 - reviewText.length } characters)`}</span>
       </h4>
       <TextField
         margin='dense'
         variant='outlined'
         fullWidth
         rows={ 5 }
-        value={ reviewText }
-        onChange={ (e) => setReviewText(e.target.value) }
+        value={ reviewText.slice(0, 255) }
+        onChange={ (e) => setReviewText(e.target.value.slice(0, 255)) }
         multiline
         placeholder='Write your review...'
         className='text-field-para'
@@ -75,7 +75,7 @@ const ReviewModal = ({
           label: 'button-primary-small-label',
         } }
           // Disable submit if any of rating is zero (minimum is 1)
-        disabled={ !Object.keys(rating).reduce((acc, curr) => (acc * rating[ curr ]), 1) }
+        disabled={ !Object.keys(rating).reduce((acc, curr) => (acc * rating[ curr ]), 1) || reviewText.length > 255 }
         onClick={ onSubmit }
       >
         Submit

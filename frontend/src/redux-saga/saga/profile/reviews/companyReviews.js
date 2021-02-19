@@ -8,6 +8,7 @@ import {
   companyReviewsFetchSuccessful,
   companyReviewsFetchFailure,
   companyReviewPostFailure,
+  companyRatingsFetchSuccessful,
 } from '../../../redux/actions'
 import CompanyProfile from '../../../service/profile/company'
 
@@ -22,14 +23,30 @@ function* companyReviewsWorker(action) {
   try {
     switch (action.type) {
       case companyReviewsFetchStart.type: {
-        yield put(companyReviewsFetchSuccessful())
+        const { type, clientId } = action.payload
+        const { data } = yield CompanyProfile.fetchCompanyReviews({ clientId, type })
+        yield put(companyReviewsFetchSuccessful({
+          type,
+          reviews: data,
+        }))
         break
       }
       case companyReviewPostStart.type: {
         const { reviewData, clientId } = action.payload
-        yield CompanyProfile.postCompanyReview({ clientId, reviewData })
-        yield put(companyReviewPostSuccessful())
-        yield put(showSuccessMessage({ mesg: 'Added Review Successfully!' }))
+        const { data } = yield CompanyProfile.postCompanyReview({ clientId, reviewData })
+
+        // Update rating and reviews
+        yield put(companyReviewPostSuccessful({ reviews: data.reviews }))
+        yield put(companyRatingsFetchSuccessful({
+          totalAverageRating: data.ratings.totalAverageRating,
+          totalAverageRaters: data.ratings.totalAverageRaters,
+          cultureRating: data.ratings.culture,
+          leadershipRating: data.ratings.leadership,
+          careerAdvancementRating: data.ratings.career,
+          compensationRating: data.ratings.compensation,
+          addReviewAccess: data.addReviewAccess,
+        }))
+        yield put(showSuccessMessage({ msg: 'Added Review Successfully!' }))
         break
       }
       default: break

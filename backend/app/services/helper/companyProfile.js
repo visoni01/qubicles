@@ -213,6 +213,7 @@ export const fetchCompanyReviews = async ({ user_id, client_id, type }) => {
   let reviewsList = await XUserActivity.findAll({
     where: activityQuery,
     attributes: [
+      ['user_activity_id', 'id'],
       'user_id',
       ['activity_custom', 'reviewText'],
       [Sequelize.fn('AVG', Sequelize.col('activity_value')), 'rating']
@@ -227,8 +228,9 @@ export const fetchCompanyReviews = async ({ user_id, client_id, type }) => {
     return {
       ...review,
       userDetails: {
-        name: userDetail.first_name + ' ' + userDetail.last_name,
-        profilePic: userDetail.profile_image
+        profileName: userDetail.first_name + ' ' + userDetail.last_name,
+        profilePic: userDetail.profile_image,
+        profileTitle: userDetail.work_title
       }
     }
   }))
@@ -238,6 +240,11 @@ export const fetchCompanyReviews = async ({ user_id, client_id, type }) => {
 export const getAddReviewAccess = async ({ user_id, client_id }) => {
   const user = await getUserById({ user_id })
   if (!(user.user_code === 'agent')) {
+    return false
+  }
+
+  const userReview = await getClientReviewByUser({ user_id, client_id })
+  if (userReview.length > 0) {
     return false
   }
 

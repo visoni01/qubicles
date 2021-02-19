@@ -2,7 +2,10 @@ import ServiceBase from '../../../common/serviceBase'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
 import logger from '../../../common/logger'
 import { getErrorMessageForService, getClientData } from '../../helper'
-import { addCompanyReviewAndRating, getClientReviewByUser } from '../../helper/companyProfile'
+import {
+  addCompanyReviewAndRating, getClientReviewByUser,
+  fetchCompanyRatings, fetchCompanyReviews
+} from '../../helper/companyProfile'
 
 const constraints = {
   user_id: {
@@ -29,13 +32,20 @@ export default class PostCompanyReviewService extends ServiceBase {
         this.addError(ERRORS.NOT_FOUND, MESSAGES.CLIENT_NOT_EXIST)
         return
       }
+
       const userReview = await getClientReviewByUser({ user_id, client_id })
       if (userReview.length > 0) {
         this.addError(ERRORS.FORBIDDEN, MESSAGES.REVIEW_ALREADY_ADDED)
         return
       }
-      const newReview = await addCompanyReviewAndRating({ user_id, client_id, reviewData })
-      return newReview
+
+      await addCompanyReviewAndRating({ user_id, client_id, reviewData })
+      const promises = [
+        () => fetchCompanyRatings({ client_id }),
+        () => fetchCompanyReviews({ client_id, type: 'recieved' })
+      ]
+      const [ratings, reviews] = await Promise.all(promises.map(promise => promise()))
+      return { ratings, reviews, addReviewAccess: false }
     } catch (err) {
       logger.error(`${getErrorMessageForService('PostCompanyReviewService')} ${err}`)
       this.addError(ERRORS.INTERNAL)

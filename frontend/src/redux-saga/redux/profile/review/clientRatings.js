@@ -45,7 +45,7 @@ const {
         ),
         compensationRating: getDataForReducer(action, state.viewRatings.compensationRating, 'compensationRating'),
       },
-      addReviewAccess: getDataForReducer(action, state.addReviewAccess, 'addReviewAccess'),
+      addReviewAccess: action.payload.addReviewAccess,
     }),
     companyRatingsFetchFailure: (state) => ({
       ...state,

@@ -53,7 +53,7 @@ export default class CompanyProfileController {
   }
 
   static async getCompanyReviews (req, res) {
-    const companyReviewResult = await GetCompanyReviewsService.execute({ ...req.body, ...req.params })
+    const companyReviewResult = await GetCompanyReviewsService.execute({ ...req.body, ...req.params, ...req.query })
     if (companyReviewResult.successful) {
       Responder.success(res, companyReviewResult.result)
     } else {

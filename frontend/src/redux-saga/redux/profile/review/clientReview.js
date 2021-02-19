@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { carolin, helen, thomas } from '../../../../assets/images/avatar'
+import { getDataForReducer } from '../../../../utils/common'
 
 const initialState = {
   fetchLoading: null,
@@ -8,45 +8,8 @@ const initialState = {
   postLoading: null,
   postError: null,
   postSuccess: false,
-  recievedReviews: [
-    {
-      id: 0,
-      imageName: 'carolin',
-      rating: 4,
-      imageSrc: carolin,
-      reviewerName: 'Carolin Palmer',
-      date: 'September 06, 2020',
-      position: 'Customer Service Manager at Microsoft',
-      review: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-      industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
-      it to make a type specimen book.`,
-    },
-  ],
-  givenReviews: [
-    {
-      id: 1,
-      imageName: 'helen',
-      rating: 5,
-      imageSrc: helen,
-      reviewerName: 'Helen Valdez',
-      date: 'September 06, 2020',
-      position: 'Customer Service Manager at Microsoft',
-      review: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-      industry's standard dummy text ever since the 1500 It has survived not only five centuries,
-      but also the leap into electronic typesetting, remaining essentially unchanged.`,
-    },
-    {
-      id: 2,
-      imageName: 'thomas',
-      rating: 4.2,
-      imageSrc: thomas,
-      reviewerName: 'Thomas Gray',
-      date: 'September 06, 2020',
-      position: 'Customer Service Manager at Microsoft',
-      review: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-      industry's standard dummy text ever since the 1500 `,
-    },
-  ],
+  recievedReviews: [],
+  givenReviews: [],
 }
 
 const {
@@ -68,10 +31,25 @@ const {
       ...state,
       fetchLoading: true,
     }),
-    companyReviewsFetchSuccessful: (state) => ({
-      ...state,
-      fetchSuccess: true,
-    }),
+    companyReviewsFetchSuccessful: (state, action) => {
+      let newState = {
+        ...state,
+        fetchSuccess: true,
+        fetchLoading: false,
+      }
+      if (action.payload.type === 'recieved') {
+        newState = {
+          ...newState,
+          recievedReviews: getDataForReducer(action, state.recievedReviews, 'reviews'),
+        }
+      } else if (action.payload.type === 'given') {
+        newState = {
+          ...newState,
+          recievedReviews: getDataForReducer(action, state.givenReviews, 'reviews'),
+        }
+      }
+      return (newState)
+    },
     companyReviewsFetchFailure: (state) => ({
       ...state,
       fetchError: true,
@@ -80,10 +58,11 @@ const {
       ...state,
       postLoading: true,
     }),
-    companyReviewPostSuccessful: (state) => ({
+    companyReviewPostSuccessful: (state, action) => ({
       ...state,
       postLoading: false,
       postSuccess: true,
+      recievedReviews: getDataForReducer(action, initialState.recievedReviews, 'reviews'),
     }),
     companyReviewPostFailure: (state) => ({
       ...state,
