@@ -10,7 +10,7 @@ import ViewSetSubRatings from './viewSubRatings'
 import './style.scss'
 
 const ReviewModal = ({
-  open, onClose, reviewHeading, onSubmit, ratingLabels,
+  loading, open, onClose, reviewHeading, onSubmit, ratingLabels,
   rating, setRating, reviewText, setReviewText,
 }) => (
   <Dialog
@@ -75,7 +75,9 @@ const ReviewModal = ({
           label: 'button-primary-small-label',
         } }
           // Disable submit if any of rating is zero (minimum is 1)
-        disabled={ !Object.keys(rating).reduce((acc, curr) => (acc * rating[ curr ]), 1) || reviewText.length > 255 }
+        disabled={ !Object.keys(rating).reduce((acc, curr) => (acc * rating[ curr ]), 1)
+          || reviewText.length > 255
+          || loading }
         onClick={ onSubmit }
       >
         Submit
@@ -87,9 +89,11 @@ const ReviewModal = ({
 
 ReviewModal.defaultProps = {
   reviewHeading: '',
+  loading: false,
 }
 
 ReviewModal.propTypes = {
+  loading: PropTypes.bool,
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,

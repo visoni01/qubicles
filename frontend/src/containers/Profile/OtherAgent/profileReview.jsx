@@ -2,15 +2,14 @@ import React from 'react'
 import { Avatar } from '@material-ui/core'
 import Rating from '@material-ui/lab/Rating'
 import PropTypes from 'prop-types'
-import './styles.scss'
 
-const Reviews = ({
+const ProfileReview = ({
   reviewText,
   rating,
   userDetails,
 }) => (
   <>
-    <div className='display-inline-flex pb-20 list-divider'>
+    <div className='display-inline-flex pb-10 pt-10 list-divider no-margin is-fullwidth'>
       <Avatar className='profile-pic no-margin-top' alt={ userDetails.profileName } src={ userDetails.profilePic } />
       <div className='candidate-info'>
         <p className='para bold'>{userDetails.profileName}</p>
@@ -31,7 +30,7 @@ const Reviews = ({
   </>
 )
 
-Reviews.defaultProps = {
+ProfileReview.defaultProps = {
   reviewText: '',
   rating: 0,
   userDetails: {
@@ -41,7 +40,7 @@ Reviews.defaultProps = {
   },
 }
 
-Reviews.propTypes = {
+ProfileReview.propTypes = {
   reviewText: PropTypes.string,
   rating: PropTypes.number,
   userDetails: PropTypes.shape({
@@ -51,4 +50,4 @@ Reviews.propTypes = {
   }),
 }
 
-export default Reviews
+export default ProfileReview

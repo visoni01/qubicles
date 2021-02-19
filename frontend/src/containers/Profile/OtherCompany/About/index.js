@@ -3,7 +3,7 @@ import { Grid } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import OtherCompanyOpenPositionsList from './otherCompanyOpenPositionsList'
 import CoursesSection from '../../Company/About/CoursesSection'
-import ResumeReviews from '../../OtherAgent/ReviewsSection'
+import CompanyReviews from '../../Company/About/companyReviews'
 
 export default function OtherCompanyAbout({ companyId }) {
   return (
@@ -15,7 +15,7 @@ export default function OtherCompanyAbout({ companyId }) {
         <CoursesSection />
       </Grid>
       <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-        <ResumeReviews companyId={ companyId } />
+        <CompanyReviews companyId={ companyId } />
       </Grid>
     </Grid>
   )
