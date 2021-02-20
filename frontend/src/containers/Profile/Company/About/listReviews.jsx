@@ -10,7 +10,7 @@ const ListReviews = ({
 }) => {
   const dispatch = useDispatch()
   const [ reviewsList, setReviewsList ] = useState([])
-  const { recievedReviews, givenReviews } = useSelector((state) => state.companyReviews)
+  const { fetchLoading, recievedReviews, givenReviews } = useSelector((state) => state.companyReviews)
 
   useEffect(() => {
     if (type === 'recieved') {
@@ -29,18 +29,20 @@ const ListReviews = ({
 
   return (
     <div>
-      {reviewsList.length > 0 && (
-      <div>
-        <Divider className='divider' />
-        {reviewsList.map((reviewData) => (
+      <Divider className='divider no-margin' />
+      {!fetchLoading && reviewsList.length > 0 ? (
+        reviewsList.map((reviewData) => (
           <ProfileReview
             key={ reviewData.id }
             reviewText={ reviewData.reviewText }
             rating={ reviewData.rating }
             userDetails={ reviewData.userDetails }
           />
-        ))}
-      </div>
+        ))
+      ) : (
+        <div className='padding-10 mt-10'>
+          <h3 className='h3'>No reviews yet...</h3>
+        </div>
       )}
     </div>
   )

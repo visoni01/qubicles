@@ -9,7 +9,7 @@ const ProfileReview = ({
   userDetails,
 }) => (
   <>
-    <div className='display-inline-flex pb-10 pt-10 list-divider no-margin is-fullwidth'>
+    <div className='display-inline-flex list-divider no-margin pt-20 pb-10 is-fullwidth'>
       <Avatar className='profile-pic no-margin-top' alt={ userDetails.profileName } src={ userDetails.profilePic } />
       <div className='candidate-info'>
         <p className='para bold'>{userDetails.profileName}</p>
@@ -20,8 +20,9 @@ const ProfileReview = ({
           readOnly
           size='small'
           value={ rating }
-          precision={ 0.1 }
+          precision={ 0.5 }
         />
+        <span className='ml-5 para bold primary'>{rating}</span>
         <p className='para mt-5'>
           {reviewText}
         </p>
