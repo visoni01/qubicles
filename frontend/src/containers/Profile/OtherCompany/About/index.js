@@ -22,5 +22,5 @@ export default function OtherCompanyAbout({ companyId }) {
 }
 
 OtherCompanyAbout.propTypes = {
-  companyId: PropTypes.string.isRequired,
+  companyId: PropTypes.number.isRequired,
 }

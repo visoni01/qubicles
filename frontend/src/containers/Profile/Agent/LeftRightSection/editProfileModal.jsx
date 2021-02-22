@@ -347,15 +347,22 @@ const EditProfileModal = ({
     </Dialog>
   )
 }
+EditProfileModal.defaultProps = {
+  companyInfo: {
+    profilePic: null,
+    title: '',
+    summary: '',
+  },
+}
 
 EditProfileModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   companyInfo: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    summary: PropTypes.string.isRequired,
-    profilePic: PropTypes.string.isRequired,
-  }).isRequired,
+    title: PropTypes.string,
+    summary: PropTypes.string,
+    profilePic: PropTypes.string,
+  }),
 }
 
 export default EditProfileModal

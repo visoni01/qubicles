@@ -13,7 +13,7 @@ const OtherContactCenterFeed = ({ companyId }) => (
 )
 
 OtherContactCenterFeed.propTypes = {
-  companyId: PropTypes.string.isRequired,
+  companyId: PropTypes.number.isRequired,
 }
 
 export default OtherContactCenterFeed

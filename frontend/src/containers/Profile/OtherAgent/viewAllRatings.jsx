@@ -34,7 +34,7 @@ ViewAllRatings.defaultProps = {
 }
 
 ViewAllRatings.propTypes = {
-  totalAverageRating: PropTypes.number.isRequired,
+  totalAverageRating: PropTypes.string.isRequired,
   totalAverageRaters: PropTypes.number.isRequired,
   subRatingLabels: PropTypes.arrayOf(PropTypes.any),
   subRatingValues: PropTypes.shape({}),

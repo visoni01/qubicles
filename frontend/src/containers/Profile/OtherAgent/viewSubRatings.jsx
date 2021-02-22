@@ -21,7 +21,7 @@ const ViewSetSubRatings = ({
                 size='large'
                 readOnly
                 precision={ 0.1 }
-                value={ rating[ item.name ] }
+                value={ Number(rating[ item.name ]) }
               />
             ) : (
               <Rating
@@ -30,7 +30,7 @@ const ViewSetSubRatings = ({
                 classes={ { label: 'rating-star-label' } }
                 size='large'
                 precision={ 1 }
-                value={ rating[ item.name ] }
+                value={ Number(rating[ item.name ]) }
                 onChange={ (_, val) => setRating((current) => ({ ...current, [ item.name ]: val })) }
               />
             )}

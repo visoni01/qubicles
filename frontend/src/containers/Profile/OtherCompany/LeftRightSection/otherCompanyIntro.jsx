@@ -101,7 +101,7 @@ OtherCompanyIntro.defaultProps = {
   companyRating: 5,
 }
 OtherCompanyIntro.propTypes = {
-  clientId: PropTypes.string,
+  clientId: PropTypes.number,
   imageName: PropTypes.string,
   companyRating: PropTypes.number,
 }

@@ -1,7 +1,9 @@
 /* eslint-disable complexity */
 import React, { useEffect } from 'react'
 import { Grid, Tabs, Tab } from '@material-ui/core'
-import { useParams, useLocation, Link } from 'react-router-dom'
+import {
+  useParams, useLocation, useHistory,
+} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import _ from 'lodash'
 import OtherCompanyIntro from './LeftRightSection/otherCompanyIntro'
@@ -28,6 +30,7 @@ const OtherContactCenterProfile = () => {
   const { jobsWithCategories } = useSelector((state) => state.jobsWithCategories)
 
   const dispatch = useDispatch()
+  const history = useHistory()
 
   useEffect(() => {
     if (_.isEmpty(jobsWithCategories)) {
@@ -60,16 +63,16 @@ const OtherContactCenterProfile = () => {
             <Tabs
               value={ temp.indexOf(currentPath) }
             >
-              <Link to={ feedRoute } className={ currentPath === feedRoute ? 'active-tab' : 'inactive-tab' }>
-                <Tab
-                  label='Feed'
-                />
-              </Link>
-              <Link to={ aboutRoute } className={ currentPath === aboutRoute ? 'active-tab' : 'inactive-tab' }>
-                <Tab
-                  label='About'
-                />
-              </Link>
+              <Tab
+                onClick={ () => history.push(feedRoute) }
+                className={ currentPath === feedRoute ? 'active-tab' : 'inactive-tab' }
+                label='Feed'
+              />
+              <Tab
+                onClick={ () => history.push(aboutRoute) }
+                className={ currentPath === aboutRoute ? 'active-tab' : 'inactive-tab' }
+                label='About'
+              />
             </Tabs>
           </Grid>
           <Grid item xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 }>

@@ -168,13 +168,17 @@ export const fetchCompanyRatings = async ({ client_id }) => {
   }
 
   ratings.map(item => {
-    result[item['activity_type'].split('_')[1]] = Number(parseFloat(item.average_rating).toFixed(1))
+    result[item['activity_type'].split('_')[1]] = parseFloat(item.average_rating).toFixed(1)
     result.totalAverageRaters = item.count
   })
 
   result.totalAverageRating = result.totalAverageRaters === 0
-    ? 0
-    : Number(parseFloat((result.career + result.compensation + result.leadership + result.culture) / 4).toFixed(1))
+    ? parseFloat(0)
+    : parseFloat((Number(result.career) +
+      Number(result.compensation) +
+      Number(result.leadership) +
+      Number(result.culture)
+    ) / 4).toFixed(1)
   return result
 }
 
@@ -225,7 +229,7 @@ export const fetchCompanyReviews = async ({ user_id, client_id, type }) => {
     const userDetail = await getUserDetails({ user_id: review.user_id })
     return {
       ...review,
-      rating: Number(parseFloat(review.rating).toFixed(1)),
+      rating: parseFloat(review.rating).toFixed(1),
       userDetails: {
         profileName: userDetail.first_name + ' ' + userDetail.last_name,
         profilePic: userDetail.profile_image,

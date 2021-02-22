@@ -52,7 +52,6 @@ const ContactCenterProfile = () => {
         </Grid>
         <Grid
           item
-          justify='flex-start'
           xl={ spacingMid }
           lg={ spacingMid }
           md={ 9 }

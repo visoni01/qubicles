@@ -9,17 +9,17 @@ const ProfileReview = ({
   userDetails,
 }) => (
   <>
-    <div className='display-inline-flex list-divider no-margin pt-20 pb-10 is-fullwidth'>
+    <div className='profile-review list-divider no-margin'>
       <Avatar className='profile-pic no-margin-top' alt={ userDetails.profileName } src={ userDetails.profilePic } />
       <div className='candidate-info'>
-        <p className='para bold'>{userDetails.profileName}</p>
+        <h4 className='h4'>{userDetails.profileName}</h4>
         <p className='para light'>{userDetails.profileTitle}</p>
         <Rating
           className='rating-star no-margin'
           name='read-only'
           readOnly
           size='small'
-          value={ rating }
+          value={ Number(rating) }
           precision={ 0.5 }
         />
         <span className='ml-5 para bold primary'>{rating}</span>
@@ -43,7 +43,7 @@ ProfileReview.defaultProps = {
 
 ProfileReview.propTypes = {
   reviewText: PropTypes.string,
-  rating: PropTypes.number,
+  rating: PropTypes.string,
   userDetails: PropTypes.shape({
     profileName: PropTypes.string,
     profilePic: PropTypes.string,

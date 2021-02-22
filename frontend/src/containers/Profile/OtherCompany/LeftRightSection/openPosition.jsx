@@ -37,5 +37,5 @@ export default function OpenPosition({ companyId }) {
 }
 
 OpenPosition.propTypes = {
-  companyId: PropTypes.string.isRequired,
+  companyId: PropTypes.number.isRequired,
 }

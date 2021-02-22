@@ -29,7 +29,7 @@ const ListReviews = ({
 
   return (
     <div>
-      <Divider className='divider no-margin' />
+      <Divider className='divider' />
       {!fetchLoading && reviewsList.length > 0 ? (
         reviewsList.map((reviewData) => (
           <ProfileReview
