@@ -11,6 +11,25 @@ Navbar related styles
 /* ==========================================================================
 Static navbar
 ========================================================================== */
+
+.nav-bar-menu-faded {
+  opacity: 0.90;
+
+  .custom-login-button {
+    background-color: #3273dc;
+    opacity: 1;
+  }
+  .custom-signup-button {
+    opacity: 1;
+  }
+}
+
+.nav-bar-burger {
+  span {
+    color: white;
+  }
+}
+
 .navbar-wrapper {
     width: 100%;
     height: 4.6rem;
@@ -87,15 +106,10 @@ Static navbar
                 color: $muted-grey;
             }
         }
-    }
 
-    .custom-burger {
-        margin-left: auto;
-        display: none;
-        justify-content: center;
-        align-items: center;
-        height: 4.6rem;
-        width: 4.6rem;
+        &.is-active {
+         background-color: #3b3b3b;
+        }
     }
 
     //Light navbar
