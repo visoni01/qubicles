@@ -40,6 +40,9 @@ export const getPostSignUpStepsData = ({ type, data }) => {
         home_phone: data.home_phone,
         mobile_phone: data.mobile_phone,
       },
+      4: {
+        id_url: data.id_url,
+      },
       3: {
         years_of_experience: data.years_of_experience,
         highest_education: data.highest_education,

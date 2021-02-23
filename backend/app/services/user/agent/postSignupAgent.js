@@ -5,7 +5,7 @@ import AddUserToActiveCampaign from '../../activeCampaign/addUserToActiveCampaig
 import { Op } from 'sequelize'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
 import logger from '../../../common/logger'
-import { getErrorMessageForService, checkSpecificCountry } from '../../helper'
+import { getErrorMessageForService, checkSpecificCountry, validateImageFile, uploadFileToIPFS } from '../../helper'
 import { encryptData } from '../../../utils/encryption'
 import _ from 'lodash'
 import moment from 'moment'
@@ -168,6 +168,9 @@ export class PostSignupAgentStep3Service extends ServiceBase {
 const constraintsStep4 = {
   user_id: {
     presence: { allowEmpty: false }
+  },
+  file: {
+    presence: false
   }
 }
 
@@ -177,7 +180,38 @@ export class PostSignupAgentStep4Service extends ServiceBase {
   }
 
   async run () {
-    // TODO: Upload copy of governmentID
+    try {
+      let url = null
+      if (this.file) {
+        const { isValidFileSize, isValidImage } = validateImageFile(this.file)
+        if (!isValidImage) {
+          this.addError(ERRORS.BAD_DATA, MESSAGES.INVALID_IMAGE_FILE)
+          return
+        }
+
+        if (!isValidFileSize) {
+          this.addError(ERRORS.BAD_DATA, MESSAGES.INVALID_IMAGE_FILE_SIZE)
+          return
+        }
+
+        try {
+          // upload file to IPFS
+          url = await uploadFileToIPFS(this.file.buffer)
+        } catch (e) {
+          this.addError(ERRORS.BAD_DATA, MESSAGES.IPFS_FILE_UPLOAD_ERROR)
+          return
+        }
+      }
+
+      await UserDetail.update({
+        id_url: url
+      }, { where: { user_id: this.user_id } })
+
+      return { url: url }
+    } catch (e) {
+      logger.error(getErrorMessageForService('PostSignupAgentStep4Service'), e)
+      this.addError(ERRORS.INTERNAL)
+    }
   }
 }
 

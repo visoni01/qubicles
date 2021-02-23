@@ -1,12 +1,16 @@
 /* eslint-disable complexity */
-import React, { useState, useEffect } from 'react'
+import React, {
+  useState, useEffect, useRef, useCallback,
+} from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import PropTypes from 'prop-types'
 import {
-  Select, MenuItem, Button, Grid, FormControlLabel, Radio, RadioGroup, Checkbox, ListItemText,
+  Select, MenuItem, Button, Grid, FormControlLabel, Radio, RadioGroup, Checkbox, ListItemText, IconButton,
 } from '@material-ui/core/'
 import moment from 'moment'
 import IntlTelInput from 'react-intl-tel-input'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import steps from './steps'
 import 'react-intl-tel-input/dist/main.css'
 import { phoneNumberFormatter, formatSSN } from '../../../../../utils/common'
@@ -21,6 +25,34 @@ const StepForm = ({
   } = useForm({
     validationSchema: steps[ step ] && steps[ step ].schema, mode: 'onBlur',
   })
+  const fileInput = useRef()
+  const handleFileInputChange = useCallback((event) => {
+    event.preventDefault()
+    const file = event.target.files && event.target.files[ 0 ]
+    const reader = new FileReader()
+
+    setValue('id_url', fileInput.current.files && fileInput.current.files[ 0 ])
+
+    reader.onloadend = () => {
+      setValues((data) => ({
+        ...data,
+        id_url: reader.result,
+      }))
+    }
+
+    if (event.target.files[ 0 ]) {
+      reader.readAsDataURL(file)
+    }
+  }, [ setValue ])
+
+  const handleDelete = () => {
+    fileInput.current.value = ''
+    setValues((data) => ({
+      ...data,
+      id_url: null,
+    }))
+    setValue('id_url', null)
+  }
 
   const handleRadioChange = (name) => (event) => {
     setValue(name, event.target.value)
@@ -31,7 +63,10 @@ const StepForm = ({
     if (steps[ step ]) {
       steps[ step ].fields.map((field) => {
         // Manually registering radio and select fields in the react-hook-form.
-        if (field.type === 'radio' || field.type === 'select' || field.type === 'singleSelect') {
+        if (field.type === 'radio'
+        || field.type === 'select'
+        || field.type === 'singleSelect'
+        || field.type === 'file') {
           register(field.name)
         }
         // Setting value in the registered field if exists.
@@ -250,18 +285,25 @@ const StepForm = ({
           {step === 4 ? (
             <div className='photo-upload'>
               <img
+                name='id_url'
                 className='padding-30'
-                src={ uploadDocumentIcon }
+                src={ formValues.id_url || uploadDocumentIcon }
                 alt=''
               />
+              {formValues.id_url && (
+              <IconButton onClick={ handleDelete } className='delete-image'>
+                <FontAwesomeIcon className='custom-fa-icon white pointer sz-xl' icon={ faTimesCircle } />
+              </IconButton>
+              )}
               <p className='mt-10'>Upload copy of government identification card</p>
               <div className='upload-button text-align-last-center mt-20'>
                 {/* WIP Document Upload */}
                 <input
-                  disabled
                   accept='image/*'
                   id='contained-button-file'
                   type='file'
+                  ref={ fileInput }
+                  onChange={ handleFileInputChange }
                 />
                 <label htmlFor='contained-button-file'>
                   <Button
@@ -307,7 +349,9 @@ const StepForm = ({
                     root: 'button-primary-large',
                     label: 'button-primary-large-label',
                   } }
-                  onClick={ handleSubmit(step === 5 ? onSubmit : onNext) }
+                  onClick={
+                    handleSubmit(step === 5 ? onSubmit : onNext)
+                  }
                 >
                   {step === 5 ? 'Submit' : 'Next'}
                 </Button>

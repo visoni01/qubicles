@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import { takeLatest, put } from 'redux-saga/effects'
 import apiClient from '../../utils/apiClient'
 import {
@@ -16,6 +17,7 @@ import { showErrorMessage } from '../redux/snackbar'
 import SignUp from '../service/signup'
 import { getPostSignUpStepsData } from './helper'
 import { resetUserDetails, showInvitePopup } from '../redux/login'
+import User from '../service/user'
 
 function* postSignupStepWatcher() {
   yield takeLatest([
@@ -31,12 +33,20 @@ function* postSignupStepWorker(action) {
         yield put(startLoader())
         const { type, step, data } = action.payload
         if (step === 1) data.user_code = type
-        yield apiClient.postSignUp(type, step, data)
+        if (step === 4 && type !== 'employer') {
+          const formData = new FormData()
+          formData.append('file', data.id_url)
+          const uploadResult = yield User.uploadDocumentId({ userType: type, step, data: formData })
+          yield put(postSignUpStepSuccessful({ step, data: { id_url: uploadResult.data.url } }))
+        } else {
+          yield apiClient.postSignUp(type, step, data)
+          yield put(postSignUpStepSuccessful({ step, data }))
+        }
         if ((type === 'employer' && step === 3) || (type !== 'employer' && step === 5)) {
           yield put(resetUserDetails())
           yield put(showInvitePopup())
         }
-        yield put(postSignUpStepSuccessful({ step, data }))
+
         yield put(stopLoader())
         break
       }
@@ -50,7 +60,7 @@ function* postSignupStepWorker(action) {
           stepsData = getPostSignUpStepsData({ type: POST_SIGNUP_EMPLOYER_PREVIOUS_DATA_FETCH, data })
         } else {
           yield put(startLoader())
-          const { data } = yield SignUp.previousPostSignupDataForCompany()
+          const { data } = yield SignUp.previousPostSignupDataForAgent()
           stepsData = getPostSignUpStepsData({ type: POST_SIGNUP_AGENT_PREVIOUS_DATA_FETCH, data })
         }
         yield put(postSignUpPreviousDataSuccess({ stepsData }))

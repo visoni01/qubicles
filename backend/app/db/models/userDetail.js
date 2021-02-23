@@ -33,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     is_online: DataTypes.BOOLEAN,
     profile_image: DataTypes.STRING,
+    id_url: DataTypes.STRING,
     work_title: DataTypes.STRING,
     work_overview: DataTypes.TEXT,
     is_post_signup_completed: {

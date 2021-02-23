@@ -122,6 +122,18 @@ const steps = {
       other_languages: yup.string(),
     }),
   },
+
+  4: {
+    fields: [ {
+      label: 'id_url',
+      name: 'id_url',
+      type: 'file',
+    } ],
+    schema: yup.object().shape({
+      id_url: yup.mixed(),
+    }),
+  },
+
   5: {
     fields: [ {
       label: 'How did you hear about us?',
