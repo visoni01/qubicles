@@ -14,24 +14,24 @@ const initialState = {
 
 const {
   actions: {
-    companyReviewsFetchStart,
-    companyReviewsFetchSuccessful,
-    companyReviewsFetchFailure,
-    companyReviewPostStart,
-    companyReviewPostSuccessful,
-    companyReviewPostFailure,
+    profileReviewsFetchStart,
+    profileReviewsFetchSuccessful,
+    profileReviewsFetchFailure,
+    profileReviewPostStart,
+    profileReviewPostSuccessful,
+    profileReviewPostFailure,
 
   },
   reducer,
 } = createSlice({
-  name: 'companyReviews',
+  name: 'profileReviews',
   initialState,
   reducers: {
-    companyReviewsFetchStart: (state) => ({
+    profileReviewsFetchStart: (state) => ({
       ...state,
       fetchLoading: true,
     }),
-    companyReviewsFetchSuccessful: (state, action) => {
+    profileReviewsFetchSuccessful: (state, action) => {
       let newState = {
         ...state,
         fetchSuccess: true,
@@ -50,21 +50,21 @@ const {
       }
       return (newState)
     },
-    companyReviewsFetchFailure: (state) => ({
+    profileReviewsFetchFailure: (state) => ({
       ...state,
       fetchError: true,
     }),
-    companyReviewPostStart: (state) => ({
+    profileReviewPostStart: (state) => ({
       ...state,
       postLoading: true,
     }),
-    companyReviewPostSuccessful: (state, action) => ({
+    profileReviewPostSuccessful: (state, action) => ({
       ...state,
       postLoading: false,
       postSuccess: true,
       recievedReviews: getDataForReducer(action, initialState.recievedReviews, 'reviews'),
     }),
-    companyReviewPostFailure: (state) => ({
+    profileReviewPostFailure: (state) => ({
       ...state,
       fetchError: true,
     }),
@@ -73,10 +73,10 @@ const {
 
 export default reducer
 export {
-  companyReviewsFetchStart,
-  companyReviewsFetchSuccessful,
-  companyReviewsFetchFailure,
-  companyReviewPostStart,
-  companyReviewPostSuccessful,
-  companyReviewPostFailure,
+  profileReviewsFetchStart,
+  profileReviewsFetchSuccessful,
+  profileReviewsFetchFailure,
+  profileReviewPostStart,
+  profileReviewPostSuccessful,
+  profileReviewPostFailure,
 }

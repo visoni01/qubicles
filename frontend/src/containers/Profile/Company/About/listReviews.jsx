@@ -3,29 +3,30 @@ import { Divider } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import ProfileReview from '../../OtherAgent/profileReview'
-import { companyReviewsFetchStart } from '../../../../redux-saga/redux/actions'
+import { profileReviewsFetchStart } from '../../../../redux-saga/redux/actions'
 
 const ListReviews = ({
-  type, clientId,
+  profileType, reviewType, id,
 }) => {
   const dispatch = useDispatch()
   const [ reviewsList, setReviewsList ] = useState([])
-  const { fetchLoading, recievedReviews, givenReviews } = useSelector((state) => state.companyReviews)
+  const { fetchLoading, recievedReviews, givenReviews } = useSelector((state) => state.profileReviews)
 
   useEffect(() => {
-    if (type === 'recieved') {
+    if (reviewType === 'recieved') {
       setReviewsList(recievedReviews)
     } else {
       setReviewsList(givenReviews)
     }
-  }, [ type, recievedReviews, givenReviews ])
+  }, [ reviewType, recievedReviews, givenReviews ])
 
   useEffect(() => {
-    dispatch(companyReviewsFetchStart({
-      type,
-      clientId,
+    dispatch(profileReviewsFetchStart({
+      profileType,
+      reviewType,
+      id,
     }))
-  }, [ dispatch, clientId, type ])
+  }, [ dispatch, id, reviewType, profileType ])
 
   return (
     <div>
@@ -49,8 +50,10 @@ const ListReviews = ({
 }
 
 ListReviews.propTypes = {
-  clientId: PropTypes.number.isRequired,
-  type: PropTypes.string.isRequired,
+
+  id: PropTypes.number.isRequired,
+  profileType: PropTypes.string.isRequired,
+  reviewType: PropTypes.string.isRequired,
 }
 
 export default ListReviews

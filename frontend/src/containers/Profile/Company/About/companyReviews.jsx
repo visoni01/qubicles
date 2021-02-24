@@ -5,7 +5,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import ViewAllRatings from '../../OtherAgent/viewAllRatings'
-import { companyRatingsFetchStart } from '../../../../redux-saga/redux/actions'
+import { profileRatingsFetchStart } from '../../../../redux-saga/redux/actions'
 import Loader from '../../../../components/loaders/circularLoader'
 import AddCompanyReview from './addReview'
 import ListReviews from './listReviews'
@@ -18,13 +18,14 @@ const CompanyReviews = ({
   const [ openReviewModal, setOpenReviewModal ] = useState(false)
   const {
     viewRatings, addReviewAccess, fetchLoading, fetchSuccess,
-  } = useSelector((state) => state.companyRatings)
+  } = useSelector((state) => state.profileRatings)
 
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(companyRatingsFetchStart({
-      clientId: companyId,
+    dispatch(profileRatingsFetchStart({
+      profileType: 'employer',
+      id: companyId,
     }))
   }, [ dispatch, companyId ])
 
@@ -69,10 +70,10 @@ const CompanyReviews = ({
               <ViewAllRatings
                 subRatingLabels={ clientRatingLabels }
                 subRatingValues={ {
-                  cultureRating: viewRatings.cultureRating,
-                  leadershipRating: viewRatings.leadershipRating,
-                  careerAdvancementRating: viewRatings.careerAdvancementRating,
-                  compensationRating: viewRatings.compensationRating,
+                  cultureRating: viewRatings.rating1,
+                  leadershipRating: viewRatings.rating2,
+                  careerAdvancementRating: viewRatings.rating3,
+                  compensationRating: viewRatings.rating4,
                 } }
                 totalAverageRating={ viewRatings.totalAverageRating }
                 totalAverageRaters={ viewRatings.totalAverageRaters }
@@ -82,8 +83,9 @@ const CompanyReviews = ({
 
           {/* List Reviews */}
           <ListReviews
-            clientId={ companyId }
-            type={ activeTab === 0 ? 'recieved' : 'given' }
+            id={ companyId }
+            profileType='employer'
+            reviewType={ activeTab === 0 ? 'recieved' : 'given' }
           />
         </div>
 

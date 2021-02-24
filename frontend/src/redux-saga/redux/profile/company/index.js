@@ -1,15 +1,15 @@
 import uploadProfileImageReducer from '../uploadProfileImage'
 import clientDetailsReducer from './profileSettings'
 import companyDetailsForProfileReducer from './fetchCompanyDetails'
-import clientReviewsReducer from '../review/clientReview'
-import clientRatingsReducer from '../review/clientRatings'
+import profileReviewsReducer from '../review/profileReview'
+import profileRatingsReducer from '../review/profileRatings'
 
 const companyProfile = {
   uploadProfileImage: uploadProfileImageReducer,
   clientDetails: clientDetailsReducer,
   companyDetailsForProfile: companyDetailsForProfileReducer,
-  companyReviews: clientReviewsReducer,
-  companyRatings: clientRatingsReducer,
+  profileReviews: profileReviewsReducer,
+  profileRatings: profileRatingsReducer,
 }
 
 export default companyProfile

@@ -2,14 +2,14 @@ import React, { useState, useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import ReviewModal from '../../OtherAgent/reviewModal'
-import { companyReviewPostStart } from '../../../../redux-saga/redux/actions'
+import { profileReviewPostStart } from '../../../../redux-saga/redux/actions'
 import { clientRatingLabels } from '../../OtherAgent/ratingLabels'
 
 const AddCompanyReview = ({
   clientId, openReviewModal, setOpenReviewModal,
 }) => {
   const dispatch = useDispatch()
-  const { postLoading, postSuccess } = useSelector((state) => state.companyReviews)
+  const { postLoading, postSuccess } = useSelector((state) => state.profileReviews)
   const [ reviewText, setReviewText ] = useState('')
   const [ rating, setRating ] = useState({
     cultureRating: 0,
@@ -20,7 +20,7 @@ const AddCompanyReview = ({
 
   // Handle post Review
   const handleSubmitReview = useCallback(() => {
-    dispatch(companyReviewPostStart({
+    dispatch(profileReviewPostStart({
       clientId,
       reviewData: {
         cultureRating: rating.cultureRating,

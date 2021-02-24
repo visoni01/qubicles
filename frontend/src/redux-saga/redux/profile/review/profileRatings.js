@@ -8,46 +8,44 @@ const initialState = {
   viewRatings: {
     totalAverageRating: 0,
     totalAverageRaters: 0,
-    cultureRating: 0,
-    leadershipRating: 0,
-    careerAdvancementRating: 0,
-    compensationRating: 0,
+    rating1: 0,
+    rating2: 0,
+    rating3: 0,
+    rating4: 0,
   },
   addReviewAccess: false,
 }
 
 const {
   actions: {
-    companyRatingsFetchStart,
-    companyRatingsFetchSuccessful,
-    companyRatingsFetchFailure,
+    profileRatingsFetchStart,
+    profileRatingsFetchSuccessful,
+    profileRatingsFetchFailure,
   },
   reducer,
 } = createSlice({
-  name: 'companyRatings',
+  name: 'profileRatings',
   initialState,
   reducers: {
-    companyRatingsFetchStart: (state) => ({
+    profileRatingsFetchStart: (state) => ({
       ...state,
       fetchLoading: true,
     }),
-    companyRatingsFetchSuccessful: (state, action) => ({
+    profileRatingsFetchSuccessful: (state, action) => ({
       ...state,
       fetchSuccess: true,
       fetchLoading: false,
       viewRatings: {
         totalAverageRating: getDataForReducer(action, state.viewRatings.totalAverageRating, 'totalAverageRating'),
         totalAverageRaters: getDataForReducer(action, state.viewRatings.totalAverageRaters, 'totalAverageRaters'),
-        cultureRating: getDataForReducer(action, state.viewRatings.cultureRating, 'cultureRating'),
-        leadershipRating: getDataForReducer(action, state.viewRatings.leadershipRating, 'leadershipRating'),
-        careerAdvancementRating: getDataForReducer(
-          action, state.viewRatings.careerAdvancementRating, 'careerAdvancementRating',
-        ),
-        compensationRating: getDataForReducer(action, state.viewRatings.compensationRating, 'compensationRating'),
+        rating1: getDataForReducer(action, state.viewRatings.rating1, 'rating1'),
+        rating2: getDataForReducer(action, state.viewRatings.rating2, 'rating2'),
+        rating3: getDataForReducer(action, state.viewRatings.rating3, 'rating3'),
+        rating4: getDataForReducer(action, state.viewRatings.rating4, 'rating4'),
       },
       addReviewAccess: action.payload.addReviewAccess,
     }),
-    companyRatingsFetchFailure: (state) => ({
+    profileRatingsFetchFailure: (state) => ({
       ...state,
       fetchError: true,
       fetchLoading: false,
@@ -57,7 +55,7 @@ const {
 
 export default reducer
 export {
-  companyRatingsFetchStart,
-  companyRatingsFetchSuccessful,
-  companyRatingsFetchFailure,
+  profileRatingsFetchStart,
+  profileRatingsFetchSuccessful,
+  profileRatingsFetchFailure,
 }
