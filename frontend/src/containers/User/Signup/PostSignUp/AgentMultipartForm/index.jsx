@@ -32,10 +32,10 @@ const AgentMultipartForm = () => {
       data.dob = moment(data.dob, 'YYYY-MM-DD').format('YYYY-MM-DD')
     }
 
-    if (currentStep !== 5 && ((stepsData[ currentStep ] && _.isEqual(stepsData[ currentStep ], data))
-    || currentStep === 4)) {
+    if (currentStep !== 5 && ((stepsData[ currentStep ] && _.isEqual(stepsData[ currentStep ], data)))) {
       return dispatch(handleNextStep())
     }
+
     return dispatch(postSignUpStepStart({ type: 'agent', step: currentStep, data }))
   }
 

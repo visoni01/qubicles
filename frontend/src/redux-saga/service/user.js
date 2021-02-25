@@ -50,6 +50,16 @@ class User {
     })
     return response
   }
+
+  static async uploadDocumentId({ userType, step, data }) {
+    const response = await axiosInst({
+      method: 'post',
+      url: `/${ userType }/post-signup/step${ step }`,
+      data,
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+    return response
+  }
 }
 
 export default User

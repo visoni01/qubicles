@@ -13,6 +13,7 @@ import { getTokenAfterPostSignupCompleted } from '../services/helper'
 export default class UserAgentController {
   static async postSignupAgent (req, res) {
     let postSignupAgentResult
+
     switch (req.params.step) {
       case 'step1':
         postSignupAgentResult = await PostSignupAgentStep1Service.execute(req.body)
@@ -24,7 +25,7 @@ export default class UserAgentController {
         postSignupAgentResult = await PostSignupAgentStep3Service.execute(req.body)
         break
       case 'step4':
-        postSignupAgentResult = await PostSignupAgentStep4Service.execute(req.body)
+        postSignupAgentResult = await PostSignupAgentStep4Service.execute({ ...req.body, file: req.file })
         break
       case 'step5':
         await PostSignupAgentStep5Service.execute(req.body)

@@ -48,7 +48,8 @@ export class PostSignUpAgentDataService extends ServiceBase {
         highest_education,
         primary_language,
         other_languages,
-        source
+        source,
+        id_url
       } = userDetailsData
 
       data = {
@@ -67,7 +68,8 @@ export class PostSignUpAgentDataService extends ServiceBase {
         other_languages,
         source,
         service: userData.user_code,
-        user_code: userData.user_code
+        user_code: userData.user_code,
+        id_url
       }
       return data
     } catch (e) {

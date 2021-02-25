@@ -32,7 +32,6 @@ export class AddPostStatusService extends ServiceBase {
   async run () {
     try {
       let url
-
       if (this.file) {
         const { isValidFileSize, isValidImage } = validateImageFile(this.file)
         if (!isValidImage) {
