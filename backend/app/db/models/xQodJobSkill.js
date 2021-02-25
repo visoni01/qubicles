@@ -22,7 +22,10 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'x_qod_job_skills'
   })
   XQodJobSkill.associate = function (models) {
+    // Adding association with x_qod_skills table
     XQodJobSkill.belongsTo(models.XQodSkill, { foreignKey: 'skill_id' })
+    // Adding association with x_qod_jobs table
+    XQodJobSkill.belongsTo(models.XQodJob, { as: 'requiredJobSkills', foreignKey: 'job_id' })
   }
   return XQodJobSkill
 }

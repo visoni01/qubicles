@@ -2,8 +2,9 @@ import _ from 'lodash'
 import apiClient from '../../utils/apiClient'
 
 class People {
-  // Job section's API
+  /* Client (contact center) section's API */
 
+  // Jobs' API
   // eslint-disable-next-line complexity
   static async fetchJobCategoriesAndJobs({
     searchKeyword, categoryId, status, clientId, limit, offset,
@@ -29,7 +30,6 @@ class People {
     if (limit) {
       queryParams.limit = limit
     }
-
     if (!_.isUndefined(offset)) {
       queryParams.offset = offset
     }
@@ -111,6 +111,38 @@ class People {
 
   static async getJobSkills() {
     const response = await apiClient.getRequest('/people/skills')
+    return response
+  }
+
+  /* Agent's API */
+
+  // Jobs' API
+  static async fetchAgentJobs(filter) {
+    let agentJobFilter = filter
+    if (agentJobFilter.requiredCategory) {
+      agentJobFilter = {
+        ...agentJobFilter,
+        requiredCategory: JSON.stringify(agentJobFilter.requiredCategory),
+      }
+    }
+    if (agentJobFilter.requiredSkills) {
+      agentJobFilter = {
+        ...agentJobFilter,
+        requiredSkills: JSON.stringify(agentJobFilter.requiredSkills),
+      }
+    }
+    if (agentJobFilter.requiredLanguages) {
+      agentJobFilter = {
+        ...agentJobFilter,
+        requiredLanguages: JSON.stringify(agentJobFilter.requiredLanguages),
+      }
+    }
+    const response = await apiClient.getRequest('/agent/jobs', null, agentJobFilter)
+    return response
+  }
+
+  static async fetchTopCompanies() {
+    const response = await apiClient.getRequest('/agent/jobs/top-companies')
     return response
   }
 }

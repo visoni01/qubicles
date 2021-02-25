@@ -8,13 +8,13 @@ import { jobsWithCategoriesFetchStart } from '../../../../redux-saga/redux/actio
 
 export default function OtherCompanyOpenPositionsList({ companyId }) {
   const { jobsWithCategories, isAllJobsFetched, isLoading } = useSelector((state) => state.jobsWithCategories)
-
   const dispatch = useDispatch()
 
   const fetchJobs = useCallback(() => {
-    if (!isAllJobsFetched) {
+    if (!isAllJobsFetched && companyId) {
       dispatch(jobsWithCategoriesFetchStart({
         clientId: companyId,
+        status: 'recruiting',
       }))
     }
   }, [ dispatch, companyId, isAllJobsFetched ])
@@ -39,8 +39,16 @@ export default function OtherCompanyOpenPositionsList({ companyId }) {
           )))
         )}
 
-      {!isAllJobsFetched && (
-      <div className=' mt-20 mb-20 is-flex is-center'>
+      {((jobsWithCategories && jobsWithCategories.length === 0) || (jobsWithCategories[ 0 ].jobs.length === 0)) && (
+      <div className='mt-10 mb-10'>
+        <div className='text-align-last-center'>
+          <h3 className=' h3'>No jobs found!</h3>
+        </div>
+      </div>
+      )}
+
+      {!isAllJobsFetched && jobsWithCategories.length > 0 && (
+      <div className=' mt-20 is-flex is-center'>
         <Button
           classes={ {
             root: 'button-primary-text',

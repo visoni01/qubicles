@@ -32,7 +32,7 @@ const ROUTE_PATHS = {
   PEOPLE_APPLICATIONS_TAB: `${ PEOPLE_ROUTE }/applications`,
   PEOPLE_JOBS_TAB: `${ PEOPLE_ROUTE }/jobs`,
   PEOPLE_TRAINING_TAB: `${ PEOPLE_ROUTE }/training`,
-  JOB_POST: `${ JOB_ROUTE }/post/:jobId`,
+  JOB_POST: `${ JOB_ROUTE }/:jobId`,
   NEW_JOB: `${ JOB_ROUTE }/create`,
   VIEW_RESUME: `${ VIEW_RESUME_ROUTE }/:candidateId`,
   CREATE_COURSE: `${ TRAINING_ROUTE }/course/create`,

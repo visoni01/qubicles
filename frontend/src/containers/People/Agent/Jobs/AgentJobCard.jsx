@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import React from 'react'
 import { Avatar } from '@material-ui/core'
 import PropTypes from 'prop-types'
@@ -7,33 +8,32 @@ import {
   faMapMarkerAlt, faUserFriends, faBriefcase, faSuitcase,
 } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
+import _ from 'lodash'
 import { good } from '../../../../assets/images/avatar'
-import ROUTE_PATHS from '../../../../routes/routesPath'
+import { JOB_ROUTE } from '../../../../routes/routesPath'
 
 const AgentJobCard = ({
-  clientName, clientPic,
-  clientRating, location,
-  ratePerHourDollar, jobTitle,
-  jobDescription,
+  job,
 }) => (
+
   <div className='list-divider pb-10'>
     <div className='display-inline-flex talent-head'>
-      <Avatar alt={ clientName } src={ clientPic } classes={ { root: 'avatar-md' } } />
+      <Avatar alt={ job.clientName } src={ job.clientPic } classes={ { root: 'avatar-md' } } />
       <div className='talent-details'>
         <div className='username'>
           <div className='display-inline-flex'>
-            <h4 className='h4'>{clientName}</h4>
+            <h4 className='h4'>{job.clientName}</h4>
             <Rating
               className='rating-star'
               name='read-only'
               readOnly
               size='small'
-              value={ clientRating }
+              value={ job.clientRating }
               precision={ 0.1 }
             />
           </div>
           <Link
-            to={ `${ ROUTE_PATHS.PEOPLE_JOBS_TAB }` }
+            to={ `${ JOB_ROUTE }/${ job.jobId }` }
             className='primary-text-link  ml-10 mr-10'
           >
             View Job Post
@@ -41,35 +41,39 @@ const AgentJobCard = ({
         </div>
         <p className='para light languages'>
           <FontAwesomeIcon icon={ faMapMarkerAlt } className='ml-10 custom-fa-icon light' />
-          {location}
+          {job.clientLocation}
           <span className='rate para bold mt-5 mr-10'>
-            {`$${ ratePerHourDollar }/hr`}
+            {`$${ job.payAmount }/hr`}
           </span>
         </p>
       </div>
     </div>
     <div className='talent-content'>
       <h4 className='mt-10 h4'>
-        {jobTitle}
+        {job.title}
       </h4>
       <div className='mb-10 mt-5 para short-description'>
-        {`${ jobDescription }`}
+        <p className='para' dangerouslySetInnerHTML={ { __html: job.description } } />
       </div>
     </div>
     <div className='mb-10 pl-10 pr-10'>
       <ul className='action-buttons display-inline-flex justify-between'>
         <li>
           <FontAwesomeIcon className='custom-fa-icon light' icon={ faUserFriends } />
-          <span className='para bold'>{`${ 3 }/${ 4 }`}</span>
+          <span className='para bold'>{`${ 3 }/${ job.needed }`}</span>
           <span className='para light ml-5'>Hired</span>
         </li>
         <li>
           <FontAwesomeIcon className='custom-fa-icon light' icon={ faBriefcase } />
-          <span className='para light ml-5'>Part-time</span>
+          <span className='para light ml-5'>{_.capitalize(job.jobType)}</span>
         </li>
         <li>
           <FontAwesomeIcon className='custom-fa-icon light' icon={ faSuitcase } />
-          <span className='para light ml-5'>Open-ended</span>
+          <span className='para light ml-5'>
+            {job.durationMonths === 0 ? null : job.durationMonths }
+            {' '}
+            {_.capitalize(job.durationType)}
+          </span>
         </li>
       </ul>
     </div>
@@ -77,26 +81,36 @@ const AgentJobCard = ({
 )
 
 AgentJobCard.defaultProps = {
-  clientName: 'Good Call Center',
-  clientPic: good,
-  clientRating: 4.5,
-  location: 'San Francisco, CA',
-  ratePerHourDollar: 13,
-  jobTitle: 'Looking For Expirienced Customer Service Expert',
-  jobDescription: `I have over 15 years of experience in telemarketing and lead generation.
+  job: {
+    clientName: 'Good Call Center',
+    clientPic: good,
+    clientRating: 4.5,
+    clientLocation: 'San Francisco, CA',
+    payAmount: 13,
+    title: 'Looking For Experienced Customer Service Expert',
+    description: `I have over 15 years of experience in telemarketing and lead generation.
   I also have over 5 years of experience in management, quality control and supervision.
   I do have the ability and update your contact list in real time of experience in management, quality
   control and supervision.I do have the ability and update your contact list in real time `,
+
+  },
 }
 
 AgentJobCard.propTypes = {
-  clientName: PropTypes.string,
-  clientPic: PropTypes.string,
-  clientRating: PropTypes.number,
-  location: PropTypes.string,
-  ratePerHourDollar: PropTypes.number,
-  jobTitle: PropTypes.string,
-  jobDescription: PropTypes.string,
+  job: PropTypes.shape({
+    jobId: PropTypes.number,
+    clientName: PropTypes.string,
+    clientPic: PropTypes.string,
+    clientRating: PropTypes.number,
+    clientLocation: PropTypes.string,
+    payAmount: PropTypes.number,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    jobType: PropTypes.string,
+    needed: PropTypes.number,
+    durationMonths: PropTypes.number,
+    durationType: PropTypes.string,
+  }),
 }
 
 export default AgentJobCard

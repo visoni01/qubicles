@@ -28,11 +28,11 @@ const OpenJobPositionCard = ({
   )
 
   return (
-    <div className='job-category-card list-divider' key={ categoryId }>
+    <div className='job-category-card list-divider pb-10' key={ categoryId }>
       <div className='section-heading display-inline-flex is-fullwidth'>
-        <p className='para light'>
+        <h3 className='h3 light'>
           { categoryTitle }
-        </p>
+        </h3>
       </div>
 
       <div className='mt-5'>
@@ -42,7 +42,7 @@ const OpenJobPositionCard = ({
         }, index) => (
           <div
             key={ !job_id ? `${ index } ${ title } ${ categoryId }` : `${ job_id } ${ categoryId }` }
-            className='list-divider mtb-5'
+            className='mt-10 mb-25'
           >
             <div className='job-info'>
               <div className='job-details is-fullwidth '>

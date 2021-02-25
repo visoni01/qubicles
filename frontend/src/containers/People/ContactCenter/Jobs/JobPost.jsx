@@ -56,7 +56,7 @@ const JobPost = ({
         />
       </Box>
 
-      <JobsApplication />
+      {userDetails && userDetails.user_code === 'employer' && (<JobsApplication />) }
     </>
   )
 }

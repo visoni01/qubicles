@@ -2,8 +2,6 @@ import React, { useEffect } from 'react'
 import { Box, Divider, Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
-import _ from 'lodash'
-import { contactCenterIntroduction } from '../../../People/ContactCenter/testData'
 import Introduction from '../../../People/ContactCenter/Introduction'
 import PrimaryContact from '../../Company/LeftRightSection/primaryContact'
 import ContactCenterSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/ContactCenterSkeleton'
@@ -17,10 +15,8 @@ const OtherCompanyIntro = ({
   const { companyDetails, success, isCompanyDetailsLoading } = useSelector((state) => state.companyDetailsForProfile)
   const dispatch = useDispatch()
   useEffect(() => {
-    if (_.isEmpty(companyDetails)) {
-      dispatch(jobPostCompanyDetailsFetchStart({ clientId }))
-    }
-  }, [ dispatch, companyDetails, clientId ])
+    dispatch(jobPostCompanyDetailsFetchStart({ clientId }))
+  }, [ dispatch, clientId ])
 
   if (isCompanyDetailsLoading && !success) {
     return (
@@ -35,7 +31,7 @@ const OtherCompanyIntro = ({
           key={ clientId }
           imageName={ imageName }
           rating={ companyRating }
-          imageSrc={ contactCenterIntroduction.imageSrc }
+          imageSrc={ companyDetails.companyImg }
           name={ companyDetails.companyName }
           location={ companyDetails.location }
           date={ companyDetails.registrationDate }

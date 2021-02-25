@@ -11,7 +11,7 @@ import AgentJobsFilter from './Jobs/AgentJobsFilter'
 import AgentJobsPage from './Jobs/AgentJobsPage'
 import ApplicationsPage from './Applications/ApplicationsPage'
 import ApplicationFilter from './Applications/ApplicationFilter'
-import TopComapnies from './Common/TopComapnies'
+import TopCompanies from './Common/topCompanies'
 
 const AgentContactCenter = () => {
   const location = useLocation()
@@ -82,7 +82,7 @@ const AgentContactCenter = () => {
 
         <Grid item xl={ 3 } lg={ 3 } md={ 4 } sm={ 12 } xs={ 12 }>
           {currentPath !== trainingRoute && (
-            <TopComapnies heading='Top Companies' />
+            <TopCompanies heading='Top Companies' />
           )}
         </Grid>
       </Grid>

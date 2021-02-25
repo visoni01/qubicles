@@ -1,29 +1,22 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import {
   faChevronLeft, faUserFriends, faRedo, faEnvelope,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button, Divider } from '@material-ui/core'
-import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import Introduction from '../Introduction'
-import ROUTE_PATHS from '../../../../routes/routesPath'
 import './styles.scss'
 
 const ContactCenterIntro = ({ jobDetails }) => {
-  const history = useHistory()
-  const handleBackButton = useCallback(() => {
-    history.push(ROUTE_PATHS.PEOPLE_JOBS_TAB)
-  }, [ history ])
-
   const { settings } = useSelector((state) => state.clientDetails)
   return (
     <>
       <Box className='custom-box contact-center-info-root'>
         <div className='mb-20'>
           <Button
-            onClick={ handleBackButton }
+            onClick={ () => window.history.back() }
             classes={ {
               root: 'MuiButtonBase-root button-primary-small',
               label: 'MuiButton-label button-primary-small-label',

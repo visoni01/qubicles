@@ -10,6 +10,7 @@ import { forumRouter } from './forum.router'
 import { peopleRouter } from './people.router'
 import { jobRouter } from './job.router'
 import { companyProfileRouter } from './companyProfile.router'
+import { agentJobRouter } from './agentJob.router'
 
 const router = express.Router()
 const NAMESPACE = 'v1'
@@ -23,6 +24,7 @@ router.use(`/${NAMESPACE}/auth`, authRouter)
 router.use(`/${NAMESPACE}/flows`, flowRouter)
 router.use(`/${NAMESPACE}/dashboard`, dashboardRouter)
 router.use(`/${NAMESPACE}/jobs`, jobRouter)
+router.use(`/${NAMESPACE}/agent/jobs`, agentJobRouter)
 router.use(`/${NAMESPACE}/forum`, forumRouter)
 router.use(`/${NAMESPACE}/people`, peopleRouter)
 router.use(`/${NAMESPACE}/profile/company`, companyProfileRouter)

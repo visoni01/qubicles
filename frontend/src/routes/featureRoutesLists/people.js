@@ -1,6 +1,5 @@
 import React from 'react'
 import ROUTE_PATHS from '../routesPath'
-import JobPost from '../../containers/People/ContactCenter/Jobs/JobView'
 import JobPreview from '../../components/People/ContactCenter/Jobs/JobPreview'
 import NewJobModal from '../../containers/People/ContactCenter/Jobs/NewJob/index'
 import Peoplepage from '../../containers/People/index'
@@ -10,13 +9,9 @@ import CreateCourse from '../../containers/People/ContactCenter/Training/NewCour
 import ViewCourse from '../../containers/People/ContactCenter/Training/ViewCourse/index'
 import ViewJobApplication from '../../containers/People/ContactCenter/Talent/Application/JobApplicationPage'
 import RouteRenderer from './featureSubRoutes'
+import PeopleViewJobs from '../../containers/People/viewJobsIndex'
 
 const List = [
-  {
-    path: ROUTE_PATHS.JOB_POST,
-    component: JobPost,
-    exact: true,
-  },
   {
     path: ROUTE_PATHS.JOB_PREVIEW,
     component: JobPreview,
@@ -40,6 +35,11 @@ const List = [
   {
     path: ROUTE_PATHS.EDIT_JOB,
     component: EditJob,
+    exact: true,
+  },
+  {
+    path: ROUTE_PATHS.JOB_POST,
+    component: PeopleViewJobs,
     exact: true,
   },
   {

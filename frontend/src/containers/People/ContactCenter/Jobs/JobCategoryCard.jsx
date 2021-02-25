@@ -28,7 +28,7 @@ const JobCategoryCard = ({
             <div className='job-details is-fullwidth'>
 
               <h4 className='h4 job-title'>
-                <Link to={ `${ JOB_ROUTE }/post/${ job_id }` }>
+                <Link to={ `${ JOB_ROUTE }/${ job_id }` }>
                   { title }
                   { status === 'draft' ? ' [Draft] ' : null}
                 </Link>

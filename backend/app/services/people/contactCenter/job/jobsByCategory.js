@@ -44,7 +44,7 @@ export class JobsByCategoryService extends ServiceBase {
       if (client_id) {
         const clientData = await getClientData({ client_id })
         if (clientData && clientData.client_id) {
-          jobs = await getAllJobs({ client_id: clientData.client_id, limit, offset })
+          jobs = await getAllJobs({ client_id: clientData.client_id, limit, offset, status })
         } else {
           this.addError(ERRORS.NOT_FOUND, MESSAGES.DATA_NOT_FOUND)
           return

@@ -4,8 +4,7 @@ import { Grid, Tabs, Tab } from '@material-ui/core'
 import {
   useParams, useLocation, useHistory,
 } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
-import _ from 'lodash'
+import { useDispatch } from 'react-redux'
 import OtherCompanyIntro from './LeftRightSection/otherCompanyIntro'
 import SimilarCompanies from './LeftRightSection/similarCompanies'
 import OtherContactCenterFeed from './Feed/index'
@@ -27,19 +26,16 @@ const OtherContactCenterProfile = () => {
     feedRoute, aboutRoute,
   ]
 
-  const { jobsWithCategories } = useSelector((state) => state.jobsWithCategories)
-
   const dispatch = useDispatch()
   const history = useHistory()
 
   useEffect(() => {
-    if (_.isEmpty(jobsWithCategories)) {
-      dispatch(jobsWithCategoriesFetchStart({
-        clientId: companyId,
-        limit: 3,
-        offset: 0,
-      }))
-    }
+    dispatch(jobsWithCategoriesFetchStart({
+      clientId: companyId,
+      status: 'recruiting',
+      limit: 3,
+      offset: 0,
+    }))
     // eslint-disable-next-line
   }, [ dispatch ])
 

@@ -5,11 +5,14 @@ import {
   XQodJobTitle,
   XQodSkill,
   XQodJobSkill,
-  XQodJobCourse
+  XQodJobCourse,
+  XClient,
+  UserDetail
 } from '../../db/models'
-import { Op } from 'sequelize'
+import Sequelize, { Op } from 'sequelize'
 import { createNewEntity, aggregate, updateEntity } from '../helper'
 import _ from 'lodash'
+import { getUserDetailsByClientId } from './user'
 
 export async function getRecentJobsByClient ({ client_id, limit = 5 }) {
   const jobDetails = []
@@ -217,12 +220,34 @@ export async function getJobById ({ job_id }) {
     include: [{
       model: XQodCategory,
       attributes: ['category_name']
+    }, {
+      model: XClient,
+      attributes: [
+        'client_id',
+        'client_name',
+        'city',
+        'state',
+        'registration_date',
+        'title',
+        'summary'
+      ]
     }],
     where:
-    { job_id, [Op.not]: [{ is_deleted: true }] },
-    raw: true
+    {
+      job_id,
+      [Op.not]: [{ is_deleted: true }]
+    },
+    raw: true,
+    nest: true
   })
-  return jobDetails
+  const userDetails = await getUserDetailsByClientId({ client_id: jobDetails.XClient.client_id })
+  return {
+    ...jobDetails,
+    XClient: {
+      ...jobDetails.XClient,
+      profile_image: userDetails.profile_image
+    }
+  }
 }
 
 export async function getSkillsByJobId ({ job_id }) {
@@ -398,4 +423,103 @@ export async function getAllJobs ({ client_id, category_id, search_keyword, stat
   })
 
   return allJobsSubDetails.rows.map((job) => (job.get({ plain: true })))
+}
+
+export async function getAgentJobs ({
+  searchKeyword,
+  requiredEmploymentType,
+  requiredHourlyRate
+  // WIP - requiredRating,
+  // WIP - requiredLocation
+}) {
+  let xQodJobQuery = {
+    [Op.not]: [{ is_deleted: true }]
+  }
+
+  // Search Jobs
+  if (!_.isEmpty(searchKeyword)) {
+    xQodJobQuery = { ...xQodJobQuery, title: { [Op.substring]: searchKeyword } }
+  }
+
+  // Employment type filter
+  if (requiredEmploymentType && requiredEmploymentType.employmentType) {
+    xQodJobQuery = {
+      ...xQodJobQuery,
+      employment_type: requiredEmploymentType.employmentType
+    }
+  }
+
+  // Hourly rate filter
+  if (requiredHourlyRate) {
+    const { lessThanEq, greaterThanEq } = requiredHourlyRate
+    if (lessThanEq && !greaterThanEq) {
+      xQodJobQuery = {
+        ...xQodJobQuery,
+        pay_amount: {
+          [Op.lte]: lessThanEq
+        }
+      }
+    } else if (greaterThanEq && !lessThanEq) {
+      xQodJobQuery = {
+        ...xQodJobQuery,
+        pay_amount: {
+          [Op.gte]: greaterThanEq
+        }
+      }
+    } else if (greaterThanEq && lessThanEq) {
+      xQodJobQuery = {
+        ...xQodJobQuery,
+        pay_amount: {
+          [Op.and]: [
+            { [Op.lte]: lessThanEq },
+            { [Op.gte]: greaterThanEq }
+          ]
+        }
+      }
+    }
+  }
+
+  const agentJobs = await XQodJob.findAll({
+    include: [{
+      model: XClient,
+      attributes: [
+        'client_id',
+        'client_name',
+        'city',
+        'state'
+      ]
+    }, {
+      model: XQodJobSkill,
+      attributes: ['skill_id', 'skill_preference'],
+      as: 'requiredJobSkills',
+      where: { skill_preference: 'required' }
+    }, {
+      model: UserDetail,
+      attributes: ['profile_image']
+    }],
+    where: xQodJobQuery
+  })
+  return agentJobs.map(jobs => jobs.get({ plain: true }))
+}
+
+export async function getTopCompanies () {
+  const xQodJobQuery = {
+    [Op.not]: [{ is_deleted: true }],
+    status: 'recruiting'
+  }
+  const topCompanies = await XQodJob.findAll({
+    group: ['client_id'],
+    attributes: ['client_id', [Sequelize.fn('count', Sequelize.col('status')), 'openPositionCount']],
+    include: [{
+      model: XClient,
+      attributes: [
+        'client_name'
+      ]
+    }, {
+      model: UserDetail,
+      attributes: ['profile_image']
+    }],
+    where: xQodJobQuery
+  })
+  return topCompanies.map(jobs => jobs.get({ plain: true }))
 }

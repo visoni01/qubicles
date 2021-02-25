@@ -16,6 +16,9 @@ const constraints = {
   job_type: {
     presence: { allowEmpty: true }
   },
+  duration_months: {
+    presence: { allowEmpty: true }
+  },
   duration_type: {
     presence: { allowEmpty: true }
   },

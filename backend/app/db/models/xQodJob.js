@@ -87,7 +87,20 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'x_qod_jobs'
   })
   XQodJob.associate = function (models) {
+    // Adding association with x_qod_category table
     XQodJob.belongsTo(models.XQodCategory, { foreignKey: 'category_id' })
+    // Adding association with x_clients table
+    XQodJob.belongsTo(models.XClient, { foreignKey: 'client_id' })
+    // Adding association with x_qod_job_skills table
+    XQodJob.hasMany(models.XQodJobSkill, {
+      as: 'requiredJobSkills',
+      foreignKey: 'job_id',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+      hooks: true
+    })
+    // Adding association with x_clients table
+    XQodJob.belongsTo(models.UserDetail, { foreignKey: 'user_id' })
   }
   return XQodJob
 }

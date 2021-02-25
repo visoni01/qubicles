@@ -2,11 +2,15 @@ import React from 'react'
 import { Avatar } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { Rating } from '@material-ui/lab'
+import { Link } from 'react-router-dom'
+import { PROFILE_ROUTE } from '../../../../routes/routesPath'
 
 const TopCompanyCard = ({
+  clientId,
   clientName,
   clientRating,
   clientPic,
+  openPositions,
 }) => (
   <div className='top-talent list-divider no-margin'>
     <div className='display-inline-flex mt-5 pb-5'>
@@ -27,7 +31,11 @@ const TopCompanyCard = ({
           <span
             className='primary-text-link'
           >
-            5 open positions
+            <Link to={ `${ PROFILE_ROUTE }/${ clientId }/about` }>
+              {openPositions}
+              {' '}
+              open position
+            </Link>
           </span>
         </div>
       </div>
@@ -42,9 +50,11 @@ TopCompanyCard.defaultProps = {
 }
 
 TopCompanyCard.propTypes = {
+  clientId: PropTypes.number.isRequired,
   clientName: PropTypes.string,
   clientRating: PropTypes.number,
   clientPic: PropTypes.string,
+  openPositions: PropTypes.number.isRequired,
 }
 
 export default TopCompanyCard

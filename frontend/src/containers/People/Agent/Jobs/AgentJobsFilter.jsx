@@ -9,7 +9,7 @@ import _ from 'lodash'
 import { useDispatch, useSelector } from 'react-redux'
 import MultiSelectChipItems from '../../MultiSelectChipItems'
 import {
-  fetchJobSkillsStart, jobCategoriesOnlyFetchStart,
+  fetchJobSkillsStart, jobCategoriesOnlyFetchStart, fetchAgentJobsStart,
 } from '../../../../redux-saga/redux/actions'
 import {
   jobFilterInitialState,
@@ -43,6 +43,17 @@ const AgentJobsFilter = () => {
         selectedEmploymentType,
       },
     }))
+
+    // Apply search on filter change
+    dispatch((fetchAgentJobsStart({
+      requiredSkills: selectedSkill.map((skill) => skill.id),
+      requiredLanguages: selectedLanguage.map((lang) => _.lowerFirst(lang.title)),
+      requiredHourlyRate: selectedHourlyRate,
+      requiredRating: selectedRating,
+      requiredLocation: selectedLocation,
+      searchKeyword: jobFilter.searchKeyword,
+      requiredCategory: selectedCategory.map((category) => category.id),
+    })))
     // To prevent maximum depth warning in dependency array
     // eslint-disable-next-line
   }, [
@@ -53,6 +64,7 @@ const AgentJobsFilter = () => {
     selectedHourlyRate,
     selectedRating,
     selectedEmploymentType,
+    selectedLocation,
   ])
 
   useEffect(() => {
@@ -258,6 +270,7 @@ const AgentJobsFilter = () => {
           <h4 className='h4'> Location </h4>
           <div className='input-box mr-15'>
             <TextareaAutosize
+              disabled
               aria-label='minimum height'
               autoComplete='off'
               rowsMin={ 1 }

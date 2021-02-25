@@ -8,6 +8,8 @@ import talentFilterReducer from './talent/talentFilter'
 import jobFilterReducer from './job/jobFilter'
 import jobCategoriesOnlyReducer from './job/jobCategories'
 import createJobDataReducer from './job/createJob'
+import fetchAgentJobsReducer from './agent/job/getJobs'
+import fetchTopCompaniesReducer from './agent/job/getTopCompanies'
 
 const peopleReducers = {
   jobSkills: jobSkillsReducer,
@@ -20,6 +22,8 @@ const peopleReducers = {
   jobFilter: jobFilterReducer,
   jobCategoriesOnly: jobCategoriesOnlyReducer,
   createJobData: createJobDataReducer,
+  fetchAgentJobs: fetchAgentJobsReducer,
+  fetchTopCompanies: fetchTopCompaniesReducer,
 }
 
 export default peopleReducers

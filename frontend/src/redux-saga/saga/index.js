@@ -38,6 +38,8 @@ import companyProfileSettings from './profile/company/fetchSettings'
 import fetchCompanyDetails from './profile/company/fetchCompanyDetails'
 import companyReviews from './profile/reviews/companyReviews'
 import companyRatings from './profile/reviews/companyRatings'
+import fetchAgentJobs from './people/agent/job/fetchJobs'
+import fetchTopCompanies from './people/agent/job/fetchTopCompanies'
 
 export default function* rootSaga() {
   yield all([
@@ -79,5 +81,7 @@ export default function* rootSaga() {
     fetchCompanyDetails(),
     companyReviews(),
     companyRatings(),
+    fetchAgentJobs(),
+    fetchTopCompanies(),
   ])
 }

@@ -25,6 +25,16 @@ export const getClientData = ({ client_id }) => {
   })
 }
 
+export const getUserDetailsByClientId = async ({ client_id }) => {
+  const clientUser = await getOne({
+    model: XClientUser,
+    data: { client_id }
+  })
+  if (clientUser) {
+    return UserDetail.findOne({ where: { user_id: clientUser.user_id }, raw: true })
+  }
+}
+
 export const getUserDetails = ({ user_id }) => {
   return UserDetail.findOne({ where: { user_id }, raw: true })
 }

@@ -13,6 +13,7 @@ const {
     jobPostCompanyDetailsFetchStart,
     jobPostCompanyDetailsFetchSuccessful,
     jobPostCompanyDetailsFetchFailure,
+    resetCompanyDetails,
   },
   reducer,
 } = createSlice({
@@ -34,6 +35,12 @@ const {
       error: true,
       isCompanyDetailsLoading: false,
     }),
+    resetCompanyDetails: (state) => ({
+      ...state,
+      companyDetails: {},
+      error: true,
+      isCompanyDetailsLoading: false,
+    }),
   },
 })
 
@@ -42,4 +49,6 @@ export {
   jobPostCompanyDetailsFetchStart,
   jobPostCompanyDetailsFetchSuccessful,
   jobPostCompanyDetailsFetchFailure,
+  resetCompanyDetails,
+
 }

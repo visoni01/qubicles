@@ -30,7 +30,7 @@ export default function CreatePreviewActions({
 
   useEffect(() => {
     if (jobPublishSuccess && publishedJobId) {
-      history.push(`${ JOB_ROUTE }/post/${ publishedJobId }`)
+      history.push(`${ JOB_ROUTE }/${ publishedJobId }`)
       dispatch(resetJobPublishStatus())
     }
   }, [ jobPublishSuccess, publishedJobId, dispatch, history ])
