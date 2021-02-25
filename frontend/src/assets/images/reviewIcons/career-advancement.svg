@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="44.728" height="47.513" viewBox="0 0 44.728 47.513">
+  <g id="Group_1860" data-name="Group 1860" transform="translate(-626 -488.499)">
+    <g id="stairs">
+      <path id="Path_1483" data-name="Path 1483" d="M662.563,505.262H652.292a1,1,0,0,0-1,1v7.376a1,1,0,0,1-1,1H640.021a1,1,0,0,0-1,1v7.376a1,1,0,0,1-1,1H627.75a1,1,0,0,0-1,1v9.248a1,1,0,0,0,1,1h34.813a1,1,0,0,0,1-1v-28A1,1,0,0,0,662.563,505.262Z" fill="none" stroke="#4877f4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    </g>
+    <g id="flag">
+      <path id="Path_1486" data-name="Path 1486" d="M657.75,489.249v16.017" fill="none" stroke="#4877f4" stroke-linecap="round" stroke-width="1.5"/>
+      <path id="Path_1485" data-name="Path 1485" d="M658.178,489.25h10.8a1,1,0,0,1,1,1v6.367a1,1,0,0,1-1,1h-10.8" fill="none" stroke="#4877f4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>

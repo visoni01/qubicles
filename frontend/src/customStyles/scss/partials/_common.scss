@@ -287,7 +287,17 @@
 }
 
 .text-field-para {
-  input {
+  input, textarea {
     @extend .para;
   }
+}
+
+.custom-loader {
+  position: inherit;
+  width: 100%;
+  text-align: center;
+  .MuiCircularProgress-svg, .MuiCircularProgress-svg:hover {
+    color: $color-primary;
+  }
+
 }

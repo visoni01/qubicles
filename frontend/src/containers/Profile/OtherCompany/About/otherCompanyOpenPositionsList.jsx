@@ -57,5 +57,5 @@ export default function OtherCompanyOpenPositionsList({ companyId }) {
 }
 
 OtherCompanyOpenPositionsList.propTypes = {
-  companyId: PropTypes.string.isRequired,
+  companyId: PropTypes.number.isRequired,
 }

@@ -36,6 +36,8 @@ import jobCategoriesOnly from './people/job/jobCategoriesOnly'
 import uploadProfileImage from './profile/uploadProfileImage'
 import companyProfileSettings from './profile/company/fetchSettings'
 import fetchCompanyDetails from './profile/company/fetchCompanyDetails'
+import companyReviews from './profile/reviews/companyReviews'
+import companyRatings from './profile/reviews/companyRatings'
 
 export default function* rootSaga() {
   yield all([
@@ -75,5 +77,7 @@ export default function* rootSaga() {
     jobCategoriesOnly(),
     uploadProfileImage(),
     fetchCompanyDetails(),
+    companyReviews(),
+    companyRatings(),
   ])
 }
