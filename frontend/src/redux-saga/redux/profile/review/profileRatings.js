@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getDataForReducer } from '../../../../utils/common'
 
 const initialState = {
   fetchLoading: null,
@@ -36,12 +35,12 @@ const {
       fetchSuccess: true,
       fetchLoading: false,
       viewRatings: {
-        totalAverageRating: getDataForReducer(action, state.viewRatings.totalAverageRating, 'totalAverageRating'),
-        totalAverageRaters: getDataForReducer(action, state.viewRatings.totalAverageRaters, 'totalAverageRaters'),
-        rating1: getDataForReducer(action, state.viewRatings.rating1, 'rating1'),
-        rating2: getDataForReducer(action, state.viewRatings.rating2, 'rating2'),
-        rating3: getDataForReducer(action, state.viewRatings.rating3, 'rating3'),
-        rating4: getDataForReducer(action, state.viewRatings.rating4, 'rating4'),
+        totalAverageRating: action.payload.totalAverageRating,
+        totalAverageRaters: action.payload.totalAverageRaters,
+        rating1: action.payload.rating1,
+        rating2: action.payload.rating2,
+        rating3: action.payload.rating3,
+        rating4: action.payload.rating4,
       },
       addReviewAccess: action.payload.addReviewAccess,
     }),

@@ -28,6 +28,10 @@ function* profileReviewsWorker(action) {
         if (profileType === 'employer') {
           reviews = yield CompanyProfile.fetchCompanyReviews({ clientId: id, type: reviewType })
         }
+        if (profileType === 'agent') {
+          // WIP: Will move to agent Profile Service
+          reviews = yield CompanyProfile.fetchAgentReviews({ agentUserId: id, type: reviewType })
+        }
         yield put(profileReviewsFetchSuccessful({
           type: reviewType,
           reviews: reviews.data,
@@ -35,20 +39,37 @@ function* profileReviewsWorker(action) {
         break
       }
       case profileReviewPostStart.type: {
-        const { reviewData, clientId } = action.payload
-        const { data } = yield CompanyProfile.postCompanyReview({ clientId, reviewData })
+        const { profileType, reviewData, id } = action.payload
+        if (profileType === 'employer') {
+          const { data } = yield CompanyProfile.postCompanyReview({ clientId: id, reviewData })
+          yield put(profileRatingsFetchSuccessful({
+            totalAverageRating: data.ratings.totalAverageRating,
+            totalAverageRaters: data.ratings.totalAverageRaters,
+            rating1: data.ratings.culture,
+            rating2: data.ratings.leadership,
+            rating3: data.ratings.career,
+            rating4: data.ratings.compensation,
+            addReviewAccess: data.addReviewAccess,
+          }))
+          // Update rating and reviews
+          yield put(profileReviewPostSuccessful({ reviews: data.reviews }))
+        }
+        if (profileType === 'agent') {
+          // WIP: Will move to agent Profile Service
+          const { data } = yield CompanyProfile.postAgentReview({ agentUserId: id, reviewData })
+          yield put(profileRatingsFetchSuccessful({
+            totalAverageRating: data.ratings.totalAverageRating,
+            totalAverageRaters: data.ratings.totalAverageRaters,
+            rating1: data.ratings.performance,
+            rating2: data.ratings.teamplayer,
+            rating3: data.ratings.interaction,
+            rating4: data.ratings.dependability,
+            addReviewAccess: data.addReviewAccess,
+          }))
+          // Update rating and reviews
+          yield put(profileReviewPostSuccessful({ reviews: data.reviews }))
+        }
 
-        // Update rating and reviews
-        yield put(profileReviewPostSuccessful({ reviews: data.reviews }))
-        yield put(profileRatingsFetchSuccessful({
-          totalAverageRating: data.ratings.totalAverageRating,
-          totalAverageRaters: data.ratings.totalAverageRaters,
-          rating1: data.ratings.culture,
-          rating2: data.ratings.leadership,
-          rating3: data.ratings.career,
-          rating4: data.ratings.compensation,
-          addReviewAccess: data.addReviewAccess,
-        }))
         yield put(showSuccessMessage({ msg: 'Added Review Successfully!' }))
         break
       }

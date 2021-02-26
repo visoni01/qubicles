@@ -240,7 +240,7 @@ export const fetchCompanyReviews = async ({ user_id, client_id, type }) => {
   return reviewDetails
 }
 
-export const getAddReviewAccess = async ({ user_id, client_id }) => {
+export const getAddReviewAccessForClient = async ({ user_id, client_id }) => {
   const user = await getUserById({ user_id })
   if (!(user.user_code === 'agent')) {
     return false
