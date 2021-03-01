@@ -45,7 +45,7 @@ const {
       } else if (action.payload.type === 'given') {
         newState = {
           ...newState,
-          recievedReviews: getDataForReducer(action, state.givenReviews, 'reviews'),
+          givenReviews: getDataForReducer(action, state.givenReviews, 'reviews'),
         }
       }
       return (newState)

@@ -45,6 +45,8 @@ export default class PostCompanyReviewService extends ServiceBase {
         () => fetchCompanyReviews({ client_id, type: 'recieved' })
       ]
       const [ratings, reviews] = await Promise.all(promises.map(promise => promise()))
+
+      // WIP add review access
       return { ratings, reviews, addReviewAccess: false }
     } catch (err) {
       logger.error(`${getErrorMessageForService('PostCompanyReviewService')} ${err}`)

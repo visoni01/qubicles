@@ -1,11 +1,11 @@
 import bcrypt from 'bcrypt'
-import { XClient, User, UserDetail, XUserActivity, Sequelize } from '../../db/models'
+import { XClient, User, UserDetail, XUserActivity, XClientUser, Sequelize } from '../../db/models'
 import { APP_ERROR_CODES } from '../../utils/errors'
 import jwt from 'jsonwebtoken'
 import config from '../../../config/app'
 import { CONSTANTS } from '../../utils/success'
 import SendResetEmailVerificationMailService from '../email/sendResetEmailVerificationMail'
-import { getAll } from './crud'
+import { getAll, getOne } from './crud'
 import _ from 'lodash'
 import { getUserDetails, getUserById } from './user'
 
@@ -206,10 +206,18 @@ export const fetchCompanyReviews = async ({ user_id, client_id, type }) => {
       record_id: client_id
     }
   } else if (type === 'given') {
-    activityQuery = {
-      ...activityQuery,
-      user_id: user_id
-    }
+    const client = await getOne({
+      model: XClientUser,
+      data: { client_id }
+    })
+    if (client) {
+      activityQuery = {
+        ...activityQuery,
+        record_type: 'user',
+        activity_type: ['rating_performance', 'rating_teamplayer', 'rating_interaction', 'rating_dependability'],
+        user_id: client.user_id
+      }
+    } else return []
   }
 
   let reviewsList = await XUserActivity.findAll({

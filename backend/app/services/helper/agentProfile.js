@@ -1,6 +1,7 @@
 import { XUserActivity, Sequelize } from '../../db/models'
-import { getUserDetails } from './user'
+import { getUserDetails, getUserById } from './user'
 import _ from 'lodash'
+import { getAll } from './crud'
 
 export const fetchAgentRatings = async ({ agent_user_id }) => {
   let ratings = await XUserActivity.findAll({
@@ -56,7 +57,9 @@ export const fetchAgentReviews = async ({ user_id, agent_user_id, type }) => {
   } else if (type === 'given') {
     activityQuery = {
       ...activityQuery,
-      user_id: user_id
+      record_type: 'client',
+      activity_type: ['rating_culture', 'rating_leadership', 'rating_career', 'rating_compensation'],
+      user_id: agent_user_id
     }
   }
 
@@ -112,4 +115,46 @@ export const addAgentReviewAndRating = async ({ user_id, agent_user_id, reviewDa
   })
 
   return XUserActivity.bulkCreate(ratingActivities)
+}
+
+export const getAgentReviewByUser = ({ user_id, agent_user_id }) => {
+  const agentReview = getAll({
+    model: XUserActivity,
+    data: {
+      user_id: user_id,
+      record_type: 'user',
+      record_id: agent_user_id,
+      activity_type: ['rating_performance', 'rating_teamplayer', 'rating_interaction', 'rating_dependability']
+    }
+  })
+  return agentReview
+}
+
+export const getAddReviewAccessForAgent = async ({ user_id, agent_user_id }) => {
+  const user = await getUserById({ user_id })
+  if (!(user.user_code === 'employer')) {
+    return false
+  }
+
+  const userReview = await getAgentReviewByUser({ user_id, agent_user_id })
+  if (userReview.length > 0) {
+    return false
+  }
+
+  // WIP Access Permission for employee or ex employee
+
+  /* const isEmployee = await getOne({
+    model: XQodApplication,
+    data: {
+      user_id,
+      client_id,
+      status: ['hired', 'resigned', 'terminated']
+    }
+  })
+
+  if (!isEmployee) {
+    return false
+  } */
+
+  return true
 }

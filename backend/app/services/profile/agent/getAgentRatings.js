@@ -2,7 +2,7 @@ import ServiceBase from '../../../common/serviceBase'
 import { ERRORS } from '../../../utils/errors'
 import logger from '../../../common/logger'
 import { getErrorMessageForService } from '../../helper'
-import { fetchAgentRatings } from '../../helper/agentProfile'
+import { fetchAgentRatings, getAddReviewAccessForAgent } from '../../helper/agentProfile'
 
 const constraints = {
   user_id: {
@@ -20,11 +20,11 @@ export default class GetAgentRatingsService extends ServiceBase {
 
   async run () {
     try {
-      const { agent_user_id } = this.filteredArgs
+      const { user_id, agent_user_id } = this.filteredArgs
       const ratings = await fetchAgentRatings({ agent_user_id })
 
-      // WIP add review access
-      return { ratings, addReviewAccess: true }
+      const addReviewAccess = await getAddReviewAccessForAgent({ user_id, agent_user_id })
+      return { ratings, addReviewAccess }
     } catch (err) {
       logger.error(`${getErrorMessageForService('GetAgentRatingsService')} ${err}`)
       this.addError(ERRORS.INTERNAL)
