@@ -1,7 +1,7 @@
-import { XUserActivity, Sequelize } from '../../db/models'
+import { XUserActivity, Sequelize, XClient } from '../../db/models'
 import { getUserDetails, getUserById } from './user'
 import _ from 'lodash'
-import { getAll } from './crud'
+import { getAll, getOne } from './crud'
 
 export const fetchAgentRatings = async ({ agent_user_id }) => {
   let ratings = await XUserActivity.findAll({
@@ -67,22 +67,28 @@ export const fetchAgentReviews = async ({ user_id, agent_user_id, type }) => {
     where: activityQuery,
     attributes: [
       ['user_activity_id', 'id'],
+      'record_id',
       'user_id',
       ['activity_custom', 'reviewText'],
       [Sequelize.fn('AVG', Sequelize.col('activity_value')), 'rating']
     ],
-    group: ['user_id']
+    group: [type === 'recieved' ? 'user_id' : 'record_id']
   })
 
   reviewsList = reviewsList.map(item => item.get({ plain: true }))
 
   const reviewDetails = Promise.all(reviewsList.map(async (review) => {
-    const userDetail = await getUserDetails({ user_id: review.user_id })
+    const userDetail = await getUserDetails({ user_id: type === 'recieved' ? review.user_id : review.record_id })
+    const client = await getOne({
+      model: XClient,
+      data: { client_id: type === 'recieved' ? review.user_id : review.record_id }
+    })
+
     return {
       ...review,
       rating: parseFloat(review.rating).toFixed(1),
       userDetails: {
-        profileName: userDetail.first_name + ' ' + userDetail.last_name,
+        profileName: client.client_name,
         profilePic: userDetail.profile_image,
         profileTitle: userDetail.work_title
       }

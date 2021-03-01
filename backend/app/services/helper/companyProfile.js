@@ -225,6 +225,7 @@ export const fetchCompanyReviews = async ({ user_id, client_id, type }) => {
     attributes: [
       ['user_activity_id', 'id'],
       'user_id',
+      'record_id',
       ['activity_custom', 'reviewText'],
       [Sequelize.fn('AVG', Sequelize.col('activity_value')), 'rating']
     ],
@@ -234,7 +235,7 @@ export const fetchCompanyReviews = async ({ user_id, client_id, type }) => {
   reviewsList = reviewsList.map(item => item.get({ plain: true }))
 
   const reviewDetails = Promise.all(reviewsList.map(async (review) => {
-    const userDetail = await getUserDetails({ user_id: review.user_id })
+    const userDetail = await getUserDetails({ user_id: type === 'recieved' ? review.user_id : review.record_id })
     return {
       ...review,
       rating: parseFloat(review.rating).toFixed(1),

@@ -8,8 +8,14 @@ const initialState = {
   postLoading: null,
   postError: null,
   postSuccess: false,
-  recievedReviews: [],
-  givenReviews: [],
+  recievedReviews: {
+    initialLoad: false,
+    reviews: [],
+  },
+  givenReviews: {
+    initialLoad: false,
+    reviews: [],
+  },
 }
 
 const {
@@ -20,7 +26,7 @@ const {
     profileReviewPostStart,
     profileReviewPostSuccessful,
     profileReviewPostFailure,
-
+    resetReviews,
   },
   reducer,
 } = createSlice({
@@ -36,16 +42,24 @@ const {
         ...state,
         fetchSuccess: true,
         fetchLoading: false,
+        profileId: action.payload.profileId,
+        profileType: action.payload.profileType,
       }
       if (action.payload.type === 'recieved') {
         newState = {
           ...newState,
-          recievedReviews: getDataForReducer(action, state.recievedReviews, 'reviews'),
+          recievedReviews: {
+            initialLoad: true,
+            reviews: getDataForReducer(action, state.recievedReviews, 'reviews'),
+          },
         }
       } else if (action.payload.type === 'given') {
         newState = {
           ...newState,
-          givenReviews: getDataForReducer(action, state.givenReviews, 'reviews'),
+          givenReviews: {
+            initialLoad: true,
+            reviews: getDataForReducer(action, state.givenReviews, 'reviews'),
+          },
         }
       }
       return (newState)
@@ -62,11 +76,17 @@ const {
       ...state,
       postLoading: false,
       postSuccess: true,
-      recievedReviews: getDataForReducer(action, initialState.recievedReviews, 'reviews'),
+      recievedReviews: {
+        ...state.recievedReviews,
+        reviews: getDataForReducer(action, state.recievedReviews, 'reviews'),
+      },
     }),
     profileReviewPostFailure: (state) => ({
       ...state,
       fetchError: true,
+    }),
+    resetReviews: () => ({
+      ...initialState,
     }),
   },
 })
@@ -79,4 +99,5 @@ export {
   profileReviewPostStart,
   profileReviewPostSuccessful,
   profileReviewPostFailure,
+  resetReviews,
 }

@@ -35,6 +35,8 @@ function* profileReviewsWorker(action) {
         yield put(profileReviewsFetchSuccessful({
           type: reviewType,
           reviews: reviews.data,
+          profileType,
+          profileId: id,
         }))
         break
       }
