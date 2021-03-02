@@ -49,7 +49,7 @@ export const fetchAgentReviews = async ({ user_id, agent_user_id, type }) => {
     record_type: 'user',
     activity_type: ['rating_performance', 'rating_teamplayer', 'rating_interaction', 'rating_dependability']
   }
-  if (type === 'recieved') {
+  if (type === 'received') {
     activityQuery = {
       ...activityQuery,
       record_id: agent_user_id
@@ -72,16 +72,16 @@ export const fetchAgentReviews = async ({ user_id, agent_user_id, type }) => {
       ['activity_custom', 'reviewText'],
       [Sequelize.fn('AVG', Sequelize.col('activity_value')), 'rating']
     ],
-    group: [type === 'recieved' ? 'user_id' : 'record_id']
+    group: [type === 'received' ? 'user_id' : 'record_id']
   })
 
   reviewsList = reviewsList.map(item => item.get({ plain: true }))
 
   const reviewDetails = Promise.all(reviewsList.map(async (review) => {
-    const userDetail = await getUserDetails({ user_id: type === 'recieved' ? review.user_id : review.record_id })
+    const userDetail = await getUserDetails({ user_id: type === 'received' ? review.user_id : review.record_id })
     const client = await getOne({
       model: XClient,
-      data: { client_id: type === 'recieved' ? review.user_id : review.record_id }
+      data: { client_id: type === 'received' ? review.user_id : review.record_id }
     })
 
     return {

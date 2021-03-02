@@ -45,7 +45,7 @@ const {
         profileId: action.payload.profileId,
         profileType: action.payload.profileType,
       }
-      if (action.payload.type === 'recieved') {
+      if (action.payload.type === 'received') {
         newState = {
           ...newState,
           recievedReviews: {

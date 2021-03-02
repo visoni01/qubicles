@@ -16,7 +16,7 @@ const ListReviews = ({
   } = useSelector((state) => state.profileReviews)
 
   useEffect(() => {
-    if (reviewType === 'recieved') {
+    if (reviewType === 'received') {
       setReviewsList(recievedReviews.reviews)
     } else {
       setReviewsList(givenReviews.reviews)
@@ -28,7 +28,7 @@ const ListReviews = ({
   }, [ dispatch, profileType, id ])
 
   useEffect(() => {
-    if ((reviewType === 'recieved' && !recievedReviews.initialLoad)
+    if ((reviewType === 'received' && !recievedReviews.initialLoad)
       || (reviewType === 'given' && !givenReviews.initialLoad)
     ) {
       dispatch(profileReviewsFetchStart({

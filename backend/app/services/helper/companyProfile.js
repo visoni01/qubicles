@@ -200,7 +200,7 @@ export const fetchCompanyReviews = async ({ user_id, client_id, type }) => {
     record_type: 'client',
     activity_type: ['rating_culture', 'rating_leadership', 'rating_career', 'rating_compensation']
   }
-  if (type === 'recieved') {
+  if (type === 'received') {
     activityQuery = {
       ...activityQuery,
       record_id: client_id
@@ -235,7 +235,7 @@ export const fetchCompanyReviews = async ({ user_id, client_id, type }) => {
   reviewsList = reviewsList.map(item => item.get({ plain: true }))
 
   const reviewDetails = Promise.all(reviewsList.map(async (review) => {
-    const userDetail = await getUserDetails({ user_id: type === 'recieved' ? review.user_id : review.record_id })
+    const userDetail = await getUserDetails({ user_id: type === 'received' ? review.user_id : review.record_id })
     return {
       ...review,
       rating: parseFloat(review.rating).toFixed(1),

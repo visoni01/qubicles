@@ -388,7 +388,7 @@ const reviews = [
 ]
 
 const newReviews = {
-  recieved: [
+  received: [
     {
       id: 0,
       rating: 5,

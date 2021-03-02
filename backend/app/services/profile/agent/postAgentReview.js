@@ -34,7 +34,7 @@ export default class PostAgentReviewService extends ServiceBase {
       await addAgentReviewAndRating({ user_id, agent_user_id, reviewData })
       const promises = [
         () => fetchAgentRatings({ agent_user_id }),
-        () => fetchAgentReviews({ agent_user_id, type: 'recieved' })
+        () => fetchAgentReviews({ agent_user_id, type: 'received' })
       ]
       const [ratings, reviews] = await Promise.all(promises.map(promise => promise()))
 

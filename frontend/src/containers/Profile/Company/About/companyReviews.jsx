@@ -85,7 +85,7 @@ const CompanyReviews = ({
           <ListReviews
             id={ companyId }
             profileType='employer'
-            reviewType={ activeTab === 0 ? 'recieved' : 'given' }
+            reviewType={ activeTab === 0 ? 'received' : 'given' }
           />
         </div>
 

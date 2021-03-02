@@ -85,7 +85,7 @@ const AgentReviews = ({
           <ListReviews
             id={ agentUserId }
             profileType='agent'
-            reviewType={ activeTab === 0 ? 'recieved' : 'given' }
+            reviewType={ activeTab === 0 ? 'received' : 'given' }
           />
         </div>
 

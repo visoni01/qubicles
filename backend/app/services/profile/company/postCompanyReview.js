@@ -42,7 +42,7 @@ export default class PostCompanyReviewService extends ServiceBase {
       await addCompanyReviewAndRating({ user_id, client_id, reviewData })
       const promises = [
         () => fetchCompanyRatings({ client_id }),
-        () => fetchCompanyReviews({ client_id, type: 'recieved' })
+        () => fetchCompanyReviews({ client_id, type: 'received' })
       ]
       const [ratings, reviews] = await Promise.all(promises.map(promise => promise()))
 
