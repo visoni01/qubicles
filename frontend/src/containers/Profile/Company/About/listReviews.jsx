@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import ProfileReview from '../../OtherAgent/profileReview'
 import { profileReviewsFetchStart, resetReviews } from '../../../../redux-saga/redux/actions'
+import ProfileReviewSkeleton from '../../OtherAgent/profileReviewSkeleton'
 
 const ListReviews = ({
   profileType, reviewType, id,
@@ -40,12 +41,11 @@ const ListReviews = ({
 
   if (fetchLoading) {
     return (
-      <>
+      <div className='pl-10'>
         <Divider className='divider' />
-        <div className='padding-10 mt-10'>
-          <h3 className='h3'>Loading...</h3>
-        </div>
-      </>
+        <ProfileReviewSkeleton />
+        <ProfileReviewSkeleton />
+      </div>
     )
   }
 

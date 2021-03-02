@@ -25,3 +25,37 @@
   padding: 15px 0px;
   margin: 5px 0px;
 }
+
+.review-skeleton-container {
+  width: 100%;
+  display: inline-block;
+  .skeleton-avatar-container{
+    float: left;
+    margin-right: 10px;
+    .custom-skeleton-avatar{
+      width: 40px;
+      height: 40px;
+      margin-top: 20px;
+      float: left
+    }
+  }
+  .skeleton-title-container{
+    width: 90%;
+    display: inline-block;
+    margin-top: 15px;
+
+    .custom-skeleton-name {
+      width: 30%;
+    }
+    .custom-skeleton-date {
+      width: 40%;
+    }
+    .custom-skeleton-rating {
+      width: 25%;
+    }
+    .custom-skeleton-description{
+      width: 90%;
+      height: 25px;
+    }
+  }
+}
