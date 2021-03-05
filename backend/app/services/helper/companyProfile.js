@@ -229,7 +229,7 @@ export const fetchCompanyReviews = async ({ user_id, client_id, type }) => {
       ['activity_custom', 'reviewText'],
       [Sequelize.fn('AVG', Sequelize.col('activity_value')), 'rating']
     ],
-    group: ['user_id']
+    group: [type === 'received' ? 'user_id' : 'record_id']
   })
 
   reviewsList = reviewsList.map(item => item.get({ plain: true }))
