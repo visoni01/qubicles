@@ -3,44 +3,44 @@ import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import ReviewModal from '../../OtherAgent/reviewModal'
 import { profileReviewPostStart } from '../../../../redux-saga/redux/actions'
-import { clientRatingLabels } from '../../OtherAgent/ratingLabels'
+import { agentRatingLabels } from '../../OtherAgent/ratingLabels'
 
-const AddCompanyReview = ({
-  clientId, openReviewModal, setOpenReviewModal,
+const AddAgentReview = ({
+  agentUserId, openReviewModal, setOpenReviewModal,
 }) => {
   const dispatch = useDispatch()
   const { postLoading, postSuccess } = useSelector((state) => state.profileReviews)
   const [ reviewText, setReviewText ] = useState('')
   const [ rating, setRating ] = useState({
-    cultureRating: 0,
-    leadershipRating: 0,
-    careerAdvancementRating: 0,
-    compensationRating: 0,
+    performanceRating: 0,
+    teamPlayerRating: 0,
+    customerInteractionRating: 0,
+    dependabilityRating: 0,
   })
 
   // Handle post Review
   const handleSubmitReview = useCallback(() => {
     dispatch(profileReviewPostStart({
-      profileType: 'employer',
-      id: clientId,
+      profileType: 'agent',
+      id: agentUserId,
       reviewData: {
-        cultureRating: rating.cultureRating,
-        leadershipRating: rating.leadershipRating,
-        careerRating: rating.careerAdvancementRating,
-        compensationRating: rating.compensationRating,
+        performanceRating: rating.performanceRating,
+        teamPlayerRating: rating.teamPlayerRating,
+        customerInteractionRating: rating.customerInteractionRating,
+        dependabilityRating: rating.dependabilityRating,
         reviewText,
       },
     }))
-  }, [ dispatch, rating, reviewText, clientId ])
+  }, [ dispatch, rating, reviewText, agentUserId ])
 
   const handleOnReviewModalClose = useCallback(() => {
     setOpenReviewModal(false)
     setReviewText('')
     setRating({
-      cultureRating: 0,
-      leadershipRating: 0,
-      careerAdvancementRating: 0,
-      compensationRating: 0,
+      performanceRating: 0,
+      teamPlayerRating: 0,
+      customerInteractionRating: 0,
+      dependabilityRating: 0,
     })
   }, [ setOpenReviewModal ])
 
@@ -57,8 +57,8 @@ const AddCompanyReview = ({
       open={ openReviewModal }
       onClose={ handleOnReviewModalClose }
       onSubmit={ handleSubmitReview }
-      reviewHeading=' Please rate your work with the company regarding the different criteria below'
-      ratingLabels={ clientRatingLabels }
+      reviewHeading=' Please rate your work with the agent regarding the different criteria below'
+      ratingLabels={ agentRatingLabels }
       rating={ rating }
       setRating={ setRating }
       reviewText={ reviewText }
@@ -67,9 +67,9 @@ const AddCompanyReview = ({
   )
 }
 
-AddCompanyReview.propTypes = {
-  clientId: PropTypes.number.isRequired,
+AddAgentReview.propTypes = {
+  agentUserId: PropTypes.number.isRequired,
   openReviewModal: PropTypes.bool.isRequired,
   setOpenReviewModal: PropTypes.func.isRequired,
 }
-export default AddCompanyReview
+export default AddAgentReview

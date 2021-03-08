@@ -7,12 +7,12 @@ import PropTypes from 'prop-types'
 import ViewAllRatings from '../../OtherAgent/viewAllRatings'
 import { profileRatingsFetchStart } from '../../../../redux-saga/redux/actions'
 import Loader from '../../../../components/loaders/circularLoader'
-import AddCompanyReview from './addReview'
-import ListReviews from './listReviews'
-import { clientRatingLabels } from '../../OtherAgent/ratingLabels'
+import { agentRatingLabels } from '../../OtherAgent/ratingLabels'
+import ListReviews from '../../Company/About/listReviews'
+import AddAgentReview from './addReview'
 
-const CompanyReviews = ({
-  companyId,
+const AgentReviews = ({
+  agentUserId,
 }) => {
   const [ activeTab, setActivetab ] = useState(0)
   const [ openReviewModal, setOpenReviewModal ] = useState(false)
@@ -24,12 +24,12 @@ const CompanyReviews = ({
 
   useEffect(() => {
     dispatch(profileRatingsFetchStart({
-      profileType: 'employer',
-      id: companyId,
+      profileType: 'agent',
+      id: agentUserId,
     }))
-  }, [ dispatch, companyId ])
+  }, [ dispatch, agentUserId ])
 
-  if (!fetchLoading && fetchSuccess) {
+  if (!fetchLoading) {
     return (
       <>
         <div className='mb-25 custom-box resume-root reviews-root has-fullwidth'>
@@ -68,12 +68,12 @@ const CompanyReviews = ({
               />
             ) : (
               <ViewAllRatings
-                subRatingLabels={ clientRatingLabels }
+                subRatingLabels={ agentRatingLabels }
                 subRatingValues={ {
-                  cultureRating: viewRatings.rating1,
-                  leadershipRating: viewRatings.rating2,
-                  careerAdvancementRating: viewRatings.rating3,
-                  compensationRating: viewRatings.rating4,
+                  performanceRating: viewRatings.rating1,
+                  teamPlayerRating: viewRatings.rating2,
+                  customerInteractionRating: viewRatings.rating3,
+                  dependabilityRating: viewRatings.rating4,
                 } }
                 totalAverageRating={ viewRatings.totalAverageRating }
                 totalAverageRaters={ viewRatings.totalAverageRaters }
@@ -83,15 +83,15 @@ const CompanyReviews = ({
 
           {/* List Reviews */}
           <ListReviews
-            id={ companyId }
-            profileType='employer'
+            id={ agentUserId }
+            profileType='agent'
             reviewType={ activeTab === 0 ? 'received' : 'given' }
           />
         </div>
 
         {/* Leave Review */}
-        <AddCompanyReview
-          clientId={ companyId }
+        <AddAgentReview
+          agentUserId={ agentUserId }
           openReviewModal={ openReviewModal }
           setOpenReviewModal={ setOpenReviewModal }
         />
@@ -100,8 +100,8 @@ const CompanyReviews = ({
   } return (<></>)
 }
 
-CompanyReviews.propTypes = {
-  companyId: PropTypes.number.isRequired,
+AgentReviews.propTypes = {
+  agentUserId: PropTypes.number.isRequired,
 }
 
-export default CompanyReviews
+export default AgentReviews

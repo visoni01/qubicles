@@ -1,11 +1,11 @@
 import bcrypt from 'bcrypt'
-import { XClient, User, UserDetail, XUserActivity, Sequelize } from '../../db/models'
+import { XClient, User, UserDetail, XUserActivity, XClientUser, Sequelize } from '../../db/models'
 import { APP_ERROR_CODES } from '../../utils/errors'
 import jwt from 'jsonwebtoken'
 import config from '../../../config/app'
 import { CONSTANTS } from '../../utils/success'
 import SendResetEmailVerificationMailService from '../email/sendResetEmailVerificationMail'
-import { getAll } from './crud'
+import { getAll, getOne } from './crud'
 import _ from 'lodash'
 import { getUserDetails, getUserById } from './user'
 
@@ -200,16 +200,24 @@ export const fetchCompanyReviews = async ({ user_id, client_id, type }) => {
     record_type: 'client',
     activity_type: ['rating_culture', 'rating_leadership', 'rating_career', 'rating_compensation']
   }
-  if (type === 'recieved') {
+  if (type === 'received') {
     activityQuery = {
       ...activityQuery,
       record_id: client_id
     }
   } else if (type === 'given') {
-    activityQuery = {
-      ...activityQuery,
-      user_id: user_id
-    }
+    const client = await getOne({
+      model: XClientUser,
+      data: { client_id }
+    })
+    if (client) {
+      activityQuery = {
+        ...activityQuery,
+        record_type: 'user',
+        activity_type: ['rating_performance', 'rating_teamplayer', 'rating_interaction', 'rating_dependability'],
+        user_id: client.user_id
+      }
+    } else return []
   }
 
   let reviewsList = await XUserActivity.findAll({
@@ -217,16 +225,17 @@ export const fetchCompanyReviews = async ({ user_id, client_id, type }) => {
     attributes: [
       ['user_activity_id', 'id'],
       'user_id',
+      'record_id',
       ['activity_custom', 'reviewText'],
       [Sequelize.fn('AVG', Sequelize.col('activity_value')), 'rating']
     ],
-    group: ['user_id']
+    group: [type === 'received' ? 'user_id' : 'record_id']
   })
 
   reviewsList = reviewsList.map(item => item.get({ plain: true }))
 
   const reviewDetails = Promise.all(reviewsList.map(async (review) => {
-    const userDetail = await getUserDetails({ user_id: review.user_id })
+    const userDetail = await getUserDetails({ user_id: type === 'received' ? review.user_id : review.record_id })
     return {
       ...review,
       rating: parseFloat(review.rating).toFixed(1),
@@ -240,7 +249,7 @@ export const fetchCompanyReviews = async ({ user_id, client_id, type }) => {
   return reviewDetails
 }
 
-export const getAddReviewAccess = async ({ user_id, client_id }) => {
+export const getAddReviewAccessForClient = async ({ user_id, client_id }) => {
   const user = await getUserById({ user_id })
   if (!(user.user_code === 'agent')) {
     return false

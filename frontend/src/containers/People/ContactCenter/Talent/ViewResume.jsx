@@ -9,6 +9,7 @@ import WorkHistory from './Application/WorkHistory'
 import Actions from '../Jobs/Actions'
 import './styles.scss'
 import { fetchAgentResumeStart } from '../../../../redux-saga/redux/actions'
+import AgentReviews from '../../../Profile/Agent/Resume/agentReviews'
 
 const ViewResume = () => {
   const dispatch = useDispatch()
@@ -41,7 +42,7 @@ const ViewResume = () => {
         <WorkHistory />
         <Courses />
         {/* WIP Reviews Section */}
-        {/* <ResumeReviews /> */}
+        <AgentReviews agentUserId={ agentResume.candidateId } />
       </Grid>
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 12 }>
         <Actions />

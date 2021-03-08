@@ -33,25 +33,25 @@ const clientRatingLabels = [
 const agentRatingLabels = [
   {
     id: 0,
-    name: 'performance',
+    name: 'performanceRating',
     label: 'Performance',
     icon: performanceIcon,
   },
   {
     id: 1,
-    name: 'teamPlayer',
+    name: 'teamPlayerRating',
     label: 'Team Player',
     icon: teamplayerIcon,
   },
   {
     id: 0,
-    name: 'customerInteraction',
+    name: 'customerInteractionRating',
     label: 'Customer Interaction',
     icon: customerInteractionIcon,
   },
   {
     id: 2,
-    name: 'dependability',
+    name: 'dependabilityRating',
     label: 'Dependability',
     icon: dependabilityIcon,
   },
