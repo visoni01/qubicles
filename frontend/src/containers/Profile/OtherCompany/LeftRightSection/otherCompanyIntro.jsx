@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import Introduction from '../../../People/ContactCenter/Introduction'
 import PrimaryContact from '../../Company/LeftRightSection/primaryContact'
-import ContactCenterSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/ContactCenterSkeleton'
+import ContactCenterSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/contactCenterSkeleton'
 import { jobPostCompanyDetailsFetchStart } from '../../../../redux-saga/redux/actions'
 
 const OtherCompanyIntro = ({

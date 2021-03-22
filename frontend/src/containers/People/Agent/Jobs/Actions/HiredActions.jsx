@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import ConfirmationModal from '../../../../../components/CommonModal/ConfirmationModal'
+import ConfirmationModal from '../../../../../components/CommonModal/confirmationModal'
 
 const HiredActions = ({
   updateApplicationStatus,

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import TopCompanyCard from './topCompanyCard'
 import { fetchTopCompaniesStart } from '../../../../redux-saga/redux/actions'
-import TopCompanySkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/TopCompanySkeleton'
+import TopCompanySkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/topCompanySkeleton'
 
 export default function TopCompanies({ heading }) {
   const { topCompanies, isLoading, success } = useSelector((state) => state.fetchTopCompanies)

@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Divider } from '@material-ui/core'
 import { useSelector } from 'react-redux'
 import JobCategoryCard from './JobCategoryCard'
-import JobsSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/JobsSkeleton'
+import JobsSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/jobsSkeleton'
 
 export default function RenderJobs() {
   const { jobsWithCategories, isLoading } = useSelector((state) => state.jobsWithCategories)

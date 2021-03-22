@@ -4,7 +4,7 @@ import {
   Box, Grid,
 } from '@material-ui/core'
 import { jobPostCard } from '../../../../containers/People/ContactCenter/testData'
-import JobPostDetails from './JobPostDetails'
+import JobPostDetails from './jobPostDetails'
 import CreatePreviewActions from '../../../../containers/People/ContactCenter/Jobs/NewJob/Actions'
 
 const JobPreview = () => {

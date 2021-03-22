@@ -1,5 +1,5 @@
 import { lazy } from 'react'
-import Auth from '../components/User/Auth'
+import Auth from '../components/User/auth'
 import ROUTE_PATHS, {
   PEOPLE_ROUTE, PROFILE_ROUTE, PROGRAMS_NAVIGATION_ROUTE, INSIGHTS_NAVIGATION_ROUTE, SETTINGS_NAVIGATION_ROUTE,
 } from './routesPath'

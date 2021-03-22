@@ -1,6 +1,6 @@
 import React from 'react'
 import ROUTE_PATHS from '../routesPath'
-import JobPreview from '../../components/People/ContactCenter/Jobs/JobPreview'
+import JobPreview from '../../components/People/ContactCenter/Jobs/jobPreview'
 import NewJobModal from '../../containers/People/ContactCenter/Jobs/NewJob/index'
 import Peoplepage from '../../containers/People/index'
 import EditJob from '../../containers/People/ContactCenter/Jobs/EditJob'

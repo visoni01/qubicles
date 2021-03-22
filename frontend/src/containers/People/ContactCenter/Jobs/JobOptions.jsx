@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { deleteJob } from '../../../../redux-saga/redux/actions'
-import ConfirmationModal from '../../../../components/CommonModal/ConfirmationModal'
+import ConfirmationModal from '../../../../components/CommonModal/confirmationModal'
 import { JOB_ROUTE } from '../../../../routes/routesPath'
 
 const JobOptions = ({ categoryId, jobId }) => {

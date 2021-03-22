@@ -13,7 +13,6 @@ const CustomerServiceOverview = () => (
           <b className='h3 number-color-green mr-10'>0.20</b>
           <span className='para light'>Average speed of answer</span>
         </p>
-
         <p className='mt-10'>
           <b className='h3 mr-10'>2.45</b>
           <span className='para light'>Marlon mars</span>

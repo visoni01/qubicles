@@ -6,7 +6,7 @@ import { jobDetailsFetchStart } from '../../../../redux-saga/redux/actions'
 import CompanyStats from '../Jobs/companyStats'
 import JobPost from '../../ContactCenter/Jobs/JobPost'
 import { jobPostCard } from '../../ContactCenter/testData'
-import IntroductionSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/ContactCenterSkeleton'
+import IntroductionSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/contactCenterSkeleton'
 import ActionsBox from '../Jobs/Actions/ActionsBox'
 import CoverLetter from '../../ContactCenter/Talent/Application/CoverLetter'
 
