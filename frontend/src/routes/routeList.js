@@ -66,7 +66,7 @@ const routes = [
   },
   {
     path: ROUTE_PATHS.RESET_NEW_PASSWORD,
-    component: lazy(() => import('../containers/ForgetPassword/ResetNewPassword')),
+    component: lazy(() => import('../containers/ForgetPassword/resetNewPassword')),
     exact: true,
   },
   {

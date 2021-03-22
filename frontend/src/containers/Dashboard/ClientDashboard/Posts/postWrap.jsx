@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Box } from '@material-ui/core'
 import { useSelector } from 'react-redux'
-import PostHead from './PostHead'
-import PostBody from './PostBody'
+import PostHead from './postHead'
+import PostBody from './postBody'
 import { commentsArrayValidator } from '../postValidators'
-import PostOptions from './PostOptions'
+import PostOptions from './postOptions'
 
 const PostWrap = ({
   userActivityId, activityValue, activityCustom,

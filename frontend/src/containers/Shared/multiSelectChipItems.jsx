@@ -6,9 +6,9 @@ import { Autocomplete } from '@material-ui/lab'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
 
-export default function MultiSelectChipItems({
+const MultiSelectChipItems = ({
   items, label, smallTag, onChange, initialData,
-}) {
+}) => {
   const [ inputValue, setInputValue ] = useState('')
   const [ selectedItems, setSelectedItems ] = useState(initialData || [])
   const setSelectedItemsCB = useCallback((event, value) => {
@@ -96,3 +96,5 @@ MultiSelectChipItems.propTypes = {
   })),
   onChange: PropTypes.func.isRequired,
 }
+
+export default MultiSelectChipItems

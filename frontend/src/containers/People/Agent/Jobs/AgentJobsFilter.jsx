@@ -7,7 +7,7 @@ import {
 import { Rating } from '@material-ui/lab'
 import _ from 'lodash'
 import { useDispatch, useSelector } from 'react-redux'
-import MultiSelectChipItems from '../../MultiSelectChipItems'
+import MultiSelectChipItems from '../../../Shared/multiSelectChipItems'
 import {
   fetchJobSkillsStart, jobCategoriesOnlyFetchStart, fetchAgentJobsStart,
 } from '../../../../redux-saga/redux/actions'

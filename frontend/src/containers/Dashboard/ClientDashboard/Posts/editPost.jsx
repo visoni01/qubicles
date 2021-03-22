@@ -14,7 +14,7 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 import { updatePostStatus } from '../../../../redux-saga/redux/actions'
 import { postStatusPermissions } from '../../../People/ContactCenter/constants'
-import PostHead from './PostHead'
+import PostHead from './postHead'
 
 const EditPost = ({
   postId, initialPostData, owner, createdAt, handleCancelEdit,

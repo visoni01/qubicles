@@ -4,8 +4,8 @@ import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { getTimeFromNow } from '../../../../utils/common'
 import { terry } from '../../../../assets/images/avatar'
-import CommentOptions from './CommentOptions'
-import EditComment from './EditComment'
+import CommentOptions from './commentOptions'
+import EditComment from './editComment'
 
 const RenderPostComments = ({
   ownerId, postId, commentId, commentText, ownerName, createdAt, updatedAt,

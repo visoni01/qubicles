@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Box } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { postDataFetchingStart } from '../../../../redux-saga/redux/actions'
-import PostWrap from './PostWrap'
-import PostSkeleton from './PostSkeleton'
+import PostWrap from './postWrap'
+import PostSkeleton from './postSkeleton'
 
 const RenderPosts = ({ ownerId }) => {
   const { posts, isLoading } = useSelector((state) => state.statusPosts)

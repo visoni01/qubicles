@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
-import PostIconsTray from './PostIconsTray'
-import PostCommentsWrap from '../PostComments/PostCommentsWrap'
-import AddComment from '../PostComments/AddComment'
+import PostIconsTray from './postIconsTray'
+import PostCommentsWrap from '../PostComments/postCommentsWrap'
+import AddComment from '../PostComments/addComment'
 import config from '../../../../utils/config'
 import {
   addCommentToPost, fetchCommentForPost, updatePostData,

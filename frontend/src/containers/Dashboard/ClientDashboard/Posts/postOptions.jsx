@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { deletePostStatus } from '../../../../redux-saga/redux/actions'
 import ConfirmationModal from '../../../../components/CommonModal/confirmationModal'
-import EditPostModal from './EditPostModal'
+import EditPostModal from './editPostModal'
 
 const PostOptions = ({
   postId, postText, postImage, permission, owner, createdAt,

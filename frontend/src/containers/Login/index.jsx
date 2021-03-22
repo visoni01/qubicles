@@ -20,7 +20,7 @@ import {
 } from 'react-share'
 import { userLoginStart, clearStore, resetShowVerifyMailButton } from '../../redux-saga/redux/login'
 import VerificationPageButton from '../EmailVerification/verificationPageButton'
-import ForgottenPasswordButton from '../ForgetPassword/ForgottonPasswordButton'
+import ForgottenPasswordButton from '../ForgetPassword/forgottonPasswordButton'
 import './style.scss'
 import config from '../../utils/config'
 

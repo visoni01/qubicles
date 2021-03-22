@@ -3,9 +3,9 @@ import { FormControl, TextField } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 import PropTypes from 'prop-types'
 
-export default function SingleSelect({
+const SingleSelect = ({
   items, onChange, label, value,
-}) {
+}) => {
   const [ inputValue, setInputValue ] = useState('')
   const [ selectedItem, setSelectedItem ] = useState(value || null)
 
@@ -68,3 +68,5 @@ SingleSelect.propTypes = {
   label: PropTypes.string,
   onChange: PropTypes.func.isRequired,
 }
+
+export default SingleSelect

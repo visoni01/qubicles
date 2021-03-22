@@ -9,9 +9,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 
-export default function MultiSelectLinkItems({
+const MultiSelectLinkItems = ({
   items, label, onChange, initialData, textLinkBase,
-}) {
+}) => {
   const [ inputValue, setInputValue ] = useState('')
   const [ selectedItems, setSelectedItems ] = useState(initialData || [])
   const setSelectedItemsCB = useCallback((event, value) => {
@@ -97,3 +97,5 @@ MultiSelectLinkItems.propTypes = {
   })),
   onChange: PropTypes.func.isRequired,
 }
+
+export default MultiSelectLinkItems

@@ -6,7 +6,7 @@ import {
 import PropTypes from 'prop-types'
 import './styles.scss'
 import { useDispatch, useSelector } from 'react-redux'
-import MultiSelectChipItems from '../../../People/MultiSelectChipItems'
+import MultiSelectChipItems from '../../../Shared/multiSelectChipItems'
 import { accountSettingInfoPropTypes, accountSettingInfoDefaultProps } from './settingsProps'
 import {
   updateCompanyProfileSettingsApiStart,
