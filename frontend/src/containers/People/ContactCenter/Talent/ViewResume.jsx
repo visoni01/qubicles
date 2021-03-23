@@ -6,7 +6,7 @@ import ResumeIntro from './Application/ResumeIntro'
 import Courses from './Application/Courses'
 import SkillsPage from './Application/SkillsPage'
 import WorkHistory from './Application/WorkHistory'
-import Actions from '../Jobs/Actions'
+import InviteAgentActions from '../Jobs/Actions/inviteAgentActions'
 import './styles.scss'
 import { fetchAgentResumeStart } from '../../../../redux-saga/redux/actions'
 import AgentReviews from '../../../Profile/Agent/Resume/agentReviews'
@@ -28,6 +28,7 @@ const ViewResume = () => {
           candidateRating={ agentResume.candidateRating }
           location={ agentResume.location }
           profileName={ agentResume.profileName }
+          profileImage={ agentResume.profileImage }
           profileDescription={ agentResume.profileDescription }
           ratePerHourDollar={ agentResume.ratePerHourDollar }
           highestEducation={ agentResume.highestEducation }
@@ -42,10 +43,13 @@ const ViewResume = () => {
         <WorkHistory />
         <Courses />
         {/* WIP Reviews Section */}
-        <AgentReviews agentUserId={ agentResume.candidateId } />
+        <AgentReviews agentUserId={ candidateId } />
       </Grid>
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 12 }>
-        <Actions />
+        <InviteAgentActions
+          key={ candidateId }
+          candidateId={ candidateId }
+        />
       </Grid>
     </Grid>
   )

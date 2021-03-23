@@ -2,15 +2,15 @@ import React, { useState, useCallback } from 'react'
 import {
   Box, Button,
 } from '@material-ui/core'
-import InviteAgent from './InviteAgent'
+import PropTypes from 'prop-types'
+import InviteAgent from '../InviteAgent'
 import '../styles.scss'
 
-const Actions = () => {
+const InviteAgentActions = ({
+  candidateId,
+}) => {
   const [ openInviteAgentModal, setOpenInviteAgentModal ] = useState(false)
-  const handleOpenInviteAgentModal = useCallback(
-    // eslint-disable-next-line no-shadow
-    () => setOpenInviteAgentModal((openInviteAgentModal) => !openInviteAgentModal), [],
-  )
+  const handleOpenInviteAgentModal = useCallback(() => setOpenInviteAgentModal((open) => !open), [])
 
   return (
     <>
@@ -39,9 +39,18 @@ const Actions = () => {
       <InviteAgent
         open={ openInviteAgentModal }
         handleClose={ handleOpenInviteAgentModal }
+        candidateId={ candidateId }
       />
     </>
   )
 }
 
-export default Actions
+InviteAgentActions.defaultProps = {
+  candidateId: null,
+}
+
+InviteAgentActions.propTypes = {
+  candidateId: PropTypes.number,
+}
+
+export default InviteAgentActions

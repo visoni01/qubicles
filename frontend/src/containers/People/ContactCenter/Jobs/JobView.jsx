@@ -10,7 +10,8 @@ import './styles.scss'
 import { jobDetailsFetchStart } from '../../../../redux-saga/redux/actions'
 
 const JobView = () => {
-  const { jobId } = useParams()
+  let { jobId } = useParams()
+  jobId = parseInt(jobId, 10)
   const { jobDetails, isLoading } = useSelector((state) => state.jobDetails)
   const dispatch = useDispatch()
   useEffect(() => {

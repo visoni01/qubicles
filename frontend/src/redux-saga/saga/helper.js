@@ -58,3 +58,64 @@ export const getPostSignUpStepsData = ({ type, data }) => {
 
   return stepsData
 }
+
+export const jobApplicationListData = (data) => {
+  const jobApplications = {
+    Pending: [],
+    Evaluating: [],
+    Hired: [],
+    Archived: [],
+  }
+  data.map((jobApp) => {
+    if ([ 'invited', 'applied' ].includes(jobApp.application.status)) {
+      jobApplications.Pending.push(jobApp)
+    }
+    if ([ 'screening', 'training' ].includes(jobApp.application.status)) {
+      jobApplications.Evaluating.push(jobApp)
+    }
+    if ([ 'hired', 'offered' ].includes(jobApp.application.status)) {
+      jobApplications.Hired.push(jobApp)
+    }
+    if ([ 'terminated', 'rejected', 'declined' ].includes(jobApp.application.status)) {
+      jobApplications.Archived.push(jobApp)
+    }
+    return jobApp
+  })
+  return jobApplications
+}
+
+export const formatAgentApplicationCards = ({ applications }) => {
+  const agentApplications = applications.map((application) => {
+    const { XQodJob, XClient, UserDetail } = application
+    return ({
+      application: {
+        applicationId: application.application_id,
+        agentUserId: application.user_id,
+        clientId: application.client_id,
+        jobId: application.job_id,
+        coverLetter: application.cover_letter,
+        status: application.status,
+        createdOn: application.createdAt,
+        updateOn: application.updatedAt,
+      },
+      jobDetails: {
+        jobId: XQodJob.job_id,
+        jobType: XQodJob.job_type,
+        jobTitle: XQodJob.title,
+        jobDescription: XQodJob.description,
+        durationType: XQodJob.duration_type,
+        location: `${ XQodJob.city }, ${ XQodJob.state } `,
+        fulfilled: XQodJob.fulfilled,
+        needed: XQodJob.needed,
+        durationMonths: XQodJob.duration_months,
+        payAmount: XQodJob.pay_amount,
+      },
+      clientDetails: {
+        clientId: XClient.client_id,
+        clientName: XClient.client_name,
+        profileImage: UserDetail.profile_image,
+      },
+    })
+  })
+  return agentApplications
+}

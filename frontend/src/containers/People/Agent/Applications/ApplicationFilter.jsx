@@ -1,19 +1,39 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   List, MenuItem, ListItemText, Box,
 } from '@material-ui/core'
+import { useSelector, useDispatch } from 'react-redux'
+import {
+  updateAgentJobApplicationsCategory,
+  agentJobApplicationsRequestStart,
+} from '../../../../redux-saga/redux/actions'
 
 export default function ApplicationFilter() {
-  const [ selectedCategory, setSelectedCategory ] = useState(0)
+  const {
+    applicationFilter, selectedApplicationCategory,
+  } = useSelector((state) => state.agentJobApplications)
+  const { userDetails } = useSelector((state) => state.login)
+  const dispatch = useDispatch()
+  const [ selectedCategory, setSelectedCategory ] = useState(applicationFilter[ selectedApplicationCategory ])
+  useEffect(() => {
+    dispatch(updateAgentJobApplicationsCategory({ category: selectedCategory.id }))
+  }, [ dispatch, selectedCategory ])
 
-  const applicationCategories = [
-    { categoryId: 0, categoryTitle: 'All' },
-    { categoryId: 1, categoryTitle: 'Invitations' },
-    { categoryId: 2, categoryTitle: 'Pretraining' },
-    { categoryId: 3, categoryTitle: 'Pending' },
-    { categoryId: 4, categoryTitle: 'Archived' },
-
-  ]
+  useEffect(() => {
+    if (!applicationFilter[ selectedCategory.id ].initialFetch) {
+      dispatch(agentJobApplicationsRequestStart({
+        applicationListData: {
+          agentUserId: userDetails.user_id,
+          limit: selectedCategory.limit,
+          offset: selectedCategory.offset,
+          statusTypes: selectedCategory.statusTypes,
+          applicationCategoryId: selectedCategory.id,
+        },
+        requestType: 'FETCH',
+      }))
+    }
+    // eslint-disable-next-line
+  }, [ dispatch, selectedApplicationCategory, userDetails.user_id, applicationFilter ])
 
   return (
     <Box className='custom-box no-padding side-filter-root job-list'>
@@ -21,16 +41,16 @@ export default function ApplicationFilter() {
         <h2 className='h2 title'>Applications</h2>
       </div>
       <List className='filter-list-items'>
-        { applicationCategories.map((applicationCategory) => (
+        { Object.keys(applicationFilter).map((categoryId) => (
           <MenuItem
             button
-            onClick={ () => setSelectedCategory(applicationCategory.categoryId) }
-            selected={ selectedCategory === applicationCategory.categoryId }
-            key={ applicationCategory.categoryId }
+            onClick={ () => setSelectedCategory(applicationFilter[ categoryId ]) }
+            selected={ selectedCategory.id === applicationFilter[ categoryId ].id }
+            key={ categoryId }
           >
             <ListItemText classes={ { primary: 'list-item' } }>
               <h4 className='h4 light unbold'>
-                {applicationCategory.categoryTitle}
+                {applicationFilter[ categoryId ].name}
               </h4>
             </ListItemText>
           </MenuItem>

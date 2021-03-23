@@ -1,4 +1,6 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, {
+  useState, useCallback, useEffect, useMemo,
+} from 'react'
 import PropTypes from 'prop-types'
 import {
   Dialog, DialogActions, DialogContent,
@@ -8,33 +10,62 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
-import _ from 'lodash'
 import SingleSelect from '../../SingleSelect'
-import { jobCategoriesOnlyFetchStart } from '../../../../redux-saga/redux/actions'
+import {
+  jobsWithCategoriesFetchStart, jobApplicationRequestStart,
+} from '../../../../redux-saga/redux/actions'
 
 const InviteAgent = ({
-  open, handleClose,
+  open, handleClose, candidateId,
 }) => {
-  const [ inviteAgentData, setInviteAgentData ] = useState({
-    jobType: '',
-    inviteMessage: '',
-  })
-  const [ selectedCategory, setSelectedCategory ] = useState(null)
-  const dispatch = useDispatch()
-  const { jobCategoriesOnly } = useSelector((state) => state.jobCategoriesOnly)
-  useEffect(() => {
-    if (_.isEmpty(jobCategoriesOnly)) {
-      dispatch(jobCategoriesOnlyFetchStart({ searchKeyword: '' }))
-    }
-  }, [ dispatch, jobCategoriesOnly ])
+  const [ inviteMessage, setInviteMessage ] = useState('')
+  const [ selectedJob, setSelectedJob ] = useState(null)
 
-  const setInviteAgentDataCB = useCallback((event) => {
-    const { name, value } = event.target
-    setInviteAgentData((currentInviteAgentData) => ({
-      ...currentInviteAgentData,
-      [ name ]: value,
+  const dispatch = useDispatch()
+  const { jobsWithCategories } = useSelector((state) => state.jobsWithCategories)
+  const { success } = useSelector((state) => state.jobApplication)
+  const { settings } = useSelector((state) => state.clientDetails)
+
+  const allJobs = useMemo(() => jobsWithCategories.map((category) => category.jobs.map((job) => ({
+    id: job.job_id,
+    title: `${ job.title } (${ category.categoryTitle })`,
+  }))), [ jobsWithCategories ])
+
+  useEffect(() => {
+    dispatch(jobsWithCategoriesFetchStart({
+      status: 'recruiting',
     }))
-  }, [ ])
+  }, [ dispatch ])
+
+  const closeAndResetInputFields = useCallback(() => {
+    handleClose()
+    setInviteMessage('')
+    setSelectedJob(null)
+  }, [ handleClose ])
+
+  useEffect(() => {
+    if (success) {
+      closeAndResetInputFields()
+    }
+    // eslint-disable-next-line
+  }, [ success ])
+
+  const sendInviteAgentData = useCallback(
+    () => {
+      dispatch(jobApplicationRequestStart({
+        applicationData: {
+          agentUserId: candidateId,
+          clientId: settings.companyId,
+          jobId: selectedJob.id,
+          coverLetter: inviteMessage,
+          videoPitchUrl: '',
+          status: 'invited',
+        },
+        requestType: 'CREATE',
+      }))
+    },
+    [ dispatch, inviteMessage, selectedJob, candidateId, settings.companyId ],
+  )
 
   return (
     <Dialog
@@ -53,7 +84,7 @@ const InviteAgent = ({
         <DialogActions className='cross-button'>
           <IconButton
             className='is-size-6'
-            onClick={ handleClose }
+            onClick={ closeAndResetInputFields }
           >
             <FontAwesomeIcon className='custom-fa-icon pointer' icon={ faTimes } />
           </IconButton>
@@ -63,13 +94,13 @@ const InviteAgent = ({
         <h4 className='h4'>Invite for following position</h4>
         <div>
           <SingleSelect
-            items={ jobCategoriesOnly.map((category) => ({
-              id: category.categoryId,
-              title: category.categoryTitle,
-            })) }
-            onChange={ (selectedValue) => setSelectedCategory(selectedValue) }
-            value={ selectedCategory }
-            label='Select Category'
+            items={ allJobs.flat() }
+            onChange={ (selectedValue) => setSelectedJob(selectedValue) }
+            value={ (selectedJob && selectedJob.id) ? {
+              id: selectedJob.id,
+              title: selectedJob.title,
+            } : null }
+            label='Select Job'
           />
         </div>
         <h4 className='h4 mt-20'>Message</h4>
@@ -81,8 +112,8 @@ const InviteAgent = ({
           multiline
           variant='outlined'
           placeholder="Personalize your invitation by referring to agent's specific skill"
-          value={ inviteAgentData.inviteMessage }
-          onChange={ setInviteAgentDataCB }
+          value={ inviteMessage }
+          onChange={ (event) => setInviteMessage(event.target.value) }
           required
           name='inviteMessage'
         />
@@ -91,13 +122,14 @@ const InviteAgent = ({
         <Button
           color='secondary'
           className='cancel-button'
-          onClick={ handleClose }
+          onClick={ closeAndResetInputFields }
         >
           Cancel
         </Button>
         <Button
           className='button-primary-small'
           classes={ { label: 'primary-label' } }
+          onClick={ sendInviteAgentData }
         >
           Send
         </Button>
@@ -109,6 +141,7 @@ const InviteAgent = ({
 InviteAgent.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
+  candidateId: PropTypes.number.isRequired,
 }
 
 export default InviteAgent

@@ -23,9 +23,7 @@ const ListReviews = ({
     }
   }, [ reviewType, recievedReviews, givenReviews ])
 
-  useEffect(() => {
-    dispatch(resetReviews())
-  }, [ dispatch, profileType, id ])
+  useEffect(() => () => dispatch(resetReviews()), [ dispatch, profileType, id ])
 
   useEffect(() => {
     if ((reviewType === 'received' && !recievedReviews.initialLoad)

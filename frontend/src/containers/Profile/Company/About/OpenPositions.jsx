@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { jobsWithCategoriesFetchStart, updateJobsFilter } from '../../../../redux-saga/redux/actions'
 import { jobFilterStatus } from '../../../People/ContactCenter/constants'
 import RenderJobs from '../../../People/ContactCenter/Jobs/RenderJobs'
+import '../../../People/ContactCenter/Talent/styles.scss'
 
 export default function OpenPositions() {
   const { status } = useSelector((state) => state.jobsWithCategories)

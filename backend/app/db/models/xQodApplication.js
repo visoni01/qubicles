@@ -10,11 +10,23 @@ module.exports = (sequelize, DataTypes) => {
     user_id: DataTypes.INTEGER(11),
     client_id: DataTypes.INTEGER(11),
     job_id: DataTypes.INTEGER(11),
-    cover_letter: DataTypes.STRING,
+    cover_letter: DataTypes.TEXT,
     video_pitch_url: DataTypes.STRING(100),
     status: {
       type: DataTypes.ENUM,
-      values: ['published', 'applied', 'invited', 'declined', 'screening', 'interviewing', 'pretraining', 'offered', 'rejected', 'hired'],
+      values: [
+        'published',
+        'applied',
+        'invited',
+        'screening',
+        'training',
+        'offered',
+        'hired',
+        'rejected',
+        'declined',
+        'resigned',
+        'terminated'
+      ],
       defaultValue: 'published'
     },
     status_reason: DataTypes.STRING,
@@ -24,20 +36,28 @@ module.exports = (sequelize, DataTypes) => {
     end_date: {
       type: DataTypes.DATE
     },
-    created_on: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW
-    },
     is_deleted: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
+    },
+    createdAt: {
+      field: 'created_on',
+      type: DataTypes.DATE
+    },
+    updatedAt: {
+      field: 'updated_on',
+      type: DataTypes.DATE
     }
   },
   {
-    tableName: 'x_qod_applications'
+    tableName: 'x_qod_applications',
+    timestamps: true
   })
   XQodApplication.associate = function (models) {
+    // Adding association with x_user_details table
+    XQodApplication.belongsTo(models.UserDetail, { foreignKey: 'user_id' })
+    XQodApplication.belongsTo(models.XClient, { foreignKey: 'client_id' })
+    XQodApplication.belongsTo(models.XQodJob, { foreignKey: 'job_id' })
   }
   return XQodApplication
 }

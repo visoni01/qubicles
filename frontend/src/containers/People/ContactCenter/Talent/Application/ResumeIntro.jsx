@@ -17,6 +17,7 @@ const ResumeIntro = ({
   candidateRating,
   location,
   profileName,
+  profileImage,
   profileDescription,
   ratePerHourDollar,
   highestEducation,
@@ -38,9 +39,9 @@ const ResumeIntro = ({
       </div>
       <Introduction
         key={ candidateId }
-        imageName={ testResumeIntroduction.imageName }
+        imageName={ profileName }
         rating={ candidateRating }
-        imageSrc={ testResumeIntroduction.imageSrc }
+        imageSrc={ profileImage }
         name={ candidateName }
         location={ location }
         date={ testResumeIntroduction.date }
@@ -94,6 +95,7 @@ ResumeIntro.defaultProps = {
   candidateRating: 0,
   location: '',
   profileName: '',
+  profileImage: '',
   profileDescription: '',
   ratePerHourDollar: 0,
   highestEducation: '',
@@ -105,6 +107,7 @@ ResumeIntro.propTypes = {
   candidateRating: PropTypes.number,
   location: PropTypes.string,
   profileName: PropTypes.string,
+  profileImage: PropTypes.string,
   profileDescription: PropTypes.string,
   ratePerHourDollar: PropTypes.number,
   highestEducation: PropTypes.string,

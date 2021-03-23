@@ -7,7 +7,7 @@ import EditJob from '../../containers/People/ContactCenter/Jobs/EditJob'
 import ViewResume from '../../containers/People/ContactCenter/Talent/ViewResume'
 import CreateCourse from '../../containers/People/ContactCenter/Training/NewCourse/index'
 import ViewCourse from '../../containers/People/ContactCenter/Training/ViewCourse/index'
-import ViewJobApplication from '../../containers/People/ContactCenter/Talent/Application/JobApplicationPage'
+import ViewJobApplication from '../../containers/People/Shared/JobApplicationPage'
 import RouteRenderer from './featureSubRoutes'
 import PeopleViewJobs from '../../containers/People/viewJobsIndex'
 

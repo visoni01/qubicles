@@ -14,60 +14,54 @@ const CompanyStats = ({
   title,
   summary,
   registrationDate,
-}) => {
-  const handleBack = () => {
-    window.history.back()
-  }
-
-  return (
-    <>
-      <Box className='custom-box contact-center-info-root'>
-        <div className='mb-20'>
-          <Button
-            onClick={ handleBack }
-            classes={ {
-              root: 'MuiButtonBase-root button-primary-small',
-              label: 'MuiButton-label button-primary-small-label',
-            } }
-          >
-            <FontAwesomeIcon icon={ faChevronLeft } className='mr-10' />
-            Back
-          </Button>
+}) => (
+  <>
+    <Box className='custom-box contact-center-info-root'>
+      <div className='mb-20'>
+        <Button
+          onClick={ () => window.history.back() }
+          classes={ {
+            root: 'MuiButtonBase-root button-primary-small',
+            label: 'MuiButton-label button-primary-small-label',
+          } }
+        >
+          <FontAwesomeIcon icon={ faChevronLeft } className='mr-10' />
+          Back
+        </Button>
+      </div>
+      <Introduction
+        key={ clientId }
+        imageName={ companyName }
+        rating={ companyRating }
+        imageSrc={ companyImageSrc }
+        name={ companyName }
+        location={ location }
+        date={ registrationDate }
+      />
+      <h4 className='h4 margin-top-bottom-10'>
+        {title}
+      </h4>
+      <p className='para'>
+        {summary}
+      </p>
+      <Divider className='divider' />
+      <div className='display-inline-flex justify-between is-fullwidth'>
+        <div>
+          <h4 className='h4'> 2K+ </h4>
+          <p className='para'> Members</p>
+          <h4 className='h4 mt-20'> 2K+ </h4>
+          <p className='para'> Hires </p>
         </div>
-        <Introduction
-          key={ clientId }
-          imageName={ companyName }
-          rating={ companyRating }
-          imageSrc={ companyImageSrc }
-          name={ companyName }
-          location={ location }
-          date={ registrationDate }
-        />
-        <h4 className='h4 margin-top-bottom-10'>
-          {title}
-        </h4>
-        <p className='para'>
-          {summary}
-        </p>
-        <Divider className='divider' />
-        <div className='display-inline-flex justify-between is-fullwidth'>
-          <div>
-            <h4 className='h4'> 2K+ </h4>
-            <p className='para'> Members</p>
-            <h4 className='h4 mt-20'> 2K+ </h4>
-            <p className='para'> Hires </p>
-          </div>
-          <div>
-            <h4 className='h4'> 2M+ </h4>
-            <p className='para'> Total Calls </p>
-            <h4 className='h4 mt-20'> 124 </h4>
-            <p className='para'> Jobs Posted </p>
-          </div>
+        <div>
+          <h4 className='h4'> 2M+ </h4>
+          <p className='para'> Total Calls </p>
+          <h4 className='h4 mt-20'> 124 </h4>
+          <p className='para'> Jobs Posted </p>
         </div>
-      </Box>
-    </>
-  )
-}
+      </div>
+    </Box>
+  </>
+)
 
 CompanyStats.defaultProps = {
   companyRating: 5,

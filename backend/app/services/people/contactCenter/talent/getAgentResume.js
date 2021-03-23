@@ -30,6 +30,7 @@ export class PeopleGetAgentResumeService extends ServiceBase {
           highestEducation: userDetails.highest_education,
           yearsOfExpirience: userDetails.years_of_experience,
           profileName: userDetails.work_title,
+          profileImage: userDetails.profile_image,
           profileDescription: userDetails.work_overview,
           agentResourceId: profile.resource_def_id,
           ratePerHourDollar: profile.desired_min_pay,

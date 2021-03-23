@@ -1,6 +1,7 @@
 import express from 'express'
 import { isAuthenticated } from '../../../app/middlewares/isAuthenticated'
 import talentController from '../../../app/controllers/talent.controller'
+import applicationController from '../../../app/controllers/application.controller'
 
 const args = { mergeParams: true }
 const peopleRouter = express.Router(args)
@@ -16,5 +17,20 @@ peopleRouter.route('/skills')
 
 peopleRouter.route('/agent/resume/:candidate_id')
   .get(isAuthenticated, talentController.getAgentResume)
+
+peopleRouter.route('/applications')
+  .post(isAuthenticated, applicationController.createJobApplication)
+
+peopleRouter.route('/applications')
+  .get(isAuthenticated, applicationController.fetchJobApplication)
+
+peopleRouter.route('/applications/:application_id')
+  .put(isAuthenticated, applicationController.updateJobApplication)
+
+peopleRouter.route('/applications/job/:job_id')
+  .get(isAuthenticated, applicationController.fetchAllJobApplicationsByJobId)
+
+peopleRouter.route('/applications/user/:agent_user_id')
+  .get(isAuthenticated, applicationController.fetchAllJobApplicationsByAgent)
 
 export { peopleRouter }

@@ -13,6 +13,7 @@ import Sequelize, { Op } from 'sequelize'
 import { createNewEntity, aggregate, updateEntity } from '../helper'
 import _ from 'lodash'
 import { getUserDetailsByClientId } from './user'
+import { countJobApplicationsByJobId } from './jobApplication'
 
 export async function getRecentJobsByClient ({ client_id, limit = 5 }) {
   const jobDetails = []
@@ -240,13 +241,15 @@ export async function getJobById ({ job_id }) {
     raw: true,
     nest: true
   })
+  const jobApplicationStats = await countJobApplicationsByJobId({ job_id })
   const userDetails = await getUserDetailsByClientId({ client_id: jobDetails.XClient.client_id })
   return {
     ...jobDetails,
     XClient: {
       ...jobDetails.XClient,
       profile_image: userDetails.profile_image
-    }
+    },
+    jobApplicationStats
   }
 }
 
@@ -414,11 +417,11 @@ export async function getAllJobs ({ client_id, category_id, search_keyword, stat
 
   const allJobsSubDetails = await XQodCategory.findAndCountAll({
     attributes: [['category_id', 'categoryId'], ['category_name', 'categoryTitle']],
-    include: {
+    include: [{
       model: XQodJob,
       as: 'jobs',
       where: query
-    },
+    }],
     ...additionalParams
   })
 

@@ -51,7 +51,17 @@ const {
     resetJobDetails: (state) => ({
       ...state,
       jobDetails: {},
-      success: true,
+      success: false,
+      error: false,
+      isLoading: false,
+    }),
+    updateApplicationDataInJobDetails: (state, action) => ({
+      ...state,
+      jobDetails: {
+        ...state.jobDetails,
+        jobApplicationStats: action.payload.jobApplicationStats,
+      },
+      success: false,
       error: false,
       isLoading: false,
     }),

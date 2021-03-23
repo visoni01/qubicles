@@ -45,7 +45,18 @@ module.exports = (sequelize, DataTypes) => {
     country: DataTypes.STRING(100),
     languages: DataTypes.STRING(100),
     needed: DataTypes.INTEGER,
-    fulfilled: DataTypes.INTEGER,
+    fulfilled: {
+      defaultValue: 0,
+      type: DataTypes.INTEGER
+    },
+    pending: {
+      defaultValue: 0,
+      type: DataTypes.INTEGER
+    },
+    evaluating: {
+      defaultValue: 0,
+      type: DataTypes.INTEGER
+    },
     pay_amount: DataTypes.DOUBLE,
     pay_type: {
       type: DataTypes.ENUM,
@@ -99,8 +110,9 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'CASCADE',
       hooks: true
     })
-    // Adding association with x_clients table
+    // Adding association with x_user_details table
     XQodJob.belongsTo(models.UserDetail, { foreignKey: 'user_id' })
+    XQodJob.hasMany(models.XQodApplication, { foreignKey: 'job_id' })
   }
   return XQodJob
 }

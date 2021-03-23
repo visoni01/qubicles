@@ -10,6 +10,9 @@ import jobCategoriesOnlyReducer from './job/jobCategories'
 import createJobDataReducer from './job/createJob'
 import fetchAgentJobsReducer from './agent/job/getJobs'
 import fetchTopCompaniesReducer from './agent/job/getTopCompanies'
+import jobApplicationReducer from './application/jobApplication'
+import jobApplicationListReducer from './application/jobApplicationList'
+import agentJobApplicationsReducer from './application/agentJobApplications'
 
 const peopleReducers = {
   jobSkills: jobSkillsReducer,
@@ -24,6 +27,9 @@ const peopleReducers = {
   createJobData: createJobDataReducer,
   fetchAgentJobs: fetchAgentJobsReducer,
   fetchTopCompanies: fetchTopCompaniesReducer,
+  jobApplication: jobApplicationReducer,
+  jobApplicationList: jobApplicationListReducer,
+  agentJobApplications: agentJobApplicationsReducer,
 }
 
 export default peopleReducers

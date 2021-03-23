@@ -1,16 +1,17 @@
 import React from 'react'
-import {
-  faChevronLeft, faUserFriends, faRedo, faEnvelope,
-} from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Box, Button, Divider } from '@material-ui/core'
+import { Box, Button } from '@material-ui/core'
 import { useSelector } from 'react-redux'
+import _ from 'lodash'
 import PropTypes from 'prop-types'
 import Introduction from '../Introduction'
 import './styles.scss'
+import JobApplicationStats from './jobApplicationStats'
 
 const ContactCenterIntro = ({ jobDetails }) => {
   const { settings } = useSelector((state) => state.clientDetails)
+
   return (
     <>
       <Box className='custom-box contact-center-info-root'>
@@ -29,7 +30,7 @@ const ContactCenterIntro = ({ jobDetails }) => {
         <Introduction
           key={ jobDetails.clientId }
           imageName={ settings.companyName }
-          rating='4'
+          rating={ 4 }
           imageSrc={ settings.profilePic }
           name={ settings.companyName }
           location={ `${ settings.city }, ${ settings.state } ` }
@@ -41,33 +42,8 @@ const ContactCenterIntro = ({ jobDetails }) => {
         <p className='para'>
           {settings.summary}
         </p>
-        <div className='para mt-20'>
-          <span className='para bold'> 2K+  </span>
-          <p className='mt-10'> Members </p>
-        </div>
-        <Divider className='divider' />
-        <div className='job-post-stats'>
-          <div className='data'>
-            <FontAwesomeIcon className='custom-fa-icon light' icon={ faUserFriends } />
-            <span className='para bold'>
-              {' '}
-              0/
-              {jobDetails.needed}
-              {' '}
-            </span>
-            <span className='para light'> Agents Hired  </span>
-          </div>
-          <div className='data'>
-            <FontAwesomeIcon className='custom-fa-icon light' icon={ faRedo } />
-            <span className='para bold'> 3 </span>
-            <span className='para light'> Evaluating  </span>
-          </div>
-          <div className='data'>
-            <FontAwesomeIcon className='custom-fa-icon light' icon={ faEnvelope } />
-            <span className='para bold'> 2  </span>
-            <span className='para light'> Pending Apllication  </span>
-          </div>
-        </div>
+        {!_.isEmpty(jobDetails) && (
+        <JobApplicationStats />)}
       </Box>
     </>
   )

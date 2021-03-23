@@ -40,6 +40,9 @@ import fetchAgentJobs from './people/agent/job/fetchJobs'
 import fetchTopCompanies from './people/agent/job/fetchTopCompanies'
 import profileReviews from './profile/reviews/profileReviews'
 import profileRatings from './profile/reviews/profileRatings'
+import jobApplication from './people/application/jobApplication'
+import jobApplicationList from './people/application/jobApplicationList'
+import agentJobApplications from './people/application/agentJobApplications'
 
 export default function* rootSaga() {
   yield all([
@@ -67,6 +70,7 @@ export default function* rootSaga() {
     handleInvite(),
     forgetPassword(),
     resetPassword(),
+    // People Section
     peopleTalentCards(),
     peopleAgentResumeSkills(),
     crudJob(),
@@ -75,12 +79,16 @@ export default function* rootSaga() {
     updateTalentCards(),
     jobSkills(),
     agentResume(),
-    companyProfileSettings(),
     jobCategoriesOnly(),
-    uploadProfileImage(),
-    fetchCompanyDetails(),
     fetchAgentJobs(),
     fetchTopCompanies(),
+    jobApplication(),
+    jobApplicationList(),
+    agentJobApplications(),
+    // Profile Section
+    companyProfileSettings(),
+    uploadProfileImage(),
+    fetchCompanyDetails(),
     profileReviews(),
     profileRatings(),
   ])

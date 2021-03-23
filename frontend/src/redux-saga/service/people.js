@@ -114,7 +114,35 @@ class People {
     return response
   }
 
-  /* Agent's API */
+  // Application's API
+  static async createJobApplication(data) {
+    const response = await apiClient.postRequest('/people/applications', { data })
+    return response
+  }
+
+  static async fetchJobApplicationById(data) {
+    const response = await apiClient.getRequest('/people/applications', null, data)
+    return response
+  }
+
+  static async updateJobApplication(data) {
+    const response = await apiClient.putRequest(`/people/applications/${ data.applicationId }`, { data })
+    return response
+  }
+
+  static async fetchJobApplicationListByJobId(data) {
+    const response = await apiClient.getRequest(`/people/applications/job/${ data.jobId }`)
+    return response
+  }
+
+  static async fetchJobApplicationListByAgentId(data) {
+    const response = await apiClient.getRequest(`/people/applications/user/${ data.agentUserId }`, null, {
+      limit: data.limit,
+      offset: data.offset,
+      statusTypes: data.statusTypes,
+    })
+    return response
+  }
 
   // Jobs' API
   static async fetchAgentJobs(filter) {

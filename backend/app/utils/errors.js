@@ -47,5 +47,10 @@ export const MESSAGES = {
   FORUM_GROUP_NOT_EXIST: 'Forum group does not exist or deleted',
   DATA_NOT_FOUND: 'Requested data not found!',
   CLIENT_NOT_EXIST: 'Client does not exist',
-  REVIEW_ALREADY_ADDED: 'Review Already Added'
+  REVIEW_ALREADY_ADDED: 'Review Already Added',
+  AGENT_ALREADY_INVITED: 'Agent already invited for this job post!',
+  JOB_ALREADY_APPLIED: 'This agent has already applied to this job',
+  JOB_APPLICATION_NOT_EXIST: 'Application does not exist!',
+  JOB_APPLICATION_NOT_UPDATED: 'Application not updated!'
+
 }

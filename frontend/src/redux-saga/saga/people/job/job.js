@@ -83,7 +83,10 @@ function* jobDetailsWorker(action) {
               country: data.jobDetails.country,
               needed: data.jobDetails.needed,
               fulfilled: data.jobDetails.fulfilled,
+              pending: data.jobDetails.fulfilled,
+              evaluating: data.jobDetails.fulfilled,
               createdOn: data.jobDetails.created_on,
+              jobApplicationStats: data.jobDetails.jobApplicationStats,
               jobCoursesData: {
                 requiredCourses,
                 bonusCourses,

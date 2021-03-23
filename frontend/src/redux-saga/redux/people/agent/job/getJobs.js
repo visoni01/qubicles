@@ -22,6 +22,8 @@ const {
     fetchAgentJobsStart: (state) => ({
       ...state,
       isLoading: true,
+      error: false,
+      success: false,
     }),
     fetchAgentJobsSuccess: (state, action) => ({
       ...state,
@@ -35,7 +37,7 @@ const {
       error: true,
       success: false,
     }),
-    updateAgentJobs: (state, action) => ({
+    updateAgentJobs: (state) => ({
       ...state,
       // WIP updateAgentJobs
       // agentJobsData: getUpdatedAgentJobs({ state, payload: action.payload }),

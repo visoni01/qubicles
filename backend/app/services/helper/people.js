@@ -1,6 +1,6 @@
 import {
   XQodResourceDef, XQodUserSkill, XQodSkill,
-  UserDetail
+  UserDetail, XQodApplication
 } from '../../db/models'
 import { createNewEntity } from './common'
 import { getOne } from './crud'
@@ -212,7 +212,8 @@ export async function getAgentResume ({ candidateId }) {
         'highest_education',
         'years_of_experience',
         'work_title',
-        'work_overview'
+        'work_overview',
+        'profile_image'
       ],
       include: [{
         model: XQodUserSkill,
@@ -230,4 +231,32 @@ export async function getAgentResume ({ candidateId }) {
     }
   })
   return agentResume && agentResume.get({ plain: true })
+}
+
+export async function postAgentApplication ({
+  user_id,
+  client_id,
+  job_id,
+  cover_letter,
+  video_pitch_url,
+  status,
+  status_reason,
+  start_date,
+  end_date
+}) {
+  const application = await createNewEntity({
+    model: XQodApplication,
+    data: {
+      user_id,
+      client_id,
+      job_id,
+      cover_letter,
+      video_pitch_url,
+      status,
+      status_reason,
+      start_date,
+      end_date
+    }
+  })
+  return application
 }
