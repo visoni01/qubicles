@@ -3,7 +3,7 @@ import {
   jobDetailsFetchStart, updateJobsFields, jobDetailsFetchSuccessful,
 } from '../../../redux/actions'
 import { JOB_FIELDS } from '../../../redux/constants'
-import { showErrorMessage } from '../../../redux/snackbar'
+import { showErrorMessage } from '../../../redux/utils/snackbar'
 import People from '../../../service/people'
 
 function* jobDetailsWatcher() {

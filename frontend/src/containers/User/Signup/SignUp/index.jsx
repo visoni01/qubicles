@@ -14,7 +14,7 @@ import {
 } from 'react-router-dom'
 import { regSplChar } from '../../../../utils/common'
 
-import { userSignupStart } from '../../../../redux-saga/redux/signup'
+import { userSignupStart } from '../../../../redux-saga/redux/user/signup'
 import { setIsSocialLogin } from '../../../../redux-saga/redux/actions'
 import './style.scss'
 

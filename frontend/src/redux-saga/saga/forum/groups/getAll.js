@@ -6,7 +6,7 @@ import {
 } from '../../../redux/actions'
 
 import Forum from '../../../service/forum'
-import { showErrorMessage } from '../../../redux/snackbar'
+import { showErrorMessage } from '../../../redux/utils/snackbar'
 
 function* groupsFetchingWatcherStart() {
   yield takeEvery(groupsFetchingStart.type, groupsFetchingWorker)

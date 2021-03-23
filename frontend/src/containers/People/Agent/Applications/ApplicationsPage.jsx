@@ -2,8 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { Box, Button } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import ApplicationCard from './ApplicationCard'
-import { startLoader, stopLoader } from '../../../../redux-saga/redux/loader'
-import { agentJobApplicationsRequestStart } from '../../../../redux-saga/redux/actions'
+import { startLoader, stopLoader, agentJobApplicationsRequestStart } from '../../../../redux-saga/redux/actions'
 
 export default function ApplicationsPage() {
   const {

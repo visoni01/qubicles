@@ -14,7 +14,7 @@ import {
 import {
   jobFilterInitialState,
   resetJobFilter, updateJobFilter,
-} from '../../../../redux-saga/redux/people/job/jobFilter'
+} from '../../../../redux-saga/redux/people/agent/job/jobFilter'
 
 const AgentJobsFilter = () => {
   const dispatch = useDispatch()

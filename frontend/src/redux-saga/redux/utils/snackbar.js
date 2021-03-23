@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-import MESSAGES from '../../utils/messages'
-import { getFullMessage } from '../../utils/common'
+import MESSAGES from '../../../utils/messages'
+import { getFullMessage } from '../../../utils/common'
 
 const initialState = {
   open: null,

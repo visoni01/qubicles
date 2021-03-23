@@ -1,13 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box, Avatar } from '@material-ui/core'
 import Rating from '@material-ui/lab/Rating'
 import { AvatarGroup } from '@material-ui/lab'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfoCircle, faHeart, faUser } from '@fortawesome/free-solid-svg-icons'
 import { kareem, sally, thomas } from '../../../assets/images/avatar'
+import { communityRepDataFechingStart } from '../../../redux-saga/redux/actions'
 
 const CommunityRep = () => {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(communityRepDataFechingStart())
+  }, [ dispatch ])
+
   const { isLoading, communityRep } = useSelector((state) => state.communityRep)
   const likeMsg = communityRep.likes === 1 ? 'person likes your company' : 'people liked your company'
   const followMsg = communityRep.subscribers === 1 ? 'person is following you' : 'people are following you'

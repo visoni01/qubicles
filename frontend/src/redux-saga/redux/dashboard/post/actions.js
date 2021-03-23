@@ -10,7 +10,7 @@ import {
   ADD_COMMENT_TO_POST,
   FETCH_COMMENT_FOR_POST,
   UPDATE_POST_COMMENT,
-} from '../constants'
+} from '../../constants'
 
 export const deletePostStatus = createAction(DELETE_POST_STATUS)
 export const likePostStatus = createAction(LIKE_POST)

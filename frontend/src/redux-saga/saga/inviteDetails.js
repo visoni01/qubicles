@@ -5,7 +5,7 @@ import {
   getInviterDetailsSuccessful,
   getInviterDetailsFailure,
 } from '../redux/actions'
-import { showErrorMessage } from '../redux/snackbar'
+import { showErrorMessage } from '../redux/utils/snackbar'
 
 function* getInviterDetailsStartWatcher() {
   yield takeEvery(getInviterDetailsStart.type, getInviterDetailsStartWorker)

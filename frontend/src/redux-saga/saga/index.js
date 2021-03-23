@@ -4,7 +4,6 @@ import signup from './signup'
 import emailVerification from './emailVerification'
 import postSignup from './postSignup'
 import login from './login'
-import dashboard from './dashboard'
 import announcement from './dashboard/announcement'
 import communityRep from './dashboard/communityRep'
 import jobPosting from './dashboard/jobPosting'
@@ -29,7 +28,6 @@ import peopleAgentResumeSkills from './people/talent/agentResumeSkills'
 import crudJob from './people/job/crud'
 import jobDetails from './people/job/job'
 import jobsByCategory from './people/job/jobsByCategory'
-import updateTalentCards from './people/talent/updateTalentCard'
 import jobSkills from './people/jobSkills'
 import agentResume from './people/talent/agentResume'
 import jobCategoriesOnly from './people/job/jobCategoriesOnly'
@@ -50,7 +48,6 @@ export default function* rootSaga() {
     emailVerification(),
     postSignup(),
     login(),
-    dashboard(),
     announcement(),
     communityRep(),
     jobPosting(),
@@ -76,7 +73,6 @@ export default function* rootSaga() {
     crudJob(),
     jobDetails(),
     jobsByCategory(),
-    updateTalentCards(),
     jobSkills(),
     agentResume(),
     jobCategoriesOnly(),

@@ -4,8 +4,8 @@ import {
   userSignupStart,
   userSignupFailure,
   userSignupSuccessful,
-} from '../redux/signup'
-import { showErrorMessage } from '../redux/snackbar'
+} from '../redux/actions'
+import { showErrorMessage } from '../redux/utils/snackbar'
 
 function* signupWatcher() {
   yield takeEvery(userSignupStart.type, signupWorker)

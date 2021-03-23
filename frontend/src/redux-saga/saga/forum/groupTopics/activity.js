@@ -5,7 +5,7 @@ import {
 import { TOPIC_ACTIVITY } from '../../../redux/constants'
 
 import Forum from '../../../service/forum'
-import { showErrorMessage } from '../../../redux/snackbar'
+import { showErrorMessage } from '../../../redux/utils/snackbar'
 
 function* topicActivityWatcher() {
   yield takeEvery([ TOPIC_ACTIVITY ], topicActivityWorker)

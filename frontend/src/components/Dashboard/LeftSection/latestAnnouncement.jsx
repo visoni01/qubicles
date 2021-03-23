@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box } from '@material-ui/core'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { formatDate } from '../../../utils/common'
+import { announcementDataFetchingStart } from '../../../redux-saga/redux/actions'
 
 const LatestAnnouncement = () => {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(announcementDataFetchingStart())
+  }, [ dispatch ])
+
   const { isLoading, announcements } = useSelector((state) => state.announcement)
   return (
     <Box className='box'>

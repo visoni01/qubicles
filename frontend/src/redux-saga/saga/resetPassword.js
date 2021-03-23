@@ -4,7 +4,7 @@ import {
   resetPasswordSuccessful,
   resetPasswordFailure,
 } from '../redux/actions'
-import { showErrorMessage, showSuccessMessage } from '../redux/snackbar'
+import { showErrorMessage, showSuccessMessage } from '../redux/utils/snackbar'
 import User from '../service/user'
 
 function* resetPasswordWatcher() {

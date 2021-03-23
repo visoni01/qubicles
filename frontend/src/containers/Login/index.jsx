@@ -18,7 +18,7 @@ import {
   LinkedinIcon,
   TwitterIcon,
 } from 'react-share'
-import { userLoginStart, clearStore, resetShowVerifyMailButton } from '../../redux-saga/redux/login'
+import { userLoginStart, clearStore, resetShowVerifyMailButton } from '../../redux-saga/redux/user/login'
 import VerificationPageButton from '../EmailVerification/verificationPageButton'
 import ForgottenPasswordButton from '../ForgetPassword/forgottonPasswordButton'
 import './style.scss'

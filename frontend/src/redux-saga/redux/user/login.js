@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getUserDetails } from '../../utils/common'
+import { getUserDetails } from '../../../utils/common'
 
 const initialState = {
   loading: null,

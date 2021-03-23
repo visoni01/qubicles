@@ -4,8 +4,8 @@ import {
   inviteRequestStart,
   inviteRequestSuccessful,
   inviteRequestFailure,
-} from '../redux/invitePage'
-import { showErrorMessage } from '../redux/snackbar'
+} from '../redux/user/invitePage'
+import { showErrorMessage } from '../redux/utils/snackbar'
 
 function* inviteRequestWatcher() {
   yield takeEvery(inviteRequestStart.type, inviteRequestWorker)

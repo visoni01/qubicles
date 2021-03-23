@@ -7,16 +7,17 @@ import {
   postSignUpPreviousDataSuccess,
   postSignUpStepFailure,
   postSignUpPreviousDataFetch,
-} from '../redux/postSignup'
+  resetUserDetails, showInvitePopup,
+} from '../redux/actions'
 import {
   POST_SIGNUP_EMPLOYER_PREVIOUS_DATA_FETCH,
   POST_SIGNUP_AGENT_PREVIOUS_DATA_FETCH,
 } from '../redux/constants'
-import { startLoader, stopLoader } from '../redux/loader'
-import { showErrorMessage } from '../redux/snackbar'
+import { startLoader, stopLoader } from '../redux/utils/loader'
+import { showErrorMessage } from '../redux/utils/snackbar'
 import SignUp from '../service/signup'
 import { getPostSignUpStepsData } from './helper'
-import { resetUserDetails, showInvitePopup } from '../redux/login'
+
 import User from '../service/user'
 
 function* postSignupStepWatcher() {

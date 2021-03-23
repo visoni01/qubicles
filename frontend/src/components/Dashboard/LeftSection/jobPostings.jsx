@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box } from '@material-ui/core'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { jobPostingDataFetchingStart } from '../../../redux-saga/redux/actions'
 
 const JobPostings = () => {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(jobPostingDataFetchingStart())
+  }, [ dispatch ])
   const { isLoading, jobPostings } = useSelector((state) => state.jobPosting)
+
   return (
     <Box className='custom-box'>
       <div className='job-postings'>

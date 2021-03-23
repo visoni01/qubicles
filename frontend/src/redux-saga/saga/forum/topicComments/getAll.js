@@ -7,7 +7,7 @@ import {
 } from '../../../redux/actions'
 
 import Forum from '../../../service/forum'
-import { showErrorMessage } from '../../../redux/snackbar'
+import { showErrorMessage } from '../../../redux/utils/snackbar'
 import { LOAD_MORE_COMMENTS } from '../../../redux/constants'
 
 function* topicCommentsWatcher() {

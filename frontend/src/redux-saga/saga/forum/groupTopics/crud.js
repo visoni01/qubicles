@@ -3,7 +3,7 @@ import { updateGroupTopicsList } from '../../../redux/actions'
 import { ADD_GROUP_TOPIC, UPDATE_GROUP_TOPIC, DELETE_GROUP_TOPIC } from '../../../redux/constants'
 
 import Forum from '../../../service/forum'
-import { showErrorMessage, showSuccessMessage } from '../../../redux/snackbar'
+import { showErrorMessage, showSuccessMessage } from '../../../redux/utils/snackbar'
 import { getSubstrForNotification } from '../../../../utils/common'
 
 function* groupTopicsCrudWatcher() {

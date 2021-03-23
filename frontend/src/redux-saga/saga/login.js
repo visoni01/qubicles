@@ -1,20 +1,21 @@
 import { takeLatest, put } from 'redux-saga/effects'
+// import {
+
+// } from '../redux/login'
 import {
+  resetCompanyProfileSettingsData,
+  setShowVerifyMailButton,
   userLoginStart,
   userLoginSuccessful,
   userUpdateStart,
   userUpdateSuccess,
   userLoginFailure,
   userLogoutSuccessful,
-} from '../redux/login'
-import {
-  resetCompanyProfileSettingsData,
-  setShowVerifyMailButton,
 } from '../redux/actions'
 import User from '../service/user'
 import { getUserDetails } from '../../utils/common'
-import { showSuccessMessage, showErrorMessage } from '../redux/snackbar'
-import { startLoader, stopLoader } from '../redux/loader'
+import { showSuccessMessage, showErrorMessage } from '../redux/utils/snackbar'
+import { startLoader, stopLoader } from '../redux/utils/loader'
 
 function* loginWatcher() {
   yield takeLatest([ userLoginStart.type, userUpdateStart.type, userLogoutSuccessful.type ], loginWorker)

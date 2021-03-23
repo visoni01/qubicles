@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import ClientDashboard from './ClientDashboard/index'
 import AgentDashboard from './AgentDashboard/index'
 import InviteModal from '../InviteFriendsPage/InviteModal'
-import { hideInvitePopup } from '../../redux-saga/redux/login'
+import { hideInvitePopup } from '../../redux-saga/redux/user/login'
 
 const DashboardMain = () => {
   const { userDetails, openInvitePopup } = useSelector((state) => state.login)

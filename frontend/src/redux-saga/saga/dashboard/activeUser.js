@@ -5,7 +5,7 @@ import {
   activeUserDataFetchingSuccessful,
 } from '../../redux/actions'
 import Dashboard from '../../service/dashboard'
-import { showErrorMessage } from '../../redux/snackbar'
+import { showErrorMessage } from '../../redux/utils/snackbar'
 
 function* activeUserDataFetchingWatcherStart() {
   yield takeEvery(activeUserDataFetchingStart.type, activeUserDataFetchingWorker)
