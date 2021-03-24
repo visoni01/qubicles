@@ -5,7 +5,7 @@ import {
 } from '../../../redux/constants'
 
 import Forum from '../../../service/forum'
-import { showErrorMessage, showSuccessMessage } from '../../../redux/snackbar'
+import { showErrorMessage, showSuccessMessage } from '../../../redux/utils/snackbar'
 
 function* topicCommentsCrudWatcher() {
   yield takeLatest([ POST_TOPIC_COMMENT, UPDATE_TOPIC_COMMENT, DELETE_TOPIC_COMMENT ], topicCommentsCrudWorker)

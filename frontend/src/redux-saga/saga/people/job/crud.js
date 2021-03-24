@@ -3,7 +3,7 @@ import {
   updateJobsData, jobDetailsFetchSuccessful, jobPublishSuccessful, jobPublishFailure,
 } from '../../../redux/actions'
 import { ADD_JOB, UPDATE_JOB, DELETE_JOB } from '../../../redux/constants'
-import { showErrorMessage, showSuccessMessage } from '../../../redux/snackbar'
+import { showErrorMessage, showSuccessMessage } from '../../../redux/utils/snackbar'
 import People from '../../../service/people'
 
 function* jobCrudWatcher() {

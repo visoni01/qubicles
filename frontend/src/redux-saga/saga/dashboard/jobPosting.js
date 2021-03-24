@@ -5,7 +5,7 @@ import {
   jobPostingDataFetchingSuccessful,
 } from '../../redux/actions'
 import Dashboard from '../../service/dashboard'
-import { showErrorMessage } from '../../redux/snackbar'
+import { showErrorMessage } from '../../redux/utils/snackbar'
 
 function* jobPostingDataFetchingWatcherStart() {
   yield takeEvery(jobPostingDataFetchingStart.type, jobPostingDataFetchingWorker)

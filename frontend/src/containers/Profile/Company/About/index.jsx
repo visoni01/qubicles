@@ -1,8 +1,8 @@
 import React from 'react'
 import { Grid } from '@material-ui/core'
 import { useSelector } from 'react-redux'
-import OpenPositions from './OpenPositions'
-import CoursesSection from './CoursesSection'
+import OpenPositions from './openPositions'
+import CoursesSection from './coursesSection'
 import CompanyReviews from './companyReviews'
 
 export default function About() {

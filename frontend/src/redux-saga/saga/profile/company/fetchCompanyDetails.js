@@ -3,7 +3,7 @@ import {
   jobPostCompanyDetailsFetchStart,
   jobPostCompanyDetailsFetchSuccessful,
 } from '../../../redux/actions'
-import { showErrorMessage } from '../../../redux/snackbar'
+import { showErrorMessage } from '../../../redux/utils/snackbar'
 import CompanyProfile from '../../../service/profile/company'
 
 function* companyDataFetchingWatcherStart() {

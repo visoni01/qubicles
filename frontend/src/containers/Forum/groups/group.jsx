@@ -15,7 +15,7 @@ import CreateOrUpdateTopicForm from '../topics/createAndUpdateTopic'
 import SelectedTopic from '../topics/topic'
 import { UPDATE_TOPIC_STATS } from '../../../redux-saga/redux/constants'
 import TopicsList from '../topics/list'
-import ScrollToTop from '../../../components/ScrollToTop'
+import ScrollToTop from '../../../components/scrollToTop'
 import GroupOptions from './groupOptions'
 import UpdateGroup from './createOrUpdate'
 

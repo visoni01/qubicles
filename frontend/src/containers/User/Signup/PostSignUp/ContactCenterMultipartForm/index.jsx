@@ -10,7 +10,7 @@ import {
   handleBackStep,
   handleNextStep,
   postSignUpPreviousDataFetch,
-} from '../../../../../redux-saga/redux/postSignup'
+} from '../../../../../redux-saga/redux/user/postSignup'
 
 const ContactCenterMultiPartForm = () => {
   const dispatch = useDispatch()

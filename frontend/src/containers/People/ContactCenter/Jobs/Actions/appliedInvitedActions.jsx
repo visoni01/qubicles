@@ -3,7 +3,7 @@ import {
   Button,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import TextDivider from '../../../TextDivider'
+import TextDivider from '../../../../Shared/textDivider'
 
 const AppliedInvitedActions = ({ handleUpdateStatus }) => (
   <>

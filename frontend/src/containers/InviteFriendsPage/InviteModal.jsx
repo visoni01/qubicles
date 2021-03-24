@@ -11,8 +11,7 @@ import {
 } from 'react-share'
 import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
-import { showSuccessMessage, resetInviteRequest } from '../../redux-saga/redux/actions'
-import { inviteRequestStart } from '../../redux-saga/redux/invitePage'
+import { showSuccessMessage, resetInviteRequest, inviteRequestStart } from '../../redux-saga/redux/actions'
 import invitePopup from '../../assets/images/popup.png'
 import InviteManual from './InviteManual'
 

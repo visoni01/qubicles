@@ -2,14 +2,14 @@ import React, { useCallback, useState, useEffect } from 'react'
 import { Grid } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
-import JobData from './JobData'
-import JobRequirements from './JobRequirements'
-import JobDetails from './JobDetails'
-import CreatePreviewActions from './Actions'
+import JobData from './jobData'
+import JobRequirements from './jobRequirements'
+import JobDetails from './jobDetails'
+import CreatePreviewActions from './createPreviewActions'
 import '../styles.scss'
 import { getNewJobFields } from '../../../../../redux-saga/redux/actions'
 
-export const NewJob = (props) => {
+const NewJob = (props) => {
   const { jobsData, jobId, isEdit } = props
   const dispatch = useDispatch()
   const defaultJobData = {

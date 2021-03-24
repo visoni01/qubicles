@@ -5,7 +5,7 @@ import {
   announcementDataFetchingFailure,
 } from '../../redux/actions'
 import Dashboard from '../../service/dashboard'
-import { showErrorMessage } from '../../redux/snackbar'
+import { showErrorMessage } from '../../redux/utils/snackbar'
 
 function* announcementDataFetchingWatcherStart() {
   yield takeEvery(announcementDataFetchingStart.type, announcementDataFetchingWorker)

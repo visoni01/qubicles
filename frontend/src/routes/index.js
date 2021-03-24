@@ -5,7 +5,7 @@ import {
 import { CircularLoader } from '../components/loaders'
 import CustomSnackbar from '../components/snackbar'
 import CustomRoutes from './customRoutes'
-import ScrollToTop from '../components/ScrollToTop'
+import ScrollToTop from '../components/scrollToTop'
 
 const Routes = () => (
   <Router>

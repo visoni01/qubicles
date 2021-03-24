@@ -1,5 +1,5 @@
 import Forum from '../redux-saga/service/forum'
-import { showErrorMessage } from '../redux-saga/redux/snackbar'
+import { showErrorMessage } from '../redux-saga/redux/actions'
 
 class MyUploadAdapter {
   constructor(loader, setIsImageUploading, dispatch) {

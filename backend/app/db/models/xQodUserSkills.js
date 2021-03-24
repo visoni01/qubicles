@@ -12,14 +12,18 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       defaultValue: 0
     },
-    created_on: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW
+    createdAt: {
+      field: 'created_on',
+      type: DataTypes.DATE
+    },
+    updatedAt: {
+      field: 'updated_on',
+      type: DataTypes.DATE
     }
   },
   {
-    tableName: 'x_qod_user_skills'
+    tableName: 'x_qod_user_skills',
+    timestamps: true
   })
   XQodUserSkill.associate = function (models) {
     XQodUserSkill.belongsTo(models.XQodSkill, { as: 'skill', foreignKey: 'skill_id' })

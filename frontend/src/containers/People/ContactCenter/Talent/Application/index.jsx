@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Grid } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { fetchAgentResumeStart } from '../../../../../redux-saga/redux/actions'
-import ResumeIntro from './ResumeIntro'
-import CoverLetter from './CoverLetter'
-import SkillsPage from './SkillsPage'
-import WorkHistory from './WorkHistory'
-import Courses from './Courses'
+import ResumeIntro from './resumeIntro'
+import CoverLetter from './coverLetter'
+import SkillsPage from './skillsPage'
+import ResumeWorkHistory from './resumeWorkHistory'
+import Courses from './courses'
 import AgentReviews from '../../../../Profile/Agent/Resume/agentReviews'
 import ClientJobApplicationActions from '../../Jobs/Actions'
 
@@ -52,7 +52,7 @@ const ClientViewApplication = ({
           />
         </Grid>
         <Grid item>
-          <WorkHistory />
+          <ResumeWorkHistory />
         </Grid>
         <Grid item>
           <Courses />

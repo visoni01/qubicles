@@ -4,7 +4,7 @@ import {
   fetchJobSkillsSuccess,
   fetchJobSkillsFailed,
 } from '../../redux/actions'
-import { showErrorMessage } from '../../redux/snackbar'
+import { showErrorMessage } from '../../redux/utils/snackbar'
 import People from '../../service/people'
 
 function* jobSkillsWatcherStart() {

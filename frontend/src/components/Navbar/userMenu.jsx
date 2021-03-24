@@ -7,14 +7,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import './style.scss'
 import User from '../../redux-saga/service/user'
 import InviteModal from '../../containers/InviteFriendsPage/InviteModal'
-import { showErrorMessage } from '../../redux-saga/redux/snackbar'
-import { userLogoutSuccessful } from '../../redux-saga/redux/login'
+import { showErrorMessage, getCompanyProfileSettingsApiStart } from '../../redux-saga/redux/actions'
+import { userLogoutSuccessful } from '../../redux-saga/redux/user/login'
 import { kareem } from '../../assets/images/avatar'
 import {
   chatIcon, walletIcon, settingIcon, logoutIcon,
 } from '../../assets/images/icons/navBarIcons'
 import ROUTE_PATHS, { PROFILE_ROUTE } from '../../routes/routesPath'
-import { getCompanyProfileSettingsApiStart } from '../../redux-saga/redux/actions'
 
 const UserMenu = () => {
   const history = useHistory()

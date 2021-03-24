@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
 import { jobPostCard } from '../../../People/ContactCenter/testData'
-import JobPostDetails from '../../../../components/People/ContactCenter/Jobs/JobPostDetails'
+import JobPostDetails from '../../../../components/People/ContactCenter/Jobs/jobPostDetails'
 import { jobDetailsFetchStart } from '../../../../redux-saga/redux/actions'
 import '../styles.scss'
 

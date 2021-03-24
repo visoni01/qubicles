@@ -5,11 +5,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import './styles.scss'
 import { jobDetailsFetchStart, resetJobDetails } from '../../../../redux-saga/redux/actions'
 import { jobPostCard } from '../../ContactCenter/testData'
-import JobPost from '../../ContactCenter/Jobs/JobPost'
+import JobPost from '../../ContactCenter/Jobs/jobPost'
 import AgentJobActions from './Actions'
 import CompanyStats from './companyStats'
-import ContactCenterSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/ContactCenterSkeleton'
-import ActionsSkeleton from './Actions/ActionsSkeleton'
+import ContactCenterSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/contactCenterSkeleton'
+import ActionsSkeleton from './Actions/actionsSkeleton'
 
 const AgentJobView = () => {
   const { jobId } = useParams()

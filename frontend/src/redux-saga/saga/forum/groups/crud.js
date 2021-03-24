@@ -3,7 +3,7 @@ import { updateGroupsList } from '../../../redux/actions'
 import { ADD_GROUP, UPDATE_GROUP, DELETE_GROUP } from '../../../redux/constants'
 
 import Forum from '../../../service/forum'
-import { showErrorMessage, showSuccessMessage } from '../../../redux/snackbar'
+import { showErrorMessage, showSuccessMessage } from '../../../redux/utils/snackbar'
 import { getSubstrForNotification } from '../../../../utils/common'
 
 function* groupCrudWatcher() {

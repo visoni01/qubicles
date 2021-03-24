@@ -3,8 +3,8 @@ import '../styles.scss'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import { jobApplicationRequestStart } from '../../../../../redux-saga/redux/actions'
-import ActionsSkeleton from './ActionsSkeleton'
-import ActionsBox from './ActionsBox'
+import ActionsSkeleton from './actionsSkeleton'
+import ActionsBox from './actionsBox'
 
 const AgentJobActions = ({
   jobId, clientId,

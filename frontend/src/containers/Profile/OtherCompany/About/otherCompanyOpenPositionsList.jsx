@@ -2,11 +2,11 @@ import React, { useCallback } from 'react'
 import { Box, Button } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
-import JobsSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/JobsSkeleton'
+import JobsSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/jobsSkeleton'
 import OtherCompanyOpenPositionsCard from './otherCompanyOpenPositionsCard'
 import { jobsWithCategoriesFetchStart } from '../../../../redux-saga/redux/actions'
 
-export default function OtherCompanyOpenPositionsList({ companyId }) {
+const OtherCompanyOpenPositionsList = ({ companyId }) => {
   const { jobsWithCategories, isAllJobsFetched, isLoading } = useSelector((state) => state.jobsWithCategories)
   const dispatch = useDispatch()
 
@@ -67,3 +67,5 @@ export default function OtherCompanyOpenPositionsList({ companyId }) {
 OtherCompanyOpenPositionsList.propTypes = {
   companyId: PropTypes.number.isRequired,
 }
+
+export default OtherCompanyOpenPositionsList

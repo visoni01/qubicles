@@ -7,7 +7,7 @@ import { faEllipsisV, faTrash, faPen } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { deleteGroupTopic } from '../../../redux-saga/redux/actions'
-import ConfirmationModal from '../../../components/CommonModal/ConfirmationModal'
+import ConfirmationModal from '../../../components/CommonModal/confirmationModal'
 
 const TopicOptions = ({
   topicId, ownerId, groupId, childTopicData,

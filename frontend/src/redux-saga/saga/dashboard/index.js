@@ -1,38 +1,17 @@
-import { takeEvery, put } from 'redux-saga/effects'
-import {
-  dashboardDataFetchingStart,
-  dashboardDataFetchingFailure,
-  dashboardDataFetchingSuccessful,
-  announcementDataFetchingStart,
-  communityRepDataFechingStart,
-  jobPostingDataFetchingStart,
-  activeUserDataFetchingStart,
-  resetPostComments,
-} from '../../redux/actions'
-import { showErrorMessage } from '../../redux/snackbar'
+import announcement from './announcement'
+import communityRep from './communityRep'
+import jobPosting from './jobPosting'
+import post from './post'
+import activeUser from './activeUser'
+import statusPostActivity from './statusPostActivity'
 
-function* dashboardWatcher() {
-  yield takeEvery(dashboardDataFetchingStart.type, dashboardWorker)
-}
+const dashboardWatcherFunctions = [
+  () => announcement(),
+  () => communityRep(),
+  () => jobPosting(),
+  () => activeUser(),
+  () => post(),
+  () => statusPostActivity(),
+]
 
-function* dashboardWorker() {
-  try {
-    // Fetching announcements data
-    yield put(announcementDataFetchingStart())
-    // Calling action for fetching community reputation data
-    yield put(communityRepDataFechingStart())
-    // Calling action for fetching job posting data
-    yield put(jobPostingDataFetchingStart())
-    // Calling action for fetching active users data
-    yield put(activeUserDataFetchingStart())
-
-    yield put(dashboardDataFetchingSuccessful())
-    // reset post comments states
-    yield put(resetPostComments())
-  } catch (e) {
-    yield put(showErrorMessage())
-    yield put(dashboardDataFetchingFailure())
-  }
-}
-
-export default dashboardWatcher
+export default dashboardWatcherFunctions
