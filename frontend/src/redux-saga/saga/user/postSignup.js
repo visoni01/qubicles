@@ -1,6 +1,6 @@
 /* eslint-disable complexity */
 import { takeLatest, put } from 'redux-saga/effects'
-import apiClient from '../../utils/apiClient'
+import apiClient from '../../../utils/apiClient'
 import {
   postSignUpStepStart,
   postSignUpStepSuccessful,
@@ -8,17 +8,17 @@ import {
   postSignUpStepFailure,
   postSignUpPreviousDataFetch,
   resetUserDetails, showInvitePopup,
-} from '../redux/actions'
+} from '../../redux/actions'
 import {
   POST_SIGNUP_EMPLOYER_PREVIOUS_DATA_FETCH,
   POST_SIGNUP_AGENT_PREVIOUS_DATA_FETCH,
-} from '../redux/constants'
-import { startLoader, stopLoader } from '../redux/utils/loader'
-import { showErrorMessage } from '../redux/utils/snackbar'
-import SignUp from '../service/signup'
-import { getPostSignUpStepsData } from './helper'
+} from '../../redux/constants'
+import { startLoader, stopLoader } from '../../redux/utils/loader'
+import { showErrorMessage } from '../../redux/utils/snackbar'
+import SignUp from '../../service/signup'
+import { getPostSignUpStepsData } from '../helper'
 
-import User from '../service/user'
+import User from '../../service/user'
 
 function* postSignupStepWatcher() {
   yield takeLatest([

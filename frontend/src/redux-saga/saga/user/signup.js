@@ -1,11 +1,11 @@
 import { takeEvery, put } from 'redux-saga/effects'
-import apiClient from '../../utils/apiClient'
+import apiClient from '../../../utils/apiClient'
 import {
   userSignupStart,
   userSignupFailure,
   userSignupSuccessful,
-} from '../redux/actions'
-import { showErrorMessage } from '../redux/utils/snackbar'
+} from '../../redux/actions'
+import { showErrorMessage } from '../../redux/utils/snackbar'
 
 function* signupWatcher() {
   yield takeEvery(userSignupStart.type, signupWorker)

@@ -3,9 +3,9 @@ import {
   resetPasswordStart,
   resetPasswordSuccessful,
   resetPasswordFailure,
-} from '../redux/actions'
-import { showErrorMessage, showSuccessMessage } from '../redux/utils/snackbar'
-import User from '../service/user'
+} from '../../redux/actions'
+import { showErrorMessage, showSuccessMessage } from '../../redux/utils/snackbar'
+import User from '../../service/user'
 
 function* resetPasswordWatcher() {
   yield takeEvery(resetPasswordStart.type, resetPasswordWorker)

@@ -3,9 +3,9 @@ import {
   sendVerificationMailStart,
   sendVerificationMailFailure,
   sendVerificationMailSuccessful,
-} from '../redux/actions'
-import { showErrorMessage } from '../redux/utils/snackbar'
-import User from '../service/user'
+} from '../../redux/actions'
+import { showErrorMessage } from '../../redux/utils/snackbar'
+import User from '../../service/user'
 
 function* sendVerificationMailWatcher() {
   yield takeEvery(sendVerificationMailStart.type, sendVerificationMailWorker)

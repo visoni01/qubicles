@@ -3,9 +3,9 @@ import {
   forgetPasswordMailStart,
   forgetPasswordMailFailure,
   forgetPasswordMailSuccessful,
-} from '../redux/actions'
-import { showErrorMessage } from '../redux/utils/snackbar'
-import User from '../service/user'
+} from '../../redux/actions'
+import { showErrorMessage } from '../../redux/utils/snackbar'
+import User from '../../service/user'
 
 function* forgetPasswordMailWatcher() {
   yield takeEvery(forgetPasswordMailStart.type, forgetPasswordMailWorker)

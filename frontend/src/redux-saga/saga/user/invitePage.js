@@ -1,11 +1,11 @@
 import { takeEvery, put } from 'redux-saga/effects'
-import apiClient from '../../utils/apiClient'
+import apiClient from '../../../utils/apiClient'
 import {
   inviteRequestStart,
   inviteRequestSuccessful,
   inviteRequestFailure,
-} from '../redux/user/invitePage'
-import { showErrorMessage } from '../redux/utils/snackbar'
+} from '../../redux/user/invitePage'
+import { showErrorMessage } from '../../redux/utils/snackbar'
 
 function* inviteRequestWatcher() {
   yield takeEvery(inviteRequestStart.type, inviteRequestWorker)

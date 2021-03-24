@@ -1,11 +1,11 @@
 import { takeEvery, put } from 'redux-saga/effects'
-import User from '../service/user'
+import User from '../../service/user'
 import {
   getInviterDetailsStart,
   getInviterDetailsSuccessful,
   getInviterDetailsFailure,
-} from '../redux/actions'
-import { showErrorMessage } from '../redux/utils/snackbar'
+} from '../../redux/actions'
+import { showErrorMessage } from '../../redux/utils/snackbar'
 
 function* getInviterDetailsStartWatcher() {
   yield takeEvery(getInviterDetailsStart.type, getInviterDetailsStartWorker)
