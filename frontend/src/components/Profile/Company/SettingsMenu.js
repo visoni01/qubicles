@@ -1,4 +1,4 @@
-import AccountSection from '../../../containers/Profile/Company/Settings/AccountSection'
+import AccountSection from '../../../containers/Profile/Company/Settings/accountSection'
 import IntegrationSection from './integrationSection'
 import RatesSection from './ratesSection'
 import { AccountIcon, IntegrationIcon, RatesIcon } from '../../../assets/images/icons/profileSettingsIcons'

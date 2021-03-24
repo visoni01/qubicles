@@ -3,10 +3,10 @@ import { Button, Divider } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import JobPostModal from '../About/jobPostModal'
 
-export default function JobsCard({
+const JobsCard = ({
   categoryTitle,
   job,
-}) {
+}) => {
   const [ currentJobId, setCurrentJobId ] = useState(null)
 
   const [ openJobPostModal, setOpenJobPostModal ] = useState(false)
@@ -57,3 +57,5 @@ JobsCard.propTypes = {
     title: PropTypes.string,
   }).isRequired,
 }
+
+export default JobsCard

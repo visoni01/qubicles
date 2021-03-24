@@ -3,7 +3,7 @@ import {
   Box, Button,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import InviteAgent from '../InviteAgent'
+import InviteAgent from '../inviteAgent'
 import '../styles.scss'
 
 const InviteAgentActions = ({

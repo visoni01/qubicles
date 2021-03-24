@@ -5,12 +5,12 @@ import {
 } from '@material-ui/core'
 import { useLocation, Link } from 'react-router-dom'
 import ROUTE_PATHS from '../../../routes/routesPath'
-import TrainingFilter from '../ContactCenter/Training/TrainingFilter'
-import TrainingWrap from '../ContactCenter/Training/TrainingWrap'
-import AgentJobsFilter from './Jobs/AgentJobsFilter'
-import AgentJobsPage from './Jobs/AgentJobsPage'
-import ApplicationsPage from './Applications/ApplicationsPage'
-import ApplicationFilter from './Applications/ApplicationFilter'
+import TrainingFilter from '../ContactCenter/Training/trainingFilter'
+import TrainingWrap from '../ContactCenter/Training/trainingWrap'
+import AgentJobsFilter from './Jobs/agentJobsFilter'
+import AgentJobsPage from './Jobs/agentJobsPage'
+import ApplicationsPage from './Applications/applicationsPage'
+import ApplicationFilter from './Applications/applicationFilter'
 import TopCompanies from './Common/topCompanies'
 
 const AgentContactCenter = () => {

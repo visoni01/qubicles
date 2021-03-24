@@ -5,7 +5,7 @@ import {
 } from '@material-ui/core'
 import { jobPostCard } from '../../../../containers/People/ContactCenter/testData'
 import JobPostDetails from './jobPostDetails'
-import CreatePreviewActions from '../../../../containers/People/ContactCenter/Jobs/NewJob/Actions'
+import CreatePreviewActions from '../../../../containers/People/ContactCenter/Jobs/NewJob/createPreviewActions'
 
 const JobPreview = () => {
   const { createJobData, isUpdatedData, isLoading } = useSelector((state) => state.createJobData)

@@ -1,5 +1,5 @@
 import React from 'react'
-import ContentSectionRoot from './ContentSectionRoot'
+import ContentSectionRoot from './contentSectionRoot'
 
 export default function CourseContent() {
   return (

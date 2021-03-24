@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {
   Box, List, ListItem,
 } from '@material-ui/core'
-import settingMenuItems from './settingaMenuItems'
+import settingMenuItems from './settingMenuItems'
 
 const ListRow = ({ item, setSelectedMenuItem, selectedMenuItem }) => (
   <ListItem

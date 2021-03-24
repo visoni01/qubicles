@@ -6,7 +6,7 @@ import JobsSkeleton from '../../../../components/People/ContactCenter/SkeletonLo
 import OtherCompanyOpenPositionsCard from './otherCompanyOpenPositionsCard'
 import { jobsWithCategoriesFetchStart } from '../../../../redux-saga/redux/actions'
 
-export default function OtherCompanyOpenPositionsList({ companyId }) {
+const OtherCompanyOpenPositionsList = ({ companyId }) => {
   const { jobsWithCategories, isAllJobsFetched, isLoading } = useSelector((state) => state.jobsWithCategories)
   const dispatch = useDispatch()
 
@@ -67,3 +67,5 @@ export default function OtherCompanyOpenPositionsList({ companyId }) {
 OtherCompanyOpenPositionsList.propTypes = {
   companyId: PropTypes.number.isRequired,
 }
+
+export default OtherCompanyOpenPositionsList

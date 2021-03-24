@@ -9,7 +9,7 @@ import ContactCenterEditProfile from './LeftRightSection/index'
 import Wallet from './LeftRightSection/wallet'
 import Settings from './Settings'
 import ContactCenterFeed from './Feed/index'
-import SettingsLeft from './Settings/SettingsLeft'
+import SettingsLeft from './Settings/settingsLeft'
 import About from './About/index'
 import ROUTE_PATHS from '../../../routes/routesPath'
 

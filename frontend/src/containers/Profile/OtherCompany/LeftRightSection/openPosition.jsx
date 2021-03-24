@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import OpenPositionsCard from './openPositionsCard'
 import { PROFILE_ROUTE } from '../../../../routes/routesPath'
 
-export default function OpenPosition({ companyId }) {
+const OpenPosition = ({ companyId }) => {
   const history = useHistory()
   let { jobsWithCategories } = useSelector((state) => state.jobsWithCategories)
   jobsWithCategories = jobsWithCategories.filter((job, index) => index < 3)
@@ -39,3 +39,5 @@ export default function OpenPosition({ companyId }) {
 OpenPosition.propTypes = {
   companyId: PropTypes.number.isRequired,
 }
+
+export default OpenPosition

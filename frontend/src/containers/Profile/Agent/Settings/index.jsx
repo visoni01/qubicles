@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import settingMenuItems from '../../../../components/Profile/Agent/settingaMenuItems'
+import settingMenuItems from '../../../../components/Profile/Agent/settingMenuItems'
 
 const Settings = ({
   selectedMenuItem, currentSectionRef, otherSectionRef,
