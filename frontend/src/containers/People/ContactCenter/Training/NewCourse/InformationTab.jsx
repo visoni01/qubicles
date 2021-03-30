@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import {
   TextareaAutosize, Grid, FormControl, InputLabel, Select,
-  RadioGroup, FormControlLabel, Radio, InputBase,
+  RadioGroup, FormControlLabel, Radio, InputBase, TextField,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -90,14 +90,18 @@ export default function InformationTab() {
                   label='Price'
                   aria-required
                 />
-                <InputBase
+                <TextField
+                  variant='outlined'
+                  margin='dense'
+                  type='number'
+                  InputProps={ { inputProps: { min: 0, step: 1 } } }
                   placeholder='Eg 15'
-                  className='para border-1 filter-input pl-10 pr-10'
+                  className='para filter-input'
                   value={ price }
                   onChange={ setPriceCB }
                   disabled={ !(priceType === 'price') }
                 />
-                <span className='para light input-label'>
+                <span className='para sz-lg light input-label'>
                   {`QBE (${ price } USD)`}
                 </span>
                 <FormControlLabel value='free' control={ <Radio /> } label='Free' />
