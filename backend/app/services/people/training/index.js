@@ -1,0 +1,1 @@
+export { PeopleAddNewCourseService } from './createCourse'
