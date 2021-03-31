@@ -2,10 +2,13 @@ import React, { useState } from 'react'
 import {
   Box, Tabs, Tab,
 } from '@material-ui/core'
+import PropTypes from 'prop-types'
 import InformationTab from './InformationTab'
 import ContentTab from './ContentTab'
 
-const NewCourseForm = () => {
+const NewCourseForm = ({
+  informationDetails, setInformationDetails, contentDetails, setContentDetails,
+}) => {
   const [ activeTab, setActiveTab ] = useState(0)
 
   return (
@@ -20,11 +23,27 @@ const NewCourseForm = () => {
           <Tab label='Content' className={ activeTab === 1 ? 'active-tab' : 'inactive-tab' } />
         </Tabs>
       </div>
-      { activeTab === 0 && <InformationTab /> }
-      { activeTab === 1 && <ContentTab />}
+      { activeTab === 0
+      && (
+      <InformationTab
+        informationDetails={ informationDetails }
+        setInformationDetails={ setInformationDetails }
+      />
+      ) }
+      { activeTab === 1 && (
+      <ContentTab
+        contentDetails={ contentDetails }
+        setContentDetails={ setContentDetails }
+      />
+      )}
     </Box>
 
   )
 }
-
+NewCourseForm.propTypes = {
+  informationDetails: PropTypes.shape({}).isRequired,
+  setInformationDetails: PropTypes.func.isRequired,
+  contentDetails: PropTypes.shape({}).isRequired,
+  setContentDetails: PropTypes.func.isRequired,
+}
 export default NewCourseForm

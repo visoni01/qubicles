@@ -7,6 +7,7 @@ const CourseDescription = ({
   description,
   goals,
   outcomes,
+  preRequisites,
 }) => {
   const [ showFullDescription, setShowFullDescription ] = useState(false)
   let descriptionButtonName
@@ -44,15 +45,7 @@ const CourseDescription = ({
           </p>
           <h4 className='h4 mt-10 '> Prerequisites</h4>
           <p className='para'>
-            <ol className='ml-15'>
-              <li> One year experience working as call-center professional </li>
-              <li>
-                Completed following course
-                <br />
-                How to talk to clients?
-              </li>
-            </ol>
-            {/* {prerequisites} */}
+            {preRequisites}
           </p>
         </div>
         )}
@@ -75,6 +68,7 @@ CourseDescription.defaultProps = {
   description: 'description',
   goals: 'goals',
   outcomes: 'outcomes',
+  preRequisites: 'preRequisites',
 }
 
 CourseDescription.propTypes = {
@@ -82,6 +76,7 @@ CourseDescription.propTypes = {
   description: PropTypes.string,
   goals: PropTypes.string,
   outcomes: PropTypes.string,
+  preRequisites: PropTypes.string,
 }
 
 export default CourseDescription

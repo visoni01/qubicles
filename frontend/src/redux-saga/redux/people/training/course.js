@@ -7,7 +7,7 @@ const initialState = {
   course: {
     informationSection: {
       title: '',
-      categoryId: null,
+      category: null,
       price: 0,
       visibility: 'public',
       summary: '',
@@ -29,6 +29,7 @@ const {
     trainingCourseRequestStart,
     trainingCourseRequestSuccess,
     trainingCourseRequestFailed,
+    updateTrainingCourseDetails,
   }, reducer,
 } = createSlice({
   name: 'trainingCourse',
@@ -52,6 +53,10 @@ const {
       error: true,
       success: false,
     }),
+    updateTrainingCourseDetails: (state, action) => ({
+      ...state,
+      course: action.payload.course,
+    }),
   },
 })
 
@@ -60,4 +65,5 @@ export {
   trainingCourseRequestStart,
   trainingCourseRequestSuccess,
   trainingCourseRequestFailed,
+  updateTrainingCourseDetails,
 }
