@@ -3,6 +3,7 @@ import { Grid } from '@material-ui/core'
 import SectionOptions from './sectionOptions'
 import InitialContent from './initialContent'
 import AddedContent from './addedContent'
+import TestSection from './testSection'
 
 const CourseContentSection = () => (
   <div>
@@ -21,6 +22,7 @@ const CourseContentSection = () => (
       </div>
       <InitialContent />
       <AddedContent />
+      <TestSection />
     </div>
     <SectionOptions />
   </div>

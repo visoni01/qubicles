@@ -20,6 +20,14 @@ const initialState = {
       thumbnailImage: null,
       introductionVideo: null,
     },
+    courseContent: {
+      sections: [ {
+        title: 'Section',
+        sectionNum: 1,
+        sectionIsActive: true,
+
+      } ],
+    },
   },
   requestType: null,
 }

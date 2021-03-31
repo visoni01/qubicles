@@ -12,7 +12,8 @@ const SectionOptions = () => (
     >
       Add Unit
     </Button>
-    <Button
+    {/* WIP Test */}
+    {/* <Button
       className='wide-button'
       classes={ {
         root: 'button-secondary-small',
@@ -20,7 +21,7 @@ const SectionOptions = () => (
       } }
     >
       Add Test
-    </Button>
+    </Button> */}
   </div>
 )
 
