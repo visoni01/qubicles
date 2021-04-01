@@ -35,6 +35,16 @@ const AddArticleModal = ({
       <CKEditor
         editor={ ClassicEditor }
         data=''
+        onInit={ (editor) => {
+          editor.setData('')
+          editor.editing.view.change((writer) => {
+            writer.setStyle(
+              'height',
+              '350px',
+              editor.editing.view.document.getRoot(),
+            )
+          })
+        } }
       />
     </DialogContent>
     <DialogActions className='modal-actions'>

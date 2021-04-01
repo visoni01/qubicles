@@ -3,6 +3,7 @@ import { Grid } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import SectionOptions from './sectionOptions'
 import InitialContent from './initialContent'
+import AddedContent from './addedContent'
 
 const CourseContentSection = ({
   section,
@@ -27,7 +28,12 @@ const CourseContentSection = ({
         </Grid>
       </div>
       <InitialContent />
-      {/* <AddedContent /> */}
+      {section.units.map((unit) => (
+        <AddedContent
+          key={ unit.unitId }
+          unit={ unit }
+        />
+      ))}
       {/* <TestSection /> */}
     </div>
     <SectionOptions />

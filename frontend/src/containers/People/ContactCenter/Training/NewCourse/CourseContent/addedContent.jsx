@@ -4,8 +4,11 @@ import {
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFileAlt, faTrash } from '@fortawesome/free-solid-svg-icons'
+import PropTypes from 'prop-types'
 
-const AddedContent = () => (
+const AddedContent = ({
+  unit,
+}) => (
   <div className='list-item'>
     <Grid container spacing={ 2 } justify='space-between'>
       <Grid item xl={ 4 } lg={ 4 } md={ 4 } sm={ 2 } container spacing={ 2 }>
@@ -14,7 +17,7 @@ const AddedContent = () => (
         </Grid>
         <Grid item className='text-edit' xl={ 10 } lg={ 10 } md={ 10 } sm={ 10 }>
           <Input
-            defaultValue='Unit 2'
+            defaultValue={ `${ unit.title } ${ unit.unitNum }` }
             className='text-edit'
           />
         </Grid>
@@ -37,5 +40,16 @@ const AddedContent = () => (
     </Grid>
   </div>
 )
+
+AddedContent.propTypes = {
+  unit: PropTypes.shape({
+    unitId: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    unitNum: PropTypes.string.isRequired,
+    sectionId: PropTypes.number.isRequired,
+    details: PropTypes.string.isRequired,
+    length: PropTypes.number.isRequired,
+  }).isRequired,
+}
 
 export default AddedContent
