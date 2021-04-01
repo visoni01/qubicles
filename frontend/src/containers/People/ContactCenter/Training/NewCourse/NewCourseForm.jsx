@@ -8,6 +8,7 @@ import ContentTab from './ContentTab'
 
 const NewCourseForm = ({
   informationDetails, setInformationDetails, contentDetails, setContentDetails,
+  courseContent, setCourseContent,
 }) => {
   const [ activeTab, setActiveTab ] = useState(1)
 
@@ -34,6 +35,8 @@ const NewCourseForm = ({
       <ContentTab
         contentDetails={ contentDetails }
         setContentDetails={ setContentDetails }
+        courseContent={ courseContent }
+        setCourseContent={ setCourseContent }
       />
       )}
     </Box>
@@ -45,5 +48,7 @@ NewCourseForm.propTypes = {
   setInformationDetails: PropTypes.func.isRequired,
   contentDetails: PropTypes.shape({}).isRequired,
   setContentDetails: PropTypes.func.isRequired,
+  courseContent: PropTypes.shape({}).isRequired,
+  setCourseContent: PropTypes.func.isRequired,
 }
 export default NewCourseForm

@@ -1,7 +1,10 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import ContentSectionRoot from './contentSectionRoot'
 
-export default function CourseContent() {
+export default function CourseContent({
+  courseContent, setCourseContent,
+}) {
   return (
     <div className='content-tab-section'>
       <div className='content-box'>
@@ -12,8 +15,16 @@ export default function CourseContent() {
             by creating sections, units and tests`}
           </p>
         </div>
-        <ContentSectionRoot />
+        <ContentSectionRoot
+          courseContent={ courseContent }
+          setCourseContent={ setCourseContent }
+        />
       </div>
     </div>
   )
+}
+
+CourseContent.propTypes = {
+  courseContent: PropTypes.shape({}).isRequired,
+  setCourseContent: PropTypes.func.isRequired,
 }

@@ -10,6 +10,7 @@ const NewCourse = () => {
   const { course } = useSelector((state) => state.trainingCourse)
   const [ informationDetails, setInformationDetails ] = useState(course.informationSection)
   const [ contentDetails, setContentDetails ] = useState(course.contentSection)
+  const [ courseContent, setCourseContent ] = useState(course.courseContent)
   const dispatch = useDispatch()
 
   const updateCourseReducer = useCallback(() => {
@@ -17,9 +18,10 @@ const NewCourse = () => {
       course: {
         informationSection: informationDetails,
         contentSection: contentDetails,
+        courseContent,
       },
     }))
-  }, [ informationDetails, contentDetails, dispatch ])
+  }, [ informationDetails, contentDetails, courseContent, dispatch ])
 
   return (
     (
@@ -30,6 +32,8 @@ const NewCourse = () => {
             setInformationDetails={ setInformationDetails }
             contentDetails={ contentDetails }
             setContentDetails={ setContentDetails }
+            courseContent={ courseContent }
+            setCourseContent={ setCourseContent }
           />
         </Grid>
         <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 12 }>

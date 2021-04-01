@@ -22,10 +22,11 @@ const initialState = {
     },
     courseContent: {
       sections: [ {
+        id: 0,
         title: 'Section',
         sectionNum: 1,
         sectionIsActive: true,
-
+        units: [],
       } ],
     },
   },

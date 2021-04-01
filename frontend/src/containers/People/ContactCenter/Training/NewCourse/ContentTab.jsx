@@ -6,15 +6,20 @@ import CourseContent from './CourseContent/index'
 
 export default function ContentTab({
   contentDetails, setContentDetails,
+  courseContent, setCourseContent,
 }) {
   return (
     <div className='mt-30'>
       <CourseThumbnail
         contentDetails={ contentDetails }
         setContentDetails={ setContentDetails }
+
       />
       <IntroVideo />
-      <CourseContent />
+      <CourseContent
+        courseContent={ courseContent }
+        setCourseContent={ setCourseContent }
+      />
     </div>
   )
 }
@@ -22,4 +27,6 @@ export default function ContentTab({
 ContentTab.propTypes = {
   contentDetails: PropTypes.shape({}).isRequired,
   setContentDetails: PropTypes.func.isRequired,
+  courseContent: PropTypes.shape({}).isRequired,
+  setCourseContent: PropTypes.func.isRequired,
 }
