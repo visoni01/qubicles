@@ -92,3 +92,11 @@ export const addNewUnitToSection = ({ section }) => {
     } ],
   }
 }
+
+export const deleteUnitFromSection = ({ section, unitToDelete }) => {
+  const updatedSection = {
+    ...section,
+    units: section.units.filter((unit) => unit.unitId !== unitToDelete.unitId),
+  }
+  return updatedSection
+}
