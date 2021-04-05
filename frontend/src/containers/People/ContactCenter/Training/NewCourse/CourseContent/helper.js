@@ -9,6 +9,13 @@ export const checkDisabledAddUnitButton = ({ units }) => {
   return false
 }
 
+export const checkDisabledUnitSaveButton = ({ savedUnit, updatedUnit }) => {
+  if (updatedUnit.isEmpty) {
+    return (_.isEmpty(updatedUnit.title) || _.isEmpty(updatedUnit.details) || _.isEmpty(updatedUnit.type))
+  }
+  return (_.isEqual(savedUnit, updatedUnit))
+}
+
 export const addEmptyContentSectionToSections = ({ sections }) => {
   if (sections.length > 0) {
     const lastSection = sections[ sections.length - 1 ]

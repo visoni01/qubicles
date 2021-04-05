@@ -16,13 +16,19 @@ const AddedContent = ({
   const [ unitDetails, setUnitDetails ] = useState(unit)
 
   const saveUnitDetails = useCallback(() => {
-    if (!_.isEqual(unit, unitDetails)) {
-      setUnitDetails((current) => ({ ...current, isEmpty: false }))
+    let updatedUnit = unitDetails
+    if (!_.isEqual(unit, updatedUnit)) {
+      setUnitDetails((current) => {
+        updatedUnit = { ...current, isEmpty: false }
+        return ({ ...current, isEmpty: false })
+      })
     }
+
     const updatedSection = updateUnitInSection({
       section,
-      updatedUnit: unitDetails,
+      updatedUnit,
     })
+
     updateSection({
       section: updatedSection,
     })
@@ -72,8 +78,8 @@ const AddedContent = ({
         onClose={ () => setOpenAddUnit(false) }
         onSubmit={ saveUnitDetails }
         unit={ unitDetails }
+        savedUnit={ unit }
         setUnitDetails={ setUnitDetails }
-
       />
     </div>
   )

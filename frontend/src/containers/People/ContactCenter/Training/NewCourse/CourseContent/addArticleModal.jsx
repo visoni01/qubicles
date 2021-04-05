@@ -7,11 +7,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faUpload } from '@fortawesome/free-solid-svg-icons'
 import CKEditor from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import _ from 'lodash'
 import SingleSelect from '../../../../../Shared/singleSelect'
+import { checkDisabledUnitSaveButton } from './helper'
 
 const AddArticleModal = ({
-  open, onClose, onSubmit, unit, setUnitDetails,
+  open, onClose, onSubmit, unit, setUnitDetails, savedUnit,
 }) => {
   const handleUnitTypeChange = useCallback((selectedType) => {
     setUnitDetails((current) => ({
@@ -146,7 +146,7 @@ const AddArticleModal = ({
           className='button-primary-small'
           classes={ { label: 'primary-label' } }
           onClick={ onSubmit }
-          disabled={ _.isEmpty(unit.title) || _.isEmpty(unit.details) || _.isEmpty(unit.type) }
+          disabled={ checkDisabledUnitSaveButton({ savedUnit, updatedUnit: unit }) }
         >
           Save
         </Button>
@@ -160,6 +160,16 @@ AddArticleModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   unit: PropTypes.shape({
+    unitId: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    unitNum: PropTypes.string.isRequired,
+    sectionId: PropTypes.number.isRequired,
+    details: PropTypes.string.isRequired,
+    type: PropTypes.any,
+    length: PropTypes.number.isRequired,
+    isEmpty: PropTypes.bool.isRequired,
+  }).isRequired,
+  savedUnit: PropTypes.shape({
     unitId: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     unitNum: PropTypes.string.isRequired,
