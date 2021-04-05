@@ -21,7 +21,7 @@ const CourseActions = ({ isPreview, course }) => (
             </p>
           </Box>
           <CardMedia
-            image='https://picsum.photos/400/300'
+            image={ course.contentSection.thumbnailImage }
             className='course-image round-border'
           />
         </Card>
@@ -70,10 +70,12 @@ const CourseActions = ({ isPreview, course }) => (
           </div>
         </>
       )}
+      {course.informationSection.category && (
       <div className='mb-20'>
         <h4 className='h4'>Category</h4>
         <span className='para light'>{course.informationSection.category.title}</span>
       </div>
+      )}
       <div className='mb-20'>
         <h4 className='h4'>Language(s)</h4>
         <span className='para light'>English</span>
@@ -90,6 +92,9 @@ CourseActions.propTypes = {
       category: PropTypes.shape({
         title: PropTypes.string.isRequired,
       }).isRequired,
+    }).isRequired,
+    contentSection: PropTypes.shape({
+      thumbnailImage: PropTypes.any.isRequired,
     }).isRequired,
   }).isRequired,
 }
