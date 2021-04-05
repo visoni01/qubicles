@@ -2,7 +2,6 @@ import React, { useCallback } from 'react'
 import { Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import CourseContentSection from './courseContentSection'
-
 import './styles.scss'
 
 const ContentSectionRoot = ({

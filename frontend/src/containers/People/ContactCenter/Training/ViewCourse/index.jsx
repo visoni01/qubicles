@@ -41,7 +41,9 @@ const ViewCourse = () => (
       </Grid>
     </Grid>
     <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
-      <CourseActions />
+      <CourseActions
+        isPreview={ false }
+      />
     </Grid>
   </Grid>
 )

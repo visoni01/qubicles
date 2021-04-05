@@ -10,6 +10,7 @@ import CourseActions from './CourseActions'
 
 const PreviewCourse = () => {
   const { course } = useSelector((state) => state.trainingCourse)
+  const isPreview = true
 
   return (
     <Grid container spacing={ 3 }>
@@ -43,7 +44,10 @@ const PreviewCourse = () => {
         </Grid>
       </Grid>
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
-        <CourseActions />
+        <CourseActions
+          isPreview={ isPreview }
+          course={ course }
+        />
       </Grid>
     </Grid>
   )
