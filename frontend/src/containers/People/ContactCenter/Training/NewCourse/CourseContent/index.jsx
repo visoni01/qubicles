@@ -5,6 +5,7 @@ import ContentSectionRoot from './contentSectionRoot'
 export default function CourseContent({
   courseContent, setCourseContent,
 }) {
+  console.log('COURSE CONTENT==', courseContent)
   return (
     <div className='content-tab-section'>
       <div className='content-box'>

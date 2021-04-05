@@ -3,21 +3,29 @@ import { Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import CourseContentSection from './courseContentSection'
 import './styles.scss'
+import { checkDisabledAddSectionButton, addEmptyContentSectionToSections, updateSectionInSections } from './helper'
 
 const ContentSectionRoot = ({
   courseContent, setCourseContent,
 }) => {
   const handleAddSectionButton = useCallback(() => {
-    setCourseContent((current) => ({
-      ...current,
-      sections: [ ...current.sections, {
-        id: current.sections[ current.sections.length - 1 ].id + 1,
-        title: 'Section',
-        sectionNum: current.sections[ current.sections.length - 1 ].sectionNum + 1,
-        sectionIsActive: true,
-        units: [],
-      } ],
-    }))
+    setCourseContent((current) => {
+      const newSections = addEmptyContentSectionToSections({ sections: current.sections })
+      return ({
+        ...current,
+        sections: newSections,
+      })
+    })
+  }, [ setCourseContent ])
+
+  const updateSection = useCallback(({ section }) => {
+    setCourseContent((current) => {
+      const updatedSections = updateSectionInSections({ sections: current.sections, updatedSection: section })
+      return ({
+        ...current,
+        sections: updatedSections,
+      })
+    })
   }, [ setCourseContent ])
 
   return (
@@ -26,6 +34,7 @@ const ContentSectionRoot = ({
         <CourseContentSection
           key={ section.id }
           section={ section }
+          updateSection={ updateSection }
         />
       ))}
 
@@ -36,6 +45,7 @@ const ContentSectionRoot = ({
           label: 'button-secondary-small-label',
         } }
         onClick={ handleAddSectionButton }
+        disabled={ checkDisabledAddSectionButton({ sections: courseContent.sections }) }
       >
         Add Section
       </Button>
