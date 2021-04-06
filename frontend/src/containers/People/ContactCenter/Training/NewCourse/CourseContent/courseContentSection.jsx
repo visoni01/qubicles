@@ -1,15 +1,33 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Grid } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import SectionOptions from './sectionOptions'
 import AddedContent from './addedContent'
-import { addNewUnitToSection } from './helper'
+import TestSection from './testSection'
+import { addNewUnitToSection, addNewTestToSection, deleteUnitFromSection } from './helper'
 
 const CourseContentSection = ({
   section, updateSection,
 }) => {
+  const [ openTest, setOpenTest ] = useState(false)
+
   const handleAddUnitButton = useCallback(() => {
     const updatedSection = addNewUnitToSection({ section })
+    updateSection({
+      section: updatedSection,
+    })
+  }, [ updateSection, section ])
+
+  const handleAddTestButton = useCallback(() => {
+    const updatedSection = addNewTestToSection({ section })
+    updateSection({
+      section: updatedSection,
+    })
+    setOpenTest(true)
+  }, [ updateSection, section ])
+
+  const handleDeleteUnitButton = useCallback(({ unit }) => {
+    const updatedSection = deleteUnitFromSection({ section, unitToDelete: unit })
     updateSection({
       section: updatedSection,
     })
@@ -37,18 +55,32 @@ const CourseContentSection = ({
         </div>
 
         {section.units.map((unit) => (
-          <AddedContent
-            key={ unit.unitId }
-            unit={ unit }
-            section={ section }
-            updateSection={ updateSection }
-          />
+          unit.type.id === 3 ? (
+            <TestSection
+              key={ unit.unitId }
+              unit={ unit }
+              section={ section }
+              updateSection={ updateSection }
+              handleDeleteUnitButton={ handleDeleteUnitButton }
+              openTest={ openTest }
+              setOpenTest={ setOpenTest }
+            />
+          ) : (
+            <AddedContent
+              key={ unit.unitId }
+              unit={ unit }
+              section={ section }
+              updateSection={ updateSection }
+              handleDeleteUnitButton={ handleDeleteUnitButton }
+            />
+          )
         ))}
-        {/* <TestSection /> */}
+
       </div>
       <SectionOptions
         units={ section.units }
         handleAddUnitButton={ handleAddUnitButton }
+        handleAddTestButton={ handleAddTestButton }
       />
     </div>
   )

@@ -1,10 +1,10 @@
 import React from 'react'
 import { Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import { checkDisabledAddUnitButton } from './helper'
+import { checkDisabledAddUnitButton, checkDisabledAddTestButton } from './helper'
 
 const SectionOptions = ({
-  units, handleAddUnitButton,
+  units, handleAddUnitButton, handleAddTestButton,
 }) => (
   <div className='content-options display-inline-flex justify-between'>
     <Button
@@ -24,6 +24,8 @@ const SectionOptions = ({
         root: 'button-secondary-small',
         label: 'button-secondary-small-label',
       } }
+      disabled={ checkDisabledAddTestButton({ units }) }
+      onClick={ handleAddTestButton }
     >
       Add Test
     </Button>
@@ -33,6 +35,8 @@ const SectionOptions = ({
 SectionOptions.propTypes = {
   units: PropTypes.shape(PropTypes.any).isRequired,
   handleAddUnitButton: PropTypes.func.isRequired,
+  handleAddTestButton: PropTypes.func.isRequired,
+
 }
 
 export default SectionOptions

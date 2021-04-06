@@ -1,13 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import {
   Grid, Input, IconButton, Button,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFlask, faTrash } from '@fortawesome/free-solid-svg-icons'
+import PropTypes from 'prop-types'
 import TestQuestionModal from './testQuestionModal'
+import ConfirmationModal from '../../../../../../components/CommonModal/confirmationModal'
 
-const TestSection = () => {
-  const [ openTest, setOpenTest ] = useState(false)
+const TestSection = ({
+  unit, updateSection, section, handleDeleteUnitButton, openTest, setOpenTest,
+}) => {
+  const [ openConfirmDelete, setOpenConfirmDelete ] = useState(false)
+  const [ unitDetails, setUnitDetails ] = useState(unit)
+
+  const handleTestTitleChange = useCallback((e) => {
+    e.persist()
+    setUnitDetails((current) => ({
+      ...current,
+      title: e.target.value,
+    }))
+  }, [])
+
   return (
     <>
       <div className='list-item'>
@@ -18,14 +32,15 @@ const TestSection = () => {
             </Grid>
             <Grid item className='text-edit' xl={ 10 } lg={ 10 } md={ 10 } sm={ 10 }>
               <Input
-                defaultValue='Test'
+                value={ unitDetails.title }
                 className='text-edit'
+                onChange={ (e) => handleTestTitleChange(e) }
               />
             </Grid>
           </Grid>
           <Grid item xl={ 8 } lg={ 8 } md={ 8 } sm={ 10 } className='added-content'>
             <span className='para light margin-left-right-10'> Test </span>
-            <IconButton>
+            <IconButton onClick={ () => setOpenConfirmDelete(true) }>
               <FontAwesomeIcon className='custom-fa-icon sz-lg' icon={ faTrash } />
             </IconButton>
             <Button
@@ -45,9 +60,34 @@ const TestSection = () => {
         open={ openTest }
         onClose={ () => setOpenTest(false) }
         onSubmit={ () => setOpenTest(false) }
+        unit={ unit }
+      />
+      <ConfirmationModal
+        open={ openConfirmDelete }
+        handleClose={ () => setOpenConfirmDelete(false) }
+        message='Are you sure you want to delete this test ?'
+        confirmButtonText='Delete'
+        handleConfirm={ () => handleDeleteUnitButton({ unit }) }
       />
     </>
   )
+}
+
+TestSection.propTypes = {
+  unit: PropTypes.shape({
+    unitId: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    unitNum: PropTypes.string.isRequired,
+    sectionId: PropTypes.number.isRequired,
+    questions: PropTypes.arrayOf(PropTypes.any).isRequired,
+    length: PropTypes.number.isRequired,
+    isEmpty: PropTypes.bool.isRequired,
+  }).isRequired,
+  updateSection: PropTypes.func.isRequired,
+  section: PropTypes.shape({}).isRequired,
+  handleDeleteUnitButton: PropTypes.func.isRequired,
+  openTest: PropTypes.bool.isRequired,
+  setOpenTest: PropTypes.func.isRequired,
 }
 
 export default TestSection

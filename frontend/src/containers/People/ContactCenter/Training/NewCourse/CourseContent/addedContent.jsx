@@ -7,11 +7,11 @@ import { faFileAlt, faTrash } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import AddArticleModal from './addArticleModal'
-import { updateUnitInSection, deleteUnitFromSection } from './helper'
+import { updateUnitInSection } from './helper'
 import ConfirmationModal from '../../../../../../components/CommonModal/confirmationModal'
 
 const AddedContent = ({
-  unit, updateSection, section,
+  unit, updateSection, section, handleDeleteUnitButton,
 }) => {
   const [ openAddUnit, setOpenAddUnit ] = useState(false)
   const [ unitDetails, setUnitDetails ] = useState(unit)
@@ -36,13 +36,6 @@ const AddedContent = ({
     })
     setOpenAddUnit(false)
   }, [ unitDetails, updateSection, section, unit ])
-
-  const handleDeleteUnitButton = useCallback(() => {
-    const updatedSection = deleteUnitFromSection({ section, unitToDelete: unit })
-    updateSection({
-      section: updatedSection,
-    })
-  }, [ updateSection, section, unit ])
 
   return (
     <div className='list-item'>
@@ -83,6 +76,7 @@ const AddedContent = ({
         </Grid>
       </Grid>
       <AddArticleModal
+        title={ unitDetails.isEmpty ? 'New Article' : 'Edit Article' }
         open={ openAddUnit }
         onClose={ () => setOpenAddUnit(false) }
         onSubmit={ saveUnitDetails }
@@ -95,7 +89,7 @@ const AddedContent = ({
         handleClose={ () => setOpenConfirmDelete(false) }
         message='Are you sure you want to delete this unit ?'
         confirmButtonText='Delete'
-        handleConfirm={ handleDeleteUnitButton }
+        handleConfirm={ () => handleDeleteUnitButton({ unit }) }
       />
     </div>
   )
@@ -113,6 +107,7 @@ AddedContent.propTypes = {
   }).isRequired,
   updateSection: PropTypes.func.isRequired,
   section: PropTypes.shape({}).isRequired,
+  handleDeleteUnitButton: PropTypes.func.isRequired,
 }
 
 export default AddedContent

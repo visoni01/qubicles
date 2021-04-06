@@ -11,7 +11,7 @@ import SingleSelect from '../../../../../Shared/singleSelect'
 import { checkDisabledUnitSaveButton } from './helper'
 
 const AddArticleModal = ({
-  open, onClose, onSubmit, unit, setUnitDetails, savedUnit,
+  open, onClose, onSubmit, unit, setUnitDetails, savedUnit, title,
 }) => {
   const handleUnitTypeChange = useCallback((selectedType) => {
     setUnitDetails((current) => ({
@@ -46,7 +46,7 @@ const AddArticleModal = ({
     >
       <div className='header'>
         <DialogTitle>
-          <h2 className='h2'>New Article</h2>
+          <h2 className='h2'>{title}</h2>
         </DialogTitle>
         <DialogActions className='cross-button'>
           <IconButton
@@ -156,6 +156,7 @@ const AddArticleModal = ({
 }
 
 AddArticleModal.propTypes = {
+  title: PropTypes.string.isRequired,
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,

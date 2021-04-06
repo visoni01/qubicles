@@ -4,9 +4,24 @@ export const checkDisabledAddSectionButton = ({ sections }) => (sections[ sectio
 
 export const checkDisabledAddUnitButton = ({ units }) => {
   if (units.length > 0) {
-    return _.isEmpty(units[ units.length - 1 ].details)
+    const lastUnit = units[ units.length - 1 ]
+    if (lastUnit.type.id === 3) {
+      return !(lastUnit.questions.length > 0)
+    }
+    return _.isEmpty(lastUnit.details)
   }
   return false
+}
+
+export const checkDisabledAddTestButton = ({ units }) => {
+  if (!units.length > 0) {
+    return true
+  }
+  const lastUnit = units[ units.length - 1 ]
+  if (lastUnit.type.id === 3) {
+    return !(lastUnit.questions.length > 0)
+  }
+  return _.isEmpty(lastUnit.details)
 }
 
 export const checkDisabledUnitSaveButton = ({ savedUnit, updatedUnit }) => {
@@ -82,7 +97,7 @@ export const addNewUnitToSection = ({ section }) => {
     ...section,
     units: [ {
       unitId: 0,
-      sectionId: 0,
+      sectionId: section.id,
       unitNum: '1',
       title: 'Unit',
       details: '',
@@ -99,4 +114,36 @@ export const deleteUnitFromSection = ({ section, unitToDelete }) => {
     units: section.units.filter((unit) => unit.unitId !== unitToDelete.unitId),
   }
   return updatedSection
+}
+
+export const addNewTestToSection = ({ section }) => {
+  if (section.units.length > 0) {
+    const lastUnit = section.units[ section.units.length - 1 ]
+    return {
+      ...section,
+      units: [ ...section.units, {
+        unitId: lastUnit.unitId + 1,
+        sectionId: section.id,
+        unitNum: '1',
+        title: 'Test',
+        length: 0,
+        type: { id: 3, title: 'Test' },
+        questions: [],
+        isEmpty: true,
+      } ],
+    }
+  }
+  return {
+    ...section,
+    units: [ {
+      unitId: 0,
+      sectionId: section.id,
+      unitNum: '1',
+      title: 'Test',
+      length: 0,
+      type: { id: 3, title: 'Test' },
+      questions: [],
+      isEmpty: true,
+    } ],
+  }
 }
