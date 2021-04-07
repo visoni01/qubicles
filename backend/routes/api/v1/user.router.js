@@ -66,4 +66,7 @@ userRouter.route('/update')
 userRouter.route('/upload-profile-image')
   .post(multerUpload.single('file'), isAuthenticated, userController.updateProfileImage)
 
+userRouter.route('/details/:user_details_id')
+  .get(isAuthenticated, userController.getUserDetails)
+
 export { userRouter }

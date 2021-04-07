@@ -60,6 +60,12 @@ class User {
     })
     return response
   }
+
+  static async fetchUserData({ userDetailsId }) {
+    console.log(' userDetailsId =========', userDetailsId)
+    const response = await apiClient.getRequest(`/user/details/${ userDetailsId }`)
+    return response
+  }
 }
 
 export default User

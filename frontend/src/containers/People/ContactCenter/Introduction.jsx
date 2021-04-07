@@ -5,8 +5,8 @@ import { Avatar } from '@material-ui/core'
 import Rating from '@material-ui/lab/Rating'
 import PropTypes from 'prop-types'
 import './styles.scss'
-import { formatDate } from '../../../utils/common'
-import { agentProfileData } from './testData'
+// import { formatDate } from '../../../utils/common'
+import { contactCenterIntroduction } from './testData'
 import { defaultUser } from '../../../assets/images/avatar'
 
 const Introduction = ({
@@ -15,7 +15,7 @@ const Introduction = ({
   imageSrc,
   name,
   location,
-  date,
+  // date,
 }) => (
   <div className='introduction-root'>
     <div className='display-inline-flex is-fullwidth'>
@@ -34,21 +34,24 @@ const Introduction = ({
           <FontAwesomeIcon className='custom-fa-icon light mr-10' icon={ faMapMarkerAlt } />
           {location}
         </p>
-        <p className='para light'>
-          {`Member since ${ formatDate(date, 'MM/YYYY') }`}
-        </p>
+        {/* WIP untill registration date doubt resolve */}
+        {/* <p className='para light'>
+          Member since
+          {' '}
+          {formatDate(date, 'MM/YYYY')}
+        </p> */}
       </div>
     </div>
   </div>
 )
 
 Introduction.defaultProps = {
-  imageName: agentProfileData.userName,
-  rating: agentProfileData.rating,
-  imageSrc: agentProfileData.profilePic,
-  name: agentProfileData.fullName,
-  location: agentProfileData.location,
-  date: agentProfileData.date,
+  imageName: contactCenterIntroduction.imageName,
+  rating: contactCenterIntroduction.rating,
+  imageSrc: contactCenterIntroduction.imageSrc,
+  name: contactCenterIntroduction.name,
+  location: contactCenterIntroduction.location,
+  // date: contactCenterIntroduction.date,
 }
 
 Introduction.propTypes = {
@@ -57,7 +60,7 @@ Introduction.propTypes = {
   imageSrc: PropTypes.string,
   name: PropTypes.string,
   location: PropTypes.string,
-  date: PropTypes.string,
+  // date: PropTypes.string,
 }
 
 export default Introduction

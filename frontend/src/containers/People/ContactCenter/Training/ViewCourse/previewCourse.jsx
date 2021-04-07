@@ -4,9 +4,8 @@ import { Grid } from '@material-ui/core'
 import CourseTrainerIntro from './CourseTrainerIntro'
 import CourseDescription from './CourseDescription'
 import CourseOverview from './CourseOverview'
-import CourseReviews from './CourseReviews'
-import './styles.scss'
 import CourseActions from './CourseActions'
+import './styles.scss'
 
 const PreviewCourse = () => {
   const { course } = useSelector((state) => state.trainingCourse)
@@ -38,9 +37,6 @@ const PreviewCourse = () => {
         </Grid>
         <Grid item>
           <CourseOverview />
-        </Grid>
-        <Grid item>
-          <CourseReviews />
         </Grid>
       </Grid>
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>

@@ -14,6 +14,7 @@ import {
 } from '../services/user'
 import { getNewTokenAfterUserCodeChanged } from '../services/helper'
 import config from '../../config/app'
+import UserDetailsService from '../services/user/getUserDetails'
 
 export default class UserController {
   static async signUp (req, res) {
@@ -121,6 +122,15 @@ export default class UserController {
       Responder.success(res, UploadProfileImage.result)
     } else {
       Responder.failed(res, UploadProfileImage.errors)
+    }
+  }
+
+  static async getUserDetails (req, res) {
+    const userDetails = await UserDetailsService.execute({ ...req.body, ...req.params })
+    if (userDetails.successful) {
+      Responder.success(res, userDetails.result)
+    } else {
+      Responder.failed(res, userDetails.errors)
     }
   }
 }
