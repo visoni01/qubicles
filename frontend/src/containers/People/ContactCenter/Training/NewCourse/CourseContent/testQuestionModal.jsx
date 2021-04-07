@@ -59,7 +59,7 @@ const TestQuestionModal = ({
                   { id: 3, value: 'TextField' },
                   { id: 4, value: 'Scale' },
                 ].map((questionType) => (
-                  <option key={ questionType.id } value={ questionType.value } className='para'>
+                  <option key={ questionType.id } value={ questionType.value } className='para sz-xl'>
                     {/* <p className='para'>{questionType.value}</p> */}
                     {questionType.value}
                   </option>

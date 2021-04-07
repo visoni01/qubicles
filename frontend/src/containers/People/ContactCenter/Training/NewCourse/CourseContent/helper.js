@@ -5,7 +5,7 @@ export const checkDisabledAddSectionButton = ({ sections }) => (sections[ sectio
 export const checkDisabledAddUnitButton = ({ units }) => {
   if (units.length > 0) {
     const lastUnit = units[ units.length - 1 ]
-    if (lastUnit.type.id === 3) {
+    if (lastUnit.type === 'Test') {
       return !(lastUnit.questions.length > 0)
     }
     return _.isEmpty(lastUnit.details)
@@ -18,7 +18,7 @@ export const checkDisabledAddTestButton = ({ units }) => {
     return true
   }
   const lastUnit = units[ units.length - 1 ]
-  if (lastUnit.type.id === 3) {
+  if (lastUnit.type === 'Test') {
     return !(lastUnit.questions.length > 0)
   }
   return _.isEmpty(lastUnit.details)
@@ -88,7 +88,7 @@ export const addNewUnitToSection = ({ section }) => {
         title: 'Unit',
         details: '',
         length: 0,
-        type: { id: 0, title: 'Article' },
+        type: 'Article',
         isEmpty: true,
       } ],
     }
@@ -102,7 +102,7 @@ export const addNewUnitToSection = ({ section }) => {
       title: 'Unit',
       details: '',
       length: 0,
-      type: { id: 0, title: 'Article' },
+      type: 'Article',
       isEmpty: true,
     } ],
   }
@@ -127,7 +127,7 @@ export const addNewTestToSection = ({ section }) => {
         unitNum: '1',
         title: 'Test',
         length: 0,
-        type: { id: 3, title: 'Test' },
+        type: 'Test',
         questions: [],
         isEmpty: true,
       } ],

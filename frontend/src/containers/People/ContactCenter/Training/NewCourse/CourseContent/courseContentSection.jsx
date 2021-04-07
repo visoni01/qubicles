@@ -55,7 +55,7 @@ const CourseContentSection = ({
         </div>
 
         {section.units.map((unit) => (
-          unit.type.id === 3 ? (
+          unit.type === 'Test' ? (
             <TestSection
               key={ unit.unitId }
               unit={ unit }

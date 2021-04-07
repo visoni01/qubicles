@@ -1,13 +1,12 @@
 import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogTitle, DialogActions, IconButton, DialogContent, Button, Grid, TextField,
+  Dialog, DialogTitle, DialogActions, IconButton, DialogContent, Button, Grid, TextField, Select,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faUpload } from '@fortawesome/free-solid-svg-icons'
 import CKEditor from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import SingleSelect from '../../../../../Shared/singleSelect'
 import { checkDisabledUnitSaveButton } from './helper'
 
 const AddArticleModal = ({
@@ -72,21 +71,27 @@ const AddArticleModal = ({
             </Grid>
             <Grid item xs={ 4 } sm={ 4 } md={ 4 } lg={ 4 } xl={ 4 }>
               <p className='para bold'>Choose what type of unit this is</p>
-              <SingleSelect
-                items={ [ { id: 0, title: 'Article' }, { id: 1, title: 'Video' }, { id: 2, title: 'Audio' } ] }
-                onChange={ (selectedType) => handleUnitTypeChange(selectedType) }
-                value={ (unit.type) ? {
-                  id: unit.type.id,
-                  title: unit.type.title,
-                } : null }
-              />
+              <Select
+                margin='dense'
+                variant='outlined'
+                native
+                className='mt-7 is-fullwidth'
+                onChange={ (e) => handleUnitTypeChange(e.target.value) }
+                value={ unit.type }
+              >
+                {[ 'Article', 'Video', 'Audio' ].map((questionType) => (
+                  <option key={ questionType.id } value={ questionType } className='para sz-xl'>
+                    {questionType}
+                  </option>
+                ))}
+              </Select>
             </Grid>
           </Grid>
         </div>
         <div>
           { unit.type ? (
             <div>
-              {unit.type.title === 'Article' && (
+              {unit.type === 'Article' && (
               <CKEditor
                 editor={ ClassicEditor }
                 data={ unit.details }
@@ -102,7 +107,7 @@ const AddArticleModal = ({
                 } }
               />
               )}
-              {unit.type.title === 'Audio' && (
+              {unit.type === 'Audio' && (
                 <div className='mt-60 mb-40 is-fullwidth text-center'>
                   <Button
                     classes={ {
@@ -115,7 +120,7 @@ const AddArticleModal = ({
                   </Button>
                 </div>
               )}
-              {unit.type.title === 'Video' && (
+              {unit.type === 'Video' && (
                 <div className='mt-60 mb-40 is-fullwidth text-center'>
                   <Button
                     classes={ {

@@ -70,17 +70,16 @@ export default function InformationTab({
     <div className='mt-30'>
       <div className='info-tab-section'>
         <h3 className='h3 mb-10'> Course Title </h3>
-        <div className='input-box'>
-          <TextareaAutosize
-            aria-label='minimum height'
-            autoComplete='off'
-            rowsMin={ 1 }
-            placeholder='Title'
-            value={ informationDetails.title }
-            name='title'
-            onChange={ setInformationSectionField }
-          />
-        </div>
+        <TextField
+          className='is-fullwidth'
+          value={ informationDetails.title }
+          onChange={ setInformationSectionField }
+          margin='dense'
+          autoComplete='off'
+          placeholder='Title'
+          name='title'
+          variant='outlined'
+        />
       </div>
 
       <Grid container spacing={ 4 }>
@@ -160,53 +159,57 @@ export default function InformationTab({
       <div className='info-tab-section'>
         <h3 className='h3 mb-10'> Description </h3>
         <h4 className='h4 mb-10 mt-30'> Summary </h4>
-        <div className='input-box'>
-          <TextareaAutosize
-            aria-label='minimum height'
-            autoComplete='off'
-            rowsMin={ 8 }
-            placeholder='Add a short description outlining the scope of the course'
-            value={ informationDetails.summary }
-            name='summary'
-            onChange={ setInformationSectionField }
-          />
-        </div>
+        <TextField
+          className='is-fullwidth'
+          name='summary'
+          value={ informationDetails.summary }
+          onChange={ setInformationSectionField }
+          placeholder='Add a short description outlining the scope of the course'
+          multiline
+          rows={ 8 }
+          margin='dense'
+          autoComplete='off'
+          variant='outlined'
+        />
         <h4 className='h4 mb-10 mt-30'> Goals </h4>
-        <div className='input-box'>
-          <TextareaAutosize
-            aria-label='minimum height'
-            autoComplete='off'
-            rowsMin={ 8 }
-            placeholder='Describe the goals of the course'
-            value={ informationDetails.goals }
-            name='goals'
-            onChange={ setInformationSectionField }
-          />
-        </div>
+        <TextField
+          className='is-fullwidth'
+          name='goals'
+          value={ informationDetails.goals }
+          onChange={ setInformationSectionField }
+          placeholder='Describe the goals of the course'
+          multiline
+          rows={ 8 }
+          margin='dense'
+          autoComplete='off'
+          variant='outlined'
+        />
         <h4 className='h4 mb-10 mt-30'> Outcomes </h4>
-        <div className='input-box'>
-          <TextareaAutosize
-            aria-label='minimum height'
-            autoComplete='off'
-            rowsMin={ 8 }
-            placeholder='Describe the outcomes of this course in detail'
-            value={ informationDetails.outcomes }
-            name='outcomes'
-            onChange={ setInformationSectionField }
-          />
-        </div>
+        <TextField
+          className='is-fullwidth'
+          name='outcomes'
+          value={ informationDetails.outcomes }
+          onChange={ setInformationSectionField }
+          placeholder='Describe the outcomes of this course in detail'
+          multiline
+          rows={ 8 }
+          margin='dense'
+          autoComplete='off'
+          variant='outlined'
+        />
         <h4 className='h4 mb-10 mt-30'> Prerequisites </h4>
-        <div className='input-box'>
-          <TextareaAutosize
-            aria-label='minimum height'
-            autoComplete='off'
-            rowsMin={ 8 }
-            placeholder='Let the students know it there are any prerequisites for this course'
-            value={ informationDetails.preRequisites }
-            name='preRequisites'
-            onChange={ setInformationSectionField }
-          />
-        </div>
+        <TextField
+          className='is-fullwidth'
+          name='preRequisites'
+          value={ informationDetails.preRequisites }
+          onChange={ setInformationSectionField }
+          placeholder='Let the students know it there are any prerequisites for this course'
+          multiline
+          rows={ 8 }
+          margin='dense'
+          autoComplete='off'
+          variant='outlined'
+        />
         <h4 className='h4 mb-10 mt-30'> Required Courses </h4>
         <Grid container spacing={ 2 }>
           <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 6 }>

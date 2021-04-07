@@ -33,7 +33,7 @@ const initialState = {
           title: 'Unit',
           details: '',
           length: 0,
-          type: { id: 0, title: 'Article' },
+          type: 'Article',
           isEmpty: true,
         } ],
       } ],
