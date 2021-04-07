@@ -60,7 +60,8 @@ const TestSection = ({
         open={ openTest }
         onClose={ () => setOpenTest(false) }
         onSubmit={ () => setOpenTest(false) }
-        unit={ unit }
+        unitDetails={ unitDetails }
+        setUnitDetails={ setUnitDetails }
       />
       <ConfirmationModal
         open={ openConfirmDelete }

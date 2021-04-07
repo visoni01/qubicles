@@ -153,3 +153,40 @@ export const addNewTestToSection = ({ section }) => {
     } ],
   }
 }
+
+// text, paragraph, multiple, checkbox, scale, date, time
+export const addQuestionToTest = ({ unit }) => {
+  let updatedQuestions = unit.questions
+  const newQuestion = {
+    unitId: unit.unitId,
+    questionType: 'checkbox',
+    questionText: '',
+    answerText: '',
+    option1: '',
+    option2: '',
+    option3: '',
+    option4: '',
+    option5: '',
+  }
+
+  if (updatedQuestions.length > 0) {
+    const lastQuestion = updatedQuestions[ updatedQuestions.length - 1 ]
+    updatedQuestions = [
+      ...updatedQuestions,
+      {
+        id: lastQuestion.id + 1,
+        ...newQuestion,
+      },
+    ]
+  } else {
+    updatedQuestions = [ {
+      id: 0,
+      ...newQuestion,
+    } ]
+  }
+
+  return {
+    ...unit,
+    questions: updatedQuestions,
+  }
+}
