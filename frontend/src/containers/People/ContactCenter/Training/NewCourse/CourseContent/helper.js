@@ -25,10 +25,16 @@ export const checkDisabledAddTestButton = ({ units }) => {
 }
 
 export const checkDisabledUnitSaveButton = ({ savedUnit, updatedUnit }) => {
+  const allFieldsAreFilled = !_.isEmpty(updatedUnit.title)
+   && !_.isEmpty(updatedUnit.details) && !_.isEmpty(updatedUnit.type)
+
+  const unitChanged = !_.isEqual(savedUnit, updatedUnit)
+
   if (updatedUnit.isEmpty) {
-    return (_.isEmpty(updatedUnit.title) || _.isEmpty(updatedUnit.details) || _.isEmpty(updatedUnit.type))
+    return (!allFieldsAreFilled)
   }
-  return (_.isEqual(savedUnit, updatedUnit))
+
+  return (!unitChanged || !allFieldsAreFilled)
 }
 
 export const addEmptyContentSectionToSections = ({ sections }) => {

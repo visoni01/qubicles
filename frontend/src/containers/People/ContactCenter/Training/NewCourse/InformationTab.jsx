@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import {
-  TextareaAutosize, Grid, FormControl,
+  Grid, FormControl,
   RadioGroup, FormControlLabel, Radio, InputBase, TextField,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

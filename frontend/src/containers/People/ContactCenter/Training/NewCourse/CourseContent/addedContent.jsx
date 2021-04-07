@@ -37,6 +37,11 @@ const AddedContent = ({
     setOpenAddUnit(false)
   }, [ unitDetails, updateSection, section, unit ])
 
+  const handleCancelUnitChanges = useCallback(() => {
+    setUnitDetails(unit)
+    setOpenAddUnit(false)
+  }, [ unit ])
+
   return (
     <div className='list-item'>
       <Grid container spacing={ 2 } justify='space-between'>
@@ -78,7 +83,7 @@ const AddedContent = ({
       <AddArticleModal
         title={ unitDetails.isEmpty ? 'New Article' : 'Edit Article' }
         open={ openAddUnit }
-        onClose={ () => setOpenAddUnit(false) }
+        onClose={ handleCancelUnitChanges }
         onSubmit={ saveUnitDetails }
         unit={ unitDetails }
         savedUnit={ unit }

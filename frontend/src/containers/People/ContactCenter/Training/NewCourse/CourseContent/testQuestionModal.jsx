@@ -39,7 +39,7 @@ const TestQuestionModal = ({
                 className='is-fullwidth'
                 margin='dense'
                 variant='outlined'
-                placeholder='Question Text'
+                placeholder='Write your question here'
                 multiline
               />
             </Grid>
@@ -53,15 +53,10 @@ const TestQuestionModal = ({
                 placeholder='Please select question type'
               >
                 {[
-                  { id: 0, value: 'Multiple Choice' },
-                  { id: 1, value: 'Check Boxes' },
-                  { id: 2, value: 'Paragraph' },
-                  { id: 3, value: 'TextField' },
-                  { id: 4, value: 'Scale' },
+                  'Multiple Choice', 'Check Boxes', 'Paragraph', 'TextField', 'Scale',
                 ].map((questionType) => (
-                  <option key={ questionType.id } value={ questionType.value } className='para sz-xl'>
-                    {/* <p className='para'>{questionType.value}</p> */}
-                    {questionType.value}
+                  <option key={ questionType } value={ questionType } className='para sz-xl'>
+                    {questionType}
                   </option>
                 ))}
               </Select>
