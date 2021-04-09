@@ -5,6 +5,9 @@ import { isAuthenticated } from '../../../app/middlewares/isAuthenticated'
 const args = { mergeParams: true }
 const agentProfileRouter = express.Router(args)
 
+agentProfileRouter.route('/settings')
+  .get(AgentProfileController.getAgentProfileSettings)
+
 agentProfileRouter.route('/:agent_user_id/ratings')
   .get(isAuthenticated, AgentProfileController.getAgentRatings)
 
