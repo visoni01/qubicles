@@ -6,7 +6,7 @@ const args = { mergeParams: true }
 const companyProfileRouter = express.Router(args)
 
 companyProfileRouter.route('/settings')
-  .get(isAuthenticated, CompanyProfileController.getProfileSettings)
+  .get(isAuthenticated, CompanyProfileController.getCompanyProfileSettings)
 
 companyProfileRouter.route('/settings/update')
   .put(isAuthenticated, CompanyProfileController.updateProfileSettigns)

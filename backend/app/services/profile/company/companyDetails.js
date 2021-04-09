@@ -12,7 +12,7 @@ const constraints = {
   }
 }
 
-export default class CompanyDetailsService extends ServiceBase {
+export class CompanyDetailsService extends ServiceBase {
   get constraints () {
     return constraints
   }

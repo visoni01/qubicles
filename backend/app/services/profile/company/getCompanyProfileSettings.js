@@ -57,8 +57,8 @@ export class GetCompanyProfileSettingsService extends ServiceBase {
 
       return companyAccountSettings
     } catch (err) {
-      console.log(err)
-      getErrorMessageForService('GetCompanyProfileSettingsService')
+      logger.error(`${getErrorMessageForService('GetCompanyProfileSettingsService')} ${err}`)
+      this.addError(ERRORS.INTERNAL)
     }
   }
 }

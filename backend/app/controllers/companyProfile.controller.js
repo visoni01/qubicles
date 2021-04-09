@@ -1,13 +1,15 @@
 import Responder from '../../server/expressResponder'
-import { GetCompanyProfileSettingsService } from '../services/profile/company/getProfileSettings'
-import { UpdateCompanyProfileSettingsService } from '../services/profile/company/updateProfileSettings'
-import CompanyDetailsService from '../services/profile/company/companyDetails'
-import PostCompanyReviewService from '../services/profile/company/postCompanyReview'
-import GetCompanyRatingsService from '../services/profile/company/getCompanyRatings'
-import GetCompanyReviewsService from '../services/profile/company/getCompanyReviews'
+import {
+  GetCompanyProfileSettingsService,
+  UpdateCompanyProfileSettingsService,
+  CompanyDetailsService,
+  PostCompanyReviewService,
+  GetCompanyRatingsService,
+  GetCompanyReviewsService
+ } from '../services/profile/company'
 
 export default class CompanyProfileController {
-  static async getProfileSettings (req, res) {
+  static async getCompanyProfileSettings (req, res) {
     const profileSettings = await GetCompanyProfileSettingsService.execute({ ...req.body })
     if (profileSettings.successful) {
       Responder.success(res, profileSettings.result)

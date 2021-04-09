@@ -13,7 +13,7 @@ const constraints = {
   }
 }
 
-export default class GetAgentRatingsService extends ServiceBase {
+export class GetAgentRatingsService extends ServiceBase {
   get constraints () {
     return constraints
   }

@@ -16,7 +16,7 @@ const constraints = {
   }
 }
 
-export default class PostAgentReviewService extends ServiceBase {
+export class PostAgentReviewService extends ServiceBase {
   get constraints () {
     return constraints
   }

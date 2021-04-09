@@ -13,7 +13,7 @@ const constraints = {
   }
 }
 
-export default class GetAgentProfileSettingsService extends ServiceBase {
+export class GetAgentProfileSettingsService extends ServiceBase {
   get constraints () {
     return constraints
   }
@@ -60,8 +60,8 @@ export default class GetAgentProfileSettingsService extends ServiceBase {
 
       return agentAccountSettings;
     } catch (err) {
-      console.log(err)
-      getErrorMessageForService('GetAgentProfileSettingsService')
+      logger.error(`${getErrorMessageForService('GetAgentProfileSettingsService')} ${err}`)
+      this.addError(ERRORS.INTERNAL)
     }
   }
 }

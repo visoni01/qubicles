@@ -1,8 +1,10 @@
 import Responder from '../../server/expressResponder'
-import GetAgentProfileSettingsService from '../services/profile/agent/getAgentProfileSettings'
-import PostAgentReviewService from '../services/profile/agent/postAgentReview'
-import GetAgentRatingsService from '../services/profile/agent/getAgentRatings'
-import GetAgentReviewsService from '../services/profile/agent/getAgentReviews'
+import {
+  GetAgentProfileSettingsService,
+  PostAgentReviewService,
+  GetAgentRatingsService,
+  GetAgentReviewsService
+} from '../services/profile/agent'
 
 export default class AgentProfileController {
   static async getAgentProfileSettings (req, res) {
