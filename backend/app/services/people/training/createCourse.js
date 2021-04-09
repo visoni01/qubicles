@@ -4,17 +4,19 @@ const constraints = {
   user_id: {
     presence: { allowEmpty: false }
   },
-  data: {
+  course: {
     presence: { allowEmpty: false }
   }
 }
 
-export class PeopleCreateJobApplicationService extends ServiceBase {
+export class PeopleAddNewCourseService extends ServiceBase {
   get constraints () {
     return constraints
   }
 
   async run () {
+    // const { course } = this.filteredArgs
+    // WIP - course creation
     return 'okay'
   }
 }

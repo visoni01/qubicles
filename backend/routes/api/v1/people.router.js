@@ -40,7 +40,7 @@ peopleRouter.route('/applications/job/:job_id')
 peopleRouter.route('/applications/user/:agent_user_id')
   .get(isAuthenticated, applicationController.fetchAllJobApplicationsByAgent)
 
-peopleRouter.route('/training/course/create')
+peopleRouter.route('/course')
   .post(isAuthenticated, trainingController.createCourse)
 
 export { peopleRouter }

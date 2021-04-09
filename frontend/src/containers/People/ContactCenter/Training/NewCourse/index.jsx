@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Grid } from '@material-ui/core'
 import NewCourseForm from './NewCourseForm'
@@ -13,6 +13,8 @@ const NewCourse = () => {
   const [ courseContent, setCourseContent ] = useState(course.courseContent)
   const dispatch = useDispatch()
 
+  const { userDetails } = useSelector((state) => state.login)
+
   const updateCourseReducer = useCallback(() => {
     dispatch(updateTrainingCourseDetails({
       course: {
@@ -22,6 +24,13 @@ const NewCourse = () => {
       },
     }))
   }, [ informationDetails, contentDetails, courseContent, dispatch ])
+
+  useEffect(() => {
+    setInformationDetails((current) => ({
+      ...current,
+      creatorId: userDetails.user_id,
+    }))
+  }, [ userDetails.user_id ])
 
   return (
     (
@@ -39,6 +48,9 @@ const NewCourse = () => {
         <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 12 }>
           <NewCourseActions
             updateCourseReducer={ updateCourseReducer }
+            informationDetails={ informationDetails }
+            contentDetails={ contentDetails }
+            courseContent={ courseContent }
           />
         </Grid>
       </Grid>

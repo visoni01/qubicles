@@ -1,6 +1,6 @@
 import {
   XQodResourceDef, XQodUserSkill, XQodSkill,
-  UserDetail, XQodApplication, XUserActivity, User
+  UserDetail, XQodApplication, XUserActivity, User, XQodCourse
 } from '../../db/models'
 import { createNewEntity } from './common'
 import { getOne } from './crud'
@@ -532,4 +532,14 @@ export const getTopTalent = async () => {
     ]
   })
   return topTalent.map(talent => talent.get({ plain: true }))
+}
+
+export async function createNewCourse ({
+  course
+}) {
+  const createNewCourse = await createNewEntity({
+    model: XQodCourse,
+    data: course
+  })
+  return createNewCourse
 }

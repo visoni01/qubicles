@@ -152,7 +152,7 @@ class People {
     return response
   }
 
-  // Jobs' API
+  // Agent Jobs' API
   static async fetchAgentJobs(filter) {
     let agentJobFilter = filter
     if (agentJobFilter.requiredCategory) {
@@ -191,6 +191,12 @@ class People {
   // Top Talent API
   static async fetchPeopleYouMayKnow() {
     const response = await apiClient.getRequest('/agent/jobs/people-you-may-know')
+    return response
+  }
+
+  // Training Jobs' API
+  static async addCourse(payload) {
+    const response = await apiClient.postRequest('/people/course', { course: payload })
     return response
   }
 }

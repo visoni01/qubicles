@@ -14,6 +14,8 @@ const initialState = {
       goals: '',
       outcomes: '',
       preRequisites: '',
+      creatorId: null,
+      language: 'english',
       requiredCourses: [],
     },
     contentSection: {

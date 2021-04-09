@@ -5,6 +5,7 @@ import Responder from '../../server/expressResponder'
 export default class TrainingController {
   static async createCourse (req, res) {
     const course = await PeopleAddNewCourseService.execute({ ...req.body })
+    console.log('req.body ====>>>>', req.body)
     if (course.successful) {
       Responder.success(res, course.result)
     } else {
