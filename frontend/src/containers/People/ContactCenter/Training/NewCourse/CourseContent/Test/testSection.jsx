@@ -5,8 +5,10 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFlask, faTrash } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
 import TestQuestionModal from './testQuestionModal'
-import ConfirmationModal from '../../../../../../components/CommonModal/confirmationModal'
+import ConfirmationModal from '../../../../../../../components/CommonModal/confirmationModal'
+import { updateUnitInSection } from '../helper'
 
 const TestSection = ({
   unit, updateSection, section, handleDeleteUnitButton, openTest, setOpenTest,
@@ -21,6 +23,30 @@ const TestSection = ({
       title: e.target.value,
     }))
   }, [])
+
+  const saveUnitDetails = useCallback(() => {
+    let updatedUnit = unitDetails
+    if (!_.isEqual(unit, updatedUnit)) {
+      setUnitDetails((current) => {
+        updatedUnit = { ...current, isEmpty: false }
+        return ({ ...current, isEmpty: false })
+      })
+    }
+    const updatedSection = updateUnitInSection({
+      section,
+      updatedUnit,
+    })
+
+    updateSection({
+      section: updatedSection,
+    })
+    setOpenTest(false)
+  }, [ unitDetails, updateSection, section, unit, setOpenTest ])
+
+  const handleCancelUnitChanges = useCallback(() => {
+    setUnitDetails(unit)
+    setOpenTest(false)
+  }, [ unit, setOpenTest ])
 
   return (
     <>
@@ -58,8 +84,8 @@ const TestSection = ({
       </div>
       <TestQuestionModal
         open={ openTest }
-        onClose={ () => setOpenTest(false) }
-        onSubmit={ () => setOpenTest(false) }
+        onClose={ handleCancelUnitChanges }
+        onSubmit={ saveUnitDetails }
         unitDetails={ unitDetails }
         setUnitDetails={ setUnitDetails }
       />

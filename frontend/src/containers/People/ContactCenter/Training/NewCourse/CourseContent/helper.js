@@ -159,14 +159,13 @@ export const addQuestionToTest = ({ unit }) => {
   let updatedQuestions = unit.questions
   const newQuestion = {
     unitId: unit.unitId,
-    questionType: 'checkbox',
+    questionType: 'multiple',
     questionText: '',
-    answerText: '',
-    option1: '',
-    option2: '',
-    option3: '',
-    option4: '',
-    option5: '',
+    answerText: 0,
+    options: [
+      { id: 0, value: '' },
+      { id: 1, value: '' },
+    ],
   }
 
   if (updatedQuestions.length > 0) {

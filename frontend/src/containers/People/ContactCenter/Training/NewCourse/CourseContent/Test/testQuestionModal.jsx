@@ -6,7 +6,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import TestQuestion from './testQuestion'
-import { addQuestionToTest } from './helper'
+import { addQuestionToTest } from '../helper'
 
 const TestQuestionModal = ({
   open, onSubmit, onClose, unitDetails, setUnitDetails,
@@ -22,7 +22,7 @@ const TestQuestionModal = ({
       open={ open }
       className='custom-modal'
       fullWidth
-      maxWidth='sm'
+      maxWidth='md'
     >
       <div className='header'>
         <DialogTitle>
@@ -42,14 +42,16 @@ const TestQuestionModal = ({
           <TestQuestion
             key={ question.id }
             question={ question }
+            setUnitDetails={ setUnitDetails }
+            unitDetails={ unitDetails }
           />
         ))}
         <div className='mt-10 mb-10'>
           <Button
             className='wide-button'
             classes={ {
-              root: 'button-secondary-small',
-              label: 'button-secondary-small-label',
+              root: 'button-primary-small',
+              label: 'button-primary-small-label',
             } }
             onClick={ handleAddQuestionButton }
           >

@@ -128,6 +128,10 @@ TABLE OF CONTENTS
     justify-content: space-between;
   }
 
+  &.justify-center {
+    justify-content: center;
+  }
+
   &.justify-around {
     justify-content: space-around;
   }

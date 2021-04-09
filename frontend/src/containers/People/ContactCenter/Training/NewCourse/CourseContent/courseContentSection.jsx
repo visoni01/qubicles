@@ -3,13 +3,15 @@ import { Grid } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import SectionOptions from './sectionOptions'
 import AddedContent from './addedContent'
-import TestSection from './testSection'
-import { addNewUnitToSection, addNewTestToSection, deleteUnitFromSection } from './helper'
+import TestSection from './Test/testSection'
+import {
+  addNewUnitToSection, addNewTestToSection, deleteUnitFromSection,
+} from './helper'
 
 const CourseContentSection = ({
   section, updateSection,
 }) => {
-  const [ openTest, setOpenTest ] = useState(false)
+  const [ openTest, setOpenTest ] = useState(true)
 
   const handleAddUnitButton = useCallback(() => {
     const updatedSection = addNewUnitToSection({ section })
