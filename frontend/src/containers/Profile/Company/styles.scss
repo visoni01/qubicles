@@ -33,6 +33,7 @@
 
 .custom-modal {
   .editProfile-modal {
+    width: 700px;
     .photo-upload {
       .preview {
         position: relative;
@@ -53,8 +54,8 @@
 
         .close-button {
           position: absolute;
-          top: 0;
-          right: 0;
+          top: -5px;
+          right: -5px;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -62,7 +63,7 @@
           width: 36px;
           border-radius: 50%;
           border: 3px solid $color-white;
-          background: $color-light-grey;
+          background: $color-primary;
           opacity: 0.9;
           transition: all 0.3s;
 
@@ -75,6 +76,11 @@
             width: 14px;
             stroke: $color-white;
             stroke-width: 3px;
+            color: $color-white;
+
+            :hover {
+              color: $color-white;
+            }
           }
         }
       }

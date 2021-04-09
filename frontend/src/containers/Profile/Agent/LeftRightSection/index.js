@@ -1,27 +1,17 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { Box, Divider, Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import Introduction from '../../../People/ContactCenter/Introduction'
 import EditProfileModal from './editProfileModal'
-import { kareem } from '../../../../assets/images/avatar'
 
-const settings = {
-  companyName: 'Microsoft',
-  profilePic: kareem,
-  city: 'San Francisco',
-  state: 'CA',
-  title: 'Customer Service Agent',
-  summary: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam ducimus deleniti, sapiente perferendis
-  aliquam sunt maiores libero pariatur cum rerum, obcaecati ipsum corporis ex, commodi laboriosam vero repellat maxime
-  quo eum qui. Cumque aperiam cum quos voluptatem temporibus ratione tenetur odio amet, ex repudiandae! Hic perspiciat`,
-}
-
-const ContactCenterEditProfile = ({
+const AgentEditProfile = ({
   clientId,
   companyRating,
   registrationDate,
 }) => {
   const [ openEditProfileModal, setOpenEditProfileModal ] = useState(false)
+  const { settings } = useSelector((state) => state.agentDetails)
 
   return (
     <Box className='custom-box contact-center-info-root'>
@@ -72,20 +62,27 @@ const ContactCenterEditProfile = ({
       <EditProfileModal
         open={ openEditProfileModal }
         handleClose={ () => setOpenEditProfileModal(false) }
-        companyInfo={ {
+        agentInfo={ {
           title: settings.title,
           summary: settings.summary,
           profilePic: settings.profilePic,
+          highestEducation: settings.highestEducation,
+          workExperience: settings.workExperience,
+          hourlyRate: settings.hourlyRate,
+          preferredJob: settings.preferredJob,
+          remoteJobs: settings.remoteJobs,
+          onVacation: settings.onVacation,
+          profileVisible: settings.profileVisible,
         } }
       />
       <Divider className='divider' />
       <div className='mt-20'>
         <h4 className='h4 mb-5'>Highest level of Education</h4>
-        <p className='para'>High School Graduate</p>
+        <p className='para'>{settings.highestEducation}</p>
       </div>
       <div className='mb-20 mt-20'>
         <h4 className='h4 mb-5'>Years of Experience</h4>
-        <p className='para'>3+ years</p>
+        <p className='para'>{`${ settings.workExperience } years`}</p>
       </div>
       <Divider className='divider' />
       <div>
@@ -118,16 +115,16 @@ const ContactCenterEditProfile = ({
   )
 }
 
-ContactCenterEditProfile.defaultProps = {
+AgentEditProfile.defaultProps = {
   clientId: null,
   companyRating: 5,
   registrationDate: '2020-11-18',
 }
 
-ContactCenterEditProfile.propTypes = {
+AgentEditProfile.propTypes = {
   clientId: PropTypes.number,
   companyRating: PropTypes.number,
   registrationDate: PropTypes.string,
 }
 
-export default ContactCenterEditProfile
+export default AgentEditProfile

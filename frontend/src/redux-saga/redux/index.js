@@ -6,6 +6,7 @@ import postsReducer from './dashboard/post'
 import forumReducers from './forum'
 import peopleReducers from './people'
 import companyProfileReducers from './profile/company'
+import agentProfileReducers from './profile/agent'
 import commonProfileReducers from './profile/common'
 import profileReviewsReducers from './profile/review'
 import utilsReducers from './utils'
@@ -32,6 +33,7 @@ const rootReducer = combineReducers({
   ...peopleReducers,
 
   // Profile Reducers
+  ...agentProfileReducers,
   ...companyProfileReducers,
   ...commonProfileReducers,
   ...profileReviewsReducers,

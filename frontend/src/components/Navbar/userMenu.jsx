@@ -7,7 +7,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import './style.scss'
 import User from '../../redux-saga/service/user'
 import InviteModal from '../../containers/InviteFriendsPage/InviteModal'
-import { showErrorMessage, getCompanyProfileSettingsApiStart } from '../../redux-saga/redux/actions'
+import {
+  showErrorMessage,
+  getCompanyProfileSettingsApiStart,
+  agentProfileSettingsApiStart,
+} from '../../redux-saga/redux/actions'
 import { userLogoutSuccessful } from '../../redux-saga/redux/user/login'
 import { kareem } from '../../assets/images/avatar'
 import {
@@ -21,6 +25,7 @@ const UserMenu = () => {
   const [ isDropdownOpen, setIsDropdownOpen ] = useState(false)
   const { userDetails } = useSelector((state) => state.login)
   const { isFetchSuccess, isFetchLoading } = useSelector((state) => state.clientDetails)
+  const { success, isLoading, requestType } = useSelector((state) => state.agentDetails)
   const [ anchorEl, setAnchorEl ] = useState(null)
 
   useEffect(() => {
@@ -30,6 +35,16 @@ const UserMenu = () => {
       }
     }
   }, [ dispatch, userDetails, isFetchLoading, isFetchSuccess ])
+
+  useEffect(() => {
+    if (userDetails && userDetails.is_post_signup_completed && userDetails.user_code === 'agent') {
+      if (!isLoading && !success && !requestType) {
+        dispatch(agentProfileSettingsApiStart({
+          requestType: 'FETCH',
+        }))
+      }
+    }
+  }, [ dispatch, userDetails, isLoading, success, requestType ])
 
   const toggleDropdownOpen = useCallback((event) => {
     setAnchorEl(event.currentTarget)
