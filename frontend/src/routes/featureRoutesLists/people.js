@@ -10,7 +10,6 @@ import ViewCourse from '../../containers/People/ContactCenter/Training/ViewCours
 import ViewJobApplication from '../../containers/People/Shared/jobApplicationPage'
 import RouteRenderer from './featureSubRoutes'
 import PeopleViewJobs from '../../containers/People/viewJobsIndex'
-import PreviewCourse from '../../containers/People/ContactCenter/Training/ViewCourse/previewCourse'
 
 const List = [
   {
@@ -56,11 +55,6 @@ const List = [
   {
     path: ROUTE_PATHS.VIEW_COURSE,
     component: ViewCourse,
-    exact: true,
-  },
-  {
-    path: ROUTE_PATHS.PREVIEW_COURSE,
-    component: PreviewCourse,
     exact: true,
   },
   {

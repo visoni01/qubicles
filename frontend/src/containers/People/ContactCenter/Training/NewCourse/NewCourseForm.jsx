@@ -7,10 +7,10 @@ import InformationTab from './InformationTab'
 import ContentTab from './ContentTab'
 
 const NewCourseForm = ({
-  informationDetails, setInformationDetails, contentDetails, setContentDetails,
+  informationSection, setInformationSection, contentSection, setContentSection,
   courseContent, setCourseContent,
 }) => {
-  const [ activeTab, setActiveTab ] = useState(1)
+  const [ activeTab, setActiveTab ] = useState(0)
 
   return (
     <Box className='custom-box new-course-wrapper'>
@@ -27,14 +27,14 @@ const NewCourseForm = ({
       { activeTab === 0
       && (
       <InformationTab
-        informationDetails={ informationDetails }
-        setInformationDetails={ setInformationDetails }
+        informationSection={ informationSection }
+        setInformationSection={ setInformationSection }
       />
       ) }
       { activeTab === 1 && (
       <ContentTab
-        contentDetails={ contentDetails }
-        setContentDetails={ setContentDetails }
+        contentSection={ contentSection }
+        setContentSection={ setContentSection }
         courseContent={ courseContent }
         setCourseContent={ setCourseContent }
       />
@@ -44,10 +44,10 @@ const NewCourseForm = ({
   )
 }
 NewCourseForm.propTypes = {
-  informationDetails: PropTypes.shape({}).isRequired,
-  setInformationDetails: PropTypes.func.isRequired,
-  contentDetails: PropTypes.shape({}).isRequired,
-  setContentDetails: PropTypes.func.isRequired,
+  informationSection: PropTypes.shape({}).isRequired,
+  setInformationSection: PropTypes.func.isRequired,
+  contentSection: PropTypes.shape({}).isRequired,
+  setContentSection: PropTypes.func.isRequired,
   courseContent: PropTypes.shape({}).isRequired,
   setCourseContent: PropTypes.func.isRequired,
 }

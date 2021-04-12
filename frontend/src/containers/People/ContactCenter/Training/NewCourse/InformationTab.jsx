@@ -12,7 +12,7 @@ import SingleSelect from '../../../../Shared/singleSelect'
 import { jobCategoriesOnlyFetchStart } from '../../../../../redux-saga/redux/actions'
 
 export default function InformationTab({
-  informationDetails, setInformationDetails,
+  informationSection, setInformationSection,
 }) {
   const [ priceType, setPriceType ] = useState('price')
   const { jobCategoriesOnly, isLoading, error } = useSelector((state) => state.jobCategoriesOnly)
@@ -29,7 +29,7 @@ export default function InformationTab({
     // https://reactjs.org/docs/legacy-event-pooling.html
     e.persist()
 
-    setInformationDetails((current) => {
+    setInformationSection((current) => {
       let updatedFields = {}
       if (e.target.name === 'price') {
         updatedFields = {
@@ -45,26 +45,26 @@ export default function InformationTab({
         ...updatedFields,
       })
     })
-  }, [ setInformationDetails ])
+  }, [ setInformationSection ])
 
   // Set Price Type
   const setPriceTypeCB = useCallback((e) => {
     if (e.target.value === 'free') {
-      setInformationDetails((current) => ({
+      setInformationSection((current) => ({
         ...current,
         price: 0,
       }))
     }
     setPriceType(e.target.value)
-  }, [ setInformationDetails ])
+  }, [ setInformationSection ])
 
   // Set course category
   const setCourseCategory = useCallback((val) => {
-    setInformationDetails((current) => ({
+    setInformationSection((current) => ({
       ...current,
       category: val,
     }))
-  }, [ setInformationDetails ])
+  }, [ setInformationSection ])
 
   return (
     <div className='mt-30'>
@@ -72,7 +72,7 @@ export default function InformationTab({
         <h3 className='h3 mb-10'> Course Title </h3>
         <TextField
           className='is-fullwidth'
-          value={ informationDetails.title }
+          value={ informationSection.title }
           onChange={ setInformationSectionField }
           margin='dense'
           autoComplete='off'
@@ -91,9 +91,9 @@ export default function InformationTab({
                 <SingleSelect
                   items={ jobCategoriesOnly.map((item) => ({ id: item.categoryId, title: item.categoryTitle })) }
                   onChange={ (selectedValue) => setCourseCategory(selectedValue) }
-                  value={ (informationDetails.category) ? {
-                    id: informationDetails.category.id,
-                    title: informationDetails.category.title,
+                  value={ (informationSection.category) ? {
+                    id: informationSection.category.id,
+                    title: informationSection.category.title,
                   } : null }
                   label='Choose Category'
                 />
@@ -123,13 +123,13 @@ export default function InformationTab({
                   InputProps={ { inputProps: { min: 0, step: 1 } } }
                   placeholder='Eg 15'
                   className='para filter-input'
-                  value={ informationDetails.price }
+                  value={ informationSection.price }
                   name='price'
                   onChange={ setInformationSectionField }
                   disabled={ !(priceType === 'price') }
                 />
                 <span className='para sz-lg light input-label'>
-                  {`QBE (${ informationDetails.price } USD)`}
+                  {`QBE (${ informationSection.price } USD)`}
                 </span>
                 <FormControlLabel value='free' control={ <Radio /> } label='Free' />
               </div>
@@ -143,7 +143,7 @@ export default function InformationTab({
             <h3 className='h3 mb-10'> Visibility </h3>
             <RadioGroup
               className='radio-buttons'
-              value={ informationDetails.visibility }
+              value={ informationSection.visibility }
               name='visibility'
               onChange={ setInformationSectionField }
             >
@@ -162,7 +162,7 @@ export default function InformationTab({
         <TextField
           className='is-fullwidth'
           name='summary'
-          value={ informationDetails.summary }
+          value={ informationSection.summary }
           onChange={ setInformationSectionField }
           placeholder='Add a short description outlining the scope of the course'
           multiline
@@ -175,7 +175,7 @@ export default function InformationTab({
         <TextField
           className='is-fullwidth'
           name='goals'
-          value={ informationDetails.goals }
+          value={ informationSection.goals }
           onChange={ setInformationSectionField }
           placeholder='Describe the goals of the course'
           multiline
@@ -188,7 +188,7 @@ export default function InformationTab({
         <TextField
           className='is-fullwidth'
           name='outcomes'
-          value={ informationDetails.outcomes }
+          value={ informationSection.outcomes }
           onChange={ setInformationSectionField }
           placeholder='Describe the outcomes of this course in detail'
           multiline
@@ -201,7 +201,7 @@ export default function InformationTab({
         <TextField
           className='is-fullwidth'
           name='preRequisites'
-          value={ informationDetails.preRequisites }
+          value={ informationSection.preRequisites }
           onChange={ setInformationSectionField }
           placeholder='Let the students know it there are any prerequisites for this course'
           multiline
@@ -234,7 +234,7 @@ export default function InformationTab({
 }
 
 InformationTab.propTypes = {
-  informationDetails: PropTypes.shape({
+  informationSection: PropTypes.shape({
     price: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     category: PropTypes.number,
@@ -245,5 +245,5 @@ InformationTab.propTypes = {
     preRequisites: PropTypes.string.isRequired,
     requiredCourses: PropTypes.arrayOf(PropTypes.number).isRequired,
   }).isRequired,
-  setInformationDetails: PropTypes.func.isRequired,
+  setInformationSection: PropTypes.func.isRequired,
 }

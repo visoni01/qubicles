@@ -5,14 +5,14 @@ import IntroVideo from './IntroVideo'
 import CourseContent from './CourseContent/index'
 
 export default function ContentTab({
-  contentDetails, setContentDetails,
+  contentSection, setContentSection,
   courseContent, setCourseContent,
 }) {
   return (
     <div className='mt-30'>
       <CourseThumbnail
-        contentDetails={ contentDetails }
-        setContentDetails={ setContentDetails }
+        contentSection={ contentSection }
+        setContentSection={ setContentSection }
 
       />
       <IntroVideo />
@@ -25,8 +25,8 @@ export default function ContentTab({
 }
 
 ContentTab.propTypes = {
-  contentDetails: PropTypes.shape({}).isRequired,
-  setContentDetails: PropTypes.func.isRequired,
+  contentSection: PropTypes.shape({}).isRequired,
+  setContentSection: PropTypes.func.isRequired,
   courseContent: PropTypes.shape({}).isRequired,
   setCourseContent: PropTypes.func.isRequired,
 }

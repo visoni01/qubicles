@@ -39,7 +39,6 @@ const ROUTE_PATHS = {
   VIEW_RESUME: `${ VIEW_RESUME_ROUTE }/:candidateId`,
   CREATE_COURSE: `${ TRAINING_ROUTE }/course/create`,
   VIEW_COURSE: `${ TRAINING_ROUTE }/course/1`,
-  PREVIEW_COURSE: `${ TRAINING_ROUTE }/course/preview`,
   VIEW_JOB_APPLICATION: `${ PEOPLE_ROUTE }/job/applications/:applicationId`,
   EDIT_JOB: `${ JOB_ROUTE }/:jobId/edit`,
   JOB_PREVIEW: `${ JOB_ROUTE }/preview`,

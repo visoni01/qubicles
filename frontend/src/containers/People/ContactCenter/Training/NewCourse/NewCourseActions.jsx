@@ -1,40 +1,35 @@
 import React, { useCallback } from 'react'
 import { Box, Button, Divider } from '@material-ui/core'
-import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
-import ROUTE_PATHS from '../../../../../routes/routesPath'
 import { trainingCourseRequestStart } from '../../../../../redux-saga/redux/people'
 
 const NewCourseActions = ({
   updateCourseReducer,
-  informationDetails,
-  contentDetails,
+  informationSection,
+  contentSection,
   courseContent,
+  isPreview,
+  setIsPreview,
 }) => {
-  const history = useHistory()
   const dispatch = useDispatch()
-  const handlePreviewCourse = useCallback(() => {
-    updateCourseReducer()
-    history.push(ROUTE_PATHS.PREVIEW_COURSE)
-  }, [ updateCourseReducer, history ])
-
   const saveDraft = useCallback(() => {
     updateCourseReducer()
     dispatch(trainingCourseRequestStart({
       course: {
-        informationSection: informationDetails,
-        contentSection: contentDetails,
+        informationSection,
+        contentSection,
         courseContent,
         status: 'draft',
       },
       requestType: 'CREATE',
     }))
-  }, [ informationDetails, contentDetails, courseContent, updateCourseReducer, dispatch ])
+  }, [ informationSection, contentSection, courseContent, updateCourseReducer, dispatch ])
 
   return (
     <Box className='custom-box actions-box wrapper'>
       <h3 className='h3 mb-15'> Actions </h3>
+
       <div className='mb-10'>
         <Button
           className='wide-button'
@@ -53,9 +48,9 @@ const NewCourseActions = ({
             root: 'button-secondary-small',
             label: 'button-secondary-small-label',
           } }
-          onClick={ handlePreviewCourse }
+          onClick={ () => setIsPreview((current) => !current) }
         >
-          Preview
+          {isPreview ? 'End Preview' : 'Preview'}
         </Button>
       </div>
       <Divider className='divider-padded' />
@@ -77,9 +72,11 @@ const NewCourseActions = ({
 
 NewCourseActions.propTypes = {
   updateCourseReducer: PropTypes.func.isRequired,
-  informationDetails: PropTypes.shape({}).isRequired,
-  contentDetails: PropTypes.shape({}).isRequired,
+  informationSection: PropTypes.shape({}).isRequired,
+  contentSection: PropTypes.shape({}).isRequired,
   courseContent: PropTypes.shape({}).isRequired,
+  isPreview: PropTypes.bool.isRequired,
+  setIsPreview: PropTypes.func.isRequired,
 }
 
 export default NewCourseActions

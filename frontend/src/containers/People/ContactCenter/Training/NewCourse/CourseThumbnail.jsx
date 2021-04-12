@@ -5,25 +5,25 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 
 export default function CourseThumbnail({
-  contentDetails, setContentDetails,
+  contentSection, setContentSection,
 }) {
   const fileInput = useRef()
-  // const [ fileSrc, setFileSrc ] = useState(contentDetails.thumbnailImage)
+  // const [ fileSrc, setFileSrc ] = useState(contentSection.thumbnailImage)
   const handleFileInputChange = useCallback((event) => {
     event.preventDefault()
     const file = event.target.files && event.target.files[ 0 ]
     const reader = new FileReader()
 
     reader.onloadend = () => {
-      setContentDetails((current) => ({ ...current, thumbnailImage: reader.result }))
+      setContentSection((current) => ({ ...current, thumbnailImage: reader.result }))
     }
     if (event.target.files[ 0 ]) {
       reader.readAsDataURL(file)
     }
-  }, [ setContentDetails ])
+  }, [ setContentSection ])
 
   const handleDelete = () => {
-    setContentDetails((current) => ({ ...current, thumbnailImage: null }))
+    setContentSection((current) => ({ ...current, thumbnailImage: null }))
   }
 
   return (
@@ -36,7 +36,7 @@ export default function CourseThumbnail({
           your course (format 16:9) `}
           </p>
         </div>
-        {!contentDetails.thumbnailImage ? (
+        {!contentSection.thumbnailImage ? (
           <div className='upload'>
             <input
               type='file'
@@ -61,7 +61,7 @@ export default function CourseThumbnail({
           </div>
         ) : (
           <div className='thumbnail-preview'>
-            <img alt='Course Thumbnail' src={ contentDetails.thumbnailImage } />
+            <img alt='Course Thumbnail' src={ contentSection.thumbnailImage } />
             <IconButton onClick={ handleDelete }>
               <FontAwesomeIcon className='custom-fa-icon dark pointer sz-xl' icon={ faTimesCircle } />
             </IconButton>
@@ -73,8 +73,8 @@ export default function CourseThumbnail({
 }
 
 CourseThumbnail.propTypes = {
-  contentDetails: PropTypes.shape({
+  contentSection: PropTypes.shape({
     thumbnailImage: PropTypes.any,
   }).isRequired,
-  setContentDetails: PropTypes.func.isRequired,
+  setContentSection: PropTypes.func.isRequired,
 }
