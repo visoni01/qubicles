@@ -80,7 +80,7 @@ const AddArticleModal = ({
                 value={ unit.type }
               >
                 {[ 'Article', 'Video', 'Audio' ].map((questionType) => (
-                  <option key={ questionType.id } value={ questionType } className='para sz-xl'>
+                  <option key={ questionType } value={ questionType } className='para sz-xl'>
                     {questionType}
                   </option>
                 ))}

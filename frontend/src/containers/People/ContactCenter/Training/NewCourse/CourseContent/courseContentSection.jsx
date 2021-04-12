@@ -94,7 +94,7 @@ CourseContentSection.propTypes = {
     title: PropTypes.string.isRequired,
     sectionNum: PropTypes.number.isRequired,
     sectionIsActive: PropTypes.bool.isRequired,
-    units: PropTypes.shape(PropTypes.any).isRequired,
+    units: PropTypes.arrayOf(PropTypes.any).isRequired,
   }).isRequired,
   updateSection: PropTypes.func.isRequired,
 }

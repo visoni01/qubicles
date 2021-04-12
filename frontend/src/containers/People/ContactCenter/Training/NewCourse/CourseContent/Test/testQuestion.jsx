@@ -17,6 +17,8 @@ const TestQuestion = ({ question }) => {
     }))
   }, [])
 
+  console.log('QUESTION DETAILS===', questionDetails)
+
   const handleDeleteQuestion = useCallback(() => {
 
   }, [])

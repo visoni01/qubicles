@@ -10,7 +10,7 @@ const NewCourseForm = ({
   informationSection, setInformationSection, contentSection, setContentSection,
   courseContent, setCourseContent,
 }) => {
-  const [ activeTab, setActiveTab ] = useState(0)
+  const [ activeTab, setActiveTab ] = useState(1)
 
   return (
     <Box className='custom-box new-course-wrapper'>

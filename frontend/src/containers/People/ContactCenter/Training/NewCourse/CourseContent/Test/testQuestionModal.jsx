@@ -16,6 +16,8 @@ const TestQuestionModal = ({
     setUnitDetails(updatedUnit)
   }, [ setUnitDetails, unitDetails ])
 
+  console.log('UNIT DETAILS==', unitDetails)
+
   return (
     <Dialog
       disableScrollLock

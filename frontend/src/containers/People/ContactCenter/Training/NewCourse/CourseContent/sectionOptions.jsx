@@ -33,7 +33,7 @@ const SectionOptions = ({
 )
 
 SectionOptions.propTypes = {
-  units: PropTypes.shape(PropTypes.any).isRequired,
+  units: PropTypes.arrayOf(PropTypes.any).isRequired,
   handleAddUnitButton: PropTypes.func.isRequired,
   handleAddTestButton: PropTypes.func.isRequired,
 
