@@ -1,28 +1,23 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Box, Divider, Button } from '@material-ui/core'
-import PropTypes from 'prop-types'
 import Introduction from '../../../People/ContactCenter/Introduction'
 import EditProfileModal from './editProfileModal'
 
-const AgentEditProfile = ({
-  clientId,
-  companyRating,
-  registrationDate,
-}) => {
+const AgentEditProfile = () => {
   const [ openEditProfileModal, setOpenEditProfileModal ] = useState(false)
   const { settings } = useSelector((state) => state.agentDetails)
 
   return (
     <Box className='custom-box contact-center-info-root'>
       <Introduction
-        key={ clientId }
+        key={ settings.userId }
         imageName={ settings.companyName }
-        rating={ companyRating }
+        rating={ settings.companyRating }
         imageSrc={ settings.profilePic }
         name={ settings.companyName }
         location={ `${ settings.city }, ${ settings.state } ` }
-        date={ registrationDate }
+        date={ settings.registrationDate }
       />
       <div className=' mt-20 mb-20'>
         <Button
@@ -67,7 +62,7 @@ const AgentEditProfile = ({
           summary: settings.summary,
           profilePic: settings.profilePic,
           highestEducation: settings.highestEducation,
-          workExperience: settings.workExperience,
+          yearsOfExperience: settings.yearsOfExperience,
           hourlyRate: settings.hourlyRate,
           preferredJob: settings.preferredJob,
           remoteJobs: settings.remoteJobs,
@@ -82,7 +77,7 @@ const AgentEditProfile = ({
       </div>
       <div className='mb-20 mt-20'>
         <h4 className='h4 mb-5'>Years of Experience</h4>
-        <p className='para'>{`${ settings.workExperience } years`}</p>
+        <p className='para'>{`${ settings.yearsOfExperience } years`}</p>
       </div>
       <Divider className='divider' />
       <div>
@@ -113,18 +108,6 @@ const AgentEditProfile = ({
       </div>
     </Box>
   )
-}
-
-AgentEditProfile.defaultProps = {
-  clientId: null,
-  companyRating: 5,
-  registrationDate: '2020-11-18',
-}
-
-AgentEditProfile.propTypes = {
-  clientId: PropTypes.number,
-  companyRating: PropTypes.number,
-  registrationDate: PropTypes.string,
 }
 
 export default AgentEditProfile

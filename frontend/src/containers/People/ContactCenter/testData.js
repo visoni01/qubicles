@@ -337,6 +337,27 @@ const contactCenterIntroduction = {
   and how the right technology can make a difference.`,
 }
 
+const agentProfileData = {
+  companyName: 'Microsoft',
+  profilePic: kareem,
+  city: 'San Francisco',
+  state: 'CA',
+  title: 'Customer Service Agent',
+  summary: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam ducimus deleniti, sapiente perferendis
+  aliquam sunt maiores libero pariatur cum rerum, obcaecati ipsum corporis ex, commodi laboriosam vero repellat
+  maxime quo eum qui. Cumque aperiam cum quos voluptatem temporibus ratione tenetur odio amet, ex repudiandae!
+  Hic perspiciat`,
+  highestEducation: 'Bachelor\'s degree',
+  workExperience: 3,
+  hourlyRate: 10,
+  preferredJob: 'employment',
+  remoteJobs: true,
+  onVacation: false,
+  profileVisible: true,
+  rating: 5,
+  date: '1 January 2021',
+}
+
 const testResumeIntroduction = {
   imageName: 'terry',
   rating: 5,
@@ -432,6 +453,7 @@ export {
   topTalents,
   topCompanies,
   contactCenterIntroduction,
+  agentProfileData,
   testResumeIntroduction,
   jobPostCard,
   reviews,

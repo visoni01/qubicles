@@ -10,6 +10,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
+import _ from 'lodash'
 import {
   uploadProfileImageStart,
   resetAgentProfileSettingsFlags,
@@ -22,103 +23,101 @@ import { defaultUser } from '../../../../assets/images/avatar'
 const EditProfileModal = ({
   open, handleClose, agentInfo,
 }) => {
+  const [ profileInfo, setProfileInfo ] = useState(agentInfo)
   const { success, isLoading, requestType } = useSelector((state) => state.agentDetails)
-  const [ title, setTitle ] = useState(agentInfo.title)
-  const [ summary, setSummary ] = useState(agentInfo.summary)
-  const [ highestEducation, setHighestEducation ] = useState(agentInfo.highestEducation)
-  const [ workExperience, setWorkExperience ] = useState(agentInfo.workExperience)
-  const [ hourlyRate, setHourlyRate ] = useState(agentInfo.hourlyRate)
-  const [ preferredJob, setPreferredJob ] = useState(agentInfo.preferredJob)
-  const [ remoteJobs, setRemoteJobs ] = useState(agentInfo.remoteJobs)
-  const [ onVacation, setOnVacation ] = useState(agentInfo.onVacation)
-  const [ profileVisible, setProfileVisible ] = useState(agentInfo.profileVisible)
-  const [ fileSrc, setFileSrc ] = useState(agentInfo.profilePic)
-
+  const { uploadSuccess, uploadingImage } = useSelector((state) => state.uploadProfileImage)
   const fileInput = useRef()
   const dispatch = useDispatch()
 
   // updating title
   const handleUpdateTitle = useCallback((e) => {
     const data = e.target.value
-    setTitle(data)
+    setProfileInfo((state) => ({
+      ...state,
+      title: data,
+    }))
   }, [])
 
   // updating summary
   const handleUpdateSummary = useCallback((e) => {
     const data = e.target.value
-    setSummary(data)
+    setProfileInfo((state) => ({
+      ...state,
+      summary: data,
+    }))
   }, [])
 
   // updating highestEducation
   const handleHighestEducation = useCallback((e) => {
     const data = e.target.value
-    setHighestEducation(data)
+    setProfileInfo((state) => ({
+      ...state,
+      highestEducation: data,
+    }))
   }, [])
 
-  // updating workExperience
+  // updating yearsOfExperience
   const handleWorkExperience = useCallback((e) => {
     const data = e.target.value
-    setWorkExperience(data)
+    setProfileInfo((state) => ({
+      ...state,
+      yearsOfExperience: data,
+    }))
   }, [])
 
   // updating hourlyRate
   const handleHourlyRate = useCallback((e) => {
     const data = e.target.value
-    setHourlyRate(data)
+    setProfileInfo((state) => ({
+      ...state,
+      hourlyRate: data,
+    }))
   }, [])
 
   // updating preferredJob
   const handlePreferredJob = useCallback((e) => {
     const data = e.target.value
-    setPreferredJob(data)
+    setProfileInfo((state) => ({
+      ...state,
+      preferredJob: data,
+    }))
   }, [])
 
   // updating remoteJobs
   const handleRemoteJobs = useCallback((e) => {
     const data = e.target.checked
-    setRemoteJobs(data)
+    setProfileInfo((state) => ({
+      ...state,
+      remoteJobs: data,
+    }))
   }, [])
 
   // updating onVacation
   const handleOnVacation = useCallback((e) => {
     const data = e.target.checked
-    setOnVacation(data)
+    setProfileInfo((state) => ({
+      ...state,
+      onVacation: data,
+    }))
   }, [])
 
   // updating profileVisible
   const handleProfileVisible = useCallback((e) => {
     const data = e.target.checked
-    setProfileVisible(data)
+    setProfileInfo((state) => ({
+      ...state,
+      profileVisible: data,
+    }))
   }, [])
 
   const handleCancel = useCallback(() => {
-    setTitle(agentInfo.title)
-    setSummary(agentInfo.summary)
-    setFileSrc(agentInfo.profilePic)
-    setHighestEducation(agentInfo.highestEducation)
-    setWorkExperience(agentInfo.workExperience)
-    setHourlyRate(agentInfo.hourlyRate)
-    setPreferredJob(agentInfo.preferredJob)
-    setRemoteJobs(agentInfo.remoteJobs)
-    setOnVacation(agentInfo.onVacation)
-    setProfileVisible(agentInfo.profileVisible)
+    setProfileInfo(agentInfo)
     handleClose()
   }, [ agentInfo, handleClose ])
 
   useEffect(() => {
-    setTitle(agentInfo.title)
-    setSummary(agentInfo.summary)
-    setFileSrc(agentInfo.profilePic)
-    setHighestEducation(agentInfo.highestEducation)
-    setWorkExperience(agentInfo.workExperience)
-    setHourlyRate(agentInfo.hourlyRate)
-    setPreferredJob(agentInfo.preferredJob)
-    setRemoteJobs(agentInfo.remoteJobs)
-    setOnVacation(agentInfo.onVacation)
-    setProfileVisible(agentInfo.profileVisible)
+    setProfileInfo(agentInfo)
   }, [ agentInfo ])
-
-  const { uploadSuccess, uploadingImage } = useSelector((state) => state.uploadProfileImage)
 
   // to preview selected image
   const handleFileInputChange = useCallback((event) => {
@@ -127,11 +126,11 @@ const EditProfileModal = ({
     const reader = new FileReader()
     reader.readAsDataURL(file)
     reader.onloadend = () => {
-      setFileSrc(
-        reader.result,
-      )
+      setProfileInfo((state) => ({
+        ...state,
+        profilePic: reader.result,
+      }))
     }
-    // eslint-disable-next-line
   }, [])
 
   const handleChooseFile = () => {
@@ -140,7 +139,10 @@ const EditProfileModal = ({
 
   const handleDelete = () => {
     fileInput.current.value = ''
-    setFileSrc(null)
+    setProfileInfo((state) => ({
+      ...state,
+      profilePic: null,
+    }))
   }
 
   useEffect(() => {
@@ -159,40 +161,28 @@ const EditProfileModal = ({
     const uploadImage = {
       file: fileInput.current.files && fileInput.current.files[ 0 ],
     }
-    if (title !== agentInfo.title || summary !== agentInfo.summary || highestEducation !== agentInfo.highestEducation) {
+    if (!_.isEqual(profileInfo, agentInfo)) {
       dispatch(agentProfileSettingsApiStart({
         updatedDataType: 'Agent Info',
         updatedData: {
-          title,
-          summary,
-          highestEducation,
-          workExperience,
-          hourlyRate,
-          preferredJob,
-          remoteJobs,
-          onVacation,
-          profileVisible,
-          profilePic: fileSrc,
+          title: profileInfo.title,
+          summary: profileInfo.summary,
+          highestEducation: profileInfo.highestEducation,
+          yearsOfExperience: profileInfo.yearsOfExperience,
+          hourlyRate: profileInfo.hourlyRate,
+          preferredJob: profileInfo.preferredJob,
+          remoteJobs: profileInfo.remoteJobs,
+          onVacation: profileInfo.onVacation,
+          profileVisible: profileInfo.profileVisible,
+          profilePic: profileInfo.profilePic,
         },
         requestType: 'UPDATE',
       }))
     }
-    if (fileSrc !== agentInfo.profilePic) {
+    if (profileInfo.profilePic !== agentInfo.profilePic) {
       dispatch(uploadProfileImageStart(uploadImage))
     }
-  }, [ dispatch,
-    agentInfo,
-    fileSrc,
-    title,
-    summary,
-    highestEducation,
-    workExperience,
-    hourlyRate,
-    preferredJob,
-    remoteJobs,
-    onVacation,
-    profileVisible,
-  ])
+  }, [ dispatch, agentInfo, profileInfo ])
 
   return (
     <Dialog
@@ -206,7 +196,7 @@ const EditProfileModal = ({
     >
       <div className='header'>
         <DialogTitle>
-          <h2 className='h2'>Edit Profile</h2>
+          <div className='h2'>Edit Profile</div>
         </DialogTitle>
         <DialogActions className='cross-button'>
           <IconButton
@@ -223,8 +213,8 @@ const EditProfileModal = ({
         </h3>
         <div className='photo-upload'>
           <div className='preview'>
-            <Avatar className='profile-pic-preview' alt='' src={ fileSrc || defaultUser } />
-            {fileSrc && (
+            <Avatar className='profile-pic-preview' alt='' src={ profileInfo.profilePic || defaultUser } />
+            {profileInfo.profilePic && (
               <span className='close-button'>
                 <IconButton onClick={ handleDelete }>
                   <FontAwesomeIcon icon={ faTimes } />
@@ -273,7 +263,7 @@ const EditProfileModal = ({
             variant='outlined'
             margin='dense'
             placeholder='Title'
-            defaultValue={ title }
+            defaultValue={ profileInfo.title }
             onChange={ handleUpdateTitle }
           />
         )}
@@ -289,7 +279,7 @@ const EditProfileModal = ({
               margin='dense'
               multiline
               rows={ 10 }
-              defaultValue={ summary }
+              defaultValue={ profileInfo.summary }
               onChange={ handleUpdateSummary }
               placeholder='Add a short description about your company'
             />
@@ -305,7 +295,7 @@ const EditProfileModal = ({
               margin='dense'
               inputProps={ { min: 0 } }
               placeholder='Eg. 3+ years'
-              defaultValue={ workExperience }
+              defaultValue={ profileInfo.yearsOfExperience }
               onChange={ handleWorkExperience }
             />
           </Grid>
@@ -316,7 +306,7 @@ const EditProfileModal = ({
               native
               margin='dense'
               variant='outlined'
-              defaultValue={ highestEducation }
+              defaultValue={ profileInfo.highestEducation }
               onChange={ handleHighestEducation }
             >
               {[ 'High school or equivalent',
@@ -327,9 +317,9 @@ const EditProfileModal = ({
                 'Master\'s degree',
                 'Doctorate',
                 'Professional',
-              ].map((questionType) => (
-                <option key={ questionType } value={ questionType } className='para sz-xl'>
-                  {questionType}
+              ].map((education) => (
+                <option key={ education } value={ education } className='para sz-xl'>
+                  {education}
                 </option>
               ))}
             </Select>
@@ -343,7 +333,7 @@ const EditProfileModal = ({
             <Switch
               className='switches'
               color='primary'
-              checked={ profileVisible }
+              defaultChecked={ profileInfo.profileVisible }
               onChange={ handleProfileVisible }
             />
           </Grid>
@@ -360,7 +350,7 @@ const EditProfileModal = ({
                       type='number'
                       variant='outlined'
                       className='hourly-rate-input'
-                      defaultValue={ hourlyRate }
+                      defaultValue={ profileInfo.hourlyRate }
                       onChange={ handleHourlyRate }
                     />
                     <p className='para bold ml-10 margin-auto'>$/hr</p>
@@ -370,7 +360,7 @@ const EditProfileModal = ({
                   <h4 className='h4'> Your preferred type of job</h4>
                   <RadioGroup
                     className='radio-buttons mt-10'
-                    value={ preferredJob }
+                    defaultValue={ profileInfo.preferredJob }
                     onChange={ handlePreferredJob }
                   >
                     <div className='display-inline-flex'>
@@ -403,7 +393,7 @@ const EditProfileModal = ({
                   <Switch
                     className='switches'
                     color='primary'
-                    checked={ remoteJobs }
+                    defaultChecked={ profileInfo.remoteJobs }
                     onChange={ handleRemoteJobs }
                   />
                 </Grid>
@@ -423,7 +413,7 @@ const EditProfileModal = ({
                   <Switch
                     className='switches'
                     color='primary'
-                    checked={ onVacation }
+                    defaultChecked={ profileInfo.onVacation }
                     onChange={ handleOnVacation }
                   />
                 </Grid>
@@ -448,13 +438,7 @@ const EditProfileModal = ({
             label: 'button-primary-small-label',
           } }
           onClick={ onSubmit }
-          disabled={
-            !(title !== agentInfo.title
-              || summary !== agentInfo.summary
-              || fileSrc !== agentInfo.profilePic
-              || highestEducation !== agentInfo.highestEducation
-            )
-          }
+          disabled={ _.isEqual(profileInfo, agentInfo) }
         >
           Save
         </Button>
@@ -468,7 +452,7 @@ EditProfileModal.defaultProps = {
     title: '',
     summary: '',
     highestEducation: '',
-    workExperience: 0,
+    yearsOfExperience: 0,
     hourlyRate: 0,
     preferredJob: null,
     remoteJobs: false,
@@ -485,7 +469,7 @@ EditProfileModal.propTypes = {
     summary: PropTypes.string,
     profilePic: PropTypes.string,
     highestEducation: PropTypes.string,
-    workExperience: PropTypes.number,
+    yearsOfExperience: PropTypes.number,
     hourlyRate: PropTypes.number,
     preferredJob: PropTypes.string,
     remoteJobs: PropTypes.bool,

@@ -6,7 +6,7 @@ import Rating from '@material-ui/lab/Rating'
 import PropTypes from 'prop-types'
 import './styles.scss'
 import { formatDate } from '../../../utils/common'
-import { contactCenterIntroduction } from './testData'
+import { agentProfileData } from './testData'
 import { defaultUser } from '../../../assets/images/avatar'
 
 const Introduction = ({
@@ -45,12 +45,12 @@ const Introduction = ({
 )
 
 Introduction.defaultProps = {
-  imageName: contactCenterIntroduction.imageName,
-  rating: contactCenterIntroduction.rating,
-  imageSrc: contactCenterIntroduction.imageSrc,
-  name: contactCenterIntroduction.name,
-  location: contactCenterIntroduction.location,
-  date: contactCenterIntroduction.date,
+  imageName: agentProfileData.imageName,
+  rating: agentProfileData.rating,
+  imageSrc: agentProfileData.profilePic,
+  name: agentProfileData.companyName,
+  location: agentProfileData.location,
+  date: agentProfileData.date,
 }
 
 Introduction.propTypes = {

@@ -6,7 +6,7 @@ const args = { mergeParams: true }
 const agentProfileRouter = express.Router(args)
 
 agentProfileRouter.route('/settings')
-  .get(AgentProfileController.getAgentProfileSettings)
+  .get(isAuthenticated, AgentProfileController.getAgentProfileSettings)
 
 agentProfileRouter.route('/:agent_user_id/ratings')
   .get(isAuthenticated, AgentProfileController.getAgentRatings)
