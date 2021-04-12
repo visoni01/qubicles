@@ -1,5 +1,7 @@
 import { AccountIcon, IntegrationIcon, RatesIcon } from '../../../assets/images/icons/profileSettingsIcons'
 import Accounts from '../../../containers/Profile/Agent/Settings/accounts'
+import Teams from '../../../containers/Profile/Agent/Settings/teams'
+import Station from '../../../containers/Profile/Agent/Settings/station'
 
 const settingMenuItems = [
   {
@@ -30,13 +32,13 @@ const settingMenuItems = [
     id: 1,
     title: 'Teams',
     icon: IntegrationIcon,
-    component: () => null,
+    component: Teams,
   },
   {
     id: 2,
     title: 'Station',
     icon: RatesIcon,
-    component: () => null,
+    component: Station,
     subSections: [
       {
         id: 0,

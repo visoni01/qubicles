@@ -6,6 +6,7 @@ import {
   getUserDetails
 } from '../../helper'
 import { decryptData } from '../../../utils/encryption'
+import logger from '../../../common/logger'
 
 const constraints = {
   user_id: {
@@ -32,9 +33,9 @@ export class GetAgentProfileSettingsService extends ServiceBase {
         this.addError(ERRORS.NOT_FOUND, MESSAGES.USER_NOT_FOUND)
       }
 
-      const dob = decryptData(userDetails.dob);
-      const ssn = decryptData(userDetails.ssn);
-      const userName = user.user.replace('.qbe', '');
+      const dob = decryptData(userDetails.dob)
+      const ssn = decryptData(userDetails.ssn)
+      const userName = user.user.replace('.qbe', '')
       const agentAccountSettings = {
         userName,
         fullName: user.full_name,
@@ -58,7 +59,7 @@ export class GetAgentProfileSettingsService extends ServiceBase {
         profilePic: userDetails.profile_image
       }
 
-      return agentAccountSettings;
+      return agentAccountSettings
     } catch (err) {
       logger.error(`${getErrorMessageForService('GetAgentProfileSettingsService')} ${err}`)
       this.addError(ERRORS.INTERNAL)

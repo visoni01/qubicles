@@ -25,9 +25,9 @@ const AgentProfile = () => {
 
   return (
     <div>
-      <Grid container spacing={ 3 }>
+      <Grid container spacing={ 3 } justify='center'>
         <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 }>
-          <div>
+          <div className='left-section'>
             { activeTab === 0 && <LeftSection />}
             { activeTab === 1 && <LeftSection />}
             { activeTab === 2 && (

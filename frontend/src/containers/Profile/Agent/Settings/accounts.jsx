@@ -1,7 +1,7 @@
 /* eslint-disable complexity */
 import React from 'react'
 import {
-  Box, Grid, Button, Divider, Switch, FormControl, TextField, FormControlLabel, Radio, RadioGroup,
+  Box, Grid, Button, Divider, Switch, TextField, FormControlLabel, Radio, RadioGroup,
 } from '@material-ui/core'
 import { useSelector } from 'react-redux'
 import { accountSettingInfoPropTypes, accountSettingInfoDefaultProps } from './settingsProps'
@@ -24,25 +24,23 @@ const Accounts = ({
           <Grid item container justify='space-between' spacing={ 6 }>
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
               <h4 className='h4'> User Name </h4>
-              <FormControl variant='outlined' margin='dense' className='drop-down-bar'>
-                <TextField
-                  margin='dense'
-                  variant='outlined'
-                  name='billing'
-                  value='terrygarret31'
-                />
-              </FormControl>
+              <TextField
+                margin='dense'
+                variant='outlined'
+                name='billing'
+                value='terrygarret31'
+                className='drop-down-bar'
+              />
             </Grid>
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
               <h4 className='h4'> Full Name </h4>
-              <FormControl variant='outlined' margin='dense' className='drop-down-bar'>
-                <TextField
-                  margin='dense'
-                  variant='outlined'
-                  name='billing'
-                  value='Terry Garret'
-                />
-              </FormControl>
+              <TextField
+                margin='dense'
+                variant='outlined'
+                name='billing'
+                value='Terry Garret'
+                className='drop-down-bar'
+              />
             </Grid>
           </Grid>
 
@@ -83,10 +81,10 @@ const Accounts = ({
               <div className='row-fields'>
                 <span className='para'>
                   <p>
-                    {`${ accountSettingInfo.street }` }
+                    {`${ accountSettingInfo.street }`}
                   </p>
                   <p>
-                    {`${ accountSettingInfo.city } ${ accountSettingInfo.zip }, ${ accountSettingInfo.state } ` }
+                    {`${ accountSettingInfo.city } ${ accountSettingInfo.zip }, ${ accountSettingInfo.state } `}
                   </p>
                 </span>
               </div>
@@ -96,25 +94,23 @@ const Accounts = ({
           <Grid item container justify='space-between' spacing={ 6 }>
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
               <h4 className='h4'> Date Of Birth </h4>
-              <FormControl variant='outlined' margin='dense' className='drop-down-bar'>
-                <TextField
-                  margin='dense'
-                  variant='outlined'
-                  name='billing'
-                  value='31/05/1986'
-                />
-              </FormControl>
+              <TextField
+                margin='dense'
+                variant='outlined'
+                name='billing'
+                value='31/05/1986'
+                className='drop-down-bar'
+              />
             </Grid>
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
               <h4 className='h4'> Social Security Number </h4>
-              <FormControl variant='outlined' margin='dense' className='drop-down-bar'>
-                <TextField
-                  margin='dense'
-                  variant='outlined'
-                  name='billing'
-                  value='123456789'
-                />
-              </FormControl>
+              <TextField
+                margin='dense'
+                variant='outlined'
+                name='billing'
+                value='123456789'
+                className='drop-down-bar'
+              />
             </Grid>
           </Grid>
 
@@ -144,9 +140,9 @@ const Accounts = ({
               </RadioGroup>
             </Grid>
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 } className='display-inline-flex'>
-              <h4 className='h4 margin-auto ml-5'> Active </h4>
+              <h4 className='h4 margin-auto ml-0'> Active </h4>
               <Switch
-                className='switches margin-auto ml-5'
+                className='switches margin-auto setting-switch'
                 color='primary'
               />
             </Grid>
@@ -227,7 +223,7 @@ const Accounts = ({
                     />
                   )}
                   <Switch
-                    className='switches mr-20'
+                    className='switches setting-switch'
                     color='primary'
                   />
                 </div>
@@ -244,7 +240,7 @@ const Accounts = ({
                     />
                   )}
                   <Switch
-                    className='switches mr-20'
+                    className='switches setting-switch'
                     color='primary'
                   />
                 </div>
