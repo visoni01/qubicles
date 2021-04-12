@@ -3,7 +3,9 @@ import {
   Grid, TextField, IconButton, Button, RadioGroup, FormControlLabel, Radio,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDotCircle, faTrash } from '@fortawesome/free-solid-svg-icons'
+import {
+  faDotCircle, faTrash, faCheckCircle,
+} from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 
 const MultipleChoiceQuestion = ({
@@ -60,6 +62,24 @@ const MultipleChoiceQuestion = ({
       answerText: parseInt(optionId, 10),
     }))
   }, [ setQuestionDetails ])
+
+  if (questionDetails.isSaved) {
+    return (
+      <div className='ml-20 pb-10'>
+        {questionDetails.options.map((option) => (
+          <div key={ option.id }>
+            <div className='display-inline-flex align-items-center mt-5 mb-5'>
+              <FontAwesomeIcon
+                icon={ questionDetails.answerText === option.id ? faCheckCircle : faDotCircle }
+                className='custom-fa-icon mr-10'
+              />
+              <p>{option.value}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+  }
 
   return (
     <Grid
@@ -138,6 +158,7 @@ MultipleChoiceQuestion.propTypes = {
     questionText: PropTypes.string.isRequired,
     answerText: PropTypes.string.isRequired,
     options: PropTypes.arrayOf(PropTypes.string).isRequired,
+    isSaved: PropTypes.bool.isRequired,
   }).isRequired,
   setQuestionDetails: PropTypes.func.isRequired,
 }

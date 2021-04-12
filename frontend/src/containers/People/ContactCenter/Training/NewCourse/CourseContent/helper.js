@@ -13,6 +13,39 @@ export const checkDisabledAddUnitButton = ({ units }) => {
   return false
 }
 
+export const checkDisabledSaveQuestionButton = ({ question }) => {
+  const isEmptyQuestionText = _.isEmpty(question.questionText)
+  const notEmptyOptions = question.options.reduce((acc, curr) => acc && !_.isEmpty(curr.value), true)
+
+  if (question.questionType === 'multiple') {
+    const isRightAnswerSelected = (question.options.map((option) => option.id)).includes(question.answerText)
+    return !(
+      !isEmptyQuestionText
+      && notEmptyOptions
+      && isRightAnswerSelected
+    )
+  }
+  return false
+}
+
+export const checkDisabledSaveTestButton = ({ unit }) => {
+  const isAllQuestionsSaved = unit.questions.reduce((acc, curr) => acc && curr.isSaved, true)
+  if (unit.questions.length > 0) {
+    return !(
+      isAllQuestionsSaved
+    )
+  }
+  return true
+}
+
+export const checkDisabledAddQuestionButton = ({ unit }) => {
+  if (unit.questions.length > 0) {
+    const lastQuestion = unit.questions[ unit.questions.length - 1 ]
+    return !(lastQuestion.isSaved)
+  }
+  return false
+}
+
 export const checkDisabledAddTestButton = ({ units }) => {
   if (!units.length > 0) {
     return true
@@ -166,6 +199,7 @@ export const addQuestionToTest = ({ unit }) => {
       { id: 0, value: '' },
       { id: 1, value: '' },
     ],
+    isSaved: false,
   }
 
   if (updatedQuestions.length > 0) {
@@ -188,4 +222,21 @@ export const addQuestionToTest = ({ unit }) => {
     ...unit,
     questions: updatedQuestions,
   }
+}
+
+export const deleteQuestionFromTest = ({ unit, question }) => {
+  const updatedUnitQuestions = unit.questions.filter((q) => q.id !== question.id)
+
+  return updatedUnitQuestions
+}
+
+export const saveQuestionInTest = ({ unit, question }) => {
+  const updatedUnitQuestions = unit.questions.map((q) => {
+    if (q.id === question.id) {
+      return { ...question, isSaved: true }
+    }
+    return q
+  })
+
+  return updatedUnitQuestions
 }

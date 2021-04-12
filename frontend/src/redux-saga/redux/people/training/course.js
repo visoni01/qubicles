@@ -33,7 +33,7 @@ const initialState = {
           sectionId: 0,
           unitNum: '1',
           title: 'Unit',
-          details: 'sdg',
+          details: '',
           length: 0,
           type: 'Article',
           isEmpty: true,

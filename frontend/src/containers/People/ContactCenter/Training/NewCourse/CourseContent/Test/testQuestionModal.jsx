@@ -6,7 +6,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import TestQuestion from './testQuestion'
-import { addQuestionToTest } from '../helper'
+import { addQuestionToTest, checkDisabledSaveTestButton, checkDisabledAddQuestionButton } from '../helper'
 
 const TestQuestionModal = ({
   open, onSubmit, onClose, unitDetails, setUnitDetails,
@@ -15,8 +15,6 @@ const TestQuestionModal = ({
     const updatedUnit = addQuestionToTest({ unit: unitDetails })
     setUnitDetails(updatedUnit)
   }, [ setUnitDetails, unitDetails ])
-
-  console.log('UNIT DETAILS==', unitDetails)
 
   return (
     <Dialog
@@ -56,6 +54,7 @@ const TestQuestionModal = ({
               label: 'button-primary-small-label',
             } }
             onClick={ handleAddQuestionButton }
+            disabled={ checkDisabledAddQuestionButton({ unit: unitDetails }) }
           >
             Add Question
           </Button>
@@ -73,6 +72,7 @@ const TestQuestionModal = ({
           className='button-primary-small'
           classes={ { label: 'primary-label' } }
           onClick={ onSubmit }
+          disabled={ checkDisabledSaveTestButton({ unit: unitDetails }) }
         >
           Save
         </Button>

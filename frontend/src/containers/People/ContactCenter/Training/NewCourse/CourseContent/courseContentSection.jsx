@@ -11,7 +11,7 @@ import {
 const CourseContentSection = ({
   section, updateSection,
 }) => {
-  const [ openTest, setOpenTest ] = useState(true)
+  const [ openTest, setOpenTest ] = useState(false)
 
   const handleAddUnitButton = useCallback(() => {
     const updatedSection = addNewUnitToSection({ section })
