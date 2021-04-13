@@ -160,6 +160,7 @@ const EditProfileModal = ({
   const onSubmit = useCallback(() => {
     const uploadImage = {
       file: fileInput.current.files && fileInput.current.files[ 0 ],
+      userType: 'agent',
     }
     if (!_.isEqual(profileInfo, agentInfo)) {
       dispatch(agentProfileSettingsApiStart({
@@ -174,7 +175,6 @@ const EditProfileModal = ({
           remoteJobs: profileInfo.remoteJobs,
           onVacation: profileInfo.onVacation,
           profileVisible: profileInfo.profileVisible,
-          profilePic: profileInfo.profilePic,
         },
         requestType: 'UPDATE',
       }))
@@ -365,7 +365,7 @@ const EditProfileModal = ({
                   >
                     <div className='display-inline-flex'>
                       <FormControlLabel
-                        value='employment'
+                        value='employee'
                         control={ <Radio /> }
                         label='Employment'
                       />

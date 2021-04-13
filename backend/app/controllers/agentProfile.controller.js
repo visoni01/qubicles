@@ -1,6 +1,7 @@
 import Responder from '../../server/expressResponder'
 import {
   GetAgentProfileSettingsService,
+  UpdateAgentProfileSettingsService,
   PostAgentReviewService,
   GetAgentRatingsService,
   GetAgentReviewsService
@@ -13,6 +14,15 @@ export default class AgentProfileController {
       Responder.success(res, agentProfileSettings.result)
     } else {
       Responder.failed(res, agentProfileSettings.errors)
+    }
+  }
+
+  static async updateAgentProfileSettings (req, res) {
+    const updatedProfileSettings = await UpdateAgentProfileSettingsService.execute({ ...req.body })
+    if (updatedProfileSettings.successful) {
+      Responder.success(res, updatedProfileSettings.result)
+    } else {
+      Responder.failed(res, updatedProfileSettings.errors)
     }
   }
 

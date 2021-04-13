@@ -45,10 +45,10 @@ const Introduction = ({
 )
 
 Introduction.defaultProps = {
-  imageName: agentProfileData.imageName,
+  imageName: agentProfileData.userName,
   rating: agentProfileData.rating,
   imageSrc: agentProfileData.profilePic,
-  name: agentProfileData.companyName,
+  name: agentProfileData.fullName,
   location: agentProfileData.location,
   date: agentProfileData.date,
 }

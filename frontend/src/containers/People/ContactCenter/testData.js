@@ -338,23 +338,34 @@ const contactCenterIntroduction = {
 }
 
 const agentProfileData = {
-  companyName: 'Microsoft',
-  profilePic: kareem,
-  city: 'San Francisco',
-  state: 'CA',
-  title: 'Customer Service Agent',
-  summary: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam ducimus deleniti, sapiente perferendis
-  aliquam sunt maiores libero pariatur cum rerum, obcaecati ipsum corporis ex, commodi laboriosam vero repellat
-  maxime quo eum qui. Cumque aperiam cum quos voluptatem temporibus ratione tenetur odio amet, ex repudiandae!
-  Hic perspiciat`,
+  userName: 'arthurca',
+  fullName: 'Arthur Castille',
+  street: '92 Pride Avenue',
+  city: 'Staten Islands',
+  state: 'New York',
+  zip: '10312',
+  dob: '1998-10-01',
+  ssn: '***-**-6757',
+  gender: 'male',
+  active: false,
+  email: 'agent1@yopmail.com',
+  homePhone: '718-356-3486',
+  mobileNumber: '1 9173548628',
+  smsNotification: true,
+  emailNotification: true,
+  rating: '4.5',
+  title: 'Customer Service Specialist',
+  summary: `
+  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+  Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+  when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+  It has survived not only five centuries, but also the leap into electronic typesetting,
+  remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+  sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+  PageMaker including versions of Lorem Ipsum.`,
+  yearsOfExperience: '4',
   highestEducation: 'Bachelor\'s degree',
-  workExperience: 3,
-  hourlyRate: 10,
-  preferredJob: 'employment',
-  remoteJobs: true,
-  onVacation: false,
-  profileVisible: true,
-  rating: 5,
+  profilePic: kareem,
   date: '1 January 2021',
 }
 

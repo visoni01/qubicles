@@ -8,6 +8,9 @@ const agentProfileRouter = express.Router(args)
 agentProfileRouter.route('/settings')
   .get(isAuthenticated, AgentProfileController.getAgentProfileSettings)
 
+agentProfileRouter.route('/settings')
+  .put(isAuthenticated, AgentProfileController.updateAgentProfileSettings)
+
 agentProfileRouter.route('/:agent_user_id/ratings')
   .get(isAuthenticated, AgentProfileController.getAgentRatings)
 

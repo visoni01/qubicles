@@ -6,7 +6,7 @@ import {
   PostCompanyReviewService,
   GetCompanyRatingsService,
   GetCompanyReviewsService
- } from '../services/profile/company'
+} from '../services/profile/company'
 
 export default class CompanyProfileController {
   static async getCompanyProfileSettings (req, res) {

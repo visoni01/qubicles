@@ -1,7 +1,140 @@
-import { XUserActivity, Sequelize, XClient } from '../../db/models'
-import { getUserDetails, getUserById } from './user'
 import _ from 'lodash'
+import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+import config from '../../../config/app'
+import { XUserActivity, Sequelize, XClient, User, UserDetail, XQodResourceDef } from '../../db/models'
+import { getUserDetails, getUserById } from './user'
+import { APP_ERROR_CODES } from '../../utils/errors'
+import { CONSTANTS } from '../../utils/success'
 import { getAll, getOne } from './crud'
+import SendResetEmailVerificationMailService from '../email/sendResetEmailVerificationMail'
+
+export const updateProfileSettings = async ({ user, updatedData, updatedDataType }) => {
+  let result
+  switch (updatedDataType) {
+    // Update Password
+    case 'password' : {
+      if (!await user.comparePassword(updatedData.currentPassword)) {
+        throw new Error(APP_ERROR_CODES.INCORRECT_PASSWORD)
+      }
+
+      const salt = bcrypt.genSaltSync(10)
+      const newPassword = bcrypt.hashSync(updatedData.newPassword, salt)
+
+      result = await User.update({
+        pass: newPassword
+      },
+      { where: { user_id: user.user_id } })
+      break
+    }
+
+    // Update Address
+    case 'address' : {
+      result = await UserDetail.update({
+        street_address: updatedData.street,
+        city: updatedData.city,
+        state: updatedData.state,
+        zip: updatedData.zip
+      },
+      { where: { user_id: user.user_id } })
+      break
+    }
+
+    // Update Sms Notifications
+    case 'Sms Notification': {
+      result = await UserDetail.update({
+        notify_sms: updatedData.smsNotification
+      },
+      { where: { user_id: user.user_id } })
+      break
+    }
+
+    // Update Email Notifications
+    case 'Email Notification': {
+      result = await UserDetail.update({
+        notify_email: updatedData.emailNotification
+      },
+      { where: { user_id: user.user_id } })
+      break
+    }
+
+    // Update Phone number
+    case 'active': {
+      result = await UserDetail.update({
+        active: updatedData.active
+      },
+      { where: { user_id: user.user_id } })
+      break
+    }
+
+    // Update Mobile Phone number
+    case 'mobile phone': {
+      result = await UserDetail.update({
+        mobile_phone: updatedData.mobileNumber
+      },
+      { where: { user_id: user.user_id } })
+      break
+    }
+
+    // Update Home Phone number
+    case 'home phone': {
+      result = await UserDetail.update({
+        home_phone: updatedData.homePhone
+      },
+      { where: { user_id: user.user_id } })
+      break
+    }
+
+    // Update Gender
+    case 'gender': {
+      result = await UserDetail.update({
+        gender: updatedData.gender
+      },
+      { where: { user_id: user.user_id } })
+      break
+    }
+
+    // Update Email
+    case 'email': {
+      if (await User.findOne({ where: { email: updatedData.email }, raw: true })) {
+        throw new Error(APP_ERROR_CODES.EMAIL_NOT_AVAILABLE)
+      } else {
+        const token = jwt.sign({
+          email: user.email,
+          user_id: user.user_id,
+          user_code: user.user_code,
+          token_type: CONSTANTS.RESET_EMAIL_TOKEN_TYPE,
+          newEmail: updatedData.email
+        },
+        config.get('jwt.emailVerificationTokenSecret'),
+        { expiresIn: config.get('jwt.emailVerificationTokenExpiry') })
+
+        SendResetEmailVerificationMailService.execute({
+          email: updatedData.email,
+          token
+        })
+      }
+      break
+    }
+
+    // Update Agent Info
+    case 'Agent Info': {
+      result = await UserDetail.update({
+        work_title: updatedData.title,
+        work_overview: updatedData.summary,
+        years_of_experience: updatedData.yearsOfExperience,
+        highest_education: updatedData.highestEducation
+      },
+      { where: { user_id: user.user_id } })
+      break
+    }
+
+    default : {
+      break
+    }
+  }
+  return result
+}
 
 export const fetchAgentRatings = async ({ agent_user_id }) => {
   let ratings = await XUserActivity.findAll({
@@ -163,4 +296,39 @@ export const getAddReviewAccessForAgent = async ({ user_id, agent_user_id }) => 
   } */
 
   return true
+}
+
+export const getUserTalentData = async ({ user_id }) => {
+  return await XQodResourceDef.findOne({ where: { user_id }, raw: true })
+}
+
+export const createUserTalentData = async ({
+  user_id,
+  status,
+  desired_min_pay,
+  desired_employment_type,
+  desired_location_type
+}) => {
+  return await XQodResourceDef.create({
+    user_id,
+    status,
+    desired_min_pay,
+    desired_employment_type,
+    desired_location_type
+  })
+}
+
+export const updateUserTalentData = async ({
+  user_id,
+  status,
+  desired_min_pay,
+  desired_employment_type,
+  desired_location_type
+}) => {
+  return await XQodResourceDef.update({
+    status,
+    desired_min_pay,
+    desired_employment_type,
+    desired_location_type
+  }, { where: { user_id } })
 }

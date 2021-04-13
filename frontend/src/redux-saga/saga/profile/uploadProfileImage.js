@@ -6,6 +6,7 @@ import {
   showErrorMessage,
   showSuccessMessage,
   updateCompanyProfileSettingsApiSuccess,
+  agentProfileSettingsApiSuccess,
 } from '../../redux/actions'
 
 import User from '../../service/user'
@@ -17,14 +18,21 @@ function* uploadProfileImageWatcher() {
 function* uploadProfileImageWorker(action) {
   try {
     const formData = new FormData()
-    const { file } = action.payload
+    const { file, userType } = action.payload
     formData.append('file', file)
     const { data } = yield User.uploadProfileImage({ data: formData })
     yield put(uploadProfileImageSuccess())
-    yield put(updateCompanyProfileSettingsApiSuccess({
-      updatedDataType: 'profileImage',
-      updatedData: { profilePic: data.profilePicUrl },
-    }))
+    if (userType === 'agent') {
+      yield put(agentProfileSettingsApiSuccess({
+        updatedDataType: 'profileImage',
+        updatedData: { profilePic: data.profilePicUrl || null },
+      }))
+    } else {
+      yield put(updateCompanyProfileSettingsApiSuccess({
+        updatedDataType: 'profileImage',
+        updatedData: { profilePic: data.profilePicUrl },
+      }))
+    }
     yield put(showSuccessMessage({ msg: 'Profile Image Successfully Updated!' }))
   } catch (e) {
     yield put(showErrorMessage({ msg: e.errMsg }))

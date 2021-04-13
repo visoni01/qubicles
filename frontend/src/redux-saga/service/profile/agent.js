@@ -7,10 +7,8 @@ class AgentProfile {
   }
 
   static async updateAgentProfileSettings(settings) {
-    // WIP Backend API
-    // const response = await apiClient.putRequest('/profile/agent/settings', payload)
-    // return response
-    return { data: settings }
+    const response = await apiClient.putRequest('/profile/agent/settings', settings)
+    return response
   }
 }
 

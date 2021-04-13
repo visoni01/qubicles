@@ -11,11 +11,10 @@ const AgentEditProfile = () => {
   return (
     <Box className='custom-box contact-center-info-root'>
       <Introduction
-        key={ settings.userId }
-        imageName={ settings.companyName }
-        rating={ settings.companyRating }
+        imageName={ settings.userName }
+        rating={ settings.rating }
         imageSrc={ settings.profilePic }
-        name={ settings.companyName }
+        name={ settings.fullName }
         location={ `${ settings.city }, ${ settings.state } ` }
         date={ settings.registrationDate }
       />

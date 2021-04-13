@@ -8,7 +8,7 @@ const companyProfileRouter = express.Router(args)
 companyProfileRouter.route('/settings')
   .get(isAuthenticated, CompanyProfileController.getCompanyProfileSettings)
 
-companyProfileRouter.route('/settings/update')
+companyProfileRouter.route('/settings')
   .put(isAuthenticated, CompanyProfileController.updateProfileSettigns)
 
 companyProfileRouter.route('/:client_id')

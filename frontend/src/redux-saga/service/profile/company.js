@@ -7,7 +7,7 @@ class CompanyProfile {
   }
 
   static async updateCompanyProfileSettings(payload) {
-    const response = await apiClient.putRequest('/profile/company/settings/update', payload)
+    const response = await apiClient.putRequest('/profile/company/settings', payload)
     return response
   }
 

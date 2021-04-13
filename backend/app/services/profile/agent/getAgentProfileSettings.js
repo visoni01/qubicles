@@ -7,6 +7,7 @@ import {
 } from '../../helper'
 import { decryptData } from '../../../utils/encryption'
 import logger from '../../../common/logger'
+import { getUserTalentData } from '../../helper/agentProfile'
 
 const constraints = {
   user_id: {
@@ -25,21 +26,28 @@ export class GetAgentProfileSettingsService extends ServiceBase {
     try {
       const promises = [
         () => getUserById({ user_id }),
-        () => getUserDetails({ user_id })
+        () => getUserDetails({ user_id }),
+        () => getUserTalentData({ user_id })
       ]
-      const [user, userDetails] = await Promise.all(promises.map(promise => promise()))
+      const [user, userDetails, talentData] = await Promise.all(promises.map(promise => promise()))
 
       if (!user) {
         this.addError(ERRORS.NOT_FOUND, MESSAGES.USER_NOT_FOUND)
       }
 
       const dob = decryptData(userDetails.dob)
-      const ssn = decryptData(userDetails.ssn)
+      const ssn = '***-**-' + decryptData(userDetails.ssn).substring(7)
       const userName = user.user.replace('.qbe', '')
+      const userTalentData = talentData && {
+        onVacation: talentData.status === 'on vacation',
+        hourlyRate: talentData.desired_min_pay,
+        preferredJob: talentData.desired_employment_type,
+        remoteJobs: talentData.desired_location_type === 'remote'
+      }
       const agentAccountSettings = {
         userName,
         fullName: user.full_name,
-        street: userDetails.address1,
+        street: userDetails.street_address,
         city: userDetails.city,
         state: userDetails.state,
         zip: userDetails.zip,
@@ -52,12 +60,13 @@ export class GetAgentProfileSettingsService extends ServiceBase {
         mobileNumber: userDetails.mobile_phone,
         smsNotification: !!userDetails.notify_sms,
         emailNotification: !!userDetails.notify_email,
+        rating: userDetails.rating,
         title: userDetails.work_title,
         summary: userDetails.work_overview,
-        education: user.highest_education,
-        yearsOfExperience: userDetails.years_of_experience,
         highestEducation: userDetails.highest_education,
-        profilePic: userDetails.profile_image
+        yearsOfExperience: userDetails.years_of_experience,
+        profilePic: userDetails.profile_image,
+        ...userTalentData
       }
 
       return agentAccountSettings
