@@ -233,7 +233,6 @@ const station = () => (
             </Grid>
           </Grid>
         </Grid>
-
       </Grid>
     </div>
   </Box>

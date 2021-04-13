@@ -4,6 +4,7 @@ import {
   getErrorMessageForService,
   getClientIdByUserId, getUserById, getClientData, getUserDetails
 } from '../../helper'
+import logger from '../../../common/logger'
 
 const constraints = {
   user_id: {

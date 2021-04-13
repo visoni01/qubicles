@@ -5,7 +5,8 @@ import {
   createUserTalentData,
   updateUserTalentData
 } from '../../helper/agentProfile'
-import { getErrorMessageForService, getUserById } from '../../helper'
+import { User } from '../../../db/models'
+import { getErrorMessageForService } from '../../helper'
 import ServiceBase from '../../../common/serviceBase'
 import logger from '../../../common/logger'
 
@@ -31,7 +32,7 @@ export class UpdateAgentProfileSettingsService extends ServiceBase {
 
     try {
       const promises = [
-        () => getUserById({ user_id }),
+        () => User.findOne({ where: { user_id } }),
         () => getUserTalentData({ user_id })
       ]
       const [user, talentData] = await Promise.all(promises.map(promise => promise()))

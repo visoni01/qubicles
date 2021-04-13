@@ -1,17 +1,14 @@
 /* eslint-disable complexity */
 import React, {
-  useState, useRef, useCallback, useEffect,
+  useState, useRef, useCallback,
 } from 'react'
 import { Grid, Tabs, Tab } from '@material-ui/core'
-import { useHistory } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 import ContactCenterEditProfile from './LeftRightSection/index'
 import Wallet from './LeftRightSection/wallet'
 import Settings from './Settings'
 import ContactCenterFeed from './Feed/index'
 import SettingsLeft from './Settings/settingsLeft'
 import About from './About/index'
-import ROUTE_PATHS from '../../../routes/routesPath'
 
 const ContactCenterProfile = () => {
   const [ activeTab, setActiveTab ] = useState(1)
@@ -19,20 +16,12 @@ const ContactCenterProfile = () => {
   const spacingTab = activeTab === 2 ? 8 : 12
   const currentSectionRef = useRef()
   const otherSectionRef = useRef()
-  const { userDetails } = useSelector((state) => state.login)
-  const history = useHistory()
 
   const [ selectedMenuItem, setSelectedMenuItem ] = useState(0)
 
   const scrollToTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [])
-
-  useEffect(() => {
-    if (userDetails && userDetails.user_code !== 'employer') {
-      history.push(ROUTE_PATHS.DASHBOARD)
-    }
-  }, [ userDetails, history ])
 
   return (
     <div>

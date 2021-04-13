@@ -58,10 +58,10 @@ export const updateProfileSettings = async ({ user, updatedData, updatedDataType
       break
     }
 
-    // Update Phone number
+    // Update Active
     case 'active': {
       result = await UserDetail.update({
-        active: updatedData.active
+        is_online: updatedData.active
       },
       { where: { user_id: user.user_id } })
       break

@@ -5,16 +5,19 @@ import {
 } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { accountSettingInfoPropTypes, accountSettingInfoDefaultProps } from '../settingsProps'
 import {
   updateCompanyProfileSettingsApiStart,
   resetUpdateProfileSettingsFlags,
+  agentProfileSettingsApiStart,
+  resetAgentProfileSettingsFlags,
 } from '../../../../../redux-saga/redux/actions'
 
-const ChangeAddress = ({ open, setOpen, accountSettingInfo }) => {
+const ChangeAddress = ({
+  open, setOpen, accountSettingInfo, isUpdateLoading, isUpdateSuccess, updatedDataType, userType,
+}) => {
   const dispatch = useDispatch()
-  const { isUpdateLoading, isUpdateSuccess, updatedDataType } = useSelector((state) => state.clientDetails)
 
   const { register, handleSubmit, errors } = useForm({
     validationSchema: yup.object().shape({
@@ -31,24 +34,41 @@ const ChangeAddress = ({ open, setOpen, accountSettingInfo }) => {
 
   const onSubmit = (data) => {
     if (!isUpdateLoading) {
-      dispatch(updateCompanyProfileSettingsApiStart({
-        updatedDataType: 'address',
-        updatedData: {
-          street: data.street,
-          city: data.city,
-          state: data.state,
-          zip: data.zip,
-        },
-      }))
+      if (userType === 'client') {
+        dispatch(updateCompanyProfileSettingsApiStart({
+          updatedDataType: 'address',
+          updatedData: {
+            street: data.street,
+            city: data.city,
+            state: data.state,
+            zip: data.zip,
+          },
+        }))
+      } else if (userType === 'agent') {
+        dispatch(agentProfileSettingsApiStart({
+          updatedDataType: 'address',
+          updatedData: {
+            street: data.street,
+            city: data.city,
+            state: data.state,
+            zip: data.zip,
+          },
+          requestType: 'UPDATE',
+        }))
+      }
     }
   }
 
   useEffect(() => {
     if (!isUpdateLoading && isUpdateSuccess && updatedDataType === 'address') {
       setOpen(false)
-      dispatch(resetUpdateProfileSettingsFlags())
+      if (userType === 'client') {
+        dispatch(resetUpdateProfileSettingsFlags())
+      } else if (userType === 'agent') {
+        dispatch(resetAgentProfileSettingsFlags())
+      }
     }
-  }, [ isUpdateSuccess, isUpdateLoading, dispatch, setOpen, updatedDataType ])
+  }, [ isUpdateSuccess, isUpdateLoading, dispatch, setOpen, updatedDataType, userType ])
 
   return (
     <Drawer
@@ -138,7 +158,7 @@ const ChangeAddress = ({ open, setOpen, accountSettingInfo }) => {
                   label: 'button-primary-small-label',
                 } }
                 disabled={ isUpdateLoading }
-                onClick={ () => setOpen(true) }
+                onClick={ () => setOpen(false) }
               >
                 Save
               </Button>
@@ -153,12 +173,20 @@ const ChangeAddress = ({ open, setOpen, accountSettingInfo }) => {
 ChangeAddress.defaultProps = {
   open: false,
   accountSettingInfo: accountSettingInfoDefaultProps,
+  isUpdateLoading: false,
+  isUpdateSuccess: false,
+  updatedDataType: '',
+  userType: '',
 }
 
 ChangeAddress.propTypes = {
   open: PropTypes.bool,
   setOpen: PropTypes.func.isRequired,
   accountSettingInfo: accountSettingInfoPropTypes,
+  isUpdateLoading: PropTypes.bool,
+  isUpdateSuccess: PropTypes.bool,
+  updatedDataType: PropTypes.string,
+  userType: PropTypes.string,
 }
 
 export default ChangeAddress

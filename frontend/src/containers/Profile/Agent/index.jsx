@@ -13,7 +13,6 @@ const AgentProfile = () => {
   const [ activeTab, setActiveTab ] = useState(0)
   const spacingMid = activeTab === 2 ? 9 : 6
   const spacingTab = activeTab === 2 ? 8 : 12
-
   const currentSectionRef = useRef()
   const otherSectionRef = useRef()
 

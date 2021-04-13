@@ -72,7 +72,7 @@ const AgentEditProfile = () => {
       <Divider className='divider' />
       <div className='mt-20'>
         <h4 className='h4 mb-5'>Highest level of Education</h4>
-        <p className='para'>{settings.highestEducation}</p>
+        <p className='para'>{ settings.highestEducation }</p>
       </div>
       <div className='mb-20 mt-20'>
         <h4 className='h4 mb-5'>Years of Experience</h4>

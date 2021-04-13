@@ -5,15 +5,16 @@ import {
 } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { accountSettingInfoDefaultProps, accountSettingInfoPropTypes } from '../settingsProps'
 import {
   updateCompanyProfileSettingsApiStart,
   resetUpdateProfileSettingsFlags,
 } from '../../../../../redux-saga/redux/actions'
 
-const ChangeWebsite = ({ open, setOpen, accountSettingInfo }) => {
-  const { isUpdateLoading, isUpdateSuccess, updatedDataType } = useSelector((state) => state.clientDetails)
+const ChangeWebsite = ({
+  open, setOpen, accountSettingInfo, isUpdateLoading, isUpdateSuccess, updatedDataType,
+}) => {
   const dispatch = useDispatch()
   const { register, handleSubmit, errors } = useForm({
     defaultValues: {
@@ -102,7 +103,7 @@ const ChangeWebsite = ({ open, setOpen, accountSettingInfo }) => {
                   label: 'button-primary-small-label',
                 } }
                 disabled={ isUpdateLoading }
-                onClick={ () => setOpen(true) }
+                onClick={ () => setOpen(false) }
               >
                 Save
               </Button>
@@ -117,12 +118,18 @@ const ChangeWebsite = ({ open, setOpen, accountSettingInfo }) => {
 ChangeWebsite.defaultProps = {
   open: false,
   accountSettingInfo: accountSettingInfoDefaultProps,
+  isUpdateLoading: false,
+  isUpdateSuccess: false,
+  updatedDataType: '',
 }
 
 ChangeWebsite.propTypes = {
   open: PropTypes.bool,
   setOpen: PropTypes.func.isRequired,
   accountSettingInfo: accountSettingInfoPropTypes,
+  isUpdateLoading: PropTypes.bool,
+  isUpdateSuccess: PropTypes.bool,
+  updatedDataType: PropTypes.string,
 }
 
 export default ChangeWebsite

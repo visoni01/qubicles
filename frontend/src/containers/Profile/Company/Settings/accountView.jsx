@@ -5,7 +5,7 @@ import {
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import './styles.scss'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import MultiSelectChipItems from '../../../Shared/multiSelectChipItems'
 import { accountSettingInfoPropTypes, accountSettingInfoDefaultProps } from './settingsProps'
 import {
@@ -15,10 +15,9 @@ import {
 import Loader from '../../../../components/loaders/circularLoader'
 
 const AccountView = ({
-  setOpenDrawer, accountSettingInfo,
+  setOpenDrawer, accountSettingInfo, isUpdateLoading, isUpdateSuccess, updatedDataType,
 }) => {
   const dispatch = useDispatch()
-  const { isUpdateLoading, isUpdateSuccess, updatedDataType } = useSelector((state) => state.clientDetails)
 
   const handleSmsNotificationSwitch = useCallback((e) => {
     dispatch(updateCompanyProfileSettingsApiStart({
@@ -257,10 +256,16 @@ const AccountView = ({
 AccountView.propTypes = {
   setOpenDrawer: PropTypes.func.isRequired,
   accountSettingInfo: accountSettingInfoPropTypes,
+  isUpdateLoading: PropTypes.bool,
+  isUpdateSuccess: PropTypes.bool,
+  updatedDataType: PropTypes.string,
 }
 
 AccountView.defaultProps = {
   accountSettingInfo: accountSettingInfoDefaultProps,
+  isUpdateLoading: false,
+  isUpdateSuccess: false,
+  updatedDataType: '',
 }
 
 export default AccountView

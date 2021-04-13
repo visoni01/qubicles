@@ -11,7 +11,6 @@ const Teams = () => (
         Justin Barnett is assigned to following teams
       </p>
       <Grid container spacing={ 0 } direction='column'>
-
         <Grid item container justify='space-between' spacing={ 6 }>
           <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 } className='display-inline-flex'>
             <h4 className='h4 margin-auto ml-0'>Customer Service</h4>

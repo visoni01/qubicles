@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import './styles.scss'
+import '../../Company/Settings/styles.scss'
 import AccountView from './accountView'
-import ChangeEmail from './SettingsDrawers/changeEmail'
-import ChangeWebsite from './SettingsDrawers/changeWebsite'
-import ChangeNumber from './SettingsDrawers/changeNumber'
-import ChangePassword from './SettingsDrawers/changePassword'
-import ChangeAddress from './SettingsDrawers/changeAddress'
+import ChangeEmail from '../../Company/Settings/SettingsDrawers/changeEmail'
+import ChangeNumber from '../../Company/Settings/SettingsDrawers/changeNumber'
+import ChangePassword from '../../Company/Settings/SettingsDrawers/changePassword'
+import ChangeAddress from '../../Company/Settings/SettingsDrawers/changeAddress'
 
 const AccountSection = () => {
   const [ openDrawer, setOpenDrawer ] = useState({
@@ -15,6 +14,7 @@ const AccountSection = () => {
     emailDrawer: false,
     websiteDrawer: false,
     numberDrawer: false,
+    phoneDrawer: false,
   })
 
   const {
@@ -23,7 +23,7 @@ const AccountSection = () => {
     isUpdateLoading,
     isUpdateSuccess,
     updatedDataType,
-  } = useSelector((state) => state.clientDetails)
+  } = useSelector((state) => state.agentDetails)
 
   return (
     <div>
@@ -44,7 +44,7 @@ const AccountSection = () => {
             isUpdateLoading={ isUpdateLoading }
             isUpdateSuccess={ isUpdateSuccess }
             updatedDataType={ updatedDataType }
-            userType='client'
+            userType='agent'
           />
           <ChangeAddress
             open={ openDrawer.addressDrawer }
@@ -53,7 +53,7 @@ const AccountSection = () => {
             isUpdateLoading={ isUpdateLoading }
             isUpdateSuccess={ isUpdateSuccess }
             updatedDataType={ updatedDataType }
-            userType='client'
+            userType='agent'
           />
           <ChangeEmail
             open={ openDrawer.emailDrawer }
@@ -62,15 +62,17 @@ const AccountSection = () => {
             isUpdateLoading={ isUpdateLoading }
             isUpdateSuccess={ isUpdateSuccess }
             updatedDataType={ updatedDataType }
-            userType='client'
+            userType='agent'
           />
-          <ChangeWebsite
-            open={ openDrawer.websiteDrawer }
-            setOpen={ (openState) => setOpenDrawer((current) => ({ ...current, websiteDrawer: openState })) }
+          <ChangeNumber
+            open={ openDrawer.phoneDrawer }
+            setOpen={ (openState) => setOpenDrawer((current) => ({ ...current, phoneDrawer: openState })) }
             accountSettingInfo={ accountSettingInfo }
             isUpdateLoading={ isUpdateLoading }
             isUpdateSuccess={ isUpdateSuccess }
             updatedDataType={ updatedDataType }
+            userType='agent'
+            phoneType='phoneDrawer'
           />
           <ChangeNumber
             open={ openDrawer.numberDrawer }
@@ -79,7 +81,8 @@ const AccountSection = () => {
             isUpdateLoading={ isUpdateLoading }
             isUpdateSuccess={ isUpdateSuccess }
             updatedDataType={ updatedDataType }
-            userType='client'
+            userType='agent'
+            phoneType='numberDrawer'
           />
         </>
       )}

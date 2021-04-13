@@ -5,16 +5,18 @@ import {
 } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { accountSettingInfoDefaultProps, accountSettingInfoPropTypes } from '../settingsProps'
 import {
   updateCompanyProfileSettingsApiStart,
   resetUpdateProfileSettingsFlags,
+  agentProfileSettingsApiStart,
+  resetAgentProfileSettingsFlags,
 } from '../../../../../redux-saga/redux/actions'
 
-const ChangeEmail = ({ open, setOpen, accountSettingInfo }) => {
-  const { isUpdateLoading, isUpdateSuccess, updatedDataType } = useSelector((state) => state.clientDetails)
-
+const ChangeEmail = ({
+  open, setOpen, accountSettingInfo, isUpdateLoading, isUpdateSuccess, updatedDataType, userType,
+}) => {
   const [ newEmail, setNewEmail ] = useState('')
   const dispatch = useDispatch()
   const { register, handleSubmit, errors } = useForm({
@@ -31,12 +33,22 @@ const ChangeEmail = ({ open, setOpen, accountSettingInfo }) => {
 
   const onSubmit = (data) => {
     if (!isUpdateLoading) {
-      dispatch(updateCompanyProfileSettingsApiStart({
-        updatedDataType: 'email',
-        updatedData: {
-          email: data.newEmail,
-        },
-      }))
+      if (userType === 'client') {
+        dispatch(updateCompanyProfileSettingsApiStart({
+          updatedDataType: 'email',
+          updatedData: {
+            email: data.newEmail,
+          },
+        }))
+      } else if (userType === 'agent') {
+        dispatch(agentProfileSettingsApiStart({
+          updatedDataType: 'email',
+          updatedData: {
+            email: data.newEmail,
+          },
+          requestType: 'UPDATE',
+        }))
+      }
       setNewEmail(data.newEmail)
     }
   }
@@ -47,14 +59,32 @@ const ChangeEmail = ({ open, setOpen, accountSettingInfo }) => {
 
   const handleResendButton = useCallback(() => {
     if (!isUpdateLoading) {
-      dispatch(updateCompanyProfileSettingsApiStart({
-        updatedDataType: 'email',
-        updatedData: {
-          email: newEmail,
-        },
-      }))
+      if (userType === 'client') {
+        dispatch(updateCompanyProfileSettingsApiStart({
+          updatedDataType: 'email',
+          updatedData: {
+            email: newEmail,
+          },
+        }))
+      } else if (userType === 'agent') {
+        dispatch(agentProfileSettingsApiStart({
+          updatedDataType: 'email',
+          updatedData: {
+            email: newEmail,
+          },
+          requestType: 'UPDATE',
+        }))
+      }
     }
-  }, [ dispatch, newEmail, isUpdateLoading ])
+  }, [ dispatch, newEmail, isUpdateLoading, userType ])
+
+  const handleReset = useCallback(() => {
+    if (userType === 'client') {
+      dispatch(resetUpdateProfileSettingsFlags())
+    } else if (userType === 'agent') {
+      dispatch(resetAgentProfileSettingsFlags())
+    }
+  }, [ dispatch, userType ])
 
   return (
     <Drawer
@@ -151,7 +181,7 @@ const ChangeEmail = ({ open, setOpen, accountSettingInfo }) => {
                       root: 'button-secondary-small',
                       label: 'button-secondary-small-label',
                     } }
-                    onClick={ () => dispatch(resetUpdateProfileSettingsFlags()) }
+                    onClick={ handleReset }
                   >
                     Re Enter New Email
                   </Button>
@@ -168,12 +198,20 @@ const ChangeEmail = ({ open, setOpen, accountSettingInfo }) => {
 ChangeEmail.defaultProps = {
   open: false,
   accountSettingInfo: accountSettingInfoDefaultProps,
+  isUpdateLoading: false,
+  isUpdateSuccess: false,
+  updatedDataType: '',
+  userType: '',
 }
 
 ChangeEmail.propTypes = {
   open: PropTypes.bool,
   setOpen: PropTypes.func.isRequired,
   accountSettingInfo: accountSettingInfoPropTypes,
+  isUpdateLoading: PropTypes.bool,
+  isUpdateSuccess: PropTypes.bool,
+  updatedDataType: PropTypes.string,
+  userType: PropTypes.string,
 }
 
 export default ChangeEmail

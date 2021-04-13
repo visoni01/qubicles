@@ -7,15 +7,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import {
   updateCompanyProfileSettingsApiStart,
   resetUpdateProfileSettingsFlags,
+  agentProfileSettingsApiStart,
+  resetAgentProfileSettingsFlags,
 } from '../../../../../redux-saga/redux/actions'
 
-const ChangePassword = ({ open, setOpen }) => {
-  const { isUpdateLoading, isUpdateSuccess, updatedDataType } = useSelector((state) => state.clientDetails)
-
+const ChangePassword = ({
+  open, setOpen, isUpdateLoading, isUpdateSuccess, updatedDataType, userType,
+}) => {
   const [ visible, setVisible ] = useState({
     currentPassword: false,
     newPassword: false,
@@ -42,13 +44,24 @@ const ChangePassword = ({ open, setOpen }) => {
 
   const onSubmit = (data) => {
     if (!isUpdateLoading) {
-      dispatch(updateCompanyProfileSettingsApiStart({
-        updatedDataType: 'password',
-        updatedData: {
-          currentPassword: data.currentPassword,
-          newPassword: data.newPassword,
-        },
-      }))
+      if (userType === 'client') {
+        dispatch(updateCompanyProfileSettingsApiStart({
+          updatedDataType: 'password',
+          updatedData: {
+            currentPassword: data.currentPassword,
+            newPassword: data.newPassword,
+          },
+        }))
+      } else if (userType === 'agent') {
+        dispatch(agentProfileSettingsApiStart({
+          updatedDataType: 'password',
+          updatedData: {
+            currentPassword: data.currentPassword,
+            newPassword: data.newPassword,
+          },
+          requestType: 'UPDATE',
+        }))
+      }
     }
   }
 
@@ -64,9 +77,13 @@ const ChangePassword = ({ open, setOpen }) => {
   useEffect(() => {
     if (!isUpdateLoading && isUpdateSuccess && updatedDataType === 'password') {
       setOpen(false)
-      dispatch(resetUpdateProfileSettingsFlags())
+      if (userType === 'client') {
+        dispatch(resetUpdateProfileSettingsFlags())
+      } else if (userType === 'agent') {
+        dispatch(resetAgentProfileSettingsFlags())
+      }
     }
-  }, [ isUpdateSuccess, isUpdateLoading, dispatch, setOpen, updatedDataType ])
+  }, [ isUpdateSuccess, isUpdateLoading, dispatch, setOpen, updatedDataType, userType ])
 
   return (
     <Drawer
@@ -182,7 +199,7 @@ const ChangePassword = ({ open, setOpen }) => {
                   label: 'button-primary-small-label',
                 } }
                 disabled={ isUpdateLoading }
-                onClick={ () => setOpen(true) }
+                onClick={ () => setOpen(false) }
               >
                 Save
               </Button>
@@ -196,11 +213,19 @@ const ChangePassword = ({ open, setOpen }) => {
 
 ChangePassword.defaultProps = {
   open: false,
+  isUpdateLoading: false,
+  isUpdateSuccess: false,
+  updatedDataType: '',
+  userType: '',
 }
 
 ChangePassword.propTypes = {
   open: PropTypes.bool,
   setOpen: PropTypes.func.isRequired,
+  isUpdateLoading: PropTypes.bool,
+  isUpdateSuccess: PropTypes.bool,
+  updatedDataType: PropTypes.string,
+  userType: PropTypes.string,
 }
 
 export default ChangePassword

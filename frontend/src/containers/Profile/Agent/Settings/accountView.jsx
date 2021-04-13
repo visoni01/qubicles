@@ -1,46 +1,98 @@
 /* eslint-disable complexity */
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 import {
-  Box, Grid, Button, Divider, Switch, TextField, FormControlLabel, Radio, RadioGroup,
+  Box, Grid, Button, Divider, Switch, FormControlLabel, Radio, RadioGroup,
 } from '@material-ui/core'
-import { useSelector } from 'react-redux'
+import PropTypes from 'prop-types'
+import '../../Company/Settings/styles.scss'
+import { useDispatch } from 'react-redux'
 import { accountSettingInfoPropTypes, accountSettingInfoDefaultProps } from './settingsProps'
 import Loader from '../../../../components/loaders/circularLoader'
+import { agentProfileSettingsApiStart, resetAgentProfileSettingsFlags } from '../../../../redux-saga/redux/actions'
 
 const Accounts = ({
-  accountSettingInfo,
+  setOpenDrawer, accountSettingInfo, isUpdateLoading, isUpdateSuccess, updatedDataType,
 }) => {
-  const { isUpdateLoading, updatedDataType } = useSelector((state) => state.clientDetails)
+  const dispatch = useDispatch()
+
+  const handleActiveSwitch = useCallback((e) => {
+    dispatch(agentProfileSettingsApiStart({
+      updatedDataType: 'active',
+      updatedData: {
+        active: e.target.checked,
+      },
+      requestType: 'UPDATE',
+    }))
+  }, [ dispatch ])
+
+  const handleSmsNotificationSwitch = useCallback((e) => {
+    dispatch(agentProfileSettingsApiStart({
+      updatedDataType: 'Sms Notification',
+      updatedData: {
+        smsNotification: e.target.checked,
+      },
+      requestType: 'UPDATE',
+    }))
+  }, [ dispatch ])
+
+  const handleEmailNotificationSwitch = useCallback((e) => {
+    dispatch(agentProfileSettingsApiStart({
+      updatedDataType: 'Email Notification',
+      updatedData: {
+        emailNotification: e.target.checked,
+      },
+      requestType: 'UPDATE',
+    }))
+  }, [ dispatch ])
+
+  const handleGenderRadio = useCallback((e) => {
+    dispatch(agentProfileSettingsApiStart({
+      updatedDataType: 'gender',
+      updatedData: {
+        gender: e.target.value,
+      },
+      requestType: 'UPDATE',
+    }))
+  }, [ dispatch ])
+
+  useEffect(() => {
+    if (!isUpdateLoading && isUpdateSuccess
+      && (updatedDataType === 'Sms Notification'
+      || updatedDataType === 'Email Notification'
+      || updatedDataType === 'Active')) {
+      dispatch(resetAgentProfileSettingsFlags())
+    }
+  }, [ isUpdateSuccess, isUpdateLoading, dispatch, updatedDataType ])
 
   return (
     <Box className='custom-box'>
       <h2 className='h2 mb-30'>Account</h2>
       <div className='settings-section'>
-        <h3 className='h3 mb-10'> Basic Information</h3>
+        <h3 className='h3'> Basic Information</h3>
         <Grid container spacing={ 3 } direction='column'>
 
-          {/* Id and Name */}
+          {/* User Name and Full Name */}
 
           <Grid item container justify='space-between' spacing={ 6 }>
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
-              <h4 className='h4'> User Name </h4>
-              <TextField
-                margin='dense'
-                variant='outlined'
-                name='billing'
-                value='terrygarret31'
-                className='drop-down-bar'
-              />
+              <h4 className='h4 row-section'> User Name </h4>
+              <div className='row-fields mt-5'>
+                <span className='para'>
+                  <p>
+                    {`${ accountSettingInfo.userName }`}
+                  </p>
+                </span>
+              </div>
             </Grid>
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
-              <h4 className='h4'> Full Name </h4>
-              <TextField
-                margin='dense'
-                variant='outlined'
-                name='billing'
-                value='Terry Garret'
-                className='drop-down-bar'
-              />
+              <h4 className='h4 row-section'> Full Name </h4>
+              <div className='row-fields mt-5'>
+                <span className='para'>
+                  <p>
+                    {`${ accountSettingInfo.fullName }`}
+                  </p>
+                </span>
+              </div>
             </Grid>
           </Grid>
 
@@ -55,6 +107,7 @@ const Accounts = ({
                     root: 'button-primary-text',
                     label: 'button-primary-text-label',
                   } }
+                  onClick={ () => setOpenDrawer((current) => ({ ...current, passwordDrawer: true })) }
                 >
                   Change Password
                 </Button>
@@ -73,7 +126,7 @@ const Accounts = ({
                     root: 'button-primary-text',
                     label: 'button-primary-text-label',
                   } }
-
+                  onClick={ () => setOpenDrawer((current) => ({ ...current, addressDrawer: true })) }
                 >
                   Change Address
                 </Button>
@@ -91,34 +144,40 @@ const Accounts = ({
             </Grid>
           </Grid>
 
+          {/* Date Of Birth and SSN */}
+
           <Grid item container justify='space-between' spacing={ 6 }>
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
-              <h4 className='h4'> Date Of Birth </h4>
-              <TextField
-                margin='dense'
-                variant='outlined'
-                name='billing'
-                value='31/05/1986'
-                className='drop-down-bar'
-              />
+              <h4 className='h4 row-section'> Date Of Birth </h4>
+              <div className='row-fields mt-5'>
+                <span className='para'>
+                  <p>
+                    {`${ accountSettingInfo.dob }`}
+                  </p>
+                </span>
+              </div>
             </Grid>
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
-              <h4 className='h4'> Social Security Number </h4>
-              <TextField
-                margin='dense'
-                variant='outlined'
-                name='billing'
-                value='123456789'
-                className='drop-down-bar'
-              />
+              <h4 className='h4 row-section'> Social Security Number </h4>
+              <div className='row-fields mt-5'>
+                <span className='para'>
+                  <p>
+                    {`${ accountSettingInfo.ssn }`}
+                  </p>
+                </span>
+              </div>
             </Grid>
           </Grid>
+
+          {/* Gender and Active */}
 
           <Grid item container justify='space-between' spacing={ 6 }>
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
               <h4 className='h4'> Gender </h4>
               <RadioGroup
                 className='radio-buttons mt-10'
+                defaultValue={ accountSettingInfo.gender }
+                onChange={ handleGenderRadio }
               >
                 <div className='display-inline-flex'>
                   <FormControlLabel
@@ -141,15 +200,28 @@ const Accounts = ({
             </Grid>
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 } className='display-inline-flex'>
               <h4 className='h4 margin-auto ml-0'> Active </h4>
-              <Switch
-                className='switches margin-auto setting-switch'
-                color='primary'
-              />
+              <div className='align-items-end justify-end'>
+                {isUpdateLoading && updatedDataType === 'Active' && (
+                <Loader
+                  className='static-small-loader'
+                  enableOverlay={ false }
+                  displayLoaderManually
+                  size={ 23 }
+                />
+                )}
+                <Switch
+                  className='switches mt-10 setting-switch'
+                  color='primary'
+                  checked={ accountSettingInfo.active }
+                  onChange={ handleActiveSwitch }
+                />
+              </div>
             </Grid>
           </Grid>
 
           <Divider className='divider' />
-          {/* Email and phone */}
+
+          {/* Email and Home Phone */}
 
           <Grid item container justify='space-between' spacing={ 6 }>
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
@@ -160,6 +232,7 @@ const Accounts = ({
                     root: 'button-primary-text',
                     label: 'button-primary-text-label',
                   } }
+                  onClick={ () => setOpenDrawer((current) => ({ ...current, emailDrawer: true })) }
                 >
                   Change Email
                 </Button>
@@ -178,6 +251,7 @@ const Accounts = ({
                     root: 'button-primary-text',
                     label: 'button-primary-text-label',
                   } }
+                  onClick={ () => setOpenDrawer((current) => ({ ...current, phoneDrawer: true })) }
                 >
                   Change Number
                 </Button>
@@ -191,6 +265,7 @@ const Accounts = ({
           </Grid>
 
           {/* Mobile phone and notifications */}
+
           <Grid item container justify='space-between' spacing={ 6 }>
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
               <div className='row-section'>
@@ -200,13 +275,14 @@ const Accounts = ({
                     root: 'button-primary-text',
                     label: 'button-primary-text-label',
                   } }
+                  onClick={ () => setOpenDrawer((current) => ({ ...current, numberDrawer: true })) }
                 >
                   Change Number
                 </Button>
               </div>
               <div className='row-fields '>
                 <span className='para '>
-                  {accountSettingInfo.mobilePhone}
+                  {accountSettingInfo.mobileNumber}
                 </span>
               </div>
             </Grid>
@@ -225,6 +301,8 @@ const Accounts = ({
                   <Switch
                     className='switches setting-switch'
                     color='primary'
+                    checked={ accountSettingInfo.smsNotification }
+                    onChange={ handleSmsNotificationSwitch }
                   />
                 </div>
               </Grid>
@@ -242,6 +320,8 @@ const Accounts = ({
                   <Switch
                     className='switches setting-switch'
                     color='primary'
+                    checked={ accountSettingInfo.emailNotification }
+                    onChange={ handleEmailNotificationSwitch }
                   />
                 </div>
               </Grid>
@@ -254,11 +334,18 @@ const Accounts = ({
 }
 
 Accounts.propTypes = {
+  setOpenDrawer: PropTypes.func.isRequired,
   accountSettingInfo: accountSettingInfoPropTypes,
+  isUpdateLoading: PropTypes.bool,
+  isUpdateSuccess: PropTypes.bool,
+  updatedDataType: PropTypes.string,
 }
 
 Accounts.defaultProps = {
   accountSettingInfo: accountSettingInfoDefaultProps,
+  isUpdateLoading: false,
+  isUpdateSuccess: false,
+  updatedDataType: '',
 }
 
 export default Accounts

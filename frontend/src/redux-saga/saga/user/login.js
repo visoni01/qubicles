@@ -8,6 +8,7 @@ import {
   userUpdateSuccess,
   userLoginFailure,
   userLogoutSuccessful,
+  resetAgentProfileSettingsData,
 } from '../../redux/actions'
 import User from '../../service/user'
 import { getUserDetails } from '../../../utils/common'
@@ -40,6 +41,7 @@ function* loginWorker(action) {
       }
       case userLogoutSuccessful.type: {
         yield put(resetCompanyProfileSettingsData())
+        yield put(resetAgentProfileSettingsData())
         break
       }
       default:
