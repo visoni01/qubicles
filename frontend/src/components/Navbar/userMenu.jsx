@@ -56,7 +56,9 @@ const UserMenu = () => {
     const { status } = await User.logout()
     if (status === 200) {
       history.push('/login')
-      return dispatch(userLogoutSuccessful())
+      return dispatch(userLogoutSuccessful({
+        userType: userDetails.user_code,
+      }))
     }
     return dispatch(showErrorMessage())
   }

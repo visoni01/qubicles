@@ -40,8 +40,12 @@ function* loginWorker(action) {
         break
       }
       case userLogoutSuccessful.type: {
-        yield put(resetCompanyProfileSettingsData())
-        yield put(resetAgentProfileSettingsData())
+        const { userType } = action.payload
+        if (userType === 'agent') {
+          yield put(resetAgentProfileSettingsData())
+        } else {
+          yield put(resetCompanyProfileSettingsData())
+        }
         break
       }
       default:

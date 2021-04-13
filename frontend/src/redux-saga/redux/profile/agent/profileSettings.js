@@ -38,7 +38,7 @@ const {
       isLoading: false,
       success: true,
       error: false,
-      settings: state.requestType === 'FETCH'
+      settings: state.requestType === 'FETCH' && !action.payload.verificationFlow
         ? getDataForReducer(action, initialState, 'agentDetails')
         : getUpdatedAgentSettings({ state, action }),
     }),

@@ -8,10 +8,11 @@ import { showSuccessMessage } from '../../../../redux-saga/redux/actions'
 import { PROFILE_ROUTE } from '../../../../routes/routesPath'
 
 const EmailVerification = () => {
+  const { userDetails } = useSelector((state) => state.login)
   const { token } = useParams()
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(emailVerificationStart(token))
+    dispatch(emailVerificationStart({ token, userType: userDetails && userDetails.user_code }))
     // eslint-disable-next-line
   }, [ dispatch ])
   const {
