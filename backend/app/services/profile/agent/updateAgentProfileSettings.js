@@ -61,9 +61,9 @@ export class UpdateAgentProfileSettingsService extends ServiceBase {
       }
 
       if (!talentData) {
-        createUserTalentData(newTalentData)
+        await createUserTalentData(newTalentData)
       } else {
-        updateUserTalentData(newTalentData)
+        await updateUserTalentData(newTalentData)
       }
 
       return { updatedDataType }

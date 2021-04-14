@@ -41,8 +41,10 @@ const TalentCard = ({
           </Link>
         </div>
         <p className='para light location'>
+          {location !== 'null, null' && (
           <FontAwesomeIcon icon={ faMapMarkerAlt } className='ml-10 custom-fa-icon light' />
-          {location}
+          )}
+          { location !== 'null, null' && location }
           <span className='ml-20 para italic'>
             {_.startCase(_.toLower(availability))}
           </span>
@@ -50,19 +52,25 @@ const TalentCard = ({
         <p className='para light languages'>
           <FontAwesomeIcon icon={ faLanguage } className='ml-10 custom-fa-icon light' />
           {_.capitalize(languages)}
-          <span className='rate para'>
-            {`${ ratePerHourDollar } $/hr`}
+          {ratePerHourDollar && (
+          <span className='rate para bold'>
+            {`$${ ratePerHourDollar }/hr`}
           </span>
+          )}
         </p>
       </div>
     </div>
     <div className='talent-content'>
+      {profileName && (
       <h4 className='mt-10 h4'>
         {profileName}
       </h4>
+      )}
+      {profileDescription && (
       <div className='mb-10 mt-5 para short-description'>
         {`${ profileDescription }`}
       </div>
+      )}
     </div>
     <TalentCardSkills
       userSkills={ skills }
