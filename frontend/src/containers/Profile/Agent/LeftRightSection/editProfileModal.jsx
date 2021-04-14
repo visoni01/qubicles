@@ -222,7 +222,7 @@ const EditProfileModal = ({
               </span>
             )}
             <div>
-              { uploadingImage && (
+              { (uploadingImage || isLoading) && (
               <Loader
                 className='add-status-loader'
                 displayLoaderManually
@@ -256,35 +256,31 @@ const EditProfileModal = ({
         <h3 className='h3 mb-10'>
           Job Title
         </h3>
-        {!isLoading && (
+        <TextField
+          className='is-fullwidth'
+          autoComplete='off'
+          variant='outlined'
+          margin='dense'
+          placeholder='Title'
+          defaultValue={ profileInfo.title }
+          onChange={ handleUpdateTitle }
+        />
+        <h3 className='h3 mt-20 mb-10'>
+          Bio
+        </h3>
+        <div className='mb-20'>
           <TextField
             className='is-fullwidth'
             autoComplete='off'
             variant='outlined'
             margin='dense'
-            placeholder='Title'
-            defaultValue={ profileInfo.title }
-            onChange={ handleUpdateTitle }
+            multiline
+            rows={ 10 }
+            defaultValue={ profileInfo.summary }
+            onChange={ handleUpdateSummary }
+            placeholder='Add a short description about your company'
           />
-        )}
-        <h3 className='h3 mt-20 mb-10'>
-          Bio
-        </h3>
-        {!isLoading && (
-          <div className='mb-20'>
-            <TextField
-              className='is-fullwidth'
-              autoComplete='off'
-              variant='outlined'
-              margin='dense'
-              multiline
-              rows={ 10 }
-              defaultValue={ profileInfo.summary }
-              onChange={ handleUpdateSummary }
-              placeholder='Add a short description about your company'
-            />
-          </div>
-        )}
+        </div>
         <Grid container spacing={ 2 } justify='space-between'>
           <Grid item xl={ 6 } lg={ 6 } sm={ 6 } xs={ 6 }>
             <h4 className='h4'> Years of experience </h4>
