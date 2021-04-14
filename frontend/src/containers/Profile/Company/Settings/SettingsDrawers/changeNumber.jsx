@@ -7,6 +7,7 @@ import { Controller, useForm } from 'react-hook-form'
 import IntlTelInput from 'react-intl-tel-input'
 import 'react-intl-tel-input/dist/main.css'
 import '../styles.scss'
+import '../../../../User/Signup/PostSignUp/style.scss'
 import { useDispatch } from 'react-redux'
 import { accountSettingInfoDefaultProps, accountSettingInfoPropTypes } from '../settingsProps'
 import {
@@ -116,13 +117,13 @@ const ChangeNumber = ({
               </div>
             </div>
             <div className='drawer-controller'>
-              <h4 className='h4 mb-5'> New Number </h4>
+              <h4 className='h4'> New Number </h4>
               <Controller
                 as={ IntlTelInput }
                 control={ control }
                 fieldId='field-controller'
                 preferredCountries={ [ 'us', 'ca' ] }
-                containerClassName=' custom-intl-tel-input intl-tel-input mt-5'
+                containerClassName=' custom-intl-tel-input intl-tel-input'
                 format
                 formatOnInit
                 name='newNumber'

@@ -15,9 +15,10 @@ import {
 } from '../../../../../redux-saga/redux/actions'
 
 const ChangeEmail = ({
-  open, setOpen, accountSettingInfo, isUpdateLoading, isUpdateSuccess, updatedDataType, requestType, userType,
+  open, setOpen, accountSettingInfo, isUpdateLoading, userType,
 }) => {
   const [ newEmail, setNewEmail ] = useState('')
+  const [ resetClosed, setResetClosed ] = useState(true)
   const dispatch = useDispatch()
   const { register, handleSubmit, errors } = useForm({
     defaultValues: {
@@ -50,11 +51,13 @@ const ChangeEmail = ({
         }))
       }
       setNewEmail(data.newEmail)
+      setResetClosed(false)
     }
   }
 
   const handleCancelEmailChange = useCallback(() => {
     setOpen(false)
+    setResetClosed(true)
   }, [ setOpen ])
 
   const handleResendButton = useCallback(() => {
@@ -84,6 +87,7 @@ const ChangeEmail = ({
     } else if (userType === 'agent') {
       dispatch(resetAgentProfileSettingsFlags())
     }
+    setResetClosed(true)
   }, [ dispatch, userType ])
 
   return (
@@ -95,7 +99,7 @@ const ChangeEmail = ({
     >
       <div>
         <h3 className='h3 mb-30'> Change Email </h3>
-        {(!isUpdateSuccess || requestType === 'FETCH') && (
+        {resetClosed && (
           <form className='is-fullwidth' onSubmit={ handleSubmit(onSubmit) }>
             <div className='pl-10 pr-10'>
               <div className='mb-20'>
@@ -145,7 +149,7 @@ const ChangeEmail = ({
             </div>
           </form>
         )}
-        {!isUpdateLoading && isUpdateSuccess && updatedDataType === 'email' && (
+        {!resetClosed && (
           <div className='mt-30 mr-20'>
             <p className='para sz-lg bold'>Please verify your new email</p>
             <div className='mt-10 mb-5'>
@@ -199,9 +203,6 @@ ChangeEmail.defaultProps = {
   open: false,
   accountSettingInfo: accountSettingInfoDefaultProps,
   isUpdateLoading: false,
-  isUpdateSuccess: false,
-  updatedDataType: '',
-  requestType: '',
   userType: '',
 }
 
@@ -210,9 +211,6 @@ ChangeEmail.propTypes = {
   setOpen: PropTypes.func.isRequired,
   accountSettingInfo: accountSettingInfoPropTypes,
   isUpdateLoading: PropTypes.bool,
-  isUpdateSuccess: PropTypes.bool,
-  updatedDataType: PropTypes.string,
-  requestType: PropTypes.string,
   userType: PropTypes.string,
 }
 

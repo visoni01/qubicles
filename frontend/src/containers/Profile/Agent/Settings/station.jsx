@@ -27,7 +27,7 @@ const station = () => (
               margin='dense'
               variant='outlined'
               name='billing'
-              value='hi'
+              defaultValue=''
               className='drop-down-bar'
             />
           </Grid>
@@ -37,7 +37,7 @@ const station = () => (
               margin='dense'
               variant='outlined'
               name='billing'
-              value='hi'
+              defaultValue=''
               className='drop-down-bar'
             />
           </Grid>
@@ -50,7 +50,7 @@ const station = () => (
               margin='dense'
               variant='outlined'
               name='billing'
-              value='hi'
+              defaultValue=''
               className='drop-down-bar'
             />
           </Grid>
@@ -109,7 +109,7 @@ const station = () => (
               margin='dense'
               variant='outlined'
               name='billing'
-              value='hi'
+              defaultValue=''
               className='drop-down-bar'
             />
           </Grid>
@@ -119,7 +119,7 @@ const station = () => (
               margin='dense'
               variant='outlined'
               name='billing'
-              value='hi'
+              defaultValue=''
               className='drop-down-bar'
             />
           </Grid>
@@ -163,7 +163,7 @@ const station = () => (
               margin='dense'
               variant='outlined'
               name='billing'
-              value='hi'
+              defaultValue=''
               className='drop-down-bar'
             />
           </Grid>
@@ -173,7 +173,7 @@ const station = () => (
               margin='dense'
               variant='outlined'
               name='billing'
-              value='hi'
+              defaultValue=''
               className='drop-down-bar'
             />
           </Grid>
@@ -203,7 +203,7 @@ const station = () => (
               margin='dense'
               variant='outlined'
               name='billing'
-              value='hi'
+              defaultValue=''
               className='drop-down-bar'
             />
           </Grid>
