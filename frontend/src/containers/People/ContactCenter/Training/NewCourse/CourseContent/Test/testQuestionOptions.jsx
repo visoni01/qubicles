@@ -2,6 +2,7 @@ import React from 'react'
 import { Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { checkDisabledSaveQuestionButton } from '../helper'
+import { testQuestionPropType } from '../../propTypes'
 
 const TestQuestionOptions = ({
   handleDeleteQuestion, handleSaveQuestion, questionDetails,
@@ -38,15 +39,7 @@ const TestQuestionOptions = ({
 TestQuestionOptions.propTypes = {
   handleSaveQuestion: PropTypes.func.isRequired,
   handleDeleteQuestion: PropTypes.func.isRequired,
-  questionDetails: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    unitId: PropTypes.number.isRequired,
-    questionType: PropTypes.string.isRequired,
-    questionText: PropTypes.string.isRequired,
-    answerText: PropTypes.string.isRequired,
-    options: PropTypes.arrayOf(PropTypes.string).isRequired,
-    isSaved: PropTypes.bool.isRequired,
-  }).isRequired,
+  questionDetails: testQuestionPropType.isRequired,
 }
 
 export default TestQuestionOptions

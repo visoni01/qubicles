@@ -7,7 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 import MultipleChoiceQuestion from './Questions/multipleChoiceQuestion'
 import TestQuestionOptions from './testQuestionOptions'
-import { deleteQuestionFromTest, saveQuestionInTest } from '../helper'
+import { deleteQuestionFromTest, saveQuestionInTest, unSaveQuestionInTest } from '../helper'
+import CheckboxQuestion from './Questions/checkboxQuestion'
+import { testQuestionPropType } from '../../propTypes'
 
 const TestQuestion = ({ question, unitDetails, setUnitDetails }) => {
   const [ questionDetails, setQuestionDetails ] = useState(question)
@@ -29,11 +31,13 @@ const TestQuestion = ({ question, unitDetails, setUnitDetails }) => {
   }, [ ])
 
   const handleEditQuestion = useCallback(() => {
-    setQuestionDetails((current) => ({
+    const updatedQuestions = unSaveQuestionInTest({ unit: unitDetails, question: questionDetails })
+    setUnitDetails((current) => ({
       ...current,
-      isSaved: false,
+      questions: updatedQuestions,
     }))
-  }, [ ])
+    setQuestionDetails((current) => ({ ...current, isSaved: false }))
+  }, [ setUnitDetails, unitDetails, questionDetails ])
 
   const handleDeleteQuestion = useCallback(() => {
     const updatedQuestions = deleteQuestionFromTest({ unit: unitDetails, question })
@@ -133,6 +137,14 @@ const TestQuestion = ({ question, unitDetails, setUnitDetails }) => {
           />
           )}
 
+          {/* Checkbox question */}
+          {questionDetails.questionType === 'checkbox' && (
+          <CheckboxQuestion
+            questionDetails={ questionDetails }
+            setQuestionDetails={ setQuestionDetails }
+          />
+          )}
+
         </Grid>
         {!questionDetails.isSaved && (
         <TestQuestionOptions
@@ -147,14 +159,7 @@ const TestQuestion = ({ question, unitDetails, setUnitDetails }) => {
 }
 
 TestQuestion.propTypes = {
-  question: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    unitId: PropTypes.number.isRequired,
-    questionType: PropTypes.string.isRequired,
-    questionText: PropTypes.string.isRequired,
-    answerText: PropTypes.string.isRequired,
-    options: PropTypes.arrayOf(PropTypes.string).isRequired,
-  }).isRequired,
+  question: testQuestionPropType.isRequired,
   unitDetails: PropTypes.shape({
     unitId: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,

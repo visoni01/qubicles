@@ -1,15 +1,15 @@
 import React, { useCallback } from 'react'
 import {
-  Grid, TextField, IconButton, Button, RadioGroup, FormControlLabel, Radio,
+  Grid, TextField, IconButton, Button, FormControlLabel, Checkbox, FormGroup,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faDotCircle, faTrash, faCheckCircle,
+  faDotCircle, faTrash, faCheckSquare,
 } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import { testQuestionPropType } from '../../../propTypes'
 
-const MultipleChoiceQuestion = ({
+const CheckboxQuestion = ({
   questionDetails, setQuestionDetails,
 }) => {
   const handleOptionValueChange = useCallback(({ optionId, newValue }) => {
@@ -57,10 +57,18 @@ const MultipleChoiceQuestion = ({
   }, [ setQuestionDetails ])
 
   const selectCorrectOption = useCallback(({ optionId }) => {
-    setQuestionDetails((current) => ({
-      ...current,
-      correctOption: optionId,
-    }))
+    setQuestionDetails((current) => {
+      let updatedCorrectOptions = current.correctOptions
+      if (updatedCorrectOptions.includes(optionId)) {
+        updatedCorrectOptions = updatedCorrectOptions.filter((option) => option !== optionId)
+      } else {
+        updatedCorrectOptions = [ ...updatedCorrectOptions, optionId ]
+      }
+      return ({
+        ...current,
+        correctOptions: updatedCorrectOptions,
+      })
+    })
   }, [ setQuestionDetails ])
 
   if (questionDetails.isSaved) {
@@ -70,7 +78,7 @@ const MultipleChoiceQuestion = ({
           <div key={ option.id }>
             <div className='display-inline-flex align-items-center mt-5 mb-5'>
               <FontAwesomeIcon
-                icon={ questionDetails.correctOption === option.id ? faCheckCircle : faDotCircle }
+                icon={ questionDetails.correctOptions.includes(option.id) ? faCheckSquare : faDotCircle }
                 className='custom-fa-icon mr-10'
               />
               <p>{option.value}</p>
@@ -133,26 +141,32 @@ const MultipleChoiceQuestion = ({
       </Grid>
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 } xs={ 3 }>
         <p className='para bold'>Right Answers</p>
-        <RadioGroup
+        <FormGroup
           className='radio-buttons'
           name='visibility'
-          value={ questionDetails.correctOption }
-          onChange={ (e) => selectCorrectOption({ optionId: e.target.value }) }
         >
           {questionDetails.options.map((option) => (
             <div key={ option.id } className='answer-radio'>
-              <FormControlLabel value={ option.id } control={ <Radio /> } />
+              <FormControlLabel
+                value={ option.id }
+                control={ (
+                  <Checkbox
+                    checked={ questionDetails.correctOptions.includes(option.id) }
+                    onChange={ () => selectCorrectOption({ optionId: option.id }) }
+                  />
+                ) }
+              />
             </div>
           ))}
-        </RadioGroup>
+        </FormGroup>
       </Grid>
     </Grid>
   )
 }
 
-MultipleChoiceQuestion.propTypes = {
+CheckboxQuestion.propTypes = {
   questionDetails: testQuestionPropType.isRequired,
   setQuestionDetails: PropTypes.func.isRequired,
 }
 
-export default MultipleChoiceQuestion
+export default CheckboxQuestion
