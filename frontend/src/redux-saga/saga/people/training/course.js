@@ -18,13 +18,16 @@ function* trainingCourseWorker(action) {
     switch (requestType) {
       case 'CREATE': {
         const formData = new FormData()
-        if (course && course.thumbnailImageFile) {
+        const { thumbnailImage, ...contentSectionRest } = course.contentSection
+        if (course && thumbnailImage) {
           formData.append('file', course.thumbnailImageFile)
         }
-        formData.set('informationSection', course.informationSection)
-        formData.set('contentSection', course.contentSection)
-        formData.set('courseContent', course.courseContent)
-        // const { data } = yield People.addCourse({ course, data: formData })
+        const courseJson = JSON.stringify({
+          ...course,
+          contentSection: contentSectionRest,
+        })
+
+        formData.set('course', courseJson)
         const { data } = yield People.addCourse({ data: formData })
         const addedCourse = {
           courseId: data.course_id,
@@ -33,7 +36,7 @@ function* trainingCourseWorker(action) {
           createdOn: data.createdAt,
           updateOn: data.updatedAt,
         }
-        // WIP
+
         yield put(trainingCourseRequestSuccess({ course: addedCourse }))
         break
       }

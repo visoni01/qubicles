@@ -13,9 +13,6 @@ const constraints = {
   },
   file: {
     presence: false
-  },
-  informationSection: {
-    presence: false
   }
 }
 
@@ -25,12 +22,11 @@ export class PeopleAddNewCourseService extends ServiceBase {
   }
 
   async run () {
-    let { course } = this.filteredArgs
-
+    let course = JSON.parse(this.course)
     try {
-      let url
+      let url = ''
       if (this.file) {
-        const { isValidFileSize, isValidImage } = validateImageFile(course.contentSection.thumbnailImage)
+        const { isValidFileSize, isValidImage } = validateImageFile(this.file)
         if (!isValidImage) {
           this.addError(ERRORS.BAD_DATA, MESSAGES.INVALID_IMAGE_FILE)
           return
@@ -52,12 +48,10 @@ export class PeopleAddNewCourseService extends ServiceBase {
 
       course = {
         ...course,
-        ...course.informationSection,
         image_url: url
       }
 
       const addedCourse = await addNewCourse({ course })
-      // WIP - course creation
       return addedCourse
     } catch (e) {
       logger.error(getErrorMessageForService('PeopleAddNewCourseService'), e)

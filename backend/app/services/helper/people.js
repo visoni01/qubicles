@@ -540,14 +540,14 @@ export async function addNewCourse ({
   const addedCourse = await createNewEntity({
     model: XQodCourse,
     data: {
-      category_id: course.informationSection.category.id,
+      category_id: course.informationSection.category && course.informationSection.category.id,
       creator_id: course.informationSection.creatorId,
       title: course.informationSection.title,
       description: course.informationSection.description,
       goals: course.informationSection.goals,
       requirements: course.informationSection.requirements,
       outcomes: course.informationSection.outcomes,
-      image_url: course.informationSection.image_url,
+      image_url: course.image_url,
       token_price: course.informationSection.price,
       visibility: course.informationSection.visibility,
       status: course.status

@@ -25,20 +25,12 @@
 .content-box {
   width: 100%;
   display: inline-flex;
-  // justify-content: space-between;
 
   .info {
     width: 25%;
    margin-right: 30px;
   }
-  .upload {
-    align-self: center;
-    width: 75%;
 
-    .button-width {
-      width: 140px;
-    }
-  }
   .thumbnail-preview {
     height: 180px;
     width: calc((180 / 9) * 16px) ;
@@ -52,5 +44,14 @@
       top: -25px;
       right: -38px;
     }
+  }
+}
+
+.course-thumbnail-upload {
+  align-self: center;
+  width: 75%;
+
+  .button-width {
+    width: 140px;
   }
 }

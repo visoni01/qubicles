@@ -195,19 +195,10 @@ class People {
   }
 
   // Training Jobs' API
-  // static async addCourse(payload) {
-  //   const response = await apiClient.postRequest('/people/course', { course: payload })
-  //   return response
-  // }
-
   static async addCourse({ data }) {
     const response = await axiosInst({
       method: 'post',
       url: '/people/course',
-      // data: {
-      //   course,
-      //   file: data,
-      // },
       data,
       headers: { 'Content-Type': 'multipart/form-data' },
     })

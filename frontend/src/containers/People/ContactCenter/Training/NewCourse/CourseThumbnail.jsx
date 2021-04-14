@@ -7,9 +7,6 @@ import PropTypes from 'prop-types'
 export default function CourseThumbnail({
   contentSection, setContentSection, thumbnailImageRef,
 }) {
-  // WIP
-  // const fileInput = useRef()
-  // const [ fileSrc, setFileSrc ] = useState(contentSection.thumbnailImage)
   const handleFileInputChange = useCallback((event) => {
     event.preventDefault()
     const file = event.target.files && event.target.files[ 0 ]
@@ -28,8 +25,6 @@ export default function CourseThumbnail({
 
   const handleDelete = () => {
     setContentSection((current) => ({ ...current, thumbnailImage: null }))
-    // WIP
-    // thumbnailImageRef.current = ''
   }
 
   return (
@@ -64,7 +59,7 @@ export default function CourseThumbnail({
           </div>
         )}
       </div>
-      <div className='upload'>
+      <div className='course-thumbnail-upload'>
         <input
           type='file'
           id='course-thumbnail-input'

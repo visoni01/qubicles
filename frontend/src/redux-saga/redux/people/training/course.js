@@ -5,6 +5,7 @@ const initialState = {
   error: null,
   success: null,
   course: {
+    courseId: null,
     informationSection: {
       title: '',
       category: null,
