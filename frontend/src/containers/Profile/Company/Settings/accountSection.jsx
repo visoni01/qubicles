@@ -23,6 +23,7 @@ const AccountSection = () => {
     isUpdateLoading,
     isUpdateSuccess,
     updatedDataType,
+    isUpdateError,
   } = useSelector((state) => state.clientDetails)
 
   return (
@@ -61,6 +62,7 @@ const AccountSection = () => {
             accountSettingInfo={ accountSettingInfo }
             isUpdateLoading={ isUpdateLoading }
             isUpdateSuccess={ isUpdateSuccess }
+            isUpdateError={ isUpdateError }
             updatedDataType={ updatedDataType }
             userType='client'
           />

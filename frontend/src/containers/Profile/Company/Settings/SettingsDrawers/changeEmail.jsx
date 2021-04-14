@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
   Drawer, Button, TextField, Grid,
@@ -15,7 +15,7 @@ import {
 } from '../../../../../redux-saga/redux/actions'
 
 const ChangeEmail = ({
-  open, setOpen, accountSettingInfo, isUpdateLoading, userType,
+  open, setOpen, accountSettingInfo, isUpdateLoading, isUpdateSuccess, isUpdateError, requestType, userType,
 }) => {
   const [ newEmail, setNewEmail ] = useState('')
   const [ resetClosed, setResetClosed ] = useState(true)
@@ -31,6 +31,32 @@ const ChangeEmail = ({
 
     }),
   })
+
+  // WIP
+
+  useEffect(() => {
+    if ((isUpdateSuccess && requestType === 'FETCH')
+    || (!isUpdateSuccess && requestType === 'UPDATE')
+    || (!isUpdateSuccess && !requestType)) {
+      setResetClosed(true)
+    } else {
+      setResetClosed(false)
+    }
+  }, [ isUpdateSuccess ])
+
+  // useEffect(() => {
+  //   if (!isUpdateLoading) {
+  //     if (isUpdateError && !isUpdateSuccess) {
+  //       setResetClosed(true)
+  //     } else {
+  //       setResetClosed(false)
+  //     }
+  //   }
+  // }, [ isUpdateLoading, isUpdateError ])
+
+  // useEffect(() => {
+  //   setResetClosed(true)
+  // }, [])
 
   const onSubmit = (data) => {
     if (!isUpdateLoading) {
@@ -51,7 +77,7 @@ const ChangeEmail = ({
         }))
       }
       setNewEmail(data.newEmail)
-      setResetClosed(false)
+      // setResetClosed(false) WIP
     }
   }
 
@@ -149,7 +175,7 @@ const ChangeEmail = ({
             </div>
           </form>
         )}
-        {!resetClosed && (
+        {!resetClosed && !isUpdateLoading && (
           <div className='mt-30 mr-20'>
             <p className='para sz-lg bold'>Please verify your new email</p>
             <div className='mt-10 mb-5'>
@@ -203,6 +229,9 @@ ChangeEmail.defaultProps = {
   open: false,
   accountSettingInfo: accountSettingInfoDefaultProps,
   isUpdateLoading: false,
+  isUpdateError: false,
+  isUpdateSuccess: false,
+  requestType: '',
   userType: '',
 }
 
@@ -211,6 +240,9 @@ ChangeEmail.propTypes = {
   setOpen: PropTypes.func.isRequired,
   accountSettingInfo: accountSettingInfoPropTypes,
   isUpdateLoading: PropTypes.bool,
+  isUpdateError: PropTypes.bool,
+  isUpdateSuccess: PropTypes.bool,
+  requestType: PropTypes.string,
   userType: PropTypes.string,
 }
 

@@ -21,6 +21,7 @@ const AccountSection = () => {
     settings: accountSettingInfo,
     isLoading: isUpdateLoading,
     success: isUpdateSuccess,
+    error: isUpdateError,
     requestType,
     updatedDataType,
   } = useSelector((state) => state.agentDetails)
@@ -61,6 +62,7 @@ const AccountSection = () => {
             accountSettingInfo={ accountSettingInfo }
             isUpdateLoading={ isUpdateLoading }
             isUpdateSuccess={ isUpdateSuccess }
+            isUpdateError={ isUpdateError }
             updatedDataType={ updatedDataType }
             requestType={ requestType }
             userType='agent'
