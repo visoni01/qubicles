@@ -1,13 +1,14 @@
-import React, { useRef, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { Button, IconButton } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 
 export default function CourseThumbnail({
-  contentSection, setContentSection,
+  contentSection, setContentSection, thumbnailImageRef,
 }) {
-  const fileInput = useRef()
+  // WIP
+  // const fileInput = useRef()
   // const [ fileSrc, setFileSrc ] = useState(contentSection.thumbnailImage)
   const handleFileInputChange = useCallback((event) => {
     event.preventDefault()
@@ -15,7 +16,10 @@ export default function CourseThumbnail({
     const reader = new FileReader()
 
     reader.onloadend = () => {
-      setContentSection((current) => ({ ...current, thumbnailImage: reader.result }))
+      setContentSection((current) => ({
+        ...current,
+        thumbnailImage: reader.result,
+      }))
     }
     if (event.target.files[ 0 ]) {
       reader.readAsDataURL(file)
@@ -24,6 +28,8 @@ export default function CourseThumbnail({
 
   const handleDelete = () => {
     setContentSection((current) => ({ ...current, thumbnailImage: null }))
+    // WIP
+    // thumbnailImageRef.current = ''
   }
 
   return (
@@ -36,29 +42,19 @@ export default function CourseThumbnail({
           your course (format 16:9) `}
           </p>
         </div>
-        {!contentSection.thumbnailImage ? (
-          <div className='upload'>
-            <input
-              type='file'
-              id='course-thumbnail-input'
-              className='position-absolute'
-              accept='image/*'
-              ref={ fileInput }
-              onChange={ handleFileInputChange }
-              style={ { display: 'none' } }
-            />
 
-            <Button
-              className='button-width'
-              classes={ {
-                root: 'button-primary-small',
-                label: 'button-primary-small-label',
-              } }
-              onClick={ () => document.getElementById('course-thumbnail-input').click() }
-            >
-              Choose Image
-            </Button>
-          </div>
+        {!contentSection.thumbnailImage ? (
+          <Button
+            className='button-width'
+            classes={ {
+              root: 'button-primary-small',
+              label: 'button-primary-small-label',
+            } }
+            onClick={ () => document.getElementById('course-thumbnail-input').click() }
+          >
+            Choose Image
+          </Button>
+
         ) : (
           <div className='thumbnail-preview'>
             <img alt='Course Thumbnail' src={ contentSection.thumbnailImage } />
@@ -67,6 +63,17 @@ export default function CourseThumbnail({
             </IconButton>
           </div>
         )}
+      </div>
+      <div className='upload'>
+        <input
+          type='file'
+          id='course-thumbnail-input'
+          className='position-absolute'
+          accept='image/*'
+          ref={ thumbnailImageRef }
+          onChange={ handleFileInputChange }
+          style={ { display: 'none' } }
+        />
       </div>
     </div>
   )
@@ -77,4 +84,10 @@ CourseThumbnail.propTypes = {
     thumbnailImage: PropTypes.any,
   }).isRequired,
   setContentSection: PropTypes.func.isRequired,
+  thumbnailImageRef: PropTypes.oneOfType([
+    // Either a function
+    PropTypes.func,
+    // Or the instance of a DOM native element
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  ]).isRequired,
 }

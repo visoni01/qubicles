@@ -10,16 +10,28 @@ module.exports = (sequelize, DataTypes) => {
     category_id: DataTypes.INTEGER(11),
     creator_id: DataTypes.INTEGER(11),
     title: DataTypes.STRING(100),
-    short_description: DataTypes.STRING,
-    detailed_description: DataTypes.STRING,
-    prerequisites: DataTypes.STRING,
-    outcomes: DataTypes.STRING,
-    overview_url: DataTypes.STRING,
+    description: DataTypes.TEXT,
+    goals: DataTypes.TEXT,
+    requirements: DataTypes.TEXT,
+    outcomes: DataTypes.TEXT,
+    image_url: DataTypes.STRING,
+    video_url: DataTypes.STRING,
     language: {
       type: DataTypes.ENUM,
-      values: ['english', 'spanish', 'french']
+      values: ['english', 'spanish', 'french'],
+      defaultValue: 'english'
     },
     token_price: DataTypes.DOUBLE,
+    visibility: {
+      type: DataTypes.ENUM,
+      values: ['private', 'public'],
+      defaultValue: 'public'
+    },
+    status: {
+      type: DataTypes.ENUM,
+      values: ['published', 'draft'],
+      defaultValue: 'published'
+    },
     createdAt: {
       field: 'created_on',
       type: DataTypes.DATE

@@ -3,6 +3,8 @@ import { isAuthenticated } from '../../../app/middlewares/isAuthenticated'
 import talentController from '../../../app/controllers/talent.controller'
 import applicationController from '../../../app/controllers/application.controller'
 import trainingController from '../../../app/controllers/training.controller'
+import multer from 'multer'
+const multerUpload = multer()
 
 const args = { mergeParams: true }
 const peopleRouter = express.Router(args)
@@ -41,6 +43,6 @@ peopleRouter.route('/applications/user/:agent_user_id')
   .get(isAuthenticated, applicationController.fetchAllJobApplicationsByAgent)
 
 peopleRouter.route('/course')
-  .post(isAuthenticated, trainingController.createCourse)
+  .post(multerUpload.single('file'), isAuthenticated, trainingController.createCourse)
 
 export { peopleRouter }

@@ -161,8 +161,8 @@ export default function InformationTab({
         <h4 className='h4 mb-10 mt-30'> Summary </h4>
         <TextField
           className='is-fullwidth'
-          name='summary'
-          value={ informationSection.summary }
+          name='description'
+          value={ informationSection.description }
           onChange={ setInformationSectionField }
           placeholder='Add a short description outlining the scope of the course'
           multiline
@@ -197,13 +197,13 @@ export default function InformationTab({
           autoComplete='off'
           variant='outlined'
         />
-        <h4 className='h4 mb-10 mt-30'> Prerequisites </h4>
+        <h4 className='h4 mb-10 mt-30'> Requirements </h4>
         <TextField
           className='is-fullwidth'
-          name='preRequisites'
-          value={ informationSection.preRequisites }
+          name='requirements'
+          value={ informationSection.requirements }
           onChange={ setInformationSectionField }
-          placeholder='Let the students know it there are any prerequisites for this course'
+          placeholder='Let the students know it there are any requirements for this course'
           multiline
           rows={ 8 }
           margin='dense'
@@ -239,10 +239,10 @@ InformationTab.propTypes = {
     title: PropTypes.string.isRequired,
     category: PropTypes.number,
     visibility: PropTypes.string.isRequired,
-    summary: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
     goals: PropTypes.string.isRequired,
     outcomes: PropTypes.string.isRequired,
-    preRequisites: PropTypes.string.isRequired,
+    requirements: PropTypes.string.isRequired,
     requiredCourses: PropTypes.arrayOf(PropTypes.number).isRequired,
   }).isRequired,
   setInformationSection: PropTypes.func.isRequired,

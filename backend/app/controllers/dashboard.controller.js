@@ -62,6 +62,7 @@ export default class DashboardController {
   }
 
   static async addPostStatus (req, res) {
+    console.log('req.file ==========', req.file)
     const postStatus = await AddPostStatusService.execute({ ...req.body, file: req.file })
     if (postStatus.successful) {
       Responder.success(res, postStatus.result)

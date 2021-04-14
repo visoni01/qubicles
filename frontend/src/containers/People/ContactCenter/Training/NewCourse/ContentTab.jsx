@@ -6,14 +6,14 @@ import CourseContent from './CourseContent/index'
 
 export default function ContentTab({
   contentSection, setContentSection,
-  courseContent, setCourseContent,
+  courseContent, setCourseContent, thumbnailImageRef,
 }) {
   return (
     <div className='mt-30'>
       <CourseThumbnail
         contentSection={ contentSection }
         setContentSection={ setContentSection }
-
+        thumbnailImageRef={ thumbnailImageRef }
       />
       <IntroVideo />
       <CourseContent
@@ -29,4 +29,10 @@ ContentTab.propTypes = {
   setContentSection: PropTypes.func.isRequired,
   courseContent: PropTypes.shape({}).isRequired,
   setCourseContent: PropTypes.func.isRequired,
+  thumbnailImageRef: PropTypes.oneOfType([
+    // Either a function
+    PropTypes.func,
+    // Or the instance of a DOM native element
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  ]).isRequired,
 }

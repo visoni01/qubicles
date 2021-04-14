@@ -17,7 +17,15 @@ function* trainingCourseWorker(action) {
 
     switch (requestType) {
       case 'CREATE': {
-        const { data } = yield People.addCourse(course)
+        const formData = new FormData()
+        if (course && course.thumbnailImageFile) {
+          formData.append('file', course.thumbnailImageFile)
+        }
+        formData.set('informationSection', course.informationSection)
+        formData.set('contentSection', course.contentSection)
+        formData.set('courseContent', course.courseContent)
+        // const { data } = yield People.addCourse({ course, data: formData })
+        const { data } = yield People.addCourse({ data: formData })
         const addedCourse = {
           courseId: data.course_id,
           agentUserId: data.user_id,
@@ -25,6 +33,7 @@ function* trainingCourseWorker(action) {
           createdOn: data.createdAt,
           updateOn: data.updatedAt,
         }
+        // WIP
         yield put(trainingCourseRequestSuccess({ course: addedCourse }))
         break
       }

@@ -34,7 +34,7 @@ const ViewCourse = () => {
             description={ courseDescription.description }
             goals={ courseDescription.goals }
             outcomes={ courseDescription.outcomes }
-            prerequisites={ courseDescription.prerequisites }
+            requirements={ courseDescription.requirements }
           />
         </Grid>
         <Grid item>
