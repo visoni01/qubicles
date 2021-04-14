@@ -15,7 +15,8 @@ import {
 } from '../../../../../redux-saga/redux/actions'
 
 const ChangeEmail = ({
-  open, setOpen, accountSettingInfo, isUpdateLoading, isUpdateSuccess, isUpdateError, requestType, userType,
+  open, setOpen, accountSettingInfo,
+  isUpdateLoading, isUpdateSuccess, userType, updatedDataType,
 }) => {
   const [ newEmail, setNewEmail ] = useState('')
   const [ resetClosed, setResetClosed ] = useState(true)
@@ -28,35 +29,19 @@ const ChangeEmail = ({
       newEmail: yup.string().email('*Please enter a valid email')
         .required('*Required')
         .notOneOf([ accountSettingInfo.email ], '*Must be different from Current Email'),
-
     }),
   })
 
-  // WIP
-
   useEffect(() => {
-    if ((isUpdateSuccess && requestType === 'FETCH')
-    || (!isUpdateSuccess && requestType === 'UPDATE')
-    || (!isUpdateSuccess && !requestType)) {
-      setResetClosed(true)
-    } else {
+    if (!isUpdateLoading && isUpdateSuccess && updatedDataType === 'email') {
       setResetClosed(false)
+      if (userType === 'client') {
+        dispatch(resetUpdateProfileSettingsFlags())
+      } else if (userType === 'agent') {
+        dispatch(resetAgentProfileSettingsFlags())
+      }
     }
-  }, [ isUpdateSuccess ])
-
-  // useEffect(() => {
-  //   if (!isUpdateLoading) {
-  //     if (isUpdateError && !isUpdateSuccess) {
-  //       setResetClosed(true)
-  //     } else {
-  //       setResetClosed(false)
-  //     }
-  //   }
-  // }, [ isUpdateLoading, isUpdateError ])
-
-  // useEffect(() => {
-  //   setResetClosed(true)
-  // }, [])
+  }, [ isUpdateSuccess, isUpdateLoading, updatedDataType, userType, dispatch ])
 
   const onSubmit = (data) => {
     if (!isUpdateLoading) {
@@ -77,13 +62,11 @@ const ChangeEmail = ({
         }))
       }
       setNewEmail(data.newEmail)
-      // setResetClosed(false) WIP
     }
   }
 
   const handleCancelEmailChange = useCallback(() => {
     setOpen(false)
-    setResetClosed(true)
   }, [ setOpen ])
 
   const handleResendButton = useCallback(() => {
@@ -175,7 +158,7 @@ const ChangeEmail = ({
             </div>
           </form>
         )}
-        {!resetClosed && !isUpdateLoading && (
+        {!resetClosed && (
           <div className='mt-30 mr-20'>
             <p className='para sz-lg bold'>Please verify your new email</p>
             <div className='mt-10 mb-5'>
@@ -229,9 +212,8 @@ ChangeEmail.defaultProps = {
   open: false,
   accountSettingInfo: accountSettingInfoDefaultProps,
   isUpdateLoading: false,
-  isUpdateError: false,
   isUpdateSuccess: false,
-  requestType: '',
+  updatedDataType: '',
   userType: '',
 }
 
@@ -240,9 +222,8 @@ ChangeEmail.propTypes = {
   setOpen: PropTypes.func.isRequired,
   accountSettingInfo: accountSettingInfoPropTypes,
   isUpdateLoading: PropTypes.bool,
-  isUpdateError: PropTypes.bool,
   isUpdateSuccess: PropTypes.bool,
-  requestType: PropTypes.string,
+  updatedDataType: PropTypes.string,
   userType: PropTypes.string,
 }
 
