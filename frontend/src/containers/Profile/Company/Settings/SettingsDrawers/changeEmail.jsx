@@ -15,7 +15,7 @@ import {
 } from '../../../../../redux-saga/redux/actions'
 
 const ChangeEmail = ({
-  open, setOpen, accountSettingInfo, isUpdateLoading, isUpdateSuccess, updatedDataType, userType,
+  open, setOpen, accountSettingInfo, isUpdateLoading, isUpdateSuccess, updatedDataType, requestType, userType,
 }) => {
   const [ newEmail, setNewEmail ] = useState('')
   const dispatch = useDispatch()
@@ -95,7 +95,7 @@ const ChangeEmail = ({
     >
       <div>
         <h3 className='h3 mb-30'> Change Email </h3>
-        {!isUpdateSuccess && (
+        {(!isUpdateSuccess || requestType === 'FETCH') && (
           <form className='is-fullwidth' onSubmit={ handleSubmit(onSubmit) }>
             <div className='pl-10 pr-10'>
               <div className='mb-20'>
@@ -201,6 +201,7 @@ ChangeEmail.defaultProps = {
   isUpdateLoading: false,
   isUpdateSuccess: false,
   updatedDataType: '',
+  requestType: '',
   userType: '',
 }
 
@@ -211,6 +212,7 @@ ChangeEmail.propTypes = {
   isUpdateLoading: PropTypes.bool,
   isUpdateSuccess: PropTypes.bool,
   updatedDataType: PropTypes.string,
+  requestType: PropTypes.string,
   userType: PropTypes.string,
 }
 

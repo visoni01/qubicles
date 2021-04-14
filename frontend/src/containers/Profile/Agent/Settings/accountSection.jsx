@@ -19,15 +19,15 @@ const AccountSection = () => {
 
   const {
     settings: accountSettingInfo,
-    isFetchLoading: isLoading,
-    isUpdateLoading,
-    isUpdateSuccess,
+    isLoading: isUpdateLoading,
+    success: isUpdateSuccess,
+    requestType,
     updatedDataType,
   } = useSelector((state) => state.agentDetails)
 
   return (
     <div>
-      {!isLoading && (
+      {(!isUpdateLoading || requestType === 'UPDATE') && (
         <>
           <AccountView
             openDrawer={ openDrawer }
@@ -62,6 +62,7 @@ const AccountSection = () => {
             isUpdateLoading={ isUpdateLoading }
             isUpdateSuccess={ isUpdateSuccess }
             updatedDataType={ updatedDataType }
+            requestType={ requestType }
             userType='agent'
           />
           <ChangeNumber
