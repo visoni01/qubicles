@@ -13,6 +13,7 @@ import {
   agentProfileSettingsApiStart,
   resetAgentProfileSettingsFlags,
 } from '../../../../../redux-saga/redux/actions'
+import Loader from '../../../../../components/loaders/circularLoader'
 
 const ChangeEmail = ({
   open, setOpen, accountSettingInfo,
@@ -107,7 +108,17 @@ const ChangeEmail = ({
       classes={ { paper: 'settings-drawer' } }
     >
       <div>
-        <h3 className='h3 mb-30'> Change Email </h3>
+        <div className='display-inline-flex'>
+          <h3 className='h3 mb-30'> Change Email </h3>
+          {isUpdateLoading && updatedDataType === 'email' && (
+          <Loader
+            className='static-small-loader'
+            enableOverlay={ false }
+            displayLoaderManually
+            size={ 23 }
+          />
+          )}
+        </div>
         {resetClosed && (
           <form className='is-fullwidth' onSubmit={ handleSubmit(onSubmit) }>
             <div className='pl-10 pr-10'>

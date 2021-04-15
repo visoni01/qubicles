@@ -17,6 +17,7 @@ import {
   resetAgentProfileSettingsFlags,
 } from '../../../../../redux-saga/redux/actions'
 import { phoneNumberFormatter } from '../../../../../utils/common'
+import Loader from '../../../../../components/loaders/circularLoader'
 
 const ChangeNumber = ({
   open, setOpen, accountSettingInfo, isUpdateLoading, isUpdateSuccess, updatedDataType, userType, phoneType,
@@ -65,6 +66,18 @@ const ChangeNumber = ({
     }
   }
 
+  useEffect(() => {
+    if (!isUpdateLoading && isUpdateSuccess
+      && (updatedDataType === 'number' || updatedDataType === 'mobile phone' || updatedDataType === 'home phone')) {
+      setOpen(false)
+      if (userType === 'client') {
+        dispatch(resetUpdateProfileSettingsFlags())
+      } else if (userType === 'agent') {
+        dispatch(resetAgentProfileSettingsFlags())
+      }
+    }
+  }, [ isUpdateSuccess, isUpdateLoading, dispatch, setOpen, updatedDataType, userType ])
+
   const handleCancelNumberChange = useCallback(() => {
     setOpen(false)
   }, [ setOpen ])
@@ -83,17 +96,6 @@ const ChangeNumber = ({
     return nextValue
   }
 
-  useEffect(() => {
-    if (!isUpdateLoading && isUpdateSuccess && updatedDataType === 'number') {
-      setOpen(false)
-      if (userType === 'client') {
-        dispatch(resetUpdateProfileSettingsFlags())
-      } else if (userType === 'agent') {
-        dispatch(resetAgentProfileSettingsFlags())
-      }
-    }
-  }, [ isUpdateSuccess, isUpdateLoading, dispatch, setOpen, updatedDataType, userType ])
-
   return (
     <Drawer
       anchor='right'
@@ -102,7 +104,19 @@ const ChangeNumber = ({
       classes={ { paper: 'settings-drawer' } }
     >
       <div>
-        <h3 className='h3 mb-30'> Change Number </h3>
+        <div className='display-inline-flex'>
+          <h3 className='h3 mb-30'> Change Number </h3>
+          {isUpdateLoading
+          && (updatedDataType === 'number' || updatedDataType === 'mobile phone' || updatedDataType === 'home phone')
+          && (
+            <Loader
+              className='static-small-loader'
+              enableOverlay={ false }
+              displayLoaderManually
+              size={ 23 }
+            />
+          )}
+        </div>
         <form className='is-fullwidth' onSubmit={ handleSubmit(onSubmit) }>
           <div className='pl-10 pr-10 '>
             <div className='mb-20'>
@@ -153,7 +167,6 @@ const ChangeNumber = ({
                   label: 'button-primary-small-label',
                 } }
                 disabled={ isUpdateLoading || !formState.isValid }
-                onClick={ () => setOpen(false) }
               >
                 Save
               </Button>

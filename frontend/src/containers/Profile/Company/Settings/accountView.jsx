@@ -175,7 +175,6 @@ const AccountView = ({
               <div className='row-section small-width'>
                 <h4 className='h4'>SMS Notifications</h4>
                 <div className='display-inline-flex align-items-end justify-end'>
-                  {/* {true && ( */}
                   {isUpdateLoading && updatedDataType === 'Sms Notification' && (
                   <Loader
                     className='static-small-loader'

@@ -59,7 +59,7 @@ const Accounts = ({
     if (!isUpdateLoading && isUpdateSuccess
       && (updatedDataType === 'Sms Notification'
       || updatedDataType === 'Email Notification'
-      || updatedDataType === 'Active')) {
+      || updatedDataType === 'active')) {
       dispatch(resetAgentProfileSettingsFlags())
     }
   }, [ isUpdateSuccess, isUpdateLoading, dispatch, updatedDataType ])
@@ -173,9 +173,19 @@ const Accounts = ({
 
           <Grid item container justify='space-between' spacing={ 6 }>
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
-              <h4 className='h4'> Gender </h4>
+              <div className='display-inline-flex'>
+                <h4 className='h4 mb-15'> Gender </h4>
+                {isUpdateLoading && updatedDataType === 'gender' && (
+                <Loader
+                  className='static-small-loader'
+                  enableOverlay={ false }
+                  displayLoaderManually
+                  size={ 23 }
+                />
+                )}
+              </div>
               <RadioGroup
-                className='radio-buttons mt-10'
+                className='radio-buttons'
                 defaultValue={ accountSettingInfo.gender }
                 onChange={ handleGenderRadio }
               >
@@ -200,17 +210,17 @@ const Accounts = ({
             </Grid>
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 } className='display-inline-flex'>
               <h4 className='h4 margin-auto ml-0'> Active </h4>
-              <div className='align-items-end justify-end'>
-                {isUpdateLoading && updatedDataType === 'Active' && (
-                <Loader
-                  className='static-small-loader'
-                  enableOverlay={ false }
-                  displayLoaderManually
-                  size={ 23 }
-                />
+              <div className='display-inline-flex align-items-center justify-end'>
+                {isUpdateLoading && updatedDataType === 'active' && (
+                  <Loader
+                    className='static-small-loader'
+                    enableOverlay={ false }
+                    displayLoaderManually
+                    size={ 23 }
+                  />
                 )}
                 <Switch
-                  className='switches mt-10 setting-switch'
+                  className='switches setting-switch'
                   color='primary'
                   checked={ accountSettingInfo.active }
                   onChange={ handleActiveSwitch }
@@ -289,7 +299,7 @@ const Accounts = ({
             <Grid item container xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 } justify='flex-start'>
               <Grid item xl={ 12 } lg={ 12 } sm={ 12 } xs={ 12 } className='display-inline-flex'>
                 <h4 className='h4 margin-auto ml-0'>SMS Notifications</h4>
-                <div className='align-items-end justify-end'>
+                <div className='display-inline-flex align-items-end justify-end'>
                   {isUpdateLoading && updatedDataType === 'Sms Notification' && (
                     <Loader
                       className='static-small-loader'

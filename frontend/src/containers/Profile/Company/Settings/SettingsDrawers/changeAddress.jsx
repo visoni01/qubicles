@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import {
   Drawer, Button, Grid, TextField,
@@ -13,6 +13,7 @@ import {
   agentProfileSettingsApiStart,
   resetAgentProfileSettingsFlags,
 } from '../../../../../redux-saga/redux/actions'
+import Loader from '../../../../../components/loaders/circularLoader'
 
 const ChangeAddress = ({
   open, setOpen, accountSettingInfo, isUpdateLoading, isUpdateSuccess, updatedDataType, userType,
@@ -70,15 +71,29 @@ const ChangeAddress = ({
     }
   }, [ isUpdateSuccess, isUpdateLoading, dispatch, setOpen, updatedDataType, userType ])
 
+  const handleCancelAddressChange = useCallback(() => {
+    setOpen(false)
+  }, [ setOpen ])
+
   return (
     <Drawer
       anchor='right'
       open={ open }
-      onClose={ () => setOpen(false) }
+      onClose={ handleCancelAddressChange }
       classes={ { paper: 'settings-drawer' } }
     >
       <div>
-        <h3 className='h3 mb-30'> Change Address </h3>
+        <div className='display-inline-flex'>
+          <h3 className='h3 mb-30'> Change Address </h3>
+          {isUpdateLoading && updatedDataType === 'address' && (
+            <Loader
+              className='static-small-loader'
+              enableOverlay={ false }
+              displayLoaderManually
+              size={ 23 }
+            />
+          )}
+        </div>
         <form className='is-fullwidth' onSubmit={ handleSubmit(onSubmit) }>
           <div className='pl-10 pr-10'>
             <div className='mb-20'>
@@ -147,7 +162,7 @@ const ChangeAddress = ({
                   root: 'button-secondary-small-red',
                   label: 'button-secondary-small-label',
                 } }
-                onClick={ () => setOpen(false) }
+                onClick={ handleCancelAddressChange }
               >
                 Cancel
               </Button>
@@ -158,7 +173,6 @@ const ChangeAddress = ({
                   label: 'button-primary-small-label',
                 } }
                 disabled={ isUpdateLoading }
-                onClick={ () => setOpen(false) }
               >
                 Save
               </Button>

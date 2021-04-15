@@ -11,6 +11,7 @@ import {
   updateCompanyProfileSettingsApiStart,
   resetUpdateProfileSettingsFlags,
 } from '../../../../../redux-saga/redux/actions'
+import Loader from '../../../../../components/loaders/circularLoader'
 
 const ChangeWebsite = ({
   open, setOpen, accountSettingInfo, isUpdateLoading, isUpdateSuccess, updatedDataType,
@@ -56,7 +57,17 @@ const ChangeWebsite = ({
       classes={ { paper: 'settings-drawer' } }
     >
       <div>
-        <h3 className='h3 mb-30'> Change Website </h3>
+        <div className='display-inline-flex'>
+          <h3 className='h3 mb-30'> Change Website </h3>
+          {isUpdateLoading && updatedDataType === 'website' && (
+            <Loader
+              className='static-small-loader'
+              enableOverlay={ false }
+              displayLoaderManually
+              size={ 23 }
+            />
+          )}
+        </div>
         <form className='is-fullwidth' onSubmit={ handleSubmit(onSubmit) }>
           <div className='pl-10 pr-10'>
             <div className='mb-20'>
@@ -103,7 +114,6 @@ const ChangeWebsite = ({
                   label: 'button-primary-small-label',
                 } }
                 disabled={ isUpdateLoading }
-                onClick={ () => setOpen(false) }
               >
                 Save
               </Button>
