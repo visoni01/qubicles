@@ -29,15 +29,7 @@ function* trainingCourseWorker(action) {
 
         formData.set('course', courseJson)
         const { data } = yield People.addCourse({ data: formData })
-        const addedCourse = {
-          courseId: data.course_id,
-          agentUserId: data.user_id,
-          creatorId: data.creator_id,
-          createdOn: data.createdAt,
-          updateOn: data.updatedAt,
-        }
-
-        yield put(trainingCourseRequestSuccess({ course: addedCourse }))
+        yield put(trainingCourseRequestSuccess({ course: data }))
         break
       }
       default: break

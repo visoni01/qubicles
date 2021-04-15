@@ -6,6 +6,7 @@ import { createNewEntity } from './common'
 import { getOne } from './crud'
 import { Op } from 'sequelize'
 import _ from 'lodash'
+import { updateEntity } from './'
 
 export async function createAgentJobProfile ({
   user_id,
@@ -554,4 +555,34 @@ export async function addNewCourse ({
     }
   })
   return addedCourse
+}
+
+export async function updateCourse ({
+  course
+}) {
+  const updatedCourse = await updateEntity({
+    model: XQodCourse,
+    data: {
+      category_id: course.informationSection.category && course.informationSection.category.id,
+      creator_id: course.informationSection.creatorId,
+      title: course.informationSection.title,
+      description: course.informationSection.description,
+      goals: course.informationSection.goals,
+      requirements: course.informationSection.requirements,
+      outcomes: course.informationSection.outcomes,
+      image_url: course.image_url,
+      token_price: course.informationSection.price,
+      visibility: course.informationSection.visibility,
+      status: course.status
+    }
+  })
+  return updatedCourse
+}
+
+export async function getCourseById ({ course_id }) {
+  const course = await XQodCourse.findOne({
+    where: { course_id },
+    raw: true
+  })
+  return course
 }
