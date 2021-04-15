@@ -8,7 +8,7 @@ import ContentTab from './ContentTab'
 
 const NewCourseForm = ({
   informationSection, setInformationSection, contentSection, setContentSection,
-  courseContent, setCourseContent, thumbnailImageRef,
+  courseContent, setCourseContent,
 }) => {
   const [ activeTab, setActiveTab ] = useState(0)
 
@@ -37,7 +37,6 @@ const NewCourseForm = ({
         setContentSection={ setContentSection }
         courseContent={ courseContent }
         setCourseContent={ setCourseContent }
-        thumbnailImageRef={ thumbnailImageRef }
       />
       )}
     </Box>
@@ -50,11 +49,5 @@ NewCourseForm.propTypes = {
   setContentSection: PropTypes.func.isRequired,
   courseContent: PropTypes.shape({}).isRequired,
   setCourseContent: PropTypes.func.isRequired,
-  thumbnailImageRef: PropTypes.oneOfType([
-    // Either a function
-    PropTypes.func,
-    // Or the instance of a DOM native element
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  ]).isRequired,
 }
 export default NewCourseForm

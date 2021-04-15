@@ -1,5 +1,5 @@
 import React, {
-  useCallback, useEffect, useState, useRef,
+  useCallback, useEffect, useState,
 } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Grid } from '@material-ui/core'
@@ -17,7 +17,6 @@ const NewCourse = () => {
   const [ contentSection, setContentSection ] = useState(course.contentSection)
   const [ courseContent, setCourseContent ] = useState(course.courseContent)
   const [ isPreview, setIsPreview ] = useState(false)
-  const thumbnailImageRef = useRef()
 
   const dispatch = useDispatch()
   const { userDetails } = useSelector((state) => state.login)
@@ -85,7 +84,6 @@ const NewCourse = () => {
               informationSection={ informationSection }
               contentSection={ contentSection }
               courseContent={ courseContent }
-              thumbnailImageRef={ thumbnailImageRef }
             />
           </Grid>
           <Grid item>
@@ -124,7 +122,6 @@ const NewCourse = () => {
               setContentSection={ setContentSection }
               courseContent={ courseContent }
               setCourseContent={ setCourseContent }
-              thumbnailImageRef={ thumbnailImageRef }
             />
           </Grid>
         </Grid>
@@ -146,7 +143,6 @@ const NewCourse = () => {
               courseContent={ courseContent }
               isPreview={ isPreview }
               setIsPreview={ setIsPreview }
-              thumbnailImageRef={ thumbnailImageRef }
             />
           </Grid>
         </Grid>

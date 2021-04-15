@@ -195,11 +195,21 @@ class People {
   }
 
   // Training Jobs' API
-  static async addCourse({ data }) {
+  static async addCourse({ course }) {
+    const formData = new FormData()
+
+    if (course.contentSection.thumbnailImage) {
+      const file = await fetch(course.contentSection.thumbnailImage).then((r) => r.blob())
+      formData.append('file', file)
+    }
+
+    const courseJson = JSON.stringify(course)
+    formData.set('course', courseJson)
+
     const response = await axiosInst({
       method: 'post',
       url: '/people/course',
-      data,
+      data: formData,
       headers: { 'Content-Type': 'multipart/form-data' },
     })
     return response

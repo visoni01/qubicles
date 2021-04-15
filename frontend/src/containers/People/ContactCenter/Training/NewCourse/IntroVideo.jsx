@@ -12,7 +12,7 @@ export default function IntroVideo() {
                 intrested in your course `}
           </p>
         </div>
-        <div className='upload'>
+        <div className='course-thumbnail-upload'>
           <Button
             className='button-width'
             classes={ {

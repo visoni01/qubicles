@@ -11,7 +11,6 @@ const NewCourseActions = ({
   courseContent,
   isPreview,
   setIsPreview,
-  thumbnailImageRef,
 }) => {
   const dispatch = useDispatch()
   const saveDraft = useCallback(() => {
@@ -21,12 +20,11 @@ const NewCourseActions = ({
         informationSection,
         contentSection,
         courseContent,
-        thumbnailImageFile: thumbnailImageRef.current.files && thumbnailImageRef.current.files[ 0 ],
         status: 'draft',
       },
       requestType: 'CREATE',
     }))
-  }, [ informationSection, contentSection, courseContent, updateCourseReducer, thumbnailImageRef, dispatch ])
+  }, [ informationSection, contentSection, courseContent, updateCourseReducer, dispatch ])
 
   return (
     <Box className='custom-box actions-box wrapper'>
@@ -79,12 +77,6 @@ NewCourseActions.propTypes = {
   courseContent: PropTypes.shape({}).isRequired,
   isPreview: PropTypes.bool.isRequired,
   setIsPreview: PropTypes.func.isRequired,
-  thumbnailImageRef: PropTypes.oneOfType([
-    // Either a function
-    PropTypes.func,
-    // Or the instance of a DOM native element
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  ]).isRequired,
 }
 
 export default NewCourseActions

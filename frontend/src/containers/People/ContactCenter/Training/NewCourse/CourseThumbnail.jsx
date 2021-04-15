@@ -5,17 +5,18 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 
 export default function CourseThumbnail({
-  contentSection, setContentSection, thumbnailImageRef,
+  contentSection, setContentSection,
 }) {
   const handleFileInputChange = useCallback((event) => {
     event.preventDefault()
     const file = event.target.files && event.target.files[ 0 ]
     const reader = new FileReader()
+    const imageUrl = URL.createObjectURL(file)
 
     reader.onloadend = () => {
       setContentSection((current) => ({
         ...current,
-        thumbnailImage: reader.result,
+        thumbnailImage: imageUrl,
       }))
     }
     if (event.target.files[ 0 ]) {
@@ -39,16 +40,18 @@ export default function CourseThumbnail({
         </div>
 
         {!contentSection.thumbnailImage ? (
-          <Button
-            className='button-width'
-            classes={ {
-              root: 'button-primary-small',
-              label: 'button-primary-small-label',
-            } }
-            onClick={ () => document.getElementById('course-thumbnail-input').click() }
-          >
-            Choose Image
-          </Button>
+          <div className='course-thumbnail-upload'>
+            <Button
+              className='button-width'
+              classes={ {
+                root: 'button-primary-small',
+                label: 'button-primary-small-label',
+              } }
+              onClick={ () => document.getElementById('course-thumbnail-input').click() }
+            >
+              Choose Image
+            </Button>
+          </div>
 
         ) : (
           <div className='thumbnail-preview'>
@@ -59,17 +62,14 @@ export default function CourseThumbnail({
           </div>
         )}
       </div>
-      <div className='course-thumbnail-upload'>
-        <input
-          type='file'
-          id='course-thumbnail-input'
-          className='position-absolute'
-          accept='image/*'
-          ref={ thumbnailImageRef }
-          onChange={ handleFileInputChange }
-          style={ { display: 'none' } }
-        />
-      </div>
+      <input
+        type='file'
+        id='course-thumbnail-input'
+        className='position-absolute'
+        accept='image/*'
+        onChange={ handleFileInputChange }
+        style={ { display: 'none' } }
+      />
     </div>
   )
 }
@@ -79,10 +79,4 @@ CourseThumbnail.propTypes = {
     thumbnailImage: PropTypes.any,
   }).isRequired,
   setContentSection: PropTypes.func.isRequired,
-  thumbnailImageRef: PropTypes.oneOfType([
-    // Either a function
-    PropTypes.func,
-    // Or the instance of a DOM native element
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  ]).isRequired,
 }

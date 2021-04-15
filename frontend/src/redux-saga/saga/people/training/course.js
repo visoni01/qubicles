@@ -17,18 +17,7 @@ function* trainingCourseWorker(action) {
 
     switch (requestType) {
       case 'CREATE': {
-        const formData = new FormData()
-        const { thumbnailImage, ...contentSectionRest } = course.contentSection
-        if (course && thumbnailImage) {
-          formData.append('file', course.thumbnailImageFile)
-        }
-        const courseJson = JSON.stringify({
-          ...course,
-          contentSection: contentSectionRest,
-        })
-
-        formData.set('course', courseJson)
-        const { data } = yield People.addCourse({ data: formData })
+        const { data } = yield People.addCourse({ course })
         yield put(trainingCourseRequestSuccess({ course: data }))
         break
       }
