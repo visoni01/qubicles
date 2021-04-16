@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       values: ['like', 'subscribe', 'connection', 'status', 'comment',
         'rating_culture', 'rating_leadership', 'rating_career', 'rating_compensation',
         'rating_performance', 'rating_teamplayer', 'rating_interaction', 'rating_dependability',
-        'rating_value', 'rating_clarity', 'rating_content', 'rating_structure'
+        'rating_value', 'rating_clarity', 'rating_content', 'rating_structure', 'endorsement'
       ]
     },
     activity_value: DataTypes.TEXT,

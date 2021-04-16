@@ -82,4 +82,14 @@ export const skills = [
   { name: 'Email Service', endorseCount: 7 },
 ]
 
+export const agentResumeSkills = [
+  { skillId: 15, skillName: 'Customer Service', endorsedCount: 7 },
+  { skillId: 16, skillName: 'Phone Calling', endorsedCount: 1 },
+  { skillId: 17, skillName: 'Email Service', endorsedCount: 2 },
+]
+
+export const agentResumeLanguages = [
+  'English', 'French', 'Spanish',
+]
+
 export const languages = [ 'English(Native or bilingual)', 'French(Native or bilingual)' ]
