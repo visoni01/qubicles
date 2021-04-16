@@ -50,6 +50,7 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: true
   })
   XUserActivity.associate = function (models) {
+    XUserActivity.belongsTo(models.UserDetail, { as: 'userData', foreignKey: 'user_id' })
   }
   return XUserActivity
 }

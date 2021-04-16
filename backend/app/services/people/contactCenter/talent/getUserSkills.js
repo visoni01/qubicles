@@ -20,12 +20,25 @@ export class PeopleGetUserSkillsService extends ServiceBase {
     const { candidate_id } = this.filteredArgs
     try {
       const userSkills = await getUserSkills({ user_id: candidate_id })
+
       const skills = userSkills.map(userSkill => {
-        const { skill } = userSkill
+        const { skill, endorsement } = userSkill
         return ({
           skillId: skill.skill_id,
           skillName: skill.skill_name,
-          endorsedCount: userSkill.endorsed
+          endorsedCount: userSkill.endorsed,
+          endorsements: endorsement.map(user => {
+            return {
+              id: user.user_id,
+              comment: user.activity_value,
+              userProfile: {
+                name: user.userData.first_name + ' ' + user.userData.last_name,
+                profilePic: user.userData.profile_image
+              },
+              rating: user.userData.rating,
+              workTitle: user.userData.work_title
+            }
+          })
         })
       })
       const candidateSkills = {

@@ -1,6 +1,6 @@
 import {
   XQodResourceDef, XQodUserSkill, XQodSkill,
-  UserDetail, XQodApplication
+  UserDetail, XQodApplication, XUserActivity
 } from '../../db/models'
 import { createNewEntity } from './common'
 import { getOne } from './crud'
@@ -54,10 +54,23 @@ export async function getUserSkills ({ user_id }) {
     include: [{
       model: XQodSkill,
       as: 'skill'
+    }, {
+      model: XUserActivity,
+      attributes: ['user_id', 'activity_value'],
+      where: {
+        record_id: user_id,
+        activity_type: 'endorsement'
+      },
+      as: 'endorsement',
+      include: [{
+        model: UserDetail,
+        attributes: ['first_name', 'last_name', 'profile_image', 'rating', 'work_title'],
+        as: 'userData'
+      }]
     }],
     where: { user_id }
   })
-  return userSkills && userSkills.map(skill => skill.get({ plain: true }))
+  return userSkills && userSkills.map(user => user.get({ plain: true }))
 }
 
 export async function addJobSkills (skillNames) {

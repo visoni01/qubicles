@@ -48,7 +48,7 @@ const EditSkills = ({
     setSkills(agentResumeSkills)
     setPrimaryLanguage(agentResumeLanguages[ 0 ])
     setOtherLanguages(agentResumeLanguages.slice(1))
-    // handleClose()
+    handleClose()
   }, [ agentResumeSkills, agentResumeLanguages, handleClose ])
 
   const onSave = useCallback(() => {

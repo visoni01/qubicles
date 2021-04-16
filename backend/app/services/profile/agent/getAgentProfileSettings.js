@@ -67,6 +67,7 @@ export class GetAgentProfileSettingsService extends ServiceBase {
         highestEducation: userDetails.highest_education,
         yearsOfExperience: userDetails.years_of_experience,
         profilePic: userDetails.profile_image,
+        languages: [userDetails.primary_language, userDetails.other_languages],
         ...userTalentData
       }
 

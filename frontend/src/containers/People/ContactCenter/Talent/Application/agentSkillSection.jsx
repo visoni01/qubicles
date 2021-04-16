@@ -36,7 +36,7 @@ const AgentSkillSection = ({
         <div className='skills-wrap'>
           {skills.map((skill) => (
             <div key={ skill.skillId } className='list-divider'>
-              <h4 className='h4 '>
+              <h4 className='h4 mb-5'>
                 {skill.skillName}
               </h4>
               <div className='display-inline-flex mt-5 mb-20'>
@@ -56,9 +56,9 @@ const AgentSkillSection = ({
                   </AvatarGroup>
                 )}
                 <p
-                  className='para light description'
+                  className='para light description ml-5'
                   onClick={ () => handleOpenEndorsementModal({
-                    skillName: skill.name,
+                    skillName: skill.skillName,
                     endorsements: skill.endorsements,
                   }) }
                 >

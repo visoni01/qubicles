@@ -182,12 +182,11 @@
   .endorsement-section {
     width: 100%;
     display: inline-flex;
-    margin: 10px 0px;
+    margin: 10px 0px !important;
 
     .middle-part{
       width: 100%;
       vertical-align: middle;
-      margin: 15px 0;
     }
   }
 }

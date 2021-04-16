@@ -37,33 +37,36 @@ const Endorsements = ({
       <h3 className='h3 mb-10'>
         {skillName}
       </h3>
-      <div className='mb-25'>
-        {endorsementsList.map((endorsement) => (
-          <div key={ endorsement.id } className='endorsement-section list-divider'>
-            <Avatar
-              className='profile-pic no-margin-left'
-              alt={ endorsement.userProfile.name }
-              src={ endorsement.userProfile.profilePic }
-            />
-            <div className='middle-part'>
-              <div className='display-inline-flex'>
-                <p className='para bold'>
-                  {endorsement.userProfile.name}
-                </p>
-                <Rating
-                  className='rating-star'
-                  name='read-only'
-                  readOnly
-                  size='small'
-                  value={ endorsement.rating }
-                  precision={ 0.1 }
-                />
-              </div>
-              <p className='para light'> Customer Service Manager at Microsoft </p>
+      {endorsementsList.map((endorsement) => (
+        <div key={ endorsement.id } className='endorsement-section list-divider'>
+          <Avatar
+            className='profile-pic no-margin-left no-margin-top'
+            alt={ endorsement.userProfile.name }
+            src={ endorsement.userProfile.profilePic }
+          />
+          <div className='middle-part mb-10'>
+            <div className='display-inline-flex'>
+              <p className='para bold'>
+                {endorsement.userProfile.name}
+              </p>
+              <Rating
+                className='rating-star'
+                name='read-only'
+                readOnly
+                size='small'
+                value={ endorsement.rating }
+                precision={ 0.1 }
+              />
             </div>
+            <p className='para light'>
+              { endorsement.workTitle }
+            </p>
+            <p className='para mt-10'>
+              { endorsement.comment }
+            </p>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </DialogContent>
   </Dialog>
 )

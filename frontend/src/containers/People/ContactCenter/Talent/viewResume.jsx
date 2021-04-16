@@ -39,6 +39,7 @@ const ViewResume = () => {
         <SkillsPage
           candidateId={ candidateId }
           languages={ agentResume.languages }
+          userType='other'
         />
         <ResumeWorkHistory />
         <Courses />
