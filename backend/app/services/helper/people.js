@@ -160,6 +160,12 @@ export async function getAgentJobProfiles ({
     }
   }
 
+  // Profile Visibility
+  resourceDefQuery = {
+    ...resourceDefQuery,
+    is_visible: true
+  }
+
   const agentJobProfiles = await XQodResourceDef.findAll({
     include: [{
       model: UserDetail,
@@ -171,7 +177,8 @@ export async function getAgentJobProfiles ({
         'state',
         'primary_language',
         'work_title',
-        'work_overview'
+        'work_overview',
+        'profile_image'
       ],
       where: userDetailQuery,
       include: [{

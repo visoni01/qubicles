@@ -307,14 +307,16 @@ export const createUserTalentData = async ({
   status,
   desired_min_pay,
   desired_employment_type,
-  desired_location_type
+  desired_location_type,
+  is_visible
 }) => {
   return await XQodResourceDef.create({
     user_id,
     status,
     desired_min_pay,
     desired_employment_type,
-    desired_location_type
+    desired_location_type,
+    is_visible
   })
 }
 
@@ -323,12 +325,14 @@ export const updateUserTalentData = async ({
   status,
   desired_min_pay,
   desired_employment_type,
-  desired_location_type
+  desired_location_type,
+  is_visible
 }) => {
   return await XQodResourceDef.update({
     status,
     desired_min_pay,
     desired_employment_type,
-    desired_location_type
+    desired_location_type,
+    is_visible
   }, { where: { user_id } })
 }

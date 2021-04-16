@@ -64,7 +64,7 @@ const ResumeIntro = ({
           <h4 className='h4'> 469h </h4>
           <p className='para'> Hours Worked </p>
           <h4 className='h4 mt-20'>
-            {`${ ratePerHourDollar }$/hour`}
+            {ratePerHourDollar && `$${ ratePerHourDollar }/hour`}
           </h4>
           <p className='para'> Hourly Wage </p>
         </div>
@@ -81,7 +81,7 @@ const ResumeIntro = ({
         <h4 className='h4 mt-20'>
           Years of Experience
         </h4>
-        <p className='para personal-details'>{` ${ yearsOfExpirience }+ years`}</p>
+        <p className='para personal-details'>{` ${ yearsOfExpirience } years`}</p>
       </div>
       <Divider className='divider' />
       <FontAwesomeIcon className='custom-fa-icon sz-xxl' icon={ faAward } />

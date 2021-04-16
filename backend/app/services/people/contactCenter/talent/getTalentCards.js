@@ -63,6 +63,7 @@ export class PeopleGetTalentCardsService extends ServiceBase {
           {
             candidateId: userDetails.user_id,
             candidateName: userDetails.first_name + ' ' + userDetails.last_name,
+            candidatePic: userDetails.profile_image,
             location: userDetails.city + ', ' + userDetails.state,
             languages: profile.desired_languages,
             profileName: userDetails.work_title,

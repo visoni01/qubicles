@@ -65,6 +65,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ENUM,
       values: ['available', 'unavailable', 'on vacation']
     },
+    is_visible: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     createdAt: {
       field: 'created_on',
       type: DataTypes.DATE

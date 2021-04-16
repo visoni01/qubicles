@@ -42,7 +42,8 @@ export class GetAgentProfileSettingsService extends ServiceBase {
         onVacation: talentData.status === 'on vacation',
         hourlyRate: talentData.desired_min_pay,
         preferredJob: talentData.desired_employment_type,
-        remoteJobs: talentData.desired_location_type === 'remote'
+        remoteJobs: talentData.desired_location_type === 'remote',
+        profileVisible: talentData.is_visible
       }
       const agentAccountSettings = {
         userName,

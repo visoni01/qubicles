@@ -57,7 +57,8 @@ export class UpdateAgentProfileSettingsService extends ServiceBase {
         status: updatedData.onVacation ? 'on vacation' : 'available',
         desired_min_pay: updatedData.hourlyRate,
         desired_employment_type: updatedData.preferredJob,
-        desired_location_type: updatedData.remoteJobs ? 'remote' : 'onsite'
+        desired_location_type: updatedData.remoteJobs ? 'remote' : 'onsite',
+        is_visible: updatedData.profileVisible
       }
 
       if (!talentData) {
