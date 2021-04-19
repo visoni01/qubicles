@@ -9,40 +9,61 @@ const initialState = {
     candidateId: null,
     skills: [],
   },
+  requestType: '',
 }
 
 const {
   actions: {
-    fetchAgentResumeSkillsStart,
-    fetchAgentResumeSkillsSuccess,
-    fetchAgentResumeSkillsFailed,
+    agentResumeSkillsStart,
+    agentResumeSkillsSuccess,
+    agentResumeSkillsFailed,
+    resetAgentResumeSkillsFlags,
+    resetAgentResumeSkillsData,
   }, reducer,
 } = createSlice({
   name: 'agentResumeSkills',
   initialState,
   reducers: {
-    fetchAgentResumeSkillsStart: (state) => ({
+    agentResumeSkillsStart: (state, action) => ({
       ...state,
       isLoading: true,
+      success: null,
+      error: null,
+      requestType: action.payload.requestType,
+
     }),
-    fetchAgentResumeSkillsSuccess: (state, action) => ({
+    agentResumeSkillsSuccess: (state, action) => ({
       ...state,
       isLoading: false,
       success: true,
-      agentResumeSkills: getDataForReducer(action, initialState.agentResumeSkills, 'agentResumeSkills'),
+      error: false,
+      agentResumeSkills: state.requestType === 'FETCH'
+        ? getDataForReducer(action, initialState.agentResumeSkills, 'agentResumeSkills')
+        : action.payload.agentResumeSkills,
     }),
-    fetchAgentResumeSkillsFailed: (state) => ({
+    agentResumeSkillsFailed: (state) => ({
       ...state,
       isLoading: false,
       error: true,
       success: false,
+    }),
+    resetAgentResumeSkillsFlags: (state) => ({
+      ...state,
+      isLoading: null,
+      success: null,
+      error: null,
+    }),
+    resetAgentResumeSkillsData: () => ({
+      ...initialState,
     }),
   },
 })
 
 export default reducer
 export {
-  fetchAgentResumeSkillsStart,
-  fetchAgentResumeSkillsSuccess,
-  fetchAgentResumeSkillsFailed,
+  agentResumeSkillsStart,
+  agentResumeSkillsSuccess,
+  agentResumeSkillsFailed,
+  resetAgentResumeSkillsFlags,
+  resetAgentResumeSkillsData,
 }

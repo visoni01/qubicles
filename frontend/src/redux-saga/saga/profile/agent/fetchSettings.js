@@ -30,6 +30,7 @@ function* agentProfileWorker(action) {
             yield put(showSuccessMessage({ msg: 'Email Verification mail sent successfully' }))
             break
           }
+          case 'Languages': break
           default: {
             yield put(showSuccessMessage({ msg: _.capitalize(`${ updatedDataType } changed successfully`) }))
           }

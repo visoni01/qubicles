@@ -20,7 +20,7 @@ export class PeopleUpdateUserSkillsService extends ServiceBase {
 
   async run () {
     const { candidate_id, updatedData: updatedSkills } = this.filteredArgs
-
+    console.log(updatedSkills)
     try {
       const promises = [
         () => XQodUserSkill.findAll({

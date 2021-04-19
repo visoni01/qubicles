@@ -12,10 +12,11 @@ import '../styles.scss'
 import { AvatarGroup } from '@material-ui/lab'
 import _ from 'lodash'
 import SingleSelect from '../../../../Shared/singleSelect'
-import { fetchJobSkillsStart } from '../../../../../redux-saga/redux/people'
+import { agentResumeSkillsStart, fetchJobSkillsStart } from '../../../../../redux-saga/redux/people'
+import { agentProfileSettingsApiStart } from '../../../../../redux-saga/redux/actions'
 
 const EditSkills = ({
-  open, handleClose, agentResumeSkills, languages: agentResumeLanguages,
+  open, handleClose, agentResumeSkills, languages: agentResumeLanguages, candidateId,
 }) => {
   const dispatch = useDispatch()
   const { jobSkills } = useSelector((state) => state.jobSkills)
@@ -26,6 +27,11 @@ const EditSkills = ({
   const [ newSkill, setNewSkill ] = useState(null)
   const [ languageError, setLanguageError ] = useState('')
   const [ addedSkills, setAddedSkills ] = useState(new Set())
+  const [ removedSkills, setRemovedSkills ] = useState({})
+  const availableLanguages = [
+    'English', 'French', 'Spanish', 'Arabic', 'Bengali', 'Chinese', 'German',
+    'Hindi', 'Indonesian', 'Japanese', 'Portuguese', 'Russian', 'Urdu',
+  ]
 
   useEffect(() => {
     if (!jobSkills) {
@@ -40,7 +46,7 @@ const EditSkills = ({
 
   useEffect(() => {
     setLanguageError(!primaryLanguage
-      ? 'Exactly one primary language must be selected!'
+      ? '*Exactly one primary language must be selected!'
       : '')
   }, [ primaryLanguage ])
 
@@ -52,26 +58,59 @@ const EditSkills = ({
   }, [ agentResumeSkills, agentResumeLanguages, handleClose ])
 
   const onSave = useCallback(() => {
-    // WIP - Update API required
-    // handleClose()
-  }, [])
+    if (!_.isEqual(_.isEqual(agentResumeSkills, skills))) {
+      dispatch(agentResumeSkillsStart({
+        requestType: 'UPDATE',
+        candidateId,
+        skills: _.sortBy(skills, (skill) => skill.skillId),
+      }))
+    }
+    if (!_.isEqual(agentResumeLanguages, [ primaryLanguage, ...otherLanguages ])) {
+      dispatch(agentProfileSettingsApiStart({
+        requestType: 'UPDATE',
+        updatedDataType: 'Languages',
+        updatedData: {
+          languages: [
+            primaryLanguage,
+            ..._.sortBy(otherLanguages, (language) => availableLanguages.indexOf(language)),
+          ],
+        },
+      }))
+    }
+    handleClose()
+  }, [
+    dispatch, handleClose, skills, candidateId, availableLanguages,
+    agentResumeLanguages, agentResumeSkills, primaryLanguage, otherLanguages,
+  ])
 
   // Skill Handlers
 
   const addNewSkill = useCallback(() => {
+    let newAddedSkill = { skillId: newSkill.id, skillName: newSkill.title, endorsedCount: 0 }
+    if (removedSkills[ newSkill.id ]) {
+      newAddedSkill = removedSkills[ newSkill.id ]
+      setRemovedSkills((state) => ({
+        ...state,
+        [ newSkill.id ]: null,
+      }))
+    }
     setSkills((state) => ([
       ...state,
-      { skillId: newSkill.id, skillName: newSkill.title, endorsedCount: 0 },
+      newAddedSkill,
     ]))
     setAddedSkills((state) => state.add(newSkill.id))
     setNewSkill(null)
-  }, [ newSkill ])
+  }, [ newSkill, removedSkills ])
 
   const removeSkill = useCallback((removedSkill) => {
     setSkills((state) => (state.filter((skill) => skill.skillId !== removedSkill.skillId)))
     const tempSet = addedSkills
     tempSet.delete(removedSkill.skillId)
     setAddedSkills(tempSet)
+    setRemovedSkills((state) => ({
+      ...state,
+      [ removedSkill.skillId ]: removedSkill,
+    }))
   }, [ addedSkills ])
 
   // Language Handlers
@@ -122,18 +161,9 @@ const EditSkills = ({
     setNewLanguage({ name: 'English', type: null })
   }, [ newLanguage ])
 
-  const languageExists = useCallback(() => {
-    let isPresent = primaryLanguage === newLanguage.name
-
-    for (let index = 0; index < otherLanguages.length && !isPresent; index += 1) {
-      if (otherLanguages[ index ] === newLanguage.name) {
-        isPresent = true
-        break
-      }
-    }
-
-    return isPresent
-  }, [ newLanguage, otherLanguages, primaryLanguage ])
+  const languageExists = useCallback(() => (
+    (primaryLanguage === newLanguage.name) || otherLanguages.includes(newLanguage.name)
+  ), [ newLanguage, otherLanguages, primaryLanguage ])
 
   return (
     <Dialog
@@ -378,21 +408,7 @@ const EditSkills = ({
                 value={ newLanguage.name }
                 onChange={ (e) => handleNewLanguageChange({ name: e.target.value }) }
               >
-                {[
-                  'English',
-                  'French',
-                  'Spanish',
-                  'Arabic',
-                  'Bengali',
-                  'Chinese',
-                  'German',
-                  'Hindi',
-                  'Indonesian',
-                  'Japanese',
-                  'Portuguese',
-                  'Russian',
-                  'Urdu',
-                ].map((language) => (
+                {availableLanguages.map((language) => (
                   <option key={ language } value={ language } className='para sz-xl'>
                     {language}
                   </option>
@@ -481,6 +497,7 @@ EditSkills.propTypes = {
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
   })),
+  candidateId: PropTypes.number.isRequired,
 }
 
 export default EditSkills

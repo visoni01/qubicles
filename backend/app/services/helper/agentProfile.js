@@ -129,6 +129,16 @@ export const updateProfileSettings = async ({ user, updatedData, updatedDataType
       break
     }
 
+    // Update Languages
+    case 'Languages': {
+      result = await UserDetail.update({
+        primary_language: updatedData.languages[0],
+        other_languages: updatedData.languages.slice(1).join()
+      },
+      { where: { user_id: user.user_id } })
+      break
+    }
+
     default : {
       break
     }

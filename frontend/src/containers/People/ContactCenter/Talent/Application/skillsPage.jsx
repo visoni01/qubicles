@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
 import { Button, Divider } from '@material-ui/core'
-import { fetchAgentResumeSkillsStart } from '../../../../../redux-saga/redux/people/talent/agentResumeSkills'
+import { agentResumeSkillsStart } from '../../../../../redux-saga/redux/people/talent/agentResumeSkills'
 import AgentSkillSection from './agentSkillSection'
 import SkillsAndEndorsementsSkeleton from '../Skeletons/skillsAndEndorsements'
 import EditSkills from './editSkills'
@@ -17,13 +17,13 @@ const SkillsPage = ({
 
   useEffect(() => {
     if (candidateId !== agentResumeSkills.candidateId) {
-      dispatch(fetchAgentResumeSkillsStart({ candidateId }))
+      dispatch(agentResumeSkillsStart({ candidateId, requestType: 'FETCH' }))
     }
   }, [ dispatch, agentResumeSkills.candidateId, candidateId ])
 
   const handleOpenEditSkillsModal = useCallback(() => {
     setOpenEditSkillsModal(true)
-  }, [ openEditSkillsModal ])
+  }, [])
 
   return (
     <div className='mb-25 custom-box resume-root skills-page-root has-fullwidth'>
@@ -49,6 +49,7 @@ const SkillsPage = ({
           handleClose={ () => setOpenEditSkillsModal(false) }
           agentResumeSkills={ agentResumeSkills.skills }
           languages={ languages }
+          candidateId={ candidateId }
         />
       )}
 
@@ -75,9 +76,9 @@ const SkillsPage = ({
       {!isLoading && (
         <>
           <h4 className='h4 mt-30'> Languages </h4>
-          {languages && languages.map((language) => (
+          {languages && languages.map((language, index) => (
             <p key={ language } className='para mt-10'>
-              {`${ _.capitalize(language) } (Native or Bilingual) `}
+              {`${ _.capitalize(language) } (${ index === 0 ? 'Primary' : 'Other' }) `}
             </p>
           ))}
         </>

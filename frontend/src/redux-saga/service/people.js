@@ -104,6 +104,11 @@ class People {
     return response
   }
 
+  static async updateUserSkills(candidateId, skills) {
+    const response = await apiClient.putRequest(`/people/skills/${ candidateId }`, skills)
+    return response
+  }
+
   static async getAgentResume({ candidateId }) {
     const response = await apiClient.getRequest(`/people/agent/resume/${ candidateId }`)
     return response
