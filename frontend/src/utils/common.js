@@ -177,3 +177,5 @@ export const setDoumentTitle = ({ location }) => {
   }
   document.title = `qubicles.io – ${ title }`
 }
+
+export const getUniqueId = () => (Date.now() + Math.random()).toString()

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback } from 'react'
 import { Grid } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import SectionOptions from './sectionOptions'
@@ -11,8 +11,6 @@ import {
 const CourseContentSection = ({
   section, updateSection,
 }) => {
-  const [ openTest, setOpenTest ] = useState(false)
-
   const handleAddUnitButton = useCallback(() => {
     const updatedSection = addNewUnitToSection({ section })
     updateSection({
@@ -25,7 +23,6 @@ const CourseContentSection = ({
     updateSection({
       section: updatedSection,
     })
-    setOpenTest(true)
   }, [ updateSection, section ])
 
   const handleDeleteUnitButton = useCallback(({ unit }) => {
@@ -43,7 +40,7 @@ const CourseContentSection = ({
             <Grid item>
               <span className='para'>
                 <b>
-                  {`${ section.title } ${ section.sectionNum }`}
+                  {`${ section.title }`}
                 </b>
               </span>
             </Grid>
@@ -64,8 +61,6 @@ const CourseContentSection = ({
               section={ section }
               updateSection={ updateSection }
               handleDeleteUnitButton={ handleDeleteUnitButton }
-              openTest={ openTest }
-              setOpenTest={ setOpenTest }
             />
           ) : (
             <AddedContent
@@ -95,6 +90,7 @@ CourseContentSection.propTypes = {
     sectionNum: PropTypes.number.isRequired,
     sectionIsActive: PropTypes.bool.isRequired,
     units: PropTypes.arrayOf(PropTypes.any).isRequired,
+    idx: PropTypes.number.isRequired,
   }).isRequired,
   updateSection: PropTypes.func.isRequired,
 }

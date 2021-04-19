@@ -1,4 +1,15 @@
 import _ from 'lodash'
+import { getUniqueId } from '../../../../../../utils/common'
+
+export const getArticleUnitsCount = ({ section }) => {
+  const articleUnits = section.units.filter((unit) => [ 'Article', 'Audio', 'Video' ].includes(unit.type))
+  return articleUnits.length
+}
+
+export const getTestUnitsCount = ({ section }) => {
+  const testUnits = section.units.filter((unit) => [ 'Test' ].includes(unit.type))
+  return testUnits.length
+}
 
 export const checkDisabledAddSectionButton = ({ sections }) => (sections[ sections.length - 1 ].units.length < 1)
 
@@ -47,7 +58,6 @@ export const checkDisabledSaveTestButton = ({ unit }) => {
 }
 
 export const checkDisabledAddQuestionButton = ({ unit }) => {
-  console.log('UNIT===', unit.questions)
   if (unit.questions.length > 0) {
     const lastQuestion = unit.questions[ unit.questions.length - 1 ]
     return !(lastQuestion.isSaved)
@@ -80,25 +90,16 @@ export const checkDisabledUnitSaveButton = ({ savedUnit, updatedUnit }) => {
 }
 
 export const addEmptyContentSectionToSections = ({ sections }) => {
-  if (sections.length > 0) {
-    const lastSection = sections[ sections.length - 1 ]
-    const newEmptySection = {
-      id: lastSection.id + 1,
-      title: 'Section',
-      sectionNum: lastSection.sectionNum + 1,
-      sectionIsActive: true,
-      units: [],
-    }
-    return ([
-      ...sections, newEmptySection,
-    ])
-  } return [ {
-    id: 1,
+  const newSectionSchema = {
+    id: getUniqueId(),
     title: 'Section',
-    sectionNum: 1,
+    sectionNum: '1',
     sectionIsActive: true,
-    units: [],
-  } ]
+    units: [ ],
+  }
+  return ([
+    ...sections, newSectionSchema,
+  ])
 }
 
 export const updateSectionInSections = ({ updatedSection, sections }) => {
@@ -125,35 +126,20 @@ export const updateUnitInSection = ({ updatedUnit, section }) => {
 }
 
 export const addNewUnitToSection = ({ section }) => {
-  if (section.units.length > 0) {
-    const lastUnit = section.units[ section.units.length - 1 ]
-    return {
-      ...section,
-      units: [ ...section.units, {
-        unitId: lastUnit.unitId + 1,
-        sectionId: section.id,
-        unitNum: '1',
-        title: 'Unit',
-        details: '',
-        length: 0,
-        type: 'Article',
-        isEmpty: true,
-      } ],
-    }
+  const articleUnitsCount = getArticleUnitsCount({ section })
+  const newArticleUnitSchema = {
+    unitId: getUniqueId(),
+    unitNum: '1',
+    title: 'Unit 1',
+    details: '',
+    length: 0,
+    type: 'Article',
+    isEmpty: true,
   }
-  return {
+  return ({
     ...section,
-    units: [ {
-      unitId: 0,
-      sectionId: section.id,
-      unitNum: '1',
-      title: 'Unit',
-      details: '',
-      length: 0,
-      type: 'Article',
-      isEmpty: true,
-    } ],
-  }
+    units: [ ...section.units, { ...newArticleUnitSchema, title: `Unit ${ articleUnitsCount + 1 }` } ],
+  })
 }
 
 export const deleteUnitFromSection = ({ section, unitToDelete }) => {
@@ -165,74 +151,43 @@ export const deleteUnitFromSection = ({ section, unitToDelete }) => {
 }
 
 export const addNewTestToSection = ({ section }) => {
-  if (section.units.length > 0) {
-    const lastUnit = section.units[ section.units.length - 1 ]
-    return {
-      ...section,
-      units: [ ...section.units, {
-        unitId: lastUnit.unitId + 1,
-        sectionId: section.id,
-        unitNum: '1',
-        title: 'Test',
-        length: 0,
-        type: 'Test',
-        questions: [],
-        isEmpty: true,
-      } ],
-    }
+  const testUnitsCount = getTestUnitsCount({ section })
+  const newTestSchema = {
+    unitId: getUniqueId(),
+    unitNum: '1',
+    title: 'Test',
+    length: 0,
+    type: 'Test',
+    questions: [ ],
+    isEmpty: true,
+    isOpen: true,
   }
-  return {
+
+  return ({
     ...section,
-    units: [ {
-      unitId: 0,
-      sectionId: section.id,
-      unitNum: '1',
-      title: 'Test',
-      length: 0,
-      type: { id: 3, title: 'Test' },
-      questions: [],
-      isEmpty: true,
-    } ],
-  }
+    units: [ ...section.units, { ...newTestSchema, title: `Test ${ testUnitsCount + 1 }` } ],
+  })
 }
 
 // text, paragraph, multiple, checkbox, scale, date, time
 export const addQuestionToTest = ({ unit }) => {
-  let updatedQuestions = unit.questions
-  const newQuestion = {
-    unitId: unit.unitId,
+  const newQuestionSchema = {
+    id: getUniqueId(),
     questionType: 'multiple',
     questionText: '',
     answerText: '',
     options: [
-      { id: 0, value: '' },
-      { id: 1, value: '' },
+      { id: getUniqueId(), value: '' },
+      { id: getUniqueId(), value: '' },
     ],
     isSaved: false,
     correctOptions: [],
-    correctOption: 0,
+    correctOption: '',
   }
-
-  if (updatedQuestions.length > 0) {
-    const lastQuestion = updatedQuestions[ updatedQuestions.length - 1 ]
-    updatedQuestions = [
-      ...updatedQuestions,
-      {
-        id: lastQuestion.id + 1,
-        ...newQuestion,
-      },
-    ]
-  } else {
-    updatedQuestions = [ {
-      id: 0,
-      ...newQuestion,
-    } ]
-  }
-
-  return {
+  return ({
     ...unit,
-    questions: updatedQuestions,
-  }
+    questions: [ ...unit.questions, newQuestionSchema ],
+  })
 }
 
 export const deleteQuestionFromTest = ({ unit, question }) => {

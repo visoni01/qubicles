@@ -10,8 +10,9 @@ import ConfirmationModal from '../../../../../../../components/CommonModal/confi
 import { updateUnitInSection } from '../helper'
 
 const TestSection = ({
-  unit, updateSection, section, handleDeleteUnitButton, openTest, setOpenTest,
+  unit, updateSection, section, handleDeleteUnitButton,
 }) => {
+  const [ openTest, setOpenTest ] = useState(unit.isOpen)
   const [ openConfirmDelete, setOpenConfirmDelete ] = useState(false)
   const [ unitDetails, setUnitDetails ] = useState(unit)
 
@@ -26,8 +27,8 @@ const TestSection = ({
   const saveUnitDetails = useCallback(() => {
     let updatedUnit = unitDetails
     setUnitDetails((current) => {
-      updatedUnit = { ...current, isEmpty: false }
-      return ({ ...current, isEmpty: false })
+      updatedUnit = { ...current, isEmpty: false, isOpen: false }
+      return (updatedUnit)
     })
 
     const updatedSection = updateUnitInSection({
@@ -38,11 +39,12 @@ const TestSection = ({
     updateSection({
       section: updatedSection,
     })
+
     setOpenTest(false)
   }, [ unitDetails, updateSection, section, setOpenTest ])
 
   const handleCancelUnitChanges = useCallback(() => {
-    setUnitDetails(unit)
+    setUnitDetails({ ...unit, isOpen: false })
     setOpenTest(false)
   }, [ unit, setOpenTest ])
 
@@ -107,12 +109,11 @@ TestSection.propTypes = {
     questions: PropTypes.arrayOf(PropTypes.any).isRequired,
     length: PropTypes.number.isRequired,
     isEmpty: PropTypes.bool.isRequired,
+    isOpen: PropTypes.bool.isRequired,
   }).isRequired,
   updateSection: PropTypes.func.isRequired,
   section: PropTypes.shape({}).isRequired,
   handleDeleteUnitButton: PropTypes.func.isRequired,
-  openTest: PropTypes.bool.isRequired,
-  setOpenTest: PropTypes.func.isRequired,
 }
 
 export default TestSection

@@ -10,6 +10,7 @@ import TestQuestionOptions from './testQuestionOptions'
 import { deleteQuestionFromTest, saveQuestionInTest, unSaveQuestionInTest } from '../helper'
 import CheckboxQuestion from './Questions/checkboxQuestion'
 import { testQuestionPropType } from '../../propTypes'
+import TextQuestion from './Questions/textQuestion'
 
 const TestQuestion = ({ question, unitDetails, setUnitDetails }) => {
   const [ questionDetails, setQuestionDetails ] = useState(question)
@@ -140,6 +141,14 @@ const TestQuestion = ({ question, unitDetails, setUnitDetails }) => {
           {/* Checkbox question */}
           {questionDetails.questionType === 'checkbox' && (
           <CheckboxQuestion
+            questionDetails={ questionDetails }
+            setQuestionDetails={ setQuestionDetails }
+          />
+          )}
+
+          {/* Text type question */}
+          { [ 'paragraph', 'text' ].includes(questionDetails.questionType) && (
+          <TextQuestion
             questionDetails={ questionDetails }
             setQuestionDetails={ setQuestionDetails }
           />

@@ -8,6 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import { testQuestionPropType } from '../../../propTypes'
+import { getUniqueId } from '../../../../../../../../utils/common'
 
 const CheckboxQuestion = ({
   questionDetails, setQuestionDetails,
@@ -48,7 +49,7 @@ const CheckboxQuestion = ({
           ...current,
           options: [
             ...current.options,
-            { id: totalOptions + 1, value: '' },
+            { id: getUniqueId(), value: '' },
           ],
         })
       }
