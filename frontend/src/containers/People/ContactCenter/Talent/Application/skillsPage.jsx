@@ -63,12 +63,14 @@ const SkillsPage = ({
 
       {/* Agent Skills Section */}
       {!isLoading && (
-      <AgentSkillSection
-        agentResumeSkills={ agentResumeSkills.skills }
-      />
+        agentResumeSkills.skills.length ? (
+          <AgentSkillSection
+            agentResumeSkills={ agentResumeSkills.skills }
+          />
+        ) : <p className='para sz-xl mt-20 text-center'>No Skills Present</p>
       )}
 
-      {!isLoading && agentResumeSkills.skills.length ? <Divider className='divider' /> : ''}
+      {!isLoading && <Divider className='divider' />}
 
       {!isLoading && (
         <>

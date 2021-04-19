@@ -38,6 +38,9 @@ export class GetAgentProfileSettingsService extends ServiceBase {
       const dob = decryptData(userDetails.dob)
       const ssn = '***-**-' + decryptData(userDetails.ssn).substring(7)
       const userName = user.user.replace('.qbe', '')
+      const primaryLanguage = [userDetails.primary_language]
+      const secondaryLanguages = userDetails.other_languages ? userDetails.other_languages.split(',') : []
+      const languages = primaryLanguage.concat(secondaryLanguages)
       const userTalentData = talentData && {
         onVacation: talentData.status === 'on vacation',
         hourlyRate: talentData.desired_min_pay,
@@ -67,7 +70,7 @@ export class GetAgentProfileSettingsService extends ServiceBase {
         highestEducation: userDetails.highest_education,
         yearsOfExperience: userDetails.years_of_experience,
         profilePic: userDetails.profile_image,
-        languages: [userDetails.primary_language, userDetails.other_languages],
+        languages,
         ...userTalentData
       }
 

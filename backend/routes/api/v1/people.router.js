@@ -12,6 +12,9 @@ peopleRouter.route('/talent/cards')
 peopleRouter.route('/skills/:candidate_id')
   .get(isAuthenticated, talentController.getUserSkills)
 
+peopleRouter.route('/skills/:candidate_id')
+  .put(isAuthenticated, talentController.updateUserSkills)
+
 peopleRouter.route('/skills')
   .get(isAuthenticated, talentController.getJobSkills)
 

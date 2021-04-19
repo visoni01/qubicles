@@ -19,6 +19,10 @@ module.exports = (sequelize, DataTypes) => {
     updatedAt: {
       field: 'updated_on',
       type: DataTypes.DATE
+    },
+    is_deleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
   },
   {

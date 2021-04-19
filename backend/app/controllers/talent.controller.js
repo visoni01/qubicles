@@ -1,6 +1,7 @@
 import {
   PeopleGetTalentCardsService,
-  PeopleGetUserSkillsService
+  PeopleGetUserSkillsService,
+  PeopleUpdateUserSkillsService
 } from '../services/people/contactCenter/talent'
 import Responder from '../../server/expressResponder'
 import { PeopleGetJobSkillsService } from '../services/people/contactCenter'
@@ -18,6 +19,15 @@ export default class TalentController {
 
   static async getUserSkills (req, res) {
     const userSkills = await PeopleGetUserSkillsService.execute({ ...req.body, ...req.params })
+    if (userSkills.successful) {
+      Responder.success(res, userSkills.result)
+    } else {
+      Responder.failed(res, userSkills.errors)
+    }
+  }
+
+  static async updateUserSkills (req, res) {
+    const userSkills = await PeopleUpdateUserSkillsService.execute({ ...req.body, ...req.params })
     if (userSkills.successful) {
       Responder.success(res, userSkills.result)
     } else {

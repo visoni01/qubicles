@@ -50,7 +50,7 @@ export async function addUserSkills ({ user_id, skillIds }) {
 }
 
 export async function getUserSkills ({ user_id }) {
-  const userSkills = await XQodUserSkill.findAll({
+  let userSkills = await XQodUserSkill.findAll({
     include: [{
       model: XQodSkill,
       as: 'skill'
@@ -68,9 +68,35 @@ export async function getUserSkills ({ user_id }) {
         as: 'userData'
       }]
     }],
-    where: { user_id }
+    where: {
+      user_id,
+      is_deleted: false
+    }
   })
-  return userSkills && userSkills.map(user => user.get({ plain: true }))
+
+  let extraData = await XQodUserSkill.findAll({
+    include: [{
+      model: XQodSkill,
+      as: 'skill'
+    }],
+    where: {
+      user_id,
+      endorsed: 0,
+      is_deleted: false
+    }
+  })
+  extraData = extraData.map(user => user.get({ plain: true }))
+  extraData = extraData.map(user => {
+    return {
+      ...user,
+      endorsement: []
+    }
+  })
+
+  userSkills = userSkills.map(user => user.get({ plain: true }))
+  userSkills = userSkills.concat(extraData)
+
+  return userSkills
 }
 
 export async function addJobSkills (skillNames) {

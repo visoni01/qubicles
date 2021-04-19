@@ -22,11 +22,14 @@ export class PeopleGetAgentResumeService extends ServiceBase {
       const profile = await getAgentResume({ candidateId: candidate_id })
       if (profile) {
         const { UserDetail: userDetails } = profile
+        const primaryLanguage = [userDetails.primary_language]
+        const secondaryLanguages = userDetails.other_languages ? userDetails.other_languages.split(',') : []
+        const languages = primaryLanguage.concat(secondaryLanguages)
         const agentResume = {
           candidateId: userDetails.user_id,
           candidateName: userDetails.first_name + ' ' + userDetails.last_name,
           location: userDetails.city + ', ' + userDetails.state,
-          languages: [userDetails.primary_language, userDetails.other_languages],
+          languages,
           highestEducation: userDetails.highest_education,
           yearsOfExpirience: userDetails.years_of_experience,
           profileName: userDetails.work_title,
