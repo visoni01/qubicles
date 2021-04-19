@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getUniqueId } from '../../../../utils/common'
 
 const initialState = {
   isLoading: null,
@@ -30,15 +29,7 @@ const initialState = {
         title: 'Section',
         sectionNum: 1,
         sectionIsActive: true,
-        units: [ {
-          unitId: getUniqueId(),
-          unitNum: '1',
-          title: 'Unit 1',
-          details: '',
-          length: 0,
-          type: 'Article',
-          isEmpty: true,
-        } ],
+        units: [ ],
       } ],
     },
   },

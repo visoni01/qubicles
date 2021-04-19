@@ -2,12 +2,18 @@ import _ from 'lodash'
 import { getUniqueId } from '../../../../../../utils/common'
 
 export const getArticleUnitsCount = ({ section }) => {
-  const articleUnits = section.units.filter((unit) => [ 'Article', 'Audio', 'Video' ].includes(unit.type))
+  const articleUnits = section.units.filter((unit) => {
+    const unitTypeCheck = [ 'Article', 'Audio', 'Video' ].includes(unit.type)
+    return unitTypeCheck && !unit.isEmpty
+  })
   return articleUnits.length
 }
 
 export const getTestUnitsCount = ({ section }) => {
-  const testUnits = section.units.filter((unit) => [ 'Test' ].includes(unit.type))
+  const testUnits = section.units.filter((unit) => {
+    const unitTypeCheck = [ 'Test' ].includes(unit.type)
+    return unitTypeCheck && !unit.isEmpty
+  })
   return testUnits.length
 }
 
@@ -135,6 +141,7 @@ export const addNewUnitToSection = ({ section }) => {
     length: 0,
     type: 'Article',
     isEmpty: true,
+    isOpen: true,
   }
   return ({
     ...section,
@@ -152,13 +159,27 @@ export const deleteUnitFromSection = ({ section, unitToDelete }) => {
 
 export const addNewTestToSection = ({ section }) => {
   const testUnitsCount = getTestUnitsCount({ section })
+  const newQuestionSchema = {
+    id: getUniqueId(),
+    questionType: 'multiple',
+    questionText: '',
+    answerText: '',
+    options: [
+      { id: getUniqueId(), value: '' },
+      { id: getUniqueId(), value: '' },
+    ],
+    isSaved: false,
+    correctOptions: [],
+    correctOption: '',
+  }
+
   const newTestSchema = {
     unitId: getUniqueId(),
     unitNum: '1',
     title: 'Test',
     length: 0,
     type: 'Test',
-    questions: [ ],
+    questions: [ newQuestionSchema ],
     isEmpty: true,
     isOpen: true,
   }

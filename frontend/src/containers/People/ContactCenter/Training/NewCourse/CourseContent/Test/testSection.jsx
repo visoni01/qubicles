@@ -45,8 +45,11 @@ const TestSection = ({
 
   const handleCancelUnitChanges = useCallback(() => {
     setUnitDetails({ ...unit, isOpen: false })
+    if (unitDetails.isEmpty) {
+      handleDeleteUnitButton({ unit })
+    }
     setOpenTest(false)
-  }, [ unit, setOpenTest ])
+  }, [ unit, setOpenTest, handleDeleteUnitButton, unitDetails.isEmpty ])
 
   return (
     <>

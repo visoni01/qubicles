@@ -5,7 +5,7 @@ import SectionOptions from './sectionOptions'
 import AddedContent from './addedContent'
 import TestSection from './Test/testSection'
 import {
-  addNewUnitToSection, addNewTestToSection, deleteUnitFromSection,
+  addNewUnitToSection, addNewTestToSection, deleteUnitFromSection, getArticleUnitsCount, getTestUnitsCount,
 } from './helper'
 
 const CourseContentSection = ({
@@ -46,8 +46,7 @@ const CourseContentSection = ({
             </Grid>
             <Grid item>
               <span className='para'>
-                {section.units.length}
-                {' Units'}
+                {`${ getArticleUnitsCount({ section }) } Units, ${ getTestUnitsCount({ section }) } Tests`}
               </span>
             </Grid>
           </Grid>

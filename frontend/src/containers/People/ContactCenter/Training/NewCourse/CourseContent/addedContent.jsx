@@ -13,7 +13,7 @@ import ConfirmationModal from '../../../../../../components/CommonModal/confirma
 const AddedContent = ({
   unit, updateSection, section, handleDeleteUnitButton,
 }) => {
-  const [ openAddUnit, setOpenAddUnit ] = useState(false)
+  const [ openAddUnit, setOpenAddUnit ] = useState(unit.isOpen)
   const [ unitDetails, setUnitDetails ] = useState(unit)
   const [ openConfirmDelete, setOpenConfirmDelete ] = useState(false)
 
@@ -21,8 +21,8 @@ const AddedContent = ({
     let updatedUnit = unitDetails
     if (!_.isEqual(unit, updatedUnit)) {
       setUnitDetails((current) => {
-        updatedUnit = { ...current, isEmpty: false }
-        return ({ ...current, isEmpty: false })
+        updatedUnit = { ...current, isEmpty: false, isOpen: false }
+        return (updatedUnit)
       })
     }
 
@@ -38,9 +38,12 @@ const AddedContent = ({
   }, [ unitDetails, updateSection, section, unit ])
 
   const handleCancelUnitChanges = useCallback(() => {
-    setUnitDetails(unit)
+    setUnitDetails({ ...unit, isOpen: false })
+    if (unitDetails.isEmpty) {
+      handleDeleteUnitButton({ unit })
+    }
     setOpenAddUnit(false)
-  }, [ unit ])
+  }, [ unit, handleDeleteUnitButton, unitDetails.isEmpty ])
 
   return (
     <div className='list-item'>
@@ -52,10 +55,6 @@ const AddedContent = ({
           </Grid>
           )}
           <Grid item className='text-edit' xl={ 10 } lg={ 10 } md={ 10 } sm={ 10 }>
-            {/* <Input
-              value={ `${ unitDetails.title }` }
-              className='text-edit'
-            /> */}
             <p className='para'>{unitDetails.title}</p>
           </Grid>
         </Grid>
@@ -109,6 +108,7 @@ AddedContent.propTypes = {
     details: PropTypes.string.isRequired,
     length: PropTypes.number.isRequired,
     isEmpty: PropTypes.bool.isRequired,
+    isOpen: PropTypes.bool.isRequired,
   }).isRequired,
   updateSection: PropTypes.func.isRequired,
   section: PropTypes.shape({}).isRequired,
