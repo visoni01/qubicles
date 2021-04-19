@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import _ from 'lodash'
 import { getUniqueId } from '../../../../../../utils/common'
 
@@ -50,6 +51,15 @@ export const checkDisabledSaveQuestionButton = ({ question }) => {
       && isRightAnswerSelected
     )
   }
+
+  if (question.questionType === 'scale') {
+    const isRightAnswerSelected = question.scale.correctValue <= question.scale.maxValue
+    && question.scale.correctValue >= question.scale.minValue
+    return !(
+      !isEmptyQuestionText
+      && isRightAnswerSelected
+    )
+  }
   return false
 }
 
@@ -93,6 +103,26 @@ export const checkDisabledUnitSaveButton = ({ savedUnit, updatedUnit }) => {
   }
 
   return (!unitChanged || !allFieldsAreFilled)
+}
+
+export const getNewEmptyQuestion = () => {
+  const newQuestionSchema = {
+    id: getUniqueId(),
+    questionType: 'multiple',
+    questionText: '',
+    answerText: '',
+    options: [
+      { id: getUniqueId(), value: '' },
+      { id: getUniqueId(), value: '' },
+    ],
+    isSaved: false,
+    correctOptions: [],
+    correctOption: '',
+    scale: {
+      minValue: -50, maxValue: 50, correctValue: 0, minRange: -100, maxRange: 100,
+    },
+  }
+  return newQuestionSchema
 }
 
 export const addEmptyContentSectionToSections = ({ sections }) => {
@@ -159,19 +189,7 @@ export const deleteUnitFromSection = ({ section, unitToDelete }) => {
 
 export const addNewTestToSection = ({ section }) => {
   const testUnitsCount = getTestUnitsCount({ section })
-  const newQuestionSchema = {
-    id: getUniqueId(),
-    questionType: 'multiple',
-    questionText: '',
-    answerText: '',
-    options: [
-      { id: getUniqueId(), value: '' },
-      { id: getUniqueId(), value: '' },
-    ],
-    isSaved: false,
-    correctOptions: [],
-    correctOption: '',
-  }
+  const newQuestion = getNewEmptyQuestion()
 
   const newTestSchema = {
     unitId: getUniqueId(),
@@ -179,7 +197,7 @@ export const addNewTestToSection = ({ section }) => {
     title: 'Test',
     length: 0,
     type: 'Test',
-    questions: [ newQuestionSchema ],
+    questions: [ newQuestion ],
     isEmpty: true,
     isOpen: true,
   }
@@ -192,22 +210,10 @@ export const addNewTestToSection = ({ section }) => {
 
 // text, paragraph, multiple, checkbox, scale, date, time
 export const addQuestionToTest = ({ unit }) => {
-  const newQuestionSchema = {
-    id: getUniqueId(),
-    questionType: 'multiple',
-    questionText: '',
-    answerText: '',
-    options: [
-      { id: getUniqueId(), value: '' },
-      { id: getUniqueId(), value: '' },
-    ],
-    isSaved: false,
-    correctOptions: [],
-    correctOption: '',
-  }
+  const newQuestion = getNewEmptyQuestion()
   return ({
     ...unit,
-    questions: [ ...unit.questions, newQuestionSchema ],
+    questions: [ ...unit.questions, newQuestion ],
   })
 }
 

@@ -11,6 +11,7 @@ import { deleteQuestionFromTest, saveQuestionInTest, unSaveQuestionInTest } from
 import CheckboxQuestion from './Questions/checkboxQuestion'
 import { testQuestionPropType } from '../../propTypes'
 import TextQuestion from './Questions/textQuestion'
+import ScaleQuestion from './Questions/scaleQuestion'
 
 const TestQuestion = ({ question, unitDetails, setUnitDetails }) => {
   const [ questionDetails, setQuestionDetails ] = useState(question)
@@ -149,6 +150,14 @@ const TestQuestion = ({ question, unitDetails, setUnitDetails }) => {
           {/* Text type question */}
           { [ 'paragraph', 'text' ].includes(questionDetails.questionType) && (
           <TextQuestion
+            questionDetails={ questionDetails }
+            setQuestionDetails={ setQuestionDetails }
+          />
+          )}
+
+          {/* Scale question */}
+          {questionDetails.questionType === 'scale' && (
+          <ScaleQuestion
             questionDetails={ questionDetails }
             setQuestionDetails={ setQuestionDetails }
           />

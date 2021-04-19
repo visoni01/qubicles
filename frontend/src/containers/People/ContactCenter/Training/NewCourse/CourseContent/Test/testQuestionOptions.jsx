@@ -7,7 +7,7 @@ import { testQuestionPropType } from '../../propTypes'
 const TestQuestionOptions = ({
   handleDeleteQuestion, handleSaveQuestion, questionDetails,
 }) => (
-  <div className='display-inline-flex is-fullwidth justify-center'>
+  <div className='display-inline-flex is-fullwidth justify-center mt-10'>
     <div className='margin-10'>
       <Button
         className='mr-20'

@@ -83,18 +83,8 @@ const MultipleChoiceQuestion = ({
   }
 
   return (
-    <Grid
-      container
-      spacing={ 3 }
-      item
-      xl={ 12 }
-      lg={ 12 }
-      md={ 12 }
-      sm={ 12 }
-      xs={ 12 }
-      className='multiple-question'
-    >
-      <Grid item xl={ 9 } lg={ 9 } md={ 9 } sm={ 9 } xs={ 9 }>
+    <>
+      <Grid item xl={ 8 } lg={ 8 } md={ 8 } sm={ 8 } xs={ 8 }>
         <p className='para bold'>Possible Answers</p>
         {questionDetails.options.map((option, index) => (
           <div className='is-fullwidth display-inline-flex align-items-center' key={ option.id }>
@@ -132,7 +122,7 @@ const MultipleChoiceQuestion = ({
         </Button>
         )}
       </Grid>
-      <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 } xs={ 3 }>
+      <Grid item xl={ 4 } lg={ 4 } md={ 4 } sm={ 4 } xs={ 4 } className='multiple-question'>
         <p className='para bold'>Right Answers</p>
         <RadioGroup
           className='radio-buttons'
@@ -147,7 +137,7 @@ const MultipleChoiceQuestion = ({
           ))}
         </RadioGroup>
       </Grid>
-    </Grid>
+    </>
   )
 }
 

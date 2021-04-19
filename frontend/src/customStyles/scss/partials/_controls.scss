@@ -187,3 +187,15 @@
     @extend .para;
   }
 }
+
+// Slider
+.custom-slider-root {
+  color:  $color-primary;
+}
+
+.custom-slider-thumb {
+  color:  $color-primary;
+  &:hover {
+    color:  $color-primary;
+  }
+}
