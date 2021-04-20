@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { Divider } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
-import ProfileReview from '../../OtherAgent/profileReview'
+import ProfileReview from '../../Reviews/profileReview'
 import { profileReviewsFetchStart, resetReviews } from '../../../../redux-saga/redux/actions'
-import ProfileReviewSkeleton from '../../OtherAgent/profileReviewSkeleton'
+import ProfileReviewSkeleton from '../../Reviews/profileReviewSkeleton'
 
 const ListReviews = ({
   profileType, reviewType, id,

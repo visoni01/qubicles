@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
-import ReviewModal from '../../OtherAgent/reviewModal'
+import ReviewModal from '../../Reviews/reviewModal'
 import { profileReviewPostStart } from '../../../../redux-saga/redux/actions'
-import { agentRatingLabels } from '../../OtherAgent/ratingLabels'
+import { agentRatingLabels } from '../../Reviews/ratingLabels'
 
 const AddAgentReview = ({
   agentUserId, openReviewModal, setOpenReviewModal,

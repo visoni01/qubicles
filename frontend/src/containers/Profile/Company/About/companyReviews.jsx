@@ -4,12 +4,12 @@ import {
 } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
-import ViewAllRatings from '../../OtherAgent/viewAllRatings'
+import ViewAllRatings from '../../Reviews/viewAllRatings'
 import { profileRatingsFetchStart } from '../../../../redux-saga/redux/actions'
 import Loader from '../../../../components/loaders/circularLoader'
 import AddCompanyReview from './addReview'
 import ListReviews from './listReviews'
-import { clientRatingLabels } from '../../OtherAgent/ratingLabels'
+import { clientRatingLabels } from '../../Reviews/ratingLabels'
 
 const CompanyReviews = ({
   companyId,
