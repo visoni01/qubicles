@@ -6,7 +6,6 @@ import { createNewEntity } from './common'
 import { getOne } from './crud'
 import { Op } from 'sequelize'
 import _ from 'lodash'
-import { updateEntity } from './'
 
 export async function createAgentJobProfile ({
   user_id,
@@ -535,47 +534,35 @@ export const getTopTalent = async () => {
   return topTalent.map(talent => talent.get({ plain: true }))
 }
 
-export async function addNewCourse ({
-  course
-}) {
+const formatCourseInfo = ({ course }) => {
+  return {
+    category_id: course.informationSection.category,
+    creator_id: course.informationSection.creatorId,
+    title: course.informationSection.title,
+    description: course.informationSection.description,
+    goals: course.informationSection.goals,
+    requirements: course.informationSection.requirements,
+    outcomes: course.informationSection.outcomes,
+    image_url: course.image_url,
+    token_price: course.informationSection.price,
+    visibility: course.informationSection.visibility,
+    status: course.status
+  }
+}
+
+export async function addNewCourse ({ course }) {
   const addedCourse = await createNewEntity({
     model: XQodCourse,
-    data: {
-      category_id: course.informationSection.category && course.informationSection.category.id,
-      creator_id: course.informationSection.creatorId,
-      title: course.informationSection.title,
-      description: course.informationSection.description,
-      goals: course.informationSection.goals,
-      requirements: course.informationSection.requirements,
-      outcomes: course.informationSection.outcomes,
-      image_url: course.image_url,
-      token_price: course.informationSection.price,
-      visibility: course.informationSection.visibility,
-      status: course.status
-    }
+    data: formatCourseInfo({ course })
   })
   return addedCourse
 }
 
-export async function updateCourse ({
-  course
-}) {
-  const updatedCourse = await updateEntity({
-    model: XQodCourse,
-    data: {
-      category_id: course.informationSection.category && course.informationSection.category.id,
-      creator_id: course.informationSection.creatorId,
-      title: course.informationSection.title,
-      description: course.informationSection.description,
-      goals: course.informationSection.goals,
-      requirements: course.informationSection.requirements,
-      outcomes: course.informationSection.outcomes,
-      image_url: course.image_url,
-      token_price: course.informationSection.price,
-      visibility: course.informationSection.visibility,
-      status: course.status
-    }
-  })
+export async function updateCourse ({ course }) {
+  const courseInfo = formatCourseInfo({ course })
+  const updatedCourse = await XQodCourse.update(
+    courseInfo,
+    { where: { course_id: course.courseId } })
   return updatedCourse
 }
 
@@ -585,4 +572,31 @@ export async function getCourseById ({ course_id }) {
     raw: true
   })
   return course
+}
+
+export const formatCourseData = ({ course }) => {
+  return {
+    courseId: course.course_id,
+    informationSection: {
+      creatorId: course.creator_id,
+      createdOn: course.createdAt,
+      updateOn: course.updatedAt,
+      title: course.title,
+      categoryId: course.category_id,
+      price: course.token_price,
+      visibility: course.visibility,
+      description: course.description,
+      goals: course.goals,
+      outcomes: course.outcomes,
+      requirements: course.requirements,
+      language: course.language
+    },
+    contentSection: {
+      thumbnailImage: course.image_url,
+      introductionVideo: course.video_url
+    },
+    courseContent: {
+      sections: []
+    }
+  }
 }

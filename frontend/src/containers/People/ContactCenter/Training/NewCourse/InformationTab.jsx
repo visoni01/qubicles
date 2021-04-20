@@ -16,13 +16,21 @@ export default function InformationTab({
 }) {
   const [ priceType, setPriceType ] = useState('price')
   const { jobCategoriesOnly, isLoading, error } = useSelector((state) => state.jobCategoriesOnly)
+  const [ selectedCategory, setSelectedCategory ] = useState(null)
   const dispatch = useDispatch()
 
   useEffect(() => {
     if (!isLoading && _.isEmpty(jobCategoriesOnly) && !error) {
       dispatch(jobCategoriesOnlyFetchStart({ searchKeyword: '' }))
     }
-  })
+  }, [ isLoading, dispatch, error, jobCategoriesOnly ])
+
+  useEffect(() => {
+    if (jobCategoriesOnly.length > 0 && informationSection.category) {
+      const filteredCategory = jobCategoriesOnly.filter((categ) => categ.categoryId === informationSection.category)
+      setSelectedCategory(filteredCategory.length === 1 ? filteredCategory[ 0 ] : null)
+    }
+  }, [ jobCategoriesOnly, informationSection.category ])
 
   const setInformationSectionField = useCallback((e) => {
     // to persist event used in many places
@@ -62,8 +70,12 @@ export default function InformationTab({
   const setCourseCategory = useCallback((val) => {
     setInformationSection((current) => ({
       ...current,
-      category: val,
+      category: val.id,
     }))
+    setSelectedCategory({
+      categoryId: val.id,
+      categoryTitle: val.title,
+    })
   }, [ setInformationSection ])
 
   return (
@@ -91,9 +103,9 @@ export default function InformationTab({
                 <SingleSelect
                   items={ jobCategoriesOnly.map((item) => ({ id: item.categoryId, title: item.categoryTitle })) }
                   onChange={ (selectedValue) => setCourseCategory(selectedValue) }
-                  value={ (informationSection.category) ? {
-                    id: informationSection.category.id,
-                    title: informationSection.category.title,
+                  value={ (selectedCategory) ? {
+                    id: selectedCategory.categoryId,
+                    title: selectedCategory.categoryTitle,
                   } : null }
                   label='Choose Category'
                 />

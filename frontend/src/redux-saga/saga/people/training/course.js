@@ -4,6 +4,7 @@ import {
   trainingCourseRequestSuccess,
   trainingCourseRequestFailed,
   showErrorMessage,
+  showSuccessMessage,
 } from '../../../redux/actions'
 import People from '../../../service/people'
 
@@ -17,8 +18,9 @@ function* trainingCourseWorker(action) {
 
     switch (requestType) {
       case 'CREATE': {
-        const { data } = yield People.addCourse({ course })
-        yield put(trainingCourseRequestSuccess({ course: data }))
+        const { data, message } = yield People.addCourse({ course })
+        yield put(trainingCourseRequestSuccess({ course: data.courseData }))
+        yield put(showSuccessMessage({ msg: message }))
         break
       }
       default: break

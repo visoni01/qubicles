@@ -11,12 +11,14 @@ const NewCourseActions = ({
   courseContent,
   isPreview,
   setIsPreview,
+  courseId,
 }) => {
   const dispatch = useDispatch()
   const saveDraft = useCallback(() => {
     updateCourseReducer()
     dispatch(trainingCourseRequestStart({
       course: {
+        courseId,
         informationSection,
         contentSection,
         courseContent,
@@ -24,7 +26,7 @@ const NewCourseActions = ({
       },
       requestType: 'CREATE',
     }))
-  }, [ informationSection, contentSection, courseContent, updateCourseReducer, dispatch ])
+  }, [ informationSection, contentSection, courseContent, updateCourseReducer, courseId, dispatch ])
 
   return (
     <Box className='custom-box actions-box wrapper'>
@@ -77,6 +79,7 @@ NewCourseActions.propTypes = {
   courseContent: PropTypes.shape({}).isRequired,
   isPreview: PropTypes.bool.isRequired,
   setIsPreview: PropTypes.func.isRequired,
+  courseId: PropTypes.number.isRequired,
 }
 
 export default NewCourseActions

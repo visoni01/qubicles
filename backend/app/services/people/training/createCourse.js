@@ -2,7 +2,7 @@ import ServiceBase from '../../../common/serviceBase'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
 import logger from '../../../common/logger'
 import { getErrorMessageForService, uploadFileToIPFS, validateImageFile } from '../../helper'
-import { addNewCourse, getCourseById, updateCourse } from '../../helper/people'
+import { addNewCourse, getCourseById, updateCourse, formatCourseData } from '../../helper/people'
 
 const constraints = {
   user_id: {
@@ -51,56 +51,21 @@ export class PeopleAddNewCourseService extends ServiceBase {
         ...course,
         image_url: url
       }
-
+      let courseDetails = {}
       if (course.courseId) {
         await updateCourse({ course })
-        let courseData = await getCourseById({ course_id: course.courseId })
-        courseData = {
-          courseId: courseData.course_id,
-          informationSection: {
-            creatorId: courseData.creator_id,
-            createdOn: courseData.createdAt,
-            updateOn: courseData.updatedAt,
-            title: courseData.title,
-            categoryId: courseData.category_id,
-            price: courseData.token_price,
-            visibility: courseData.visibility,
-            description: courseData.description,
-            goals: courseData.goals,
-            outcomes: courseData.outcomes,
-            requirements: courseData.requirements,
-            language: courseData.language
-          },
-          contentSection: {
-            thumbnailImage: courseData.image_url,
-            introductionVideo: courseData.video_url
-          }
-        }
-        return courseData
+        const courseData = await getCourseById({ course_id: course.courseId })
+
+        // Format course data for reducer when updated
+        courseDetails = formatCourseData({ course: courseData })
+
+        return { courseData: courseDetails, message: 'Course successfully updated!' }
       } else {
-        let addedCourse = await addNewCourse({ course })
-        addedCourse = {
-          courseId: addedCourse.course_id,
-          informationSection: {
-            creatorId: addedCourse.creator_id,
-            createdOn: addedCourse.createdAt,
-            updateOn: addedCourse.updatedAt,
-            title: addedCourse.title,
-            categoryId: addedCourse.category_id,
-            price: addedCourse.token_price,
-            visibility: addedCourse.visibility,
-            description: addedCourse.description,
-            goals: addedCourse.goals,
-            outcomes: addedCourse.outcomes,
-            requirements: addedCourse.requirements,
-            language: addedCourse.language
-          },
-          contentSection: {
-            thumbnailImage: addedCourse.image_url,
-            introductionVideo: addedCourse.video_url
-          }
-        }
-        return addedCourse
+        const addedCourse = await addNewCourse({ course })
+
+        // Format course data for reducer when created
+        courseDetails = formatCourseData({ course: addedCourse })
+        return { courseData: courseDetails, message: 'Course successfully created!' }
       }
     } catch (e) {
       logger.error(getErrorMessageForService('PeopleAddNewCourseService'), e)

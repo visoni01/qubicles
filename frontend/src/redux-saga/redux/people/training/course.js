@@ -54,10 +54,11 @@ const {
       error: null,
       requestType: action.payload.requestType,
     }),
-    trainingCourseRequestSuccess: (state) => ({
+    trainingCourseRequestSuccess: (state, action) => ({
       ...state,
       isLoading: false,
       success: true,
+      course: action.payload.course,
     }),
     trainingCourseRequestFailed: (state) => ({
       ...state,

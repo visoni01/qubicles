@@ -10,9 +10,10 @@ import { updateTrainingCourseDetails } from '../../../../../redux-saga/redux/peo
 import CourseDescription from '../ViewCourse/CourseDescription'
 import CourseOverview from '../ViewCourse/CourseOverview'
 import CourseActions from '../ViewCourse/CourseActions'
+import { startLoader, stopLoader } from '../../../../../redux-saga/redux/utils'
 
 const NewCourse = () => {
-  const { course } = useSelector((state) => state.trainingCourse)
+  const { course, isLoading } = useSelector((state) => state.trainingCourse)
   const [ informationSection, setInformationSection ] = useState(course.informationSection)
   const [ contentSection, setContentSection ] = useState(course.contentSection)
   const [ courseContent, setCourseContent ] = useState(course.courseContent)
@@ -37,6 +38,14 @@ const NewCourse = () => {
       creatorId: userDetails.user_id,
     }))
   }, [ userDetails.user_id ])
+
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(startLoader())
+    } else {
+      dispatch(stopLoader())
+    }
+  }, [ isLoading, dispatch ])
 
   if (isPreview) {
     return (
@@ -84,6 +93,7 @@ const NewCourse = () => {
               informationSection={ informationSection }
               contentSection={ contentSection }
               courseContent={ courseContent }
+              courseId={ course.courseId }
             />
           </Grid>
           <Grid item>
@@ -143,6 +153,7 @@ const NewCourse = () => {
               courseContent={ courseContent }
               isPreview={ isPreview }
               setIsPreview={ setIsPreview }
+              courseId={ course.courseId }
             />
           </Grid>
         </Grid>
