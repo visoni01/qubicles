@@ -33,7 +33,8 @@ export class CompanyDetailsService extends ServiceBase {
         title: clientDetails.title,
         summary: clientDetails.summary,
         location: `${clientDetails.city}, ${clientDetails.state}`,
-        companyImg: userDetails.profile_image
+        companyImg: userDetails.profile_image,
+        rating: clientDetails.rating
       }
       return companyDetails
     } catch (err) {

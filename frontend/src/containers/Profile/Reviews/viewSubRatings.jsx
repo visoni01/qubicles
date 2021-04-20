@@ -20,7 +20,7 @@ const ViewSetSubRatings = ({
                 classes={ { label: 'rating-star-label' } }
                 size='large'
                 readOnly
-                precision={ 0.1 }
+                precision={ 0.5 }
                 value={ Number(rating[ item.name ]) }
               />
             ) : (

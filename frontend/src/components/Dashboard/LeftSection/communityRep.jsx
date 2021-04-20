@@ -17,7 +17,8 @@ const CommunityRep = () => {
   const { isLoading, communityRep } = useSelector((state) => state.communityRep)
   const likeMsg = communityRep.likes === 1 ? 'person likes your company' : 'people liked your company'
   const followMsg = communityRep.subscribers === 1 ? 'person is following you' : 'people are following you'
-  const { rating } = communityRep
+  const { settings } = useSelector((state) => state.clientDetails)
+
   return (
     <Box className='custom-box mb-25 community-rep'>
       <h3 className='h3 mb-15'>
@@ -32,12 +33,12 @@ const CommunityRep = () => {
             name='read-only'
             readOnly
             size='large'
-            value={ 4.3 }
-            precision={ 0.1 }
+            value={ settings.rating }
+            precision={ 0.5 }
           />
         )}
         <span className='h3 rating-text'>
-          {rating}
+          {settings.rating}
         </span>
         <FontAwesomeIcon icon={ faInfoCircle } className='rating-info' />
       </div>

@@ -161,7 +161,7 @@ export const fetchAgentJobApplicationList = async ({ agentUserId, limit, offset,
       },
       {
         model: XClient,
-        attributes: ['client_id', 'client_name']
+        attributes: ['client_id', 'client_name', 'rating']
       },
       {
         model: XQodJob,

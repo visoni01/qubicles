@@ -64,7 +64,7 @@ const CompanyStats = ({
 )
 
 CompanyStats.defaultProps = {
-  companyRating: 5,
+  companyRating: 3,
 }
 CompanyStats.propTypes = {
   clientId: PropTypes.number.isRequired,

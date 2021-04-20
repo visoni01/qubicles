@@ -29,7 +29,7 @@ const AgentJobCard = ({
               readOnly
               size='small'
               value={ job.clientRating }
-              precision={ 0.1 }
+              precision={ 0.5 }
             />
           </div>
           <Link

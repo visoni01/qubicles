@@ -14,7 +14,7 @@ const ViewAllRatings = ({
         classes={ { label: 'rating-star-label', root: 'font-size-50x' } }
         max={ 1 }
         readOnly
-        precision={ 0.1 }
+        precision={ 0.5 }
         value={ 1 }
       />
       <h3 className='h3 primary font-size-32x'>{totalAverageRating}</h3>

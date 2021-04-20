@@ -10,7 +10,6 @@ import { jobPostCompanyDetailsFetchStart } from '../../../../redux-saga/redux/ac
 const OtherCompanyIntro = ({
   clientId,
   imageName,
-  companyRating,
 }) => {
   const { companyDetails, success, isCompanyDetailsLoading } = useSelector((state) => state.companyDetailsForProfile)
   const dispatch = useDispatch()
@@ -30,7 +29,7 @@ const OtherCompanyIntro = ({
         <Introduction
           key={ clientId }
           imageName={ imageName }
-          rating={ companyRating }
+          rating={ companyDetails.rating }
           imageSrc={ companyDetails.companyImg }
           name={ companyDetails.companyName }
           location={ companyDetails.location }
@@ -94,12 +93,11 @@ const OtherCompanyIntro = ({
 OtherCompanyIntro.defaultProps = {
   clientId: null,
   imageName: 'good',
-  companyRating: 5,
+
 }
 OtherCompanyIntro.propTypes = {
   clientId: PropTypes.number,
   imageName: PropTypes.string,
-  companyRating: PropTypes.number,
 }
 
 export default OtherCompanyIntro

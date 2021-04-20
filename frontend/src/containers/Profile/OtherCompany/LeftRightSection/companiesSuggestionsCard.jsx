@@ -18,7 +18,7 @@ const CompaniesSuggestionsCard = ({
           readOnly
           size='small'
           value={ companyRating }
-          precision={ 0.1 }
+          precision={ 0.5 }
         />
         <span
           className='primary-text-link'

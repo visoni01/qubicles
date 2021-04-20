@@ -114,6 +114,7 @@ export const formatAgentApplicationCards = ({ applications }) => {
         clientId: XClient.client_id,
         clientName: XClient.client_name,
         profileImage: UserDetail.profile_image,
+        rating: XClient.rating,
       },
     })
   })

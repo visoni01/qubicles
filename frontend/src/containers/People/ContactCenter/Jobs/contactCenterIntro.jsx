@@ -30,7 +30,7 @@ const ContactCenterIntro = ({ jobDetails }) => {
         <Introduction
           key={ jobDetails.clientId }
           imageName={ settings.companyName }
-          rating={ 4 }
+          rating={ settings.rating }
           imageSrc={ settings.profilePic }
           name={ settings.companyName }
           location={ `${ settings.city }, ${ settings.state } ` }

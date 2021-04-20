@@ -27,7 +27,7 @@ const Introduction = ({
           readOnly
           size='small'
           value={ rating }
-          precision={ 0.1 }
+          precision={ 0.5 }
         />
         <h4 className='h4'>{name}</h4>
         <p className='para light'>
@@ -35,9 +35,7 @@ const Introduction = ({
           {location}
         </p>
         <p className='para light'>
-          Member since
-          {' '}
-          {formatDate(date, 'MM/YYYY')}
+          {`Member since ${ formatDate(date, 'MM/YYYY') }`}
         </p>
       </div>
     </div>

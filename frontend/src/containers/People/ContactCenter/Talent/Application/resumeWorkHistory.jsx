@@ -39,7 +39,7 @@ const ResumeWorkHistory = () => (
             readOnly
             size='small'
             value={ 5 }
-            precision={ 0.1 }
+            precision={ 0.5 }
           />
           <Button
             classes={ {
@@ -81,7 +81,7 @@ const ResumeWorkHistory = () => (
             readOnly
             size='small'
             value={ 5 }
-            precision={ 0.1 }
+            precision={ 0.5 }
           />
           <Button
             classes={ {

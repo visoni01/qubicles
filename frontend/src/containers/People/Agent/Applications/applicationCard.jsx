@@ -29,8 +29,8 @@ const ApplicationCard = ({
               name='read-only'
               readOnly
               size='small'
-              value={ 4 }
-              precision={ 0.1 }
+              value={ clientDetails.rating }
+              precision={ 0.5 }
             />
           </div>
           <span className='para light'>
@@ -117,6 +117,7 @@ ApplicationCard.propTypes = {
     clientId: PropTypes.number.isRequired,
     clientName: PropTypes.string.isRequired,
     profileImage: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
   }).isRequired,
   applicationCategoryId: PropTypes.number.isRequired,
 }

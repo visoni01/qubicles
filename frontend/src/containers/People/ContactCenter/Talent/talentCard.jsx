@@ -29,7 +29,7 @@ const TalentCard = ({
               readOnly
               size='small'
               value={ candidateRating }
-              precision={ 0.1 }
+              precision={ 0.5 }
             />
             <FontAwesomeIcon className='ml-10 custom-fa-icon light sz-lg' icon={ faAward } />
           </div>

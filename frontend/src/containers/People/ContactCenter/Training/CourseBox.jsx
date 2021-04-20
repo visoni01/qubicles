@@ -39,7 +39,7 @@ const CourseCard = ({
               readOnly
               size='small'
               value={ ratingValue }
-              precision={ 0.1 }
+              precision={ 0.5 }
             />
             <span className='para light margin-left-right-5 text-center'>{`${ studentsCount } students`}</span>
           </div>

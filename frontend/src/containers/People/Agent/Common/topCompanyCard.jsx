@@ -24,7 +24,7 @@ const TopCompanyCard = ({
             readOnly
             size='small'
             value={ clientRating }
-            precision={ 0.1 }
+            precision={ 0.5 }
           />
         </div>
         <div className='is-fullwidth'>

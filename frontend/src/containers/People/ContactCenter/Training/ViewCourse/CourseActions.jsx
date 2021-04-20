@@ -56,7 +56,7 @@ export default function CourseActions() {
               readOnly
               size='small'
               value={ 4.5 }
-              precision={ 0.1 }
+              precision={ 0.5 }
             />
             <span className='para light'>{`(${ 15 } ratings) `}</span>
             <span className='para light'>{`${ 24 } students`}</span>

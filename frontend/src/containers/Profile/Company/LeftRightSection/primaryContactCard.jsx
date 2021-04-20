@@ -22,7 +22,7 @@ const PrimaryContactCard = ({
           readOnly
           size='small'
           value={ candidateRating }
-          precision={ 0.1 }
+          precision={ 0.5 }
         />
         <p className='para light'>
           {profileName}

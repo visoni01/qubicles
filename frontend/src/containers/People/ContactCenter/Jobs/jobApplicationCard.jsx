@@ -28,8 +28,8 @@ const JobApplicationCard = ({ application, userDetails }) => (
               name='read-only'
               readOnly
               size='small'
-              value={ 5 }
-              precision={ 0.1 }
+              value={ userDetails.rating }
+              precision={ 0.5 }
             />
           </div>
           <Link to={ `${ PEOPLE_ROUTE }/job/applications/${ application.applicationId }` }>
@@ -61,6 +61,7 @@ JobApplicationCard.defaultProps = {
     profileImage: '',
     title: '',
     summary: '',
+    rating: 0,
   },
 }
 
@@ -80,6 +81,7 @@ JobApplicationCard.propTypes = {
     profileImage: PropTypes.string,
     title: PropTypes.string,
     summary: PropTypes.string,
+    rating: PropTypes.number,
   }),
 }
 

@@ -55,7 +55,7 @@ const Endorsements = ({
                 readOnly
                 size='small'
                 value={ endorsement.rating }
-                precision={ 0.1 }
+                precision={ 0.5 }
               />
             </div>
             <p className='para light'>

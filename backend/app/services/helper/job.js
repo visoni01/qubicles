@@ -230,7 +230,8 @@ export async function getJobById ({ job_id }) {
         'state',
         'registration_date',
         'title',
-        'summary'
+        'summary',
+        'rating'
       ]
     }],
     where:
@@ -489,7 +490,8 @@ export async function getAgentJobs ({
         'client_id',
         'client_name',
         'city',
-        'state'
+        'state',
+        'rating'
       ]
     }, {
       model: XQodJobSkill,
@@ -516,7 +518,8 @@ export async function getTopCompanies () {
     include: [{
       model: XClient,
       attributes: [
-        'client_name'
+        'client_name',
+        'rating'
       ]
     }, {
       model: UserDetail,

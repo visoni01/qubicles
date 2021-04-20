@@ -33,6 +33,7 @@ const AgentViewApplication = ({
               companyDetails={ jobDetails && jobDetails.companyDetails }
               companyName={ jobDetails.companyDetails.client_name }
               companyImageSrc={ jobDetails.companyDetails.profile_image }
+              companyRating={ jobDetails.companyDetails.rating }
               location={ `${ jobDetails.companyDetails.city }, ${ jobDetails.companyDetails.state }` }
               title={ jobDetails.companyDetails.title }
               summary={ jobDetails.companyDetails.summary }

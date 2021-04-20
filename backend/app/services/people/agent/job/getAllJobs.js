@@ -75,7 +75,7 @@ export class AgentGetAllJobsService extends ServiceBase {
           categoryId: job.category_id,
           clientId: job.client_id,
           clientName: clientData.client_name,
-          clientRating: 4,
+          clientRating: clientData.rating,
           clientPic: userDetailData.profile_image,
           title: job.title,
           description: job.description,

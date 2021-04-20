@@ -23,7 +23,7 @@ export class AgentGetTopCompaniesService extends ServiceBase {
         return {
           clientId: job.client_id,
           clientName: clientData.client_name,
-          clientRating: 4.5,
+          clientRating: clientData.rating,
           clientPic: userDetailData.profile_image,
           openPositions: job.openPositionCount
         }
