@@ -12,7 +12,9 @@ function* agentResumeSkillsWatcherStart() {
 }
 
 function* agentResumeSkillsWorker(action) {
-  const { candidateId, requestType, skills } = action.payload
+  const {
+    candidateId, requestType, updatedData, updatedDataType,
+  } = action.payload
   try {
     switch (requestType) {
       case 'FETCH': {
@@ -21,9 +23,13 @@ function* agentResumeSkillsWorker(action) {
         break
       }
       case 'UPDATE': {
-        const skillIds = skills.map((skill) => skill.skillId)
-        yield People.updateUserSkills(candidateId, { updatedData: skillIds })
-        yield put(agentResumeSkillsStart({ candidateId, requestType: 'FETCH' }))
+        const { data } = yield People.updateUserSkills({ candidateId, updatedData, updatedDataType })
+        yield put(agentResumeSkillsSuccess({
+          agentResumeSkills: {
+            candidateId,
+            skills: data.skills,
+          },
+        }))
         yield put(showSuccessMessage({ msg: 'Skills and Languages updated successfuly' }))
         break
       }

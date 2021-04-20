@@ -318,6 +318,8 @@ export async function getAgentJobProfiles ({
         model: XQodUserSkill,
         attributes: ['skill_id', 'endorsed'],
         as: 'userSkills',
+        where: { is_deleted: false },
+        required: false,
         include: [{
           model: XQodSkill,
           attributes: ['skill_name'],

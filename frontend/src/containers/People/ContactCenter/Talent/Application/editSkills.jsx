@@ -51,11 +51,12 @@ const EditSkills = ({
   }, [ agentResumeSkills, agentResumeLanguages, handleClose ])
 
   const onSave = useCallback(() => {
-    if (!_.isEqual(_.isEqual(agentResumeSkills, skills))) {
+    if (!_.isEqual(agentResumeSkills, skills)) {
       dispatch(agentResumeSkillsStart({
         requestType: 'UPDATE',
         candidateId,
-        skills: _.sortBy(skills, (skill) => skill.skillId),
+        updatedDataType: 'Skills',
+        updatedData: _.sortBy(skills, (skill) => skill.skillId).map((skill) => skill.skillId),
       }))
     }
     if (!_.isEqual(agentResumeLanguages, [ primaryLanguage, ...otherLanguages ])) {
