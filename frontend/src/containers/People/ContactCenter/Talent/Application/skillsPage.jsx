@@ -55,7 +55,7 @@ const SkillsPage = ({
 
       {/* Skills Loader */}
       <div className='skills-skeleton-wrapper'>
-        {isLoading && (
+        {(isLoading === null || isLoading) && (
           [ ...Array(3).keys() ].map((key) => (
             <SkillsAndEndorsementsSkeleton key={ key } />
           ))
@@ -63,7 +63,7 @@ const SkillsPage = ({
       </div>
 
       {/* Agent Skills Section */}
-      {!isLoading && (
+      {isLoading === false && (
         agentResumeSkills.skills.length ? (
           <AgentSkillSection
             agentResumeSkills={ agentResumeSkills.skills }
@@ -71,9 +71,9 @@ const SkillsPage = ({
         ) : <p className='para sz-xl mt-20 text-center'>No Skills Present</p>
       )}
 
-      {!isLoading && <Divider className='divider' />}
+      {isLoading === false && <Divider className='divider' />}
 
-      {!isLoading && (
+      {isLoading === false && (
         <>
           <h4 className='h4 mt-30'> Languages </h4>
           {languages && languages.map((language, index) => (

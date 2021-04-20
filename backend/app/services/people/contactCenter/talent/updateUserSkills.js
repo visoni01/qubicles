@@ -9,7 +9,7 @@ const constraints = {
     presence: { allowEmpty: false }
   },
   updatedData: {
-    presence: { allowEmpty: false }
+    presence: { allowEmpty: true }
   }
 }
 
@@ -20,11 +20,11 @@ export class PeopleUpdateUserSkillsService extends ServiceBase {
 
   async run () {
     const { candidate_id, updatedData: updatedSkills } = this.filteredArgs
-    console.log(updatedSkills)
+
     try {
       const promises = [
         () => XQodUserSkill.findAll({
-          attributes: ['user_skill_id', 'skill_id'],
+          attributes: ['skill_id'],
           where: { user_id: candidate_id }
         })
       ]

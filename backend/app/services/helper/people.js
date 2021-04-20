@@ -50,41 +50,45 @@ export async function addUserSkills ({ user_id, skillIds }) {
 }
 
 export async function getUserSkills ({ user_id }) {
-  let userSkills = await XQodUserSkill.findAll({
-    include: [{
-      model: XQodSkill,
-      as: 'skill'
-    }, {
-      model: XUserActivity,
-      attributes: ['user_id', 'activity_value'],
-      where: {
-        record_id: user_id,
-        activity_type: 'endorsement'
-      },
-      as: 'endorsement',
+  const promises = [
+    () => XQodUserSkill.findAll({
       include: [{
-        model: UserDetail,
-        attributes: ['first_name', 'last_name', 'profile_image', 'rating', 'work_title'],
-        as: 'userData'
-      }]
-    }],
-    where: {
-      user_id,
-      is_deleted: false
-    }
-  })
+        model: XQodSkill,
+        as: 'skill'
+      }, {
+        model: XUserActivity,
+        attributes: ['user_id', 'activity_value'],
+        where: {
+          record_id: user_id,
+          activity_type: 'endorsement'
+        },
+        as: 'endorsement',
+        include: [{
+          model: UserDetail,
+          attributes: ['first_name', 'last_name', 'profile_image', 'rating', 'work_title'],
+          as: 'userData'
+        }]
+      }],
+      where: {
+        user_id,
+        is_deleted: false
+      }
+    }),
+    () => XQodUserSkill.findAll({
+      include: [{
+        model: XQodSkill,
+        as: 'skill'
+      }],
+      where: {
+        user_id,
+        endorsed: 0,
+        is_deleted: false
+      }
+    })
+  ]
 
-  let extraData = await XQodUserSkill.findAll({
-    include: [{
-      model: XQodSkill,
-      as: 'skill'
-    }],
-    where: {
-      user_id,
-      endorsed: 0,
-      is_deleted: false
-    }
-  })
+  let [userSkills, extraData] = await Promise.all(promises.map(promise => promise()))
+
   extraData = extraData.map(user => user.get({ plain: true }))
   extraData = extraData.map(user => {
     return {

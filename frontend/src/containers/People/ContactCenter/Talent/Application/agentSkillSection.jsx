@@ -81,14 +81,14 @@ const AgentSkillSection = ({
         {showAllSkills ? 'Show Less Skills' : 'Show More Skills'}
       </Button>
       )}
-      {endorsementData.endorsements && (
+      {endorsementData.endorsements && endorsementData.endorsements.length ? (
         <EndorsementsModal
           open={ openEndorsementModal }
           handleClose={ () => setOpenEndorsementModal(false) }
           endorsementsList={ endorsementData.endorsements }
           skillName={ endorsementData.skillName }
         />
-      )}
+      ) : ''}
     </>
   )
 }
