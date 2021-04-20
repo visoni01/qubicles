@@ -103,6 +103,96 @@ export async function getUserSkills ({ user_id }) {
   return userSkills
 }
 
+export async function updateUserSkills ({ candidate_id, updatedData: updatedSkills }) {
+  const promises = [
+    () => XQodUserSkill.findAll({
+      attributes: ['skill_id'],
+      where: { user_id: candidate_id }
+    })
+  ]
+
+  let [userSkills] = await Promise.all(promises.map(promise => promise()))
+  userSkills = userSkills.map(item => item.get({ plain: true }))
+
+  let promiseArray = null
+
+  if (!userSkills.length) {
+    const bulkDataToBeAdded = updatedSkills.map(item => {
+      return {
+        user_id: candidate_id,
+        skill_id: item
+      }
+    })
+
+    promiseArray = [() => XQodUserSkill.bulkCreate(bulkDataToBeAdded)]
+  } else {
+    const currentSkills = userSkills.map(item => item.skill_id)
+
+    const flagToBeChanged = currentSkills.filter(item => updatedSkills.includes(item))
+
+    const skillsToBeAdded = updatedSkills.filter(item => !currentSkills.includes(item))
+
+    const skillsToBeRemoved = currentSkills.filter(item => !updatedSkills.includes(item))
+
+    const bulkDataToBeAdded = skillsToBeAdded.map(item => {
+      return {
+        user_id: candidate_id,
+        skill_id: item
+      }
+    })
+
+    promiseArray = [
+      () => XQodUserSkill.update({
+        is_deleted: false
+      }, {
+        where: {
+          user_id: candidate_id,
+          skill_id: flagToBeChanged
+        }
+      }),
+      () => XQodUserSkill.bulkCreate(bulkDataToBeAdded),
+      () => XQodUserSkill.update({
+        is_deleted: true
+      }, {
+        where: {
+          user_id: candidate_id,
+          skill_id: skillsToBeRemoved
+        }
+      })
+    ]
+  }
+
+  await Promise.all(promiseArray.map(promise => promise()))
+
+  userSkills = await getUserSkills({ user_id: candidate_id })
+
+  const skills = userSkills.map(userSkill => {
+    const { skill, endorsement } = userSkill
+    return ({
+      skillId: skill.skill_id,
+      skillName: skill.skill_name,
+      endorsedCount: userSkill.endorsed,
+      endorsements: endorsement.map(user => {
+        return {
+          id: user.user_id,
+          comment: user.activity_value,
+          userProfile: {
+            name: user.userData.first_name + ' ' + user.userData.last_name,
+            profilePic: user.userData.profile_image
+          },
+          rating: user.userData.rating,
+          workTitle: user.userData.work_title
+        }
+      })
+    })
+  })
+  const candidateSkills = {
+    candidateId: parseInt(candidate_id),
+    skills
+  }
+  return candidateSkills
+}
+
 export async function addJobSkills (skillNames) {
   const skillEntities = skillNames.map(skillName => {
     return ({

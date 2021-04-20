@@ -2,7 +2,7 @@ import logger from '../../../../common/logger'
 import ServiceBase from '../../../../common/serviceBase'
 import { ERRORS } from '../../../../utils/errors'
 import { getErrorMessageForService } from '../../../helper'
-import { XQodUserSkill } from '../../../../db/models'
+import { updateUserSkills } from '../../../helper/people'
 
 const constraints = {
   candidate_id: {
@@ -10,6 +10,9 @@ const constraints = {
   },
   updatedData: {
     presence: { allowEmpty: true }
+  },
+  updatedDataType: {
+    presence: { allowEmpty: false }
   }
 }
 
@@ -19,68 +22,13 @@ export class PeopleUpdateUserSkillsService extends ServiceBase {
   }
 
   async run () {
-    const { candidate_id, updatedData: updatedSkills } = this.filteredArgs
+    const { candidate_id, updatedData, updatedDataType } = this.filteredArgs
 
     try {
-      const promises = [
-        () => XQodUserSkill.findAll({
-          attributes: ['skill_id'],
-          where: { user_id: candidate_id }
-        })
-      ]
-
-      let [userSkills] = await Promise.all(promises.map(promise => promise()))
-      userSkills = userSkills.map(item => item.get({ plain: true }))
-
-      let promiseArray = null
-
-      if (!userSkills.length) {
-        const bulkDataToBeAdded = updatedSkills.map(item => {
-          return {
-            user_id: candidate_id,
-            skill_id: item
-          }
-        })
-
-        promiseArray = [() => XQodUserSkill.bulkCreate(bulkDataToBeAdded)]
-      } else {
-        const currentSkills = userSkills.map(item => item.skill_id)
-
-        const flagToBeChanged = currentSkills.filter(item => updatedSkills.includes(item))
-
-        const skillsToBeAdded = updatedSkills.filter(item => !currentSkills.includes(item))
-
-        const skillsToBeRemoved = currentSkills.filter(item => !updatedSkills.includes(item))
-
-        const bulkDataToBeAdded = skillsToBeAdded.map(item => {
-          return {
-            user_id: candidate_id,
-            skill_id: item
-          }
-        })
-
-        promiseArray = [
-          () => XQodUserSkill.update({
-            is_deleted: false
-          }, {
-            where: {
-              user_id: candidate_id,
-              skill_id: flagToBeChanged
-            }
-          }),
-          () => XQodUserSkill.bulkCreate(bulkDataToBeAdded),
-          () => XQodUserSkill.update({
-            is_deleted: true
-          }, {
-            where: {
-              user_id: candidate_id,
-              skill_id: skillsToBeRemoved
-            }
-          })
-        ]
+      if (updatedDataType === 'Skills') {
+        const userSkills = await updateUserSkills({ candidate_id, updatedData })
+        return userSkills
       }
-
-      await Promise.all(promiseArray.map(promise => promise()))
     } catch (err) {
       logger.error(`${getErrorMessageForService('PeopleUpdateUserSkillsService')} ${err}`)
       this.addError(ERRORS.INTERNAL)
