@@ -277,3 +277,9 @@ export const getAddReviewAccessForClient = async ({ user_id, client_id }) => {
 
   return true
 }
+
+export const updateClientUserRating = async ({ client_id, rating }) => {
+  await XClient.update({
+    rating: rating
+  }, { where: { client_id } })
+}

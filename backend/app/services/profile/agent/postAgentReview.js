@@ -2,7 +2,7 @@ import ServiceBase from '../../../common/serviceBase'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
 import logger from '../../../common/logger'
 import { getErrorMessageForService } from '../../helper'
-import { addAgentReviewAndRating, fetchAgentRatings, fetchAgentReviews, getAgentReviewByUser } from '../../helper/agentProfile'
+import { addAgentReviewAndRating, fetchAgentRatings, fetchAgentReviews, getAgentReviewByUser, updateAgentUserRating } from '../../helper/agentProfile'
 
 const constraints = {
   user_id: {
@@ -37,6 +37,9 @@ export class PostAgentReviewService extends ServiceBase {
         () => fetchAgentReviews({ agent_user_id, type: 'received' })
       ]
       const [ratings, reviews] = await Promise.all(promises.map(promise => promise()))
+
+      // Update agent rating in user details
+      await updateAgentUserRating({ agent_user_id, rating: ratings.totalAverageRating })
 
       // WIP add review access
       return { ratings, reviews, addReviewAccess: false }

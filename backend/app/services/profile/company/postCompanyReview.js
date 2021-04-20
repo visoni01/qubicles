@@ -4,7 +4,7 @@ import logger from '../../../common/logger'
 import { getErrorMessageForService, getClientData } from '../../helper'
 import {
   addCompanyReviewAndRating, getClientReviewByUser,
-  fetchCompanyRatings, fetchCompanyReviews
+  fetchCompanyRatings, fetchCompanyReviews, updateClientUserRating
 } from '../../helper/companyProfile'
 
 const constraints = {
@@ -45,6 +45,9 @@ export class PostCompanyReviewService extends ServiceBase {
         () => fetchCompanyReviews({ client_id, type: 'received' })
       ]
       const [ratings, reviews] = await Promise.all(promises.map(promise => promise()))
+
+      // Update client rating in client details
+      await updateClientUserRating({ client_id, rating: ratings.totalAverageRating })
 
       // WIP add review access
       return { ratings, reviews, addReviewAccess: false }

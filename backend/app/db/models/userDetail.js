@@ -22,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
     highest_education: DataTypes.STRING,
     primary_language: DataTypes.STRING,
     other_languages: DataTypes.STRING,
+    rating: {
+      type: DataTypes.FLOAT(2, 1),
+      defaultValue: 0.0
+    },
     source: DataTypes.STRING,
     notify_email: {
       type: DataTypes.BOOLEAN,

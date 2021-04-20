@@ -346,3 +346,9 @@ export const updateUserTalentData = async ({
     is_visible
   }, { where: { user_id } })
 }
+
+export const updateAgentUserRating = async ({ agent_user_id, rating }) => {
+  await UserDetail.update({
+    rating: rating
+  }, { where: { user_id: agent_user_id } })
+}
