@@ -1,7 +1,8 @@
 import { lazy } from 'react'
 import Auth from '../components/User/auth'
 import ROUTE_PATHS, {
-  PEOPLE_ROUTE, PROFILE_ROUTE, PROGRAMS_NAVIGATION_ROUTE, INSIGHTS_NAVIGATION_ROUTE, SETTINGS_NAVIGATION_ROUTE,
+  PEOPLE_ROUTE, PROFILE_ROUTE, PROGRAMS_NAVIGATION_ROUTE,
+  INSIGHTS_NAVIGATION_ROUTE, SETTINGS_NAVIGATION_ROUTE, COMPANY_PROFILE_ROUTE,
 } from './routesPath'
 
 const routes = [
@@ -118,7 +119,7 @@ const routes = [
   },
   // Profile feature
   {
-    path: PROFILE_ROUTE,
+    path: [ PROFILE_ROUTE, COMPANY_PROFILE_ROUTE ],
     component: lazy(() => import('./featureRoutesLists/profile')),
     auth: true,
     exact: false,
