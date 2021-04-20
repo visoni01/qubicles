@@ -23,12 +23,7 @@ function* agentResumeSkillsWorker(action) {
       case 'UPDATE': {
         const skillIds = skills.map((skill) => skill.skillId)
         yield People.updateUserSkills(candidateId, { updatedData: skillIds })
-        yield put(agentResumeSkillsSuccess({
-          agentResumeSkills: {
-            candidateId,
-            skills,
-          },
-        }))
+        yield put(agentResumeSkillsStart({ candidateId, requestType: 'FETCH' }))
         yield put(showSuccessMessage({ msg: 'Skills and Languages updated successfuly' }))
         break
       }

@@ -25,7 +25,6 @@ const EditSkills = ({
   const [ otherLanguages, setOtherLanguages ] = useState(agentResumeLanguages.slice(1))
   const [ newLanguage, setNewLanguage ] = useState({ name: 'English', type: null })
   const [ newSkill, setNewSkill ] = useState(null)
-  const [ languageError, setLanguageError ] = useState('')
   const [ addedSkills, setAddedSkills ] = useState(new Set())
   const [ removedSkills, setRemovedSkills ] = useState({})
   const availableLanguages = [
@@ -43,12 +42,6 @@ const EditSkills = ({
     const skillIds = agentResumeSkills.map((item) => item.skillId)
     setAddedSkills(new Set(skillIds))
   }, [ agentResumeSkills ])
-
-  useEffect(() => {
-    setLanguageError(!primaryLanguage
-      ? '*Exactly one primary language must be selected!'
-      : '')
-  }, [ primaryLanguage ])
 
   const handleCancel = useCallback(() => {
     setSkills(agentResumeSkills)
@@ -177,7 +170,7 @@ const EditSkills = ({
       <div className='header'>
         {/* Skills */}
         <DialogTitle>
-          <h2 className='h2'>Skills</h2>
+          <div className='h2'>Skills</div>
         </DialogTitle>
         <DialogActions className='cross-button'>
           <IconButton
@@ -260,16 +253,14 @@ const EditSkills = ({
             </Button>
           </div>
         </div>
-        <Divider
-          fullWidth
-        />
+        <Divider />
         {/* Languages */}
       </DialogContent>
       <div className='header'>
         <DialogTitle>
-          <h2 className='h2'>Languages</h2>
+          <div className='h2'>Languages</div>
           <p className='para error-message'>
-            { languageError }
+            { !primaryLanguage ? '*Exactly one primary language must be selected' : '' }
           </p>
         </DialogTitle>
       </div>
@@ -282,20 +273,21 @@ const EditSkills = ({
             justify='space-between'
             alignItems='center'
             className='mt-20'
+            spacing={ 1 }
           >
-            <Grid item sm={ 1 }>
+            <Grid item sm={ 1 } xs={ 1 }>
               <h4 className='h4'>
                 1.
               </h4>
             </Grid>
-            <Grid item sm={ 3 }>
+            <Grid item sm={ 3 } xs={ 3 }>
               <h4 className='h4'>
                 {' '}
                 { primaryLanguage }
                 {' '}
               </h4>
             </Grid>
-            <Grid item sm={ 6 }>
+            <Grid item sm={ 6 } xs={ 6 }>
               <RadioGroup
                 className='radio-buttons ml-30'
                 defaultValue='primary'
@@ -315,7 +307,7 @@ const EditSkills = ({
                 </div>
               </RadioGroup>
             </Grid>
-            <Grid item sm={ 2 }>
+            <Grid item sm={ 2 } xs={ 2 }>
               <Button
                 classes={ {
                   root: 'button-primary-text',
@@ -331,27 +323,28 @@ const EditSkills = ({
           {/* Other Languages */}
           {otherLanguages && otherLanguages.map((language, index) => (
             <Grid
+              key={ language.name }
               container
               justify='space-between'
               alignItems='center'
               className='mt-20'
-              key={ language.name }
+              spacing={ 1 }
             >
-              <Grid item sm={ 1 }>
+              <Grid item sm={ 1 } xs={ 1 }>
                 <h4 className='h4'>
                   {' '}
                   {index + 1 + !!primaryLanguage}
                   {'.'}
                 </h4>
               </Grid>
-              <Grid item sm={ 3 }>
+              <Grid item sm={ 3 } xs={ 3 }>
                 <h4 className='h4'>
                   {' '}
                   {language}
                   {' '}
                 </h4>
               </Grid>
-              <Grid item sm={ 6 }>
+              <Grid item sm={ 6 } xs={ 6 }>
                 <RadioGroup
                   className='radio-buttons ml-30'
                   value='other'
@@ -372,7 +365,7 @@ const EditSkills = ({
                   </div>
                 </RadioGroup>
               </Grid>
-              <Grid item sm={ 2 }>
+              <Grid item sm={ 2 } xs={ 2 }>
                 <Button
                   classes={ {
                     root: 'button-primary-text',
@@ -391,15 +384,16 @@ const EditSkills = ({
             justify='space-between'
             alignItems='center'
             className='mt-10'
+            spacing={ 1 }
           >
-            <Grid item sm={ 1 }>
+            <Grid item sm={ 1 } xs={ 1 }>
               <h4 className='h4'>
                 {' '}
                 {otherLanguages.length + 1 + !!primaryLanguage}
                 {'.'}
               </h4>
             </Grid>
-            <Grid item sm={ 3 }>
+            <Grid item sm={ 3 } xs={ 11 }>
               <Select
                 className='is-fullwidth'
                 native
@@ -415,7 +409,7 @@ const EditSkills = ({
                 ))}
               </Select>
             </Grid>
-            <Grid item sm={ 6 }>
+            <Grid item sm={ 6 } xs={ 6 }>
               <RadioGroup
                 className='radio-buttons ml-30'
                 onChange={ (e) => handleNewLanguageChange({ type: e.target.value }) }
@@ -436,7 +430,7 @@ const EditSkills = ({
                 </div>
               </RadioGroup>
             </Grid>
-            <Grid item sm={ 2 }>
+            <Grid item sm={ 2 } xs={ 4 }>
               <Button
                 classes={ {
                   root: 'button-primary-small is-fullheight',
@@ -493,10 +487,7 @@ EditSkills.propTypes = {
     skillName: PropTypes.string.isRequired,
     endorsedCount: PropTypes.number.isRequired,
   })),
-  languages: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-  })),
+  languages: PropTypes.arrayOf(PropTypes.string),
   candidateId: PropTypes.number.isRequired,
 }
 
