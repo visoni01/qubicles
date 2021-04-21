@@ -5,9 +5,9 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useHistory } from 'react-router-dom'
-import CourseBox from './CourseBox'
 import { courseCards } from '../testData'
 import ROUTE_PATHS from '../../../../routes/routesPath'
+import CourseCard from './CourseCard'
 
 const TrainingWrap = () => {
   const history = useHistory()
@@ -39,7 +39,7 @@ const TrainingWrap = () => {
         <h3 className='h3 mb-20'>All Courses</h3>
         <Grid container spacing={ 2 }>
           {courseCards.map((cardInfo) => (
-            <CourseBox
+            <CourseCard
               key={ cardInfo.courseId }
               priceQbe={ cardInfo.priceQbe }
               priceUsd={ cardInfo.priceUsd }

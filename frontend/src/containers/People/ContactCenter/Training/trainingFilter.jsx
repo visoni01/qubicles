@@ -1,39 +1,46 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import {
   Box, Divider, List, ListItem, ListItemText,
 } from '@material-ui/core'
 import { courseCategories } from '../testData'
 import './style.scss'
+import ROUTE_PATHS from '../../../../routes/routesPath'
 
-const TrainingFilter = () => (
+const TrainingFilter = () => {
+  const history = useHistory()
+  return (
+    <Box className='custom-box no-padding side-filter-root'>
+      <h2 className='h2 title'>Training</h2>
+      <List className='courses-list-items'>
+        <ListItem
+          button
+        >
+          <ListItemText
+            primary='My Courses (2)'
+            className='h4 bold-filter-item'
+            onClick={ () => history.push(ROUTE_PATHS.MY_COURSES) }
+          />
+        </ListItem>
+        <ListItem
+          button
+        >
+          <ListItemText primary='Enrolled Courses (3)' className='h4 bold-filter-item' />
+        </ListItem>
+      </List>
 
-  <Box className='custom-box no-padding side-filter-root'>
-    <h2 className='h2 title'>Training</h2>
-    <List className='courses-list-items'>
-      <ListItem
-        button
-      >
-        <ListItemText primary='My Courses (2)' className='h4 bold-filter-item' />
-      </ListItem>
-      <ListItem
-        button
-      >
-        <ListItemText primary='Enrolled Courses (3)' className='h4 bold-filter-item' />
-      </ListItem>
-    </List>
-
-    <Divider className='mb-20' />
-    <h3 className='h3 subtitle'>Categories</h3>
-    <List className='filter-list-items'>
-      <ListItem
-        button
-        selected
-      >
-        <ListItemText classes={ { primary: 'list-item' } }>
-          <h4 className='h4 light unbold'>All</h4>
-        </ListItemText>
-      </ListItem>
-      {
+      <Divider className='mb-20' />
+      <h3 className='h3 subtitle'>Categories</h3>
+      <List className='filter-list-items'>
+        <ListItem
+          button
+          selected
+        >
+          <ListItemText classes={ { primary: 'list-item' } }>
+            <h4 className='h4 light unbold'>All</h4>
+          </ListItemText>
+        </ListItem>
+        {
         courseCategories.map((categoryTitle) => (
           <ListItem
             key={ categoryTitle }
@@ -45,8 +52,9 @@ const TrainingFilter = () => (
           </ListItem>
         ))
       }
-    </List>
-  </Box>
-)
+      </List>
+    </Box>
+  )
+}
 
 export default TrainingFilter

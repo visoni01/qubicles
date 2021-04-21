@@ -22,8 +22,7 @@ const courseCards = [
     priceUsd: 15,
     ratingValue: 4,
     studentsCount: 503,
-    courseDescription: `Lorem Ipsum
-     is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry`,
+    courseDescription: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
     sectionsCount: 8,
     language: 'English',
     imageUrl: 'https://picsum.photos/400/300',
@@ -35,7 +34,7 @@ const courseCards = [
     ratingValue: 4.3,
     studentsCount: 338,
     courseDescription: `Lorem Ipsum
-     is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry`,
+     is simply dummy text of the printing and typesetting industry`,
     sectionsCount: 5,
     language: 'English',
     imageUrl: 'https://picsum.photos/400/300',
@@ -47,7 +46,7 @@ const courseCards = [
     ratingValue: 5,
     studentsCount: 1032,
     courseDescription: `Lorem Ipsum
-     is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry`,
+     is simply dummy text of the printing and typesetting industry`,
     sectionsCount: 9,
     language: 'English, French',
     imageUrl: 'https://picsum.photos/400/300',
@@ -59,7 +58,7 @@ const courseCards = [
     ratingValue: 3.4,
     studentsCount: 274,
     courseDescription: `Lorem Ipsum
-     is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry`,
+     is simply dummy text of the printing and typesetting industry`,
     sectionsCount: 8,
     language: 'English',
     imageUrl: 'https://picsum.photos/400/300',
@@ -71,7 +70,7 @@ const courseCards = [
     ratingValue: 4.5,
     studentsCount: 503,
     courseDescription: `Lorem Ipsum
-     is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry`,
+     is simply dummy text of the printing and typesetting industry`,
     sectionsCount: 8,
     language: 'English',
     imageUrl: 'https://picsum.photos/400/300',
@@ -83,7 +82,7 @@ const courseCards = [
     ratingValue: 4,
     studentsCount: 503,
     courseDescription: `Lorem Ipsum
-     is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry`,
+     is simply dummy text of the printing and typesetting industry`,
     sectionsCount: 8,
     language: 'English',
     imageUrl: 'https://picsum.photos/400/300',
@@ -95,7 +94,7 @@ const courseCards = [
     ratingValue: 4,
     studentsCount: 503,
     courseDescription: `Lorem Ipsum
-     is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry`,
+     is simply dummy text of the printing and typesetting industry`,
     sectionsCount: 8,
     language: 'English',
     imageUrl: 'https://picsum.photos/400/300',
@@ -356,8 +355,7 @@ const agentProfileData = {
   rating: '4.5',
   title: 'Customer Service Specialist',
   summary: `
-  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-  Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+  Lorem Ipsum is simply dummy text of the printing and typesetting industry.'s standard dummy text ever since the 1500s,
   when an unknown printer took a galley of type and scrambled it to make a type specimen book.
   It has survived not only five centuries, but also the leap into electronic typesetting,
   remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset

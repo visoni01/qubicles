@@ -34,7 +34,6 @@ const CreatePost = ({ initialPostData }) => {
 
   const fileInput = useRef()
   const dispatch = useDispatch()
-  console.log('fileInput =======', fileInput)
 
   const post = useCallback(() => {
     if (!(postText && postText.trim())) {

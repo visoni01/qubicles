@@ -61,8 +61,7 @@ CourseCard.defaultProps = {
   priceUsd: 12,
   ratingValue: 4.5,
   studentsCount: 503,
-  courseDescription: `Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-  Lorem Ipsum has been the industry`,
+  courseDescription: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
   sectionsCount: 8,
   language: 'English',
   imageUrl: 'https://picsum.photos/400/300',
