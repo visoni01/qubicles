@@ -49,69 +49,69 @@ export async function addUserSkills ({ user_id, skillIds }) {
   await XQodUserSkill.bulkCreate(skillEntities)
 }
 
-export async function getUserSkills ({ user_id }) {
-  const promises = [
-    () => XQodUserSkill.findAll({
-      include: [{
-        model: XQodSkill,
-        as: 'skill'
-      }, {
-        model: XUserActivity,
-        attributes: ['user_id', 'activity_value'],
-        where: {
-          record_id: user_id,
-          activity_type: 'endorsement'
-        },
-        as: 'endorsement',
-        include: [{
-          model: UserDetail,
-          attributes: ['first_name', 'last_name', 'profile_image', 'rating', 'work_title'],
-          as: 'userData'
-        }]
-      }],
+export async function getUserSkills ({ user_id, candidate_id }) {
+  let userSkills = await XQodUserSkill.findAll({
+    include: [{
+      model: XQodSkill,
+      as: 'skill'
+    }, {
+      model: XUserActivity,
+      attributes: ['user_id', 'activity_value'],
       where: {
-        user_id,
-        is_deleted: false
-      }
-    }),
-    () => XQodUserSkill.findAll({
+        record_id: candidate_id,
+        activity_type: 'endorsement'
+      },
+      required: false,
+      as: 'endorsement',
       include: [{
-        model: XQodSkill,
-        as: 'skill'
-      }],
-      where: {
-        user_id,
-        endorsed: 0,
-        is_deleted: false
-      }
-    })
-  ]
-
-  let [userSkills, extraData] = await Promise.all(promises.map(promise => promise()))
-
-  extraData = extraData.map(user => user.get({ plain: true }))
-  extraData = extraData.map(user => {
-    return {
-      ...user,
-      endorsement: []
+        model: UserDetail,
+        attributes: ['first_name', 'last_name', 'profile_image', 'rating', 'work_title'],
+        as: 'userData'
+      }]
+    }],
+    where: {
+      user_id: candidate_id,
+      is_deleted: false
     }
   })
 
   userSkills = userSkills.map(user => user.get({ plain: true }))
-  userSkills = userSkills.concat(extraData)
 
-  return userSkills
+  const skills = userSkills.map(userSkill => {
+    const { skill, endorsement } = userSkill
+    return ({
+      skillId: skill.skill_id,
+      skillName: skill.skill_name,
+      endorsedCount: userSkill.endorsed,
+      endorsements: endorsement.map(user => {
+        return {
+          id: user.user_id,
+          comment: user.activity_value,
+          userProfile: {
+            name: user.userData.first_name + ' ' + user.userData.last_name,
+            profilePic: user.userData.profile_image
+          },
+          rating: user.userData.rating,
+          workTitle: user.userData.work_title
+        }
+      })
+    })
+  })
+  const candidateSkills = {
+    candidateId: parseInt(candidate_id),
+    skills,
+    canEndorse: parseInt(candidate_id) !== user_id
+    // WIP only endorse when both agent are in same company
+  }
+  return candidateSkills
 }
 
-export async function updateUserSkills ({ candidate_id, updatedData: updatedSkills }) {
-  const promises = [
-    () => XQodUserSkill.findAll({
-      attributes: ['skill_id'],
-      where: { user_id: candidate_id }
-    })
-  ]
+export async function updateUserSkills ({ user_id, candidate_id, updatedData: updatedSkills }) {
+  let userSkills = await XQodUserSkill.findAll({
+    attributes: ['skill_id'],
+    where: { user_id: candidate_id }
+  })
 
-  let [userSkills] = await Promise.all(promises.map(promise => promise()))
   userSkills = userSkills.map(item => item.get({ plain: true }))
 
   let promiseArray = null
@@ -164,33 +164,87 @@ export async function updateUserSkills ({ candidate_id, updatedData: updatedSkil
 
   await Promise.all(promiseArray.map(promise => promise()))
 
-  userSkills = await getUserSkills({ user_id: candidate_id })
+  const candidateSkills = await getUserSkills({ user_id, candidate_id })
 
-  const skills = userSkills.map(userSkill => {
-    const { skill, endorsement } = userSkill
-    return ({
-      skillId: skill.skill_id,
-      skillName: skill.skill_name,
-      endorsedCount: userSkill.endorsed,
-      endorsements: endorsement.map(user => {
-        return {
-          id: user.user_id,
-          comment: user.activity_value,
-          userProfile: {
-            name: user.userData.first_name + ' ' + user.userData.last_name,
-            profilePic: user.userData.profile_image
-          },
-          rating: user.userData.rating,
-          workTitle: user.userData.work_title
+  return candidateSkills
+}
+
+export async function addUserEndorsement ({ user_id, candidate_id, updatedData }) {
+  const { skillId, comment } = updatedData
+  const promises = [
+    () => XQodUserSkill.findOne({
+      attributes: ['user_skill_id'],
+      raw: true,
+      where: {
+        user_id: candidate_id,
+        skill_id: skillId
+      }
+    }),
+    () => XQodUserSkill.increment(
+      'endorsed', {
+        where: {
+          user_id: candidate_id,
+          skill_id: skillId
         }
       })
+  ]
+
+  let [userSkillId] = await Promise.all(promises.map(promise => promise()))
+
+  if (userSkillId) {
+    userSkillId = userSkillId.user_skill_id
+
+    await XUserActivity.create({
+      user_id,
+      record_type: 'user',
+      record_id: candidate_id,
+      activity_type: 'endorsement',
+      activity_value: comment,
+      activity_custom: userSkillId
     })
-  })
-  const candidateSkills = {
-    candidateId: parseInt(candidate_id),
-    skills
+
+    const candidateSkills = await getUserSkills({ user_id, candidate_id })
+
+    return candidateSkills
   }
-  return candidateSkills
+}
+
+export async function removeUserEndorsement ({ user_id, candidate_id, updatedData }) {
+  const { skillId } = updatedData
+  const promises = [
+    () => XQodUserSkill.findOne({
+      attributes: ['user_skill_id'],
+      raw: true,
+      where: {
+        user_id: candidate_id,
+        skill_id: skillId
+      }
+    }),
+    () => XQodUserSkill.decrement(
+      'endorsed', {
+        where: {
+          user_id: candidate_id,
+          skill_id: skillId
+        }
+      })
+  ]
+
+  let [userSkillId] = await Promise.all(promises.map(promise => promise()))
+
+  if (userSkillId) {
+    userSkillId = userSkillId.user_skill_id
+
+    await XUserActivity.destroy({
+      where: {
+        user_id,
+        activity_custom: userSkillId
+      }
+    })
+
+    const candidateSkills = await getUserSkills({ user_id, candidate_id })
+
+    return candidateSkills
+  }
 }
 
 export async function addJobSkills (skillNames) {
