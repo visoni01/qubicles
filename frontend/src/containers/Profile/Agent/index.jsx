@@ -1,5 +1,6 @@
 /* eslint-disable complexity */
 import React, { useState, useRef, useCallback } from 'react'
+import { useSelector } from 'react-redux'
 import { Grid, Tabs, Tab } from '@material-ui/core'
 import LeftSection from './LeftRightSection'
 import RightSection from './LeftRightSection/wallet'
@@ -15,8 +16,9 @@ const AgentProfile = () => {
   const spacingTab = activeTab === 2 ? 8 : 12
   const currentSectionRef = useRef()
   const otherSectionRef = useRef()
-
   const [ selectedMenuItem, setSelectedMenuItem ] = useState(0)
+  const { settings } = useSelector((state) => state.agentDetails)
+  const { userDetails } = useSelector((state) => state.login)
 
   const scrollToTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -27,8 +29,25 @@ const AgentProfile = () => {
       <Grid container spacing={ 3 } justify='center'>
         <Grid item xl={ 3 } lg={ 3 } md={ 9 } sm={ 12 } xs={ 12 }>
           <div className='left-section'>
-            { activeTab === 0 && <LeftSection />}
-            { activeTab === 1 && <LeftSection />}
+            { (activeTab === 0 || activeTab === 1) && (
+            <LeftSection
+              userName={ settings.userName }
+              rating={ settings.rating }
+              name={ settings.fullName }
+              location={ `${ settings.city }, ${ settings.state } ` }
+              registrationDate={ settings.registrationDate }
+              title={ settings.title }
+              summary={ settings.summary }
+              profilePic={ settings.profilePic }
+              highestEducation={ settings.highestEducation }
+              yearsOfExperience={ settings.yearsOfExperience }
+              hourlyRate={ settings.hourlyRate }
+              preferredJob={ settings.preferredJob }
+              remoteJobs={ settings.remoteJobs }
+              onVacation={ settings.onVacation }
+              profileVisible={ settings.profileVisible }
+            />
+            )}
             { activeTab === 2 && (
             <SettingsMenu
               setSelectedMenuItem={ setSelectedMenuItem }
@@ -68,7 +87,7 @@ const AgentProfile = () => {
           </Grid>
           <Grid item xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 }>
             <div>
-              { activeTab === 0 && <Feed />}
+              { activeTab === 0 && <Feed userId={ userDetails.user_id } />}
               { activeTab === 1 && <Resume />}
               { activeTab === 2 && (
               <Settings

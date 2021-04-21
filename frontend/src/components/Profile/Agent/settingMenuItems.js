@@ -1,4 +1,6 @@
-import { AccountIcon, IntegrationIcon, RatesIcon } from '../../../assets/images/icons/profileSettingsIcons'
+import {
+  AccountIcon, StationIcon, StatsIcon, TeamsIcon,
+} from '../../../assets/images/icons/profileSettingsIcons'
 import AccountSection from '../../../containers/Profile/Agent/Settings/accountSection'
 import Teams from '../../../containers/Profile/Agent/Settings/teams'
 import Station from '../../../containers/Profile/Agent/Settings/station'
@@ -31,13 +33,13 @@ const settingMenuItems = [
   {
     id: 1,
     title: 'Teams',
-    icon: IntegrationIcon,
+    icon: TeamsIcon,
     component: Teams,
   },
   {
     id: 2,
     title: 'Station',
-    icon: RatesIcon,
+    icon: StationIcon,
     component: Station,
     subSections: [
       {
@@ -57,7 +59,7 @@ const settingMenuItems = [
   {
     id: 3,
     title: 'Stats',
-    icon: RatesIcon,
+    icon: StatsIcon,
     component: () => null,
     subSections: [
       {

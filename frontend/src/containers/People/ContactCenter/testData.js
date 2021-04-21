@@ -375,7 +375,7 @@ const testResumeIntroduction = {
   imageSrc: terry,
   name: 'Terry Garret',
   location: 'San Francisco, CA',
-  date: 'Member since 11/2020',
+  date: '11 November 2020',
   title: 'Customer Service Specialist',
   description: ` Over 25 years of experience. I am a seasoned marketing professional. I work well in  a dedicated home
   office with a desk. I am able to adhere to a time schedule and am flexible in my availability. I am college educated

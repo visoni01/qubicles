@@ -1,24 +1,45 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
 import { Box, Divider, Button } from '@material-ui/core'
+import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAward } from '@fortawesome/free-solid-svg-icons'
 import Introduction from '../../../People/ContactCenter/Introduction'
 import EditProfileModal from './editProfileModal'
 
-const AgentEditProfile = () => {
+const AgentEditProfile = ({
+  userName,
+  rating,
+  name,
+  location,
+  registrationDate,
+  title,
+  summary,
+  profilePic,
+  highestEducation,
+  yearsOfExperience,
+  hourlyRate,
+  preferredJob,
+  remoteJobs,
+  onVacation,
+  profileVisible,
+  candidateId,
+}) => {
   const [ openEditProfileModal, setOpenEditProfileModal ] = useState(false)
-  const { settings } = useSelector((state) => state.agentDetails)
+  const { userDetails } = useSelector((state) => state.login)
 
   return (
     <Box className='custom-box contact-center-info-root'>
       <Introduction
-        imageName={ settings.userName }
-        rating={ settings.rating }
-        imageSrc={ settings.profilePic }
-        name={ settings.fullName }
-        location={ `${ settings.city }, ${ settings.state } ` }
-        date={ settings.registrationDate }
+        imageName={ userName }
+        rating={ rating }
+        imageSrc={ profilePic }
+        name={ name }
+        location={ location }
+        date={ registrationDate }
       />
       <div className=' mt-20 mb-20'>
+        {!candidateId && (
         <Button
           className='wide-button'
           classes={ {
@@ -29,12 +50,39 @@ const AgentEditProfile = () => {
         >
           Edit Profile
         </Button>
+        )}
+      </div>
+      <div className=' mt-20 mb-20'>
+        {candidateId && candidateId !== userDetails.user_id && (
+          <Button
+            className='wide-button'
+            classes={ {
+              root: 'button-primary-small',
+              label: 'button-primary-small-label',
+            } }
+          >
+            Message
+          </Button>
+        )}
+      </div>
+      <div className=' mt-20 mb-20'>
+        {candidateId && candidateId !== userDetails.user_id && (
+          <Button
+            className='wide-button'
+            classes={ {
+              root: 'button-secondary-small',
+              label: 'button-secondary-small-label',
+            } }
+          >
+            Unfollow
+          </Button>
+        )}
       </div>
       <h4 className='h4 margin-top-bottom-10'>
-        {settings.title}
+        {title}
       </h4>
       <p className='para'>
-        {settings.summary}
+        {summary}
       </p>
       <Divider className='divider' />
       <div className='display-inline-flex justify-between is-fullwidth'>
@@ -57,28 +105,29 @@ const AgentEditProfile = () => {
         open={ openEditProfileModal }
         handleClose={ () => setOpenEditProfileModal(false) }
         agentInfo={ {
-          title: settings.title,
-          summary: settings.summary,
-          profilePic: settings.profilePic,
-          highestEducation: settings.highestEducation,
-          yearsOfExperience: settings.yearsOfExperience,
-          hourlyRate: settings.hourlyRate,
-          preferredJob: settings.preferredJob,
-          remoteJobs: settings.remoteJobs,
-          onVacation: settings.onVacation,
-          profileVisible: settings.profileVisible,
+          title,
+          summary,
+          profilePic,
+          highestEducation,
+          yearsOfExperience,
+          hourlyRate,
+          preferredJob,
+          remoteJobs,
+          onVacation,
+          profileVisible,
         } }
       />
       <Divider className='divider' />
       <div className='mt-20'>
         <h4 className='h4 mb-5'>Highest level of Education</h4>
-        <p className='para'>{ settings.highestEducation }</p>
+        <p className='para'>{ highestEducation }</p>
       </div>
       <div className='mb-20 mt-20'>
         <h4 className='h4 mb-5'>Years of Experience</h4>
-        <p className='para'>{`${ settings.yearsOfExperience } years`}</p>
+        <p className='para'>{`${ yearsOfExperience } years`}</p>
       </div>
       <Divider className='divider' />
+      {!candidateId && (
       <div>
         <div className='mt-20 mb-10'>
           <Button
@@ -93,7 +142,6 @@ const AgentEditProfile = () => {
 
         </div>
         <div className='mt-10'>
-
           <Button
             classes={ {
               root: 'button-secondary-small',
@@ -105,8 +153,38 @@ const AgentEditProfile = () => {
           </Button>
         </div>
       </div>
+      )}
+      {candidateId && <FontAwesomeIcon className='custom-fa-icon sz-xxl' icon={ faAward } />}
     </Box>
   )
+}
+
+AgentEditProfile.propTypes = {
+  userName: PropTypes.string,
+  rating: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
+  registrationDate: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  summary: PropTypes.string.isRequired,
+  profilePic: PropTypes.string.isRequired,
+  highestEducation: PropTypes.string.isRequired,
+  yearsOfExperience: PropTypes.string.isRequired,
+  hourlyRate: PropTypes.number.isRequired,
+  preferredJob: PropTypes.string,
+  remoteJobs: PropTypes.bool,
+  onVacation: PropTypes.bool,
+  profileVisible: PropTypes.bool,
+  candidateId: PropTypes.number,
+}
+
+AgentEditProfile.defaultProps = {
+  userName: null,
+  candidateId: null,
+  preferredJob: null,
+  remoteJobs: null,
+  onVacation: null,
+  profileVisible: null,
 }
 
 export default AgentEditProfile

@@ -31,7 +31,7 @@ export class PeopleGetAgentResumeService extends ServiceBase {
           location: userDetails.city + ', ' + userDetails.state,
           languages,
           highestEducation: userDetails.highest_education,
-          yearsOfExpirience: userDetails.years_of_experience,
+          yearsOfExperience: userDetails.years_of_experience,
           profileName: userDetails.work_title,
           profileImage: userDetails.profile_image,
           profileDescription: userDetails.work_overview,

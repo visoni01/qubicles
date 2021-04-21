@@ -1,18 +1,41 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { AvatarGroup } from '@material-ui/lab'
 import { Avatar, Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
+import { useDispatch, useSelector } from 'react-redux'
 import EndorsementsModal from './endorsementsModal'
+import AddEndorseModal from './addEndorseModal'
+import { agentResumeSkillsStart } from '../../../../../redux-saga/redux/people'
+import { ThumbUpIcon } from '../../../../../assets/images/icons/endorsementIcons'
 
 const AgentSkillSection = ({
-  agentResumeSkills,
+  agentResumeSkills, canEndorse, candidateId,
 }) => {
   const [ skills, setSkills ] = useState(agentResumeSkills.filter((skill, index) => index < 3))
   const [ showAllSkills, setShowAllSkills ] = useState(false)
   const [ openEndorsementModal, setOpenEndorsementModal ] = useState(false)
   const [ endorsementData, setEndorsementData ] = useState({})
+  const [ isAddEndorseModalOpen, setIsAddEndorseModalOpen ] = useState(false)
+  const [ hasEndorsed, setHasEndorsed ] = useState(new Set())
+  const [ currentSkill, setCurrentSkill ] = useState({ skillId: null, skillName: '' })
+  const { userDetails } = useSelector((state) => state.login)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (candidateId !== userDetails.user_id) {
+      const endorsedSkills = agentResumeSkills.filter((skill) => {
+        for (let index = 0; index < skill.endorsements.length; index += 1) {
+          if (skill.endorsements[ index ].id === userDetails.user_id) {
+            return true
+          }
+        }
+        return false
+      }).map((skill) => skill.skillId)
+      setHasEndorsed(new Set(endorsedSkills))
+    }
+  }, [ agentResumeSkills, candidateId, userDetails.user_id ])
 
   const handleOpenEndorsementModal = useCallback(({ skillName, endorsements }) => {
     setEndorsementData({
@@ -30,15 +53,60 @@ const AgentSkillSection = ({
     }
     setShowAllSkills((state) => !state)
   }, [ agentResumeSkills, showAllSkills ])
+
+  const handleRemoveEndorse = useCallback((skillId) => {
+    dispatch(agentResumeSkillsStart({
+      requestType: 'UPDATE',
+      candidateId,
+      updatedDataType: 'RemoveEndorse',
+      updatedData: {
+        skillId,
+      },
+    }))
+  }, [ dispatch, candidateId ])
+
+  const handleEndorsementChange = useCallback(({ skillId, skillName }) => {
+    if (!hasEndorsed.has(skillId)) {
+      setCurrentSkill({ skillId, skillName })
+      setIsAddEndorseModalOpen(true)
+    } else {
+      handleRemoveEndorse(skillId)
+    }
+  }, [ hasEndorsed, handleRemoveEndorse ])
+
+  const handleClose = useCallback(() => {
+    setIsAddEndorseModalOpen(false)
+    setCurrentSkill({ skillId: null, skillName: '' })
+  }, [ ])
+
   return (
     <>
       <div className='skill-section resume-section is-fullwidth'>
         <div className='skills-wrap'>
           {skills.map((skill) => (
             <div key={ skill.skillId } className='list-divider'>
-              <h4 className='h4 mb-5'>
-                {skill.skillName}
-              </h4>
+              <div className='display-inline-flex is-fullwidth align-items-end mb-5'>
+                <h4 className='h4'>
+                  {skill.skillName}
+                </h4>
+                {canEndorse && userDetails.user_code === 'agent' && (
+                  <ThumbUpIcon
+                    className={ `custom-svg-icon ml-10 like-button
+                      ${ hasEndorsed.has(skill.skillId) ? 'color-primary' : '' }` }
+                    onClick={ () => handleEndorsementChange({ skillId: skill.skillId, skillName: skill.skillName }) }
+                  />
+                )}
+              </div>
+              {isAddEndorseModalOpen ? (
+                <AddEndorseModal
+                  open={ isAddEndorseModalOpen }
+                  handleClose={ handleClose }
+                  skillId={ currentSkill.skillId }
+                  skillName={ currentSkill.skillName }
+                  candidateId={ candidateId }
+                  hasEndorsed={ hasEndorsed.has(currentSkill.skillId) }
+                />
+              ) : ''}
               <div className='display-inline-flex mt-5 mb-20'>
                 {skill.endorsedCount > 0 && (
                   <AvatarGroup max={ 3 } spacing='small' className='avatar-group'>
@@ -99,6 +167,8 @@ AgentSkillSection.defaultProps = {
 
 AgentSkillSection.propTypes = {
   agentResumeSkills: PropTypes.arrayOf(PropTypes.any),
+  canEndorse: PropTypes.bool.isRequired,
+  candidateId: PropTypes.number.isRequired,
 }
 
 export default AgentSkillSection

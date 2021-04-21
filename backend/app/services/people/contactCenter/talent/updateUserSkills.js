@@ -32,9 +32,9 @@ export class PeopleUpdateUserSkillsService extends ServiceBase {
         const userSkills = await updateUserSkills({ user_id, candidate_id, updatedData })
         return userSkills
       } else if (updatedDataType === 'AddEndorse') {
-        await addUserEndorsement({ user_id, candidate_id, updatedData })
+        return await addUserEndorsement({ user_id, candidate_id, updatedData })
       } else if (updatedDataType === 'RemoveEndorse') {
-        await removeUserEndorsement({ user_id, candidate_id, updatedData })
+        return await removeUserEndorsement({ user_id, candidate_id, updatedData })
       }
     } catch (err) {
       logger.error(`${getErrorMessageForService('PeopleUpdateUserSkillsService')} ${err}`)

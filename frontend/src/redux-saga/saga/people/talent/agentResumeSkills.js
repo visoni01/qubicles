@@ -26,11 +26,26 @@ function* agentResumeSkillsWorker(action) {
         const { data } = yield People.updateUserSkills({ candidateId, updatedData, updatedDataType })
         yield put(agentResumeSkillsSuccess({
           agentResumeSkills: {
-            candidateId,
+            candidateId: data.candidateId,
             skills: data.skills,
+            canEndorse: data.canEndorse,
           },
         }))
-        yield put(showSuccessMessage({ msg: 'Skills and Languages updated successfuly' }))
+        switch (updatedDataType) {
+          case 'Skills':
+            yield put(showSuccessMessage({ msg: 'Skills and Languages updated successfuly' }))
+            break
+          case 'AddEndorse': {
+            yield put(showSuccessMessage({ msg: 'Endorsed successfuly' }))
+            break
+          }
+          case 'RemoveEndorse': {
+            yield put(showSuccessMessage({ msg: 'Removed endorsement successfuly' }))
+            break
+          }
+          default:
+            break
+        }
         break
       }
       default: break

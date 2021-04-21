@@ -44,6 +44,8 @@ const ROUTE_PATHS = {
   JOB_PREVIEW: `${ JOB_ROUTE }/preview`,
   OTHER_COMPANY_FEED: `${ COMPANY_PROFILE_ROUTE }/:companyId/feed`,
   OTHER_COMPANY_ABOUT: `${ COMPANY_PROFILE_ROUTE }/:companyId/about`,
+  OTHER_AGENT_FEED: `${ PROFILE_ROUTE }/:userId/feed`,
+  OTHER_AGENT_RESUME: `${ PROFILE_ROUTE }/:userId/resume`,
   WALLET: '/wallet',
 }
 

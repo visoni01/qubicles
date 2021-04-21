@@ -125,6 +125,13 @@
 
 .skills-page-root{
   .skill-section {
+    .skills-wrap {
+      .like-button {
+        :hover {
+          cursor: pointer;
+        }
+      }
+    }
     .skill-set {
       margin-top: 5px;
     }

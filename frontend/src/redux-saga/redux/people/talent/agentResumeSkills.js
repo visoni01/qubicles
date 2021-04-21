@@ -8,6 +8,7 @@ const initialState = {
   agentResumeSkills: {
     candidateId: null,
     skills: [],
+    canEndorse: null,
   },
   requestType: '',
 }

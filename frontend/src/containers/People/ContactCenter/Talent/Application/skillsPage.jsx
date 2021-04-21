@@ -8,11 +8,13 @@ import AgentSkillSection from './agentSkillSection'
 import SkillsAndEndorsementsSkeleton from '../Skeletons/skillsAndEndorsements'
 import EditSkills from './editSkills'
 
+// eslint-disable-next-line complexity
 const SkillsPage = ({
   candidateId, languages, userType,
 }) => {
   const dispatch = useDispatch()
   const { isLoading, agentResumeSkills } = useSelector((state) => state.agentResumeSkills)
+  const { userDetails } = useSelector((state) => state.login)
   const [ openEditSkillsModal, setOpenEditSkillsModal ] = useState(false)
 
   useEffect(() => {
@@ -29,7 +31,7 @@ const SkillsPage = ({
     <div className='mb-25 custom-box resume-root skills-page-root has-fullwidth'>
       <div className='skills-endorsements-box'>
         <h3 className='h3 mb-10'>Skills & Endorsments</h3>
-        {userType === 'self' && (
+        {(userType === 'self' || (userType === 'other' && userDetails.user_id === candidateId)) && (
           <Button
             classes={ {
               root: 'button-secondary-small',
@@ -67,6 +69,8 @@ const SkillsPage = ({
         agentResumeSkills.skills.length ? (
           <AgentSkillSection
             agentResumeSkills={ agentResumeSkills.skills }
+            canEndorse={ userType === 'other' && agentResumeSkills.canEndorse }
+            candidateId={ candidateId }
           />
         ) : <p className='para sz-xl mt-20 text-center'>No Skills Present</p>
       )}
