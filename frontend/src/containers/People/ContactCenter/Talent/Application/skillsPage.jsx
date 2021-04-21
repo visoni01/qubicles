@@ -30,7 +30,7 @@ const SkillsPage = ({
   return (
     <div className='mb-25 custom-box resume-root skills-page-root has-fullwidth'>
       <div className='skills-endorsements-box'>
-        <h3 className='h3 mb-10'>Skills & Endorsments</h3>
+        <h3 className='h3 mb-10'>Skills & Endorsements</h3>
         {(userType === 'self' || (userType === 'other' && userDetails.user_id === candidateId)) && (
           <Button
             classes={ {

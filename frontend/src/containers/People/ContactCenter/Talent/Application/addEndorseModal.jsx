@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent, DialogTitle, IconButton, TextField, Button,
+  Dialog, DialogActions, DialogContent, IconButton, TextField, Button,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -33,32 +33,20 @@ const AddEndorseModal = ({
   }, [ dispatch, skillId, comment, candidateId, handleClose ])
 
   const handleCancel = useCallback(() => {
-    dispatch(agentResumeSkillsStart({
-      requestType: 'UPDATE',
-      candidateId,
-      updatedDataType: 'AddEndorse',
-      updatedData: {
-        skillId,
-        comment: '',
-      },
-    }))
+    setComment('')
     handleClose()
-  }, [ dispatch, skillId, candidateId, handleClose ])
+  }, [ handleClose ])
 
   return (
     <Dialog
       disableScrollLock
       open={ open }
       onClose={ handleCancel }
-      fullWidth
-      maxWidth='sm'
+      maxWidth='xs'
       classes={ { paper: 'endorsement-modal' } }
       className='custom-modal auto-height'
     >
       <div className='header'>
-        <DialogTitle>
-          <div className='h3'>{ `You successfully endorsed for ${ skillName }!` }</div>
-        </DialogTitle>
         <DialogActions className='cross-button'>
           <IconButton
             className='is-size-6'
@@ -69,6 +57,7 @@ const AddEndorseModal = ({
         </DialogActions>
       </div>
       <DialogContent>
+        <h3 className='h3 mb-20 mt-10'>{ `You have successfully endorsed for ${ skillName }!` }</h3>
         <div className='mb-20'>
           <TextField
             className='is-fullwidth'
@@ -79,20 +68,19 @@ const AddEndorseModal = ({
             rows={ 7 }
             defaultValue={ comment }
             onChange={ handleComment }
-            placeholder='Add a short note to give your endoresement more significance (optional)'
+            placeholder='Add a short note to give your endorsement more significance (optional)'
           />
         </div>
       </DialogContent>
       <DialogActions className='modal-actions'>
         <Button
           classes={ {
-            root: 'button-primary-small',
+            root: 'button-primary-small is-fullwidth',
             label: 'button-primary-small-label',
           } }
           onClick={ handleEndorse }
-          disabled={ !comment }
         >
-          Save
+          Done
         </Button>
       </DialogActions>
     </Dialog>
