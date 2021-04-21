@@ -57,7 +57,7 @@ const AddEndorseModal = ({
         </DialogActions>
       </div>
       <DialogContent>
-        <h3 className='h3 mb-20 mt-10'>{ `You have successfully endorsed for ${ skillName }!` }</h3>
+        <h3 className='h3 mb-20 mt-10 mr-20'>{ `You are endorsing for skill ${ skillName }!` }</h3>
         <div className='mb-20'>
           <TextField
             className='is-fullwidth'

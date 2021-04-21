@@ -97,16 +97,6 @@ const AgentSkillSection = ({
                   />
                 )}
               </div>
-              {isAddEndorseModalOpen ? (
-                <AddEndorseModal
-                  open={ isAddEndorseModalOpen }
-                  handleClose={ handleClose }
-                  skillId={ currentSkill.skillId }
-                  skillName={ currentSkill.skillName }
-                  candidateId={ candidateId }
-                  hasEndorsed={ hasEndorsed.has(currentSkill.skillId) }
-                />
-              ) : ''}
               <div className='display-inline-flex mt-5 mb-20'>
                 {skill.endorsedCount > 0 && (
                   <AvatarGroup max={ 3 } spacing='small' className='avatar-group'>
@@ -155,6 +145,16 @@ const AgentSkillSection = ({
           handleClose={ () => setOpenEndorsementModal(false) }
           endorsementsList={ endorsementData.endorsements }
           skillName={ endorsementData.skillName }
+        />
+      ) : ''}
+      {isAddEndorseModalOpen ? (
+        <AddEndorseModal
+          open={ isAddEndorseModalOpen }
+          handleClose={ handleClose }
+          skillId={ currentSkill.skillId }
+          skillName={ currentSkill.skillName }
+          candidateId={ candidateId }
+          hasEndorsed={ hasEndorsed.has(currentSkill.skillId) }
         />
       ) : ''}
     </>
