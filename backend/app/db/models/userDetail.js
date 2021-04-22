@@ -43,9 +43,20 @@ module.exports = (sequelize, DataTypes) => {
     is_post_signup_completed: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
+    },
+    createdAt: {
+      field: 'created_on',
+      type: DataTypes.DATE
+    },
+    updatedAt: {
+      field: 'updated_on',
+      type: DataTypes.DATE
     }
   },
-  { tableName: 'x_user_details' })
+  {
+    tableName: 'x_user_details',
+    timestamps: true
+  })
   UserDetail.associate = function (models) {
     UserDetail.hasMany(models.XQodUserSkill, { as: 'userSkills', foreignKey: 'user_id' })
   }

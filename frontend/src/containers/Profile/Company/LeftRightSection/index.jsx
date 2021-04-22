@@ -8,8 +8,6 @@ import EditProfileModal from './editProfileModal'
 
 const ContactCenterEditProfile = ({
   clientId,
-  companyRating,
-  registrationDate,
 }) => {
   const [ openEditProfileModal, setOpenEditProfileModal ] = useState(false)
   const { settings } = useSelector((state) => state.clientDetails)
@@ -20,11 +18,11 @@ const ContactCenterEditProfile = ({
         <Introduction
           key={ clientId }
           imageName={ settings.companyName }
-          rating={ companyRating }
+          rating={ settings.rating }
           imageSrc={ settings.profilePic }
           name={ settings.companyName }
           location={ `${ settings.city }, ${ settings.state } ` }
-          date={ registrationDate }
+          date={ settings.registrationDate }
         />
         <div className=' mt-20 mb-20'>
           <Button
@@ -82,13 +80,9 @@ const ContactCenterEditProfile = ({
 
 ContactCenterEditProfile.defaultProps = {
   clientId: null,
-  companyRating: 5,
-  registrationDate: '2020-11-18',
 }
 ContactCenterEditProfile.propTypes = {
   clientId: PropTypes.number,
-  companyRating: PropTypes.number,
-  registrationDate: PropTypes.string,
 }
 
 export default ContactCenterEditProfile

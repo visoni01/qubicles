@@ -354,9 +354,9 @@ export async function getAgentJobProfiles ({
   if (requiredRating) {
     const { greaterThanEq } = requiredRating
     if (greaterThanEq) {
-      resourceDefQuery = {
-        ...resourceDefQuery,
-        avg_peer_rating: {
+      userDetailQuery = {
+        ...userDetailQuery,
+        rating: {
           [Op.gte]: greaterThanEq
         }
       }
@@ -377,6 +377,7 @@ export async function getAgentJobProfiles ({
         'first_name',
         'last_name',
         'city',
+        'rating',
         'state',
         'primary_language',
         'work_title',
@@ -419,6 +420,7 @@ export async function getAgentResume ({ candidateId }) {
         'last_name',
         'city',
         'state',
+        'rating',
         'primary_language',
         'other_languages',
         'highest_education',

@@ -71,7 +71,7 @@ export class PeopleGetTalentCardsService extends ServiceBase {
             agentResourceId: profile.resource_def_id,
             ratePerHourDollar: profile.desired_min_pay,
             availability: profile.status,
-            candidateRating: profile.avg_peer_rating,
+            candidateRating: userDetails.rating,
             skills: userDetails.userSkills.map(userSkill => ({
               skillId: userSkill.skill_id,
               skillName: userSkill.skill.skill_name,
