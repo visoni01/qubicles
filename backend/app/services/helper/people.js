@@ -5,6 +5,7 @@ import {
 import { createNewEntity } from './common'
 import { getOne } from './crud'
 import { Op } from 'sequelize'
+import _ from 'lodash'
 
 export async function createAgentJobProfile ({
   user_id,
@@ -114,7 +115,7 @@ export async function updateUserSkills ({ user_id, candidate_id, updatedData: up
 
   userSkills = userSkills.map(item => item.get({ plain: true }))
 
-  let promiseArray = null
+  let promiseArray = []
 
   if (!userSkills.length) {
     const bulkDataToBeAdded = updatedSkills.map(item => {
@@ -128,38 +129,53 @@ export async function updateUserSkills ({ user_id, candidate_id, updatedData: up
   } else {
     const currentSkills = userSkills.map(item => item.skill_id)
 
-    const flagToBeChanged = currentSkills.filter(item => updatedSkills.includes(item))
+    const skillsAlreadyAdded = _.intersection(currentSkills, updatedSkills)
 
-    const skillsToBeAdded = updatedSkills.filter(item => !currentSkills.includes(item))
+    const skillsToBeAdded = _.difference(updatedSkills, currentSkills)
 
-    const skillsToBeRemoved = currentSkills.filter(item => !updatedSkills.includes(item))
+    const skillsToBeRemoved = _.difference(currentSkills, updatedSkills)
 
-    const bulkDataToBeAdded = skillsToBeAdded.map(item => {
-      return {
-        user_id: candidate_id,
-        skill_id: item
-      }
-    })
+    if (skillsAlreadyAdded && skillsAlreadyAdded.length) {
+      promiseArray = [
+        ...promiseArray,
+        () => XQodUserSkill.update({
+          is_deleted: false
+        }, {
+          where: {
+            user_id: candidate_id,
+            skill_id: skillsAlreadyAdded
+          }
+        })
+      ]
+    }
 
-    promiseArray = [
-      () => XQodUserSkill.update({
-        is_deleted: false
-      }, {
-        where: {
+    if (skillsToBeAdded && skillsToBeAdded.length) {
+      const bulkDataToBeAdded = skillsToBeAdded.map(item => {
+        return {
           user_id: candidate_id,
-          skill_id: flagToBeChanged
-        }
-      }),
-      () => XQodUserSkill.bulkCreate(bulkDataToBeAdded),
-      () => XQodUserSkill.update({
-        is_deleted: true
-      }, {
-        where: {
-          user_id: candidate_id,
-          skill_id: skillsToBeRemoved
+          skill_id: item
         }
       })
-    ]
+
+      promiseArray = [
+        ...promiseArray,
+        () => XQodUserSkill.bulkCreate(bulkDataToBeAdded)
+      ]
+    }
+
+    if (skillsToBeRemoved && skillsToBeRemoved.length) {
+      promiseArray = [
+        ...promiseArray,
+        () => XQodUserSkill.update({
+          is_deleted: true
+        }, {
+          where: {
+            user_id: candidate_id,
+            skill_id: skillsToBeRemoved
+          }
+        })
+      ]
+    }
   }
 
   await Promise.all(promiseArray.map(promise => promise()))
