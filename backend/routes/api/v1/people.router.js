@@ -9,6 +9,9 @@ const peopleRouter = express.Router(args)
 peopleRouter.route('/talent/cards')
   .get(isAuthenticated, talentController.getTalentCards)
 
+peopleRouter.route('/top-talent')
+  .get(isAuthenticated, talentController.getTopTalent)
+
 peopleRouter.route('/skills/:candidate_id')
   .get(isAuthenticated, talentController.getUserSkills)
 

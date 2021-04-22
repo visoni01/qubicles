@@ -6,10 +6,20 @@ import {
 import Responder from '../../server/expressResponder'
 import { PeopleGetJobSkillsService } from '../services/people/contactCenter'
 import { PeopleGetAgentResumeService } from '../services/people/contactCenter/talent/getAgentResume'
+import { PeopleGetTopTalentService } from '../services/people/contactCenter/talent/getTopTalent'
 
 export default class TalentController {
   static async getTalentCards (req, res) {
     const talentCards = await PeopleGetTalentCardsService.execute({ ...req.query, ...req.body })
+    if (talentCards.successful) {
+      Responder.success(res, talentCards.result)
+    } else {
+      Responder.failed(res, talentCards.errors)
+    }
+  }
+
+  static async getTopTalent (req, res) {
+    const talentCards = await PeopleGetTopTalentService.execute({ ...req.query, ...req.body })
     if (talentCards.successful) {
       Responder.success(res, talentCards.result)
     } else {

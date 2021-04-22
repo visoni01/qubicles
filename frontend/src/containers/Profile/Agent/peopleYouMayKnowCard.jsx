@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
-import UserCards from '../../../../components/CommonModal/userCards'
-import { fetchAgentTopDataStart } from '../../../../redux-saga/redux/people'
-import { PROFILE_ROUTE } from '../../../../routes/routesPath'
+import UserCards from '../../../components/CommonModal/userCards'
+import { fetchAgentTopDataStart } from '../../../redux-saga/redux/people'
+import { PROFILE_ROUTE } from '../../../routes/routesPath'
 
-const TopTalent = ({ heading }) => {
+const PeopleYouMayKnow = ({ heading }) => {
   const { agentTopData, isLoading } = useSelector((state) => state.agentTopData)
   const dispatch = useDispatch()
   useEffect(() => {
     if (agentTopData.length === 0) {
       dispatch(fetchAgentTopDataStart({
-        dataType: 'top-talent',
+        dataType: 'people-you-may-know',
       }))
     }
   }, [ dispatch, agentTopData ])
@@ -33,8 +33,8 @@ const TopTalent = ({ heading }) => {
   )
 }
 
-TopTalent.propTypes = {
+PeopleYouMayKnow.propTypes = {
   heading: PropTypes.string.isRequired,
 }
 
-export default TopTalent
+export default PeopleYouMayKnow

@@ -23,7 +23,7 @@ const UserCardItems = ({
           readOnly
           size='small'
           value={ itemRating }
-          precision={ 0.1 }
+          precision={ 0.5 }
         />
         <p className='para light'>
           {itemSubHeading}

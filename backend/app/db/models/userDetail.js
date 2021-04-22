@@ -59,6 +59,8 @@ module.exports = (sequelize, DataTypes) => {
   })
   UserDetail.associate = function (models) {
     UserDetail.hasMany(models.XQodUserSkill, { as: 'userSkills', foreignKey: 'user_id' })
+    UserDetail.hasOne(models.User, { as: 'user', foreignKey: 'user_id' })
+    UserDetail.hasMany(models.XQodApplication, { foreignKey: 'user_id' })
   }
 
   return UserDetail

@@ -1,5 +1,6 @@
 import Responder from '../../server/expressResponder'
 import { AgentGetAllJobsService } from '../services/people/agent/job'
+import { AgentGetPeopleYouMayKnowService } from '../services/people/agent/job/getPeopleYouMayKnow'
 import { AgentGetTopCompaniesService } from '../services/people/agent/job/getTopCompanies'
 
 export default class agentJobController {
@@ -14,6 +15,15 @@ export default class agentJobController {
 
   static async getTopCompanies (req, res) {
     const topCompaniesData = await AgentGetTopCompaniesService.execute({ ...req.body, ...req.query })
+    if (topCompaniesData.successful) {
+      Responder.success(res, topCompaniesData.result)
+    } else {
+      Responder.failed(res, topCompaniesData.errors)
+    }
+  }
+
+  static async getPeoplpeYouMayKnow (req, res) {
+    const topCompaniesData = await AgentGetPeopleYouMayKnowService.execute({ ...req.body, ...req.query })
     if (topCompaniesData.successful) {
       Responder.success(res, topCompaniesData.result)
     } else {

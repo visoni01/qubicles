@@ -1,6 +1,6 @@
 import {
   XQodResourceDef, XQodUserSkill, XQodSkill,
-  UserDetail, XQodApplication, XUserActivity
+  UserDetail, XQodApplication, XUserActivity, User
 } from '../../db/models'
 import { createNewEntity } from './common'
 import { getOne } from './crud'
@@ -444,7 +444,45 @@ export async function getAgentResume ({ candidateId }) {
       user_id: candidateId
     }
   })
-  return agentResume && agentResume.get({ plain: true })
+
+  if (agentResume) {
+    return agentResume.get({ plain: true })
+  }
+
+  const userDetailsResult = await UserDetail.findOne({
+    attributes: [
+      'user_id',
+      'first_name',
+      'last_name',
+      'city',
+      'state',
+      'primary_language',
+      'other_languages',
+      'highest_education',
+      'years_of_experience',
+      'work_title',
+      'work_overview',
+      'profile_image'
+    ],
+    include: [{
+      model: XQodUserSkill,
+      attributes: ['skill_id', 'endorsed'],
+      as: 'userSkills',
+      include: [{
+        model: XQodSkill,
+        attributes: ['skill_name'],
+        as: 'skill'
+      }]
+    }],
+    where: {
+      user_id: candidateId
+    }
+  })
+
+  if (userDetailsResult) {
+    const UserDetail = userDetailsResult.get({ plain: true })
+    return { UserDetail }
+  }
 }
 
 export async function postAgentApplication ({
@@ -473,4 +511,25 @@ export async function postAgentApplication ({
     }
   })
   return application
+}
+
+export const getTopTalent = async () => {
+  const topTalent = await UserDetail.findAll({
+    attributes: [
+      'user_id', 'work_title', 'rating', 'profile_image'
+    ],
+    include: [
+      {
+        model: User,
+        as: 'user',
+        attributes: ['full_name'],
+        where: { user_code: 'agent' }
+      }
+    ],
+    limit: 10,
+    order: [
+      ['rating', 'DESC']
+    ]
+  })
+  return topTalent.map(talent => talent.get({ plain: true }))
 }

@@ -13,6 +13,7 @@ import fetchTopCompaniesReducer from './agent/job/getTopCompanies'
 import jobApplicationReducer from './application/jobApplication'
 import jobApplicationListReducer from './application/jobApplicationList'
 import agentJobApplicationsReducer from './application/agentJobApplications'
+import agentTopDataReducer from './talent/getAgentTopData'
 
 const peopleReducers = {
   jobSkills: jobSkillsReducer,
@@ -30,6 +31,7 @@ const peopleReducers = {
   jobApplication: jobApplicationReducer,
   jobApplicationList: jobApplicationListReducer,
   agentJobApplications: agentJobApplicationsReducer,
+  agentTopData: agentTopDataReducer,
 }
 
 export default peopleReducers
@@ -49,3 +51,4 @@ export * from './application/jobApplication'
 export * from './application/jobApplicationList'
 export * from './application/agentJobApplications'
 export * from './job/actions'
+export * from './talent/getAgentTopData'

@@ -181,6 +181,18 @@ class People {
     const response = await apiClient.getRequest('/agent/jobs/top-companies')
     return response
   }
+
+  // Top Talent API
+  static async fetchTopTalent() {
+    const response = await apiClient.getRequest('/people/top-talent')
+    return response
+  }
+
+  // Top Talent API
+  static async fetchPeopleYouMayKnow() {
+    const response = await apiClient.getRequest('/agent/jobs/people-you-may-know')
+    return response
+  }
 }
 
 export default People

@@ -11,6 +11,7 @@ import fetchTopCompanies from './agent/job/fetchTopCompanies'
 import jobApplication from './application/jobApplication'
 import jobApplicationList from './application/jobApplicationList'
 import agentJobApplications from './application/agentJobApplications'
+import fetchAgentTopData from './talent/fetchAgentTopData'
 
 const peopleWatcherFunctions = [
   () => peopleTalentCards(),
@@ -26,6 +27,7 @@ const peopleWatcherFunctions = [
   () => jobApplication(),
   () => jobApplicationList(),
   () => agentJobApplications(),
+  () => fetchAgentTopData(),
 ]
 
 export default peopleWatcherFunctions

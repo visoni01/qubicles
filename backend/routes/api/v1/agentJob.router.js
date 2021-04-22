@@ -11,4 +11,7 @@ agentJobRouter.route('/')
 agentJobRouter.route('/top-companies')
   .get(isAuthenticated, agentJobController.getTopCompanies)
 
+agentJobRouter.route('/people-you-may-know')
+  .get(isAuthenticated, agentJobController.getPeoplpeYouMayKnow)
+
 export { agentJobRouter }

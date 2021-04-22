@@ -7,13 +7,15 @@ import {
   XQodJobSkill,
   XQodJobCourse,
   XClient,
-  UserDetail
+  UserDetail,
+  User
 } from '../../db/models'
 import Sequelize, { Op } from 'sequelize'
 import { createNewEntity, aggregate, updateEntity } from '../helper'
 import _ from 'lodash'
 import { getUserDetailsByClientId } from './user'
 import { countJobApplicationsByJobId } from './jobApplication'
+import { getAll } from './crud'
 
 export async function getRecentJobsByClient ({ client_id, limit = 5 }) {
   const jobDetails = []
@@ -528,4 +530,39 @@ export async function getTopCompanies () {
     where: xQodJobQuery
   })
   return topCompanies.map(jobs => jobs.get({ plain: true }))
+}
+
+export const getPeoplpeYouMayKnow = async ({ user_id }) => {
+  const userApplications = await getAll({
+    model: XQodApplication,
+    data: {
+      user_id,
+      status: 'hired'
+    },
+    attributes: ['client_id']
+  })
+  const userCompanies = new Set(userApplications.map(application => application.client_id))
+  const knownPeople = await UserDetail.findAll({
+    attributes: [
+      'user_id', 'work_title', 'rating', 'profile_image'
+    ],
+    include: [
+      {
+        model: User,
+        as: 'user',
+        attributes: ['full_name'],
+        where: { user_code: 'agent' }
+      },
+      {
+        model: XQodApplication,
+        where: {
+          client_id: Array.from(userCompanies),
+          status: 'hired',
+          [Op.not]: [{ user_id }]
+        }
+      }
+    ],
+    limit: 10
+  })
+  return knownPeople.map(people => people.get({ plain: true }))
 }

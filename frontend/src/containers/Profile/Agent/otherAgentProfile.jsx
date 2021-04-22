@@ -5,7 +5,6 @@ import {
   useParams, useLocation, useHistory,
 } from 'react-router-dom'
 import { Grid, Tabs, Tab } from '@material-ui/core'
-import PrimaryContact from '../Company/LeftRightSection/primaryContact'
 import Feed from './Feed'
 import './styles.scss'
 import { PROFILE_ROUTE } from '../../../routes/routesPath'
@@ -16,6 +15,7 @@ import AgentReviews from './Resume/agentReviews'
 import { fetchAgentResumeStart } from '../../../redux-saga/redux/people'
 import LeftSection from './LeftRightSection'
 import IntroductionSkeleton from '../../../components/People/ContactCenter/SkeletonLoader/contactCenterSkeleton'
+import PeopleYouMayKnow from './peopleYouMayKnowCard'
 
 const OtherAgentProfile = () => {
   const { agentResume, isLoading } = useSelector((state) => state.agentResume)
@@ -107,7 +107,7 @@ const OtherAgentProfile = () => {
         </Grid>
 
         <Grid item xl={ 3 } lg={ 3 } md={ 9 } sm={ 12 } xs={ 12 }>
-          <PrimaryContact heading='People you may know' />
+          <PeopleYouMayKnow heading='People you may know' />
         </Grid>
       </Grid>
     </div>
