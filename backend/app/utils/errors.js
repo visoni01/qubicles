@@ -51,6 +51,6 @@ export const MESSAGES = {
   AGENT_ALREADY_INVITED: 'Agent already invited for this job post!',
   JOB_ALREADY_APPLIED: 'This agent has already applied to this job',
   JOB_APPLICATION_NOT_EXIST: 'Application does not exist!',
-  JOB_APPLICATION_NOT_UPDATED: 'Application not updated!'
-
+  JOB_APPLICATION_NOT_UPDATED: 'Application not updated!',
+  COURSE_NOT_FOUND: 'Course not found!'
 }

@@ -45,4 +45,10 @@ peopleRouter.route('/applications/user/:agent_user_id')
 peopleRouter.route('/course')
   .post(multerUpload.single('file'), isAuthenticated, trainingController.createCourse)
 
+peopleRouter.route('/course')
+  .get(isAuthenticated, trainingController.getAllCourses)
+
+peopleRouter.route('/course/:course_id')
+  .get(isAuthenticated, trainingController.getCourse)
+
 export { peopleRouter }

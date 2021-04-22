@@ -3,7 +3,7 @@ import {
   UserDetail, XQodApplication, XUserActivity, User, XQodCourse
 } from '../../db/models'
 import { createNewEntity } from './common'
-import { getOne } from './crud'
+import { getOne, getAll } from './crud'
 import { Op } from 'sequelize'
 import _ from 'lodash'
 
@@ -574,6 +574,22 @@ export async function getCourseById ({ course_id }) {
   return course
 }
 
+export async function getAllCourseInfo ({ owner_id }) {
+  let courseQuery = {}
+  if (owner_id) {
+    courseQuery = {
+      ...courseQuery,
+      creator_id: owner_id
+    }
+  }
+
+  const courses = await getAll({
+    model: XQodCourse,
+    data: courseQuery
+  })
+  return courses
+}
+
 export const formatCourseData = ({ course }) => {
   return {
     courseId: course.course_id,
@@ -598,5 +614,25 @@ export const formatCourseData = ({ course }) => {
     courseContent: {
       sections: []
     }
+  }
+}
+
+export const formatCourseCard = ({ course }) => {
+  return {
+    courseId: course.course_id,
+    title: course.title,
+    description: course.description,
+    createdOn: course.createdAt,
+    updateOn: course.updatedAt,
+    language: course.language,
+    price: course.token_price,
+    thumbnailImage: course.image_url,
+    status: course.status,
+    // WIP students count
+    totalStudents: 0,
+    // WIP totalSections
+    totalSections: 0,
+    // WIP rating
+    rating: 4.5
   }
 }
