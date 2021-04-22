@@ -9,12 +9,10 @@ const PeopleYouMayKnow = ({ heading }) => {
   const { agentTopData, isLoading } = useSelector((state) => state.agentTopData)
   const dispatch = useDispatch()
   useEffect(() => {
-    if (agentTopData.length === 0) {
-      dispatch(fetchAgentTopDataStart({
-        dataType: 'people-you-may-know',
-      }))
-    }
-  }, [ dispatch, agentTopData ])
+    dispatch(fetchAgentTopDataStart({
+      dataType: 'people-you-may-know',
+    }))
+  }, [ dispatch ])
 
   return (
     <UserCards

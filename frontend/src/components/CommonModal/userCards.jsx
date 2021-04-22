@@ -18,7 +18,7 @@ const UserCards = ({ isLoading, heading, userData }) => {
       <h3 className='h3'>
         {heading}
       </h3>
-      {userData.map((user) => (
+      {userData && userData.length > 0 ? userData.map((user) => (
         <UserCardItems
           key={ user.itemId }
           itemHeading={ user.itemHeading }
@@ -28,7 +28,11 @@ const UserCards = ({ isLoading, heading, userData }) => {
           itemRoute={ user.itemRoute }
           itemSubHeading={ user.itemSubHeading ? user.itemSubHeading : '' }
         />
-      ))}
+      )) : (
+        <p className='para sz-lg mt-20'>
+          No users available...
+        </p>
+      )}
     </Box>
   )
 }

@@ -9,12 +9,10 @@ const TopTalent = ({ heading }) => {
   const { agentTopData, isLoading } = useSelector((state) => state.agentTopData)
   const dispatch = useDispatch()
   useEffect(() => {
-    if (agentTopData.length === 0) {
-      dispatch(fetchAgentTopDataStart({
-        dataType: 'top-talent',
-      }))
-    }
-  }, [ dispatch, agentTopData ])
+    dispatch(fetchAgentTopDataStart({
+      dataType: 'top-talent',
+    }))
+  }, [ dispatch ])
 
   return (
     <UserCards
