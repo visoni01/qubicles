@@ -1,26 +1,26 @@
 import React from 'react'
-import { Box } from '@material-ui/core'
-import './styles.scss'
 import PropTypes from 'prop-types'
 import { topTalents } from '../testData'
-import TopTalentCard from './topTalentCard'
+import UserCards from '../../../../components/CommonModal/userCards'
 
-const TopTalent = ({ heading }) => (
-  <Box className='custom-box top-talent-root'>
-    <h3 className='h3'>
-      {heading}
-    </h3>
-    {topTalents.map((talent) => (
-      <TopTalentCard
-        key={ talent.candidateId }
-        candidateName={ talent.candidateName }
-        candidateRating={ talent.candidateRating }
-        candidatePic={ talent.candidatePic }
-        profileName={ talent.profileName }
-      />
-    ))}
-  </Box>
-)
+const TopTalent = ({ heading }) => {
+  const userData = topTalents.map((user) => ({
+    itemId: user.candidateId,
+    itemHeading: user.candidateName,
+    itemPic: user.candidatePic,
+    itemRating: user.candidateRating,
+    itemLink: 'view profile',
+    itemRoute: '',
+    itemSubHeading: user.profileName,
+  }))
+
+  return (
+    <UserCards
+      heading={ heading }
+      userData={ userData }
+    />
+  )
+}
 
 TopTalent.propTypes = {
   heading: PropTypes.string.isRequired,
