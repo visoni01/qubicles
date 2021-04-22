@@ -73,7 +73,8 @@ export async function getUserSkills ({ user_id, candidate_id }) {
     where: {
       user_id: candidate_id,
       is_deleted: false
-    }
+    },
+    order: [['user_skill_id', 'ASC']]
   })
 
   userSkills = userSkills.map(user => user.get({ plain: true }))

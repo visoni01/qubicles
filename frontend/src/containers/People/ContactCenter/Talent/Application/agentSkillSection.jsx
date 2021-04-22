@@ -26,12 +26,8 @@ const AgentSkillSection = ({
   useEffect(() => {
     if (candidateId !== userDetails.user_id) {
       const endorsedSkills = agentResumeSkills.filter((skill) => {
-        for (let index = 0; index < skill.endorsements.length; index += 1) {
-          if (skill.endorsements[ index ].id === userDetails.user_id) {
-            return true
-          }
-        }
-        return false
+        const isEndorsed = skill.endorsements.map((endoresement) => endoresement.id).includes(userDetails.user_id)
+        return isEndorsed
       }).map((skill) => skill.skillId)
       setHasEndorsed(new Set(endorsedSkills))
     }
@@ -139,15 +135,15 @@ const AgentSkillSection = ({
         {showAllSkills ? 'Show Less Skills' : 'Show More Skills'}
       </Button>
       )}
-      {endorsementData.endorsements && endorsementData.endorsements.length ? (
+      {endorsementData.endorsements && endorsementData.endorsements.length > 0 && (
         <EndorsementsModal
           open={ openEndorsementModal }
           handleClose={ () => setOpenEndorsementModal(false) }
           endorsementsList={ endorsementData.endorsements }
           skillName={ endorsementData.skillName }
         />
-      ) : ''}
-      {isAddEndorseModalOpen ? (
+      )}
+      {isAddEndorseModalOpen && (
         <AddEndorseModal
           open={ isAddEndorseModalOpen }
           handleClose={ handleClose }
@@ -156,7 +152,7 @@ const AgentSkillSection = ({
           candidateId={ candidateId }
           hasEndorsed={ hasEndorsed.has(currentSkill.skillId) }
         />
-      ) : ''}
+      )}
     </>
   )
 }
