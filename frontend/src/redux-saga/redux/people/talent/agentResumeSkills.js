@@ -50,7 +50,7 @@ const {
     }),
     resetAgentResumeSkillsFlags: (state) => ({
       ...state,
-      isLoading: null,
+      isLoading: false,
       success: null,
       error: null,
     }),

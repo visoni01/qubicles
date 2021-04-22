@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: true
   })
   XQodUserSkill.associate = function (models) {
-    XQodUserSkill.hasMany(models.XUserActivity, { as: 'endorsement', foreignKey: 'activity_custom' })
+    XQodUserSkill.hasMany(models.XUserActivity, { as: 'endorsement', foreignKey: 'record_id' })
     XQodUserSkill.belongsTo(models.XQodSkill, { as: 'skill', foreignKey: 'skill_id' })
   }
   return XQodUserSkill

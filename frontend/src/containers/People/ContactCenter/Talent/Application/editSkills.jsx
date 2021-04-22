@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -14,9 +15,10 @@ import _ from 'lodash'
 import SingleSelect from '../../../../Shared/singleSelect'
 import { agentResumeSkillsStart, fetchJobSkillsStart } from '../../../../../redux-saga/redux/people'
 import { agentProfileSettingsApiStart } from '../../../../../redux-saga/redux/actions'
+import Loader from '../../../../../components/loaders/circularLoader'
 
 const EditSkills = ({
-  open, handleClose, agentResumeSkills, languages: agentResumeLanguages, candidateId,
+  open, handleClose, agentResumeSkills, languages: agentResumeLanguages, candidateId, isLoading,
 }) => {
   const dispatch = useDispatch()
   const { jobSkills } = useSelector((state) => state.jobSkills)
@@ -71,9 +73,8 @@ const EditSkills = ({
         },
       }))
     }
-    handleClose()
   }, [
-    dispatch, handleClose, skills, candidateId, availableLanguages,
+    dispatch, skills, candidateId, availableLanguages,
     agentResumeLanguages, agentResumeSkills, primaryLanguage, otherLanguages,
   ])
 
@@ -171,7 +172,17 @@ const EditSkills = ({
       <div className='header'>
         {/* Skills */}
         <DialogTitle>
-          <div className='h2'>Skills</div>
+          <div className='display-inline-flex align-items-center'>
+            <div className='h2'>Skills</div>
+            {isLoading && (
+            <Loader
+              className='static-small-loader'
+              enableOverlay={ false }
+              displayLoaderManually
+              size={ 25 }
+            />
+            )}
+          </div>
         </DialogTitle>
         <DialogActions className='cross-button'>
           <IconButton
@@ -214,14 +225,20 @@ const EditSkills = ({
                     })}
                   </AvatarGroup>
                 )}
-                <p className='para light margin-auto ml-5'>
-                  {agentSkill.endorsedCount}
-                  {' '}
-                  {agentSkill.endorsedCount !== 1 ? 'people have ' : 'person has ' }
-                  given
-                  {agentSkill.endorsedCount !== 1 ? ' endorsements ' : ' endorsement ' }
-                  for this skill
-                </p>
+                {agentResumeSkills.includes(agentSkill) ? (
+                  <p className='para light margin-auto ml-5'>
+                    {agentSkill.endorsedCount}
+                    {' '}
+                    {agentSkill.endorsedCount !== 1 ? 'people have ' : 'person has ' }
+                    given
+                    {agentSkill.endorsedCount !== 1 ? ' endorsements ' : ' endorsement ' }
+                    for this skill
+                  </p>
+                ) : (
+                  <p className='para light margin-auto ml-5'>
+                    Recently added this skill
+                  </p>
+                )}
               </div>
             </div>
           ))}
@@ -464,7 +481,7 @@ const EditSkills = ({
           disabled={
             (_.isEqual(agentResumeSkills, skills)
             && _.isEqual(agentResumeLanguages, [ primaryLanguage, ...otherLanguages ]))
-            || !primaryLanguage
+            || !primaryLanguage || isLoading
           }
           onClick={ onSave }
         >
@@ -478,6 +495,7 @@ const EditSkills = ({
 EditSkills.defaultProps = {
   agentResumeSkills: [],
   languages: [],
+  isLoading: false,
 }
 
 EditSkills.propTypes = {
@@ -490,6 +508,7 @@ EditSkills.propTypes = {
   })),
   languages: PropTypes.arrayOf(PropTypes.string),
   candidateId: PropTypes.number.isRequired,
+  isLoading: PropTypes.bool,
 }
 
 export default EditSkills

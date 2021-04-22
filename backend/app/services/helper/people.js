@@ -54,11 +54,11 @@ export async function getUserSkills ({ user_id, candidate_id }) {
     include: [{
       model: XQodSkill,
       as: 'skill'
-    }, {
+    },
+    {
       model: XUserActivity,
       attributes: ['user_id', 'activity_value'],
       where: {
-        record_id: candidate_id,
         activity_type: 'endorsement'
       },
       required: false,
@@ -196,11 +196,10 @@ export async function addUserEndorsement ({ user_id, candidate_id, updatedData }
 
     await XUserActivity.create({
       user_id,
-      record_type: 'user',
-      record_id: candidate_id,
+      record_type: 'activity',
+      record_id: userSkillId,
       activity_type: 'endorsement',
-      activity_value: comment,
-      activity_custom: userSkillId
+      activity_value: comment
     })
 
     const candidateSkills = await getUserSkills({ user_id, candidate_id })
@@ -237,7 +236,7 @@ export async function removeUserEndorsement ({ user_id, candidate_id, updatedDat
     await XUserActivity.destroy({
       where: {
         user_id,
-        activity_custom: userSkillId
+        record_id: userSkillId
       }
     })
 

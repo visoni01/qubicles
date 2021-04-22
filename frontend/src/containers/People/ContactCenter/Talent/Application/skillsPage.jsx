@@ -3,7 +3,10 @@ import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
 import { Button, Divider } from '@material-ui/core'
-import { agentResumeSkillsStart } from '../../../../../redux-saga/redux/people/talent/agentResumeSkills'
+import {
+  agentResumeSkillsStart,
+  resetAgentResumeSkillsFlags,
+} from '../../../../../redux-saga/redux/people/talent/agentResumeSkills'
 import AgentSkillSection from './agentSkillSection'
 import SkillsAndEndorsementsSkeleton from '../Skeletons/skillsAndEndorsements'
 import EditSkills from './editSkills'
@@ -13,7 +16,9 @@ const SkillsPage = ({
   candidateId, languages, userType,
 }) => {
   const dispatch = useDispatch()
-  const { isLoading, agentResumeSkills } = useSelector((state) => state.agentResumeSkills)
+  const {
+    isLoading, agentResumeSkills, success, requestType,
+  } = useSelector((state) => state.agentResumeSkills)
   const { userDetails } = useSelector((state) => state.login)
   const [ openEditSkillsModal, setOpenEditSkillsModal ] = useState(false)
 
@@ -26,6 +31,13 @@ const SkillsPage = ({
   const handleOpenEditSkillsModal = useCallback(() => {
     setOpenEditSkillsModal(true)
   }, [])
+
+  useEffect(() => {
+    if (!isLoading && success && requestType === 'UPDATE') {
+      setOpenEditSkillsModal(false)
+      dispatch(resetAgentResumeSkillsFlags())
+    }
+  }, [ isLoading, success, requestType, dispatch ])
 
   return (
     <div className='mb-25 custom-box resume-root skills-page-root has-fullwidth'>
@@ -52,6 +64,7 @@ const SkillsPage = ({
           agentResumeSkills={ agentResumeSkills.skills }
           languages={ languages }
           candidateId={ candidateId }
+          isLoading={ isLoading }
         />
       )}
 
@@ -66,7 +79,7 @@ const SkillsPage = ({
 
       {/* Agent Skills Section */}
       {isLoading === false && (
-        agentResumeSkills.skills.length ? (
+        agentResumeSkills.skills && agentResumeSkills.skills.length ? (
           <AgentSkillSection
             agentResumeSkills={ agentResumeSkills.skills }
             canEndorse={ userType === 'other' && agentResumeSkills.canEndorse }
