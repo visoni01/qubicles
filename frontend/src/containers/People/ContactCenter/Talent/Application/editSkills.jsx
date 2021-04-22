@@ -194,7 +194,7 @@ const EditSkills = ({
         </DialogActions>
       </div>
       <DialogContent>
-        <div className='mb-25'>
+        <div className='skills-list mb-25'>
           {skills && skills.map((agentSkill) => (
             <div key={ agentSkill.skillId } className='mt-20 mb-20 list-divider'>
               <div className='display-inline-flex justify-between is-fullwidth align-items-center'>
@@ -236,7 +236,7 @@ const EditSkills = ({
                   </p>
                 ) : (
                   <p className='para light margin-auto ml-5'>
-                    Recently added this skill
+                    Recently added skill
                   </p>
                 )}
               </div>
