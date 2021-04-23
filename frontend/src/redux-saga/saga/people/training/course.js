@@ -23,6 +23,11 @@ function* trainingCourseWorker(action) {
         yield put(showSuccessMessage({ msg: message }))
         break
       }
+      case 'FETCH': {
+        const { data } = yield People.fetchCourse({ courseId: course.courseId })
+        yield put(trainingCourseRequestSuccess({ course: data }))
+        break
+      }
       default: break
     }
   } catch (e) {

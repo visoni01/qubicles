@@ -21,8 +21,6 @@ const {
     allCoursesRequestStart: (state, action) => ({
       ...state,
       isLoading: true,
-      success: null,
-      error: null,
       requestType: action.payload.requestType,
     }),
     allCoursesRequestSuccess: (state, action) => ({

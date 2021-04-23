@@ -42,6 +42,7 @@ const {
     trainingCourseRequestSuccess,
     trainingCourseRequestFailed,
     updateTrainingCourseDetails,
+    resetTrainingCourseReducer,
   }, reducer,
 } = createSlice({
   name: 'trainingCourse',
@@ -70,6 +71,9 @@ const {
       ...state,
       course: action.payload.course,
     }),
+    resetTrainingCourseReducer: () => ({
+      ...initialState,
+    }),
   },
 })
 
@@ -79,4 +83,5 @@ export {
   trainingCourseRequestSuccess,
   trainingCourseRequestFailed,
   updateTrainingCourseDetails,
+  resetTrainingCourseReducer,
 }

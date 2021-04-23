@@ -5,12 +5,13 @@ import NewJobModal from '../../containers/People/ContactCenter/Jobs/NewJob/index
 import Peoplepage from '../../containers/People/index'
 import EditJob from '../../containers/People/ContactCenter/Jobs/editJob'
 import ViewResume from '../../containers/People/ContactCenter/Talent/viewResume'
-import CreateCourse from '../../containers/People/ContactCenter/Training/NewCourse/index'
+import NewCoursePage from '../../containers/People/ContactCenter/Training/NewCourse/index'
 import ViewCourse from '../../containers/People/ContactCenter/Training/ViewCourse/index'
 import ViewJobApplication from '../../containers/People/Shared/jobApplicationPage'
 import RouteRenderer from './featureSubRoutes'
 import PeopleViewJobs from '../../containers/People/viewJobsIndex'
 import MyCourses from '../../containers/People/ContactCenter/Training/MyCourses'
+import EditCoursePage from '../../containers/People/ContactCenter/Training/NewCourse/editCoursePage'
 
 const List = [
   {
@@ -50,12 +51,12 @@ const List = [
   },
   {
     path: ROUTE_PATHS.CREATE_COURSE,
-    component: CreateCourse,
+    component: NewCoursePage,
     exact: true,
   },
   {
     path: ROUTE_PATHS.EDIT_COURSE,
-    component: CreateCourse,
+    component: EditCoursePage,
     exact: true,
   },
   {

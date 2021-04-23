@@ -219,6 +219,11 @@ class People {
     const response = await apiClient.getRequest('/people/course', null, { ownerId })
     return response
   }
+
+  static async fetchCourse({ courseId }) {
+    const response = await apiClient.getRequest(`/people/course/${ courseId }`)
+    return response
+  }
 }
 
 export default People

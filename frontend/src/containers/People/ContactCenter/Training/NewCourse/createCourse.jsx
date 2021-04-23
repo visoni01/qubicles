@@ -9,7 +9,7 @@ const CreateCourse = ({
   contentSection, setContentSection,
   courseContent, setCourseContent,
   updateCourseReducer, isPreview, setIsPreview,
-  course,
+  course, isEdit,
 }) => (
   <Grid container spacing={ 2 }>
     <Grid
@@ -30,6 +30,7 @@ const CreateCourse = ({
           setContentSection={ setContentSection }
           courseContent={ courseContent }
           setCourseContent={ setCourseContent }
+          isEdit={ isEdit }
         />
       </Grid>
     </Grid>
@@ -58,6 +59,10 @@ const CreateCourse = ({
   </Grid>
 )
 
+CreateCourse.defaultProps = {
+  isEdit: false,
+}
+
 CreateCourse.propTypes = {
   informationSection: PropTypes.shape({}).isRequired,
   setInformationSection: PropTypes.func.isRequired,
@@ -71,6 +76,7 @@ CreateCourse.propTypes = {
   course: PropTypes.shape({
     courseId: PropTypes.number.isRequired,
   }).isRequired,
+  isEdit: PropTypes.bool,
 }
 
 export default CreateCourse

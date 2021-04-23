@@ -10,6 +10,7 @@ import DraftCourseCard from './draftCourseCard'
 import PublishedCourseCard from './publishedCourseCard'
 import ROUTE_PATHS from '../../../../../routes/routesPath'
 import { allCoursesRequestStart } from '../../../../../redux-saga/redux/people'
+import { startLoader, stopLoader } from '../../../../../redux-saga/redux/utils'
 
 const MyCourses = () => {
   const history = useHistory()
@@ -17,16 +18,27 @@ const MyCourses = () => {
     history.push(ROUTE_PATHS.CREATE_COURSE)
   }, [ history ])
 
-  const { courses } = useSelector((state) => state.allCourses)
+  const { courses, isLoading, success } = useSelector((state) => state.allCourses)
   const { userDetails } = useSelector((state) => state.login)
 
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(allCoursesRequestStart({
-      requestType: 'FETCH',
-      ownerId: userDetails.user_id,
-    }))
+    if (isLoading === null && !success) {
+      dispatch(allCoursesRequestStart({
+        requestType: 'FETCH',
+        ownerId: userDetails.user_id,
+      }))
+    }
+    // eslint-disable-next-line
   }, [ dispatch, userDetails.user_id ])
+
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(startLoader())
+    } else {
+      dispatch(stopLoader())
+    }
+  }, [ isLoading, dispatch ])
 
   return (
     <Box className='custom-box'>

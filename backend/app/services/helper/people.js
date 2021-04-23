@@ -612,7 +612,15 @@ export const formatCourseData = ({ course }) => {
       introductionVideo: course.video_url
     },
     courseContent: {
-      sections: []
+      sections: [
+        {
+          id: 0,
+          title: 'Section',
+          sectionNum: 1,
+          sectionIsActive: true,
+          units: []
+        }
+      ]
     }
   }
 }
