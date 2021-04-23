@@ -574,12 +574,12 @@ export async function getCourseById ({ course_id }) {
   return course
 }
 
-export async function getAllCourseInfo ({ owner_id }) {
+export async function getAllCourseInfo ({ ownerId }) {
   let courseQuery = {}
-  if (owner_id) {
+  if (ownerId) {
     courseQuery = {
       ...courseQuery,
-      creator_id: owner_id
+      creator_id: ownerId
     }
   }
 
@@ -629,9 +629,9 @@ export const formatCourseCard = ({ course }) => {
     thumbnailImage: course.image_url,
     status: course.status,
     // WIP students count
-    totalStudents: 0,
+    studentsCount: 0,
     // WIP totalSections
-    totalSections: 0,
+    sectionsCount: 0,
     // WIP rating
     rating: 4.5
   }

@@ -7,7 +7,7 @@ const constraints = {
   user_id: {
     presence: { allowEmpty: false }
   },
-  owner_id: {
+  ownerId: {
     presence: false
   }
 }
@@ -19,8 +19,8 @@ export class PeopleGetAllCoursesService extends ServiceBase {
 
   async run () {
     try {
-      const { owner_id } = this.filteredArgs
-      const courses = await getAllCourseInfo({ owner_id })
+      const { ownerId } = this.filteredArgs
+      const courses = await getAllCourseInfo({ ownerId })
       const formattedCourses = courses.map(course => formatCourseCard({ course }))
       return formattedCourses
     } catch (e) {

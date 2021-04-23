@@ -6,29 +6,29 @@ import PropTypes from 'prop-types'
 import { Rating } from '@material-ui/lab'
 import { useHistory } from 'react-router-dom'
 import '../style.scss'
-import ROUTE_PATHS from '../../../../../routes/routesPath'
+import { EDIT_COURSE_ROUTE } from '../../../../../routes/routesPath'
 
 const DraftCourseCard = ({
-  priceQbe, priceUsd, ratingValue, studentsCount, courseDescription, sectionsCount, language, imageUrl,
+  courseId, price, ratingValue, studentsCount, title, sectionsCount, language, thumbnailImage,
+  description,
 }) => {
   const history = useHistory()
   return (
     <Grid xl={ 3 } lg={ 3 } md={ 6 } sm={ 12 } item>
       <Card
         className='course-card'
-        onClick={ () => history.push(ROUTE_PATHS.VIEW_COURSE) }
       >
         <Box className='custom-box no-padding price-overlay'>
           <p className='h3 price-qbe text-center'>
-            { `${ priceQbe } `}
+            { `${ price } `}
             <span className='h3 unbold'>QBE</span>
           </p>
           <p className='para light price-usd text-center'>
-            {`$${ priceUsd } USD`}
+            {`$${ price } USD`}
           </p>
         </Box>
         <CardMedia
-          image={ imageUrl }
+          image={ thumbnailImage }
           className='course-image'
         />
         <CardContent className='course-card-content border-1'>
@@ -44,8 +44,11 @@ const DraftCourseCard = ({
             <span className='para light margin-left-right-5 text-center'>{`${ studentsCount } students`}</span>
           </div>
           <b className='h4'>
-            {courseDescription}
+            {title}
           </b>
+          <p className='para light description'>
+            {description}
+          </p>
           <div className='course-sections mt-10'>
             <span className='para light mr-5'>{`${ sectionsCount } Sections`}</span>
             <span className='para light ml-5'>{language}</span>
@@ -54,8 +57,9 @@ const DraftCourseCard = ({
             <Button
               className='is-fullwidth'
               classes={ { root: 'button-primary-small', label: 'button-primary-small-label' } }
+              onClick={ () => history.push(`${ EDIT_COURSE_ROUTE }/${ courseId }`) }
             >
-              View Course
+              Edit Course
             </Button>
           </div>
         </CardContent>
@@ -65,25 +69,26 @@ const DraftCourseCard = ({
 }
 
 DraftCourseCard.defaultProps = {
-  priceQbe: 12,
-  priceUsd: 12,
+  price: 12,
   ratingValue: 4.5,
   studentsCount: 503,
-  courseDescription: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
+  title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
+  description: '',
   sectionsCount: 8,
   language: 'English',
-  imageUrl: 'https://picsum.photos/400/300',
+  thumbnailImage: 'https://picsum.photos/400/300',
 }
 
 DraftCourseCard.propTypes = {
-  priceQbe: PropTypes.number,
-  priceUsd: PropTypes.number,
+  price: PropTypes.number,
   ratingValue: PropTypes.number,
   studentsCount: PropTypes.number,
-  courseDescription: PropTypes.string,
+  title: PropTypes.string,
   sectionsCount: PropTypes.number,
   language: PropTypes.string,
-  imageUrl: PropTypes.string,
+  thumbnailImage: PropTypes.string,
+  description: PropTypes.string,
+  courseId: PropTypes.number.isRequired,
 }
 
 export default DraftCourseCard

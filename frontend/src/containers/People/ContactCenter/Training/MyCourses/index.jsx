@@ -1,19 +1,33 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import {
   Box, Grid, Divider, Button,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { useHistory } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import DraftCourseCard from './draftCourseCard'
 import PublishedCourseCard from './publishedCourseCard'
 import ROUTE_PATHS from '../../../../../routes/routesPath'
+import { allCoursesRequestStart } from '../../../../../redux-saga/redux/people'
 
 const MyCourses = () => {
   const history = useHistory()
   const handleCreateCourseButton = useCallback(() => {
     history.push(ROUTE_PATHS.CREATE_COURSE)
   }, [ history ])
+
+  const { courses } = useSelector((state) => state.allCourses)
+  const { userDetails } = useSelector((state) => state.login)
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(allCoursesRequestStart({
+      requestType: 'FETCH',
+      ownerId: userDetails.user_id,
+    }))
+  }, [ dispatch, userDetails.user_id ])
+
   return (
     <Box className='custom-box'>
       <div className='mb-30 display-inline-flex justify-between is-fullwidth'>
@@ -48,7 +62,9 @@ const MyCourses = () => {
       <div className='mt-30 mb-30'>
         <h3 className='h3 mb-20'>Drafts</h3>
         <Grid container spacing={ 3 }>
-          <DraftCourseCard />
+          {courses.filter((course) => course.status === 'draft').map((course) => (
+            <DraftCourseCard key={ course.courseId } { ...course } />
+          ))}
         </Grid>
       </div>
     </Box>

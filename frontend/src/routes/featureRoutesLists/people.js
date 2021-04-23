@@ -54,6 +54,11 @@ const List = [
     exact: true,
   },
   {
+    path: ROUTE_PATHS.EDIT_COURSE,
+    component: CreateCourse,
+    exact: true,
+  },
+  {
     path: ROUTE_PATHS.VIEW_COURSE,
     component: ViewCourse,
     exact: true,

@@ -18,8 +18,8 @@ module.exports = (sequelize, DataTypes) => {
     video_url: DataTypes.STRING,
     language: {
       type: DataTypes.ENUM,
-      values: ['english', 'spanish', 'french'],
-      defaultValue: 'english'
+      values: ['English', 'Spanish', 'French'],
+      defaultValue: 'French'
     },
     token_price: DataTypes.DOUBLE,
     visibility: {
