@@ -2,17 +2,13 @@ import React, {
   useCallback, useEffect, useState,
 } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Grid } from '@material-ui/core'
-import NewCourseForm from './NewCourseForm'
-import NewCourseActions from './NewCourseActions'
-import './styles.scss'
 import { updateTrainingCourseDetails } from '../../../../../redux-saga/redux/people'
-import CourseDescription from '../ViewCourse/CourseDescription'
-import CourseOverview from '../ViewCourse/CourseOverview'
-import CourseActions from '../ViewCourse/CourseActions'
 import { startLoader, stopLoader } from '../../../../../redux-saga/redux/utils'
+import PreviewCreateCourse from './previewCourse'
+import CreateCourse from './createCourse'
+import './styles.scss'
 
-const NewCourse = () => {
+const NewCoursePage = () => {
   const { course, isLoading } = useSelector((state) => state.trainingCourse)
   const [ informationSection, setInformationSection ] = useState(course.informationSection)
   const [ contentSection, setContentSection ] = useState(course.contentSection)
@@ -49,117 +45,32 @@ const NewCourse = () => {
 
   if (isPreview) {
     return (
-      <Grid container spacing={ 2 }>
-        <Grid
-          container
-          spacing={ 2 }
-          direction='column'
-          item
-          xl={ 9 }
-          lg={ 9 }
-          md={ 12 }
-          sm={ 12 }
-          xs={ 12 }
-        >
-          <Grid item>
-            <CourseDescription
-              title={ informationSection.title }
-              description={ informationSection.description }
-              goals={ informationSection.goals }
-              outcomes={ informationSection.outcomes }
-              requirements={ informationSection.requirements }
-            />
-          </Grid>
-          <Grid item>
-            <CourseOverview />
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          spacing={ 2 }
-          direction='column'
-          item
-          xl={ 3 }
-          lg={ 3 }
-          md={ 12 }
-          sm={ 12 }
-          xs={ 12 }
-        >
-          <Grid item>
-            <NewCourseActions
-              isPreview={ isPreview }
-              setIsPreview={ setIsPreview }
-              updateCourseReducer={ updateCourseReducer }
-              informationSection={ informationSection }
-              contentSection={ contentSection }
-              courseContent={ courseContent }
-              courseId={ course.courseId }
-            />
-          </Grid>
-          <Grid item>
-            <CourseActions
-              isPreview={ isPreview }
-              course={ {
-                informationSection,
-                contentSection,
-                courseContent,
-              } }
-            />
-          </Grid>
-        </Grid>
-      </Grid>
+      <PreviewCreateCourse
+        informationSection={ informationSection }
+        contentSection={ contentSection }
+        courseContent={ courseContent }
+        isPreview={ isPreview }
+        course={ course }
+        setIsPreview={ setIsPreview }
+        updateCourseReducer={ updateCourseReducer }
+      />
     )
   }
 
   return (
-    (
-      <Grid container spacing={ 2 }>
-        <Grid
-          container
-          spacing={ 2 }
-          direction='column'
-          item
-          xl={ 9 }
-          lg={ 9 }
-          md={ 9 }
-          sm={ 12 }
-        >
-          <Grid item>
-            <NewCourseForm
-              informationSection={ informationSection }
-              setInformationSection={ setInformationSection }
-              contentSection={ contentSection }
-              setContentSection={ setContentSection }
-              courseContent={ courseContent }
-              setCourseContent={ setCourseContent }
-            />
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          spacing={ 2 }
-          direction='column'
-          item
-          xl={ 3 }
-          lg={ 3 }
-          md={ 3 }
-          sm={ 12 }
-        >
-          <Grid item>
-            <NewCourseActions
-              updateCourseReducer={ updateCourseReducer }
-              informationSection={ informationSection }
-              contentSection={ contentSection }
-              courseContent={ courseContent }
-              isPreview={ isPreview }
-              setIsPreview={ setIsPreview }
-              courseId={ course.courseId }
-            />
-          </Grid>
-        </Grid>
-      </Grid>
-    )
+    <CreateCourse
+      informationSection={ informationSection }
+      setInformationSection={ setInformationSection }
+      contentSection={ contentSection }
+      setContentSection={ setContentSection }
+      courseContent={ courseContent }
+      setCourseContent={ setCourseContent }
+      isPreview={ isPreview }
+      setIsPreview={ setIsPreview }
+      course={ course }
+      updateCourseReducer={ updateCourseReducer }
+    />
   )
 }
 
-export default NewCourse
+export default NewCoursePage
