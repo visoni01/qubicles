@@ -15,11 +15,11 @@ const TrainingFilter = () => {
       <List className='courses-list-items'>
         <ListItem
           button
+          onClick={ () => history.push(ROUTE_PATHS.MY_COURSES) }
         >
           <ListItemText
             primary='My Courses (2)'
             className='h4 bold-filter-item'
-            onClick={ () => history.push(ROUTE_PATHS.MY_COURSES) }
           />
         </ListItem>
         <ListItem

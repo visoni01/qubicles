@@ -32,42 +32,36 @@ const NewCourseActions = ({
     <Box className='custom-box actions-box wrapper'>
       <h3 className='h3 mb-15'> Actions </h3>
 
-      <div className='mb-10'>
-        <Button
-          className='wide-button'
-          classes={ {
-            root: 'button-primary-small',
-            label: 'button-primary-small-label',
-          } }
-        >
-          Publish
-        </Button>
-      </div>
-      <div className='mb-10'>
-        <Button
-          className='wide-button'
-          classes={ {
-            root: 'button-secondary-small',
-            label: 'button-secondary-small-label',
-          } }
-          onClick={ () => setIsPreview((current) => !current) }
-        >
-          {isPreview ? 'End Preview' : 'Preview'}
-        </Button>
-      </div>
+      <Button
+        className='wide-button'
+        classes={ {
+          root: 'button-primary-small',
+          label: 'button-primary-small-label',
+        } }
+      >
+        Publish
+      </Button>
+      <Button
+        className='wide-button'
+        classes={ {
+          root: 'button-secondary-small',
+          label: 'button-secondary-small-label',
+        } }
+        onClick={ () => setIsPreview((current) => !current) }
+      >
+        {isPreview ? 'End Preview' : 'Preview'}
+      </Button>
       <Divider className='divider-padded' />
-      <div className='mb-10'>
-        <Button
-          className='wide-button'
-          classes={ {
-            root: 'button-secondary-small',
-            label: 'button-secondary-small-label',
-          } }
-          onClick={ saveDraft }
-        >
-          Save Draft
-        </Button>
-      </div>
+      <Button
+        className='wide-button'
+        classes={ {
+          root: 'button-secondary-small',
+          label: 'button-secondary-small-label',
+        } }
+        onClick={ saveDraft }
+      >
+        Save Draft
+      </Button>
     </Box>
   )
 }

@@ -43,7 +43,7 @@ const DraftCourseCard = ({
             />
             <span className='para light margin-left-right-5 text-center'>{`${ studentsCount } students`}</span>
           </div>
-          <b className='h4'>
+          <b className='h4 card-title'>
             {title}
           </b>
           <p className='para light description'>

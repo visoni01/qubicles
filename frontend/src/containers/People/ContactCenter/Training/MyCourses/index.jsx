@@ -18,17 +18,18 @@ const MyCourses = () => {
     history.push(ROUTE_PATHS.CREATE_COURSE)
   }, [ history ])
 
-  const { courses, isLoading, success } = useSelector((state) => state.allCourses)
+  const { courses, isLoading } = useSelector((state) => state.allCourses)
   const { userDetails } = useSelector((state) => state.login)
 
   const dispatch = useDispatch()
   useEffect(() => {
-    if (isLoading === null && !success) {
+    if (userDetails.user_code === 'employer') {
       dispatch(allCoursesRequestStart({
         requestType: 'FETCH',
         ownerId: userDetails.user_id,
       }))
     }
+
     // eslint-disable-next-line
   }, [ dispatch, userDetails.user_id ])
 
@@ -44,14 +45,14 @@ const MyCourses = () => {
     <Box className='custom-box'>
       <div className='mb-30 display-inline-flex justify-between is-fullwidth'>
         <Button
-          onClick={ () => window.history.back() }
+          onClick={ () => history.push(ROUTE_PATHS.PEOPLE_TRAINING_TAB) }
           classes={ {
             root: 'button-primary-small',
             label: 'button-primary-small-label',
           } }
         >
           <FontAwesomeIcon icon={ faChevronLeft } className='custom-fa-icon white mr-10' />
-          Back
+          All Courses
         </Button>
         <Button
           onClick={ handleCreateCourseButton }
@@ -70,15 +71,19 @@ const MyCourses = () => {
           <PublishedCourseCard />
         </Grid>
       </div>
-      <Divider />
-      <div className='mt-30 mb-30'>
-        <h3 className='h3 mb-20'>Drafts</h3>
-        <Grid container spacing={ 3 }>
-          {courses.filter((course) => course.status === 'draft').map((course) => (
-            <DraftCourseCard key={ course.courseId } { ...course } />
-          ))}
-        </Grid>
+      {courses.filter((course) => course.status === 'draft').length > 0 && (
+      <div>
+        <Divider />
+        <div className='mt-30 mb-30'>
+          <h3 className='h3 mb-20'>Drafts</h3>
+          <Grid container spacing={ 3 }>
+            {courses.filter((course) => course.status === 'draft').map((course) => (
+              <DraftCourseCard key={ course.courseId } { ...course } />
+            ))}
+          </Grid>
+        </div>
       </div>
+      )}
     </Box>
   )
 }
