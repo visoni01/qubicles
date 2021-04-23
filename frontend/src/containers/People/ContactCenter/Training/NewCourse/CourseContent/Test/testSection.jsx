@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import {
-  Grid, Input, IconButton, Button,
+  Grid, IconButton, Button,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFlask, faTrash } from '@fortawesome/free-solid-svg-icons'
@@ -15,14 +15,6 @@ const TestSection = ({
   const [ openTest, setOpenTest ] = useState(unit.isOpen)
   const [ openConfirmDelete, setOpenConfirmDelete ] = useState(false)
   const [ unitDetails, setUnitDetails ] = useState(unit)
-
-  const handleTestTitleChange = useCallback((e) => {
-    e.persist()
-    setUnitDetails((current) => ({
-      ...current,
-      title: e.target.value,
-    }))
-  }, [])
 
   const saveUnitDetails = useCallback(() => {
     let updatedUnit = unitDetails
@@ -60,11 +52,7 @@ const TestSection = ({
               <FontAwesomeIcon className='custom-fa-icon sz-lg' icon={ faFlask } />
             </Grid>
             <Grid item className='text-edit' xl={ 10 } lg={ 10 } md={ 10 } sm={ 10 }>
-              <Input
-                value={ unitDetails.title }
-                className='text-edit'
-                onChange={ (e) => handleTestTitleChange(e) }
-              />
+              <p className='para'>{unitDetails.title}</p>
             </Grid>
           </Grid>
           <Grid item xl={ 8 } lg={ 8 } md={ 8 } sm={ 10 } className='added-content'>

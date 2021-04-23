@@ -73,7 +73,7 @@ const CourseActions = ({ isPreview, course }) => (
       {course.informationSection.category && (
       <div className='mb-20'>
         <h4 className='h4'>Category</h4>
-        <span className='para light'>{course.informationSection.category.title}</span>
+        <span className='para light'>{course.informationSection.category}</span>
       </div>
       )}
       <div className='mb-20'>

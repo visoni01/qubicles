@@ -1,8 +1,10 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { Box, Button, Divider } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { trainingCourseRequestStart } from '../../../../../redux-saga/redux/people'
+import { EDIT_COURSE_ROUTE } from '../../../../../routes/routesPath'
 
 const NewCourseActions = ({
   updateCourseReducer,
@@ -14,6 +16,7 @@ const NewCourseActions = ({
   courseId,
 }) => {
   const dispatch = useDispatch()
+  const history = useHistory()
   const saveDraft = useCallback(() => {
     updateCourseReducer()
     dispatch(trainingCourseRequestStart({
@@ -26,7 +29,13 @@ const NewCourseActions = ({
       },
       requestType: 'CREATE',
     }))
-  }, [ informationSection, contentSection, courseContent, updateCourseReducer, courseId, dispatch ])
+  }, [ informationSection, contentSection, updateCourseReducer, courseContent, courseId, dispatch ])
+
+  useEffect(() => {
+    if (courseId) {
+      history.push(`${ EDIT_COURSE_ROUTE }/${ courseId }`)
+    }
+  }, [ courseId, history ])
 
   return (
     <Box className='custom-box actions-box wrapper'>
