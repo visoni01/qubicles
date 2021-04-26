@@ -10,15 +10,17 @@ export const getArticleUnitsCount = ({ section }) => {
   return articleUnits.length
 }
 
-export const getTestUnitsCount = ({ section }) => {
-  const testUnits = section.units.filter((unit) => {
-    const unitTypeCheck = [ 'Test' ].includes(unit.type)
-    return unitTypeCheck && !unit.isEmpty
-  })
-  return testUnits.length
-}
+export const checkDisabledAddSectionButton = ({ sections }) => {
+  const totalSections = sections.length
+  if (totalSections > 0) {
+    const lastSection = sections[ sections.length - 1 ]
+    const isTestAdded = !_.isEmpty(lastSection.test)
+    const isUnitAdded = lastSection.units.length > 0
 
-export const checkDisabledAddSectionButton = ({ sections }) => (sections[ sections.length - 1 ].units.length < 1)
+    return !(isTestAdded && isUnitAdded)
+  }
+  return false
+}
 
 export const checkDisabledAddUnitButton = ({ units }) => {
   if (units.length > 0) {
@@ -84,16 +86,7 @@ export const checkDisabledAddQuestionButton = ({ unit }) => {
   return false
 }
 
-export const checkDisabledAddTestButton = ({ units }) => {
-  if (!units.length > 0) {
-    return true
-  }
-  const lastUnit = units[ units.length - 1 ]
-  if (lastUnit.type === 'Test') {
-    return !(lastUnit.questions.length > 0)
-  }
-  return _.isEmpty(lastUnit.details)
-}
+export const checkDisabledAddTestButton = ({ test }) => !(_.isEmpty(test))
 
 export const checkDisabledUnitSaveButton = ({ savedUnit, updatedUnit }) => {
   const allFieldsAreFilled = !_.isEmpty(updatedUnit.title)
@@ -191,15 +184,11 @@ export const deleteUnitFromSection = ({ section, unitToDelete }) => {
 }
 
 export const addNewTestToSection = ({ section }) => {
-  const testUnitsCount = getTestUnitsCount({ section })
   const newQuestion = getNewEmptyQuestion()
 
   const newTestSchema = {
-    unitId: getUniqueId(),
-    unitNum: '1',
     title: 'Test',
     length: 0,
-    type: 'Test',
     questions: [ newQuestion ],
     isEmpty: true,
     isOpen: true,
@@ -207,27 +196,27 @@ export const addNewTestToSection = ({ section }) => {
 
   return ({
     ...section,
-    units: [ ...section.units, { ...newTestSchema, title: `Test ${ testUnitsCount + 1 }` } ],
+    test: { ...newTestSchema },
   })
 }
 
 // text, paragraph, multiple, checkbox, scale, date, time
-export const addQuestionToTest = ({ unit }) => {
+export const addQuestionToTest = ({ test }) => {
   const newQuestion = getNewEmptyQuestion()
   return ({
-    ...unit,
-    questions: [ ...unit.questions, newQuestion ],
+    ...test,
+    questions: [ ...test.questions, newQuestion ],
   })
 }
 
-export const deleteQuestionFromTest = ({ unit, question }) => {
-  const updatedUnitQuestions = unit.questions.filter((q) => q.id !== question.id)
+export const deleteQuestionFromTest = ({ test, question }) => {
+  const updatedUnitQuestions = test.questions.filter((q) => q.id !== question.id)
 
   return updatedUnitQuestions
 }
 
-export const saveQuestionInTest = ({ unit, question }) => {
-  const updatedUnitQuestions = unit.questions.map((q) => {
+export const saveQuestionInTest = ({ test, question }) => {
+  const updatedUnitQuestions = test.questions.map((q) => {
     if (q.id === question.id) {
       let { answerText } = question
       if (question.questionType === 'multiple') {
@@ -246,8 +235,8 @@ export const saveQuestionInTest = ({ unit, question }) => {
   return updatedUnitQuestions
 }
 
-export const unSaveQuestionInTest = ({ unit, question }) => {
-  const updatedUnitQuestions = unit.questions.map((q) => {
+export const unSaveQuestionInTest = ({ test, question }) => {
+  const updatedUnitQuestions = test.questions.map((q) => {
     if (q.id === question.id) {
       return { ...question, isSaved: false }
     }

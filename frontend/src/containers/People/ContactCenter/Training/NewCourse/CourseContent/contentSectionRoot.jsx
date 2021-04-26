@@ -47,7 +47,7 @@ const ContentSectionRoot = ({
         onClick={ handleAddSectionButton }
         disabled={ checkDisabledAddSectionButton({ sections: courseContent.sections }) }
       >
-        Add Section
+        Save Section
       </Button>
     </div>
   )

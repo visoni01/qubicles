@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { checkDisabledAddUnitButton, checkDisabledAddTestButton } from './helper'
 
 const SectionOptions = ({
-  units, handleAddUnitButton, handleAddTestButton,
+  units, test, handleAddUnitButton, handleAddTestButton,
 }) => (
   <div className='content-options display-inline-flex justify-between'>
     <Button
@@ -24,7 +24,7 @@ const SectionOptions = ({
         root: 'button-secondary-small',
         label: 'button-secondary-small-label',
       } }
-      disabled={ checkDisabledAddTestButton({ units }) }
+      disabled={ checkDisabledAddTestButton({ test }) }
       onClick={ handleAddTestButton }
     >
       Add Test
@@ -34,9 +34,9 @@ const SectionOptions = ({
 
 SectionOptions.propTypes = {
   units: PropTypes.arrayOf(PropTypes.any).isRequired,
+  test: PropTypes.shape({}).isRequired,
   handleAddUnitButton: PropTypes.func.isRequired,
   handleAddTestButton: PropTypes.func.isRequired,
-
 }
 
 export default SectionOptions

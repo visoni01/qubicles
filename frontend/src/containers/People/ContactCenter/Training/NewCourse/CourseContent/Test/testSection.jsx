@@ -7,41 +7,35 @@ import { faFlask, faTrash } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import TestQuestionModal from './testQuestionModal'
 import ConfirmationModal from '../../../../../../../components/CommonModal/confirmationModal'
-import { updateUnitInSection } from '../helper'
 
 const TestSection = ({
-  unit, updateSection, section, handleDeleteUnitButton,
+  test, updateSection, section, handleDeleteTestButton,
 }) => {
-  const [ openTest, setOpenTest ] = useState(unit.isOpen)
+  const [ openTest, setOpenTest ] = useState(test.isOpen)
   const [ openConfirmDelete, setOpenConfirmDelete ] = useState(false)
-  const [ unitDetails, setUnitDetails ] = useState(unit)
+  const [ testDetails, setTestDetails ] = useState(test)
 
-  const saveUnitDetails = useCallback(() => {
-    let updatedUnit = unitDetails
-    setUnitDetails((current) => {
-      updatedUnit = { ...current, isEmpty: false, isOpen: false }
-      return (updatedUnit)
-    })
-
-    const updatedSection = updateUnitInSection({
-      section,
-      updatedUnit,
+  const saveTestDetails = useCallback(() => {
+    let updatedTest = testDetails
+    setTestDetails((current) => {
+      updatedTest = { ...current, isEmpty: false, isOpen: false }
+      return (updatedTest)
     })
 
     updateSection({
-      section: updatedSection,
+      section: { ...section, test: updatedTest },
     })
 
     setOpenTest(false)
-  }, [ unitDetails, updateSection, section, setOpenTest ])
+  }, [ testDetails, updateSection, section, setOpenTest ])
 
   const handleCancelUnitChanges = useCallback(() => {
-    setUnitDetails({ ...unit, isOpen: false })
-    if (unitDetails.isEmpty) {
-      handleDeleteUnitButton({ unit })
+    setTestDetails({ ...test, isOpen: false })
+    if (testDetails.isEmpty) {
+      handleDeleteTestButton()
     }
     setOpenTest(false)
-  }, [ unit, setOpenTest, handleDeleteUnitButton, unitDetails.isEmpty ])
+  }, [ test, setOpenTest, handleDeleteTestButton, testDetails.isEmpty ])
 
   return (
     <>
@@ -52,7 +46,7 @@ const TestSection = ({
               <FontAwesomeIcon className='custom-fa-icon sz-lg' icon={ faFlask } />
             </Grid>
             <Grid item className='text-edit' xl={ 10 } lg={ 10 } md={ 10 } sm={ 10 }>
-              <p className='para'>{unitDetails.title}</p>
+              <p className='para'>{testDetails.title}</p>
             </Grid>
           </Grid>
           <Grid item xl={ 8 } lg={ 8 } md={ 8 } sm={ 10 } className='added-content'>
@@ -76,23 +70,23 @@ const TestSection = ({
       <TestQuestionModal
         open={ openTest }
         onClose={ handleCancelUnitChanges }
-        onSubmit={ saveUnitDetails }
-        unitDetails={ unitDetails }
-        setUnitDetails={ setUnitDetails }
+        onSubmit={ saveTestDetails }
+        testDetails={ testDetails }
+        setTestDetails={ setTestDetails }
       />
       <ConfirmationModal
         open={ openConfirmDelete }
         handleClose={ () => setOpenConfirmDelete(false) }
         message='Are you sure you want to delete this test ?'
         confirmButtonText='Delete'
-        handleConfirm={ () => handleDeleteUnitButton({ unit }) }
+        handleConfirm={ () => handleDeleteTestButton() }
       />
     </>
   )
 }
 
 TestSection.propTypes = {
-  unit: PropTypes.shape({
+  test: PropTypes.shape({
     unitId: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     unitNum: PropTypes.string.isRequired,
@@ -104,7 +98,7 @@ TestSection.propTypes = {
   }).isRequired,
   updateSection: PropTypes.func.isRequired,
   section: PropTypes.shape({}).isRequired,
-  handleDeleteUnitButton: PropTypes.func.isRequired,
+  handleDeleteTestButton: PropTypes.func.isRequired,
 }
 
 export default TestSection

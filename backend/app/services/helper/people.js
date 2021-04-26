@@ -673,7 +673,8 @@ export const formatCourseData = ({ course }) => {
           title: 'Section',
           sectionNum: 1,
           sectionIsActive: true,
-          units: []
+          units: [],
+          test: {}
         }
       ]
     }

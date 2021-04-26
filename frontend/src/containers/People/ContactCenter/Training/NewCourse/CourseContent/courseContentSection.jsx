@@ -1,11 +1,12 @@
 import React, { useCallback } from 'react'
 import { Grid } from '@material-ui/core'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
 import SectionOptions from './sectionOptions'
 import AddedContent from './addedContent'
 import TestSection from './Test/testSection'
 import {
-  addNewUnitToSection, addNewTestToSection, deleteUnitFromSection, getArticleUnitsCount, getTestUnitsCount,
+  addNewUnitToSection, addNewTestToSection, deleteUnitFromSection, getArticleUnitsCount,
 } from './helper'
 
 const CourseContentSection = ({
@@ -32,6 +33,12 @@ const CourseContentSection = ({
     })
   }, [ updateSection, section ])
 
+  const handleDeleteTestButton = useCallback(() => {
+    updateSection({
+      section: { ...section, test: {} },
+    })
+  }, [ updateSection, section ])
+
   return (
     <div>
       <div className='list-sections border-1'>
@@ -46,35 +53,37 @@ const CourseContentSection = ({
             </Grid>
             <Grid item>
               <span className='para'>
-                {`${ getArticleUnitsCount({ section }) } Units, ${ getTestUnitsCount({ section }) } Tests`}
+                {`${ getArticleUnitsCount({ section }) } Units`}
               </span>
             </Grid>
           </Grid>
         </div>
 
+        {/* Section Units (Audio, Video, Article) */}
         {section.units.map((unit) => (
-          unit.type === 'Test' ? (
-            <TestSection
-              key={ unit.unitId }
-              unit={ unit }
-              section={ section }
-              updateSection={ updateSection }
-              handleDeleteUnitButton={ handleDeleteUnitButton }
-            />
-          ) : (
-            <AddedContent
-              key={ unit.unitId }
-              unit={ unit }
-              section={ section }
-              updateSection={ updateSection }
-              handleDeleteUnitButton={ handleDeleteUnitButton }
-            />
-          )
+          <AddedContent
+            key={ unit.unitId }
+            unit={ unit }
+            section={ section }
+            updateSection={ updateSection }
+            handleDeleteUnitButton={ handleDeleteUnitButton }
+          />
         ))}
+
+        {/* Section Test */}
+        {!_.isEmpty(section.test) && (
+          <TestSection
+            test={ section.test }
+            section={ section }
+            updateSection={ updateSection }
+            handleDeleteTestButton={ handleDeleteTestButton }
+          />
+        )}
 
       </div>
       <SectionOptions
         units={ section.units }
+        test={ section.test }
         handleAddUnitButton={ handleAddUnitButton }
         handleAddTestButton={ handleAddTestButton }
       />
@@ -90,7 +99,9 @@ CourseContentSection.propTypes = {
     sectionIsActive: PropTypes.bool.isRequired,
     units: PropTypes.arrayOf(PropTypes.any).isRequired,
     idx: PropTypes.number.isRequired,
+    test: PropTypes.shape({}).isRequired,
   }).isRequired,
+
   updateSection: PropTypes.func.isRequired,
 }
 

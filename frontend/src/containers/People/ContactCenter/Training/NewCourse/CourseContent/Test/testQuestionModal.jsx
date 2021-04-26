@@ -9,12 +9,12 @@ import TestQuestion from './testQuestion'
 import { addQuestionToTest, checkDisabledSaveTestButton, checkDisabledAddQuestionButton } from '../helper'
 
 const TestQuestionModal = ({
-  open, onSubmit, onClose, unitDetails, setUnitDetails,
+  open, onSubmit, onClose, testDetails, setTestDetails,
 }) => {
   const handleAddQuestionButton = useCallback(() => {
-    const updatedUnit = addQuestionToTest({ unit: unitDetails })
-    setUnitDetails(updatedUnit)
-  }, [ setUnitDetails, unitDetails ])
+    const updatedTest = addQuestionToTest({ test: testDetails })
+    setTestDetails(updatedTest)
+  }, [ setTestDetails, testDetails ])
 
   return (
     <Dialog
@@ -38,12 +38,12 @@ const TestQuestionModal = ({
         </DialogActions>
       </div>
       <DialogContent>
-        {unitDetails.questions.map((question) => (
+        {testDetails.questions.map((question) => (
           <TestQuestion
             key={ question.id }
             question={ question }
-            setUnitDetails={ setUnitDetails }
-            unitDetails={ unitDetails }
+            setTestDetails={ setTestDetails }
+            testDetails={ testDetails }
           />
         ))}
         <div className='mt-10 mb-10'>
@@ -54,7 +54,7 @@ const TestQuestionModal = ({
               label: 'button-primary-small-label',
             } }
             onClick={ handleAddQuestionButton }
-            disabled={ checkDisabledAddQuestionButton({ unit: unitDetails }) }
+            disabled={ checkDisabledAddQuestionButton({ unit: testDetails }) }
           >
             Add Question
           </Button>
@@ -72,7 +72,7 @@ const TestQuestionModal = ({
           className='button-primary-small'
           classes={ { label: 'primary-label' } }
           onClick={ onSubmit }
-          disabled={ checkDisabledSaveTestButton({ unit: unitDetails }) }
+          disabled={ checkDisabledSaveTestButton({ unit: testDetails }) }
         >
           Save
         </Button>
@@ -85,7 +85,7 @@ TestQuestionModal.propTypes = {
   open: PropTypes.bool.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
-  unitDetails: PropTypes.shape({
+  testDetails: PropTypes.shape({
     unitId: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     unitNum: PropTypes.string.isRequired,
@@ -94,7 +94,7 @@ TestQuestionModal.propTypes = {
     length: PropTypes.number.isRequired,
     isEmpty: PropTypes.bool.isRequired,
   }).isRequired,
-  setUnitDetails: PropTypes.func.isRequired,
+  setTestDetails: PropTypes.func.isRequired,
 
 }
 

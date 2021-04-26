@@ -13,7 +13,7 @@ import { testQuestionPropType } from '../../propTypes'
 import TextQuestion from './Questions/textQuestion'
 import ScaleQuestion from './Questions/scaleQuestion'
 
-const TestQuestion = ({ question, unitDetails, setUnitDetails }) => {
+const TestQuestion = ({ question, testDetails, setTestDetails }) => {
   const [ questionDetails, setQuestionDetails ] = useState(question)
 
   const handleQuestionTypeChange = useCallback((e) => {
@@ -33,30 +33,30 @@ const TestQuestion = ({ question, unitDetails, setUnitDetails }) => {
   }, [ ])
 
   const handleEditQuestion = useCallback(() => {
-    const updatedQuestions = unSaveQuestionInTest({ unit: unitDetails, question: questionDetails })
-    setUnitDetails((current) => ({
+    const updatedQuestions = unSaveQuestionInTest({ test: testDetails, question: questionDetails })
+    setTestDetails((current) => ({
       ...current,
       questions: updatedQuestions,
     }))
     setQuestionDetails((current) => ({ ...current, isSaved: false }))
-  }, [ setUnitDetails, unitDetails, questionDetails ])
+  }, [ setTestDetails, testDetails, questionDetails ])
 
   const handleDeleteQuestion = useCallback(() => {
-    const updatedQuestions = deleteQuestionFromTest({ unit: unitDetails, question })
-    setUnitDetails((current) => ({
+    const updatedQuestions = deleteQuestionFromTest({ test: testDetails, question })
+    setTestDetails((current) => ({
       ...current,
       questions: updatedQuestions,
     }))
-  }, [ setUnitDetails, unitDetails, question ])
+  }, [ setTestDetails, testDetails, question ])
 
   const handleSaveQuestion = useCallback(() => {
-    const updatedQuestions = saveQuestionInTest({ unit: unitDetails, question: questionDetails })
-    setUnitDetails((current) => ({
+    const updatedQuestions = saveQuestionInTest({ test: testDetails, question: questionDetails })
+    setTestDetails((current) => ({
       ...current,
       questions: updatedQuestions,
     }))
     setQuestionDetails((current) => ({ ...current, isSaved: true }))
-  }, [ setUnitDetails, unitDetails, questionDetails ])
+  }, [ setTestDetails, testDetails, questionDetails ])
 
   return (
     <div className='test-question-section mb-20'>
@@ -178,7 +178,7 @@ const TestQuestion = ({ question, unitDetails, setUnitDetails }) => {
 
 TestQuestion.propTypes = {
   question: testQuestionPropType.isRequired,
-  unitDetails: PropTypes.shape({
+  testDetails: PropTypes.shape({
     unitId: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     unitNum: PropTypes.string.isRequired,
@@ -187,7 +187,7 @@ TestQuestion.propTypes = {
     length: PropTypes.number.isRequired,
     isEmpty: PropTypes.bool.isRequired,
   }).isRequired,
-  setUnitDetails: PropTypes.func.isRequired,
+  setTestDetails: PropTypes.func.isRequired,
 }
 
 export default TestQuestion
