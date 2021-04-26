@@ -1,6 +1,6 @@
 import {
   XQodResourceDef, XQodUserSkill, XQodSkill,
-  UserDetail, XQodApplication, XUserActivity, User, XQodCourse
+  UserDetail, XQodApplication, XUserActivity, User, XQodCourse, XQodCourseSection, XQodCourseUnit, XQodCourseSectionQA
 } from '../../db/models'
 import { createNewEntity } from './common'
 import { getOne, getAll } from './crud'
@@ -534,6 +534,48 @@ export const getTopTalent = async () => {
   return topTalent.map(talent => talent.get({ plain: true }))
 }
 
+const formatUnitInfo = ({ section }) => {
+  return section.units.slice(0, section.units.length - 1).map((unit, index) => {
+    return {
+      unit_num: unit.unitNum,
+      title: unit.title,
+      details: unit.details,
+      length: unit.length,
+      type: unit.type,
+      order: index + 1
+    }
+  })
+}
+
+const formatQuestionInfo = ({ section }) => {
+  return section.units[section.units.length - 1].questions.map((question, index) => {
+    return {
+      question_type: question.questionType,
+      question: question.questionText,
+      answer: question.answerText,
+      option1: (question.questionType === 'multiple' || question.questionType === 'checkbox') && question.options.length > 0 ? question.options[0].value : null,
+      option2: (question.questionType === 'multiple' || question.questionType === 'checkbox') && question.options.length > 1 ? question.options[1].value : null,
+      option3: (question.questionType === 'multiple' || question.questionType === 'checkbox') && question.options.length > 2 ? question.options[2].value : null,
+      option4: (question.questionType === 'multiple' || question.questionType === 'checkbox') && question.options.length > 3 ? question.options[3].value : null,
+      option5: (question.questionType === 'multiple' || question.questionType === 'checkbox') && question.options.length > 4 ? question.options[4].value : null,
+      order: index + 1
+    }
+  })
+}
+
+const formatSectionInfo = ({ sections }) => {
+  return sections.map((section, index) => {
+    return {
+      section_num: section.sectionNum,
+      title: section.title,
+      is_active: section.sectionIsActive,
+      order: index + 1,
+      units: formatUnitInfo({ section }),
+      questions: formatQuestionInfo({ section })
+    }
+  })
+}
+
 const formatCourseInfo = ({ course }) => {
   return {
     category_id: course.informationSection.category,
@@ -546,15 +588,28 @@ const formatCourseInfo = ({ course }) => {
     image_url: course.image_url,
     token_price: course.informationSection.price,
     visibility: course.informationSection.visibility,
-    status: course.status
+    status: course.status,
+    sections: formatSectionInfo({ sections: course.courseContent.sections })
   }
 }
 
 export async function addNewCourse ({ course }) {
-  const addedCourse = await createNewEntity({
-    model: XQodCourse,
-    data: formatCourseInfo({ course })
-  })
+  const addedCourse = await XQodCourse.create(
+    formatCourseInfo({ course }), {
+      include: [{
+        model: XQodCourseSection,
+        as: 'sections',
+        include: [{
+          model: XQodCourseUnit,
+          as: 'units'
+        }, {
+          model: XQodCourseSectionQA,
+          as: 'questions'
+        }]
+      }]
+    }
+  )
+
   return addedCourse
 }
 

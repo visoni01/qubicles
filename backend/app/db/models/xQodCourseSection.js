@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     section_num: DataTypes.STRING(100),
     title: DataTypes.STRING,
     is_active: DataTypes.BOOLEAN,
+    order: DataTypes.INTEGER,
     createdAt: {
       field: 'created_on',
       type: DataTypes.DATE
@@ -25,6 +26,8 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: true
   })
   XQodCourseSection.associate = function (models) {
+    XQodCourseSection.hasMany(models.XQodCourseUnit, { as: 'units', foreignKey: 'section_id' })
+    XQodCourseSection.hasMany(models.XQodCourseSectionQA, { as: 'questions', foreignKey: 'section_id' })
   }
   return XQodCourseSection
 }

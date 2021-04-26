@@ -34,6 +34,7 @@ export const checkDisabledAddUnitButton = ({ units }) => {
 export const checkDisabledSaveQuestionButton = ({ question }) => {
   const isEmptyQuestionText = _.isEmpty(question.questionText)
   const notEmptyOptions = question.options.reduce((acc, curr) => acc && !_.isEmpty(curr.value), true)
+  const isUniqueOptions = new Set(question.options.map((item) => item.value)).size === question.options.length
 
   if (question.questionType === 'multiple') {
     const isRightAnswerSelected = (question.options.map((option) => option.id)).includes(question.correctOption)
@@ -41,6 +42,7 @@ export const checkDisabledSaveQuestionButton = ({ question }) => {
       !isEmptyQuestionText
       && notEmptyOptions
       && isRightAnswerSelected
+      && isUniqueOptions
     )
   }
   if (question.questionType === 'checkbox') {
@@ -49,6 +51,7 @@ export const checkDisabledSaveQuestionButton = ({ question }) => {
       !isEmptyQuestionText
       && notEmptyOptions
       && isRightAnswerSelected
+      && isUniqueOptions
     )
   }
 
@@ -226,7 +229,16 @@ export const deleteQuestionFromTest = ({ unit, question }) => {
 export const saveQuestionInTest = ({ unit, question }) => {
   const updatedUnitQuestions = unit.questions.map((q) => {
     if (q.id === question.id) {
-      return { ...question, isSaved: true }
+      let { answerText } = question
+      if (question.questionType === 'multiple') {
+        const correctAnswer = question.options.filter((item) => item.id === question.correctOption)
+        answerText = correctAnswer.length && correctAnswer[ 0 ].value
+      }
+      if (question.questionType === 'checkbox') {
+        const correctAnswer = question.options.filter((item) => question.correctOptions.includes(item.id))
+        answerText = correctAnswer.length && correctAnswer.map((item) => item.value).join(',')
+      }
+      return { ...question, isSaved: true, answerText }
     }
     return q
   })

@@ -7,7 +7,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       primaryKey: true
     },
-    course_id: DataTypes.INTEGER(11),
     section_id: DataTypes.INTEGER(11),
     unit_num: DataTypes.STRING(100),
     title: DataTypes.STRING,

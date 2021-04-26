@@ -46,6 +46,7 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: true
   })
   XQodCourse.associate = function (models) {
+    XQodCourse.hasMany(models.XQodCourseSection, { as: 'sections', foreignKey: 'course_id' })
   }
   return XQodCourse
 }
