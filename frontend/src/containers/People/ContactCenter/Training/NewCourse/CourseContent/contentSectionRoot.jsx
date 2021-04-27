@@ -4,7 +4,8 @@ import PropTypes from 'prop-types'
 import CourseContentSection from './courseContentSection'
 import './styles.scss'
 import {
-  checkDisabledAddSectionButton, addEmptyContentSectionToSections, updateSectionInSections, deleteSectionInSections, checkDeleteSection,
+  checkDisabledAddSectionButton, addEmptyContentSectionToSections, updateSectionInSections,
+  deleteSectionInSections, checkDeleteSection,
 } from './helper'
 
 const ContentSectionRoot = ({

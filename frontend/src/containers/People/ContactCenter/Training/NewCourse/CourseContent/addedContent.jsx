@@ -92,6 +92,7 @@ const AddedContent = ({
         savedUnit={ unit }
         setUnitDetails={ setUnitDetails }
       />
+      {openConfirmDelete && (
       <ConfirmationModal
         open={ openConfirmDelete }
         handleClose={ () => setOpenConfirmDelete(false) }
@@ -99,6 +100,7 @@ const AddedContent = ({
         confirmButtonText='Delete'
         handleConfirm={ () => handleDeleteUnitButton({ unit }) }
       />
+      )}
     </div>
   )
 }

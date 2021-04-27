@@ -12,13 +12,16 @@ import AddedContent from './addedContent'
 import TestSection from './Test/testSection'
 import {
   addNewUnitToSection, addNewTestToSection, deleteUnitFromSection, getArticleUnitsCount,
-  checkDisabledSaveSectionButton, isEmptySection,
+  checkDisabledSaveSectionButton, isEmptySection, isEqualSections,
 } from './helper'
+import ConfirmationModal from '../../../../../../components/CommonModal/confirmationModal'
 
 const CourseContentSection = ({
   section, updateSection, deleteSection, isEnableDelete,
 }) => {
   const [ sectionDetails, setSectionDetails ] = useState(section)
+  const [ openDeleteConfirmation, setOpenDeleteConfirmation ] = useState(false)
+  const [ openDiscardConfirmation, setOpenDiscardConfirmation ] = useState(false)
 
   const handleSaveSection = useCallback(() => {
     const updatedSection = { ...sectionDetails, isEdit: false }
@@ -114,7 +117,7 @@ const CourseContentSection = ({
                         root: 'button-secondary-small-red',
                         label: 'button-secondary-small-label',
                       } }
-                      onClick={ () => deleteSection({ section }) }
+                      onClick={ () => setOpenDeleteConfirmation(true) }
                       disabled={ !isEnableDelete }
                     >
                       Delete Section
@@ -127,7 +130,11 @@ const CourseContentSection = ({
                         root: 'button-secondary-small',
                         label: 'button-secondary-small-label pr-20 pl-20',
                       } }
-                      onClick={ handleDiscardSection }
+                      onClick={ () => setOpenDiscardConfirmation(true) }
+                      disabled={ isEqualSections({
+                        previous: section,
+                        current: sectionDetails,
+                      }) }
                     >
                       Discard
                     </Button>
@@ -180,6 +187,30 @@ const CourseContentSection = ({
         test={ sectionDetails.test }
         handleAddUnitButton={ handleAddUnitButton }
         handleAddTestButton={ handleAddTestButton }
+      />
+      )}
+      {openDeleteConfirmation && (
+      <ConfirmationModal
+        open={ openDeleteConfirmation }
+        handleClose={ () => setOpenDeleteConfirmation(false) }
+        message={ `All the content of this
+        section will be deleted automatically.` }
+        confirmButtonText='Delete Section'
+        handleConfirm={ () => deleteSection({ section }) }
+      />
+      )}
+
+      {openDiscardConfirmation && (
+      <ConfirmationModal
+        open={ openDiscardConfirmation }
+        handleClose={ () => setOpenDiscardConfirmation(false) }
+        message={ `New changes will be discarded
+        and section will restore it's previously saved state.` }
+        confirmButtonText='Discard Changes'
+        handleConfirm={ () => {
+          handleDiscardSection()
+          setOpenDiscardConfirmation(false)
+        } }
       />
       )}
     </div>

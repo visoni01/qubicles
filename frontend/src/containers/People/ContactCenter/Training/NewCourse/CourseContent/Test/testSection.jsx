@@ -78,6 +78,7 @@ const TestSection = ({
         testDetails={ testDetails }
         setTestDetails={ setTestDetails }
       />
+      {openConfirmDelete && (
       <ConfirmationModal
         open={ openConfirmDelete }
         handleClose={ () => setOpenConfirmDelete(false) }
@@ -85,6 +86,7 @@ const TestSection = ({
         confirmButtonText='Delete'
         handleConfirm={ () => handleDeleteTestButton() }
       />
+      )}
     </>
   )
 }

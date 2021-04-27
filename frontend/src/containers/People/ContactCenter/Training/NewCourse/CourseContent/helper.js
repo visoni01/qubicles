@@ -36,6 +36,11 @@ export const checkDisabledSaveSectionButton = ({ updatedSection }) => {
   return !(notEmptyTitle && !emptySection)
 }
 
+export const isEqualSections = ({ previous, current }) => {
+  const sectionContent = ({ isEdit, ...rest }) => rest
+  return _.isEqual(sectionContent(previous), sectionContent(current))
+}
+
 export const checkDisabledAddUnitButton = ({ units }) => {
   if (units.length > 0) {
     const lastUnit = units[ units.length - 1 ]
@@ -268,4 +273,10 @@ export const unSaveQuestionInTest = ({ test, question }) => {
   })
 
   return updatedUnitQuestions
+}
+
+export const courseContentFilterBeforeSave = ({ courseContent }) => {
+  const filteredSections = courseContent.sections.filter((section) => !isEmptySection({ section }))
+  console.log('FILTERD SECTIONS==', filteredSections)
+  return { ...courseContent, sections: filteredSections }
 }

@@ -5,9 +5,9 @@ import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { trainingCourseRequestStart } from '../../../../../redux-saga/redux/people'
 import { EDIT_COURSE_ROUTE } from '../../../../../routes/routesPath'
+import { courseContentFilterBeforeSave } from './CourseContent/helper'
 
 const NewCourseActions = ({
-  updateCourseReducer,
   informationSection,
   contentSection,
   courseContent,
@@ -18,18 +18,20 @@ const NewCourseActions = ({
   const dispatch = useDispatch()
   const history = useHistory()
   const saveDraft = useCallback(() => {
-    updateCourseReducer()
+    // Check course content before send
+    const courseContentFiltered = courseContentFilterBeforeSave({ courseContent })
+    const course = {
+      courseId,
+      informationSection,
+      contentSection,
+      courseContent: courseContentFiltered,
+      status: 'draft',
+    }
     dispatch(trainingCourseRequestStart({
-      course: {
-        courseId,
-        informationSection,
-        contentSection,
-        courseContent,
-        status: 'draft',
-      },
+      course,
       requestType: 'CREATE',
     }))
-  }, [ informationSection, contentSection, updateCourseReducer, courseContent, courseId, dispatch ])
+  }, [ informationSection, contentSection, courseContent, courseId, dispatch ])
 
   useEffect(() => {
     if (courseId) {
@@ -76,7 +78,6 @@ const NewCourseActions = ({
 }
 
 NewCourseActions.propTypes = {
-  updateCourseReducer: PropTypes.func.isRequired,
   informationSection: PropTypes.shape({}).isRequired,
   contentSection: PropTypes.shape({}).isRequired,
   courseContent: PropTypes.shape({}).isRequired,
