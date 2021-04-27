@@ -57,7 +57,9 @@ export class PeopleAddNewCourseService extends ServiceBase {
         const courseData = await getCourseById({ course_id: course.courseId })
 
         // Format course data for reducer when updated
-        courseDetails = formatCourseData({ course: courseData })
+        if (courseData && courseData.length) {
+          courseDetails = formatCourseData({ course: courseData[0] })
+        }
 
         return { courseData: courseDetails, message: 'Course successfully updated!' }
       } else {

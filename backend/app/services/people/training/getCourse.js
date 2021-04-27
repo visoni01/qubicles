@@ -23,14 +23,14 @@ export class PeopleGetCourseService extends ServiceBase {
       const { course_id } = this.filteredArgs
 
       const course = await getCourseById({ course_id })
-      if (course) {
-        const formattedCourse = formatCourseData({ course })
+      if (course && course.length) {
+        const formattedCourse = formatCourseData({ course: course[0] })
         return formattedCourse
       } else {
         this.addError(ERRORS.NOT_FOUND, MESSAGES.COURSE_NOT_FOUND)
       }
     } catch (e) {
-      logger.error(getErrorMessageForService('PeopleAddNewCourseService'), e)
+      logger.error(getErrorMessageForService('PeopleGetCourseService'), e)
       this.addError(ERRORS.INTERNAL)
     }
   }

@@ -24,7 +24,7 @@ export class PeopleGetAllCoursesService extends ServiceBase {
       const formattedCourses = courses.map(course => formatCourseCard({ course }))
       return formattedCourses
     } catch (e) {
-      logger.error(getErrorMessageForService('PeopleAddNewCourseService'), e)
+      logger.error(getErrorMessageForService('PeopleGetAllCoursesService'), e)
       this.addError(ERRORS.INTERNAL)
     }
   }

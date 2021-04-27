@@ -26,8 +26,8 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: true
   })
   XQodCourseSection.associate = function (models) {
-    XQodCourseSection.hasMany(models.XQodCourseUnit, { as: 'units', foreignKey: 'section_id' })
-    XQodCourseSection.hasMany(models.XQodCourseSectionQA, { as: 'questions', foreignKey: 'section_id' })
+    XQodCourseSection.hasMany(models.XQodCourseUnit, { as: 'units', foreignKey: 'section_id', onDelete: 'cascade' })
+    XQodCourseSection.hasMany(models.XQodCourseSectionQA, { as: 'questions', foreignKey: 'section_id', onDelete: 'cascade' })
   }
   return XQodCourseSection
 }

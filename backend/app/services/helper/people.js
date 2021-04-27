@@ -534,8 +534,8 @@ export const getTopTalent = async () => {
   return topTalent.map(talent => talent.get({ plain: true }))
 }
 
-const formatUnitInfo = ({ section }) => {
-  return section.units.slice(0, section.units.length - 1).map((unit, index) => {
+const formatUnitInfo = ({ units }) => {
+  return units.map((unit, index) => {
     return {
       unit_num: unit.unitNum,
       title: unit.title,
@@ -547,17 +547,22 @@ const formatUnitInfo = ({ section }) => {
   })
 }
 
-const formatQuestionInfo = ({ section }) => {
-  return section.units[section.units.length - 1].questions.map((question, index) => {
+const formatQuestionInfo = ({ questions }) => {
+  return questions.map((question, index) => {
     return {
       question_type: question.questionType,
       question: question.questionText,
       answer: question.answerText,
-      option1: (question.questionType === 'multiple' || question.questionType === 'checkbox') && question.options.length > 0 ? question.options[0].value : null,
-      option2: (question.questionType === 'multiple' || question.questionType === 'checkbox') && question.options.length > 1 ? question.options[1].value : null,
-      option3: (question.questionType === 'multiple' || question.questionType === 'checkbox') && question.options.length > 2 ? question.options[2].value : null,
-      option4: (question.questionType === 'multiple' || question.questionType === 'checkbox') && question.options.length > 3 ? question.options[3].value : null,
-      option5: (question.questionType === 'multiple' || question.questionType === 'checkbox') && question.options.length > 4 ? question.options[4].value : null,
+      option1: (question.questionType === 'multiple' || question.questionType === 'checkbox') && question.options &&
+      question.options.length > 0 ? question.options[0].value : null,
+      option2: (question.questionType === 'multiple' || question.questionType === 'checkbox') && question.options &&
+      question.options.length > 1 ? question.options[1].value : null,
+      option3: (question.questionType === 'multiple' || question.questionType === 'checkbox') && question.options &&
+      question.options.length > 2 ? question.options[2].value : null,
+      option4: (question.questionType === 'multiple' || question.questionType === 'checkbox') && question.options &&
+      question.options.length > 3 ? question.options[3].value : null,
+      option5: (question.questionType === 'multiple' || question.questionType === 'checkbox') && question.options &&
+      question.options.length > 4 ? question.options[4].value : null,
       order: index + 1
     }
   })
@@ -570,8 +575,10 @@ const formatSectionInfo = ({ sections }) => {
       title: section.title,
       is_active: section.sectionIsActive,
       order: index + 1,
-      units: formatUnitInfo({ section }),
-      questions: formatQuestionInfo({ section })
+      units: formatUnitInfo({ units: section.units }),
+      questions: section.test && section.test.questions
+        ? formatQuestionInfo({ questions: section.test.questions })
+        : []
     }
   })
 }
@@ -589,7 +596,9 @@ const formatCourseInfo = ({ course }) => {
     token_price: course.informationSection.price,
     visibility: course.informationSection.visibility,
     status: course.status,
-    sections: formatSectionInfo({ sections: course.courseContent.sections })
+    sections: course.courseContent.sections
+      ? formatSectionInfo({ sections: course.courseContent.sections })
+      : []
   }
 }
 
@@ -615,17 +624,56 @@ export async function addNewCourse ({ course }) {
 
 export async function updateCourse ({ course }) {
   const courseInfo = formatCourseInfo({ course })
-  const updatedCourse = await XQodCourse.update(
-    courseInfo,
-    { where: { course_id: course.courseId } })
-  return updatedCourse
+  const sectionInfo = courseInfo['sections'].map((section) => {
+    return {
+      ...section,
+      course_id: course.courseId
+    }
+  })
+
+  await XQodCourseSection.destroy({
+    where: { course_id: course.courseId }
+  })
+
+  const promiseArray = [
+    () => XQodCourse.update(
+      courseInfo,
+      { where: { course_id: course.courseId } }),
+    () => XQodCourseSection.bulkCreate(sectionInfo, {
+      include: [{
+        model: XQodCourseUnit,
+        as: 'units'
+      }, {
+        model: XQodCourseSectionQA,
+        as: 'questions'
+      }]
+    })
+  ]
+
+  await Promise.all(promiseArray.map(promise => promise()))
 }
 
 export async function getCourseById ({ course_id }) {
-  const course = await XQodCourse.findOne({
-    where: { course_id },
-    raw: true
+  let course = await XQodCourse.findAll({
+    include: [{
+      model: XQodCourseSection,
+      as: 'sections',
+      required: false,
+      include: [{
+        model: XQodCourseUnit,
+        as: 'units'
+      }, {
+        model: XQodCourseSectionQA,
+        as: 'questions'
+      }]
+    }],
+    where: { course_id }
   })
+
+  if (course) {
+    course = course.map(item => item.get({ plain: true }))
+  }
+
   return course
 }
 
@@ -643,6 +691,125 @@ export async function getAllCourseInfo ({ ownerId }) {
     data: courseQuery
   })
   return courses
+}
+
+export const formatScaleData = ({ question }) => {
+  return {
+    minValue: -50,
+    maxValue: 50,
+    correctValue: 0,
+    minRange: -100,
+    maxRange: 100
+  }
+}
+
+export const formatOptionsData = ({ question }) => {
+  let optionsArray = []
+
+  const optionsData = ({ value }) => {
+    return {
+      id: (Date.now() + Math.random()).toString(),
+      value
+    }
+  }
+
+  if (question.option1) {
+    optionsArray = [
+      ...optionsArray,
+      optionsData({ value: question.option1 })
+    ]
+  }
+
+  if (question.option2) {
+    optionsArray = [
+      ...optionsArray,
+      optionsData({ value: question.option2 })
+    ]
+  }
+
+  if (question.option3) {
+    optionsArray = [
+      ...optionsArray,
+      optionsData({ value: question.option3 })
+    ]
+  }
+
+  if (question.option4) {
+    optionsArray = [
+      ...optionsArray,
+      optionsData({ value: question.option4 })
+    ]
+  }
+
+  if (question.option5) {
+    optionsArray = [
+      ...optionsArray,
+      optionsData({ value: question.option5 })
+    ]
+  }
+
+  return optionsArray
+}
+
+export const formatQuestionData = ({ questions }) => {
+  return questions.map((question) => {
+    const options = (question.question_type === 'multiple' || question.question_type === 'checkbox')
+      ? formatOptionsData({ question })
+      : []
+    const correctOption = (question.question_type === 'multiple')
+      ? options.find((option) => option.value === question.answer).id
+      : ''
+    const correctOptions = (question.question_type === 'checkbox')
+      ? options.filter((option) => question.answer.split(',').includes(option.value)).map((option) => option.id)
+      : []
+
+    return {
+      id: question.section_qa_id,
+      questionType: question.question_type,
+      questionText: question.question,
+      answerText: question.answer,
+      options,
+      isSaved: true,
+      correctOptions,
+      correctOption,
+      scale: formatScaleData({ question }) // WIP the data is fixed data it should be dynamic
+    }
+  })
+}
+
+export const formatUnitData = ({ units }) => {
+  return units.map((unit) => {
+    return {
+      unitId: unit.unit_id,
+      unitNum: unit.unit_num,
+      title: unit.title,
+      details: unit.details,
+      length: unit.length,
+      type: unit.type,
+      isEmpty: false,
+      isOpen: false
+    }
+  })
+}
+
+export const formatSectionData = ({ sections }) => {
+  return sections.map((section) => {
+    return {
+      id: section.section_id,
+      title: section.title,
+      sectionNum: section.section_num,
+      sectionIsActive: section.is_active,
+      isEdit: false,
+      units: formatUnitData({ units: section.units }),
+      test: section.questions && section.questions.length ? {
+        title: 'Test',
+        length: 0,
+        questions: formatQuestionData({ questions: section.questions }),
+        isEmpty: false,
+        isOpen: false
+      } : {}
+    }
+  })
 }
 
 export const formatCourseData = ({ course }) => {
@@ -667,16 +834,7 @@ export const formatCourseData = ({ course }) => {
       introductionVideo: course.video_url
     },
     courseContent: {
-      sections: [
-        {
-          id: 0,
-          title: 'Section',
-          sectionNum: 1,
-          sectionIsActive: true,
-          units: [],
-          test: {}
-        }
-      ]
+      sections: formatSectionData({ sections: course.sections })
     }
   }
 }
