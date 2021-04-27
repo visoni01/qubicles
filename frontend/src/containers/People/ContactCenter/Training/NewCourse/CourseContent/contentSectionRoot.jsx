@@ -3,7 +3,9 @@ import { Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import CourseContentSection from './courseContentSection'
 import './styles.scss'
-import { checkDisabledAddSectionButton, addEmptyContentSectionToSections, updateSectionInSections } from './helper'
+import {
+  checkDisabledAddSectionButton, addEmptyContentSectionToSections, updateSectionInSections, deleteSectionInSections, checkDeleteSection,
+} from './helper'
 
 const ContentSectionRoot = ({
   courseContent, setCourseContent,
@@ -28,6 +30,16 @@ const ContentSectionRoot = ({
     })
   }, [ setCourseContent ])
 
+  const deleteSection = useCallback(({ section }) => {
+    setCourseContent((current) => {
+      const updatedSections = deleteSectionInSections({ sections: current.sections, sectionToDelete: section })
+      return ({
+        ...current,
+        sections: updatedSections,
+      })
+    })
+  }, [ setCourseContent ])
+
   return (
     <div className='content-section'>
       {courseContent.sections.map((section) => (
@@ -35,20 +47,24 @@ const ContentSectionRoot = ({
           key={ section.id }
           section={ section }
           updateSection={ updateSection }
+          deleteSection={ deleteSection }
+          isEnableDelete={ checkDeleteSection({ sections: courseContent.sections }) }
         />
       ))}
 
-      <Button
-        className='wide-button'
-        classes={ {
-          root: 'button-secondary-small',
-          label: 'button-secondary-small-label',
-        } }
-        onClick={ handleAddSectionButton }
-        disabled={ checkDisabledAddSectionButton({ sections: courseContent.sections }) }
-      >
-        Save Section
-      </Button>
+      <div className='mt-15'>
+        <Button
+          className='wide-button'
+          classes={ {
+            root: 'button-secondary-small',
+            label: 'button-secondary-small-label',
+          } }
+          onClick={ handleAddSectionButton }
+          disabled={ checkDisabledAddSectionButton({ sections: courseContent.sections }) }
+        >
+          Add Section
+        </Button>
+      </div>
     </div>
   )
 }

@@ -24,6 +24,15 @@
       display: inline-flex;
       vertical-align: middle;
       justify-content: space-between;
+      padding: 2px 15px;
+      min-height: 45px;
+      &.section-label {
+       height: 45px;
+      }
+
+      &.edit-section {
+        padding: 10px 15px;
+      }
 
       .upload-content-button {
         width: 120px;

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { getUniqueId } from '../../../../utils/common'
 
 const initialState = {
   isLoading: null,
@@ -25,8 +26,9 @@ const initialState = {
     },
     courseContent: {
       sections: [ {
-        id: 0,
-        title: 'Section',
+        id: getUniqueId(),
+        title: 'Section 1',
+        isEdit: true,
         sectionNum: 1,
         sectionIsActive: true,
         units: [],

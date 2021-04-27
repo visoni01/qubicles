@@ -51,19 +51,23 @@ const TestSection = ({
           </Grid>
           <Grid item xl={ 8 } lg={ 8 } md={ 8 } sm={ 10 } className='added-content'>
             <span className='para light margin-left-right-10'> Test </span>
-            <IconButton onClick={ () => setOpenConfirmDelete(true) }>
-              <FontAwesomeIcon className='custom-fa-icon sz-lg' icon={ faTrash } />
-            </IconButton>
-            <Button
-              className='edit-button'
-              classes={ {
-                root: 'button-secondary-small',
-                label: 'button-secondary-small-label',
-              } }
-              onClick={ () => setOpenTest(true) }
-            >
-              Questions
-            </Button>
+            {section.isEdit && (
+              <>
+                <IconButton onClick={ () => setOpenConfirmDelete(true) }>
+                  <FontAwesomeIcon className='custom-fa-icon sz-lg' icon={ faTrash } />
+                </IconButton>
+                <Button
+                  className='edit-button'
+                  classes={ {
+                    root: 'button-secondary-small',
+                    label: 'button-secondary-small-label',
+                  } }
+                  onClick={ () => setOpenTest(true) }
+                >
+                  Questions
+                </Button>
+              </>
+            )}
           </Grid>
         </Grid>
       </div>
@@ -97,7 +101,9 @@ TestSection.propTypes = {
     isOpen: PropTypes.bool.isRequired,
   }).isRequired,
   updateSection: PropTypes.func.isRequired,
-  section: PropTypes.shape({}).isRequired,
+  section: PropTypes.shape({
+    isEdit: PropTypes.bool.isRequired,
+  }).isRequired,
   handleDeleteTestButton: PropTypes.func.isRequired,
 }
 

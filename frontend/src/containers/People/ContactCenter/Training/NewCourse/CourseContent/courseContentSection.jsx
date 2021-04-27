@@ -1,92 +1,187 @@
-import React, { useCallback } from 'react'
-import { Grid } from '@material-ui/core'
+/* eslint-disable no-nested-ternary */
+import React, { useCallback, useState } from 'react'
+import {
+  Grid, IconButton, TextField, Button,
+} from '@material-ui/core'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPen } from '@fortawesome/free-solid-svg-icons'
 import SectionOptions from './sectionOptions'
 import AddedContent from './addedContent'
 import TestSection from './Test/testSection'
 import {
   addNewUnitToSection, addNewTestToSection, deleteUnitFromSection, getArticleUnitsCount,
+  checkDisabledSaveSectionButton, isEmptySection,
 } from './helper'
 
 const CourseContentSection = ({
-  section, updateSection,
+  section, updateSection, deleteSection, isEnableDelete,
 }) => {
-  const handleAddUnitButton = useCallback(() => {
-    const updatedSection = addNewUnitToSection({ section })
+  const [ sectionDetails, setSectionDetails ] = useState(section)
+
+  const handleSaveSection = useCallback(() => {
+    const updatedSection = { ...sectionDetails, isEdit: false }
     updateSection({
       section: updatedSection,
     })
+    setSectionDetails(updatedSection)
+  }, [ updateSection, sectionDetails ])
+
+  const handleDiscardSection = useCallback(() => {
+    updateSection({
+      section: { ...section, isEdit: false },
+    })
+    setSectionDetails({ ...section, isEdit: false })
   }, [ updateSection, section ])
+
+  const handleEditSection = useCallback(() => {
+    setSectionDetails((current) => ({ ...current, isEdit: true }))
+  }, [ ])
+
+  const handleSectionTitleChange = useCallback((val) => {
+    setSectionDetails((current) => ({ ...current, title: val }))
+  }, [ ])
+
+  const handleAddUnitButton = useCallback(() => {
+    const updatedSection = addNewUnitToSection({ section: sectionDetails })
+    setSectionDetails(updatedSection)
+  }, [ sectionDetails ])
 
   const handleAddTestButton = useCallback(() => {
-    const updatedSection = addNewTestToSection({ section })
-    updateSection({
-      section: updatedSection,
-    })
-  }, [ updateSection, section ])
+    const updatedSection = addNewTestToSection({ section: sectionDetails })
+    setSectionDetails(updatedSection)
+  }, [ sectionDetails ])
 
   const handleDeleteUnitButton = useCallback(({ unit }) => {
-    const updatedSection = deleteUnitFromSection({ section, unitToDelete: unit })
-    updateSection({
-      section: updatedSection,
-    })
-  }, [ updateSection, section ])
+    const updatedSection = deleteUnitFromSection({ section: sectionDetails, unitToDelete: unit })
+    setSectionDetails(updatedSection)
+  }, [ sectionDetails ])
 
   const handleDeleteTestButton = useCallback(() => {
-    updateSection({
-      section: { ...section, test: {} },
-    })
-  }, [ updateSection, section ])
+    setSectionDetails((current) => ({ ...current, test: {} }))
+  }, [ ])
 
   return (
     <div>
       <div className='list-sections border-1'>
-        <div className='list-item'>
-          <Grid container justify='space-between'>
+        <div className='list-item section-label'>
+          <Grid container justify='space-between' alignItems='center'>
             <Grid item>
               <span className='para'>
                 <b>
-                  {`${ section.title }`}
+                  {`${ sectionDetails.title }`}
                 </b>
+              </span>
+              <span className='para sz-sm light ml-10 mr-10'>
+                {`(${ isEmptySection({ section }) ? 'Empty' : sectionDetails.isEdit ? 'Editing' : 'Saved' })`}
               </span>
             </Grid>
             <Grid item>
+              {!sectionDetails.isEdit && (
+              <IconButton
+                onClick={ handleEditSection }
+                disabled={ sectionDetails.isEdit }
+              >
+                <FontAwesomeIcon icon={ faPen } className='custom-fa-icon' />
+              </IconButton>
+              )}
               <span className='para'>
-                {`${ getArticleUnitsCount({ section }) } Units`}
+                {`${ getArticleUnitsCount({ section: sectionDetails }) } Units`}
               </span>
             </Grid>
           </Grid>
         </div>
 
+        {sectionDetails.isEdit && (
+          <div className='list-item edit-section'>
+
+            <Grid container justify='space-between' alignItems='center'>
+              <Grid item>
+                <TextField
+                  margin='dense'
+                  placeholder='Section Title'
+                  value={ sectionDetails.title }
+                  onChange={ (e) => handleSectionTitleChange(e.target.value) }
+                />
+              </Grid>
+              <Grid item>
+                <div className='display-inline-flex align-items-center'>
+                  {isEnableDelete && (
+                  <div className='mr-10'>
+                    <Button
+                      classes={ {
+                        root: 'button-secondary-small-red',
+                        label: 'button-secondary-small-label',
+                      } }
+                      onClick={ () => deleteSection({ section }) }
+                      disabled={ !isEnableDelete }
+                    >
+                      Delete Section
+                    </Button>
+                  </div>
+                  )}
+                  <div className='mr-10'>
+                    <Button
+                      classes={ {
+                        root: 'button-secondary-small',
+                        label: 'button-secondary-small-label pr-20 pl-20',
+                      } }
+                      onClick={ handleDiscardSection }
+                    >
+                      Discard
+                    </Button>
+                  </div>
+                  <div className=''>
+                    <Button
+                      disabled={ checkDisabledSaveSectionButton({
+                        updatedSection: sectionDetails,
+                      }) }
+                      classes={ {
+                        root: 'button-primary-small',
+                        label: 'button-primary-small-label pr-35 pl-35',
+                      } }
+                      onClick={ handleSaveSection }
+                    >
+                      Save
+                    </Button>
+                  </div>
+                </div>
+              </Grid>
+            </Grid>
+          </div>
+        )}
+
         {/* Section Units (Audio, Video, Article) */}
-        {section.units.map((unit) => (
+        {sectionDetails.units.map((unit) => (
           <AddedContent
             key={ unit.unitId }
             unit={ unit }
-            section={ section }
-            updateSection={ updateSection }
+            section={ sectionDetails }
+            updateSection={ ({ section: updatedSection }) => setSectionDetails(updatedSection) }
             handleDeleteUnitButton={ handleDeleteUnitButton }
           />
         ))}
 
         {/* Section Test */}
-        {!_.isEmpty(section.test) && (
+        {!_.isEmpty(sectionDetails.test) && (
           <TestSection
-            test={ section.test }
-            section={ section }
-            updateSection={ updateSection }
+            test={ sectionDetails.test }
+            section={ sectionDetails }
+            updateSection={ ({ section: updatedSection }) => setSectionDetails(updatedSection) }
             handleDeleteTestButton={ handleDeleteTestButton }
           />
         )}
-
       </div>
+
+      {sectionDetails.isEdit && (
       <SectionOptions
-        units={ section.units }
-        test={ section.test }
+        units={ sectionDetails.units }
+        test={ sectionDetails.test }
         handleAddUnitButton={ handleAddUnitButton }
         handleAddTestButton={ handleAddTestButton }
       />
+      )}
     </div>
   )
 }
@@ -101,7 +196,8 @@ CourseContentSection.propTypes = {
     idx: PropTypes.number.isRequired,
     test: PropTypes.shape({}).isRequired,
   }).isRequired,
-
+  isEnableDelete: PropTypes.bool.isRequired,
+  deleteSection: PropTypes.func.isRequired,
   updateSection: PropTypes.func.isRequired,
 }
 

@@ -12,7 +12,11 @@ export default function CourseContent({
           <h3 className='h3 mb-10'> Course Content </h3>
           <p className='para'>
             {`Start building your course
-            by creating sections, units and tests`}
+            by creating Sections, Units and Tests`}
+          </p>
+          <p className='para mt-10'>
+            {`A section must have minimum one
+            Unit and exactly one Test`}
           </p>
         </div>
         <ContentSectionRoot

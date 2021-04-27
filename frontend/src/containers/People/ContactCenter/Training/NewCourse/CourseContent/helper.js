@@ -10,16 +10,30 @@ export const getArticleUnitsCount = ({ section }) => {
   return articleUnits.length
 }
 
-export const checkDisabledAddSectionButton = ({ sections }) => {
-  const totalSections = sections.length
-  if (totalSections > 0) {
-    const lastSection = sections[ sections.length - 1 ]
-    const isTestAdded = !_.isEmpty(lastSection.test)
-    const isUnitAdded = lastSection.units.length > 0
+export const checkDeleteSection = ({ sections }) => sections.length > 1
 
-    return !(isTestAdded && isUnitAdded)
-  }
-  return false
+export const isEmptySection = ({ section }) => {
+  const unitsAdded = section.units.length > 0
+  const testAdded = !_.isEmpty(section.test)
+
+  return !(unitsAdded && testAdded)
+}
+
+export const checkDisabledAddSectionButton = ({ sections }) => {
+  const allSectionsSaved = sections.reduce((acc, curr) => acc && !curr.isEdit, true)
+  const allSectionsNotEmpty = sections.reduce((acc, section) => {
+    const emptySection = isEmptySection({ section })
+    return acc && !emptySection
+  }, true)
+
+  return !(allSectionsSaved && allSectionsNotEmpty)
+}
+
+export const checkDisabledSaveSectionButton = ({ updatedSection }) => {
+  const emptySection = isEmptySection({ section: updatedSection })
+  const notEmptyTitle = !_.isEmpty(updatedSection.title)
+
+  return !(notEmptyTitle && !emptySection)
 }
 
 export const checkDisabledAddUnitButton = ({ units }) => {
@@ -124,11 +138,14 @@ export const getNewEmptyQuestion = () => {
 export const addEmptyContentSectionToSections = ({ sections }) => {
   const newSectionSchema = {
     id: getUniqueId(),
-    title: 'Section',
+    title: `Section ${ sections.length + 1 }`,
+    isEdit: true,
     sectionNum: '1',
     sectionIsActive: true,
     units: [ ],
+    test: {},
   }
+
   return ([
     ...sections, newSectionSchema,
   ])
@@ -141,6 +158,13 @@ export const updateSectionInSections = ({ updatedSection, sections }) => {
     }
     return section
   })
+  return updatedSections
+}
+
+export const deleteSectionInSections = ({ sections, sectionToDelete }) => {
+  // Cannot Delete last section
+  if (sections.length <= 1) return sections
+  const updatedSections = sections.filter((section) => section.id !== sectionToDelete.id)
   return updatedSections
 }
 
