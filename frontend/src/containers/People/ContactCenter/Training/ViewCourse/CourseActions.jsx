@@ -91,15 +91,15 @@ const CourseActions = ({ isPreview, course }) => {
           </div>
         </>
         )}
-        {course.informationSection.category && (
+        {course.informationSection.category && course.informationSection.categoryTitle && (
         <div className='mb-20'>
           <h4 className='h4'>Category</h4>
-          <span className='para light'>{course.informationSection.category}</span>
+          <span className='para light'>{course.informationSection.categoryTitle}</span>
         </div>
         )}
         <div className='mb-20'>
           <h4 className='h4'>Language(s)</h4>
-          <span className='para light'>English</span>
+          <span className='para light'>{course.informationSection.language}</span>
         </div>
       </Box>
     </>
@@ -114,6 +114,8 @@ CourseActions.propTypes = {
       category: PropTypes.shape({
         title: PropTypes.string.isRequired,
       }).isRequired,
+      categoryTitle: PropTypes.string.isRequired,
+      language: PropTypes.string.isRequired,
     }).isRequired,
     contentSection: PropTypes.shape({
       thumbnailImage: PropTypes.any.isRequired,

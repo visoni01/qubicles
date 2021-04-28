@@ -14,7 +14,6 @@ const NewCoursePage = () => {
   const [ contentSection, setContentSection ] = useState(course.contentSection)
   const [ courseContent, setCourseContent ] = useState(course.courseContent)
   const [ isPreview, setIsPreview ] = useState(false)
-
   const dispatch = useDispatch()
   const { userDetails } = useSelector((state) => state.login)
 

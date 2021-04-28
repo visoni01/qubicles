@@ -277,6 +277,5 @@ export const unSaveQuestionInTest = ({ test, question }) => {
 
 export const courseContentFilterBeforeSave = ({ courseContent }) => {
   const filteredSections = courseContent.sections.filter((section) => !isEmptySection({ section }))
-  console.log('FILTERD SECTIONS==', filteredSections)
   return { ...courseContent, sections: filteredSections }
 }

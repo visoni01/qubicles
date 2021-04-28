@@ -10,6 +10,7 @@ const initialState = {
     informationSection: {
       title: '',
       category: null,
+      categoryTitle: '',
       price: 0,
       visibility: 'public',
       description: '',
@@ -17,7 +18,7 @@ const initialState = {
       outcomes: '',
       requirements: '',
       creatorId: null,
-      language: 'english',
+      language: 'English',
       requiredCourses: [],
     },
     contentSection: {

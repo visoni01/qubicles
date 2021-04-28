@@ -596,6 +596,7 @@ const formatCourseInfo = ({ course }) => {
     token_price: course.informationSection.price,
     visibility: course.informationSection.visibility,
     status: course.status,
+    language: course.informationSection.language,
     sections: course.courseContent.sections
       ? formatSectionInfo({ sections: course.courseContent.sections })
       : []
@@ -821,6 +822,7 @@ export const formatCourseData = ({ course }) => {
       updateOn: course.updatedAt,
       title: course.title,
       category: course.category_id,
+      categoryTitle: '',
       price: course.token_price,
       visibility: course.visibility,
       description: course.description,

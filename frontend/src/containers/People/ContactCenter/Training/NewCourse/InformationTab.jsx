@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import {
   Grid, FormControl,
-  RadioGroup, FormControlLabel, Radio, InputBase, TextField,
+  RadioGroup, FormControlLabel, Radio, InputBase, TextField, Select,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -18,6 +18,9 @@ export default function InformationTab({
   const { jobCategoriesOnly, isLoading, error } = useSelector((state) => state.jobCategoriesOnly)
   const [ selectedCategory, setSelectedCategory ] = useState(null)
   const dispatch = useDispatch()
+  const availableLanguages = [
+    'English', 'French', 'Spanish',
+  ]
 
   useEffect(() => {
     if (!isLoading && _.isEmpty(jobCategoriesOnly) && !error) {
@@ -29,6 +32,10 @@ export default function InformationTab({
     if (jobCategoriesOnly.length > 0 && informationSection.category) {
       const filteredCategory = jobCategoriesOnly.filter((categ) => categ.categoryId === informationSection.category)
       setSelectedCategory(filteredCategory.length === 1 ? filteredCategory[ 0 ] : null)
+      setInformationSection((current) => ({
+        ...current,
+        categoryTitle: filteredCategory.length === 1 ? filteredCategory[ 0 ].categoryTitle : '',
+      }))
     }
   }, [ jobCategoriesOnly, informationSection.category ])
 
@@ -70,12 +77,13 @@ export default function InformationTab({
   const setCourseCategory = useCallback((val) => {
     setInformationSection((current) => ({
       ...current,
-      category: val.id,
+      category: val && val.id,
     }))
-    setSelectedCategory({
+    const categ = val ? {
       categoryId: val.id,
       categoryTitle: val.title,
-    })
+    } : null
+    setSelectedCategory(categ)
   }, [ setInformationSection ])
 
   return (
@@ -168,6 +176,48 @@ export default function InformationTab({
         </Grid>
       </Grid>
 
+      <Grid container spacing={ 4 }>
+        <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 6 }>
+          <div className='info-tab-section'>
+            <h3 className='h3 mb-10'> Language </h3>
+            <Select
+              className='is-fullwidth'
+              name='language'
+              native
+              margin='dense'
+              variant='outlined'
+              value={ informationSection.language }
+              onChange={ setInformationSectionField }
+            >
+              {availableLanguages.map((language) => (
+                <option key={ language } value={ language } className='para sz-xl'>
+                  {language}
+                </option>
+              ))}
+            </Select>
+          </div>
+        </Grid>
+        <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 6 }>
+          <div className='info-tab-section'>
+            <h3 className='h3 mb-10'> Required Courses </h3>
+            <div className='search-input'>
+              <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 custom-fa-icon light' />
+              <InputBase
+                placeholder='Search Courses'
+                className='input-field'
+              />
+            </div>
+          </div>
+        </Grid>
+        <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 6 }>
+          <div className='info-tab-section pt-30'>
+            <span className='para light'>
+              Users must have passed these courses before they can enroll in your course
+            </span>
+          </div>
+        </Grid>
+      </Grid>
+
       <div className='info-tab-section'>
         <h3 className='h3 mb-10'> Description </h3>
         <h4 className='h4 mb-10 mt-30'> Summary </h4>
@@ -222,24 +272,6 @@ export default function InformationTab({
           autoComplete='off'
           variant='outlined'
         />
-        <h4 className='h4 mb-10 mt-30'> Required Courses </h4>
-        <Grid container spacing={ 2 }>
-          <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 6 }>
-            <div className='search-input'>
-              <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 custom-fa-icon light' />
-              <InputBase
-                placeholder='Search Courses'
-                className='input-field'
-              />
-            </div>
-          </Grid>
-          <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 6 }>
-            <span className='para light'>
-              {`Users must have passed these
-            courses before they can enroll in your course`}
-            </span>
-          </Grid>
-        </Grid>
       </div>
     </div>
   )
@@ -251,6 +283,7 @@ InformationTab.propTypes = {
     title: PropTypes.string.isRequired,
     category: PropTypes.number,
     visibility: PropTypes.string.isRequired,
+    language: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     goals: PropTypes.string.isRequired,
     outcomes: PropTypes.string.isRequired,
