@@ -24,6 +24,7 @@ const CreateCourse = ({
     >
       <Grid item>
         <NewCourseForm
+          course={ course }
           informationSection={ informationSection }
           setInformationSection={ setInformationSection }
           contentSection={ contentSection }

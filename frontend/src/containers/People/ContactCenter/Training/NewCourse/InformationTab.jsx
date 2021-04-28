@@ -37,7 +37,7 @@ export default function InformationTab({
         categoryTitle: filteredCategory.length === 1 ? filteredCategory[ 0 ].categoryTitle : '',
       }))
     }
-  }, [ jobCategoriesOnly, informationSection.category ])
+  }, [ jobCategoriesOnly, informationSection.category, setInformationSection ])
 
   const setInformationSectionField = useCallback((e) => {
     // to persist event used in many places

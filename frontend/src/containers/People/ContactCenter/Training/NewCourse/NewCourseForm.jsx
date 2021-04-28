@@ -9,12 +9,13 @@ import { useHistory } from 'react-router-dom'
 import InformationTab from './InformationTab'
 import ContentTab from './ContentTab'
 import ROUTE_PATHS from '../../../../../routes/routesPath'
+import { formatDate } from '../../../../../utils/common'
 
 const NewCourseForm = ({
-  informationSection, setInformationSection, contentSection, setContentSection,
+  course, informationSection, setInformationSection, contentSection, setContentSection,
   courseContent, setCourseContent, isEdit,
 }) => {
-  const [ activeTab, setActiveTab ] = useState(1)
+  const [ activeTab, setActiveTab ] = useState(0)
   const history = useHistory()
   return (
     <Box className='custom-box new-course-wrapper'>
@@ -38,11 +39,14 @@ const NewCourseForm = ({
         )}
       </div>
       {isEdit ? (
-        <div className='display-inline-flex align-items-center'>
-          <h2 className='h2 mr-10'>
-            Edit Course
-          </h2>
-          <span className='para light font-size-18x mt-5'>(Draft)</span>
+        <div>
+          <div className='display-inline-flex align-items-center'>
+            <h2 className='h2 mr-10'>
+              Edit Course
+            </h2>
+            <span className='para light font-size-18x mt-5'>(Draft)</span>
+          </div>
+          <p className='para light'>{`Last updated on: ${ formatDate(course.updatedOn, 'MMMM DD YYYY, hh:mm a') }`}</p>
         </div>
       ) : (
         <h2 className='h2'>
@@ -82,6 +86,10 @@ NewCourseForm.defaultProps = {
 }
 
 NewCourseForm.propTypes = {
+  course: PropTypes.shape({
+    createdOn: PropTypes.string.isRequired,
+    updatedOn: PropTypes.string.isRequired,
+  }).isRequired,
   informationSection: PropTypes.shape({}).isRequired,
   setInformationSection: PropTypes.func.isRequired,
   contentSection: PropTypes.shape({}).isRequired,

@@ -816,10 +816,10 @@ export const formatSectionData = ({ sections }) => {
 export const formatCourseData = ({ course }) => {
   return {
     courseId: course.course_id,
+    createdOn: course.createdAt,
+    updatedOn: course.updatedAt,
     informationSection: {
       creatorId: course.creator_id,
-      createdOn: course.createdAt,
-      updateOn: course.updatedAt,
       title: course.title,
       category: course.category_id,
       categoryTitle: '',

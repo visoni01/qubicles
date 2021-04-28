@@ -7,6 +7,8 @@ const initialState = {
   success: null,
   course: {
     courseId: null,
+    createdOn: '',
+    updatedOn: '',
     informationSection: {
       title: '',
       category: null,
