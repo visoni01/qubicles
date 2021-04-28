@@ -1,14 +1,17 @@
 import { Grid } from '@material-ui/core'
 import React from 'react'
+import PropTypes from 'prop-types'
 import CheckboxTestQuestion from './checkboxTestQuestion'
 import MultipleChoiceTestQuestion from './multipleChoiceTestQuestion'
 import ScaleTestQuestion from './scaleTestQuestion'
-import { testQuestionPropType } from './testQuestionPropType'
 import TextTestQuestion from './textTestQuestion'
+import testQuestionPropType from './testQuestionPropType'
 
-const TestQuestion = ({ question }) => (
+const TestQuestion = ({
+  question, answers, setAnswers,
+}) => (
   <div className='test-question-section mb-20'>
-    <div className='border-1 pt-10 pb-20 pl-20 pr-20'>
+    <div className='border-1 question-border pt-10 pb-20 pl-20 pr-20'>
       <Grid container justify='space-between' spacing={ 1 } alignItems='flex-start'>
 
         {/* Question text */}
@@ -22,6 +25,8 @@ const TestQuestion = ({ question }) => (
           {question.questionType === 'multiple' && (
             <MultipleChoiceTestQuestion
               question={ question }
+              answers={ answers }
+              setAnswers={ setAnswers }
             />
           )}
 
@@ -29,6 +34,8 @@ const TestQuestion = ({ question }) => (
           {question.questionType === 'checkbox' && (
           <CheckboxTestQuestion
             question={ question }
+            answers={ answers }
+            setAnswers={ setAnswers }
           />
           )}
 
@@ -36,6 +43,8 @@ const TestQuestion = ({ question }) => (
           { [ 'paragraph', 'text' ].includes(question.questionType) && (
           <TextTestQuestion
             question={ question }
+            answers={ answers }
+            setAnswers={ setAnswers }
           />
           )}
 
@@ -43,6 +52,8 @@ const TestQuestion = ({ question }) => (
           {question.questionType === 'scale' && (
           <ScaleTestQuestion
             question={ question }
+            answers={ answers }
+            setAnswers={ setAnswers }
           />
           )}
         </Grid>
@@ -54,6 +65,8 @@ const TestQuestion = ({ question }) => (
 
 TestQuestion.propTypes = {
   question: testQuestionPropType.isRequired,
+  answers: PropTypes.arrayOf(PropTypes.any).isRequired,
+  setAnswers: PropTypes.func.isRequired,
 }
 
 export default TestQuestion

@@ -1,0 +1,37 @@
+@import '../../../../../../customStyles/scss/partials/variables';
+
+.test-modal {
+
+  .progress-root {
+    height: 14px;
+    border-radius: 20px;
+  }
+
+  .progress-bar-color {
+    background-color: $color-primary;
+  }
+
+  .progress-color {
+    background-color: $color-primary-light;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(72, 119, 244, 0.7);
+    border-radius: 20px 20px 20px 20px ;
+  }
+
+  .question-border {
+    border-radius: 8px;
+  }
+
+  .single-action {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0px 15px;
+    button {
+      margin: 0 0.5rem;
+    }
+  }
+}

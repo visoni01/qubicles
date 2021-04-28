@@ -1,11 +1,9 @@
 import PropTypes from 'prop-types'
 
-export const testQuestionPropType = PropTypes.shape({
-  id: PropTypes.number.isRequired,
+const testQuestionPropType = PropTypes.shape({
+  id: PropTypes.string.isRequired,
   questionType: PropTypes.string.isRequired,
   questionText: PropTypes.string.isRequired,
-}).isRequired
+})
 
-export const testType = {
-
-}
+export default testQuestionPropType

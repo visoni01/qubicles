@@ -9,31 +9,27 @@ const sections = [
       length: 0,
       questions: [
         {
-          id: '1619422143850.726',
+          id: '0',
           questionType: 'multiple',
-          questionText: 'Section 1 q1?',
-          answerText: '',
+          questionText: 'Which of the following statement is valid to use a Node module http in a Node application?',
           options: [
             {
-              id: '1619422143850.5916',
-              value: 'a',
+              id: '0',
+              value: 'var http = require("http");',
             },
             {
-              id: '1619422143850.4539',
-              value: 'b',
+              id: '1',
+              value: 'var http = import("http");',
             },
             {
-              id: '1619422157336.0269',
-              value: 'correct',
+              id: '2',
+              value: 'package http;',
             },
             {
-              id: '1619422158897.8423',
-              value: 'd',
+              id: '3',
+              value: 'import http;',
             },
           ],
-          isSaved: true,
-          correctOptions: [],
-          correctOption: '1619422157336.0269',
           scale: {
             minValue: -50,
             maxValue: 50,
@@ -43,10 +39,9 @@ const sections = [
           },
         },
         {
-          id: '1619422170440.9607',
+          id: '1',
           questionType: 'checkbox',
           questionText: 'q2?',
-          answerText: '',
           options: [
             {
               id: '1619422170440.2388',
@@ -61,12 +56,6 @@ const sections = [
               value: '3 correct',
             },
           ],
-          isSaved: true,
-          correctOptions: [
-            '1619422170440.0386',
-            '1619422181799.803',
-          ],
-          correctOption: '',
           scale: {
             minValue: -50,
             maxValue: 50,
@@ -76,10 +65,9 @@ const sections = [
           },
         },
         {
-          id: '1619422192751.2905',
+          id: '2',
           questionType: 'paragraph',
           questionText: 'para ques?',
-          answerText: 'this is the answer.',
           options: [
             {
               id: '1619422192751.7737',
@@ -90,9 +78,6 @@ const sections = [
               value: '',
             },
           ],
-          isSaved: true,
-          correctOptions: [],
-          correctOption: '',
           scale: {
             minValue: -50,
             maxValue: 50,
@@ -102,10 +87,9 @@ const sections = [
           },
         },
         {
-          id: '1619422243065.3037',
+          id: '3',
           questionType: 'text',
           questionText: 'textfield ques?',
-          answerText: 'short ans',
           options: [
             {
               id: '1619422243065.6423',
@@ -116,9 +100,6 @@ const sections = [
               value: '',
             },
           ],
-          isSaved: true,
-          correctOptions: [],
-          correctOption: '',
           scale: {
             minValue: -50,
             maxValue: 50,
@@ -128,10 +109,9 @@ const sections = [
           },
         },
         {
-          id: '1619422255913.2373',
+          id: '4',
           questionType: 'scale',
           questionText: 'scale q?',
-          answerText: '',
           options: [
             {
               id: '1619422255913.5632',
@@ -142,9 +122,6 @@ const sections = [
               value: '',
             },
           ],
-          isSaved: true,
-          correctOptions: [],
-          correctOption: '',
           scale: {
             minValue: -56,
             maxValue: 100,
@@ -154,10 +131,9 @@ const sections = [
           },
         },
         {
-          id: '1619422279726.1619',
+          id: '5',
           questionType: 'date',
           questionText: 'date q?',
-          answerText: '',
           options: [
             {
               id: '1619422279726.8438',
@@ -168,9 +144,6 @@ const sections = [
               value: '',
             },
           ],
-          isSaved: true,
-          correctOptions: [],
-          correctOption: '',
           scale: {
             minValue: -50,
             maxValue: 50,
@@ -185,7 +158,7 @@ const sections = [
     },
   },
   {
-    id: '1619504441461.8108',
+    id: '1',
     title: 'Introduction',
     sectionNum: '1',
     sectionIsActive: true,
@@ -194,23 +167,77 @@ const sections = [
       length: 0,
       questions: [
         {
-          id: '1619504448177.3567',
+          id: '6',
           questionType: 'multiple',
-          questionText: 'asdd',
-          answerText: 'dsadsa',
+          questionText: 'section 2 question?',
           options: [
             {
               id: '1619504448177.1543',
-              value: 'sda',
+              value: 'option a',
             },
             {
               id: '1619504448177.5715',
-              value: 'dsadsa',
+              value: 'option b',
             },
           ],
-          isSaved: true,
-          correctOptions: [],
-          correctOption: '1619504448177.5715',
+          scale: {
+            minValue: -50,
+            maxValue: 50,
+            correctValue: 0,
+            minRange: -100,
+            maxRange: 100,
+          },
+        },
+      ],
+      isEmpty: false,
+      isOpen: false,
+    },
+  },
+  {
+    id: '2',
+    title: 'Getting Started',
+    sectionNum: '2',
+    sectionIsActive: true,
+    test: {
+      title: 'Test',
+      length: 0,
+      questions: [
+        {
+          id: '7',
+          questionType: 'multiple',
+          questionText: 'section 3 question 1?',
+          options: [
+            {
+              id: '10',
+              value: 'abc',
+            },
+            {
+              id: '11',
+              value: 'def',
+            },
+          ],
+          scale: {
+            minValue: -50,
+            maxValue: 50,
+            correctValue: 0,
+            minRange: -100,
+            maxRange: 100,
+          },
+        },
+        {
+          id: '8',
+          questionType: 'paragraph',
+          questionText: 'para ques?',
+          options: [
+            {
+              id: '1619422192751.7737',
+              value: '',
+            },
+            {
+              id: '1619422192751.5166',
+              value: '',
+            },
+          ],
           scale: {
             minValue: -50,
             maxValue: 50,

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Slider } from '@material-ui/core'
-import { testQuestionPropType } from './testQuestionPropType'
+import testQuestionPropType from './testQuestionPropType'
 
 const ScaleTestQuestion = ({
   question,

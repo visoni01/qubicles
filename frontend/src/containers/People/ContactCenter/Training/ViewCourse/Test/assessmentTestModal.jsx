@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+/* eslint-disable complexity */
+import React, { useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
 import {
   Dialog, DialogTitle, DialogActions, IconButton, DialogContent, Button, LinearProgress,
@@ -7,25 +8,32 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import testDetails from './mockTestData'
 import TestQuestion from './testQuestion'
+import './styles.scss'
+import TestCompleted from './testCompleted'
 
 const AssessmentTestModal = ({
   open, onClose,
 }) => {
   const [ isTestStarted, setIsTestStarted ] = useState(false)
+  const [ isTestCompleted, setIsTestCompleted ] = useState(false)
   const [ currentSection, setCurrentSection ] = useState(0)
   const [ answers, setAnswers ] = useState([])
+
+  const getTotalQuestions = useCallback(() => (
+    testDetails.reduce((total, section) => total + section.test.questions.length, 0)
+  ), [ ])
 
   return (
     <Dialog
       disableScrollLock
       open={ open }
-      className='custom-modal'
+      className={ `custom-modal test-modal ${ !isTestStarted && 'auto-height' }` }
       fullWidth
       maxWidth={ !isTestStarted ? 'xs' : 'sm' }
     >
       <div className='header'>
         <DialogTitle>
-          <h2 className='h2'>Assessment Test</h2>
+          <div className={ `h2 mr-30 ${ !isTestStarted && 'ml-30' }` }>Assessment Test</div>
         </DialogTitle>
         <DialogActions className='cross-button'>
           <IconButton
@@ -37,11 +45,12 @@ const AssessmentTestModal = ({
         </DialogActions>
       </div>
       <DialogContent>
-        {!isTestStarted ? (
-          <p className='para sz-lg'>
+        {!isTestStarted && (
+          <p className='para sz-xl text-center mr-10 ml-10 mb-10'>
             By accomplishing this assessment test you can skip the content and finish the course immediately.
           </p>
-        ) : (
+        )}
+        {isTestStarted && !isTestCompleted && (
           <>
             <div className='mb-20'>
               <div>
@@ -50,10 +59,15 @@ const AssessmentTestModal = ({
                 </span>
                 <span className='para sz-lg'>{`${ testDetails[ currentSection ].title }`}</span>
               </div>
-              <div>
+              <div className='mt-10'>
                 <LinearProgress
                   variant='determinate'
                   value={ `${ (currentSection * 100) / testDetails.length }` }
+                  classes={ {
+                    root: 'progress-root',
+                    barColorPrimary: 'progress-bar-color',
+                    colorPrimary: 'progress-color',
+                  } }
                 />
               </div>
             </div>
@@ -69,9 +83,15 @@ const AssessmentTestModal = ({
             </div>
           </>
         )}
+        {isTestCompleted && (
+          <TestCompleted
+            totalAnswered={ answers.length }
+            totalQuestions={ getTotalQuestions() }
+          />
+        )}
       </DialogContent>
-      {!isTestStarted ? (
-        <DialogActions className='modal-actions'>
+      <DialogActions className={ `${ !isTestStarted || isTestCompleted ? 'single-action' : 'modal-actions' }` }>
+        {!isTestStarted && (
           <Button
             className='button-primary-small'
             classes={ { label: 'primary-label' } }
@@ -79,29 +99,39 @@ const AssessmentTestModal = ({
           >
             Start
           </Button>
-        </DialogActions>
-      ) : (
-        <DialogActions className='modal-actions'>
-          <Button
-            color='secondary'
-            className='cancel-button'
-            onClick={ currentSection > 0
-              ? () => setCurrentSection((state) => state - 1)
-              : onClose }
-          >
-            Cancel
-          </Button>
+        )}
+        {isTestStarted && !isTestCompleted && (
+          <>
+            <Button
+              color='secondary'
+              className='cancel-button'
+              onClick={ currentSection > 0
+                ? () => setCurrentSection((state) => state - 1)
+                : onClose }
+            >
+              { currentSection > 0 ? 'Back' : 'Cancel' }
+            </Button>
+            <Button
+              className='button-primary-small'
+              classes={ { label: 'primary-label' } }
+              onClick={ currentSection < testDetails.length - 1
+                ? () => setCurrentSection((state) => state + 1)
+                : () => setIsTestCompleted(true) }
+            >
+              { currentSection < testDetails.length - 1 ? 'Continue' : 'Submit' }
+            </Button>
+          </>
+        )}
+        {isTestCompleted && (
           <Button
             className='button-primary-small'
             classes={ { label: 'primary-label' } }
-            onClick={ currentSection < testDetails.length - 1
-              ? () => setCurrentSection((state) => state + 1)
-              : () => null }
+            onClick={ onClose }
           >
-            Continue
+            Close this window
           </Button>
-        </DialogActions>
-      )}
+        )}
+      </DialogActions>
 
     </Dialog>
   )
