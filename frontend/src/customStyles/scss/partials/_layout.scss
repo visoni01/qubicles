@@ -23,7 +23,7 @@
 
   &.auto-height {
     .MuiDialog-paperScrollPaper {
-      height: auto;
+      height: auto !important;
     }
   }
 
