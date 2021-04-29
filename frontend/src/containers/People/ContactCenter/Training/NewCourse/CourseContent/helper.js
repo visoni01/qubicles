@@ -56,6 +56,7 @@ export const checkDisabledSaveQuestionButton = ({ question }) => {
   const isEmptyQuestionText = _.isEmpty(question.questionText)
   const notEmptyOptions = question.options.reduce((acc, curr) => acc && !_.isEmpty(curr.value), true)
   const isUniqueOptions = new Set(question.options.map((item) => item.value)).size === question.options.length
+  const hasMinimumTwoOptions = question.options.length >= 2
 
   if (question.questionType === 'multiple') {
     const isRightAnswerSelected = (question.options.map((option) => option.id)).includes(question.correctOption)
@@ -64,6 +65,7 @@ export const checkDisabledSaveQuestionButton = ({ question }) => {
       && notEmptyOptions
       && isRightAnswerSelected
       && isUniqueOptions
+      && hasMinimumTwoOptions
     )
   }
   if (question.questionType === 'checkbox') {
@@ -73,6 +75,7 @@ export const checkDisabledSaveQuestionButton = ({ question }) => {
       && notEmptyOptions
       && isRightAnswerSelected
       && isUniqueOptions
+      && hasMinimumTwoOptions
     )
   }
 
@@ -254,7 +257,7 @@ export const saveQuestionInTest = ({ test, question }) => {
       }
       if (question.questionType === 'checkbox') {
         const correctAnswer = question.options.filter((item) => question.correctOptions.includes(item.id))
-        answerText = correctAnswer.length && correctAnswer.map((item) => item.value).join(',')
+        answerText = JSON.stringify(correctAnswer.map((answer) => answer.value))
       }
       return { ...question, isSaved: true, answerText }
     }

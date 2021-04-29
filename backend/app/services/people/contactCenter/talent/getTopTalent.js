@@ -19,11 +19,11 @@ export class PeopleGetTopTalentService extends ServiceBase {
       const topTalentData = await getTopTalent()
       const topTalentCards = topTalentData.map(talent => {
         return {
-          userId: talent.user_id,
-          fullName: talent.user.full_name,
-          title: talent.work_title,
-          rating: talent.rating,
-          profilePic: talent.profile_image
+          userId: talent.UserDetail.user_id,
+          fullName: talent.UserDetail.user.full_name,
+          title: talent.UserDetail.work_title,
+          rating: talent.UserDetail.rating,
+          profilePic: talent.UserDetail.profile_image
         }
       })
       return topTalentCards

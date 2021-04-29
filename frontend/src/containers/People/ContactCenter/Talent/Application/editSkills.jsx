@@ -18,10 +18,10 @@ import { agentProfileSettingsApiStart } from '../../../../../redux-saga/redux/ac
 import Loader from '../../../../../components/loaders/circularLoader'
 
 const EditSkills = ({
-  open, handleClose, agentResumeSkills, languages: agentResumeLanguages, candidateId, isLoading,
+  open, handleClose, agentResumeSkills, languages: agentResumeLanguages, candidateId, isLoading, isLoadingLanguage,
 }) => {
   const dispatch = useDispatch()
-  const { jobSkills } = useSelector((state) => state.jobSkills)
+  const { jobSkills, isLoading: isLoadingJobSkills } = useSelector((state) => state.jobSkills)
   const [ skills, setSkills ] = useState(agentResumeSkills)
   const [ primaryLanguage, setPrimaryLanguage ] = useState(agentResumeLanguages[ 0 ])
   const [ otherLanguages, setOtherLanguages ] = useState(agentResumeLanguages.slice(1))
@@ -174,7 +174,7 @@ const EditSkills = ({
         <DialogTitle>
           <div className='display-inline-flex align-items-center'>
             <div className='h2'>Skills</div>
-            {isLoading && (
+            {(isLoading || isLoadingLanguage) && (
             <Loader
               className='static-small-loader'
               enableOverlay={ false }
@@ -244,15 +244,25 @@ const EditSkills = ({
           ))}
         </div>
 
-        <h3 className='h3'>
-          Add Skill
-        </h3>
+        <div className='display-inline-flex align-items-center'>
+          <h3 className='h3'>
+            Add Skill
+          </h3>
+          {isLoadingJobSkills && (
+            <Loader
+              className='static-small-loader no-margin-top'
+              enableOverlay={ false }
+              displayLoaderManually
+              size={ 20 }
+            />
+          )}
+        </div>
+
         <div className='display-inline-flex is-fullwidth justify-between align-items-center mb-30'>
           <FormControl variant='outlined' className='drop-down-bar'>
             <SingleSelect
-              // items={ fillSkills().map((item) => ({ id: item.skillId, title: item.skillName })) }
-              items={ jobSkills && jobSkills.filter((item) => (!addedSkills.has(item.skillId)))
-                .map((item) => ({ id: item.skillId, title: item.skillName })) }
+              items={ jobSkills && jobSkills.length ? jobSkills.filter((item) => (!addedSkills.has(item.skillId)))
+                .map((item) => ({ id: item.skillId, title: item.skillName })) : [] }
               onChange={ (selectedValue) => setNewSkill(selectedValue) }
               value={ newSkill }
               label='Choose Skill'
@@ -481,7 +491,7 @@ const EditSkills = ({
           disabled={
             (_.isEqual(agentResumeSkills, skills)
             && _.isEqual(agentResumeLanguages, [ primaryLanguage, ...otherLanguages ]))
-            || !primaryLanguage || isLoading
+            || !primaryLanguage || (isLoading || isLoadingLanguage)
           }
           onClick={ onSave }
         >
@@ -496,6 +506,7 @@ EditSkills.defaultProps = {
   agentResumeSkills: [],
   languages: [],
   isLoading: false,
+  isLoadingLanguage: false,
 }
 
 EditSkills.propTypes = {
@@ -509,6 +520,7 @@ EditSkills.propTypes = {
   languages: PropTypes.arrayOf(PropTypes.string),
   candidateId: PropTypes.number.isRequired,
   isLoading: PropTypes.bool,
+  isLoadingLanguage: PropTypes.bool,
 }
 
 export default EditSkills

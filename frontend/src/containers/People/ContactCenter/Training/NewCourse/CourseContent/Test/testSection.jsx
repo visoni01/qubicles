@@ -40,7 +40,7 @@ const TestSection = ({
   return (
     <>
       <div className='list-item'>
-        <Grid container spacing={ 2 } justify='space-between'>
+        <Grid container spacing={ 2 } justify='space-between' alignItems='center'>
           <Grid item xl={ 4 } lg={ 4 } md={ 4 } sm={ 2 } container spacing={ 2 }>
             <Grid className='align-self-center' item xl={ 2 } lg={ 2 } md={ 2 } sm={ 2 }>
               <FontAwesomeIcon className='custom-fa-icon sz-lg' icon={ faFlask } />

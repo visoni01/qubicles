@@ -18,7 +18,7 @@ const Introduction = ({
   // date,
 }) => (
   <div className='introduction-root'>
-    <div className='display-inline-flex is-fullwidth'>
+    <div className='display-inline-flex is-fullwidth align-items-center'>
       <Avatar className='profile-pic large' alt={ imageName } src={ imageSrc || defaultUser } />
       <div className='ml-10'>
         <Rating

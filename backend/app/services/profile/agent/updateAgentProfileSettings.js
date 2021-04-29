@@ -52,9 +52,9 @@ export class UpdateAgentProfileSettingsService extends ServiceBase {
         }
       }
 
-      if (updatedDataType === 'Agent Info') {
+      if (updatedDataType === 'Agent Info' && user.user_code === 'agent') {
         const newTalentData = {
-          user_id,
+          user_id: user.user_id,
           status: updatedData.onVacation ? 'on vacation' : 'available',
           desired_min_pay: updatedData.hourlyRate,
           desired_employment_type: updatedData.preferredJob,

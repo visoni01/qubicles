@@ -10,6 +10,7 @@ import {
 import AgentSkillSection from './agentSkillSection'
 import SkillsAndEndorsementsSkeleton from '../Skeletons/skillsAndEndorsements'
 import EditSkills from './editSkills'
+import { resetAgentProfileSettingsFlags } from '../../../../../redux-saga/redux/actions'
 
 // eslint-disable-next-line complexity
 const SkillsPage = ({
@@ -19,8 +20,11 @@ const SkillsPage = ({
   const {
     isLoading, agentResumeSkills, success, requestType,
   } = useSelector((state) => state.agentResumeSkills)
-  const { userDetails } = useSelector((state) => state.login)
   const [ openEditSkillsModal, setOpenEditSkillsModal ] = useState(false)
+  const {
+    isLoading: isLoadingLanguage,
+    requestType: requestTypeLanguage, success: successLanguage,
+  } = useSelector((state) => state.agentDetails)
 
   useEffect(() => {
     if (candidateId !== agentResumeSkills.candidateId) {
@@ -37,19 +41,24 @@ const SkillsPage = ({
       setOpenEditSkillsModal(false)
       dispatch(resetAgentResumeSkillsFlags())
     }
-  }, [ isLoading, success, requestType, dispatch ])
+    if (!isLoadingLanguage && successLanguage && requestTypeLanguage === 'UPDATE') {
+      setOpenEditSkillsModal(false)
+      dispatch(resetAgentProfileSettingsFlags())
+    }
+  }, [ isLoading, success, requestType, isLoadingLanguage, successLanguage, requestTypeLanguage, dispatch ])
 
   return (
     <div className='mb-25 custom-box resume-root skills-page-root has-fullwidth'>
       <div className='skills-endorsements-box'>
         <h3 className='h3 mb-10'>Skills & Endorsements</h3>
-        {(userType === 'self' || (userType === 'other' && userDetails.user_id === candidateId)) && (
+        {(userType === 'self') && (
           <Button
             classes={ {
               root: 'button-secondary-small',
               label: 'button-secondary-small-label',
             } }
             onClick={ handleOpenEditSkillsModal }
+            disabled={ (isLoading === null || isLoading) }
           >
             Edit
           </Button>
@@ -65,6 +74,7 @@ const SkillsPage = ({
           languages={ languages }
           candidateId={ candidateId }
           isLoading={ isLoading }
+          isLoadingLanguage={ isLoadingLanguage }
         />
       )}
 

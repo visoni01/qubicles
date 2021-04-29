@@ -7,6 +7,7 @@ import {
   faDotCircle, faTrash, faCheckSquare,
 } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
 import { testQuestionPropType } from '../../../propTypes'
 import { getUniqueId } from '../../../../../../../../utils/common'
 
@@ -34,9 +35,11 @@ const CheckboxQuestion = ({
   const handleDeleteOptionButton = useCallback(({ optionId }) => {
     setQuestionDetails((current) => {
       const updatedOptions = current.options.filter((option) => option.id !== optionId)
+      const updatedCorrectOptions = _.difference(current.correctOptions, [ optionId ])
       return ({
         ...current,
         options: updatedOptions,
+        correctOptions: updatedCorrectOptions,
       })
     })
   }, [ setQuestionDetails ])

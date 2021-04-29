@@ -4,7 +4,7 @@ import {
 } from '../../db/models'
 import { createNewEntity } from './common'
 import { getOne, getAll } from './crud'
-import { Op } from 'sequelize'
+import Sequelize, { Op } from 'sequelize'
 import _ from 'lodash'
 
 export async function createAgentJobProfile ({
@@ -531,21 +531,30 @@ export async function postAgentApplication ({
 }
 
 export const getTopTalent = async () => {
-  const topTalent = await UserDetail.findAll({
-    attributes: [
-      'user_id', 'work_title', 'rating', 'profile_image'
-    ],
+  const topTalent = await XQodResourceDef.findAll({
+    where: {
+      is_visible: true
+    },
+    attributes: [],
     include: [
       {
-        model: User,
-        as: 'user',
-        attributes: ['full_name'],
-        where: { user_code: 'agent' }
+        model: UserDetail,
+        attributes: [
+          'user_id', 'work_title', 'rating', 'profile_image'
+        ],
+        include: [
+          {
+            model: User,
+            as: 'user',
+            attributes: ['full_name'],
+            where: { user_code: 'agent' }
+          }
+        ]
       }
     ],
     limit: 10,
     order: [
-      ['rating', 'DESC']
+      [Sequelize.col('UserDetail.rating'), 'DESC']
     ]
   })
   return topTalent.map(talent => talent.get({ plain: true }))
@@ -778,7 +787,7 @@ export const formatQuestionData = ({ questions }) => {
       ? options.find((option) => option.value === question.answer).id
       : ''
     const correctOptions = (question.question_type === 'checkbox')
-      ? options.filter((option) => question.answer.split(',').includes(option.value)).map((option) => option.id)
+      ? options.filter((option) => JSON.parse(question.answer).includes(option.value)).map((option) => option.id)
       : []
 
     return {
