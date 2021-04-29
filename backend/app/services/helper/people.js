@@ -52,24 +52,12 @@ export async function addUserSkills ({ user_id, skillIds }) {
 
 export async function getUserSkills ({ user_id, candidate_id }) {
   let userSkills = await XQodUserSkill.findAll({
-    include: [{
-      model: XQodSkill,
-      as: 'skill'
-    },
-    {
-      model: XUserActivity,
-      attributes: ['user_id', 'activity_value'],
-      where: {
-        activity_type: 'endorsement'
-      },
-      required: false,
-      as: 'endorsement',
-      include: [{
-        model: UserDetail,
-        attributes: ['first_name', 'last_name', 'profile_image', 'rating', 'work_title'],
-        as: 'userData'
-      }]
-    }],
+    include: [
+      {
+        model: XQodSkill,
+        as: 'skill'
+      }
+    ],
     where: {
       user_id: candidate_id,
       is_deleted: false
@@ -79,13 +67,40 @@ export async function getUserSkills ({ user_id, candidate_id }) {
 
   userSkills = userSkills.map(user => user.get({ plain: true }))
 
+  let endorsementsPromiseArray = []
+
+  userSkills.map((userSkill) => {
+    endorsementsPromiseArray = [
+      ...endorsementsPromiseArray,
+      () => XUserActivity.findAll({
+        attributes: ['user_id', 'activity_value', 'record_id'],
+        where: {
+          record_id: userSkill.user_skill_id,
+          activity_type: 'endorsement'
+        },
+        include: [
+          {
+            model: UserDetail,
+            attributes: ['first_name', 'last_name', 'profile_image', 'rating', 'work_title'],
+            as: 'userData'
+          }
+        ]
+      })
+    ]
+  })
+
+  const result = await Promise.all(endorsementsPromiseArray.map(promise => promise()))
+
+  const userSkillIds = result.map((item) => item.length ? item[0].record_id : '')
+
   const skills = userSkills.map(userSkill => {
-    const { skill, endorsement } = userSkill
+    const { skill } = userSkill
+    const checkIndex = userSkillIds.indexOf(userSkill.user_skill_id)
     return ({
       skillId: skill.skill_id,
       skillName: skill.skill_name,
       endorsedCount: userSkill.endorsed,
-      endorsements: endorsement.map(user => {
+      endorsements: checkIndex === -1 ? [] : result[checkIndex].map(user => {
         return {
           id: user.user_id,
           comment: user.activity_value,
@@ -99,12 +114,14 @@ export async function getUserSkills ({ user_id, candidate_id }) {
       })
     })
   })
+
   const candidateSkills = {
     candidateId: parseInt(candidate_id),
     skills,
     canEndorse: parseInt(candidate_id) !== user_id
     // WIP only endorse when both agent are in same company
   }
+
   return candidateSkills
 }
 
