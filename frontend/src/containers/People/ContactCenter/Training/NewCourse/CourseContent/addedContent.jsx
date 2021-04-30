@@ -9,6 +9,7 @@ import _ from 'lodash'
 import AddArticleModal from './addArticleModal'
 import { updateUnitInSection } from './helper'
 import ConfirmationModal from '../../../../../../components/CommonModal/confirmationModal'
+import { unitPropType } from '../propTypes'
 
 const AddedContent = ({
   unit, updateSection, section, handleDeleteUnitButton,
@@ -106,16 +107,7 @@ const AddedContent = ({
 }
 
 AddedContent.propTypes = {
-  unit: PropTypes.shape({
-    unitId: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    unitNum: PropTypes.string.isRequired,
-    sectionId: PropTypes.number.isRequired,
-    details: PropTypes.string.isRequired,
-    length: PropTypes.number.isRequired,
-    isEmpty: PropTypes.bool.isRequired,
-    isOpen: PropTypes.bool.isRequired,
-  }).isRequired,
+  unit: unitPropType.isRequired,
   updateSection: PropTypes.func.isRequired,
   section: PropTypes.shape({
     isEdit: PropTypes.bool.isRequired,

@@ -10,6 +10,7 @@ import InformationTab from './InformationTab'
 import ContentTab from './ContentTab'
 import ROUTE_PATHS from '../../../../../routes/routesPath'
 import { formatDate } from '../../../../../utils/common'
+import { contentSectionPropType, courseContentPropType, informationSectionPropType } from './propTypes'
 
 const NewCourseForm = ({
   course, informationSection, setInformationSection, contentSection, setContentSection,
@@ -93,11 +94,11 @@ NewCourseForm.propTypes = {
     createdOn: PropTypes.string.isRequired,
     updatedOn: PropTypes.string.isRequired,
   }).isRequired,
-  informationSection: PropTypes.shape({}).isRequired,
+  informationSection: informationSectionPropType.isRequired,
   setInformationSection: PropTypes.func.isRequired,
-  contentSection: PropTypes.shape({}).isRequired,
+  contentSection: contentSectionPropType.isRequired,
   setContentSection: PropTypes.func.isRequired,
-  courseContent: PropTypes.shape({}).isRequired,
+  courseContent: courseContentPropType.isRequired,
   setCourseContent: PropTypes.func.isRequired,
   isEdit: PropTypes.bool,
 }

@@ -8,6 +8,7 @@ import { faTimes, faUpload } from '@fortawesome/free-solid-svg-icons'
 import CKEditor from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { checkDisabledUnitSaveButton } from './helper'
+import { unitPropType } from '../propTypes'
 
 const AddArticleModal = ({
   open, onClose, onSubmit, unit, setUnitDetails, savedUnit, title,
@@ -165,26 +166,8 @@ AddArticleModal.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  unit: PropTypes.shape({
-    unitId: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    unitNum: PropTypes.string.isRequired,
-    sectionId: PropTypes.number.isRequired,
-    details: PropTypes.string.isRequired,
-    type: PropTypes.any,
-    length: PropTypes.number.isRequired,
-    isEmpty: PropTypes.bool.isRequired,
-  }).isRequired,
-  savedUnit: PropTypes.shape({
-    unitId: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    unitNum: PropTypes.string.isRequired,
-    sectionId: PropTypes.number.isRequired,
-    details: PropTypes.string.isRequired,
-    type: PropTypes.any,
-    length: PropTypes.number.isRequired,
-    isEmpty: PropTypes.bool.isRequired,
-  }).isRequired,
+  unit: unitPropType.isRequired,
+  savedUnit: unitPropType.isRequired,
   setUnitDetails: PropTypes.func.isRequired,
 }
 

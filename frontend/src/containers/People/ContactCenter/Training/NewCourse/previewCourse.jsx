@@ -5,6 +5,9 @@ import CourseDescription from '../ViewCourse/CourseDescription'
 import CourseOverview from '../ViewCourse/CourseOverview'
 import NewCourseActions from './NewCourseActions'
 import CourseActions from '../ViewCourse/CourseActions'
+import {
+  contentSectionPropType, courseContentPropType, coursePropType, informationSectionPropType,
+} from './propTypes'
 
 const PreviewCreateCourse = ({
   informationSection, contentSection, courseContent,
@@ -72,25 +75,13 @@ const PreviewCreateCourse = ({
 )
 
 PreviewCreateCourse.propTypes = {
-  informationSection: PropTypes.shape({
-    price: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    category: PropTypes.number,
-    visibility: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    goals: PropTypes.string.isRequired,
-    outcomes: PropTypes.string.isRequired,
-    requirements: PropTypes.string.isRequired,
-    requiredCourses: PropTypes.arrayOf(PropTypes.number).isRequired,
-  }).isRequired,
+  informationSection: informationSectionPropType.isRequired,
   isPreview: PropTypes.bool.isRequired,
-  contentSection: PropTypes.shape({}).isRequired,
+  contentSection: contentSectionPropType.isRequired,
   setIsPreview: PropTypes.func.isRequired,
-  courseContent: PropTypes.shape({}).isRequired,
+  courseContent: courseContentPropType.isRequired,
   updateCourseReducer: PropTypes.func.isRequired,
-  course: PropTypes.shape({
-    courseId: PropTypes.number.isRequired,
-  }).isRequired,
+  course: coursePropType.isRequired,
 }
 
 export default PreviewCreateCourse

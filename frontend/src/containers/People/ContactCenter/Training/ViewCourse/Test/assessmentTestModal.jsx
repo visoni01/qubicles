@@ -7,7 +7,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import testDetails from './mockTestData'
-import TestQuestion from './testQuestion'
+import RenderTestQuestion from './renderTestQuestion'
 import './styles.scss'
 import TestCompleted from './testCompleted'
 
@@ -73,7 +73,7 @@ const AssessmentTestModal = ({
             </div>
             <div>
               {testDetails[ currentSection ].test.questions.map((question) => (
-                <TestQuestion
+                <RenderTestQuestion
                   key={ question.id }
                   question={ question }
                   answers={ answers }

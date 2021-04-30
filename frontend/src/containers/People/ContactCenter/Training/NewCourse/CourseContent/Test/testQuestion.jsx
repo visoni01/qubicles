@@ -9,7 +9,7 @@ import MultipleChoiceQuestion from './Questions/multipleChoiceQuestion'
 import TestQuestionOptions from './testQuestionOptions'
 import { deleteQuestionFromTest, saveQuestionInTest, unSaveQuestionInTest } from '../helper'
 import CheckboxQuestion from './Questions/checkboxQuestion'
-import { testQuestionPropType } from '../../propTypes'
+import { testPropType, testQuestionPropType } from '../../propTypes'
 import TextQuestion from './Questions/textQuestion'
 import ScaleQuestion from './Questions/scaleQuestion'
 
@@ -178,15 +178,7 @@ const TestQuestion = ({ question, testDetails, setTestDetails }) => {
 
 TestQuestion.propTypes = {
   question: testQuestionPropType.isRequired,
-  testDetails: PropTypes.shape({
-    unitId: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    unitNum: PropTypes.string.isRequired,
-    sectionId: PropTypes.number.isRequired,
-    questions: PropTypes.arrayOf(PropTypes.any).isRequired,
-    length: PropTypes.number.isRequired,
-    isEmpty: PropTypes.bool.isRequired,
-  }).isRequired,
+  testDetails: testPropType.isRequired,
   setTestDetails: PropTypes.func.isRequired,
 }
 

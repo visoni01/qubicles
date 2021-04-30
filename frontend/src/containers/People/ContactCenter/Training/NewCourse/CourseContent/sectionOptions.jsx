@@ -2,6 +2,7 @@ import React from 'react'
 import { Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { checkDisabledAddUnitButton, checkDisabledAddTestButton } from './helper'
+import { unitPropType } from '../propTypes'
 
 const SectionOptions = ({
   units, test, handleAddUnitButton, handleAddTestButton,
@@ -33,7 +34,7 @@ const SectionOptions = ({
 )
 
 SectionOptions.propTypes = {
-  units: PropTypes.arrayOf(PropTypes.any).isRequired,
+  units: PropTypes.arrayOf(unitPropType).isRequired,
   test: PropTypes.shape({}).isRequired,
   handleAddUnitButton: PropTypes.func.isRequired,
   handleAddTestButton: PropTypes.func.isRequired,

@@ -32,7 +32,7 @@ const initialState = {
         id: getUniqueId(),
         title: 'Section 1',
         isEdit: true,
-        sectionNum: 1,
+        sectionNum: '1',
         sectionIsActive: true,
         units: [],
         test: {},

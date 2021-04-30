@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import TestQuestion from './testQuestion'
 import { addQuestionToTest, checkDisabledSaveTestButton, checkDisabledAddQuestionButton } from '../helper'
+import { testPropType } from '../../propTypes'
 
 const TestQuestionModal = ({
   open, onSubmit, onClose, testDetails, setTestDetails,
@@ -85,15 +86,7 @@ TestQuestionModal.propTypes = {
   open: PropTypes.bool.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
-  testDetails: PropTypes.shape({
-    unitId: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    unitNum: PropTypes.string.isRequired,
-    sectionId: PropTypes.number.isRequired,
-    questions: PropTypes.arrayOf(PropTypes.any).isRequired,
-    length: PropTypes.number.isRequired,
-    isEmpty: PropTypes.bool.isRequired,
-  }).isRequired,
+  testDetails: testPropType.isRequired,
   setTestDetails: PropTypes.func.isRequired,
 
 }

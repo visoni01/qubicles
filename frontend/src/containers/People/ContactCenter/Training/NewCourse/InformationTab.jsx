@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import _ from 'lodash'
 import SingleSelect from '../../../../Shared/singleSelect'
 import { jobCategoriesOnlyFetchStart } from '../../../../../redux-saga/redux/actions'
+import { informationSectionPropType } from './propTypes'
 
 export default function InformationTab({
   informationSection, setInformationSection,
@@ -278,17 +279,6 @@ export default function InformationTab({
 }
 
 InformationTab.propTypes = {
-  informationSection: PropTypes.shape({
-    price: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    category: PropTypes.number,
-    visibility: PropTypes.string.isRequired,
-    language: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    goals: PropTypes.string.isRequired,
-    outcomes: PropTypes.string.isRequired,
-    requirements: PropTypes.string.isRequired,
-    requiredCourses: PropTypes.arrayOf(PropTypes.number).isRequired,
-  }).isRequired,
+  informationSection: informationSectionPropType.isRequired,
   setInformationSection: PropTypes.func.isRequired,
 }

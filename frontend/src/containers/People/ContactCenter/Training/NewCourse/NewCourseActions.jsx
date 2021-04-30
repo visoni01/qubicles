@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom'
 import { trainingCourseRequestStart } from '../../../../../redux-saga/redux/people'
 import { EDIT_COURSE_ROUTE } from '../../../../../routes/routesPath'
 import { courseContentFilterBeforeSave } from './CourseContent/helper'
+import { contentSectionPropType, courseContentPropType, informationSectionPropType } from './propTypes'
 
 const NewCourseActions = ({
   informationSection,
@@ -85,13 +86,17 @@ const NewCourseActions = ({
   )
 }
 
+NewCourseActions.defaultProps = {
+  courseId: null,
+}
+
 NewCourseActions.propTypes = {
-  informationSection: PropTypes.shape({}).isRequired,
-  contentSection: PropTypes.shape({}).isRequired,
-  courseContent: PropTypes.shape({}).isRequired,
+  informationSection: informationSectionPropType.isRequired,
+  contentSection: contentSectionPropType.isRequired,
+  courseContent: courseContentPropType.isRequired,
   isPreview: PropTypes.bool.isRequired,
   setIsPreview: PropTypes.func.isRequired,
-  courseId: PropTypes.number.isRequired,
+  courseId: PropTypes.number,
 }
 
 export default NewCourseActions

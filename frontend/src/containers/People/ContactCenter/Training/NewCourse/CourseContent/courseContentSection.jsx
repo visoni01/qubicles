@@ -15,6 +15,7 @@ import {
   checkDisabledSaveSectionButton, isEmptySection, isEqualSections,
 } from './helper'
 import ConfirmationModal from '../../../../../../components/CommonModal/confirmationModal'
+import { sectionPropType } from '../propTypes'
 
 const CourseContentSection = ({
   section, updateSection, deleteSection, isEnableDelete,
@@ -218,15 +219,7 @@ const CourseContentSection = ({
 }
 
 CourseContentSection.propTypes = {
-  section: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    sectionNum: PropTypes.number.isRequired,
-    sectionIsActive: PropTypes.bool.isRequired,
-    units: PropTypes.arrayOf(PropTypes.any).isRequired,
-    idx: PropTypes.number.isRequired,
-    test: PropTypes.shape({}).isRequired,
-  }).isRequired,
+  section: sectionPropType.isRequired,
   isEnableDelete: PropTypes.bool.isRequired,
   deleteSection: PropTypes.func.isRequired,
   updateSection: PropTypes.func.isRequired,

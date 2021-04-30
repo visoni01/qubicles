@@ -3,6 +3,9 @@ import { Grid } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import NewCourseForm from './NewCourseForm'
 import NewCourseActions from './NewCourseActions'
+import {
+  contentSectionPropType, courseContentPropType, coursePropType, informationSectionPropType,
+} from './propTypes'
 
 const CreateCourse = ({
   informationSection, setInformationSection,
@@ -65,18 +68,16 @@ CreateCourse.defaultProps = {
 }
 
 CreateCourse.propTypes = {
-  informationSection: PropTypes.shape({}).isRequired,
+  informationSection: informationSectionPropType.isRequired,
   setInformationSection: PropTypes.func.isRequired,
-  contentSection: PropTypes.shape({}).isRequired,
+  contentSection: contentSectionPropType.isRequired,
   setContentSection: PropTypes.func.isRequired,
-  courseContent: PropTypes.shape({}).isRequired,
+  courseContent: courseContentPropType.isRequired,
   setCourseContent: PropTypes.func.isRequired,
   updateCourseReducer: PropTypes.func.isRequired,
   isPreview: PropTypes.bool.isRequired,
   setIsPreview: PropTypes.func.isRequired,
-  course: PropTypes.shape({
-    courseId: PropTypes.number.isRequired,
-  }).isRequired,
+  course: coursePropType.isRequired,
   isEdit: PropTypes.bool,
 }
 

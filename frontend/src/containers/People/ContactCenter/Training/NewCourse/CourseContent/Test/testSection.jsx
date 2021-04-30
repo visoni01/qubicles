@@ -7,6 +7,7 @@ import { faFlask, faTrash } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import TestQuestionModal from './testQuestionModal'
 import ConfirmationModal from '../../../../../../../components/CommonModal/confirmationModal'
+import { testPropType } from '../../propTypes'
 
 const TestSection = ({
   test, updateSection, section, handleDeleteTestButton,
@@ -92,16 +93,7 @@ const TestSection = ({
 }
 
 TestSection.propTypes = {
-  test: PropTypes.shape({
-    unitId: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    unitNum: PropTypes.string.isRequired,
-    sectionId: PropTypes.number.isRequired,
-    questions: PropTypes.arrayOf(PropTypes.any).isRequired,
-    length: PropTypes.number.isRequired,
-    isEmpty: PropTypes.bool.isRequired,
-    isOpen: PropTypes.bool.isRequired,
-  }).isRequired,
+  test: testPropType.isRequired,
   updateSection: PropTypes.func.isRequired,
   section: PropTypes.shape({
     isEdit: PropTypes.bool.isRequired,

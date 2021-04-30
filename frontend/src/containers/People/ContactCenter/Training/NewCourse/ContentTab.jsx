@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import CourseThumbnail from './CourseThumbnail'
 import IntroVideo from './IntroVideo'
 import CourseContent from './CourseContent/index'
+import { contentSectionPropType, courseContentPropType } from './propTypes'
 
 export default function ContentTab({
   contentSection, setContentSection,
@@ -25,8 +26,8 @@ export default function ContentTab({
 }
 
 ContentTab.propTypes = {
-  contentSection: PropTypes.shape({}).isRequired,
+  contentSection: contentSectionPropType.isRequired,
   setContentSection: PropTypes.func.isRequired,
-  courseContent: PropTypes.shape({}).isRequired,
+  courseContent: courseContentPropType.isRequired,
   setCourseContent: PropTypes.func.isRequired,
 }

@@ -7,6 +7,7 @@ import {
   checkDisabledAddSectionButton, addEmptyContentSectionToSections, updateSectionInSections,
   deleteSectionInSections, checkDeleteSection,
 } from './helper'
+import { courseContentPropType } from '../propTypes'
 
 const ContentSectionRoot = ({
   courseContent, setCourseContent,
@@ -71,15 +72,7 @@ const ContentSectionRoot = ({
 }
 
 ContentSectionRoot.propTypes = {
-  courseContent: PropTypes.shape({
-    sections: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      sectionNum: PropTypes.number.isRequired,
-      sectionIsActive: PropTypes.bool.isRequired,
-      units: PropTypes.arrayOf(PropTypes.any).isRequired,
-    })),
-  }).isRequired,
+  courseContent: courseContentPropType.isRequired,
   setCourseContent: PropTypes.func.isRequired,
 }
 

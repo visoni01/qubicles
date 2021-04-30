@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ContentSectionRoot from './contentSectionRoot'
+import { courseContentPropType } from '../propTypes'
 
 export default function CourseContent({
   courseContent, setCourseContent,
@@ -29,6 +30,6 @@ export default function CourseContent({
 }
 
 CourseContent.propTypes = {
-  courseContent: PropTypes.shape({}).isRequired,
+  courseContent: courseContentPropType.isRequired,
   setCourseContent: PropTypes.func.isRequired,
 }
