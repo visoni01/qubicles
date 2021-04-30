@@ -46,7 +46,10 @@ const NewCourseForm = ({
             </h2>
             <span className='para light font-size-18x mt-5'>(Draft)</span>
           </div>
-          <p className='para light'>{`Last updated on: ${ formatDate(course.updatedOn, 'MMMM DD YYYY, hh:mm a') }`}</p>
+          <p className='para light'>
+            Last updated on:
+            {course && course.updatedOn && ` ${ formatDate(course.updatedOn, 'MMMM DD YYYY, hh:mm a') }`}
+          </p>
         </div>
       ) : (
         <h2 className='h2'>

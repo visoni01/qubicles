@@ -27,10 +27,18 @@ const NewCourseActions = ({
       courseContent: courseContentFiltered,
       status: 'draft',
     }
-    dispatch(trainingCourseRequestStart({
-      course,
-      requestType: 'CREATE',
-    }))
+
+    if (course.courseId) {
+      dispatch(trainingCourseRequestStart({
+        course,
+        requestType: 'UPDATE',
+      }))
+    } else {
+      dispatch(trainingCourseRequestStart({
+        course,
+        requestType: 'CREATE',
+      }))
+    }
   }, [ informationSection, contentSection, courseContent, courseId, dispatch ])
 
   useEffect(() => {

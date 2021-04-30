@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     length: DataTypes.INTEGER(11),
     type: {
       type: DataTypes.ENUM,
-      values: ['Article', 'Audio', 'Video', 'Test']
+      values: ['Article', 'Audio', 'Video']
     },
     order: DataTypes.INTEGER,
     createdAt: {

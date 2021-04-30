@@ -65,7 +65,10 @@ const {
       ...state,
       isLoading: false,
       success: true,
-      course: action.payload.course,
+      course: {
+        ...state.course,
+        ...action.payload.course,
+      },
     }),
     trainingCourseRequestFailed: (state) => ({
       ...state,

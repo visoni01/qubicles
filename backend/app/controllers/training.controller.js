@@ -1,7 +1,8 @@
 import {
   PeopleAddNewCourseService,
   PeopleGetAllCoursesService,
-  PeopleGetCourseService
+  PeopleGetCourseService,
+  PeopleUpdateCourseService
 } from '../services/people/training'
 
 import Responder from '../../server/expressResponder'
@@ -27,6 +28,15 @@ export default class TrainingController {
 
   static async getCourse (req, res) {
     const course = await PeopleGetCourseService.execute({ ...req.body, ...req.params, ...req.query })
+    if (course.successful) {
+      Responder.success(res, course.result)
+    } else {
+      Responder.failed(res, course.errors)
+    }
+  }
+
+  static async updateCourse (req, res) {
+    const course = await PeopleUpdateCourseService.execute({ ...req.body, file: req.file })
     if (course.successful) {
       Responder.success(res, course.result)
     } else {

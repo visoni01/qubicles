@@ -2,7 +2,7 @@ import ServiceBase from '../../../common/serviceBase'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
 import logger from '../../../common/logger'
 import { getErrorMessageForService, uploadFileToIPFS, validateImageFile } from '../../helper'
-import { addNewCourse } from '../../helper/people'
+import { getCourseById, updateCourse, formatCourseData } from '../../helper/people'
 
 const constraints = {
   user_id: {
@@ -16,7 +16,7 @@ const constraints = {
   }
 }
 
-export class PeopleAddNewCourseService extends ServiceBase {
+export class PeopleUpdateCourseService extends ServiceBase {
   get constraints () {
     return constraints
   }
@@ -52,14 +52,19 @@ export class PeopleAddNewCourseService extends ServiceBase {
         image_url: url
       }
 
-      const addedCourse = await addNewCourse({ course })
+      await updateCourse({ course })
 
-      // Format course data for reducer when created
-      const courseData = { courseId: addedCourse.course_id }
+      const courseData = await getCourseById({ course_id: course.courseId })
 
-      return { courseData, message: 'Course successfully created!' }
+      let courseDetails = {}
+      // Format course data for reducer when updated
+      if (courseData) {
+        courseDetails = formatCourseData({ course: courseData })
+      }
+
+      return { courseData: courseDetails, message: 'Course successfully updated!' }
     } catch (e) {
-      logger.error(getErrorMessageForService('PeopleAddNewCourseService'), e)
+      logger.error(getErrorMessageForService('PeopleUpdateCourseService'), e)
       this.addError(ERRORS.INTERNAL)
     }
   }

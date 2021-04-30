@@ -46,6 +46,9 @@ peopleRouter.route('/course')
   .post(multerUpload.single('file'), isAuthenticated, trainingController.createCourse)
 
 peopleRouter.route('/course')
+  .put(multerUpload.single('file'), isAuthenticated, trainingController.updateCourse)
+
+peopleRouter.route('/course')
   .get(isAuthenticated, trainingController.getAllCourses)
 
 peopleRouter.route('/course/:course_id')

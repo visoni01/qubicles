@@ -215,6 +215,26 @@ class People {
     return response
   }
 
+  static async updateCourse({ course }) {
+    const formData = new FormData()
+
+    if (course.contentSection.thumbnailImage) {
+      const file = await fetch(course.contentSection.thumbnailImage).then((r) => r.blob())
+      formData.append('file', file)
+    }
+
+    const courseJson = JSON.stringify(course)
+    formData.set('course', courseJson)
+
+    const response = await axiosInst({
+      method: 'put',
+      url: '/people/course',
+      data: formData,
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+    return response
+  }
+
   static async fetchAllCourses({ ownerId }) {
     const response = await apiClient.getRequest('/people/course', null, { ownerId })
     return response

@@ -697,11 +697,10 @@ export async function getCourseById ({ course_id }) {
     where: { course_id }
   })
 
-  if (course) {
+  if (course && course.length) {
     course = course.map(item => item.get({ plain: true }))
+    return course[0]
   }
-
-  return course
 }
 
 export async function getAllCourseInfo ({ ownerId }) {
