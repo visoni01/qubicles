@@ -87,6 +87,27 @@ export const checkDisabledSaveQuestionButton = ({ question }) => {
       && isRightAnswerSelected
     )
   }
+
+  if (question.questionType === 'date') {
+    // XNOR operation
+    const dateEnabled = question.dateTime.isDate === !_.isEmpty(question.dateTime.date)
+    const timeEnabled = question.dateTime.isTime === !_.isEmpty(question.dateTime.time)
+
+    const atleastOneEnabled = question.dateTime.isTime || question.dateTime.isDate
+
+    return !(
+      !isEmptyQuestionText
+      && dateEnabled
+      && timeEnabled
+      && atleastOneEnabled
+    )
+  }
+  if ([ 'text', 'paragraph' ].includes(question.questionType)) {
+    return !(
+      !isEmptyQuestionText
+      && !_.isEmpty(question.answerText)
+    )
+  }
   return false
 }
 
@@ -138,6 +159,12 @@ export const getNewEmptyQuestion = () => {
     correctOption: '',
     scale: {
       minValue: -50, maxValue: 50, correctValue: 0, minRange: -100, maxRange: 100,
+    },
+    dateTime: {
+      date: '',
+      time: '',
+      isDate: false,
+      isTime: false,
     },
   }
   return newQuestionSchema
@@ -258,6 +285,21 @@ export const saveQuestionInTest = ({ test, question }) => {
       if (question.questionType === 'checkbox') {
         const correctAnswer = question.options.filter((item) => question.correctOptions.includes(item.id))
         answerText = JSON.stringify(correctAnswer.map((answer) => answer.value))
+      }
+
+      if (question.questionType === 'date') {
+        let dateObj = {}
+        if (question.dateTime.isDate) {
+          dateObj = {
+            ...dateObj, date: question.dateTime.date,
+          }
+        }
+        if (question.dateTime.isTime) {
+          dateObj = {
+            ...dateObj, time: question.dateTime.time,
+          }
+        }
+        answerText = JSON.stringify(dateObj)
       }
       return { ...question, isSaved: true, answerText }
     }

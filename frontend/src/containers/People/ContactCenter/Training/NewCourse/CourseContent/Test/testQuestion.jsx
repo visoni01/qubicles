@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, { useState, useCallback } from 'react'
 import {
   Grid, TextField, Select, IconButton,
@@ -12,6 +13,7 @@ import CheckboxQuestion from './Questions/checkboxQuestion'
 import { testPropType, testQuestionPropType } from '../../propTypes'
 import TextQuestion from './Questions/textQuestion'
 import ScaleQuestion from './Questions/scaleQuestion'
+import DateTimeQuestion from './Questions/dateTimeQuestion'
 
 const TestQuestion = ({ question, testDetails, setTestDetails }) => {
   const [ questionDetails, setQuestionDetails ] = useState(question)
@@ -21,6 +23,17 @@ const TestQuestion = ({ question, testDetails, setTestDetails }) => {
     setQuestionDetails((current) => ({
       ...current,
       questionType: e.target.value,
+      answerText: '',
+      correctOption: '',
+      scale: {
+        minValue: -50, maxValue: 50, correctValue: 0, minRange: -100, maxRange: 100,
+      },
+      dateTime: {
+        date: '',
+        time: '',
+        isDate: false,
+        isTime: false,
+      },
     }))
   }, [ ])
 
@@ -61,7 +74,7 @@ const TestQuestion = ({ question, testDetails, setTestDetails }) => {
   return (
     <div className='test-question-section mb-20'>
       <div className='border-1 pt-10 pb-20 pl-20 pr-20'>
-        <Grid container justify='space-between' spacing={ 3 } alignItems='flex-start'>
+        <Grid container spacing={ 3 } alignItems='flex-start'>
           {/* Question Text */}
           {!questionDetails.isSaved && (
           <Grid item xl={ 8 } lg={ 8 } md={ 8 } sm={ 8 } xs={ 12 }>
@@ -158,6 +171,14 @@ const TestQuestion = ({ question, testDetails, setTestDetails }) => {
           {/* Scale question */}
           {questionDetails.questionType === 'scale' && (
           <ScaleQuestion
+            questionDetails={ questionDetails }
+            setQuestionDetails={ setQuestionDetails }
+          />
+          )}
+
+          {/* Date Time question */}
+          {questionDetails.questionType === 'date' && (
+          <DateTimeQuestion
             questionDetails={ questionDetails }
             setQuestionDetails={ setQuestionDetails }
           />

@@ -24,6 +24,12 @@ export const testQuestionPropType = PropTypes.shape({
     PropTypes.string,
     PropTypes.number,
   ]).isRequired,
+  dateTime: PropTypes.shape({
+    date: PropTypes.string.isRequired,
+    time: PropTypes.string.isRequired,
+    isDate: PropTypes.bool.isRequired,
+    isTime: PropTypes.bool.isRequired,
+  }),
 })
 
 export const informationSectionPropType = PropTypes.shape({

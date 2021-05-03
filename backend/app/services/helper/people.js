@@ -789,6 +789,13 @@ export const formatQuestionData = ({ questions }) => {
       ? options.filter((option) => JSON.parse(question.answer).includes(option.value)).map((option) => option.id)
       : []
 
+    const dateTime = {
+      date: JSON.parse(question.answer).date ? JSON.parse(question.answer).date : '',
+      time: JSON.parse(question.answer).time ? JSON.parse(question.answer).time : '',
+      isDate: !!JSON.parse(question.answer).date,
+      isTime: !!JSON.parse(question.answer).time
+    }
+
     return {
       id: question.section_qa_id,
       questionType: question.question_type,
@@ -798,7 +805,8 @@ export const formatQuestionData = ({ questions }) => {
       isSaved: true,
       correctOptions,
       correctOption,
-      scale: formatScaleData({ question }) // WIP the data is fixed data it should be dynamic
+      scale: formatScaleData({ question }), // WIP the data is fixed data it should be dynamic
+      dateTime
     }
   })
 }
