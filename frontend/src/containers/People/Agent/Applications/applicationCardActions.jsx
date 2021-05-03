@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { agentJobApplicationsRequestStart } from '../../../../redux-saga/redux/actions'
-import ROUTE_PATHS from '../../../../routes/routesPath'
+import { VIEW_COURSE_ROUTE } from '../../../../routes/routesPath'
 
 const ApplicationCardActions = ({
   application, applicationCategoryId,
@@ -45,7 +45,7 @@ const ApplicationCardActions = ({
         handleUpdateStatus('training')
       }
       if ([ 'training' ].includes(status)) {
-        history.push(ROUTE_PATHS.VIEW_COURSE)
+        history.push(`${ VIEW_COURSE_ROUTE }/1`)
       }
       if ([ 'offered' ].includes(status)) {
         handleUpdateStatus('screening')

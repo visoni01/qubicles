@@ -8,9 +8,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 // eslint-disable-next-line import/no-cycle
 import CourseContents from './CourseContents'
+import {
+  sectionsPropType, isEnrolledPropType, introVideoPropType, courseIdPropType,
+  setOpenCoursePlayerPropType, setCurrentSectionPropType, setCurrentUnitPropType,
+  courseTitlePropType, unitPropType, sectionPropType,
+} from './propTypes'
 
 const CoursePreview = ({
-  open, onClose,
+  open, onClose, sections, courseTitle, currentSection, currentUnit, courseId, setOpenCoursePlayer,
+  isEnrolled, introVideo, setCurrentSection, setCurrentUnit,
 }) => (
   <Dialog
     disableScrollLock
@@ -26,12 +32,24 @@ const CoursePreview = ({
         <h3 className='h3'> Overview </h3>
         <CourseContents
           isPreview={ false }
+          setOpenCoursePlayer={ setOpenCoursePlayer }
+          sections={ sections }
+          courseId={ courseId }
+          isEnrolled={ isEnrolled }
+          introVideo={ introVideo }
+          setCurrentSection={ setCurrentSection }
+          setCurrentUnit={ setCurrentUnit }
+          currentSection={ currentSection }
+          currentUnit={ currentUnit }
+          isCoursePlayerOpen
         />
       </div>
       <div className='dialog-right-side'>
         <div className='display-inline-flex justify-between no-padding-bottom'>
           <DialogTitle className='is-fullwidth'>
-            <h4 className='h4 mt-10'> How to manage clients ? </h4>
+            <h4 className='h4 mt-10'>
+              {courseTitle}
+            </h4>
           </DialogTitle>
           <DialogActions className='cross-button'>
             <IconButton className='is-size-6' onClick={ onClose }>
@@ -41,15 +59,21 @@ const CoursePreview = ({
         </div>
         <DialogContent>
           <h3 className='h3 mb-10 light'>
-            Section 1:
-            {' '}
+            {`${ currentSection.title }: `}
             <span className='h3'>
-              Values
+              {currentUnit.title}
             </span>
           </h3>
+          {currentUnit.type === 'Video' && (
           <div className='post-image'>
-            <img alt='post' src='https://picsum.photos/896/504' />
+            <img alt={ currentUnit.title } src='https://picsum.photos/896/504' />
           </div>
+          )}
+          {currentUnit.type === 'Article' && (
+          <div className='para sz-xl'>
+            {currentUnit.details}
+          </div>
+          )}
         </DialogContent>
       </div>
     </div>
@@ -59,6 +83,16 @@ const CoursePreview = ({
 CoursePreview.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  sections: sectionsPropType.isRequired,
+  isEnrolled: isEnrolledPropType.isRequired,
+  introVideo: introVideoPropType.isRequired,
+  setOpenCoursePlayer: setOpenCoursePlayerPropType.isRequired,
+  setCurrentSection: setCurrentSectionPropType.isRequired,
+  setCurrentUnit: setCurrentUnitPropType.isRequired,
+  courseTitle: courseTitlePropType.isRequired,
+  currentUnit: unitPropType.isRequired,
+  currentSection: sectionPropType.isRequired,
+  courseId: courseIdPropType.isRequired,
 }
 
 export default CoursePreview

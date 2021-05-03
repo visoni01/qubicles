@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import '../styles.scss'
 import MultiSelectChipItems from '../../../../Shared/multiSelectChipItems'
 import MultiSelectLinkItems from '../../../../Shared/multiSelectLinkItems'
-import ROUTE_PATHS from '../../../../../routes/routesPath'
+import { VIEW_COURSE_ROUTE } from '../../../../../routes/routesPath'
 import { availableCourses } from '../../constants'
 
 const NewJobRequirements = ({
@@ -118,7 +118,7 @@ const NewJobRequirements = ({
             <div className='mr-30 drop-down-field'>
               <MultiSelectLinkItems
                 items={ availableCourses }
-                textLinkBase={ ROUTE_PATHS.VIEW_COURSE }
+                textLinkBase={ `${ VIEW_COURSE_ROUTE }/1` }
                 onChange={ (items) => setRequiredCoursesCB(items) }
               />
             </div>
@@ -128,7 +128,7 @@ const NewJobRequirements = ({
             <div className='mr-30 drop-down-field'>
               <MultiSelectLinkItems
                 items={ availableCourses }
-                textLinkBase={ ROUTE_PATHS.VIEW_COURSE }
+                textLinkBase={ `${ VIEW_COURSE_ROUTE }/1` }
                 onChange={ (items) => setBonusCoursesCB(items) }
               />
             </div>

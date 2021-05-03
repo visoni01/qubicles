@@ -188,7 +188,7 @@ class People {
     return response
   }
 
-  // Top Talent API
+  // People You May Know API
   static async fetchPeopleYouMayKnow() {
     const response = await apiClient.getRequest('/agent/jobs/people-you-may-know')
     return response
@@ -269,6 +269,12 @@ class People {
 
     const response = await apiClient.getRequest(url, null, queryParams)
     return response
+  }
+
+  // WIP viewCourse service
+  static async fetchViewCourse({ courseId }) {
+    // const response = await apiClient.getRequest(`/people/course/${ courseId }/view`)
+    return { courseId }
   }
 }
 

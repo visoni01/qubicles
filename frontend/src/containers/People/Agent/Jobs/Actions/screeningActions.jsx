@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import MessageButton from './messageButton'
 import WithdrawApplication from './withdrawApplication'
-import ROUTE_PATHS from '../../../../../routes/routesPath'
+import { VIEW_COURSE_ROUTE } from '../../../../../routes/routesPath'
 
 const ScreeningActions = ({
   updateApplicationStatus, application,
@@ -31,7 +31,7 @@ const ScreeningActions = ({
           root: 'button-primary-small',
           label: 'button-primary-small-label',
         } }
-        onClick={ () => history.push(ROUTE_PATHS.VIEW_COURSE) }
+        onClick={ () => history.push(`${ VIEW_COURSE_ROUTE }/1`) }
       >
         Go To Training
       </Button>

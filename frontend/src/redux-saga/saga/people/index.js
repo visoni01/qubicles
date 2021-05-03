@@ -15,6 +15,7 @@ import fetchAgentTopData from './talent/fetchAgentTopData'
 import createCourse from './training/course'
 import allCourses from './training/allCourses'
 import viewAllCourses from './training/viewAllCourses'
+import viewCourse from './training/viewCourse'
 
 const peopleWatcherFunctions = [
   () => peopleTalentCards(),
@@ -34,6 +35,7 @@ const peopleWatcherFunctions = [
   () => createCourse(),
   () => allCourses(),
   () => viewAllCourses(),
+  () => viewCourse(),
 ]
 
 export default peopleWatcherFunctions

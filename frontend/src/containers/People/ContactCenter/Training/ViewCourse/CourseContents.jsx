@@ -1,133 +1,54 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
+import { List } from '@material-ui/core'
+import UnitsList from './UnitsList'
 import {
-  faChevronUp, faChevronDown, faPlayCircle, faFileAlt, faFileSignature,
-} from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  List, Button,
-  ListItem, ListItemIcon,
-  ListItemText, Collapse, Divider,
-} from '@material-ui/core'
+  sectionsPropType, isEnrolledPropType, introVideoPropType,
+  setOpenCoursePlayerPropType, setCurrentSectionPropType, setCurrentUnitPropType,
+  isCoursePlayerOpenPropType, sectionPropType, unitPropType,
+} from './propTypes'
 
 const CourseContents = ({
-  isPreview, setOpenCoursePlayer,
-}) => {
-  const [ open, setOpen ] = useState(true)
-  const handleListOpen = () => {
-    setOpen(!open)
-  }
-  return (
-    <>
-      <div className='course-contents-root'>
-        <List
-          component='nav'
-          aria-labelledby='overview-list'
-          className='overview-list border-1'
-        >
-          <ListItem button onClick={ handleListOpen }>
-            <ListItemIcon>
-              {open
-                ? <FontAwesomeIcon className='custom-fa-icon' icon={ faChevronUp } />
-                : <FontAwesomeIcon className='custom-fa-icon' icon={ faChevronDown } />}
-            </ListItemIcon>
-            <ListItemText>
-              <h4 className='h4'>Section 1</h4>
-            </ListItemText>
-            <p className='para'> 3 units </p>
-          </ListItem>
-          <Divider />
-          <Collapse in={ open } timeout='auto' unmountOnExit>
-            <List component='div'>
-              <ListItem className='nested-list' disableGutters>
-                <ListItemIcon>
-                  <FontAwesomeIcon className='custom-fa-icon light' icon={ faPlayCircle } />
-                </ListItemIcon>
-                <ListItemText>
-                  <p className='text-link'> Intro </p>
-                </ListItemText>
-                <Button
-                  classes={ {
-                    root: 'button-primary-text',
-                    label: 'button-primary-text-label',
-                  } }
-                  onClick={ () => setOpenCoursePlayer(true) }
-                  disabled={ !isPreview }
-                >
-                  Preview
-                </Button>
-              </ListItem>
-
-              {/* List Item */}
-              <ListItem className='nested-list' disableGutters>
-                <ListItemIcon>
-                  <FontAwesomeIcon className='custom-fa-icon light' icon={ faFileAlt } />
-                </ListItemIcon>
-                <ListItemText>
-                  <p className='para light'> About </p>
-                </ListItemText>
-                <Button
-                  disabled
-                  classes={ {
-                    root: 'button-primary-text',
-                    label: 'button-primary-text-label',
-                  } }
-                >
-                  Start
-                </Button>
-              </ListItem>
-
-              {/* List Item */}
-              <ListItem className='nested-list' disableGutters>
-                <ListItemIcon>
-                  <FontAwesomeIcon className='custom-fa-icon light' icon={ faFileAlt } />
-                </ListItemIcon>
-                <ListItemText>
-                  <p className='para light'> Values </p>
-                </ListItemText>
-                <Button
-                  disabled
-                  classes={ {
-                    root: 'button-primary-text',
-                    label: 'button-primary-text-label',
-                  } }
-                >
-                  Start
-                </Button>
-              </ListItem>
-
-              {/* List Item */}
-              <ListItem className='nested-list' disableGutters>
-                <ListItemIcon>
-                  <FontAwesomeIcon className='custom-fa-icon light' icon={ faFileSignature } />
-                </ListItemIcon>
-                <ListItemText>
-                  <p className='para light'> Test </p>
-                </ListItemText>
-                <Button
-                  disabled
-                  classes={ {
-                    root: 'button-primary-text',
-                    label: 'button-primary-text-label',
-                  } }
-                >
-                  Start
-                </Button>
-              </ListItem>
-            </List>
-          </Collapse>
-        </List>
-      </div>
-    </>
-  )
-}
-
-CourseContents.defaultProps = {
-  isPreview: true,
-}
+  sections, setOpenCoursePlayer, isEnrolled, introVideo, setCurrentSection, setCurrentUnit,
+  currentSection, currentUnit, isCoursePlayerOpen,
+}) => (
+  <>
+    <div className='course-contents-root'>
+      <List
+        component='nav'
+        aria-labelledby='overview-list'
+        className='overview-list border-1'
+      >
+        {sections && sections.map((section, index) => (
+          <div key={ section.id }>
+            <UnitsList
+              section={ section }
+              setOpenCoursePlayer={ setOpenCoursePlayer }
+              isEnrolled={ isEnrolled }
+              isActive={ (isEnrolled && section.status === 'inprogress') || (!isEnrolled && index === 0) }
+              showIntroVideo={ index === 0 && !!introVideo }
+              introVideo={ introVideo }
+              setCurrentSection={ setCurrentSection }
+              setCurrentUnit={ setCurrentUnit }
+              currentSection={ currentSection }
+              currentUnit={ currentUnit }
+              isCoursePlayerOpen={ isCoursePlayerOpen }
+            />
+          </div>
+        ))}
+      </List>
+    </div>
+  </>
+)
 
 CourseContents.propTypes = {
-  isPreview: PropTypes.bool,
-  setOpenCoursePlayer: PropTypes.func.isRequired,
+  sections: sectionsPropType.isRequired,
+  isEnrolled: isEnrolledPropType.isRequired,
+  introVideo: introVideoPropType.isRequired,
+  setOpenCoursePlayer: setOpenCoursePlayerPropType.isRequired,
+  setCurrentSection: setCurrentSectionPropType.isRequired,
+  setCurrentUnit: setCurrentUnitPropType.isRequired,
+  isCoursePlayerOpen: isCoursePlayerOpenPropType.isRequired,
+  currentSection: sectionPropType.isRequired,
+  currentUnit: unitPropType.isRequired,
 }
 export default CourseContents

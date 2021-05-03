@@ -7,7 +7,7 @@ import { Rating } from '@material-ui/lab'
 import '../style.scss'
 import AssessmentTestModal from './Test/assessmentTestModal'
 
-const CourseActions = ({ isPreview, course }) => {
+const CourseActions = ({ course }) => {
   const [ isAssessmentModalOpen, setIsAssessmentModalOpen ] = useState(false)
 
   return (
@@ -30,9 +30,9 @@ const CourseActions = ({ isPreview, course }) => {
             />
           </Card>
         </div>
-        {!isPreview && (
         <>
           <div className='mb-10'>
+            {!course.isEnrolled && (
             <Button
               className='wide-button'
               classes={ {
@@ -40,8 +40,9 @@ const CourseActions = ({ isPreview, course }) => {
                 label: 'button-primary-small-label',
               } }
             >
-              Buy Course
+              {course.informationSection.price > 0 ? 'Buy Course' : 'Start Course'}
             </Button>
+            )}
             <Button
               className='wide-button'
               classes={ {
@@ -49,7 +50,7 @@ const CourseActions = ({ isPreview, course }) => {
                 label: 'button-secondary-small-label',
               } }
             >
-              Preview
+              {!course.isEnrolled ? 'Preview' : 'Continue Course'}
             </Button>
             <Button
               className='wide-button'
@@ -82,15 +83,14 @@ const CourseActions = ({ isPreview, course }) => {
                 precision={ 0.5 }
               />
               <span className='para light'>{`(${ 15 } ratings) `}</span>
-              <span className='para light'>{`${ 24 } students`}</span>
+              <span className='para light'>{`${ course.studentsEnrolled } students`}</span>
             </div>
           </div>
           <div className='mb-20'>
             <h4 className='h4'> Last updated</h4>
-            <span className='para light'>09/20/2020</span>
+            <span className='para light'>{course.updatedOn}</span>
           </div>
         </>
-        )}
         {course.informationSection.category && course.informationSection.categoryTitle && (
         <div className='mb-20'>
           <h4 className='h4'>Category</h4>
@@ -107,8 +107,10 @@ const CourseActions = ({ isPreview, course }) => {
 }
 
 CourseActions.propTypes = {
-  isPreview: PropTypes.bool.isRequired,
   course: PropTypes.shape({
+    isEnrolled: PropTypes.bool.isRequired,
+    studentsEnrolled: PropTypes.number.isRequired,
+    updatedOn: PropTypes.string.isRequired,
     informationSection: PropTypes.shape({
       price: PropTypes.number.isRequired,
       category: PropTypes.shape({
