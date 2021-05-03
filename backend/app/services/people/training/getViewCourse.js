@@ -2,7 +2,7 @@ import ServiceBase from '../../../common/serviceBase'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
 import logger from '../../../common/logger'
 import { getErrorMessageForService } from '../../helper'
-import { getCourseById, formatCourseData, getCategoryTitleById } from '../../helper/people'
+import { getViewCourseById } from '../../helper/people'
 
 const constraints = {
   user_id: {
@@ -13,7 +13,7 @@ const constraints = {
   }
 }
 
-export class PeopleGetCourseService extends ServiceBase {
+export class PeopleGetViewCourseService extends ServiceBase {
   get constraints () {
     return constraints
   }
@@ -22,16 +22,15 @@ export class PeopleGetCourseService extends ServiceBase {
     try {
       const { course_id, user_id } = this.filteredArgs
 
-      const course = await getCourseById({ course_id, user_id })
+      const course = await getViewCourseById({ course_id, user_id })
       if (course) {
-        const categoryTitle = await getCategoryTitleById({ category_id: course.category_id })
-        const formattedCourse = formatCourseData({ course, categoryTitle })
-        return formattedCourse
+        return course
       } else {
         this.addError(ERRORS.NOT_FOUND, MESSAGES.COURSE_NOT_FOUND)
       }
     } catch (e) {
-      logger.error(getErrorMessageForService('PeopleGetCourseService'), e)
+      console.error(e)
+      logger.error(getErrorMessageForService('PeopleGetViewCourseService'), e)
       this.addError(ERRORS.INTERNAL)
     }
   }

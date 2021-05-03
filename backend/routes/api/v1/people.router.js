@@ -56,5 +56,7 @@ peopleRouter.route('/course/:course_id')
 
 peopleRouter.route('/courses')
   .get(isAuthenticated, trainingController.getAllViewCourses)
+peopleRouter.route('/course/:course_id/view')
+  .get(trainingController.getViewCourse) // Add isAuthenticated
 
 export { peopleRouter }

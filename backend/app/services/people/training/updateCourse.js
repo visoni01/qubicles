@@ -2,7 +2,7 @@ import ServiceBase from '../../../common/serviceBase'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
 import logger from '../../../common/logger'
 import { getErrorMessageForService, uploadFileToIPFS, validateImageFile } from '../../helper'
-import { getCourseById, updateCourse, formatCourseData } from '../../helper/people'
+import { getCourseById, updateCourse, formatCourseData, getCategoryTitleById } from '../../helper/people'
 
 const constraints = {
   user_id: {
@@ -23,6 +23,7 @@ export class PeopleUpdateCourseService extends ServiceBase {
 
   async run () {
     let course = JSON.parse(this.course)
+    const { user_id } = this.filteredArgs
 
     try {
       let url = ''
@@ -54,12 +55,13 @@ export class PeopleUpdateCourseService extends ServiceBase {
 
       await updateCourse({ course })
 
-      const courseData = await getCourseById({ course_id: course.courseId })
+      const courseData = await getCourseById({ course_id: course.courseId, user_id })
 
       let courseDetails = {}
       // Format course data for reducer when updated
       if (courseData) {
-        courseDetails = formatCourseData({ course: courseData })
+        const categoryTitle = await getCategoryTitleById({ category_id: courseData.category_id })
+        courseDetails = formatCourseData({ course: courseData, categoryTitle })
       }
 
       return {
@@ -67,6 +69,7 @@ export class PeopleUpdateCourseService extends ServiceBase {
         message: course.status === 'published' ? 'Course successfully published!' : 'Course successfully updated!'
       }
     } catch (e) {
+      console.error(e)
       logger.error(getErrorMessageForService('PeopleUpdateCourseService'), e)
       this.addError(ERRORS.INTERNAL)
     }

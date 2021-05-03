@@ -1,5 +1,5 @@
 import {
-  XQodResourceDef, XQodUserSkill, XQodSkill, XQodUserCourse, XQodCourseUserQA,
+  XQodResourceDef, XQodUserSkill, XQodSkill, XQodUserCourse, XQodCourseUnitsUser, XQodCategory, XQodCourseUserQA,
   UserDetail, XQodApplication, XUserActivity, User, XQodCourse, XQodCourseSection, XQodCourseUnit, XQodCourseSectionQA
 } from '../../db/models'
 import { createNewEntity } from './common'
@@ -681,7 +681,7 @@ export async function updateCourse ({ course }) {
   await Promise.all(promiseArray.map(promise => promise()))
 }
 
-export async function getCourseById ({ course_id }) {
+export async function getCourseById ({ course_id, user_id }) {
   let course = await XQodCourse.findAll({
     include: [{
       model: XQodCourseSection,
@@ -695,13 +695,29 @@ export async function getCourseById ({ course_id }) {
         as: 'questions'
       }]
     }],
-    where: { course_id, status: 'draft' }
+    where: {
+      course_id,
+      creator_id: user_id,
+      status: 'draft'
+    }
   })
 
   if (course && course.length) {
     course = course.map(item => item.get({ plain: true }))
     return course[0]
   }
+}
+
+export async function getCategoryTitleById ({ category_id }) {
+  const categoryTitle = await XQodCategory.findOne({
+    raw: true,
+    attributes: ['category_name'],
+    where: {
+      category_id
+    }
+  })
+
+  return categoryTitle && categoryTitle.category_name
 }
 
 export async function getAllCourseInfo ({ creatorId }) {
@@ -747,6 +763,159 @@ export async function getAllCourseInfo ({ creatorId }) {
     courses = courses.map(item => item.get({ plain: true }))
   }
   return courses
+}
+
+export const formatViewUnitData = ({ units, unitsStatus }) => {
+  return units.map((unit) => {
+    const isUnitPresent = unitsStatus && unitsStatus.length &&
+    unitsStatus.find((item) => item.unit_id === unit.unit_id)
+
+    return {
+      unitId: unit.unit_id,
+      unitNum: unit.unit_num,
+      title: unit.title,
+      length: unit.length,
+      type: unit.type,
+      status: isUnitPresent ? isUnitPresent.status : ''
+    }
+  })
+}
+
+export const formatViewSectionData = ({ sections, sectionsCompleted, unitsStatus }) => {
+  return sections.map((section) => {
+    const units = formatViewUnitData({ units: section.units, unitsStatus })
+
+    const isSectionCompleted = sectionsCompleted && sectionsCompleted.length &&
+    sectionsCompleted.find((item) => item.section_id === section.section_id)
+
+    const isSectionInProgress = !isSectionCompleted && units.find((unit) => unit.status === 'inprogress')
+
+    return {
+      id: section.section_id,
+      title: section.title,
+      sectionNum: section.section_num,
+      units,
+      status: isSectionCompleted ? 'completed' : (isSectionInProgress ? 'inprogress' : '')
+    }
+  })
+}
+
+export const formatViewCourseData = ({
+  course,
+  isEnrolled,
+  sectionsCompleted,
+  unitsStatus,
+  studentsEnrolled,
+  categoryTitle
+}) => {
+  return {
+    isEnrolled,
+    courseId: course.course_id,
+    createdOn: course.createdAt,
+    updatedOn: course.updatedAt,
+    studentsEnrolled: studentsEnrolled,
+    informationSection: {
+      creatorId: course.creator_id,
+      title: course.title,
+      category: course.category_id,
+      categoryTitle: categoryTitle,
+      price: course.token_price,
+      visibility: course.visibility,
+      description: course.description,
+      goals: course.goals,
+      outcomes: course.outcomes,
+      requirements: course.requirements,
+      language: course.language,
+      requiredCourses: []
+    },
+    contentSection: {
+      thumbnailImage: course.image_url,
+      introductionVideo: course.video_url
+    },
+    courseContent: {
+      sections: formatViewSectionData({ sections: course.sections, sectionsCompleted, unitsStatus })
+    }
+  }
+}
+
+export async function getViewCourseById ({ course_id, user_id }) {
+  const promiseArray = [
+    () => XQodUserCourse.findOne({
+      raw: true,
+      where: {
+        course_id,
+        user_id
+      }
+    }),
+    () => XQodCourse.findAll({
+      include: [{
+        model: XQodCourseSection,
+        as: 'sections',
+        required: false,
+        include: [{
+          model: XQodCourseUnit,
+          as: 'units',
+          attributes: { exclude: ['details'] }
+        }]
+      }],
+      where: {
+        course_id
+      }
+    }),
+    () => XQodUserCourse.count({
+      raw: true,
+      where: {
+        course_id
+      }
+    })
+  ]
+
+  let [userCourse, course, studentsEnrolled] = await Promise.all(promiseArray.map(promise => promise()))
+
+  if (course && course.length) {
+    course = course.map(item => item.get({ plain: true }))[0]
+
+    let isEnrolled = false
+    let newPromiseArray = []
+    const categoryTitle = await getCategoryTitleById({ category_id: course.category_id })
+
+    if (userCourse) {
+      isEnrolled = true
+      newPromiseArray = [
+        ...newPromiseArray,
+        () => XQodCourseUnitsUser.findAll({
+          raw: true,
+          attributes: ['unit_id', 'status'],
+          where: {
+            course_id,
+            user_id
+          }
+        }),
+        () => XQodCourseUserQA.findAll({
+          attributes: ['section_id'],
+          raw: true,
+          group: ['section_id'],
+          where: {
+            user_id,
+            course_id
+          }
+        })
+      ]
+    }
+
+    const [unitsStatus, sectionsCompleted] = await Promise.all(newPromiseArray.map(promise => promise()))
+
+    const formattedViewCourse = formatViewCourseData({
+      course,
+      isEnrolled,
+      sectionsCompleted,
+      unitsStatus,
+      studentsEnrolled,
+      categoryTitle
+    })
+
+    return formattedViewCourse
+  }
 }
 
 export const formatScaleData = ({ question }) => {
@@ -891,7 +1060,7 @@ export const formatSectionData = ({ sections }) => {
   })
 }
 
-export const formatCourseData = ({ course }) => {
+export const formatCourseData = ({ course, categoryTitle }) => {
   return {
     courseId: course.course_id,
     createdOn: course.createdAt,
@@ -900,7 +1069,7 @@ export const formatCourseData = ({ course }) => {
       creatorId: course.creator_id,
       title: course.title,
       category: course.category_id,
-      categoryTitle: '',
+      categoryTitle,
       price: course.token_price,
       visibility: course.visibility,
       description: course.description,
