@@ -43,3 +43,5 @@ export function upperCaseFirst (s) { // UppercaseFirst(string s)
   }
   return (s[0].toUpperCase() + s.substr(1)) // change s[0] to s.substring(0,1) for old browsers
 }
+
+export const generateRandomUniqueIdString = () => (Date.now() + Math.random()).toString()

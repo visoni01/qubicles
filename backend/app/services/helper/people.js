@@ -6,6 +6,7 @@ import { createNewEntity } from './common'
 import { getOne, getAll } from './crud'
 import Sequelize, { Op } from 'sequelize'
 import _ from 'lodash'
+import { generateRandomUniqueIdString } from '../../utils/generateId'
 
 export async function createAgentJobProfile ({
   user_id,
@@ -734,7 +735,7 @@ export const formatOptionsData = ({ question }) => {
 
   const optionsData = ({ value }) => {
     return {
-      id: (Date.now() + Math.random()).toString(),
+      id: generateRandomUniqueIdString(),
       value
     }
   }
@@ -779,9 +780,15 @@ export const formatOptionsData = ({ question }) => {
 
 export const formatQuestionData = ({ questions }) => {
   return questions.map((question) => {
-    const options = (question.question_type === 'multiple' || question.question_type === 'checkbox')
-      ? formatOptionsData({ question })
-      : []
+    let options = [
+      { id: generateRandomUniqueIdString(), value: '' },
+      { id: generateRandomUniqueIdString(), value: '' }
+    ]
+
+    if (['multiple', 'checkbox'].includes(question.question_type)) {
+      options = formatOptionsData({ question })
+    }
+
     const correctOption = (question.question_type === 'multiple')
       ? options.find((option) => option.value === question.answer).id
       : ''
@@ -789,11 +796,20 @@ export const formatQuestionData = ({ questions }) => {
       ? options.filter((option) => JSON.parse(question.answer).includes(option.value)).map((option) => option.id)
       : []
 
-    const dateTime = {
-      date: JSON.parse(question.answer).date ? JSON.parse(question.answer).date : '',
-      time: JSON.parse(question.answer).time ? JSON.parse(question.answer).time : '',
-      isDate: !!JSON.parse(question.answer).date,
-      isTime: !!JSON.parse(question.answer).time
+    let dateTime = {
+      date: '',
+      time: '',
+      isDate: false,
+      isTime: false
+    }
+
+    if (question.question_type === 'date') {
+      dateTime = {
+        date: JSON.parse(question.answer).date ? JSON.parse(question.answer).date : '',
+        time: JSON.parse(question.answer).time ? JSON.parse(question.answer).time : '',
+        isDate: !!JSON.parse(question.answer).date,
+        isTime: !!JSON.parse(question.answer).time
+      }
     }
 
     return {
