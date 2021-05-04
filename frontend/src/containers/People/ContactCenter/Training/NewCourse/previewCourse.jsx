@@ -2,9 +2,7 @@ import React from 'react'
 import { Grid } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import CourseDescription from '../ViewCourse/CourseDescription'
-import CourseOverview from '../ViewCourse/CourseOverview'
 import NewCourseActions from './NewCourseActions'
-import CourseActions from '../ViewCourse/CourseActions'
 import {
   contentSectionPropType, courseContentPropType, coursePropType, informationSectionPropType,
 } from './propTypes'
@@ -34,9 +32,6 @@ const PreviewCreateCourse = ({
           requirements={ informationSection.requirements }
         />
       </Grid>
-      <Grid item>
-        <CourseOverview />
-      </Grid>
     </Grid>
     <Grid
       container
@@ -60,16 +55,6 @@ const PreviewCreateCourse = ({
           courseId={ course.courseId }
           courseStatus={ course.status }
           handleErrors={ handleErrors }
-        />
-      </Grid>
-      <Grid item>
-        <CourseActions
-          isPreview={ isPreview }
-          course={ {
-            informationSection,
-            contentSection,
-            courseContent,
-          } }
         />
       </Grid>
     </Grid>
