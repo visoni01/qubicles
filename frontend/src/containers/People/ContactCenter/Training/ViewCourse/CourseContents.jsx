@@ -4,12 +4,12 @@ import UnitsList from './UnitsList'
 import {
   sectionsPropType, isEnrolledPropType, introVideoPropType,
   setOpenCoursePlayerPropType, setCurrentSectionPropType, setCurrentUnitPropType,
-  isCoursePlayerOpenPropType, sectionPropType, unitPropType,
+  isCoursePlayerOpenPropType, sectionPropType, unitPropType, courseStatusPropType,
 } from './propTypes'
 
 const CourseContents = ({
   sections, setOpenCoursePlayer, isEnrolled, introVideo, setCurrentSection, setCurrentUnit,
-  currentSection, currentUnit, isCoursePlayerOpen,
+  currentSection, currentUnit, isCoursePlayerOpen, courseStatus,
 }) => (
   <>
     <div className='course-contents-root'>
@@ -24,7 +24,8 @@ const CourseContents = ({
               section={ section }
               setOpenCoursePlayer={ setOpenCoursePlayer }
               isEnrolled={ isEnrolled }
-              isActive={ (isEnrolled && section.status === 'inprogress') || (!isEnrolled && index === 0) }
+              isActive={ (isEnrolled && section.status === 'inprogress') || (!isEnrolled && index === 0)
+              || (isEnrolled && courseStatus === 'enrolled' && index === 0) }
               showIntroVideo={ index === 0 && !!introVideo }
               introVideo={ introVideo }
               setCurrentSection={ setCurrentSection }
@@ -40,6 +41,10 @@ const CourseContents = ({
   </>
 )
 
+CourseContents.defaultProps = {
+  courseStatus: '',
+}
+
 CourseContents.propTypes = {
   sections: sectionsPropType.isRequired,
   isEnrolled: isEnrolledPropType.isRequired,
@@ -50,5 +55,6 @@ CourseContents.propTypes = {
   isCoursePlayerOpen: isCoursePlayerOpenPropType.isRequired,
   currentSection: sectionPropType.isRequired,
   currentUnit: unitPropType.isRequired,
+  courseStatus: courseStatusPropType,
 }
 export default CourseContents

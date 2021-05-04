@@ -55,6 +55,7 @@ const ViewCourse = () => {
             isEnrolled={ course.isEnrolled }
             introVideo={ course.contentSection.introductionVideo }
             courseTitle={ course.informationSection.title }
+            courseStatus={ course.courseDetail && course.courseDetail.status }
           />
         </Grid>
         <Grid item>

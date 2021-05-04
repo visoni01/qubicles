@@ -57,7 +57,7 @@ const UnitsList = ({
               <FontAwesomeIcon className='custom-fa-icon light' icon={ faPlayCircle } />
             </ListItemIcon>
             <ListItemText>
-              <p className='text-link'> Intro </p>
+              <p className={ `para ${ isCoursePlayerOpen && currentUnit.unitId === -1 ? '' : 'light' }` }> Intro </p>
             </ListItemText>
             <Button
               classes={ {
@@ -94,7 +94,7 @@ const UnitsList = ({
                 />
               </ListItemIcon>
               <ListItemText>
-                <p className='para light'>
+                <p className={ `para ${ isCoursePlayerOpen && currentUnit.unitId === unit.unitId ? '' : 'light' }` }>
                   {unit.title}
                 </p>
               </ListItemText>

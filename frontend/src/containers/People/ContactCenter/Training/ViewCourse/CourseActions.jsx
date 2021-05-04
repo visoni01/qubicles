@@ -7,6 +7,7 @@ import { Rating } from '@material-ui/lab'
 import '../style.scss'
 import AssessmentTestModal from './Test/assessmentTestModal'
 import BuyCourseModal from './buyCourseModal'
+import { formatDate } from '../../../../../utils/common'
 
 const CourseActions = ({ course }) => {
   const [ isAssessmentModalOpen, setIsAssessmentModalOpen ] = useState(false)
@@ -98,7 +99,9 @@ const CourseActions = ({ course }) => {
           </div>
           <div className='mb-20'>
             <h4 className='h4'> Last updated</h4>
-            <span className='para light'>{course.updatedOn}</span>
+            <span className='para light'>
+              {course.updatedOn && `${ formatDate(course.updatedOn, 'MMMM DD YYYY, hh:mm a') }`}
+            </span>
           </div>
         </>
         {course.informationSection.category && course.informationSection.categoryTitle && (

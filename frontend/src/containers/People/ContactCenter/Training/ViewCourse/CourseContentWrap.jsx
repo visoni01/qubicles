@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import CourseContents from './CourseContents'
 import CoursePreview from './CoursePreview'
 import {
-  sectionsPropType, courseIdPropType, isEnrolledPropType, introVideoPropType, courseTitlePropType,
+  sectionsPropType, courseIdPropType, isEnrolledPropType, introVideoPropType, courseTitlePropType, courseStatusPropType,
 } from './propTypes'
 
 export default function CourseContentWrap({
-  sections, courseId, isEnrolled, introVideo, courseTitle,
+  sections, courseId, isEnrolled, introVideo, courseTitle, courseStatus,
 }) {
   const [ openCoursePlayer, setOpenCoursePlayer ] = useState(false)
   const [ currentSection, setCurrentSection ] = useState({})
@@ -21,6 +21,7 @@ export default function CourseContentWrap({
         introVideo={ introVideo }
         setCurrentSection={ setCurrentSection }
         setCurrentUnit={ setCurrentUnit }
+        courseStatus={ courseStatus }
       />
       <CoursePreview
         open={ openCoursePlayer }
@@ -41,10 +42,15 @@ export default function CourseContentWrap({
   )
 }
 
+CourseContentWrap.defaultProps = {
+  courseStatus: '',
+}
+
 CourseContentWrap.propTypes = {
   sections: sectionsPropType.isRequired,
   courseId: courseIdPropType.isRequired,
   isEnrolled: isEnrolledPropType.isRequired,
   introVideo: introVideoPropType.isRequired,
   courseTitle: courseTitlePropType.isRequired,
+  courseStatus: courseStatusPropType,
 }

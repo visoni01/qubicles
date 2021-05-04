@@ -859,7 +859,8 @@ export async function getViewCourseById ({ course_id, user_id }) {
         }]
       }],
       where: {
-        course_id
+        course_id,
+        status: 'published'
       }
     }),
     () => XQodUserCourse.count({

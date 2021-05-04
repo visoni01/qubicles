@@ -135,7 +135,7 @@ const viewCourseData = {
     of services and products, I clearly understand how challenging it can be to gain appointments, demos, and sales.
     You can see by my ratings and reviews that i'm very effective at what I do. I can tell you, however, that many
     business owners I speak with about using a telesales component for their sales and marketing have not developed
-    the other needed areas to lay the proper groundwork for as succesful telesales campaign.`,
+    the other needed areas to lay the proper groundwork for as successful telesales campaign.`,
     goals: `Successful sales and marketing is only possile through the correct choices. Do you understand how to make
     the best choices in each area when it comes to your sales and marketing... or are you guessing ? How crucial is it
     to you (and your income) to actually solve the problem ? Have you experience enough "pain" through delays and

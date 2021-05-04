@@ -3,12 +3,12 @@ import { faCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box } from '@material-ui/core'
 import {
-  sectionsPropType, courseIdPropType, isEnrolledPropType, introVideoPropType, courseTitlePropType,
+  sectionsPropType, courseIdPropType, isEnrolledPropType, introVideoPropType, courseTitlePropType, courseStatusPropType,
 } from './propTypes'
 import CourseContentWrap from './CourseContentWrap'
 
 const CourseOverview = ({
-  sections, courseId, isEnrolled, introVideo, courseTitle,
+  sections, courseId, isEnrolled, introVideo, courseTitle, courseStatus,
 }) => (
   <>
     <Box className='custom-box course-overview-root'>
@@ -29,10 +29,15 @@ const CourseOverview = ({
         isEnrolled={ isEnrolled }
         introVideo={ introVideo }
         courseTitle={ courseTitle }
+        courseStatus={ courseStatus }
       />
     </Box>
   </>
 )
+
+CourseOverview.defaultProps = {
+  courseStatus: '',
+}
 
 CourseOverview.propTypes = {
   sections: sectionsPropType.isRequired,
@@ -40,6 +45,7 @@ CourseOverview.propTypes = {
   isEnrolled: isEnrolledPropType.isRequired,
   introVideo: introVideoPropType.isRequired,
   courseTitle: courseTitlePropType.isRequired,
+  courseStatus: courseStatusPropType,
 }
 
 export default CourseOverview

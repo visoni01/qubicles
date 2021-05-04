@@ -271,10 +271,9 @@ class People {
     return response
   }
 
-  // WIP viewCourse service
   static async fetchViewCourse({ courseId }) {
-    // const response = await apiClient.getRequest(`/people/course/${ courseId }/view`)
-    return { courseId }
+    const response = await apiClient.getRequest(`/people/course/${ courseId }/view`)
+    return response
   }
 }
 

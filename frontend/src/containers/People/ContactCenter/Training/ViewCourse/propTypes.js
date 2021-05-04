@@ -52,3 +52,4 @@ export const setOpenCoursePlayerPropType = PropTypes.func
 export const setCurrentSectionPropType = PropTypes.func
 export const setCurrentUnitPropType = PropTypes.func
 export const isCoursePlayerOpenPropType = PropTypes.bool
+export const courseStatusPropType = PropTypes.string
