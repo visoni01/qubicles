@@ -806,7 +806,8 @@ export const formatViewCourseData = ({
   sectionsCompleted,
   unitsStatus,
   studentsEnrolled,
-  categoryTitle
+  categoryTitle,
+  courseDetails
 }) => {
   return {
     isEnrolled,
@@ -834,7 +835,8 @@ export const formatViewCourseData = ({
     },
     courseContent: {
       sections: formatViewSectionData({ sections: course.sections, sectionsCompleted, unitsStatus })
-    }
+    },
+    courseDetails
   }
 }
 
@@ -878,10 +880,20 @@ export async function getViewCourseById ({ course_id, user_id }) {
 
     let isEnrolled = false
     let newPromiseArray = []
+    let courseDetails = {}
     const categoryTitle = await getCategoryTitleById({ category_id: course.category_id })
 
     if (userCourse) {
       isEnrolled = true
+      courseDetails = {
+        ...courseDetails,
+        dateStarted: userCourse.date_started,
+        dateCompleted: userCourse.date_completed,
+        status: userCourse.status,
+        grade: userCourse.grade,
+        certificate: userCourse.certificate_nft_id,
+        endorsed: userCourse.endorsed
+      }
       newPromiseArray = [
         ...newPromiseArray,
         () => XQodCourseUnitsUser.findAll({
@@ -912,7 +924,8 @@ export async function getViewCourseById ({ course_id, user_id }) {
       sectionsCompleted,
       unitsStatus,
       studentsEnrolled,
-      categoryTitle
+      categoryTitle,
+      courseDetails
     })
 
     return formattedViewCourse
