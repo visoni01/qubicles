@@ -6,9 +6,11 @@ import PropTypes from 'prop-types'
 import { Rating } from '@material-ui/lab'
 import '../style.scss'
 import AssessmentTestModal from './Test/assessmentTestModal'
+import BuyCourseModal from './buyCourseModal'
 
 const CourseActions = ({ course }) => {
   const [ isAssessmentModalOpen, setIsAssessmentModalOpen ] = useState(false)
+  const [ openBuyCoursePopup, setOpenBuyCoursePopup ] = useState(false)
 
   return (
     <>
@@ -39,6 +41,7 @@ const CourseActions = ({ course }) => {
                 root: 'button-primary-small',
                 label: 'button-primary-small-label',
               } }
+              onClick={ () => setOpenBuyCoursePopup(true) }
             >
               {course.informationSection.price > 0 ? 'Buy Course' : 'Start Course'}
             </Button>
@@ -64,11 +67,18 @@ const CourseActions = ({ course }) => {
             </Button>
           </div>
 
-          {isAssessmentModalOpen && (
-            <AssessmentTestModal
-              open={ isAssessmentModalOpen }
-              onClose={ () => setIsAssessmentModalOpen(false) }
+          {openBuyCoursePopup && (
+            <BuyCourseModal
+              open={ openBuyCoursePopup }
+              onClose={ () => setOpenBuyCoursePopup(false) }
             />
+          )}
+
+          {isAssessmentModalOpen && (
+          <AssessmentTestModal
+            open={ isAssessmentModalOpen }
+            onClose={ () => setIsAssessmentModalOpen(false) }
+          />
           )}
 
           <div className='mb-20'>

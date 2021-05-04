@@ -1205,3 +1205,36 @@ export async function getAllViewCourses ({ searchField, categoryId, courseFilter
     }
   }
 }
+
+export const getOnlyCourseById = async ({ course_id }) => {
+  return getOne({
+    model: XQodCourse,
+    data: { course_id }
+  })
+}
+
+export const enrollUserToCourse = async ({ user_id, course }) => {
+  // TODO: Add buy course transaction to blockchain, SRS page: 66
+
+  const userCourseData = {
+    user_id,
+    course_id: course.course_id,
+    status: 'enrolled'
+  }
+  const newEnrolledUserCourse = await createNewEntity({
+    model: XQodUserCourse,
+    data: userCourseData
+  })
+
+  return newEnrolledUserCourse
+}
+
+export const getUserCourseByCourseId = async ({ course_id, user_id }) => {
+  return getOne({
+    model: XQodUserCourse,
+    data: {
+      course_id,
+      user_id
+    }
+  })
+}
