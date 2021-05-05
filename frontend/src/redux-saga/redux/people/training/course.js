@@ -9,11 +9,12 @@ const initialState = {
     courseId: null,
     createdOn: '',
     updatedOn: '',
+    status: '',
     informationSection: {
       title: '',
       category: null,
       categoryTitle: '',
-      price: 0,
+      price: 1,
       visibility: 'public',
       description: '',
       goals: '',

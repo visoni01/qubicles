@@ -695,7 +695,7 @@ export async function getCourseById ({ course_id }) {
         as: 'questions'
       }]
     }],
-    where: { course_id }
+    where: { course_id, status: 'draft' }
   })
 
   if (course && course.length) {

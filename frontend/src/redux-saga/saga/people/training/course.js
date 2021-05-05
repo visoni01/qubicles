@@ -19,13 +19,13 @@ function* trainingCourseWorker(action) {
     switch (requestType) {
       case 'CREATE': {
         const { data, message } = yield People.addCourse({ course })
-        yield put(trainingCourseRequestSuccess({ course: data.courseData }))
+        yield put(trainingCourseRequestSuccess({ course: { ...data.courseData, status: course.status } }))
         yield put(showSuccessMessage({ msg: message }))
         break
       }
       case 'UPDATE': {
         const { data, message } = yield People.updateCourse({ course })
-        yield put(trainingCourseRequestSuccess({ course: data.courseData }))
+        yield put(trainingCourseRequestSuccess({ course: { ...data.courseData, status: course.status } }))
         yield put(showSuccessMessage({ msg: message }))
         break
       }

@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, { useState, useCallback, useEffect } from 'react'
 import {
   Grid, FormControl,
@@ -10,10 +11,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import _ from 'lodash'
 import SingleSelect from '../../../../Shared/singleSelect'
 import { jobCategoriesOnlyFetchStart } from '../../../../../redux-saga/redux/actions'
-import { informationSectionPropType } from './propTypes'
+import { errorsPropTypes, informationSectionPropType } from './propTypes'
 
 export default function InformationTab({
-  informationSection, setInformationSection,
+  informationSection, setInformationSection, errors,
 }) {
   const [ priceType, setPriceType ] = useState('price')
   const { jobCategoriesOnly, isLoading, error } = useSelector((state) => state.jobCategoriesOnly)
@@ -49,7 +50,7 @@ export default function InformationTab({
       let updatedFields = {}
       if (e.target.name === 'price') {
         updatedFields = {
-          [ e.target.name ]: Number(e.target.value),
+          [ e.target.name ]: e.target.value === '' ? '' : Number(e.target.value),
         }
       } else {
         updatedFields = {
@@ -69,6 +70,12 @@ export default function InformationTab({
       setInformationSection((current) => ({
         ...current,
         price: 0,
+      }))
+    }
+    if (e.target.value === 'price') {
+      setInformationSection((current) => ({
+        ...current,
+        price: 1,
       }))
     }
     setPriceType(e.target.value)
@@ -100,6 +107,8 @@ export default function InformationTab({
           placeholder='Title'
           name='title'
           variant='outlined'
+          error={ errors && errors.title }
+          helperText={ errors && errors.title ? errors.title.message : '' }
         />
       </div>
 
@@ -117,6 +126,8 @@ export default function InformationTab({
                     title: selectedCategory.categoryTitle,
                   } : null }
                   label='Choose Category'
+                  error={ errors && errors.categoryTitle }
+                  helperText={ errors && errors.categoryTitle ? errors.categoryTitle.message : '' }
                 />
               </FormControl>
             </div>
@@ -148,6 +159,8 @@ export default function InformationTab({
                   name='price'
                   onChange={ setInformationSectionField }
                   disabled={ !(priceType === 'price') }
+                  error={ errors && errors.price }
+                  helperText={ errors && errors.price ? errors.price.message : '' }
                 />
                 <span className='para sz-lg light input-label'>
                   {`QBE (${ informationSection.price } USD)`}
@@ -189,6 +202,7 @@ export default function InformationTab({
               variant='outlined'
               value={ informationSection.language }
               onChange={ setInformationSectionField }
+              error={ errors && errors.language }
             >
               {availableLanguages.map((language) => (
                 <option key={ language } value={ language } className='para sz-xl'>
@@ -233,6 +247,8 @@ export default function InformationTab({
           margin='dense'
           autoComplete='off'
           variant='outlined'
+          error={ errors && errors.summary }
+          helperText={ errors && errors.summary ? errors.summary.message : '' }
         />
         <h4 className='h4 mb-10 mt-30'> Goals </h4>
         <TextField
@@ -246,6 +262,8 @@ export default function InformationTab({
           margin='dense'
           autoComplete='off'
           variant='outlined'
+          error={ errors && errors.goals }
+          helperText={ errors && errors.goals ? errors.goals.message : '' }
         />
         <h4 className='h4 mb-10 mt-30'> Outcomes </h4>
         <TextField
@@ -259,6 +277,8 @@ export default function InformationTab({
           margin='dense'
           autoComplete='off'
           variant='outlined'
+          error={ errors && errors.outcomes }
+          helperText={ errors && errors.outcomes ? errors.outcomes.message : '' }
         />
         <h4 className='h4 mb-10 mt-30'> Requirements </h4>
         <TextField
@@ -272,6 +292,8 @@ export default function InformationTab({
           margin='dense'
           autoComplete='off'
           variant='outlined'
+          error={ errors && errors.requirements }
+          helperText={ errors && errors.requirements ? errors.requirements.message : '' }
         />
       </div>
     </div>
@@ -281,4 +303,5 @@ export default function InformationTab({
 InformationTab.propTypes = {
   informationSection: informationSectionPropType.isRequired,
   setInformationSection: PropTypes.func.isRequired,
+  errors: errorsPropTypes.isRequired,
 }

@@ -3,9 +3,10 @@ import { Button, IconButton } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
+import { errorsPropTypes } from './propTypes'
 
 export default function CourseThumbnail({
-  contentSection, setContentSection,
+  contentSection, setContentSection, errors,
 }) {
   const handleFileInputChange = useCallback((event) => {
     event.preventDefault()
@@ -51,6 +52,7 @@ export default function CourseThumbnail({
             >
               Choose Image
             </Button>
+            <span className='para red ml-30'>{errors && errors.thumbnailImage && errors.thumbnailImage.message}</span>
           </div>
 
         ) : (
@@ -79,4 +81,5 @@ CourseThumbnail.propTypes = {
     thumbnailImage: PropTypes.any,
   }).isRequired,
   setContentSection: PropTypes.func.isRequired,
+  errors: errorsPropTypes.isRequired,
 }

@@ -3,18 +3,18 @@ import PropTypes from 'prop-types'
 import CourseThumbnail from './CourseThumbnail'
 import IntroVideo from './IntroVideo'
 import CourseContent from './CourseContent/index'
-import { contentSectionPropType, courseContentPropType } from './propTypes'
+import { contentSectionPropType, courseContentPropType, errorsPropTypes } from './propTypes'
 
 export default function ContentTab({
   contentSection, setContentSection,
-  courseContent, setCourseContent,
+  courseContent, setCourseContent, errors,
 }) {
   return (
     <div className='mt-30'>
       <CourseThumbnail
         contentSection={ contentSection }
         setContentSection={ setContentSection }
-
+        errors={ errors }
       />
       <IntroVideo />
       <CourseContent
@@ -30,4 +30,5 @@ ContentTab.propTypes = {
   setContentSection: PropTypes.func.isRequired,
   courseContent: courseContentPropType.isRequired,
   setCourseContent: PropTypes.func.isRequired,
+  errors: errorsPropTypes.isRequired,
 }

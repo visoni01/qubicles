@@ -10,11 +10,13 @@ import InformationTab from './InformationTab'
 import ContentTab from './ContentTab'
 import ROUTE_PATHS from '../../../../../routes/routesPath'
 import { formatDate } from '../../../../../utils/common'
-import { contentSectionPropType, courseContentPropType, informationSectionPropType } from './propTypes'
+import {
+  contentSectionPropType, courseContentPropType, errorsPropTypes, informationSectionPropType,
+} from './propTypes'
 
 const NewCourseForm = ({
   course, informationSection, setInformationSection, contentSection, setContentSection,
-  courseContent, setCourseContent, isEdit,
+  courseContent, setCourseContent, isEdit, errors,
 }) => {
   const [ activeTab, setActiveTab ] = useState(0)
   const history = useHistory()
@@ -71,6 +73,7 @@ const NewCourseForm = ({
       <InformationTab
         informationSection={ informationSection }
         setInformationSection={ setInformationSection }
+        errors={ errors }
       />
       ) }
       { activeTab === 1 && (
@@ -79,6 +82,7 @@ const NewCourseForm = ({
         setContentSection={ setContentSection }
         courseContent={ courseContent }
         setCourseContent={ setCourseContent }
+        errors={ errors }
       />
       )}
     </Box>
@@ -101,5 +105,6 @@ NewCourseForm.propTypes = {
   courseContent: courseContentPropType.isRequired,
   setCourseContent: PropTypes.func.isRequired,
   isEdit: PropTypes.bool,
+  errors: errorsPropTypes.isRequired,
 }
 export default NewCourseForm

@@ -57,7 +57,10 @@ export class PeopleAddNewCourseService extends ServiceBase {
       // Format course data for reducer when created
       const courseData = { courseId: addedCourse.course_id }
 
-      return { courseData, message: 'Course successfully created!' }
+      return {
+        courseData,
+        message: course.status === 'published' ? 'Course successfully published!' : 'Course successfully created!'
+      }
     } catch (e) {
       logger.error(getErrorMessageForService('PeopleAddNewCourseService'), e)
       this.addError(ERRORS.INTERNAL)

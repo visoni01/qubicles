@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import NewCourseForm from './NewCourseForm'
 import NewCourseActions from './NewCourseActions'
 import {
-  contentSectionPropType, courseContentPropType, coursePropType, informationSectionPropType,
+  contentSectionPropType, courseContentPropType, coursePropType, errorsPropTypes, informationSectionPropType,
 } from './propTypes'
 
 const CreateCourse = ({
@@ -12,7 +12,7 @@ const CreateCourse = ({
   contentSection, setContentSection,
   courseContent, setCourseContent,
   updateCourseReducer, isPreview, setIsPreview,
-  course, isEdit,
+  course, isEdit, handleErrors, errors,
 }) => (
   <Grid container spacing={ 2 }>
     <Grid
@@ -35,6 +35,7 @@ const CreateCourse = ({
           courseContent={ courseContent }
           setCourseContent={ setCourseContent }
           isEdit={ isEdit }
+          errors={ errors }
         />
       </Grid>
     </Grid>
@@ -57,6 +58,8 @@ const CreateCourse = ({
           isPreview={ isPreview }
           setIsPreview={ setIsPreview }
           courseId={ course.courseId }
+          courseStatus={ course.status }
+          handleErrors={ handleErrors }
         />
       </Grid>
     </Grid>
@@ -79,6 +82,8 @@ CreateCourse.propTypes = {
   setIsPreview: PropTypes.func.isRequired,
   course: coursePropType.isRequired,
   isEdit: PropTypes.bool,
+  errors: errorsPropTypes.isRequired,
+  handleErrors: PropTypes.func.isRequired,
 }
 
 export default CreateCourse

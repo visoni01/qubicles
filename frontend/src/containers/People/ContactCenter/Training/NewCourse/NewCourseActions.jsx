@@ -3,8 +3,8 @@ import { Box, Button, Divider } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { trainingCourseRequestStart } from '../../../../../redux-saga/redux/people'
-import { EDIT_COURSE_ROUTE } from '../../../../../routes/routesPath'
+import { resetTrainingCourseReducer, trainingCourseRequestStart } from '../../../../../redux-saga/redux/people'
+import ROUTES_PATH, { EDIT_COURSE_ROUTE } from '../../../../../routes/routesPath'
 import { courseContentFilterBeforeSave } from './CourseContent/helper'
 import { contentSectionPropType, courseContentPropType, informationSectionPropType } from './propTypes'
 
@@ -15,6 +15,8 @@ const NewCourseActions = ({
   isPreview,
   setIsPreview,
   courseId,
+  courseStatus,
+  handleErrors,
 }) => {
   const dispatch = useDispatch()
   const history = useHistory()
@@ -42,11 +44,41 @@ const NewCourseActions = ({
     }
   }, [ informationSection, contentSection, courseContent, courseId, dispatch ])
 
+  const onPublish = useCallback(() => {
+    if (!handleErrors()) {
+      // Check course content before send
+      const courseContentFiltered = courseContentFilterBeforeSave({ courseContent })
+      const course = {
+        courseId,
+        informationSection,
+        contentSection,
+        courseContent: courseContentFiltered,
+        status: 'published',
+      }
+
+      if (course.courseId) {
+        dispatch(trainingCourseRequestStart({
+          course,
+          requestType: 'UPDATE',
+        }))
+      } else {
+        dispatch(trainingCourseRequestStart({
+          course,
+          requestType: 'CREATE',
+        }))
+      }
+    }
+  }, [ informationSection, contentSection, courseContent, courseId, dispatch, handleErrors ])
+
   useEffect(() => {
-    if (courseId) {
+    if (courseId && courseStatus === 'draft') {
       history.push(`${ EDIT_COURSE_ROUTE }/${ courseId }`)
     }
-  }, [ courseId, history ])
+    if (courseId && courseStatus === 'published') {
+      history.push(`${ ROUTES_PATH.VIEW_COURSE }`)
+      dispatch(resetTrainingCourseReducer())
+    }
+  }, [ courseId, history, courseStatus ])
 
   return (
     <Box className='custom-box actions-box wrapper'>
@@ -58,6 +90,7 @@ const NewCourseActions = ({
           root: 'button-primary-small',
           label: 'button-primary-small-label',
         } }
+        onClick={ onPublish }
       >
         Publish
       </Button>
@@ -88,6 +121,7 @@ const NewCourseActions = ({
 
 NewCourseActions.defaultProps = {
   courseId: null,
+  courseStatus: '',
 }
 
 NewCourseActions.propTypes = {
@@ -97,6 +131,8 @@ NewCourseActions.propTypes = {
   isPreview: PropTypes.bool.isRequired,
   setIsPreview: PropTypes.func.isRequired,
   courseId: PropTypes.number,
+  courseStatus: PropTypes.string,
+  handleErrors: PropTypes.func.isRequired,
 }
 
 export default NewCourseActions

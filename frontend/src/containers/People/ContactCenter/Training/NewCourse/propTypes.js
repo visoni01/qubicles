@@ -104,3 +104,33 @@ export const courseContentPropType = PropTypes.shape({
 export const coursePropType = PropTypes.shape({
   courseId: PropTypes.number,
 })
+
+export const errorsPropTypes = PropTypes.shape({
+  title: PropTypes.shape({
+    message: PropTypes.string,
+  }),
+  summary: PropTypes.shape({
+    message: PropTypes.string,
+  }),
+  goals: PropTypes.shape({
+    message: PropTypes.string,
+  }),
+  outcomes: PropTypes.shape({
+    message: PropTypes.string,
+  }),
+  requirements: PropTypes.shape({
+    message: PropTypes.string,
+  }),
+  price: PropTypes.shape({
+    message: PropTypes.string,
+  }),
+  categoryTitle: PropTypes.shape({
+    message: PropTypes.string,
+  }),
+  language: PropTypes.shape({
+    message: PropTypes.string,
+  }),
+  thumbnailImage: PropTypes.shape({
+    message: PropTypes.string,
+  }),
+})

@@ -4,7 +4,7 @@ import { Autocomplete } from '@material-ui/lab'
 import PropTypes from 'prop-types'
 
 const SingleSelect = ({
-  items, onChange, label, value,
+  items, onChange, label, value, error, helperText,
 }) => {
   const [ inputValue, setInputValue ] = useState('')
   const [ selectedItem, setSelectedItem ] = useState(value || null)
@@ -42,6 +42,8 @@ const SingleSelect = ({
             margin='dense'
             label={ label || null }
             variant='outlined'
+            error={ error }
+            helperText={ helperText }
           />
         ) }
         renderOption={ (option) => <span className='para light'>{option.title}</span> }
@@ -55,6 +57,8 @@ SingleSelect.defaultProps = {
   value: null,
   items: [],
   label: '',
+  error: false,
+  helperText: '',
 }
 
 const valueValidator = PropTypes.shape({
@@ -67,6 +71,10 @@ SingleSelect.propTypes = {
   value: valueValidator,
   label: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+  helperText: PropTypes.string,
+  error: PropTypes.shape({
+    message: PropTypes.string,
+  }),
 }
 
 export default SingleSelect

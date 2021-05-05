@@ -3,6 +3,7 @@ import React, {
 } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import _ from 'lodash'
 import {
   updateTrainingCourseDetails,
   trainingCourseRequestStart,
@@ -12,6 +13,8 @@ import { startLoader, stopLoader } from '../../../../../redux-saga/redux/utils'
 import PreviewCreateCourse from './previewCourse'
 import CreateCourse from './createCourse'
 import './styles.scss'
+import checkAndSetErrors from './checkAndSetErrors'
+import AlertPopover from '../../../../Shared/alertPopover'
 
 const EditCoursePage = () => {
   const { course, isLoading } = useSelector((state) => state.trainingCourse)
@@ -21,6 +24,12 @@ const EditCoursePage = () => {
   const [ isPreview, setIsPreview ] = useState(false)
 
   const dispatch = useDispatch()
+
+  const [ errors, setErrors ] = useState({})
+
+  const handleErrors = useCallback(() => (
+    checkAndSetErrors({ setErrors, informationSection, contentSection })
+  ), [ informationSection, contentSection ])
 
   const updateCourseReducer = useCallback(() => {
     dispatch(updateTrainingCourseDetails({
@@ -73,19 +82,29 @@ const EditCoursePage = () => {
   }
 
   return (
-    <CreateCourse
-      informationSection={ informationSection }
-      setInformationSection={ setInformationSection }
-      contentSection={ contentSection }
-      setContentSection={ setContentSection }
-      courseContent={ courseContent }
-      setCourseContent={ setCourseContent }
-      isPreview={ isPreview }
-      setIsPreview={ setIsPreview }
-      course={ course }
-      updateCourseReducer={ updateCourseReducer }
-      isEdit
-    />
+    <>
+      <AlertPopover
+        open={ !_.isEmpty(errors) }
+        buttonOnClick={ () => setErrors({}) }
+        alertTitle='Oops!'
+        alertBody='Please fill in all the required fields first'
+      />
+      <CreateCourse
+        informationSection={ informationSection }
+        setInformationSection={ setInformationSection }
+        contentSection={ contentSection }
+        setContentSection={ setContentSection }
+        courseContent={ courseContent }
+        setCourseContent={ setCourseContent }
+        isPreview={ isPreview }
+        setIsPreview={ setIsPreview }
+        course={ course }
+        updateCourseReducer={ updateCourseReducer }
+        isEdit
+        handleErrors={ handleErrors }
+        errors={ errors }
+      />
+    </>
   )
 }
 
