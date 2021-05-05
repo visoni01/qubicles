@@ -16,6 +16,7 @@ import agentJobApplicationsReducer from './application/agentJobApplications'
 import agentTopDataReducer from './talent/getAgentTopData'
 import trainingCourseReducer from './training/course'
 import allCoursesReducer from './training/allCourses'
+import viewAllCoursesReducer from './training/viewAllCourses'
 
 const peopleReducers = {
   jobSkills: jobSkillsReducer,
@@ -36,6 +37,7 @@ const peopleReducers = {
   agentTopData: agentTopDataReducer,
   trainingCourse: trainingCourseReducer,
   allCourses: allCoursesReducer,
+  viewAllCourses: viewAllCoursesReducer,
 }
 
 export default peopleReducers
@@ -58,3 +60,4 @@ export * from './job/actions'
 export * from './talent/getAgentTopData'
 export * from './training/course'
 export * from './training/allCourses'
+export * from './training/viewAllCourses'

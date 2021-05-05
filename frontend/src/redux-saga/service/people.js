@@ -11,8 +11,8 @@ class People {
   }) {
     const url = '/jobs'
     const queryParams = {}
-    if (searchKeyword && searchKeyword.trim()) {
-      queryParams.search_keyword = searchKeyword
+    if (searchKeyword) {
+      queryParams.search_keyword = searchKeyword.trim()
     }
 
     if (categoryId) {
@@ -242,6 +242,32 @@ class People {
 
   static async fetchCourse({ courseId }) {
     const response = await apiClient.getRequest(`/people/course/${ courseId }`)
+    return response
+  }
+
+  static async fetchViewAllCourses({
+    categoryId, searchField, courseFilter, offset,
+  }) {
+    const url = '/people/courses'
+    const queryParams = {}
+
+    if (categoryId) {
+      queryParams.categoryId = categoryId
+    }
+
+    if (searchField) {
+      queryParams.searchField = searchField.trim()
+    }
+
+    if (courseFilter) {
+      queryParams.courseFilter = courseFilter
+    }
+
+    if (!_.isUndefined(offset)) {
+      queryParams.offset = offset
+    }
+
+    const response = await apiClient.getRequest(url, null, queryParams)
     return response
   }
 }

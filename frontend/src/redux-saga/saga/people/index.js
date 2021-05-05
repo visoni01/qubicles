@@ -14,6 +14,7 @@ import agentJobApplications from './application/agentJobApplications'
 import fetchAgentTopData from './talent/fetchAgentTopData'
 import createCourse from './training/course'
 import allCourses from './training/allCourses'
+import viewAllCourses from './training/viewAllCourses'
 
 const peopleWatcherFunctions = [
   () => peopleTalentCards(),
@@ -32,6 +33,7 @@ const peopleWatcherFunctions = [
   () => fetchAgentTopData(),
   () => createCourse(),
   () => allCourses(),
+  () => viewAllCourses(),
 ]
 
 export default peopleWatcherFunctions

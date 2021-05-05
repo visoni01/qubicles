@@ -5,18 +5,18 @@ import {
 import PropTypes from 'prop-types'
 import { Rating } from '@material-ui/lab'
 import { useHistory } from 'react-router-dom'
-import ROUTE_PATHS from '../../../../routes/routesPath'
 import './style.scss'
+import { VIEW_COURSE_ROUTE } from '../../../../routes/routesPath'
 
 const CourseCard = ({
-  priceQbe, priceUsd, ratingValue, studentsCount, courseDescription, sectionsCount, language, imageUrl,
+  courseId, priceQbe, priceUsd, ratingValue, studentsCount, courseDescription, sectionsCount, language, imageUrl,
 }) => {
   const history = useHistory()
   return (
     <Grid xl={ 4 } lg={ 4 } md={ 6 } sm={ 12 } item>
       <Card
         className='course-card'
-        onClick={ () => history.push(ROUTE_PATHS.VIEW_COURSE) }
+        onClick={ () => history.push(`${ VIEW_COURSE_ROUTE }/${ courseId }`) }
       >
         <Box className='custom-box no-padding price-overlay'>
           <p className='h3 price-qbe text-center'>
@@ -57,6 +57,7 @@ const CourseCard = ({
 }
 
 CourseCard.defaultProps = {
+  courseId: 123,
   priceQbe: 12,
   priceUsd: 12,
   ratingValue: 4.5,
@@ -68,6 +69,7 @@ CourseCard.defaultProps = {
 }
 
 CourseCard.propTypes = {
+  courseId: PropTypes.number,
   priceQbe: PropTypes.number,
   priceUsd: PropTypes.number,
   ratingValue: PropTypes.number,

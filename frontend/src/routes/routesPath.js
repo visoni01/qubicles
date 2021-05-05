@@ -11,6 +11,7 @@ export const PROFILE_ROUTE = '/profile'
 export const COMPANY_PROFILE_ROUTE = '/company'
 export const JOB_APPLICATION_ROUTE = `${ PEOPLE_ROUTE }/job/applications`
 export const EDIT_COURSE_ROUTE = `${ TRAINING_ROUTE }/edit-course`
+export const VIEW_COURSE_ROUTE = `${ TRAINING_ROUTE }/course`
 
 const ROUTE_PATHS = {
   HOME: '/',
@@ -39,7 +40,7 @@ const ROUTE_PATHS = {
   NEW_JOB: `${ JOB_ROUTE }/create`,
   VIEW_RESUME: `${ VIEW_RESUME_ROUTE }/:candidateId`,
   CREATE_COURSE: `${ TRAINING_ROUTE }/create-course`,
-  VIEW_COURSE: `${ TRAINING_ROUTE }/course/1`,
+  VIEW_COURSE: `${ TRAINING_ROUTE }/course/1`, // WIP Remove this later
   EDIT_COURSE: `${ TRAINING_ROUTE }/edit-course/:courseId`,
   MY_COURSES: `${ TRAINING_ROUTE }/my-courses`,
   VIEW_JOB_APPLICATION: `${ PEOPLE_ROUTE }/job/applications/:applicationId`,
