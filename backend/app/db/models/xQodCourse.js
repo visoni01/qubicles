@@ -32,6 +32,10 @@ module.exports = (sequelize, DataTypes) => {
       values: ['published', 'draft'],
       defaultValue: 'published'
     },
+    rating: {
+      type: DataTypes.FLOAT(2, 1),
+      defaultValue: 0.0
+    },
     createdAt: {
       field: 'created_on',
       type: DataTypes.DATE
@@ -47,6 +51,7 @@ module.exports = (sequelize, DataTypes) => {
   })
   XQodCourse.associate = function (models) {
     XQodCourse.hasMany(models.XQodCourseSection, { as: 'sections', foreignKey: 'course_id' })
+    XQodCourse.hasMany(models.XQodUserCourse, { as: 'students', foreignKey: 'course_id' })
   }
   return XQodCourse
 }

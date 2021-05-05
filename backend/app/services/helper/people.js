@@ -1,5 +1,5 @@
 import {
-  XQodResourceDef, XQodUserSkill, XQodSkill,
+  XQodResourceDef, XQodUserSkill, XQodSkill, XQodUserCourse,
   UserDetail, XQodApplication, XUserActivity, User, XQodCourse, XQodCourseSection, XQodCourseUnit, XQodCourseSectionQA
 } from '../../db/models'
 import { createNewEntity } from './common'
@@ -907,5 +907,88 @@ export const formatCourseCard = ({ course }) => {
     sectionsCount: 0,
     // WIP rating
     rating: 4.5
+  }
+}
+
+export async function getAllViewCourses ({ searchField, categoryId, courseFilter, offset }) {
+  let query = {
+    status: 'published'
+  }
+  let additionalParams = {
+    limit: 9,
+    group: ['XQodCourse.course_id']
+  }
+
+  if (!_.isEmpty(searchField)) {
+    query = {
+      ...query,
+      title: { [Op.substring]: searchField }
+    }
+  }
+
+  if (!_.isEmpty(categoryId)) {
+    query = {
+      ...query,
+      category_id: categoryId
+    }
+  }
+
+  if (!_.isUndefined(offset)) {
+    additionalParams = {
+      ...additionalParams,
+      offset: parseInt(offset)
+    }
+  }
+
+  if (!_.isUndefined(courseFilter)) {
+    if (_.isEqual(courseFilter, 'most popular')) {
+      additionalParams = {
+        ...additionalParams,
+        order: [[Sequelize.literal('studentsCount'), 'DESC']]
+      }
+    } else if (_.isEqual(courseFilter, 'latest')) {
+      additionalParams = {
+        ...additionalParams,
+        order: [
+          ['created_on', 'DESC']
+        ]
+      }
+    } else if (_.isEqual(courseFilter, 'best rating')) {
+      additionalParams = {
+        ...additionalParams,
+        order: [
+          ['rating', 'DESC']
+        ]
+      }
+    }
+  }
+
+  const { rows, count } = await XQodCourse.findAndCountAll({
+    required: false,
+    subQuery: false,
+    attributes: [
+      ['course_id', 'courseId'],
+      ['category_id', 'categoryId'],
+      ['token_price', 'price'],
+      'rating',
+      'title',
+      ['image_url', 'imageUrl'],
+      'language',
+      [Sequelize.fn('COUNT', Sequelize.col('students.course_id')), 'studentsCount']
+    ],
+    include: [{
+      model: XQodUserCourse,
+      as: 'students',
+      attributes: []
+    }],
+    where: query,
+    ...additionalParams
+  })
+
+  if (rows && count) {
+    return {
+      courses: rows,
+      count: count.length
+    }
   }
 }
