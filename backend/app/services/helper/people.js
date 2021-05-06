@@ -941,7 +941,7 @@ export async function getAllViewCourses ({ searchField, categoryId, courseFilter
   }
 
   if (!_.isUndefined(courseFilter)) {
-    if (_.isEqual(courseFilter, 'most popular')) {
+    if (_.isEqual(courseFilter, 'mostPopular')) {
       additionalParams = {
         ...additionalParams,
         order: [[Sequelize.literal('studentsCount'), 'DESC']]
@@ -953,7 +953,7 @@ export async function getAllViewCourses ({ searchField, categoryId, courseFilter
           ['created_on', 'DESC']
         ]
       }
-    } else if (_.isEqual(courseFilter, 'best rating')) {
+    } else if (_.isEqual(courseFilter, 'bestRating')) {
       additionalParams = {
         ...additionalParams,
         order: [
@@ -974,13 +974,29 @@ export async function getAllViewCourses ({ searchField, categoryId, courseFilter
       'title',
       ['image_url', 'imageUrl'],
       'language',
-      [Sequelize.fn('COUNT', Sequelize.col('students.course_id')), 'studentsCount']
+      [Sequelize.literal('COUNT(DISTINCT(`students`.`user_id`))'), 'studentsCount'],
+      [Sequelize.literal('COUNT(DISTINCT(`sections`.`section_id`))'), 'sectionsCount']
     ],
-    include: [{
-      model: XQodUserCourse,
-      as: 'students',
-      attributes: []
-    }],
+    include: [
+      {
+        model: XQodUserCourse,
+        as: 'students',
+        attributes: []
+      },
+      {
+        model: XQodCourseSection,
+        as: 'sections',
+        attributes: []
+      },
+      {
+        model: UserDetail,
+        as: 'creatorDetails',
+        attributes: [
+          ['first_name', 'firstName'],
+          ['last_name', 'lastName']
+        ]
+      }
+    ],
     where: query,
     ...additionalParams
   })

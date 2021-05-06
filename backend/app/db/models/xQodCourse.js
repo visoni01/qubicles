@@ -52,6 +52,7 @@ module.exports = (sequelize, DataTypes) => {
   XQodCourse.associate = function (models) {
     XQodCourse.hasMany(models.XQodCourseSection, { as: 'sections', foreignKey: 'course_id' })
     XQodCourse.hasMany(models.XQodUserCourse, { as: 'students', foreignKey: 'course_id' })
+    XQodCourse.belongsTo(models.UserDetail, { as: 'creatorDetails', foreignKey: 'creator_id' })
   }
   return XQodCourse
 }
