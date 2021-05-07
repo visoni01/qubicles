@@ -40,7 +40,7 @@ const ROUTE_PATHS = {
   NEW_JOB: `${ JOB_ROUTE }/create`,
   VIEW_RESUME: `${ VIEW_RESUME_ROUTE }/:candidateId`,
   CREATE_COURSE: `${ TRAINING_ROUTE }/create-course`,
-  VIEW_COURSE: `${ TRAINING_ROUTE }/course/1`, // WIP Remove this later
+  VIEW_COURSE: `${ TRAINING_ROUTE }/course/:courseId`,
   EDIT_COURSE: `${ TRAINING_ROUTE }/edit-course/:courseId`,
   MY_COURSES: `${ TRAINING_ROUTE }/my-courses`,
   VIEW_JOB_APPLICATION: `${ PEOPLE_ROUTE }/job/applications/:applicationId`,
