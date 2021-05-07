@@ -11,7 +11,7 @@ import {
 
 const PreviewCreateCourse = ({
   informationSection, contentSection, courseContent,
-  isPreview, setIsPreview, updateCourseReducer, course,
+  isPreview, setIsPreview, updateCourseReducer, course, handleErrors,
 }) => (
   <Grid container spacing={ 2 }>
     <Grid
@@ -58,6 +58,8 @@ const PreviewCreateCourse = ({
           contentSection={ contentSection }
           courseContent={ courseContent }
           courseId={ course.courseId }
+          courseStatus={ course.status }
+          handleErrors={ handleErrors }
         />
       </Grid>
       <Grid item>
@@ -82,6 +84,7 @@ PreviewCreateCourse.propTypes = {
   courseContent: courseContentPropType.isRequired,
   updateCourseReducer: PropTypes.func.isRequired,
   course: coursePropType.isRequired,
+  handleErrors: PropTypes.func.isRequired,
 }
 
 export default PreviewCreateCourse

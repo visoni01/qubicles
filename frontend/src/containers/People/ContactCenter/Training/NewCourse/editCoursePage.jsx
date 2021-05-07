@@ -71,15 +71,24 @@ const EditCoursePage = () => {
 
   if (isPreview) {
     return (
-      <PreviewCreateCourse
-        informationSection={ informationSection }
-        contentSection={ contentSection }
-        courseContent={ courseContent }
-        isPreview={ isPreview }
-        course={ course }
-        setIsPreview={ setIsPreview }
-        updateCourseReducer={ updateCourseReducer }
-      />
+      <>
+        <AlertPopover
+          open={ !_.isEmpty(errors) }
+          buttonOnClick={ () => setErrors({}) }
+          alertTitle='Oops!'
+          alertBody='Please fill in all the required fields first'
+        />
+        <PreviewCreateCourse
+          informationSection={ informationSection }
+          contentSection={ contentSection }
+          courseContent={ courseContent }
+          isPreview={ isPreview }
+          course={ course }
+          setIsPreview={ setIsPreview }
+          updateCourseReducer={ updateCourseReducer }
+          handleErrors={ handleErrors }
+        />
+      </>
     )
   }
 

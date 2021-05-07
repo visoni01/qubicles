@@ -72,9 +72,7 @@ SingleSelect.propTypes = {
   label: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   helperText: PropTypes.string,
-  error: PropTypes.shape({
-    message: PropTypes.string,
-  }),
+  error: PropTypes.bool,
 }
 
 export default SingleSelect

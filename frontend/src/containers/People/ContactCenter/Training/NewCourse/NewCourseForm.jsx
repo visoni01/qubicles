@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Box, Tabs, Tab, Button,
 } from '@material-ui/core'
@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { useHistory } from 'react-router-dom'
+import _ from 'lodash'
 import InformationTab from './InformationTab'
 import ContentTab from './ContentTab'
 import ROUTE_PATHS from '../../../../../routes/routesPath'
@@ -20,6 +21,19 @@ const NewCourseForm = ({
 }) => {
   const [ activeTab, setActiveTab ] = useState(0)
   const history = useHistory()
+
+  useEffect(() => {
+    if (!_.isEmpty(errors)) {
+      if (_.size(errors) === 1 && (_.has(errors, 'thumbnailImage') || _.has(errors, 'sections'))) {
+        setActiveTab(1)
+      } else if (_.size(errors) === 2 && _.has(errors, 'thumbnailImage') && _.has(errors, 'sections')) {
+        setActiveTab(1)
+      } else {
+        setActiveTab(0)
+      }
+    }
+  }, [ errors ])
+
   return (
     <Box className='custom-box new-course-wrapper'>
       <div className='mb-20'>
@@ -62,7 +76,7 @@ const NewCourseForm = ({
       <div className='custom-active-tabs'>
         <Tabs
           value={ activeTab }
-          onChange={ (_, tab) => setActiveTab(tab) }
+          onChange={ (__, tab) => setActiveTab(tab) }
         >
           <Tab label='Information' className={ activeTab === 0 ? 'active-tab' : 'inactive-tab' } />
           <Tab label='Content' className={ activeTab === 1 ? 'active-tab' : 'inactive-tab' } />

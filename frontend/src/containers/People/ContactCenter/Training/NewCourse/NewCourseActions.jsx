@@ -50,8 +50,10 @@ const NewCourseActions = ({
   const onPublish = useCallback(() => {
     if (!handleErrors()) {
       setPublishConfirmationOpen(true)
+    } else if (isPreview) {
+      setIsPreview(false)
     }
-  }, [ handleErrors ])
+  }, [ handleErrors, isPreview, setIsPreview ])
 
   const publishCourse = useCallback(() => {
     // Check course content before send
