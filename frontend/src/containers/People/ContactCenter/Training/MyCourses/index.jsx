@@ -26,12 +26,9 @@ const MyCourses = () => {
     if (userDetails.user_code === 'employer') {
       dispatch(allCoursesRequestStart({
         requestType: 'FETCH',
-        ownerId: userDetails.user_id,
       }))
     }
-
-    // eslint-disable-next-line
-  }, [ dispatch, userDetails.user_id ])
+  }, [ dispatch, userDetails.user_code ])
 
   useEffect(() => {
     if (isLoading) {
@@ -64,13 +61,18 @@ const MyCourses = () => {
           Create Course
         </Button>
       </div>
+
+      {courses.filter((course) => course.status === 'published').length > 0 && (
       <div className='mb-30'>
         <h3 className='h3 mb-20'>My Courses</h3>
         <Grid container spacing={ 3 }>
-          <PublishedCourseCard />
-          <PublishedCourseCard />
+          {courses.filter((course) => course.status === 'published').map((course) => (
+            <PublishedCourseCard key={ course.courseId } { ...course } creatorName={ userDetails.full_name } />
+          ))}
         </Grid>
       </div>
+      )}
+
       {courses.filter((course) => course.status === 'draft').length > 0 && (
       <div>
         <Divider />
@@ -78,7 +80,7 @@ const MyCourses = () => {
           <h3 className='h3 mb-20'>Drafts</h3>
           <Grid container spacing={ 3 }>
             {courses.filter((course) => course.status === 'draft').map((course) => (
-              <DraftCourseCard key={ course.courseId } { ...course } />
+              <DraftCourseCard key={ course.courseId } { ...course } creatorName={ userDetails.full_name } />
             ))}
           </Grid>
         </div>

@@ -1,16 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ContentSectionRoot from './contentSectionRoot'
-import { courseContentPropType } from '../propTypes'
+import { courseContentPropType, errorsPropTypes } from '../propTypes'
 
 export default function CourseContent({
-  courseContent, setCourseContent,
+  courseContent, setCourseContent, errors,
 }) {
   return (
     <div className='content-tab-section'>
       <div className='content-box'>
         <div className='info'>
           <h3 className='h3 mb-10'> Course Content </h3>
+          <span className='para red'>{errors && errors.sections && errors.sections.message}</span>
           <p className='para'>
             {`Start building your course
             by creating Sections, Units and Tests`}
@@ -32,4 +33,5 @@ export default function CourseContent({
 CourseContent.propTypes = {
   courseContent: courseContentPropType.isRequired,
   setCourseContent: PropTypes.func.isRequired,
+  errors: errorsPropTypes.isRequired,
 }

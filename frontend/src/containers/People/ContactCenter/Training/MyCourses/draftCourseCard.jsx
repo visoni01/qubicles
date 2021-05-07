@@ -3,14 +3,13 @@ import {
   Box, Card, CardMedia, CardContent, Grid, Button,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import { Rating } from '@material-ui/lab'
 import { useHistory } from 'react-router-dom'
 import '../style.scss'
 import { EDIT_COURSE_ROUTE } from '../../../../../routes/routesPath'
 
 const DraftCourseCard = ({
-  courseId, price, ratingValue, studentsCount, title, sectionsCount, language, thumbnailImage,
-  description,
+  courseId, price, title, sectionsCount, language, thumbnailImage,
+  creatorName,
 }) => {
   const history = useHistory()
   return (
@@ -32,25 +31,16 @@ const DraftCourseCard = ({
           className='course-image'
         />
         <CardContent className='course-card-content border-1'>
-          <div className='rating-text'>
-            <Rating
-              className='rating-star no-margin'
-              name='read-only'
-              readOnly
-              size='small'
-              value={ ratingValue }
-              precision={ 0.1 }
-            />
-            <span className='para light margin-left-right-5 text-center'>{`${ studentsCount } students`}</span>
-          </div>
           <b className='h4 card-title'>
             {title}
           </b>
-          <p className='para light description'>
-            {description}
+          <p className='para light creatorName'>
+            {creatorName}
           </p>
           <div className='course-sections mt-10'>
-            <span className='para light mr-5'>{`${ sectionsCount } Sections`}</span>
+            <span className='para light mr-5'>
+              {`${ sectionsCount } ${ sectionsCount === 1 ? 'Section' : 'Sections' }`}
+            </span>
             <span className='para light ml-5'>{language}</span>
           </div>
           <div className='mt-10'>
@@ -69,25 +59,16 @@ const DraftCourseCard = ({
 }
 
 DraftCourseCard.defaultProps = {
-  price: 12,
-  ratingValue: 4.5,
-  studentsCount: 503,
-  title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
-  description: '',
-  sectionsCount: 8,
-  language: 'English',
-  thumbnailImage: 'https://picsum.photos/400/300',
+  thumbnailImage: '',
 }
 
 DraftCourseCard.propTypes = {
-  price: PropTypes.number,
-  ratingValue: PropTypes.number,
-  studentsCount: PropTypes.number,
-  title: PropTypes.string,
-  sectionsCount: PropTypes.number,
-  language: PropTypes.string,
+  price: PropTypes.number.isRequired,
+  sectionsCount: PropTypes.number.isRequired,
+  language: PropTypes.string.isRequired,
   thumbnailImage: PropTypes.string,
-  description: PropTypes.string,
+  creatorName: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   courseId: PropTypes.number.isRequired,
 }
 

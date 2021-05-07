@@ -1,9 +1,9 @@
 import {
-  XQodResourceDef, XQodUserSkill, XQodSkill, XQodUserCourse,
+  XQodResourceDef, XQodUserSkill, XQodSkill, XQodUserCourse, XQodCourseUserQA,
   UserDetail, XQodApplication, XUserActivity, User, XQodCourse, XQodCourseSection, XQodCourseUnit, XQodCourseSectionQA
 } from '../../db/models'
 import { createNewEntity } from './common'
-import { getOne, getAll } from './crud'
+import { getOne } from './crud'
 import Sequelize, { Op } from 'sequelize'
 import _ from 'lodash'
 import { generateRandomUniqueIdString } from '../../utils/generateId'
@@ -704,19 +704,48 @@ export async function getCourseById ({ course_id }) {
   }
 }
 
-export async function getAllCourseInfo ({ ownerId }) {
-  let courseQuery = {}
-  if (ownerId) {
-    courseQuery = {
-      ...courseQuery,
-      creator_id: ownerId
-    }
-  }
-
-  const courses = await getAll({
-    model: XQodCourse,
-    data: courseQuery
+export async function getAllCourseInfo ({ creatorId }) {
+  let courses = await XQodCourse.findAll({
+    attributes: [
+      'course_id',
+      'token_price',
+      'rating',
+      'title',
+      'image_url',
+      'language',
+      'status',
+      [Sequelize.literal('COUNT(DISTINCT(`sections`.`section_id`))'), 'sectionsCount'],
+      [Sequelize.literal('COUNT(DISTINCT(`students`.`user_id`))'), 'studentsCount'],
+      [Sequelize.literal('COUNT(DISTINCT(`userTest`.`user_id`))'), 'testEntries'],
+      [Sequelize.literal('COUNT(DISTINCT(CASE WHEN MONTH(`students`.`created_on`) = MONTH(CURRENT_DATE())' +
+      'AND YEAR(`students`.`created_on`) = YEAR(CURRENT_DATE()) THEN `students`.`user_id` END))'), 'enrolledThisMonth']
+    ],
+    group: ['XQodCourse.course_id'],
+    subquery: false,
+    required: false,
+    include: [
+      {
+        model: XQodCourseSection,
+        as: 'sections',
+        attributes: []
+      },
+      {
+        model: XQodUserCourse,
+        as: 'students',
+        attributes: []
+      },
+      {
+        model: XQodCourseUserQA,
+        as: 'userTest',
+        attributes: []
+      }
+    ],
+    where: { creator_id: creatorId }
   })
+
+  if (courses && courses.length) {
+    courses = courses.map(item => item.get({ plain: true }))
+  }
   return courses
 }
 
@@ -894,19 +923,16 @@ export const formatCourseCard = ({ course }) => {
   return {
     courseId: course.course_id,
     title: course.title,
-    description: course.description,
-    createdOn: course.createdAt,
-    updateOn: course.updatedAt,
     language: course.language,
     price: course.token_price,
     thumbnailImage: course.image_url,
     status: course.status,
-    // WIP students count
-    studentsCount: 0,
-    // WIP totalSections
-    sectionsCount: 0,
-    // WIP rating
-    rating: 4.5
+    rating: course.rating,
+    studentsCount: course.studentsCount,
+    sectionsCount: course.sectionsCount,
+    testEntries: course.testEntries,
+    enrolledThisMonth: course.enrolledThisMonth
+    // WIP: ratingsCount and totalEarned
   }
 }
 

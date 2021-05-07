@@ -22,8 +22,10 @@ const NewCoursePage = () => {
   const [ errors, setErrors ] = useState({})
 
   const handleErrors = useCallback(() => (
-    checkAndSetErrors({ setErrors, informationSection, contentSection })
-  ), [ informationSection, contentSection ])
+    checkAndSetErrors({
+      setErrors, informationSection, contentSection, courseContent,
+    })
+  ), [ informationSection, contentSection, courseContent ])
 
   const updateCourseReducer = useCallback(() => {
     dispatch(updateTrainingCourseDetails({

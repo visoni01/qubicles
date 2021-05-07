@@ -1,6 +1,6 @@
 import {
   PeopleAddNewCourseService,
-  PeopleGetAllCoursesService,
+  PeopleGetAllCreatorCoursesService,
   PeopleGetCourseService,
   PeopleUpdateCourseService,
   PeopleGetAllViewCoursesService
@@ -18,8 +18,8 @@ export default class TrainingController {
     }
   }
 
-  static async getAllCourses (req, res) {
-    const courses = await PeopleGetAllCoursesService.execute({ ...req.body, ...req.query })
+  static async getAllCreatorCourses (req, res) {
+    const courses = await PeopleGetAllCreatorCoursesService.execute({ ...req.body, ...req.query })
     if (courses.successful) {
       Responder.success(res, courses.result)
     } else {

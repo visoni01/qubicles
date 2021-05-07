@@ -13,11 +13,11 @@ function* allCoursesWatcherStart() {
 
 function* allCoursesWorker(action) {
   try {
-    const { ownerId, requestType } = action.payload
+    const { requestType } = action.payload
 
     switch (requestType) {
       case 'FETCH': {
-        const { data } = yield People.fetchAllCourses({ ownerId })
+        const { data } = yield People.fetchAllCourses()
         yield put(allCoursesRequestSuccess({ courses: data }))
         break
       }

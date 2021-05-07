@@ -20,6 +20,7 @@ export default function ContentTab({
       <CourseContent
         courseContent={ courseContent }
         setCourseContent={ setCourseContent }
+        errors={ errors }
       />
     </div>
   )

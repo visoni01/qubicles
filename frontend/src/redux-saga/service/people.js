@@ -235,8 +235,8 @@ class People {
     return response
   }
 
-  static async fetchAllCourses({ ownerId }) {
-    const response = await apiClient.getRequest('/people/course', null, { ownerId })
+  static async fetchAllCourses() {
+    const response = await apiClient.getRequest('/people/course')
     return response
   }
 

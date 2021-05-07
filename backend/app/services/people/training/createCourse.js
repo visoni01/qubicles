@@ -52,6 +52,8 @@ export class PeopleAddNewCourseService extends ServiceBase {
         image_url: url
       }
 
+      // TODO: Blockchain part
+
       const addedCourse = await addNewCourse({ course })
 
       // Format course data for reducer when created

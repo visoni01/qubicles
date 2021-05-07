@@ -8,28 +8,30 @@ import { useHistory } from 'react-router-dom'
 import '../style.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
-import ROUTE_PATHS from '../../../../../routes/routesPath'
+import { VIEW_COURSE_ROUTE } from '../../../../../routes/routesPath'
 
 const PublishedCourseCard = ({
-  priceQbe, priceUsd, ratingValue, studentsCount, courseDescription, sectionsCount, language,
-  imageUrl, enrolledThisMonth, totalEarned, testEntries,
+  enrolledThisMonth, totalEarned, testEntries,
+  courseId, price, rating, studentsCount, title, sectionsCount, language, thumbnailImage,
+  creatorName, ratingsCount,
 }) => {
   const history = useHistory()
   return (
     <Grid xl={ 3 } lg={ 3 } md={ 6 } sm={ 12 } item>
       <Card
         className='course-card'
-        onClick={ () => history.push(ROUTE_PATHS.VIEW_COURSE) }
+        onClick={ () => history.push(`${ VIEW_COURSE_ROUTE }/${ courseId }`) }
       >
         <Box className='custom-box no-padding price-overlay'>
           <p className='h3 price-qbe text-center'>
-            { `${ priceQbe } `}
+            { `${ price } `}
             <span className='h3 unbold'>QBE</span>
           </p>
           <p className='para light price-usd text-center'>
-            {`$${ priceUsd } USD`}
+            {`$${ price } USD`}
           </p>
         </Box>
+        {testEntries > 0 && (
         <div className='overlay-button'>
           <Button
             className='is-fullwidth'
@@ -47,8 +49,9 @@ const PublishedCourseCard = ({
             Please check new test entries
           </Button>
         </div>
+        )}
         <CardMedia
-          image={ imageUrl }
+          image={ thumbnailImage }
           className='course-image'
         />
         <CardContent className='course-card-content border-1'>
@@ -58,16 +61,21 @@ const PublishedCourseCard = ({
               name='read-only'
               readOnly
               size='small'
-              value={ ratingValue }
+              value={ rating }
               precision={ 0.1 }
             />
-            <span className='para light margin-left-right-5 text-center'>{`${ studentsCount } students`}</span>
+            <span className='para light margin-left-right-5 text-center'>{`${ ratingsCount } students`}</span>
           </div>
-          <b className='h4'>
-            {courseDescription}
+          <b className='h4 card-title'>
+            {title}
           </b>
+          <p className='para light description'>
+            {creatorName}
+          </p>
           <div className='course-sections mt-10'>
-            <span className='para light mr-5'>{`${ sectionsCount } Sections`}</span>
+            <span className='para light mr-5'>
+              {`${ sectionsCount } ${ sectionsCount === 1 ? 'Section' : 'Sections' }`}
+            </span>
             <span className='para light ml-5'>{language}</span>
           </div>
           <div className='mt-10'>
@@ -102,32 +110,25 @@ const PublishedCourseCard = ({
 }
 
 PublishedCourseCard.defaultProps = {
-  priceQbe: 12,
-  priceUsd: 12,
-  ratingValue: 4.5,
-  studentsCount: 503,
-  enrolledThisMonth: 41,
-  testEntries: 12,
   totalEarned: 6223,
-  courseDescription: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-  sectionsCount: 8,
-  language: 'English',
-  imageUrl: 'https://picsum.photos/400/300',
+  ratingsCount: 25,
 
 }
 
 PublishedCourseCard.propTypes = {
-  priceQbe: PropTypes.number,
-  priceUsd: PropTypes.number,
-  ratingValue: PropTypes.number,
-  studentsCount: PropTypes.number,
-  courseDescription: PropTypes.string,
-  enrolledThisMonth: PropTypes.number,
+  price: PropTypes.number.isRequired,
+  rating: PropTypes.number.isRequired,
+  studentsCount: PropTypes.number.isRequired,
+  enrolledThisMonth: PropTypes.number.isRequired,
   totalEarned: PropTypes.number,
-  testEntries: PropTypes.number,
-  sectionsCount: PropTypes.number,
-  language: PropTypes.string,
-  imageUrl: PropTypes.string,
+  testEntries: PropTypes.number.isRequired,
+  sectionsCount: PropTypes.number.isRequired,
+  language: PropTypes.string.isRequired,
+  thumbnailImage: PropTypes.string.isRequired,
+  creatorName: PropTypes.string.isRequired,
+  ratingsCount: PropTypes.number,
+  title: PropTypes.string.isRequired,
+  courseId: PropTypes.number.isRequired,
 }
 
 export default PublishedCourseCard

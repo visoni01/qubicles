@@ -1,7 +1,10 @@
 import _ from 'lodash'
+import { courseContentFilterBeforeSave } from './CourseContent/helper'
 
 /* eslint-disable complexity */
-const checkAndSetErrors = ({ setErrors, informationSection, contentSection }) => {
+const checkAndSetErrors = ({
+  setErrors, informationSection, contentSection, courseContent,
+}) => {
   let newErrors = {}
   let errorFlag = false
 
@@ -44,6 +47,11 @@ const checkAndSetErrors = ({ setErrors, informationSection, contentSection }) =>
     }
     if (_.isEmpty(contentSection.thumbnailImage)) {
       newErrors = { ...newErrors, thumbnailImage: { message: '*Required' } }
+      errorFlag = true
+    }
+    const courseContentFiltered = courseContentFilterBeforeSave({ courseContent })
+    if (_.isEmpty(courseContentFiltered.sections)) {
+      newErrors = { ...newErrors, sections: { message: '*Required' } }
       errorFlag = true
     }
     return newErrors

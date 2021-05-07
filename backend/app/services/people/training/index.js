@@ -1,5 +1,5 @@
 export { PeopleAddNewCourseService } from './createCourse'
-export { PeopleGetAllCoursesService } from './getAllCourses'
+export { PeopleGetAllCreatorCoursesService } from './getAllCreatorCourses'
 export { PeopleGetCourseService } from './getCourse'
 export { PeopleUpdateCourseService } from './updateCourse'
 export { PeopleGetAllViewCoursesService } from './getAllViewCourses'

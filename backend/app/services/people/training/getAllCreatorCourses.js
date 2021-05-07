@@ -6,25 +6,22 @@ import { getErrorMessageForService, getAllCourseInfo, formatCourseCard } from '.
 const constraints = {
   user_id: {
     presence: { allowEmpty: false }
-  },
-  ownerId: {
-    presence: false
   }
 }
 
-export class PeopleGetAllCoursesService extends ServiceBase {
+export class PeopleGetAllCreatorCoursesService extends ServiceBase {
   get constraints () {
     return constraints
   }
 
   async run () {
     try {
-      const { ownerId } = this.filteredArgs
-      const courses = await getAllCourseInfo({ ownerId })
+      const { user_id } = this.filteredArgs
+      const courses = await getAllCourseInfo({ creatorId: user_id })
       const formattedCourses = courses.map(course => formatCourseCard({ course }))
       return formattedCourses
     } catch (e) {
-      logger.error(getErrorMessageForService('PeopleGetAllCoursesService'), e)
+      logger.error(getErrorMessageForService('PeopleGetAllCreatorCoursesService'), e)
       this.addError(ERRORS.INTERNAL)
     }
   }
