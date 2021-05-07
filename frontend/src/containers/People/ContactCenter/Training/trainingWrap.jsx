@@ -1,21 +1,31 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  Box, InputBase, Button, Grid, debounce,
+  Box, InputBase, Button, Grid, debounce, IconButton,
 } from '@material-ui/core'
+import { Pagination } from '@material-ui/lab'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faSlidersH } from '@fortawesome/free-solid-svg-icons'
 import { useHistory } from 'react-router-dom'
 import ROUTE_PATHS from '../../../../routes/routesPath'
 import CourseCard from './CourseCard'
-import { updateViewAllCoursesFilter } from '../../../../redux-saga/redux/people'
+import { updateViewAllCoursesFilter, updateCurrentPage } from '../../../../redux-saga/redux/people'
+import CourseFilterModal from './courseFilterModal'
+import { noOfCoursesPerPage } from '../constants'
+import { startLoader, stopLoader } from '../../../../redux-saga/redux/utils'
 
 const TrainingWrap = () => {
-  const { courses, categoryId, searchField } = useSelector((state) => state.viewAllCourses)
+  const {
+    courses, count, searchField, currentPage, isLoading,
+  } = useSelector((state) => state.viewAllCourses)
   const [ searchCourseField, setSearchCourseField ] = useState(searchField)
 
   const history = useHistory()
   const dispatch = useDispatch()
+
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [])
 
   const handleCreateCourseButton = useCallback(() => {
     history.push(ROUTE_PATHS.CREATE_COURSE)
@@ -24,15 +34,51 @@ const TrainingWrap = () => {
   const searchCoursesApi = useCallback(debounce((nextValue) => {
     dispatch(updateViewAllCoursesFilter({
       searchField: nextValue,
-      categoryId,
+      currentPage: 1,
     }))
-  }, 500), [ dispatch, categoryId ])
+  }, 500), [ dispatch ])
 
   const handleSearch = useCallback((e) => {
     const nextValue = e.target.value
     setSearchCourseField(nextValue)
     searchCoursesApi(nextValue)
   }, [ searchCoursesApi ])
+
+  const changeCurrentPage = useCallback((_, page) => {
+    dispatch(updateCurrentPage({
+      currentPage: page,
+    }))
+    scrollToTop()
+  }, [ dispatch, scrollToTop ])
+
+  useEffect(() => {
+    dispatch(updateViewAllCoursesFilter({
+      offset: noOfCoursesPerPage * (currentPage - 1),
+    }))
+  }, [ currentPage, dispatch ])
+
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(startLoader())
+    } else {
+      dispatch(stopLoader())
+    }
+  }, [ dispatch, isLoading ])
+
+  // Course filter popover
+  const [ anchorEl, setAnchorEl ] = useState(null)
+  const open = Boolean(anchorEl)
+  const id = open ? 'simple-popover' : undefined
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  const noOfPages = Math.floor(count / noOfCoursesPerPage) + Math.sign(count % noOfCoursesPerPage)
 
   return (
     <div>
@@ -61,28 +107,58 @@ const TrainingWrap = () => {
         </Button>
       </div>
       <Box className='custom-box'>
-        <h3 className='h3 mb-20'>All Courses</h3>
+        <div className='all-courses-box mb-20'>
+          <h3 className='h3'>All Courses</h3>
+          <IconButton
+            onClick={ handleClick }
+            aria-describedby={ id }
+            className='filter'
+          >
+            <FontAwesomeIcon icon={ faSlidersH } className='custom-fa-icon light' />
+          </IconButton>
+          <CourseFilterModal
+            id={ id }
+            anchorEl={ anchorEl }
+            setAnchorEl={ setAnchorEl }
+            open={ open }
+            handleClose={ handleClose }
+          />
+        </div>
         <Grid container spacing={ 2 }>
-          {courses.map((cardInfo) => (
-            <CourseCard
-              key={ cardInfo.courseId }
-              courseId={ cardInfo.courseId }
-              priceQbe={ cardInfo.price }
-              priceUsd={ cardInfo.price }
-              ratingValue={ cardInfo.rating }
-              studentsCount={ cardInfo.studentsCount }
-              courseDescription={ cardInfo.title }
-              sectionsCount={ 4 }
-              language={ cardInfo.language }
-              imageUrl={ cardInfo.imageUrl }
-            />
-          ))}
-          {(courses && courses.length === 0) && (
-          <div className='mt-10 mb-10 is-fullwidth'>
-            <h3 className='h3 text-center'>No courses found!</h3>
-          </div>
-          )}
+          {(courses && courses.length === 0)
+            ? (
+              <div className='mt-10 mb-10 is-fullwidth'>
+                <h3 className='h3 text-center'>No courses found!</h3>
+              </div>
+            )
+            : courses.map((cardInfo) => (
+              <CourseCard
+                key={ cardInfo.courseId }
+                courseId={ cardInfo.courseId }
+                priceQbe={ cardInfo.price }
+                priceUsd={ cardInfo.price }
+                ratingValue={ cardInfo.rating }
+                studentsCount={ cardInfo.studentsCount }
+                courseTitle={ cardInfo.title }
+                creatorDetails={ cardInfo.creatorDetails }
+                sectionsCount={ cardInfo.sectionsCount }
+                language={ cardInfo.language }
+                imageUrl={ cardInfo.imageUrl }
+              />
+            ))}
         </Grid>
+        {Boolean(count && count > noOfCoursesPerPage) && (
+        <Pagination
+          count={ noOfPages }
+          shape='round'
+          page={ currentPage }
+          onChange={ changeCurrentPage }
+          classes={ { root: 'courses-pagination' } }
+          hidePrevButton={ currentPage < 2 }
+          hideNextButton={ currentPage === noOfPages }
+          className='is-flex is-center'
+        />
+        )}
       </Box>
     </div>
   )

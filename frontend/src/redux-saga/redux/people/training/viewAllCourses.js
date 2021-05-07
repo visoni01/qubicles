@@ -10,8 +10,9 @@ const initialState = {
   count: null,
   searchField: '',
   categoryId: 0,
-  courseFilter: 'most popular',
-  offset: null,
+  courseFilter: 'mostPopular',
+  offset: 0,
+  currentPage: 1,
 }
 
 const {
@@ -20,6 +21,7 @@ const {
     viewAllCoursesFetchSuccessful,
     viewAllCoursesFetchFailure,
     updateViewAllCoursesFilter,
+    updateCurrentPage,
   },
   reducer,
 } = createSlice({
@@ -44,10 +46,15 @@ const {
     }),
     updateViewAllCoursesFilter: (state, action) => ({
       ...state,
-      searchField: action.payload.searchField,
-      categoryId: action.payload.categoryId,
-      offset: action.payload.offset ? action.payload.offset : state.offset,
+      searchField: action.payload.searchField !== undefined ? action.payload.searchField : state.searchField,
+      categoryId: action.payload.categoryId !== undefined ? action.payload.categoryId : state.categoryId,
+      offset: action.payload.offset !== undefined ? action.payload.offset : 0,
       courseFilter: action.payload.courseFilter ? action.payload.courseFilter : state.courseFilter,
+      currentPage: action.payload.currentPage ? action.payload.currentPage : state.currentPage,
+    }),
+    updateCurrentPage: (state, action) => ({
+      ...state,
+      currentPage: action.payload.currentPage,
     }),
   },
 })
@@ -58,4 +65,5 @@ export {
   viewAllCoursesFetchSuccessful,
   viewAllCoursesFetchFailure,
   updateViewAllCoursesFilter,
+  updateCurrentPage,
 }

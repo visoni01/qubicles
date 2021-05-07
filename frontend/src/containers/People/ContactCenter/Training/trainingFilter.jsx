@@ -12,7 +12,7 @@ import { jobCategoriesOnlyFetchStart, updateViewAllCoursesFilter } from '../../.
 
 const TrainingFilter = () => {
   const { jobCategoriesOnly, isLoading, searchKeyword } = useSelector((state) => state.jobCategoriesOnly)
-  const { categoryId, searchField } = useSelector((state) => state.viewAllCourses)
+  const { categoryId } = useSelector((state) => state.viewAllCourses)
   const [ selectedCategory, setSelectedCategory ] = useState(categoryId)
 
   const history = useHistory()
@@ -27,9 +27,9 @@ const TrainingFilter = () => {
   useEffect(() => {
     dispatch(updateViewAllCoursesFilter({
       categoryId: selectedCategory,
-      searchField,
+      currentPage: 1,
     }))
-  }, [ dispatch, selectedCategory, searchField ])
+  }, [ dispatch, selectedCategory ])
 
   // Set selectedCategory to set list item to particular category
   const handleCoursesByCategory = ({ courseCategory }) => {
@@ -62,7 +62,7 @@ const TrainingFilter = () => {
       </List>
 
       <Divider className='mb-20' />
-      <h3 className='h3 subtitle'>Categories</h3>
+      <h3 className='h3 category-heading'>Categories</h3>
       {isLoading ? (<JobFilterSkeleton />)
         : (
           <List className='filter-list-items'>

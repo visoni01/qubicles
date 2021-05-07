@@ -9,7 +9,8 @@ import './style.scss'
 import { VIEW_COURSE_ROUTE } from '../../../../routes/routesPath'
 
 const CourseCard = ({
-  courseId, priceQbe, priceUsd, ratingValue, studentsCount, courseDescription, sectionsCount, language, imageUrl,
+  courseId, priceQbe, priceUsd, ratingValue, studentsCount,
+  courseTitle, creatorDetails, sectionsCount, language, imageUrl,
 }) => {
   const history = useHistory()
   return (
@@ -44,8 +45,11 @@ const CourseCard = ({
             <span className='para light margin-left-right-5 text-center'>{`${ studentsCount } students`}</span>
           </div>
           <b className='h4'>
-            {courseDescription}
+            {courseTitle}
           </b>
+          <div className='para light'>
+            {`${ creatorDetails && creatorDetails.firstName } ${ creatorDetails && creatorDetails.lastName }`}
+          </div>
           <div className='course-sections mt-10'>
             <span className='para light mr-5'>{`${ sectionsCount } Sections`}</span>
             <span className='para light ml-5'>{language}</span>
@@ -62,7 +66,11 @@ CourseCard.defaultProps = {
   priceUsd: 12,
   ratingValue: 4.5,
   studentsCount: 503,
-  courseDescription: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+  courseTitle: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+  creatorDetails: {
+    firstName: 'Arthur',
+    lastName: 'Castle',
+  },
   sectionsCount: 8,
   language: 'English',
   imageUrl: 'https://picsum.photos/400/300',
@@ -74,7 +82,11 @@ CourseCard.propTypes = {
   priceUsd: PropTypes.number,
   ratingValue: PropTypes.number,
   studentsCount: PropTypes.number,
-  courseDescription: PropTypes.string,
+  courseTitle: PropTypes.string,
+  creatorDetails: PropTypes.shape({
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+  }),
   sectionsCount: PropTypes.number,
   language: PropTypes.string,
   imageUrl: PropTypes.string,

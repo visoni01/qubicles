@@ -915,7 +915,7 @@ export async function getAllViewCourses ({ searchField, categoryId, courseFilter
     status: 'published'
   }
   let additionalParams = {
-    limit: 9,
+    limit: 15,
     group: ['XQodCourse.course_id']
   }
 
@@ -944,7 +944,9 @@ export async function getAllViewCourses ({ searchField, categoryId, courseFilter
     if (_.isEqual(courseFilter, 'mostPopular')) {
       additionalParams = {
         ...additionalParams,
-        order: [[Sequelize.literal('studentsCount'), 'DESC']]
+        order: [
+          [Sequelize.literal('studentsCount'), 'DESC']
+        ]
       }
     } else if (_.isEqual(courseFilter, 'latest')) {
       additionalParams = {

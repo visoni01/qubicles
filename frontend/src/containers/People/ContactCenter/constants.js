@@ -19,6 +19,12 @@ export const jobFilterStatus = {
   draft: 'Drafted Positions',
 }
 
+export const courseFilterStatus = {
+  mostPopular: 'Most Popular',
+  latest: 'Latest',
+  bestRating: 'Best Rating',
+}
+
 export const postStatusPermissions = {
   public: {
     label: 'Public',
@@ -41,3 +47,5 @@ export const postStatusPermissions = {
     secondaryLabel: 'Admins of your company',
   },
 }
+
+export const noOfCoursesPerPage = 15
