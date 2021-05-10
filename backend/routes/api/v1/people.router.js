@@ -56,8 +56,12 @@ peopleRouter.route('/course/:course_id')
 
 peopleRouter.route('/courses')
   .get(isAuthenticated, trainingController.getAllViewCourses)
+
 peopleRouter.route('/course/:course_id/view')
   .get(isAuthenticated, trainingController.getViewCourse)
+
+peopleRouter.route('/course/:course_id/start')
+  .get(isAuthenticated, trainingController.startCourse)
 
 peopleRouter.route('/course/:course_id/buy')
   .get(isAuthenticated, trainingController.buyCourse)

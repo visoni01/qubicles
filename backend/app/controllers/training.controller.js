@@ -5,6 +5,7 @@ import {
   PeopleUpdateCourseService,
   PeopleGetAllViewCoursesService,
   PeopleGetViewCourseService,
+  PeopleStartCourseService,
   PeopleBuyCourseService
 } from '../services/people/training'
 
@@ -58,6 +59,15 @@ export default class TrainingController {
 
   static async getViewCourse (req, res) {
     const course = await PeopleGetViewCourseService.execute({ ...req.body, ...req.params, ...req.query })
+    if (course.successful) {
+      Responder.success(res, course.result)
+    } else {
+      Responder.failed(res, course.errors)
+    }
+  }
+
+  static async startCourse (req, res) {
+    const course = await PeopleStartCourseService.execute({ ...req.body, ...req.params })
     if (course.successful) {
       Responder.success(res, course.result)
     } else {

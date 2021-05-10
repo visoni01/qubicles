@@ -2,7 +2,7 @@ import {
   XQodResourceDef, XQodUserSkill, XQodSkill, XQodUserCourse, XQodCourseUnitsUser, XQodCategory, XQodCourseUserQA,
   UserDetail, XQodApplication, XUserActivity, User, XQodCourse, XQodCourseSection, XQodCourseUnit, XQodCourseSectionQA
 } from '../../db/models'
-import { createNewEntity } from './common'
+import { createNewEntity, formatDate } from './common'
 import { getOne } from './crud'
 import Sequelize, { Op } from 'sequelize'
 import _ from 'lodash'
@@ -1251,4 +1251,26 @@ export const getUserCourseByCourseId = async ({ course_id, user_id }) => {
       user_id
     }
   })
+}
+
+export const updateUserCourseInfo = async ({ course_id, user_id }) => {
+  const date = Date.now()
+
+  const course = await XQodUserCourse.update({
+    status: 'inprogress',
+    date_started: date
+  },
+  {
+    where: {
+      course_id,
+      user_id
+    }
+  })
+
+  if (course && course[0]) {
+    return {
+      status: 'inprogress',
+      dateStarted: formatDate(date)
+    }
+  }
 }
