@@ -38,6 +38,7 @@ const UnitsList = ({
         currentUnitIndex: -1,
         isIntroVideoActive: true,
       }))
+      setOpenCoursePlayer(true)
       return
     }
     dispatch(updateCurrentUnitAndSectionIndex({

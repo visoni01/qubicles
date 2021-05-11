@@ -26,7 +26,7 @@ const CoursePreview = ({
   const dispatch = useDispatch()
 
   const handleNextUnit = useCallback(() => {
-    if (currentUnit.status !== 'completed') {
+    if (currentUnit.status !== 'completed' && currentUnit.unitId !== -1) {
       dispatch(viewCourseRequestStart({
         requestType: 'UPDATE',
         dataType: 'Course Unit',
