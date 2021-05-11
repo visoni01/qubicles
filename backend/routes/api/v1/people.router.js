@@ -66,4 +66,7 @@ peopleRouter.route('/course/:course_id/start')
 peopleRouter.route('/course/:course_id/buy')
   .get(isAuthenticated, trainingController.buyCourse)
 
+peopleRouter.route('/course/:course_id/unit')
+  .put(isAuthenticated, trainingController.getUnit)
+
 export { peopleRouter }

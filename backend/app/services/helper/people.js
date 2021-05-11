@@ -1299,3 +1299,73 @@ export const updateUserCourseInfo = async ({ course_id, user_id }) => {
     }
   }
 }
+
+export const fetchUserUnitDetails = async ({ course_id, user_id, unit_id }) => {
+  const userUnitDetails = await XQodCourseUnitsUser.findOne({
+    raw: true,
+    where: {
+      user_id,
+      course_id,
+      unit_id
+    }
+  })
+
+  return userUnitDetails
+}
+
+export const updateUserUnitStatus = async ({ course_id, user_id, status, unit_id }) => {
+  await XQodCourseUnitsUser.update(
+    {
+      status
+    },
+    {
+      where: {
+        user_id,
+        course_id,
+        unit_id
+      }
+    }
+  )
+}
+
+export const updateUserUnitDetails = async ({ course_id, user_id, status, unit_id }) => {
+  let isNewEntryCreated = false
+
+  if (_.isEqual(status, 'inprogress')) {
+    const userUnitDetails = await fetchUserUnitDetails({ course_id, user_id, unit_id })
+
+    if (!userUnitDetails) {
+      isNewEntryCreated = true
+
+      await XQodCourseUnitsUser.create({
+        user_id,
+        course_id,
+        unit_id,
+        status
+      })
+    }
+  }
+
+  if (!isNewEntryCreated) {
+    await updateUserUnitStatus({ course_id, user_id, status, unit_id })
+  }
+}
+
+export const fetchUnitDetails = async ({ unit_id, status }) => {
+  const unitDetails = await XQodCourseUnit.findOne({
+    raw: true,
+    where: {
+      unit_id
+    }
+  })
+
+  return unitDetails && {
+    unitId: unitDetails.unit_id,
+    unitNum: unitDetails.unit_num,
+    title: unitDetails.title,
+    details: unitDetails.details,
+    length: unitDetails.length,
+    type: unitDetails.type,
+    status
+  }
+}
