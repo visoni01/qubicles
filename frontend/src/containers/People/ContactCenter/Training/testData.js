@@ -253,7 +253,7 @@ const viewCourseData = {
       },
     ],
   },
-  courseDetail: { // Only for enrolled students (For un enrolled students it will be empty object)
+  courseDetails: { // Only for enrolled students (For un enrolled students it will be empty object)
     dateStarted: '01 April 2021',
     dateCompleted: '',
     status: 'inprogress',

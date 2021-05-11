@@ -84,7 +84,7 @@ const NewCourseActions = ({
       history.push(`${ EDIT_COURSE_ROUTE }/${ courseId }`)
     }
     if (courseId && courseStatus === 'published') {
-      history.push(`${ ROUTES_PATH.VIEW_COURSE }`)
+      history.push(`${ ROUTES_PATH.MY_COURSES }`)
       dispatch(resetTrainingCourseReducer())
     }
   }, [ courseId, history, courseStatus, dispatch ])

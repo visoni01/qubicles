@@ -1,16 +1,34 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CourseContents from './CourseContents'
 import CoursePreview from './CoursePreview'
 import {
-  sectionsPropType, courseIdPropType, isEnrolledPropType, introVideoPropType, courseTitlePropType, courseStatusPropType,
+  sectionsPropType, courseIdPropType, isEnrolledPropType, introVideoPropType, courseTitlePropType,
+  courseStatusPropType, setOpenCoursePlayerPropType, currentUnitIndexPropType, currentSectionIndexPropType,
+  isIntroVideoActivePropType, isSectionTestActivePropType, openCoursePlayerPropType,
 } from './propTypes'
 
 export default function CourseContentWrap({
-  sections, courseId, isEnrolled, introVideo, courseTitle, courseStatus,
+  sections, courseId, isEnrolled, introVideo, courseTitle, courseStatus, openCoursePlayer, setOpenCoursePlayer,
+  currentUnitIndex, currentSectionIndex, isIntroVideoActive, isSectionTestActive,
 }) {
-  const [ openCoursePlayer, setOpenCoursePlayer ] = useState(false)
   const [ currentSection, setCurrentSection ] = useState({})
   const [ currentUnit, setCurrentUnit ] = useState({})
+
+  useEffect(() => {
+    if (currentUnitIndex !== null && currentUnitIndex >= 0) {
+      setCurrentUnit(sections[ currentSectionIndex ].units[ currentUnitIndex ])
+    } else if (currentUnitIndex !== null && currentUnitIndex < 0) {
+      setCurrentUnit({
+        title: 'Intro', type: 'Video', details: introVideo, unitId: -1, index: -1,
+      })
+    } else {
+      setCurrentUnit({})
+    }
+    if (currentSectionIndex !== null) {
+      setCurrentSection(sections[ currentSectionIndex ])
+    }
+  }, [ sections, currentSectionIndex, currentUnitIndex, introVideo ])
+
   return (
     <>
       <CourseContents
@@ -22,6 +40,10 @@ export default function CourseContentWrap({
         setCurrentSection={ setCurrentSection }
         setCurrentUnit={ setCurrentUnit }
         courseStatus={ courseStatus }
+        currentSection={ currentSection }
+        currentUnit={ currentUnit }
+        isIntroVideoActive={ isIntroVideoActive }
+        isSectionTestActive={ isSectionTestActive }
       />
       <CoursePreview
         open={ openCoursePlayer }
@@ -37,6 +59,10 @@ export default function CourseContentWrap({
         setCurrentSection={ setCurrentSection }
         setCurrentUnit={ setCurrentUnit }
         setOpenCoursePlayer={ setOpenCoursePlayer }
+        currentSectionIndex={ currentSectionIndex }
+        currentUnitIndex={ currentUnitIndex }
+        isIntroVideoActive={ isIntroVideoActive }
+        isSectionTestActive={ isSectionTestActive }
       />
     </>
   )
@@ -44,6 +70,11 @@ export default function CourseContentWrap({
 
 CourseContentWrap.defaultProps = {
   courseStatus: '',
+  currentUnitIndex: null,
+  currentSectionIndex: null,
+  isIntroVideoActive: null,
+  isSectionTestActive: null,
+  openCoursePlayer: false,
 }
 
 CourseContentWrap.propTypes = {
@@ -53,4 +84,10 @@ CourseContentWrap.propTypes = {
   introVideo: introVideoPropType.isRequired,
   courseTitle: courseTitlePropType.isRequired,
   courseStatus: courseStatusPropType,
+  setOpenCoursePlayer: setOpenCoursePlayerPropType.isRequired,
+  currentUnitIndex: currentUnitIndexPropType,
+  currentSectionIndex: currentSectionIndexPropType,
+  isIntroVideoActive: isIntroVideoActivePropType,
+  isSectionTestActive: isSectionTestActivePropType,
+  openCoursePlayer: openCoursePlayerPropType,
 }

@@ -1,10 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { getUpdatedCourse } from '../helper'
 
 const initialState = {
   isLoading: null,
   error: null,
   success: null,
   course: {
+    currentUnitIndex: null,
+    currentSectionIndex: null,
+    isIntroVideoActive: null,
+    isSectionTestActive: null,
     isEnrolled: false,
     courseId: null,
     createdOn: '',
@@ -32,8 +37,17 @@ const initialState = {
     courseContent: {
       sections: [],
     },
+    courseDetails: {
+      dateStarted: null,
+      dateCompleted: null,
+      status: '',
+      grade: null,
+      certificate: null,
+      endorsed: null,
+    },
   },
   requestType: '',
+  dataType: '',
 }
 
 const {
@@ -41,6 +55,7 @@ const {
     viewCourseRequestStart,
     viewCourseRequestSuccess,
     viewCourseRequestFailed,
+    updateCurrentUnitAndSectionIndex,
     resetViewCourseFlags,
     resetViewCourseReducer,
   }, reducer,
@@ -54,19 +69,27 @@ const {
       success: null,
       error: null,
       requestType: action.payload.requestType,
+      dataType: action.payload.dataType,
     }),
     viewCourseRequestSuccess: (state, action) => ({
       ...state,
       isLoading: false,
       success: true,
       error: false,
-      course: action.payload.dataType === 'Course Info' ? action.payload.course : null,
+      course: getUpdatedCourse({ state, action }),
     }),
     viewCourseRequestFailed: (state) => ({
       ...state,
       isLoading: false,
       error: true,
       success: false,
+    }),
+    updateCurrentUnitAndSectionIndex: (state, action) => ({
+      ...state,
+      course: {
+        ...state.course,
+        ...action.payload,
+      },
     }),
     resetViewCourseFlags: (state) => ({
       ...state,
@@ -85,6 +108,7 @@ export {
   viewCourseRequestStart,
   viewCourseRequestSuccess,
   viewCourseRequestFailed,
+  updateCurrentUnitAndSectionIndex,
   resetViewCourseFlags,
   resetViewCourseReducer,
 }

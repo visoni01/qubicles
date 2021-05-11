@@ -1,15 +1,18 @@
+/* eslint-disable complexity */
 import React from 'react'
 import { List } from '@material-ui/core'
 import UnitsList from './UnitsList'
 import {
   sectionsPropType, isEnrolledPropType, introVideoPropType,
   setOpenCoursePlayerPropType, setCurrentSectionPropType, setCurrentUnitPropType,
-  isCoursePlayerOpenPropType, sectionPropType, unitPropType, courseStatusPropType,
+  isCoursePlayerOpenPropType, sectionPropType, unitPropType, courseStatusPropType, courseIdPropType,
+  isIntroVideoActivePropType, isSectionTestActivePropType,
 } from './propTypes'
 
 const CourseContents = ({
   sections, setOpenCoursePlayer, isEnrolled, introVideo, setCurrentSection, setCurrentUnit,
-  currentSection, currentUnit, isCoursePlayerOpen, courseStatus,
+  currentSection, currentUnit, isCoursePlayerOpen, courseStatus, courseId,
+  isIntroVideoActive, isSectionTestActive,
 }) => (
   <>
     <div className='course-contents-root'>
@@ -22,10 +25,12 @@ const CourseContents = ({
           <div key={ section.id }>
             <UnitsList
               section={ section }
+              sectionIndex={ index }
               setOpenCoursePlayer={ setOpenCoursePlayer }
               isEnrolled={ isEnrolled }
-              isActive={ (isEnrolled && section.status === 'inprogress') || (!isEnrolled && index === 0)
-              || (isEnrolled && courseStatus === 'enrolled' && index === 0) }
+              isActive={ (isCoursePlayerOpen && currentSection && currentSection.id === section.id)
+              || (!isCoursePlayerOpen && isEnrolled && section.status === 'inprogress') || (!isEnrolled && index === 0)
+              || (!isCoursePlayerOpen && isEnrolled && courseStatus === 'enrolled' && index === 0) }
               showIntroVideo={ index === 0 && !!introVideo }
               introVideo={ introVideo }
               setCurrentSection={ setCurrentSection }
@@ -33,6 +38,9 @@ const CourseContents = ({
               currentSection={ currentSection }
               currentUnit={ currentUnit }
               isCoursePlayerOpen={ isCoursePlayerOpen }
+              courseId={ courseId }
+              isIntroVideoActive={ isIntroVideoActive }
+              isSectionTestActive={ isSectionTestActive }
             />
           </div>
         ))}
@@ -43,6 +51,8 @@ const CourseContents = ({
 
 CourseContents.defaultProps = {
   courseStatus: '',
+  isIntroVideoActive: null,
+  isSectionTestActive: null,
 }
 
 CourseContents.propTypes = {
@@ -56,5 +66,8 @@ CourseContents.propTypes = {
   currentSection: sectionPropType.isRequired,
   currentUnit: unitPropType.isRequired,
   courseStatus: courseStatusPropType,
+  courseId: courseIdPropType.isRequired,
+  isIntroVideoActive: isIntroVideoActivePropType,
+  isSectionTestActive: isSectionTestActivePropType,
 }
 export default CourseContents

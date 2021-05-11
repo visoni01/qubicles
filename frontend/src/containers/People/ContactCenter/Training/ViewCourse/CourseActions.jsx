@@ -1,17 +1,32 @@
-import React, { useState } from 'react'
+/* eslint-disable complexity */
+import React, { useCallback, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import {
   Button, Box, Card, CardMedia,
 } from '@material-ui/core'
-import PropTypes from 'prop-types'
 import { Rating } from '@material-ui/lab'
 import '../style.scss'
 import AssessmentTestModal from './Test/assessmentTestModal'
 import BuyCourseModal from './buyCourseModal'
 import { formatDate } from '../../../../../utils/common'
+import { viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
+import { setOpenCoursePlayerPropType, viewCoursePropType } from './propTypes'
 
-const CourseActions = ({ course }) => {
+const CourseActions = ({ course, setOpenCoursePlayer }) => {
   const [ isAssessmentModalOpen, setIsAssessmentModalOpen ] = useState(false)
   const [ openBuyCoursePopup, setOpenBuyCoursePopup ] = useState(false)
+  const dispatch = useDispatch()
+
+  const handleStartOrContinueCourse = useCallback(() => {
+    if (course.isEnrolled && course.courseDetails.status === 'enrolled') {
+      dispatch(viewCourseRequestStart({
+        requestType: 'FETCH',
+        dataType: 'Start Course',
+        courseId: course.courseId,
+      }))
+    }
+    setOpenCoursePlayer(true)
+  }, [ course.isEnrolled, course.courseDetails.status, course.courseId, dispatch, setOpenCoursePlayer ])
 
   return (
     <>
@@ -47,6 +62,22 @@ const CourseActions = ({ course }) => {
               {course.informationSection.price > 0 ? 'Buy Course' : 'Start Course'}
             </Button>
             )}
+            {course.isEnrolled && (
+            <Button
+              className='wide-button'
+              classes={ {
+                root: 'button-primary-small',
+                label: 'button-primary-small-label',
+              } }
+              onClick={ handleStartOrContinueCourse }
+            >
+              {
+                (course.courseDetails && course.courseDetails.status === 'enrolled' && 'Start Course')
+                || (course.courseDetails && course.courseDetails.status === 'inprogress' && 'Continue Course')
+              }
+            </Button>
+            )}
+            {!course.isEnrolled && (
             <Button
               className='wide-button'
               classes={ {
@@ -54,8 +85,9 @@ const CourseActions = ({ course }) => {
                 label: 'button-secondary-small-label',
               } }
             >
-              {!course.isEnrolled ? 'Preview' : 'Continue Course'}
+              Preview
             </Button>
+            )}
             <Button
               className='wide-button'
               classes={ {
@@ -120,23 +152,8 @@ const CourseActions = ({ course }) => {
 }
 
 CourseActions.propTypes = {
-  course: PropTypes.shape({
-    isEnrolled: PropTypes.bool.isRequired,
-    studentsEnrolled: PropTypes.number.isRequired,
-    updatedOn: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    informationSection: PropTypes.shape({
-      price: PropTypes.number.isRequired,
-      category: PropTypes.shape({
-        title: PropTypes.string.isRequired,
-      }).isRequired,
-      categoryTitle: PropTypes.string.isRequired,
-      language: PropTypes.string.isRequired,
-    }).isRequired,
-    contentSection: PropTypes.shape({
-      thumbnailImage: PropTypes.any.isRequired,
-    }).isRequired,
-  }).isRequired,
+  course: viewCoursePropType.isRequired,
+  setOpenCoursePlayer: setOpenCoursePlayerPropType.isRequired,
 }
 
 export default CourseActions

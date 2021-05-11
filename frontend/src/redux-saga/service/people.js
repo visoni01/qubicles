@@ -275,6 +275,27 @@ class People {
     const response = await apiClient.getRequest(`/people/course/${ courseId }/view`)
     return response
   }
+
+  static async startCourse({ courseId }) {
+    const response = await apiClient.getRequest(`/people/course/${ courseId }/start`)
+    return response
+  }
+
+  static async fetchAndUpdateCourseUnit({ courseId, unitId, status }) {
+    // WIP call BE api
+    // const response = await apiClient.getRequest(`/people/course/${ courseId }/unit`)
+    // return response
+    const unit = {
+      unitId,
+      unitNum: '7',
+      title: 'Dummy Unit Title',
+      length: 10,
+      type: 'Article',
+      status,
+      details: 'Dummy unit data from FE service',
+    }
+    return { data: unit, courseId }
+  }
 }
 
 export default People

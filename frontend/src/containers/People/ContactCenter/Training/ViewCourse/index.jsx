@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Grid } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
@@ -15,6 +15,7 @@ const ViewCourse = () => {
   courseId = parseInt(courseId, 10)
   const { course } = useSelector((state) => state.viewCourse)
   const dispatch = useDispatch()
+  const [ openCoursePlayer, setOpenCoursePlayer ] = useState(false)
 
   useEffect(() => {
     dispatch(viewCourseRequestStart({
@@ -53,9 +54,15 @@ const ViewCourse = () => {
             sections={ course.courseContent.sections }
             courseId={ course.courseId }
             isEnrolled={ course.isEnrolled }
-            introVideo={ course.contentSection.introductionVideo }
+            introVideo='https://picsum.photos/896/504'
             courseTitle={ course.informationSection.title }
-            courseStatus={ course.courseDetail && course.courseDetail.status }
+            courseStatus={ course.courseDetails && course.courseDetails.status }
+            openCoursePlayer={ openCoursePlayer }
+            setOpenCoursePlayer={ setOpenCoursePlayer }
+            currentUnitIndex={ course.currentUnitIndex }
+            currentSectionIndex={ course.currentSectionIndex }
+            isIntroVideoActive={ course.isIntroVideoActive }
+            isSectionTestActive={ course.isSectionTestActive }
           />
         </Grid>
         <Grid item>
@@ -65,6 +72,8 @@ const ViewCourse = () => {
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
         <CourseActions
           course={ course }
+          openCoursePlayer={ openCoursePlayer }
+          setOpenCoursePlayer={ setOpenCoursePlayer }
         />
       </Grid>
     </Grid>

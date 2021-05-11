@@ -1,5 +1,7 @@
 /* eslint-disable complexity */
 import React, { useCallback, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import _ from 'lodash'
 import PropTypes from 'prop-types'
 import {
   faChevronUp, faChevronDown, faPlayCircle, faFileAlt, faFileSignature,
@@ -12,24 +14,57 @@ import {
 } from '@material-ui/core'
 import {
   sectionPropType, isEnrolledPropType, introVideoPropType,
-  setOpenCoursePlayerPropType, setCurrentSectionPropType, setCurrentUnitPropType,
-  isCoursePlayerOpenPropType, unitPropType,
+  setOpenCoursePlayerPropType, isCoursePlayerOpenPropType, unitPropType, courseIdPropType,
+  isIntroVideoActivePropType, sectionIndexPropType,
 } from './propTypes'
+import { viewCourseRequestStart, updateCurrentUnitAndSectionIndex } from '../../../../../redux-saga/redux/people'
 
 const UnitsList = ({
-  section, setOpenCoursePlayer, isEnrolled, isActive, showIntroVideo, setCurrentSection, setCurrentUnit, introVideo,
-  isCoursePlayerOpen, currentUnit,
+  section, setOpenCoursePlayer, isEnrolled, isActive, showIntroVideo, introVideo,
+  isCoursePlayerOpen, currentUnit, courseId, currentSection, sectionIndex,
+  isIntroVideoActive,
 }) => {
   const [ open, setOpen ] = useState(isActive)
-  const handleListOpen = () => {
+  const dispatch = useDispatch()
+
+  const handleListOpen = useCallback(() => {
     setOpen(!open)
-  }
+  }, [ setOpen, open ])
 
   const handleUnitOpen = useCallback(({ nextSection, nextUnit }) => {
-    setCurrentSection(nextSection)
-    setCurrentUnit(nextUnit)
+    if (nextUnit.index === -1) {
+      dispatch(updateCurrentUnitAndSectionIndex({
+        currentSectionIndex: 0,
+        currentUnitIndex: -1,
+        isIntroVideoActive: true,
+      }))
+      return
+    }
+    dispatch(updateCurrentUnitAndSectionIndex({
+      currentUnitIndex: nextUnit.index,
+      currentSectionIndex: sectionIndex,
+      isIntroVideoActive: false,
+    }))
+    if (!_.isEmpty(currentUnit) && currentUnit.unitId !== -1) {
+      dispatch(viewCourseRequestStart({
+        requestType: 'UPDATE',
+        dataType: 'Course Unit',
+        courseId,
+        sectionId: currentSection.id,
+        unitId: currentUnit.unitId,
+        status: currentUnit.status === 'completed' ? 'completed' : 'abandoned',
+      }))
+    }
+    dispatch(viewCourseRequestStart({
+      requestType: 'UPDATE',
+      dataType: 'Course Unit',
+      courseId,
+      sectionId: nextSection.id,
+      unitId: nextUnit.unitId,
+      status: nextUnit.status === 'completed' ? 'completed' : 'inprogress',
+    }))
     setOpenCoursePlayer(true)
-  }, [ setCurrentSection, setCurrentUnit, setOpenCoursePlayer ])
+  }, [ setOpenCoursePlayer, courseId, currentUnit, dispatch, currentSection, sectionIndex ])
 
   return (
     <>
@@ -57,7 +92,7 @@ const UnitsList = ({
               <FontAwesomeIcon className='custom-fa-icon light' icon={ faPlayCircle } />
             </ListItemIcon>
             <ListItemText>
-              <p className={ `para ${ isCoursePlayerOpen && currentUnit.unitId === -1 ? '' : 'light' }` }> Intro </p>
+              <p className={ `para ${ isCoursePlayerOpen && isIntroVideoActive ? '' : 'light' }` }> Intro </p>
             </ListItemText>
             <Button
               classes={ {
@@ -67,13 +102,13 @@ const UnitsList = ({
               onClick={ () => handleUnitOpen({
                 nextSection: section,
                 nextUnit: {
-                  title: 'Intro', type: 'Video', details: introVideo, unitId: -1,
+                  title: 'Intro', type: 'Video', details: introVideo, unitId: -1, index: -1,
                 },
               }) }
-              disabled={ (isCoursePlayerOpen && currentUnit && currentUnit.unitId === -1) }
+              disabled={ (isCoursePlayerOpen && currentUnit && isIntroVideoActive) }
             >
               {
-                (isCoursePlayerOpen && currentUnit && currentUnit.unitId === -1 && 'Current')
+                (isCoursePlayerOpen && currentUnit && isIntroVideoActive && 'Current')
                 || (!isEnrolled && 'Preview')
                 || (isEnrolled && 'Start')
               }
@@ -82,7 +117,7 @@ const UnitsList = ({
           )}
 
           {/* Units */}
-          {section.units && section.units.map((unit) => (
+          {section.units && section.units.map((unit, index) => (
             <ListItem key={ unit.id } className='nested-list' disableGutters>
               <ListItemIcon>
                 <FontAwesomeIcon
@@ -107,7 +142,7 @@ const UnitsList = ({
                 } }
                 onClick={ () => handleUnitOpen({
                   nextSection: section,
-                  nextUnit: unit,
+                  nextUnit: { ...unit, index },
                 }) }
               >
                 {
@@ -145,17 +180,23 @@ const UnitsList = ({
   )
 }
 
+UnitsList.defaultProps = {
+  isIntroVideoActive: null,
+}
+
 UnitsList.propTypes = {
   section: sectionPropType.isRequired,
   isEnrolled: isEnrolledPropType.isRequired,
   introVideo: introVideoPropType.isRequired,
   setOpenCoursePlayer: setOpenCoursePlayerPropType.isRequired,
-  setCurrentSection: setCurrentSectionPropType.isRequired,
-  setCurrentUnit: setCurrentUnitPropType.isRequired,
   isCoursePlayerOpen: isCoursePlayerOpenPropType.isRequired,
   currentUnit: unitPropType.isRequired,
+  currentSection: sectionPropType.isRequired,
   isActive: PropTypes.bool.isRequired,
   showIntroVideo: PropTypes.bool.isRequired,
+  courseId: courseIdPropType.isRequired,
+  isIntroVideoActive: isIntroVideoActivePropType,
+  sectionIndex: sectionIndexPropType.isRequired,
 }
 
 export default UnitsList
