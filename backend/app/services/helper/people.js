@@ -1256,21 +1256,45 @@ export const getUserCourseByCourseId = async ({ course_id, user_id }) => {
 export const updateUserCourseInfo = async ({ course_id, user_id }) => {
   const date = Date.now()
 
-  const course = await XQodUserCourse.update({
-    status: 'inprogress',
-    date_started: date
-  },
-  {
+  const userCourse = await XQodUserCourse.findOne({
+    raw: true,
     where: {
       course_id,
       user_id
     }
   })
 
-  if (course && course[0]) {
+  let course = null
+  let newUserCourse = null
+
+  if (userCourse) {
+    course = await XQodUserCourse.update({
+      status: 'inprogress',
+      date_started: date
+    }, {
+      where: {
+        course_id,
+        user_id
+      }
+    })
+  } else {
+    newUserCourse = await XQodUserCourse.create({
+      user_id,
+      course_id,
+      date_started: date,
+      status: 'inprogress'
+    })
+  }
+
+  if (userCourse && course && course[0]) {
     return {
       status: 'inprogress',
       dateStarted: formatDate(date)
+    }
+  } else if (!userCourse && newUserCourse) {
+    return {
+      status: newUserCourse.status,
+      dateStarted: formatDate(newUserCourse.date_started)
     }
   }
 }
