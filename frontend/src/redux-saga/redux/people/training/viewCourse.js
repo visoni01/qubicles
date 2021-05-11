@@ -10,6 +10,7 @@ const initialState = {
     createdOn: '',
     updatedOn: '',
     studentsEnrolled: null,
+    rating: null,
     informationSection: {
       title: '',
       category: null,

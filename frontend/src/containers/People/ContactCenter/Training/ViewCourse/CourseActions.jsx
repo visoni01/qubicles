@@ -90,7 +90,7 @@ const CourseActions = ({ course }) => {
                 name='read-only'
                 readOnly
                 size='small'
-                value={ 4.5 }
+                value={ course.rating }
                 precision={ 0.5 }
               />
               <span className='para light'>{`(${ 15 } ratings) `}</span>
@@ -124,6 +124,7 @@ CourseActions.propTypes = {
     isEnrolled: PropTypes.bool.isRequired,
     studentsEnrolled: PropTypes.number.isRequired,
     updatedOn: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
     informationSection: PropTypes.shape({
       price: PropTypes.number.isRequired,
       category: PropTypes.shape({

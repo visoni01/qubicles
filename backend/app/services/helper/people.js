@@ -815,6 +815,7 @@ export const formatViewCourseData = ({
     createdOn: course.createdAt,
     updatedOn: course.updatedAt,
     studentsEnrolled: studentsEnrolled,
+    rating: course.rating,
     informationSection: {
       creatorId: course.creator_id,
       title: course.title,
