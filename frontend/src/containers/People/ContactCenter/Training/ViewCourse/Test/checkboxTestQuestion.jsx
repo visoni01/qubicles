@@ -34,7 +34,7 @@ const CheckboxTestQuestion = ({
     if (newAnswer.checkboxAnswers && newAnswer.checkboxAnswers.length === 0) {
       setAnswers((state) => state.filter((answer) => answer.questionId !== newAnswer.questionId))
     } else {
-      newAnswer.answer = newAnswer.checkboxAnswers.join(',')
+      newAnswer.answer = JSON.stringify(newAnswer.checkboxAnswers)
       if (answerIndex === -1) {
         setAnswers((state) => ([
           ...state,

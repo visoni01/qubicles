@@ -32,6 +32,16 @@ const UnitsList = ({
   }, [ setOpen, open ])
 
   const handleUnitOpen = useCallback(({ nextSection, nextUnit }) => {
+    if (nextUnit.index === -2) {
+      dispatch(updateCurrentUnitAndSectionIndex({
+        currentSectionIndex: sectionIndex,
+        currentUnitIndex: -2,
+        isIntroVideoActive: false,
+        isSectionTestActive: true,
+      }))
+      setOpenCoursePlayer(true)
+      return
+    }
     if (nextUnit.index === -1) {
       dispatch(updateCurrentUnitAndSectionIndex({
         currentSectionIndex: 0,
@@ -46,7 +56,7 @@ const UnitsList = ({
       currentSectionIndex: sectionIndex,
       isIntroVideoActive: false,
     }))
-    if (!_.isEmpty(currentUnit) && currentUnit.unitId !== -1) {
+    if (!_.isEmpty(currentUnit) && currentUnit.unitId > 0) {
       dispatch(viewCourseRequestStart({
         requestType: 'UPDATE',
         dataType: 'Course Unit',
@@ -111,8 +121,7 @@ const UnitsList = ({
             >
               {
                 (isCoursePlayerOpen && currentUnit && isIntroVideoActive && 'Current')
-                || (!isEnrolled && 'Preview')
-                || (isEnrolled && 'Start')
+                || 'Preview'
               }
             </Button>
           </ListItem>
@@ -138,7 +147,9 @@ const UnitsList = ({
               <Button
                 disabled={ !isEnrolled
                 || (isEnrolled && section.status === '' && courseStatus === 'inprogress' && sectionIndex !== 0
-                   && !isActive)
+                  && !isActive && !isCoursePlayerOpen)
+                || (isEnrolled && section.status === '' && courseStatus === 'inprogress' && sectionIndex !== 0
+                  && !isActive && section.units[ 0 ].status === '' && isCoursePlayerOpen)
                 || (isEnrolled && section.status === '' && courseStatus === 'enrolled')
                 || (isCoursePlayerOpen && currentUnit && unit.unitId === currentUnit.unitId) }
                 classes={ {
@@ -172,14 +183,27 @@ const UnitsList = ({
             <Button
               disabled={ !isEnrolled
                 || (isEnrolled && section.status === '' && courseStatus === 'inprogress' && sectionIndex !== 0
-                  && !isActive)
-                || (isEnrolled && section.status === '' && courseStatus === 'enrolled') }
+                  && !isActive && !isCoursePlayerOpen)
+                || (isEnrolled && section.status === '' && courseStatus === 'inprogress' && sectionIndex !== 0
+                  && !isActive && section.units[ 0 ].status === '' && isCoursePlayerOpen)
+                || (isEnrolled && section.status === '' && courseStatus === 'enrolled')
+                || (currentUnit.unitId === -2 && isCoursePlayerOpen) }
               classes={ {
                 root: 'button-primary-text',
                 label: 'button-primary-text-label',
               } }
+              onClick={ () => handleUnitOpen({
+                nextSection: section,
+                nextUnit: {
+                  title: 'Test', type: 'Test', details: '', unitId: -2, index: -2,
+                },
+              }) }
             >
-              Start
+              {
+                (isCoursePlayerOpen && currentUnit && currentUnit.unitId === -2 && currentSection.id === section.id
+                   && 'Current')
+                || 'Start'
+              }
             </Button>
           </ListItem>
         </List>

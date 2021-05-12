@@ -17,6 +17,7 @@ import {
   isIntroVideoActivePropType, isSectionTestActivePropType, courseStatusPropType,
 } from './propTypes'
 import { updateCurrentUnitAndSectionIndex, viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
+import SectionTest from './sectionTest'
 
 const CoursePreview = ({
   open, onClose, sections, courseTitle, currentSection, currentUnit, courseId, setOpenCoursePlayer,
@@ -26,10 +27,10 @@ const CoursePreview = ({
   const dispatch = useDispatch()
 
   const handleNextUnit = useCallback(() => {
-    const nextUnitIndex = currentUnitIndex < sections[ currentSectionIndex ].units.length - 1
-      ? currentUnitIndex + 1 : currentUnitIndex
+    const nextUnitIndex = currentUnitIndex < sections[ currentSectionIndex ].units.length - 1 && currentUnitIndex !== -2
+      ? currentUnitIndex + 1 : -2
     const nextSectionIndex = currentSectionIndex
-    if (currentUnit.status !== 'completed' && currentUnit.unitId !== -1) {
+    if (currentUnit.status !== 'completed' && currentUnit.unitId > 0) {
       dispatch(viewCourseRequestStart({
         requestType: 'UPDATE',
         dataType: 'Course Unit',
@@ -45,7 +46,7 @@ const CoursePreview = ({
       isIntroVideoActive: false,
     }))
 
-    if (nextUnitIndex !== currentUnitIndex) {
+    if (nextUnitIndex !== currentUnitIndex && nextUnitIndex >= 0) {
       dispatch(viewCourseRequestStart({
         requestType: 'UPDATE',
         dataType: 'Course Unit',
@@ -118,6 +119,12 @@ const CoursePreview = ({
               className='para sz-xl'
               // eslint-disable-next-line react/no-danger
               dangerouslySetInnerHTML={ { __html: currentUnit.details } }
+            />
+            )}
+            {currentUnit.type === 'Test' && (
+            <SectionTest
+              courseId={ courseId }
+              sectionId={ currentSection.id }
             />
             )}
 

@@ -32,6 +32,12 @@ function* viewCourseWorker(action) {
             break
           }
 
+          case 'Section Test': {
+            const { data } = yield People.fetchSectionTest({ courseId, sectionId })
+            yield put(viewCourseRequestSuccess({ sectionTest: data, sectionId }))
+            break
+          }
+
           default: break
         }
         break

@@ -83,3 +83,4 @@ export const isIntroVideoActivePropType = PropTypes.bool
 export const isSectionTestActivePropType = PropTypes.bool
 export const openCoursePlayerPropType = PropTypes.bool
 export const sectionIndexPropType = PropTypes.number
+export const sectionIdPropType = PropTypes.number

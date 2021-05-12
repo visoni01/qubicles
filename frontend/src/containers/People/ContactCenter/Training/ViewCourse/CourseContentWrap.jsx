@@ -17,9 +17,13 @@ export default function CourseContentWrap({
   useEffect(() => {
     if (currentUnitIndex !== null && currentUnitIndex >= 0) {
       setCurrentUnit(sections[ currentSectionIndex ].units[ currentUnitIndex ])
-    } else if (currentUnitIndex !== null && currentUnitIndex < 0) {
+    } else if (currentUnitIndex !== null && currentUnitIndex === -1) {
       setCurrentUnit({
         title: 'Intro', type: 'Video', details: introVideo, unitId: -1, index: -1,
+      })
+    } else if (currentUnitIndex !== null && currentUnitIndex === -2) {
+      setCurrentUnit({
+        title: 'Test', type: 'Test', details: '', unitId: -2, index: -2,
       })
     } else {
       setCurrentUnit({})
