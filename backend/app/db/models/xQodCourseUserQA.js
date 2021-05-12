@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     course_id: DataTypes.INTEGER(11),
     section_id: DataTypes.INTEGER(11),
     section_qa_id: DataTypes.INTEGER(11),
-    answer: DataTypes.STRING,
+    answer: DataTypes.TEXT,
     correct: DataTypes.BOOLEAN,
     verified: DataTypes.BOOLEAN,
     createdAt: {

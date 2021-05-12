@@ -1369,3 +1369,34 @@ export const fetchUnitDetails = async ({ unit_id, status }) => {
     status
   }
 }
+
+export const fetchTestDetails = async ({ section_id }) => {
+  const questions = await XQodCourseSectionQA.findAll({
+    raw: true,
+    where: {
+      section_id
+    },
+    order: [
+      ['order', 'ASC']
+    ]
+  })
+
+  return questions
+}
+
+export const formatTestQuestionsData = ({ questions }) => {
+  return questions.map((question) => {
+    let options = []
+
+    if (['multiple', 'checkbox'].includes(question.question_type)) {
+      options = formatOptionsData({ question })
+    }
+
+    return {
+      id: question.section_qa_id,
+      questionType: question.question_type,
+      questionText: question.question,
+      options
+    }
+  })
+}
