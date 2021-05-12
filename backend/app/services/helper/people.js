@@ -1387,6 +1387,17 @@ export const fetchTestDetails = async ({ section_id }) => {
 export const formatTestQuestionsData = ({ questions }) => {
   return questions.map((question) => {
     let options = []
+    let dateTime = {
+      isDate: false,
+      isTime: false
+    }
+
+    if (_.isEqual(question.question_type, 'date')) {
+      dateTime = {
+        isDate: !!JSON.parse(question.answer).date,
+        isTime: !!JSON.parse(question.answer).time
+      }
+    }
 
     if (['multiple', 'checkbox'].includes(question.question_type)) {
       options = formatOptionsData({ question })
@@ -1396,7 +1407,46 @@ export const formatTestQuestionsData = ({ questions }) => {
       id: question.section_qa_id,
       questionType: question.question_type,
       questionText: question.question,
-      options
+      options,
+      dateTime
     }
   })
+}
+
+export const getCorrectAnswers = async ({ section_id }) => {
+  const correctAnswers = await XQodCourseSectionQA.findAll({
+    attributes: ['section_qa_id', 'answer'],
+    raw: true,
+    where: {
+      section_id
+    }
+  })
+
+  return correctAnswers
+}
+
+export const createUserTestBulkData = ({ user_id, course_id, section_id, questions, correctAnswers }) => {
+  return questions.map((question) => {
+    return {
+      user_id,
+      course_id,
+      section_id,
+      section_qa_id: question.id,
+      answer: question.answer,
+      correct: ['multiple', 'checkbox'].includes(question.questionType)
+        ? correctAnswers.find((item) => item.section_qa_id === question.id).answer === question.answer
+        : null,
+      verified: ['multiple', 'checkbox'].includes(question.questionType)
+    }
+  })
+}
+
+export const addTestEntries = async ({ user_id, course_id, section_id, questions }) => {
+  const correctAnswers = await getCorrectAnswers({ section_id })
+
+  if (correctAnswers && correctAnswers.length) {
+    const bulkDataToBeAdded = createUserTestBulkData({ user_id, course_id, section_id, questions, correctAnswers })
+
+    await XQodCourseUserQA.bulkCreate(bulkDataToBeAdded)
+  }
 }

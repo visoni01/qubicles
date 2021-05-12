@@ -8,7 +8,8 @@ import {
   PeopleStartCourseService,
   PeopleBuyCourseService,
   PeopleGetUnitService,
-  PeopleGetTestService
+  PeopleGetTestService,
+  PeopleAddTestEntriesService
 } from '../services/people/training'
 
 import Responder from '../../server/expressResponder'
@@ -97,6 +98,15 @@ export default class TrainingController {
 
   static async getTest (req, res) {
     const test = await PeopleGetTestService.execute({ ...req.body, ...req.params, ...req.query })
+    if (test.successful) {
+      Responder.success(res, test.result)
+    } else {
+      Responder.failed(res, test.errors)
+    }
+  }
+
+  static async addTestEntries (req, res) {
+    const test = await PeopleAddTestEntriesService.execute({ ...req.body, ...req.params, ...req.query })
     if (test.successful) {
       Responder.success(res, test.result)
     } else {
