@@ -14,18 +14,21 @@ import {
   sectionsPropType, isEnrolledPropType, introVideoPropType, courseIdPropType,
   setOpenCoursePlayerPropType, setCurrentSectionPropType, setCurrentUnitPropType,
   courseTitlePropType, unitPropType, sectionPropType, currentUnitIndexPropType, currentSectionIndexPropType,
-  isIntroVideoActivePropType, isSectionTestActivePropType,
+  isIntroVideoActivePropType, isSectionTestActivePropType, courseStatusPropType,
 } from './propTypes'
 import { updateCurrentUnitAndSectionIndex, viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
 
 const CoursePreview = ({
   open, onClose, sections, courseTitle, currentSection, currentUnit, courseId, setOpenCoursePlayer,
   isEnrolled, introVideo, setCurrentSection, setCurrentUnit, currentUnitIndex, currentSectionIndex,
-  isIntroVideoActive, isSectionTestActive,
+  isIntroVideoActive, isSectionTestActive, courseStatus,
 }) => {
   const dispatch = useDispatch()
 
   const handleNextUnit = useCallback(() => {
+    const nextUnitIndex = currentUnitIndex < sections[ currentSectionIndex ].units.length - 1
+      ? currentUnitIndex + 1 : currentUnitIndex
+    const nextSectionIndex = currentSectionIndex
     if (currentUnit.status !== 'completed' && currentUnit.unitId !== -1) {
       dispatch(viewCourseRequestStart({
         requestType: 'UPDATE',
@@ -36,9 +39,6 @@ const CoursePreview = ({
         status: 'completed',
       }))
     }
-    const nextUnitIndex = currentUnitIndex < sections[ currentSectionIndex ].units.length - 1
-      ? currentUnitIndex + 1 : currentUnitIndex
-    const nextSectionIndex = currentSectionIndex
     dispatch(updateCurrentUnitAndSectionIndex({
       currentUnitIndex: nextUnitIndex,
       currentSectionIndex: nextSectionIndex,
@@ -85,6 +85,7 @@ const CoursePreview = ({
             isCoursePlayerOpen
             isIntroVideoActive={ isIntroVideoActive }
             isSectionTestActive={ isSectionTestActive }
+            courseStatus={ courseStatus }
           />
         </div>
         <div className='dialog-right-side'>
@@ -113,9 +114,11 @@ const CoursePreview = ({
             </div>
             )}
             {currentUnit.type === 'Article' && (
-            <div className='para sz-xl'>
-              {currentUnit.details}
-            </div>
+            <div
+              className='para sz-xl'
+              // eslint-disable-next-line react/no-danger
+              dangerouslySetInnerHTML={ { __html: currentUnit.details } }
+            />
             )}
 
           </DialogContent>
@@ -171,6 +174,7 @@ CoursePreview.propTypes = {
   currentSectionIndex: currentSectionIndexPropType,
   isIntroVideoActive: isIntroVideoActivePropType,
   isSectionTestActive: isSectionTestActivePropType,
+  courseStatus: courseStatusPropType.isRequired,
 }
 
 export default CoursePreview

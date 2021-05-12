@@ -63,6 +63,7 @@ export default function CourseContentWrap({
         currentUnitIndex={ currentUnitIndex }
         isIntroVideoActive={ isIntroVideoActive }
         isSectionTestActive={ isSectionTestActive }
+        courseStatus={ courseStatus }
       />
     </>
   )

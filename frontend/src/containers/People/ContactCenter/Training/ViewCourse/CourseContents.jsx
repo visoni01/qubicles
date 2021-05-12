@@ -28,9 +28,16 @@ const CourseContents = ({
               sectionIndex={ index }
               setOpenCoursePlayer={ setOpenCoursePlayer }
               isEnrolled={ isEnrolled }
-              isActive={ (isCoursePlayerOpen && currentSection && currentSection.id === section.id)
-              || (!isCoursePlayerOpen && isEnrolled && section.status === 'inprogress') || (!isEnrolled && index === 0)
-              || (!isCoursePlayerOpen && isEnrolled && courseStatus === 'enrolled' && index === 0) }
+              isActive={
+                (isCoursePlayerOpen && currentSection && currentSection.id === section.id)
+                || (!isCoursePlayerOpen && isEnrolled && section.status === 'inprogress')
+                || (!isEnrolled && index === 0)
+                || (!isCoursePlayerOpen && isEnrolled
+                  && (courseStatus === 'enrolled' || (courseStatus === 'inprogress' && section.status === ''))
+                  && index === 0)
+                || (!isCoursePlayerOpen && index !== 0 && sections[ index - 1 ].status === 'completed'
+                  && section.status === '')
+              }
               showIntroVideo={ index === 0 && !!introVideo }
               introVideo={ introVideo }
               setCurrentSection={ setCurrentSection }
@@ -41,6 +48,7 @@ const CourseContents = ({
               courseId={ courseId }
               isIntroVideoActive={ isIntroVideoActive }
               isSectionTestActive={ isSectionTestActive }
+              courseStatus={ courseStatus }
             />
           </div>
         ))}

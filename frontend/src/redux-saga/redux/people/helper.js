@@ -46,6 +46,7 @@ export const getUpdatedCourse = ({ state, action }) => {
     case 'Start Course': {
       return {
         ...state.course,
+        isEnrolled: true,
         courseDetails: { ...state.course.courseDetails, ...action.payload.courseDetails },
       }
     }

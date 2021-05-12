@@ -6,10 +6,11 @@ import {
 } from '@material-ui/core'
 import { Rating } from '@material-ui/lab'
 import '../style.scss'
+import _ from 'lodash'
 import AssessmentTestModal from './Test/assessmentTestModal'
 import BuyCourseModal from './buyCourseModal'
 import { formatDate } from '../../../../../utils/common'
-import { viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
+import { updateCurrentUnitAndSectionIndex, viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
 import { setOpenCoursePlayerPropType, viewCoursePropType } from './propTypes'
 
 const CourseActions = ({ course, setOpenCoursePlayer }) => {
@@ -18,15 +19,62 @@ const CourseActions = ({ course, setOpenCoursePlayer }) => {
   const dispatch = useDispatch()
 
   const handleStartOrContinueCourse = useCallback(() => {
-    if (course.isEnrolled && course.courseDetails.status === 'enrolled') {
+    if ((course.isEnrolled && course.courseDetails.status === 'enrolled')
+    || (!course.isEnrolled && course.informationSection.price === 0)) {
       dispatch(viewCourseRequestStart({
         requestType: 'FETCH',
         dataType: 'Start Course',
         courseId: course.courseId,
       }))
+      dispatch(updateCurrentUnitAndSectionIndex({
+        currentSectionIndex: 0,
+        currentUnitIndex: -1,
+        isIntroVideoActive: true,
+      }))
+    } else if (course.isEnrolled && course.courseDetails.status === 'inprogress') {
+      if (course.courseContent.sections.length && course.courseContent.sections[ 0 ].status === '') {
+        dispatch(updateCurrentUnitAndSectionIndex({
+          currentSectionIndex: 0,
+          currentUnitIndex: -1,
+          isIntroVideoActive: true,
+        }))
+      } else {
+        let sectionIndex = _.findIndex(course.courseContent.sections, [ 'status', 'inprogress' ])
+        let unitIndex
+        if (sectionIndex !== -1) {
+          unitIndex = _.findIndex(course.courseContent.sections[ sectionIndex ].units, [ 'status', 'inprogress' ])
+        } else {
+          sectionIndex = _.findIndex(course.courseContent.sections, [ 'status', 'completed' ])
+          if (sectionIndex < course.courseContent.sections.length - 1) {
+            sectionIndex += 1
+            if (course.courseContent.sections[ sectionIndex ].units[ 0 ].status === 'completed') {
+              unitIndex = course.courseContent.sections[ sectionIndex ].units.length - 1
+            } else {
+              unitIndex = 0
+            }
+          } else {
+            unitIndex = course.courseContent.sections[ sectionIndex ].units.length - 1
+          }
+        }
+        dispatch(updateCurrentUnitAndSectionIndex({
+          currentSectionIndex: sectionIndex,
+          currentUnitIndex: unitIndex,
+          isIntroVideoActive: false,
+        }))
+        dispatch(viewCourseRequestStart({
+          requestType: 'UPDATE',
+          dataType: 'Course Unit',
+          courseId: course.courseId,
+          sectionId: course.courseContent.sections[ sectionIndex ].id,
+          unitId: course.courseContent.sections[ sectionIndex ].units[ unitIndex ].unitId,
+          status: course.courseContent.sections[ sectionIndex ].units[ unitIndex ].status === 'completed'
+            ? 'completed' : 'inprogress',
+        }))
+      }
     }
     setOpenCoursePlayer(true)
-  }, [ course.isEnrolled, course.courseDetails.status, course.courseId, dispatch, setOpenCoursePlayer ])
+  }, [ course.isEnrolled, course.courseDetails.status, course.courseId, dispatch, setOpenCoursePlayer,
+    course.informationSection.price, course.courseContent.sections ])
 
   return (
     <>
@@ -57,7 +105,8 @@ const CourseActions = ({ course, setOpenCoursePlayer }) => {
                 root: 'button-primary-small',
                 label: 'button-primary-small-label',
               } }
-              onClick={ () => setOpenBuyCoursePopup(true) }
+              onClick={ course.informationSection.price > 0
+                ? () => setOpenBuyCoursePopup(true) : handleStartOrContinueCourse }
             >
               {course.informationSection.price > 0 ? 'Buy Course' : 'Start Course'}
             </Button>

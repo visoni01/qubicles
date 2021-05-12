@@ -15,14 +15,14 @@ import {
 import {
   sectionPropType, isEnrolledPropType, introVideoPropType,
   setOpenCoursePlayerPropType, isCoursePlayerOpenPropType, unitPropType, courseIdPropType,
-  isIntroVideoActivePropType, sectionIndexPropType,
+  isIntroVideoActivePropType, sectionIndexPropType, courseStatusPropType,
 } from './propTypes'
 import { viewCourseRequestStart, updateCurrentUnitAndSectionIndex } from '../../../../../redux-saga/redux/people'
 
 const UnitsList = ({
   section, setOpenCoursePlayer, isEnrolled, isActive, showIntroVideo, introVideo,
   isCoursePlayerOpen, currentUnit, courseId, currentSection, sectionIndex,
-  isIntroVideoActive,
+  isIntroVideoActive, courseStatus,
 }) => {
   const [ open, setOpen ] = useState(isActive)
   const dispatch = useDispatch()
@@ -53,7 +53,8 @@ const UnitsList = ({
         courseId,
         sectionId: currentSection.id,
         unitId: currentUnit.unitId,
-        status: currentUnit.status === 'completed' ? 'completed' : 'abandoned',
+        status: (nextUnit.status === 'completed' && currentUnit.status)
+        || (currentUnit.status === 'completed' ? 'completed' : 'abandoned'),
       }))
     }
     dispatch(viewCourseRequestStart({
@@ -135,7 +136,10 @@ const UnitsList = ({
                 </p>
               </ListItemText>
               <Button
-                disabled={ !isEnrolled || (isEnrolled && section.status === '')
+                disabled={ !isEnrolled
+                || (isEnrolled && section.status === '' && courseStatus === 'inprogress' && sectionIndex !== 0
+                   && !isActive)
+                || (isEnrolled && section.status === '' && courseStatus === 'enrolled')
                 || (isCoursePlayerOpen && currentUnit && unit.unitId === currentUnit.unitId) }
                 classes={ {
                   root: 'button-primary-text',
@@ -166,7 +170,10 @@ const UnitsList = ({
               <p className='para light'> Test </p>
             </ListItemText>
             <Button
-              disabled={ !isEnrolled || (isEnrolled && section.status === '') }
+              disabled={ !isEnrolled
+                || (isEnrolled && section.status === '' && courseStatus === 'inprogress' && sectionIndex !== 0
+                  && !isActive)
+                || (isEnrolled && section.status === '' && courseStatus === 'enrolled') }
               classes={ {
                 root: 'button-primary-text',
                 label: 'button-primary-text-label',
@@ -198,6 +205,7 @@ UnitsList.propTypes = {
   courseId: courseIdPropType.isRequired,
   isIntroVideoActive: isIntroVideoActivePropType,
   sectionIndex: sectionIndexPropType.isRequired,
+  courseStatus: courseStatusPropType.isRequired,
 }
 
 export default UnitsList
