@@ -31,7 +31,7 @@ export const checkDisabledAddSectionButton = ({ sections }) => {
 
 export const checkDisabledSaveSectionButton = ({ updatedSection }) => {
   const emptySection = isEmptySection({ section: updatedSection })
-  const notEmptyTitle = !_.isEmpty(updatedSection.title)
+  const notEmptyTitle = !_.isEmpty(updatedSection.title.trim())
 
   return !(notEmptyTitle && !emptySection)
 }
@@ -53,7 +53,7 @@ export const checkDisabledAddUnitButton = ({ units }) => {
 }
 
 export const checkDisabledSaveQuestionButton = ({ question }) => {
-  const isEmptyQuestionText = _.isEmpty(question.questionText)
+  const isEmptyQuestionText = _.isEmpty(question.questionText.trim())
   const notEmptyOptions = question.options.reduce((acc, curr) => acc && !_.isEmpty(curr.value), true)
   const isUniqueOptions = new Set(question.options.map((item) => item.value)).size === question.options.length
   const hasMinimumTwoOptions = question.options.length >= 2
@@ -132,7 +132,7 @@ export const checkDisabledAddQuestionButton = ({ unit }) => {
 export const checkDisabledAddTestButton = ({ test }) => !(_.isEmpty(test))
 
 export const checkDisabledUnitSaveButton = ({ savedUnit, updatedUnit }) => {
-  const allFieldsAreFilled = !_.isEmpty(updatedUnit.title)
+  const allFieldsAreFilled = !_.isEmpty(updatedUnit.title.trim())
    && !_.isEmpty(updatedUnit.details) && !_.isEmpty(updatedUnit.type)
 
   const unitChanged = !_.isEqual(savedUnit, updatedUnit)
@@ -301,7 +301,9 @@ export const saveQuestionInTest = ({ test, question }) => {
         }
         answerText = JSON.stringify(dateObj)
       }
-      return { ...question, isSaved: true, answerText }
+      return {
+        ...question, questionText: question.questionText.trim(), isSaved: true, answerText,
+      }
     }
     return q
   })

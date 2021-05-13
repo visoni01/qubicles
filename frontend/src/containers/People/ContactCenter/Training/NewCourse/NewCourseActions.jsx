@@ -26,9 +26,17 @@ const NewCourseActions = ({
   const saveDraft = useCallback(() => {
     // Check course content before send
     const courseContentFiltered = courseContentFilterBeforeSave({ courseContent })
+    const updatedInformationSection = {
+      ...informationSection,
+      title: informationSection.title.trim(),
+      description: informationSection.description.trim(),
+      goals: informationSection.goals.trim(),
+      outcomes: informationSection.outcomes.trim(),
+      requirements: informationSection.requirements.trim(),
+    }
     const course = {
       courseId,
-      informationSection,
+      informationSection: updatedInformationSection,
       contentSection,
       courseContent: courseContentFiltered,
       status: 'draft',
@@ -58,9 +66,14 @@ const NewCourseActions = ({
   const publishCourse = useCallback(() => {
     // Check course content before send
     const courseContentFiltered = courseContentFilterBeforeSave({ courseContent })
+    const updatedInformationSection = {
+      ...informationSection,
+      title: informationSection.title.trim(),
+    }
+
     const course = {
       courseId,
-      informationSection,
+      informationSection: updatedInformationSection,
       contentSection,
       courseContent: courseContentFiltered,
       status: 'published',

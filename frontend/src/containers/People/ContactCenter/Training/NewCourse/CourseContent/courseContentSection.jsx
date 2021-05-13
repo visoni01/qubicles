@@ -25,7 +25,7 @@ const CourseContentSection = ({
   const [ openDiscardConfirmation, setOpenDiscardConfirmation ] = useState(false)
 
   const handleSaveSection = useCallback(() => {
-    const updatedSection = { ...sectionDetails, isEdit: false }
+    const updatedSection = { ...sectionDetails, title: sectionDetails.title.trim(), isEdit: false }
     updateSection({
       section: updatedSection,
     })

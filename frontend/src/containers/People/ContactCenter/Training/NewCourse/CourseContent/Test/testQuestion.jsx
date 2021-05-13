@@ -68,7 +68,7 @@ const TestQuestion = ({ question, testDetails, setTestDetails }) => {
       ...current,
       questions: updatedQuestions,
     }))
-    setQuestionDetails((current) => ({ ...current, isSaved: true }))
+    setQuestionDetails((current) => ({ ...current, questionText: current.questionText.trim(), isSaved: true }))
   }, [ setTestDetails, testDetails, questionDetails ])
 
   return (

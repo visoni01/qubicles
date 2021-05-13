@@ -22,7 +22,12 @@ const AddedContent = ({
     let updatedUnit = unitDetails
     if (!_.isEqual(unit, updatedUnit)) {
       setUnitDetails((current) => {
-        updatedUnit = { ...current, isEmpty: false, isOpen: false }
+        updatedUnit = {
+          ...current,
+          title: current.title.trim(),
+          isEmpty: false,
+          isOpen: false,
+        }
         return (updatedUnit)
       })
     }
