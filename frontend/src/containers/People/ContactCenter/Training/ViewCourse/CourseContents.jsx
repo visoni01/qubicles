@@ -6,13 +6,13 @@ import {
   sectionsPropType, isEnrolledPropType, introVideoPropType,
   setOpenCoursePlayerPropType, setCurrentSectionPropType, setCurrentUnitPropType,
   isCoursePlayerOpenPropType, sectionPropType, unitPropType, courseStatusPropType, courseIdPropType,
-  isIntroVideoActivePropType, isSectionTestActivePropType,
+  isIntroVideoActivePropType, isSectionTestActivePropType, typePropType,
 } from './propTypes'
 
 const CourseContents = ({
   sections, setOpenCoursePlayer, isEnrolled, introVideo, setCurrentSection, setCurrentUnit,
   currentSection, currentUnit, isCoursePlayerOpen, courseStatus, courseId,
-  isIntroVideoActive, isSectionTestActive,
+  isIntroVideoActive, isSectionTestActive, type,
 }) => (
   <>
     <div className='course-contents-root'>
@@ -49,6 +49,7 @@ const CourseContents = ({
               isIntroVideoActive={ isIntroVideoActive }
               isSectionTestActive={ isSectionTestActive }
               courseStatus={ courseStatus }
+              type={ type }
             />
           </div>
         ))}
@@ -61,6 +62,7 @@ CourseContents.defaultProps = {
   courseStatus: '',
   isIntroVideoActive: null,
   isSectionTestActive: null,
+  type: 'view',
 }
 
 CourseContents.propTypes = {
@@ -77,5 +79,6 @@ CourseContents.propTypes = {
   courseId: courseIdPropType.isRequired,
   isIntroVideoActive: isIntroVideoActivePropType,
   isSectionTestActive: isSectionTestActivePropType,
+  type: typePropType,
 }
 export default CourseContents

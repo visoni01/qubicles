@@ -5,13 +5,13 @@ import { Box } from '@material-ui/core'
 import {
   sectionsPropType, courseIdPropType, isEnrolledPropType, introVideoPropType, courseTitlePropType,
   courseStatusPropType, setOpenCoursePlayerPropType, currentUnitIndexPropType, currentSectionIndexPropType,
-  isIntroVideoActivePropType, isSectionTestActivePropType, openCoursePlayerPropType,
+  isIntroVideoActivePropType, isSectionTestActivePropType, openCoursePlayerPropType, typePropType,
 } from './propTypes'
 import CourseContentWrap from './CourseContentWrap'
 
 const CourseOverview = ({
   sections, courseId, isEnrolled, introVideo, courseTitle, courseStatus, openCoursePlayer, setOpenCoursePlayer,
-  currentUnitIndex, currentSectionIndex, isIntroVideoActive, isSectionTestActive,
+  currentUnitIndex, currentSectionIndex, isIntroVideoActive, isSectionTestActive, type,
 }) => (
   <>
     <Box className='custom-box course-overview-root'>
@@ -39,6 +39,7 @@ const CourseOverview = ({
         currentSectionIndex={ currentSectionIndex }
         isIntroVideoActive={ isIntroVideoActive }
         isSectionTestActive={ isSectionTestActive }
+        type={ type }
       />
     </Box>
   </>
@@ -51,6 +52,7 @@ CourseOverview.defaultProps = {
   isIntroVideoActive: null,
   isSectionTestActive: null,
   openCoursePlayer: false,
+  type: 'view',
 }
 
 CourseOverview.propTypes = {
@@ -66,6 +68,7 @@ CourseOverview.propTypes = {
   isIntroVideoActive: isIntroVideoActivePropType,
   isSectionTestActive: isSectionTestActivePropType,
   openCoursePlayer: openCoursePlayerPropType,
+  type: typePropType,
 }
 
 export default CourseOverview

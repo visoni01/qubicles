@@ -11,9 +11,9 @@ import AssessmentTestModal from './Test/assessmentTestModal'
 import BuyCourseModal from './buyCourseModal'
 import { formatDate } from '../../../../../utils/common'
 import { updateCurrentUnitAndSectionIndex, viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
-import { setOpenCoursePlayerPropType, viewCoursePropType } from './propTypes'
+import { setOpenCoursePlayerPropType, viewCoursePropType, typePropType } from './propTypes'
 
-const CourseActions = ({ course, setOpenCoursePlayer }) => {
+const CourseActions = ({ course, setOpenCoursePlayer, type }) => {
   const [ isAssessmentModalOpen, setIsAssessmentModalOpen ] = useState(false)
   const [ openBuyCoursePopup, setOpenBuyCoursePopup ] = useState(false)
   const dispatch = useDispatch()
@@ -106,6 +106,7 @@ const CourseActions = ({ course, setOpenCoursePlayer }) => {
           </Card>
         </div>
         <>
+          {type !== 'preview' && (
           <div className='mb-10'>
             {!course.isEnrolled && (
             <Button
@@ -158,6 +159,7 @@ const CourseActions = ({ course, setOpenCoursePlayer }) => {
               Assessment Test
             </Button>
           </div>
+          )}
 
           {openBuyCoursePopup && (
             <BuyCourseModal
@@ -173,6 +175,7 @@ const CourseActions = ({ course, setOpenCoursePlayer }) => {
           />
           )}
 
+          {type !== 'preview' && (
           <div className='mb-20'>
             <h4 className='h4'> Rating for this course</h4>
             <div className='rating-text'>
@@ -188,6 +191,8 @@ const CourseActions = ({ course, setOpenCoursePlayer }) => {
               <span className='para light'>{`${ course.studentsEnrolled } students`}</span>
             </div>
           </div>
+          )}
+
           <div className='mb-20'>
             <h4 className='h4'> Last updated</h4>
             <span className='para light'>
@@ -210,9 +215,14 @@ const CourseActions = ({ course, setOpenCoursePlayer }) => {
   )
 }
 
+CourseActions.defaultProps = {
+  type: 'view',
+}
+
 CourseActions.propTypes = {
   course: viewCoursePropType.isRequired,
   setOpenCoursePlayer: setOpenCoursePlayerPropType.isRequired,
+  type: typePropType,
 }
 
 export default CourseActions

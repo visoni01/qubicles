@@ -4,12 +4,12 @@ import CoursePreview from './CoursePreview'
 import {
   sectionsPropType, courseIdPropType, isEnrolledPropType, introVideoPropType, courseTitlePropType,
   courseStatusPropType, setOpenCoursePlayerPropType, currentUnitIndexPropType, currentSectionIndexPropType,
-  isIntroVideoActivePropType, isSectionTestActivePropType, openCoursePlayerPropType,
+  isIntroVideoActivePropType, isSectionTestActivePropType, openCoursePlayerPropType, typePropType,
 } from './propTypes'
 
 export default function CourseContentWrap({
   sections, courseId, isEnrolled, introVideo, courseTitle, courseStatus, openCoursePlayer, setOpenCoursePlayer,
-  currentUnitIndex, currentSectionIndex, isIntroVideoActive, isSectionTestActive,
+  currentUnitIndex, currentSectionIndex, isIntroVideoActive, isSectionTestActive, type,
 }) {
   const [ currentSection, setCurrentSection ] = useState({})
   const [ currentUnit, setCurrentUnit ] = useState({})
@@ -48,6 +48,7 @@ export default function CourseContentWrap({
         currentUnit={ currentUnit }
         isIntroVideoActive={ isIntroVideoActive }
         isSectionTestActive={ isSectionTestActive }
+        type={ type }
       />
       <CoursePreview
         open={ openCoursePlayer }
@@ -80,6 +81,7 @@ CourseContentWrap.defaultProps = {
   isIntroVideoActive: null,
   isSectionTestActive: null,
   openCoursePlayer: false,
+  type: 'view',
 }
 
 CourseContentWrap.propTypes = {
@@ -95,4 +97,5 @@ CourseContentWrap.propTypes = {
   isIntroVideoActive: isIntroVideoActivePropType,
   isSectionTestActive: isSectionTestActivePropType,
   openCoursePlayer: openCoursePlayerPropType,
+  type: typePropType,
 }

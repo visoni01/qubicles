@@ -85,3 +85,4 @@ export const openCoursePlayerPropType = PropTypes.bool
 export const sectionIndexPropType = PropTypes.number
 export const sectionIdPropType = PropTypes.number
 export const creatorIdPropType = PropTypes.number
+export const typePropType = PropTypes.string

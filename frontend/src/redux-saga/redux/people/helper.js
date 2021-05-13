@@ -22,22 +22,17 @@ export const updateApplicationFilterHelper = ({
   return updatedFilter
 }
 
-const updateCourseUnitData = ({
-  sections, sectionId, updatedUnit,
-}) => {
-  const sectionIndex = _.findIndex(sections, [ 'id', sectionId ])
-  const unitIndex = _.findIndex(sections[ sectionIndex ].units, [ 'unitId', updatedUnit.unitId ])
-  const updatedSections = _.cloneDeep(sections)
-  updatedSections[ sectionIndex ].units[ unitIndex ] = updatedUnit
-  return updatedSections
-}
-
-const updateSectionTestData = ({
-  sections, sectionId, questions,
+const updateUnitOrTestData = ({
+  sections, sectionId, questions, updatedUnit,
 }) => {
   const sectionIndex = _.findIndex(sections, [ 'id', sectionId ])
   const updatedSections = _.cloneDeep(sections)
-  updatedSections[ sectionIndex ] = { ...updatedSections[ sectionIndex ], questions }
+  if (questions) {
+    updatedSections[ sectionIndex ] = { ...updatedSections[ sectionIndex ], questions }
+  } else if (updatedUnit) {
+    const unitIndex = _.findIndex(sections[ sectionIndex ].units, [ 'unitId', updatedUnit.unitId ])
+    updatedSections[ sectionIndex ].units[ unitIndex ] = updatedUnit
+  }
   return updatedSections
 }
 
@@ -68,10 +63,11 @@ export const getUpdatedCourse = ({ state, action }) => {
             ...state.course,
             courseContent: {
               ...state.course.courseContent,
-              sections: updateSectionTestData({
+              sections: updateUnitOrTestData({
                 sections: state.course.courseContent.sections,
                 questions: action.payload.sectionTest,
                 sectionId: action.payload.sectionId,
+                updatedUnit: action.payload.unit,
               }),
             },
           }
@@ -88,10 +84,11 @@ export const getUpdatedCourse = ({ state, action }) => {
             ...state.course,
             courseContent: {
               ...state.course.courseContent,
-              sections: updateCourseUnitData({
+              sections: updateUnitOrTestData({
                 sections: state.course.courseContent.sections,
                 updatedUnit: action.payload.unit,
                 sectionId: action.payload.sectionId,
+                questions: action.payload.sectionTest,
               }),
             },
           }

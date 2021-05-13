@@ -15,14 +15,14 @@ import {
 import {
   sectionPropType, isEnrolledPropType, introVideoPropType,
   setOpenCoursePlayerPropType, isCoursePlayerOpenPropType, unitPropType, courseIdPropType,
-  isIntroVideoActivePropType, sectionIndexPropType, courseStatusPropType,
+  isIntroVideoActivePropType, sectionIndexPropType, courseStatusPropType, typePropType,
 } from './propTypes'
 import { viewCourseRequestStart, updateCurrentUnitAndSectionIndex } from '../../../../../redux-saga/redux/people'
 
 const UnitsList = ({
   section, setOpenCoursePlayer, isEnrolled, isActive, showIntroVideo, introVideo,
   isCoursePlayerOpen, currentUnit, courseId, currentSection, sectionIndex,
-  isIntroVideoActive, courseStatus,
+  isIntroVideoActive, courseStatus, type,
 }) => {
   const [ open, setOpen ] = useState(isActive)
   const dispatch = useDispatch()
@@ -166,7 +166,8 @@ const UnitsList = ({
                 }) }
               >
                 {
-                  (isCoursePlayerOpen && currentUnit && unit.unitId === currentUnit.unitId && 'Current')
+                  (type === 'preview' && ' ')
+                  || (isCoursePlayerOpen && currentUnit && unit.unitId === currentUnit.unitId && 'Current')
                   || (unit.status === 'completed' && 'Completed')
                   || (unit.status === 'inprogress' && 'Resume')
                   || (unit.status === 'abandoned' && 'Resume')
@@ -205,7 +206,8 @@ const UnitsList = ({
               }) }
             >
               {
-                (isCoursePlayerOpen && currentUnit && currentUnit.unitId === -2 && currentSection.id === section.id
+                (type === 'preview' && ' ')
+                || (isCoursePlayerOpen && currentUnit && currentUnit.unitId === -2 && currentSection.id === section.id
                    && 'Current')
                 || (section.status === 'completed' && 'Completed')
                 || 'Start'
@@ -220,6 +222,7 @@ const UnitsList = ({
 
 UnitsList.defaultProps = {
   isIntroVideoActive: null,
+  type: 'view',
 }
 
 UnitsList.propTypes = {
@@ -236,6 +239,7 @@ UnitsList.propTypes = {
   isIntroVideoActive: isIntroVideoActivePropType,
   sectionIndex: sectionIndexPropType.isRequired,
   courseStatus: courseStatusPropType.isRequired,
+  type: typePropType,
 }
 
 export default UnitsList
