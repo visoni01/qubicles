@@ -123,7 +123,7 @@ const TestQuestion = ({ question, testDetails, setTestDetails }) => {
           {/* Question text on saved */}
           {questionDetails.isSaved && (
           <Grid item xl={ 11 } lg={ 11 } md={ 11 } sm={ 11 } xs={ 11 }>
-            <p className='para bold sz-lg mt-10'>{`${ question.questionText }`}</p>
+            <p className='para bold sz-lg mt-10 p-word-break'>{`${ question.questionText }`}</p>
           </Grid>
           )}
 
