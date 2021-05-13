@@ -28,7 +28,9 @@ const ViewCourse = () => {
   return (
     <Grid container spacing={ 3 }>
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
-        <CourseTrainerIntro />
+        <CourseTrainerIntro
+          creatorId={ course.informationSection.creatorId }
+        />
       </Grid>
       <Grid
         container

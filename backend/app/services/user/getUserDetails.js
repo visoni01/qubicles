@@ -39,12 +39,14 @@ export default class UserDetailsService extends ServiceBase {
         userDetails = await getUserDetailsByClientId({ client_id: clientDetails.client_id })
         const UserDetails = {
           registrationDate: clientDetails.registration_date,
-          companyName: clientDetails.client_name,
-          clientId: clientDetails.client_id,
+          name: clientDetails.client_name,
+          id: clientDetails.client_id,
           title: clientDetails.title,
           summary: clientDetails.summary,
           location: `${clientDetails.city}, ${clientDetails.state}`,
-          companyImg: userDetails.profile_image
+          companyImg: userDetails.profile_image,
+          rating: userDetails.rating,
+          userCode: user.user_code
         }
         return UserDetails
       }
@@ -52,11 +54,13 @@ export default class UserDetailsService extends ServiceBase {
       const UserDetails = {
         registrationDate: userDetails.registration_date,
         name: `${userDetails.first_name}, ${userDetails.last_name}`,
-        userId: userDetails.user_id,
+        id: userDetails.user_id,
         title: userDetails.work_title,
         summary: userDetails.work_overview,
         location: `${userDetails.city}, ${userDetails.state}`,
-        companyImg: userDetails.profile_image
+        companyImg: userDetails.profile_image,
+        rating: userDetails.rating,
+        userCode: 'agent'
       }
       return UserDetails
     } catch (err) {
