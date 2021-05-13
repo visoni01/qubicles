@@ -42,52 +42,69 @@ const updateSectionTestData = ({
 }
 
 export const getUpdatedCourse = ({ state, action }) => {
-  switch (state.dataType) {
-    case 'Course Info': {
-      return {
-        ...action.payload.course,
-        currentUnitIndex: null,
-        currentSectionIndex: null,
-        isIntroVideoActive: null,
-        isSectionTestActive: null,
+  switch (state.requestType) {
+    case 'FETCH': {
+      switch (state.dataType) {
+        case 'Course Info': {
+          return {
+            ...action.payload.course,
+            currentUnitIndex: null,
+            currentSectionIndex: null,
+            isIntroVideoActive: null,
+            isSectionTestActive: null,
+          }
+        }
+
+        case 'Start Course': {
+          return {
+            ...state.course,
+            isEnrolled: true,
+            courseDetails: { ...state.course.courseDetails, ...action.payload.courseDetails },
+          }
+        }
+
+        case 'Section Test': {
+          return {
+            ...state.course,
+            courseContent: {
+              ...state.course.courseContent,
+              sections: updateSectionTestData({
+                sections: state.course.courseContent.sections,
+                questions: action.payload.sectionTest,
+                sectionId: action.payload.sectionId,
+              }),
+            },
+          }
+        }
+
+        default: return state.course
       }
     }
 
-    case 'Start Course': {
-      return {
-        ...state.course,
-        isEnrolled: true,
-        courseDetails: { ...state.course.courseDetails, ...action.payload.courseDetails },
+    case 'UPDATE': {
+      switch (state.dataType) {
+        case 'Course Unit': {
+          return {
+            ...state.course,
+            courseContent: {
+              ...state.course.courseContent,
+              sections: updateCourseUnitData({
+                sections: state.course.courseContent.sections,
+                updatedUnit: action.payload.unit,
+                sectionId: action.payload.sectionId,
+              }),
+            },
+          }
+        }
+
+        case 'Section Test': {
+          return state.course
+        }
+
+        default: return state.course
       }
     }
 
-    case 'Course Unit': {
-      return {
-        ...state.course,
-        courseContent: {
-          ...state.course.courseContent,
-          sections: updateCourseUnitData({
-            sections: state.course.courseContent.sections,
-            updatedUnit: action.payload.unit,
-            sectionId: action.payload.sectionId,
-          }),
-        },
-      }
-    }
-
-    case 'Section Test': {
-      return {
-        ...state.course,
-        courseContent: {
-          ...state.course.courseContent,
-          sections: updateSectionTestData({
-            sections: state.course.courseContent.sections,
-            questions: action.payload.sectionTest,
-            sectionId: action.payload.sectionId,
-          }),
-        },
-      }
-    }
     default: return state.course
   }
 }

@@ -5,6 +5,7 @@ import CheckboxTestQuestion from './checkboxTestQuestion'
 import MultipleChoiceTestQuestion from './multipleChoiceTestQuestion'
 import TextTestQuestion from './textTestQuestion'
 import testQuestionPropType from './testQuestionPropType'
+import DateTimeTestQuestion from './dateTimeTestQuestion'
 // WIP Scale Question
 // import ScaleTestQuestion from './scaleTestQuestion'
 
@@ -43,6 +44,15 @@ const TestQuestion = ({
           {/* Text type question */}
           { [ 'paragraph', 'text' ].includes(question.questionType) && (
           <TextTestQuestion
+            question={ question }
+            answers={ answers }
+            setAnswers={ setAnswers }
+          />
+          )}
+
+          {/* Date Time question */}
+          { question.questionType === 'date' && (
+          <DateTimeTestQuestion
             question={ question }
             answers={ answers }
             setAnswers={ setAnswers }
