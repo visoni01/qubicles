@@ -290,6 +290,11 @@ class People {
     const response = await apiClient.getRequest(`/people/course/${ courseId }/test?sectionId=${ sectionId }`)
     return response
   }
+
+  static async submitSectionTest({ courseId, sectionId, questions }) {
+    const response = await apiClient.postRequest(`/people/course/${ courseId }/test`, { sectionId, questions })
+    return response
+  }
 }
 
 export default People

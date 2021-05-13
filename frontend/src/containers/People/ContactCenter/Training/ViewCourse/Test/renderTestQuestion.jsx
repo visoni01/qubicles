@@ -3,9 +3,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import CheckboxTestQuestion from './checkboxTestQuestion'
 import MultipleChoiceTestQuestion from './multipleChoiceTestQuestion'
-import ScaleTestQuestion from './scaleTestQuestion'
 import TextTestQuestion from './textTestQuestion'
 import testQuestionPropType from './testQuestionPropType'
+// WIP Scale Question
+// import ScaleTestQuestion from './scaleTestQuestion'
 
 const TestQuestion = ({
   question, answers, setAnswers,
@@ -49,13 +50,14 @@ const TestQuestion = ({
           )}
 
           {/* Scale question */}
-          {question.questionType === 'scale' && (
+          {/* WIP Scale Question */}
+          {/* {question.questionType === 'scale' && (
           <ScaleTestQuestion
             question={ question }
             answers={ answers }
             setAnswers={ setAnswers }
           />
-          )}
+          )} */}
         </Grid>
 
       </Grid>

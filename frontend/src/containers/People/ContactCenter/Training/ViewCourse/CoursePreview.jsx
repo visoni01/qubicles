@@ -129,7 +129,7 @@ const CoursePreview = ({
             )}
 
           </DialogContent>
-          {isEnrolled && (
+          {isEnrolled && currentUnit.unitId !== -2 && (
           <DialogActions className='modal-actions'>
             <Button
               classes={ {

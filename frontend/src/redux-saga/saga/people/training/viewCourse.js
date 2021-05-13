@@ -14,7 +14,7 @@ function* viewCourseWatcher() {
 function* viewCourseWorker(action) {
   try {
     const {
-      requestType, dataType, courseId, unitId, status, sectionId,
+      requestType, dataType, courseId, unitId, status, sectionId, questions,
     } = action.payload
 
     switch (requestType) {
@@ -48,6 +48,12 @@ function* viewCourseWorker(action) {
           case 'Course Unit': {
             const { data } = yield People.fetchAndUpdateCourseUnit({ courseId, unitId, status })
             yield put(viewCourseRequestSuccess({ unit: data, sectionId }))
+            break
+          }
+
+          case 'Section Test': {
+            const { data } = yield People.submitSectionTest({ courseId, sectionId, questions })
+            yield put(viewCourseRequestSuccess({ sectionTest: data, sectionId }))
             break
           }
 
