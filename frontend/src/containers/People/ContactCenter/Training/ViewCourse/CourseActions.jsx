@@ -18,6 +18,15 @@ const CourseActions = ({ course, setOpenCoursePlayer }) => {
   const [ openBuyCoursePopup, setOpenBuyCoursePopup ] = useState(false)
   const dispatch = useDispatch()
 
+  const handlePreview = useCallback(() => {
+    dispatch(updateCurrentUnitAndSectionIndex({
+      currentSectionIndex: 0,
+      currentUnitIndex: -1,
+      isIntroVideoActive: true,
+    }))
+    setOpenCoursePlayer(true)
+  }, [ setOpenCoursePlayer, dispatch ])
+
   const handleStartOrContinueCourse = useCallback(() => {
     if ((course.isEnrolled && course.courseDetails.status === 'enrolled')
     || (!course.isEnrolled && course.informationSection.price === 0)) {
@@ -133,6 +142,7 @@ const CourseActions = ({ course, setOpenCoursePlayer }) => {
                 root: 'button-secondary-small',
                 label: 'button-secondary-small-label',
               } }
+              onClick={ handlePreview }
             >
               Preview
             </Button>

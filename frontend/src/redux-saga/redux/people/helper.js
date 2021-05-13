@@ -98,7 +98,16 @@ export const getUpdatedCourse = ({ state, action }) => {
         }
 
         case 'Section Test': {
-          return state.course
+          const sectionIndex = _.findIndex(state.course.courseContent.sections, [ 'id', action.payload.sectionId ])
+          const updatedSections = _.cloneDeep(state.course.courseContent.sections)
+          updatedSections[ sectionIndex ].status = 'completed'
+          return {
+            ...state.course,
+            courseContent: {
+              ...state.course.courseContent,
+              sections: updatedSections,
+            },
+          }
         }
 
         default: return state.course

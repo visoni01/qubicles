@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import {
@@ -25,6 +26,39 @@ const CoursePreview = ({
   isIntroVideoActive, isSectionTestActive, courseStatus,
 }) => {
   const dispatch = useDispatch()
+
+  const handlePreviousUnit = useCallback(() => {
+    if (currentUnit.status !== 'completed' && currentUnit.unitId > 0) {
+      dispatch(viewCourseRequestStart({
+        requestType: 'UPDATE',
+        dataType: 'Course Unit',
+        courseId,
+        sectionId: currentSection.id,
+        unitId: currentUnit.unitId,
+        status: sections[ currentSectionIndex ].units[ currentUnitIndex - 1 ].status === 'completed'
+          ? currentUnit.status
+          : 'abandoned',
+      }))
+    }
+
+    dispatch(updateCurrentUnitAndSectionIndex({
+      currentUnitIndex: currentUnitIndex - 1,
+      currentSectionIndex,
+      isIntroVideoActive: false,
+    }))
+
+    dispatch(viewCourseRequestStart({
+      requestType: 'UPDATE',
+      dataType: 'Course Unit',
+      courseId,
+      sectionId: currentSection.id,
+      unitId: sections[ currentSectionIndex ].units[ currentUnitIndex - 1 ].unitId,
+      status: sections[ currentSectionIndex ].units[ currentUnitIndex - 1 ].status === 'completed'
+        ? 'completed'
+        : 'inprogress',
+    }))
+  }, [ dispatch, courseId, currentUnit.unitId, currentSection.id, currentUnit.status,
+    currentUnitIndex, currentSectionIndex, sections ])
 
   const handleNextUnit = useCallback(() => {
     const nextUnitIndex = currentUnitIndex < sections[ currentSectionIndex ].units.length - 1 && currentUnitIndex !== -2
@@ -129,16 +163,20 @@ const CoursePreview = ({
             )}
 
           </DialogContent>
+
           {isEnrolled && currentUnit.unitId !== -2 && (
           <DialogActions className='modal-actions'>
+            {currentUnitIndex > 0 && (
             <Button
               classes={ {
                 root: 'button-secondary-small',
                 label: 'button-secondary-small-label',
               } }
+              onClick={ handlePreviousUnit }
             >
               Previous
             </Button>
+            )}
             <Button
               classes={ {
                 root: 'button-primary-small',
@@ -150,6 +188,7 @@ const CoursePreview = ({
             </Button>
           </DialogActions>
           )}
+
         </div>
       </div>
 

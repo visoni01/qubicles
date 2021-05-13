@@ -1,5 +1,5 @@
 /* eslint-disable complexity */
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
@@ -26,6 +26,10 @@ const UnitsList = ({
 }) => {
   const [ open, setOpen ] = useState(isActive)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    setOpen(isActive)
+  }, [ isActive ])
 
   const handleListOpen = useCallback(() => {
     setOpen(!open)
@@ -187,7 +191,8 @@ const UnitsList = ({
                 || (isEnrolled && section.status === '' && courseStatus === 'inprogress' && sectionIndex !== 0
                   && !isActive && section.units[ 0 ].status === '' && isCoursePlayerOpen)
                 || (isEnrolled && section.status === '' && courseStatus === 'enrolled')
-                || (currentUnit.unitId === -2 && isCoursePlayerOpen) }
+                || (currentUnit.unitId === -2 && isCoursePlayerOpen)
+                || section.status === 'completed' }
               classes={ {
                 root: 'button-primary-text',
                 label: 'button-primary-text-label',
@@ -202,6 +207,7 @@ const UnitsList = ({
               {
                 (isCoursePlayerOpen && currentUnit && currentUnit.unitId === -2 && currentSection.id === section.id
                    && 'Current')
+                || (section.status === 'completed' && 'Completed')
                 || 'Start'
               }
             </Button>

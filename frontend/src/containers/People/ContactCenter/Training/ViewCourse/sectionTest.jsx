@@ -5,7 +5,7 @@ import _ from 'lodash'
 import './Test/styles.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import RenderTestQuestion from './Test/renderTestQuestion'
-import { viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
+import { updateCurrentUnitAndSectionIndex, viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
 import { courseIdPropType, sectionIdPropType } from './propTypes'
 import TestCompleted from './Test/testCompleted'
 
@@ -45,6 +45,25 @@ const SectionTest = ({ courseId, sectionId }) => {
       })),
     }))
   }, [ dispatch, answers, courseId, sectionId ])
+
+  const handleGoToNextSection = useCallback(() => {
+    const currentSectionIndex = sectionIndex < course.courseContent.sections.length - 1 ? sectionIndex + 1 : 0
+    dispatch(updateCurrentUnitAndSectionIndex({
+      currentUnitIndex: 0,
+      currentSectionIndex,
+      isIntroVideoActive: false,
+      isSectionTestActive: false,
+    }))
+    dispatch(viewCourseRequestStart({
+      requestType: 'UPDATE',
+      dataType: 'Course Unit',
+      courseId,
+      sectionId: course.courseContent.sections[ currentSectionIndex ].id,
+      unitId: course.courseContent.sections[ currentSectionIndex ].units[ 0 ].unitId,
+      status: course.courseContent.sections[ currentSectionIndex ].units[ 0 ].status === 'completed'
+        ? 'completed' : 'inprogress',
+    }))
+  }, [ dispatch, course.courseContent.sections, sectionIndex, courseId ])
 
   useEffect(() => {
     if (requestType === 'UPDATE' && dataType === 'Section Test' && !isLoading) {
@@ -98,7 +117,7 @@ const SectionTest = ({ courseId, sectionId }) => {
             root: 'button-primary-small',
             label: 'button-primary-small-label',
           } }
-          onClick={ handleSubmit }
+          onClick={ !isTestCompleted ? handleSubmit : handleGoToNextSection }
           disabled={ !answers.length }
         >
           {!isTestCompleted ? 'Submit' : 'Go To Next Section'}

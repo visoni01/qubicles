@@ -35,7 +35,7 @@ const CourseContents = ({
                 || (!isCoursePlayerOpen && isEnrolled
                   && (courseStatus === 'enrolled' || (courseStatus === 'inprogress' && section.status === ''))
                   && index === 0)
-                || (!isCoursePlayerOpen && index !== 0 && sections[ index - 1 ].status === 'completed'
+                || (index !== 0 && sections[ index - 1 ].status === 'completed'
                   && section.status === '')
               }
               showIntroVideo={ index === 0 && !!introVideo }
