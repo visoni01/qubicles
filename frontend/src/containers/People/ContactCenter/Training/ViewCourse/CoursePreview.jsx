@@ -184,6 +184,7 @@ const CoursePreview = ({
                 label: 'button-primary-small-label',
               } }
               onClick={ handleNextUnit }
+              disabled={ currentSection.status === 'completed' }
             >
               Next
             </Button>

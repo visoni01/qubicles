@@ -36,11 +36,11 @@ const PreviewCreateCourse = ({
       </Grid>
       <Grid item>
         <CourseOverview
-          sections={ course.courseContent.sections }
+          sections={ courseContent.sections }
           courseId={ course.courseId }
           isEnrolled={ course.isEnrolled }
-          introVideo={ course.contentSection.introductionVideo }
-          courseTitle={ course.informationSection.title }
+          introVideo={ contentSection.introductionVideo }
+          courseTitle={ informationSection.title }
           courseStatus={ course.courseDetails && course.courseDetails.status }
           currentUnitIndex={ course.currentUnitIndex }
           currentSectionIndex={ course.currentSectionIndex }
@@ -76,7 +76,9 @@ const PreviewCreateCourse = ({
       </Grid>
       <Grid item>
         <CourseActions
-          course={ course }
+          course={ {
+            informationSection, contentSection, courseContent, updatedOn: course.updatedOn,
+          } }
           type='preview'
         />
       </Grid>
