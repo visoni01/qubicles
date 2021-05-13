@@ -136,7 +136,7 @@ const CoursePreview = ({
               </IconButton>
             </DialogActions>
           </div>
-          <DialogContent>
+          <DialogContent className='course-content-area'>
             <h3 className='h3 mb-10 light'>
               {`${ currentSection.title }: `}
               <span className='h3'>
@@ -165,13 +165,14 @@ const CoursePreview = ({
           </DialogContent>
 
           {isEnrolled && currentUnit.unitId !== -2 && (
-          <DialogActions className='modal-actions'>
+          <DialogActions className='modal-actions course-content-buttons'>
             {currentUnitIndex > 0 && (
             <Button
               classes={ {
                 root: 'button-secondary-small',
                 label: 'button-secondary-small-label',
               } }
+              className='previous-button'
               onClick={ handlePreviousUnit }
             >
               Previous

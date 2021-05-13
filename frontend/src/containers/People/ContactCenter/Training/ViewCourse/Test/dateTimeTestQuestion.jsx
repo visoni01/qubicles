@@ -63,6 +63,7 @@ const DateTimeTestQuestion = ({
           margin='dense'
           variant='outlined'
           type='date'
+          className='date-time'
           defaultValue={ dateTimeAnswerObject.date }
           onChange={ (e) => handleAnswerChange({ type: 'date', val: e.target.value }) }
         />

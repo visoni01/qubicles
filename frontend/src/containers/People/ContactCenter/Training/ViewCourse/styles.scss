@@ -67,6 +67,32 @@
     }
   }
 
+  .course-content-area {
+    height: calc(100vh - 300px);
+    overflow-y: auto;
+  }
+
+  .course-content-area::-webkit-scrollbar {
+    width: 8px !important;
+  }
+
+  .course-content-area::-webkit-scrollbar-thumb {
+    background-color: rgba(72, 119, 244, 0.7);
+    border-radius: 20px 20px 20px 20px ;
+  }
+
+  .course-content-buttons {
+    position: absolute;
+    bottom: 10px;
+    right: 0px;
+    width: 72%;
+    text-align: right;
+    display: block;
+  }
+
+  .previous-button {
+    float: left;
+  }
 }
 
 .buy-course-modal-width {
