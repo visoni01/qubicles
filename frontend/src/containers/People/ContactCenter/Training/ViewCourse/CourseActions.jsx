@@ -73,7 +73,7 @@ const CourseActions = ({ course, setOpenCoursePlayer }) => {
       }
     }
     setOpenCoursePlayer(true)
-  }, [ course.isEnrolled, course.courseDetails.status, course.courseId, dispatch, setOpenCoursePlayer,
+  }, [ course.isEnrolled, course.courseDetails, course.courseId, dispatch, setOpenCoursePlayer,
     course.informationSection.price, course.courseContent.sections ])
 
   return (

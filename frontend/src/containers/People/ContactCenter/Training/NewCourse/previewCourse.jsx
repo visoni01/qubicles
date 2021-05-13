@@ -6,6 +6,8 @@ import NewCourseActions from './NewCourseActions'
 import {
   contentSectionPropType, courseContentPropType, coursePropType, informationSectionPropType,
 } from './propTypes'
+import CourseOverview from '../ViewCourse/CourseOverview'
+import CourseActions from '../ViewCourse/CourseActions'
 
 const PreviewCreateCourse = ({
   informationSection, contentSection, courseContent,
@@ -32,6 +34,21 @@ const PreviewCreateCourse = ({
           requirements={ informationSection.requirements }
         />
       </Grid>
+      <Grid item>
+        <CourseOverview
+          sections={ course.courseContent.sections }
+          courseId={ course.courseId }
+          isEnrolled={ course.isEnrolled }
+          introVideo={ course.contentSection.introductionVideo }
+          courseTitle={ course.informationSection.title }
+          courseStatus={ course.courseDetails && course.courseDetails.status }
+          currentUnitIndex={ course.currentUnitIndex }
+          currentSectionIndex={ course.currentSectionIndex }
+          isIntroVideoActive={ course.isIntroVideoActive }
+          isSectionTestActive={ course.isSectionTestActive }
+          type='preview'
+        />
+      </Grid>
     </Grid>
     <Grid
       container
@@ -55,6 +72,12 @@ const PreviewCreateCourse = ({
           courseId={ course.courseId }
           courseStatus={ course.status }
           handleErrors={ handleErrors }
+        />
+      </Grid>
+      <Grid item>
+        <CourseActions
+          course={ course }
+          type='preview'
         />
       </Grid>
     </Grid>
