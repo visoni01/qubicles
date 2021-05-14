@@ -42,10 +42,11 @@ const CourseActions = ({ course, setOpenCoursePlayer, type }) => {
       }))
     } else if (course.isEnrolled && course.courseDetails.status === 'inprogress') {
       if (course.courseContent.sections.length && course.courseContent.sections[ 0 ].status === '') {
+        const unitIndex = _.findLastIndex(course.courseContent.sections[ 0 ].units, [ 'status', 'completed' ])
         dispatch(updateCurrentUnitAndSectionIndex({
           currentSectionIndex: 0,
-          currentUnitIndex: -1,
-          isIntroVideoActive: true,
+          currentUnitIndex: unitIndex,
+          isIntroVideoActive: unitIndex === -1,
         }))
       } else {
         let sectionIndex = _.findIndex(course.courseContent.sections, [ 'status', 'inprogress' ])
@@ -53,7 +54,7 @@ const CourseActions = ({ course, setOpenCoursePlayer, type }) => {
         if (sectionIndex !== -1) {
           unitIndex = _.findIndex(course.courseContent.sections[ sectionIndex ].units, [ 'status', 'inprogress' ])
         } else {
-          sectionIndex = _.findIndex(course.courseContent.sections, [ 'status', 'completed' ])
+          sectionIndex = _.findLastIndex(course.courseContent.sections, [ 'status', 'completed' ])
           if (sectionIndex < course.courseContent.sections.length - 1) {
             sectionIndex += 1
             if (course.courseContent.sections[ sectionIndex ].units[ 0 ].status === 'completed') {
@@ -64,6 +65,9 @@ const CourseActions = ({ course, setOpenCoursePlayer, type }) => {
           } else {
             unitIndex = course.courseContent.sections[ sectionIndex ].units.length - 1
           }
+        }
+        if (unitIndex === -1) {
+          unitIndex = course.courseContent.sections[ sectionIndex ].units.length - 1
         }
         dispatch(updateCurrentUnitAndSectionIndex({
           currentSectionIndex: sectionIndex,
@@ -193,12 +197,14 @@ const CourseActions = ({ course, setOpenCoursePlayer, type }) => {
           </div>
           )}
 
+          {course.updatedOn && (
           <div className='mb-20'>
             <h4 className='h4'> Last updated</h4>
             <span className='para light'>
               {course.updatedOn && `${ formatDate(course.updatedOn, 'MMMM DD YYYY, hh:mm a') }`}
             </span>
           </div>
+          )}
         </>
         {course.informationSection.category && course.informationSection.categoryTitle && (
         <div className='mb-20'>

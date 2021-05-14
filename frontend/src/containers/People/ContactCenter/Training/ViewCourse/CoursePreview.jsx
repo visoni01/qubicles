@@ -164,7 +164,7 @@ const CoursePreview = ({
 
           </DialogContent>
 
-          {isEnrolled && currentUnit.unitId !== -2 && (
+          {isEnrolled && courseStatus === 'inprogress' && currentUnit.unitId !== -2 && (
           <DialogActions className='modal-actions course-content-buttons'>
             {currentUnitIndex > 0 && (
             <Button
@@ -184,7 +184,10 @@ const CoursePreview = ({
                 label: 'button-primary-small-label',
               } }
               onClick={ handleNextUnit }
-              disabled={ currentSection.status === 'completed' }
+              disabled={ currentSection.status === 'completed'
+                && sections[ currentSectionIndex ]
+                && sections[ currentSectionIndex ].units
+                && sections[ currentSectionIndex ].units.length - 1 === currentUnitIndex }
             >
               Next
             </Button>

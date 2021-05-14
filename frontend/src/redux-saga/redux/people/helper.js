@@ -32,6 +32,9 @@ const updateUnitOrTestData = ({
   } else if (updatedUnit) {
     const unitIndex = _.findIndex(sections[ sectionIndex ].units, [ 'unitId', updatedUnit.unitId ])
     updatedSections[ sectionIndex ].units[ unitIndex ] = updatedUnit
+    updatedSections[ sectionIndex ].status = _.isEmpty(updatedSections[ sectionIndex ].status)
+      ? 'inprogress'
+      : updatedSections[ sectionIndex ].status
   }
   return updatedSections
 }
