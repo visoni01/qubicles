@@ -388,34 +388,40 @@ export async function getAgentJobProfiles ({
   }
 
   const agentJobProfiles = await XQodResourceDef.findAll({
-    include: [{
-      model: UserDetail,
-      attributes: [
-        'user_id',
-        'first_name',
-        'last_name',
-        'city',
-        'rating',
-        'state',
-        'primary_language',
-        'work_title',
-        'work_overview',
-        'profile_image'
-      ],
-      where: userDetailQuery,
-      include: [{
-        model: XQodUserSkill,
-        attributes: ['skill_id', 'endorsed'],
-        as: 'userSkills',
-        where: { is_deleted: false },
-        required: false,
-        include: [{
-          model: XQodSkill,
-          attributes: ['skill_name'],
-          as: 'skill'
-        }]
-      }]
-    }],
+    include: [
+      {
+        model: UserDetail,
+        attributes: [
+          'user_id',
+          'first_name',
+          'last_name',
+          'city',
+          'rating',
+          'state',
+          'primary_language',
+          'work_title',
+          'work_overview',
+          'profile_image'
+        ],
+        where: userDetailQuery,
+        include: [
+          {
+            model: XQodUserSkill,
+            attributes: ['skill_id', 'endorsed'],
+            as: 'userSkills',
+            where: { is_deleted: false },
+            required: false,
+            include: [
+              {
+                model: XQodSkill,
+                attributes: ['skill_name'],
+                as: 'skill'
+              }
+            ]
+          }
+        ]
+      }
+    ],
     attributes: [
       'resource_def_id',
       'status',
@@ -430,34 +436,40 @@ export async function getAgentJobProfiles ({
 
 export async function getAgentResume ({ candidateId }) {
   const agentResume = await XQodResourceDef.findOne({
-    include: [{
-      model: UserDetail,
-      attributes: [
-        'user_id',
-        'first_name',
-        'last_name',
-        'city',
-        'state',
-        'rating',
-        'primary_language',
-        'other_languages',
-        'highest_education',
-        'years_of_experience',
-        'work_title',
-        'work_overview',
-        'profile_image'
-      ],
-      include: [{
-        model: XQodUserSkill,
-        attributes: ['skill_id', 'endorsed'],
-        as: 'userSkills',
-        include: [{
-          model: XQodSkill,
-          attributes: ['skill_name'],
-          as: 'skill'
-        }]
-      }]
-    }],
+    include: [
+      {
+        model: UserDetail,
+        attributes: [
+          'user_id',
+          'first_name',
+          'last_name',
+          'city',
+          'state',
+          'rating',
+          'primary_language',
+          'other_languages',
+          'highest_education',
+          'years_of_experience',
+          'work_title',
+          'work_overview',
+          'profile_image'
+        ],
+        include: [
+          {
+            model: XQodUserSkill,
+            attributes: ['skill_id', 'endorsed'],
+            as: 'userSkills',
+            include: [
+              {
+                model: XQodSkill,
+                attributes: ['skill_name'],
+                as: 'skill'
+              }
+            ]
+          }
+        ]
+      }
+    ],
     where: {
       user_id: candidateId
     }
@@ -482,16 +494,20 @@ export async function getAgentResume ({ candidateId }) {
       'work_overview',
       'profile_image'
     ],
-    include: [{
-      model: XQodUserSkill,
-      attributes: ['skill_id', 'endorsed'],
-      as: 'userSkills',
-      include: [{
-        model: XQodSkill,
-        attributes: ['skill_name'],
-        as: 'skill'
-      }]
-    }],
+    include: [
+      {
+        model: XQodUserSkill,
+        attributes: ['skill_id', 'endorsed'],
+        as: 'userSkills',
+        include: [
+          {
+            model: XQodSkill,
+            attributes: ['skill_name'],
+            as: 'skill'
+          }
+        ]
+      }
+    ],
     where: {
       user_id: candidateId
     }
@@ -580,16 +596,25 @@ const formatQuestionInfo = ({ questions }) => {
       question_type: question.questionType,
       question: question.questionText,
       answer: question.answerText,
-      option1: (question.questionType === 'multiple' || question.questionType === 'checkbox') && question.options &&
-      question.options.length > 0 ? question.options[0].value : null,
-      option2: (question.questionType === 'multiple' || question.questionType === 'checkbox') && question.options &&
-      question.options.length > 1 ? question.options[1].value : null,
-      option3: (question.questionType === 'multiple' || question.questionType === 'checkbox') && question.options &&
-      question.options.length > 2 ? question.options[2].value : null,
-      option4: (question.questionType === 'multiple' || question.questionType === 'checkbox') && question.options &&
-      question.options.length > 3 ? question.options[3].value : null,
-      option5: (question.questionType === 'multiple' || question.questionType === 'checkbox') && question.options &&
-      question.options.length > 4 ? question.options[4].value : null,
+      option1: ['multiple', 'checkbox'].includes(question.questionType) && question.options && question.options.length > 0
+        ? question.options[0].value
+        : (_.isEqual(question.questionType, 'scale') && question.scale && question.scale.minRange
+          ? question.scale.minRange
+          : null),
+      option2: ['multiple', 'checkbox'].includes(question.questionType) && question.options && question.options.length > 1
+        ? question.options[1].value
+        : (_.isEqual(question.questionType, 'scale') && question.scale && question.scale.maxRange
+          ? question.scale.maxRange
+          : null),
+      option3: ['multiple', 'checkbox'].includes(question.questionType) && question.options && question.options.length > 2
+        ? question.options[2].value
+        : null,
+      option4: ['multiple', 'checkbox'].includes(question.questionType) && question.options && question.options.length > 3
+        ? question.options[3].value
+        : null,
+      option5: ['multiple', 'checkbox'].includes(question.questionType) && question.options && question.options.length > 4
+        ? question.options[4].value
+        : null,
       order: index + 1
     }
   })
@@ -633,17 +658,22 @@ const formatCourseInfo = ({ course }) => {
 export async function addNewCourse ({ course }) {
   const addedCourse = await XQodCourse.create(
     formatCourseInfo({ course }), {
-      include: [{
-        model: XQodCourseSection,
-        as: 'sections',
-        include: [{
-          model: XQodCourseUnit,
-          as: 'units'
-        }, {
-          model: XQodCourseSectionQA,
-          as: 'questions'
-        }]
-      }]
+      include: [
+        {
+          model: XQodCourseSection,
+          as: 'sections',
+          include: [
+            {
+              model: XQodCourseUnit,
+              as: 'units'
+            },
+            {
+              model: XQodCourseSectionQA,
+              as: 'questions'
+            }
+          ]
+        }
+      ]
     }
   )
 
@@ -668,13 +698,16 @@ export async function updateCourse ({ course }) {
       courseInfo,
       { where: { course_id: course.courseId } }),
     () => XQodCourseSection.bulkCreate(sectionInfo, {
-      include: [{
-        model: XQodCourseUnit,
-        as: 'units'
-      }, {
-        model: XQodCourseSectionQA,
-        as: 'questions'
-      }]
+      include: [
+        {
+          model: XQodCourseUnit,
+          as: 'units'
+        },
+        {
+          model: XQodCourseSectionQA,
+          as: 'questions'
+        }
+      ]
     })
   ]
 
@@ -683,18 +716,23 @@ export async function updateCourse ({ course }) {
 
 export async function getCourseById ({ course_id, user_id }) {
   let course = await XQodCourse.findAll({
-    include: [{
-      model: XQodCourseSection,
-      as: 'sections',
-      required: false,
-      include: [{
-        model: XQodCourseUnit,
-        as: 'units'
-      }, {
-        model: XQodCourseSectionQA,
-        as: 'questions'
-      }]
-    }],
+    include: [
+      {
+        model: XQodCourseSection,
+        as: 'sections',
+        required: false,
+        include: [
+          {
+            model: XQodCourseUnit,
+            as: 'units'
+          },
+          {
+            model: XQodCourseSectionQA,
+            as: 'questions'
+          }
+        ]
+      }
+    ],
     where: {
       course_id,
       creator_id: user_id,
@@ -795,7 +833,9 @@ export const formatViewSectionData = ({ sections, sectionsCompleted, unitsStatus
       title: section.title,
       sectionNum: section.section_num,
       units,
-      status: isSectionCompleted ? 'completed' : (isSectionInProgress ? 'inprogress' : '')
+      status: isSectionCompleted
+        ? 'completed'
+        : (isSectionInProgress ? 'inprogress' : '')
     }
   })
 }
@@ -853,16 +893,20 @@ export async function getViewCourseById ({ course_id, user_id }) {
       }
     }),
     () => XQodCourse.findAll({
-      include: [{
-        model: XQodCourseSection,
-        as: 'sections',
-        required: false,
-        include: [{
-          model: XQodCourseUnit,
-          as: 'units',
-          attributes: { exclude: ['details'] }
-        }]
-      }],
+      include: [
+        {
+          model: XQodCourseSection,
+          as: 'sections',
+          required: false,
+          include: [
+            {
+              model: XQodCourseUnit,
+              as: 'units',
+              attributes: { exclude: ['details'] }
+            }
+          ]
+        }
+      ],
       where: {
         course_id,
         status: 'published'
@@ -942,11 +986,8 @@ export async function getViewCourseById ({ course_id, user_id }) {
 
 export const formatScaleData = ({ question }) => {
   return {
-    minValue: -50,
-    maxValue: 50,
-    correctValue: 0,
-    minRange: -100,
-    maxRange: 100
+    minRange: question.option1,
+    maxRange: question.option2
   }
 }
 
@@ -1009,10 +1050,11 @@ export const formatQuestionData = ({ questions }) => {
       options = formatOptionsData({ question })
     }
 
-    const correctOption = (question.question_type === 'multiple')
+    const correctOption = _.isEqual(question.question_type, 'multiple')
       ? options.find((option) => option.value === question.answer).id
       : ''
-    const correctOptions = (question.question_type === 'checkbox')
+
+    const correctOptions = _.isEqual(question.question_type, 'checkbox')
       ? options.filter((option) => JSON.parse(question.answer).includes(option.value)).map((option) => option.id)
       : []
 
@@ -1023,7 +1065,7 @@ export const formatQuestionData = ({ questions }) => {
       isTime: false
     }
 
-    if (question.question_type === 'date') {
+    if (_.isEqual(question.question_type, 'date')) {
       dateTime = {
         date: JSON.parse(question.answer).date ? JSON.parse(question.answer).date : '',
         time: JSON.parse(question.answer).time ? JSON.parse(question.answer).time : '',
@@ -1041,7 +1083,9 @@ export const formatQuestionData = ({ questions }) => {
       isSaved: true,
       correctOptions,
       correctOption,
-      scale: formatScaleData({ question }), // WIP the data is fixed data it should be dynamic
+      scale: _.isEqual(question.question_type, 'scale')
+        ? formatScaleData({ question })
+        : {},
       dateTime
     }
   })
@@ -1071,13 +1115,15 @@ export const formatSectionData = ({ sections }) => {
       sectionIsActive: section.is_active,
       isEdit: false,
       units: formatUnitData({ units: section.units }),
-      test: section.questions && section.questions.length ? {
-        title: 'Test',
-        length: 0,
-        questions: formatQuestionData({ questions: section.questions }),
-        isEmpty: false,
-        isOpen: false
-      } : {}
+      test: section.questions && section.questions.length
+        ? {
+          title: 'Test',
+          length: 0,
+          questions: formatQuestionData({ questions: section.questions }),
+          isEmpty: false,
+          isOpen: false
+        }
+        : {}
     }
   })
 }
