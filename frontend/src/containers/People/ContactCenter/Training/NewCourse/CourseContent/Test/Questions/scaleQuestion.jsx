@@ -8,24 +8,21 @@ import { testQuestionPropType } from '../../../propTypes'
 const ScaleQuestion = ({
   questionDetails, setQuestionDetails,
 }) => {
-  const setScaleRange = useCallback((event, newValue) => {
+  const handleAnswerChange = useCallback((newValue) => {
     setQuestionDetails((current) => ({
       ...current,
-      scale: { ...current.scale, minValue: newValue[ 0 ], maxValue: newValue[ 1 ] },
+      answerText: newValue.toString(),
     }))
   }, [ setQuestionDetails ])
 
-  const setScaleValue = useCallback(({ newValue, type }) => {
+  const setScaleRange = useCallback(({ newValue, type }) => {
     setQuestionDetails((current) => {
       let newScale = current.scale
       if (type === 'min') {
-        newScale = { ...newScale, minValue: parseInt(newValue, 10) }
+        newScale = { ...newScale, minRange: newValue }
       }
       if (type === 'max') {
-        newScale = { ...newScale, maxValue: parseInt(newValue, 10) }
-      }
-      if (type === 'correct') {
-        newScale = { ...newScale, correctValue: parseInt(newValue, 10) }
+        newScale = { ...newScale, maxRange: newValue }
       }
       return ({
         ...current,
@@ -38,15 +35,18 @@ const ScaleQuestion = ({
     return (
       <div className='ml-10 pb-10 is-halfwidth'>
         <Slider
+          track={ false }
           valueLabelDisplay='auto'
-          aria-labelledby='range-slider'
           classes={ {
             root: 'custom-slider-root',
             thumb: 'custom-slider-thumb',
+            track: 'custom-slider-track',
+            rail: 'custom-slider-rail',
+            valueLabel: 'custom-slider-value-label',
           } }
-          defaultValue={ [ -50, 50 ] }
-          min={ questionDetails.scale.minRange }
-          max={ questionDetails.scale.maxRange }
+          value={ parseInt(questionDetails.answerText, 10) }
+          min={ parseInt(questionDetails.scale.minRange, 10) }
+          max={ parseInt(questionDetails.scale.maxRange, 10) }
         />
       </div>
     )
@@ -61,15 +61,18 @@ const ScaleQuestion = ({
           </p>
           <p className='para bold'>Scale</p>
           <Slider
-            value={ [ questionDetails.scale.minValue, questionDetails.scale.maxValue ] }
-            min={ questionDetails.scale.minRange }
-            max={ questionDetails.scale.maxRange }
-            onChange={ setScaleRange }
+            track={ false }
+            value={ parseInt(questionDetails.answerText, 10) }
+            min={ parseInt(questionDetails.scale.minRange, 10) }
+            max={ parseInt(questionDetails.scale.maxRange, 10) }
+            onChange={ (e, val) => handleAnswerChange(val) }
             valueLabelDisplay='auto'
-            aria-labelledby='range-slider'
             classes={ {
               root: 'custom-slider-root',
               thumb: 'custom-slider-thumb',
+              track: 'custom-slider-track',
+              rail: 'custom-slider-rail',
+              valueLabel: 'custom-slider-value-label',
             } }
           />
         </Grid>
@@ -79,8 +82,8 @@ const ScaleQuestion = ({
             placeholder='Min Value'
             margin='dense'
             variant='outlined'
-            value={ questionDetails.scale.minValue }
-            onChange={ (e) => setScaleValue({ newValue: e.target.value, type: 'min' }) }
+            value={ parseInt(questionDetails.scale.minRange, 10) }
+            onChange={ (e) => setScaleRange({ newValue: e.target.value, type: 'min' }) }
           />
         </Grid>
         <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 6 } xs={ 6 }>
@@ -89,8 +92,8 @@ const ScaleQuestion = ({
             placeholder='Max Value'
             margin='dense'
             variant='outlined'
-            value={ questionDetails.scale.maxValue }
-            onChange={ (e) => setScaleValue({ newValue: e.target.value, type: 'max' }) }
+            value={ parseInt(questionDetails.scale.maxRange, 10) }
+            onChange={ (e) => setScaleRange({ newValue: e.target.value, type: 'max' }) }
           />
         </Grid>
 
@@ -101,12 +104,12 @@ const ScaleQuestion = ({
           type='number'
           margin='dense'
           variant='outlined'
-          value={ questionDetails.scale.correctValue }
-          onChange={ (e) => setScaleValue({ newValue: e.target.value, type: 'correct' }) }
+          value={ parseInt(questionDetails.answerText, 10) }
+          onChange={ (e) => handleAnswerChange(e.target.value) }
           InputProps={ {
             inputProps: {
-              min: questionDetails.scale.minValue,
-              max: questionDetails.scale.maxValue,
+              min: questionDetails.scale.minRange,
+              max: questionDetails.scale.maxRange,
             },
           } }
         />

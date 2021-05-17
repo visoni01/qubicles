@@ -23,10 +23,10 @@ const TestQuestion = ({ question, testDetails, setTestDetails }) => {
     setQuestionDetails((current) => ({
       ...current,
       questionType: e.target.value,
-      answerText: '',
+      answerText: e.target.value === 'scale' ? '0' : '',
       correctOption: '',
       scale: {
-        minValue: -50, maxValue: 50, correctValue: 0, minRange: -100, maxRange: 100,
+        minRange: '-100', maxRange: '100',
       },
       dateTime: {
         date: '',

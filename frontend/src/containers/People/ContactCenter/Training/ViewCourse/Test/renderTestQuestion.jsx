@@ -6,8 +6,7 @@ import MultipleChoiceTestQuestion from './multipleChoiceTestQuestion'
 import TextTestQuestion from './textTestQuestion'
 import testQuestionPropType from './testQuestionPropType'
 import DateTimeTestQuestion from './dateTimeTestQuestion'
-// WIP Scale Question
-// import ScaleTestQuestion from './scaleTestQuestion'
+import ScaleTestQuestion from './scaleTestQuestion'
 
 const TestQuestion = ({
   question, answers, setAnswers,
@@ -60,14 +59,13 @@ const TestQuestion = ({
           )}
 
           {/* Scale question */}
-          {/* WIP Scale Question */}
-          {/* {question.questionType === 'scale' && (
+          {question.questionType === 'scale' && (
           <ScaleTestQuestion
             question={ question }
             answers={ answers }
             setAnswers={ setAnswers }
           />
-          )} */}
+          )}
         </Grid>
 
       </Grid>
