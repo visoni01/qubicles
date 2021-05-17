@@ -1398,11 +1398,19 @@ export const formatTestQuestionsData = ({ questions }) => {
       isDate: false,
       isTime: false
     }
+    let scale = {}
 
     if (_.isEqual(question.question_type, 'date')) {
       dateTime = {
         isDate: !!JSON.parse(question.answer).date,
         isTime: !!JSON.parse(question.answer).time
+      }
+    }
+
+    if (_.isEqual(question.question_type, 'scale')) {
+      scale = {
+        minRange: question.option1,
+        maxRange: question.option2
       }
     }
 
@@ -1415,7 +1423,8 @@ export const formatTestQuestionsData = ({ questions }) => {
       questionType: question.question_type,
       questionText: question.question,
       options,
-      dateTime
+      dateTime,
+      scale
     }
   })
 }
@@ -1456,4 +1465,37 @@ export const addTestEntries = async ({ user_id, course_id, section_id, questions
 
     await XQodCourseUserQA.bulkCreate(bulkDataToBeAdded)
   }
+}
+
+export const getRandomQuestions = ({ questions }) => {
+  const randomQuestions = questions.map((item) => {
+    return {
+      ...item,
+      questions: formatTestQuestionsData({
+        questions: _.shuffle(item.questions).slice(0, Math.floor(Math.random() * item.questions.length) + 1)
+      })
+    }
+  })
+
+  return randomQuestions
+}
+
+export const fetchAssessmentTestDetails = async ({ course_id }) => {
+  const questions = await XQodCourseSection.findAll({
+    attributes: [
+      ['section_id', 'sectionId'],
+      'title'
+    ],
+    include: [
+      {
+        model: XQodCourseSectionQA,
+        as: 'questions'
+      }
+    ],
+    where: {
+      course_id
+    }
+  })
+
+  return questions && questions.map(item => item.get({ plain: true }))
 }
