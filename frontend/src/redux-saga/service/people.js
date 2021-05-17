@@ -300,6 +300,11 @@ class People {
     const response = await apiClient.getRequest(`/people/course/${ courseId }/buy`)
     return response
   }
+
+  static async fetchAssessmentTest({ courseId }) {
+    const response = await apiClient.getRequest(`/people/course/${ courseId }/assessment-test`)
+    return response
+  }
 }
 
 export default People

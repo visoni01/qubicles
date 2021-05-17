@@ -6,22 +6,33 @@ import {
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import testDetails from './mockTestData'
+import { useDispatch } from 'react-redux'
 import RenderTestQuestion from './renderTestQuestion'
 import './styles.scss'
 import TestCompleted from './testCompleted'
+import { viewCourseRequestStart } from '../../../../../../redux-saga/redux/people'
 
 const AssessmentTestModal = ({
-  open, onClose,
+  open, onClose, courseId, assessmentTest,
 }) => {
   const [ isTestStarted, setIsTestStarted ] = useState(false)
   const [ isTestCompleted, setIsTestCompleted ] = useState(false)
   const [ currentSection, setCurrentSection ] = useState(0)
   const [ answers, setAnswers ] = useState([])
+  const dispatch = useDispatch()
 
   const getTotalQuestions = useCallback(() => (
-    testDetails.reduce((total, section) => total + section.test.questions.length, 0)
-  ), [ ])
+    assessmentTest.reduce((total, section) => total + section.questions.length, 0)
+  ), [ assessmentTest ])
+
+  const handleStartTest = useCallback(() => {
+    dispatch(viewCourseRequestStart({
+      requestType: 'FETCH',
+      dataType: 'Assessment Test',
+      courseId,
+    }))
+    setIsTestStarted(true)
+  }, [ dispatch, courseId ])
 
   return (
     <Dialog
@@ -50,19 +61,19 @@ const AssessmentTestModal = ({
             By accomplishing this assessment test you can skip the content and finish the course immediately.
           </p>
         )}
-        {isTestStarted && !isTestCompleted && (
+        {isTestStarted && !isTestCompleted && assessmentTest && assessmentTest.length && (
           <>
             <div className='mb-20'>
               <div>
                 <span className='para bold sz-lg'>
-                  {`Section ${ currentSection + 1 } of ${ testDetails.length }: `}
+                  {`Section ${ currentSection + 1 } of ${ assessmentTest.length }: `}
                 </span>
-                <span className='para sz-lg'>{`${ testDetails[ currentSection ].title }`}</span>
+                <span className='para sz-lg'>{`${ assessmentTest[ currentSection ].title }`}</span>
               </div>
               <div className='mt-10'>
                 <LinearProgress
                   variant='determinate'
-                  value={ `${ (currentSection * 100) / testDetails.length }` }
+                  value={ `${ (currentSection * 100) / assessmentTest.length }` }
                   classes={ {
                     root: 'progress-root',
                     barColorPrimary: 'progress-bar-color',
@@ -72,7 +83,7 @@ const AssessmentTestModal = ({
               </div>
             </div>
             <div>
-              {testDetails[ currentSection ].test.questions.map((question) => (
+              {assessmentTest[ currentSection ].questions.map((question) => (
                 <RenderTestQuestion
                   key={ question.id }
                   question={ question }
@@ -95,12 +106,12 @@ const AssessmentTestModal = ({
           <Button
             className='button-primary-small'
             classes={ { label: 'primary-label' } }
-            onClick={ () => setIsTestStarted(true) }
+            onClick={ handleStartTest }
           >
             Start
           </Button>
         )}
-        {isTestStarted && !isTestCompleted && (
+        {isTestStarted && !isTestCompleted && assessmentTest && assessmentTest.length && (
           <>
             <Button
               color='secondary'
@@ -114,11 +125,11 @@ const AssessmentTestModal = ({
             <Button
               className='button-primary-small'
               classes={ { label: 'primary-label' } }
-              onClick={ currentSection < testDetails.length - 1
+              onClick={ currentSection < assessmentTest.length - 1
                 ? () => setCurrentSection((state) => state + 1)
                 : () => setIsTestCompleted(true) }
             >
-              { currentSection < testDetails.length - 1 ? 'Continue' : 'Submit' }
+              { currentSection < assessmentTest.length - 1 ? 'Continue' : 'Submit' }
             </Button>
           </>
         )}
@@ -140,6 +151,8 @@ const AssessmentTestModal = ({
 AssessmentTestModal.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  courseId: PropTypes.number.isRequired,
+  assessmentTest: PropTypes.shape(PropTypes.any).isRequired,
 }
 
 export default AssessmentTestModal

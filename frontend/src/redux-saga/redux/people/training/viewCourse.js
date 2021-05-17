@@ -47,6 +47,7 @@ const initialState = {
       endorsed: null,
     },
   },
+  assessmentTest: [],
   requestType: '',
   dataType: '',
 }

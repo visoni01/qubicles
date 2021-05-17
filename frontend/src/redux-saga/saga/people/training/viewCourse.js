@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import { takeEvery, put } from 'redux-saga/effects'
 import {
   viewCourseRequestStart,
@@ -41,6 +42,12 @@ function* viewCourseWorker(action) {
           case 'Buy Course': {
             const { data } = yield People.buyCourse({ courseId })
             yield put(viewCourseRequestSuccess({ course: data }))
+            break
+          }
+
+          case 'Assessment Test': {
+            const { data } = yield People.fetchAssessmentTest({ courseId })
+            yield put(viewCourseRequestSuccess({ assessmentTest: data }))
             break
           }
 

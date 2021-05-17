@@ -83,6 +83,13 @@ export const getUpdatedCourse = ({ state, action }) => {
           }
         }
 
+        case 'Assessment Test': {
+          return {
+            ...state.course,
+            assessmentTest: action.payload.assessmentTest,
+          }
+        }
+
         default: return state.course
       }
     }
