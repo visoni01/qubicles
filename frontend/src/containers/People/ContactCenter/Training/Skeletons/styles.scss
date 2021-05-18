@@ -121,3 +121,30 @@
     }
   }
 }
+
+.course-action-skeleton-container {
+  width: 100%;
+
+  .picture {
+    height: 160px;
+    transform: none;
+  }
+
+  .button {
+    height: 25px;
+    transform: none;
+  }
+
+  .title {
+    width: 30%;
+    height: 20px;
+    transform: none;
+    margin-bottom: 5px;
+  }
+
+  .description {
+    width: 60%;
+    height: 20px;
+    transform: none;
+  }
+}

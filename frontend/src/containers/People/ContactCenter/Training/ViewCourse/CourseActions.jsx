@@ -14,6 +14,7 @@ import { formatDate } from '../../../../../utils/common'
 import { updateCurrentUnitAndSectionIndex, viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
 import { setOpenCoursePlayerPropType, viewCoursePropType, typePropType } from './propTypes'
 import { startLoader, stopLoader } from '../../../../../redux-saga/redux/utils'
+import CourseActionSkeleton from '../Skeletons/courseActionSkeleton'
 
 const CourseActions = ({
   course, setOpenCoursePlayer, type, isLoading, dataType,
@@ -112,6 +113,12 @@ const CourseActions = ({
     setOpenCoursePlayer(true)
   }, [ course.isEnrolled, course.courseDetails, course.courseId, dispatch, setOpenCoursePlayer,
     course.informationSection.price, course.courseContent.sections ])
+
+  if (isLoading) {
+    return (
+      <CourseActionSkeleton />
+    )
+  }
 
   return (
     <>
