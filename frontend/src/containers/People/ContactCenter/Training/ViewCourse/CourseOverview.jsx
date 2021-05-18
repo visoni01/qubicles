@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React from 'react'
 import { faCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -6,28 +7,36 @@ import _ from 'lodash'
 import {
   sectionsPropType, courseIdPropType, isEnrolledPropType, introVideoPropType, courseTitlePropType,
   courseStatusPropType, setOpenCoursePlayerPropType, currentUnitIndexPropType, currentSectionIndexPropType,
-  isIntroVideoActivePropType, isSectionTestActivePropType, openCoursePlayerPropType, typePropType,
+  isIntroVideoActivePropType, isSectionTestActivePropType, openCoursePlayerPropType, typePropType, isLoadingPropType,
 } from './propTypes'
 import CourseContentWrap from './CourseContentWrap'
+import CourseOverviewSkeleton from '../Skeletons/courseOverviewSkeleton'
 
 const CourseOverview = ({
   sections, courseId, isEnrolled, introVideo, courseTitle, courseStatus, openCoursePlayer, setOpenCoursePlayer,
-  currentUnitIndex, currentSectionIndex, isIntroVideoActive, isSectionTestActive, type,
-}) => (
-  <>
-    <Box className='custom-box course-overview-root'>
-      <div className='heading-section'>
-        <h3 className='h3'>Overview</h3>
-        <p className='contents para mt-10'>
-          {`${ sections && !_.isEmpty(sections) && !_.isEmpty(sections[ 0 ].units) ? sections.length : 0 } sections`}
-          <FontAwesomeIcon className='custom-fa-icon' icon={ faCircle } />
-          {`${ sections.reduce(
-            (totalUnits, section) => totalUnits + section.units.length,
-            introVideo ? 1 : 0,
-          ) } units`}
-        </p>
-      </div>
-      {sections && !_.isEmpty(sections) && !_.isEmpty(sections[ 0 ].units) && !_.isEmpty(sections[ 0 ].units) && (
+  currentUnitIndex, currentSectionIndex, isIntroVideoActive, isSectionTestActive, type, isLoading,
+}) => {
+  if (_.isNull(isLoading) || isLoading) {
+    return (
+      <CourseOverviewSkeleton />
+    )
+  }
+
+  return (
+    <>
+      <Box className='custom-box course-overview-root'>
+        <div className='heading-section'>
+          <h3 className='h3'>Overview</h3>
+          <p className='contents para mt-10'>
+            {`${ sections && !_.isEmpty(sections) && !_.isEmpty(sections[ 0 ].units) ? sections.length : 0 } sections`}
+            <FontAwesomeIcon className='custom-fa-icon' icon={ faCircle } />
+            {`${ sections.reduce(
+              (totalUnits, section) => totalUnits + section.units.length,
+              introVideo ? 1 : 0,
+            ) } units`}
+          </p>
+        </div>
+        {sections && !_.isEmpty(sections) && !_.isEmpty(sections[ 0 ].units) && !_.isEmpty(sections[ 0 ].units) && (
         <CourseContentWrap
           sections={ sections }
           courseId={ courseId }
@@ -43,10 +52,11 @@ const CourseOverview = ({
           isSectionTestActive={ isSectionTestActive }
           type={ type }
         />
-      )}
-    </Box>
-  </>
-)
+        )}
+      </Box>
+    </>
+  )
+}
 
 CourseOverview.defaultProps = {
   courseStatus: '',
@@ -72,6 +82,7 @@ CourseOverview.propTypes = {
   isSectionTestActive: isSectionTestActivePropType,
   openCoursePlayer: openCoursePlayerPropType,
   type: typePropType,
+  isLoading: isLoadingPropType.isRequired,
 }
 
 export default CourseOverview

@@ -47,6 +47,7 @@ const PreviewCreateCourse = ({
           currentSectionIndex={ course.currentSectionIndex }
           isIntroVideoActive={ course.isIntroVideoActive }
           isSectionTestActive={ course.isSectionTestActive }
+          isLoading={ isLoading }
           type='preview'
         />
       </Grid>

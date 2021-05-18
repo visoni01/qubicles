@@ -66,6 +66,7 @@ const ViewCourse = () => {
             currentSectionIndex={ course.currentSectionIndex }
             isIntroVideoActive={ course.isIntroVideoActive }
             isSectionTestActive={ course.isSectionTestActive }
+            isLoading={ isLoading }
           />
         </Grid>
         <Grid item>
