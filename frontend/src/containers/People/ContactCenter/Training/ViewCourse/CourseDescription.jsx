@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from 'react'
 import { Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
+import CourseDescriptionSkeleton from '../Skeletons/courseDescriptionSkeleton'
 
 const CourseDescription = ({
   title,
@@ -8,6 +10,7 @@ const CourseDescription = ({
   goals,
   outcomes,
   requirements,
+  isLoading,
 }) => {
   const [ showFullDescription, setShowFullDescription ] = useState(false)
   let descriptionButtonName
@@ -21,6 +24,12 @@ const CourseDescription = ({
     // eslint-disable-next-line no-shadow
     () => setShowFullDescription((showFullDescription) => !showFullDescription), [],
   )
+
+  if (_.isNull(isLoading) || isLoading) {
+    return (
+      <CourseDescriptionSkeleton />
+    )
+  }
 
   return (
     <>
@@ -69,6 +78,7 @@ CourseDescription.defaultProps = {
   goals: 'goals',
   outcomes: 'outcomes',
   requirements: 'requirements',
+  isLoading: false,
 }
 
 CourseDescription.propTypes = {
@@ -77,6 +87,7 @@ CourseDescription.propTypes = {
   goals: PropTypes.string,
   outcomes: PropTypes.string,
   requirements: PropTypes.string,
+  isLoading: PropTypes.bool,
 }
 
 export default CourseDescription

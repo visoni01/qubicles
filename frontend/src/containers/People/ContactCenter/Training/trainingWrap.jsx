@@ -7,12 +7,13 @@ import { Pagination } from '@material-ui/lab'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faSlidersH } from '@fortawesome/free-solid-svg-icons'
 import { useHistory } from 'react-router-dom'
+import _ from 'lodash'
 import ROUTE_PATHS from '../../../../routes/routesPath'
 import CourseCard from './CourseCard'
 import { updateViewAllCoursesFilter, updateCurrentPage } from '../../../../redux-saga/redux/people'
 import CourseFilterModal from './courseFilterModal'
 import { noOfCoursesPerPage } from '../constants'
-import { startLoader, stopLoader } from '../../../../redux-saga/redux/utils'
+import AllCoursesSkeleton from './Skeletons/allCoursesSkeleton'
 
 const TrainingWrap = () => {
   const {
@@ -44,7 +45,7 @@ const TrainingWrap = () => {
     searchCoursesApi(nextValue)
   }, [ searchCoursesApi ])
 
-  const changeCurrentPage = useCallback((_, page) => {
+  const changeCurrentPage = useCallback((__, page) => {
     dispatch(updateCurrentPage({
       currentPage: page,
     }))
@@ -56,14 +57,6 @@ const TrainingWrap = () => {
       offset: noOfCoursesPerPage * (currentPage - 1),
     }))
   }, [ currentPage, dispatch ])
-
-  useEffect(() => {
-    if (isLoading) {
-      dispatch(startLoader())
-    } else {
-      dispatch(stopLoader())
-    }
-  }, [ dispatch, isLoading ])
 
   // Course filter popover
   const [ anchorEl, setAnchorEl ] = useState(null)
@@ -106,60 +99,64 @@ const TrainingWrap = () => {
           Create Course
         </Button>
       </div>
-      <Box className='custom-box'>
-        <div className='all-courses-box mb-20'>
-          <h3 className='h3'>All Courses</h3>
-          <IconButton
-            onClick={ handleClick }
-            aria-describedby={ id }
-            className='filter'
-          >
-            <FontAwesomeIcon icon={ faSlidersH } className='custom-fa-icon light' />
-          </IconButton>
-          <CourseFilterModal
-            id={ id }
-            anchorEl={ anchorEl }
-            setAnchorEl={ setAnchorEl }
-            open={ open }
-            handleClose={ handleClose }
-          />
-        </div>
-        <Grid container spacing={ 2 }>
-          {(courses && courses.length === 0)
-            ? (
-              <div className='mt-10 mb-10 is-fullwidth'>
-                <h3 className='h3 text-center'>No courses found!</h3>
-              </div>
-            )
-            : courses.map((cardInfo) => (
-              <CourseCard
-                key={ cardInfo.courseId }
-                courseId={ cardInfo.courseId }
-                priceQbe={ cardInfo.price }
-                priceUsd={ cardInfo.price }
-                ratingValue={ cardInfo.rating }
-                studentsCount={ cardInfo.studentsCount }
-                courseTitle={ cardInfo.title }
-                creatorDetails={ cardInfo.creatorDetails }
-                sectionsCount={ cardInfo.sectionsCount }
-                language={ cardInfo.language }
-                imageUrl={ cardInfo.imageUrl }
+      {_.isNull(isLoading) || isLoading
+        ? <AllCoursesSkeleton />
+        : (
+          <Box className='custom-box'>
+            <div className='all-courses-box mb-20'>
+              <h3 className='h3'>All Courses</h3>
+              <IconButton
+                onClick={ handleClick }
+                aria-describedby={ id }
+                className='filter'
+              >
+                <FontAwesomeIcon icon={ faSlidersH } className='custom-fa-icon light' />
+              </IconButton>
+              <CourseFilterModal
+                id={ id }
+                anchorEl={ anchorEl }
+                setAnchorEl={ setAnchorEl }
+                open={ open }
+                handleClose={ handleClose }
               />
-            ))}
-        </Grid>
-        {Boolean(count && count > noOfCoursesPerPage) && (
-        <Pagination
-          count={ noOfPages }
-          shape='round'
-          page={ currentPage }
-          onChange={ changeCurrentPage }
-          classes={ { root: 'courses-pagination' } }
-          hidePrevButton={ currentPage < 2 }
-          hideNextButton={ currentPage === noOfPages }
-          className='is-flex is-center'
-        />
+            </div>
+            <Grid container spacing={ 2 }>
+              {(courses && courses.length === 0)
+                ? (
+                  <div className='mt-10 mb-10 is-fullwidth'>
+                    <h3 className='h3 text-center'>No courses found!</h3>
+                  </div>
+                )
+                : courses.map((cardInfo) => (
+                  <CourseCard
+                    key={ cardInfo.courseId }
+                    courseId={ cardInfo.courseId }
+                    priceQbe={ cardInfo.price }
+                    priceUsd={ cardInfo.price }
+                    ratingValue={ cardInfo.rating }
+                    studentsCount={ cardInfo.studentsCount }
+                    courseTitle={ cardInfo.title }
+                    creatorDetails={ cardInfo.creatorDetails }
+                    sectionsCount={ cardInfo.sectionsCount }
+                    language={ cardInfo.language }
+                    imageUrl={ cardInfo.imageUrl }
+                  />
+                ))}
+            </Grid>
+            {Boolean(count && count > noOfCoursesPerPage) && (
+            <Pagination
+              count={ noOfPages }
+              shape='round'
+              page={ currentPage }
+              onChange={ changeCurrentPage }
+              classes={ { root: 'courses-pagination' } }
+              hidePrevButton={ currentPage < 2 }
+              hideNextButton={ currentPage === noOfPages }
+              className='is-flex is-center'
+            />
+            )}
+          </Box>
         )}
-      </Box>
     </div>
   )
 }

@@ -11,7 +11,7 @@ import CourseActions from '../ViewCourse/CourseActions'
 
 const PreviewCreateCourse = ({
   informationSection, contentSection, courseContent,
-  isPreview, setIsPreview, updateCourseReducer, course, handleErrors,
+  isPreview, setIsPreview, updateCourseReducer, course, handleErrors, isLoading,
 }) => (
   <Grid container spacing={ 2 }>
     <Grid
@@ -32,6 +32,7 @@ const PreviewCreateCourse = ({
           goals={ informationSection.goals }
           outcomes={ informationSection.outcomes }
           requirements={ informationSection.requirements }
+          isLoading={ isLoading }
         />
       </Grid>
       <Grid item>
@@ -95,6 +96,7 @@ PreviewCreateCourse.propTypes = {
   updateCourseReducer: PropTypes.func.isRequired,
   course: coursePropType.isRequired,
   handleErrors: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 }
 
 export default PreviewCreateCourse

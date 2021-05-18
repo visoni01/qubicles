@@ -87,6 +87,7 @@ const EditCoursePage = () => {
           setIsPreview={ setIsPreview }
           updateCourseReducer={ updateCourseReducer }
           handleErrors={ handleErrors }
+          isLoading={ isLoading }
         />
       </>
     )

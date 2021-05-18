@@ -49,6 +49,7 @@ const ViewCourse = () => {
             goals={ course.informationSection.goals }
             outcomes={ course.informationSection.outcomes }
             requirements={ course.informationSection.requirements }
+            isLoading={ isLoading }
           />
         </Grid>
         <Grid item>
