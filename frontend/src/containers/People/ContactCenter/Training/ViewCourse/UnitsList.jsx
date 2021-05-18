@@ -60,7 +60,7 @@ const UnitsList = ({
       currentSectionIndex: sectionIndex,
       isIntroVideoActive: false,
     }))
-    if (!_.isEmpty(currentUnit) && currentUnit.unitId > 0) {
+    if (!_.isEmpty(currentUnit) && currentUnit.unitId > 0 && currentUnit.status !== 'completed') {
       dispatch(viewCourseRequestStart({
         requestType: 'UPDATE',
         dataType: 'Course Unit',
@@ -71,14 +71,16 @@ const UnitsList = ({
         || (currentUnit.status === 'completed' ? 'completed' : 'abandoned'),
       }))
     }
-    dispatch(viewCourseRequestStart({
-      requestType: 'UPDATE',
-      dataType: 'Course Unit',
-      courseId,
-      sectionId: nextSection.id,
-      unitId: nextUnit.unitId,
-      status: nextUnit.status === 'completed' ? 'completed' : 'inprogress',
-    }))
+    if (nextUnit.status !== 'completed' || _.isEmpty(nextUnit.details)) {
+      dispatch(viewCourseRequestStart({
+        requestType: 'UPDATE',
+        dataType: 'Course Unit',
+        courseId,
+        sectionId: nextSection.id,
+        unitId: nextUnit.unitId,
+        status: nextUnit.status === 'completed' ? 'completed' : 'inprogress',
+      }))
+    }
     setOpenCoursePlayer(true)
   }, [ setOpenCoursePlayer, courseId, currentUnit, dispatch, currentSection, sectionIndex ])
 

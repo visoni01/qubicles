@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 // eslint-disable-next-line import/no-cycle
 import { useDispatch } from 'react-redux'
+import _ from 'lodash'
 import CourseContents from './CourseContents'
 import {
   sectionsPropType, isEnrolledPropType, introVideoPropType, courseIdPropType,
@@ -47,23 +48,31 @@ const CoursePreview = ({
       isIntroVideoActive: false,
     }))
 
-    dispatch(viewCourseRequestStart({
-      requestType: 'UPDATE',
-      dataType: 'Course Unit',
-      courseId,
-      sectionId: currentSection.id,
-      unitId: sections[ currentSectionIndex ].units[ currentUnitIndex - 1 ].unitId,
-      status: sections[ currentSectionIndex ].units[ currentUnitIndex - 1 ].status === 'completed'
-        ? 'completed'
-        : 'inprogress',
-    }))
+    if (sections[ currentSectionIndex ].units[ currentUnitIndex - 1 ].status !== 'completed'
+      || _.isEmpty(sections[ currentSectionIndex ].units[ currentUnitIndex - 1 ].details)) {
+      dispatch(viewCourseRequestStart({
+        requestType: 'UPDATE',
+        dataType: 'Course Unit',
+        courseId,
+        sectionId: currentSection.id,
+        unitId: sections[ currentSectionIndex ].units[ currentUnitIndex - 1 ].unitId,
+        status: sections[ currentSectionIndex ].units[ currentUnitIndex - 1 ].status === 'completed'
+          ? 'completed'
+          : 'inprogress',
+      }))
+    }
   }, [ dispatch, courseId, currentUnit.unitId, currentSection.id, currentUnit.status,
     currentUnitIndex, currentSectionIndex, sections ])
 
   const handleNextUnit = useCallback(() => {
-    const nextUnitIndex = currentUnitIndex < sections[ currentSectionIndex ].units.length - 1 && currentUnitIndex !== -2
+    let nextUnitIndex = currentUnitIndex < sections[ currentSectionIndex ].units.length - 1 && currentUnitIndex !== -2
       ? currentUnitIndex + 1 : -2
-    const nextSectionIndex = currentSectionIndex
+    let nextSectionIndex = currentSectionIndex
+    if (sections[ currentSectionIndex ].status === 'completed'
+      && sections[ currentSectionIndex ].units.length - 1 === currentUnitIndex) {
+      nextUnitIndex = 0
+      nextSectionIndex = currentSectionIndex < sections.length - 1 ? currentSectionIndex + 1 : 0
+    }
     if (currentUnit.status !== 'completed' && currentUnit.unitId > 0) {
       dispatch(viewCourseRequestStart({
         requestType: 'UPDATE',
@@ -80,7 +89,9 @@ const CoursePreview = ({
       isIntroVideoActive: false,
     }))
 
-    if (nextUnitIndex !== currentUnitIndex && nextUnitIndex >= 0) {
+    if (nextUnitIndex !== currentUnitIndex && nextUnitIndex >= 0
+        && (sections[ nextSectionIndex ].units[ nextUnitIndex ].status !== 'completed'
+        || _.isEmpty(sections[ nextSectionIndex ].units[ nextUnitIndex ].details))) {
       dispatch(viewCourseRequestStart({
         requestType: 'UPDATE',
         dataType: 'Course Unit',
@@ -187,7 +198,8 @@ const CoursePreview = ({
               disabled={ currentSection.status === 'completed'
                 && sections[ currentSectionIndex ]
                 && sections[ currentSectionIndex ].units
-                && sections[ currentSectionIndex ].units.length - 1 === currentUnitIndex }
+                && sections[ currentSectionIndex ].units.length - 1 === currentUnitIndex
+                && sections[ currentSectionIndex ].units[ currentUnitIndex ].status === 'completed' }
             >
               Next
             </Button>

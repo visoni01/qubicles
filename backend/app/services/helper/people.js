@@ -1518,7 +1518,8 @@ export const getRandomQuestions = ({ questions }) => {
     return {
       ...item,
       questions: formatTestQuestionsData({
-        questions: _.shuffle(item.questions).slice(0, Math.floor(Math.random() * item.questions.length) + 1)
+        questions: _.shuffle(item.questions)
+          .slice(0, Math.max(Math.floor(Math.random() * item.questions.length), item.questions.length * 0.25) + 1)
       })
     }
   })
