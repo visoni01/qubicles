@@ -82,6 +82,7 @@ export const checkDisabledSaveQuestionButton = ({ question }) => {
   if (question.questionType === 'scale') {
     const isRightAnswerSelected = parseInt(question.answerText, 10) <= parseInt(question.scale.maxRange, 10)
     && parseInt(question.answerText, 10) >= parseInt(question.scale.minRange, 10)
+    && parseInt(question.scale.maxRange, 10) > parseInt(question.scale.minRange, 10)
     return !(
       !isEmptyQuestionText
       && isRightAnswerSelected

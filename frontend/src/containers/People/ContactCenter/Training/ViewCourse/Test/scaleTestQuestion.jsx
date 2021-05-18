@@ -48,6 +48,21 @@ const ScaleTestQuestion = ({
     return ''
   }, [ answers, question.id ])
 
+  const getMarks = useCallback(() => {
+    const totalRange = parseInt(question.scale.maxRange, 10) - parseInt(question.scale.minRange, 10)
+    const markValue = totalRange / Math.min(10, totalRange)
+    const marks = []
+    let currentValue = parseInt(question.scale.minRange, 10) + parseInt(markValue, 10)
+    while (currentValue < parseInt(question.scale.maxRange, 10)) {
+      marks.push({
+        value: currentValue,
+        label: currentValue,
+      })
+      currentValue = parseInt(currentValue, 10) + parseInt(markValue, 10)
+    }
+    return marks
+  }, [ question.scale.maxRange, question.scale.minRange ])
+
   return (
     <div className='display-inline-flex is-fullwidth align-items-center'>
       <Slider
@@ -59,11 +74,16 @@ const ScaleTestQuestion = ({
           track: 'custom-slider-track',
           rail: 'custom-slider-rail',
           valueLabel: 'custom-slider-value-label',
+          mark: 'custom-slider-mark',
+          markLabel: 'custom-slider-mark-label',
         } }
         onChange={ (e, val) => handleAnswerChange(val) }
         value={ parseInt(getAnswerValue(), 10) }
         min={ parseInt(question.scale.minRange, 10) }
         max={ parseInt(question.scale.maxRange, 10) }
+        step={ 1 }
+        marks={ getMarks() }
+        aria-labelledby='discrete-slider-small-steps'
       />
       <div className='ml-20'>
         <TextField

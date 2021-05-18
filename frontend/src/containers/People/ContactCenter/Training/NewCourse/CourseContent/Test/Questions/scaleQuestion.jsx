@@ -31,6 +31,21 @@ const ScaleQuestion = ({
     })
   }, [ setQuestionDetails ])
 
+  const getMarks = useCallback(() => {
+    const totalRange = parseInt(questionDetails.scale.maxRange, 10) - parseInt(questionDetails.scale.minRange, 10)
+    const markValue = totalRange / Math.min(10, totalRange)
+    const marks = []
+    let currentValue = parseInt(questionDetails.scale.minRange, 10) + parseInt(markValue, 10)
+    while (currentValue < parseInt(questionDetails.scale.maxRange, 10)) {
+      marks.push({
+        value: currentValue,
+        label: currentValue,
+      })
+      currentValue = parseInt(currentValue, 10) + parseInt(markValue, 10)
+    }
+    return marks
+  }, [ questionDetails.scale.maxRange, questionDetails.scale.minRange ])
+
   if (questionDetails.isSaved) {
     return (
       <div className='ml-10 pb-10 is-halfwidth'>
@@ -43,10 +58,15 @@ const ScaleQuestion = ({
             track: 'custom-slider-track',
             rail: 'custom-slider-rail',
             valueLabel: 'custom-slider-value-label',
+            mark: 'custom-slider-mark',
+            markLabel: 'custom-slider-mark-label',
           } }
           value={ parseInt(questionDetails.answerText, 10) }
           min={ parseInt(questionDetails.scale.minRange, 10) }
           max={ parseInt(questionDetails.scale.maxRange, 10) }
+          step={ 1 }
+          marks={ getMarks() }
+          aria-labelledby='discrete-slider-small-steps'
         />
       </div>
     )
@@ -65,6 +85,9 @@ const ScaleQuestion = ({
             value={ parseInt(questionDetails.answerText, 10) }
             min={ parseInt(questionDetails.scale.minRange, 10) }
             max={ parseInt(questionDetails.scale.maxRange, 10) }
+            step={ 1 }
+            marks={ getMarks() }
+            aria-labelledby='discrete-slider-small-steps'
             onChange={ (e, val) => handleAnswerChange(val) }
             valueLabelDisplay='auto'
             classes={ {
@@ -73,6 +96,8 @@ const ScaleQuestion = ({
               track: 'custom-slider-track',
               rail: 'custom-slider-rail',
               valueLabel: 'custom-slider-value-label',
+              mark: 'custom-slider-mark',
+              markLabel: 'custom-slider-mark-label',
             } }
           />
         </Grid>
