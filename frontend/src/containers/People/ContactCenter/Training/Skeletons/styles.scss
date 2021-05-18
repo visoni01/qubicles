@@ -148,3 +148,91 @@
     transform: none;
   }
 }
+
+.my-courses-skeleton-container {
+  width: 100%;
+
+  .my-courses-buttons {
+    justify-content: space-between;
+
+    .button {
+      width: 10%;
+      height: 30px;
+      transform: none;
+    }
+  }
+
+  .my-courses-title {
+    width: 15%;
+    height: 30px;
+    transform: none;
+  }
+
+  .my-courses-card {
+    margin-bottom: 20px;
+
+    .my-courses-card-body {
+      border-radius: 8px;
+      width: 100%;
+      height: 400px;
+      margin: 10px 0px;
+      transform: none;
+
+      .my-courses-card-picture {
+        height: 35%;
+        transform: none;
+      }
+
+      .my-courses-card-div {
+        margin: 10px 0px 0px 5px;
+
+        .my-courses-card-rating {
+          width: 30%;
+          height: 20px;
+          transform: none;
+        }
+
+        .my-courses-card-student {
+          margin-left: 10px;
+          width: 20%;
+          height: 20px;
+          transform: none;
+        }
+      }
+
+      .my-courses-card-title {
+        margin: 10px 0px 0px 5px;
+        width: 40%;
+        height: 20px;
+        transform: none;
+      }
+
+      .my-courses-card-list {
+        margin-top: 10px;
+
+        .my-courses-card-list-item {
+          justify-content: space-between;
+
+          .my-courses-card-property {
+            margin: 5px 0px 5px 5px;
+            width: 40%;
+            transform: none;
+          }
+
+          .my-courses-card-value {
+            margin: 5px 5px 5px 0px;
+            width: 20%;
+            transform: none;
+          }
+        }
+      }
+
+      .my-courses-card-button {
+        margin: 10px auto;
+        width: 80%;
+        height: 30px;
+        transform: none;
+      }
+    }
+  }
+}

@@ -6,11 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import _ from 'lodash'
 import DraftCourseCard from './draftCourseCard'
 import PublishedCourseCard from './publishedCourseCard'
 import ROUTE_PATHS from '../../../../../routes/routesPath'
 import { allCoursesRequestStart } from '../../../../../redux-saga/redux/people'
-import { startLoader, stopLoader } from '../../../../../redux-saga/redux/utils'
+import MyCoursesSkeleton from '../Skeletons/myCoursesSkeleton'
 
 const MyCourses = () => {
   const history = useHistory()
@@ -30,13 +31,11 @@ const MyCourses = () => {
     }
   }, [ dispatch, userDetails.user_code ])
 
-  useEffect(() => {
-    if (isLoading) {
-      dispatch(startLoader())
-    } else {
-      dispatch(stopLoader())
-    }
-  }, [ isLoading, dispatch ])
+  if (_.isNull(isLoading) || isLoading) {
+    return (
+      <MyCoursesSkeleton />
+    )
+  }
 
   return (
     <Box className='custom-box'>
