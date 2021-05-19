@@ -10,6 +10,7 @@ const CourseDescription = ({
   goals,
   outcomes,
   requirements,
+  dataType,
   isLoading,
 }) => {
   const [ showFullDescription, setShowFullDescription ] = useState(false)
@@ -25,7 +26,7 @@ const CourseDescription = ({
     () => setShowFullDescription((showFullDescription) => !showFullDescription), [],
   )
 
-  if (_.isNull(isLoading) || isLoading) {
+  if ((_.isNull(isLoading) || isLoading) && (_.isEmpty(dataType) || _.isEqual(dataType, 'Course Info'))) {
     return (
       <CourseDescriptionSkeleton />
     )
@@ -78,6 +79,7 @@ CourseDescription.defaultProps = {
   goals: 'goals',
   outcomes: 'outcomes',
   requirements: 'requirements',
+  dataType: '',
   isLoading: false,
 }
 
@@ -87,6 +89,7 @@ CourseDescription.propTypes = {
   goals: PropTypes.string,
   outcomes: PropTypes.string,
   requirements: PropTypes.string,
+  dataType: PropTypes.string,
   isLoading: PropTypes.bool,
 }
 

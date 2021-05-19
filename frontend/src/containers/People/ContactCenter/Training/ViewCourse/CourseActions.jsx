@@ -12,7 +12,9 @@ import AssessmentTestModal from './Test/assessmentTestModal'
 import BuyCourseModal from './buyCourseModal'
 import { formatDate } from '../../../../../utils/common'
 import { updateCurrentUnitAndSectionIndex, viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
-import { setOpenCoursePlayerPropType, viewCoursePropType, typePropType } from './propTypes'
+import {
+  setOpenCoursePlayerPropType, viewCoursePropType, typePropType, dataTypePropType,
+} from './propTypes'
 import { startLoader, stopLoader } from '../../../../../redux-saga/redux/utils'
 import CourseActionSkeleton from '../Skeletons/courseActionSkeleton'
 
@@ -114,7 +116,7 @@ const CourseActions = ({
   }, [ course.isEnrolled, course.courseDetails, course.courseId, dispatch, setOpenCoursePlayer,
     course.informationSection.price, course.courseContent.sections ])
 
-  if (isLoading) {
+  if (isLoading && (_.isEmpty(dataType) || _.isEqual(dataType, 'Course Info'))) {
     return (
       <CourseActionSkeleton />
     )
@@ -270,7 +272,7 @@ CourseActions.propTypes = {
   setOpenCoursePlayer: setOpenCoursePlayerPropType.isRequired,
   type: typePropType,
   isLoading: PropTypes.bool,
-  dataType: PropTypes.string,
+  dataType: dataTypePropType,
 }
 
 export default CourseActions

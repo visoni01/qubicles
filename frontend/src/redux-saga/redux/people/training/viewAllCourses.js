@@ -22,6 +22,7 @@ const {
     viewAllCoursesFetchFailure,
     updateViewAllCoursesFilter,
     updateCurrentPage,
+    resetViewAllCoursesReducer,
   },
   reducer,
 } = createSlice({
@@ -56,6 +57,14 @@ const {
       ...state,
       currentPage: action.payload.currentPage,
     }),
+    resetViewAllCoursesReducer: (state) => ({
+      ...initialState,
+      searchField: state.searchField,
+      categoryId: state.categoryId,
+      courseFilter: state.courseFilter,
+      offset: state.offset,
+      currentPage: state.currentPage,
+    }),
   },
 })
 
@@ -66,4 +75,5 @@ export {
   viewAllCoursesFetchFailure,
   updateViewAllCoursesFilter,
   updateCurrentPage,
+  resetViewAllCoursesReducer,
 }

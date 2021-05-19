@@ -8,7 +8,8 @@ import CourseOverview from './CourseOverview'
 import CourseReviews from './CourseReviews'
 import './styles.scss'
 import CourseActions from './CourseActions'
-import { viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
+import { resetViewCourseReducer, viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
+import { resetUserData } from '../../../../../redux-saga/redux/user'
 
 const ViewCourse = () => {
   let { courseId } = useParams()
@@ -23,6 +24,10 @@ const ViewCourse = () => {
       dataType: 'Course Info',
       courseId,
     }))
+    return () => {
+      dispatch(resetUserData())
+      dispatch(resetViewCourseReducer())
+    }
   }, [ dispatch, courseId ])
 
   return (
@@ -49,6 +54,7 @@ const ViewCourse = () => {
             goals={ course.informationSection.goals }
             outcomes={ course.informationSection.outcomes }
             requirements={ course.informationSection.requirements }
+            dataType={ dataType }
             isLoading={ isLoading }
           />
         </Grid>
@@ -66,6 +72,7 @@ const ViewCourse = () => {
             currentSectionIndex={ course.currentSectionIndex }
             isIntroVideoActive={ course.isIntroVideoActive }
             isSectionTestActive={ course.isSectionTestActive }
+            dataType={ dataType }
             isLoading={ isLoading }
           />
         </Grid>

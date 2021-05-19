@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box } from '@material-ui/core'
 import _ from 'lodash'
 import {
-  sectionsPropType, courseIdPropType, isEnrolledPropType, introVideoPropType, courseTitlePropType,
+  sectionsPropType, courseIdPropType, isEnrolledPropType, introVideoPropType, courseTitlePropType, dataTypePropType,
   courseStatusPropType, setOpenCoursePlayerPropType, currentUnitIndexPropType, currentSectionIndexPropType,
   isIntroVideoActivePropType, isSectionTestActivePropType, openCoursePlayerPropType, typePropType, isLoadingPropType,
 } from './propTypes'
@@ -14,9 +14,9 @@ import CourseOverviewSkeleton from '../Skeletons/courseOverviewSkeleton'
 
 const CourseOverview = ({
   sections, courseId, isEnrolled, introVideo, courseTitle, courseStatus, openCoursePlayer, setOpenCoursePlayer,
-  currentUnitIndex, currentSectionIndex, isIntroVideoActive, isSectionTestActive, type, isLoading,
+  currentUnitIndex, currentSectionIndex, isIntroVideoActive, isSectionTestActive, type, isLoading, dataType,
 }) => {
-  if (_.isNull(isLoading) || isLoading) {
+  if ((_.isNull(isLoading) || isLoading) && (_.isEmpty(dataType) || _.isEqual(dataType, 'Course Info'))) {
     return (
       <CourseOverviewSkeleton />
     )
@@ -66,6 +66,7 @@ CourseOverview.defaultProps = {
   isSectionTestActive: null,
   openCoursePlayer: false,
   type: 'view',
+  dataType: '',
 }
 
 CourseOverview.propTypes = {
@@ -83,6 +84,7 @@ CourseOverview.propTypes = {
   openCoursePlayer: openCoursePlayerPropType,
   type: typePropType,
   isLoading: isLoadingPropType.isRequired,
+  dataType: dataTypePropType,
 }
 
 export default CourseOverview

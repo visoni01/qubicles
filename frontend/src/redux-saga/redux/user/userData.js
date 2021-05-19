@@ -35,11 +35,8 @@ const {
       error: true,
       isLoading: false,
     }),
-    resetUserData: (state) => ({
-      ...state,
-      userData: {},
-      error: true,
-      isLoading: false,
+    resetUserData: () => ({
+      ...initialState,
     }),
   },
 })

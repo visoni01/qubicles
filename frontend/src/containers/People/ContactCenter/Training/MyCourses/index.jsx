@@ -10,7 +10,7 @@ import _ from 'lodash'
 import DraftCourseCard from './draftCourseCard'
 import PublishedCourseCard from './publishedCourseCard'
 import ROUTE_PATHS from '../../../../../routes/routesPath'
-import { allCoursesRequestStart } from '../../../../../redux-saga/redux/people'
+import { allCoursesRequestStart, resetAllCoursesReducer } from '../../../../../redux-saga/redux/people'
 import MyCoursesSkeleton from '../Skeletons/myCoursesSkeleton'
 
 const MyCourses = () => {
@@ -28,6 +28,9 @@ const MyCourses = () => {
       dispatch(allCoursesRequestStart({
         requestType: 'FETCH',
       }))
+    }
+    return () => {
+      dispatch(resetAllCoursesReducer())
     }
   }, [ dispatch, userDetails.user_code ])
 

@@ -13,6 +13,7 @@ const {
     allCoursesRequestStart,
     allCoursesRequestSuccess,
     allCoursesRequestFailed,
+    resetAllCoursesReducer,
   }, reducer,
 } = createSlice({
   name: 'allCourses',
@@ -35,6 +36,9 @@ const {
       error: true,
       success: false,
     }),
+    resetAllCoursesReducer: () => ({
+      ...initialState,
+    }),
   },
 })
 
@@ -43,4 +47,5 @@ export {
   allCoursesRequestStart,
   allCoursesRequestSuccess,
   allCoursesRequestFailed,
+  resetAllCoursesReducer,
 }
