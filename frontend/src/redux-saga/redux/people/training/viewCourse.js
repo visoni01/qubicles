@@ -46,8 +46,8 @@ const initialState = {
       certificate: null,
       endorsed: null,
     },
+    assessmentTest: [],
   },
-  assessmentTest: [],
   requestType: '',
   dataType: '',
 }
