@@ -33,6 +33,7 @@ const PreviewCreateCourse = ({
           outcomes={ informationSection.outcomes }
           requirements={ informationSection.requirements }
           isLoading={ isLoading }
+          type='preview'
         />
       </Grid>
       <Grid item>

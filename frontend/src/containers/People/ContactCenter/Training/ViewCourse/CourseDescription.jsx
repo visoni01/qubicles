@@ -12,6 +12,7 @@ const CourseDescription = ({
   requirements,
   dataType,
   isLoading,
+  type,
 }) => {
   const [ showFullDescription, setShowFullDescription ] = useState(false)
   let descriptionButtonName
@@ -26,7 +27,8 @@ const CourseDescription = ({
     () => setShowFullDescription((showFullDescription) => !showFullDescription), [],
   )
 
-  if ((_.isNull(isLoading) || isLoading) && (_.isEmpty(dataType) || _.isEqual(dataType, 'Course Info'))) {
+  if (_.isEqual(type, 'view')
+  && ((_.isNull(isLoading) || isLoading) && (_.isEmpty(dataType) || _.isEqual(dataType, 'Course Info')))) {
     return (
       <CourseDescriptionSkeleton />
     )
@@ -81,6 +83,7 @@ CourseDescription.defaultProps = {
   requirements: 'requirements',
   dataType: '',
   isLoading: false,
+  type: 'view',
 }
 
 CourseDescription.propTypes = {
@@ -91,6 +94,7 @@ CourseDescription.propTypes = {
   requirements: PropTypes.string,
   dataType: PropTypes.string,
   isLoading: PropTypes.bool,
+  type: PropTypes.string,
 }
 
 export default CourseDescription

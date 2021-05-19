@@ -16,7 +16,8 @@ const CourseOverview = ({
   sections, courseId, isEnrolled, introVideo, courseTitle, courseStatus, openCoursePlayer, setOpenCoursePlayer,
   currentUnitIndex, currentSectionIndex, isIntroVideoActive, isSectionTestActive, type, isLoading, dataType,
 }) => {
-  if ((_.isNull(isLoading) || isLoading) && (_.isEmpty(dataType) || _.isEqual(dataType, 'Course Info'))) {
+  if (_.isEqual(type, 'view')
+  && ((_.isNull(isLoading) || isLoading) && (_.isEmpty(dataType) || _.isEqual(dataType, 'Course Info')))) {
     return (
       <CourseOverviewSkeleton />
     )
@@ -50,6 +51,8 @@ const CourseOverview = ({
           currentSectionIndex={ currentSectionIndex }
           isIntroVideoActive={ isIntroVideoActive }
           isSectionTestActive={ isSectionTestActive }
+          isLoading={ isLoading }
+          dataType={ dataType }
           type={ type }
         />
         )}

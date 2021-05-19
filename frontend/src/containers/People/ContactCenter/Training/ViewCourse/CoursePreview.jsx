@@ -14,17 +14,18 @@ import _ from 'lodash'
 import CourseContents from './CourseContents'
 import {
   sectionsPropType, isEnrolledPropType, introVideoPropType, courseIdPropType,
-  setOpenCoursePlayerPropType, setCurrentSectionPropType, setCurrentUnitPropType,
+  setOpenCoursePlayerPropType, setCurrentSectionPropType, setCurrentUnitPropType, dataTypePropType,
   courseTitlePropType, unitPropType, sectionPropType, currentUnitIndexPropType, currentSectionIndexPropType,
-  isIntroVideoActivePropType, isSectionTestActivePropType, courseStatusPropType,
+  isIntroVideoActivePropType, isSectionTestActivePropType, courseStatusPropType, isLoadingPropType,
 } from './propTypes'
 import { updateCurrentUnitAndSectionIndex, viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
 import SectionTest from './sectionTest'
+import ViewCourseUnitSkeleton from '../Skeletons/viewCourseUnitSkeleton'
 
 const CoursePreview = ({
   open, onClose, sections, courseTitle, currentSection, currentUnit, courseId, setOpenCoursePlayer,
   isEnrolled, introVideo, setCurrentSection, setCurrentUnit, currentUnitIndex, currentSectionIndex,
-  isIntroVideoActive, isSectionTestActive, courseStatus,
+  isIntroVideoActive, isSectionTestActive, courseStatus, isLoading, dataType,
 }) => {
   const dispatch = useDispatch()
 
@@ -135,6 +136,7 @@ const CoursePreview = ({
           />
         </div>
         <div className='dialog-right-side'>
+          {open && !isLoading && (
           <div className='display-inline-flex justify-between no-padding-bottom'>
             <DialogTitle className='is-fullwidth'>
               <h4 className='h4 mt-10'>
@@ -147,19 +149,22 @@ const CoursePreview = ({
               </IconButton>
             </DialogActions>
           </div>
+          )}
           <DialogContent className='course-content-area'>
+            {open && !isLoading && (
             <h3 className='h3 mb-10 light'>
               {`${ currentSection.title }: `}
               <span className='h3'>
                 {(currentUnit && currentUnit.title) || (isIntroVideoActive && 'Intro')}
               </span>
             </h3>
-            {(currentUnit.type === 'Video' || isIntroVideoActive) && (
+            )}
+            {open && !isLoading && (currentUnit.type === 'Video' || isIntroVideoActive) && (
             <div className='post-image'>
               <img alt={ currentUnit.title } src='https://picsum.photos/896/480' />
             </div>
             )}
-            {currentUnit.type === 'Article' && (
+            {open && !isLoading && currentUnit.type === 'Article' && (
             <div
               className='para sz-xl'
               // eslint-disable-next-line react/no-danger
@@ -172,10 +177,12 @@ const CoursePreview = ({
               sectionId={ currentSection.id }
             />
             )}
-
+            {open && isLoading && _.isEqual(dataType, 'Course Unit') && (
+              <ViewCourseUnitSkeleton />
+            )}
           </DialogContent>
 
-          {isEnrolled && courseStatus === 'inprogress' && currentUnit.unitId !== -2 && (
+          {open && !isLoading && isEnrolled && courseStatus === 'inprogress' && currentUnit.unitId !== -2 && (
           <DialogActions className='modal-actions course-content-buttons'>
             {currentUnitIndex > 0 && (
             <Button
@@ -233,6 +240,8 @@ CoursePreview.propTypes = {
   isIntroVideoActive: isIntroVideoActivePropType,
   isSectionTestActive: isSectionTestActivePropType,
   courseStatus: courseStatusPropType.isRequired,
+  dataType: dataTypePropType.isRequired,
+  isLoading: isLoadingPropType.isRequired,
 }
 
 export default CoursePreview

@@ -236,3 +236,35 @@
     }
   }
 }
+
+.course-unit-skeleton-container {
+  width: 100%;
+  margin-top: 5px;
+
+  .course-title {
+    width: 20%;
+    height: 25px;
+    transform: none;
+  }
+
+  .section-title {
+    margin-top: 30px;
+    width: 40%;
+    height: 30px;
+    transform: none;
+  }
+
+  .unit-title {
+    margin-top: 15px;
+    width: 15%;
+    height: 25px;
+    transform: none;
+  }
+
+  .unit-details {
+    margin-top: 15px;
+    width: 95%;
+    height: 300px;
+    transform: none;
+  }
+}

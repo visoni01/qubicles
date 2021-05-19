@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react'
 import CourseContents from './CourseContents'
 import CoursePreview from './CoursePreview'
 import {
-  sectionsPropType, courseIdPropType, isEnrolledPropType, introVideoPropType, courseTitlePropType,
+  sectionsPropType, courseIdPropType, isEnrolledPropType, introVideoPropType, courseTitlePropType, dataTypePropType,
   courseStatusPropType, setOpenCoursePlayerPropType, currentUnitIndexPropType, currentSectionIndexPropType,
-  isIntroVideoActivePropType, isSectionTestActivePropType, openCoursePlayerPropType, typePropType,
+  isIntroVideoActivePropType, isSectionTestActivePropType, openCoursePlayerPropType, typePropType, isLoadingPropType,
 } from './propTypes'
 
 export default function CourseContentWrap({
   sections, courseId, isEnrolled, introVideo, courseTitle, courseStatus, openCoursePlayer, setOpenCoursePlayer,
-  currentUnitIndex, currentSectionIndex, isIntroVideoActive, isSectionTestActive, type,
+  currentUnitIndex, currentSectionIndex, isIntroVideoActive, isSectionTestActive, type, isLoading, dataType,
 }) {
   const [ currentSection, setCurrentSection ] = useState({})
   const [ currentUnit, setCurrentUnit ] = useState({})
@@ -69,6 +69,8 @@ export default function CourseContentWrap({
         isIntroVideoActive={ isIntroVideoActive }
         isSectionTestActive={ isSectionTestActive }
         courseStatus={ courseStatus }
+        dataType={ dataType }
+        isLoading={ isLoading }
       />
     </>
   )
@@ -97,5 +99,7 @@ CourseContentWrap.propTypes = {
   isIntroVideoActive: isIntroVideoActivePropType,
   isSectionTestActive: isSectionTestActivePropType,
   openCoursePlayer: openCoursePlayerPropType,
+  isLoading: isLoadingPropType.isRequired,
   type: typePropType,
+  dataType: dataTypePropType.isRequired,
 }
