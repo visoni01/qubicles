@@ -17,3 +17,74 @@
     padding-bottom: 16px;
   }
 }
+
+.validation-modal-root {
+  .user-pic {
+    height: 50px;
+    width: 50px;
+  }
+
+  .user-name {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .validation-modal-actions {
+    margin-top: 20px;
+  }
+
+  scrollbar-color: rgba(72, 119, 244, 0.7) rgb(201, 201, 201);
+
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(72, 119, 244, 0.7);
+    border-radius: 20px 20px 20px 20px ;
+  }
+}
+
+.answer-validation-card-root {
+  .user-pic {
+    height: 32px;
+    width: 32px;
+    margin-top: 5px;
+  }
+
+  .answer-text {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .card-content-root:last-child {
+    padding-bottom: 16px;
+  }
+
+  .validation-button {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  .correct-button {
+    background: #23E8B5 0% 0% no-repeat padding-box;
+    min-width: 86px;
+    height: 30px;
+    border-radius: 4px;
+    &:hover {
+      background-color: #32bf99;
+    }
+    &:disabled {
+      background-color: #a4d5c8;
+    }
+  }
+
+  .incorrect-button {
+    background: #F14667 0% 0% no-repeat padding-box;
+    min-width: 86px;
+    height: 30px;
+    border-radius: 4px;
+    &:hover {
+      background-color: #d02547;
+    }
+    &:disabled {
+      background-color: #c49ba3;
+    }
+  }
+}
