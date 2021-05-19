@@ -1,0 +1,19 @@
+.test-entry-card-root {
+  .review-button {
+    margin-left: auto;
+  }
+
+  .user-pic {
+    height: 50px;
+    width: 50px;
+  }
+
+  .user-name {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .card-content-root:last-child {
+    padding-bottom: 16px;
+  }
+}

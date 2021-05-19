@@ -12,6 +12,7 @@ import RouteRenderer from './featureSubRoutes'
 import PeopleViewJobs from '../../containers/People/viewJobsIndex'
 import MyCourses from '../../containers/People/ContactCenter/Training/MyCourses'
 import EditCoursePage from '../../containers/People/ContactCenter/Training/NewCourse/editCoursePage'
+import TestEntries from '../../containers/People/ContactCenter/Training/MyCourses/TestEntries'
 
 const List = [
   {
@@ -72,6 +73,11 @@ const List = [
   {
     path: ROUTE_PATHS.VIEW_JOB_APPLICATION,
     component: ViewJobApplication,
+    exact: true,
+  },
+  {
+    path: ROUTE_PATHS.VIEW_TEST_ENTRIES,
+    component: TestEntries,
     exact: true,
   },
 ]

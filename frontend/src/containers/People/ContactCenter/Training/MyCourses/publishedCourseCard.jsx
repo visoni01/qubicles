@@ -20,7 +20,6 @@ const PublishedCourseCard = ({
     <Grid xl={ 3 } lg={ 3 } md={ 6 } sm={ 12 } item>
       <Card
         className='course-card'
-        onClick={ () => history.push(`${ VIEW_COURSE_ROUTE }/${ courseId }`) }
       >
         <Box className='custom-box no-padding price-overlay'>
           <p className='h3 price-qbe text-center'>
@@ -45,6 +44,7 @@ const PublishedCourseCard = ({
             endIcon={
               <span className='para primary test-count-icon'>{`${ testEntries }+`}</span>
             }
+            onClick={ () => history.push(`${ VIEW_COURSE_ROUTE }/${ courseId }/test-entries`) }
           >
             Please check new test entries
           </Button>
@@ -100,6 +100,7 @@ const PublishedCourseCard = ({
             <Button
               className='is-fullwidth'
               classes={ { root: 'button-primary-small', label: 'button-primary-small-label' } }
+              onClick={ () => history.push(`${ VIEW_COURSE_ROUTE }/${ courseId }`) }
             >
               View Course
             </Button>
