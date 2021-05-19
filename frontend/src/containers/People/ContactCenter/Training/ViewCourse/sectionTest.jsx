@@ -8,6 +8,7 @@ import RenderTestQuestion from './Test/renderTestQuestion'
 import { updateCurrentUnitAndSectionIndex, viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
 import { courseIdPropType, sectionIdPropType } from './propTypes'
 import TestCompleted from './Test/testCompleted'
+import ViewCourseTestSkeleton from '../Skeletons/viewCourseTestSkeleton'
 
 const SectionTest = ({ courseId, sectionId }) => {
   const dispatch = useDispatch()
@@ -70,6 +71,12 @@ const SectionTest = ({ courseId, sectionId }) => {
       setIsTestCompleted(true)
     }
   }, [ dataType, requestType, isLoading ])
+
+  if (isLoading && _.isEqual(dataType, 'Section Test')) {
+    return (
+      <ViewCourseTestSkeleton />
+    )
+  }
 
   return (
     <div className='test-modal'>

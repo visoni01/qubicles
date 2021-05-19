@@ -268,3 +268,74 @@
     transform: none;
   }
 }
+
+.course-test-skeleton-container {
+  width: 100%;
+  margin-top: 5px;
+
+  .course-title {
+    width: 20%;
+    height: 25px;
+    transform: none;
+  }
+
+  .section-title {
+    margin-top: 30px;
+    width: 40%;
+    height: 30px;
+    transform: none;
+  }
+
+  .test-title {
+    margin-top: 15px;
+    width: 15%;
+    height: 25px;
+    transform: none;
+  }
+
+  .progress-bar {
+    margin-top: 15px;
+    width: 100%;
+    height: 15px;
+    transform: none;
+  }
+
+  .question-title {
+    width: 60%;
+    height: 20px;
+    transform: none;
+  }
+
+  .options{
+    width: 100%;
+
+    .option-bullet {
+      margin-top: 10px;
+      width: 15px;
+      height: 15px;
+      transform: none;
+    }
+
+    .option-title {
+      margin-top: 10px;
+      margin-left: 10px;
+      width: 20%;
+      height: 15px;
+      transform: none;
+    }
+  }
+
+  .answer-box {
+    margin-top: 10px;
+    width: 100%;
+    height: 75px;
+    transform: none;
+  }
+
+  .button {
+    margin: 20px auto;
+    width: 25%;
+    height: 30px;
+    transform: none;
+  }
+}
