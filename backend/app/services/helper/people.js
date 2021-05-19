@@ -1495,10 +1495,10 @@ export const createUserTestBulkData = ({ user_id, course_id, section_id, questio
       section_id,
       section_qa_id: question.id,
       answer: question.answer,
-      correct: ['multiple', 'checkbox'].includes(question.questionType)
+      correct: ['multiple', 'checkbox', 'scale'].includes(question.questionType)
         ? correctAnswers.find((item) => item.section_qa_id === question.id).answer === question.answer
         : null,
-      verified: ['multiple', 'checkbox'].includes(question.questionType)
+      verified: ['multiple', 'checkbox', 'scale'].includes(question.questionType)
     }
   })
 }
