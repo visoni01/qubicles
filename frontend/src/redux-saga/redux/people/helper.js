@@ -45,6 +45,7 @@ export const getUpdatedCourse = ({ state, action }) => {
       switch (state.dataType) {
         case 'Course Info': {
           return {
+            ...state.course,
             ...action.payload.course,
             currentUnitIndex: null,
             currentSectionIndex: null,

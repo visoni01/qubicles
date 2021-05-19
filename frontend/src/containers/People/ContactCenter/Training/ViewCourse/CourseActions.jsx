@@ -62,6 +62,16 @@ const CourseActions = ({
           currentUnitIndex: unitIndex,
           isIntroVideoActive: unitIndex === -1,
         }))
+        if (unitIndex !== -1) {
+          dispatch(viewCourseRequestStart({
+            requestType: 'UPDATE',
+            dataType: 'Course Unit',
+            courseId: course.courseId,
+            sectionId: course.courseContent.sections[ 0 ].id,
+            unitId: course.courseContent.sections[ 0 ].units[ unitIndex ].unitId,
+            status: 'completed',
+          }))
+        }
       } else {
         let sectionIndex = _.findIndex(course.courseContent.sections, [ 'status', 'inprogress' ])
         let unitIndex
