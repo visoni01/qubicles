@@ -2,6 +2,7 @@ import React from 'react'
 import { faCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box } from '@material-ui/core'
+import _ from 'lodash'
 import {
   sectionsPropType, courseIdPropType, isEnrolledPropType, introVideoPropType, courseTitlePropType,
   courseStatusPropType, setOpenCoursePlayerPropType, currentUnitIndexPropType, currentSectionIndexPropType,
@@ -18,7 +19,7 @@ const CourseOverview = ({
       <div className='heading-section'>
         <h3 className='h3'>Overview</h3>
         <p className='contents para mt-10'>
-          {`${ sections.length } sections`}
+          {`${ sections && !_.isEmpty(sections) && !_.isEmpty(sections[ 0 ].units) ? sections.length : 0 } sections`}
           <FontAwesomeIcon className='custom-fa-icon' icon={ faCircle } />
           {`${ sections.reduce(
             (totalUnits, section) => totalUnits + section.units.length,
@@ -26,21 +27,23 @@ const CourseOverview = ({
           ) } units`}
         </p>
       </div>
-      <CourseContentWrap
-        sections={ sections }
-        courseId={ courseId }
-        isEnrolled={ isEnrolled }
-        introVideo={ introVideo }
-        courseTitle={ courseTitle }
-        courseStatus={ courseStatus }
-        openCoursePlayer={ openCoursePlayer }
-        setOpenCoursePlayer={ setOpenCoursePlayer }
-        currentUnitIndex={ currentUnitIndex }
-        currentSectionIndex={ currentSectionIndex }
-        isIntroVideoActive={ isIntroVideoActive }
-        isSectionTestActive={ isSectionTestActive }
-        type={ type }
-      />
+      {sections && !_.isEmpty(sections) && !_.isEmpty(sections[ 0 ].units) && !_.isEmpty(sections[ 0 ].units) && (
+        <CourseContentWrap
+          sections={ sections }
+          courseId={ courseId }
+          isEnrolled={ isEnrolled }
+          introVideo={ introVideo }
+          courseTitle={ courseTitle }
+          courseStatus={ courseStatus }
+          openCoursePlayer={ openCoursePlayer }
+          setOpenCoursePlayer={ setOpenCoursePlayer }
+          currentUnitIndex={ currentUnitIndex }
+          currentSectionIndex={ currentSectionIndex }
+          isIntroVideoActive={ isIntroVideoActive }
+          isSectionTestActive={ isSectionTestActive }
+          type={ type }
+        />
+      )}
     </Box>
   </>
 )

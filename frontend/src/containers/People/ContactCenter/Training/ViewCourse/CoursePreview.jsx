@@ -89,7 +89,7 @@ const CoursePreview = ({
       isIntroVideoActive: false,
     }))
 
-    if (nextUnitIndex !== currentUnitIndex && nextUnitIndex >= 0
+    if ((nextUnitIndex !== currentUnitIndex || nextSectionIndex !== currentSectionIndex) && nextUnitIndex >= 0
         && (sections[ nextSectionIndex ].units[ nextUnitIndex ].status !== 'completed'
         || _.isEmpty(sections[ nextSectionIndex ].units[ nextUnitIndex ].details))) {
       dispatch(viewCourseRequestStart({

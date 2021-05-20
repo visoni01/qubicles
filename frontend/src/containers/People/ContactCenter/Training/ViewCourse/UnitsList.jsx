@@ -180,6 +180,7 @@ const UnitsList = ({
           ))}
 
           {/* Test */}
+          {((section && section.test && !_.isEmpty(section.test) && type === 'preview') || (type !== 'preview')) && (
           <ListItem className='nested-list' disableGutters>
             <ListItemIcon>
               <FontAwesomeIcon className='custom-fa-icon light' icon={ faFileSignature } />
@@ -216,6 +217,7 @@ const UnitsList = ({
               }
             </Button>
           </ListItem>
+          )}
         </List>
       </Collapse>
     </>

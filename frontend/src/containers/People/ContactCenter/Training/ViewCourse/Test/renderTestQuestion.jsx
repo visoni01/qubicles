@@ -17,7 +17,7 @@ const TestQuestion = ({
 
         {/* Question text */}
         <Grid item xl={ 11 } lg={ 11 } md={ 11 } sm={ 11 } xs={ 11 }>
-          <p className='para bold sz-lg mt-10'>{`${ question.questionText }`}</p>
+          <p className='para bold sz-lg mt-10 p-word-break'>{`${ question.questionText }`}</p>
         </Grid>
 
         <Grid item xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 } xs={ 12 }>

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import _ from 'lodash'
 import { getUniqueId } from '../../../../utils/common'
 
 const initialState = {
@@ -69,6 +70,12 @@ const {
       course: {
         ...state.course,
         ...action.payload.course,
+        courseContent: action.payload.course.courseContent ? {
+          ...action.payload.course.courseContent,
+          sections: !_.isEmpty(action.payload.course.courseContent.sections)
+            ? action.payload.course.courseContent.sections
+            : initialState.course.courseContent.sections,
+        } : initialState.course.courseContent,
       },
     }),
     trainingCourseRequestFailed: (state) => ({
