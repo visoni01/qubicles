@@ -76,6 +76,13 @@ export const getUpdatedCourse = ({ state, action }) => {
           }
         }
 
+        case 'Buy Course': {
+          return {
+            ...state.course,
+            ...action.payload.course,
+          }
+        }
+
         default: return state.course
       }
     }

@@ -38,6 +38,12 @@ function* viewCourseWorker(action) {
             break
           }
 
+          case 'Buy Course': {
+            const { data } = yield People.buyCourse({ courseId })
+            yield put(viewCourseRequestSuccess({ course: data }))
+            break
+          }
+
           default: break
         }
         break

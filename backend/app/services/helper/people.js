@@ -807,7 +807,8 @@ export const formatViewCourseData = ({
   unitsStatus,
   studentsEnrolled,
   categoryTitle,
-  courseDetails
+  courseDetails,
+  creatorDetails
 }) => {
   return {
     isEnrolled,
@@ -818,6 +819,7 @@ export const formatViewCourseData = ({
     rating: course.rating,
     informationSection: {
       creatorId: course.creator_id,
+      creatorName: creatorDetails.full_name,
       title: course.title,
       category: course.category_id,
       categoryTitle: categoryTitle,
@@ -883,6 +885,10 @@ export async function getViewCourseById ({ course_id, user_id }) {
     let newPromiseArray = []
     let courseDetails = {}
     const categoryTitle = await getCategoryTitleById({ category_id: course.category_id })
+    const creatorDetails = await User.findOne({
+      attributes: ['full_name'],
+      where: { user_id: course.creator_id }
+    })
 
     if (userCourse) {
       isEnrolled = true
@@ -926,7 +932,8 @@ export async function getViewCourseById ({ course_id, user_id }) {
       unitsStatus,
       studentsEnrolled,
       categoryTitle,
-      courseDetails
+      courseDetails,
+      creatorDetails
     })
 
     return formattedViewCourse

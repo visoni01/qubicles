@@ -1,5 +1,5 @@
 /* eslint-disable complexity */
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import {
   Button, Box, Card, CardMedia,
@@ -7,16 +7,30 @@ import {
 import { Rating } from '@material-ui/lab'
 import '../style.scss'
 import _ from 'lodash'
+import PropTypes from 'prop-types'
 import AssessmentTestModal from './Test/assessmentTestModal'
 import BuyCourseModal from './buyCourseModal'
 import { formatDate } from '../../../../../utils/common'
 import { updateCurrentUnitAndSectionIndex, viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
 import { setOpenCoursePlayerPropType, viewCoursePropType, typePropType } from './propTypes'
+import { startLoader, stopLoader } from '../../../../../redux-saga/redux/utils'
 
-const CourseActions = ({ course, setOpenCoursePlayer, type }) => {
+const CourseActions = ({
+  course, setOpenCoursePlayer, type, isLoading, dataType,
+}) => {
   const [ isAssessmentModalOpen, setIsAssessmentModalOpen ] = useState(false)
   const [ openBuyCoursePopup, setOpenBuyCoursePopup ] = useState(false)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (dataType === 'Buy Course' && isLoading) {
+      dispatch(startLoader())
+    }
+    if (dataType === 'Buy Course' && isLoading === false) {
+      setOpenBuyCoursePopup(false)
+      dispatch(stopLoader())
+    }
+  }, [ dataType, isLoading, setOpenBuyCoursePopup, dispatch ])
 
   const handlePreview = useCallback(() => {
     dispatch(updateCurrentUnitAndSectionIndex({
@@ -169,6 +183,11 @@ const CourseActions = ({ course, setOpenCoursePlayer, type }) => {
             <BuyCourseModal
               open={ openBuyCoursePopup }
               onClose={ () => setOpenBuyCoursePopup(false) }
+              courseId={ course.courseId }
+              title={ course.informationSection.title }
+              createdOn={ course.createdOn }
+              price={ course.informationSection.price }
+              creatorName={ course.informationSection.creatorName }
             />
           )}
 
@@ -223,12 +242,16 @@ const CourseActions = ({ course, setOpenCoursePlayer, type }) => {
 
 CourseActions.defaultProps = {
   type: 'view',
+  isLoading: null,
+  dataType: '',
 }
 
 CourseActions.propTypes = {
   course: viewCoursePropType.isRequired,
   setOpenCoursePlayer: setOpenCoursePlayerPropType.isRequired,
   type: typePropType,
+  isLoading: PropTypes.bool,
+  dataType: PropTypes.string,
 }
 
 export default CourseActions

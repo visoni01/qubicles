@@ -28,6 +28,7 @@ const initialState = {
       requirements: '',
       language: '',
       creatorId: null,
+      creatorName: '',
       requiredCourses: [],
     },
     contentSection: {

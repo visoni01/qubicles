@@ -295,6 +295,11 @@ class People {
     const response = await apiClient.postRequest(`/people/course/${ courseId }/test`, { sectionId, questions })
     return response
   }
+
+  static async buyCourse({ courseId }) {
+    const response = await apiClient.getRequest(`/people/course/${ courseId }/buy`)
+    return response
+  }
 }
 
 export default People

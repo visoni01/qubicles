@@ -13,7 +13,7 @@ import { viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
 const ViewCourse = () => {
   let { courseId } = useParams()
   courseId = parseInt(courseId, 10)
-  const { course } = useSelector((state) => state.viewCourse)
+  const { course, dataType, isLoading } = useSelector((state) => state.viewCourse)
   const dispatch = useDispatch()
   const [ openCoursePlayer, setOpenCoursePlayer ] = useState(false)
 
@@ -76,6 +76,8 @@ const ViewCourse = () => {
           course={ course }
           openCoursePlayer={ openCoursePlayer }
           setOpenCoursePlayer={ setOpenCoursePlayer }
+          isLoading={ isLoading }
+          dataType={ dataType }
         />
       </Grid>
     </Grid>
