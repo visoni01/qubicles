@@ -5,7 +5,9 @@ import {
 import PropTypes from 'prop-types'
 import { Rating } from '@material-ui/lab'
 import { useHistory } from 'react-router-dom'
+import { faCircle } from '@fortawesome/free-solid-svg-icons'
 import './style.scss'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { VIEW_COURSE_ROUTE } from '../../../../routes/routesPath'
 
 const CourseCard = ({
@@ -52,6 +54,7 @@ const CourseCard = ({
           </div>
           <div className='course-sections mt-10'>
             <span className='para light mr-5'>{`${ sectionsCount } Sections`}</span>
+            <FontAwesomeIcon className='custom-fa-icon circle-svg' icon={ faCircle } />
             <span className='para light ml-5'>{language}</span>
           </div>
         </CardContent>

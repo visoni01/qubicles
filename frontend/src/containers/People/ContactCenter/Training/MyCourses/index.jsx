@@ -88,6 +88,11 @@ const MyCourses = () => {
         </div>
       </div>
       )}
+      {courses && !courses.length && (
+      <div className='mt-10 mb-10 is-fullwidth'>
+        <h3 className='h3 text-center'>No courses found!</h3>
+      </div>
+      )}
     </Box>
   )
 }

@@ -4,6 +4,8 @@ import {
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
+import { faCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../style.scss'
 import { EDIT_COURSE_ROUTE } from '../../../../../routes/routesPath'
 
@@ -41,6 +43,7 @@ const DraftCourseCard = ({
             <span className='para light mr-5'>
               {`${ sectionsCount } ${ sectionsCount === 1 ? 'Section' : 'Sections' }`}
             </span>
+            <FontAwesomeIcon className='custom-fa-icon circle-svg' icon={ faCircle } />
             <span className='para light ml-5'>{language}</span>
           </div>
           <div className='mt-10'>

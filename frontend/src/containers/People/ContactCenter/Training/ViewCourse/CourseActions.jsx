@@ -116,7 +116,8 @@ const CourseActions = ({
   }, [ course.isEnrolled, course.courseDetails, course.courseId, dispatch, setOpenCoursePlayer,
     course.informationSection.price, course.courseContent.sections ])
 
-  if (isLoading && (_.isEmpty(dataType) || _.isEqual(dataType, 'Course Info'))) {
+  if (_.isEqual(type, 'view')
+    && (_.isNull(isLoading) || isLoading) && (_.isEmpty(dataType) || _.isEqual(dataType, 'Course Info'))) {
     return (
       <CourseActionSkeleton />
     )
