@@ -34,7 +34,7 @@ const MyCourses = () => {
     }
   }, [ dispatch, userDetails.user_code ])
 
-  if (_.isNull(isLoading) || isLoading) {
+  if (_.isEqual(userDetails.user_code, 'employer') && (_.isNull(isLoading) || isLoading)) {
     return (
       <MyCoursesSkeleton />
     )

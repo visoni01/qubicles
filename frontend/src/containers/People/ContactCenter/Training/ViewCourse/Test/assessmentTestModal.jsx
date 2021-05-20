@@ -11,9 +11,10 @@ import RenderTestQuestion from './renderTestQuestion'
 import './styles.scss'
 import TestCompleted from './testCompleted'
 import { viewCourseRequestStart } from '../../../../../../redux-saga/redux/people'
+import AssessmentTestSkeleton from '../../Skeletons/assessmentTestSkeleton'
 
 const AssessmentTestModal = ({
-  open, onClose, courseId, assessmentTest,
+  open, onClose, courseId, assessmentTest, isLoading,
 }) => {
   const [ isTestStarted, setIsTestStarted ] = useState(false)
   const [ isTestCompleted, setIsTestCompleted ] = useState(false)
@@ -61,7 +62,7 @@ const AssessmentTestModal = ({
             By accomplishing this assessment test you can skip the content and finish the course immediately.
           </p>
         )}
-        {isTestStarted && !isTestCompleted && assessmentTest && assessmentTest.length && (
+        {!isLoading && isTestStarted && !isTestCompleted && assessmentTest && assessmentTest.length && (
           <>
             <div className='mb-20'>
               <div>
@@ -94,6 +95,9 @@ const AssessmentTestModal = ({
             </div>
           </>
         )}
+        {(isTestStarted && isLoading) && (
+          <AssessmentTestSkeleton />
+        )}
         {isTestCompleted && (
           <TestCompleted
             totalAnswered={ answers.length }
@@ -111,7 +115,7 @@ const AssessmentTestModal = ({
             Start
           </Button>
         )}
-        {isTestStarted && !isTestCompleted && assessmentTest && assessmentTest.length && (
+        {isTestStarted && !isTestCompleted && (
           <>
             <Button
               color='secondary'
@@ -128,8 +132,11 @@ const AssessmentTestModal = ({
               onClick={ currentSection < assessmentTest.length - 1
                 ? () => setCurrentSection((state) => state + 1)
                 : () => setIsTestCompleted(true) }
+              disabled={ isLoading }
             >
-              { currentSection < assessmentTest.length - 1 ? 'Continue' : 'Submit' }
+              { assessmentTest && assessmentTest.length && currentSection < assessmentTest.length - 1
+                ? 'Continue'
+                : 'Submit' }
             </Button>
           </>
         )}
@@ -153,6 +160,7 @@ AssessmentTestModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   courseId: PropTypes.number.isRequired,
   assessmentTest: PropTypes.shape(PropTypes.any).isRequired,
+  isLoading: PropTypes.bool.isRequired,
 }
 
 export default AssessmentTestModal

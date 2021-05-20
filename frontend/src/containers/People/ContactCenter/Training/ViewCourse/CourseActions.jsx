@@ -216,6 +216,7 @@ const CourseActions = ({
             onClose={ () => setIsAssessmentModalOpen(false) }
             courseId={ course.courseId }
             assessmentTest={ course.assessmentTest }
+            isLoading={ isLoading }
           />
           )}
 
