@@ -35,7 +35,6 @@ export class PeopleGetAllViewCoursesService extends ServiceBase {
 
       return allCourses
     } catch (e) {
-      console.error(e)
       logger.error(getErrorMessageForService('PeopleGetAllViewCoursesService'), e)
       this.addError(ERRORS.INTERNAL)
     }

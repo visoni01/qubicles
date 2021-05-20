@@ -31,7 +31,6 @@ export class PeopleGetAssessmentTestService extends ServiceBase {
         this.addError(ERRORS.NOT_FOUND, MESSAGES.DATA_NOT_FOUND)
       }
     } catch (e) {
-      console.error(e)
       logger.error(getErrorMessageForService('PeopleGetAssessmentTestService'), e)
       this.addError(ERRORS.INTERNAL)
     }

@@ -38,7 +38,6 @@ export class PeopleGetUnitService extends ServiceBase {
         this.addError(ERRORS.NOT_FOUND, MESSAGES.DATA_NOT_FOUND)
       }
     } catch (e) {
-      console.error(e)
       logger.error(getErrorMessageForService('PeopleGetUnitService'), e)
       this.addError(ERRORS.INTERNAL)
     }

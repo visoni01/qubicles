@@ -69,7 +69,6 @@ export class PeopleUpdateCourseService extends ServiceBase {
         message: course.status === 'published' ? 'Course successfully published!' : 'Course successfully updated!'
       }
     } catch (e) {
-      console.error(e)
       logger.error(getErrorMessageForService('PeopleUpdateCourseService'), e)
       this.addError(ERRORS.INTERNAL)
     }

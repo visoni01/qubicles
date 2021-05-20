@@ -30,7 +30,6 @@ export class PeopleAddTestEntriesService extends ServiceBase {
 
       await addTestEntries({ user_id, course_id, section_id, questions })
     } catch (e) {
-      console.error(e)
       logger.error(getErrorMessageForService('PeopleAddTestEntriesService'), e)
       this.addError(ERRORS.INTERNAL)
     }

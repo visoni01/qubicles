@@ -1,6 +1,8 @@
 import ServiceBase from '../../../../common/serviceBase'
 import { getErrorMessageForService } from '../../../helper'
 import { getAgentResume } from '../../../helper/people'
+import logger from '../../../../common/logger'
+import { ERRORS } from '../../../../utils/errors'
 
 const constraints = {
   user_id: {
@@ -48,8 +50,8 @@ export class PeopleGetAgentResumeService extends ServiceBase {
         return agentResume
       }
     } catch (err) {
-      console.log(err)
-      getErrorMessageForService('PeopleGetAgentResumeService')
+      logger.error(getErrorMessageForService('PeopleGetAgentResumeService'), err)
+      this.addError(ERRORS.INTERNAL)
     }
   }
 }

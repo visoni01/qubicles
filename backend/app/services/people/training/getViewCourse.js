@@ -29,7 +29,6 @@ export class PeopleGetViewCourseService extends ServiceBase {
         this.addError(ERRORS.NOT_FOUND, MESSAGES.COURSE_NOT_FOUND)
       }
     } catch (e) {
-      console.error(e)
       logger.error(getErrorMessageForService('PeopleGetViewCourseService'), e)
       this.addError(ERRORS.INTERNAL)
     }

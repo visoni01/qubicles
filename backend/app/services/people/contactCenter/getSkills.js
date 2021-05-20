@@ -1,5 +1,7 @@
 import ServiceBase from '../../../common/serviceBase'
 import { getErrorMessageForService, getSkills } from '../../helper'
+import logger from '../../../common/logger'
+import { ERRORS } from '../../../utils/errors'
 
 const constraints = {
   user_id: {
@@ -23,8 +25,8 @@ export class PeopleGetJobSkillsService extends ServiceBase {
       })
       return jobSkills
     } catch (err) {
-      console.log(err)
-      getErrorMessageForService('PeopleGetJobSkillsService')
+      logger.error(getErrorMessageForService('PeopleGetJobSkillsService'), err)
+      this.addError(ERRORS.INTERNAL)
     }
   }
 }

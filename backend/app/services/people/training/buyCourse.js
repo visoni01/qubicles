@@ -43,7 +43,6 @@ export class PeopleBuyCourseService extends ServiceBase {
         return this.addError(ERRORS.NOT_FOUND, MESSAGES.COURSE_NOT_FOUND)
       }
     } catch (e) {
-      console.error(e)
       logger.error(getErrorMessageForService('PeopleBuyCourseService'), e)
       this.addError(ERRORS.INTERNAL)
     }
