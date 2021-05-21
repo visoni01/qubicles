@@ -1547,3 +1547,63 @@ export const fetchAssessmentTestDetails = async ({ course_id }) => {
 
   return questions && questions.map(item => item.get({ plain: true }))
 }
+
+export const fetchAllTestEntries = async ({ course_id, user_id }) => {
+  const promiseArray = [
+    () => XQodCourse.findOne({
+      raw: true,
+      attributes: ['title'],
+      where: {
+        course_id,
+        creator_id: user_id
+      }
+    }),
+    () => XQodCourseUserQA.findAll({
+      attributes: ['section_id', 'user_id'],
+      include: [
+        {
+          model: UserDetail,
+          as: 'userDetails',
+          attributes: ['first_name', 'last_name', 'profile_image']
+        },
+        {
+          model: XQodCourseSection,
+          as: 'sectionDetails',
+          attributes: ['title', 'order']
+        }
+      ],
+      where: {
+        course_id,
+        verified: false
+      },
+      group: ['section_id', 'user_id']
+    })
+  ]
+
+  const [courseTitle, testEntries] = await Promise.all(promiseArray.map(promise => promise()))
+
+  if (courseTitle && courseTitle.title && testEntries) {
+    return {
+      courseTitle: courseTitle.title,
+      testEntries: testEntries.map(item => item.get({ plain: true }))
+    }
+  }
+}
+
+export const formatTestEntriesData = ({ course_id, testEntriesData }) => {
+  return {
+    courseId: course_id,
+    courseTitle: testEntriesData.courseTitle,
+    testEntries: testEntriesData.testEntries && testEntriesData.testEntries.map((item) => {
+      return {
+        sectionId: item.section_id,
+        sectionTitle: item.sectionDetails && item.sectionDetails.title,
+        sectionOrder: item.sectionDetails && item.sectionDetails.order,
+        candidateId: item.user_id,
+        candidateName: item.userDetails && item.userDetails.first_name && item.userDetails.last_name &&
+        item.userDetails.first_name + item.userDetails.last_name,
+        candidatePic: item.userDetails && item.userDetails.profile_image
+      }
+    })
+  }
+}

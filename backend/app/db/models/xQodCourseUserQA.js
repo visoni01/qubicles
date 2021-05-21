@@ -28,6 +28,8 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: true
   })
   XQodCourseUserQA.associate = function (models) {
+    XQodCourseUserQA.belongsTo(models.UserDetail, { as: 'userDetails', foreignKey: 'user_id' })
+    XQodCourseUserQA.belongsTo(models.XQodCourseSection, { as: 'sectionDetails', foreignKey: 'section_id' })
   }
   return XQodCourseUserQA
 }
