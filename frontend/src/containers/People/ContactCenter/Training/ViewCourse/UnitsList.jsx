@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
 import {
-  faChevronUp, faChevronDown, faPlayCircle, faFileAlt, faFileSignature,
+  faChevronUp, faChevronDown,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -18,6 +18,7 @@ import {
   isIntroVideoActivePropType, sectionIndexPropType, courseStatusPropType, typePropType,
 } from './propTypes'
 import { viewCourseRequestStart, updateCurrentUnitAndSectionIndex } from '../../../../../redux-saga/redux/people'
+import { ArticleIcon, TestIcon, VideoIcon } from '../../../../../assets/images/training'
 
 const UnitsList = ({
   section, setOpenCoursePlayer, isEnrolled, isActive, showIntroVideo, introVideo,
@@ -107,7 +108,7 @@ const UnitsList = ({
           {showIntroVideo && (
           <ListItem className='nested-list' disableGutters>
             <ListItemIcon>
-              <FontAwesomeIcon className='custom-fa-icon light' icon={ faPlayCircle } />
+              <VideoIcon />
             </ListItemIcon>
             <ListItemText>
               <p className={ `para ${ isCoursePlayerOpen && isIntroVideoActive ? '' : 'light' }` }> Intro </p>
@@ -137,13 +138,8 @@ const UnitsList = ({
           {section.units && section.units.map((unit, index) => (
             <ListItem key={ unit.id } className='nested-list' disableGutters>
               <ListItemIcon>
-                <FontAwesomeIcon
-                  className='custom-fa-icon light'
-                  icon={
-                    (unit.type === 'Article' && faFileAlt)
-                    || (unit.type === 'Video' && faPlayCircle)
-                  }
-                />
+                {(unit.type === 'Article' && <ArticleIcon />)
+                  || (unit.type === 'Video' && <VideoIcon />)}
               </ListItemIcon>
               <ListItemText>
                 <p className={ `para ${ isCoursePlayerOpen && currentUnit.unitId === unit.unitId ? '' : 'light' }` }>
@@ -183,7 +179,7 @@ const UnitsList = ({
           {((section && section.test && !_.isEmpty(section.test) && type === 'preview') || (type !== 'preview')) && (
           <ListItem className='nested-list' disableGutters>
             <ListItemIcon>
-              <FontAwesomeIcon className='custom-fa-icon light' icon={ faFileSignature } />
+              <TestIcon />
             </ListItemIcon>
             <ListItemText>
               <p className='para light'> Test </p>

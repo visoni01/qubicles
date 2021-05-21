@@ -2,14 +2,13 @@ import React, { useState, useCallback } from 'react'
 import {
   Grid, IconButton, Button,
 } from '@material-ui/core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFileAlt, faTrash } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import AddArticleModal from './addArticleModal'
 import { updateUnitInSection } from './helper'
 import ConfirmationModal from '../../../../../../components/CommonModal/confirmationModal'
 import { unitPropType } from '../propTypes'
+import { ArticleIcon, DeleteIcon } from '../../../../../../assets/images/training'
 
 const AddedContent = ({
   unit, updateSection, section, handleDeleteUnitButton,
@@ -57,7 +56,7 @@ const AddedContent = ({
         <Grid item xl={ 4 } lg={ 4 } md={ 4 } sm={ 2 } container spacing={ 2 }>
           {!unitDetails.isEmpty && (
           <Grid className='align-self-center' item xl={ 2 } lg={ 2 } md={ 2 } sm={ 2 }>
-            <FontAwesomeIcon className='custom-fa-icon sz-lg' icon={ faFileAlt } />
+            <ArticleIcon />
           </Grid>
           )}
           <Grid item className='text-edit' xl={ 10 } lg={ 10 } md={ 10 } sm={ 10 }>
@@ -72,7 +71,7 @@ const AddedContent = ({
           <>
             {!unitDetails.isEmpty && (
             <IconButton onClick={ () => setOpenConfirmDelete(true) }>
-              <FontAwesomeIcon className='custom-fa-icon sz-lg' icon={ faTrash } />
+              <DeleteIcon />
             </IconButton>
             )}
             <Button

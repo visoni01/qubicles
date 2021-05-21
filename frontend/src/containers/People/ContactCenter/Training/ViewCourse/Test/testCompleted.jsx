@@ -26,7 +26,7 @@ const TestCompleted = ({
     <div className='mt-50'>
       <Grid container justify='center' direction='column' spacing={ 3 }>
         <Grid item className='align-self-center'>
-          <TestDoneIcon className='custom-svg-icon' />
+          <TestDoneIcon />
         </Grid>
         <Grid item className='align-self-center'>
           <h2 className='h2'>Well Done!</h2>

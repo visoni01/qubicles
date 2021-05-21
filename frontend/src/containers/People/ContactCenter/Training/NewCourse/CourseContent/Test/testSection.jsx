@@ -2,12 +2,11 @@ import React, { useState, useCallback } from 'react'
 import {
   Grid, IconButton, Button,
 } from '@material-ui/core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFlask, faTrash } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import TestQuestionModal from './testQuestionModal'
 import ConfirmationModal from '../../../../../../../components/CommonModal/confirmationModal'
 import { testPropType } from '../../propTypes'
+import { DeleteIcon, TestIcon } from '../../../../../../../assets/images/training'
 
 const TestSection = ({
   test, updateSection, section, handleDeleteTestButton,
@@ -44,7 +43,7 @@ const TestSection = ({
         <Grid container spacing={ 2 } justify='space-between' alignItems='center'>
           <Grid item xl={ 4 } lg={ 4 } md={ 4 } sm={ 2 } container spacing={ 2 }>
             <Grid className='align-self-center' item xl={ 2 } lg={ 2 } md={ 2 } sm={ 2 }>
-              <FontAwesomeIcon className='custom-fa-icon sz-lg' icon={ faFlask } />
+              <TestIcon />
             </Grid>
             <Grid item className='text-edit' xl={ 10 } lg={ 10 } md={ 10 } sm={ 10 }>
               <p className='para'>{testDetails.title}</p>
@@ -55,7 +54,7 @@ const TestSection = ({
             {section.isEdit && (
               <>
                 <IconButton onClick={ () => setOpenConfirmDelete(true) }>
-                  <FontAwesomeIcon className='custom-fa-icon sz-lg' icon={ faTrash } />
+                  <DeleteIcon />
                 </IconButton>
                 <Button
                   className='edit-button'
