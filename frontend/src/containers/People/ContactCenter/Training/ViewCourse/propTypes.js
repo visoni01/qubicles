@@ -9,29 +9,29 @@ export const unitPropType = PropTypes.shape({
   unitId: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-  ]).isRequired,
-  title: PropTypes.string.isRequired,
+  ]),
+  title: PropTypes.string,
   unitNum: PropTypes.string,
   sectionId: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-  ]).isRequired,
-  details: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  length: PropTypes.number.isRequired,
-  status: PropTypes.string.isRequired,
+  ]),
+  details: PropTypes.string,
+  type: PropTypes.string,
+  length: PropTypes.number,
+  status: PropTypes.string,
 })
 
 export const sectionPropType = PropTypes.shape({
   id: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-  ]).isRequired,
-  title: PropTypes.string.isRequired,
+  ]),
+  title: PropTypes.string,
   sectionNum: PropTypes.string,
   sectionIsActive: PropTypes.bool,
-  units: PropTypes.arrayOf(PropTypes.any).isRequired,
-  status: PropTypes.string.isRequired,
+  units: PropTypes.arrayOf(PropTypes.any),
+  status: PropTypes.string,
 })
 
 export const sectionsPropType = PropTypes.arrayOf(sectionPropType)
@@ -65,7 +65,7 @@ export const viewCoursePropType = PropTypes.shape({
     courseDetails: PropTypes.shape({
       status: PropTypes.string.isRequired,
     }),
-  }).isRequired,
+  }),
 })
 
 export const courseIdPropType = PropTypes.number

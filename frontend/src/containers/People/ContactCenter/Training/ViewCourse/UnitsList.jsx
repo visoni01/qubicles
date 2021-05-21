@@ -136,7 +136,7 @@ const UnitsList = ({
 
           {/* Units */}
           {section.units && section.units.map((unit, index) => (
-            <ListItem key={ unit.id } className='nested-list' disableGutters>
+            <ListItem key={ unit.unitId } className='nested-list' disableGutters>
               <ListItemIcon>
                 {(unit.type === 'Article' && <ArticleIcon />)
                   || (unit.type === 'Video' && <VideoIcon />)}

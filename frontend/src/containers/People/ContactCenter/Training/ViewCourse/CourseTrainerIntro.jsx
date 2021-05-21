@@ -77,8 +77,12 @@ const CourseTrainerIntro = ({ creatorId }) => {
   )
 }
 
+CourseTrainerIntro.defaultProps = {
+  creatorId: null,
+}
+
 CourseTrainerIntro.propTypes = {
-  creatorId: creatorIdPropType.isRequired,
+  creatorId: creatorIdPropType,
 }
 
 export default CourseTrainerIntro

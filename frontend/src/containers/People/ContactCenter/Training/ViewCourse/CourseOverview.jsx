@@ -70,11 +70,13 @@ CourseOverview.defaultProps = {
   openCoursePlayer: false,
   type: 'view',
   dataType: '',
+  courseId: null,
+  isLoading: null,
 }
 
 CourseOverview.propTypes = {
   sections: sectionsPropType.isRequired,
-  courseId: courseIdPropType.isRequired,
+  courseId: courseIdPropType,
   isEnrolled: isEnrolledPropType.isRequired,
   introVideo: introVideoPropType.isRequired,
   courseTitle: courseTitlePropType.isRequired,
@@ -86,7 +88,7 @@ CourseOverview.propTypes = {
   isSectionTestActive: isSectionTestActivePropType,
   openCoursePlayer: openCoursePlayerPropType,
   type: typePropType,
-  isLoading: isLoadingPropType.isRequired,
+  isLoading: isLoadingPropType,
   dataType: dataTypePropType,
 }
 

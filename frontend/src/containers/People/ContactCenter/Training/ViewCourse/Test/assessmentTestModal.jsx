@@ -12,6 +12,7 @@ import './styles.scss'
 import TestCompleted from './testCompleted'
 import { viewCourseRequestStart } from '../../../../../../redux-saga/redux/people'
 import AssessmentTestSkeleton from '../../Skeletons/assessmentTestSkeleton'
+import assessmentTestPropType from './assessmentTestPropType'
 
 const AssessmentTestModal = ({
   open, onClose, courseId, assessmentTest, isLoading,
@@ -74,7 +75,7 @@ const AssessmentTestModal = ({
               <div className='mt-10'>
                 <LinearProgress
                   variant='determinate'
-                  value={ `${ (currentSection * 100) / assessmentTest.length }` }
+                  value={ (currentSection * 100) / assessmentTest.length }
                   classes={ {
                     root: 'progress-root',
                     barColorPrimary: 'progress-bar-color',
@@ -155,11 +156,15 @@ const AssessmentTestModal = ({
   )
 }
 
+AssessmentTestModal.defaultProps = {
+  assessmentTest: [],
+}
+
 AssessmentTestModal.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   courseId: PropTypes.number.isRequired,
-  assessmentTest: PropTypes.shape(PropTypes.any).isRequired,
+  assessmentTest: assessmentTestPropType,
   isLoading: PropTypes.bool.isRequired,
 }
 

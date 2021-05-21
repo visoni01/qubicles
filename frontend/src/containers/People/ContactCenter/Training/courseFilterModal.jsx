@@ -70,12 +70,17 @@ const CourseFilterModal = ({
   )
 }
 
+CourseFilterModal.defaultProps = {
+  anchorEl: null,
+  id: undefined,
+}
+
 CourseFilterModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-  anchorEl: PropTypes.shape(PropTypes.any).isRequired,
+  anchorEl: PropTypes.shape(PropTypes.any),
   setAnchorEl: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
 }
 
 export default CourseFilterModal

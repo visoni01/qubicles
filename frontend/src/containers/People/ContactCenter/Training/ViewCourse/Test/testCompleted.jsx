@@ -14,7 +14,7 @@ const TestCompleted = ({
       <div className='mt-10'>
         <LinearProgress
           variant='determinate'
-          value={ `${ (totalAnswered * 100) / totalQuestions }` }
+          value={ (totalAnswered * 100) / totalQuestions }
           classes={ {
             root: 'progress-root',
             barColorPrimary: 'progress-bar-color',

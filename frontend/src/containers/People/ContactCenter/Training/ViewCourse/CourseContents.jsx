@@ -63,6 +63,9 @@ CourseContents.defaultProps = {
   isIntroVideoActive: null,
   isSectionTestActive: null,
   type: 'view',
+  isCoursePlayerOpen: false,
+  currentSection: {},
+  currentUnit: {},
 }
 
 CourseContents.propTypes = {
@@ -72,9 +75,9 @@ CourseContents.propTypes = {
   setOpenCoursePlayer: setOpenCoursePlayerPropType.isRequired,
   setCurrentSection: setCurrentSectionPropType.isRequired,
   setCurrentUnit: setCurrentUnitPropType.isRequired,
-  isCoursePlayerOpen: isCoursePlayerOpenPropType.isRequired,
-  currentSection: sectionPropType.isRequired,
-  currentUnit: unitPropType.isRequired,
+  isCoursePlayerOpen: isCoursePlayerOpenPropType,
+  currentSection: sectionPropType,
+  currentUnit: unitPropType,
   courseStatus: courseStatusPropType,
   courseId: courseIdPropType.isRequired,
   isIntroVideoActive: isIntroVideoActivePropType,
