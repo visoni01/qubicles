@@ -1,14 +1,26 @@
-import React from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory, useParams } from 'react-router-dom'
 import { Box, Button, Grid } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import ROUTE_PATHS from '../../../../../../routes/routesPath'
 import TestEntryCard from './testEntryCard'
-import { courseTestEntries } from './testData'
+import { testEntriesRequestStart } from '../../../../../../redux-saga/redux/people'
 
 const TestEntries = () => {
   const history = useHistory()
+  const dispatch = useDispatch()
+  const { courseId } = useParams()
+  const { courseTestEntries } = useSelector((state) => state.testEntries)
+
+  useEffect(() => {
+    dispatch(testEntriesRequestStart({
+      requestType: 'FETCH',
+      dataType: 'Test Entries',
+      courseId,
+    }))
+  }, [ dispatch, courseId ])
 
   return (
     <Box className='custom-box test-entries-box'>

@@ -132,3 +132,21 @@ export const getUpdatedCourse = ({ state, action }) => {
     default: return state.course
   }
 }
+
+export const updateTestEntriesReducer = ({ state, action }) => {
+  switch (state.requestType) {
+    case 'FETCH': {
+      switch (state.dataType) {
+        case 'Test Entries': {
+          return {
+            ...action.payload.testEntriesData,
+          }
+        }
+
+        default: return state.courseTestEntries
+      }
+    }
+
+    default: return state.courseTestEntries
+  }
+}

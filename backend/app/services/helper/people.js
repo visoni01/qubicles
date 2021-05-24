@@ -770,7 +770,8 @@ export async function getAllCourseInfo ({ creatorId }) {
       'status',
       [Sequelize.literal('COUNT(DISTINCT(`sections`.`section_id`))'), 'sectionsCount'],
       [Sequelize.literal('COUNT(DISTINCT(`students`.`user_id`))'), 'studentsCount'],
-      [Sequelize.literal('COUNT(DISTINCT(`userTest`.`user_id`))'), 'testEntries'],
+      [Sequelize.literal('COUNT(DISTINCT(CASE WHEN `userTest`.`verified` = false ' +
+        'THEN `userTest`.`user_id` END))'), 'testEntries'],
       [Sequelize.literal('COUNT(DISTINCT(CASE WHEN MONTH(`students`.`created_on`) = MONTH(CURRENT_DATE())' +
       'AND YEAR(`students`.`created_on`) = YEAR(CURRENT_DATE()) THEN `students`.`user_id` END))'), 'enrolledThisMonth']
     ],
@@ -1601,7 +1602,7 @@ export const formatTestEntriesData = ({ course_id, testEntriesData }) => {
         sectionOrder: item.sectionDetails && item.sectionDetails.order,
         candidateId: item.user_id,
         candidateName: item.userDetails && item.userDetails.first_name && item.userDetails.last_name &&
-        item.userDetails.first_name + item.userDetails.last_name,
+        item.userDetails.first_name + ' ' + item.userDetails.last_name,
         candidatePic: item.userDetails && item.userDetails.profile_image
       }
     })
