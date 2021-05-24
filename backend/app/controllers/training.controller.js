@@ -12,7 +12,8 @@ import {
   PeopleAddTestEntriesService,
   PeopleGetAssessmentTestService,
   PeopleGetAllTestEntriesService,
-  PeopleGetTestEntryService
+  PeopleGetTestEntryService,
+  PeopleUpdateTestEntryService
 } from '../services/people/training'
 
 import Responder from '../../server/expressResponder'
@@ -137,6 +138,15 @@ export default class TrainingController {
 
   static async getTestEntry (req, res) {
     const testEntry = await PeopleGetTestEntryService.execute({ ...req.body, ...req.params, ...req.query })
+    if (testEntry.successful) {
+      Responder.success(res, testEntry.result)
+    } else {
+      Responder.failed(res, testEntry.errors)
+    }
+  }
+
+  static async updateTestEntry (req, res) {
+    const testEntry = await PeopleUpdateTestEntryService.execute({ ...req.body, ...req.params })
     if (testEntry.successful) {
       Responder.success(res, testEntry.result)
     } else {

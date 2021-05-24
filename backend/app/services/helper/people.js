@@ -1654,3 +1654,36 @@ export const formatTestEntryData = ({ testEntry }) => {
     }
   })
 }
+
+export const updateTestEntry = async ({ validatedData }) => {
+  const correctAnswerIds = validatedData.filter((item) => item.correct).map((item) => item.questionId)
+  const wrongAnswerIds = validatedData.filter((item) => !item.correct).map((item) => item.questionId)
+
+  if (correctAnswerIds && correctAnswerIds.length) {
+    await XQodCourseUserQA.update(
+      {
+        verified: true,
+        correct: true
+      },
+      {
+        where: {
+          user_qa_id: correctAnswerIds
+        }
+      }
+    )
+  }
+
+  if (wrongAnswerIds && wrongAnswerIds.length) {
+    await XQodCourseUserQA.update(
+      {
+        verified: true,
+        correct: false
+      },
+      {
+        where: {
+          user_qa_id: wrongAnswerIds
+        }
+      }
+    )
+  }
+}
