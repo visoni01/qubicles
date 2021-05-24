@@ -137,9 +137,51 @@ export const updateTestEntriesReducer = ({ state, action }) => {
   switch (state.requestType) {
     case 'FETCH': {
       switch (state.dataType) {
-        case 'Test Entries': {
+        case 'All Test Entries': {
           return {
             ...action.payload.testEntriesData,
+          }
+        }
+
+        case 'Test Entry Answers': {
+          const testEntryIndex = _.findIndex(
+            state.courseTestEntries.testEntries,
+            { sectionId: action.payload.sectionId, candidateId: action.payload.candidateId },
+          )
+          const updatedTestEntries = _.cloneDeep(state.courseTestEntries.testEntries)
+          updatedTestEntries[ testEntryIndex ] = {
+            ...updatedTestEntries[ testEntryIndex ],
+            testEntryAnswers: action.payload.testEntryAnswers,
+          }
+          return {
+            ...state.courseTestEntries,
+            testEntries: updatedTestEntries,
+          }
+        }
+
+        default: return state.courseTestEntries
+      }
+    }
+
+    case 'UPDATE': {
+      switch (state.dataType) {
+        case 'Validate Answers': {
+          const testEntryIndex = _.findIndex(
+            state.courseTestEntries.testEntries,
+            { sectionId: action.payload.sectionId, candidateId: action.payload.candidateId },
+          )
+          const updatedTestEntries = _.cloneDeep(state.courseTestEntries.testEntries)
+          updatedTestEntries[ testEntryIndex ].testEntryAnswers = _.differenceWith(
+            updatedTestEntries[ testEntryIndex ].testEntryAnswers,
+            action.payload.validatedData,
+            (arrVal, othVal) => arrVal.questionId === othVal.questionId,
+          )
+          if (_.isEmpty(updatedTestEntries[ testEntryIndex ].testEntryAnswers)) {
+            updatedTestEntries.splice(testEntryIndex, 1)
+          }
+          return {
+            ...state.courseTestEntries,
+            testEntries: updatedTestEntries,
           }
         }
 

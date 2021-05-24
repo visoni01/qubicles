@@ -4,6 +4,7 @@ import {
   testEntriesRequestSuccess,
   testEntriesRequestFailed,
   showErrorMessage,
+  showSuccessMessage,
 } from '../../../redux/actions'
 import People from '../../../service/people'
 
@@ -14,15 +15,21 @@ function* testEntriesWatcher() {
 function* testEntriesWorker(action) {
   try {
     const {
-      requestType, dataType, courseId,
+      requestType, dataType, courseId, sectionId, candidateId, validatedData,
     } = action.payload
 
     switch (requestType) {
       case 'FETCH': {
         switch (dataType) {
-          case 'Test Entries': {
-            const { data } = yield People.fetchTestEntries({ courseId })
+          case 'All Test Entries': {
+            const { data } = yield People.fetchAllTestEntries({ courseId })
             yield put(testEntriesRequestSuccess({ testEntriesData: data }))
+            break
+          }
+
+          case 'Test Entry Answers': {
+            const { data } = yield People.fetchTestEntryAnswers({ courseId, sectionId, candidateId })
+            yield put(testEntriesRequestSuccess({ testEntryAnswers: data, sectionId, candidateId }))
             break
           }
 
@@ -33,6 +40,17 @@ function* testEntriesWorker(action) {
 
       case 'UPDATE': {
         switch (dataType) {
+          case 'Validate Answers': {
+            const { data } = yield People.validateTestEntryAnswers({
+              courseId, sectionId, candidateId, validatedData,
+            })
+            yield put(testEntriesRequestSuccess({
+              testEntryAnswers: data, sectionId, candidateId, validatedData,
+            }))
+            yield put(showSuccessMessage({ msg: 'Answers validated successfully' }))
+            break
+          }
+
           default: break
         }
         break

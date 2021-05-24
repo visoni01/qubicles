@@ -31,7 +31,7 @@ function* agentProfileWorker(action) {
             break
           }
           case 'Languages': {
-            yield put(showSuccessMessage({ msg: 'Skills and Languages updated successfuly' }))
+            yield put(showSuccessMessage({ msg: 'Skills and Languages updated successfully' }))
             break
           }
           default: {

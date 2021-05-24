@@ -33,14 +33,14 @@ function* agentResumeSkillsWorker(action) {
         }))
         switch (updatedDataType) {
           case 'Skills':
-            yield put(showSuccessMessage({ msg: 'Skills and Languages updated successfuly' }))
+            yield put(showSuccessMessage({ msg: 'Skills and Languages updated successfully' }))
             break
           case 'AddEndorse': {
-            yield put(showSuccessMessage({ msg: 'Endorsed successfuly' }))
+            yield put(showSuccessMessage({ msg: 'Endorsed successfully' }))
             break
           }
           case 'RemoveEndorse': {
-            yield put(showSuccessMessage({ msg: 'Removed endorsement successfuly' }))
+            yield put(showSuccessMessage({ msg: 'Removed endorsement successfully' }))
             break
           }
           default:

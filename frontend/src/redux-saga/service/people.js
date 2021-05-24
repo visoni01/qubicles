@@ -287,7 +287,7 @@ class People {
   }
 
   static async fetchSectionTest({ courseId, sectionId }) {
-    const response = await apiClient.getRequest(`/people/course/${ courseId }/test?sectionId=${ sectionId }`)
+    const response = await apiClient.getRequest(`/people/course/${ courseId }/test`, null, { sectionId })
     return response
   }
 
@@ -306,8 +306,27 @@ class People {
     return response
   }
 
-  static async fetchTestEntries({ courseId }) {
+  static async fetchAllTestEntries({ courseId }) {
     const response = await apiClient.getRequest(`/people/course/${ courseId }/test-entries`)
+    return response
+  }
+
+  static async fetchTestEntryAnswers({ courseId, sectionId, candidateId }) {
+    const response = await apiClient.getRequest(
+      `/people/course/${ courseId }/test-entries/${ sectionId }`,
+      null,
+      { candidate_id: candidateId },
+    )
+    return response
+  }
+
+  static async validateTestEntryAnswers({
+    courseId, sectionId, candidateId, validatedData,
+  }) {
+    const response = await apiClient.putRequest(
+      `/people/course/${ courseId }/test-entries/${ sectionId }`,
+      { candidate_id: candidateId, validated_data: validatedData },
+    )
     return response
   }
 }

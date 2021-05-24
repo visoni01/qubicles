@@ -7,7 +7,8 @@ import './styles.scss'
 import TestEntriesValidationModal from './testEntriesValidationModal'
 
 const TestEntryCard = ({
-  sectionTitle, sectionOrder, candidateName, candidatePic,
+  sectionTitle, sectionOrder, candidateName, candidatePic, candidateId, sectionId, testEntryAnswers, courseId,
+  isLoading, dataType,
 }) => {
   const [ openValidation, setOpenValidation ] = useState(false)
 
@@ -36,9 +37,21 @@ const TestEntryCard = ({
       <TestEntriesValidationModal
         open={ openValidation }
         setOpen={ setOpenValidation }
+        candidateId={ candidateId }
+        candidateName={ candidateName }
+        candidatePic={ candidatePic }
+        sectionId={ sectionId }
+        testEntryAnswers={ testEntryAnswers }
+        courseId={ courseId }
+        isLoading={ isLoading }
+        dataType={ dataType }
       />
     </Card>
   )
+}
+
+TestEntryCard.defaultProps = {
+  testEntryAnswers: undefined,
 }
 
 TestEntryCard.propTypes = {
@@ -46,6 +59,18 @@ TestEntryCard.propTypes = {
   sectionOrder: PropTypes.number.isRequired,
   candidateName: PropTypes.string.isRequired,
   candidatePic: PropTypes.string.isRequired,
+  candidateId: PropTypes.number.isRequired,
+  sectionId: PropTypes.number.isRequired,
+  courseId: PropTypes.number.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  dataType: PropTypes.string.isRequired,
+  testEntryAnswers: PropTypes.arrayOf(PropTypes.shape({
+    questionId: PropTypes.number,
+    candidateAnswer: PropTypes.string,
+    questionText: PropTypes.string,
+    questionType: PropTypes.string,
+    correctAnswer: PropTypes.string,
+  })),
 }
 
 export default TestEntryCard

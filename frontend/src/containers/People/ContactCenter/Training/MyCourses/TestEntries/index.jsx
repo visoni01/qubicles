@@ -11,13 +11,14 @@ import { testEntriesRequestStart } from '../../../../../../redux-saga/redux/peop
 const TestEntries = () => {
   const history = useHistory()
   const dispatch = useDispatch()
-  const { courseId } = useParams()
-  const { courseTestEntries } = useSelector((state) => state.testEntries)
+  let { courseId } = useParams()
+  courseId = parseInt(courseId, 10)
+  const { courseTestEntries, isLoading, dataType } = useSelector((state) => state.testEntries)
 
   useEffect(() => {
     dispatch(testEntriesRequestStart({
       requestType: 'FETCH',
-      dataType: 'Test Entries',
+      dataType: 'All Test Entries',
       courseId,
     }))
   }, [ dispatch, courseId ])
@@ -65,6 +66,10 @@ const TestEntries = () => {
                 candidateId={ testEntry.candidateId }
                 candidateName={ testEntry.candidateName }
                 candidatePic={ testEntry.candidatePic }
+                testEntryAnswers={ testEntry.testEntryAnswers }
+                courseId={ courseId }
+                isLoading={ isLoading }
+                dataType={ dataType }
               />
             </Grid>
           ))}

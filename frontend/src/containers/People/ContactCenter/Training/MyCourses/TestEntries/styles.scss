@@ -95,6 +95,14 @@
       background-color: #c49ba3;
     }
   }
+
+  &.correct-answer {
+    border: 1px solid #23E8B5;
+  }
+
+  &.incorrect-answer {
+    border: 1px solid #F14667;
+  }
 }
 
 .test-entries-box {
