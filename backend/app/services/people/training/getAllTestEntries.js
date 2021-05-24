@@ -13,7 +13,7 @@ const constraints = {
   }
 }
 
-export class PeopleGetAllTestEntries extends ServiceBase {
+export class PeopleGetAllTestEntriesService extends ServiceBase {
   get constraints () {
     return constraints
   }
@@ -31,7 +31,7 @@ export class PeopleGetAllTestEntries extends ServiceBase {
         this.addError(ERRORS.NOT_FOUND, MESSAGES.DATA_NOT_FOUND)
       }
     } catch (e) {
-      logger.error(getErrorMessageForService('PeopleGetAllTestEntries'), e)
+      logger.error(getErrorMessageForService('PeopleGetAllTestEntriesService'), e)
       this.addError(ERRORS.INTERNAL)
     }
   }

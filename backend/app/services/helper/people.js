@@ -1608,3 +1608,49 @@ export const formatTestEntriesData = ({ course_id, testEntriesData }) => {
     })
   }
 }
+
+export const checkAuthenticUser = async ({ user_id, course_id }) => {
+  const isAuthenticUser = await XQodCourse.findOne({
+    raw: true,
+    attributes: ['category_id'],
+    where: {
+      course_id,
+      creator_id: user_id
+    }
+  })
+
+  return isAuthenticUser
+}
+
+export const fetchTestEntry = async ({ course_id, section_id, user_id }) => {
+  const testEntry = await XQodCourseUserQA.findAll({
+    attributes: ['user_qa_id', 'answer'],
+    include: [
+      {
+        model: XQodCourseSectionQA,
+        as: 'questionDetails',
+        attributes: ['question', 'question_type', 'answer']
+      }
+    ],
+    where: {
+      course_id,
+      section_id,
+      user_id,
+      verified: false
+    }
+  })
+
+  return testEntry && testEntry.map(entry => entry.get({ plain: true }))
+}
+
+export const formatTestEntryData = ({ testEntry }) => {
+  return testEntry.map((item) => {
+    return {
+      questionId: item.user_qa_id,
+      candidateAnswer: item.answer,
+      questionText: item.questionDetails && item.questionDetails.question,
+      questionType: item.questionDetails && item.questionDetails.question_type,
+      correctAnswer: item.questionDetails && item.questionDetails.answer
+    }
+  })
+}
