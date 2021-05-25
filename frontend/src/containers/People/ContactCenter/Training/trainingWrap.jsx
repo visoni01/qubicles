@@ -17,7 +17,7 @@ import AllCoursesSkeleton from './Skeletons/allCoursesSkeleton'
 
 const TrainingWrap = () => {
   const {
-    courses, count, searchField, currentPage, isLoading,
+    courses, count, searchField, currentPage, isLoading, categoryTitle,
   } = useSelector((state) => state.viewAllCourses)
   const [ searchCourseField, setSearchCourseField ] = useState(searchField)
 
@@ -99,27 +99,30 @@ const TrainingWrap = () => {
           Create Course
         </Button>
       </div>
-      {_.isNull(isLoading) || isLoading
-        ? <AllCoursesSkeleton />
-        : (
-          <Box className='custom-box'>
-            <div className='all-courses-box mb-20'>
-              <h3 className='h3'>All Courses</h3>
-              <IconButton
-                onClick={ handleClick }
-                aria-describedby={ id }
-                className='filter'
-              >
-                <FontAwesomeIcon icon={ faSlidersH } className='custom-fa-icon light' />
-              </IconButton>
-              <CourseFilterModal
-                id={ id }
-                anchorEl={ anchorEl }
-                setAnchorEl={ setAnchorEl }
-                open={ open }
-                handleClose={ handleClose }
-              />
-            </div>
+      <Box className='custom-box'>
+        <div className='all-courses-box mb-20'>
+          {categoryTitle && (
+          <h3 className='h3'>{`${ categoryTitle } Courses`}</h3>
+          )}
+          <IconButton
+            onClick={ handleClick }
+            disabled={ isLoading }
+            aria-describedby={ id }
+            className='filter'
+          >
+            <FontAwesomeIcon icon={ faSlidersH } className='custom-fa-icon light' />
+          </IconButton>
+          <CourseFilterModal
+            id={ id }
+            anchorEl={ anchorEl }
+            setAnchorEl={ setAnchorEl }
+            open={ open }
+            handleClose={ handleClose }
+          />
+        </div>
+        {_.isNull(isLoading) || isLoading
+          ? <AllCoursesSkeleton />
+          : (
             <Grid container spacing={ 2 }>
               {(courses && courses.length === 0)
                 ? (
@@ -143,20 +146,20 @@ const TrainingWrap = () => {
                   />
                 ))}
             </Grid>
-            {Boolean(count && count > noOfCoursesPerPage) && (
-            <Pagination
-              count={ noOfPages }
-              shape='round'
-              page={ currentPage }
-              onChange={ changeCurrentPage }
-              classes={ { root: 'courses-pagination' } }
-              hidePrevButton={ currentPage < 2 }
-              hideNextButton={ currentPage === noOfPages }
-              className='is-flex is-center'
-            />
-            )}
-          </Box>
+          )}
+        {Boolean(count && count > noOfCoursesPerPage) && (
+        <Pagination
+          count={ noOfPages }
+          shape='round'
+          page={ currentPage }
+          onChange={ changeCurrentPage }
+          classes={ { root: 'courses-pagination' } }
+          hidePrevButton={ currentPage < 2 }
+          hideNextButton={ currentPage === noOfPages }
+          className='is-flex is-center'
+        />
         )}
+      </Box>
     </div>
   )
 }

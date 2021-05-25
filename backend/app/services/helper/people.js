@@ -1216,7 +1216,7 @@ export async function getAllViewCourses ({ searchField, categoryId, courseFilter
       additionalParams = {
         ...additionalParams,
         order: [
-          ['created_on', 'DESC']
+          ['updated_on', 'DESC']
         ]
       }
     } else if (_.isEqual(courseFilter, 'bestRating')) {
@@ -1496,10 +1496,10 @@ export const createUserTestBulkData = ({ user_id, course_id, section_id, questio
       section_id,
       section_qa_id: question.id,
       answer: question.answer,
-      correct: ['multiple', 'checkbox', 'scale'].includes(question.questionType)
-        ? correctAnswers.find((item) => item.section_qa_id === question.id).answer === question.answer
+      correct: ['multiple', 'checkbox', 'scale', 'date'].includes(question.questionType)
+        ? _.isEqual(correctAnswers.find((item) => item.section_qa_id === question.id).answer, question.answer)
         : null,
-      verified: ['multiple', 'checkbox', 'scale'].includes(question.questionType)
+      verified: ['multiple', 'checkbox', 'scale', 'date'].includes(question.questionType)
     }
   })
 }

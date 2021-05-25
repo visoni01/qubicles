@@ -12,8 +12,9 @@ import { jobCategoriesOnlyFetchStart, updateViewAllCoursesFilter } from '../../.
 
 const TrainingFilter = () => {
   const { jobCategoriesOnly, isLoading, searchKeyword } = useSelector((state) => state.jobCategoriesOnly)
-  const { categoryId } = useSelector((state) => state.viewAllCourses)
+  const { categoryId, categoryTitle } = useSelector((state) => state.viewAllCourses)
   const [ selectedCategory, setSelectedCategory ] = useState(categoryId)
+  const [ selectedCategoryTitle, setSelectedCategoryTitle ] = useState(categoryTitle)
 
   const history = useHistory()
   const dispatch = useDispatch()
@@ -27,18 +28,21 @@ const TrainingFilter = () => {
   useEffect(() => {
     dispatch(updateViewAllCoursesFilter({
       categoryId: selectedCategory,
+      categoryTitle: selectedCategoryTitle,
       currentPage: 1,
     }))
-  }, [ dispatch, selectedCategory ])
+  }, [ dispatch, selectedCategory, selectedCategoryTitle ])
 
   // Set selectedCategory to set list item to particular category
   const handleCoursesByCategory = ({ courseCategory }) => {
     setSelectedCategory(courseCategory.categoryId)
+    setSelectedCategoryTitle(courseCategory.categoryTitle)
   }
 
   // Reset selectedCategory to set list item to 'ALL'
   const handleResetCategory = useCallback(() => {
     setSelectedCategory(0)
+    setSelectedCategoryTitle('All')
   }, [ ])
 
   return (
@@ -50,14 +54,14 @@ const TrainingFilter = () => {
           onClick={ () => history.push(ROUTE_PATHS.MY_COURSES) }
         >
           <ListItemText
-            primary='My Courses (2)'
+            primary='My Courses'
             className='h4 bold-filter-item'
           />
         </ListItem>
         <ListItem
           button
         >
-          <ListItemText primary='Enrolled Courses (3)' className='h4 bold-filter-item' />
+          <ListItemText primary='Enrolled Courses' className='h4 bold-filter-item' />
         </ListItem>
       </List>
 

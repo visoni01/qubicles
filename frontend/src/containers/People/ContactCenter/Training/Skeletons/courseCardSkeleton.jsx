@@ -13,29 +13,40 @@ const CourseCardSkeleton = ({ val }) => (
         animation='wave'
         classes={ { root: 'course-card-picture' } }
       />
-      <div className='display-inline-flex'>
+      <div className='course-card-contents'>
+        <div className='display-inline-flex is-fullwidth'>
+          <Skeleton
+            animation='wave'
+            classes={ { root: 'course-card-rating' } }
+          />
+          <Skeleton
+            animation='wave'
+            classes={ { root: 'course-card-student' } }
+          />
+        </div>
         <Skeleton
           animation='wave'
-          classes={ { root: 'rating' } }
+          classes={ { root: 'course-card-title' } }
         />
         <Skeleton
           animation='wave'
-          classes={ { root: 'student' } }
+          classes={ { root: 'course-card-creator' } }
         />
-      </div>
-      <Skeleton
-        animation='wave'
-        classes={ { root: 'title' } }
-      />
-      <div className='display-inline-flex'>
-        <Skeleton
-          animation='wave'
-          classes={ { root: 'rating' } }
-        />
-        <Skeleton
-          animation='wave'
-          classes={ { root: 'student' } }
-        />
+        <div className='display-inline-flex is-fullwidth'>
+          <Skeleton
+            animation='wave'
+            classes={ { root: 'course-card-rating' } }
+          />
+          <Skeleton
+            animation='wave'
+            variant='circle'
+            classes={ { root: 'course-card-separator' } }
+          />
+          <Skeleton
+            animation='wave'
+            classes={ { root: 'course-card-student' } }
+          />
+        </div>
       </div>
     </Card>
   </Grid>

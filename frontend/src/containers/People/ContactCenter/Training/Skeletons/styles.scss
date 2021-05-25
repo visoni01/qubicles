@@ -17,7 +17,7 @@
 
     .description {
       height: 4em;
-      transform: scale(1, 1);
+      transform: none;
       width: 100%;
     }
   }
@@ -26,44 +26,61 @@
 .all-courses-skeleton-container {
   width: 100%;
 
-  .heading {
-    margin: 5px 0;
-    width: 240px;
-    height: 60px;
-  }
-
-  .course-card-body {
+  .course-card-container {
     margin-bottom: 20px;
     height: 100%;
+    width: 100%;
 
     .course-card {
       border-radius: 8px;
       height: 300px;
-      margin: 10px 0px;
       transform: none;
-    }
 
-    .course-card-picture {
-      height: 50%;
-      transform: none;
-    }
+      .course-card-picture {
+        height: 50%;
+        transform: none;
+      }
 
-    .rating {
-      margin: 5px 0px 0px 5px;
-      width: 150px;
-      height: 30px;
-    }
+      .course-card-contents {
+        padding: 16px;
+        transform: none;
 
-    .student {
-      margin: 5px 0px 0px 5px;
-      width: 100px;
-      height: 30px;
-    }
+        .course-card-rating {
+          width: 40%;
+          height: 20px;
+          transform: none;
+        }
 
-    .title {
-      margin: 5px 0px 0px 5px;
-      width: 200px;
-      height: 10%;
+        .course-card-separator{
+          margin-top: 5px;
+          margin-left: 10px;
+          height: 5px;
+          width: 5px;
+          transform: none;
+        }
+
+        .course-card-student {
+          margin-left: 10px;
+          width: 30%;
+          height: 20px;
+          transform: none;
+        }
+
+        .course-card-title {
+          margin-top: 5px;
+          width: 60%;
+          height: 20px;
+          transform: none;
+        }
+
+        .course-card-creator {
+          margin-top: 5px;
+          margin-bottom: 10px;
+          width: 50%;
+          height: 20px;
+          transform: none;
+        }
+      }
     }
   }
 }
