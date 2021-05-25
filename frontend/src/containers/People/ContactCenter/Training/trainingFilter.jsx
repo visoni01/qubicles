@@ -60,6 +60,7 @@ const TrainingFilter = () => {
         </ListItem>
         <ListItem
           button
+          onClick={ () => history.push(ROUTE_PATHS.ENROLLED_COURSES) }
         >
           <ListItemText primary='Enrolled Courses' className='h4 bold-filter-item' />
         </ListItem>

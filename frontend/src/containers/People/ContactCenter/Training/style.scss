@@ -8,17 +8,18 @@
   .course-card-content {
     .description {
       display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
+
     .card-title {
       display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 
@@ -29,6 +30,20 @@
     border-radius: 6px;
     margin-top: 6rem;
     margin-left: 10px;
+  }
+
+  .progress-overlay {
+    width: 80px;
+    height: 40px;
+    position: absolute;
+    border-radius: 6px;
+    margin-top: 7rem;
+    margin-left: 10px;
+
+    .progress-text {
+      padding: 0.5rem 0;
+      text-align: center;
+    }
   }
 
   .overlay-button {

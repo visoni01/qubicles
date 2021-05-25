@@ -13,6 +13,7 @@ import PeopleViewJobs from '../../containers/People/viewJobsIndex'
 import MyCourses from '../../containers/People/ContactCenter/Training/MyCourses'
 import EditCoursePage from '../../containers/People/ContactCenter/Training/NewCourse/editCoursePage'
 import TestEntries from '../../containers/People/ContactCenter/Training/MyCourses/TestEntries'
+import EnrolledCourses from '../../containers/People/ContactCenter/Training/EnrolledCourses'
 
 const List = [
   {
@@ -78,6 +79,11 @@ const List = [
   {
     path: ROUTE_PATHS.VIEW_TEST_ENTRIES,
     component: TestEntries,
+    exact: true,
+  },
+  {
+    path: ROUTE_PATHS.ENROLLED_COURSES,
+    component: EnrolledCourses,
     exact: true,
   },
 ]

@@ -43,6 +43,7 @@ const ROUTE_PATHS = {
   VIEW_COURSE: `${ TRAINING_ROUTE }/course/:courseId`,
   EDIT_COURSE: `${ TRAINING_ROUTE }/edit-course/:courseId`,
   MY_COURSES: `${ TRAINING_ROUTE }/my-courses`,
+  ENROLLED_COURSES: `${ TRAINING_ROUTE }/enrolled-courses`,
   VIEW_TEST_ENTRIES: `${ TRAINING_ROUTE }/course/:courseId/test-entries`,
   VIEW_JOB_APPLICATION: `${ PEOPLE_ROUTE }/job/applications/:applicationId`,
   EDIT_JOB: `${ JOB_ROUTE }/:jobId/edit`,
