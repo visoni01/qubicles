@@ -3,7 +3,10 @@
 .course-card {
   border-radius: 8px;
   position: relative;
-  cursor: pointer;
+
+  &.cursor-pointer {
+    cursor: pointer;
+  }
 
   .course-card-content {
     .description {

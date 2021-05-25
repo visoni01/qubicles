@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import ROUTE_PATHS from '../../../../../routes/routesPath'
 import EnrolledCourseCard from './enrolledCourseCard'
+import { enrolledCourses } from '../testData'
 
 const EnrolledCourses = () => {
   const history = useHistory()
@@ -29,11 +30,9 @@ const EnrolledCourses = () => {
       <div className='mb-30'>
         <h3 className='h3 mb-20'>Enrolled Courses</h3>
         <Grid container spacing={ 3 }>
-          <EnrolledCourseCard />
-          <EnrolledCourseCard />
-          <EnrolledCourseCard />
-          <EnrolledCourseCard />
-          <EnrolledCourseCard />
+          {enrolledCourses.filter((course) => course.courseProgress < 100).map((course) => (
+            <EnrolledCourseCard key={ course.courseId } { ...course } />
+          ))}
         </Grid>
       </div>
 
@@ -42,7 +41,9 @@ const EnrolledCourses = () => {
         <div className='mt-30 mb-30'>
           <h3 className='h3 mb-20'>Passed Courses</h3>
           <Grid container spacing={ 3 }>
-            <EnrolledCourseCard />
+            {enrolledCourses.filter((course) => course.courseProgress === 100).map((course) => (
+              <EnrolledCourseCard key={ course.courseId } { ...course } />
+            ))}
           </Grid>
         </div>
       </div>

@@ -18,7 +18,7 @@ const CourseCard = ({
   return (
     <Grid xl={ 4 } lg={ 4 } md={ 6 } sm={ 12 } item>
       <Card
-        className='course-card'
+        className='course-card cursor-pointer'
         onClick={ () => history.push(`${ VIEW_COURSE_ROUTE }/${ courseId }`) }
       >
         <Box className='custom-box no-padding price-overlay'>

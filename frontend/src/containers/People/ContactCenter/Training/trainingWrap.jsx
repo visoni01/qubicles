@@ -5,7 +5,7 @@ import {
 } from '@material-ui/core'
 import { Pagination } from '@material-ui/lab'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, faSlidersH } from '@fortawesome/free-solid-svg-icons'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useHistory } from 'react-router-dom'
 import _ from 'lodash'
 import ROUTE_PATHS from '../../../../routes/routesPath'
@@ -14,6 +14,7 @@ import { updateViewAllCoursesFilter, updateCurrentPage } from '../../../../redux
 import CourseFilterModal from './courseFilterModal'
 import { noOfCoursesPerPage } from '../constants'
 import AllCoursesSkeleton from './Skeletons/allCoursesSkeleton'
+import { FilterIcon } from '../../../../assets/images/training'
 
 const TrainingWrap = () => {
   const {
@@ -110,7 +111,7 @@ const TrainingWrap = () => {
             aria-describedby={ id }
             className='filter'
           >
-            <FontAwesomeIcon icon={ faSlidersH } className='custom-fa-icon light' />
+            <FilterIcon />
           </IconButton>
           <CourseFilterModal
             id={ id }

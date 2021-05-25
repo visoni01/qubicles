@@ -4,6 +4,7 @@ import { ReactComponent as VideoIcon } from './video.svg'
 import { ReactComponent as AudioIcon } from './audio.svg'
 import { ReactComponent as TestIcon } from './test.svg'
 import { ReactComponent as DeleteIcon } from './delete.svg'
+import { ReactComponent as FilterIcon } from './filter.svg'
 
 export {
   TestDoneIcon,
@@ -12,4 +13,5 @@ export {
   AudioIcon,
   TestIcon,
   DeleteIcon,
+  FilterIcon,
 }

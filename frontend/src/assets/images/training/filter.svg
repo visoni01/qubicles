@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="19.5" height="19.5" viewBox="0 0 19.5 19.5">
+  <g id="system-preferences" transform="translate(-0.25 -0.449)">
+    <line id="Line_7" data-name="Line 7" y1="7" transform="translate(3 1.199)" fill="none" stroke="#999" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+    <line id="Line_8" data-name="Line 8" y1="2" transform="translate(3 17.199)" fill="none" stroke="#999" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+    <line id="Line_9" data-name="Line 9" y1="1" transform="translate(10 1.199)" fill="none" stroke="#999" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+    <line id="Line_10" data-name="Line 10" y1="9" transform="translate(10 10.199)" fill="none" stroke="#999" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+    <line id="Line_11" data-name="Line 11" y1="7" transform="translate(17 1.199)" fill="none" stroke="#999" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+    <line id="Line_12" data-name="Line 12" y1="2" transform="translate(17 17.199)" fill="none" stroke="#999" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+    <circle id="Ellipse_184" data-name="Ellipse 184" cx="2.5" cy="2.5" r="2.5" transform="translate(1 12.199)" fill="none" stroke="#999" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+    <circle id="Ellipse_185" data-name="Ellipse 185" cx="2.5" cy="2.5" r="2.5" transform="translate(8 5.199)" fill="none" stroke="#999" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+    <circle id="Ellipse_186" data-name="Ellipse 186" cx="2.5" cy="2.5" r="2.5" transform="translate(14 12.199)" fill="none" stroke="#999" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+  </g>
+</svg>

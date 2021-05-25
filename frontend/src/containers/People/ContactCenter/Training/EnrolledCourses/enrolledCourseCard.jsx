@@ -60,7 +60,7 @@ const EnrolledCourseCard = ({
               classes={ { root: 'button-primary-small', label: 'button-primary-small-label' } }
               onClick={ () => history.push(`${ VIEW_COURSE_ROUTE }/${ courseId }`) }
             >
-              Continue
+              {courseProgress < 100 ? 'Continue' : 'View'}
             </Button>
           </div>
         </CardContent>
@@ -69,28 +69,16 @@ const EnrolledCourseCard = ({
   )
 }
 
-EnrolledCourseCard.defaultProps = {
-  courseId: 9,
-  courseTitle: 'Lorem Ipsum Title',
-  rating: 4.5,
-  studentsCount: 25,
-  creatorName: 'Chris Porter',
-  sectionsCount: 5,
-  language: 'English',
-  courseImage: 'https://picsum.photos/400/300',
-  courseProgress: 50,
-}
-
 EnrolledCourseCard.propTypes = {
-  courseId: PropTypes.number,
-  courseTitle: PropTypes.string,
-  rating: PropTypes.number,
-  studentsCount: PropTypes.number,
-  creatorName: PropTypes.string,
-  sectionsCount: PropTypes.number,
-  language: PropTypes.string,
-  courseImage: PropTypes.string,
-  courseProgress: PropTypes.number,
+  courseId: PropTypes.number.isRequired,
+  courseTitle: PropTypes.string.isRequired,
+  rating: PropTypes.number.isRequired,
+  studentsCount: PropTypes.number.isRequired,
+  creatorName: PropTypes.string.isRequired,
+  sectionsCount: PropTypes.number.isRequired,
+  language: PropTypes.string.isRequired,
+  courseImage: PropTypes.string.isRequired,
+  courseProgress: PropTypes.number.isRequired,
 }
 
 export default EnrolledCourseCard

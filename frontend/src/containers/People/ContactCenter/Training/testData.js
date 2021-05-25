@@ -263,6 +263,64 @@ const viewCourseData = {
   },
 }
 
+const enrolledCourses = [
+  {
+    courseId: 9,
+    courseTitle: 'Lorem Ipsum Title',
+    rating: 3.8,
+    studentsCount: 25,
+    creatorName: 'Chris Porter',
+    sectionsCount: 5,
+    language: 'English',
+    courseImage: 'https://picsum.photos/400/300',
+    courseProgress: 50,
+  },
+  {
+    courseId: 10,
+    courseTitle: 'Email Communication',
+    rating: 4.5,
+    studentsCount: 70,
+    creatorName: 'James Decker',
+    sectionsCount: 9,
+    language: 'English',
+    courseImage: 'https://picsum.photos/400/300',
+    courseProgress: 20,
+  },
+  {
+    courseId: 12,
+    courseTitle: 'Introduction to Accounting',
+    rating: 4.0,
+    studentsCount: 39,
+    creatorName: 'Chris Porter',
+    sectionsCount: 7,
+    language: 'French',
+    courseImage: 'https://picsum.photos/400/300',
+    courseProgress: 15,
+  },
+  {
+    courseId: 31,
+    courseTitle: 'Digital Marketing',
+    rating: 4.2,
+    studentsCount: 55,
+    creatorName: 'James Decker',
+    sectionsCount: 10,
+    language: 'Spanish',
+    courseImage: 'https://picsum.photos/400/300',
+    courseProgress: 70,
+  },
+  {
+    courseId: 34,
+    courseTitle: 'React - The Complete Guide',
+    rating: 4.7,
+    studentsCount: 200,
+    creatorName: 'Chris Porter',
+    sectionsCount: 12,
+    language: 'English',
+    courseImage: 'https://ipfs.telos.miami/ipfs/QmbXsiPiiygzc6HjqBHbBanGoUBikarEeD3ekBTq9n3SFr',
+    courseProgress: 100,
+  },
+]
+
 export {
-  courseCategories, courseCards, courseTrainerIntroduction, courseDescription, viewCourseData,
+  courseCategories, courseCards, courseTrainerIntroduction, courseDescription, viewCourseData, enrolledCourses,
 }
