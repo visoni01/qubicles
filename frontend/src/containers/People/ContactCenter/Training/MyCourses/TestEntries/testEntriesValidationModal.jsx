@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import AnswerValidationCard from './answerValidationCard'
 import { testEntriesRequestStart } from '../../../../../../redux-saga/redux/people'
+import TestEntriesValidationSkeleton from '../../Skeletons/testEntriesValidationSkeleton'
 
 const TestEntriesValidation = ({
   open, setOpen, candidateName, candidatePic, candidateId, sectionId, testEntryAnswers, courseId,
@@ -66,7 +67,9 @@ const TestEntriesValidation = ({
         <DialogTitle>
           <div className='h2 mr-30'>
             Validation
-            {isLoading && <CircularProgress size={ 25 } />}
+            {_.isEqual(dataType, 'Validate Answers') && isLoading && (
+              <CircularProgress size={ 25 } className='ml-10' />
+            )}
           </div>
         </DialogTitle>
         <DialogActions className='cross-button'>
@@ -83,19 +86,25 @@ const TestEntriesValidation = ({
           <Avatar className='user-pic' alt={ candidateName } src={ candidatePic } />
           <p className='h3 user-name'>{candidateName}</p>
         </div>
-        <Grid container spacing={ 3 }>
-          {testEntryAnswers && testEntryAnswers.length > 0 && testEntryAnswers.map((testEntryAnswer) => (
-            <Grid item xs={ 12 } key={ testEntryAnswer.questionId }>
-              <AnswerValidationCard
-                candidatePic={ candidatePic }
-                candidateName={ candidateName }
-                validatedData={ validatedData }
-                setValidatedData={ setValidatedData }
-                { ...testEntryAnswer }
-              />
-            </Grid>
-          ))}
-        </Grid>
+        {_.isEqual(dataType, 'Test Entry Answers') && isLoading && (
+          <TestEntriesValidationSkeleton />
+        )}
+        {(!isLoading || _.isEqual(dataType, 'Validate Answers')) && (
+          <Grid container spacing={ 3 }>
+            {testEntryAnswers && testEntryAnswers.length > 0 && testEntryAnswers.map((testEntryAnswer) => (
+              <Grid item xs={ 12 } key={ testEntryAnswer.questionId }>
+                <AnswerValidationCard
+                  candidatePic={ candidatePic }
+                  candidateName={ candidateName }
+                  validatedData={ validatedData }
+                  setValidatedData={ setValidatedData }
+                  { ...testEntryAnswer }
+                  isLoading={ isLoading }
+                />
+              </Grid>
+            ))}
+          </Grid>
+        )}
       </DialogContent>
       <DialogActions className='modal-actions validation-modal-actions'>
         <Button

@@ -8,7 +8,7 @@ import './styles.scss'
 
 const AnswerValidationCard = ({
   candidatePic, candidateName, questionId, questionText, candidateAnswer, correctAnswer,
-  validatedData, setValidatedData,
+  validatedData, setValidatedData, isLoading,
 }) => {
   const [ showReferenceAnswer, setShowReferenceAnswer ] = useState(false)
   const [ isCorrect, setIsCorrect ] = useState(null)
@@ -62,6 +62,7 @@ const AnswerValidationCard = ({
               root: 'button-primary-small',
               label: 'button-primary-small-label',
             } }
+            disabled={ isLoading }
             onClick={ () => setShowReferenceAnswer((state) => !state) }
           >
             {`${ showReferenceAnswer ? 'Hide' : 'Show' } Reference Answer`}
@@ -73,7 +74,7 @@ const AnswerValidationCard = ({
               label: 'button-primary-small-label',
             } }
             onClick={ () => validateAnswer(false) }
-            disabled={ isCorrect === false }
+            disabled={ isCorrect === false || isLoading }
           >
             Incorrect
           </Button>
@@ -84,7 +85,7 @@ const AnswerValidationCard = ({
               label: 'button-primary-small-label',
             } }
             onClick={ () => validateAnswer(true) }
-            disabled={ isCorrect }
+            disabled={ isCorrect || isLoading }
           >
             Correct
           </Button>
@@ -106,6 +107,7 @@ AnswerValidationCard.propTypes = {
     questionId: PropTypes.number,
     correct: PropTypes.bool,
   })).isRequired,
+  isLoading: PropTypes.bool.isRequired,
 }
 
 export default AnswerValidationCard
