@@ -5,7 +5,7 @@ import {
   FormControlLabel, FormGroup,
 } from '@material-ui/core'
 import _ from 'lodash'
-import testQuestionPropType from './testQuestionPropType'
+import { testQuestionPropType } from './propTypes'
 
 const CheckboxTestQuestion = ({
   question, answers, setAnswers,

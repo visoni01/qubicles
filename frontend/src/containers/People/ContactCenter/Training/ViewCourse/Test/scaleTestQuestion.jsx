@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import { Slider, TextField } from '@material-ui/core'
-import testQuestionPropType from './testQuestionPropType'
+import { answersPropTypes, testQuestionPropType } from './propTypes'
 
 const ScaleTestQuestion = ({
   question, answers, setAnswers,
@@ -106,7 +106,7 @@ const ScaleTestQuestion = ({
 
 ScaleTestQuestion.propTypes = {
   question: testQuestionPropType.isRequired,
-  answers: PropTypes.arrayOf(PropTypes.any).isRequired,
+  answers: answersPropTypes.isRequired,
   setAnswers: PropTypes.func.isRequired,
 }
 

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { TextField } from '@material-ui/core'
 import _ from 'lodash'
-import testQuestionPropType from './testQuestionPropType'
+import { testQuestionPropType } from './propTypes'
 
 const DateTimeTestQuestion = ({
   question, answers, setAnswers,

@@ -12,7 +12,7 @@ import './styles.scss'
 import TestCompleted from './testCompleted'
 import { viewCourseRequestStart } from '../../../../../../redux-saga/redux/people'
 import AssessmentTestSkeleton from '../../Skeletons/assessmentTestSkeleton'
-import assessmentTestPropType from './assessmentTestPropType'
+import { assessmentTestPropType } from './propTypes'
 
 const AssessmentTestModal = ({
   open, onClose, courseId, assessmentTest, isLoading,

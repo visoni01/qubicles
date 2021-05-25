@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import CheckboxTestQuestion from './checkboxTestQuestion'
 import MultipleChoiceTestQuestion from './multipleChoiceTestQuestion'
 import TextTestQuestion from './textTestQuestion'
-import testQuestionPropType from './testQuestionPropType'
+import { testQuestionPropType } from './propTypes'
 import DateTimeTestQuestion from './dateTimeTestQuestion'
 import ScaleTestQuestion from './scaleTestQuestion'
 

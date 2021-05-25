@@ -4,7 +4,7 @@ import _ from 'lodash'
 import {
   RadioGroup, FormControlLabel, Radio,
 } from '@material-ui/core'
-import testQuestionPropType from './testQuestionPropType'
+import { testQuestionPropType } from './propTypes'
 
 const MultipleChoiceTestQuestion = ({
   question, answers, setAnswers,

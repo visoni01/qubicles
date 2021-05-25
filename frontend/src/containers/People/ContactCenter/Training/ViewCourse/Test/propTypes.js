@@ -1,6 +1,12 @@
 import PropTypes from 'prop-types'
 
-const assessmentTestPropType = PropTypes.arrayOf(PropTypes.shape({
+export const testQuestionPropType = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  questionType: PropTypes.string.isRequired,
+  questionText: PropTypes.string.isRequired,
+})
+
+export const assessmentTestPropType = PropTypes.arrayOf(PropTypes.shape({
   sectionId: PropTypes.number,
   title: PropTypes.string,
   questions: PropTypes.arrayOf(PropTypes.shape({
@@ -22,4 +28,8 @@ const assessmentTestPropType = PropTypes.arrayOf(PropTypes.shape({
   })),
 }))
 
-export default assessmentTestPropType
+export const answersPropTypes = PropTypes.arrayOf(PropTypes.shape({
+  questionId: PropTypes.number,
+  questionType: PropTypes.string,
+  answer: PropTypes.string,
+}))
