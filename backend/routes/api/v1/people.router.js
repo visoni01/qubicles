@@ -87,4 +87,7 @@ peopleRouter.route('/course/:course_id/test-entries/:section_id')
 peopleRouter.route('/course/:course_id/test-entries/:section_id')
   .put(isAuthenticated, trainingController.updateTestEntry)
 
+peopleRouter.route('/enrolled-courses')
+  .get(isAuthenticated, trainingController.getAllEnrolledCourses)
+
 export { peopleRouter }

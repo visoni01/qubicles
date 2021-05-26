@@ -1687,3 +1687,77 @@ export const updateTestEntry = async ({ validatedData }) => {
     )
   }
 }
+
+export const fetchAllEnrolledCourses = async ({ user_id }) => {
+  const courses = await XQodUserCourse.findAll({
+    attributes: ['course_id', 'status'],
+    include: [
+      {
+        model: XQodCourse,
+        as: 'courseDetails',
+        required: false,
+        attributes: [
+          'course_id',
+          'title',
+          'rating',
+          'language',
+          'image_url',
+          [Sequelize.literal('COUNT(DISTINCT(`courseDetails->students`.`user_id`))'), 'studentsCount'],
+          [Sequelize.literal('COUNT(DISTINCT(`courseDetails->sections`.`section_id`))'), 'sectionsCount'],
+          [Sequelize.literal('COUNT(DISTINCT(`courseDetails->userTest`.`section_id`))'), 'sectionsCompleted']
+        ],
+        include: [
+          {
+            model: XQodUserCourse,
+            as: 'students',
+            attributes: []
+          },
+          {
+            model: XQodCourseSection,
+            as: 'sections',
+            attributes: []
+          },
+          {
+            model: XQodCourseUserQA,
+            as: 'userTest',
+            attributes: []
+          },
+          {
+            model: UserDetail,
+            as: 'creatorDetails',
+            attributes: [
+              ['first_name', 'firstName'],
+              ['last_name', 'lastName']
+            ]
+          }
+        ],
+        group: ['XQodCourse.course_id']
+      }
+    ],
+    group: ['XQodUserCourse.course_id'],
+    where: {
+      user_id
+    }
+  })
+
+  return courses && courses.map(item => item.get({ plain: true }))
+}
+
+export const formatEnrolledCoursesData = ({ courses }) => {
+  return courses.map((item) => {
+    return {
+      courseId: item.course_id,
+      status: item.status,
+      courseTitle: item.courseDetails && item.courseDetails.title,
+      rating: item.courseDetails && item.courseDetails.rating,
+      studentsCount: item.courseDetails && item.courseDetails.studentsCount,
+      creatorName: item.courseDetails && item.courseDetails.creatorDetails &&
+      item.courseDetails.creatorDetails.firstName + ' ' + item.courseDetails.creatorDetails.lastName,
+      sectionsCount: item.courseDetails && item.courseDetails.sectionsCount,
+      language: item.courseDetails && item.courseDetails.language,
+      courseImage: item.courseDetails && item.courseDetails.image_url,
+      courseProgress: item.courseDetails && item.courseDetails.sectionsCount &&
+      Math.round((item.courseDetails.sectionsCompleted / item.courseDetails.sectionsCount) * 100)
+    }
+  })
+}
