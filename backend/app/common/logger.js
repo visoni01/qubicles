@@ -61,15 +61,33 @@ if (environment === 'production') {
 }
 
 const customFormat = printf((info) => {
+  if (info.level !== '\u001b[31merror\u001b[39m') {
+    info = {
+      ...info,
+      logTitle: info.message.logTitle,
+      class: info.message.class,
+      context: info.message.context,
+      metadata: info.message.metadata,
+      tagsCtx: info.message.tagsCtx,
+      userCtx: info.message.userCtx,
+      exceptionBacktrace: info.message.exceptionBacktrace,
+      fault: info.message.fault
+    }
+    info = {
+      ...info,
+      message: info.message.message
+    }
+  }
   let msg = `Process: ${process.pid} ${info.timestamp} [${info.label}] ${info.level}: `
-  msg += info.logTitle ? `${info.logTitle} Message: ${info.message} ` : info.message
-  msg += info.class ? `class: ${typeof info.class === 'object' ? JSON.stringify(info.class) : info.class} ` : ''
-  msg += info.context ? `context: ${typeof info.context === 'object' ? JSON.stringify(info.context) : info.context} ` : ''
-  msg += info.metadata ? `metadata: ${typeof info.metadata === 'object' ? JSON.stringify(info.metadata) : info.metadata} ` : ''
-  msg += info.tagsCtx ? `tagsCtx: ${typeof info.tagsCtx === 'object' ? JSON.stringify(info.tagsCtx) : info.tagsCtx} ` : ''
-  msg += info.userCtx ? `userCtx: ${typeof info.userCtx === 'object' ? JSON.stringify(info.userCtx) : info.userCtx} ` : ''
-  msg += info.exceptionBacktrace ? `exceptionBacktrace: ${typeof info.exceptionBacktrace === 'object' ? JSON.stringify(info.exceptionBacktrace) : info.exceptionBacktrace} ` : ''
-  msg += info.fault ? `fault: ${typeof info.fault === 'object' ? JSON.stringify(info.fault) : info.fault} ` : ''
+  msg += info.logTitle ? `${info.logTitle} ` : ''
+  msg += info.message ? `${info.message} ` : ''
+  msg += info.class ? `class: ${typeof info.class === 'object' ? JSON.stringify(info.class) : info.class}, ` : ''
+  msg += info.context ? `context: ${typeof info.context === 'object' ? JSON.stringify(info.context) : info.context}, ` : ''
+  msg += info.metadata ? `metadata: ${typeof info.metadata === 'object' ? JSON.stringify(info.metadata) : info.metadata}, ` : ''
+  msg += info.tagsCtx ? `tagsCtx: ${typeof info.tagsCtx === 'object' ? JSON.stringify(info.tagsCtx) : info.tagsCtx}, ` : ''
+  msg += info.userCtx ? `userCtx: ${typeof info.userCtx === 'object' ? JSON.stringify(info.userCtx) : info.userCtx}, ` : ''
+  msg += info.exceptionBacktrace ? `exceptionBacktrace: ${typeof info.exceptionBacktrace === 'object' ? JSON.stringify(info.exceptionBacktrace) : info.exceptionBacktrace}, ` : ''
+  msg += info.fault ? `fault: ${typeof info.fault === 'object' ? JSON.stringify(info.fault) : info.fault}, ` : ''
   return msg
 })
 
@@ -95,20 +113,19 @@ export default class Logger {
   }
 
   static error (logTitle, argHash) {
-    this.log('error', logTitle, argHash)
+    this.log('error', logTitle, { message: argHash.toString() })
   }
 
   static log (logType, logTitle, argHash) {
     const allArgs = Object.assign({ logTitle }, argHash)
-    const logMessage = this.buildMessage(allArgs)
-    this.writeToLog(logType, logTitle, logMessage, argHash)
+    this.writeToLog(logType, logTitle, allArgs, argHash)
   }
 
   static writeToLog (logType, logTitle, logMessage, argHash) {
     if (argHash && ['start', 'around'].indexOf(argHash.wrap) !== -1) {
-      logger[logType](this.generateWrapStr(logTitle, 'START', argHash['extraData']))
+      logger[logType]({ message: { message: this.generateWrapStr(logTitle, 'START', argHash['extraData']) } })
     } else if (argHash && ['end', 'around'].indexOf(argHash.wrap) !== -1) {
-      logger[logType](this.generateWrapStr(logTitle, 'END', argHash['extraData']))
+      logger[logType]({ message: { message: this.generateWrapStr(logTitle, 'END', argHash['extraData']) } })
     } else {
       logger[logType](logMessage)
     }
@@ -116,18 +133,5 @@ export default class Logger {
 
   static generateWrapStr (logTitle, separatorType, extraData) {
     return `${separatorType}${'-'.repeat(5)}${logTitle.toUpperCase()}${'-'.repeat(5)}${extraData ? `${extraData}${'-'.repeat(5)}` : ''}${separatorType}`
-  }
-
-  static buildMessage (logAttrs) {
-    const msg = [`${logAttrs.logTitle}`]
-    if (logAttrs.klass) { msg.push('Class:', logAttrs.klass.name, ',') }
-    if (logAttrs.message) { msg.push('Message:', logAttrs.message, ',') }
-    if (logAttrs.context) { msg.push('Context:', logAttrs.context, ',') }
-    if (logAttrs.metadata) { msg.push('Metadata:', logAttrs.metadata, ',') }
-    if (logAttrs.tagCtx) { msg.push('TagsCtx:', logAttrs.tagCtx, ',') }
-    if (logAttrs.userCtx) { msg.push('UserCtx:', logAttrs.userCtx, ',') }
-    if (logAttrs.exception) { msg.push('ExceptionBacktrace:', logAttrs.exception.stack, ',') }
-    if (logAttrs.fault) { msg.push('Fault:', logAttrs.fault, ',') }
-    return msg
   }
 }
