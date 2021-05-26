@@ -3,7 +3,7 @@ import {
   Box, IconButton, List, ListItemText, InputBase, MenuItem, debounce,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSlidersH, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
 import {
@@ -12,6 +12,7 @@ import {
 import JobsFilterSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/jobsFilterSkeleton'
 import './styles.scss'
 import JobsFilterModal from './jobsFilter'
+import { FilterIcon } from '../../../../assets/images/training'
 
 const JobsList = () => {
   const [ displaySearchCategories, setDisplaySearchCategories ] = useState(true)
@@ -84,7 +85,7 @@ const JobsList = () => {
             onClick={ handleClick }
             aria-describedby={ id }
           >
-            <FontAwesomeIcon icon={ faSlidersH } className='custom-fa-icon light' />
+            <FilterIcon />
           </IconButton>
           <JobsFilterModal
             id={ id }

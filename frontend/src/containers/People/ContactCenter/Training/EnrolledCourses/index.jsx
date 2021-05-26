@@ -37,24 +37,38 @@ const EnrolledCourses = () => {
         </Button>
       </div>
 
-      {enrolledCourses && enrolledCourses.filter((course) => course.courseProgress < 100).length > 0 && (
+      {enrolledCourses && enrolledCourses.filter((course) => (
+        course.courseProgress < 100
+        && (_.isEqual(course.status, 'inprogress') || _.isEqual(course.status, 'enrolled'))
+      )).length > 0 && (
       <div className='mb-30'>
         <h3 className='h3 mb-20'>Enrolled Courses</h3>
         <Grid container spacing={ 3 }>
-          {enrolledCourses.filter((course) => course.courseProgress < 100).map((course) => (
+          {enrolledCourses.filter((course) => (
+            course.courseProgress < 100
+            && (_.isEqual(course.status, 'inprogress') || _.isEqual(course.status, 'enrolled'))
+          )).map((course) => (
             <EnrolledCourseCard key={ course.courseId } { ...course } />
           ))}
         </Grid>
       </div>
       )}
 
-      {enrolledCourses && enrolledCourses.filter((course) => course.courseProgress === 100).length > 0 && (
+      {enrolledCourses && enrolledCourses.filter((course) => (
+        course.courseProgress === 100
+        || _.isEqual(course.status, 'completed')
+        || _.isEqual(course.status, 'dropped')
+      )).length > 0 && (
       <div>
         <Divider />
         <div className='mt-30 mb-30'>
           <h3 className='h3 mb-20'>Passed Courses</h3>
           <Grid container spacing={ 3 }>
-            {enrolledCourses.filter((course) => course.courseProgress === 100).map((course) => (
+            {enrolledCourses.filter((course) => (
+              course.courseProgress === 100
+              || _.isEqual(course.status, 'completed')
+              || _.isEqual(course.status, 'dropped')
+            )).map((course) => (
               <EnrolledCourseCard key={ course.courseId } { ...course } />
             ))}
           </Grid>
