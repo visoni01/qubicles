@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import apiClient, { axiosInst } from '../../utils/apiClient'
+import { enrolledCourses } from '../../containers/People/ContactCenter/Training/testData'
 
 class People {
   /* Client (contact center) section's API */
@@ -328,6 +329,12 @@ class People {
       { candidate_id: candidateId, validated_data: validatedData },
     )
     return response
+  }
+
+  static async fetchEnrolledCourses() {
+    // const response = await apiClient.getRequest('/people/enrolled-courses')
+    const data = enrolledCourses
+    return { data }
   }
 }
 

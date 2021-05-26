@@ -17,6 +17,7 @@ import allCourses from './training/allCourses'
 import viewAllCourses from './training/viewAllCourses'
 import viewCourse from './training/viewCourse'
 import testEntries from './training/testEntries'
+import enrolledCourses from './training/enrolledCourses'
 
 const peopleWatcherFunctions = [
   () => peopleTalentCards(),
@@ -38,6 +39,7 @@ const peopleWatcherFunctions = [
   () => viewAllCourses(),
   () => viewCourse(),
   () => testEntries(),
+  () => enrolledCourses(),
 ]
 
 export default peopleWatcherFunctions

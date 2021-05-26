@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Grid } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 import CourseTrainerIntro from './CourseTrainerIntro'
 import CourseDescription from './CourseDescription'
 import CourseOverview from './CourseOverview'
@@ -12,6 +12,7 @@ import { resetViewCourseReducer, viewCourseRequestStart } from '../../../../../r
 import { resetUserData } from '../../../../../redux-saga/redux/user'
 
 const ViewCourse = () => {
+  const location = useLocation()
   let { courseId } = useParams()
   courseId = parseInt(courseId, 10)
   const { course, dataType, isLoading } = useSelector((state) => state.viewCourse)
@@ -87,6 +88,7 @@ const ViewCourse = () => {
           setOpenCoursePlayer={ setOpenCoursePlayer }
           isLoading={ isLoading }
           dataType={ dataType }
+          continueCourse={ location.continueCourse }
         />
       </Grid>
     </Grid>

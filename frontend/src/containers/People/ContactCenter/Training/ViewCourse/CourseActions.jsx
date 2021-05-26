@@ -19,7 +19,7 @@ import { startLoader, stopLoader } from '../../../../../redux-saga/redux/utils'
 import CourseActionSkeleton from '../Skeletons/courseActionSkeleton'
 
 const CourseActions = ({
-  course, setOpenCoursePlayer, type, isLoading, dataType,
+  course, setOpenCoursePlayer, type, isLoading, dataType, continueCourse,
 }) => {
   const [ isAssessmentModalOpen, setIsAssessmentModalOpen ] = useState(false)
   const [ openBuyCoursePopup, setOpenBuyCoursePopup ] = useState(false)
@@ -115,6 +115,13 @@ const CourseActions = ({
     setOpenCoursePlayer(true)
   }, [ course.isEnrolled, course.courseDetails, course.courseId, dispatch, setOpenCoursePlayer,
     course.informationSection.price, course.courseContent.sections ])
+
+  useEffect(() => {
+    if (continueCourse && _.isEqual(type, 'view')
+    && !(_.isNull(isLoading) || isLoading) && (_.isEmpty(dataType) || _.isEqual(dataType, 'Course Info'))) {
+      handleStartOrContinueCourse()
+    }
+  }, [ continueCourse, dataType, handleStartOrContinueCourse, isLoading, type ])
 
   if (_.isEqual(type, 'view')
     && (_.isNull(isLoading) || isLoading) && (_.isEmpty(dataType) || _.isEqual(dataType, 'Course Info'))) {
@@ -267,6 +274,7 @@ CourseActions.defaultProps = {
   type: 'view',
   isLoading: null,
   dataType: '',
+  continueCourse: false,
 }
 
 CourseActions.propTypes = {
@@ -275,6 +283,7 @@ CourseActions.propTypes = {
   type: typePropType,
   isLoading: PropTypes.bool,
   dataType: dataTypePropType,
+  continueCourse: PropTypes.bool,
 }
 
 export default CourseActions

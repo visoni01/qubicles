@@ -58,7 +58,10 @@ const EnrolledCourseCard = ({
             <Button
               className='is-fullwidth'
               classes={ { root: 'button-primary-small', label: 'button-primary-small-label' } }
-              onClick={ () => history.push(`${ VIEW_COURSE_ROUTE }/${ courseId }`) }
+              onClick={ () => history.push({
+                pathname: `${ VIEW_COURSE_ROUTE }/${ courseId }`,
+                continueCourse: courseProgress < 100,
+              }) }
             >
               {courseProgress < 100 ? 'Continue' : 'View'}
             </Button>
