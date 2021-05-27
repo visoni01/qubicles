@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     user_id: DataTypes.INTEGER(9),
     record_type: {
       type: DataTypes.ENUM,
-      values: ['client', 'user', 'topic', 'activity']
+      values: ['client', 'user', 'topic', 'activity', 'course']
     },
     record_id: {
       type: DataTypes.INTEGER(11)

@@ -1763,3 +1763,59 @@ export const formatEnrolledCoursesData = ({ courses }) => {
     }
   })
 }
+
+export const fetchCourseRating = async ({ user_id, course_id }) => {
+  const promiseArray = [
+    () => XQodUserCourse.findOne({
+      raw: true,
+      attributes: ['user_course_id'],
+      where: {
+        course_id,
+        user_id
+      }
+    }),
+    () => XUserActivity.findOne({
+      raw: true,
+      attributes: ['user_activity_id'],
+      where: {
+        user_id,
+        record_id: course_id,
+        record_type: 'course'
+      }
+    }),
+    () => XUserActivity.findAll({
+      raw: true,
+      attributes: [
+        [Sequelize.literal('AVG(CASE WHEN `activity_type` = "rating_value" ' +
+          'THEN `activity_value` END)'), 'value'],
+        [Sequelize.literal('AVG(CASE WHEN `activity_type` = "rating_clarity" ' +
+          'THEN `activity_value` END)'), 'clarity'],
+        [Sequelize.literal('AVG(CASE WHEN `activity_type` = "rating_content" ' +
+          'THEN `activity_value` END)'), 'content'],
+        [Sequelize.literal('AVG(CASE WHEN `activity_type` = "rating_structure" ' +
+          'THEN `activity_value` END)'), 'structure'],
+        [Sequelize.literal('AVG(`activity_value`)'), 'totalAverageRating'],
+        [Sequelize.literal('COUNT(DISTINCT(`user_id`))'), 'totalAverageRaters']
+      ],
+      where: {
+        record_id: course_id,
+        record_type: 'course'
+      }
+    })
+  ]
+
+  const [isEnrolled, userReview, ratingData] = await Promise.all(promiseArray.map(promise => promise()))
+
+  return {
+    isEnrolled,
+    userReview,
+    ratingData
+  }
+}
+
+export const formatCourseRating = ({ rating }) => {
+  return {
+    addReveiewAccess: !_.isNull(rating.isEnrolled) && _.isNull(rating.userReview),
+    ratings: rating.ratingData
+  }
+}

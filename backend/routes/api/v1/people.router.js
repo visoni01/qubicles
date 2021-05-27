@@ -90,4 +90,7 @@ peopleRouter.route('/course/:course_id/test-entries/:section_id')
 peopleRouter.route('/enrolled-courses')
   .get(isAuthenticated, trainingController.getAllEnrolledCourses)
 
+peopleRouter.route('/course/:course_id/rating')
+  .get(isAuthenticated, trainingController.getCourseRating)
+
 export { peopleRouter }
