@@ -2,10 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react'
 import {
   Box, InputBase, Button,
 } from '@material-ui/core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faSearch,
-} from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -18,6 +14,7 @@ import TopicsList from '../topics/list'
 import ScrollToTop from '../../../components/scrollToTop'
 import GroupOptions from './groupOptions'
 import UpdateGroup from './createOrUpdate'
+import { SearchIcon } from '../../../assets/images/common'
 
 const SelectedGroup = ({ group }) => {
   const {
@@ -154,8 +151,8 @@ const SelectedGroup = ({ group }) => {
           </p>
         </Box>
         <div className='display-inline-flex is-fullwidth mb-20'>
-          <div className='search-input mr-10'>
-            <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 custom-fa-icon light' />
+          <div className='display-inline-flex search-input mr-10'>
+            <SearchIcon className='ml-10 mr-10 align-self-center' />
             <InputBase
               placeholder='Search'
               className='input-field'

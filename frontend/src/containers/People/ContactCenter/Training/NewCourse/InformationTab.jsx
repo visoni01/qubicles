@@ -4,14 +4,13 @@ import {
   Grid, FormControl,
   RadioGroup, FormControlLabel, Radio, InputBase, TextField, Select,
 } from '@material-ui/core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import _ from 'lodash'
 import SingleSelect from '../../../../Shared/singleSelect'
 import { jobCategoriesOnlyFetchStart } from '../../../../../redux-saga/redux/actions'
 import { errorsPropTypes, informationSectionPropType } from './propTypes'
+import { SearchIcon } from '../../../../../assets/images/common'
 
 export default function InformationTab({
   informationSection, setInformationSection, errors,
@@ -215,8 +214,8 @@ export default function InformationTab({
         <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 6 }>
           <div className='info-tab-section'>
             <h3 className='h3 mb-10'> Required Courses </h3>
-            <div className='search-input'>
-              <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 custom-fa-icon light' />
+            <div className='display-inline-flex is-fullwidth search-input'>
+              <SearchIcon className='ml-10 mr-10 align-self-center' />
               <InputBase
                 placeholder='Search Courses'
                 className='input-field'

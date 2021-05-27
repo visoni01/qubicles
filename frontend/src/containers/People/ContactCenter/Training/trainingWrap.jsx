@@ -4,8 +4,6 @@ import {
   Box, InputBase, Button, Grid, debounce, IconButton,
 } from '@material-ui/core'
 import { Pagination } from '@material-ui/lab'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useHistory } from 'react-router-dom'
 import _ from 'lodash'
 import ROUTE_PATHS from '../../../../routes/routesPath'
@@ -15,6 +13,7 @@ import CourseFilterModal from './courseFilterModal'
 import { noOfCoursesPerPage } from '../constants'
 import AllCoursesSkeleton from './Skeletons/allCoursesSkeleton'
 import { FilterIcon } from '../../../../assets/images/training'
+import { SearchIcon } from '../../../../assets/images/common'
 
 const TrainingWrap = () => {
   const {
@@ -77,8 +76,8 @@ const TrainingWrap = () => {
   return (
     <div>
       <div className='display-inline-flex is-fullwidth mt-10 search-bar-people'>
-        <div className='search-input'>
-          <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 custom-fa-icon light' />
+        <div className='display-inline-flex is-fullwidth search-input'>
+          <SearchIcon className='ml-10 mr-10 align-self-center' />
           <InputBase
             type='text'
             placeholder='Search Courses'

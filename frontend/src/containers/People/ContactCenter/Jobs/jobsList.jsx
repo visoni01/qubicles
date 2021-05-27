@@ -2,8 +2,6 @@ import React, { useEffect, useState, useCallback } from 'react'
 import {
   Box, IconButton, List, ListItemText, InputBase, MenuItem, debounce,
 } from '@material-ui/core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
 import {
@@ -13,6 +11,7 @@ import JobsFilterSkeleton from '../../../../components/People/ContactCenter/Skel
 import './styles.scss'
 import JobsFilterModal from './jobsFilter'
 import { FilterIcon } from '../../../../assets/images/training'
+import { SearchIcon } from '../../../../assets/images/common'
 
 const JobsList = () => {
   const [ displaySearchCategories, setDisplaySearchCategories ] = useState(true)
@@ -79,7 +78,7 @@ const JobsList = () => {
         <h3 className='h3 subtitle'> Categories </h3>
         <div className='job-list-icon'>
           <IconButton onClick={ () => setDisplaySearchCategories((initialState) => !initialState) }>
-            <FontAwesomeIcon icon={ faSearch } className='custom-fa-icon light' />
+            <SearchIcon />
           </IconButton>
           <IconButton
             onClick={ handleClick }
@@ -98,8 +97,8 @@ const JobsList = () => {
       </div>
 
       {displaySearchCategories && (
-      <div className='search-input mb-10'>
-        <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 custom-fa-icon light' />
+      <div className='is-flex search-input mb-10'>
+        <SearchIcon className='ml-10 mr-10 align-self-center' />
         <InputBase
           type='text'
           placeholder='Search Categories'

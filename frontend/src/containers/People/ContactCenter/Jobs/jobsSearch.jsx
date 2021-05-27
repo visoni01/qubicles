@@ -1,9 +1,8 @@
 import React, { useCallback, useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { InputBase, debounce } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateJobsFilter } from '../../../../redux-saga/redux/actions'
+import { SearchIcon } from '../../../../assets/images/common'
 
 const JobsSearch = () => {
   const dispatch = useDispatch()
@@ -25,8 +24,8 @@ const JobsSearch = () => {
   }, [ searchJobsApi ])
 
   return (
-    <div className='search-input'>
-      <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 custom-fa-icon light' />
+    <div className='display-inline-flex is-fullwidth search-input'>
+      <SearchIcon className='ml-10 mr-10 align-self-center' />
       <InputBase
         placeholder='Search Jobs'
         className='input-field'

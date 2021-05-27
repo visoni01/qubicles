@@ -1,6 +1,4 @@
 import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import {
   AppBar,
   Container, IconButton, InputBase,
@@ -9,6 +7,7 @@ import {
   chatIcon, walletIcon, bellIcon,
 } from '../../assets/images/icons/navBarIcons'
 import UserMenu from './userMenu'
+import { SearchIcon } from '../../assets/images/common'
 
 const TopBar = () => (
   <AppBar
@@ -18,8 +17,8 @@ const TopBar = () => (
   >
     <Container className='topbar-toolbar' maxWidth='lg' classes={ { maxWidthLg: 'container-max-width' } }>
       <div className='display-inline-flex justify-between is-fullwidth'>
-        <div className='search-input'>
-          <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 custom-fa-icon light' />
+        <div className='display-inline-flex is-fullwidth search-input'>
+          <SearchIcon className='ml-10 mr-10 align-self-center' />
           <InputBase
             placeholder='Search'
             className='input-field'

@@ -1,9 +1,8 @@
 import React, { useState, useCallback, useEffect } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { InputBase, debounce } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { fetchTalentCardsStart, updateTalentFilter } from '../../../../redux-saga/redux/actions'
+import { SearchIcon } from '../../../../assets/images/common'
 
 export default function TalentSearch() {
   const dispatch = useDispatch()
@@ -40,8 +39,8 @@ export default function TalentSearch() {
 
   return (
     <div className='display-inline-flex is-fullwidth mt-10 search-bar-people'>
-      <div className='search-input'>
-        <FontAwesomeIcon icon={ faSearch } className='ml-10 mr-10 custom-fa-icon light' />
+      <div className='display-inline-flex is-fullwidth search-input'>
+        <SearchIcon className='ml-10 mr-10 align-self-center' />
         <InputBase
           onChange={ handleSearch }
           value={ searchField }
