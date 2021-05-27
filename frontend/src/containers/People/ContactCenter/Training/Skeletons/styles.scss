@@ -41,6 +41,11 @@
         transform: none;
       }
 
+      .enrolled-course-card-picture {
+        height: 45%;
+        transform: none;
+      }
+
       .course-card-contents {
         padding: 16px;
         transform: none;
@@ -80,7 +85,18 @@
           height: 20px;
           transform: none;
         }
+
+        .enrolled-course-card-button {
+          margin-top: 15px;
+          height: 30px;
+          transform: none;
+        }
       }
+    }
+
+    .extra-height {
+      height: 360px;
+      transform: none;
     }
   }
 }

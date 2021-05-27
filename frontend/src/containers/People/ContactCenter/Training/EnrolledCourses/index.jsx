@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,11 +11,12 @@ import _ from 'lodash'
 import ROUTE_PATHS from '../../../../../routes/routesPath'
 import EnrolledCourseCard from './enrolledCourseCard'
 import { enrolledCoursesRequestStart, resetEnrolledCoursesReducer } from '../../../../../redux-saga/redux/people'
+import EnrolledCoursesSkeleton from '../Skeletons/enrolledCoursesSkeleton'
 
 const EnrolledCourses = () => {
   const history = useHistory()
   const dispatch = useDispatch()
-  const { enrolledCourses } = useSelector((state) => state.enrolledCourses)
+  const { enrolledCourses, isLoading } = useSelector((state) => state.enrolledCourses)
 
   useEffect(() => {
     dispatch(enrolledCoursesRequestStart())
@@ -37,46 +39,50 @@ const EnrolledCourses = () => {
         </Button>
       </div>
 
-      {enrolledCourses && enrolledCourses.filter((course) => (
+      {(_.isNull(isLoading) || isLoading) && (
+        <EnrolledCoursesSkeleton />
+      )}
+
+      {!isLoading && enrolledCourses && enrolledCourses.filter((course) => (
         course.courseProgress < 100
         && (_.isEqual(course.status, 'inprogress') || _.isEqual(course.status, 'enrolled'))
       )).length > 0 && (
-      <div className='mb-30'>
-        <h3 className='h3 mb-20'>Enrolled Courses</h3>
-        <Grid container spacing={ 3 }>
-          {enrolledCourses.filter((course) => (
-            course.courseProgress < 100
-            && (_.isEqual(course.status, 'inprogress') || _.isEqual(course.status, 'enrolled'))
-          )).map((course) => (
-            <EnrolledCourseCard key={ course.courseId } { ...course } />
-          ))}
-        </Grid>
-      </div>
-      )}
-
-      {enrolledCourses && enrolledCourses.filter((course) => (
-        course.courseProgress === 100
-        || _.isEqual(course.status, 'completed')
-        || _.isEqual(course.status, 'dropped')
-      )).length > 0 && (
-      <div>
-        <Divider />
-        <div className='mt-30 mb-30'>
-          <h3 className='h3 mb-20'>Passed Courses</h3>
+        <div className='mb-30'>
+          <h3 className='h3 mb-20'>Enrolled Courses</h3>
           <Grid container spacing={ 3 }>
             {enrolledCourses.filter((course) => (
-              course.courseProgress === 100
-              || _.isEqual(course.status, 'completed')
-              || _.isEqual(course.status, 'dropped')
+              course.courseProgress < 100
+              && (_.isEqual(course.status, 'inprogress') || _.isEqual(course.status, 'enrolled'))
             )).map((course) => (
               <EnrolledCourseCard key={ course.courseId } { ...course } />
             ))}
           </Grid>
         </div>
-      </div>
       )}
 
-      {(!enrolledCourses || _.isEmpty(enrolledCourses)) && (
+      {!isLoading && enrolledCourses && enrolledCourses.filter((course) => (
+        course.courseProgress === 100
+        || _.isEqual(course.status, 'completed')
+        || _.isEqual(course.status, 'dropped')
+      )).length > 0 && (
+        <div>
+          <Divider />
+          <div className='mt-30 mb-30'>
+            <h3 className='h3 mb-20'>Other Courses</h3>
+            <Grid container spacing={ 3 }>
+              {enrolledCourses.filter((course) => (
+                course.courseProgress === 100
+                || _.isEqual(course.status, 'completed')
+                || _.isEqual(course.status, 'dropped')
+              )).map((course) => (
+                <EnrolledCourseCard key={ course.courseId } { ...course } />
+              ))}
+            </Grid>
+          </div>
+        </div>
+      )}
+
+      {!isLoading && (!enrolledCourses || _.isEmpty(enrolledCourses)) && (
       <div className='mt-10 mb-10 is-fullwidth'>
         <h3 className='h3 text-center'>No courses found!</h3>
       </div>
