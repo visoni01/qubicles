@@ -69,6 +69,8 @@ const SectionTest = ({ courseId, sectionId }) => {
   useEffect(() => {
     if (requestType === 'UPDATE' && dataType === 'Section Test' && !isLoading) {
       setIsTestCompleted(true)
+    } else {
+      setIsTestCompleted(false)
     }
   }, [ dataType, requestType, isLoading ])
 

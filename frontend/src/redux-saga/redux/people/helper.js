@@ -118,6 +118,7 @@ export const getUpdatedCourse = ({ state, action }) => {
           updatedSections[ sectionIndex ].status = 'completed'
           return {
             ...state.course,
+            sectionsCompleted: state.course.sectionsCompleted + 1,
             courseContent: {
               ...state.course.courseContent,
               sections: updatedSections,

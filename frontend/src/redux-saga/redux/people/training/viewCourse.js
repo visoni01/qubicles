@@ -14,6 +14,7 @@ const initialState = {
     courseId: null,
     createdOn: '',
     updatedOn: '',
+    sectionsCompleted: 0,
     studentsEnrolled: null,
     rating: null,
     informationSection: {

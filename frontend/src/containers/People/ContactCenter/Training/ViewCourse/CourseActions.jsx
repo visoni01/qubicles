@@ -135,6 +135,7 @@ const CourseActions = ({
       <Box className='custom-box actions-box'>
         <div className='mb-20'>
           <Card className='course-card'>
+            {_.isEqual(type, 'preview') && (
             <Box className='custom-box no-padding price-overlay'>
               <p className='h3 price-qbe text-center'>
                 { `${ course.informationSection.price } `}
@@ -144,6 +145,15 @@ const CourseActions = ({
                 {`$${ course.informationSection.price } USD`}
               </p>
             </Box>
+            )}
+            {_.isEqual(type, 'view') && (
+              <Box className='custom-box no-padding progress-overlay'>
+                <p className='h3 progress-text'>
+                  {course.courseContent.sections && course.courseContent.sections.length > 0
+                  && `${ Math.round((course.sectionsCompleted * 100) / course.courseContent.sections.length) }%`}
+                </p>
+              </Box>
+            )}
             <CardMedia
               image={ course.contentSection.thumbnailImage }
               className='course-image round-border'
