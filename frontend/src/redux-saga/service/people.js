@@ -334,6 +334,12 @@ class People {
     const response = await apiClient.getRequest('/people/enrolled-courses')
     return response
   }
+
+  // Course Reviews and Ratings APIs
+  static async fetchCourseRatings({ courseId }) {
+    const response = await apiClient.getRequest(`/people/course/${ courseId }/rating`)
+    return response
+  }
 }
 
 export default People

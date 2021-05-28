@@ -5,6 +5,7 @@ import {
   viewCourseRequestSuccess,
   viewCourseRequestFailed,
   showErrorMessage,
+  courseRatingsFetchSuccessful,
 } from '../../../redux/actions'
 import People from '../../../service/people'
 
@@ -42,6 +43,7 @@ function* viewCourseWorker(action) {
           case 'Buy Course': {
             const { data } = yield People.buyCourse({ courseId })
             yield put(viewCourseRequestSuccess({ course: data }))
+            yield put(courseRatingsFetchSuccessful({ addReviewAccess: true }))
             break
           }
 

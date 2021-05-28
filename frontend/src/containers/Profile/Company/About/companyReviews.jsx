@@ -10,6 +10,7 @@ import Loader from '../../../../components/loaders/circularLoader'
 import AddCompanyReview from './addReview'
 import ListReviews from './listReviews'
 import { clientRatingLabels } from '../../Reviews/ratingLabels'
+import '../../Reviews/style.scss'
 
 const CompanyReviews = ({
   companyId,

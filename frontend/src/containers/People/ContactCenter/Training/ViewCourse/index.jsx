@@ -78,7 +78,7 @@ const ViewCourse = () => {
           />
         </Grid>
         <Grid item>
-          <CourseReviews />
+          <CourseReviews courseId={ courseId } />
         </Grid>
       </Grid>
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>

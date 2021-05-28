@@ -1809,13 +1809,20 @@ export const fetchCourseRating = async ({ user_id, course_id }) => {
   return {
     isEnrolled,
     userReview,
-    ratingData
+    ratingData: ratingData && ratingData.length && ratingData[0]
   }
 }
 
 export const formatCourseRating = ({ rating }) => {
   return {
-    addReveiewAccess: !_.isNull(rating.isEnrolled) && _.isNull(rating.userReview),
-    ratings: rating.ratingData
+    addReviewAccess: !_.isNull(rating.isEnrolled) && _.isNull(rating.userReview),
+    ratings: rating.ratingData && {
+      value: _.isNull(rating.ratingData.value) ? 0 : rating.ratingData.value,
+      clarity: _.isNull(rating.ratingData.clarity) ? 0 : rating.ratingData.clarity,
+      content: _.isNull(rating.ratingData.content) ? 0 : rating.ratingData.content,
+      structure: _.isNull(rating.ratingData.structure) ? 0 : rating.ratingData.structure,
+      totalAverageRating: _.isNull(rating.ratingData.totalAverageRating) ? 0 : rating.ratingData.totalAverageRating,
+      totalAverageRaters: rating.ratingData.totalAverageRaters
+    }
   }
 }

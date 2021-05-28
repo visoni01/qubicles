@@ -10,6 +10,7 @@ import Loader from '../../../../components/loaders/circularLoader'
 import { agentRatingLabels } from '../../Reviews/ratingLabels'
 import ListReviews from '../../Company/About/listReviews'
 import AddAgentReview from './addReview'
+import '../../Reviews/style.scss'
 
 const AgentReviews = ({
   agentUserId,
