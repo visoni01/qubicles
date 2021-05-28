@@ -33,11 +33,26 @@
   .heading-section {
     display: inline-flex;
     width: 100%;
-    justify-content: space-between;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    margin-bottom: 30px;
 
     .filter-icon {
-      font-size: 14px;
+      margin-left: 10px;
     }
+
+    .leave-review-button {
+      position: absolute;
+      right: 0;
+    }
+  }
+
+  .user-review {
+    display: inline-flex;
+    width: 100%;
+    padding: 15px 0px;
+    margin: 5px 0px;
   }
 }
 

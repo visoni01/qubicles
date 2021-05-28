@@ -7,7 +7,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import ViewSetSubRatings from './viewSubRatings'
-import './style.scss'
+import './styles.scss'
 
 const ReviewModal = ({
   loading, open, onClose, reviewHeading, onSubmit, ratingLabels,

@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
-import ReviewModal from '../../Reviews/reviewModal'
+import ReviewModal from '../../../Shared/reviewModal'
 import { profileReviewPostStart } from '../../../../redux-saga/redux/actions'
 import { agentRatingLabels } from '../../Reviews/ratingLabels'
 
