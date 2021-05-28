@@ -492,3 +492,21 @@
     transform: none;
   }
 }
+
+.course-rating-skeleton-container {
+  height: 265px;
+  max-width: 575px;
+  margin: 20px auto 30px auto;
+
+  .rating {
+    width: 25%;
+    height: 50px;
+    transform: none;
+  }
+
+  .sub-rating {
+    width: 80%;
+    height: 60px;
+    transform: none;
+  }
+}
