@@ -1826,3 +1826,136 @@ export const formatCourseRating = ({ rating }) => {
     }
   }
 }
+
+export const getCourseReviews = async ({ course_id, reviewFilter, offset }) => {
+  let additionalParams = {
+    limit: 6,
+    group: ['XUserActivity.user_id']
+  }
+
+  if (!_.isUndefined(offset)) {
+    additionalParams = {
+      ...additionalParams,
+      offset: parseInt(offset)
+    }
+  }
+
+  if (!_.isUndefined(reviewFilter)) {
+    if (_.isEqual(reviewFilter, 'latest')) {
+      additionalParams = {
+        ...additionalParams,
+        order: [
+          ['created_on', 'DESC']
+        ]
+      }
+    } else if (_.isEqual(reviewFilter, 'bestRating')) {
+      additionalParams = {
+        ...additionalParams,
+        order: [
+          [Sequelize.literal('rating'), 'DESC']
+        ]
+      }
+    } else if (_.isEqual(reviewFilter, 'worstRating')) {
+      additionalParams = {
+        ...additionalParams,
+        order: [
+          [Sequelize.literal('rating'), 'ASC']
+        ]
+      }
+    }
+  }
+
+  const { rows, count } = await XUserActivity.findAndCountAll({
+    required: false,
+    subQuery: false,
+    attributes: [
+      ['user_activity_id', 'id'],
+      ['created_on', 'dateOfReview'],
+      [Sequelize.literal('AVG(`activity_value`)'), 'rating'],
+      [Sequelize.literal('(CASE WHEN `activity_type` = "rating_value" THEN `activity_custom` END)'), 'comment'],
+      'user_id'
+    ],
+    include: [
+      {
+        model: UserDetail,
+        as: 'userData',
+        attributes: [
+          ['first_name', 'firstName'],
+          ['last_name', 'lastName'],
+          ['work_title', 'userTitle'],
+          ['profile_image', 'userPic']
+        ]
+      }
+    ],
+    where: {
+      record_type: 'course',
+      record_id: course_id
+    },
+    ...additionalParams
+  })
+
+  if (rows && count) {
+    return {
+      reviews: rows.map(item => item.get({ plain: true })),
+      count: count.length
+    }
+  }
+}
+
+export const getCourseCompletionData = async ({ course_id, userIds }) => {
+  const promiseArray = [
+    () => XQodCourseSection.count({
+      raw: true,
+      where: {
+        course_id
+      }
+    }),
+    () => XQodCourseUserQA.findAll({
+      raw: true,
+      attributes: [
+        'user_id',
+        [Sequelize.literal('COUNT(DISTINCT(`section_id`))'), 'sectionsCompleted']
+      ],
+      group: ['user_id'],
+      where: {
+        user_id: userIds,
+        course_id
+      }
+    })
+  ]
+
+  const [sectionsCount, sectionsCompletedData] = await Promise.all(promiseArray.map(promise => promise()))
+
+  if (sectionsCount && sectionsCompletedData) {
+    return userIds.map((id) => {
+      const isSectionCompleted = sectionsCompletedData.find((item) => item.user_id === id)
+
+      return {
+        userId: id,
+        courseProgress: Math.round(100 * (_.isUndefined(isSectionCompleted)
+          ? 0
+          : isSectionCompleted.sectionsCompleted) / sectionsCount)
+      }
+    })
+  }
+}
+
+export const formatCourseReviewsData = ({ reviewsData, courseCompletionData }) => {
+  return {
+    count: reviewsData.count,
+    reviews: reviewsData.reviews.map((item) => {
+      const courseProgressData = courseCompletionData.find((data) => data.userId === item.user_id)
+      return {
+        id: item.id,
+        rating: item.rating,
+        comment: item.comment,
+        userName: item.userData && item.userData.firstName && item.userData.lastName &&
+          item.userData.firstName + ' ' + item.userData.lastName,
+        userTitle: item.userData && item.userData.userTitle,
+        userPic: item.userData && item.userData.userPic,
+        dateOfReview: item.dateOfReview && formatDate(item.dateOfReview),
+        courseProgress: courseProgressData && courseProgressData.courseProgress
+      }
+    })
+  }
+}
