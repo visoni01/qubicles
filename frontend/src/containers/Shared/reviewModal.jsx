@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   Dialog, DialogActions, DialogContent,
-  DialogTitle, Button, IconButton, TextField,
+  DialogTitle, Button, IconButton, TextField, CircularProgress,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -11,7 +11,7 @@ import './styles.scss'
 
 const ReviewModal = ({
   loading, open, onClose, reviewHeading, onSubmit, ratingLabels,
-  rating, setRating, reviewText, setReviewText,
+  rating, setRating, reviewText, setReviewText, reviewRequired,
 }) => (
   <Dialog
     scroll='body'
@@ -22,7 +22,12 @@ const ReviewModal = ({
   >
     <div className='header'>
       <DialogTitle>
-        <h2 className='h2'>Review</h2>
+        <div className='display-inline-flex align-items-center'>
+          <h2 className='h2'>Review</h2>
+          {loading && (
+          <CircularProgress size={ 25 } className='ml-10' />
+          )}
+        </div>
       </DialogTitle>
       <DialogActions className='cross-button'>
         <IconButton
@@ -44,7 +49,9 @@ const ReviewModal = ({
       />
       <h4 className='h4 mt-30'>
         <span>Review</span>
-        <span className='para light ml-5'>{`(Optional, ${ 255 - reviewText.length } characters)`}</span>
+        <span className='para light ml-5'>
+          {`(${ !reviewRequired ? 'Optional, ' : '' }${ 255 - reviewText.length } characters)`}
+        </span>
       </h4>
       <TextField
         margin='dense'
@@ -75,9 +82,11 @@ const ReviewModal = ({
           label: 'button-primary-small-label',
         } }
           // Disable submit if any of rating is zero (minimum is 1)
+          // or if reviewRequired is true and review text is empty
         disabled={ !Object.keys(rating).reduce((acc, curr) => (acc * rating[ curr ]), 1)
           || reviewText.length > 255
-          || loading }
+          || loading
+          || (reviewRequired && reviewText.length === 0) }
         onClick={ onSubmit }
       >
         Submit
@@ -90,6 +99,7 @@ const ReviewModal = ({
 ReviewModal.defaultProps = {
   reviewHeading: '',
   loading: false,
+  reviewRequired: false,
 }
 
 ReviewModal.propTypes = {
@@ -103,6 +113,7 @@ ReviewModal.propTypes = {
   reviewText: PropTypes.string.isRequired,
   setReviewText: PropTypes.func.isRequired,
   reviewHeading: PropTypes.string,
+  reviewRequired: PropTypes.bool,
 }
 
 export default ReviewModal

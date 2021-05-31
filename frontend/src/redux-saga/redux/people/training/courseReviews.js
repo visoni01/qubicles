@@ -4,6 +4,7 @@ const initialState = {
   isLoading: null,
   error: null,
   success: null,
+  requestType: null,
   reviews: [],
   count: null,
   reviewFilter: 'latest',
@@ -24,11 +25,12 @@ const {
   name: 'courseReviews',
   initialState,
   reducers: {
-    courseReviewsRequestStart: (state) => ({
+    courseReviewsRequestStart: (state, action) => ({
       ...state,
       isLoading: true,
       success: null,
       error: null,
+      requestType: action.payload.requestType,
     }),
     courseReviewsRequestSuccess: (state, action) => ({
       ...state,

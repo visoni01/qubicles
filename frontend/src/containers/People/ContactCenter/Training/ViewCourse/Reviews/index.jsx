@@ -10,7 +10,7 @@ import ViewAllRatings from '../../../../../Shared/viewAllRatings'
 import courseRatingLabels from './ratingLabels'
 import ReviewsList from './reviewsList'
 import {
-  courseRatingsFetchStart, courseReviewsRequestStart, updateCourseReviewsFilterOrPage,
+  courseRatingsFetchStart, courseReviewsRequestStart, resetCourseReviewsReducer, updateCourseReviewsFilterOrPage,
 } from '../../../../../../redux-saga/redux/people'
 import CourseRatingSkeleton from '../../Skeletons/courseRatingSkeleton'
 import AddCourseReview from './addCourseReview'
@@ -23,7 +23,7 @@ const CourseReviews = ({ courseId }) => {
   const [ openReviewModal, setOpenReviewModal ] = useState(false)
   const [ anchorEl, setAnchorEl ] = useState(null)
   const {
-    count, currentPage, offset, reviewFilter, reviews, isLoading,
+    count, currentPage, offset, reviewFilter, reviews, isLoading: reviewLoading, requestType,
   } = useSelector((state) => state.courseReviews)
   const open = Boolean(anchorEl)
   const id = open ? 'simple-popover' : undefined
@@ -58,6 +58,8 @@ const CourseReviews = ({ courseId }) => {
     }))
   }, [ dispatch, reviewFilter, offset, courseId ])
 
+  useEffect(() => () => dispatch(resetCourseReviewsReducer()), [ dispatch ])
+
   return (
     <>
       <Box className='custom-box course-reviews-root'>
@@ -65,7 +67,7 @@ const CourseReviews = ({ courseId }) => {
           <h3 className='h3'>Reviews</h3>
           <IconButton
             className='filter-icon'
-            disabled={ isLoading || _.isNull(isLoading) || loading || _.isNull(loading) }
+            disabled={ reviewLoading || _.isNull(reviewLoading) || loading || _.isNull(loading) }
             onClick={ onFilterClick }
           >
             <FilterIcon />
@@ -79,7 +81,7 @@ const CourseReviews = ({ courseId }) => {
           />
           {addReviewAccess && (
           <Button
-            disabled={ isLoading || _.isNull(isLoading) || loading || _.isNull(loading) }
+            disabled={ reviewLoading || _.isNull(reviewLoading) || loading || _.isNull(loading) }
             className='leave-review-button'
             classes={ {
               root: 'button-secondary-small',
@@ -109,16 +111,16 @@ const CourseReviews = ({ courseId }) => {
         )}
 
         {/* Reviews */}
-        {(isLoading || _.isNull(isLoading)) && <CourseReviewsSkeleton />}
-        {!isLoading && <ReviewsList reviews={ reviews } />}
-        {!isLoading && (reviews && reviews.length === 0) && (
+        {(reviewLoading || _.isNull(reviewLoading)) && <CourseReviewsSkeleton />}
+        {!reviewLoading && <ReviewsList reviews={ reviews } />}
+        {!reviewLoading && (reviews && reviews.length === 0) && (
           <div className='mt-20 mb-10 is-fullwidth'>
             <h3 className='h3 text-center'>No reviews found!</h3>
           </div>
         )}
 
         {/* Pagination */}
-        {!isLoading && !loading && !!count && count > noOfReviewsPerPage && (
+        {!reviewLoading && !loading && !!count && count > noOfReviewsPerPage && (
         <Pagination
           count={ noOfPages }
           shape='round'
@@ -135,6 +137,8 @@ const CourseReviews = ({ courseId }) => {
         courseId={ courseId }
         openReviewModal={ openReviewModal }
         setOpenReviewModal={ setOpenReviewModal }
+        loading={ reviewLoading }
+        requestType={ requestType }
       />
     </>
   )

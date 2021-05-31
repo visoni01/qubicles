@@ -347,6 +347,11 @@ class People {
     )
     return response
   }
+
+  static async addCourseReview({ courseId, reviewData }) {
+    const response = await apiClient.postRequest(`/people/course/${ courseId }/reviews`, { review_data: reviewData })
+    return response
+  }
 }
 
 export default People

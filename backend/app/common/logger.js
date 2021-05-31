@@ -1,6 +1,7 @@
 import winston from 'winston'
 import fs from 'fs'
 import config from '../../config/app'
+import _ from 'lodash'
 require('winston-daily-rotate-file')
 
 const { combine, timestamp, label, printf } = winston.format
@@ -61,7 +62,7 @@ if (environment === 'production') {
 }
 
 const customFormat = printf((info) => {
-  if (info.level !== '\u001b[31merror\u001b[39m') {
+  if (info.level !== '\u001b[31merror\u001b[39m' && _.isObject(info.message)) {
     info = {
       ...info,
       logTitle: info.message.logTitle,

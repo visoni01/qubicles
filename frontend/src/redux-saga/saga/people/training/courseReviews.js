@@ -5,6 +5,8 @@ import {
   courseReviewsRequestSuccess,
   courseReviewsRequestFailure,
   showErrorMessage,
+  courseRatingsFetchSuccessful,
+  showSuccessMessage,
 } from '../../../redux/actions'
 import People from '../../../service/people'
 
@@ -15,7 +17,7 @@ function* courseReviewsWatcher() {
 function* courseReviewsWorker(action) {
   try {
     const {
-      requestType, courseId, reviewFilter, offset,
+      requestType, courseId, reviewFilter, offset, reviewData,
     } = action.payload
 
     switch (requestType) {
@@ -25,6 +27,20 @@ function* courseReviewsWorker(action) {
           count: data.count,
           reviews: data.reviews,
         })))
+        break
+      }
+
+      case 'CREATE': {
+        const { data } = yield People.addCourseReview({ courseId, reviewData })
+        yield put(courseRatingsFetchSuccessful({
+          addReviewAccess: data.addReviewAccess,
+          ratings: data.ratings,
+        }))
+        yield (put(courseReviewsRequestSuccess({
+          count: data.reviewData.count,
+          reviews: data.reviewData.reviews,
+        })))
+        yield put(showSuccessMessage({ msg: 'Review Posted Successfully!' }))
         break
       }
 
