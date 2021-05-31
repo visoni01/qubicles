@@ -340,6 +340,13 @@ class People {
     const response = await apiClient.getRequest(`/people/course/${ courseId }/rating`)
     return response
   }
+
+  static async fetchCourseReviews({ courseId, reviewFilter, offset }) {
+    const response = await apiClient.getRequest(
+      `/people/course/${ courseId }/reviews`, null, { offset, review_filter: reviewFilter },
+    )
+    return response
+  }
 }
 
 export default People

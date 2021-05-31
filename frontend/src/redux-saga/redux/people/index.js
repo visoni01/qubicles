@@ -21,6 +21,7 @@ import viewCourseReducer from './training/viewCourse'
 import testEntriesReducer from './training/testEntries'
 import enrolledCoursesReducer from './training/enrolledCourses'
 import courseRatingsReducer from './training/courseRatings'
+import courseReviewsReducer from './training/courseReviews'
 
 const peopleReducers = {
   jobSkills: jobSkillsReducer,
@@ -46,6 +47,7 @@ const peopleReducers = {
   testEntries: testEntriesReducer,
   enrolledCourses: enrolledCoursesReducer,
   courseRatings: courseRatingsReducer,
+  courseReviews: courseReviewsReducer,
 }
 
 export default peopleReducers
@@ -73,3 +75,4 @@ export * from './training/viewCourse'
 export * from './training/testEntries'
 export * from './training/enrolledCourses'
 export * from './training/courseRatings'
+export * from './training/courseReviews'

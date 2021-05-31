@@ -2,9 +2,10 @@ import React from 'react'
 import { Avatar } from '@material-ui/core'
 import Rating from '@material-ui/lab/Rating'
 import PropTypes from 'prop-types'
+import { formatDate } from '../../../../../../utils/common'
 
 const ViewCourseReview = ({
-  rating, comment, userName, userTitle, userPic, dateOfReveiew, courseProgress,
+  rating, comment, userName, userTitle, userPic, dateOfReview, courseProgress,
 }) => (
   <>
     <div className='user-review list-divider'>
@@ -23,7 +24,7 @@ const ViewCourseReview = ({
           value={ Number(rating) }
           precision={ 0.5 }
         />
-        <span className='ml-10 para light'>{dateOfReveiew}</span>
+        <span className='ml-10 para light'>{ formatDate(dateOfReview, 'MMMM DD YYYY') }</span>
         <p className='para mt-5'>
           {comment}
         </p>
@@ -38,7 +39,7 @@ ViewCourseReview.propTypes = {
   userName: PropTypes.string.isRequired,
   userTitle: PropTypes.string.isRequired,
   userPic: PropTypes.string.isRequired,
-  dateOfReveiew: PropTypes.string.isRequired,
+  dateOfReview: PropTypes.string.isRequired,
   courseProgress: PropTypes.number.isRequired,
 }
 

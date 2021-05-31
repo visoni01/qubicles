@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+/* eslint-disable complexity */
+import React, { useCallback, useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Box, Button, IconButton } from '@material-ui/core'
 import { Pagination } from '@material-ui/lab'
@@ -8,26 +9,73 @@ import { FilterIcon } from '../../../../../../assets/images/training'
 import ViewAllRatings from '../../../../../Shared/viewAllRatings'
 import courseRatingLabels from './ratingLabels'
 import ReviewsList from './reviewsList'
-import { courseRatingsFetchStart } from '../../../../../../redux-saga/redux/people'
+import {
+  courseRatingsFetchStart, courseReviewsRequestStart, updateCourseReviewsFilterOrPage,
+} from '../../../../../../redux-saga/redux/people'
 import CourseRatingSkeleton from '../../Skeletons/courseRatingSkeleton'
+import AddCourseReview from './addCourseReview'
+import CourseReviewsFilterModal from './courseReviewsFilterModal'
+import { noOfReviewsPerPage } from '../../../constants'
 
 const CourseReviews = ({ courseId }) => {
   const { ratings, addReviewAccess, loading } = useSelector((state) => state.courseRatings)
-
+  const [ openReviewModal, setOpenReviewModal ] = useState(false)
+  const [ anchorEl, setAnchorEl ] = useState(null)
+  const {
+    count, currentPage, offset, reviewFilter, reviews,
+  } = useSelector((state) => state.courseReviews)
+  const open = Boolean(anchorEl)
+  const id = open ? 'simple-popover' : undefined
   const dispatch = useDispatch()
+  const noOfPages = Math.floor(count / noOfReviewsPerPage) + Math.sign(count % noOfReviewsPerPage)
 
   useEffect(() => {
     dispatch(courseRatingsFetchStart({ courseId }))
   }, [ dispatch, courseId ])
+
+  const onFilterClick = useCallback((event) => {
+    setAnchorEl(event.currentTarget)
+  }, [ setAnchorEl ])
+
+  const handleFilterClose = useCallback(() => {
+    setAnchorEl(null)
+  }, [ setAnchorEl ])
+
+  const changeCurrentPage = useCallback((__, page) => {
+    dispatch(updateCourseReviewsFilterOrPage({
+      currentPage: page,
+      offset: noOfReviewsPerPage * (page - 1),
+    }))
+  }, [ dispatch ])
+
+  useEffect(() => {
+    dispatch(courseReviewsRequestStart({
+      requestType: 'FETCH',
+      courseId,
+      reviewFilter,
+      offset,
+    }))
+  }, [ dispatch, reviewFilter, offset, courseId ])
 
   return (
     <>
       <Box className='custom-box course-reviews-root'>
         <div className='heading-section'>
           <h3 className='h3'>Reviews</h3>
-          <IconButton className='filter-icon' disabled={ loading || _.isNull(loading) }>
+          <IconButton
+            className='filter-icon'
+            disabled={ loading || _.isNull(loading) }
+            onClick={ onFilterClick }
+          >
             <FilterIcon />
           </IconButton>
+          <CourseReviewsFilterModal
+            id={ id }
+            anchorEl={ anchorEl }
+            setAnchorEl={ setAnchorEl }
+            open={ open }
+            handleClose={ handleFilterClose }
+          />
           {addReviewAccess && (
           <Button
             disabled={ loading || _.isNull(loading) }
@@ -36,12 +84,14 @@ const CourseReviews = ({ courseId }) => {
               root: 'button-secondary-small',
               label: 'button-secondary-small-label',
             } }
+            onClick={ () => setOpenReviewModal(true) }
           >
             Leave Review
           </Button>
           )}
         </div>
 
+        {/* Ratings */}
         {(loading || _.isNull(loading)) && <CourseRatingSkeleton />}
         {!loading && (
         <ViewAllRatings
@@ -52,24 +102,38 @@ const CourseReviews = ({ courseId }) => {
             contentRating: ratings.content,
             structureRating: ratings.structure,
           } }
-          totalAverageRating={ ratings.totalAverageRating }
+          totalAverageRating={ Number(ratings.totalAverageRating).toFixed(2) }
           totalAverageRaters={ ratings.totalAverageRaters }
         />
         )}
 
-        <ReviewsList />
+        {/* Reviews */}
+        <ReviewsList reviews={ reviews } />
+        {(reviews && reviews.length === 0) && (
+        <div className='mt-20 mb-10 is-fullwidth'>
+          <h3 className='h3 text-center'>No reviews found!</h3>
+        </div>
+        )}
 
+        {/* Pagination */}
+        {!!count && count > noOfReviewsPerPage && (
         <Pagination
-          count={ 3 }
+          count={ noOfPages }
           shape='round'
-          page={ 1 }
-          onChange={ null }
+          page={ currentPage }
+          onChange={ changeCurrentPage }
           classes={ { root: 'courses-pagination' } }
-          hidePrevButton={ 1 < 2 }
-          hideNextButton={ 1 === 3 }
           className='is-flex is-center'
         />
+        )}
       </Box>
+
+      {/* Leave Review */}
+      <AddCourseReview
+        courseId={ courseId }
+        openReviewModal={ openReviewModal }
+        setOpenReviewModal={ setOpenReviewModal }
+      />
     </>
   )
 }

@@ -25,6 +25,12 @@ export const courseFilterStatus = {
   bestRating: 'Best Rating',
 }
 
+export const courseReviewsFilterStatus = {
+  latest: 'Latest',
+  bestRating: 'Best Rating',
+  worstRating: 'Worst Rating',
+}
+
 export const postStatusPermissions = {
   public: {
     label: 'Public',
@@ -49,3 +55,4 @@ export const postStatusPermissions = {
 }
 
 export const noOfCoursesPerPage = 15
+export const noOfReviewsPerPage = 6

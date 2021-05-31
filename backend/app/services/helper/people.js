@@ -1181,7 +1181,10 @@ export async function getAllViewCourses ({ searchField, categoryId, courseFilter
   }
   let additionalParams = {
     limit: 15,
-    group: ['XQodCourse.course_id']
+    group: ['XQodCourse.course_id'],
+    order: [
+      ['course_id', 'ASC']
+    ]
   }
 
   if (!_.isEmpty(searchField)) {
@@ -1210,21 +1213,24 @@ export async function getAllViewCourses ({ searchField, categoryId, courseFilter
       additionalParams = {
         ...additionalParams,
         order: [
-          [Sequelize.literal('studentsCount'), 'DESC']
+          [Sequelize.literal('studentsCount'), 'DESC'],
+          ...additionalParams.order
         ]
       }
     } else if (_.isEqual(courseFilter, 'latest')) {
       additionalParams = {
         ...additionalParams,
         order: [
-          ['updated_on', 'DESC']
+          ['updated_on', 'DESC'],
+          ...additionalParams.order
         ]
       }
     } else if (_.isEqual(courseFilter, 'bestRating')) {
       additionalParams = {
         ...additionalParams,
         order: [
-          ['rating', 'DESC']
+          ['rating', 'DESC'],
+          ...additionalParams.order
         ]
       }
     }
@@ -1830,7 +1836,10 @@ export const formatCourseRating = ({ rating }) => {
 export const getCourseReviews = async ({ course_id, reviewFilter, offset }) => {
   let additionalParams = {
     limit: 6,
-    group: ['XUserActivity.user_id']
+    group: ['XUserActivity.user_id'],
+    order: [
+      ['user_activity_id', 'ASC']
+    ]
   }
 
   if (!_.isUndefined(offset)) {
@@ -1845,21 +1854,24 @@ export const getCourseReviews = async ({ course_id, reviewFilter, offset }) => {
       additionalParams = {
         ...additionalParams,
         order: [
-          ['created_on', 'DESC']
+          ['created_on', 'DESC'],
+          ...additionalParams.order
         ]
       }
     } else if (_.isEqual(reviewFilter, 'bestRating')) {
       additionalParams = {
         ...additionalParams,
         order: [
-          [Sequelize.literal('rating'), 'DESC']
+          [Sequelize.literal('rating'), 'DESC'],
+          ...additionalParams.order
         ]
       }
     } else if (_.isEqual(reviewFilter, 'worstRating')) {
       additionalParams = {
         ...additionalParams,
         order: [
-          [Sequelize.literal('rating'), 'ASC']
+          [Sequelize.literal('rating'), 'ASC'],
+          ...additionalParams.order
         ]
       }
     }
