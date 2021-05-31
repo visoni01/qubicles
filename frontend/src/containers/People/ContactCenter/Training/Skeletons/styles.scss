@@ -510,3 +510,53 @@
     transform: none;
   }
 }
+
+.course-reviews-skeleton-container {
+  width: 100%;
+
+  .user-review-card {
+    padding: 15px 0px;
+    margin: 5px 0px;
+
+    .picture {
+      margin: 0px 20px 10px 10px;
+      width: 56px;
+      height: 56px;
+    }
+
+    .username {
+      width: 25%;
+      height: 20px;
+      transform: none;
+    }
+
+    .course-progress {
+      width: 30%;
+      height: 20px;
+      transform: none;
+    }
+
+    .usertitle {
+      width: 40%;
+      height: 20px;
+      transform: none;
+    }
+
+    .rating {
+      width: 20%;
+      height: 18px;
+      transform: none;
+    }
+
+    .date {
+      width: 20%;
+      height: 18px;
+      transform: none;
+    }
+
+    .comment {
+      height: 80px;
+      transform: none;
+    }
+  }
+}

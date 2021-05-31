@@ -16,13 +16,14 @@ import CourseRatingSkeleton from '../../Skeletons/courseRatingSkeleton'
 import AddCourseReview from './addCourseReview'
 import CourseReviewsFilterModal from './courseReviewsFilterModal'
 import { noOfReviewsPerPage } from '../../../constants'
+import CourseReviewsSkeleton from '../../Skeletons/courseReviewsSkeleton'
 
 const CourseReviews = ({ courseId }) => {
   const { ratings, addReviewAccess, loading } = useSelector((state) => state.courseRatings)
   const [ openReviewModal, setOpenReviewModal ] = useState(false)
   const [ anchorEl, setAnchorEl ] = useState(null)
   const {
-    count, currentPage, offset, reviewFilter, reviews,
+    count, currentPage, offset, reviewFilter, reviews, isLoading,
   } = useSelector((state) => state.courseReviews)
   const open = Boolean(anchorEl)
   const id = open ? 'simple-popover' : undefined
@@ -64,7 +65,7 @@ const CourseReviews = ({ courseId }) => {
           <h3 className='h3'>Reviews</h3>
           <IconButton
             className='filter-icon'
-            disabled={ loading || _.isNull(loading) }
+            disabled={ isLoading || _.isNull(isLoading) || loading || _.isNull(loading) }
             onClick={ onFilterClick }
           >
             <FilterIcon />
@@ -78,7 +79,7 @@ const CourseReviews = ({ courseId }) => {
           />
           {addReviewAccess && (
           <Button
-            disabled={ loading || _.isNull(loading) }
+            disabled={ isLoading || _.isNull(isLoading) || loading || _.isNull(loading) }
             className='leave-review-button'
             classes={ {
               root: 'button-secondary-small',
@@ -108,15 +109,16 @@ const CourseReviews = ({ courseId }) => {
         )}
 
         {/* Reviews */}
-        <ReviewsList reviews={ reviews } />
-        {(reviews && reviews.length === 0) && (
-        <div className='mt-20 mb-10 is-fullwidth'>
-          <h3 className='h3 text-center'>No reviews found!</h3>
-        </div>
+        {(isLoading || _.isNull(isLoading)) && <CourseReviewsSkeleton />}
+        {!isLoading && <ReviewsList reviews={ reviews } />}
+        {!isLoading && (reviews && reviews.length === 0) && (
+          <div className='mt-20 mb-10 is-fullwidth'>
+            <h3 className='h3 text-center'>No reviews found!</h3>
+          </div>
         )}
 
         {/* Pagination */}
-        {!!count && count > noOfReviewsPerPage && (
+        {!isLoading && !loading && !!count && count > noOfReviewsPerPage && (
         <Pagination
           count={ noOfPages }
           shape='round'
