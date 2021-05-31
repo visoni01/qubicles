@@ -1833,7 +1833,7 @@ export const formatCourseRating = ({ rating }) => {
   }
 }
 
-export const getCourseReviews = async ({ course_id, reviewFilter, offset }) => {
+export const fetchCourseReviews = async ({ course_id, reviewFilter, offset }) => {
   let additionalParams = {
     limit: 6,
     group: ['XUserActivity.user_id'],
@@ -1914,7 +1914,7 @@ export const getCourseReviews = async ({ course_id, reviewFilter, offset }) => {
   }
 }
 
-export const getCourseCompletionData = async ({ course_id, userIds }) => {
+export const fetchCourseCompletionData = async ({ course_id, userIds }) => {
   const promiseArray = [
     () => XQodCourseSection.count({
       raw: true,
@@ -1970,4 +1970,31 @@ export const formatCourseReviewsData = ({ reviewsData, courseCompletionData }) =
       }
     })
   }
+}
+
+export const addCourseReview = async ({ user_id, course_id, reviewData }) => {
+  const ratingData = [reviewData.value, reviewData.clarity, reviewData.content, reviewData.structure]
+
+  const reviewEntries = ['rating_value', 'rating_clarity', 'rating_content', 'rating_structure'].map((item, index) => {
+    return {
+      user_id,
+      record_type: 'course',
+      record_id: course_id,
+      activity_type: item,
+      activity_value: ratingData[index],
+      activity_custom: index === 0 ? reviewData.comment : null
+    }
+  })
+
+  await XUserActivity.bulkCreate(reviewEntries)
+}
+
+export const updateCourseRating = async ({ course_id, rating }) => {
+  await XQodCourse.update({
+    rating
+  }, {
+    where: {
+      course_id
+    }
+  })
 }

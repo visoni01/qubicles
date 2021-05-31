@@ -96,4 +96,7 @@ peopleRouter.route('/course/:course_id/rating')
 peopleRouter.route('/course/:course_id/reviews')
   .get(isAuthenticated, trainingController.getCourseReviews)
 
+peopleRouter.route('/course/:course_id/reviews')
+  .post(isAuthenticated, trainingController.addCourseReview)
+
 export { peopleRouter }

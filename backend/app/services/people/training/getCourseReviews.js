@@ -2,20 +2,20 @@ import ServiceBase from '../../../common/serviceBase'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
 import logger from '../../../common/logger'
 import { getErrorMessageForService } from '../../helper'
-import { getCourseReviews, getCourseCompletionData, formatCourseReviewsData } from '../../helper/people'
+import { fetchCourseReviews, fetchCourseCompletionData, formatCourseReviewsData } from '../../helper/people'
 
 const constraints = {
   user_id: {
     presence: { allowEmpty: false }
   },
   course_id: {
-    presence: false
+    presence: { allowEmpty: false }
   },
   review_filter: {
-    presence: false
+    presence: { allowEmpty: false }
   },
   offset: {
-    presence: false
+    presence: { allowEmpty: false }
   }
 }
 
@@ -28,10 +28,10 @@ export class PeopleGetCourseReviewsService extends ServiceBase {
     try {
       const { course_id, review_filter: reviewFilter, offset } = this.filteredArgs
 
-      const reviewsData = await getCourseReviews({ course_id, reviewFilter, offset })
+      const reviewsData = await fetchCourseReviews({ course_id, reviewFilter, offset })
 
       if (reviewsData && reviewsData.count) {
-        const courseCompletionData = await getCourseCompletionData({
+        const courseCompletionData = await fetchCourseCompletionData({
           userIds: reviewsData.reviews && reviewsData.reviews.map((review) => review.user_id),
           course_id
         })
