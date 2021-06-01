@@ -1705,7 +1705,8 @@ export const fetchAllEnrolledCourses = async ({ user_id }) => {
           'image_url',
           [Sequelize.literal('COUNT(DISTINCT(`courseDetails->students`.`user_id`))'), 'studentsCount'],
           [Sequelize.literal('COUNT(DISTINCT(`courseDetails->sections`.`section_id`))'), 'sectionsCount'],
-          [Sequelize.literal('COUNT(DISTINCT(`courseDetails->userTest`.`section_id`))'), 'sectionsCompleted']
+          [Sequelize.literal('COUNT(DISTINCT(CASE WHEN `courseDetails->userTest`.`user_id` = ' + user_id +
+            ' THEN `courseDetails->userTest`.`section_id` END))'), 'sectionsCompleted']
         ],
         include: [
           {
