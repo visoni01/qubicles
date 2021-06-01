@@ -804,6 +804,24 @@ export async function getAllCourseInfo ({ creatorId }) {
   return courses
 }
 
+export const getTotalRaters = async ({ courseIds }) => {
+  const totalRaters = await XUserActivity.findAll({
+    attributes: [
+      ['record_id', 'course_id'],
+      [Sequelize.literal('COUNT(DISTINCT(`user_id`))'), 'totalAverageRaters']
+    ],
+    group: ['record_id'],
+    where: {
+      record_id: courseIds,
+      record_type: 'course'
+    }
+  })
+
+  if (totalRaters && totalRaters.length) {
+    return totalRaters.map(item => item.get({ plain: true }))
+  }
+}
+
 export const formatViewUnitData = ({ units, unitsStatus }) => {
   return units.map((unit) => {
     const isUnitPresent = unitsStatus && unitsStatus.length &&
@@ -849,7 +867,8 @@ export const formatViewCourseData = ({
   studentsEnrolled,
   categoryTitle,
   courseDetails,
-  creatorDetails
+  creatorDetails,
+  totalRaters
 }) => {
   return {
     isEnrolled,
@@ -857,8 +876,9 @@ export const formatViewCourseData = ({
     createdOn: course.createdAt,
     updatedOn: course.updatedAt,
     sectionsCompleted: sectionsCompleted && sectionsCompleted.length,
-    studentsEnrolled: studentsEnrolled,
+    studentsEnrolled,
     rating: course.rating,
+    totalRaters,
     informationSection: {
       creatorId: course.creator_id,
       creatorName: creatorDetails.full_name,
@@ -919,10 +939,20 @@ export async function getViewCourseById ({ course_id, user_id }) {
       where: {
         course_id
       }
+    }),
+    () => XUserActivity.findAll({
+      raw: true,
+      attributes: [
+        [Sequelize.literal('COUNT(DISTINCT(`user_id`))'), 'totalAverageRaters']
+      ],
+      where: {
+        record_id: course_id,
+        record_type: 'course'
+      }
     })
   ]
 
-  let [userCourse, course, studentsEnrolled] = await Promise.all(promiseArray.map(promise => promise()))
+  let [userCourse, course, studentsEnrolled, totalRaters] = await Promise.all(promiseArray.map(promise => promise()))
 
   if (course && course.length) {
     course = course.map(item => item.get({ plain: true }))[0]
@@ -979,7 +1009,8 @@ export async function getViewCourseById ({ course_id, user_id }) {
       studentsEnrolled,
       categoryTitle,
       courseDetails,
-      creatorDetails
+      creatorDetails,
+      totalRaters: totalRaters && totalRaters.length && totalRaters[0].totalAverageRaters
     })
 
     return formattedViewCourse
@@ -1158,7 +1189,9 @@ export const formatCourseData = ({ course, categoryTitle }) => {
   }
 }
 
-export const formatCourseCard = ({ course }) => {
+export const formatCourseCard = ({ course, totalRaters }) => {
+  const isRatingsCount = totalRaters.find((item) => item.course_id === course.course_id)
+
   return {
     courseId: course.course_id,
     title: course.title,
@@ -1170,8 +1203,9 @@ export const formatCourseCard = ({ course }) => {
     studentsCount: course.studentsCount,
     sectionsCount: course.sectionsCount,
     testEntries: course.testEntries,
-    enrolledThisMonth: course.enrolledThisMonth
-    // WIP: ratingsCount and totalEarned
+    enrolledThisMonth: course.enrolledThisMonth,
+    ratingsCount: _.isUndefined(isRatingsCount) ? 0 : isRatingsCount.totalAverageRaters
+    // WIP: totalEarned
   }
 }
 

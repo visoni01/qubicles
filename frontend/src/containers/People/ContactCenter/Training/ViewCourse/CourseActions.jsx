@@ -250,7 +250,7 @@ const CourseActions = ({
                 value={ course.rating }
                 precision={ 0.5 }
               />
-              <span className='para light'>{`(${ 15 } ratings) `}</span>
+              <span className='para light'>{`(${ course.totalRaters } ratings) `}</span>
               <span className='para light'>{`${ course.studentsEnrolled } students`}</span>
             </div>
           </div>
