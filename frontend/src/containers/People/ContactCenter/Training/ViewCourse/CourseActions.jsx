@@ -1,6 +1,6 @@
 /* eslint-disable complexity */
 import React, { useCallback, useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Button, Box, Card, CardMedia,
 } from '@material-ui/core'
@@ -19,10 +19,11 @@ import { startLoader, stopLoader } from '../../../../../redux-saga/redux/utils'
 import CourseActionSkeleton from '../Skeletons/courseActionSkeleton'
 
 const CourseActions = ({
-  course, setOpenCoursePlayer, type, isLoading, dataType, continueCourse,
+  course, setOpenCoursePlayer, type, isLoading, dataType, continueCourse, setOpenReviewModal,
 }) => {
   const [ isAssessmentModalOpen, setIsAssessmentModalOpen ] = useState(false)
   const [ openBuyCoursePopup, setOpenBuyCoursePopup ] = useState(false)
+  const { addReviewAccess } = useSelector((state) => state.courseRatings)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -188,6 +189,7 @@ const CourseActions = ({
               {
                 (course.courseDetails && course.courseDetails.status === 'enrolled' && 'Start Course')
                 || (course.courseDetails && course.courseDetails.status === 'inprogress' && 'Continue Course')
+                || (course.courseDetails && course.courseDetails.status === 'completed' && 'View Course')
               }
             </Button>
             )}
@@ -203,6 +205,7 @@ const CourseActions = ({
               Preview
             </Button>
             )}
+            {course.isEnrolled && course.courseDetails.status !== 'completed' && (
             <Button
               className='wide-button'
               classes={ {
@@ -213,6 +216,19 @@ const CourseActions = ({
             >
               Assessment Test
             </Button>
+            )}
+            {course.courseDetails.status === 'completed' && addReviewAccess && (
+            <Button
+              className='wide-button'
+              classes={ {
+                root: 'button-secondary-small',
+                label: 'button-secondary-small-label',
+              } }
+              onClick={ () => setOpenReviewModal(true) }
+            >
+              Write A Review
+            </Button>
+            )}
           </div>
           )}
 
@@ -285,6 +301,7 @@ CourseActions.defaultProps = {
   isLoading: null,
   dataType: '',
   continueCourse: false,
+  setOpenReviewModal: () => {},
 }
 
 CourseActions.propTypes = {
@@ -294,6 +311,7 @@ CourseActions.propTypes = {
   isLoading: PropTypes.bool,
   dataType: dataTypePropType,
   continueCourse: PropTypes.bool,
+  setOpenReviewModal: PropTypes.func,
 }
 
 export default CourseActions

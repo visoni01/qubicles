@@ -18,6 +18,7 @@ const ViewCourse = () => {
   const { course, dataType, isLoading } = useSelector((state) => state.viewCourse)
   const dispatch = useDispatch()
   const [ openCoursePlayer, setOpenCoursePlayer ] = useState(false)
+  const [ openReviewModal, setOpenReviewModal ] = useState(false)
 
   useEffect(() => {
     dispatch(viewCourseRequestStart({
@@ -78,7 +79,11 @@ const ViewCourse = () => {
           />
         </Grid>
         <Grid item>
-          <CourseReviews courseId={ courseId } />
+          <CourseReviews
+            courseId={ courseId }
+            openReviewModal={ openReviewModal }
+            setOpenReviewModal={ setOpenReviewModal }
+          />
         </Grid>
       </Grid>
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
@@ -89,6 +94,8 @@ const ViewCourse = () => {
           isLoading={ isLoading }
           dataType={ dataType }
           continueCourse={ location.continueCourse }
+          openReviewModal={ openReviewModal }
+          setOpenReviewModal={ setOpenReviewModal }
         />
       </Grid>
     </Grid>

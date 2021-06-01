@@ -20,9 +20,8 @@ import CourseReviewsFilterModal from './courseReviewsFilterModal'
 import { courseReviewsFilterStatus, noOfReviewsPerPage } from '../../../constants'
 import CourseReviewsSkeleton from '../../Skeletons/courseReviewsSkeleton'
 
-const CourseReviews = ({ courseId }) => {
+const CourseReviews = ({ courseId, openReviewModal, setOpenReviewModal }) => {
   const { ratings, addReviewAccess, loading } = useSelector((state) => state.courseRatings)
-  const [ openReviewModal, setOpenReviewModal ] = useState(false)
   const [ anchorEl, setAnchorEl ] = useState(null)
   const {
     count, currentPage, offset, reviewFilter, reviews, isLoading: reviewLoading, requestType,
@@ -152,6 +151,8 @@ const CourseReviews = ({ courseId }) => {
 
 CourseReviews.propTypes = {
   courseId: PropTypes.number.isRequired,
+  openReviewModal: PropTypes.bool.isRequired,
+  setOpenReviewModal: PropTypes.func.isRequired,
 }
 
 export default CourseReviews

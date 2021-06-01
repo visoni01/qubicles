@@ -16,7 +16,7 @@ function* viewCourseWatcher() {
 function* viewCourseWorker(action) {
   try {
     const {
-      requestType, dataType, courseId, unitId, status, sectionId, questions,
+      requestType, dataType, courseId, unitId, status, sectionId, questions, courseStatus,
     } = action.payload
 
     switch (requestType) {
@@ -67,8 +67,10 @@ function* viewCourseWorker(action) {
           }
 
           case 'Section Test': {
-            const { data } = yield People.submitSectionTest({ courseId, sectionId, questions })
-            yield put(viewCourseRequestSuccess({ sectionTest: data, sectionId }))
+            const { data } = yield People.submitSectionTest({
+              courseId, sectionId, questions, courseStatus,
+            })
+            yield put(viewCourseRequestSuccess({ sectionTest: data, sectionId, courseStatus }))
             break
           }
 

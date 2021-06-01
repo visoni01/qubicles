@@ -39,6 +39,7 @@ const updateUnitOrTestData = ({
   return updatedSections
 }
 
+// eslint-disable-next-line complexity
 export const getUpdatedCourse = ({ state, action }) => {
   switch (state.requestType) {
     case 'FETCH': {
@@ -122,6 +123,10 @@ export const getUpdatedCourse = ({ state, action }) => {
             courseContent: {
               ...state.course.courseContent,
               sections: updatedSections,
+            },
+            courseDetails: {
+              ...state.course.courseDetails,
+              status: action.payload.courseStatus === 'completed' ? 'completed' : state.course.courseDetails.status,
             },
           }
         }

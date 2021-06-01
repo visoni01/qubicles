@@ -44,6 +44,7 @@ const SectionTest = ({ courseId, sectionId }) => {
         answer: answer.answer,
         questionType: answer.questionType,
       })),
+      courseStatus: sectionIndex === course.courseContent.sections.length - 1 ? 'completed' : 'inprogress',
     }))
   }, [ dispatch, answers, courseId, sectionId ])
 
