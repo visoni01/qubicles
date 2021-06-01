@@ -1,7 +1,9 @@
 /* eslint-disable complexity */
 import React, { useCallback, useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Box, Button, IconButton } from '@material-ui/core'
+import {
+  Box, Button, Divider, IconButton,
+} from '@material-ui/core'
 import { Pagination } from '@material-ui/lab'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
@@ -15,7 +17,7 @@ import {
 import CourseRatingSkeleton from '../../Skeletons/courseRatingSkeleton'
 import AddCourseReview from './addCourseReview'
 import CourseReviewsFilterModal from './courseReviewsFilterModal'
-import { noOfReviewsPerPage } from '../../../constants'
+import { courseReviewsFilterStatus, noOfReviewsPerPage } from '../../../constants'
 import CourseReviewsSkeleton from '../../Skeletons/courseReviewsSkeleton'
 
 const CourseReviews = ({ courseId }) => {
@@ -65,20 +67,6 @@ const CourseReviews = ({ courseId }) => {
       <Box className='custom-box course-reviews-root'>
         <div className='heading-section'>
           <h3 className='h3'>Reviews</h3>
-          <IconButton
-            className='filter-icon'
-            disabled={ reviewLoading || _.isNull(reviewLoading) || loading || _.isNull(loading) }
-            onClick={ onFilterClick }
-          >
-            <FilterIcon />
-          </IconButton>
-          <CourseReviewsFilterModal
-            id={ id }
-            anchorEl={ anchorEl }
-            setAnchorEl={ setAnchorEl }
-            open={ open }
-            handleClose={ handleFilterClose }
-          />
           {addReviewAccess && (
           <Button
             disabled={ reviewLoading || _.isNull(reviewLoading) || loading || _.isNull(loading) }
@@ -111,10 +99,28 @@ const CourseReviews = ({ courseId }) => {
         )}
 
         {/* Reviews */}
+        <Divider className='reviews-divider' />
+        <div className='display-inline-flex is-fullwidth justify-between align-items-center ml-10'>
+          <h4 className='h4'>{courseReviewsFilterStatus[ reviewFilter ]}</h4>
+          <IconButton
+            className='filter-icon'
+            disabled={ reviewLoading || _.isNull(reviewLoading) || loading || _.isNull(loading) || _.isEmpty(reviews) }
+            onClick={ onFilterClick }
+          >
+            <FilterIcon />
+          </IconButton>
+          <CourseReviewsFilterModal
+            id={ id }
+            anchorEl={ anchorEl }
+            setAnchorEl={ setAnchorEl }
+            open={ open }
+            handleClose={ handleFilterClose }
+          />
+        </div>
         {(reviewLoading || _.isNull(reviewLoading)) && <CourseReviewsSkeleton />}
-        {!reviewLoading && <ReviewsList reviews={ reviews } />}
+        {!reviewLoading && reviews && !_.isEmpty(reviews) && <ReviewsList reviews={ reviews } />}
         {!reviewLoading && (reviews && reviews.length === 0) && (
-          <div className='mt-20 mb-10 is-fullwidth'>
+          <div className='mt-10 mb-10 is-fullwidth'>
             <h3 className='h3 text-center'>No reviews found!</h3>
           </div>
         )}
@@ -126,7 +132,7 @@ const CourseReviews = ({ courseId }) => {
           shape='round'
           page={ currentPage }
           onChange={ changeCurrentPage }
-          classes={ { root: 'courses-pagination' } }
+          classes={ { root: 'mb-10' } }
           className='is-flex is-center'
         />
         )}

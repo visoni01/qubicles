@@ -38,10 +38,6 @@
     position: relative;
     margin-bottom: 30px;
 
-    .filter-icon {
-      margin-left: 10px;
-    }
-
     .leave-review-button {
       position: absolute;
       right: 0;
@@ -51,8 +47,13 @@
   .user-review {
     display: inline-flex;
     width: 100%;
-    padding: 15px 0px;
+    padding: 0px 0px 20px 0px;
     margin: 5px 0px;
+  }
+
+  .reviews-divider {
+    width: calc(100% + 40px);
+    margin: 15px -20px;
   }
 }
 

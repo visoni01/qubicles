@@ -7,6 +7,7 @@ import {
   showErrorMessage,
   courseRatingsFetchSuccessful,
   showSuccessMessage,
+  updateCourseRating,
 } from '../../../redux/actions'
 import People from '../../../service/people'
 
@@ -32,14 +33,23 @@ function* courseReviewsWorker(action) {
 
       case 'CREATE': {
         const { data } = yield People.addCourseReview({ courseId, reviewData })
+        // Update courseRatings reducer
         yield put(courseRatingsFetchSuccessful({
           addReviewAccess: data.addReviewAccess,
           ratings: data.ratings,
         }))
+
+        // Update courseReviews reducer
         yield (put(courseReviewsRequestSuccess({
           count: data.reviewData.count,
           reviews: data.reviewData.reviews,
         })))
+
+        // Update rating in viewCourse reducer
+        yield (put(updateCourseRating({
+          rating: data.ratings.totalAverageRating,
+        })))
+
         yield put(showSuccessMessage({ msg: 'Review Posted Successfully!' }))
         break
       }

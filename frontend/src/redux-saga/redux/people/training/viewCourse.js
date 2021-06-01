@@ -17,6 +17,7 @@ const initialState = {
     sectionsCompleted: 0,
     studentsEnrolled: null,
     rating: null,
+    totalRaters: 0,
     informationSection: {
       title: '',
       category: null,
@@ -61,6 +62,7 @@ const {
     updateCurrentUnitAndSectionIndex,
     resetViewCourseFlags,
     resetViewCourseReducer,
+    updateCourseRating,
   }, reducer,
 } = createSlice({
   name: 'viewCourse',
@@ -94,6 +96,14 @@ const {
         ...action.payload,
       },
     }),
+    updateCourseRating: (state, action) => ({
+      ...state,
+      course: {
+        ...state.course,
+        rating: action.payload.rating,
+        totalRaters: state.course.totalRaters + 1,
+      },
+    }),
     resetViewCourseFlags: (state) => ({
       ...state,
       isLoading: null,
@@ -114,4 +124,5 @@ export {
   updateCurrentUnitAndSectionIndex,
   resetViewCourseFlags,
   resetViewCourseReducer,
+  updateCourseRating,
 }

@@ -1,11 +1,9 @@
 import React from 'react'
 import './styles.scss'
 import { Skeleton } from '@material-ui/lab'
-import { Divider } from '@material-ui/core'
 
 const CourseReviewsSkeleton = () => (
   <div className='course-reviews-skeleton-container'>
-    <Divider className='divider' />
     {[ ...Array(3).keys() ].map((id) => (
       <div className='display-inline-flex is-fullwidth user-review-card list-divider' key={ id }>
         <Skeleton

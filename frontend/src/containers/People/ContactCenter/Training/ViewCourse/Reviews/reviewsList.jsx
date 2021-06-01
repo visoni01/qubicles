@@ -1,12 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Divider } from '@material-ui/core'
 import _ from 'lodash'
 import ViewCourseReview from './viewCourseReview'
 
 const ReviewsList = ({ reviews }) => (
   <div>
-    <Divider className='divider' />
     {reviews && !_.isEmpty(reviews) && reviews.map((review) => (
       <ViewCourseReview
         key={ review.id }

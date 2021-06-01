@@ -42,7 +42,7 @@ const CourseReviewsFilterModal = ({
       } }
       transformOrigin={ {
         vertical: 'top',
-        horizontal: 'center',
+        horizontal: 'right',
       } }
     >
       <RadioGroup

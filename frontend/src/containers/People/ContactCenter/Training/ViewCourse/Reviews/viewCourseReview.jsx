@@ -12,7 +12,7 @@ const ViewCourseReview = ({
       <Avatar className='profile-pic mr-20 no-margin-top' alt={ userName } src={ userPic } />
       <div className='is-fullwidth'>
         <div className='display-inline-flex is-fullwidth justify-between'>
-          <h4 className='h4'>{userName}</h4>
+          <h4 className='h4 unbold'>{userName}</h4>
           <div className='ml-5 para light'>{`Course Completion ${ courseProgress }%`}</div>
         </div>
         <p className='para light mb-5'>{userTitle}</p>
