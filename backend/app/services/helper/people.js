@@ -1556,6 +1556,17 @@ export const addTestEntries = async ({ user_id, course_id, section_id, questions
   }
 }
 
+export const updateCourseStatus = async ({ user_id, course_id }) => {
+  await XQodUserCourse.update({
+    status: 'completed'
+  }, {
+    where: {
+      user_id,
+      course_id
+    }
+  })
+}
+
 export const getRandomQuestions = ({ questions }) => {
   const randomQuestions = questions.map((item) => {
     return {
