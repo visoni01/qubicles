@@ -112,6 +112,20 @@ const CourseActions = ({
             ? 'completed' : 'inprogress',
         }))
       }
+    } else if (course.courseDetails.status === 'completed') {
+      dispatch(updateCurrentUnitAndSectionIndex({
+        currentSectionIndex: 0,
+        currentUnitIndex: 0,
+        isIntroVideoActive: false,
+      }))
+      dispatch(viewCourseRequestStart({
+        requestType: 'UPDATE',
+        dataType: 'Course Unit',
+        courseId: course.courseId,
+        sectionId: course.courseContent.sections[ 0 ].id,
+        unitId: course.courseContent.sections[ 0 ].units[ 0 ].unitId,
+        status: course.courseContent.sections[ 0 ].units[ 0 ].status === 'completed' ? 'completed' : 'inprogress',
+      }))
     }
     setOpenCoursePlayer(true)
   }, [ course.isEnrolled, course.courseDetails, course.courseId, dispatch, setOpenCoursePlayer,

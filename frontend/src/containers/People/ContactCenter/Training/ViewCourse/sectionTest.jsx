@@ -46,7 +46,7 @@ const SectionTest = ({ courseId, sectionId }) => {
       })),
       courseStatus: sectionIndex === course.courseContent.sections.length - 1 ? 'completed' : 'inprogress',
     }))
-  }, [ dispatch, answers, courseId, sectionId ])
+  }, [ dispatch, answers, courseId, sectionId, course.courseContent.sections.length, sectionIndex ])
 
   const handleGoToNextSection = useCallback(() => {
     const currentSectionIndex = sectionIndex < course.courseContent.sections.length - 1 ? sectionIndex + 1 : 0
