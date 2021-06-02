@@ -11,6 +11,7 @@ import {
   PeopleGetTestService,
   PeopleAddTestEntriesService,
   PeopleGetAssessmentTestService,
+  PeopleAddAssessmentTestEntriesService,
   PeopleGetAllTestEntriesService,
   PeopleGetTestEntryService,
   PeopleUpdateTestEntryService,
@@ -124,6 +125,15 @@ export default class TrainingController {
 
   static async getAssessmentTest (req, res) {
     const test = await PeopleGetAssessmentTestService.execute({ ...req.body, ...req.params })
+    if (test.successful) {
+      Responder.success(res, test.result)
+    } else {
+      Responder.failed(res, test.errors)
+    }
+  }
+
+  static async addAssessmentTestEntries (req, res) {
+    const test = await PeopleAddAssessmentTestEntriesService.execute({ ...req.body, ...req.params })
     if (test.successful) {
       Responder.success(res, test.result)
     } else {

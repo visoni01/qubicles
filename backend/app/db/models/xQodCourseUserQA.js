@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     answer: DataTypes.TEXT,
     correct: DataTypes.BOOLEAN,
     verified: DataTypes.BOOLEAN,
+    test_type: {
+      type: DataTypes.ENUM,
+      values: ['section_wise', 'assessment']
+    },
     createdAt: {
       field: 'created_on',
       type: DataTypes.DATE

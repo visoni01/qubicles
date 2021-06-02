@@ -182,30 +182,36 @@ const CoursePreview = ({
             )}
           </DialogContent>
 
-          {open && !isLoading && isEnrolled && courseStatus === 'inprogress' && currentUnit.unitId !== -2 && (
-          <DialogActions className='modal-actions course-content-buttons'>
-            {currentUnitIndex > 0 && (
-            <Button
-              classes={ {
-                root: 'button-secondary-small',
-                label: 'button-secondary-small-label',
-              } }
-              className='previous-button'
-              onClick={ handlePreviousUnit }
-            >
-              Previous
-            </Button>
-            )}
-            <Button
-              classes={ {
-                root: 'button-primary-small',
-                label: 'button-primary-small-label',
-              } }
-              onClick={ handleNextUnit }
-            >
-              Next
-            </Button>
-          </DialogActions>
+          {open && !isLoading && isEnrolled && [ 'inprogress', 'completed' ].includes(courseStatus)
+          && currentUnit.unitId !== -2 && (
+            <DialogActions className='modal-actions course-content-buttons'>
+              {currentUnitIndex > 0 && (
+              <Button
+                classes={ {
+                  root: 'button-secondary-small',
+                  label: 'button-secondary-small-label',
+                } }
+                className='previous-button'
+                onClick={ handlePreviousUnit }
+              >
+                Previous
+              </Button>
+              )}
+              {!_.isNull(currentSectionIndex) && !_.isUndefined(sections[ currentSectionIndex ].units)
+              && !(_.isEqual(currentSectionIndex, sections.length - 1)
+              && _.isEqual(currentSection.status, 'completed')
+              && _.isEqual(currentUnitIndex, sections[ currentSectionIndex ].units.length - 1)) && (
+                <Button
+                  classes={ {
+                    root: 'button-primary-small',
+                    label: 'button-primary-small-label',
+                  } }
+                  onClick={ handleNextUnit }
+                >
+                  Next
+                </Button>
+              )}
+            </DialogActions>
           )}
 
         </div>

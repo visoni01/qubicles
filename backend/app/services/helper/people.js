@@ -1191,7 +1191,7 @@ export const formatCourseData = ({ course, categoryTitle }) => {
 }
 
 export const formatCourseCard = ({ course, totalRaters }) => {
-  const isRatingsCount = totalRaters.find((item) => item.course_id === course.course_id)
+  const isRatingsCount = totalRaters && totalRaters.find((item) => item.course_id === course.course_id)
 
   return {
     courseId: course.course_id,
@@ -1518,39 +1518,43 @@ export const formatTestQuestionsData = ({ questions }) => {
   })
 }
 
-export const getCorrectAnswers = async ({ section_id }) => {
+export const getCorrectAnswers = async ({ sectionIds }) => {
   const correctAnswers = await XQodCourseSectionQA.findAll({
     attributes: ['section_qa_id', 'answer'],
-    raw: true,
     where: {
-      section_id
+      section_id: sectionIds
     }
   })
 
-  return correctAnswers
+  return correctAnswers && correctAnswers.map(item => item.get({ plain: true }))
 }
 
-export const createUserTestBulkData = ({ user_id, course_id, section_id, questions, correctAnswers }) => {
+export const createUserTestBulkData = ({ user_id, course_id, sectionIds, questions, correctAnswers, testType }) => {
   return questions.map((question) => {
     return {
       user_id,
       course_id,
-      section_id,
+      section_id: sectionIds && sectionIds.length && _.isEqual(testType, 'section_wise')
+        ? sectionIds[0]
+        : question.sectionId,
       section_qa_id: question.id,
       answer: question.answer,
       correct: ['multiple', 'checkbox', 'scale', 'date'].includes(question.questionType)
         ? _.isEqual(correctAnswers.find((item) => item.section_qa_id === question.id).answer, question.answer)
         : null,
-      verified: ['multiple', 'checkbox', 'scale', 'date'].includes(question.questionType)
+      verified: ['multiple', 'checkbox', 'scale', 'date'].includes(question.questionType),
+      test_type: testType
     }
   })
 }
 
-export const addTestEntries = async ({ user_id, course_id, section_id, questions }) => {
-  const correctAnswers = await getCorrectAnswers({ section_id })
+export const addTestEntries = async ({ user_id, course_id, sectionIds, questions, testType }) => {
+  const correctAnswers = await getCorrectAnswers({ sectionIds })
 
   if (correctAnswers && correctAnswers.length) {
-    const bulkDataToBeAdded = createUserTestBulkData({ user_id, course_id, section_id, questions, correctAnswers })
+    const bulkDataToBeAdded = createUserTestBulkData({
+      user_id, course_id, sectionIds, questions, correctAnswers, testType
+    })
 
     await XQodCourseUserQA.bulkCreate(bulkDataToBeAdded)
   }
