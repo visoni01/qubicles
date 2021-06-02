@@ -5,15 +5,16 @@ import {
   FormControlLabel, FormGroup,
 } from '@material-ui/core'
 import _ from 'lodash'
-import { testQuestionPropType } from './propTypes'
+import { answersPropTypes, testQuestionPropType } from './propTypes'
 
 const CheckboxTestQuestion = ({
-  question, answers, setAnswers,
+  question, answers, setAnswers, additionalAnswerFields,
 }) => {
   const [ checkboxAnswersArray, setCheckboxAnswersArray ] = useState([])
 
   const handleAnswerChange = useCallback((e) => {
     const newAnswer = {
+      ...additionalAnswerFields,
       questionId: question.id,
       questionType: question.questionType,
       answer: '',
@@ -48,7 +49,7 @@ const CheckboxTestQuestion = ({
         ]))
       }
     }
-  }, [ answers, question.id, question.questionType, setAnswers ])
+  }, [ answers, question.id, question.questionType, setAnswers, additionalAnswerFields ])
 
   useEffect(() => {
     const answer = _.find(answers, [ 'questionId', question.id ])
@@ -81,10 +82,15 @@ const CheckboxTestQuestion = ({
   )
 }
 
+CheckboxTestQuestion.defaultProps = {
+  additionalAnswerFields: {},
+}
+
 CheckboxTestQuestion.propTypes = {
   question: testQuestionPropType.isRequired,
-  answers: PropTypes.arrayOf(PropTypes.any).isRequired,
+  answers: answersPropTypes.isRequired,
   setAnswers: PropTypes.func.isRequired,
+  additionalAnswerFields: PropTypes.shape({}),
 }
 
 export default CheckboxTestQuestion

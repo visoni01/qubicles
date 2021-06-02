@@ -15,7 +15,9 @@ const ViewCourse = () => {
   const location = useLocation()
   let { courseId } = useParams()
   courseId = parseInt(courseId, 10)
-  const { course, dataType, isLoading } = useSelector((state) => state.viewCourse)
+  const {
+    course, dataType, isLoading, requestType,
+  } = useSelector((state) => state.viewCourse)
   const dispatch = useDispatch()
   const [ openCoursePlayer, setOpenCoursePlayer ] = useState(false)
   const [ openReviewModal, setOpenReviewModal ] = useState(false)
@@ -96,6 +98,7 @@ const ViewCourse = () => {
           continueCourse={ location.continueCourse }
           openReviewModal={ openReviewModal }
           setOpenReviewModal={ setOpenReviewModal }
+          requestType={ requestType }
         />
       </Grid>
     </Grid>

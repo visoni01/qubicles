@@ -79,6 +79,19 @@ function* viewCourseWorker(action) {
         break
       }
 
+      case 'CREATE': {
+        switch (dataType) {
+          case 'Assessment Test': {
+            const { data } = yield People.submitAssessmentTest({ courseId, questions })
+            yield put(viewCourseRequestSuccess({ assessmentTest: data }))
+            break
+          }
+
+          default: break
+        }
+        break
+      }
+
       default: break
     }
   } catch (e) {

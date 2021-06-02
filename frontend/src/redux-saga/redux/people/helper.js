@@ -135,6 +135,27 @@ export const getUpdatedCourse = ({ state, action }) => {
       }
     }
 
+    case 'CREATE': {
+      switch (state.dataType) {
+        case 'Assessment Test': {
+          return {
+            ...state.course,
+            sectionsCompleted: state.course.courseContent.sections.length,
+            courseContent: {
+              ...state.course.courseContent,
+              sections: state.course.courseContent.sections.map((section) => ({ ...section, status: 'completed' })),
+            },
+            courseDetails: {
+              ...state.course.courseDetails,
+              status: 'completed',
+            },
+          }
+        }
+
+        default: return state.course
+      }
+    }
+
     default: return state.course
   }
 }

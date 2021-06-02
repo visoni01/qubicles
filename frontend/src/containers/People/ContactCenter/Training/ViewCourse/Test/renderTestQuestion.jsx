@@ -9,7 +9,7 @@ import DateTimeTestQuestion from './dateTimeTestQuestion'
 import ScaleTestQuestion from './scaleTestQuestion'
 
 const TestQuestion = ({
-  question, answers, setAnswers,
+  question, answers, setAnswers, additionalAnswerFields,
 }) => (
   <div className='test-question-section mb-20'>
     <div className='border-1 question-border pt-10 pb-20 pl-20 pr-20'>
@@ -28,6 +28,7 @@ const TestQuestion = ({
               question={ question }
               answers={ answers }
               setAnswers={ setAnswers }
+              additionalAnswerFields={ additionalAnswerFields }
             />
           )}
 
@@ -37,6 +38,7 @@ const TestQuestion = ({
             question={ question }
             answers={ answers }
             setAnswers={ setAnswers }
+            additionalAnswerFields={ additionalAnswerFields }
           />
           )}
 
@@ -46,6 +48,7 @@ const TestQuestion = ({
             question={ question }
             answers={ answers }
             setAnswers={ setAnswers }
+            additionalAnswerFields={ additionalAnswerFields }
           />
           )}
 
@@ -55,6 +58,7 @@ const TestQuestion = ({
             question={ question }
             answers={ answers }
             setAnswers={ setAnswers }
+            additionalAnswerFields={ additionalAnswerFields }
           />
           )}
 
@@ -64,6 +68,7 @@ const TestQuestion = ({
             question={ question }
             answers={ answers }
             setAnswers={ setAnswers }
+            additionalAnswerFields={ additionalAnswerFields }
           />
           )}
         </Grid>
@@ -73,10 +78,15 @@ const TestQuestion = ({
   </div>
 )
 
+TestQuestion.defaultProps = {
+  additionalAnswerFields: {},
+}
+
 TestQuestion.propTypes = {
   question: testQuestionPropType.isRequired,
   answers: PropTypes.arrayOf(PropTypes.any).isRequired,
   setAnswers: PropTypes.func.isRequired,
+  additionalAnswerFields: PropTypes.shape({}),
 }
 
 export default TestQuestion

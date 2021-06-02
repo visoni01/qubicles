@@ -1,12 +1,13 @@
 /* eslint-disable complexity */
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogTitle, DialogActions, IconButton, DialogContent, Button, LinearProgress,
+  Dialog, DialogTitle, DialogActions, IconButton, DialogContent, Button, LinearProgress, CircularProgress,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from 'react-redux'
+import _ from 'lodash'
 import RenderTestQuestion from './renderTestQuestion'
 import './styles.scss'
 import TestCompleted from './testCompleted'
@@ -15,7 +16,7 @@ import AssessmentTestSkeleton from '../../Skeletons/assessmentTestSkeleton'
 import { assessmentTestPropType } from './propTypes'
 
 const AssessmentTestModal = ({
-  open, onClose, courseId, assessmentTest, isLoading,
+  open, onClose, courseId, assessmentTest, isLoading, requestType,
 }) => {
   const [ isTestStarted, setIsTestStarted ] = useState(false)
   const [ isTestCompleted, setIsTestCompleted ] = useState(false)
@@ -36,6 +37,26 @@ const AssessmentTestModal = ({
     setIsTestStarted(true)
   }, [ dispatch, courseId ])
 
+  const handleSubmitTest = useCallback(() => {
+    dispatch(viewCourseRequestStart({
+      requestType: 'CREATE',
+      dataType: 'Assessment Test',
+      courseId,
+      questions: answers.map((answer) => ({
+        id: answer.questionId,
+        answer: answer.answer,
+        questionType: answer.questionType,
+        sectionId: answer.sectionId,
+      })),
+    }))
+  }, [ dispatch, courseId, answers ])
+
+  useEffect(() => {
+    if (_.isEqual(requestType, 'CREATE') && !isLoading) {
+      setIsTestCompleted(true)
+    }
+  }, [ setIsTestCompleted, isLoading, requestType ])
+
   return (
     <Dialog
       disableScrollLock
@@ -46,7 +67,10 @@ const AssessmentTestModal = ({
     >
       <div className='header'>
         <DialogTitle>
-          <div className={ `h2 mr-30 ${ !isTestStarted && 'ml-30' }` }>Assessment Test</div>
+          <div className='display-inline-flex align-items-center'>
+            <div className={ `h2 mr-20 ${ !isTestStarted && 'ml-30' }` }>Assessment Test</div>
+            {_.isEqual(requestType, 'CREATE') && isLoading && <CircularProgress size={ 25 } />}
+          </div>
         </DialogTitle>
         <DialogActions className='cross-button'>
           <IconButton
@@ -63,7 +87,8 @@ const AssessmentTestModal = ({
             By accomplishing this assessment test you can skip the content and finish the course immediately.
           </p>
         )}
-        {!isLoading && isTestStarted && !isTestCompleted && assessmentTest && assessmentTest.length && (
+        {((_.isEqual(requestType, 'FETCH') && !isLoading) || _.isEqual(requestType, 'CREATE'))
+          && isTestStarted && !isTestCompleted && assessmentTest && assessmentTest.length && (
           <>
             <div className='mb-20'>
               <div>
@@ -91,12 +116,13 @@ const AssessmentTestModal = ({
                   question={ question }
                   answers={ answers }
                   setAnswers={ setAnswers }
+                  additionalAnswerFields={ { sectionId: assessmentTest[ currentSection ].sectionId } }
                 />
               ))}
             </div>
           </>
         )}
-        {(isTestStarted && isLoading) && (
+        {(isTestStarted && _.isEqual(requestType, 'FETCH') && isLoading) && (
           <AssessmentTestSkeleton />
         )}
         {isTestCompleted && (
@@ -124,6 +150,7 @@ const AssessmentTestModal = ({
               onClick={ currentSection > 0
                 ? () => setCurrentSection((state) => state - 1)
                 : onClose }
+              disabled={ isLoading }
             >
               { currentSection > 0 ? 'Back' : 'Cancel' }
             </Button>
@@ -132,8 +159,9 @@ const AssessmentTestModal = ({
               classes={ { label: 'primary-label' } }
               onClick={ currentSection < assessmentTest.length - 1
                 ? () => setCurrentSection((state) => state + 1)
-                : () => setIsTestCompleted(true) }
-              disabled={ isLoading }
+                : handleSubmitTest }
+              disabled={ isLoading
+                || _.findIndex(answers, { sectionId: assessmentTest[ currentSection ].sectionId }) === -1 }
             >
               { assessmentTest && assessmentTest.length && currentSection < assessmentTest.length - 1
                 ? 'Continue'
@@ -166,6 +194,7 @@ AssessmentTestModal.propTypes = {
   courseId: PropTypes.number.isRequired,
   assessmentTest: assessmentTestPropType,
   isLoading: PropTypes.bool.isRequired,
+  requestType: PropTypes.string.isRequired,
 }
 
 export default AssessmentTestModal

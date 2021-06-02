@@ -4,13 +4,14 @@ import _ from 'lodash'
 import {
   RadioGroup, FormControlLabel, Radio,
 } from '@material-ui/core'
-import { testQuestionPropType } from './propTypes'
+import { answersPropTypes, testQuestionPropType } from './propTypes'
 
 const MultipleChoiceTestQuestion = ({
-  question, answers, setAnswers,
+  question, answers, setAnswers, additionalAnswerFields,
 }) => {
   const handleAnswerChange = useCallback((e) => {
     const newAnswer = {
+      ...additionalAnswerFields,
       questionId: question.id,
       questionType: question.questionType,
       answer: e.target.value,
@@ -28,7 +29,7 @@ const MultipleChoiceTestQuestion = ({
         ...state.slice(answerIndex + 1),
       ]))
     }
-  }, [ answers, question.id, question.questionType, setAnswers ])
+  }, [ answers, question.id, question.questionType, setAnswers, additionalAnswerFields ])
 
   const getAnswerValue = useCallback(() => {
     const answer = _.find(answers, [ 'questionId', question.id ])
@@ -53,10 +54,15 @@ const MultipleChoiceTestQuestion = ({
   )
 }
 
+MultipleChoiceTestQuestion.defaultProps = {
+  additionalAnswerFields: {},
+}
+
 MultipleChoiceTestQuestion.propTypes = {
   question: testQuestionPropType.isRequired,
-  answers: PropTypes.arrayOf(PropTypes.any).isRequired,
+  answers: answersPropTypes.isRequired,
   setAnswers: PropTypes.func.isRequired,
+  additionalAnswerFields: PropTypes.shape({}),
 }
 
 export default MultipleChoiceTestQuestion

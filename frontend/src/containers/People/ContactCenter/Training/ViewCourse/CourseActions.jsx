@@ -19,7 +19,7 @@ import { startLoader, stopLoader } from '../../../../../redux-saga/redux/utils'
 import CourseActionSkeleton from '../Skeletons/courseActionSkeleton'
 
 const CourseActions = ({
-  course, setOpenCoursePlayer, type, isLoading, dataType, continueCourse, setOpenReviewModal,
+  course, setOpenCoursePlayer, type, isLoading, dataType, continueCourse, setOpenReviewModal, requestType,
 }) => {
   const [ isAssessmentModalOpen, setIsAssessmentModalOpen ] = useState(false)
   const [ openBuyCoursePopup, setOpenBuyCoursePopup ] = useState(false)
@@ -265,6 +265,7 @@ const CourseActions = ({
             courseId={ course.courseId }
             assessmentTest={ course.assessmentTest }
             isLoading={ isLoading }
+            requestType={ requestType }
           />
           )}
 
@@ -316,6 +317,7 @@ CourseActions.defaultProps = {
   dataType: '',
   continueCourse: false,
   setOpenReviewModal: () => {},
+  requestType: '',
 }
 
 CourseActions.propTypes = {
@@ -326,6 +328,7 @@ CourseActions.propTypes = {
   dataType: dataTypePropType,
   continueCourse: PropTypes.bool,
   setOpenReviewModal: PropTypes.func,
+  requestType: PropTypes.string,
 }
 
 export default CourseActions

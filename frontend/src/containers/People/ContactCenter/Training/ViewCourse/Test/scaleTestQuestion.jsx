@@ -5,7 +5,7 @@ import { Slider, TextField } from '@material-ui/core'
 import { answersPropTypes, testQuestionPropType } from './propTypes'
 
 const ScaleTestQuestion = ({
-  question, answers, setAnswers,
+  question, answers, setAnswers, additionalAnswerFields,
 }) => {
   const handleAnswerChange = useCallback((newValue) => {
     let newAnswerValue = newValue
@@ -16,6 +16,7 @@ const ScaleTestQuestion = ({
     }
 
     const newAnswer = {
+      ...additionalAnswerFields,
       questionId: question.id,
       questionType: question.questionType,
       answer: newAnswerValue.toString(),
@@ -38,7 +39,7 @@ const ScaleTestQuestion = ({
         ]))
       }
     }
-  }, [ setAnswers, answers, question ])
+  }, [ setAnswers, answers, question, additionalAnswerFields ])
 
   const getAnswerValue = useCallback(() => {
     const answer = _.find(answers, [ 'questionId', question.id ])
@@ -104,10 +105,15 @@ const ScaleTestQuestion = ({
   )
 }
 
+ScaleTestQuestion.defaultProps = {
+  additionalAnswerFields: {},
+}
+
 ScaleTestQuestion.propTypes = {
   question: testQuestionPropType.isRequired,
   answers: answersPropTypes.isRequired,
   setAnswers: PropTypes.func.isRequired,
+  additionalAnswerFields: PropTypes.shape({}),
 }
 
 export default ScaleTestQuestion

@@ -311,6 +311,11 @@ class People {
     return response
   }
 
+  static async submitAssessmentTest({ courseId, questions }) {
+    const response = await apiClient.postRequest(`/people/course/${ courseId }/assessment-test`, { questions })
+    return response
+  }
+
   static async fetchAllTestEntries({ courseId }) {
     const response = await apiClient.getRequest(`/people/course/${ courseId }/test-entries`)
     return response
