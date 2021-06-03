@@ -31,6 +31,7 @@ function* viewCourseWorker(action) {
           case 'Start Course': {
             const { data } = yield People.startCourse({ courseId })
             yield put(viewCourseRequestSuccess({ courseDetails: data }))
+            yield put(courseRatingsFetchSuccessful({ addReviewAccess: true }))
             break
           }
 
@@ -43,7 +44,6 @@ function* viewCourseWorker(action) {
           case 'Buy Course': {
             const { data } = yield People.buyCourse({ courseId })
             yield put(viewCourseRequestSuccess({ course: data }))
-            yield put(courseRatingsFetchSuccessful({ addReviewAccess: true }))
             break
           }
 

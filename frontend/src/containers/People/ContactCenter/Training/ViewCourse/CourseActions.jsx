@@ -256,11 +256,11 @@ const CourseActions = ({
           </div>
           )}
 
-          {course.updatedOn && (
+          {course.createdOn && (
           <div className='mb-20'>
             <h4 className='h4'> Last updated</h4>
             <span className='para light'>
-              {course.updatedOn && `${ formatDate(course.updatedOn, 'MMMM DD YYYY, hh:mm a') }`}
+              {course.createdOn && `${ formatDate(course.createdOn, 'MMMM DD YYYY, hh:mm a') }`}
             </span>
           </div>
           )}

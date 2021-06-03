@@ -651,7 +651,8 @@ const formatCourseInfo = ({ course }) => {
     language: course.informationSection.language,
     sections: course.courseContent.sections
       ? formatSectionInfo({ sections: course.courseContent.sections })
-      : []
+      : [],
+    createdAt: Date.now()
   }
 }
 
@@ -1255,7 +1256,7 @@ export async function getAllViewCourses ({ searchField, categoryId, courseFilter
       additionalParams = {
         ...additionalParams,
         order: [
-          ['updated_on', 'DESC'],
+          ['created_on', 'DESC'],
           ...additionalParams.order
         ]
       }
