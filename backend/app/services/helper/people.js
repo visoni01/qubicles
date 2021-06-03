@@ -1617,24 +1617,19 @@ export const fetchAllTestEntries = async ({ course_id, user_id }) => {
       }
     }),
     () => XQodCourseUserQA.findAll({
-      attributes: ['section_id', 'user_id'],
+      attributes: ['user_id', 'test_type'],
       include: [
         {
           model: UserDetail,
           as: 'userDetails',
           attributes: ['first_name', 'last_name', 'profile_image']
-        },
-        {
-          model: XQodCourseSection,
-          as: 'sectionDetails',
-          attributes: ['title', 'order']
         }
       ],
       where: {
         course_id,
         verified: false
       },
-      group: ['section_id', 'user_id']
+      group: ['user_id', 'test_type']
     })
   ]
 
@@ -1654,13 +1649,11 @@ export const formatTestEntriesData = ({ course_id, testEntriesData }) => {
     courseTitle: testEntriesData.courseTitle,
     testEntries: testEntriesData.testEntries && testEntriesData.testEntries.map((item) => {
       return {
-        sectionId: item.section_id,
-        sectionTitle: item.sectionDetails && item.sectionDetails.title,
-        sectionOrder: item.sectionDetails && item.sectionDetails.order,
         candidateId: item.user_id,
         candidateName: item.userDetails && item.userDetails.first_name && item.userDetails.last_name &&
-        item.userDetails.first_name + ' ' + item.userDetails.last_name,
-        candidatePic: item.userDetails && item.userDetails.profile_image
+          item.userDetails.first_name + ' ' + item.userDetails.last_name,
+        candidatePic: item.userDetails && item.userDetails.profile_image,
+        testType: item.test_type
       }
     })
   }
