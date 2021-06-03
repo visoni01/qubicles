@@ -1672,10 +1672,15 @@ export const checkAuthenticUser = async ({ user_id, course_id }) => {
   return isAuthenticUser
 }
 
-export const fetchTestEntry = async ({ course_id, section_id, user_id }) => {
+export const fetchTestEntry = async ({ course_id, user_id, test_type }) => {
   const testEntry = await XQodCourseUserQA.findAll({
-    attributes: ['user_qa_id', 'answer'],
+    attributes: ['section_id', 'user_qa_id', 'answer'],
     include: [
+      {
+        model: XQodCourseSection,
+        as: 'sectionDetails',
+        attributes: ['title', 'order']
+      },
       {
         model: XQodCourseSectionQA,
         as: 'questionDetails',
@@ -1684,8 +1689,8 @@ export const fetchTestEntry = async ({ course_id, section_id, user_id }) => {
     ],
     where: {
       course_id,
-      section_id,
       user_id,
+      test_type,
       verified: false
     }
   })
@@ -1694,7 +1699,23 @@ export const fetchTestEntry = async ({ course_id, section_id, user_id }) => {
 }
 
 export const formatTestEntryData = ({ testEntry }) => {
-  return testEntry.map((item) => {
+  const sectionIds = _.uniq(_.map(testEntry, 'section_id'))
+
+  return sectionIds.map((section_id) => {
+    const sectionData = testEntry.find((item) => item.section_id === section_id)
+    const questionsData = testEntry.filter((item) => item.section_id === section_id)
+
+    return {
+      sectionId: section_id,
+      sectionTitle: sectionData && sectionData.sectionDetails && sectionData.sectionDetails.title,
+      sectionNum: sectionData && sectionData.sectionDetails && sectionData.sectionDetails.order,
+      questions: questionsData && formatTestEntryQuestionsData({ questionsData })
+    }
+  })
+}
+
+export const formatTestEntryQuestionsData = ({ questionsData }) => {
+  return questionsData.map((item) => {
     return {
       questionId: item.user_qa_id,
       candidateAnswer: item.answer,

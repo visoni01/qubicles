@@ -11,10 +11,10 @@ const constraints = {
   course_id: {
     presence: { allowEmpty: false }
   },
-  section_id: {
+  candidate_id: {
     presence: { allowEmpty: false }
   },
-  candidate_id: {
+  test_type: {
     presence: { allowEmpty: false }
   }
 }
@@ -26,16 +26,16 @@ export class PeopleGetTestEntryService extends ServiceBase {
 
   async run () {
     try {
-      const { user_id, course_id, section_id, candidate_id } = this.filteredArgs
+      const { user_id, course_id, candidate_id, test_type } = this.filteredArgs
 
       const isAuthenticUser = await checkAuthenticUser({ user_id, course_id })
 
       if (isAuthenticUser) {
-        const testEntry = await fetchTestEntry({ course_id, section_id, user_id: candidate_id })
+        const testEntry = await fetchTestEntry({ course_id, user_id: candidate_id, test_type })
 
         if (testEntry && testEntry.length) {
-          const formatedData = formatTestEntryData({ testEntry })
-          return formatedData
+          const formattedData = formatTestEntryData({ testEntry })
+          return formattedData
         } else {
           this.addError(ERRORS.NOT_FOUND, MESSAGES.DATA_NOT_FOUND)
         }
