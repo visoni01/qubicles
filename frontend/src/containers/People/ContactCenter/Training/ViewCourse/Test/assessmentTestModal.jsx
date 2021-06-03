@@ -14,6 +14,7 @@ import TestCompleted from './testCompleted'
 import { viewCourseRequestStart } from '../../../../../../redux-saga/redux/people'
 import AssessmentTestSkeleton from '../../Skeletons/assessmentTestSkeleton'
 import { assessmentTestPropType } from './propTypes'
+import ConfirmationModal from '../../../../../../components/CommonModal/confirmationModal'
 
 const AssessmentTestModal = ({
   open, onClose, courseId, assessmentTest, isLoading, requestType,
@@ -22,6 +23,8 @@ const AssessmentTestModal = ({
   const [ isTestCompleted, setIsTestCompleted ] = useState(false)
   const [ currentSection, setCurrentSection ] = useState(0)
   const [ answers, setAnswers ] = useState([])
+  const [ openSubmitConfirmation, setOpenSubmitConfirmation ] = useState(false)
+  const [ openCancelConfirmation, setOpenCancelConfirmation ] = useState(false)
   const dispatch = useDispatch()
 
   const getTotalQuestions = useCallback(() => (
@@ -38,6 +41,7 @@ const AssessmentTestModal = ({
   }, [ dispatch, courseId ])
 
   const handleSubmitTest = useCallback(() => {
+    setOpenSubmitConfirmation(false)
     dispatch(viewCourseRequestStart({
       requestType: 'CREATE',
       dataType: 'Assessment Test',
@@ -75,7 +79,8 @@ const AssessmentTestModal = ({
         <DialogActions className='cross-button'>
           <IconButton
             className='is-size-6'
-            onClick={ onClose }
+            onClick={ !isLoading && isTestStarted && !isTestCompleted
+              ? () => setOpenCancelConfirmation(true) : onClose }
           >
             <FontAwesomeIcon className='custom-fa-icon pointer' icon={ faTimes } />
           </IconButton>
@@ -149,7 +154,7 @@ const AssessmentTestModal = ({
               className='cancel-button'
               onClick={ currentSection > 0
                 ? () => setCurrentSection((state) => state - 1)
-                : onClose }
+                : () => setOpenCancelConfirmation(true) }
               disabled={ isLoading }
             >
               { currentSection > 0 ? 'Back' : 'Cancel' }
@@ -159,7 +164,7 @@ const AssessmentTestModal = ({
               classes={ { label: 'primary-label' } }
               onClick={ currentSection < assessmentTest.length - 1
                 ? () => setCurrentSection((state) => state + 1)
-                : handleSubmitTest }
+                : () => setOpenSubmitConfirmation(true) }
               disabled={ isLoading
                 || _.findIndex(answers, { sectionId: assessmentTest[ currentSection ].sectionId }) === -1 }
             >
@@ -179,6 +184,24 @@ const AssessmentTestModal = ({
           </Button>
         )}
       </DialogActions>
+
+      {/* Submit Confirmation */}
+      <ConfirmationModal
+        open={ openSubmitConfirmation }
+        confirmButtonText='Submit'
+        message='You can submit the assessment test only once. Do you want to continue?'
+        handleClose={ () => setOpenSubmitConfirmation(false) }
+        handleConfirm={ handleSubmitTest }
+      />
+
+      {/* Exit Confirmation */}
+      <ConfirmationModal
+        open={ openCancelConfirmation }
+        confirmButtonText='Yes'
+        message='All answers will be lost. Do you still want to close the test?'
+        handleClose={ () => setOpenCancelConfirmation(false) }
+        handleConfirm={ onClose }
+      />
 
     </Dialog>
   )
