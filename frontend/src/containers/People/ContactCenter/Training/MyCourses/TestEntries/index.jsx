@@ -63,7 +63,7 @@ const TestEntries = () => {
             <Grid container spacing={ 3 }>
               {courseTestEntries.testEntries.map((testEntry) => (
                 <Grid
-                  key={ `${ testEntry.sectionId }.${ testEntry.candidateId }` }
+                  key={ `${ testEntry.candidateId }${ testEntry.testType }` }
                   item
                   xl={ 4 }
                   lg={ 4 }
@@ -71,13 +71,11 @@ const TestEntries = () => {
                   sm={ 12 }
                 >
                   <TestEntryCard
-                    sectionId={ testEntry.sectionId }
-                    sectionTitle={ testEntry.sectionTitle }
-                    sectionOrder={ testEntry.sectionOrder }
                     candidateId={ testEntry.candidateId }
                     candidateName={ testEntry.candidateName }
                     candidatePic={ testEntry.candidatePic }
-                    testEntryAnswers={ testEntry.testEntryAnswers }
+                    testType={ testEntry.testType }
+                    sections={ testEntry.sections }
                     courseId={ courseId }
                     isLoading={ isLoading }
                     dataType={ dataType }

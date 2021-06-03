@@ -15,7 +15,7 @@ function* testEntriesWatcher() {
 function* testEntriesWorker(action) {
   try {
     const {
-      requestType, dataType, courseId, sectionId, candidateId, validatedData,
+      requestType, dataType, courseId, testType, candidateId, validatedData,
     } = action.payload
 
     switch (requestType) {
@@ -28,8 +28,8 @@ function* testEntriesWorker(action) {
           }
 
           case 'Test Entry Answers': {
-            const { data } = yield People.fetchTestEntryAnswers({ courseId, sectionId, candidateId })
-            yield put(testEntriesRequestSuccess({ testEntryAnswers: data, sectionId, candidateId }))
+            const { data } = yield People.fetchTestEntryAnswers({ courseId, candidateId, testType })
+            yield put(testEntriesRequestSuccess({ sections: data, candidateId, testType }))
             break
           }
 
@@ -42,10 +42,10 @@ function* testEntriesWorker(action) {
         switch (dataType) {
           case 'Validate Answers': {
             const { data } = yield People.validateTestEntryAnswers({
-              courseId, sectionId, candidateId, validatedData,
+              courseId, candidateId, validatedData,
             })
             yield put(testEntriesRequestSuccess({
-              testEntryAnswers: data, sectionId, candidateId, validatedData,
+              testEntryAnswers: data, candidateId, validatedData,
             }))
             yield put(showSuccessMessage({ msg: 'Answers validated successfully' }))
             break

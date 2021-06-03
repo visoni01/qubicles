@@ -11,9 +11,6 @@ const constraints = {
   course_id: {
     presence: { allowEmpty: false }
   },
-  section_id: {
-    presence: { allowEmpty: false }
-  },
   candidate_id: {
     presence: { allowEmpty: false }
   },

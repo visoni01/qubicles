@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import {
   Avatar,
   Button,
@@ -15,14 +16,16 @@ import { testEntriesRequestStart } from '../../../../../../redux-saga/redux/peop
 import TestEntriesValidationSkeleton from '../../Skeletons/testEntriesValidationSkeleton'
 
 const TestEntriesValidation = ({
-  open, setOpen, candidateName, candidatePic, candidateId, sectionId, testEntryAnswers, courseId,
+  open, setOpen, candidateName, candidatePic, candidateId, sections, courseId, testType,
   isLoading, dataType,
 }) => {
   const dispatch = useDispatch()
   const [ validatedData, setValidatedData ] = useState([])
+  const [ currentSectionIndex, setCurrentSectionIndex ] = useState(0)
 
   const handleClose = useCallback(() => {
     setValidatedData([])
+    setCurrentSectionIndex(0)
     setOpen(false)
   }, [ setOpen ])
 
@@ -31,23 +34,22 @@ const TestEntriesValidation = ({
       requestType: 'UPDATE',
       dataType: 'Validate Answers',
       courseId,
-      sectionId,
       candidateId,
       validatedData,
     }))
-  }, [ dispatch, courseId, sectionId, candidateId, validatedData ])
+  }, [ dispatch, courseId, candidateId, validatedData ])
 
   useEffect(() => {
-    if (!testEntryAnswers && open) {
+    if (!sections && open) {
       dispatch(testEntriesRequestStart({
         requestType: 'FETCH',
         dataType: 'Test Entry Answers',
         candidateId,
-        sectionId,
         courseId,
+        testType,
       }))
     }
-  }, [ dispatch, testEntryAnswers, candidateId, sectionId, courseId, open ])
+  }, [ dispatch, sections, candidateId, courseId, open, testType ])
 
   useEffect(() => {
     if (_.isEqual(dataType, 'Validate Answers') && !isLoading) {
@@ -71,6 +73,10 @@ const TestEntriesValidation = ({
               <CircularProgress size={ 25 } className='ml-10' />
             )}
           </div>
+          <div className='display-inline-flex align-items-center is-fullwidth mt-20'>
+            <Avatar className='user-pic' alt={ candidateName } src={ candidatePic } />
+            <p className='h3 user-name'>{candidateName}</p>
+          </div>
         </DialogTitle>
         <DialogActions className='cross-button'>
           <IconButton
@@ -81,24 +87,25 @@ const TestEntriesValidation = ({
           </IconButton>
         </DialogActions>
       </div>
-      <DialogContent>
-        <div className='display-inline-flex align-items-center is-fullwidth mt-10 mb-20'>
-          <Avatar className='user-pic' alt={ candidateName } src={ candidatePic } />
-          <p className='h3 user-name'>{candidateName}</p>
-        </div>
+      <DialogContent className='no-padding-top'>
+        {sections && (
+        <h3 className='h3 mb-20'>
+          {`Section ${ sections[ currentSectionIndex ].sectionNum }: ${ sections[ currentSectionIndex ].sectionTitle }`}
+        </h3>
+        )}
         {_.isEqual(dataType, 'Test Entry Answers') && isLoading && (
           <TestEntriesValidationSkeleton />
         )}
         {(!isLoading || _.isEqual(dataType, 'Validate Answers')) && (
           <Grid container spacing={ 3 }>
-            {testEntryAnswers && testEntryAnswers.length > 0 && testEntryAnswers.map((testEntryAnswer) => (
-              <Grid item xs={ 12 } key={ testEntryAnswer.questionId }>
+            {sections && sections.length > 0 && sections[ currentSectionIndex ].questions.map((question) => (
+              <Grid item xs={ 12 } key={ question.questionId }>
                 <AnswerValidationCard
                   candidatePic={ candidatePic }
                   candidateName={ candidateName }
                   validatedData={ validatedData }
                   setValidatedData={ setValidatedData }
-                  { ...testEntryAnswer }
+                  { ...question }
                   isLoading={ isLoading }
                 />
               </Grid>
@@ -112,19 +119,24 @@ const TestEntriesValidation = ({
             root: 'button-secondary-small-red',
             label: 'button-secondary-small-label',
           } }
-          onClick={ handleClose }
+          onClick={ sections && _.isEqual(currentSectionIndex, 0)
+            ? handleClose
+            : () => setCurrentSectionIndex((state) => state - 1) }
         >
-          Cancel
+          {sections && _.isEqual(currentSectionIndex, 0) ? 'Cancel' : 'Back'}
         </Button>
         <Button
           classes={ {
             root: 'button-primary-small',
             label: 'button-primary-small-label',
           } }
-          disabled={ _.isEmpty(validatedData) || isLoading }
-          onClick={ handleDone }
+          disabled={ isLoading || !sections
+             || (_.isEqual(currentSectionIndex, sections.length - 1) && _.isEmpty(validatedData)) }
+          onClick={ sections && _.isEqual(currentSectionIndex, sections.length - 1)
+            ? handleDone
+            : () => setCurrentSectionIndex((state) => state + 1) }
         >
-          Done
+          {sections && _.isEqual(currentSectionIndex, sections.length - 1) ? 'Done' : 'Next'}
         </Button>
       </DialogActions>
     </Dialog>
@@ -132,7 +144,7 @@ const TestEntriesValidation = ({
 }
 
 TestEntriesValidation.defaultProps = {
-  testEntryAnswers: undefined,
+  sections: undefined,
 }
 
 TestEntriesValidation.propTypes = {
@@ -141,16 +153,21 @@ TestEntriesValidation.propTypes = {
   candidateName: PropTypes.string.isRequired,
   candidatePic: PropTypes.string.isRequired,
   candidateId: PropTypes.number.isRequired,
-  sectionId: PropTypes.number.isRequired,
+  testType: PropTypes.string.isRequired,
   courseId: PropTypes.number.isRequired,
   isLoading: PropTypes.bool.isRequired,
   dataType: PropTypes.string.isRequired,
-  testEntryAnswers: PropTypes.arrayOf(PropTypes.shape({
-    questionId: PropTypes.number,
-    candidateAnswer: PropTypes.string,
-    questionText: PropTypes.string,
-    questionType: PropTypes.string,
-    correctAnswer: PropTypes.string,
+  sections: PropTypes.arrayOf(PropTypes.shape({
+    sectionId: PropTypes.number,
+    sectionNum: PropTypes.string,
+    sectionTitle: PropTypes.string,
+    questions: PropTypes.arrayOf(PropTypes.shape({
+      questionId: PropTypes.number,
+      candidateAnswer: PropTypes.string,
+      questionText: PropTypes.string,
+      questionType: PropTypes.string,
+      correctAnswer: PropTypes.string,
+    })),
   })),
 }
 

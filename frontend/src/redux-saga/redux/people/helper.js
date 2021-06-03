@@ -173,12 +173,12 @@ export const updateTestEntriesReducer = ({ state, action }) => {
         case 'Test Entry Answers': {
           const testEntryIndex = _.findIndex(
             state.courseTestEntries.testEntries,
-            { sectionId: action.payload.sectionId, candidateId: action.payload.candidateId },
+            { testType: action.payload.testType, candidateId: action.payload.candidateId },
           )
           const updatedTestEntries = _.cloneDeep(state.courseTestEntries.testEntries)
           updatedTestEntries[ testEntryIndex ] = {
             ...updatedTestEntries[ testEntryIndex ],
-            testEntryAnswers: action.payload.testEntryAnswers,
+            sections: action.payload.sections,
           }
           return {
             ...state.courseTestEntries,

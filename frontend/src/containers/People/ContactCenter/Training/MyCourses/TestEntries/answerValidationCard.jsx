@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
   Avatar, Button, Card, CardContent,
 } from '@material-ui/core'
@@ -29,6 +29,13 @@ const AnswerValidationCard = ({
     }
     setIsCorrect(correct)
   }, [ questionId, setValidatedData, validatedData ])
+
+  useEffect(() => {
+    const validatedAnswerIndex = _.findIndex(validatedData, { questionId })
+    if (!_.isEqual(validatedAnswerIndex, -1)) {
+      setIsCorrect(validatedData[ validatedAnswerIndex ].correct)
+    }
+  }, [ questionId, validatedData ])
 
   return (
     <Card

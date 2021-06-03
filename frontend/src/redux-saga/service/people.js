@@ -321,11 +321,11 @@ class People {
     return response
   }
 
-  static async fetchTestEntryAnswers({ courseId, sectionId, candidateId }) {
+  static async fetchTestEntryAnswers({ courseId, candidateId, testType }) {
     const response = await apiClient.getRequest(
-      `/people/course/${ courseId }/test-entries/${ sectionId }`,
+      `/people/course/${ courseId }/test-entries/${ candidateId }`,
       null,
-      { candidate_id: candidateId },
+      { test_type: testType },
     )
     return response
   }

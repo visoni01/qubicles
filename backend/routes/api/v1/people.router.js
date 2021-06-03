@@ -84,10 +84,10 @@ peopleRouter.route('/course/:course_id/assessment-test')
 peopleRouter.route('/course/:course_id/test-entries')
   .get(isAuthenticated, trainingController.getAllTestEntries)
 
-peopleRouter.route('/course/:course_id/test-entries/:section_id')
+peopleRouter.route('/course/:course_id/test-entries/:candidate_id')
   .get(isAuthenticated, trainingController.getTestEntry)
 
-peopleRouter.route('/course/:course_id/test-entries/:section_id')
+peopleRouter.route('/course/:course_id/test-entries/:candidate_id')
   .put(isAuthenticated, trainingController.updateTestEntry)
 
 peopleRouter.route('/enrolled-courses')
