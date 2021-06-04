@@ -9,16 +9,10 @@ const TestEntryCardSkeleton = ({ val }) => (
     <Card
       className='test-entry-card'
     >
-      <div className='display-inline-flex is-fullwidth'>
-        <Skeleton
-          animation='wave'
-          classes={ { root: 'heading' } }
-        />
-        <Skeleton
-          animation='wave'
-          classes={ { root: 'sub-heading' } }
-        />
-      </div>
+      <Skeleton
+        animation='wave'
+        classes={ { root: 'heading' } }
+      />
       <div className='display-inline-flex is-fullwidth mt-10'>
         <Skeleton
           animation='wave'

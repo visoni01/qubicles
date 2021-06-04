@@ -5,6 +5,10 @@ import { Card, Grid } from '@material-ui/core'
 
 const TestEntriesValidationSkeleton = () => (
   <div className='test-entries-validation-skeleton-container'>
+    <Skeleton
+      animation='wave'
+      classes={ { root: 'heading mb-20' } }
+    />
     <Grid container spacing={ 3 }>
       {[ ...Array(3).keys() ].map((val) => (
         <Grid item xs={ 12 } key={ val }>

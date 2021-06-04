@@ -122,6 +122,7 @@ const TestEntriesValidation = ({
           onClick={ sections && _.isEqual(currentSectionIndex, 0)
             ? handleClose
             : () => setCurrentSectionIndex((state) => state - 1) }
+          disabled={ isLoading }
         >
           {sections && _.isEqual(currentSectionIndex, 0) ? 'Cancel' : 'Back'}
         </Button>
