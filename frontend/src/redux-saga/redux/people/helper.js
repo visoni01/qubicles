@@ -195,15 +195,19 @@ export const updateTestEntriesReducer = ({ state, action }) => {
         case 'Validate Answers': {
           const testEntryIndex = _.findIndex(
             state.courseTestEntries.testEntries,
-            { sectionId: action.payload.sectionId, candidateId: action.payload.candidateId },
+            { testType: action.payload.testType, candidateId: action.payload.candidateId },
           )
           const updatedTestEntries = _.cloneDeep(state.courseTestEntries.testEntries)
-          updatedTestEntries[ testEntryIndex ].testEntryAnswers = _.differenceWith(
-            updatedTestEntries[ testEntryIndex ].testEntryAnswers,
-            action.payload.validatedData,
-            (arrVal, othVal) => arrVal.questionId === othVal.questionId,
-          )
-          if (_.isEmpty(updatedTestEntries[ testEntryIndex ].testEntryAnswers)) {
+
+          updatedTestEntries[ testEntryIndex ].sections = state.courseTestEntries.testEntries[ testEntryIndex ].sections
+            .map((section) => {
+              const questions = section.questions.filter((question) => (
+                _.findIndex(action.payload.validatedData, { questionId: question.questionId }) === -1
+              ))
+              return { ...section, questions }
+            }).filter((section) => !_.isEmpty(section.questions))
+
+          if (_.isEmpty(updatedTestEntries[ testEntryIndex ].sections)) {
             updatedTestEntries.splice(testEntryIndex, 1)
           }
           return {

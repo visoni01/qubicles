@@ -36,8 +36,9 @@ const TestEntriesValidation = ({
       courseId,
       candidateId,
       validatedData,
+      testType,
     }))
-  }, [ dispatch, courseId, candidateId, validatedData ])
+  }, [ dispatch, courseId, candidateId, validatedData, testType ])
 
   useEffect(() => {
     if (!sections && open) {
@@ -54,6 +55,7 @@ const TestEntriesValidation = ({
   useEffect(() => {
     if (_.isEqual(dataType, 'Validate Answers') && !isLoading) {
       setValidatedData([])
+      setCurrentSectionIndex(0)
     }
   }, [ dataType, isLoading ])
 
@@ -88,7 +90,7 @@ const TestEntriesValidation = ({
         </DialogActions>
       </div>
       <DialogContent className='no-padding-top'>
-        {sections && (
+        {sections && sections[ currentSectionIndex ] && (
         <h3 className='h3 mb-20'>
           {`Section ${ sections[ currentSectionIndex ].sectionNum }: ${ sections[ currentSectionIndex ].sectionTitle }`}
         </h3>
@@ -98,7 +100,8 @@ const TestEntriesValidation = ({
         )}
         {(!isLoading || _.isEqual(dataType, 'Validate Answers')) && (
           <Grid container spacing={ 3 }>
-            {sections && sections.length > 0 && sections[ currentSectionIndex ].questions.map((question) => (
+            {sections && sections.length > 0 && sections[ currentSectionIndex ]
+            && sections[ currentSectionIndex ].questions.map((question) => (
               <Grid item xs={ 12 } key={ question.questionId }>
                 <AnswerValidationCard
                   candidatePic={ candidatePic }
@@ -160,7 +163,7 @@ TestEntriesValidation.propTypes = {
   dataType: PropTypes.string.isRequired,
   sections: PropTypes.arrayOf(PropTypes.shape({
     sectionId: PropTypes.number,
-    sectionNum: PropTypes.string,
+    sectionNum: PropTypes.number,
     sectionTitle: PropTypes.string,
     questions: PropTypes.arrayOf(PropTypes.shape({
       questionId: PropTypes.number,

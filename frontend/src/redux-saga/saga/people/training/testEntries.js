@@ -41,12 +41,8 @@ function* testEntriesWorker(action) {
       case 'UPDATE': {
         switch (dataType) {
           case 'Validate Answers': {
-            const { data } = yield People.validateTestEntryAnswers({
-              courseId, candidateId, validatedData,
-            })
-            yield put(testEntriesRequestSuccess({
-              testEntryAnswers: data, candidateId, validatedData,
-            }))
+            yield People.validateTestEntryAnswers({ courseId, candidateId, validatedData })
+            yield put(testEntriesRequestSuccess({ candidateId, validatedData, testType }))
             yield put(showSuccessMessage({ msg: 'Answers validated successfully' }))
             break
           }

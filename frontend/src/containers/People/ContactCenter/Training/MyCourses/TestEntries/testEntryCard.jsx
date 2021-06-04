@@ -64,7 +64,7 @@ TestEntryCard.propTypes = {
   dataType: PropTypes.string.isRequired,
   sections: PropTypes.arrayOf(PropTypes.shape({
     sectionId: PropTypes.number,
-    sectionNum: PropTypes.string,
+    sectionNum: PropTypes.number,
     sectionTitle: PropTypes.string,
     questions: PropTypes.arrayOf(PropTypes.shape({
       questionId: PropTypes.number,
