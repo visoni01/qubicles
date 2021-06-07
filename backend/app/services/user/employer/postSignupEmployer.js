@@ -8,6 +8,7 @@ import { ERRORS, MESSAGES } from '../../../utils/errors'
 import { getErrorMessageForService, getOne, checkSpecificCountry } from '../../helper'
 import logger from '../../../common/logger'
 import { Op } from 'sequelize'
+import _ from 'lodash'
 
 const constraintsStep1 = {
   user_id: {
@@ -42,27 +43,39 @@ export class PostSignupEmployerStep1Service extends ServiceBase {
   }
 
   async run () {
-    let state
-    if (!this.state && checkSpecificCountry(this.phone_number)) {
-      const areaCode = this.phone_number.substring(3, 6)
-      // using country_code = 1 specifically for US
-      const phoneData = await XPhoneCodes.findOne({ where: { country_code: 1, areacode: areaCode }, raw: true })
-      if (phoneData) {
-        state = phoneData.state
-      }
-    }
-
-    const clientObject = {
-      client_name: this.client_name,
-      address1: this.address1,
-      city: this.city,
-      state: this.state || state,
-      zip: this.zip,
-      phone_number: this.phone_number.substring(1, 15)
-    }
-
     try {
       const clientUserData = await getOne({ model: XClientUser, data: { user_id: this.user_id }, attributes: ['client_id'] })
+      const isClientNameAlreadyExists = await XClient.findOne({
+        raw: true,
+        attributes: ['client_name'],
+        where: {
+          client_name: this.client_name,
+          client_id: { [Op.not]: clientUserData && clientUserData.client_id }
+        }
+      })
+      if (!_.isNull(isClientNameAlreadyExists)) {
+        throw new Error(MESSAGES.CLIENT_NAME_ALREADY_EXISTS)
+      }
+
+      let state
+      if (!this.state && checkSpecificCountry(this.phone_number)) {
+        const areaCode = this.phone_number.substring(3, 6)
+        // using country_code = 1 specifically for US
+        const phoneData = await XPhoneCodes.findOne({ where: { country_code: 1, areacode: areaCode }, raw: true })
+        if (phoneData) {
+          state = phoneData.state
+        }
+      }
+
+      const clientObject = {
+        client_name: this.client_name,
+        address1: this.address1,
+        city: this.city,
+        state: this.state || state,
+        zip: this.zip,
+        phone_number: this.phone_number.substring(1, 15)
+      }
+
       if (clientUserData && clientUserData.client_id) {
         // Generate Client username here
         clientObject.client_username = await generateClientUserName({ name: clientObject.client_name, maxLength: 100 })
@@ -89,9 +102,14 @@ export class PostSignupEmployerStep1Service extends ServiceBase {
       }, { where: { user_id: this.user_id } })
 
       return `Post Signup Step 1 for user ${this.user_id} is completed`
-    } catch (e) {
-      logger.error(`${getErrorMessageForService('PostSignupEmployerStep1Service')} ${e}`)
-      this.addError(ERRORS.INTERNAL)
+    } catch (err) {
+      if (err && _.isEqual(err.message, MESSAGES.CLIENT_NAME_ALREADY_EXISTS)) {
+        logger.error(getErrorMessageForService('PostSignupEmployerStep1Service'), err)
+        this.addError(ERRORS.NOT_FOUND, MESSAGES.CLIENT_NAME_ALREADY_EXISTS)
+      } else {
+        logger.error(getErrorMessageForService('PostSignupEmployerStep1Service'), err)
+        this.addError(ERRORS.INTERNAL)
+      }
     }
   }
 }

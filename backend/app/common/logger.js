@@ -114,7 +114,7 @@ export default class Logger {
   }
 
   static error (logTitle, argHash) {
-    this.log('error', logTitle, { message: argHash.toString() })
+    this.log('error', logTitle, { message: argHash && argHash.toString() })
   }
 
   static log (logType, logTitle, argHash) {

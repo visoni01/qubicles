@@ -65,8 +65,10 @@ const steps = {
     ],
     schema: yup.object().shape({
       source: yup.string().required('*Required'),
-      interactions_per_month: yup.string().max(100).required('*Required')
-        .matches(regSplChar, 'Special characters not allowed'),
+      interactions_per_month: yup.number()
+        .min(0, '*Number of employees can\'t be less than 0')
+        .transform((value) => (Number.isNaN(value) ? undefined : value))
+        .required('*Required'),
       website: yup.string()
         .matches(
           // eslint-disable-next-line max-len

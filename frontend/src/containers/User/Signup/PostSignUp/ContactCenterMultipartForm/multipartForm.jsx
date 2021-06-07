@@ -144,6 +144,7 @@ const Form = ({
                   name={ name }
                   autoComplete='off'
                   ref={ register }
+                  min={ 0 }
                   defaultValue={ formValues[ name ] }
                 />
               </>

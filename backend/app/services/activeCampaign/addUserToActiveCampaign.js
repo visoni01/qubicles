@@ -66,7 +66,7 @@ export default class AddUserToActiveCampaignService extends ServiceBase {
       }
       return `User with id ${this.user_id} added to active campaign Successfully`
     } catch (err) {
-      logger.error(getErrorMessageForService('AddUserToActiveCampaignService'))
+      logger.error(getErrorMessageForService('AddUserToActiveCampaignService'), err)
     }
   }
 }

@@ -15,7 +15,7 @@ import {
 const ContactCenterMultiPartForm = () => {
   const dispatch = useDispatch()
   const {
-    stepsData, currentStep, isLoading,
+    stepsData, currentStep,
   } = useSelector(
     (state) => state.postSignUp,
   )
@@ -32,11 +32,8 @@ const ContactCenterMultiPartForm = () => {
 
     return dispatch(postSignUpStepStart({ type: 'employer', step: currentStep, data }))
   }
-  const handleOnBack = () => dispatch(handleBackStep())
 
-  if (isLoading) {
-    return <></>
-  }
+  const handleOnBack = () => dispatch(handleBackStep())
 
   return (
     <>

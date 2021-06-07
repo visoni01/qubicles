@@ -53,5 +53,6 @@ export const MESSAGES = {
   JOB_APPLICATION_NOT_EXIST: 'Application does not exist!',
   JOB_APPLICATION_NOT_UPDATED: 'Application not updated!',
   COURSE_NOT_FOUND: 'Course not found!',
-  USER_ALREADY_ENROLLED: 'User already enrolled to this course'
+  USER_ALREADY_ENROLLED: 'User already enrolled to this course',
+  CLIENT_NAME_ALREADY_EXISTS: 'Company name already exists'
 }
