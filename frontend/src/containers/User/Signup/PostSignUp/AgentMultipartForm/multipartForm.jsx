@@ -11,6 +11,7 @@ import moment from 'moment'
 import IntlTelInput from 'react-intl-tel-input'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import _ from 'lodash'
 import steps from './steps'
 import 'react-intl-tel-input/dist/main.css'
 import { phoneNumberFormatter, formatSSN } from '../../../../../utils/common'
@@ -186,18 +187,37 @@ const StepForm = ({
             onChange={ handleRadioChange(name) }
             className='dropdown'
           >
-            {options && options.map(({ label: optionLabel, value }) => (
-              <MenuItem key={ value } value={ value }>
-                {type === 'singleSelect' ? (
-                  <ListItemText primary={ optionLabel } />
-                ) : (
-                  <div className='checkboxes unset-label display-inline-flex align-items-start'>
-                    <Checkbox checked={ selectFieldValue.indexOf(value) > -1 } />
-                    <ListItemText primary={ optionLabel } />
-                  </div>
-                ) }
-              </MenuItem>
-            ))}
+            {options && _.isEqual(name, 'other_languages')
+              && options.filter((item) => item.label !== formValues.primary_language)
+                .map(({ label: optionLabel, value }) => (
+                  <MenuItem key={ value } value={ value }>
+                    <div className='checkboxes unset-label display-inline-flex align-items-start'>
+                      <Checkbox checked={ selectFieldValue.indexOf(value) > -1 } />
+                      <ListItemText primary={ optionLabel } />
+                    </div>
+                  </MenuItem>
+                ))}
+            {options && _.isEqual(name, 'primary_language')
+             && options.filter((item) => (
+               formValues.other_languages ? !formValues.other_languages.includes(item.label) : true
+             )).map(({ label: optionLabel, value }) => (
+               <MenuItem key={ value } value={ value }>
+                 <ListItemText primary={ optionLabel } />
+               </MenuItem>
+             ))}
+            {options && ![ 'primary_language', 'other_languages' ].includes(name)
+             && options.map(({ label: optionLabel, value }) => (
+               <MenuItem key={ value } value={ value }>
+                 {type === 'singleSelect' ? (
+                   <ListItemText primary={ optionLabel } />
+                 ) : (
+                   <div className='checkboxes unset-label display-inline-flex align-items-start'>
+                     <Checkbox checked={ selectFieldValue.indexOf(value) > -1 } />
+                     <ListItemText primary={ optionLabel } />
+                   </div>
+                 ) }
+               </MenuItem>
+             ))}
           </Select>
         </div>
       )

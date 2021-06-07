@@ -72,7 +72,7 @@ export default class CreateUserWalletService extends ServiceBase {
         expireSeconds: 30
       })
     } catch (err) {
-      logger.error(`${getErrorMessageForService('CreateUserWalletService')} ${err}`)
+      logger.error(getErrorMessageForService('CreateUserWalletService'), err)
     }
   }
 }

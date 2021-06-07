@@ -116,7 +116,10 @@ const steps = {
       },
     ],
     schema: yup.object().shape({
-      years_of_experience: yup.string(),
+      years_of_experience: yup.number()
+        .min(0, '*Can\'t be less than 0')
+        .transform((value) => (Number.isNaN(value) ? undefined : value))
+        .required('*Required'),
       highest_education: yup.string().required('*Required'),
       primary_language: yup.string().required('*Required'),
       other_languages: yup.string(),
