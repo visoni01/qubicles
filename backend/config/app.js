@@ -275,6 +275,10 @@ const config = convict({
     default: 1024 * 1024,
     env: 'IMAGE_MAX_SIZE'
   },
+  videoFileSize: {
+    default: 100 * 1024 * 1024,
+    env: 'VIDEO_MAX_SIZE'
+  },
   checkr: {
     baseUrl: {
       default: '',

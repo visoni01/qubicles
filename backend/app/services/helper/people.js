@@ -645,6 +645,7 @@ const formatCourseInfo = ({ course }) => {
     requirements: course.informationSection.requirements,
     outcomes: course.informationSection.outcomes,
     image_url: course.image_url,
+    video_url: course.video_url,
     token_price: course.informationSection.price,
     visibility: course.informationSection.visibility,
     status: course.status,

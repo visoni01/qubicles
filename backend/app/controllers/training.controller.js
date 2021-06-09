@@ -25,7 +25,11 @@ import Responder from '../../server/expressResponder'
 
 export default class TrainingController {
   static async createCourse (req, res) {
-    const course = await PeopleAddNewCourseService.execute({ ...req.body, file: req.file })
+    const course = await PeopleAddNewCourseService.execute({
+      ...req.body,
+      imageFile: req.files.imageFile && req.files.imageFile[0],
+      introFile: req.files.introFile && req.files.introFile[0]
+    })
     if (course.successful) {
       Responder.success(res, course.result)
     } else {
@@ -52,7 +56,11 @@ export default class TrainingController {
   }
 
   static async updateCourse (req, res) {
-    const course = await PeopleUpdateCourseService.execute({ ...req.body, file: req.file })
+    const course = await PeopleUpdateCourseService.execute({
+      ...req.body,
+      imageFile: req.files.imageFile && req.files.imageFile[0],
+      introFile: req.files.introFile && req.files.introFile[0]
+    })
     if (course.successful) {
       Responder.success(res, course.result)
     } else {

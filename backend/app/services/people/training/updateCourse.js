@@ -1,7 +1,7 @@
 import ServiceBase from '../../../common/serviceBase'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
 import logger from '../../../common/logger'
-import { getErrorMessageForService, uploadFileToIPFS, validateImageFile } from '../../helper'
+import { getErrorMessageForService, uploadFileToIPFS, validateImageFile, validateVideoFile } from '../../helper'
 import { getCourseById, updateCourse, formatCourseData, getCategoryTitleById } from '../../helper/people'
 
 const constraints = {
@@ -11,7 +11,10 @@ const constraints = {
   course: {
     presence: { allowEmpty: false }
   },
-  file: {
+  imageFile: {
+    presence: false
+  },
+  introFile: {
     presence: false
   }
 }
@@ -26,9 +29,11 @@ export class PeopleUpdateCourseService extends ServiceBase {
     const { user_id } = this.filteredArgs
 
     try {
-      let url = ''
-      if (this.file) {
-        const { isValidFileSize, isValidImage } = validateImageFile(this.file)
+      // Upload Course Thumbnail
+      let imageUrl = ''
+      if (this.imageFile) {
+        const { isValidFileSize, isValidImage } = validateImageFile(this.imageFile)
+
         if (!isValidImage) {
           this.addError(ERRORS.BAD_DATA, MESSAGES.INVALID_IMAGE_FILE)
           return
@@ -40,8 +45,30 @@ export class PeopleUpdateCourseService extends ServiceBase {
         }
 
         try {
-          // upload file to IPFS
-          url = await uploadFileToIPFS(this.file.buffer)
+          imageUrl = await uploadFileToIPFS(this.imageFile.buffer)
+        } catch (e) {
+          this.addError(ERRORS.BAD_DATA, MESSAGES.IPFS_FILE_UPLOAD_ERROR)
+          return
+        }
+      }
+
+      // Upload Introduction Video
+      let videoUrl = ''
+      if (this.introFile) {
+        const { isValidFileSize, isValidVideo } = validateVideoFile(this.introFile)
+
+        if (!isValidVideo) {
+          this.addError(ERRORS.BAD_DATA, MESSAGES.INVALID_VIDEO_FILE)
+          return
+        }
+
+        if (!isValidFileSize) {
+          this.addError(ERRORS.BAD_DATA, MESSAGES.INVALID_VIDEO_FILE_SIZE)
+          return
+        }
+
+        try {
+          videoUrl = await uploadFileToIPFS(this.introFile.buffer)
         } catch (e) {
           this.addError(ERRORS.BAD_DATA, MESSAGES.IPFS_FILE_UPLOAD_ERROR)
           return
@@ -50,7 +77,8 @@ export class PeopleUpdateCourseService extends ServiceBase {
 
       course = {
         ...course,
-        image_url: url
+        image_url: imageUrl,
+        video_url: videoUrl
       }
 
       await updateCourse({ course })
@@ -58,7 +86,7 @@ export class PeopleUpdateCourseService extends ServiceBase {
       const courseData = await getCourseById({ course_id: course.courseId, user_id })
 
       let courseDetails = {}
-      // Format course data for reducer when updated
+
       if (courseData) {
         const categoryTitle = await getCategoryTitleById({ category_id: courseData.category_id })
         courseDetails = formatCourseData({ course: courseData, categoryTitle })

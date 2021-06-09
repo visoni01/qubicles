@@ -141,6 +141,12 @@ export const validateImageFile = ({ mimetype, size }) => {
   return { isValidImage, isValidFileSize }
 }
 
+export const validateVideoFile = ({ mimetype, size }) => {
+  const isValidVideo = ['video/mp3', 'video/mp4', 'video/webm'].includes(mimetype)
+  const isValidFileSize = size <= config.get('videoFileSize')
+  return { isValidVideo, isValidFileSize }
+}
+
 // This method is used for checking countries whose country code is '+1' e.g. U.S. or Canada
 export const checkSpecificCountry = (phone_number) => {
   const countryCode = phone_number.split(' ')[0]

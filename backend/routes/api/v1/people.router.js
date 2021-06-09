@@ -42,11 +42,15 @@ peopleRouter.route('/applications/job/:job_id')
 peopleRouter.route('/applications/user/:agent_user_id')
   .get(isAuthenticated, applicationController.fetchAllJobApplicationsByAgent)
 
-peopleRouter.route('/course')
-  .post(multerUpload.single('file'), isAuthenticated, trainingController.createCourse)
+peopleRouter.route('/course').post(multerUpload.fields([
+  { name: 'imageFile', maxCount: 1 },
+  { name: 'introFile', maxCount: 1 }
+]), isAuthenticated, trainingController.createCourse)
 
-peopleRouter.route('/course')
-  .put(multerUpload.single('file'), isAuthenticated, trainingController.updateCourse)
+peopleRouter.route('/course').put(multerUpload.fields([
+  { name: 'imageFile', maxCount: 1 },
+  { name: 'introFile', maxCount: 1 }
+]), isAuthenticated, trainingController.updateCourse)
 
 peopleRouter.route('/course')
   .get(isAuthenticated, trainingController.getAllCreatorCourses)
