@@ -199,8 +199,13 @@ class People {
     const formData = new FormData()
 
     if (course.contentSection.thumbnailImage) {
-      const file = await fetch(course.contentSection.thumbnailImage).then((r) => r.blob())
-      formData.append('file', file)
+      const imageFile = await fetch(course.contentSection.thumbnailImage).then((r) => r.blob())
+      formData.append('imageFile', imageFile)
+    }
+
+    if (course.contentSection.introductionVideo) {
+      const introFile = await fetch(course.contentSection.introductionVideo).then((r) => r.blob())
+      formData.append('introFile', introFile)
     }
 
     const courseJson = JSON.stringify(course)
@@ -219,8 +224,13 @@ class People {
     const formData = new FormData()
 
     if (course.contentSection.thumbnailImage) {
-      const file = await fetch(course.contentSection.thumbnailImage).then((r) => r.blob())
-      formData.append('file', file)
+      const imageFile = await fetch(course.contentSection.thumbnailImage).then((r) => r.blob())
+      formData.append('imageFile', imageFile)
+    }
+
+    if (course.contentSection.introductionVideo) {
+      const introFile = await fetch(course.contentSection.introductionVideo).then((r) => r.blob())
+      formData.append('introFile', introFile)
     }
 
     const courseJson = JSON.stringify(course)

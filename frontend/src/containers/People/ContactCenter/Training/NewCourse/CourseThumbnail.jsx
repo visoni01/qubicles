@@ -12,16 +12,23 @@ export default function CourseThumbnail({
     event.preventDefault()
     const file = event.target.files && event.target.files[ 0 ]
     const reader = new FileReader()
-    const imageUrl = URL.createObjectURL(file)
 
-    reader.onloadend = () => {
-      setContentSection((current) => ({
-        ...current,
-        thumbnailImage: imageUrl,
-      }))
-    }
-    if (event.target.files[ 0 ]) {
-      reader.readAsDataURL(file)
+    if (file) {
+      const imageUrl = URL.createObjectURL(file)
+
+      reader.onloadend = () => {
+        setContentSection((current) => ({
+          ...current,
+          thumbnailImage: imageUrl,
+        }))
+      }
+
+      if (event.target.files[ 0 ]) {
+        reader.readAsDataURL(file)
+      }
+
+      // eslint-disable-next-line no-param-reassign
+      event.target.value = ''
     }
   }, [ setContentSection ])
 

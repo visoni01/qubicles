@@ -16,7 +16,11 @@ export default function ContentTab({
         setContentSection={ setContentSection }
         errors={ errors }
       />
-      <IntroVideo />
+      <IntroVideo
+        contentSection={ contentSection }
+        setContentSection={ setContentSection }
+        errors={ errors }
+      />
       <CourseContent
         courseContent={ courseContent }
         setCourseContent={ setCourseContent }
