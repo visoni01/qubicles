@@ -1,0 +1,7 @@
+export { ReactComponent as FullScreenIcon } from './full-screen.svg'
+export { ReactComponent as PauseIcon } from './pause.svg'
+export { ReactComponent as PlayIcon } from './play.svg'
+export { ReactComponent as SettingsIcon } from './settings.svg'
+export { ReactComponent as SkipIcon } from './skip.svg'
+export { ReactComponent as VolumeMaxIcon } from './volume-max.svg'
+export { ReactComponent as VolumeMutedIcon } from './volume-muted.svg'

@@ -21,6 +21,7 @@ import {
 import { updateCurrentUnitAndSectionIndex, viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
 import SectionTest from './sectionTest'
 import ViewCourseUnitSkeleton from '../Skeletons/viewCourseUnitSkeleton'
+import VideoPlayer from './videoPlayer'
 
 const CoursePreview = ({
   open, onClose, sections, courseTitle, currentSection, currentUnit, courseId, setOpenCoursePlayer,
@@ -160,9 +161,7 @@ const CoursePreview = ({
             </h3>
             )}
             {open && !isLoading && (currentUnit.type === 'Video' || isIntroVideoActive) && (
-            <div className='post-image'>
-              <img alt={ currentUnit.title } src='https://picsum.photos/896/480' />
-            </div>
+            <VideoPlayer source='https://ipfs.telos.miami/ipfs/QmPdSwMEm8f7MrH6ayfeQb2B6gJtiaR2vAXzrHwsa6tHuB' />
             )}
             {open && !isLoading && currentUnit.type === 'Article' && (
             <div

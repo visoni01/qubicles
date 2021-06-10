@@ -1,3 +1,5 @@
+@import '../../../../../customStyles/scss/index.scss';
+
 .course-overview-root {
   .contents {
     svg {
@@ -118,4 +120,109 @@
 
 .buy-course-modal-height {
   height: auto !important;
+}
+
+// Video Player
+.video-player-root {
+  position: relative;
+
+  &.hide-cursor {
+    cursor: none;
+  }
+
+  video {
+    width: 100%;
+  }
+
+  .video-loader {
+    position: absolute;
+    bottom: 50%;
+    right: 45%;
+    color: $color-primary;
+  }
+
+  .controls {
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 3em;
+    z-index: 2147483647;
+
+    .progress-slider-root {
+      position: absolute;
+      bottom: 70%;
+      color: $color-primary;
+    }
+
+    .progress-slider-track {
+      height: 5px;
+      &:hover {
+        color: inherit;
+      }
+    }
+
+    .progress-slider-rail {
+      height: 5px;
+      &:hover {
+        color: inherit;
+      }
+    }
+
+    .progress-slider-thumb {
+      height: 13px;
+      width: 13px;
+      &:hover {
+        color: inherit;
+      }
+    }
+
+    .progress-buffer-root {
+      position: absolute;
+      bottom: 70%;
+      color: #939393;
+      &:hover {
+        color: inherit;
+      }
+    }
+
+    .controls-left {
+      display: flex;
+      align-items: center;
+      margin: 10px;
+
+      .play-pause-button {
+        width: 21px;
+      }
+
+      .timestamp {
+        color: $color-primary;
+        padding: 12px;
+      }
+    }
+
+    .controls-right {
+      display: flex;
+      align-items: center;
+      margin: 10px;
+
+      .settings-popover {
+        opacity: 0.8;
+      }
+
+      .volume-control {
+        display: inline-flex;
+        align-items: center;
+
+        .volume-slider-root {
+          width: 100px;
+          color: $color-primary;
+          margin-right: 5px;
+        }
+      }
+    }
+  }
 }

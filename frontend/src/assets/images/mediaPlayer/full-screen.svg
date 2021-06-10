@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16.5" height="16.5" viewBox="0 0 16.5 16.5">
+  <g id="zoom-e" transform="translate(0.75 0.75)">
+    <path id="Path_851" data-name="Path 851" d="M.5,5V1.5a1,1,0,0,1,1-1H5" transform="translate(-0.5 -0.5)" fill="none" stroke="#4877f4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <path id="Path_852" data-name="Path 852" d="M11,.5h3.5a1,1,0,0,1,1,1V5" transform="translate(-0.5 -0.5)" fill="none" stroke="#4877f4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <path id="Path_853" data-name="Path 853" d="M15.5,11v3.5a1,1,0,0,1-1,1H11" transform="translate(-0.5 -0.5)" fill="none" stroke="#4877f4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <path id="Path_854" data-name="Path 854" d="M5,15.5H1.5a1,1,0,0,1-1-1V11" transform="translate(-0.5 -0.5)" fill="none" stroke="#4877f4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+  </g>
+</svg>
