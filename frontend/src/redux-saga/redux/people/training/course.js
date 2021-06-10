@@ -41,6 +41,7 @@ const initialState = {
       } ],
     },
   },
+  uploadProgressData: null,
   requestType: null,
 }
 
@@ -51,6 +52,7 @@ const {
     trainingCourseRequestFailed,
     updateTrainingCourseDetails,
     resetTrainingCourseReducer,
+    uploadProgress,
   }, reducer,
 } = createSlice({
   name: 'trainingCourse',
@@ -77,6 +79,7 @@ const {
             : initialState.course.courseContent.sections,
         } : initialState.course.courseContent,
       },
+      uploadProgressData: 0,
     }),
     trainingCourseRequestFailed: (state) => ({
       ...state,
@@ -91,6 +94,10 @@ const {
     resetTrainingCourseReducer: () => ({
       ...initialState,
     }),
+    uploadProgress: (state, action) => ({
+      ...state,
+      uploadProgressData: action.payload.uploadProgressData,
+    }),
   },
 })
 
@@ -101,4 +108,5 @@ export {
   trainingCourseRequestFailed,
   updateTrainingCourseDetails,
   resetTrainingCourseReducer,
+  uploadProgress,
 }

@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
+import _ from 'lodash'
 
 const initialState = {
   loading: null,
+  type: '',
 }
 
 const {
@@ -14,12 +16,13 @@ const {
   name: 'loader',
   initialState,
   reducers: {
-    startLoader: (state) => ({
+    startLoader: (state, action) => ({
       ...state,
       loading: true,
+      type: action && action.payload && !_.isUndefined(action.payload.type) ? action.payload.type : '',
     }),
-    stopLoader: (state) => ({
-      ...state,
+    stopLoader: () => ({
+      ...initialState,
       loading: false,
     }),
   },

@@ -1,5 +1,8 @@
 import _ from 'lodash'
+// eslint-disable-next-line import/no-cycle
+import store from '../store'
 import apiClient, { axiosInst } from '../../utils/apiClient'
+import { uploadProgress } from '../redux/people'
 
 class People {
   /* Client (contact center) section's API */
@@ -216,6 +219,15 @@ class People {
       url: '/people/course',
       data: formData,
       headers: { 'Content-Type': 'multipart/form-data' },
+      onUploadProgress: (progress) => {
+        const uploadProgressData = progress.total && Math.round((100 * progress.loaded) / progress.total)
+
+        if (uploadProgressData < 90) {
+          store.dispatch(uploadProgress({
+            uploadProgressData,
+          }))
+        }
+      },
     })
     return response
   }
@@ -241,6 +253,15 @@ class People {
       url: '/people/course',
       data: formData,
       headers: { 'Content-Type': 'multipart/form-data' },
+      onUploadProgress: (progress) => {
+        const uploadProgressData = progress.total && Math.round((100 * progress.loaded) / progress.total)
+
+        if (uploadProgressData < 90) {
+          store.dispatch(uploadProgress({
+            uploadProgressData,
+          }))
+        }
+      },
     })
     return response
   }

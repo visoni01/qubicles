@@ -12,7 +12,7 @@ import AlertPopover from '../../../../Shared/alertPopover'
 import checkAndSetErrors from './checkAndSetErrors'
 
 const NewCoursePage = () => {
-  const { course, isLoading } = useSelector((state) => state.trainingCourse)
+  const { course, isLoading, requestType } = useSelector((state) => state.trainingCourse)
   const [ informationSection, setInformationSection ] = useState(course.informationSection)
   const [ contentSection, setContentSection ] = useState(course.contentSection)
   const [ courseContent, setCourseContent ] = useState(course.courseContent)
@@ -46,11 +46,17 @@ const NewCoursePage = () => {
 
   useEffect(() => {
     if (isLoading) {
-      dispatch(startLoader())
+      if (_.isEqual(requestType, 'CREATE')) {
+        dispatch(startLoader({
+          type: 'progress',
+        }))
+      } else {
+        dispatch(startLoader())
+      }
     } else {
       dispatch(stopLoader())
     }
-  }, [ isLoading, dispatch ])
+  }, [ isLoading, dispatch, requestType ])
 
   if (isPreview) {
     return (
