@@ -86,6 +86,7 @@ const VideoPlayer = ({ source, small }) => {
   const onFullscreenMouseMoveDebounce = useCallback(debounce(() => {
     if (document.fullscreenElement) {
       setShowControls(false)
+      setSettingsAnchor(null)
     }
   }, 3000), [ ])
 
