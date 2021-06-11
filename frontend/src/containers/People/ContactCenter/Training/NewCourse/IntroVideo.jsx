@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { errorsPropTypes } from './propTypes'
+import VideoPlayer from '../ViewCourse/videoPlayer'
 
 export default function IntroVideo({
   contentSection, setContentSection, errors,
@@ -66,10 +67,8 @@ export default function IntroVideo({
           </div>
         ) : (
           <div className='thumbnail-preview'>
-            <video controls className='thumbnail-preview'>
-              <source src={ contentSection.introductionVideo } type='video/mp4' />
-            </video>
-            <IconButton onClick={ handleDelete }>
+            <VideoPlayer source={ contentSection.introductionVideo } small />
+            <IconButton onClick={ handleDelete } className='cross-button'>
               <FontAwesomeIcon className='custom-fa-icon dark pointer sz-xl' icon={ faTimesCircle } />
             </IconButton>
           </div>

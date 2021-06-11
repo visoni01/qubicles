@@ -193,6 +193,9 @@
       display: flex;
       align-items: center;
       margin: 10px;
+      &.small {
+        margin: 2px;
+      }
 
       .play-pause-button {
         width: 21px;
@@ -201,6 +204,9 @@
       .timestamp {
         color: $color-primary;
         padding: 12px;
+        &.small {
+          padding: 2px;
+        }
       }
     }
 
@@ -208,6 +214,9 @@
       display: flex;
       align-items: center;
       margin: 10px;
+      &.small {
+        margin: 2px;
+      }
 
       .settings-popover {
         opacity: 0.8;
@@ -221,6 +230,9 @@
           width: 100px;
           color: $color-primary;
           margin-right: 5px;
+          &.small {
+            width: 50px;
+          }
         }
       }
     }

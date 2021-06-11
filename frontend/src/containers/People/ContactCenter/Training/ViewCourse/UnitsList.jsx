@@ -127,7 +127,8 @@ const UnitsList = ({
               disabled={ (isCoursePlayerOpen && currentUnit && isIntroVideoActive) }
             >
               {
-                (isCoursePlayerOpen && currentUnit && isIntroVideoActive && 'Current')
+                (type === 'preview' && ' ')
+                || (isCoursePlayerOpen && currentUnit && isIntroVideoActive && 'Current')
                 || 'Preview'
               }
             </Button>

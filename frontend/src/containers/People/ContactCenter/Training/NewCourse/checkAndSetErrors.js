@@ -49,6 +49,10 @@ const checkAndSetErrors = ({
       newErrors = { ...newErrors, thumbnailImage: { message: '*Required' } }
       errorFlag = true
     }
+    if (_.isEmpty(contentSection.introductionVideo)) {
+      newErrors = { ...newErrors, introductionVideo: { message: '*Required' } }
+      errorFlag = true
+    }
     const courseContentFiltered = courseContentFilterBeforeSave({ courseContent })
     if (_.isEmpty(courseContentFiltered.sections)) {
       newErrors = { ...newErrors, sections: { message: '*Required' } }

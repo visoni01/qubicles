@@ -65,7 +65,7 @@ export default function CourseThumbnail({
         ) : (
           <div className='thumbnail-preview'>
             <img alt='Course Thumbnail' src={ contentSection.thumbnailImage } />
-            <IconButton onClick={ handleDelete }>
+            <IconButton onClick={ handleDelete } className='cross-button'>
               <FontAwesomeIcon className='custom-fa-icon dark pointer sz-xl' icon={ faTimesCircle } />
             </IconButton>
           </div>

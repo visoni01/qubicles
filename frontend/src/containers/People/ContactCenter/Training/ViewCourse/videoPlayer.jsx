@@ -10,7 +10,7 @@ import {
 } from '../../../../../assets/images/mediaPlayer'
 import { mediaPlaybackSpeed } from '../../constants'
 
-const VideoPlayer = ({ source }) => {
+const VideoPlayer = ({ source, small }) => {
   const videoRef = useRef()
   const videoRootRef = useRef()
   const [ isPlaying, setIsPlaying ] = useState(false)
@@ -178,19 +178,21 @@ const VideoPlayer = ({ source }) => {
             onMouseEnter={ () => setShowProgressThumb(true) }
             onMouseLeave={ () => setShowProgressThumb(false) }
           />
-          <div className='controls-left'>
+          <div className={ `controls-left ${ small ? 'small' : '' }` }>
             {/* Play and Pause */}
             <IconButton onClick={ playOrPause } classes={ { label: 'play-pause-button' } }>
               { isPlaying ? <PauseIcon /> : <PlayIcon /> }
             </IconButton>
             {/* Skip */}
-            <IconButton onClick={ handleForward }>
+            <IconButton onClick={ handleForward } className={ `${ small ? 'is-hidden' : '' }` }>
               <SkipIcon />
             </IconButton>
             {/* Timestamp */}
-            <div className='timestamp'>{`${ formatTimestamp(currentTime) } / ${ formatTimestamp(duration) }`}</div>
+            <div className={ `timestamp ${ small ? 'small' : '' }` }>
+              {`${ formatTimestamp(currentTime) } / ${ formatTimestamp(duration) }`}
+            </div>
           </div>
-          <div className='controls-right'>
+          <div className={ `controls-right ${ small ? 'small' : '' }` }>
             {/* Volume */}
             <div
               className='volume-control'
@@ -199,7 +201,7 @@ const VideoPlayer = ({ source }) => {
             >
               <Slider
                 classes={ {
-                  root: `volume-slider-root ${ !showVolumeSlider ? 'is-hidden' : '' }`,
+                  root: `volume-slider-root ${ !showVolumeSlider ? 'is-hidden' : '' } ${ small ? 'small' : '' }`,
                 } }
                 value={ isMuted ? 0 : volume * 100 }
                 onChange={ handleVolumeChange }
@@ -212,7 +214,11 @@ const VideoPlayer = ({ source }) => {
               </IconButton>
             </div>
             {/* Settings */}
-            <IconButton aria-describedby={ id } onClick={ handleSettings }>
+            <IconButton
+              aria-describedby={ id }
+              onClick={ handleSettings }
+              className={ `${ small ? 'is-hidden' : '' }` }
+            >
               <SettingsIcon />
             </IconButton>
             {/* Playback Speed */}
@@ -266,6 +272,11 @@ const VideoPlayer = ({ source }) => {
 
 export default VideoPlayer
 
+VideoPlayer.defaultProps = {
+  small: false,
+}
+
 VideoPlayer.propTypes = {
   source: PropTypes.string.isRequired,
+  small: PropTypes.bool,
 }

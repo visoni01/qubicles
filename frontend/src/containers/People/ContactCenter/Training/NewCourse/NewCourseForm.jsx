@@ -22,14 +22,15 @@ const NewCourseForm = ({
   const [ activeTab, setActiveTab ] = useState(0)
   const history = useHistory()
 
+  // eslint-disable-next-line complexity
   useEffect(() => {
     if (!_.isEmpty(errors)) {
-      if (_.size(errors) === 1 && (_.has(errors, 'thumbnailImage') || _.has(errors, 'sections'))) {
-        setActiveTab(1)
-      } else if (_.size(errors) === 2 && _.has(errors, 'thumbnailImage') && _.has(errors, 'sections')) {
-        setActiveTab(1)
-      } else {
+      if (_.has(errors, 'title') || _.has(errors, 'summary') || _.has(errors, 'goals') || _.has(errors, 'outcomes')
+      || _.has(errors, 'requirements') || _.has(errors, 'categoryTitle')
+      || _.has(errors, 'price') || _.has(errors, 'language')) {
         setActiveTab(0)
+      } else {
+        setActiveTab(1)
       }
     }
   }, [ errors ])

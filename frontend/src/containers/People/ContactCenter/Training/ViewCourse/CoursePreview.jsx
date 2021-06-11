@@ -161,7 +161,7 @@ const CoursePreview = ({
             </h3>
             )}
             {open && !isLoading && (currentUnit.type === 'Video' || isIntroVideoActive) && (
-            <VideoPlayer source='https://ipfs.telos.miami/ipfs/QmPdSwMEm8f7MrH6ayfeQb2B6gJtiaR2vAXzrHwsa6tHuB' />
+            <VideoPlayer source={ isIntroVideoActive ? introVideo : currentUnit.details } />
             )}
             {open && !isLoading && currentUnit.type === 'Article' && (
             <div

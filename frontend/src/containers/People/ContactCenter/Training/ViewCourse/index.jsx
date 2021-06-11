@@ -67,7 +67,7 @@ const ViewCourse = () => {
             sections={ course.courseContent.sections }
             courseId={ course.courseId }
             isEnrolled={ course.isEnrolled }
-            introVideo='https://picsum.photos/896/504'
+            introVideo={ course.contentSection && course.contentSection.introductionVideo }
             courseTitle={ course.informationSection.title }
             courseStatus={ course.courseDetails && course.courseDetails.status }
             openCoursePlayer={ openCoursePlayer }
