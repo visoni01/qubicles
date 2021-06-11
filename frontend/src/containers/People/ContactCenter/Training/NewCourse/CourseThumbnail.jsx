@@ -1,19 +1,29 @@
 import React, { useCallback } from 'react'
+import { useDispatch } from 'react-redux'
 import { Button, IconButton } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import { errorsPropTypes } from './propTypes'
+import { showErrorMessage } from '../../../../../redux-saga/redux/utils'
+import { maxImageFileSize } from '../../constants'
 
 export default function CourseThumbnail({
   contentSection, setContentSection, errors,
 }) {
+  const dispatch = useDispatch()
+
   const handleFileInputChange = useCallback((event) => {
     event.preventDefault()
     const file = event.target.files && event.target.files[ 0 ]
     const reader = new FileReader()
 
     if (file) {
+      if (file.size > maxImageFileSize) {
+        dispatch(showErrorMessage({ msg: 'File size should not be greater than 1 MB!' }))
+        return
+      }
+
       const imageUrl = URL.createObjectURL(file)
 
       reader.onloadend = () => {
@@ -30,7 +40,7 @@ export default function CourseThumbnail({
       // eslint-disable-next-line no-param-reassign
       event.target.value = ''
     }
-  }, [ setContentSection ])
+  }, [ setContentSection, dispatch ])
 
   const handleDelete = () => {
     setContentSection((current) => ({ ...current, thumbnailImage: null }))
@@ -75,7 +85,7 @@ export default function CourseThumbnail({
         type='file'
         id='course-thumbnail-input'
         className='position-absolute'
-        accept='image/*'
+        accept='image/jpg,image/jpeg,image/png'
         onChange={ handleFileInputChange }
         style={ { display: 'none' } }
       />

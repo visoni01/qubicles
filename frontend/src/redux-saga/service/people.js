@@ -1,8 +1,5 @@
 import _ from 'lodash'
-// eslint-disable-next-line import/no-cycle
-import store from '../store'
-import apiClient, { axiosInst } from '../../utils/apiClient'
-import { uploadProgress } from '../redux/people'
+import apiClient from '../../utils/apiClient'
 
 class People {
   /* Client (contact center) section's API */
@@ -198,74 +195,6 @@ class People {
   }
 
   // Training Jobs' API
-  static async addCourse({ course }) {
-    const formData = new FormData()
-
-    if (course.contentSection.thumbnailImage) {
-      const imageFile = await fetch(course.contentSection.thumbnailImage).then((r) => r.blob())
-      formData.append('imageFile', imageFile)
-    }
-
-    if (course.contentSection.introductionVideo) {
-      const introFile = await fetch(course.contentSection.introductionVideo).then((r) => r.blob())
-      formData.append('introFile', introFile)
-    }
-
-    const courseJson = JSON.stringify(course)
-    formData.set('course', courseJson)
-
-    const response = await axiosInst({
-      method: 'post',
-      url: '/people/course',
-      data: formData,
-      headers: { 'Content-Type': 'multipart/form-data' },
-      onUploadProgress: (progress) => {
-        const uploadProgressData = progress.total && Math.round((100 * progress.loaded) / progress.total)
-
-        if (uploadProgressData < 90) {
-          store.dispatch(uploadProgress({
-            uploadProgressData,
-          }))
-        }
-      },
-    })
-    return response
-  }
-
-  static async updateCourse({ course }) {
-    const formData = new FormData()
-
-    if (course.contentSection.thumbnailImage) {
-      const imageFile = await fetch(course.contentSection.thumbnailImage).then((r) => r.blob())
-      formData.append('imageFile', imageFile)
-    }
-
-    if (course.contentSection.introductionVideo) {
-      const introFile = await fetch(course.contentSection.introductionVideo).then((r) => r.blob())
-      formData.append('introFile', introFile)
-    }
-
-    const courseJson = JSON.stringify(course)
-    formData.set('course', courseJson)
-
-    const response = await axiosInst({
-      method: 'put',
-      url: '/people/course',
-      data: formData,
-      headers: { 'Content-Type': 'multipart/form-data' },
-      onUploadProgress: (progress) => {
-        const uploadProgressData = progress.total && Math.round((100 * progress.loaded) / progress.total)
-
-        if (uploadProgressData < 90) {
-          store.dispatch(uploadProgress({
-            uploadProgressData,
-          }))
-        }
-      },
-    })
-    return response
-  }
-
   static async fetchAllCourses() {
     const response = await apiClient.getRequest('/people/course')
     return response

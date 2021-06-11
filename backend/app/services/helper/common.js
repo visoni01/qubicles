@@ -142,7 +142,7 @@ export const validateImageFile = ({ mimetype, size }) => {
 }
 
 export const validateVideoFile = ({ mimetype, size }) => {
-  const isValidVideo = ['video/mp3', 'video/mp4', 'video/webm'].includes(mimetype)
+  const isValidVideo = ['video/mp4', 'video/webm'].includes(mimetype)
   const isValidFileSize = size <= config.get('videoFileSize')
   return { isValidVideo, isValidFileSize }
 }
