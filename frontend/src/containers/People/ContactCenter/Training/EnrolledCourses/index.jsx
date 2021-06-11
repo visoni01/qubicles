@@ -58,11 +58,17 @@ const EnrolledCourses = () => {
         </div>
       )}
 
+      {!isLoading && enrolledCourses
+      && !_.isUndefined(enrolledCourses.find((course) => [ 'inprogress', 'enrolled' ].includes(course.status)))
+      && !_.isUndefined(enrolledCourses.find((course) => [ 'completed', 'dropped' ].includes(course.status)))
+      && (
+        <Divider />
+      )}
+
       {!isLoading && enrolledCourses && enrolledCourses.filter((course) => (
         _.isEqual(course.status, 'completed') || _.isEqual(course.status, 'dropped')
       )).length > 0 && (
         <div>
-          <Divider />
           <div className='mt-30 mb-30'>
             <h3 className='h3 mb-20'>Other Courses</h3>
             <Grid container spacing={ 3 }>

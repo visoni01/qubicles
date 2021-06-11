@@ -198,9 +198,13 @@ const CoursePreview = ({
               </Button>
               )}
               {!_.isNull(currentSectionIndex) && !_.isUndefined(sections[ currentSectionIndex ].units)
-              && !(_.isEqual(currentSectionIndex, sections.length - 1)
-              && _.isEqual(currentSection.status, 'completed')
-              && _.isEqual(currentUnitIndex, sections[ currentSectionIndex ].units.length - 1)) && (
+              && !(
+                _.isEqual(currentSectionIndex, sections.length - 1)
+                && _.isEqual(currentSection.status, 'completed')
+                && _.isEqual(currentUnitIndex, sections[ currentSectionIndex ].units.length - 1)
+                && _.isEqual(sections[ currentSectionIndex ].units[ currentUnitIndex ].status, 'completed')
+              )
+              && (
                 <Button
                   classes={ {
                     root: 'button-primary-small',

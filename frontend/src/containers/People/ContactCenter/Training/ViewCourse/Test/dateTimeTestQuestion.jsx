@@ -53,7 +53,7 @@ const DateTimeTestQuestion = ({
     if (answer && answer.dateTimeAnswer) {
       setDateTimeAnswerObject(answer.dateTimeAnswer)
     } else {
-      setDateTimeAnswerObject([])
+      setDateTimeAnswerObject({})
     }
   }, [ answers, question.id ])
 
@@ -65,7 +65,7 @@ const DateTimeTestQuestion = ({
           variant='outlined'
           type='date'
           className='date-time'
-          defaultValue={ dateTimeAnswerObject.date }
+          value={ dateTimeAnswerObject.date ? dateTimeAnswerObject.date : '' }
           onChange={ (e) => handleAnswerChange({ type: 'date', val: e.target.value }) }
         />
       )}
@@ -74,7 +74,7 @@ const DateTimeTestQuestion = ({
           margin='dense'
           variant='outlined'
           type='time'
-          defaultValue={ dateTimeAnswerObject.time }
+          value={ dateTimeAnswerObject.time ? dateTimeAnswerObject.time : '' }
           onChange={ (e) => handleAnswerChange({ type: 'time', val: e.target.value }) }
         />
       )}

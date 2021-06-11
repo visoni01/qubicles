@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, { useCallback, useEffect } from 'react'
 import {
   Box, Grid, Divider, Button,
@@ -75,9 +76,13 @@ const MyCourses = () => {
       </div>
       )}
 
-      {courses.filter((course) => course.status === 'draft').length > 0 && (
-      <div>
+      {courses && !_.isUndefined(courses.find((course) => course.status === 'published'))
+      && !_.isUndefined(courses.find((course) => course.status === 'draft'))
+      && (
         <Divider />
+      )}
+
+      {courses.filter((course) => course.status === 'draft').length > 0 && (
         <div className='mt-30 mb-30'>
           <h3 className='h3 mb-20'>Drafts</h3>
           <Grid container spacing={ 3 }>
@@ -86,7 +91,6 @@ const MyCourses = () => {
             ))}
           </Grid>
         </div>
-      </div>
       )}
       {courses && !courses.length && (
       <div className='mt-10 mb-10 is-fullwidth'>
