@@ -18,7 +18,9 @@ import {
   isIntroVideoActivePropType, sectionIndexPropType, courseStatusPropType, typePropType,
 } from './propTypes'
 import { viewCourseRequestStart, updateCurrentUnitAndSectionIndex } from '../../../../../redux-saga/redux/people'
-import { ArticleIcon, TestIcon, VideoIcon } from '../../../../../assets/images/training'
+import {
+  ArticleIcon, AudioIcon, TestIcon, VideoIcon,
+} from '../../../../../assets/images/training'
 
 const UnitsList = ({
   section, setOpenCoursePlayer, isEnrolled, isActive, showIntroVideo, introVideo,
@@ -140,7 +142,8 @@ const UnitsList = ({
             <ListItem key={ unit.unitId } className='nested-list' disableGutters>
               <ListItemIcon>
                 {(unit.type === 'Article' && <ArticleIcon />)
-                  || (unit.type === 'Video' && <VideoIcon />)}
+                  || (unit.type === 'Video' && <VideoIcon />)
+                  || (unit.type === 'Audio' && <AudioIcon />)}
               </ListItemIcon>
               <ListItemText>
                 <p className={ `para ${ isCoursePlayerOpen && currentUnit.unitId === unit.unitId ? '' : 'light' }` }>

@@ -122,8 +122,8 @@
   height: auto !important;
 }
 
-// Video Player
-.video-player-root {
+// Media Player
+.media-player-root {
   position: relative;
 
   &.hide-cursor {
@@ -134,11 +134,36 @@
     width: 100%;
   }
 
-  .video-loader {
+  .media-loader {
     position: absolute;
     bottom: 50%;
     right: 45%;
     color: $color-primary;
+
+    &.small {
+      bottom: 40%;
+      right: 40%;
+    }
+  }
+
+  &.video {
+    .controls {
+      position: absolute;
+      bottom: 0;
+    }
+  }
+
+  &.audio {
+    margin-top: 100px;
+
+    .media-loader {
+      bottom: 125%;
+      right: 50%;
+    }
+
+    .controls {
+      background-color: rgba(255, 255, 255, 1);
+    }
   }
 
   .controls {
@@ -146,8 +171,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: absolute;
-    bottom: 0;
     width: 100%;
     height: 3em;
 

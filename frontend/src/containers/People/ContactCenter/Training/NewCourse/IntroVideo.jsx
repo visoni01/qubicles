@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { errorsPropTypes } from './propTypes'
-import VideoPlayer from '../ViewCourse/videoPlayer'
+import MediaPlayer from '../ViewCourse/mediaPlayer'
 import { showErrorMessage } from '../../../../../redux-saga/redux/utils'
 import { maxVideoFileSize } from '../../constants'
 
@@ -77,7 +77,7 @@ export default function IntroVideo({
           </div>
         ) : (
           <div className='thumbnail-preview'>
-            <VideoPlayer source={ contentSection.introductionVideo } small />
+            <MediaPlayer source={ contentSection.introductionVideo } small type='video' />
             <IconButton onClick={ handleDelete } className='cross-button'>
               <FontAwesomeIcon className='custom-fa-icon dark pointer sz-xl' icon={ faTimesCircle } />
             </IconButton>

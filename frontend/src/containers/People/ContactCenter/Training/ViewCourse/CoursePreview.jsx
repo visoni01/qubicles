@@ -21,7 +21,7 @@ import {
 import { updateCurrentUnitAndSectionIndex, viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
 import SectionTest from './sectionTest'
 import ViewCourseUnitSkeleton from '../Skeletons/viewCourseUnitSkeleton'
-import VideoPlayer from './videoPlayer'
+import MediaPlayer from './mediaPlayer'
 
 const CoursePreview = ({
   open, onClose, sections, courseTitle, currentSection, currentUnit, courseId, setOpenCoursePlayer,
@@ -161,13 +161,19 @@ const CoursePreview = ({
             </h3>
             )}
             {open && !isLoading && (currentUnit.type === 'Video' || isIntroVideoActive) && (
-            <VideoPlayer source={ isIntroVideoActive ? introVideo : currentUnit.details } />
+            <MediaPlayer source={ isIntroVideoActive ? introVideo : currentUnit.details } type='video' />
             )}
             {open && !isLoading && currentUnit.type === 'Article' && (
             <div
               className='para sz-xl'
               // eslint-disable-next-line react/no-danger
               dangerouslySetInnerHTML={ { __html: currentUnit.details } }
+            />
+            )}
+            {open && !isLoading && currentUnit.type === 'Audio' && (
+            <MediaPlayer
+              source='https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3'
+              type='audio'
             />
             )}
             {currentUnit.type === 'Test' && (

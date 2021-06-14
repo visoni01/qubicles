@@ -12,7 +12,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { checkDisabledUnitSaveButton } from './helper'
 import { unitPropType } from '../propTypes'
 import { DeleteIcon } from '../../../../../../assets/images/training'
-import VideoPlayer from '../../ViewCourse/videoPlayer'
+import MediaPlayer from '../../ViewCourse/mediaPlayer'
 
 const AddArticleModal = ({
   open, onClose, onSubmit, unit, setUnitDetails, savedUnit, title,
@@ -199,7 +199,7 @@ const AddArticleModal = ({
                   ) : (
                     <div className='mt-30'>
                       <div className='video-container'>
-                        <VideoPlayer source={ currentFileUrl } />
+                        <MediaPlayer source={ currentFileUrl } />
                       </div>
                       <div className='is-flex is-center mt-20'>
                         <p className='para pt-10'>{currentFileName}</p>
