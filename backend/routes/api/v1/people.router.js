@@ -52,6 +52,9 @@ peopleRouter.route('/course').put(multerUpload.fields([
   { name: 'introFile', maxCount: 1 }
 ]), isAuthenticated, trainingController.updateCourse)
 
+peopleRouter.route('/course/file/:file_type')
+  .post(multerUpload.single('file'), isAuthenticated, trainingController.uploadFileToIpfs)
+
 peopleRouter.route('/course')
   .get(isAuthenticated, trainingController.getAllCreatorCourses)
 

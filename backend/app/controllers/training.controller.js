@@ -3,6 +3,7 @@ import {
   PeopleGetAllCreatorCoursesService,
   PeopleGetCourseService,
   PeopleUpdateCourseService,
+  PeopleUploadFileToIpfsService,
   PeopleGetAllViewCoursesService,
   PeopleGetViewCourseService,
   PeopleStartCourseService,
@@ -65,6 +66,15 @@ export default class TrainingController {
       Responder.success(res, course.result)
     } else {
       Responder.failed(res, course.errors)
+    }
+  }
+
+  static async uploadFileToIpfs (req, res) {
+    const file = await PeopleUploadFileToIpfsService.execute({ ...req.body, ...req.params, file: req.file })
+    if (file.successful) {
+      Responder.success(res, file.result)
+    } else {
+      Responder.failed(res, file.errors)
     }
   }
 

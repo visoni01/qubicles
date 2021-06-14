@@ -36,6 +36,8 @@ export const MESSAGES = {
   INVALID_IMAGE_FILE_SIZE: 'File size should not be greater than 1 MB!',
   INVALID_VIDEO_FILE: 'File is not valid video file!',
   INVALID_VIDEO_FILE_SIZE: 'File size should not be greater than 100 MB!',
+  INVALID_AUDIO_FILE: 'File is not valid audio file!',
+  INVALID_AUDIO_FILE_SIZE: 'File size should not be greater than 100 MB!',
   IPFS_FILE_UPLOAD_ERROR: 'Error occured while uploadind file on IPFS!',
   POST_STATUS_NOT_EXIST: 'Post status does not exist',
   STATUS_DELETED_SUCCESSFULLY: 'Post status successfully deleted',
