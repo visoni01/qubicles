@@ -1,24 +1,33 @@
-import React, { useCallback } from 'react'
+/* eslint-disable jsx-a11y/media-has-caption */
+import React, { useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
 import {
   Dialog, DialogTitle, DialogActions, IconButton, DialogContent, Button, Grid, TextField, Select,
 } from '@material-ui/core'
+import _ from 'lodash'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faUpload } from '@fortawesome/free-solid-svg-icons'
 import CKEditor from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { checkDisabledUnitSaveButton } from './helper'
 import { unitPropType } from '../propTypes'
+import { DeleteIcon } from '../../../../../../assets/images/training'
+import VideoPlayer from '../../ViewCourse/videoPlayer'
 
 const AddArticleModal = ({
   open, onClose, onSubmit, unit, setUnitDetails, savedUnit, title,
 }) => {
+  const [ currentFileUrl, setCurrentFileUrl ] = useState('')
+  const [ currentFileName, setCurrentFileName ] = useState('')
+
   const handleUnitTypeChange = useCallback((selectedType) => {
     setUnitDetails((current) => ({
       ...current,
       type: selectedType,
       details: '',
     }))
+    setCurrentFileUrl('')
+    setCurrentFileName('')
   }, [ setUnitDetails ])
 
   const handleChangeArticleText = useCallback((selectedValue) => {
@@ -35,6 +44,33 @@ const AddArticleModal = ({
       title: e.target.value,
     }))
   }, [ setUnitDetails ])
+
+  const handleFileInputChange = useCallback((event) => {
+    event.preventDefault()
+    const file = event.target.files && event.target.files[ 0 ]
+    const reader = new FileReader()
+
+    if (file) {
+      const videoUrl = URL.createObjectURL(file)
+
+      reader.onloadend = () => {
+        setCurrentFileUrl(videoUrl)
+        setCurrentFileName(file.name)
+      }
+
+      if (event.target.files[ 0 ]) {
+        reader.readAsDataURL(file)
+      }
+
+      // eslint-disable-next-line no-param-reassign
+      event.target.value = ''
+    }
+  }, [])
+
+  const handleDelete = useCallback(() => {
+    setCurrentFileUrl('')
+    setCurrentFileName('')
+  }, [])
 
   return (
     <Dialog
@@ -90,8 +126,9 @@ const AddArticleModal = ({
           </Grid>
         </div>
         <div>
-          { unit.type ? (
+          {unit.type ? (
             <div>
+              {/* Article */}
               {unit.type === 'Article' && (
               <CKEditor
                 editor={ ClassicEditor }
@@ -108,36 +145,95 @@ const AddArticleModal = ({
                 } }
               />
               )}
+
+              {/* Audio File */}
               {unit.type === 'Audio' && (
-                <div className='mt-60 mb-40 is-fullwidth text-center'>
-                  <Button
-                    classes={ {
-                      root: 'button-primary-large',
-                      label: 'button-primary-large-label pl-10 pr-10',
-                    } }
-                    startIcon={ <FontAwesomeIcon icon={ faUpload } /> }
-                  >
-                    Upload Audio File
-                  </Button>
-                </div>
+                <>
+                  {_.isEmpty(currentFileUrl) ? (
+                    <div className='mt-60 mb-40 is-fullwidth text-center'>
+                      <Button
+                        classes={ {
+                          root: 'button-primary-large',
+                          label: 'button-primary-large-label pl-10 pr-10',
+                        } }
+                        startIcon={ <FontAwesomeIcon icon={ faUpload } /> }
+                        onClick={ () => document.getElementById('unit-audio').click() }
+                      >
+                        Upload Audio File
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className='mt-60'>
+                      <div className='is-flex is-center'>
+                        <audio controls>
+                          <source src={ currentFileUrl } type='audio/mp3' />
+                        </audio>
+                      </div>
+                      <div className='is-flex is-center mt-20'>
+                        <p className='para pt-10'>{currentFileName}</p>
+                        <IconButton className='align-items-center pt-10 ml-5' onClick={ handleDelete }>
+                          <DeleteIcon />
+                        </IconButton>
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
+
+              {/* Video File */}
               {unit.type === 'Video' && (
-                <div className='mt-60 mb-40 is-fullwidth text-center'>
-                  <Button
-                    classes={ {
-                      root: 'button-primary-large',
-                      label: 'button-primary-large-label pl-10 pr-10',
-                    } }
-                    startIcon={ <FontAwesomeIcon icon={ faUpload } /> }
-                  >
-                    Upload Video File
-                  </Button>
-                </div>
+                <>
+                  {_.isEmpty(currentFileUrl) ? (
+                    <div className='mt-60 mb-40 is-fullwidth text-center'>
+                      <Button
+                        classes={ {
+                          root: 'button-primary-large',
+                          label: 'button-primary-large-label pl-10 pr-10',
+                        } }
+                        startIcon={ <FontAwesomeIcon icon={ faUpload } /> }
+                        onClick={ () => document.getElementById('unit-video').click() }
+                      >
+                        Upload Video File
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className='mt-30'>
+                      <div className='video-container'>
+                        <VideoPlayer source={ currentFileUrl } />
+                      </div>
+                      <div className='is-flex is-center mt-20'>
+                        <p className='para pt-10'>{currentFileName}</p>
+                        <IconButton
+                          className='align-items-center pt-10 ml-5 custom-svg-icon color-red'
+                          onClick={ handleDelete }
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           ) : (
             <h3 className='mt-30 mb-10 text-center is-fullwidth h3'>Please select content type</h3>
           )}
+          <input
+            type='file'
+            id='unit-video'
+            className='position-absolute'
+            accept='video/mp4,video/webm'
+            onChange={ handleFileInputChange }
+            style={ { display: 'none' } }
+          />
+          <input
+            type='file'
+            id='unit-audio'
+            className='position-absolute'
+            accept='audio/mp3'
+            onChange={ handleFileInputChange }
+            style={ { display: 'none' } }
+          />
         </div>
       </DialogContent>
       <DialogActions className='modal-actions'>

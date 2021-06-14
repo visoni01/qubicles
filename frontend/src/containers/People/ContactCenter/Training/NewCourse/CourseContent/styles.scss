@@ -1,3 +1,4 @@
+@import '../../../../../../customStyles/scss/index.scss';
 
 .content-section {
   align-self: center;
@@ -63,5 +64,23 @@
 
   .date-time {
     margin-right: 20px !important;
+  }
+}
+
+.video-container {
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden;
+
+  .video-player-root {
+    display: flex;
+  }
+}
+
+.custom-svg-icon{
+  &.color-red {
+    path, line, rect {
+      stroke: $color-red;
+    }
   }
 }
