@@ -2,7 +2,8 @@ import React, { useState, useCallback } from 'react'
 import { Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
-import CourseDescriptionSkeleton from '../Skeletons/courseDescriptionSkeleton'
+import CourseDescriptionSkeleton from
+  '../../../../../components/People/ContactCenter/SkeletonLoader/Training/courseDescriptionSkeleton'
 
 const CourseDescription = ({
   title,

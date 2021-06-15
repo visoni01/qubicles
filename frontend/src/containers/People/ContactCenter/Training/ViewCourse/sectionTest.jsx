@@ -8,7 +8,8 @@ import RenderTestQuestion from './Test/renderTestQuestion'
 import { updateCurrentUnitAndSectionIndex, viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
 import { courseIdPropType, sectionIdPropType } from './propTypes'
 import TestCompleted from './Test/testCompleted'
-import ViewCourseTestSkeleton from '../Skeletons/viewCourseTestSkeleton'
+import ViewCourseTestSkeleton from
+  '../../../../../components/People/ContactCenter/SkeletonLoader/Training/viewCourseTestSkeleton'
 
 const SectionTest = ({ courseId, sectionId }) => {
   const dispatch = useDispatch()

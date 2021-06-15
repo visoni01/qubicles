@@ -7,7 +7,7 @@ import {
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { JOB_ROUTE } from '../../../../routes/routesPath'
-import JobOptions from './jobOptions'
+import JobOptions from '../../../../containers/People/ContactCenter/Jobs/jobOptions'
 
 const JobCategoryCard = ({
   categoryTitle, jobs, inNeed, categoryId,

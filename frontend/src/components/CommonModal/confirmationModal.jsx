@@ -5,7 +5,7 @@ import {
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import './style.scss'
+import './styles.scss'
 
 const ConfirmationModal = ({
   open, handleClose, handleConfirm, message, confirmButtonText,

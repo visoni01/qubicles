@@ -1,8 +1,8 @@
 import React from 'react'
 import { Box } from '@material-ui/core'
 import { useSelector } from 'react-redux'
-import AgentJobCard from './agentJobCard'
-import AgentJobsSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/agentJobSkeleton'
+import AgentJobCard from '../../../../components/People/Agent/Jobs/agentJobCard'
+import AgentJobsSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/Jobs/agentJobSkeleton'
 
 const RenderAgentJobs = () => {
   const { agentJobsData, isLoading, success } = useSelector((state) => state.fetchAgentJobs)

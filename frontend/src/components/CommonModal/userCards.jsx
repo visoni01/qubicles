@@ -2,7 +2,7 @@ import React from 'react'
 import { Box } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import UserCardItems from './userCardItems'
-import TopCompanySkeleton from '../People/ContactCenter/SkeletonLoader/topCompanySkeleton'
+import TopCompanySkeleton from '../People/ContactCenter/SkeletonLoader/Common/topCompanySkeleton'
 
 const UserCards = ({ isLoading, heading, userData }) => {
   if (isLoading) {

@@ -9,7 +9,7 @@ import './styles.scss'
 import { JOB_ROUTE } from '../../../../routes/routesPath'
 import { getTimeFromNow } from '../../../../utils/common'
 import JobsApplication from './jobApplication'
-import JobPostSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/jobPostSkeleton'
+import JobPostSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/Jobs/jobPostSkeleton'
 import JobPostDetails from '../../../../components/People/ContactCenter/Jobs/jobPostDetails'
 import { resetJobApplicationListFlags } from '../../../../redux-saga/redux/actions'
 

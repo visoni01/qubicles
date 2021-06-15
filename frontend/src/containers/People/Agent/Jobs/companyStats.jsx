@@ -3,7 +3,7 @@ import { Box, Divider, Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
-import Introduction from '../../ContactCenter/Introduction'
+import Introduction from '../../../../components/CommonModal/Introduction'
 
 const CompanyStats = ({
   clientId,

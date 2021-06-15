@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAward } from '@fortawesome/free-solid-svg-icons'
-import Introduction from '../../../People/ContactCenter/Introduction'
+import Introduction from '../../../../components/CommonModal/Introduction'
 import EditProfileModal from './editProfileModal'
 
 const AgentEditProfile = ({

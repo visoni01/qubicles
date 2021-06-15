@@ -4,7 +4,7 @@ import {
 } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
-import ViewAllRatings from '../../../Shared/viewAllRatings'
+import ViewAllRatings from '../../../../components/CommonModal/viewAllRatings'
 import { profileRatingsFetchStart } from '../../../../redux-saga/redux/actions'
 import Loader from '../../../../components/loaders/circularLoader'
 import { agentRatingLabels } from '../../Reviews/ratingLabels'

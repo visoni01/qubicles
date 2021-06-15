@@ -8,17 +8,19 @@ import { Pagination } from '@material-ui/lab'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import { FilterIcon } from '../../../../../../assets/images/training'
-import ViewAllRatings from '../../../../../Shared/viewAllRatings'
+import ViewAllRatings from '../../../../../../components/CommonModal/viewAllRatings'
 import courseRatingLabels from './ratingLabels'
 import ReviewsList from './reviewsList'
 import {
   courseRatingsFetchStart, courseReviewsRequestStart, resetCourseReviewsReducer, updateCourseReviewsFilterOrPage,
 } from '../../../../../../redux-saga/redux/people'
-import CourseRatingSkeleton from '../../Skeletons/courseRatingSkeleton'
+import CourseRatingSkeleton from
+  '../../../../../../components/People/ContactCenter/SkeletonLoader/Training/courseRatingSkeleton'
 import AddCourseReview from './addCourseReview'
 import CourseReviewsFilterModal from './courseReviewsFilterModal'
 import { courseReviewsFilterStatus, noOfReviewsPerPage } from '../../../constants'
-import CourseReviewsSkeleton from '../../Skeletons/courseReviewsSkeleton'
+import CourseReviewsSkeleton from
+  '../../../../../../components/People/ContactCenter/SkeletonLoader/Training/courseReviewsSkeleton'
 
 const CourseReviews = ({ courseId, openReviewModal, setOpenReviewModal }) => {
   const { ratings, addReviewAccess, loading } = useSelector((state) => state.courseRatings)

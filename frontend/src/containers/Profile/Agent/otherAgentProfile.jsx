@@ -14,7 +14,7 @@ import Courses from './Resume/courses'
 import AgentReviews from './Resume/agentReviews'
 import { fetchAgentResumeStart } from '../../../redux-saga/redux/people'
 import LeftSection from './LeftRightSection'
-import IntroductionSkeleton from '../../../components/People/ContactCenter/SkeletonLoader/contactCenterSkeleton'
+import IntroductionSkeleton from '../../../components/People/ContactCenter/SkeletonLoader/Jobs/contactCenterSkeleton'
 import PeopleYouMayKnow from './peopleYouMayKnowCard'
 
 const OtherAgentProfile = () => {

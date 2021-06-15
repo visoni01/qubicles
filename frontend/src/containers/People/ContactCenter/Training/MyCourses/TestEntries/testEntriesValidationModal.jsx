@@ -13,7 +13,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import AnswerValidationCard from './answerValidationCard'
 import { testEntriesRequestStart } from '../../../../../../redux-saga/redux/people'
-import TestEntriesValidationSkeleton from '../../Skeletons/testEntriesValidationSkeleton'
+import TestEntriesValidationSkeleton from
+  '../../../../../../components/People/ContactCenter/SkeletonLoader/Training/testEntriesValidationSkeleton'
 
 const TestEntriesValidation = ({
   open, setOpen, candidateName, candidatePic, candidateId, sections, courseId, testType,

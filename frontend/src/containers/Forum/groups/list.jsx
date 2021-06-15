@@ -7,7 +7,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import { groupsFetchingStart } from '../../../redux-saga/redux/actions'
-import ListSkeleton from '../skeletons/groupsList'
+import ListSkeleton from '../../../components/Forum/Skeletons/groupsList'
 
 const Groups = ({ selectedGroup, setSelectedGroup }) => {
   const dispatch = useDispatch()

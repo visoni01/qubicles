@@ -11,7 +11,8 @@ import _ from 'lodash'
 import ROUTE_PATHS from '../../../../../routes/routesPath'
 import EnrolledCourseCard from './enrolledCourseCard'
 import { enrolledCoursesRequestStart, resetEnrolledCoursesReducer } from '../../../../../redux-saga/redux/people'
-import EnrolledCoursesSkeleton from '../Skeletons/enrolledCoursesSkeleton'
+import EnrolledCoursesSkeleton from
+  '../../../../../components/People/ContactCenter/SkeletonLoader/Training/enrolledCoursesSkeleton'
 
 const EnrolledCourses = () => {
   const history = useHistory()

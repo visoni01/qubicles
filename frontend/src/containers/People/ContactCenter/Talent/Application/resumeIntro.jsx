@@ -8,7 +8,7 @@ import {
   Box, Button, Divider,
 } from '@material-ui/core'
 import '../styles.scss'
-import Introduction from '../../Introduction'
+import Introduction from '../../../../../components/CommonModal/Introduction'
 import { testResumeIntroduction } from '../../testData'
 
 const ResumeIntro = ({

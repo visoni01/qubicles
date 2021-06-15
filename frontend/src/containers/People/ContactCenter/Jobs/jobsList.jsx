@@ -7,7 +7,7 @@ import _ from 'lodash'
 import {
   jobCategoriesOnlyFetchStart, updateJobsFilter,
 } from '../../../../redux-saga/redux/actions'
-import JobsFilterSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/jobsFilterSkeleton'
+import JobsFilterSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/Jobs/jobsFilterSkeleton'
 import './styles.scss'
 import JobsFilterModal from './jobsFilter'
 import { FilterIcon } from '../../../../assets/images/training'

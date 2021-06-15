@@ -1,0 +1,25 @@
+.delete-dialog-title {
+  padding: 30px 60px 30px 40px !important;
+}
+
+.delete-dialog-buttons {
+  padding: 0px 15px 20px !important;
+}
+
+.alert-error {
+  padding: 30px;
+  background-color: rgba($color: #fcdae0, $alpha: 1);
+}
+
+.alert-popover-root {
+  background-color: rgba($color: #FFF, $alpha: 0.3);
+}
+
+.alert-popover-paper {
+  left: 30% !important;
+  top: 50px !important;
+
+  &.MuiPaper-elevation8 {
+    box-shadow: none;
+  }
+}

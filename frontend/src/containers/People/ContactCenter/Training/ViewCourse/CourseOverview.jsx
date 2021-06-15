@@ -10,7 +10,8 @@ import {
   isIntroVideoActivePropType, isSectionTestActivePropType, openCoursePlayerPropType, typePropType, isLoadingPropType,
 } from './propTypes'
 import CourseContentWrap from './CourseContentWrap'
-import CourseOverviewSkeleton from '../Skeletons/courseOverviewSkeleton'
+import CourseOverviewSkeleton from
+  '../../../../../components/People/ContactCenter/SkeletonLoader/Training/courseOverviewSkeleton'
 
 const CourseOverview = ({
   sections, courseId, isEnrolled, introVideo, courseTitle, courseStatus, openCoursePlayer, setOpenCoursePlayer,

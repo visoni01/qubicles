@@ -11,7 +11,7 @@ import CourseCard from './CourseCard'
 import { updateViewAllCoursesFilter, updateCurrentPage } from '../../../../redux-saga/redux/people'
 import CourseFilterModal from './courseFilterModal'
 import { noOfCoursesPerPage } from '../constants'
-import AllCoursesSkeleton from './Skeletons/allCoursesSkeleton'
+import AllCoursesSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/Training/allCoursesSkeleton'
 import { FilterIcon } from '../../../../assets/images/training'
 import { SearchIcon } from '../../../../assets/images/common'
 

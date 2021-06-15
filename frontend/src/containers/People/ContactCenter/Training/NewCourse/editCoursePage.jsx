@@ -14,7 +14,7 @@ import PreviewCreateCourse from './previewCourse'
 import CreateCourse from './createCourse'
 import './styles.scss'
 import checkAndSetErrors from './checkAndSetErrors'
-import AlertPopover from '../../../../Shared/alertPopover'
+import AlertPopover from '../../../../../components/CommonModal/alertPopover'
 
 const EditCoursePage = () => {
   const {

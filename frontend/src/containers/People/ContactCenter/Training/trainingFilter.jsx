@@ -7,7 +7,7 @@ import {
 import _ from 'lodash'
 import './style.scss'
 import ROUTE_PATHS from '../../../../routes/routesPath'
-import JobFilterSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/jobsFilterSkeleton'
+import JobFilterSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/Jobs/jobsFilterSkeleton'
 import { jobCategoriesOnlyFetchStart, updateViewAllCoursesFilter } from '../../../../redux-saga/redux/people'
 
 const TrainingFilter = () => {

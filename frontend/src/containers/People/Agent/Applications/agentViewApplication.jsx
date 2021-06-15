@@ -6,9 +6,9 @@ import { jobDetailsFetchStart } from '../../../../redux-saga/redux/actions'
 import CompanyStats from '../Jobs/companyStats'
 import JobPost from '../../ContactCenter/Jobs/jobPost'
 import { jobPostCard } from '../../ContactCenter/testData'
-import IntroductionSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/contactCenterSkeleton'
+import IntroductionSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/Jobs/contactCenterSkeleton'
 import ActionsBox from '../Jobs/Actions/actionsBox'
-import CoverLetter from '../../ContactCenter/Talent/Application/coverLetter'
+import CoverLetter from '../../../../components/People/ContactCenter/Talent/Application/coverLetter'
 
 const AgentViewApplication = ({
   application, applicationSuccess,

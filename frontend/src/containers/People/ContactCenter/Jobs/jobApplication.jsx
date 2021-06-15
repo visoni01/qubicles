@@ -5,7 +5,7 @@ import _ from 'lodash'
 import PropTypes from 'prop-types'
 import './styles.scss'
 import { jobApplicationListRequestStart } from '../../../../redux-saga/redux/actions'
-import JobApplicationBox from './jobApplicationBox'
+import JobApplicationBox from '../../../../components/People/ContactCenter/Jobs/jobApplicationBox'
 
 const JobApplication = ({ jobId }) => {
   const { applicationsData, isLoading, success } = useSelector((state) => state.jobApplicationList)

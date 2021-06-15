@@ -12,7 +12,8 @@ import RenderTestQuestion from './renderTestQuestion'
 import './styles.scss'
 import TestCompleted from './testCompleted'
 import { viewCourseRequestStart } from '../../../../../../redux-saga/redux/people'
-import AssessmentTestSkeleton from '../../Skeletons/assessmentTestSkeleton'
+import AssessmentTestSkeleton from
+  '../../../../../../components/People/ContactCenter/SkeletonLoader/Training/assessmentTestSkeleton'
 import { assessmentTestPropType } from './propTypes'
 import ConfirmationModal from '../../../../../../components/CommonModal/confirmationModal'
 

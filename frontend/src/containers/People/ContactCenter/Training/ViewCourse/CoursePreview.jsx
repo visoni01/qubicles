@@ -20,7 +20,8 @@ import {
 } from './propTypes'
 import { updateCurrentUnitAndSectionIndex, viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
 import SectionTest from './sectionTest'
-import ViewCourseUnitSkeleton from '../Skeletons/viewCourseUnitSkeleton'
+import ViewCourseUnitSkeleton from
+  '../../../../../components/People/ContactCenter/SkeletonLoader/Training/viewCourseUnitSkeleton'
 import MediaPlayer from './mediaPlayer'
 
 const CoursePreview = ({

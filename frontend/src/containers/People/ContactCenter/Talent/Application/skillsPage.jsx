@@ -8,7 +8,8 @@ import {
   resetAgentResumeSkillsFlags,
 } from '../../../../../redux-saga/redux/people/talent/agentResumeSkills'
 import AgentSkillSection from './agentSkillSection'
-import SkillsAndEndorsementsSkeleton from '../Skeletons/skillsAndEndorsements'
+import SkillsAndEndorsementsSkeleton from
+  '../../../../../components/People/ContactCenter/SkeletonLoader/Common/skillsAndEndorsements'
 import EditSkills from './editSkills'
 import { resetAgentProfileSettingsFlags } from '../../../../../redux-saga/redux/actions'
 

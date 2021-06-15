@@ -16,7 +16,8 @@ import {
   setOpenCoursePlayerPropType, viewCoursePropType, typePropType, dataTypePropType,
 } from './propTypes'
 import { startLoader, stopLoader } from '../../../../../redux-saga/redux/utils'
-import CourseActionSkeleton from '../Skeletons/courseActionSkeleton'
+import CourseActionSkeleton from
+  '../../../../../components/People/ContactCenter/SkeletonLoader/Training/courseActionSkeleton'
 
 const CourseActions = ({
   course, setOpenCoursePlayer, type, isLoading, dataType, continueCourse, setOpenReviewModal, requestType,

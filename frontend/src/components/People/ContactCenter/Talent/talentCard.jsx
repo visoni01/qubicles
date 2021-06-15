@@ -8,7 +8,7 @@ import { faAward, faMapMarkerAlt, faLanguage } from '@fortawesome/free-solid-svg
 import { Link } from 'react-router-dom'
 import { terry } from '../../../../assets/images/avatar'
 import { VIEW_RESUME_ROUTE } from '../../../../routes/routesPath'
-import TalentCardSkills from './talentCardSkills'
+import TalentCardSkills from '../../../../containers/People/ContactCenter/Talent/talentCardSkills'
 
 const TalentCard = ({
   candidateId, candidateName, candidatePic, availability,

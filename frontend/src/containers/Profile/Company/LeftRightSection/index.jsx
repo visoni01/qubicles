@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Box, Divider, Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
-import Introduction from '../../../People/ContactCenter/Introduction'
+import Introduction from '../../../../components/CommonModal/Introduction'
 import PrimaryContact from './primaryContact'
 import EditProfileModal from './editProfileModal'
 

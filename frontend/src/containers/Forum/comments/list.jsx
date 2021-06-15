@@ -5,7 +5,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import { topicCommentsFetchingStart, loadMoreComments } from '../../../redux-saga/redux/actions'
-import ListSkeleton from '../skeletons/commentsList'
+import ListSkeleton from '../../../components/Forum/Skeletons/commentsList'
 import Comment from './listItem'
 
 const Comments = ({ topicId, commentsCount }) => {

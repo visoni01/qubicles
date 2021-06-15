@@ -11,11 +11,11 @@ import { Link } from 'react-router-dom'
 import _ from 'lodash'
 import { good } from '../../../../assets/images/avatar'
 import { JOB_ROUTE } from '../../../../routes/routesPath'
+import '../../../../containers/People/ContactCenter/Talent/styles.scss'
 
 const AgentJobCard = ({
   job,
 }) => (
-
   <div className='list-divider pb-10'>
     <div className='display-inline-flex talent-head'>
       <Avatar alt={ job.clientName } src={ job.clientPic } classes={ { root: 'avatar-md' } } />
@@ -92,7 +92,6 @@ AgentJobCard.defaultProps = {
   I also have over 5 years of experience in management, quality control and supervision.
   I do have the ability and update your contact list in real time of experience in management, quality
   control and supervision.I do have the ability and update your contact list in real time `,
-
   },
 }
 

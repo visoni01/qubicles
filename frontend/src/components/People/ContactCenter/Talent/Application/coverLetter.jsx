@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger */
 import React from 'react'
-import '../../styles.scss'
-import '../styles.scss'
+import '../../../../../containers/People/ContactCenter/styles.scss'
+import '../../../../../containers/People/ContactCenter/Talent/styles.scss'
 import PropTypes from 'prop-types'
 
 const CoverLetter = ({ application }) => (

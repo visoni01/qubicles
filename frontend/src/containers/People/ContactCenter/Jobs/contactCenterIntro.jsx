@@ -5,7 +5,7 @@ import { Box, Button } from '@material-ui/core'
 import { useSelector } from 'react-redux'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
-import Introduction from '../Introduction'
+import Introduction from '../../../../components/CommonModal/Introduction'
 import './styles.scss'
 import JobApplicationStats from './jobApplicationStats'
 

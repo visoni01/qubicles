@@ -5,10 +5,11 @@ import { Box, Button } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import _ from 'lodash'
-import Introduction from '../../Introduction'
+import Introduction from '../../../../../components/CommonModal/Introduction'
 import { userDataFetchStart } from '../../../../../redux-saga/redux/user'
 import { creatorIdPropType } from './propTypes'
-import IntroductionSkeleton from '../../../../../components/People/ContactCenter/SkeletonLoader/contactCenterSkeleton'
+import IntroductionSkeleton from
+  '../../../../../components/People/ContactCenter/SkeletonLoader/Jobs/contactCenterSkeleton'
 import { COMPANY_PROFILE_ROUTE, PROFILE_ROUTE } from '../../../../../routes/routesPath'
 
 const CourseTrainerIntro = ({ creatorId }) => {

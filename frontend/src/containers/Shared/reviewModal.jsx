@@ -6,7 +6,7 @@ import {
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import ViewSetSubRatings from './viewSubRatings'
+import ViewSetSubRatings from '../../components/CommonModal/viewSubRatings'
 import './styles.scss'
 import ConfirmationModal from '../../components/CommonModal/confirmationModal'
 

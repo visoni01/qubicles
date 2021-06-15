@@ -1,8 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Box } from '@material-ui/core'
-import TalentCard from './talentCard'
-import TalentCardSkeleton from './Skeletons/talentCardSkeleton'
+import TalentCard from '../../../../components/People/ContactCenter/Talent/talentCard'
+import TalentCardSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/Talent/talentCardSkeleton'
 import './styles.scss'
 import TalentSearch from './talentSearch'
 

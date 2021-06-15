@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-child-element-spacing */
 import React from 'react'
 import { Divider } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -34,7 +35,12 @@ const ContactCenter = () => {
                 <br />
                 {/* Signup form */}
                 {!isLoggedin && (
-                  <CustomLink to='/signup' className='button btn-align button-cta secondary-btn steps-button-color raised rounded'>Try for Free</CustomLink>
+                  <CustomLink
+                    to='/signup'
+                    className='button btn-align button-cta secondary-btn steps-button-color raised rounded'
+                  >
+                    Try for Free
+                  </CustomLink>
                 )}
               </div>
             </div>

@@ -12,7 +12,7 @@ import DraftCourseCard from './draftCourseCard'
 import PublishedCourseCard from './publishedCourseCard'
 import ROUTE_PATHS from '../../../../../routes/routesPath'
 import { allCoursesRequestStart, resetAllCoursesReducer } from '../../../../../redux-saga/redux/people'
-import MyCoursesSkeleton from '../Skeletons/myCoursesSkeleton'
+import MyCoursesSkeleton from '../../../../../components/People/ContactCenter/SkeletonLoader/Training/myCoursesSkeleton'
 
 const MyCourses = () => {
   const history = useHistory()

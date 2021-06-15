@@ -6,7 +6,7 @@ import {
 import Rating from '@material-ui/lab/Rating'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import '../styles.scss'
+import '../../../../../containers/People/ContactCenter/Talent/styles.scss'
 
 const Endorsements = ({
   open, handleClose, endorsementsList, skillName,

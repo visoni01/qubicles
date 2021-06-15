@@ -8,7 +8,7 @@ import { startLoader, stopLoader } from '../../../../../redux-saga/redux/utils'
 import PreviewCreateCourse from './previewCourse'
 import CreateCourse from './createCourse'
 import './styles.scss'
-import AlertPopover from '../../../../Shared/alertPopover'
+import AlertPopover from '../../../../../components/CommonModal/alertPopover'
 import checkAndSetErrors from './checkAndSetErrors'
 
 const NewCoursePage = () => {

@@ -9,7 +9,8 @@ import _ from 'lodash'
 import ROUTE_PATHS from '../../../../../../routes/routesPath'
 import TestEntryCard from './testEntryCard'
 import { resetTestEntriesReducer, testEntriesRequestStart } from '../../../../../../redux-saga/redux/people'
-import TestEntriesSkeleton from '../../Skeletons/testEntriesSkeleton'
+import TestEntriesSkeleton from
+  '../../../../../../components/People/ContactCenter/SkeletonLoader/Training/testEntriesSkeleton'
 
 const TestEntries = () => {
   const history = useHistory()

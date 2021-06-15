@@ -1,9 +1,10 @@
+/* eslint-disable react/no-danger */
 import React from 'react'
 import { Divider, Chip } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import './styles.scss'
-import JobPostSkeleton from '../SkeletonLoader/jobPostSkeleton'
+import JobPostSkeleton from '../SkeletonLoader/Jobs/jobPostSkeleton'
 import { jobPostCard } from '../../../../containers/People/ContactCenter/testData'
 import { checkJobType } from '../../../../utils/common'
 

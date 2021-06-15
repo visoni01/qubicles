@@ -3,7 +3,7 @@ import {
   Button,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import TextDivider from '../../../../Shared/textDivider'
+import TextDivider from '../../../../../components/CommonModal/textDivider'
 
 const ScreeningActions = ({ handleUpdateStatus }) => (
   <>

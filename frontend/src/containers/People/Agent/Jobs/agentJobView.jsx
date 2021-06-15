@@ -8,8 +8,9 @@ import { jobPostCard } from '../../ContactCenter/testData'
 import JobPost from '../../ContactCenter/Jobs/jobPost'
 import AgentJobActions from './Actions'
 import CompanyStats from './companyStats'
-import ContactCenterSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/contactCenterSkeleton'
-import ActionsSkeleton from './Actions/actionsSkeleton'
+import ContactCenterSkeleton from
+  '../../../../components/People/ContactCenter/SkeletonLoader/Jobs/contactCenterSkeleton'
+import ActionsSkeleton from '../../../../components/People/Agent/Jobs/Actions/Skeletons/actionsSkeleton'
 
 const AgentJobView = () => {
   const { jobId } = useParams()

@@ -7,7 +7,7 @@ import Rating from '@material-ui/lab/Rating'
 import { Link } from 'react-router-dom'
 import { PEOPLE_ROUTE } from '../../../../routes/routesPath'
 import { getTimeFromNow } from '../../../../utils/common'
-import JobApplicationButtons from './jobApplicationButtons'
+import JobApplicationButtons from '../../../../containers/People/ContactCenter/Jobs/jobApplicationButtons'
 
 const JobApplicationCard = ({ application, userDetails }) => (
   <div className='list-divider pb-15 pt-10'>

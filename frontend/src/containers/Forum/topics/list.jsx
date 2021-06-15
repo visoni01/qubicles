@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import Pagination from '@material-ui/lab/Pagination'
 import { groupTopicsFetchingStart } from '../../../redux-saga/redux/actions'
-import ListSkeleton from '../skeletons/topicsList'
+import ListSkeleton from '../../../components/Forum/Skeletons/topicsList'
 import TopicsListItem from './listItem'
 
 const Topics = ({
