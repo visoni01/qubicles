@@ -172,7 +172,7 @@ const CoursePreview = ({
             )}
             {open && !isLoading && currentUnit.type === 'Audio' && (
             <MediaPlayer
-              source='https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3'
+              source={ currentUnit.details }
               type='audio'
             />
             )}

@@ -7,12 +7,12 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes, faUpload } from '@fortawesome/free-solid-svg-icons'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import CKEditor from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { checkDisabledUnitSaveButton } from './helper'
 import { unitPropType } from '../propTypes'
-import { DeleteIcon } from '../../../../../../assets/images/training'
+import { DeleteIcon, UploadIcon } from '../../../../../../assets/images/training'
 import MediaPlayer from '../../ViewCourse/mediaPlayer'
 import { trainingCourseRequestStart, resetTrainingCourseReducerFlags } from '../../../../../../redux-saga/redux/people'
 import { maxVideoFileSize } from '../../../constants'
@@ -86,7 +86,7 @@ const AddArticleModal = ({
       // eslint-disable-next-line no-param-reassign
       event.target.value = ''
     }
-  }, [ uploadMediaFile ])
+  }, [ uploadMediaFile, dispatch ])
 
   const handleDelete = useCallback(() => {
     setCurrentFileUrl('')
@@ -200,7 +200,7 @@ const AddArticleModal = ({
                           root: 'button-primary-large',
                           label: 'button-primary-large-label pl-10 pr-10',
                         } }
-                        startIcon={ <FontAwesomeIcon icon={ faUpload } /> }
+                        startIcon={ <UploadIcon /> }
                         onClick={ () => document.getElementById('unit-audio').click() }
                       >
                         Upload Audio File
@@ -233,7 +233,7 @@ const AddArticleModal = ({
                           root: 'button-primary-large',
                           label: 'button-primary-large-label pl-10 pr-10',
                         } }
-                        startIcon={ <FontAwesomeIcon icon={ faUpload } /> }
+                        startIcon={ <UploadIcon /> }
                         onClick={ () => document.getElementById('unit-video').click() }
                       >
                         Upload Video File
