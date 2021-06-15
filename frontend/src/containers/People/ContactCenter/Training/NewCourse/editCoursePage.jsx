@@ -65,7 +65,7 @@ const EditCoursePage = () => {
 
   useEffect(() => {
     if (isLoading) {
-      if (_.isEqual(requestType, 'UPDATE')) {
+      if ([ 'UPDATE', 'CREATE' ].includes(requestType)) {
         dispatch(startLoader({
           type: 'progress',
         }))

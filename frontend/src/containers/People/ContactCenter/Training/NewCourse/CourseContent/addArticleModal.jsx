@@ -1,9 +1,10 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import {
   Dialog, DialogTitle, DialogActions, IconButton, DialogContent, Button, Grid, TextField, Select,
 } from '@material-ui/core'
+import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faUpload } from '@fortawesome/free-solid-svg-icons'
@@ -13,12 +14,18 @@ import { checkDisabledUnitSaveButton } from './helper'
 import { unitPropType } from '../propTypes'
 import { DeleteIcon } from '../../../../../../assets/images/training'
 import MediaPlayer from '../../ViewCourse/mediaPlayer'
+import { trainingCourseRequestStart, resetTrainingCourseReducerFlags } from '../../../../../../redux-saga/redux/people'
+import { maxVideoFileSize } from '../../../constants'
+import { showErrorMessage } from '../../../../../../redux-saga/redux/utils'
 
+// eslint-disable-next-line complexity
 const AddArticleModal = ({
   open, onClose, onSubmit, unit, setUnitDetails, savedUnit, title,
 }) => {
   const [ currentFileUrl, setCurrentFileUrl ] = useState('')
   const [ currentFileName, setCurrentFileName ] = useState('')
+  const { currentFileUrl: uploadedFileUrl, dataType } = useSelector((state) => state.trainingCourse)
+  const dispatch = useDispatch()
 
   const handleUnitTypeChange = useCallback((selectedType) => {
     setUnitDetails((current) => ({
@@ -45,17 +52,31 @@ const AddArticleModal = ({
     }))
   }, [ setUnitDetails ])
 
+  const uploadMediaFile = useCallback((videoUrl) => {
+    dispatch(trainingCourseRequestStart({
+      requestType: 'CREATE',
+      dataType: unit.type,
+      fileUrl: videoUrl,
+    }))
+  }, [ dispatch, unit.type ])
+
   const handleFileInputChange = useCallback((event) => {
     event.preventDefault()
     const file = event.target.files && event.target.files[ 0 ]
     const reader = new FileReader()
 
     if (file) {
+      if (file.size > maxVideoFileSize) {
+        dispatch(showErrorMessage({ msg: 'File size should not be greater than 100 MB!' }))
+        return
+      }
+
       const videoUrl = URL.createObjectURL(file)
 
       reader.onloadend = () => {
         setCurrentFileUrl(videoUrl)
         setCurrentFileName(file.name)
+        uploadMediaFile(videoUrl)
       }
 
       if (event.target.files[ 0 ]) {
@@ -65,12 +86,34 @@ const AddArticleModal = ({
       // eslint-disable-next-line no-param-reassign
       event.target.value = ''
     }
-  }, [])
+  }, [ uploadMediaFile ])
 
   const handleDelete = useCallback(() => {
     setCurrentFileUrl('')
     setCurrentFileName('')
-  }, [])
+    dispatch(resetTrainingCourseReducerFlags())
+    setUnitDetails((current) => ({
+      ...current,
+      details: '',
+    }))
+  }, [ dispatch, setUnitDetails ])
+
+  const handleSave = useCallback(() => {
+    setCurrentFileUrl('')
+    setCurrentFileName('')
+    dispatch(resetTrainingCourseReducerFlags())
+    onSubmit()
+  }, [ onSubmit, dispatch ])
+
+  useEffect(() => {
+    if (uploadedFileUrl && [ 'Audio', 'Video' ].includes(dataType)) {
+      setUnitDetails((current) => ({
+        ...current,
+        details: uploadedFileUrl,
+      }))
+      setCurrentFileUrl(uploadedFileUrl)
+    }
+  }, [ dataType, setUnitDetails, uploadedFileUrl ])
 
   return (
     <Dialog
@@ -149,7 +192,8 @@ const AddArticleModal = ({
               {/* Audio File */}
               {unit.type === 'Audio' && (
                 <>
-                  {_.isEmpty(currentFileUrl) ? (
+                  {(_.isEqual(dataType, 'Audio') && !_.isEqual(uploadedFileUrl, currentFileUrl))
+                  || (_.isEmpty(unit.details) && _.isEmpty(currentFileUrl)) ? (
                     <div className='mt-60 mb-40 is-fullwidth text-center'>
                       <Button
                         classes={ {
@@ -162,28 +206,27 @@ const AddArticleModal = ({
                         Upload Audio File
                       </Button>
                     </div>
-                  ) : (
-                    <div className='mt-60'>
-                      <div className='is-flex is-center'>
-                        <audio controls>
-                          <source src={ currentFileUrl } type='audio/mp3' />
-                        </audio>
+                    ) : (
+                      <div className='mt-60'>
+                        <div className='is-flex is-center pl-50 pr-50'>
+                          <MediaPlayer source={ currentFileUrl || unit.details } type='audio' />
+                        </div>
+                        <div className='is-flex is-center mt-20 custom-svg-icon color-red'>
+                          <p className='para pt-10'>{currentFileName || 'Delete this file'}</p>
+                          <IconButton className='align-items-center pt-10 ml-5' onClick={ handleDelete }>
+                            <DeleteIcon />
+                          </IconButton>
+                        </div>
                       </div>
-                      <div className='is-flex is-center mt-20'>
-                        <p className='para pt-10'>{currentFileName}</p>
-                        <IconButton className='align-items-center pt-10 ml-5' onClick={ handleDelete }>
-                          <DeleteIcon />
-                        </IconButton>
-                      </div>
-                    </div>
-                  )}
+                    )}
                 </>
               )}
 
               {/* Video File */}
               {unit.type === 'Video' && (
                 <>
-                  {_.isEmpty(currentFileUrl) ? (
+                  {(_.isEqual(dataType, 'Video') && !_.isEqual(uploadedFileUrl, currentFileUrl))
+                  || (_.isEmpty(unit.details) && _.isEmpty(currentFileUrl)) ? (
                     <div className='mt-60 mb-40 is-fullwidth text-center'>
                       <Button
                         classes={ {
@@ -196,22 +239,22 @@ const AddArticleModal = ({
                         Upload Video File
                       </Button>
                     </div>
-                  ) : (
-                    <div className='mt-30'>
-                      <div className='video-container'>
-                        <MediaPlayer source={ currentFileUrl } />
+                    ) : (
+                      <div className='mt-30'>
+                        <div className='video-container'>
+                          <MediaPlayer source={ currentFileUrl || unit.details } type='video' />
+                        </div>
+                        <div className='is-flex is-center mt-20'>
+                          <p className='para pt-10'>{currentFileName || 'Delete this file'}</p>
+                          <IconButton
+                            className='align-items-center pt-10 ml-5 custom-svg-icon color-red'
+                            onClick={ handleDelete }
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </div>
                       </div>
-                      <div className='is-flex is-center mt-20'>
-                        <p className='para pt-10'>{currentFileName}</p>
-                        <IconButton
-                          className='align-items-center pt-10 ml-5 custom-svg-icon color-red'
-                          onClick={ handleDelete }
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      </div>
-                    </div>
-                  )}
+                    )}
                 </>
               )}
             </div>
@@ -247,7 +290,7 @@ const AddArticleModal = ({
         <Button
           className='button-primary-small'
           classes={ { label: 'primary-label' } }
-          onClick={ onSubmit }
+          onClick={ handleSave }
           disabled={ checkDisabledUnitSaveButton({ savedUnit, updatedUnit: unit }) }
         >
           Save

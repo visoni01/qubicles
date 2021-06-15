@@ -43,6 +43,8 @@ const initialState = {
   },
   uploadProgressData: null,
   requestType: null,
+  dataType: null,
+  currentFileUrl: null,
 }
 
 const {
@@ -52,7 +54,9 @@ const {
     trainingCourseRequestFailed,
     updateTrainingCourseDetails,
     resetTrainingCourseReducer,
+    resetTrainingCourseReducerFlags,
     uploadProgress,
+    updateCurrentFileUrl,
   }, reducer,
 } = createSlice({
   name: 'trainingCourse',
@@ -64,6 +68,7 @@ const {
       success: null,
       error: null,
       requestType: action.payload.requestType,
+      dataType: action.payload.dataType,
     }),
     trainingCourseRequestSuccess: (state, action) => ({
       ...state,
@@ -94,9 +99,25 @@ const {
     resetTrainingCourseReducer: () => ({
       ...initialState,
     }),
+    resetTrainingCourseReducerFlags: (state) => ({
+      ...state,
+      isLoading: null,
+      requestType: null,
+      dataType: null,
+      success: null,
+      error: null,
+      currentFileUrl: null,
+    }),
     uploadProgress: (state, action) => ({
       ...state,
       uploadProgressData: action.payload.uploadProgressData,
+    }),
+    updateCurrentFileUrl: (state, action) => ({
+      ...state,
+      isLoading: false,
+      success: true,
+      currentFileUrl: action.payload.currentFileUrl,
+      uploadProgressData: 0,
     }),
   },
 })
@@ -108,5 +129,7 @@ export {
   trainingCourseRequestFailed,
   updateTrainingCourseDetails,
   resetTrainingCourseReducer,
+  resetTrainingCourseReducerFlags,
   uploadProgress,
+  updateCurrentFileUrl,
 }

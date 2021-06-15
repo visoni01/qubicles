@@ -11,6 +11,7 @@ import {
   showErrorMessage,
   showSuccessMessage,
   uploadProgress,
+  updateCurrentFileUrl,
 } from '../../../redux/actions'
 import People from '../../../service/people'
 
@@ -20,27 +21,34 @@ const chan = eventChannel((emitter) => {
   return () => {}
 })
 
-const uploadEmitter = async ({ course, method }) => {
+const uploadEmitter = async ({ course, method, unitType }) => {
   const formData = new FormData()
 
-  if (course.contentSection.thumbnailImage) {
+  if (course.contentSection && course.contentSection.thumbnailImage
+     && course.contentSection.thumbnailImage.includes('blob:')) {
     const imageFile = await fetch(course.contentSection.thumbnailImage).then((r) => r.blob())
     formData.append('imageFile', imageFile)
   }
 
-  if (course.contentSection.introductionVideo) {
+  if (course.contentSection && course.contentSection.introductionVideo
+     && course.contentSection.introductionVideo.includes('blob:')) {
     const introFile = await fetch(course.contentSection.introductionVideo).then((r) => r.blob())
     formData.append('introFile', introFile)
   }
 
-  const courseJson = JSON.stringify(course)
-  formData.set('course', courseJson)
+  if ([ 'Video', 'Audio' ].includes(unitType)) {
+    const file = await fetch(course).then((r) => r.blob())
+    formData.append('file', file)
+  } else {
+    const courseJson = JSON.stringify(course)
+    formData.set('course', courseJson)
+  }
 
   let oldProgressData = -1
 
   const response = await axiosInst({
     method,
-    url: '/people/course',
+    url: [ 'Video', 'Audio' ].includes(unitType) ? `/people/course/file/${ unitType.toLowerCase() }` : '/people/course',
     data: formData,
     headers: { 'Content-Type': 'multipart/form-data' },
     onUploadProgress: (progress) => {
@@ -62,12 +70,20 @@ function* watchOnProgress() {
   }
 }
 
-function* uploadSaga({ action, method }) {
+function* uploadSaga({ action, method, unitType }) {
   yield fork(watchOnProgress)
-  const { data, message } = yield call(uploadEmitter, { course: action.payload.course, method })
+  const { data, message } = yield call(uploadEmitter, {
+    course: [ 'Video', 'Audio' ].includes(unitType) ? action.payload.fileUrl : action.payload.course,
+    method,
+    unitType,
+  })
   yield put(uploadProgress({ uploadProgressData: 100 }))
   yield delay(500)
-  yield put(trainingCourseRequestSuccess({ course: { ...data.courseData, status: action.payload.course.status } }))
+  if ([ 'Video', 'Audio' ].includes(unitType)) {
+    yield put(updateCurrentFileUrl({ currentFileUrl: data.fileUrl }))
+  } else {
+    yield put(trainingCourseRequestSuccess({ course: { ...data.courseData, status: action.payload.course.status } }))
+  }
   yield put(showSuccessMessage({ msg: message }))
 }
 
@@ -77,11 +93,19 @@ function* trainingCourseWatcherStart() {
 
 function* trainingCourseWorker(action) {
   try {
-    const { course, requestType } = action.payload
+    const { course, requestType, dataType } = action.payload
 
     switch (requestType) {
       case 'CREATE': {
-        yield call(uploadSaga, { action, method: 'post' })
+        switch (dataType) {
+          case 'Video':
+          case 'Audio': {
+            yield call(uploadSaga, { action, method: 'post', unitType: dataType })
+            break
+          }
+
+          default: yield call(uploadSaga, { action, method: 'post' })
+        }
         break
       }
       case 'UPDATE': {

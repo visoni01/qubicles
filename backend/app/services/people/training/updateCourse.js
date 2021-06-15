@@ -30,7 +30,7 @@ export class PeopleUpdateCourseService extends ServiceBase {
 
     try {
       // Upload Course Thumbnail
-      let imageUrl = ''
+      let imageUrl = course.contentSection.thumbnailImage
       if (this.imageFile) {
         const { isValidFileSize, isValidImage } = validateImageFile(this.imageFile)
 
@@ -53,7 +53,7 @@ export class PeopleUpdateCourseService extends ServiceBase {
       }
 
       // Upload Introduction Video
-      let videoUrl = ''
+      let videoUrl = course.contentSection.introductionVideo
       if (this.introFile) {
         const { isValidFileSize, isValidVideo } = validateVideoFile(this.introFile)
 

@@ -148,7 +148,7 @@ export const validateVideoFile = ({ mimetype, size }) => {
 }
 
 export const validateAudioFile = ({ mimetype, size }) => {
-  const isValidAudio = ['audio/mp3'].includes(mimetype)
+  const isValidAudio = ['audio/mpeg'].includes(mimetype)
   const isValidFileSize = size <= config.get('audioFileSize')
   return { isValidAudio, isValidFileSize }
 }
