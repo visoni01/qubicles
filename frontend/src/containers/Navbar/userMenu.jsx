@@ -4,9 +4,9 @@ import {
 } from '@material-ui/core'
 import { useHistory, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import './style.scss'
+import '../../components/Navbar/style.scss'
 import User from '../../redux-saga/service/user'
-import InviteModal from '../../containers/InviteFriendsPage/InviteModal'
+import InviteModal from '../InviteFriendsPage/InviteModal'
 import {
   showErrorMessage,
   getCompanyProfileSettingsApiStart,

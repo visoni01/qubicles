@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
 } from 'react-router-dom'
 import { CircularLoader } from '../components/loaders'
-import CustomSnackbar from '../components/snackbar'
+import CustomSnackbar from '../containers/snackbar'
 import CustomRoutes from './customRoutes'
 import ScrollToTop from '../components/scrollToTop'
 

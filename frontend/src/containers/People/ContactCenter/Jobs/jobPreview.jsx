@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux'
 import {
   Box, Grid,
 } from '@material-ui/core'
-import { jobPostCard } from '../../../../containers/People/ContactCenter/testData'
-import JobPostDetails from './jobPostDetails'
-import CreatePreviewActions from '../../../../containers/People/ContactCenter/Jobs/NewJob/createPreviewActions'
+import { jobPostCard } from '../testData'
+import JobPostDetails from '../../../../components/People/ContactCenter/Jobs/jobPostDetails'
+import CreatePreviewActions from './NewJob/createPreviewActions'
 
 const JobPreview = () => {
   const { createJobData, isUpdatedData, isLoading } = useSelector((state) => state.createJobData)

@@ -6,7 +6,7 @@ import {
 import {
   chatIcon, walletIcon, bellIcon,
 } from '../../assets/images/icons/navBarIcons'
-import UserMenu from './userMenu'
+import UserMenu from '../../containers/Navbar/userMenu'
 import { SearchIcon } from '../../assets/images/common'
 
 const TopBar = () => (

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import SideBar from './menuBar'
+import SideBar from '../../containers/Navbar/menuBar'
 import TopBar from './topBar'
 import './style.scss'
 
