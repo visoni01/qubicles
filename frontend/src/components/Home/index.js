@@ -1,9 +1,9 @@
 import Clients from './clients'
-import Slide from './slide'
-import Steps from './steps'
-import Header from './header'
+import Slide from '../../containers/Home/slide'
+import Steps from '../../containers/Home/steps'
+import Header from '../../containers/Home/header'
 import Footer from './footer'
-import ClientReviews from './clientReviews'
+import ClientReviews from '../../containers/Home/clientReviews'
 import CustomLink from './customLink'
 
 export {

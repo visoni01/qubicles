@@ -16,8 +16,8 @@ import {
 } from '../../assets/images/landingPage'
 import {
   Header, Footer, ClientReviews, CustomLink,
-} from './index'
-import '../../containers/Home/style.scss'
+} from '../../components/Home/index'
+import './style.scss'
 
 const AboutUs = () => {
   const { userDetails } = useSelector((state) => state.login)

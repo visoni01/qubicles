@@ -1,5 +1,5 @@
 import React from 'react'
-import { clients } from './data'
+import clients from './data'
 
 const Clients = () => (
   <div className='hero-foot'>

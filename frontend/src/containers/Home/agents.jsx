@@ -7,9 +7,9 @@ import {
 import { useSelector } from 'react-redux'
 import {
   Clients, Header, Footer, CustomLink,
-} from './index'
+} from '../../components/Home/index'
 import { uiAgent, uiTraining, uiWallet } from '../../assets/images/landingPage'
-import '../../containers/Home/style.scss'
+import './style.scss'
 
 const Agents = () => {
   const { userDetails } = useSelector((state) => state.login)

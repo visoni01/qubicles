@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
-import CustomLink from './customLink'
+import CustomLink from '../../components/Home/customLink'
 
 const Slide = ({
   heading, detail, buttonName, slideBg,

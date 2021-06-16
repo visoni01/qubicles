@@ -4,8 +4,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import AccountSettings from '../Navbar/userMenu'
-import CustomLink from './customLink'
+import AccountSettings from '../../components/Navbar/userMenu'
+import CustomLink from '../../components/Home/customLink'
 import ROUTE_PATHS from '../../routes/routesPath'
 
 const Header = () => {

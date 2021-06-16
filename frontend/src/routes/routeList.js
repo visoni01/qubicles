@@ -13,12 +13,12 @@ const routes = [
   },
   {
     path: ROUTE_PATHS.AGENTS,
-    component: lazy(() => import('../components/Home/agents')),
+    component: lazy(() => import('../containers/Home/agents')),
     exact: true,
   },
   {
     path: ROUTE_PATHS.CONTACT_CENTERS,
-    component: lazy(() => import('../components/Home/contactCenter')),
+    component: lazy(() => import('../containers/Home/contactCenter')),
     exact: true,
   },
   {
@@ -28,7 +28,7 @@ const routes = [
   },
   {
     path: ROUTE_PATHS.ABOUT,
-    component: lazy(() => import('../components/Home/aboutUs')),
+    component: lazy(() => import('../containers/Home/aboutUs')),
     exact: true,
   },
   {

@@ -14,7 +14,7 @@ import { useSelector } from 'react-redux'
 import {
   globalNetworkImage, qbeTeam, userSnapshot, projectUi, ipads, lifeSaver, wallet, building, chatUser,
 } from '../../assets/images/landingPage'
-import CustomLink from './customLink'
+import CustomLink from '../../components/Home/customLink'
 
 const Steps = () => {
   const { userDetails } = useSelector((state) => state.login)

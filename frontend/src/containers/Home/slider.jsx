@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import classNames from 'classnames'
-import SliderComponent from '../../components/Home/slide'
-import sliderData from './data'
+import SliderComponent from './slide'
+import { sliderData } from './data'
 
 const Slider = () => {
   const [ currentSlide, setCurrentSlide ] = useState(0)

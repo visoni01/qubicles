@@ -5,9 +5,6 @@ import {
   miamiherald,
   poty2016,
 } from '../../assets/images/landingPage'
-import {
-  sally, thomas, carolin, terry, kareem,
-} from '../../assets/images/avatar'
 
 const clients = [
   {
@@ -48,48 +45,4 @@ const clients = [
   },
 ]
 
-const reviews = [
-  {
-    name: 'Jennifer Thorne',
-    message: `Overall my experience has been great. I have found a solution which is functional, priced well, with
-    great customer service. Exactly what I was looking for.`,
-    rating: 5,
-    image: carolin,
-  },
-  {
-    name: 'Abhishek Verma',
-    message: `Per minute billing and easy to set up. User friendly UI, takes just one sys-admin on our end to manage
-      the software.`,
-    rating: 4,
-    image: terry,
-  },
-  {
-    name: 'Bella Martin',
-    message: 'It is very easy to use like a, b, c.. Very user friendly. It was easy to use and very affordable.',
-    rating: 5,
-    mage: kareem,
-  },
-  {
-    name: 'Geraldine Santana',
-    message: `Its very user-friendly excelent with the records and to put together all the call center needs you can
-      even used it from your mobile device and the support its awesome.`,
-    rating: 4,
-    image: kareem,
-  },
-  {
-    name: 'Carlo Angelo Pablo',
-    message: `The support is awesome! Easy to navigate, has self help knowledge base, real time reporting, easy to
-      create stations and users, ...everything!`,
-    rating: 5,
-    image: thomas,
-  },
-  {
-    name: 'Anthanette Petree',
-    message: `I liked the price for the service. Once you become acclimated with the system it because easy to start a
-      campaign in no time.`,
-    rating: 3,
-    image: sally,
-  },
-]
-
-export { clients, reviews }
+export default clients
