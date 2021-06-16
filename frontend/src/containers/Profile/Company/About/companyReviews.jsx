@@ -10,8 +10,8 @@ import ViewAllRatings from '../../../../components/CommonModal/viewAllRatings'
 import { profileRatingsFetchStart } from '../../../../redux-saga/redux/actions'
 import AddCompanyReview from './addReview'
 import ListReviews from './listReviews'
-import { clientRatingLabels } from '../../Reviews/ratingLabels'
-import '../../Reviews/style.scss'
+import { clientRatingLabels } from '../../../../components/Profile/Reviews/ratingLabels'
+import './styles.scss'
 import CompanyRatingSkeleton from
   '../../../../components/People/ContactCenter/SkeletonLoader/Training/ratingSkeleton'
 

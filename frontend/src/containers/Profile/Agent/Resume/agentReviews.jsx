@@ -7,10 +7,10 @@ import PropTypes from 'prop-types'
 import ViewAllRatings from '../../../../components/CommonModal/viewAllRatings'
 import { profileRatingsFetchStart } from '../../../../redux-saga/redux/actions'
 import Loader from '../../../../components/loaders/circularLoader'
-import { agentRatingLabels } from '../../Reviews/ratingLabels'
+import { agentRatingLabels } from '../../../../components/Profile/Reviews/ratingLabels'
 import ListReviews from '../../Company/About/listReviews'
 import AddAgentReview from './addReview'
-import '../../Reviews/style.scss'
+import '../../Company/About/styles.scss'
 
 const AgentReviews = ({
   agentUserId,

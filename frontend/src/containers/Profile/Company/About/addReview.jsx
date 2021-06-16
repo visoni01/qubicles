@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import ReviewModal from '../../../Shared/reviewModal'
 import { profileReviewPostStart } from '../../../../redux-saga/redux/actions'
-import { clientRatingLabels } from '../../Reviews/ratingLabels'
+import { clientRatingLabels } from '../../../../components/Profile/Reviews/ratingLabels'
 
 const AddCompanyReview = ({
   clientId, openReviewModal, setOpenReviewModal,

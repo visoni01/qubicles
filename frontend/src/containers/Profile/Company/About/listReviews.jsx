@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Divider } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
-import ProfileReview from '../../Reviews/profileReview'
+import ProfileReview from '../../../../components/Profile/Reviews/profileReview'
 import { profileReviewsFetchStart, resetReviews } from '../../../../redux-saga/redux/actions'
 import CompanyReviewsSkeleton from
   '../../../../components/People/ContactCenter/SkeletonLoader/Training/reviewsSkeleton'
