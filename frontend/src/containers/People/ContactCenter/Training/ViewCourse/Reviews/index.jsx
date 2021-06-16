@@ -15,12 +15,12 @@ import {
   courseRatingsFetchStart, courseReviewsRequestStart, resetCourseReviewsReducer, updateCourseReviewsFilterOrPage,
 } from '../../../../../../redux-saga/redux/people'
 import CourseRatingSkeleton from
-  '../../../../../../components/People/ContactCenter/SkeletonLoader/Training/courseRatingSkeleton'
+  '../../../../../../components/People/ContactCenter/SkeletonLoader/Training/ratingSkeleton'
 import AddCourseReview from './addCourseReview'
 import CourseReviewsFilterModal from './courseReviewsFilterModal'
 import { courseReviewsFilterStatus, noOfReviewsPerPage } from '../../../constants'
 import CourseReviewsSkeleton from
-  '../../../../../../components/People/ContactCenter/SkeletonLoader/Training/courseReviewsSkeleton'
+  '../../../../../../components/People/ContactCenter/SkeletonLoader/Training/reviewsSkeleton'
 
 const CourseReviews = ({ courseId, openReviewModal, setOpenReviewModal }) => {
   const { ratings, addReviewAccess, loading } = useSelector((state) => state.courseRatings)

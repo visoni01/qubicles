@@ -24,7 +24,7 @@ const CourseReviewsSkeleton = () => (
           </div>
           <Skeleton
             animation='wave'
-            classes={ { root: 'usertitle mb-5' } }
+            classes={ { root: 'usertitle' } }
           />
           <div className='display-inline-flex is-fullwidth'>
             <Skeleton
@@ -38,7 +38,7 @@ const CourseReviewsSkeleton = () => (
           </div>
           <Skeleton
             animation='wave'
-            classes={ { root: 'comment mt-5' } }
+            classes={ { root: 'comment' } }
           />
         </div>
       </div>

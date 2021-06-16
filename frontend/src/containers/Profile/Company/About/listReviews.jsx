@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import ProfileReview from '../../Reviews/profileReview'
 import { profileReviewsFetchStart, resetReviews } from '../../../../redux-saga/redux/actions'
-import ProfileReviewSkeleton from '../../Reviews/profileReviewSkeleton'
+import CompanyReviewsSkeleton from
+  '../../../../components/People/ContactCenter/SkeletonLoader/Training/reviewsSkeleton'
 
 const ListReviews = ({
   profileType, reviewType, id,
@@ -39,11 +40,10 @@ const ListReviews = ({
 
   if (fetchLoading) {
     return (
-      <div className='pl-10'>
+      <>
         <Divider className='divider' />
-        <ProfileReviewSkeleton />
-        <ProfileReviewSkeleton />
-      </div>
+        <CompanyReviewsSkeleton />
+      </>
     )
   }
 

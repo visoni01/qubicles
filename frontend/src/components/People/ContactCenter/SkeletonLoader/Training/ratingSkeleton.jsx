@@ -13,10 +13,10 @@ const CourseRatingSkeleton = () => (
     </div>
     <Grid container spacing={ 3 }>
       {[ ...Array(4).keys() ].map((val) => (
-        <Grid key={ val } item lg={ 6 } md={ 6 } sm={ 6 } xs={ 12 } classes={ { root: 'text-center' } }>
+        <Grid key={ val } item lg={ 6 } md={ 6 } sm={ 6 } xs={ 12 } classes={ { root: 'is-flex is-center' } }>
           <Skeleton
             animation='wave'
-            classes={ { root: 'display-inline-flex mt-20 sub-rating' } }
+            classes={ { root: 'sub-rating' } }
           />
         </Grid>
       ))}
