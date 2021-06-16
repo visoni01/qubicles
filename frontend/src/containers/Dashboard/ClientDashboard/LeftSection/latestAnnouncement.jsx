@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { Box } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
-import { formatDate } from '../../../utils/common'
-import { announcementDataFetchingStart } from '../../../redux-saga/redux/actions'
+import { formatDate } from '../../../../utils/common'
+import { announcementDataFetchingStart } from '../../../../redux-saga/redux/actions'
 
 const LatestAnnouncement = () => {
   const dispatch = useDispatch()

@@ -5,8 +5,8 @@ import { AvatarGroup } from '@material-ui/lab'
 import { useSelector, useDispatch } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfoCircle, faHeart, faUser } from '@fortawesome/free-solid-svg-icons'
-import { kareem, sally, thomas } from '../../../assets/images/avatar'
-import { communityRepDataFechingStart } from '../../../redux-saga/redux/actions'
+import { kareem, sally, thomas } from '../../../../assets/images/avatar'
+import { communityRepDataFechingStart } from '../../../../redux-saga/redux/actions'
 
 const CommunityRep = () => {
   const dispatch = useDispatch()

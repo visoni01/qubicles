@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Box } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
-import { jobPostingDataFetchingStart } from '../../../redux-saga/redux/actions'
+import { jobPostingDataFetchingStart } from '../../../../redux-saga/redux/actions'
 
 const JobPostings = () => {
   const dispatch = useDispatch()
