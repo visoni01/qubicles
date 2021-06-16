@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import JobsCard from './jobsCard'
-import '../styles.scss'
+import JobsCard from '../../../../containers/Profile/OtherCompany/LeftRightSection/jobsCard'
+import '../../../../containers/Profile/OtherCompany/styles.scss'
 
 const OpenPositionsCard = ({
   categoryTitle,

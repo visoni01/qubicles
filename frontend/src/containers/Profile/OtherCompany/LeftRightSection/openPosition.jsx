@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { Box, Button } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import OpenPositionsCard from './openPositionsCard'
+import OpenPositionsCard from '../../../../components/Profile/OtherCompany/LeftRightSection/openPositionsCard'
 import { PROFILE_ROUTE } from '../../../../routes/routesPath'
 
 const OpenPosition = ({ companyId }) => {
