@@ -15,7 +15,7 @@ import {
   agentProfileSettingsApiStart,
   resetAgentProfileSettingsFlags,
 } from '../../../../../redux-saga/redux/actions'
-import Loader from '../../../../../components/loaders/circularLoader'
+import Loader from '../../../../loaders/circularLoader'
 
 const ChangePassword = ({
   open, setOpen, isUpdateLoading, isUpdateSuccess, updatedDataType, userType,

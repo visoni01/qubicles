@@ -11,7 +11,7 @@ import {
   updateCompanyProfileSettingsApiStart,
   resetUpdateProfileSettingsFlags,
 } from '../../../../../redux-saga/redux/actions'
-import Loader from '../../../../../components/loaders/circularLoader'
+import Loader from '../../../../loaders/circularLoader'
 
 const ChangeWebsite = ({
   open, setOpen, accountSettingInfo, isUpdateLoading, isUpdateSuccess, updatedDataType,

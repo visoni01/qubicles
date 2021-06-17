@@ -12,7 +12,7 @@ import {
   updateCompanyProfileSettingsApiStart,
   resetUpdateProfileSettingsFlags,
 } from '../../../../redux-saga/redux/actions'
-import Loader from '../../../../components/loaders/circularLoader'
+import Loader from '../../../loaders/circularLoader'
 
 const AccountView = ({
   setOpenDrawer, accountSettingInfo, isUpdateLoading, isUpdateSuccess, updatedDataType,

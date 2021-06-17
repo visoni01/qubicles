@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import MyUploadAdapter from '../../../../../utils/uploadImage'
 import '../styles.scss'
-import Loader from '../../../../../components/loaders/circularLoader'
+import Loader from '../../../../loaders/circularLoader'
 import SingleSelect from '../../../../Shared/singleSelect'
 
 const NewJobData = ({

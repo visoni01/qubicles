@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import '../../Company/Settings/styles.scss'
 import { useDispatch } from 'react-redux'
 import { accountSettingInfoPropTypes, accountSettingInfoDefaultProps } from './settingsProps'
-import Loader from '../../../../components/loaders/circularLoader'
+import Loader from '../../../loaders/circularLoader'
 import { agentProfileSettingsApiStart, resetAgentProfileSettingsFlags } from '../../../../redux-saga/redux/actions'
 
 const Accounts = ({

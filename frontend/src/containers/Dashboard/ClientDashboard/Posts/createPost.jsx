@@ -12,7 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import { createStatusPostStart } from '../../../../redux-saga/redux/actions'
-import Loader from '../../../../components/loaders/circularLoader'
+import Loader from '../../../loaders/circularLoader'
 import { terry } from '../../../../assets/images/avatar'
 import { postStatusPermissions } from '../../../People/ContactCenter/constants'
 

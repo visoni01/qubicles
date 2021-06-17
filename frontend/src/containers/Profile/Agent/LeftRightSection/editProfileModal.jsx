@@ -17,7 +17,7 @@ import {
   resetUploadProfileImage,
   agentProfileSettingsApiStart,
 } from '../../../../redux-saga/redux/actions'
-import Loader from '../../../../components/loaders/circularLoader'
+import Loader from '../../../loaders/circularLoader'
 import { defaultUser } from '../../../../assets/images/avatar'
 
 const EditProfileModal = ({

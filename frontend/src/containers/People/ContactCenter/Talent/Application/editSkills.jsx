@@ -15,7 +15,7 @@ import _ from 'lodash'
 import SingleSelect from '../../../../Shared/singleSelect'
 import { agentResumeSkillsStart, fetchJobSkillsStart } from '../../../../../redux-saga/redux/people'
 import { agentProfileSettingsApiStart } from '../../../../../redux-saga/redux/actions'
-import Loader from '../../../../../components/loaders/circularLoader'
+import Loader from '../../../../loaders/circularLoader'
 
 const EditSkills = ({
   open, handleClose, agentResumeSkills, languages: agentResumeLanguages, candidateId, isLoading, isLoadingLanguage,

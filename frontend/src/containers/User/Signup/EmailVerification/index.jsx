@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useParams, Redirect } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import Loader from '../../../../components/loaders/circularLoader'
+import Loader from '../../../loaders/circularLoader'
 import { emailVerificationStart } from '../../../../redux-saga/redux/auth/emailVerification'
 import './style.scss'
 import { showSuccessMessage } from '../../../../redux-saga/redux/actions'

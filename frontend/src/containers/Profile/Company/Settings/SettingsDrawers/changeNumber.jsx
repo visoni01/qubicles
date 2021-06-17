@@ -17,7 +17,7 @@ import {
   resetAgentProfileSettingsFlags,
 } from '../../../../../redux-saga/redux/actions'
 import { phoneNumberFormatter } from '../../../../../utils/common'
-import Loader from '../../../../../components/loaders/circularLoader'
+import Loader from '../../../../loaders/circularLoader'
 
 const ChangeNumber = ({
   open, setOpen, accountSettingInfo, isUpdateLoading, isUpdateSuccess, updatedDataType, userType, phoneType,

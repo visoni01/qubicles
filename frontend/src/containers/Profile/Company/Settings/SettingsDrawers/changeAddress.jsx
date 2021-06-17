@@ -13,7 +13,7 @@ import {
   agentProfileSettingsApiStart,
   resetAgentProfileSettingsFlags,
 } from '../../../../../redux-saga/redux/actions'
-import Loader from '../../../../../components/loaders/circularLoader'
+import Loader from '../../../../loaders/circularLoader'
 
 const ChangeAddress = ({
   open, setOpen, accountSettingInfo, isUpdateLoading, isUpdateSuccess, updatedDataType, userType,

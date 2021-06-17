@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Divider, Button } from '@material-ui/core'
 import RenderPostComments from './renderPostComments'
-import Loader from '../../../../components/loaders/circularLoader'
+import Loader from '../../../loaders/circularLoader'
 import { commentsArrayValidator } from '../postValidators'
 
 const PostCommentsWrap = ({

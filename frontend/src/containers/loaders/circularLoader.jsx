@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import _ from 'lodash'
 import './style.scss'
 import classNames from 'classnames'
-import CircularProgressWithLabel from './circularLoaderWithLabel'
+import CircularProgressWithLabel from '../../components/loaders/circularLoaderWithLabel'
 
 // Note: Generic component for displaying the loader in the center of the screen
 // enableOverlay: Used for display the background color with medium opacity
