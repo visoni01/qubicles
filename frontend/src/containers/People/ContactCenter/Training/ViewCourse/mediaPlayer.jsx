@@ -1,6 +1,8 @@
 /* eslint-disable complexity */
 /* eslint-disable jsx-a11y/media-has-caption */
-import React, { useCallback, useRef, useState } from 'react'
+import React, {
+  useCallback, useEffect, useRef, useState,
+} from 'react'
 import {
   CircularProgress, debounce, Divider, Fade, IconButton, List, ListItem, Popover, Slider,
 } from '@material-ui/core'
@@ -28,6 +30,14 @@ const MediaPlayer = ({ source, small, type }) => {
   const [ bufferedData, setBufferedData ] = useState(0)
   const open = Boolean(settingsAnchor)
   const id = open ? 'simple-popover' : undefined
+
+  useEffect(() => {
+    mediaRef.current.load()
+    setIsPlaying(false)
+    setPlaybackSpeed(1)
+    setShowControls(true)
+    setBufferedData(0)
+  }, [ source ])
 
   const playOrPause = useCallback(() => {
     if (isPlaying) {
@@ -70,6 +80,7 @@ const MediaPlayer = ({ source, small, type }) => {
 
   const handleForward = useCallback(() => {
     mediaRef.current.currentTime += 10
+    setCurrentTime(mediaRef.current.currentTime)
   }, [ mediaRef ])
 
   const handleSettings = useCallback((event) => {
