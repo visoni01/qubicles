@@ -737,8 +737,7 @@ export async function getCourseById ({ course_id, user_id }) {
     ],
     where: {
       course_id,
-      creator_id: user_id,
-      status: 'draft'
+      creator_id: user_id
     }
   })
 
@@ -746,6 +745,14 @@ export async function getCourseById ({ course_id, user_id }) {
     course = course.map(item => item.get({ plain: true }))
     return course[0]
   }
+}
+
+export const findStudentsEnrolledCount = async ({ course_id }) => {
+  return await XQodUserCourse.count({
+    where: {
+      course_id
+    }
+  })
 }
 
 export async function getCategoryTitleById ({ category_id }) {

@@ -1,7 +1,7 @@
 import ServiceBase from '../../../common/serviceBase'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
 import logger from '../../../common/logger'
-import { getErrorMessageForService } from '../../helper'
+import { findStudentsEnrolledCount, getErrorMessageForService } from '../../helper'
 import { getCourseById, formatCourseData, getCategoryTitleById } from '../../helper/people'
 
 const constraints = {
@@ -21,6 +21,11 @@ export class PeopleGetCourseService extends ServiceBase {
   async run () {
     try {
       const { course_id, user_id } = this.filteredArgs
+
+      const studentsEnrolled = await findStudentsEnrolledCount({ course_id })
+      if (studentsEnrolled > 0) {
+        return this.addError(ERRORS.NOT_FOUND, MESSAGES.CANNOT_EDIT_COURSE)
+      }
 
       const course = await getCourseById({ course_id, user_id })
       if (course) {

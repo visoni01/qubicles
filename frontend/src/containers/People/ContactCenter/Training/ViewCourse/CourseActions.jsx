@@ -1,6 +1,7 @@
 /* eslint-disable complexity */
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import {
   Button, Box, Card, CardMedia,
 } from '@material-ui/core'
@@ -18,6 +19,7 @@ import {
 import { startLoader, stopLoader } from '../../../../../redux-saga/redux/utils'
 import CourseActionSkeleton from
   '../../../../../components/People/ContactCenter/SkeletonLoader/Training/courseActionSkeleton'
+import { EDIT_COURSE_ROUTE } from '../../../../../routes/routesPath'
 
 const CourseActions = ({
   course, setOpenCoursePlayer, type, isLoading, dataType, continueCourse, setOpenReviewModal, requestType,
@@ -26,6 +28,7 @@ const CourseActions = ({
   const [ openBuyCoursePopup, setOpenBuyCoursePopup ] = useState(false)
   const { addReviewAccess } = useSelector((state) => state.courseRatings)
   const dispatch = useDispatch()
+  const history = useHistory()
 
   useEffect(() => {
     if (dataType === 'Buy Course' && isLoading) {
@@ -267,7 +270,7 @@ const CourseActions = ({
                     root: 'button-secondary-small',
                     label: 'button-secondary-small-label',
                   } }
-                  onClick={ () => {} }
+                  onClick={ () => history.push(`${ EDIT_COURSE_ROUTE }/${ course.courseId }`) }
                 >
                   Edit Course
                 </Button>
