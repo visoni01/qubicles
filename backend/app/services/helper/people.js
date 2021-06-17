@@ -824,7 +824,7 @@ export const getTotalRaters = async ({ courseIds }) => {
   }
 }
 
-export const formatViewUnitData = ({ units, unitsStatus }) => {
+export const formatViewUnitData = ({ units, unitsStatus, isCreator }) => {
   return units.map((unit) => {
     const isUnitPresent = unitsStatus && unitsStatus.length &&
     unitsStatus.find((item) => item.unit_id === unit.unit_id)
@@ -834,15 +834,16 @@ export const formatViewUnitData = ({ units, unitsStatus }) => {
       unitNum: unit.unit_num,
       title: unit.title,
       length: unit.length,
+      details: isCreator ? unit.details : '',
       type: unit.type,
       status: isUnitPresent ? isUnitPresent.status : ''
     }
   })
 }
 
-export const formatViewSectionData = ({ sections, sectionsCompleted, unitsStatus }) => {
+export const formatViewSectionData = ({ sections, sectionsCompleted, unitsStatus, isCreator }) => {
   return sections.map((section) => {
-    const units = formatViewUnitData({ units: section.units, unitsStatus })
+    const units = formatViewUnitData({ units: section.units, unitsStatus, isCreator })
 
     const isSectionCompleted = sectionsCompleted && sectionsCompleted.length &&
     sectionsCompleted.find((item) => item.section_id === section.section_id)
@@ -864,6 +865,7 @@ export const formatViewSectionData = ({ sections, sectionsCompleted, unitsStatus
 export const formatViewCourseData = ({
   course,
   isEnrolled,
+  isCreator,
   sectionsCompleted,
   unitsStatus,
   studentsEnrolled,
@@ -874,6 +876,7 @@ export const formatViewCourseData = ({
 }) => {
   return {
     isEnrolled,
+    isCreator,
     courseId: course.course_id,
     createdOn: course.createdAt,
     updatedOn: course.updatedAt,
@@ -901,7 +904,7 @@ export const formatViewCourseData = ({
       introductionVideo: course.video_url
     },
     courseContent: {
-      sections: formatViewSectionData({ sections: course.sections, sectionsCompleted, unitsStatus })
+      sections: formatViewSectionData({ sections: course.sections, sectionsCompleted, unitsStatus, isCreator })
     },
     courseDetails
   }
@@ -1011,6 +1014,87 @@ export async function getViewCourseById ({ course_id, user_id }) {
       studentsEnrolled,
       categoryTitle,
       courseDetails,
+      creatorDetails,
+      totalRaters: totalRaters && totalRaters.length && totalRaters[0].totalAverageRaters,
+      isCreator: false
+    })
+
+    return formattedViewCourse
+  }
+}
+
+export const checkIsCourseCreator = async ({ course_id, user_id }) => {
+  const isCreator = await XQodCourse.findOne({
+    raw: true,
+    attributes: ['title'],
+    where: {
+      course_id,
+      creator_id: user_id
+    }
+  })
+
+  return isCreator
+}
+
+export const getCreatorViewCourseById = async ({ course_id, user_id }) => {
+  const promiseArray = [
+    () => User.findOne({
+      attributes: ['full_name'],
+      where: { user_id }
+    }),
+    () => XQodCourse.findAll({
+      include: [
+        {
+          model: XQodCourseSection,
+          as: 'sections',
+          required: false,
+          include: [
+            {
+              model: XQodCourseUnit,
+              as: 'units'
+            }
+          ]
+        }
+      ],
+      where: {
+        course_id,
+        status: 'published'
+      }
+    }),
+    () => XQodUserCourse.count({
+      raw: true,
+      where: {
+        course_id
+      }
+    }),
+    () => XUserActivity.findAll({
+      raw: true,
+      attributes: [
+        [Sequelize.literal('COUNT(DISTINCT(`user_id`))'), 'totalAverageRaters']
+      ],
+      where: {
+        record_id: course_id,
+        record_type: 'course'
+      }
+    })
+  ]
+
+  let [creatorDetails, course, studentsEnrolled, totalRaters] = await Promise.all(promiseArray.map(promise => promise()))
+
+  if (course && course.length) {
+    course = course.map(item => item.get({ plain: true }))[0]
+
+    const categoryTitle = await getCategoryTitleById({ category_id: course.category_id })
+
+    const formattedViewCourse = formatViewCourseData({
+      course,
+      isEnrolled: false,
+      isCreator: true,
+      sectionsCompleted: [],
+      unitsStatus: [],
+      studentsEnrolled,
+      categoryTitle,
+      courseDetails: {},
       creatorDetails,
       totalRaters: totalRaters && totalRaters.length && totalRaters[0].totalAverageRaters
     })
