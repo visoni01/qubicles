@@ -10,7 +10,7 @@ import {
   resetTrainingCourseReducer,
 } from '../../../../../redux-saga/redux/people'
 import { startLoader, stopLoader } from '../../../../../redux-saga/redux/utils'
-import PreviewCreateCourse from './previewCourse'
+import PreviewCreateCourse from '../../../../../components/People/ContactCenter/Training/NewCourse/previewCourse'
 import CreateCourse from './createCourse'
 import './styles.scss'
 import checkAndSetErrors from './checkAndSetErrors'

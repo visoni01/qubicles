@@ -10,7 +10,7 @@ import _ from 'lodash'
 import { FilterIcon } from '../../../../../../assets/images/training'
 import ViewAllRatings from '../../../../../../components/CommonModal/viewAllRatings'
 import courseRatingLabels from './ratingLabels'
-import ReviewsList from './reviewsList'
+import ReviewsList from '../../../../../../components/People/ContactCenter/Training/ViewCourse/Reviews/reviewsList'
 import {
   courseRatingsFetchStart, courseReviewsRequestStart, resetCourseReviewsReducer, updateCourseReviewsFilterOrPage,
 } from '../../../../../../redux-saga/redux/people'

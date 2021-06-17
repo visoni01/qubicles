@@ -8,9 +8,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from 'react-redux'
 import _ from 'lodash'
-import RenderTestQuestion from './renderTestQuestion'
+import RenderTestQuestion from
+  '../../../../../../components/People/ContactCenter/Training/ViewCourse/Test/renderTestQuestion'
 import './styles.scss'
-import TestCompleted from './testCompleted'
+import TestCompleted from '../../../../../../components/People/ContactCenter/Training/ViewCourse/Test/testCompleted'
 import { viewCourseRequestStart } from '../../../../../../redux-saga/redux/people'
 import AssessmentTestSkeleton from
   '../../../../../../components/People/ContactCenter/SkeletonLoader/Training/assessmentTestSkeleton'

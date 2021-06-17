@@ -1,13 +1,13 @@
 /* eslint-disable complexity */
 import React from 'react'
 import { List } from '@material-ui/core'
-import UnitsList from './UnitsList'
+import UnitsList from '../../../../../containers/People/ContactCenter/Training/ViewCourse/UnitsList'
 import {
   sectionsPropType, isEnrolledPropType, introVideoPropType,
   setOpenCoursePlayerPropType, setCurrentSectionPropType, setCurrentUnitPropType,
   isCoursePlayerOpenPropType, sectionPropType, unitPropType, courseStatusPropType, courseIdPropType,
   isIntroVideoActivePropType, isSectionTestActivePropType, typePropType,
-} from './propTypes'
+} from '../../../../../containers/People/ContactCenter/Training/ViewCourse/propTypes'
 
 const CourseContents = ({
   sections, setOpenCoursePlayer, isEnrolled, introVideo, setCurrentSection, setCurrentUnit,

@@ -1,13 +1,13 @@
 import React from 'react'
 import { Grid } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import CourseDescription from '../ViewCourse/CourseDescription'
-import NewCourseActions from './NewCourseActions'
+import CourseDescription from '../../../../../containers/People/ContactCenter/Training/ViewCourse/CourseDescription'
+import NewCourseActions from '../../../../../containers/People/ContactCenter/Training/NewCourse/NewCourseActions'
 import {
   contentSectionPropType, courseContentPropType, coursePropType, informationSectionPropType,
-} from './propTypes'
+} from '../../../../../containers/People/ContactCenter/Training/NewCourse/propTypes'
 import CourseOverview from '../ViewCourse/CourseOverview'
-import CourseActions from '../ViewCourse/CourseActions'
+import CourseActions from '../../../../../containers/People/ContactCenter/Training/ViewCourse/CourseActions'
 
 const PreviewCreateCourse = ({
   informationSection, contentSection, courseContent,

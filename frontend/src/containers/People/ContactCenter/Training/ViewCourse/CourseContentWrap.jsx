@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import CourseContents from './CourseContents'
+import CourseContents from '../../../../../components/People/ContactCenter/Training/ViewCourse/CourseContents'
 import CoursePreview from './CoursePreview'
 import {
   sectionsPropType, courseIdPropType, isEnrolledPropType, introVideoPropType, courseTitlePropType, dataTypePropType,

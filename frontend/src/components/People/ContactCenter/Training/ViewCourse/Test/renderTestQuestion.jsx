@@ -1,12 +1,18 @@
 import { Grid } from '@material-ui/core'
 import React from 'react'
 import PropTypes from 'prop-types'
-import CheckboxTestQuestion from './checkboxTestQuestion'
-import MultipleChoiceTestQuestion from './multipleChoiceTestQuestion'
-import TextTestQuestion from './textTestQuestion'
-import { testQuestionPropType } from './propTypes'
-import DateTimeTestQuestion from './dateTimeTestQuestion'
-import ScaleTestQuestion from './scaleTestQuestion'
+import CheckboxTestQuestion from
+  '../../../../../../containers/People/ContactCenter/Training/ViewCourse/Test/checkboxTestQuestion'
+import MultipleChoiceTestQuestion from
+  '../../../../../../containers/People/ContactCenter/Training/ViewCourse/Test/multipleChoiceTestQuestion'
+import TextTestQuestion from
+  '../../../../../../containers/People/ContactCenter/Training/ViewCourse/Test/textTestQuestion'
+import { testQuestionPropType } from
+  '../../../../../../containers/People/ContactCenter/Training/ViewCourse/Test/propTypes'
+import DateTimeTestQuestion from
+  '../../../../../../containers/People/ContactCenter/Training/ViewCourse/Test/dateTimeTestQuestion'
+import ScaleTestQuestion from
+  '../../../../../../containers/People/ContactCenter/Training/ViewCourse/Test/scaleTestQuestion'
 
 const TestQuestion = ({
   question, answers, setAnswers, additionalAnswerFields,

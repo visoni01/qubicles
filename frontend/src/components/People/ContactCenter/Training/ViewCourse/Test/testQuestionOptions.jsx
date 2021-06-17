@@ -1,8 +1,9 @@
 import React from 'react'
 import { Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import { checkDisabledSaveQuestionButton } from '../helper'
-import { testQuestionPropType } from '../../propTypes'
+import { checkDisabledSaveQuestionButton } from
+  '../../../../../../containers/People/ContactCenter/Training/NewCourse/CourseContent/helper'
+import { testQuestionPropType } from '../../../../../../containers/People/ContactCenter/Training/NewCourse/propTypes'
 
 const TestQuestionOptions = ({
   handleDeleteQuestion, handleSaveQuestion, questionDetails,

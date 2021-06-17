@@ -8,10 +8,10 @@ import {
   sectionsPropType, courseIdPropType, isEnrolledPropType, introVideoPropType, courseTitlePropType, dataTypePropType,
   courseStatusPropType, setOpenCoursePlayerPropType, currentUnitIndexPropType, currentSectionIndexPropType,
   isIntroVideoActivePropType, isSectionTestActivePropType, openCoursePlayerPropType, typePropType, isLoadingPropType,
-} from './propTypes'
-import CourseContentWrap from './CourseContentWrap'
+} from '../../../../../containers/People/ContactCenter/Training/ViewCourse/propTypes'
+import CourseContentWrap from '../../../../../containers/People/ContactCenter/Training/ViewCourse/CourseContentWrap'
 import CourseOverviewSkeleton from
-  '../../../../../components/People/ContactCenter/SkeletonLoader/Training/courseOverviewSkeleton'
+  '../../SkeletonLoader/Training/courseOverviewSkeleton'
 
 const CourseOverview = ({
   sections, courseId, isEnrolled, introVideo, courseTitle, courseStatus, openCoursePlayer, setOpenCoursePlayer,

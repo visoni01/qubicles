@@ -11,7 +11,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 // eslint-disable-next-line import/no-cycle
 import { useDispatch } from 'react-redux'
 import _ from 'lodash'
-import CourseContents from './CourseContents'
+import CourseContents from '../../../../../components/People/ContactCenter/Training/ViewCourse/CourseContents'
 import {
   sectionsPropType, isEnrolledPropType, introVideoPropType, courseIdPropType,
   setOpenCoursePlayerPropType, setCurrentSectionPropType, setCurrentUnitPropType, dataTypePropType,

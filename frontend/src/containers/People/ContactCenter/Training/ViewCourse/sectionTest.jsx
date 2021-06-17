@@ -4,10 +4,11 @@ import { Button, LinearProgress } from '@material-ui/core'
 import _ from 'lodash'
 import './Test/styles.scss'
 import { useDispatch, useSelector } from 'react-redux'
-import RenderTestQuestion from './Test/renderTestQuestion'
+import RenderTestQuestion from
+  '../../../../../components/People/ContactCenter/Training/ViewCourse/Test/renderTestQuestion'
 import { updateCurrentUnitAndSectionIndex, viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
 import { courseIdPropType, sectionIdPropType } from './propTypes'
-import TestCompleted from './Test/testCompleted'
+import TestCompleted from '../../../../../components/People/ContactCenter/Training/ViewCourse/Test/testCompleted'
 import ViewCourseTestSkeleton from
   '../../../../../components/People/ContactCenter/SkeletonLoader/Training/viewCourseTestSkeleton'
 
