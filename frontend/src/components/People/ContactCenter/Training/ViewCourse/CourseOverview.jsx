@@ -8,6 +8,7 @@ import {
   sectionsPropType, courseIdPropType, isEnrolledPropType, introVideoPropType, courseTitlePropType, dataTypePropType,
   courseStatusPropType, setOpenCoursePlayerPropType, currentUnitIndexPropType, currentSectionIndexPropType,
   isIntroVideoActivePropType, isSectionTestActivePropType, openCoursePlayerPropType, typePropType, isLoadingPropType,
+  isCreatorPropType,
 } from '../../../../../containers/People/ContactCenter/Training/ViewCourse/propTypes'
 import CourseContentWrap from '../../../../../containers/People/ContactCenter/Training/ViewCourse/CourseContentWrap'
 import CourseOverviewSkeleton from
@@ -15,7 +16,7 @@ import CourseOverviewSkeleton from
 
 const CourseOverview = ({
   sections, courseId, isEnrolled, introVideo, courseTitle, courseStatus, openCoursePlayer, setOpenCoursePlayer,
-  currentUnitIndex, currentSectionIndex, isIntroVideoActive, isSectionTestActive, type, isLoading, dataType,
+  currentUnitIndex, currentSectionIndex, isIntroVideoActive, isSectionTestActive, type, isLoading, dataType, isCreator,
 }) => {
   if (_.isEqual(type, 'view')
   && ((_.isNull(isLoading) || isLoading) && (_.isEmpty(dataType) || _.isEqual(dataType, 'Course Info')))) {
@@ -55,6 +56,7 @@ const CourseOverview = ({
           isLoading={ isLoading }
           dataType={ dataType }
           type={ type }
+          isCreator={ isCreator }
         />
         )}
       </Box>
@@ -73,6 +75,7 @@ CourseOverview.defaultProps = {
   dataType: '',
   courseId: null,
   isLoading: null,
+  isCreator: false,
 }
 
 CourseOverview.propTypes = {
@@ -91,6 +94,7 @@ CourseOverview.propTypes = {
   type: typePropType,
   isLoading: isLoadingPropType,
   dataType: dataTypePropType,
+  isCreator: isCreatorPropType,
 }
 
 export default CourseOverview

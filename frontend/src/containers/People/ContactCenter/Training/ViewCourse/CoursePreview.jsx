@@ -16,7 +16,7 @@ import {
   sectionsPropType, isEnrolledPropType, introVideoPropType, courseIdPropType,
   setOpenCoursePlayerPropType, setCurrentSectionPropType, setCurrentUnitPropType, dataTypePropType,
   courseTitlePropType, unitPropType, sectionPropType, currentUnitIndexPropType, currentSectionIndexPropType,
-  isIntroVideoActivePropType, isSectionTestActivePropType, courseStatusPropType, isLoadingPropType,
+  isIntroVideoActivePropType, isSectionTestActivePropType, courseStatusPropType, isLoadingPropType, isCreatorPropType,
 } from './propTypes'
 import { updateCurrentUnitAndSectionIndex, viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
 import SectionTest from './sectionTest'
@@ -27,12 +27,12 @@ import MediaPlayer from './mediaPlayer'
 const CoursePreview = ({
   open, onClose, sections, courseTitle, currentSection, currentUnit, courseId, setOpenCoursePlayer,
   isEnrolled, introVideo, setCurrentSection, setCurrentUnit, currentUnitIndex, currentSectionIndex,
-  isIntroVideoActive, isSectionTestActive, courseStatus, isLoading, dataType,
+  isIntroVideoActive, isSectionTestActive, courseStatus, isLoading, dataType, isCreator,
 }) => {
   const dispatch = useDispatch()
 
   const handlePreviousUnit = useCallback(() => {
-    if (currentUnit.status !== 'completed' && currentUnit.unitId > 0) {
+    if (currentUnit.status !== 'completed' && currentUnit.unitId > 0 && !isCreator) {
       dispatch(viewCourseRequestStart({
         requestType: 'UPDATE',
         dataType: 'Course Unit',
@@ -51,8 +51,9 @@ const CoursePreview = ({
       isIntroVideoActive: false,
     }))
 
-    if (sections[ currentSectionIndex ].units[ currentUnitIndex - 1 ].status !== 'completed'
-      || _.isEmpty(sections[ currentSectionIndex ].units[ currentUnitIndex - 1 ].details)) {
+    if ((sections[ currentSectionIndex ].units[ currentUnitIndex - 1 ].status !== 'completed'
+      || _.isEmpty(sections[ currentSectionIndex ].units[ currentUnitIndex - 1 ].details))
+      && !isCreator) {
       dispatch(viewCourseRequestStart({
         requestType: 'UPDATE',
         dataType: 'Course Unit',
@@ -65,7 +66,7 @@ const CoursePreview = ({
       }))
     }
   }, [ dispatch, courseId, currentUnit.unitId, currentSection.id, currentUnit.status,
-    currentUnitIndex, currentSectionIndex, sections ])
+    currentUnitIndex, currentSectionIndex, sections, isCreator ])
 
   const handleNextUnit = useCallback(() => {
     let nextUnitIndex = currentUnitIndex < sections[ currentSectionIndex ].units.length - 1 && currentUnitIndex !== -2
@@ -76,7 +77,7 @@ const CoursePreview = ({
       nextUnitIndex = 0
       nextSectionIndex = currentSectionIndex < sections.length - 1 ? currentSectionIndex + 1 : 0
     }
-    if (currentUnit.status !== 'completed' && currentUnit.unitId > 0) {
+    if (currentUnit.status !== 'completed' && currentUnit.unitId > 0 && !isCreator) {
       dispatch(viewCourseRequestStart({
         requestType: 'UPDATE',
         dataType: 'Course Unit',
@@ -94,7 +95,8 @@ const CoursePreview = ({
 
     if ((nextUnitIndex !== currentUnitIndex || nextSectionIndex !== currentSectionIndex) && nextUnitIndex >= 0
         && (sections[ nextSectionIndex ].units[ nextUnitIndex ].status !== 'completed'
-        || _.isEmpty(sections[ nextSectionIndex ].units[ nextUnitIndex ].details))) {
+          || _.isEmpty(sections[ nextSectionIndex ].units[ nextUnitIndex ].details))
+        && !isCreator) {
       dispatch(viewCourseRequestStart({
         requestType: 'UPDATE',
         dataType: 'Course Unit',
@@ -105,7 +107,7 @@ const CoursePreview = ({
       }))
     }
   }, [ dispatch, courseId, currentUnit.unitId, currentSection.id, currentUnit.status,
-    currentUnitIndex, currentSectionIndex, sections ])
+    currentUnitIndex, currentSectionIndex, sections, isCreator ])
 
   return (
     <Dialog
@@ -135,6 +137,7 @@ const CoursePreview = ({
             isIntroVideoActive={ isIntroVideoActive }
             isSectionTestActive={ isSectionTestActive }
             courseStatus={ courseStatus }
+            isCreator={ isCreator }
           />
         </div>
         <div className='dialog-right-side'>
@@ -188,7 +191,8 @@ const CoursePreview = ({
             )}
           </DialogContent>
 
-          {open && !isLoading && isEnrolled && [ 'inprogress', 'completed' ].includes(courseStatus)
+          {open && !isLoading
+          && ((isEnrolled && [ 'inprogress', 'completed' ].includes(courseStatus)) || isCreator)
           && currentUnit.unitId !== -2 && (
             <DialogActions className='modal-actions course-content-buttons'>
               {currentUnitIndex > 0 && (
@@ -236,6 +240,7 @@ CoursePreview.defaultProps = {
   currentSectionIndex: null,
   isIntroVideoActive: null,
   isSectionTestActive: null,
+  isCreator: false,
 }
 
 CoursePreview.propTypes = {
@@ -258,6 +263,7 @@ CoursePreview.propTypes = {
   courseStatus: courseStatusPropType.isRequired,
   dataType: dataTypePropType.isRequired,
   isLoading: isLoadingPropType.isRequired,
+  isCreator: isCreatorPropType,
 }
 
 export default CoursePreview

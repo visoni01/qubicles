@@ -11,6 +11,7 @@ const initialState = {
     isIntroVideoActive: null,
     isSectionTestActive: null,
     isEnrolled: false,
+    isCreator: false,
     courseId: null,
     createdOn: '',
     updatedOn: '',

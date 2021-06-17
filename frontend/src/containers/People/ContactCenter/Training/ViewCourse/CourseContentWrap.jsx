@@ -5,12 +5,13 @@ import {
   sectionsPropType, courseIdPropType, isEnrolledPropType, introVideoPropType, courseTitlePropType, dataTypePropType,
   courseStatusPropType, setOpenCoursePlayerPropType, currentUnitIndexPropType, currentSectionIndexPropType,
   isIntroVideoActivePropType, isSectionTestActivePropType, openCoursePlayerPropType, typePropType, isLoadingPropType,
+  isCreatorPropType,
 } from './propTypes'
 
-export default function CourseContentWrap({
+const CourseContentWrap = ({
   sections, courseId, isEnrolled, introVideo, courseTitle, courseStatus, openCoursePlayer, setOpenCoursePlayer,
-  currentUnitIndex, currentSectionIndex, isIntroVideoActive, isSectionTestActive, type, isLoading, dataType,
-}) {
+  currentUnitIndex, currentSectionIndex, isIntroVideoActive, isSectionTestActive, type, isLoading, dataType, isCreator,
+}) => {
   const [ currentSection, setCurrentSection ] = useState({})
   const [ currentUnit, setCurrentUnit ] = useState({})
 
@@ -49,6 +50,7 @@ export default function CourseContentWrap({
         isIntroVideoActive={ isIntroVideoActive }
         isSectionTestActive={ isSectionTestActive }
         type={ type }
+        isCreator={ isCreator }
       />
       <CoursePreview
         open={ openCoursePlayer }
@@ -71,6 +73,7 @@ export default function CourseContentWrap({
         courseStatus={ courseStatus }
         dataType={ dataType }
         isLoading={ isLoading }
+        isCreator={ isCreator }
       />
     </>
   )
@@ -84,6 +87,7 @@ CourseContentWrap.defaultProps = {
   isSectionTestActive: null,
   openCoursePlayer: false,
   type: 'view',
+  isCreator: false,
 }
 
 CourseContentWrap.propTypes = {
@@ -102,4 +106,7 @@ CourseContentWrap.propTypes = {
   isLoading: isLoadingPropType.isRequired,
   type: typePropType,
   dataType: dataTypePropType.isRequired,
+  isCreator: isCreatorPropType,
 }
+
+export default CourseContentWrap

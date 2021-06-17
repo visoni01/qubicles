@@ -88,3 +88,4 @@ export const creatorIdPropType = PropTypes.number
 export const typePropType = PropTypes.string
 export const isLoadingPropType = PropTypes.bool
 export const dataTypePropType = PropTypes.string
+export const isCreatorPropType = PropTypes.bool

@@ -78,6 +78,7 @@ const ViewCourse = () => {
             isSectionTestActive={ course.isSectionTestActive }
             dataType={ dataType }
             isLoading={ isLoading }
+            isCreator={ course.isCreator }
           />
         </Grid>
         <Grid item>

@@ -58,16 +58,18 @@ const SectionTest = ({ courseId, sectionId }) => {
       isIntroVideoActive: false,
       isSectionTestActive: false,
     }))
-    dispatch(viewCourseRequestStart({
-      requestType: 'UPDATE',
-      dataType: 'Course Unit',
-      courseId,
-      sectionId: course.courseContent.sections[ currentSectionIndex ].id,
-      unitId: course.courseContent.sections[ currentSectionIndex ].units[ 0 ].unitId,
-      status: course.courseContent.sections[ currentSectionIndex ].units[ 0 ].status === 'completed'
-        ? 'completed' : 'inprogress',
-    }))
-  }, [ dispatch, course.courseContent.sections, sectionIndex, courseId ])
+    if (!course.isCreator) {
+      dispatch(viewCourseRequestStart({
+        requestType: 'UPDATE',
+        dataType: 'Course Unit',
+        courseId,
+        sectionId: course.courseContent.sections[ currentSectionIndex ].id,
+        unitId: course.courseContent.sections[ currentSectionIndex ].units[ 0 ].unitId,
+        status: course.courseContent.sections[ currentSectionIndex ].units[ 0 ].status === 'completed'
+          ? 'completed' : 'inprogress',
+      }))
+    }
+  }, [ dispatch, course.courseContent.sections, sectionIndex, courseId, course.isCreator ])
 
   useEffect(() => {
     if (requestType === 'UPDATE' && dataType === 'Section Test' && !isLoading) {
@@ -129,10 +131,10 @@ const SectionTest = ({ courseId, sectionId }) => {
             root: 'button-primary-small',
             label: 'button-primary-small-label',
           } }
-          onClick={ !isTestCompleted ? handleSubmit : handleGoToNextSection }
-          disabled={ !answers.length }
+          onClick={ !isTestCompleted && !course.isCreator ? handleSubmit : handleGoToNextSection }
+          disabled={ !answers.length && !course.isCreator }
         >
-          {!isTestCompleted ? 'Submit' : 'Go To Next Section'}
+          {!isTestCompleted && !course.isCreator ? 'Submit' : 'Go To Next Section'}
         </Button>
       </div>
     </div>
