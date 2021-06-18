@@ -4,6 +4,8 @@ import {
   allCoursesRequestSuccess,
   allCoursesRequestFailed,
   showErrorMessage,
+  showSuccessMessage,
+  updateAllCoursesReducer,
 } from '../../../redux/actions'
 import People from '../../../service/people'
 
@@ -19,6 +21,24 @@ function* allCoursesWorker(action) {
       case 'FETCH': {
         const { data } = yield People.fetchAllCourses()
         yield put(allCoursesRequestSuccess({ courses: data }))
+        break
+      }
+
+      case 'UPDATE': {
+        const { data } = yield People.fetchCourse({ courseId: action.payload.courseId })
+        const { data: courseData } = yield People.copyCourse({
+          course: {
+            ...data,
+            status: 'draft',
+            image_url: data.contentSection.thumbnailImage,
+            video_url: data.contentSection.introductionVideo,
+          },
+        })
+        yield put(updateAllCoursesReducer({
+          courseId: courseData.courseData.courseId,
+          newCourseId: action.payload.courseId,
+        }))
+        yield put(showSuccessMessage({ msg: 'Course copied successfully!' }))
         break
       }
       default: break

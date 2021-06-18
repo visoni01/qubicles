@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useCallback } from 'react'
+import { useDispatch } from 'react-redux'
 import {
   Box, Card, CardMedia, CardContent, Grid, Button,
 } from '@material-ui/core'
@@ -9,6 +10,7 @@ import { faCircle, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import '../style.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { VIEW_COURSE_ROUTE } from '../../../../../routes/routesPath'
+import { allCoursesRequestStart } from '../../../../../redux-saga/redux/people'
 
 const PublishedCourseCard = ({
   enrolledThisMonth, totalEarned, testEntries,
@@ -16,6 +18,15 @@ const PublishedCourseCard = ({
   creatorName, ratingsCount,
 }) => {
   const history = useHistory()
+  const dispatch = useDispatch()
+
+  const handleCopyCourse = useCallback(() => {
+    dispatch(allCoursesRequestStart({
+      requestType: 'UPDATE',
+      courseId,
+    }))
+  }, [ dispatch, courseId ])
+
   return (
     <Grid xl={ 3 } lg={ 3 } md={ 6 } sm={ 12 } item>
       <Card
@@ -105,6 +116,13 @@ const PublishedCourseCard = ({
               View Course
             </Button>
           </div>
+          <Button
+            className='is-fullwidth mt-10'
+            classes={ { root: 'button-secondary-small', label: 'button-secondary-small-label' } }
+            onClick={ handleCopyCourse }
+          >
+            Copy Course
+          </Button>
         </CardContent>
       </Card>
     </Grid>

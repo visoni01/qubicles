@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import apiClient from '../../utils/apiClient'
+import apiClient, { axiosInst } from '../../utils/apiClient'
 
 class People {
   /* Client (contact center) section's API */
@@ -263,6 +263,20 @@ class People {
 
   static async buyCourse({ courseId }) {
     const response = await apiClient.getRequest(`/people/course/${ courseId }/buy`)
+    return response
+  }
+
+  static async copyCourse({ course }) {
+    const formData = new FormData()
+    const courseJson = JSON.stringify(course)
+    formData.set('course', courseJson)
+
+    const response = await axiosInst({
+      method: 'post',
+      url: '/people/course',
+      data: formData,
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
     return response
   }
 

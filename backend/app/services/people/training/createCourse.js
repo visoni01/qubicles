@@ -74,10 +74,18 @@ export class PeopleAddNewCourseService extends ServiceBase {
         }
       }
 
-      course = {
-        ...course,
-        image_url: imageUrl,
-        video_url: videoUrl
+      if (imageUrl) {
+        course = {
+          ...course,
+          image_url: imageUrl
+        }
+      }
+
+      if (videoUrl) {
+        course = {
+          ...course,
+          video_url: videoUrl
+        }
       }
 
       // TODO: Blockchain part
