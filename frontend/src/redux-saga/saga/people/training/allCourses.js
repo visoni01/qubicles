@@ -25,7 +25,7 @@ function* allCoursesWorker(action) {
       }
 
       case 'UPDATE': {
-        const { data } = yield People.fetchCourse({ courseId: action.payload.courseId })
+        const { data } = yield People.fetchCourse({ courseId: action.payload.courseId, requestType: 'CopyCourse' })
         const { data: courseData } = yield People.copyCourse({
           course: {
             ...data,

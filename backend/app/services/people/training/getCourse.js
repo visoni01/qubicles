@@ -10,6 +10,9 @@ const constraints = {
   },
   course_id: {
     presence: { allowEmpty: false }
+  },
+  request_type: {
+    presence: { allowEmpty: false }
   }
 }
 
@@ -20,11 +23,13 @@ export class PeopleGetCourseService extends ServiceBase {
 
   async run () {
     try {
-      const { course_id, user_id } = this.filteredArgs
+      const { course_id, user_id, request_type } = this.filteredArgs
 
-      const studentsEnrolled = await findStudentsEnrolledCount({ course_id })
-      if (studentsEnrolled > 0) {
-        return this.addError(ERRORS.NOT_FOUND, MESSAGES.CANNOT_EDIT_COURSE)
+      if (request_type === 'GetCourse') {
+        const studentsEnrolled = await findStudentsEnrolledCount({ course_id })
+        if (studentsEnrolled > 0) {
+          return this.addError(ERRORS.NOT_FOUND, MESSAGES.CANNOT_EDIT_COURSE)
+        }
       }
 
       const course = await getCourseById({ course_id, user_id })

@@ -200,8 +200,8 @@ class People {
     return response
   }
 
-  static async fetchCourse({ courseId }) {
-    const response = await apiClient.getRequest(`/people/course/${ courseId }`)
+  static async fetchCourse({ courseId, requestType }) {
+    const response = await apiClient.getRequest(`/people/course/${ courseId }`, null, { request_type: requestType })
     return response
   }
 

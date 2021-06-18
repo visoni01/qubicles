@@ -748,11 +748,13 @@ export async function getCourseById ({ course_id, user_id }) {
 }
 
 export const findStudentsEnrolledCount = async ({ course_id }) => {
-  return await XQodUserCourse.count({
+  const studentsEnrolled = await XQodUserCourse.count({
     where: {
       course_id
     }
   })
+
+  return studentsEnrolled
 }
 
 export async function getCategoryTitleById ({ category_id }) {

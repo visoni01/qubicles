@@ -113,7 +113,7 @@ function* trainingCourseWorker(action) {
         break
       }
       case 'FETCH': {
-        const { data } = yield People.fetchCourse({ courseId: course.courseId })
+        const { data } = yield People.fetchCourse({ courseId: course.courseId, requestType: 'GetCourse' })
         yield put(trainingCourseRequestSuccess({ course: data }))
         break
       }
