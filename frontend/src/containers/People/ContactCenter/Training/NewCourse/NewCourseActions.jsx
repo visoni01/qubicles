@@ -3,6 +3,7 @@ import { Box, Button, Divider } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import _ from 'lodash'
 import { resetTrainingCourseReducer, trainingCourseRequestStart } from '../../../../../redux-saga/redux/people'
 import ROUTES_PATH, { EDIT_COURSE_ROUTE } from '../../../../../routes/routesPath'
 import { courseContentFilterBeforeSave } from './CourseContent/helper'
@@ -18,6 +19,8 @@ const NewCourseActions = ({
   courseId,
   courseStatus,
   handleErrors,
+  requestType,
+  success,
 }) => {
   const dispatch = useDispatch()
   const history = useHistory()
@@ -96,11 +99,11 @@ const NewCourseActions = ({
     if (courseId && courseStatus === 'draft') {
       history.push(`${ EDIT_COURSE_ROUTE }/${ courseId }`)
     }
-    if (courseId && courseStatus === 'published') {
+    if (success && requestType !== 'FETCH' && courseId && courseStatus === 'published') {
       history.push(`${ ROUTES_PATH.MY_COURSES }`)
       dispatch(resetTrainingCourseReducer())
     }
-  }, [ courseId, history, courseStatus, dispatch ])
+  }, [ courseId, history, courseStatus, dispatch, requestType, success ])
 
   return (
     <>
@@ -127,17 +130,21 @@ const NewCourseActions = ({
         >
           {isPreview ? 'End Preview' : 'Preview'}
         </Button>
-        <Divider className='divider-padded' />
-        <Button
-          className='wide-button'
-          classes={ {
-            root: 'button-secondary-small',
-            label: 'button-secondary-small-label',
-          } }
-          onClick={ saveDraft }
-        >
-          Save Draft
-        </Button>
+        {!_.isEqual(courseStatus, 'published') && (
+          <>
+            <Divider className='divider-padded' />
+            <Button
+              className='wide-button'
+              classes={ {
+                root: 'button-secondary-small',
+                label: 'button-secondary-small-label',
+              } }
+              onClick={ saveDraft }
+            >
+              Save Draft
+            </Button>
+          </>
+        )}
       </Box>
       <ConfirmationModal
         open={ publishConfirmationOpen }
@@ -153,6 +160,8 @@ const NewCourseActions = ({
 NewCourseActions.defaultProps = {
   courseId: null,
   courseStatus: '',
+  requestType: '',
+  success: false,
 }
 
 NewCourseActions.propTypes = {
@@ -164,6 +173,8 @@ NewCourseActions.propTypes = {
   courseId: PropTypes.number,
   courseStatus: PropTypes.string,
   handleErrors: PropTypes.func.isRequired,
+  requestType: PropTypes.string,
+  success: PropTypes.bool,
 }
 
 export default NewCourseActions

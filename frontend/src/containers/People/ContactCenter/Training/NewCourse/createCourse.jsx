@@ -12,7 +12,7 @@ const CreateCourse = ({
   contentSection, setContentSection,
   courseContent, setCourseContent,
   updateCourseReducer, isPreview, setIsPreview,
-  course, isEdit, handleErrors, errors,
+  course, isEdit, handleErrors, errors, requestType, success,
 }) => (
   <Grid container spacing={ 2 }>
     <Grid
@@ -60,6 +60,8 @@ const CreateCourse = ({
           courseId={ course.courseId }
           courseStatus={ course.status }
           handleErrors={ handleErrors }
+          requestType={ requestType }
+          success={ success }
         />
       </Grid>
     </Grid>
@@ -68,6 +70,8 @@ const CreateCourse = ({
 
 CreateCourse.defaultProps = {
   isEdit: false,
+  requestType: '',
+  success: false,
 }
 
 CreateCourse.propTypes = {
@@ -84,6 +88,8 @@ CreateCourse.propTypes = {
   isEdit: PropTypes.bool,
   errors: errorsPropTypes.isRequired,
   handleErrors: PropTypes.func.isRequired,
+  requestType: PropTypes.string,
+  success: PropTypes.bool,
 }
 
 export default CreateCourse

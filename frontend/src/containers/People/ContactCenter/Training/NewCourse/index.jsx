@@ -12,7 +12,9 @@ import AlertPopover from '../../../../../components/CommonModal/alertPopover'
 import checkAndSetErrors from './checkAndSetErrors'
 
 const NewCoursePage = () => {
-  const { course, isLoading, requestType } = useSelector((state) => state.trainingCourse)
+  const {
+    course, isLoading, requestType, success,
+  } = useSelector((state) => state.trainingCourse)
   const [ informationSection, setInformationSection ] = useState(course.informationSection)
   const [ contentSection, setContentSection ] = useState(course.contentSection)
   const [ courseContent, setCourseContent ] = useState(course.courseContent)
@@ -77,6 +79,8 @@ const NewCoursePage = () => {
           updateCourseReducer={ updateCourseReducer }
           handleErrors={ handleErrors }
           isLoading={ isLoading }
+          requestType={ requestType }
+          success={ success }
         />
       </>
     )
@@ -103,6 +107,8 @@ const NewCoursePage = () => {
         updateCourseReducer={ updateCourseReducer }
         handleErrors={ handleErrors }
         errors={ errors }
+        requestType={ requestType }
+        success={ success }
       />
     </>
   )

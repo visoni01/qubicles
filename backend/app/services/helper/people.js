@@ -1259,6 +1259,7 @@ export const formatCourseData = ({ course, categoryTitle }) => {
     courseId: course.course_id,
     createdOn: course.createdAt,
     updatedOn: course.updatedAt,
+    status: course.status,
     informationSection: {
       creatorId: course.creator_id,
       title: course.title,

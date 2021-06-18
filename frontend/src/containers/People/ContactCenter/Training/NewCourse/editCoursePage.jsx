@@ -18,7 +18,7 @@ import AlertPopover from '../../../../../components/CommonModal/alertPopover'
 
 const EditCoursePage = () => {
   const {
-    course, isLoading, requestType,
+    course, isLoading, requestType, success,
   } = useSelector((state) => state.trainingCourse)
   const [ informationSection, setInformationSection ] = useState(course.informationSection)
   const [ contentSection, setContentSection ] = useState(course.contentSection)
@@ -96,6 +96,8 @@ const EditCoursePage = () => {
           updateCourseReducer={ updateCourseReducer }
           handleErrors={ handleErrors }
           isLoading={ isLoading }
+          requestType={ requestType }
+          success={ success }
         />
       </>
     )
@@ -123,6 +125,8 @@ const EditCoursePage = () => {
         isEdit
         handleErrors={ handleErrors }
         errors={ errors }
+        requestType={ requestType }
+        success={ success }
       />
     </>
   )
