@@ -14,7 +14,6 @@
   .overview-list {
     width: 100%;
     border-radius: 6px;
-    margin-top: 20px;
     box-shadow: none;
     padding: 0;
 
@@ -65,6 +64,11 @@
   .dialog-left-side {
     width: 25%;
     margin: 20px;
+
+    .course-contents {
+      overflow: auto;
+      height: 65vh;
+    }
   }
 
   .dialog-right-side {
@@ -83,11 +87,29 @@
         border-radius: 6px;
       }
     }
+
+    .course-content-area {
+      overflow: auto;
+      height: 55vh;
+
+      .text-align-justify {
+        text-align: justify;
+      }
+    }
+
+    .course-content-video {
+      max-width: 93%;
+      margin: 0 auto;
+    }
   }
 
-  .course-content-area {
-    height: calc(100vh - 300px);
-    overflow-y: auto;
+  .course-contents::-webkit-scrollbar {
+    width: 8px !important;
+  }
+
+  .course-contents::-webkit-scrollbar-thumb {
+    background-color: rgba(72, 119, 244, 0.7);
+    border-radius: 20px 20px 20px 20px ;
   }
 
   .course-content-area::-webkit-scrollbar {
@@ -100,12 +122,8 @@
   }
 
   .course-content-buttons {
-    position: absolute;
-    bottom: 10px;
-    right: 0px;
-    width: 72%;
-    text-align: right;
-    display: block;
+    display: flex;
+    flex-direction: row-reverse;
   }
 
   .previous-button {
@@ -120,6 +138,21 @@
 
 .buy-course-modal-height {
   height: auto !important;
+}
+
+.units-list-root {
+  .section-title {
+    white-space: nowrap;
+    padding-left: 10px;
+  }
+}
+
+.unit-text {
+  margin-right: 75px;
+}
+
+.unit-action-root {
+  right: 10px;
 }
 
 // Media Player

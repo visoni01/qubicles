@@ -111,7 +111,6 @@ const CoursePreview = ({
 
   return (
     <Dialog
-      disableScrollLock
       open={ open }
       onClose={ onClose }
       classes={ { paper: 'course-preview-modal' } }
@@ -121,24 +120,26 @@ const CoursePreview = ({
     >
       <div className='display-inline-flex'>
         <div className='dialog-left-side ml-20 mr-10'>
-          <h3 className='h3'> Overview </h3>
-          <CourseContents
-            isPreview={ false }
-            setOpenCoursePlayer={ setOpenCoursePlayer }
-            sections={ sections }
-            courseId={ courseId }
-            isEnrolled={ isEnrolled }
-            introVideo={ introVideo }
-            setCurrentSection={ setCurrentSection }
-            setCurrentUnit={ setCurrentUnit }
-            currentSection={ currentSection }
-            currentUnit={ currentUnit }
-            isCoursePlayerOpen
-            isIntroVideoActive={ isIntroVideoActive }
-            isSectionTestActive={ isSectionTestActive }
-            courseStatus={ courseStatus }
-            isCreator={ isCreator }
-          />
+          <h3 className='h3 mb-20'> Overview </h3>
+          <div className='course-contents'>
+            <CourseContents
+              isPreview={ false }
+              setOpenCoursePlayer={ setOpenCoursePlayer }
+              sections={ sections }
+              courseId={ courseId }
+              isEnrolled={ isEnrolled }
+              introVideo={ introVideo }
+              setCurrentSection={ setCurrentSection }
+              setCurrentUnit={ setCurrentUnit }
+              currentSection={ currentSection }
+              currentUnit={ currentUnit }
+              isCoursePlayerOpen
+              isIntroVideoActive={ isIntroVideoActive }
+              isSectionTestActive={ isSectionTestActive }
+              courseStatus={ courseStatus }
+              isCreator={ isCreator }
+            />
+          </div>
         </div>
         <div className='dialog-right-side'>
           {open && !isLoading && (
@@ -155,7 +156,7 @@ const CoursePreview = ({
             </DialogActions>
           </div>
           )}
-          <DialogContent className='course-content-area'>
+          <DialogContent>
             {open && !isLoading && (
             <h3 className='h3 mb-10 light'>
               {`${ currentSection.title }: `}
@@ -164,49 +165,41 @@ const CoursePreview = ({
               </span>
             </h3>
             )}
-            {open && !isLoading && (currentUnit.type === 'Video' || isIntroVideoActive) && (
-            <MediaPlayer source={ isIntroVideoActive ? introVideo : currentUnit.details } type='video' />
-            )}
-            {open && !isLoading && currentUnit.type === 'Article' && (
-            <div
-              className='para sz-xl'
+            <div className='course-content-area pr-10'>
+              {open && !isLoading && (currentUnit.type === 'Video' || isIntroVideoActive) && (
+                <div className='course-content-video'>
+                  <MediaPlayer source={ isIntroVideoActive ? introVideo : currentUnit.details } type='video' />
+                </div>
+              )}
+              {open && !isLoading && currentUnit.type === 'Article' && (
+              <div
+                className='para sz-xl text-align-justify'
               // eslint-disable-next-line react/no-danger
-              dangerouslySetInnerHTML={ { __html: currentUnit.details } }
-            />
-            )}
-            {open && !isLoading && currentUnit.type === 'Audio' && (
-            <MediaPlayer
-              source={ currentUnit.details }
-              type='audio'
-            />
-            )}
-            {currentUnit.type === 'Test' && (
-            <SectionTest
-              courseId={ courseId }
-              sectionId={ currentSection.id }
-            />
-            )}
-            {open && isLoading && _.isEqual(dataType, 'Course Unit') && (
+                dangerouslySetInnerHTML={ { __html: currentUnit.details } }
+              />
+              )}
+              {open && !isLoading && currentUnit.type === 'Audio' && (
+              <MediaPlayer
+                source={ currentUnit.details }
+                type='audio'
+              />
+              )}
+              {currentUnit.type === 'Test' && (
+              <SectionTest
+                courseId={ courseId }
+                sectionId={ currentSection.id }
+              />
+              )}
+              {open && isLoading && _.isEqual(dataType, 'Course Unit') && (
               <ViewCourseUnitSkeleton />
-            )}
+              )}
+            </div>
           </DialogContent>
 
           {open && !isLoading
           && ((isEnrolled && [ 'inprogress', 'completed' ].includes(courseStatus)) || isCreator)
           && currentUnit.unitId !== -2 && (
             <DialogActions className='modal-actions course-content-buttons'>
-              {currentUnitIndex > 0 && (
-              <Button
-                classes={ {
-                  root: 'button-secondary-small',
-                  label: 'button-secondary-small-label',
-                } }
-                className='previous-button'
-                onClick={ handlePreviousUnit }
-              >
-                Previous
-              </Button>
-              )}
               {!_.isNull(currentSectionIndex) && !_.isUndefined(sections[ currentSectionIndex ].units)
               && !(
                 _.isEqual(currentSectionIndex, sections.length - 1)
@@ -224,6 +217,18 @@ const CoursePreview = ({
                 >
                   Next
                 </Button>
+              )}
+              {currentUnitIndex > 0 && (
+              <Button
+                classes={ {
+                  root: 'button-secondary-small',
+                  label: 'button-secondary-small-label',
+                } }
+                className='previous-button'
+                onClick={ handlePreviousUnit }
+              >
+                Previous
+              </Button>
               )}
             </DialogActions>
           )}

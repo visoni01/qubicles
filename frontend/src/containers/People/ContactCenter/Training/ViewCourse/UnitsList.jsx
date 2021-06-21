@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   List, Button,
   ListItem, ListItemIcon,
-  ListItemText, Collapse, Divider,
+  ListItemText, Collapse, Divider, ListItemSecondaryAction,
 } from '@material-ui/core'
 import {
   sectionPropType, isEnrolledPropType, introVideoPropType,
@@ -89,7 +89,7 @@ const UnitsList = ({
 
   return (
     <>
-      <ListItem button onClick={ handleListOpen }>
+      <ListItem button onClick={ handleListOpen } className='units-list-root'>
         <ListItemIcon>
           {open
             ? <FontAwesomeIcon className='custom-fa-icon' icon={ faChevronUp } />
@@ -98,7 +98,7 @@ const UnitsList = ({
         <ListItemText>
           <h4 className='h4'>{section.title}</h4>
         </ListItemText>
-        <p className='para'>
+        <p className='para section-title'>
           {`${ section.units && showIntroVideo ? section.units.length + 1 : section.units.length } units`}
         </p>
       </ListItem>
@@ -112,28 +112,30 @@ const UnitsList = ({
             <ListItemIcon>
               <VideoIcon />
             </ListItemIcon>
-            <ListItemText>
+            <ListItemText className='unit-text'>
               <p className={ `para ${ isCoursePlayerOpen && isIntroVideoActive ? '' : 'light' }` }> Intro </p>
             </ListItemText>
-            <Button
-              classes={ {
-                root: 'button-primary-text',
-                label: 'button-primary-text-label',
-              } }
-              onClick={ () => handleUnitOpen({
-                nextSection: section,
-                nextUnit: {
-                  title: 'Intro', type: 'Video', details: introVideo, unitId: -1, index: -1,
-                },
-              }) }
-              disabled={ (isCoursePlayerOpen && currentUnit && isIntroVideoActive) }
-            >
-              {
+            <ListItemSecondaryAction className='unit-action-root'>
+              <Button
+                classes={ {
+                  root: 'button-primary-text',
+                  label: 'button-primary-text-label',
+                } }
+                onClick={ () => handleUnitOpen({
+                  nextSection: section,
+                  nextUnit: {
+                    title: 'Intro', type: 'Video', details: introVideo, unitId: -1, index: -1,
+                  },
+                }) }
+                disabled={ (isCoursePlayerOpen && currentUnit && isIntroVideoActive) }
+              >
+                {
                 (type === 'preview' && ' ')
                 || (isCoursePlayerOpen && currentUnit && isIntroVideoActive && 'Current')
                 || 'Preview'
               }
-            </Button>
+              </Button>
+            </ListItemSecondaryAction>
           </ListItem>
           )}
 
@@ -145,29 +147,30 @@ const UnitsList = ({
                   || (unit.type === 'Video' && <VideoIcon />)
                   || (unit.type === 'Audio' && <AudioIcon />)}
               </ListItemIcon>
-              <ListItemText>
+              <ListItemText className='unit-text'>
                 <p className={ `para ${ isCoursePlayerOpen && currentUnit.unitId === unit.unitId ? '' : 'light' }` }>
                   {unit.title}
                 </p>
               </ListItemText>
-              <Button
-                disabled={ (!isEnrolled && !isCreator)
+              <ListItemSecondaryAction className='unit-action-root'>
+                <Button
+                  disabled={ (!isEnrolled && !isCreator)
                 || (isEnrolled && section.status === '' && courseStatus === 'inprogress' && sectionIndex !== 0
                   && !isActive && !isCoursePlayerOpen)
                 || (isEnrolled && section.status === '' && courseStatus === 'inprogress' && sectionIndex !== 0
                   && !isActive && section.units[ 0 ].status === '' && isCoursePlayerOpen)
                 || (isEnrolled && section.status === '' && courseStatus === 'enrolled')
                 || (isCoursePlayerOpen && currentUnit && unit.unitId === currentUnit.unitId) }
-                classes={ {
-                  root: 'button-primary-text',
-                  label: 'button-primary-text-label',
-                } }
-                onClick={ () => handleUnitOpen({
-                  nextSection: section,
-                  nextUnit: { ...unit, index },
-                }) }
-              >
-                {
+                  classes={ {
+                    root: 'button-primary-text',
+                    label: 'button-primary-text-label',
+                  } }
+                  onClick={ () => handleUnitOpen({
+                    nextSection: section,
+                    nextUnit: { ...unit, index },
+                  }) }
+                >
+                  {
                   (type === 'preview' && ' ')
                   || (isCoursePlayerOpen && currentUnit && unit.unitId === currentUnit.unitId && 'Current')
                   || (isCreator && 'View')
@@ -176,7 +179,8 @@ const UnitsList = ({
                   || (unit.status === 'abandoned' && 'Resume')
                   || (unit.status === '' && 'Start')
                 }
-              </Button>
+                </Button>
+              </ListItemSecondaryAction>
             </ListItem>
           ))}
 
@@ -186,11 +190,12 @@ const UnitsList = ({
             <ListItemIcon>
               <TestIcon />
             </ListItemIcon>
-            <ListItemText>
+            <ListItemText className='unit-text'>
               <p className='para light'> Test </p>
             </ListItemText>
-            <Button
-              disabled={ (!isEnrolled && !isCreator)
+            <ListItemSecondaryAction className='unit-action-root'>
+              <Button
+                disabled={ (!isEnrolled && !isCreator)
                 || (isEnrolled && section.status === '' && courseStatus === 'inprogress' && sectionIndex !== 0
                   && !isActive && !isCoursePlayerOpen)
                 || (isEnrolled && section.status === '' && courseStatus === 'inprogress' && sectionIndex !== 0
@@ -198,18 +203,18 @@ const UnitsList = ({
                 || (isEnrolled && section.status === '' && courseStatus === 'enrolled')
                 || (currentUnit.unitId === -2 && section.id === currentSection.id && isCoursePlayerOpen)
                 || section.status === 'completed' }
-              classes={ {
-                root: 'button-primary-text',
-                label: 'button-primary-text-label',
-              } }
-              onClick={ () => handleUnitOpen({
-                nextSection: section,
-                nextUnit: {
-                  title: 'Test', type: 'Test', details: '', unitId: -2, index: -2,
-                },
-              }) }
-            >
-              {
+                classes={ {
+                  root: 'button-primary-text',
+                  label: 'button-primary-text-label',
+                } }
+                onClick={ () => handleUnitOpen({
+                  nextSection: section,
+                  nextUnit: {
+                    title: 'Test', type: 'Test', details: '', unitId: -2, index: -2,
+                  },
+                }) }
+              >
+                {
                 (type === 'preview' && ' ')
                 || (isCoursePlayerOpen && currentUnit && currentUnit.unitId === -2 && currentSection.id === section.id
                    && 'Current')
@@ -217,7 +222,8 @@ const UnitsList = ({
                 || (section.status === 'completed' && 'Completed')
                 || 'Start'
               }
-            </Button>
+              </Button>
+            </ListItemSecondaryAction>
           </ListItem>
           )}
         </List>
