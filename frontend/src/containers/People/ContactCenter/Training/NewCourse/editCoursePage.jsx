@@ -2,7 +2,7 @@ import React, {
   useCallback, useEffect, useState,
 } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import _ from 'lodash'
 import {
   updateTrainingCourseDetails,
@@ -26,8 +26,10 @@ const EditCoursePage = () => {
   const [ isPreview, setIsPreview ] = useState(false)
 
   const dispatch = useDispatch()
+  const location = useLocation()
 
   const [ errors, setErrors ] = useState({})
+  const [ changeTitlePopover, setChangeTitlePopover ] = useState(location.isFirstTime)
 
   const handleErrors = useCallback(() => (
     checkAndSetErrors({
@@ -105,6 +107,13 @@ const EditCoursePage = () => {
 
   return (
     <>
+      <AlertPopover
+        open={ changeTitlePopover }
+        buttonOnClick={ () => setChangeTitlePopover(false) }
+        alertTitle='Important!'
+        alertBody={ `Please remember to change the course title and other necessary information
+         to distinguish it from the previous course.` }
+      />
       <AlertPopover
         open={ !_.isEmpty(errors) }
         buttonOnClick={ () => setErrors({}) }

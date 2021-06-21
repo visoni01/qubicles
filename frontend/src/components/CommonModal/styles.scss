@@ -16,8 +16,10 @@
 }
 
 .alert-popover-paper {
-  left: 30% !important;
+  left: 50% !important;
   top: 50px !important;
+  transform: translate(-50%) !important;
+  max-width: 40% !important;
 
   &.MuiPaper-elevation8 {
     box-shadow: none;

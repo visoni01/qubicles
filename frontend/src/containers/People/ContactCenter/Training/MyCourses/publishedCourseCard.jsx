@@ -132,7 +132,6 @@ const PublishedCourseCard = ({
 PublishedCourseCard.defaultProps = {
   totalEarned: 6223,
   ratingsCount: 25,
-
 }
 
 PublishedCourseCard.propTypes = {

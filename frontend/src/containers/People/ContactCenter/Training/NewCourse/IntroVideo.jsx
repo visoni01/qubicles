@@ -55,7 +55,7 @@ export default function IntroVideo({
           <h3 className='h3 mb-10'>Introduction Video</h3>
           <p className='para'>
             {`Choose an introduction video. This video will be accessible for everyone who is
-            intrested in your course `}
+            interested in your course `}
           </p>
         </div>
 

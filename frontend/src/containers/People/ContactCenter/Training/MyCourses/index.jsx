@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
 import DraftCourseCard from './draftCourseCard'
 import PublishedCourseCard from './publishedCourseCard'
-import ROUTE_PATHS from '../../../../../routes/routesPath'
+import ROUTE_PATHS, { EDIT_COURSE_ROUTE } from '../../../../../routes/routesPath'
 import { allCoursesRequestStart, resetAllCoursesReducer } from '../../../../../redux-saga/redux/people'
 import MyCoursesSkeleton from '../../../../../components/People/ContactCenter/SkeletonLoader/Training/myCoursesSkeleton'
 
@@ -20,7 +20,9 @@ const MyCourses = () => {
     history.push(ROUTE_PATHS.CREATE_COURSE)
   }, [ history ])
 
-  const { courses, isLoading } = useSelector((state) => state.allCourses)
+  const {
+    courses, isLoading, requestType, success,
+  } = useSelector((state) => state.allCourses)
   const { userDetails } = useSelector((state) => state.login)
 
   const dispatch = useDispatch()
@@ -34,6 +36,15 @@ const MyCourses = () => {
       dispatch(resetAllCoursesReducer())
     }
   }, [ dispatch, userDetails.user_code ])
+
+  useEffect(() => {
+    if (_.isEqual(requestType, 'UPDATE') && !isLoading && success && !_.isEmpty(courses)) {
+      history.push({
+        pathname: `${ EDIT_COURSE_ROUTE }/${ courses[ courses.length - 1 ].courseId }`,
+        isFirstTime: true,
+      })
+    }
+  }, [ courses, history, isLoading, requestType, success ])
 
   if (_.isEqual(userDetails.user_code, 'employer') && (_.isNull(isLoading) || isLoading)) {
     return (
