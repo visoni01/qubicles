@@ -1,19 +1,35 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import {
   Box, Card, CardMedia, CardContent, Grid, Button,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
 import { useHistory } from 'react-router-dom'
 import { faCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../style.scss'
 import { EDIT_COURSE_ROUTE } from '../../../../../routes/routesPath'
+import ConfirmationModal from '../../../../../components/CommonModal/confirmationModal'
+import { allCoursesRequestStart } from '../../../../../redux-saga/redux/people'
 
 const DraftCourseCard = ({
   courseId, price, title, sectionsCount, language, thumbnailImage,
   creatorName,
 }) => {
   const history = useHistory()
+  const dispatch = useDispatch()
+  const [ openDeleteConfirmation, setOpenDeleteConfirmation ] = useState(false)
+
+  const handleDelete = useCallback(() => {
+    dispatch(allCoursesRequestStart({
+      requestType: 'DELETE',
+      courseId,
+    }))
+
+    setOpenDeleteConfirmation(false)
+  }, [ dispatch, courseId ])
+
   return (
     <Grid xl={ 3 } lg={ 3 } md={ 6 } sm={ 12 } item>
       <Card
@@ -33,9 +49,9 @@ const DraftCourseCard = ({
           className='course-image'
         />
         <CardContent className='course-card-content border-1'>
-          <b className='h4 card-title'>
-            {title}
-          </b>
+          {_.isEmpty(title)
+            ? <p className='para light card-title'>(empty)</p>
+            : <b className='h4 card-title'>{title}</b>}
           <p className='para light creatorName'>
             {creatorName}
           </p>
@@ -46,17 +62,31 @@ const DraftCourseCard = ({
             <FontAwesomeIcon className='custom-fa-icon circle-svg' icon={ faCircle } />
             <span className='para light ml-5'>{language}</span>
           </div>
-          <div className='mt-10'>
-            <Button
-              className='is-fullwidth'
-              classes={ { root: 'button-primary-small', label: 'button-primary-small-label' } }
-              onClick={ () => history.push(`${ EDIT_COURSE_ROUTE }/${ courseId }`) }
-            >
-              Edit Course
-            </Button>
-          </div>
+          <Button
+            className='is-fullwidth mt-10'
+            classes={ { root: 'button-primary-small', label: 'button-primary-small-label' } }
+            onClick={ () => history.push(`${ EDIT_COURSE_ROUTE }/${ courseId }`) }
+          >
+            Edit Course
+          </Button>
+          <Button
+            className='is-fullwidth mt-10'
+            classes={ { root: 'button-secondary-small-red', label: 'button-secondary-small-label' } }
+            onClick={ () => setOpenDeleteConfirmation(true) }
+          >
+            Delete Course
+          </Button>
         </CardContent>
       </Card>
+
+      {/* Delete Confirmation */}
+      <ConfirmationModal
+        open={ openDeleteConfirmation }
+        confirmButtonText='Delete'
+        message='Are you sure you want to delete this course?'
+        handleClose={ () => setOpenDeleteConfirmation(false) }
+        handleConfirm={ handleDelete }
+      />
     </Grid>
   )
 }

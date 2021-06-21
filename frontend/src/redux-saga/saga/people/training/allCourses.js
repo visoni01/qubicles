@@ -6,6 +6,7 @@ import {
   showErrorMessage,
   showSuccessMessage,
   updateAllCoursesReducer,
+  deleteAllCoursesReducer,
 } from '../../../redux/actions'
 import People from '../../../service/people'
 
@@ -41,6 +42,16 @@ function* allCoursesWorker(action) {
         yield put(showSuccessMessage({ msg: 'Course copied successfully!' }))
         break
       }
+
+      case 'DELETE': {
+        const { data } = yield People.deleteCourse({ courseId: action.payload.courseId })
+        if (data) {
+          yield put(deleteAllCoursesReducer({ courseId: action.payload.courseId }))
+          yield put(showSuccessMessage({ msg: 'Course Deleted successfully!' }))
+        }
+        break
+      }
+
       default: break
     }
   } catch (e) {

@@ -15,6 +15,7 @@ const {
     allCoursesRequestFailed,
     resetAllCoursesReducer,
     updateAllCoursesReducer,
+    deleteAllCoursesReducer,
   }, reducer,
 } = createSlice({
   name: 'allCourses',
@@ -53,6 +54,12 @@ const {
         },
       ],
     }),
+    deleteAllCoursesReducer: (state, action) => ({
+      ...state,
+      isLoading: false,
+      success: true,
+      courses: state.courses.filter((course) => course.courseId !== action.payload.courseId),
+    }),
   },
 })
 
@@ -63,4 +70,5 @@ export {
   allCoursesRequestFailed,
   resetAllCoursesReducer,
   updateAllCoursesReducer,
+  deleteAllCoursesReducer,
 }

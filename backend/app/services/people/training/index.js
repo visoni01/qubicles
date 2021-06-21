@@ -1,6 +1,7 @@
 export { PeopleAddNewCourseService } from './createCourse'
 export { PeopleGetAllCreatorCoursesService } from './getAllCreatorCourses'
 export { PeopleGetCourseService } from './getCourse'
+export { PeopleDeleteCourseService } from './deleteCourse'
 export { PeopleUpdateCourseService } from './updateCourse'
 export { PeopleUploadFileToIpfsService } from './uploadFileToIpfs'
 export { PeopleGetAllViewCoursesService } from './getAllViewCourses'

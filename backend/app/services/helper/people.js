@@ -747,6 +747,18 @@ export async function getCourseById ({ course_id, user_id }) {
   }
 }
 
+export const deleteCourseById = async ({ course_id, user_id }) => {
+  const isDeleted = await XQodCourse.destroy({
+    where: {
+      course_id,
+      creator_id: user_id,
+      status: 'draft'
+    }
+  })
+
+  return isDeleted
+}
+
 export const findStudentsEnrolledCount = async ({ course_id }) => {
   const studentsEnrolled = await XQodUserCourse.count({
     where: {

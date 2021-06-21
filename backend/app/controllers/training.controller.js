@@ -2,6 +2,7 @@ import {
   PeopleAddNewCourseService,
   PeopleGetAllCreatorCoursesService,
   PeopleGetCourseService,
+  PeopleDeleteCourseService,
   PeopleUpdateCourseService,
   PeopleUploadFileToIpfsService,
   PeopleGetAllViewCoursesService,
@@ -49,6 +50,15 @@ export default class TrainingController {
 
   static async getCourse (req, res) {
     const course = await PeopleGetCourseService.execute({ ...req.body, ...req.params, ...req.query })
+    if (course.successful) {
+      Responder.success(res, course.result)
+    } else {
+      Responder.failed(res, course.errors)
+    }
+  }
+
+  static async deleteCourse (req, res) {
+    const course = await PeopleDeleteCourseService.execute({ ...req.body, ...req.params })
     if (course.successful) {
       Responder.success(res, course.result)
     } else {

@@ -280,6 +280,11 @@ class People {
     return response
   }
 
+  static async deleteCourse({ courseId }) {
+    const response = await apiClient.deleteRequest(`/people/course/${ courseId }`)
+    return response
+  }
+
   static async fetchAssessmentTest({ courseId }) {
     const response = await apiClient.getRequest(`/people/course/${ courseId }/assessment-test`)
     return response
