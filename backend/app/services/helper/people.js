@@ -1,6 +1,7 @@
 import {
   XQodResourceDef, XQodUserSkill, XQodSkill, XQodUserCourse, XQodCourseUnitsUser, XQodCategory, XQodCourseUserQA,
-  UserDetail, XQodApplication, XUserActivity, User, XQodCourse, XQodCourseSection, XQodCourseUnit, XQodCourseSectionQA
+  UserDetail, XQodApplication, XUserActivity, User, XQodCourse, XQodCourseSection, XQodCourseUnit, XQodCourseSectionQA,
+  XQodCoursePrereqs
 } from '../../db/models'
 import { createNewEntity, formatDate } from './common'
 import { getOne } from './crud'
@@ -759,6 +760,14 @@ export const deleteCourseById = async ({ course_id, user_id }) => {
   return isDeleted
 }
 
+export const deleteRequiredCourses = async ({ course_id }) => {
+  await XQodCoursePrereqs.destroy({
+    where: {
+      course_id
+    }
+  })
+}
+
 export const findStudentsEnrolledCount = async ({ course_id }) => {
   const studentsEnrolled = await XQodUserCourse.count({
     where: {
@@ -883,6 +892,20 @@ export const formatViewSectionData = ({ sections, sectionsCompleted, unitsStatus
   })
 }
 
+export const formatViewRequiredCoursesData = ({ requiredCourses }) => {
+  return requiredCourses.map((course) => {
+    return {
+      courseId: course.course_id,
+      courseTitle: course.title,
+      creatorName: course.creatorDetails && course.creatorDetails.firstName + ' ' + course.creatorDetails.lastName,
+      createdAt: formatDate(course.createdAt),
+      status: course.students && course.students && course.students.length
+        ? course.students[0].status
+        : 'unenrolled'
+    }
+  })
+}
+
 export const formatViewCourseData = ({
   course,
   isEnrolled,
@@ -893,7 +916,8 @@ export const formatViewCourseData = ({
   categoryTitle,
   courseDetails,
   creatorDetails,
-  totalRaters
+  totalRaters,
+  requiredCourses
 }) => {
   return {
     isEnrolled,
@@ -918,7 +942,9 @@ export const formatViewCourseData = ({
       outcomes: course.outcomes,
       requirements: course.requirements,
       language: course.language,
-      requiredCourses: []
+      requiredCourses: requiredCourses
+        ? formatViewRequiredCoursesData({ requiredCourses })
+        : []
     },
     contentSection: {
       thumbnailImage: course.image_url,
@@ -975,10 +1001,23 @@ export async function getViewCourseById ({ course_id, user_id }) {
         record_id: course_id,
         record_type: 'course'
       }
+    }),
+    () => XQodCoursePrereqs.findAll({
+      raw: true,
+      attributes: ['prereq_course_id'],
+      where: {
+        course_id
+      }
     })
   ]
 
-  let [userCourse, course, studentsEnrolled, totalRaters] = await Promise.all(promiseArray.map(promise => promise()))
+  let [
+    userCourse,
+    course,
+    studentsEnrolled,
+    totalRaters,
+    requiredCourses
+  ] = await Promise.all(promiseArray.map(promise => promise()))
 
   if (course && course.length) {
     course = course.map(item => item.get({ plain: true }))[0]
@@ -1025,7 +1064,42 @@ export async function getViewCourseById ({ course_id, user_id }) {
       ]
     }
 
-    const [unitsStatus, sectionsCompleted] = await Promise.all(newPromiseArray.map(promise => promise()))
+    if (requiredCourses && requiredCourses.length) {
+      newPromiseArray = [
+        ...newPromiseArray,
+        () => XQodCourse.findAll({
+          attributes: ['course_id', 'title', 'createdAt'],
+          include: [
+            {
+              model: UserDetail,
+              as: 'creatorDetails',
+              attributes: [
+                ['first_name', 'firstName'],
+                ['last_name', 'lastName']
+              ]
+            },
+            {
+              model: XQodUserCourse,
+              as: 'students',
+              attributes: ['status'],
+              required: false,
+              where: {
+                user_id
+              }
+            }
+          ],
+          where: {
+            course_id: requiredCourses.map((course) => course.prereq_course_id)
+          }
+        })
+      ]
+    }
+
+    const [
+      unitsStatus,
+      sectionsCompleted,
+      requiredCoursesData
+    ] = await Promise.all(newPromiseArray.map(promise => promise()))
 
     const formattedViewCourse = formatViewCourseData({
       course,
@@ -1037,7 +1111,8 @@ export async function getViewCourseById ({ course_id, user_id }) {
       courseDetails,
       creatorDetails,
       totalRaters: totalRaters && totalRaters.length && totalRaters[0].totalAverageRaters,
-      isCreator: false
+      isCreator: false,
+      requiredCourses: requiredCoursesData && requiredCoursesData.map(item => item.get({ plain: true }))
     })
 
     return formattedViewCourse
