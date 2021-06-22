@@ -58,6 +58,7 @@ const ViewCourse = () => {
             goals={ course.informationSection.goals }
             outcomes={ course.informationSection.outcomes }
             requirements={ course.informationSection.requirements }
+            requiredCourses={ course.informationSection.requiredCourses }
             dataType={ dataType }
             isLoading={ isLoading }
           />

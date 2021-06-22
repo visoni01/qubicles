@@ -20,6 +20,7 @@ import { startLoader, stopLoader } from '../../../../../redux-saga/redux/utils'
 import CourseActionSkeleton from
   '../../../../../components/People/ContactCenter/SkeletonLoader/Training/courseActionSkeleton'
 import { EDIT_COURSE_ROUTE } from '../../../../../routes/routesPath'
+import IncompleteCoursesList from './incompleteCoursesList'
 
 const CourseActions = ({
   course, setOpenCoursePlayer, type, isLoading, dataType, continueCourse, setOpenReviewModal, requestType,
@@ -193,9 +194,17 @@ const CourseActions = ({
                 } }
                 onClick={ course.informationSection.price > 0
                   ? () => setOpenBuyCoursePopup(true) : handleStartOrContinueCourse }
+                disabled={ !course.canBuy }
               >
                 {course.informationSection.price > 0 ? 'Buy Course' : 'Start Course'}
               </Button>
+              )}
+              {!course.canBuy && course.informationSection && course.informationSection.requiredCourses
+                .filter((requiredCourse) => requiredCourse.status !== 'completed').length > 0 && (
+                <IncompleteCoursesList
+                  className='mb-15'
+                  requiredCourses={ course.informationSection.requiredCourses }
+                />
               )}
               {course.isEnrolled && (
               <Button

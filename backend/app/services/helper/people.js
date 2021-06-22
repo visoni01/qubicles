@@ -1115,6 +1115,13 @@ export async function getViewCourseById ({ course_id, user_id }) {
       requiredCourses: requiredCoursesData && requiredCoursesData.map(item => item.get({ plain: true }))
     })
 
+    if (formattedViewCourse.informationSection.requiredCourses) {
+      formattedViewCourse.canBuy = _.isUndefined(formattedViewCourse.informationSection.requiredCourses
+        .find((requiredCourse) => requiredCourse.status !== 'completed'))
+    } else {
+      formattedViewCourse.canBuy = true
+    }
+
     return formattedViewCourse
   }
 }

@@ -12,6 +12,7 @@ const initialState = {
     isSectionTestActive: null,
     isEnrolled: false,
     isCreator: false,
+    canBuy: false,
     courseId: null,
     createdOn: '',
     updatedOn: '',
