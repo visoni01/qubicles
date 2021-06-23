@@ -1,8 +1,11 @@
 import ServiceBase from '../../../common/serviceBase'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
 import logger from '../../../common/logger'
-import { findStudentsEnrolledCount, getErrorMessageForService } from '../../helper'
-import { getCourseById, formatCourseData, getCategoryTitleById } from '../../helper/people'
+import { getErrorMessageForService } from '../../helper'
+import {
+  findStudentsEnrolledCount, getCourseById, formatCourseData, getCategoryTitleById, getRequiredCoursesById,
+  getRequiredCoursesData
+} from '../../helper/people'
 
 const constraints = {
   user_id: {
@@ -33,10 +36,17 @@ export class PeopleGetCourseService extends ServiceBase {
       }
 
       const course = await getCourseById({ course_id, user_id })
+
       if (course) {
         const categoryTitle = await getCategoryTitleById({ category_id: course.category_id })
-        const formattedCourse = formatCourseData({ course, categoryTitle })
-        return formattedCourse
+        const requiredCourses = await getRequiredCoursesById({ course_id })
+        let requiredCoursesData = []
+
+        if (requiredCourses && requiredCourses.length) {
+          requiredCoursesData = await getRequiredCoursesData({ requiredCourses, user_id })
+        }
+
+        return formatCourseData({ course, categoryTitle, requiredCourses: requiredCoursesData })
       } else {
         this.addError(ERRORS.NOT_FOUND, MESSAGES.COURSE_NOT_FOUND)
       }

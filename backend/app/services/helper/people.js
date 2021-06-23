@@ -760,12 +760,65 @@ export const deleteCourseById = async ({ course_id, user_id }) => {
   return isDeleted
 }
 
+export const getRequiredCoursesById = async ({ course_id }) => {
+  const requiredCourses = await XQodCoursePrereqs.findAll({
+    raw: true,
+    attributes: ['prereq_course_id'],
+    where: {
+      course_id
+    }
+  })
+
+  return requiredCourses
+}
+
+export const getRequiredCoursesData = async ({ requiredCourses, user_id }) => {
+  const requiredCoursesData = await XQodCourse.findAll({
+    attributes: ['course_id', 'title', 'createdAt'],
+    include: [
+      {
+        model: UserDetail,
+        as: 'creatorDetails',
+        attributes: [
+          ['first_name', 'firstName'],
+          ['last_name', 'lastName']
+        ]
+      },
+      {
+        model: XQodUserCourse,
+        as: 'students',
+        attributes: ['status'],
+        required: false,
+        where: {
+          user_id
+        }
+      }
+    ],
+    where: {
+      course_id: requiredCourses.map((course) => course.prereq_course_id)
+    }
+  })
+
+  return requiredCoursesData && requiredCoursesData.map(item => item.get({ plain: true }))
+}
+
 export const deleteRequiredCourses = async ({ course_id }) => {
   await XQodCoursePrereqs.destroy({
     where: {
       course_id
     }
   })
+}
+
+export const addRequiredCourses = async ({ course_id, requiredCourses }) => {
+  const bulkDataToBeAdded = requiredCourses.map((prereq_course_id) => {
+    return {
+      course_id,
+      prereq_course_id
+    }
+  })
+
+  await XQodCoursePrereqs.bulkCreate(bulkDataToBeAdded)
 }
 
 export const findStudentsEnrolledCount = async ({ course_id }) => {
@@ -1025,6 +1078,7 @@ export async function getViewCourseById ({ course_id, user_id }) {
     let isEnrolled = false
     let newPromiseArray = []
     let courseDetails = {}
+    let requiredCoursesData = []
     const categoryTitle = await getCategoryTitleById({ category_id: course.category_id })
     const creatorDetails = await User.findOne({
       attributes: ['full_name'],
@@ -1065,41 +1119,10 @@ export async function getViewCourseById ({ course_id, user_id }) {
     }
 
     if (requiredCourses && requiredCourses.length) {
-      newPromiseArray = [
-        ...newPromiseArray,
-        () => XQodCourse.findAll({
-          attributes: ['course_id', 'title', 'createdAt'],
-          include: [
-            {
-              model: UserDetail,
-              as: 'creatorDetails',
-              attributes: [
-                ['first_name', 'firstName'],
-                ['last_name', 'lastName']
-              ]
-            },
-            {
-              model: XQodUserCourse,
-              as: 'students',
-              attributes: ['status'],
-              required: false,
-              where: {
-                user_id
-              }
-            }
-          ],
-          where: {
-            course_id: requiredCourses.map((course) => course.prereq_course_id)
-          }
-        })
-      ]
+      requiredCoursesData = await getRequiredCoursesData({ requiredCourses, user_id })
     }
 
-    const [
-      unitsStatus,
-      sectionsCompleted,
-      requiredCoursesData
-    ] = await Promise.all(newPromiseArray.map(promise => promise()))
+    const [unitsStatus, sectionsCompleted] = await Promise.all(newPromiseArray.map(promise => promise()))
 
     const formattedViewCourse = formatViewCourseData({
       course,
@@ -1112,7 +1135,7 @@ export async function getViewCourseById ({ course_id, user_id }) {
       creatorDetails,
       totalRaters: totalRaters && totalRaters.length && totalRaters[0].totalAverageRaters,
       isCreator: false,
-      requiredCourses: requiredCoursesData && requiredCoursesData.map(item => item.get({ plain: true }))
+      requiredCourses: requiredCoursesData
     })
 
     if (formattedViewCourse.informationSection.requiredCourses) {
@@ -1188,6 +1211,13 @@ export const getCreatorViewCourseById = async ({ course_id, user_id }) => {
     course = course.map(item => item.get({ plain: true }))[0]
 
     const categoryTitle = await getCategoryTitleById({ category_id: course.category_id })
+    const requiredCourses = await getRequiredCoursesById({ course_id })
+
+    let requiredCoursesData = []
+
+    if (requiredCourses && requiredCourses.length) {
+      requiredCoursesData = await getRequiredCoursesData({ requiredCourses, user_id })
+    }
 
     const formattedViewCourse = formatViewCourseData({
       course,
@@ -1199,7 +1229,8 @@ export const getCreatorViewCourseById = async ({ course_id, user_id }) => {
       categoryTitle,
       courseDetails: {},
       creatorDetails,
-      totalRaters: totalRaters && totalRaters.length && totalRaters[0].totalAverageRaters
+      totalRaters: totalRaters && totalRaters.length && totalRaters[0].totalAverageRaters,
+      requiredCourses: requiredCoursesData
     })
 
     return formattedViewCourse
@@ -1350,7 +1381,7 @@ export const formatSectionData = ({ sections }) => {
   })
 }
 
-export const formatCourseData = ({ course, categoryTitle }) => {
+export const formatCourseData = ({ course, categoryTitle, requiredCourses }) => {
   return {
     courseId: course.course_id,
     createdOn: course.createdAt,
@@ -1367,7 +1398,10 @@ export const formatCourseData = ({ course, categoryTitle }) => {
       goals: course.goals,
       outcomes: course.outcomes,
       requirements: course.requirements,
-      language: course.language
+      language: course.language,
+      requiredCourses: requiredCourses
+        ? formatViewRequiredCoursesData({ requiredCourses })
+        : []
     },
     contentSection: {
       thumbnailImage: course.image_url,

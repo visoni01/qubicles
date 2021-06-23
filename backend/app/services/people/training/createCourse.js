@@ -1,7 +1,9 @@
 import ServiceBase from '../../../common/serviceBase'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
 import logger from '../../../common/logger'
-import { getErrorMessageForService, uploadFileToIPFS, validateImageFile, validateVideoFile } from '../../helper'
+import {
+  getErrorMessageForService, uploadFileToIPFS, validateImageFile, validateVideoFile, addRequiredCourses
+} from '../../helper'
 import { addNewCourse } from '../../helper/people'
 
 const constraints = {
@@ -91,6 +93,11 @@ export class PeopleAddNewCourseService extends ServiceBase {
       // TODO: Blockchain part
 
       const addedCourse = await addNewCourse({ course })
+
+      if (course.informationSection && course.informationSection.requiredCourses &&
+        course.informationSection.requiredCourses.length) {
+        await addRequiredCourses({ courseId: addedCourse.course_id, requiredCourses: course.requiredCourses })
+      }
 
       const courseData = { courseId: addedCourse.course_id }
 

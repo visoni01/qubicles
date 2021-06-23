@@ -2,7 +2,10 @@ import ServiceBase from '../../../common/serviceBase'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
 import logger from '../../../common/logger'
 import { getErrorMessageForService, uploadFileToIPFS, validateImageFile, validateVideoFile } from '../../helper'
-import { getCourseById, updateCourse, formatCourseData, getCategoryTitleById } from '../../helper/people'
+import {
+  getCourseById, updateCourse, formatCourseData, getCategoryTitleById, addRequiredCourses, deleteRequiredCourses,
+  getRequiredCoursesById, getRequiredCoursesData
+} from '../../helper/people'
 
 const constraints = {
   user_id: {
@@ -83,13 +86,28 @@ export class PeopleUpdateCourseService extends ServiceBase {
 
       await updateCourse({ course })
 
+      await deleteRequiredCourses({ course_id: course.courseId })
+
+      if (course.informationSection && course.informationSection.requiredCourses) {
+        await addRequiredCourses({
+          course_id: course.courseId, requiredCourses: course.informationSection.requiredCourses
+        })
+      }
+
       const courseData = await getCourseById({ course_id: course.courseId, user_id })
 
       let courseDetails = {}
 
       if (courseData) {
         const categoryTitle = await getCategoryTitleById({ category_id: courseData.category_id })
-        courseDetails = formatCourseData({ course: courseData, categoryTitle })
+        const requiredCourses = await getRequiredCoursesById({ course_id: course.courseId })
+        let requiredCoursesData = []
+
+        if (requiredCourses && requiredCourses.length) {
+          requiredCoursesData = await getRequiredCoursesData({ requiredCourses, user_id })
+        }
+
+        courseDetails = formatCourseData({ course: courseData, categoryTitle, requiredCourses: requiredCoursesData })
       }
 
       return {
