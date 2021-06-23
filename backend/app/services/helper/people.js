@@ -2057,6 +2057,65 @@ export const formatEnrolledCoursesData = ({ courses }) => {
   })
 }
 
+export const fetchAllCourses = async ({ offset, search_keyword }) => {
+  let query = {}
+  let additionalParams = {
+    limit: 10,
+    order: [
+      ['course_id', 'ASC']
+    ]
+  }
+
+  if (!_.isUndefined(offset)) {
+    additionalParams = {
+      ...additionalParams,
+      offset: parseInt(offset)
+    }
+  }
+
+  if (!_.isEmpty(search_keyword)) {
+    query = {
+      ...query,
+      title: { [Op.substring]: search_keyword }
+    }
+  }
+
+  const { rows, count } = await XQodCourse.findAndCountAll({
+    attributes: ['course_id', 'title', 'createdAt', 'image_url'],
+    include: [
+      {
+        model: UserDetail,
+        as: 'creatorDetails',
+        attributes: [
+          ['first_name', 'firstName'],
+          ['last_name', 'lastName']
+        ]
+      }
+    ],
+    where: query,
+    ...additionalParams
+  })
+
+  if (rows && count) {
+    return {
+      courses: rows.map(item => item.get({ plain: true })),
+      count
+    }
+  }
+}
+
+export const formatAllCourses = ({ courses }) => {
+  return courses.map((course) => {
+    return {
+      courseId: course.course_id,
+      courseTitle: course.title,
+      createdAt: course.createdAt,
+      courseImage: course.image_url,
+      creatorName: course.creatorDetails && course.creatorDetails.firstName + ' ' + course.creatorDetails.lastName
+    }
+  })
+}
+
 export const fetchCourseRating = async ({ user_id, course_id }) => {
   const promiseArray = [
     () => XQodUserCourse.findOne({

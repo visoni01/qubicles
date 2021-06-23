@@ -20,7 +20,8 @@ import {
   PeopleGetAllEnrolledCoursesService,
   PeopleGetCourseRatingService,
   PeopleGetCourseReviewsService,
-  PeopleAddCourseReviewService
+  PeopleAddCourseReviewService,
+  PeopleGetAllCoursesService
 } from '../services/people/training'
 
 import Responder from '../../server/expressResponder'
@@ -229,6 +230,15 @@ export default class TrainingController {
       Responder.success(res, reviews.result)
     } else {
       Responder.failed(res, reviews.errors)
+    }
+  }
+
+  static async getAllCourses (req, res) {
+    const courses = await PeopleGetAllCoursesService.execute({ ...req.body, ...req.query })
+    if (courses.successful) {
+      Responder.success(res, courses.result)
+    } else {
+      Responder.failed(res, courses.errors)
     }
   }
 }
