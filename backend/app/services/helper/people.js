@@ -1786,7 +1786,8 @@ export const addTestEntries = async ({ user_id, course_id, sectionIds, questions
 
 export const updateCourseStatus = async ({ user_id, course_id }) => {
   await XQodUserCourse.update({
-    status: 'completed'
+    status: 'completed',
+    date_completed: Date.now()
   }, {
     where: {
       user_id,
@@ -2345,6 +2346,50 @@ export const updateCourseRating = async ({ course_id, rating }) => {
   }, {
     where: {
       course_id
+    }
+  })
+}
+
+export const fetchUserCourses = async ({ candidate_id }) => {
+  const courses = await XQodUserCourse.findAll({
+    attributes: ['course_id', 'date_started', 'date_completed', 'grade'],
+    include: [
+      {
+        model: XQodCourse,
+        as: 'courseDetails',
+        attributes: ['title', 'createdAt'],
+        include: [
+          {
+            model: UserDetail,
+            as: 'creatorDetails',
+            attributes: [
+              ['first_name', 'firstName'],
+              ['last_name', 'lastName']
+            ]
+          }
+        ]
+      }
+    ],
+    where: {
+      user_id: candidate_id,
+      status: 'completed'
+    }
+  })
+
+  return courses && courses.map(course => course.get({ plain: true }))
+}
+
+export const formatUserCourseData = ({ courses }) => {
+  return courses.map((course) => {
+    return {
+      courseId: course.course_id,
+      courseTitle: course.courseDetails && course.courseDetails.title,
+      dateStarted: course.date_started && formatDate(course.date_started),
+      dateCompleted: course.date_completed && formatDate(course.date_completed),
+      creatorName: course.courseDetails && course.courseDetails.creatorDetails &&
+        course.courseDetails.creatorDetails.firstName + ' ' + course.courseDetails.creatorDetails.lastName,
+      createdAt: course.courseDetails && formatDate(course.courseDetails.createdAt),
+      grade: course.grade
     }
   })
 }

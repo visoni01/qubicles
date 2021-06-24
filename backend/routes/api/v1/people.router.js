@@ -27,6 +27,9 @@ peopleRouter.route('/skills')
 peopleRouter.route('/agent/resume/:candidate_id')
   .get(isAuthenticated, talentController.getAgentResume)
 
+peopleRouter.route('/agent/resume/courses/:candidate_id')
+  .get(isAuthenticated, talentController.getUserCourses)
+
 peopleRouter.route('/applications')
   .post(isAuthenticated, applicationController.createJobApplication)
 

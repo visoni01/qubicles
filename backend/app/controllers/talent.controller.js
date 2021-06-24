@@ -1,7 +1,8 @@
 import {
   PeopleGetTalentCardsService,
   PeopleGetUserSkillsService,
-  PeopleUpdateUserSkillsService
+  PeopleUpdateUserSkillsService,
+  PeopleGetUserCoursesService
 } from '../services/people/contactCenter/talent'
 import Responder from '../../server/expressResponder'
 import { PeopleGetJobSkillsService } from '../services/people/contactCenter'
@@ -60,6 +61,15 @@ export default class TalentController {
       Responder.success(res, agentResume.result)
     } else {
       Responder.failed(res, agentResume.errors)
+    }
+  }
+
+  static async getUserCourses (req, res) {
+    const courses = await PeopleGetUserCoursesService.execute({ ...req.params, ...req.body })
+    if (courses.successful) {
+      Responder.success(res, courses.result)
+    } else {
+      Responder.failed(res, courses.errors)
     }
   }
 }
