@@ -67,3 +67,4 @@ export const noOfCoursesPerPage = 15
 export const noOfReviewsPerPage = 6
 export const maxVideoFileSize = 100 * 1024 * 1024
 export const maxImageFileSize = 1024 * 1024
+export const noOfRequiredCoursesPerFetch = 10

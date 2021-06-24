@@ -327,3 +327,8 @@ export const courseContentFilterBeforeSave = ({ courseContent }) => {
   const filteredSections = courseContent.sections.filter((section) => !isEmptySection({ section }))
   return { ...courseContent, sections: filteredSections }
 }
+
+export const formatRequiredCoursesData = ({ requiredCourses }) => {
+  const formattedRequiredCoursesData = requiredCourses ? requiredCourses.map((course) => course.courseId) : []
+  return formattedRequiredCoursesData
+}

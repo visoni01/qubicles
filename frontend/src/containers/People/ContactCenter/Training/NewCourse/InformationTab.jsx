@@ -2,15 +2,18 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import {
   Grid, FormControl,
-  RadioGroup, FormControlLabel, Radio, InputBase, TextField, Select,
+  RadioGroup, FormControlLabel, Radio, TextField, Select, debounce,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import _ from 'lodash'
 import SingleSelect from '../../../../Shared/singleSelect'
-import { jobCategoriesOnlyFetchStart } from '../../../../../redux-saga/redux/actions'
+import { jobCategoriesOnlyFetchStart, requiredCoursesFetchStart } from '../../../../../redux-saga/redux/actions'
 import { errorsPropTypes, informationSectionPropType } from './propTypes'
-import { SearchIcon } from '../../../../../assets/images/common'
+import MultiSelectLinkItems from '../../../../Shared/multiSelectLinkItems'
+import { VIEW_COURSE_ROUTE } from '../../../../../routes/routesPath'
+import { formatDate } from '../../../../../utils/common'
+import { noOfRequiredCoursesPerFetch } from '../../constants'
 
 export default function InformationTab({
   informationSection, setInformationSection, errors,
@@ -18,10 +21,20 @@ export default function InformationTab({
   const [ priceType, setPriceType ] = useState('price')
   const { jobCategoriesOnly, isLoading, error } = useSelector((state) => state.jobCategoriesOnly)
   const [ selectedCategory, setSelectedCategory ] = useState(null)
+  const {
+    allCourses, searchKeyword, count, offset, isLoading: coursesLoading,
+  } = useSelector((state) => state.requiredCourses)
+
   const dispatch = useDispatch()
   const availableLanguages = [
     'English', 'French', 'Spanish',
   ]
+
+  useEffect(() => {
+    if (_.isNull(coursesLoading) && _.isEmpty(allCourses)) {
+      dispatch(requiredCoursesFetchStart({ searchKeyword: '', offset: 0 }))
+    }
+  }, [ isLoading, dispatch, coursesLoading, allCourses ])
 
   useEffect(() => {
     if (!isLoading && _.isEmpty(jobCategoriesOnly) && !error) {
@@ -92,6 +105,35 @@ export default function InformationTab({
     } : null
     setSelectedCategory(categ)
   }, [ setInformationSection ])
+
+  // Search courses
+  const searchCourses = useCallback(debounce((nextValue) => {
+    dispatch(requiredCoursesFetchStart({
+      searchKeyword: nextValue,
+      offset: 0,
+    }))
+  }, 500), [ dispatch ])
+
+  // Set required courses
+  const setRequiredCourses = useCallback((requiredCourses) => {
+    setInformationSection((current) => ({
+      ...current,
+      requiredCourses: requiredCourses.map((course) => ({
+        courseId: course.id,
+        courseTitle: course.title,
+        courseImage: course.image,
+        subtitle: course.subtitle,
+      })),
+    }))
+  }, [ setInformationSection ])
+
+  // Fetch more courses
+  const viewMoreCourses = useCallback(() => {
+    dispatch(requiredCoursesFetchStart({
+      searchKeyword,
+      offset: offset + noOfRequiredCoursesPerFetch,
+    }))
+  }, [ dispatch, searchKeyword, offset ])
 
   return (
     <div className='mt-30'>
@@ -213,14 +255,46 @@ export default function InformationTab({
         </Grid>
         <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 6 }>
           <div className='info-tab-section'>
-            <h3 className='h3 mb-10'> Required Courses </h3>
-            <div className='display-inline-flex is-fullwidth search-input'>
-              <SearchIcon className='ml-10 mr-10 align-self-center' />
-              <InputBase
-                placeholder='Search Courses'
-                className='input-field'
-              />
-            </div>
+            <h3 className='h3'> Required Courses </h3>
+            <MultiSelectLinkItems
+              items={
+                _.isEmpty(_.unionBy(informationSection && informationSection.requiredCourses, allCourses, 'courseId'))
+                  ? []
+                  : _.unionBy(informationSection && informationSection.requiredCourses, allCourses, 'courseId')
+                    .map((course) => ({
+                      id: course.courseId,
+                      title: course.courseTitle,
+                      subtitle: course.subtitle
+                        ? course.subtitle
+                        : `${ course.creatorName }, ${ formatDate(course.createdAt, 'YYYY') }`,
+                      image: course.courseImage,
+                      status: !(informationSection.requiredCourses
+                        && _.findIndex(informationSection.requiredCourses, { courseId: course.courseId }) === -1),
+                    }))
+}
+              initialData={ _.isEmpty(informationSection.requiredCourses)
+                ? []
+                : informationSection.requiredCourses.map((course) => ({
+                  id: course.courseId,
+                  title: course.courseTitle,
+                  subtitle: course.subtitle
+                    ? course.subtitle
+                    : `${ course.creatorName }, ${ formatDate(course.createdAt, 'YYYY') }`,
+                  image: course.courseImage,
+                  status: true,
+                })) }
+              label='Search Courses'
+              onChange={ setRequiredCourses }
+              onTextChange={ (e) => searchCourses(e.target.value) }
+              loading={ coursesLoading }
+              textLinkBase={ `${ VIEW_COURSE_ROUTE }` }
+              bottomActionText={ allCourses.length < count ? 'View More...' : '' }
+              bottomAction={ viewMoreCourses }
+              inputText={ searchKeyword }
+              showThumbnailImage
+              selectedLabel='Selected Courses'
+              notSelectedLabel='Search'
+            />
           </div>
         </Grid>
         <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 6 }>

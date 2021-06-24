@@ -11,7 +11,7 @@ import CourseActions from '../../../../../containers/People/ContactCenter/Traini
 
 const PreviewCreateCourse = ({
   informationSection, contentSection, courseContent,
-  isPreview, setIsPreview, updateCourseReducer, course, handleErrors, isLoading, requestType, success,
+  isPreview, setIsPreview, updateCourseReducer, course, handleErrors, isLoading, requestType, success, isCreator,
 }) => (
   <Grid container spacing={ 2 }>
     <Grid
@@ -34,6 +34,7 @@ const PreviewCreateCourse = ({
           requirements={ informationSection.requirements }
           isLoading={ isLoading }
           type='preview'
+          isCreator={ isCreator }
         />
       </Grid>
       <Grid item>
@@ -94,6 +95,7 @@ const PreviewCreateCourse = ({
 PreviewCreateCourse.defaultProps = {
   requestType: '',
   success: false,
+  isCreator: false,
 }
 
 PreviewCreateCourse.propTypes = {
@@ -108,6 +110,7 @@ PreviewCreateCourse.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   requestType: PropTypes.string,
   success: PropTypes.bool,
+  isCreator: PropTypes.bool,
 }
 
 export default PreviewCreateCourse

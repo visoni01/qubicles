@@ -81,6 +81,7 @@ const NewCoursePage = () => {
           isLoading={ isLoading }
           requestType={ requestType }
           success={ success }
+          isCreator={ course.isCreator }
         />
       </>
     )

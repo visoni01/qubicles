@@ -61,6 +61,7 @@ const ViewCourse = () => {
             requiredCourses={ course.informationSection.requiredCourses }
             dataType={ dataType }
             isLoading={ isLoading }
+            isCreator={ course.isCreator }
           />
         </Grid>
         <Grid item>

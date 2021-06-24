@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useCallback } from 'react'
 import {
   Button, List, ListItem, ListItemIcon,
@@ -12,15 +13,7 @@ import { VIEW_COURSE_ROUTE } from '../../../../../routes/routesPath'
 import { ErrorIcon, SuccessIcon } from '../../../../../assets/images/training'
 
 const CourseDescription = ({
-  title,
-  description,
-  goals,
-  outcomes,
-  requirements,
-  requiredCourses,
-  dataType,
-  isLoading,
-  type,
+  title, description, goals, outcomes, requirements, requiredCourses, dataType, isLoading, type, isCreator,
 }) => {
   const [ showFullDescription, setShowFullDescription ] = useState(false)
   const history = useHistory()
@@ -78,15 +71,23 @@ const CourseDescription = ({
                   <ListItem
                     disableGutters
                     classes={ { root: 'pt-5 no-padding-bottom' } }
-                    onClick={ () => history.push(`${ VIEW_COURSE_ROUTE }/${ requiredCourse.courseId }`) }
                   >
-                    <span className='para bold mr-5 course-title'>{requiredCourse.courseTitle}</span>
+                    <span
+                      role='button'
+                      tabIndex={ 0 }
+                      className='para bold mr-5 course-title'
+                      onClick={ () => history.push(`${ VIEW_COURSE_ROUTE }/${ requiredCourse.courseId }`) }
+                    >
+                      {requiredCourse.courseTitle}
+                    </span>
                     <span className='para light'>
                       {`(${ requiredCourse.creatorName }, ${ formatDate(requiredCourse.createdAt, 'YYYY') })`}
                     </span>
+                    {!isCreator && (
                     <ListItemIcon className='ml-10'>
                       {requiredCourse.status === 'completed' ? <SuccessIcon /> : <ErrorIcon />}
                     </ListItemIcon>
+                    )}
                   </ListItem>
                 </List>
               ))}
@@ -118,6 +119,7 @@ CourseDescription.defaultProps = {
   dataType: '',
   isLoading: false,
   type: 'view',
+  isCreator: false,
   requiredCourses: [],
 }
 
@@ -130,6 +132,7 @@ CourseDescription.propTypes = {
   dataType: PropTypes.string,
   isLoading: PropTypes.bool,
   type: PropTypes.string,
+  isCreator: PropTypes.bool,
   requiredCourses: PropTypes.arrayOf(PropTypes.shape({
     courseId: PropTypes.number.isRequired,
     courseTitle: PropTypes.string.isRequired,

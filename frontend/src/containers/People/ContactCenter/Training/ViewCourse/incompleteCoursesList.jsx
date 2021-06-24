@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
@@ -13,15 +14,15 @@ const IncompleteCoursesList = ({
       <div className='para mb-10'>This course requires to complete the following course(s) first:</div>
       {requiredCourses.filter((requiredCourse) => requiredCourse.status !== 'completed')
         .map((requiredCourse) => (
-          // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-          <div
-            role='button'
-            tabIndex={ 0 }
-            key={ requiredCourse.courseId }
-            className='incomplete-courses-list-item'
-            onClick={ () => history.push(`${ VIEW_COURSE_ROUTE }/${ requiredCourse.courseId }`) }
-          >
-            <span className='para mr-5 course-title'>{requiredCourse.courseTitle}</span>
+          <div key={ requiredCourse.courseId } className='incomplete-courses-list-item'>
+            <span
+              className='para mr-5 course-title'
+              role='button'
+              tabIndex={ 0 }
+              onClick={ () => history.push(`${ VIEW_COURSE_ROUTE }/${ requiredCourse.courseId }`) }
+            >
+              {requiredCourse.courseTitle}
+            </span>
             <span className='para light'>
               {`(${ requiredCourse.creatorName }, ${ formatDate(requiredCourse.createdAt, 'YYYY') })`}
             </span>

@@ -205,6 +205,15 @@ class People {
     return response
   }
 
+  static async fetchRequiredCourses({ searchKeyword, offset }) {
+    const response = await apiClient.getRequest(
+      '/people/required-courses',
+      null,
+      { search_keyword: searchKeyword, offset },
+    )
+    return response
+  }
+
   static async fetchViewAllCourses({
     categoryId, searchField, courseFilter, offset,
   }) {

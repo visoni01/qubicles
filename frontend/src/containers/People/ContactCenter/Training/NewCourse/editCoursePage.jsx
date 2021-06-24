@@ -100,6 +100,7 @@ const EditCoursePage = () => {
           isLoading={ isLoading }
           requestType={ requestType }
           success={ success }
+          isCreator={ course.isCreator }
         />
       </>
     )

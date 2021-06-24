@@ -774,7 +774,7 @@ export const getRequiredCoursesById = async ({ course_id }) => {
 
 export const getRequiredCoursesData = async ({ requiredCourses, user_id }) => {
   const requiredCoursesData = await XQodCourse.findAll({
-    attributes: ['course_id', 'title', 'createdAt'],
+    attributes: ['course_id', 'title', 'createdAt', 'image_url'],
     include: [
       {
         model: UserDetail,
@@ -950,6 +950,7 @@ export const formatViewRequiredCoursesData = ({ requiredCourses }) => {
     return {
       courseId: course.course_id,
       courseTitle: course.title,
+      courseImage: course.image_url,
       creatorName: course.creatorDetails && course.creatorDetails.firstName + ' ' + course.creatorDetails.lastName,
       createdAt: formatDate(course.createdAt),
       status: course.students && course.students && course.students.length
@@ -2092,7 +2093,10 @@ export const fetchAllCourses = async ({ offset, search_keyword }) => {
         ]
       }
     ],
-    where: query,
+    where: {
+      ...query,
+      status: 'published'
+    },
     ...additionalParams
   })
 

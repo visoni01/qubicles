@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom'
 import _ from 'lodash'
 import { resetTrainingCourseReducer, trainingCourseRequestStart } from '../../../../../redux-saga/redux/people'
 import ROUTES_PATH, { EDIT_COURSE_ROUTE } from '../../../../../routes/routesPath'
-import { courseContentFilterBeforeSave } from './CourseContent/helper'
+import { courseContentFilterBeforeSave, formatRequiredCoursesData } from './CourseContent/helper'
 import { contentSectionPropType, courseContentPropType, informationSectionPropType } from './propTypes'
 import ConfirmationModal from '../../../../../components/CommonModal/confirmationModal'
 
@@ -29,6 +29,9 @@ const NewCourseActions = ({
   const saveDraft = useCallback(() => {
     // Check course content before send
     const courseContentFiltered = courseContentFilterBeforeSave({ courseContent })
+    const formattedRequiredCoursesData = formatRequiredCoursesData({
+      requiredCourses: informationSection.requiredCourses,
+    })
     const updatedInformationSection = {
       ...informationSection,
       title: informationSection.title.trim(),
@@ -36,6 +39,7 @@ const NewCourseActions = ({
       goals: informationSection.goals.trim(),
       outcomes: informationSection.outcomes.trim(),
       requirements: informationSection.requirements.trim(),
+      requiredCourses: formattedRequiredCoursesData,
     }
     const course = {
       courseId,
@@ -69,9 +73,17 @@ const NewCourseActions = ({
   const publishCourse = useCallback(() => {
     // Check course content before send
     const courseContentFiltered = courseContentFilterBeforeSave({ courseContent })
+    const formattedRequiredCoursesData = formatRequiredCoursesData({
+      requiredCourses: informationSection.requiredCourses,
+    })
     const updatedInformationSection = {
       ...informationSection,
       title: informationSection.title.trim(),
+      description: informationSection.description.trim(),
+      goals: informationSection.goals.trim(),
+      outcomes: informationSection.outcomes.trim(),
+      requirements: informationSection.requirements.trim(),
+      requiredCourses: formattedRequiredCoursesData,
     }
 
     const course = {
