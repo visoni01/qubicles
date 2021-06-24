@@ -4,6 +4,7 @@ import jobReducer from './job/job'
 import jobsWithCategoriesReducer from './job/jobsPage'
 import jobSkillsReducer from './job/jobSkills'
 import agentResumeReducer from './talent/agentResume'
+import agentResumeCoursesReducer from './talent/agentResumeCourses'
 import talentFilterReducer from './talent/talentFilter'
 import jobFilterReducer from './agent/job/jobFilter'
 import jobCategoriesOnlyReducer from './job/jobCategories'
@@ -28,6 +29,7 @@ const peopleReducers = {
   jobSkills: jobSkillsReducer,
   peopleTalentCards: talentCardsReducer,
   agentResumeSkills: agentResumeSkillsReducer,
+  agentResumeCourses: agentResumeCoursesReducer,
   jobDetails: jobReducer,
   jobsWithCategories: jobsWithCategoriesReducer,
   agentResume: agentResumeReducer,
@@ -55,6 +57,7 @@ const peopleReducers = {
 export default peopleReducers
 export * from './talent/talentCards'
 export * from './talent/agentResumeSkills'
+export * from './talent/agentResumeCourses'
 export * from './job/job'
 export * from './job/jobsPage'
 export * from './job/jobSkills'

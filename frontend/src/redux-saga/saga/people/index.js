@@ -1,5 +1,6 @@
 import peopleTalentCards from './talent/talentCards'
 import peopleAgentResumeSkills from './talent/agentResumeSkills'
+import peopleAgentResumeCourses from './talent/agentResumeCourses'
 import crudJob from './job/crud'
 import jobDetails from './job/job'
 import jobsByCategory from './job/jobsByCategory'
@@ -25,6 +26,7 @@ import requiredCourses from './training/requiredCourses'
 const peopleWatcherFunctions = [
   () => peopleTalentCards(),
   () => peopleAgentResumeSkills(),
+  () => peopleAgentResumeCourses(),
   () => crudJob(),
   () => jobDetails(),
   () => jobsByCategory(),

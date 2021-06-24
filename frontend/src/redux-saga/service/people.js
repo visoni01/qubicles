@@ -117,6 +117,11 @@ class People {
     return response
   }
 
+  static async getUserCourses({ candidateId }) {
+    const response = await apiClient.getRequest(`/people/agent/resume/courses/${ candidateId }`)
+    return response
+  }
+
   static async getJobSkills() {
     const response = await apiClient.getRequest('/people/skills')
     return response
