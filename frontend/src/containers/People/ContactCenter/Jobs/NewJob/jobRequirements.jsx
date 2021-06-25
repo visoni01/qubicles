@@ -3,9 +3,7 @@ import { Grid } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import '../styles.scss'
 import MultiSelectChipItems from '../../../../Shared/multiSelectChipItems'
-import MultiSelectLinkItems from '../../../../Shared/multiSelectLinkItems'
-import { VIEW_COURSE_ROUTE } from '../../../../../routes/routesPath'
-import { availableCourses } from '../../constants'
+import RequiredCoursesField from '../../../Shared/requiredCoursesField'
 
 const NewJobRequirements = ({
   newJobData,
@@ -50,7 +48,11 @@ const NewJobRequirements = ({
         requiredCourses: items.map((course) => ({
           coursePreference: 'required',
           courseId: course.id,
-          courseName: course.title,
+          courseTitle: course.title,
+          courseImage: course.image,
+          creatorName: course.creatorName,
+          createdAt: course.createdAt,
+          subtitle: course.subtitle,
         })),
       },
     }))
@@ -65,7 +67,11 @@ const NewJobRequirements = ({
         bonusCourses: items.map((course) => ({
           coursePreference: 'plus',
           courseId: course.id,
-          courseName: course.title,
+          courseTitle: course.title,
+          courseImage: course.image,
+          creatorName: course.creatorName,
+          createdAt: course.createdAt,
+          subtitle: course.subtitle,
         })),
       },
     }))
@@ -114,22 +120,20 @@ const NewJobRequirements = ({
         </Grid>
         <Grid container justify='space-between'>
           <Grid item xs={ 6 }>
-            <h4 className='h4 mt-10 mb-10'> Required Courses* </h4>
+            <h4 className='h4 mt-10'> Required Courses* </h4>
             <div className='mr-30 drop-down-field'>
-              <MultiSelectLinkItems
-                items={ availableCourses }
-                textLinkBase={ `${ VIEW_COURSE_ROUTE }/1` }
-                onChange={ (items) => setRequiredCoursesCB(items) }
+              <RequiredCoursesField
+                selectedCourses={ newJobData.jobCoursesData.requiredCourses }
+                setSelectedCourses={ setRequiredCoursesCB }
               />
             </div>
           </Grid>
           <Grid item xs={ 6 }>
-            <h4 className='h4 mt-10 mb-10'> Bonus Courses</h4>
+            <h4 className='h4 mt-10'> Bonus Courses</h4>
             <div className='mr-30 drop-down-field'>
-              <MultiSelectLinkItems
-                items={ availableCourses }
-                textLinkBase={ `${ VIEW_COURSE_ROUTE }/1` }
-                onChange={ (items) => setBonusCoursesCB(items) }
+              <RequiredCoursesField
+                selectedCourses={ newJobData.jobCoursesData.bonusCourses }
+                setSelectedCourses={ setBonusCoursesCB }
               />
             </div>
           </Grid>
