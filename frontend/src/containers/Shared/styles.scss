@@ -1,3 +1,5 @@
+@import '../../customStyles/scss/index.scss';
+
 .review-modal-paper {
   max-width: 600px;
 }
@@ -38,5 +40,22 @@
   ::-webkit-scrollbar-thumb {
     background-color: rgba(72, 119, 244, 0.7);
     border-radius: 20px 20px 20px 20px ;
+  }
+}
+
+.textfield {
+  &.blur {
+    ::placeholder {
+      color: $color-paragraph;
+      opacity: 1;
+    }
+
+    :-ms-input-placeholder {
+      color: $color-paragraph;
+    }
+
+    ::-ms-input-placeholder {
+      color: $color-paragraph;
+    }
   }
 }

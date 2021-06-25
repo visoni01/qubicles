@@ -35,6 +35,7 @@ const PreviewCreateCourse = ({
           isLoading={ isLoading }
           type='preview'
           isCreator={ isCreator }
+          requiredCourses={ informationSection.requiredCourses }
         />
       </Grid>
       <Grid item>

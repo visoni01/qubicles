@@ -1,11 +1,10 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useCallback } from 'react'
 import {
   Button, List, ListItem, ListItemIcon,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
-import { useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import CourseDescriptionSkeleton from
   '../../../../../components/People/ContactCenter/SkeletonLoader/Training/courseDescriptionSkeleton'
 import { formatDate } from '../../../../../utils/common'
@@ -16,7 +15,6 @@ const CourseDescription = ({
   title, description, goals, outcomes, requirements, requiredCourses, dataType, isLoading, type, isCreator,
 }) => {
   const [ showFullDescription, setShowFullDescription ] = useState(false)
-  const history = useHistory()
 
   let descriptionButtonName
   if (showFullDescription) {
@@ -72,18 +70,17 @@ const CourseDescription = ({
                     disableGutters
                     classes={ { root: 'pt-5 no-padding-bottom' } }
                   >
-                    <span
-                      role='button'
-                      tabIndex={ 0 }
-                      className='para bold mr-5 course-title'
-                      onClick={ () => history.push(`${ VIEW_COURSE_ROUTE }/${ requiredCourse.courseId }`) }
+                    <Link
+                      className='para bold mr-5 primary-text-link course-title'
+                      to={ `${ VIEW_COURSE_ROUTE }/${ requiredCourse.courseId }` }
+                      target='_blank'
                     >
                       {requiredCourse.courseTitle}
-                    </span>
+                    </Link>
                     <span className='para light'>
                       {`(${ requiredCourse.creatorName }, ${ formatDate(requiredCourse.createdAt, 'YYYY') })`}
                     </span>
-                    {!isCreator && (
+                    {!isCreator && type !== 'preview' && (
                     <ListItemIcon className='ml-10'>
                       {requiredCourse.status === 'completed' ? <SuccessIcon /> : <ErrorIcon />}
                     </ListItemIcon>

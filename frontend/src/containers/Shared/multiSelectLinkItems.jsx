@@ -12,10 +12,12 @@ const filterOptions = createFilterOptions()
 const MultiSelectLinkItems = ({
   items, label, onChange, initialData, textLinkBase, onTextChange, loading,
   bottomActionText, bottomAction, inputText, showThumbnailImage, selectedLabel, notSelectedLabel, disableAutocomplete,
+  placeholderOnBlur, placeholderOnFocus,
 }) => {
   const [ inputValue, setInputValue ] = useState('')
   const [ , setSelectedItems ] = useState(initialData || [])
   const [ initialDataSet, setInitialDataSet ] = useState(false)
+  const [ textfieldFocus, setTextfieldFocus ] = useState(false)
 
   useEffect(() => {
     if (!initialDataSet && !_.isEmpty(initialData)) {
@@ -107,8 +109,12 @@ const MultiSelectLinkItems = ({
               { ...params }
               margin='dense'
               label={ label || null }
+              placeholder={ textfieldFocus ? placeholderOnFocus : placeholderOnBlur }
               variant='outlined'
+              className={ `textfield ${ !textfieldFocus ? 'blur' : '' }` }
               onChange={ onTextChange }
+              onBlur={ () => setTextfieldFocus(false) }
+              onFocus={ () => setTextfieldFocus(true) }
               InputProps={ {
                 ...params.InputProps,
                 endAdornment: (
@@ -180,6 +186,8 @@ MultiSelectLinkItems.defaultProps = {
   selectedLabel: 'Selected',
   notSelectedLabel: 'Available',
   disableAutocomplete: false,
+  placeholderOnBlur: '',
+  placeholderOnFocus: '',
 }
 
 MultiSelectLinkItems.propTypes = {
@@ -205,6 +213,8 @@ MultiSelectLinkItems.propTypes = {
   selectedLabel: PropTypes.string,
   notSelectedLabel: PropTypes.string,
   disableAutocomplete: PropTypes.bool,
+  placeholderOnBlur: PropTypes.string,
+  placeholderOnFocus: PropTypes.string,
 }
 
 export default MultiSelectLinkItems

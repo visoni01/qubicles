@@ -122,6 +122,8 @@ export default function InformationTab({
         courseId: course.id,
         courseTitle: course.title,
         courseImage: course.image,
+        creatorName: course.creatorName,
+        createdAt: course.createdAt,
         subtitle: course.subtitle,
       })),
     }))
@@ -264,12 +266,12 @@ export default function InformationTab({
                     .map((course) => ({
                       id: course.courseId,
                       title: course.courseTitle,
-                      subtitle: course.subtitle
-                        ? course.subtitle
-                        : `${ course.creatorName }, ${ formatDate(course.createdAt, 'YYYY') }`,
+                      subtitle: `${ course.creatorName }, ${ formatDate(course.createdAt, 'YYYY') }`,
                       image: course.courseImage,
                       status: !(informationSection.requiredCourses
                         && _.findIndex(informationSection.requiredCourses, { courseId: course.courseId }) === -1),
+                      creatorName: course.creatorName,
+                      createdAt: course.createdAt,
                     }))
               }
               initialData={ _.isEmpty(informationSection.requiredCourses)
@@ -277,13 +279,16 @@ export default function InformationTab({
                 : informationSection.requiredCourses.map((course) => ({
                   id: course.courseId,
                   title: course.courseTitle,
-                  subtitle: course.subtitle
-                    ? course.subtitle
-                    : `${ course.creatorName }, ${ formatDate(course.createdAt, 'YYYY') }`,
+                  subtitle: `${ course.creatorName }, ${ formatDate(course.createdAt, 'YYYY') }`,
                   image: course.courseImage,
                   status: true,
+                  creatorName: course.creatorName,
+                  createdAt: course.createdAt,
                 })) }
-              label='Search Courses'
+              placeholderOnBlur={ informationSection.requiredCourses
+                && `${ informationSection.requiredCourses.length } ${ informationSection.requiredCourses.length === 1
+                  ? 'Course' : 'Courses' } Selected` }
+              placeholderOnFocus='Search Courses'
               onChange={ setRequiredCourses }
               onTextChange={ (e) => searchCourses(e.target.value) }
               loading={ coursesLoading }

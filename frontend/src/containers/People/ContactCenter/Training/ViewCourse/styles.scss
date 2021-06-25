@@ -36,9 +36,8 @@
     list-style-type: disc;
 
     .course-title {
-      color: $color-primary;
       &:hover {
-        cursor: pointer;
+        font-weight: bold;
       }
     }
   }
@@ -53,13 +52,6 @@
     margin-left: 30px;
     display: list-item;
     list-style-type: disc;
-
-    .course-title {
-      color: $color-primary;
-      &:hover {
-        cursor: pointer;
-      }
-    }
   }
 }
 
