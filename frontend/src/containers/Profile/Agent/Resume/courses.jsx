@@ -52,6 +52,7 @@ const Courses = ({ candidateId }) => {
                 <Link
                   to={ `${ VIEW_COURSE_ROUTE }/${ course.courseId }` }
                   className='primary-text-link'
+                  target='_blank'
                 >
                   {course.courseTitle}
                 </Link>
