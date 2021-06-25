@@ -17,7 +17,7 @@ const Resume = () => {
         userType='self'
       />
       <WorkHistory />
-      <Courses />
+      <Courses candidateId={ userDetails.user_id } />
       <AgentReviews agentUserId={ userDetails.user_id } />
     </>
   )

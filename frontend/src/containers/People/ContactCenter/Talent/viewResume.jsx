@@ -3,13 +3,13 @@ import { Grid } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import ResumeIntro from './Application/resumeIntro'
-import Courses from './Application/courses'
 import SkillsPage from './Application/skillsPage'
 import ResumeWorkHistory from './Application/resumeWorkHistory'
 import InviteAgentActions from '../Jobs/Actions/inviteAgentActions'
 import './styles.scss'
 import { fetchAgentResumeStart } from '../../../../redux-saga/redux/actions'
 import AgentReviews from '../../../Profile/Agent/Resume/agentReviews'
+import Courses from '../../../Profile/Agent/Resume/courses'
 
 const ViewResume = () => {
   const dispatch = useDispatch()
@@ -42,7 +42,7 @@ const ViewResume = () => {
           userType='other'
         />
         <ResumeWorkHistory />
-        <Courses />
+        <Courses candidateId={ agentResume.candidateId } />
         {/* WIP Reviews Section */}
         <AgentReviews agentUserId={ candidateId } />
       </Grid>

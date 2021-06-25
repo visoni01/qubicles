@@ -98,7 +98,7 @@ const OtherAgentProfile = () => {
                     userType='other'
                   />
                   <WorkHistory />
-                  <Courses />
+                  <Courses candidateId={ userId } />
                   <AgentReviews agentUserId={ userId } />
                 </>
               )}

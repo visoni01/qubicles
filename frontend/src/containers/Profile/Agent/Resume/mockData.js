@@ -37,24 +37,6 @@ export const reviewsMock = {
   ],
 }
 
-export const courses = [
-  {
-    name: 'How to talk to clients?',
-    by: 'Chris Peter, 2020',
-    duration: 'Feb2020 - Mar2020 - 1 month',
-  },
-  {
-    name: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Distinctio, necessitatibus.',
-    by: 'Chris Peter, 2020',
-    duration: 'Nov2019 - Jan2020 - 3 month',
-  },
-  {
-    name: 'Lorem ipsum dolor sit amet.',
-    by: 'Chris Peter, 2020',
-    duration: 'Feb2019 - Apr2020 - 3 month',
-  },
-]
-
 export const workHistory = [
   {
     title: 'Customer service agent',

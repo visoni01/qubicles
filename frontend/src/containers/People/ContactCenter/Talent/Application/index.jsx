@@ -7,9 +7,9 @@ import ResumeIntro from './resumeIntro'
 import CoverLetter from '../../../../../components/People/ContactCenter/Talent/Application/coverLetter'
 import SkillsPage from './skillsPage'
 import ResumeWorkHistory from './resumeWorkHistory'
-import Courses from './courses'
 import AgentReviews from '../../../../Profile/Agent/Resume/agentReviews'
 import ClientJobApplicationActions from '../../Jobs/Actions'
+import Courses from '../../../../Profile/Agent/Resume/courses'
 
 const ClientViewApplication = ({
   applicationLoading, application, applicationSuccess,
@@ -55,7 +55,7 @@ const ClientViewApplication = ({
           <ResumeWorkHistory />
         </Grid>
         <Grid item>
-          <Courses />
+          <Courses candidateId={ agentResume.candidateId } />
         </Grid>
         {agentResume && agentResume.candidateId && (
         <Grid item>
