@@ -2393,3 +2393,24 @@ export const formatUserCourseData = ({ courses }) => {
     }
   })
 }
+
+export const getCourseDetails = async ({ courseIds }) => {
+  const courses = await XQodCourse.findAll({
+    attributes: ['course_id', 'title', 'createdAt'],
+    include: [
+      {
+        model: UserDetail,
+        as: 'creatorDetails',
+        attributes: [
+          ['first_name', 'firstName'],
+          ['last_name', 'lastName']
+        ]
+      }
+    ],
+    where: {
+      course_id: courseIds
+    }
+  })
+
+  return courses && courses.map(item => item.get({ plain: true }))
+}

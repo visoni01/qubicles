@@ -16,6 +16,7 @@ import _ from 'lodash'
 import { getUserDetailsByClientId } from './user'
 import { countJobApplicationsByJobId } from './jobApplication'
 import { getAll } from './crud'
+import { formatDate } from './common'
 
 export async function getRecentJobsByClient ({ client_id, limit = 5 }) {
   const jobDetails = []
@@ -278,6 +279,22 @@ export async function getCoursesByJobId ({ job_id }) {
 export async function getJobApplicationById ({ application_id }) {
   const jobApplicationDetails = await XQodApplication.findOne({ where: { application_id } })
   return jobApplicationDetails
+}
+
+export function formatJobCourseData ({ jobCoursesData, courses }) {
+  return jobCoursesData.map((course) => {
+    const currCourse = courses.find((item) => item.course_id === course.course_id)
+
+    return {
+      jobCourseId: course.job_course_id,
+      courseId: course.course_id,
+      coursePreference: course.course_preference,
+      courseTitle: !_.isUndefined(currCourse) && currCourse.title,
+      createdAt: !_.isUndefined(currCourse) && currCourse.createdAt && formatDate(currCourse.createdAt),
+      creatorName: !_.isUndefined(currCourse) && currCourse.creatorDetails &&
+        currCourse.creatorDetails.firstName + ' ' + currCourse.creatorDetails.lastName
+    }
+  })
 }
 
 export async function flagApplicationsById ({ application_id, status }) {
