@@ -271,7 +271,7 @@ export default function InformationTab({
                       status: !(informationSection.requiredCourses
                         && _.findIndex(informationSection.requiredCourses, { courseId: course.courseId }) === -1),
                     }))
-}
+              }
               initialData={ _.isEmpty(informationSection.requiredCourses)
                 ? []
                 : informationSection.requiredCourses.map((course) => ({
@@ -294,6 +294,7 @@ export default function InformationTab({
               showThumbnailImage
               selectedLabel='Selected Courses'
               notSelectedLabel='Search'
+              disableAutocomplete
             />
           </div>
         </Grid>
