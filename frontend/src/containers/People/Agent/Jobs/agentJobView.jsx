@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import './styles.scss'
 import { jobDetailsFetchStart, resetJobDetails } from '../../../../redux-saga/redux/actions'
-import { jobPostCard } from '../../ContactCenter/testData'
 import JobPost from '../../ContactCenter/Jobs/jobPost'
 import AgentJobActions from './Actions'
 import CompanyStats from './companyStats'
@@ -48,7 +47,6 @@ const AgentJobView = () => {
           jobId={ jobId }
           jobDetails={ jobDetails }
           isLoading={ isLoading }
-          courses={ jobPostCard.courses }
         />
       </Grid>
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>

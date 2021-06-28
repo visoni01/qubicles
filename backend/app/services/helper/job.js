@@ -315,7 +315,7 @@ export function formatJobCourseData ({ jobCoursesData, courses }) {
       createdAt: !_.isUndefined(currCourse) && currCourse.createdAt && formatDate(currCourse.createdAt),
       creatorName: !_.isUndefined(currCourse) && currCourse.creatorDetails &&
         currCourse.creatorDetails.firstName + ' ' + currCourse.creatorDetails.lastName,
-      courseImage: currCourse.image_url
+      courseImage: !_.isUndefined(currCourse) && currCourse.image_url
     }
   })
 }

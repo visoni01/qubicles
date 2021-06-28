@@ -12,9 +12,10 @@ import JobsApplication from './jobApplication'
 import JobPostSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/Jobs/jobPostSkeleton'
 import JobPostDetails from '../../../../components/People/ContactCenter/Jobs/jobPostDetails'
 import { resetJobApplicationListFlags } from '../../../../redux-saga/redux/actions'
+import { jobDetailsPropTypes } from './jobsValidator'
 
 const JobPost = ({
-  jobId, courses, jobDetails, isLoading,
+  jobId, jobDetails, isLoading,
 }) => {
   const { userDetails } = useSelector((state) => state.login)
   const history = useHistory()
@@ -58,7 +59,6 @@ const JobPost = ({
         </p>
 
         <JobPostDetails
-          courses={ courses }
           jobDetails={ jobDetails }
           isLoading={ isLoading }
         />
@@ -73,11 +73,14 @@ const JobPost = ({
   )
 }
 
+JobPost.defaultProps = {
+  isLoading: null,
+}
+
 JobPost.propTypes = {
   jobId: PropTypes.number.isRequired,
-  jobDetails: PropTypes.shape(PropTypes.any).isRequired,
-  courses: PropTypes.shape(PropTypes.any).isRequired,
-  isLoading: PropTypes.bool.isRequired,
+  jobDetails: jobDetailsPropTypes.isRequired,
+  isLoading: PropTypes.bool,
 }
 
 export default JobPost

@@ -1,15 +1,18 @@
+/* eslint-disable complexity */
 /* eslint-disable react/no-danger */
 import React from 'react'
 import { Divider, Chip } from '@material-ui/core'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import _ from 'lodash'
 import './styles.scss'
 import JobPostSkeleton from '../SkeletonLoader/Jobs/jobPostSkeleton'
-import { jobPostCard } from '../../../../containers/People/ContactCenter/testData'
-import { checkJobType } from '../../../../utils/common'
+import { checkJobType, formatDate } from '../../../../utils/common'
+import { VIEW_COURSE_ROUTE } from '../../../../routes/routesPath'
+import { jobDetailsPropTypes } from '../../../../containers/People/ContactCenter/Jobs/jobsValidator'
 
 const JobPostDetails = ({
-  courses, jobDetails, isLoading,
+  jobDetails, isLoading,
 }) => {
   if (isLoading) {
     return (
@@ -83,30 +86,50 @@ const JobPostDetails = ({
         </div>
       </div>
       <div className='display-inline-flex course-section is-fullwidth'>
-        <h3 className='h3 mt-15 mb-10'> Required Course</h3>
-        <div className='mb-10'>
-          <span className='primary-text-link mr-10'>
-            {courses.requiredCourses[ 0 ].courseName}
-          </span>
-          <p className='para light'>
-            {courses.requiredCourses[ 0 ].courseAuthor}
-          </p>
-          <span className='primary-text-link mr-10'>
-            { courses.requiredCourses[ 1 ].courseName}
-          </span>
-          <p className='para light'>
-            {courses.requiredCourses[ 0 ].courseAuthor}
-          </p>
-        </div>
-        <h3 className='h3 mt-10 mb-10'> Bonus Course </h3>
-        <div className='mb-10'>
-          <span className='primary-text-link mr-10'>
-            { courses.bonusCourses.courseName}
-          </span>
-          <p className='para light'>
-            { courses.bonusCourses.courseAuthor}
-          </p>
-        </div>
+        {jobDetails.jobCoursesData && jobDetails.jobCoursesData.requiredCourses
+        && jobDetails.jobCoursesData.requiredCourses.length > 0 && (
+          <>
+            <h3 className='h3 mt-15 mb-10'>Required Course</h3>
+            <div className='mb-10'>
+              {jobDetails.jobCoursesData.requiredCourses.map((course) => (
+                <div key={ course.jobCourseId }>
+                  <Link
+                    to={ `${ VIEW_COURSE_ROUTE }/${ course.courseId }` }
+                    target='_blank'
+                    className='primary-text-link'
+                  >
+                    {course.courseTitle}
+                  </Link>
+                  <p className='para light mb-10'>
+                    {`${ course.creatorName }, ${ formatDate(course.createdAt, 'YYYY') }`}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+        {jobDetails.jobCoursesData && jobDetails.jobCoursesData.bonusCourses
+        && jobDetails.jobCoursesData.bonusCourses.length > 0 && (
+          <>
+            <h3 className='h3 mt-15 mb-10'>Bonus Course</h3>
+            <div className='mb-10'>
+              {jobDetails.jobCoursesData.bonusCourses.map((course) => (
+                <div key={ course.jobCourseId }>
+                  <Link
+                    to={ `${ VIEW_COURSE_ROUTE }/${ course.courseId }` }
+                    target='_blank'
+                    className='primary-text-link'
+                  >
+                    {course.courseTitle}
+                  </Link>
+                  <p className='para light mb-10'>
+                    {`${ course.creatorName }, ${ formatDate(course.createdAt, 'YYYY') }`}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </>
   )
@@ -114,12 +137,10 @@ const JobPostDetails = ({
 
 JobPostDetails.defaultProps = {
   isLoading: null,
-  courses: jobPostCard.courses,
 }
 
 JobPostDetails.propTypes = {
-  jobDetails: PropTypes.shape(PropTypes.any).isRequired,
-  courses: PropTypes.shape(PropTypes.any),
+  jobDetails: jobDetailsPropTypes.isRequired,
   isLoading: PropTypes.bool,
 }
 

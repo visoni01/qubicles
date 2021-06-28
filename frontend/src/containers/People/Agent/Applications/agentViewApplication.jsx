@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import { jobDetailsFetchStart } from '../../../../redux-saga/redux/actions'
 import CompanyStats from '../Jobs/companyStats'
 import JobPost from '../../ContactCenter/Jobs/jobPost'
-import { jobPostCard } from '../../ContactCenter/testData'
 import IntroductionSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/Jobs/contactCenterSkeleton'
 import ActionsBox from '../Jobs/Actions/actionsBox'
 import CoverLetter from '../../../../components/People/ContactCenter/Talent/Application/coverLetter'
@@ -54,7 +53,6 @@ const AgentViewApplication = ({
             jobId={ application.jobId }
             jobDetails={ jobDetails }
             isLoading={ isLoading }
-            courses={ jobPostCard.courses }
           />
         </Grid>
       </Grid>

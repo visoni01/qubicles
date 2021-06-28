@@ -4,10 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button } from '@material-ui/core'
 import { useSelector } from 'react-redux'
 import _ from 'lodash'
-import PropTypes from 'prop-types'
 import Introduction from '../../../../components/CommonModal/Introduction'
 import './styles.scss'
 import JobApplicationStats from './jobApplicationStats'
+import { jobDetailsPropTypes } from './jobsValidator'
 
 const ContactCenterIntro = ({ jobDetails }) => {
   const { settings } = useSelector((state) => state.clientDetails)
@@ -50,7 +50,7 @@ const ContactCenterIntro = ({ jobDetails }) => {
 }
 
 ContactCenterIntro.propTypes = {
-  jobDetails: PropTypes.instanceOf({}).isRequired,
+  jobDetails: jobDetailsPropTypes.isRequired,
 }
 
 export default ContactCenterIntro

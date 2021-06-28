@@ -3,7 +3,6 @@ import { Grid } from '@material-ui/core'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import ContactCenterIntro from './contactCenterIntro'
-import { jobPostCard } from '../testData'
 import JobPost from './jobPost'
 import TopTalent from '../Talent/topTalent'
 import './styles.scss'
@@ -32,7 +31,6 @@ const JobView = () => {
           jobId={ jobId }
           jobDetails={ jobDetails }
           isLoading={ isLoading }
-          courses={ jobPostCard.courses }
         />
       </Grid>
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>

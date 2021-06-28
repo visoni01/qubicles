@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 import {
   Box, Grid,
 } from '@material-ui/core'
-import { jobPostCard } from '../testData'
 import JobPostDetails from '../../../../components/People/ContactCenter/Jobs/jobPostDetails'
 import CreatePreviewActions from './NewJob/createPreviewActions'
 
@@ -21,7 +20,6 @@ const JobPreview = () => {
               </h3>
             </div>
             <JobPostDetails
-              courses={ jobPostCard.courses }
               jobDetails={ createJobData }
               isLoading={ isLoading }
             />
