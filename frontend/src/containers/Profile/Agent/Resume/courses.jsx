@@ -2,8 +2,6 @@
 import { Box, Divider, Button } from '@material-ui/core'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAward } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import _ from 'lodash'
@@ -11,6 +9,7 @@ import { fetchAgentResumeCoursesStart } from '../../../../redux-saga/redux/peopl
 import { formatDate } from '../../../../utils/common'
 import { VIEW_COURSE_ROUTE } from '../../../../routes/routesPath'
 import UserCoursesSkeleton from '../../../../components/Profile/Agent/Resume/Skeletons/userCoursesSkeleton'
+import CourseBadge from './courseBadge'
 
 const Courses = ({ candidateId }) => {
   const { courses, isLoading } = useSelector((state) => state.agentResumeCourses)
@@ -64,7 +63,7 @@ const Courses = ({ candidateId }) => {
                 ${ formatDate(course.dateCompleted, 'DD, MMM YYYY') }`}
                 </p>
               </div>
-              <FontAwesomeIcon className='custom-fa-icon sz-xxl mr-10 mt-5' icon={ faAward } />
+              {course.grade && <CourseBadge grade={ course.grade } />}
             </div>
             { currentCourses.length !== (index + 1) && <Divider />}
           </>
