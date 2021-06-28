@@ -9,7 +9,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import _ from 'lodash'
 import SingleSelect from '../../../../Shared/singleSelect'
 import RequiredCoursesField from '../../../Shared/requiredCoursesField'
-import { jobCategoriesOnlyFetchStart } from '../../../../../redux-saga/redux/actions'
+import { jobCategoriesOnlyFetchStart, resetRequiredCoursesReducer } from '../../../../../redux-saga/redux/actions'
+
 import { errorsPropTypes, informationSectionPropType } from './propTypes'
 
 export default function InformationTab({
@@ -23,6 +24,8 @@ export default function InformationTab({
   const availableLanguages = [
     'English', 'French', 'Spanish',
   ]
+
+  useEffect(() => () => dispatch(resetRequiredCoursesReducer()), [ dispatch ])
 
   useEffect(() => {
     if (!isLoading && _.isEmpty(jobCategoriesOnly) && !error) {
