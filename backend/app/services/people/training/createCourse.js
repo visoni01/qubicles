@@ -95,8 +95,17 @@ export class PeopleAddNewCourseService extends ServiceBase {
       const addedCourse = await addNewCourse({ course })
 
       if (course.informationSection && course.informationSection.requiredCourses &&
-        course.informationSection.requiredCourses.length) {
-        await addRequiredCourses({ courseId: addedCourse.course_id, requiredCourses: course.requiredCourses })
+      course.informationSection.requiredCourses.length) {
+        let requiredCourses = course.informationSection.requiredCourses
+
+        if (course.informationSection.requiredCourses[0].courseId) {
+          requiredCourses = course.informationSection.requiredCourses.map((course) => course.courseId)
+        }
+
+        await addRequiredCourses({
+          course_id: addedCourse.course_id,
+          requiredCourses
+        })
       }
 
       const courseData = { courseId: addedCourse.course_id }

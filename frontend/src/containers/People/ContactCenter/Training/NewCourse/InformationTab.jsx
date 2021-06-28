@@ -8,7 +8,9 @@ import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import _ from 'lodash'
 import SingleSelect from '../../../../Shared/singleSelect'
-import { jobCategoriesOnlyFetchStart, requiredCoursesFetchStart } from '../../../../../redux-saga/redux/actions'
+import {
+  jobCategoriesOnlyFetchStart, requiredCoursesFetchStart, resetRequiredCoursesReducer,
+} from '../../../../../redux-saga/redux/actions'
 import { errorsPropTypes, informationSectionPropType } from './propTypes'
 import MultiSelectLinkItems from '../../../../Shared/multiSelectLinkItems'
 import { VIEW_COURSE_ROUTE } from '../../../../../routes/routesPath'
@@ -29,6 +31,8 @@ export default function InformationTab({
   const availableLanguages = [
     'English', 'French', 'Spanish',
   ]
+
+  useEffect(() => () => dispatch(resetRequiredCoursesReducer()), [ dispatch ])
 
   useEffect(() => {
     if (_.isNull(coursesLoading) && _.isEmpty(allCourses)) {

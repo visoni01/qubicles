@@ -16,6 +16,7 @@ const {
     requiredCoursesFetchStart,
     requiredCoursesFetchSuccess,
     requiredCoursesFetchFailure,
+    resetRequiredCoursesReducer,
   },
   reducer,
 } = createSlice({
@@ -45,6 +46,7 @@ const {
       success: false,
       error: true,
     }),
+    resetRequiredCoursesReducer: () => initialState,
   },
 })
 
@@ -53,4 +55,5 @@ export {
   requiredCoursesFetchStart,
   requiredCoursesFetchSuccess,
   requiredCoursesFetchFailure,
+  resetRequiredCoursesReducer,
 }
