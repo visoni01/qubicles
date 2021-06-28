@@ -27,17 +27,25 @@ function* jobDetailsWorker(action) {
           const requiredSkills = []
           const bonusSkills = []
           data.jobCoursesData.map((course) => {
-            if (course.course_preference === 'required') {
+            if (course.coursePreference === 'required') {
               requiredCourses.push({
-                jobCourseId: course.job_course_id,
-                coursePreference: course.course_preference,
-                courseId: course.course_id,
+                jobCourseId: course.jobCourseId,
+                coursePreference: course.coursePreference,
+                courseId: course.courseId,
+                courseTitle: course.courseTitle,
+                creatorName: course.creatorName,
+                createdAt: course.createdAt,
+                courseImage: course.courseImage,
               })
             } else {
               bonusCourses.push({
-                jobCourseId: course.job_course_id,
-                coursePreference: course.course_preference,
-                courseId: course.course_id,
+                jobCourseId: course.jobCourseId,
+                coursePreference: course.coursePreference,
+                courseId: course.courseId,
+                courseTitle: course.courseTitle,
+                creatorName: course.creatorName,
+                createdAt: course.createdAt,
+                courseImage: course.courseImage,
               })
             }
             return { requiredCourses, bonusCourses }

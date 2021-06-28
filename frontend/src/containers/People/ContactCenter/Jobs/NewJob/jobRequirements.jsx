@@ -56,8 +56,7 @@ const NewJobRequirements = ({
         })),
       },
     }))
-    // eslint-disable-next-line
-  }, [])
+  }, [ setNewJobData ])
 
   const setBonusCoursesCB = useCallback((items) => {
     setNewJobData((currentNewJobData) => ({
@@ -120,20 +119,22 @@ const NewJobRequirements = ({
         </Grid>
         <Grid container justify='space-between'>
           <Grid item xs={ 6 }>
-            <h4 className='h4 mt-10'> Required Courses* </h4>
+            <h4 className='h4 mt-10 mb-5'> Required Courses* </h4>
             <div className='mr-30 drop-down-field'>
               <RequiredCoursesField
                 selectedCourses={ newJobData.jobCoursesData.requiredCourses }
                 setSelectedCourses={ setRequiredCoursesCB }
+                coursesType='requiredCourses'
               />
             </div>
           </Grid>
           <Grid item xs={ 6 }>
-            <h4 className='h4 mt-10'> Bonus Courses</h4>
+            <h4 className='h4 mt-10 mb-5'> Bonus Courses</h4>
             <div className='mr-30 drop-down-field'>
               <RequiredCoursesField
                 selectedCourses={ newJobData.jobCoursesData.bonusCourses }
                 setSelectedCourses={ setBonusCoursesCB }
+                coursesType='bonusCourses'
               />
             </div>
           </Grid>

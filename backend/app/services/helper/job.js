@@ -124,6 +124,28 @@ export async function updateJob (data) {
   })
   await XQodJobSkill.bulkCreate(bonusSkillsEntities)
 
+  // Destroying previous records of required courses and bonus courses
+  await XQodJobCourse.destroy({
+    where: {
+      job_id: data.job_id
+    }
+  })
+
+  // Updating new required and bonus courses data
+  const coursesEntities = [
+    ...data.required_courses.map(course => ({
+      job_id: data.job_id,
+      course_id: course.courseId,
+      course_preference: 'required'
+    })),
+    ...data.bonus_courses.map(course => ({
+      job_id: data.job_id,
+      course_id: course.courseId,
+      course_preference: 'plus'
+    }))
+  ]
+  await XQodJobCourse.bulkCreate(coursesEntities)
+
   return updatedJob
 }
 
@@ -292,7 +314,8 @@ export function formatJobCourseData ({ jobCoursesData, courses }) {
       courseTitle: !_.isUndefined(currCourse) && currCourse.title,
       createdAt: !_.isUndefined(currCourse) && currCourse.createdAt && formatDate(currCourse.createdAt),
       creatorName: !_.isUndefined(currCourse) && currCourse.creatorDetails &&
-        currCourse.creatorDetails.firstName + ' ' + currCourse.creatorDetails.lastName
+        currCourse.creatorDetails.firstName + ' ' + currCourse.creatorDetails.lastName,
+      courseImage: currCourse.image_url
     }
   })
 }

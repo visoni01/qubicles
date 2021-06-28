@@ -3,38 +3,69 @@ import { useDispatch, useSelector } from 'react-redux'
 import { debounce } from '@material-ui/core'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
-import { requiredCoursesFetchStart } from '../../../redux-saga/redux/people'
+import {
+  bonusCoursesFetchStart, requiredCoursesFetchStart, resetBonusCoursesReducer, resetRequiredCoursesReducer,
+} from '../../../redux-saga/redux/people'
 import { noOfRequiredCoursesPerFetch } from '../ContactCenter/constants'
 import { VIEW_COURSE_ROUTE } from '../../../routes/routesPath'
 import MultiSelectLinkItems from '../../Shared/multiSelectLinkItems'
 import { formatDate } from '../../../utils/common'
 
-const RequiredCoursesField = ({ selectedCourses, setSelectedCourses }) => {
+const RequiredCoursesField = ({ selectedCourses, setSelectedCourses, coursesType }) => {
   const {
     allCourses, searchKeyword, count, offset, isLoading: coursesLoading,
-  } = useSelector((state) => state.requiredCourses)
+  } = useSelector((state) => state[ coursesType ])
   const dispatch = useDispatch()
 
+  // Fetch courses initially
   useEffect(() => {
     if (_.isNull(coursesLoading) && _.isEmpty(allCourses)) {
-      dispatch(requiredCoursesFetchStart({ searchKeyword: '', offset: 0 }))
+      if (_.isEqual(coursesType, 'requiredCourses')) {
+        dispatch(requiredCoursesFetchStart({ searchKeyword: '', offset: 0 }))
+      } else {
+        dispatch(bonusCoursesFetchStart({ searchKeyword: '', offset: 0 }))
+      }
     }
-  }, [ dispatch, coursesLoading, allCourses ])
+  }, [ dispatch, coursesLoading, allCourses, coursesType ])
 
+  // Reset data in reducer
+  useEffect(() => () => {
+    if (_.isEqual(coursesType, 'requiredCourses')) {
+      dispatch(resetRequiredCoursesReducer())
+    } else {
+      dispatch(resetBonusCoursesReducer())
+    }
+  }, [ dispatch, coursesType ])
+
+  // Search Courses
   const searchCourses = useCallback(debounce((nextValue) => {
-    dispatch(requiredCoursesFetchStart({
-      searchKeyword: nextValue,
-      offset: 0,
-    }))
-  }, 500), [ dispatch ])
+    if (_.isEqual(coursesType, 'requiredCourses')) {
+      dispatch(requiredCoursesFetchStart({
+        searchKeyword: nextValue,
+        offset: 0,
+      }))
+    } else {
+      dispatch(bonusCoursesFetchStart({
+        searchKeyword: nextValue,
+        offset: 0,
+      }))
+    }
+  }, 500), [ dispatch, coursesType ])
 
   // Fetch more courses
   const viewMoreCourses = useCallback(() => {
-    dispatch(requiredCoursesFetchStart({
-      searchKeyword,
-      offset: offset + noOfRequiredCoursesPerFetch,
-    }))
-  }, [ dispatch, searchKeyword, offset ])
+    if (_.isEqual(coursesType, 'requiredCourses')) {
+      dispatch(requiredCoursesFetchStart({
+        searchKeyword,
+        offset: offset + noOfRequiredCoursesPerFetch,
+      }))
+    } else {
+      dispatch(bonusCoursesFetchStart({
+        searchKeyword,
+        offset: offset + noOfRequiredCoursesPerFetch,
+      }))
+    }
+  }, [ dispatch, searchKeyword, offset, coursesType ])
 
   return (
     <MultiSelectLinkItems
@@ -91,8 +122,8 @@ RequiredCoursesField.propTypes = {
     creatorName: PropTypes.string.isRequired,
     createdAt: PropTypes.string.isRequired,
   })).isRequired,
-
   setSelectedCourses: PropTypes.func.isRequired,
+  coursesType: PropTypes.oneOf([ 'requiredCourses', 'bonusCourses' ]).isRequired,
 }
 
 export default RequiredCoursesField
