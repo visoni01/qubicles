@@ -39,6 +39,8 @@ const MediaPlayer = ({ source, small, type }) => {
     setBufferedData(0)
   }, [ source ])
 
+  useEffect(() => () => { mediaRef.current.src = '' }, [])
+
   const playOrPause = useCallback(() => {
     if (isPlaying) {
       setIsPlaying(false)

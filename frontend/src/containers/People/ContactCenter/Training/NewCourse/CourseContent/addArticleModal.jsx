@@ -35,7 +35,8 @@ const AddArticleModal = ({
     }))
     setCurrentFileUrl('')
     setCurrentFileName('')
-  }, [ setUnitDetails ])
+    dispatch(resetTrainingCourseReducerFlags())
+  }, [ setUnitDetails, dispatch ])
 
   const handleChangeArticleText = useCallback((selectedValue) => {
     setUnitDetails((current) => ({

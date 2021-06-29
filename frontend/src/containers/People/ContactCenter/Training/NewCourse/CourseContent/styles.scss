@@ -72,6 +72,10 @@
   border-radius: 8px;
   overflow: hidden;
 
+  .media-player-root{
+    display: flex;
+  }
+
   .video-player-root {
     display: flex;
   }
