@@ -67,7 +67,7 @@ const ApplyJobModal = ({
     >
       <div className='header'>
         <DialogTitle>
-          <h2 className='h2'>Application</h2>
+          <div className='h2'>Application</div>
         </DialogTitle>
         <DialogActions className='cross-button'>
           <IconButton

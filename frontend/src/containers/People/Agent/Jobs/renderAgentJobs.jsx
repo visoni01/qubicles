@@ -18,7 +18,7 @@ const RenderAgentJobs = () => {
     <Box className='custom-box'>
       { agentJobsData.map((job) => (
         <AgentJobCard
-          key={ job.JobId }
+          key={ job.jobId }
           job={ job }
         />
       ))}

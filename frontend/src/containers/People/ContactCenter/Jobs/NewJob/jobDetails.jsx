@@ -7,6 +7,7 @@ import {
 import PropTypes from 'prop-types'
 import '../styles.scss'
 import { availableLanguages } from '../../constants'
+import { jobDetailsPropTypes } from '../jobsValidator'
 
 const NewJobDetails = ({
   newJobData,
@@ -215,7 +216,7 @@ NewJobDetails.defaultProps = {
 }
 
 NewJobDetails.propTypes = {
-  newJobData: PropTypes.shape(PropTypes.any),
+  newJobData: jobDetailsPropTypes,
   setNewJobData: PropTypes.func.isRequired,
   setNewJobDataCB: PropTypes.func.isRequired,
 }

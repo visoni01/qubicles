@@ -12,6 +12,7 @@ import MyUploadAdapter from '../../../../../utils/uploadImage'
 import '../styles.scss'
 import Loader from '../../../../loaders/circularLoader'
 import SingleSelect from '../../../../Shared/singleSelect'
+import { jobDetailsPropTypes } from '../jobsValidator'
 
 const NewJobData = ({
   newJobData,
@@ -174,9 +175,9 @@ NewJobData.defaultProps = {
 }
 
 NewJobData.propTypes = {
-  newJobData: PropTypes.shape(PropTypes.any),
+  newJobData: jobDetailsPropTypes,
   setNewJobData: PropTypes.func.isRequired,
-  jobFields: PropTypes.arrayOf(PropTypes.string),
+  jobFields: jobDetailsPropTypes,
   setNewJobDataCB: PropTypes.func.isRequired,
   isEdit: PropTypes.bool,
 }

@@ -22,7 +22,7 @@ const Endorsements = ({
   >
     <div className='header'>
       <DialogTitle>
-        <h2 className='h2'>Endorsements</h2>
+        <div className='h2'>Endorsements</div>
       </DialogTitle>
       <DialogActions className='cross-button'>
         <IconButton

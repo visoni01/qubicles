@@ -13,6 +13,7 @@ import {
 } from '../../../../../redux-saga/redux/actions'
 import '../../styles.scss'
 import ROUTE_PATHS, { JOB_ROUTE } from '../../../../../routes/routesPath'
+import { jobDetailsPropTypes } from '../jobsValidator'
 
 const CreatePreviewActions = ({
   newJobData, isEdit, isPreview,
@@ -114,10 +115,11 @@ const CreatePreviewActions = ({
 CreatePreviewActions.defaultProps = {
   isEdit: false,
   isPreview: false,
+  newJobData: null,
 }
 
 CreatePreviewActions.propTypes = {
-  newJobData: PropTypes.shape(PropTypes.any).isRequired,
+  newJobData: jobDetailsPropTypes,
   isEdit: PropTypes.bool,
   isPreview: PropTypes.bool,
 }

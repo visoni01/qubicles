@@ -8,13 +8,14 @@ import JobDetails from './jobDetails'
 import CreatePreviewActions from './createPreviewActions'
 import '../styles.scss'
 import { getNewJobFields } from '../../../../../redux-saga/redux/actions'
+import { jobDetailsPropTypes } from '../jobsValidator'
 
 const NewJob = (props) => {
   const { jobsData, jobId, isEdit } = props
   const dispatch = useDispatch()
   const defaultJobData = {
-    jobId: '',
-    categoryId: '',
+    jobId: null,
+    categoryId: null,
     categoryName: '',
     needed: 0,
     title: '',
@@ -143,8 +144,8 @@ NewJob.defaultProps = {
 }
 
 NewJob.propTypes = {
-  jobsData: PropTypes.shape(PropTypes.any),
-  jobId: PropTypes.number,
+  jobsData: jobDetailsPropTypes,
+  jobId: PropTypes.string,
   isEdit: PropTypes.bool,
 }
 

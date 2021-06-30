@@ -44,7 +44,7 @@ const AgentJobView = () => {
       <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 4 }>
         <JobPost
           key={ jobId }
-          jobId={ jobId }
+          jobId={ jobId && Number(jobId) }
           jobDetails={ jobDetails }
           isLoading={ isLoading }
         />

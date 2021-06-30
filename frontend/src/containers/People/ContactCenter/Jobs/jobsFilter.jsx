@@ -70,12 +70,17 @@ const JobFilterModal = ({
   )
 }
 
+JobFilterModal.defaultProps = {
+  anchorEl: null,
+  id: null,
+}
+
 JobFilterModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-  anchorEl: PropTypes.shape(PropTypes.any).isRequired,
+  anchorEl: PropTypes.shape({}),
   setAnchorEl: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
 }
 
 export default JobFilterModal

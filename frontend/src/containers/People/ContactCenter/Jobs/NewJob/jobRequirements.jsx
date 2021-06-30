@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import '../styles.scss'
 import MultiSelectChipItems from '../../../../Shared/multiSelectChipItems'
 import RequiredCoursesField from '../../../Shared/requiredCoursesField'
+import { jobDetailsPropTypes } from '../jobsValidator'
 
 const NewJobRequirements = ({
   newJobData,
@@ -172,8 +173,8 @@ NewJobRequirements.defaultProps = {
 }
 
 NewJobRequirements.propTypes = {
-  newJobData: PropTypes.shape(PropTypes.any),
-  jobFields: PropTypes.arrayOf(PropTypes.string).isRequired,
+  newJobData: jobDetailsPropTypes,
+  jobFields: jobDetailsPropTypes.isRequired,
   setNewJobData: PropTypes.func.isRequired,
 }
 

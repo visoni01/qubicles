@@ -62,8 +62,8 @@ SingleSelect.defaultProps = {
 }
 
 const valueValidator = PropTypes.shape({
-  id: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
+  id: PropTypes.number,
+  title: PropTypes.string,
 })
 
 SingleSelect.propTypes = {

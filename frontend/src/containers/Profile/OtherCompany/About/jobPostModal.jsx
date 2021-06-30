@@ -33,7 +33,7 @@ const JobPostModal = ({
     >
       <div className='header'>
         <DialogTitle className='jobPost-modal-title'>
-          <h2 className='h2'>Job Post</h2>
+          <div className='h2'>Job Post</div>
         </DialogTitle>
         <DialogActions className='cross-button'>
           <IconButton
