@@ -51,6 +51,7 @@ const PostWrap = ({
 
 PostWrap.defaultProps = {
   activityCustom: null,
+  commentLoading: false,
 }
 
 PostWrap.propTypes = {
@@ -68,7 +69,7 @@ PostWrap.propTypes = {
   isPostLiked: PropTypes.bool.isRequired,
   commentsCount: PropTypes.number.isRequired,
   comments: commentsArrayValidator.isRequired,
-  commentLoading: PropTypes.bool.isRequired,
+  commentLoading: PropTypes.bool,
   permission: PropTypes.string.isRequired,
 }
 

@@ -39,7 +39,7 @@ const PostCommentsWrap = ({
           ownerName={ comment.owner }
           ownerId={ comment.owner_id }
           createdAt={ comment.createdAt }
-          updatedAt={ comment.updatedAt }
+          updatedAt={ comment.updatedAt && comment.updatedAt.toString() }
           commentId={ comment.user_activity_id }
         />
       ))}

@@ -32,8 +32,8 @@ const RenderPosts = ({ ownerId }) => {
           activityValue={ post.activity_value }
           activityCustom={ post.activity_custom }
           permission={ post.activity_permission }
-          createdAt={ post.createdAt }
-          updatedAt={ post.updatedAt }
+          createdAt={ post.createdAt && post.createdAt.toString() }
+          updatedAt={ post.updatedAt && post.updatedAt.toString() }
           owner={ post.owner }
           userId={ post.user_id }
           isPostLiked={ post.isPostLiked }

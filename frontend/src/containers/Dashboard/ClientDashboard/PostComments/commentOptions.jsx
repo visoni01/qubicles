@@ -101,10 +101,6 @@ const CommentOptions = ({
 }
 
 CommentOptions.propTypes = {
-  owner: PropTypes.shape({
-    fullName: PropTypes.string.isRequired,
-    userId: PropTypes.number.isRequired,
-  }).isRequired,
   commentId: PropTypes.number.isRequired,
   postId: PropTypes.number.isRequired,
   setIsEditing: PropTypes.func.isRequired,

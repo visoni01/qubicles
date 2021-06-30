@@ -22,7 +22,7 @@ const EditPostModal = ({
   >
     <div className='header'>
       <DialogTitle>
-        <h2 className='h2'>Edit Post</h2>
+        <div className='h2'>Edit Post</div>
       </DialogTitle>
       <DialogActions className='cross-button'>
         <IconButton

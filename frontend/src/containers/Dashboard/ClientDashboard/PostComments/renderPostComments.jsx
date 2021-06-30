@@ -57,6 +57,11 @@ const RenderPostComments = ({
     </>
   )
 }
+
+RenderPostComments.defaultProps = {
+  updatedAt: null,
+}
+
 RenderPostComments.propTypes = {
   postId: PropTypes.number.isRequired,
   commentId: PropTypes.number.isRequired,
@@ -64,7 +69,7 @@ RenderPostComments.propTypes = {
   commentText: PropTypes.string.isRequired,
   ownerName: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
-  updatedAt: PropTypes.string.isRequired,
+  updatedAt: PropTypes.string,
 }
 
 export default React.memo(RenderPostComments)

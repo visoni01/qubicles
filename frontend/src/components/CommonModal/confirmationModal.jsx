@@ -21,7 +21,7 @@ const ConfirmationModal = ({
     <Grid container>
       <Grid item xs={ 11 } sm={ 11 } md={ 11 } lg={ 11 } xl={ 11 }>
         <DialogTitle>
-          <h3 className='h3'>{message}</h3>
+          <div className='h3'>{message}</div>
         </DialogTitle>
       </Grid>
       <Grid item xs={ 1 } sm={ 1 } md={ 1 } lg={ 1 } xl={ 1 }>
