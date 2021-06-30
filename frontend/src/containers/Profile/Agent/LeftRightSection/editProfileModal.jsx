@@ -465,12 +465,12 @@ EditProfileModal.propTypes = {
     summary: PropTypes.string,
     profilePic: PropTypes.string,
     highestEducation: PropTypes.string,
-    yearsOfExperience: PropTypes.number,
+    yearsOfExperience: PropTypes.string,
     hourlyRate: PropTypes.number,
     preferredJob: PropTypes.string,
     remoteJobs: PropTypes.bool,
     onVacation: PropTypes.bool,
-    profileVisible: PropTypes.bool,
+    profileVisible: PropTypes.number,
   }),
 }
 

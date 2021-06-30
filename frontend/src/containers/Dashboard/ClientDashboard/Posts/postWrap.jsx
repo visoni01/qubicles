@@ -69,7 +69,7 @@ PostWrap.propTypes = {
   commentsCount: PropTypes.number.isRequired,
   comments: commentsArrayValidator.isRequired,
   commentLoading: PropTypes.bool.isRequired,
-  permission: PropTypes.bool.isRequired,
+  permission: PropTypes.string.isRequired,
 }
 
 export default React.memo(PostWrap)

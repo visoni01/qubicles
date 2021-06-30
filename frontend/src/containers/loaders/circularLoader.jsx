@@ -34,7 +34,7 @@ const Loader = ({
         (loading || displayLoaderManually)
         && (
           <>
-            <div className={ enableOverlay && 'overlay' } />
+            <div className={ enableOverlay ? 'overlay' : '' } />
             <div className={ loaderRootClasses }>
               {_.isEmpty(type)
                 ? <CircularProgress size={ size } />

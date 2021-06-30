@@ -42,7 +42,7 @@ const ViewResume = () => {
           userType='other'
         />
         <ResumeWorkHistory />
-        <Courses candidateId={ agentResume.candidateId } />
+        <Courses candidateId={ candidateId } />
         {/* WIP Reviews Section */}
         <AgentReviews agentUserId={ candidateId } />
       </Grid>

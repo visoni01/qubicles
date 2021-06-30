@@ -122,7 +122,7 @@ const EditProfileModal = ({
     >
       <div className='header'>
         <DialogTitle>
-          <h2 className='h2'>Edit Profile</h2>
+          <div className='h2'>Edit Profile</div>
         </DialogTitle>
         <DialogActions className='cross-button'>
           <IconButton

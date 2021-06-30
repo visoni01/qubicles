@@ -351,7 +351,7 @@ const EditSkills = ({
           {/* Other Languages */}
           {otherLanguages && otherLanguages.map((language, index) => (
             <Grid
-              key={ language.name }
+              key={ language }
               container
               justify='space-between'
               alignItems='center'

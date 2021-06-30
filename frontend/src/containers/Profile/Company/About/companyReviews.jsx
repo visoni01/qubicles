@@ -73,7 +73,7 @@ const CompanyReviews = ({
               careerAdvancementRating: viewRatings.rating3,
               compensationRating: viewRatings.rating4,
             } }
-            totalAverageRating={ viewRatings.totalAverageRating }
+            totalAverageRating={ Number(viewRatings.totalAverageRating).toFixed(2) }
             totalAverageRaters={ viewRatings.totalAverageRaters }
           />
         )}

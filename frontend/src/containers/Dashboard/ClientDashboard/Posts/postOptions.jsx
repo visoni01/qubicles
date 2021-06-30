@@ -108,6 +108,10 @@ const PostOptions = ({
   )
 }
 
+PostOptions.defaultProps = {
+  postImage: null,
+}
+
 PostOptions.propTypes = {
   owner: PropTypes.shape({
     fullName: PropTypes.string.isRequired,
@@ -116,8 +120,8 @@ PostOptions.propTypes = {
   createdAt: PropTypes.string.isRequired,
   postId: PropTypes.number.isRequired,
   postText: PropTypes.string.isRequired,
-  postImage: PropTypes.string.isRequired,
-  permission: PropTypes.bool.isRequired,
+  postImage: PropTypes.string,
+  permission: PropTypes.string.isRequired,
 }
 
 export default PostOptions

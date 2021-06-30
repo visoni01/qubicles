@@ -79,7 +79,7 @@ const InviteAgent = ({
     >
       <div className='header'>
         <DialogTitle>
-          <h2 className='h2'>Invitation</h2>
+          <p className='h2'>Invitation</p>
         </DialogTitle>
         <DialogActions className='cross-button'>
           <IconButton

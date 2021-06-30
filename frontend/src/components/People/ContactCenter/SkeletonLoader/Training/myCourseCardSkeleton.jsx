@@ -37,8 +37,8 @@ const MyCourseCardSkeleton = () => (
     </div>
     <div className='my-courses-card-list'>
       {[ ...Array(3).keys() ].map((val, index) => (
-        <>
-          <div className='is-flex my-courses-card-list-item' key={ val }>
+        <div key={ val }>
+          <div className='is-flex my-courses-card-list-item'>
             <Skeleton
               animation='wave'
               classes={ { root: 'my-courses-card-property' } }
@@ -49,7 +49,7 @@ const MyCourseCardSkeleton = () => (
             />
           </div>
           {index !== 2 && <Divider />}
-        </>
+        </div>
       ))}
     </div>
     <Skeleton

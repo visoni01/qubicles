@@ -164,7 +164,7 @@ AgentEditProfile.propTypes = {
   rating: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   location: PropTypes.string.isRequired,
-  registrationDate: PropTypes.string.isRequired,
+  registrationDate: PropTypes.string,
   title: PropTypes.string.isRequired,
   summary: PropTypes.string.isRequired,
   profilePic: PropTypes.string.isRequired,
@@ -174,7 +174,7 @@ AgentEditProfile.propTypes = {
   preferredJob: PropTypes.string,
   remoteJobs: PropTypes.bool,
   onVacation: PropTypes.bool,
-  profileVisible: PropTypes.bool,
+  profileVisible: PropTypes.number,
   candidateId: PropTypes.number,
 }
 
@@ -185,6 +185,7 @@ AgentEditProfile.defaultProps = {
   remoteJobs: null,
   onVacation: null,
   profileVisible: null,
+  registrationDate: '',
 }
 
 export default AgentEditProfile

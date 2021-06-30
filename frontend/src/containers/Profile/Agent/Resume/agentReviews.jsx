@@ -76,7 +76,7 @@ const AgentReviews = ({
                   customerInteractionRating: viewRatings.rating3,
                   dependabilityRating: viewRatings.rating4,
                 } }
-                totalAverageRating={ viewRatings.totalAverageRating }
+                totalAverageRating={ Number(viewRatings.totalAverageRating).toFixed(2) }
                 totalAverageRaters={ viewRatings.totalAverageRaters }
               />
             )}
