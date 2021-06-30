@@ -359,13 +359,14 @@ CourseActions.defaultProps = {
   isLoading: null,
   dataType: '',
   continueCourse: false,
-  setOpenReviewModal: () => {},
   requestType: '',
+  setOpenReviewModal: () => {},
+  setOpenCoursePlayer: () => {},
 }
 
 CourseActions.propTypes = {
   course: viewCoursePropType.isRequired,
-  setOpenCoursePlayer: setOpenCoursePlayerPropType.isRequired,
+  setOpenCoursePlayer: setOpenCoursePlayerPropType,
   type: typePropType,
   isLoading: PropTypes.bool,
   dataType: dataTypePropType,

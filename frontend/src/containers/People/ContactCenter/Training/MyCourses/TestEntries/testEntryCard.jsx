@@ -51,7 +51,7 @@ const TestEntryCard = ({
 }
 
 TestEntryCard.defaultProps = {
-  sections: undefined,
+  sections: null,
 }
 
 TestEntryCard.propTypes = {

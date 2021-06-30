@@ -54,21 +54,24 @@ const PeopleContactCenter = () => {
             <Tabs
               value={ temp.indexOf(currentPath) }
             >
-              <Link to={ jobsRoute } className={ currentPath === jobsRoute ? 'active-tab' : 'inactive-tab' }>
-                <Tab
-                  label='Jobs'
-                />
-              </Link>
-              <Link to={ talentRoute } className={ currentPath === talentRoute ? 'active-tab' : 'inactive-tab' }>
-                <Tab
-                  label='Talent'
-                />
-              </Link>
-              <Link to={ trainingRoute } className={ currentPath === trainingRoute ? 'active-tab' : 'inactive-tab' }>
-                <Tab
-                  label='Training'
-                />
-              </Link>
+              <Tab
+                component={ Link }
+                label='Jobs'
+                to={ jobsRoute }
+                className={ currentPath === jobsRoute ? 'active-tab' : 'inactive-tab' }
+              />
+              <Tab
+                component={ Link }
+                label='Talent'
+                to={ talentRoute }
+                className={ currentPath === talentRoute ? 'active-tab' : 'inactive-tab' }
+              />
+              <Tab
+                component={ Link }
+                label='Training'
+                to={ trainingRoute }
+                className={ currentPath === trainingRoute ? 'active-tab' : 'inactive-tab' }
+              />
             </Tabs>
           </Grid>
           <Grid item xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 }>

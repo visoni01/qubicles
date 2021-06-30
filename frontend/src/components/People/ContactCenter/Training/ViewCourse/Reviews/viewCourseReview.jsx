@@ -33,12 +33,17 @@ const ViewCourseReview = ({
   </>
 )
 
+ViewCourseReview.defaultProps = {
+  userTitle: '',
+  userPic: '',
+}
+
 ViewCourseReview.propTypes = {
   rating: PropTypes.number.isRequired,
   comment: PropTypes.string.isRequired,
   userName: PropTypes.string.isRequired,
-  userTitle: PropTypes.string.isRequired,
-  userPic: PropTypes.string.isRequired,
+  userTitle: PropTypes.string,
+  userPic: PropTypes.string,
   dateOfReview: PropTypes.string.isRequired,
   courseProgress: PropTypes.number.isRequired,
 }

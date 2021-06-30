@@ -72,7 +72,7 @@ const CourseFilterModal = ({
 
 CourseFilterModal.defaultProps = {
   anchorEl: null,
-  id: undefined,
+  id: null,
 }
 
 CourseFilterModal.propTypes = {

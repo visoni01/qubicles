@@ -41,8 +41,12 @@ const AlertPopover = ({
   </Popover>
 )
 
+AlertPopover.defaultProps = {
+  open: false,
+}
+
 AlertPopover.propTypes = {
-  open: PropTypes.bool.isRequired,
+  open: PropTypes.bool,
   buttonOnClick: PropTypes.func.isRequired,
   alertTitle: PropTypes.string.isRequired,
   alertBody: PropTypes.string.isRequired,

@@ -145,9 +145,9 @@ const CoursePreview = ({
           {open && !isLoading && (
           <div className='display-inline-flex justify-between no-padding-bottom'>
             <DialogTitle className='is-fullwidth'>
-              <h4 className='h4 mt-10'>
+              <p className='h4 mt-10'>
                 {courseTitle}
-              </h4>
+              </p>
             </DialogTitle>
             <DialogActions className='cross-button'>
               <IconButton className='is-size-6' onClick={ onClose }>

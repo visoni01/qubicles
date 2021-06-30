@@ -23,11 +23,11 @@ const ReviewsList = ({ reviews }) => (
 ReviewsList.propTypes = {
   reviews: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
-    rating: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
     comment: PropTypes.string.isRequired,
     userName: PropTypes.string.isRequired,
-    userTitle: PropTypes.string.isRequired,
-    userPic: PropTypes.string.isRequired,
+    userTitle: PropTypes.string,
+    userPic: PropTypes.string,
     dateOfReview: PropTypes.string.isRequired,
     courseProgress: PropTypes.number.isRequired,
   })).isRequired,

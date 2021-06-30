@@ -53,13 +53,17 @@ const EditPostModal = ({
   </Dialog>
 )
 
+EditPostModal.defaultProps = {
+  postImage: null,
+}
+
 EditPostModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   postId: PropTypes.number.isRequired,
   postText: PropTypes.string.isRequired,
-  postImage: PropTypes.string.isRequired,
-  permission: PropTypes.bool.isRequired,
+  postImage: PropTypes.string,
+  permission: PropTypes.string.isRequired,
   owner: PropTypes.shape({
     fullName: PropTypes.string.isRequired,
     userId: PropTypes.number.isRequired,

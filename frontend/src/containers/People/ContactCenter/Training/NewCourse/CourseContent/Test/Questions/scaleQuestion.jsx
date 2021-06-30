@@ -3,8 +3,10 @@ import {
   Grid, TextField, Slider,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
 import { testQuestionPropType } from '../../../propTypes'
 
+// eslint-disable-next-line complexity
 const ScaleQuestion = ({
   questionDetails, setQuestionDetails,
 }) => {
@@ -61,9 +63,9 @@ const ScaleQuestion = ({
             mark: 'custom-slider-mark',
             markLabel: 'custom-slider-mark-label',
           } }
-          value={ parseInt(questionDetails.answerText, 10) }
-          min={ parseInt(questionDetails.scale.minRange, 10) }
-          max={ parseInt(questionDetails.scale.maxRange, 10) }
+          value={ !_.isEmpty(questionDetails.answerText) ? parseInt(questionDetails.answerText, 10) : null }
+          min={ !_.isEmpty(questionDetails.scale.minRange) ? parseInt(questionDetails.scale.minRange, 10) : null }
+          max={ !_.isEmpty(questionDetails.scale.maxRange) ? parseInt(questionDetails.scale.maxRange, 10) : null }
           step={ 1 }
           marks={ getMarks() }
           aria-labelledby='discrete-slider-small-steps'
@@ -82,9 +84,9 @@ const ScaleQuestion = ({
           <p className='para bold'>Scale</p>
           <Slider
             track={ false }
-            value={ parseInt(questionDetails.answerText, 10) }
-            min={ parseInt(questionDetails.scale.minRange, 10) }
-            max={ parseInt(questionDetails.scale.maxRange, 10) }
+            value={ !_.isEmpty(questionDetails.answerText) ? parseInt(questionDetails.answerText, 10) : null }
+            min={ !_.isEmpty(questionDetails.scale.minRange) ? parseInt(questionDetails.scale.minRange, 10) : null }
+            max={ !_.isEmpty(questionDetails.scale.maxRange) ? parseInt(questionDetails.scale.maxRange, 10) : null }
             step={ 1 }
             marks={ getMarks() }
             aria-labelledby='discrete-slider-small-steps'
@@ -107,7 +109,7 @@ const ScaleQuestion = ({
             placeholder='Min Value'
             margin='dense'
             variant='outlined'
-            value={ parseInt(questionDetails.scale.minRange, 10) }
+            value={ !_.isEmpty(questionDetails.scale.minRange) ? parseInt(questionDetails.scale.minRange, 10) : '' }
             onChange={ (e) => setScaleRange({ newValue: e.target.value, type: 'min' }) }
           />
         </Grid>
@@ -117,7 +119,7 @@ const ScaleQuestion = ({
             placeholder='Max Value'
             margin='dense'
             variant='outlined'
-            value={ parseInt(questionDetails.scale.maxRange, 10) }
+            value={ !_.isEmpty(questionDetails.scale.maxRange) ? parseInt(questionDetails.scale.maxRange, 10) : '' }
             onChange={ (e) => setScaleRange({ newValue: e.target.value, type: 'max' }) }
           />
         </Grid>
@@ -129,7 +131,7 @@ const ScaleQuestion = ({
           type='number'
           margin='dense'
           variant='outlined'
-          value={ parseInt(questionDetails.answerText, 10) }
+          value={ !_.isEmpty(questionDetails.answerText) ? parseInt(questionDetails.answerText, 10) : '' }
           onChange={ (e) => handleAnswerChange(e.target.value) }
           InputProps={ {
             inputProps: {

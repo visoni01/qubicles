@@ -44,9 +44,9 @@ const ScaleTestQuestion = ({
   const getAnswerValue = useCallback(() => {
     const answer = _.find(answers, [ 'questionId', question.id ])
     if (answer) {
-      return answer.answer
+      return parseInt(answer.answer, 10)
     }
-    return ''
+    return null
   }, [ answers, question.id ])
 
   const getMarks = useCallback(() => {
@@ -68,7 +68,7 @@ const ScaleTestQuestion = ({
     <div className='display-inline-flex is-fullwidth align-items-center'>
       <Slider
         track={ false }
-        valueLabelDisplay={ getAnswerValue() !== '' ? 'auto' : 'off' }
+        valueLabelDisplay={ !_.isNull(getAnswerValue()) ? 'auto' : 'off' }
         classes={ {
           root: 'custom-slider-root',
           thumb: 'custom-slider-thumb',
@@ -79,7 +79,7 @@ const ScaleTestQuestion = ({
           markLabel: 'custom-slider-mark-label',
         } }
         onChange={ (e, val) => handleAnswerChange(val) }
-        value={ parseInt(getAnswerValue(), 10) }
+        value={ getAnswerValue() }
         min={ parseInt(question.scale.minRange, 10) }
         max={ parseInt(question.scale.maxRange, 10) }
         step={ 1 }
@@ -91,7 +91,7 @@ const ScaleTestQuestion = ({
           type='number'
           margin='dense'
           variant='outlined'
-          value={ parseInt(getAnswerValue(), 10) }
+          value={ getAnswerValue() || '' }
           onChange={ (e) => handleAnswerChange(e.target.value) }
           InputProps={ {
             inputProps: {

@@ -323,5 +323,5 @@ MediaPlayer.defaultProps = {
 MediaPlayer.propTypes = {
   source: PropTypes.string.isRequired,
   small: PropTypes.bool,
-  type: PropTypes.oneOf('audio', 'video'),
+  type: PropTypes.oneOf([ 'audio', 'video' ]),
 }

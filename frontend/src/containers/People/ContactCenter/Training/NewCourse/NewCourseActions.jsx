@@ -163,7 +163,7 @@ const NewCourseActions = ({
         confirmButtonText='Publish'
         handleClose={ () => setPublishConfirmationOpen(false) }
         handleConfirm={ publishCourse }
-        message='You will not be able to edit this course once it is published. Do you want to publish this course?'
+        message='Are you sure you want to publish this course?'
       />
     </>
   )

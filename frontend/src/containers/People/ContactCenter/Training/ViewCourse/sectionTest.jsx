@@ -97,7 +97,7 @@ const SectionTest = ({ courseId, sectionId }) => {
         <div className='mt-10'>
           <LinearProgress
             variant='determinate'
-            value={ `${ (answers.length * 100) / (questions && questions.length) }` }
+            value={ (answers.length * 100) / (questions && questions.length) }
             classes={ {
               root: 'progress-root',
               barColorPrimary: 'progress-bar-color',

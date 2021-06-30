@@ -149,7 +149,7 @@ const TestEntriesValidation = ({
 }
 
 TestEntriesValidation.defaultProps = {
-  sections: undefined,
+  sections: null,
 }
 
 TestEntriesValidation.propTypes = {

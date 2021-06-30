@@ -252,7 +252,7 @@ EditPost.propTypes = {
   postId: PropTypes.number.isRequired,
   initialPostData: PropTypes.shape({
     postText: PropTypes.string.isRequired,
-    postImage: PropTypes.string.isRequired,
+    postImage: PropTypes.string,
     permission: PropTypes.string.isRequired,
   }),
   owner: PropTypes.shape({

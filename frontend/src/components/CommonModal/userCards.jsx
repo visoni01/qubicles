@@ -47,8 +47,8 @@ UserCards.propTypes = {
   userData: PropTypes.arrayOf(PropTypes.shape({
     itemId: PropTypes.number.isRequired,
     itemHeading: PropTypes.string.isRequired,
-    itemPic: PropTypes.string.isRequired,
-    itemRating: PropTypes.number.isRequired,
+    itemPic: PropTypes.string,
+    itemRating: PropTypes.number,
     itemLink: PropTypes.string.isRequired,
     itemRoute: PropTypes.string.isRequired,
     itemSubHeading: PropTypes.string,

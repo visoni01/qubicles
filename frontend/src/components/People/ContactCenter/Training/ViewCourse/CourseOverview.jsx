@@ -76,16 +76,19 @@ CourseOverview.defaultProps = {
   courseId: null,
   isLoading: null,
   isCreator: false,
+  introVideo: '',
+  isEnrolled: false,
+  setOpenCoursePlayer: () => {},
 }
 
 CourseOverview.propTypes = {
   sections: sectionsPropType.isRequired,
   courseId: courseIdPropType,
-  isEnrolled: isEnrolledPropType.isRequired,
-  introVideo: introVideoPropType.isRequired,
+  isEnrolled: isEnrolledPropType,
+  introVideo: introVideoPropType,
   courseTitle: courseTitlePropType.isRequired,
   courseStatus: courseStatusPropType,
-  setOpenCoursePlayer: setOpenCoursePlayerPropType.isRequired,
+  setOpenCoursePlayer: setOpenCoursePlayerPropType,
   currentUnitIndex: currentUnitIndexPropType,
   currentSectionIndex: currentSectionIndexPropType,
   isIntroVideoActive: isIntroVideoActivePropType,

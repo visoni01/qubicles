@@ -28,13 +28,17 @@ const PostHead = ({
   </div>
 )
 
+PostHead.defaultProps = {
+  updatedAt: null,
+}
+
 PostHead.propTypes = {
   owner: PropTypes.shape({
     fullName: PropTypes.string.isRequired,
     userId: PropTypes.number.isRequired,
   }).isRequired,
   createdAt: PropTypes.string.isRequired,
-  updatedAt: PropTypes.string.isRequired,
+  updatedAt: PropTypes.string,
 
 }
 
