@@ -48,14 +48,14 @@ const EditPost = ({
     }
     const postData = {
       userActivityId: postId,
-      file: fileInput.current.files && fileInput.current.files[ 0 ],
+      file: fileSrc,
       text: postText,
       removeCurrentImage: _.isEmpty(fileSrc),
       permission,
     }
     dispatch(updatePostStatus(postData))
     handleCancelEdit()
-  }, [ postText, postId, permission, fileInput, fileSrc, dispatch, handleCancelEdit ])
+  }, [ postText, postId, permission, fileSrc, dispatch, handleCancelEdit ])
 
   const setPostTextCB = useCallback((event) => {
     setPostText(event.target.value)
@@ -77,16 +77,19 @@ const EditPost = ({
 
   const handleFileInputChange = useCallback((event) => {
     event.preventDefault()
-    const file = event.target.files[ 0 ]
+    const file = event.target.files && event.target.files[ 0 ]
     const reader = new FileReader()
 
-    reader.onloadend = () => {
-      setFileSrc(
-        reader.result,
-      )
-    }
-    if (event.target.files[ 0 ]) {
-      reader.readAsDataURL(file)
+    if (file) {
+      const fileUrl = URL.createObjectURL(file)
+
+      reader.onloadend = () => {
+        setFileSrc(fileUrl)
+      }
+
+      if (event.target.files[ 0 ]) {
+        reader.readAsDataURL(file)
+      }
     }
   }, [])
 

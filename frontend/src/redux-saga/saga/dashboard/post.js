@@ -40,14 +40,9 @@ function* postDataFetchingWorker(action) {
         break
       }
       case createStatusPostStart.type: {
-        const formData = new FormData()
         const { file, text, activityPermission } = action.payload
 
-        formData.append('file', file)
-        formData.set('text', text)
-        formData.set('activityPermission', activityPermission)
-
-        const { data } = yield Dashboard.addPost({ data: formData })
+        const { data } = yield Dashboard.addPost({ file, text, activityPermission })
         const { userDetails } = yield select((state) => state.login)
         yield put(updatePostData({
           type: CREATE_NEW_POST,
@@ -75,15 +70,16 @@ function* postDataFetchingWorker(action) {
         break
       }
       case UPDATE_POST: {
-        const formData = new FormData()
         const {
           file, text, removeCurrentImage, userActivityId, permission,
         } = action.payload
-        formData.append('file', file)
-        formData.set('text', text)
-        formData.set('remove_image', removeCurrentImage)
-        formData.set('permission', permission)
-        const { data } = yield Dashboard.editPost({ data: formData, userActivityId })
+        const { data } = yield Dashboard.editPost({
+          file,
+          text,
+          removeCurrentImage,
+          userActivityId,
+          permission,
+        })
         yield put(updatePostData({
           type: action.type,
           editedPost: {

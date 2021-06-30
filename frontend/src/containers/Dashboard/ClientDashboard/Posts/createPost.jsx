@@ -11,8 +11,7 @@ import {
   faChevronDown, faImage, faTimesCircle,
 } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
-import { createStatusPostStart } from '../../../../redux-saga/redux/actions'
-import Loader from '../../../loaders/circularLoader'
+import { createStatusPostStart, startLoader, stopLoader } from '../../../../redux-saga/redux/actions'
 import { terry } from '../../../../assets/images/avatar'
 import { postStatusPermissions } from '../../../People/ContactCenter/constants'
 
@@ -21,6 +20,7 @@ const CreatePost = ({ initialPostData }) => {
   const [ permission, setPermission ] = useState(initialPostData.permission)
   const [ fileSrc, setFileSrc ] = useState(initialPostData.fileSrc)
   const [ anchorEl, setAnchorEl ] = useState(null)
+  const { isLoading, success } = useSelector((state) => state.createPost)
 
   const open = Boolean(anchorEl)
   const id = open ? 'simple-popover' : undefined
@@ -41,11 +41,11 @@ const CreatePost = ({ initialPostData }) => {
     }
     const postData = {
       activityPermission: permission,
-      file: fileInput.current.files && fileInput.current.files[ 0 ],
+      file: fileSrc,
       text: postText,
     }
     dispatch(createStatusPostStart(postData))
-  }, [ postText, fileInput, permission, dispatch ])
+  }, [ postText, permission, dispatch, fileSrc ])
 
   const setPostTextCB = useCallback((event) => {
     setPostText(event.target.value)
@@ -56,7 +56,6 @@ const CreatePost = ({ initialPostData }) => {
     setAnchorEl(null)
   }, [])
 
-  const { isLoading, success } = useSelector((state) => state.createPost)
   const clear = () => {
     setPostText('')
     setPermission('public')
@@ -78,18 +77,29 @@ const CreatePost = ({ initialPostData }) => {
     }
   }, [ success, isLoading ])
 
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(startLoader())
+    } else {
+      dispatch(stopLoader())
+    }
+  }, [ dispatch, isLoading ])
+
   const handleFileInputChange = useCallback((event) => {
     event.preventDefault()
     const file = event.target.files && event.target.files[ 0 ]
     const reader = new FileReader()
 
-    reader.onloadend = () => {
-      setFileSrc(
-        reader.result,
-      )
-    }
-    if (event.target.files[ 0 ]) {
-      reader.readAsDataURL(file)
+    if (file) {
+      const fileUrl = URL.createObjectURL(file)
+
+      reader.onloadend = () => {
+        setFileSrc(fileUrl)
+      }
+
+      if (event.target.files[ 0 ]) {
+        reader.readAsDataURL(file)
+      }
     }
   }, [])
 
@@ -138,16 +148,6 @@ const CreatePost = ({ initialPostData }) => {
             >
               Cancel
             </Button>
-            <div>
-              { isLoading && (
-              <Loader
-                className='add-status-loader'
-                displayLoaderManually
-                enableOverlay={ false }
-                size={ 30 }
-              />
-              )}
-            </div>
             <Grid container spacing={ 3 } justify='flex-end'>
               <Grid item>
                 <Button

@@ -50,23 +50,48 @@ class Dashboard {
     return response
   }
 
-  static async addPost({ data }) {
+  static async addPost({ file, text, activityPermission }) {
+    const formData = new FormData()
+
+    if (file) {
+      const imageFile = await fetch(file).then((r) => r.blob())
+      formData.append('file', imageFile)
+    }
+
+    formData.set('text', text)
+    formData.set('activityPermission', activityPermission)
+
     const response = await axiosInst({
       method: 'post',
       url: '/dashboard/post-status',
-      data,
+      data: formData,
       headers: { 'Content-Type': 'multipart/form-data' },
     })
+
     return response
   }
 
-  static async editPost({ data, userActivityId }) {
+  static async editPost({
+    file, text, removeCurrentImage, userActivityId, permission,
+  }) {
+    const formData = new FormData()
+
+    if (file) {
+      const imageFile = await fetch(file).then((r) => r.blob())
+      formData.append('file', imageFile)
+    }
+
+    formData.set('text', text)
+    formData.set('remove_image', removeCurrentImage)
+    formData.set('permission', permission)
+
     const response = await axiosInst({
       method: 'put',
       url: `/dashboard/post-status/${ userActivityId }`,
-      data,
+      data: formData,
       headers: { 'Content-Type': 'multipart/form-data' },
     })
+
     return response
   }
 
