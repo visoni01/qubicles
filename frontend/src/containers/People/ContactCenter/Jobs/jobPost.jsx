@@ -75,10 +75,11 @@ const JobPost = ({
 
 JobPost.defaultProps = {
   isLoading: null,
+  jobId: null,
 }
 
 JobPost.propTypes = {
-  jobId: PropTypes.number.isRequired,
+  jobId: PropTypes.number,
   jobDetails: jobDetailsPropTypes.isRequired,
   isLoading: PropTypes.bool,
 }

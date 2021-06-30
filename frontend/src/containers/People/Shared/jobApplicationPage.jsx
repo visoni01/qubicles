@@ -23,11 +23,13 @@ const JobApplicationPage = () => {
     }))
   }, [ dispatch, applicationId ])
 
-  if (isLoading) {
-    dispatch(startLoader())
-  } else {
-    dispatch(stopLoader())
-  }
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(startLoader())
+    } else {
+      dispatch(stopLoader())
+    }
+  }, [ isLoading, dispatch ])
 
   if (error) {
     return (

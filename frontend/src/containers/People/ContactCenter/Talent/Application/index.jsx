@@ -75,9 +75,13 @@ const ClientViewApplication = ({
   )
 }
 
+ClientViewApplication.defaultProps = {
+  applicationSuccess: false,
+}
+
 ClientViewApplication.propTypes = {
   applicationLoading: PropTypes.bool.isRequired,
-  applicationSuccess: PropTypes.bool.isRequired,
+  applicationSuccess: PropTypes.bool,
   application: PropTypes.shape({
     applicationId: PropTypes.number.isRequired,
     agentUserId: PropTypes.number.isRequired,

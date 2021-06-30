@@ -30,10 +30,16 @@ const ApplyJobAction = ({
   )
 }
 
+ApplyJobAction.defaultProps = {
+  clientId: null,
+  jobId: null,
+  agentUserId: null,
+}
+
 ApplyJobAction.propTypes = {
-  clientId: PropTypes.number.isRequired,
-  jobId: PropTypes.number.isRequired,
-  agentUserId: PropTypes.number.isRequired,
+  clientId: PropTypes.number,
+  jobId: PropTypes.number,
+  agentUserId: PropTypes.number,
 }
 
 export default ApplyJobAction

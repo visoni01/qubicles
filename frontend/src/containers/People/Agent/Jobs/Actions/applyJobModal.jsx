@@ -128,12 +128,18 @@ const ApplyJobModal = ({
   )
 }
 
+ApplyJobModal.defaultProps = {
+  clientId: null,
+  jobId: null,
+  agentUserId: null,
+}
+
 ApplyJobModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-  clientId: PropTypes.number.isRequired,
-  jobId: PropTypes.number.isRequired,
-  agentUserId: PropTypes.number.isRequired,
+  clientId: PropTypes.number,
+  jobId: PropTypes.number,
+  agentUserId: PropTypes.number,
 }
 
 export default ApplyJobModal
