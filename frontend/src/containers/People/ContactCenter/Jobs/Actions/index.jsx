@@ -73,14 +73,14 @@ const ClientJobApplicationActions = ({ application }) => {
 
 ClientJobApplicationActions.propTypes = {
   application: PropTypes.shape({
-    applicationId: PropTypes.number.isRequired,
-    agentUserId: PropTypes.number.isRequired,
-    clientId: PropTypes.number.isRequired,
-    jobId: PropTypes.number.isRequired,
-    coverLetter: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
-    createdOn: PropTypes.string.isRequired,
-    updateOn: PropTypes.string.isRequired,
+    applicationId: PropTypes.number,
+    agentUserId: PropTypes.number,
+    clientId: PropTypes.number,
+    jobId: PropTypes.number,
+    coverLetter: PropTypes.string,
+    status: PropTypes.string,
+    createdOn: PropTypes.string,
+    updateOn: PropTypes.string,
   }).isRequired,
 }
 

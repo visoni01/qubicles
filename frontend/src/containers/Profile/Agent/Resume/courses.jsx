@@ -95,8 +95,12 @@ const Courses = ({ candidateId }) => {
   )
 }
 
+Courses.defaultProps = {
+  candidateId: null,
+}
+
 Courses.propTypes = {
-  candidateId: PropTypes.number.isRequired,
+  candidateId: PropTypes.number,
 }
 
 export default Courses

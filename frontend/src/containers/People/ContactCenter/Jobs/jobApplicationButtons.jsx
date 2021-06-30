@@ -1,5 +1,5 @@
 /* eslint-disable complexity */
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Button } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
@@ -23,11 +23,13 @@ const JobApplicationButtons = ({ application }) => {
     }))
   }, [ dispatch, application ])
 
-  if (isLoading) {
-    dispatch(startLoader())
-  } else {
-    dispatch(stopLoader())
-  }
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(startLoader())
+    } else {
+      dispatch(stopLoader())
+    }
+  }, [ isLoading, dispatch ])
 
   const handleActionButton = useCallback(({ status, actionType }) => {
     if (actionType === 'negative') {
