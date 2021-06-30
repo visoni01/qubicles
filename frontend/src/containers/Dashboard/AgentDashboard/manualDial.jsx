@@ -24,7 +24,7 @@ const ManualDial = ({
   >
     <div className='header'>
       <DialogTitle>
-        <h2 className='h2'>Manual Dial</h2>
+        <div className='h2'>Manual Dial</div>
       </DialogTitle>
       <DialogActions className='cross-button'>
         <IconButton

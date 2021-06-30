@@ -15,7 +15,7 @@ const MultiSelectLinkItems = ({
   placeholderOnBlur, placeholderOnFocus,
 }) => {
   const [ inputValue, setInputValue ] = useState('')
-  const [ , setSelectedItems ] = useState(initialData || [])
+  const [ selectedItems, setSelectedItems ] = useState(initialData || [])
   const [ initialDataSet, setInitialDataSet ] = useState(false)
   const [ textfieldFocus, setTextfieldFocus ] = useState(false)
 
@@ -29,21 +29,17 @@ const MultiSelectLinkItems = ({
   const setSelectedItemsCB = useCallback((event, value) => {
     if (value) {
       if (!value.status) {
-        setSelectedItems((state) => {
-          const updatedState = _.unionBy(state, [ value ], 'id')
-          onChange(updatedState)
-          return updatedState
-        })
+        const updatedState = _.unionBy(selectedItems, [ value ], 'id')
+        setSelectedItems(updatedState)
+        onChange(updatedState)
       } else {
-        setSelectedItems((state) => {
-          const updatedState = state.filter((stateItem) => stateItem.id !== value.id)
-          onChange(updatedState)
-          return updatedState
-        })
+        const updatedState = selectedItems.filter((stateItem) => stateItem.id !== value.id)
+        setSelectedItems(updatedState)
+        onChange(updatedState)
       }
     }
     setInputValue(inputText)
-  }, [ setSelectedItems, onChange, inputText ])
+  }, [ setSelectedItems, onChange, inputText, selectedItems ])
 
   const clearAll = useCallback(() => {
     setSelectedItems([])
@@ -69,7 +65,7 @@ const MultiSelectLinkItems = ({
           filterOptions={ disableAutocomplete ? (option) => option : filterOptions }
           groupBy={ (option) => option.status }
           renderGroup={ (option) => (
-            <div>
+            <div key={ option.group }>
               <div className='group-heading'>
                 {option.group === true && (
                   <div className='display-inline-flex is-fullwidth justify-between align-items-center'>

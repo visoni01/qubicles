@@ -126,7 +126,7 @@ const AddArticleModal = ({
     >
       <div className='header'>
         <DialogTitle>
-          <h2 className='h2'>{title}</h2>
+          <div className='h2'>{title}</div>
         </DialogTitle>
         <DialogActions className='cross-button'>
           <IconButton

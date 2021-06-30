@@ -23,7 +23,7 @@ const CallLogs = ({
   >
     <div className='header'>
       <DialogTitle>
-        <h2 className='h2'>Call Logs</h2>
+        <div className='h2'>Call Logs</div>
       </DialogTitle>
       <DialogActions className='cross-button'>
         <IconButton
@@ -60,7 +60,7 @@ const CallLogs = ({
               <Grid key={ timeFilter } item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 } xs={ 3 }>
                 <Button classes={ {
                   root: 'button-primary-text large-height',
-                  laebl: 'button-primary-text-label',
+                  label: 'button-primary-text-label',
                 } }
                 >
                   {timeFilter}

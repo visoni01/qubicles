@@ -70,7 +70,7 @@ const CallDialer = ({
     >
       <div className='header'>
         <DialogTitle>
-          <h3 className='h3'>My Web Phone</h3>
+          <div className='h3'>My Web Phone</div>
         </DialogTitle>
         <DialogActions className='cross-button'>
           <IconButton
@@ -99,7 +99,7 @@ const CallDialer = ({
               variant='outlined'
               margin='dense'
               autoFocus
-              error={ errors.dialedNumber }
+              error={ !!errors.dialedNumber }
               helperText={ errors.dialedNumber ? errors.dialedNumber.message : '' }
               inputRef={ (e) => {
                 register(e)
@@ -133,7 +133,7 @@ const CallDialer = ({
                         </Button>
                       </Grid>
                     ))}
-                    <Grid itemlg={ 4 } md={ 4 } sm={ 4 } xs={ 4 } className='text-align-last-center'>
+                    <Grid item lg={ 4 } md={ 4 } sm={ 4 } xs={ 4 } className='text-align-last-center'>
                       <IconButton
                         type='submit'
                       >
@@ -181,7 +181,7 @@ const CallDialer = ({
 
 CallDialer.propTypes = {
   open: PropTypes.bool.isRequired,
-  anchorEl: PropTypes.bool.isRequired,
+  anchorEl: PropTypes.instanceOf(Element).isRequired,
   handleClose: PropTypes.func.isRequired,
 }
 

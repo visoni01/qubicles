@@ -28,7 +28,7 @@ const Xfer = ({
       >
         <div className='header'>
           <DialogTitle>
-            <h2 className='h2'>X-fer</h2>
+            <div className='h2'>X-fer</div>
           </DialogTitle>
           <DialogActions className='cross-button'>
             <IconButton

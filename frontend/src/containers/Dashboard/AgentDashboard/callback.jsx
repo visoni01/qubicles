@@ -21,7 +21,7 @@ const Callback = ({
   >
     <div className='header'>
       <DialogTitle>
-        <h2 className='h2'>Callbacks</h2>
+        <div className='h2'>Callbacks</div>
       </DialogTitle>
       <DialogActions className='cross-button'>
         <IconButton

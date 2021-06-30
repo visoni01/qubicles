@@ -11,18 +11,21 @@ const MultiSelectChipItems = ({
 }) => {
   const [ inputValue, setInputValue ] = useState('')
   const [ selectedItems, setSelectedItems ] = useState(initialData || [])
+
   const setSelectedItemsCB = useCallback((event, value) => {
     if (value) {
-      setSelectedItems((state) => {
-        const updatedState = _.unionBy(state, [ value ], 'id')
-        if (onChange) {
-          onChange(updatedState)
-        }
-        return (updatedState)
-      })
+      const updatedState = _.unionBy(selectedItems, [ value ], 'id')
+      setSelectedItems(updatedState)
+      onChange(updatedState)
       setInputValue('')
     }
-  }, [ setSelectedItems, onChange ])
+  }, [ setSelectedItems, onChange, selectedItems ])
+
+  const onDelete = useCallback((tag) => {
+    const updatedState = selectedItems.filter((skill) => skill.id !== tag.id)
+    setSelectedItems(updatedState)
+    onChange(updatedState)
+  }, [ onChange, selectedItems ])
 
   useEffect(() => {
     setSelectedItems(initialData)
@@ -59,13 +62,7 @@ const MultiSelectChipItems = ({
           <Chip
             size={ smallTag ? 'small' : 'medium' }
             key={ tag.id }
-            onDelete={ () => {
-              setSelectedItems((state) => {
-                const updatedState = state.filter((skill) => skill.id !== tag.id)
-                onChange(updatedState)
-                setSelectedItems(updatedState)
-              })
-            } }
+            onDelete={ () => onDelete(tag) }
             label={ tag.title }
             className='tag-chip'
           />
@@ -80,6 +77,7 @@ MultiSelectChipItems.defaultProps = {
   label: '',
   smallTag: false,
   initialData: [],
+  onChange: () => {},
 }
 
 MultiSelectChipItems.propTypes = {
@@ -94,7 +92,7 @@ MultiSelectChipItems.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
   })),
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
 }
 
 export default MultiSelectChipItems
