@@ -35,7 +35,7 @@ export class GetJobByIdService extends ServiceBase {
 
       return { jobDetails, jobSkillsData, jobCoursesData: formattedCourseData }
     } catch (err) {
-      logger.error(`${getErrorMessageForService('GetJobByIdService')} ${err}`)
+      logger.error(getErrorMessageForService('GetJobByIdService'), err)
       this.addError(ERRORS.INTERNAL)
     }
   }

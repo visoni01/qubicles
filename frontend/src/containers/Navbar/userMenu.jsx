@@ -13,7 +13,6 @@ import {
   agentProfileSettingsApiStart,
 } from '../../redux-saga/redux/actions'
 import { userLogoutSuccessful } from '../../redux-saga/redux/user/login'
-import { kareem } from '../../assets/images/avatar'
 import {
   chatIcon, walletIcon, settingIcon, logoutIcon,
 } from '../../assets/images/icons/navBarIcons'
@@ -24,8 +23,12 @@ const UserMenu = () => {
   const dispatch = useDispatch()
   const [ isDropdownOpen, setIsDropdownOpen ] = useState(false)
   const { userDetails } = useSelector((state) => state.login)
-  const { isFetchSuccess, isFetchLoading } = useSelector((state) => state.clientDetails)
-  const { success, isLoading, requestType } = useSelector((state) => state.agentDetails)
+  const {
+    settings: clientSettings, isFetchSuccess, isFetchLoading,
+  } = useSelector((state) => state.clientDetails)
+  const {
+    settings: agentSettings, success, isLoading, requestType,
+  } = useSelector((state) => state.agentDetails)
   const [ anchorEl, setAnchorEl ] = useState(null)
 
   useEffect(() => {
@@ -88,7 +91,13 @@ const UserMenu = () => {
         anchorEl={ anchorEl }
       >
         <div className='user-menu'>
-          <Avatar className='profile-pic' alt='Remy Sharp' src={ kareem } />
+          <Avatar
+            className='profile-pic'
+            alt={ userDetails && userDetails.full_name }
+            src={ userDetails && userDetails.user_code === 'agent'
+              ? (agentSettings && agentSettings.profilePic)
+              : (clientSettings && clientSettings.profilePic) }
+          />
           <h2 className='h3 text-center mb-5'>{userDetails && userDetails.full_name}</h2>
 
           <Link to={ PROFILE_ROUTE } className='mb-10 text-center primary-text-link'>

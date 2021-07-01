@@ -86,7 +86,7 @@ export const jobApplicationListData = (data) => {
 
 export const formatAgentApplicationCards = ({ applications }) => {
   const agentApplications = applications.map((application) => {
-    const { XQodJob, XClient, UserDetail } = application
+    const { XQodJob, XClient, profilePicture } = application
     return ({
       application: {
         applicationId: application.application_id,
@@ -113,7 +113,7 @@ export const formatAgentApplicationCards = ({ applications }) => {
       clientDetails: {
         clientId: XClient.client_id,
         clientName: XClient.client_name,
-        profileImage: UserDetail.profile_image,
+        profileImage: profilePicture,
         rating: XClient.rating,
       },
     })

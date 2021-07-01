@@ -1,4 +1,4 @@
-import { XQodApplication, UserDetail, XClient, XQodJob } from '../../db/models'
+import { XQodApplication, UserDetail, XClient, XQodJob, XClientUser } from '../../db/models'
 import { createNewEntity } from './common'
 import { getOne } from './crud'
 import _ from 'lodash'
@@ -156,10 +156,6 @@ export const fetchAgentJobApplicationList = async ({ agentUserId, limit, offset,
     offset,
     include: [
       {
-        model: UserDetail,
-        attributes: ['profile_image']
-      },
-      {
         model: XClient,
         attributes: ['client_id', 'client_name', 'rating']
       },
@@ -179,7 +175,33 @@ export const fetchAgentJobApplicationList = async ({ agentUserId, limit, offset,
     more = true
   }
 
-  return { applications: rows, more }
+  return {
+    applications: rows && rows.map(application => application.get({ plain: true })),
+    more
+  }
+}
+
+export const getUserIdByClientIds = async ({ clientIds }) => {
+  const userIds = await XClientUser.findAll({
+    raw: true,
+    where: {
+      client_id: clientIds
+    }
+  })
+
+  return userIds
+}
+
+export const getClientProfilePictures = async ({ userIds }) => {
+  const clientProfilePictures = await UserDetail.findAll({
+    raw: true,
+    attributes: ['user_id', 'profile_image'],
+    where: {
+      user_id: userIds
+    }
+  })
+
+  return clientProfilePictures
 }
 
 export const countJobApplicationsByJobId = async ({ job_id }) => {
