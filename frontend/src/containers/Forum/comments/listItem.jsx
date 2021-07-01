@@ -5,7 +5,6 @@ import {
 import moment from 'moment'
 import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
-import { carolin } from '../../../assets/images/avatar/index'
 import CommentOptions from './commentOptions'
 import EditComment from './postComment'
 
@@ -28,7 +27,7 @@ const Comment = ({ comment }) => {
   return (
     <div key={ comment.id } className='mt-20 mb-20'>
       <div className='display-inline-flex mb-10 is-fullwidth'>
-        <Avatar className='mr-10' src={ carolin } />
+        <Avatar className='mr-10' src={ comment.profilePic } />
         <div className='comment-action-button'>
           <p className='para bold sz-xs'>
             {comment.ownerName}
@@ -74,6 +73,7 @@ Comment.propTypes = {
     ownerId: PropTypes.number,
     topicId: PropTypes.number,
     comment: PropTypes.string,
+    profilePic: PropTypes.string,
   }),
 }
 

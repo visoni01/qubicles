@@ -10,7 +10,6 @@ import {
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
-import { carolin } from '../../../assets/images/avatar/index'
 import PostComment from '../comments/postComment'
 import Comments from '../comments/list'
 import { topicActivity } from '../../../redux-saga/redux/actions'
@@ -42,7 +41,7 @@ const SelectedTopic = ({ backToGroup, topicDetails }) => {
           </Button>
         </div>
         <div className='display-inline-flex is-fullwidth topic-owner'>
-          <Avatar className='mr-10' src={ carolin } />
+          <Avatar className='mr-10' src={ topicDetails.profilePic } />
           <p className='para bold margin-auto-5'>
             {topicDetails.ownerName}
           </p>
@@ -125,6 +124,7 @@ SelectedTopic.propTypes = {
     likesCount: PropTypes.number,
     commentsCount: PropTypes.number,
     views: PropTypes.number,
+    profilePic: PropTypes.string,
   }),
 }
 

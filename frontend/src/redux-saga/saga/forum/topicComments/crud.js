@@ -17,7 +17,7 @@ function* topicCommentsCrudWorker(action) {
     switch (action.type) {
       case POST_TOPIC_COMMENT: {
         const {
-          ownerName, ownerId, topicId, ...rest
+          ownerName, ownerId, profilePic, topicId, ...rest
         } = action.payload
         const { data } = yield Forum.postTopicComment({ ...rest, topicId })
         yield put(updateGroupTopicsList({
@@ -29,7 +29,7 @@ function* topicCommentsCrudWorker(action) {
         yield put(updateTopicComments({
           type: POST_TOPIC_COMMENT,
           newComment: {
-            ...data.newComment, ownerName, ownerId, topicId,
+            ...data.newComment, ownerName, ownerId, profilePic, topicId,
           },
         }))
 

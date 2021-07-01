@@ -1,4 +1,4 @@
-import { XForumGroup, XForumTopic, User, XUserActivity, sequelize } from '../../db/models'
+import { XForumGroup, XForumTopic, UserDetail, XUserActivity, sequelize } from '../../db/models'
 import { getAll, getOne } from './crud'
 import { createNewEntity, updateEntity } from './common'
 import { find, uniq } from 'lodash'
@@ -78,13 +78,13 @@ export async function deleteForumGroup ({ user_id, group_id }) {
   return deletedGroup
 }
 
-export async function getOwnersName (ownerIds) {
+export async function getOwnersDetails (ownerIds) {
   return getAll({
-    model: User,
+    model: UserDetail,
     data: {
       user_id: ownerIds
     },
-    attributes: ['user_id', 'full_name']
+    attributes: ['user_id', 'first_name', 'last_name', 'profile_image']
   })
 }
 
@@ -136,14 +136,15 @@ export async function getForumGroupTopics ({ user_id, group_id, limit, offset })
   // Remove duplicate Ids
   ownerIds = uniq(ownerIds)
 
-  // Get owners' names
-  const ownersNames = await getOwnersName(ownerIds)
+  // Get owners' names and profile pictures
+  const ownersDetails = await getOwnersDetails(ownerIds)
   rows = rows.map(({ ownerId, ...rest }) => {
-    const ownerName = find(ownersNames, (owner) => owner.user_id === ownerId)
+    const ownerDetails = find(ownersDetails, (owner) => owner.user_id === ownerId)
     return {
       ...rest,
-      ownerName: ownerName && ownerName.full_name,
-      ownerId: ownerId
+      ownerId,
+      ownerName: ownerDetails && `${ownerDetails.first_name} ${ownerDetails.last_name}`,
+      profilePic: ownerDetails && ownerDetails.profile_image
     }
   })
 
@@ -235,15 +236,16 @@ export async function getForumTopicComments ({ topic_id, limit, offset }) {
   // Remove duplicate Ids
   ownerIds = uniq(ownerIds)
 
-  // Get owners' names
-  const ownersNames = await getOwnersName(ownerIds)
+  // Get owners' names and profile pictures
+  const ownersDetails = await getOwnersDetails(ownerIds)
 
   topicComments = topicComments.map(({ ownerId, ...rest }) => {
-    const ownerName = find(ownersNames, (owner) => owner.user_id === ownerId)
+    const ownerDetails = find(ownersDetails, (owner) => owner.user_id === ownerId)
     return {
       ...rest,
       ownerId,
-      ownerName: ownerName && ownerName.full_name
+      ownerName: ownerDetails && `${ownerDetails.first_name} ${ownerDetails.last_name}`,
+      profilePic: ownerDetails && ownerDetails.profile_image
     }
   })
 

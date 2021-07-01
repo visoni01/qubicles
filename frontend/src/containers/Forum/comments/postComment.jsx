@@ -12,7 +12,6 @@ import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import classNames from 'classnames'
 import { postTopicComment, updateTopicComment } from '../../../redux-saga/redux/actions'
-import { carolin } from '../../../assets/images/avatar/index'
 
 const PostComment = ({
   topicId, isEdit, closeEditModal, commentDetails,
@@ -20,6 +19,9 @@ const PostComment = ({
   const [ comment, setComment ] = useState(commentDetails.comment)
   const [ imageFile, setImageFile ] = useState()
   const { userDetails } = useSelector((state) => state.login)
+  const { settings } = useSelector((state) => (
+    state[ userDetails.user_code === 'employer' ? 'clientDetails' : 'agentDetails' ]
+  ))
   const fileInput = useRef()
 
   const dispatch = useDispatch()
@@ -57,6 +59,7 @@ const PostComment = ({
         comment,
         ownerName: userDetails.full_name,
         ownerId: userDetails.user_id,
+        profilePic: settings.profilePic,
       }))
       setComment('')
     }
@@ -65,7 +68,7 @@ const PostComment = ({
   return (
     <Box className='custom-box mb-20'>
       <div className='textarea-input'>
-        <Avatar className='avatar' src={ carolin } />
+        <Avatar className='avatar' src={ settings.profilePic } />
         <div className='comment-content'>
           <TextareaAutosize
             name='comment'

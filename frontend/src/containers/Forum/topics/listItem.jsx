@@ -8,7 +8,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
-import { carolin } from '../../../assets/images/avatar/index'
 import { formatDate } from '../../../utils/common'
 import { topicActivity } from '../../../redux-saga/redux/actions'
 import TopicOptions from './topicOptions'
@@ -37,7 +36,7 @@ const ListItem = ({
   return (
     <>
       <div className='display-inline-flex is-fullwidth' key={ topic.id }>
-        <Avatar className='mr-10' src={ carolin } />
+        <Avatar className='mr-10' src={ topic.profilePic } />
         <div className='is-fullwidth'>
           <div className='display-inline-flex is-fullwidth'>
             <div className='group-title'>
@@ -149,6 +148,7 @@ ListItem.propTypes = {
     ownerId: PropTypes.number,
     groupId: PropTypes.number,
     views: PropTypes.number,
+    profilePic: PropTypes.string,
   }),
   index: PropTypes.number,
   setSelectedTopic: PropTypes.func,
