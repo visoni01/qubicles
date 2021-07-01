@@ -1,13 +1,18 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import {
   Avatar, TextareaAutosize, Button,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import { terry } from '../../../../assets/images/avatar'
+import _ from 'lodash'
 import PostCommentSkeleton from './postCommentSkeleton'
 
 const AddComment = ({ postComment, isCommentLoading }) => {
   const [ commentText, setCommentText ] = useState('')
+  const { userDetails } = useSelector((state) => state.login)
+  const { settings: clientSettings } = useSelector((state) => state.clientDetails)
+  const { settings: agentSettings } = useSelector((state) => state.agentDetails)
+
   const handleCommentChange = (e) => {
     setCommentText(e.target.value)
   }
@@ -28,7 +33,11 @@ const AddComment = ({ postComment, isCommentLoading }) => {
       <div
         className='post-add-new-comment pl-5'
       >
-        <Avatar className='comment-avatar' alt='Remy Sharp' src={ terry } />
+        <Avatar
+          className='comment-avatar'
+          alt={ userDetails.full_name }
+          src={ _.isEqual(userDetails.user_code, 'employer') ? clientSettings.profilePic : agentSettings.profilePic }
+        />
         <div className='create-comment'>
           <div className='comment-content'>
             <TextareaAutosize

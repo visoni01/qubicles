@@ -42,6 +42,9 @@ function* statusPostActivityFetchingWorker(action) {
         const { data } = yield Dashboard.addPostComment({ data: commentData })
 
         const { userDetails } = yield select((state) => state.login)
+        const { settings } = yield select((state) => (
+          state[ userDetails.user_code === 'employer' ? 'clientDetails' : 'agentDetails' ]
+        ))
         const newCommentData = {
           post_id: commentData.userActivityId,
           comment_id: data.commentId,
@@ -49,6 +52,7 @@ function* statusPostActivityFetchingWorker(action) {
           activity_value: data.content,
           owner: userDetails.full_name,
           owner_id: userDetails.user_id,
+          profilePic: settings.profilePic,
         }
         yield put(updatePostData({ type: action.type, data: newCommentData }))
         break

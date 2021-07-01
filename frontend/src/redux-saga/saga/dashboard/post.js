@@ -41,9 +41,12 @@ function* postDataFetchingWorker(action) {
       }
       case createStatusPostStart.type: {
         const { file, text, activityPermission } = action.payload
-
         const { data } = yield Dashboard.addPost({ file, text, activityPermission })
         const { userDetails } = yield select((state) => state.login)
+        const { settings } = yield select((state) => (
+          state[ userDetails.user_code === 'employer' ? 'clientDetails' : 'agentDetails' ]
+        ))
+
         yield put(updatePostData({
           type: CREATE_NEW_POST,
           newPost: {
@@ -51,6 +54,7 @@ function* postDataFetchingWorker(action) {
             owner: {
               fullName: userDetails.full_name,
               userId: userDetails.user_id,
+              profilePic: settings.profilePic,
             },
             isPostLiked: false,
             likesCount: 0,

@@ -3,14 +3,17 @@ import {
   Avatar, TextareaAutosize, Button,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
-import { terry } from '../../../../assets/images/avatar'
+import { useDispatch, useSelector } from 'react-redux'
 import { updatePostComment } from '../../../../redux-saga/redux/actions'
 
 const EditComment = ({
   postId, commentId, setIsEditing, oldComment,
 }) => {
   const [ commentText, setCommentText ] = useState(oldComment)
+  const { userDetails } = useSelector((state) => state.login)
+  const { settings } = useSelector((state) => (
+    state[ userDetails.user_code === 'employer' ? 'clientDetails' : 'agentDetails' ]
+  ))
   const dispatch = useDispatch()
 
   const handleCommentChange = (e) => {
@@ -38,7 +41,7 @@ const EditComment = ({
       <div
         className='post-add-new-comment'
       >
-        <Avatar className='comment-avatar' alt='Remy Sharp' src={ terry } />
+        <Avatar className='comment-avatar' alt={ userDetails.full_name } src={ settings.profilePic } />
         <div className='create-comment'>
           <div className='comment-content'>
             <TextareaAutosize

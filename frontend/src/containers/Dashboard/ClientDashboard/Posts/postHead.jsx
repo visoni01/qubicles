@@ -3,14 +3,13 @@ import { Avatar } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import { formatDate } from '../../../../utils/common'
-import { carolin } from '../../../../assets/images/avatar'
 
 const PostHead = ({
   owner, createdAt, updatedAt,
 }) => (
   <div className='post-head'>
     <div className='display-inline-flex'>
-      <Avatar className='profile-pic' alt='Remy Sharp' src={ carolin } />
+      <Avatar className='profile-pic' alt={ owner.fullName } src={ owner.profilePic } />
       <div className='margin-auto'>
         <h4 className='h4'>
           {_.startCase(_.upperFirst(owner.fullName))}
@@ -36,6 +35,7 @@ PostHead.propTypes = {
   owner: PropTypes.shape({
     fullName: PropTypes.string.isRequired,
     userId: PropTypes.number.isRequired,
+    profilePic: PropTypes.string,
   }).isRequired,
   createdAt: PropTypes.string.isRequired,
   updatedAt: PropTypes.string,

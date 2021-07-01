@@ -11,8 +11,8 @@ import {
   faChevronDown, faImage, faTimesCircle,
 } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
 import { createStatusPostStart, startLoader, stopLoader } from '../../../../redux-saga/redux/actions'
-import { terry } from '../../../../assets/images/avatar'
 import { postStatusPermissions } from '../../../People/ContactCenter/constants'
 
 const CreatePost = ({ initialPostData }) => {
@@ -21,6 +21,9 @@ const CreatePost = ({ initialPostData }) => {
   const [ fileSrc, setFileSrc ] = useState(initialPostData.fileSrc)
   const [ anchorEl, setAnchorEl ] = useState(null)
   const { isLoading, success } = useSelector((state) => state.createPost)
+  const { userDetails } = useSelector((state) => state.login)
+  const { settings: clientSettings } = useSelector((state) => state.clientDetails)
+  const { settings: agentSettings } = useSelector((state) => state.agentDetails)
 
   const open = Boolean(anchorEl)
   const id = open ? 'simple-popover' : undefined
@@ -109,7 +112,11 @@ const CreatePost = ({ initialPostData }) => {
         className='create-post-container display-inline-flex is-fullwidth'
         style={ { pointerEvents: isLoading ? 'none' : 'auto' } }
       >
-        <Avatar className='comment-avatar' alt='Remy Sharp' src={ terry } />
+        <Avatar
+          className='comment-avatar'
+          alt={ userDetails.full_name }
+          src={ _.isEqual(userDetails.user_code, 'employer') ? clientSettings.profilePic : agentSettings.profilePic }
+        />
         <div className='create-post'>
           <div className='post-content'>
             <TextareaAutosize

@@ -3,12 +3,11 @@ import { Avatar } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { getTimeFromNow } from '../../../../utils/common'
-import { terry } from '../../../../assets/images/avatar'
 import CommentOptions from './commentOptions'
 import EditComment from './editComment'
 
 const RenderPostComments = ({
-  ownerId, postId, commentId, commentText, ownerName, createdAt, updatedAt,
+  ownerId, postId, commentId, commentText, ownerName, profilePic, createdAt, updatedAt,
 }) => {
   const [ isEditing, setIsEditing ] = useState(false)
   const { userDetails } = useSelector((state) => state.login)
@@ -17,7 +16,7 @@ const RenderPostComments = ({
       {!isEditing && (
       <div className='comment-body'>
         <div className='profile-head-info'>
-          <Avatar className='avatar' alt='Remy Sharp' src={ terry } />
+          <Avatar className='avatar' alt={ ownerName } src={ profilePic } />
           <div className='pt-5'>
             <div className='comment-box'>
               <h4 className='h4 sz-sm'>
@@ -60,6 +59,7 @@ const RenderPostComments = ({
 
 RenderPostComments.defaultProps = {
   updatedAt: null,
+  profilePic: '',
 }
 
 RenderPostComments.propTypes = {
@@ -68,6 +68,7 @@ RenderPostComments.propTypes = {
   ownerId: PropTypes.number.isRequired,
   commentText: PropTypes.string.isRequired,
   ownerName: PropTypes.string.isRequired,
+  profilePic: PropTypes.string,
   createdAt: PropTypes.string.isRequired,
   updatedAt: PropTypes.string,
 }

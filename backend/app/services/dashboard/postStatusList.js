@@ -4,7 +4,7 @@ import logger from '../../common/logger'
 import {
   getErrorMessageForService,
   checkVisibility,
-  getUserById, isUserLikedPost, getStatusLikesCount,
+  getUserDetails, isUserLikedPost, getStatusLikesCount,
   getStatusCommentsCount,
   getAllActivityStatus
 } from '../helper'
@@ -37,10 +37,11 @@ export class GellAllPostStatusListService extends ServiceBase {
         })
 
         if (isValidUser) {
-          const user = await getUserById({ user_id: data.user_id })
+          const user = await getUserDetails({ user_id: data.user_id })
           data['owner'] = {
             userId: user.user_id,
-            fullName: user.full_name
+            fullName: `${user.first_name} ${user.last_name}`,
+            profilePic: user.profile_image
           }
           data['likesCount'] = await getStatusLikesCount({ record_id: data.user_activity_id })
           data['isPostLiked'] = await isUserLikedPost({ user_id: this.user_id, user_activity_id: data.user_activity_id })

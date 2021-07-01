@@ -272,6 +272,7 @@ export const getPostData = ({ state, payload }) => {
             owner: data.owner,
             owner_id: data.owner_id,
             user_activity_id: data.comment_id,
+            profilePic: data.profilePic,
           }
           return ({
             ...post,

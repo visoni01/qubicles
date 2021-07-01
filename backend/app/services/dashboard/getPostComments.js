@@ -4,8 +4,8 @@ import {
   checkVisibility,
   getErrorMessageForService,
   getUserActivityById,
-  getUserById,
-  getStatusCommentsInBatch
+  getStatusCommentsInBatch,
+  getUserDetails
 } from '../helper'
 import { ERRORS, MESSAGES } from '../../utils/errors'
 
@@ -57,13 +57,15 @@ export class GetPostCommentsService extends ServiceBase {
       })
       const count = commentsData.count
       commentsData = await Promise.all(commentsData.comments.map(async (comment) => {
-        const user = await getUserById({ user_id: comment.user_id })
-        comment['owner'] = user.full_name
+        const user = await getUserDetails({ user_id: comment.user_id })
+        comment['owner'] = `${user.first_name} ${user.last_name}`
+        comment['profile_image'] = user.profile_image
         return {
           user_activity_id: comment.user_activity_id,
           owner_id: comment.user_id,
           activity_value: comment.activity_value,
           owner: comment.owner,
+          profilePic: comment.profile_image,
           createdAt: comment.createdAt,
           updatedAt: comment.updatedAt
         }

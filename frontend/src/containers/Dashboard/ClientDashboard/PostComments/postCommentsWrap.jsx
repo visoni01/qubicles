@@ -38,6 +38,7 @@ const PostCommentsWrap = ({
           commentText={ comment.activity_value }
           ownerName={ comment.owner }
           ownerId={ comment.owner_id }
+          profilePic={ comment.profilePic }
           createdAt={ comment.createdAt }
           updatedAt={ comment.updatedAt && comment.updatedAt.toString() }
           commentId={ comment.user_activity_id }
