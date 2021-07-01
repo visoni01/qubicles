@@ -132,7 +132,12 @@ CreateOrUpdate.propTypes = {
   handleCloseModal: PropTypes.func,
   updateGroup: PropTypes.func,
   isUpdate: PropTypes.bool,
-  groupUpdateData: PropTypes.shape,
+  groupUpdateData: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    ownerId: PropTypes.number,
+  }),
 }
 
 export default CreateOrUpdate

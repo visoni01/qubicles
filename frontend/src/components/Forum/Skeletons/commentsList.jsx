@@ -11,7 +11,7 @@ const CommentsList = () => (
     />
     <div className='mt-10'>
       {[ ...Array(8).keys() ].map((key) => (
-        <>
+        <div key={ key }>
           <div key={ key } className='display-inline-flex is-fullwidth'>
             <Skeleton
               animation='wave'
@@ -39,7 +39,7 @@ const CommentsList = () => (
             className='mb-20'
             height={ 30 }
           />
-        </>
+        </div>
       ))}
     </div>
   </>

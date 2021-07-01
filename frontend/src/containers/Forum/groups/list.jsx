@@ -68,7 +68,7 @@ Groups.defaultProps = {
 }
 
 Groups.propTypes = {
-  selectedGroup: PropTypes.string,
+  selectedGroup: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
   setSelectedGroup: PropTypes.func.isRequired,
 }
 

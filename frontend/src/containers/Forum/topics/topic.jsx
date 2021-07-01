@@ -114,7 +114,18 @@ SelectedTopic.defaultProps = {
 
 SelectedTopic.propTypes = {
   backToGroup: PropTypes.func.isRequired,
-  topicDetails: PropTypes.instanceOf({}),
+  topicDetails: PropTypes.shape({
+    id: PropTypes.number,
+    comment: PropTypes.string,
+    createdAt: PropTypes.string,
+    ownerName: PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    isTopicLiked: PropTypes.number,
+    likesCount: PropTypes.number,
+    commentsCount: PropTypes.number,
+    views: PropTypes.number,
+  }),
 }
 
 export default SelectedTopic

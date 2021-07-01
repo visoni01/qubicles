@@ -115,14 +115,18 @@ CreateAndUpdateTopic.defaultProps = {
   handleCancel: () => {},
   updateTopic: () => {},
   topicUpdateData: {},
+  isUpdate: false,
 }
 
 CreateAndUpdateTopic.propTypes = {
   handleSubmit: PropTypes.func,
   handleCancel: PropTypes.func,
   updateTopic: PropTypes.func,
-  isUpdate: PropTypes.bool.isRequired,
-  topicUpdateData: PropTypes.shape,
+  isUpdate: PropTypes.bool,
+  topicUpdateData: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+  }),
 
 }
 

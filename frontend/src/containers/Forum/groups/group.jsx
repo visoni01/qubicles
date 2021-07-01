@@ -184,15 +184,18 @@ SelectedGroup.defaultProps = {
   group: {
     title: '',
     description: '',
+    handleOpenModal: () => {},
   },
 }
 
 SelectedGroup.propTypes = {
-  group: {
+  group: PropTypes.shape({
+    id: PropTypes.number,
+    ownerId: PropTypes.number,
     title: PropTypes.string,
     description: PropTypes.string,
-    handleOpenModal: PropTypes.func.isRequired,
-  },
+    handleOpenModal: PropTypes.func,
+  }),
 }
 
 export default SelectedGroup

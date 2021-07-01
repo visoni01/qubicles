@@ -129,6 +129,7 @@ const PostComment = ({
   )
 }
 PostComment.defaultProps = {
+  topicId: null,
   isEdit: false,
   closeEditModal: () => {},
   commentDetails: {
@@ -137,7 +138,7 @@ PostComment.defaultProps = {
 }
 
 PostComment.propTypes = {
-  topicId: PropTypes.number.isRequired,
+  topicId: PropTypes.number,
   isEdit: PropTypes.bool,
   closeEditModal: PropTypes.func,
   commentDetails: PropTypes.shape({

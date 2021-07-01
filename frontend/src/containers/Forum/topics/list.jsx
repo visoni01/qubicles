@@ -88,10 +88,11 @@ const Topics = ({
   )
 }
 Topics.defaultProps = {
+  groupId: null,
   updateTopicAndToggle: () => {},
 }
 Topics.propTypes = {
-  groupId: PropTypes.number.isRequired,
+  groupId: PropTypes.number,
   groupTitle: PropTypes.string.isRequired,
   setSelectedTopic: PropTypes.func.isRequired,
   updateTopicAndToggle: PropTypes.func,

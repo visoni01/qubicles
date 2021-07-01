@@ -44,10 +44,10 @@ const Comments = ({ topicId, commentsCount }) => {
       </h3>
       <div>
         {comments.length ? comments.map((comment, index) => (
-          <>
+          <div key={ comment.id }>
             <Comment comment={ comment } />
             { (index + 1 < comments.length) && <Divider />}
-          </>
+          </div>
         )) : (
           <h4 className='h4 text-center padding-20'>
             No comments to show

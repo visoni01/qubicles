@@ -138,7 +138,18 @@ ListItem.defaultProps = {
 }
 
 ListItem.propTypes = {
-  topic: PropTypes.instanceOf({}),
+  topic: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    ownerName: PropTypes.string,
+    createdAt: PropTypes.string,
+    isTopicLiked: PropTypes.number,
+    likesCount: PropTypes.number,
+    commentsCount: PropTypes.number,
+    ownerId: PropTypes.number,
+    groupId: PropTypes.number,
+    views: PropTypes.number,
+  }),
   index: PropTypes.number,
   setSelectedTopic: PropTypes.func,
   updateTopicAndToggle: PropTypes.func,
