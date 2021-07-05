@@ -55,39 +55,67 @@ export async function addJob (data) {
     data
   })
 
-  // Adding skills and courses data for newly added job.
-  const requiredCoursesEntities = data.required_courses.map(course => {
-    return ({
-      job_id: newJob.job_id,
-      course_id: course.courseId,
-      course_preference: 'required'
-    })
-  })
-  await XQodJobCourse.bulkCreate(requiredCoursesEntities)
-  const bonusCoursesEntities = data.bonus_courses.map(course => {
-    return ({
-      job_id: newJob.job_id,
-      course_id: course.courseId,
-      course_preference: 'plus'
-    })
-  })
-  await XQodJobCourse.bulkCreate(bonusCoursesEntities)
-  const requiredSkillsEntities = data.required_skills.map(skill => {
-    return ({
-      job_id: newJob.job_id,
-      skill_id: skill.skillId,
-      skill_preference: 'required'
-    })
-  })
-  await XQodJobSkill.bulkCreate(requiredSkillsEntities)
-  const bonusSkillsEntities = data.bonus_skills.map(skill => {
-    return ({
-      job_id: newJob.job_id,
-      skill_id: skill.skillId,
-      skill_preference: 'plus'
-    })
-  })
-  await XQodJobSkill.bulkCreate(bonusSkillsEntities)
+  let coursesDataToBeAdded = []
+  let skillsDataToBeAdded = []
+
+  // Adding courses data for newly added job.
+  if (data && data.required_courses && data.required_courses.length) {
+    coursesDataToBeAdded = [
+      ...coursesDataToBeAdded,
+      ...data.required_courses.map(course => {
+        return ({
+          job_id: newJob.job_id,
+          course_id: course.courseId,
+          course_preference: 'required'
+        })
+      })]
+  }
+
+  if (data && data.bonus_courses && data.bonus_courses.length) {
+    coursesDataToBeAdded = [
+      ...coursesDataToBeAdded,
+      ...data.bonus_courses.map(course => {
+        return ({
+          job_id: newJob.job_id,
+          course_id: course.courseId,
+          course_preference: 'plus'
+        })
+      })]
+  }
+
+  if (coursesDataToBeAdded.length) {
+    await XQodJobCourse.bulkCreate(coursesDataToBeAdded)
+  }
+
+  // Adding skills data for newly added job.
+  if (data && data.required_skills && data.required_skills.length) {
+    skillsDataToBeAdded = [
+      ...skillsDataToBeAdded,
+      ...data.required_skills.map(skill => {
+        return ({
+          job_id: newJob.job_id,
+          skill_id: skill.skillId,
+          skill_preference: 'required'
+        })
+      })]
+  }
+
+  if (data && data.bonus_skills && data.bonus_skills.length) {
+    skillsDataToBeAdded = [
+      ...skillsDataToBeAdded,
+      ...data.bonus_skills.map(skill => {
+        return ({
+          job_id: newJob.job_id,
+          skill_id: skill.skillId,
+          skill_preference: 'plus'
+        })
+      })]
+  }
+
+  if (skillsDataToBeAdded.length) {
+    await XQodJobSkill.bulkCreate(skillsDataToBeAdded)
+  }
+
   return newJob
 }
 
@@ -104,25 +132,37 @@ export async function updateJob (data) {
     }
   })
 
-  // Updating new required skills data
-  const requiredSkillsEntities = data.required_skills.map(skill => {
-    return ({
-      job_id: data.job_id,
-      skill_id: skill.skillId,
-      skill_preference: 'required'
-    })
-  })
-  await XQodJobSkill.bulkCreate(requiredSkillsEntities)
+  let skillsDataToBeAdded = []
+  let coursesDataToBeAdded = []
 
-  // Updating new bonus skills data
-  const bonusSkillsEntities = data.bonus_skills.map(skill => {
-    return ({
-      job_id: data.job_id,
-      skill_id: skill.skillId,
-      skill_preference: 'plus'
-    })
-  })
-  await XQodJobSkill.bulkCreate(bonusSkillsEntities)
+  // Updating new required skills data
+  if (data && data.required_skills && data.required_skills.length) {
+    skillsDataToBeAdded = [
+      ...skillsDataToBeAdded,
+      ...data.required_skills.map(skill => {
+        return ({
+          job_id: data.job_id,
+          skill_id: skill.skillId,
+          skill_preference: 'required'
+        })
+      })]
+  }
+
+  if (data && data.bonus_skills && data.bonus_skills.length) {
+    skillsDataToBeAdded = [
+      ...skillsDataToBeAdded,
+      ...data.bonus_skills.map(skill => {
+        return ({
+          job_id: data.job_id,
+          skill_id: skill.skillId,
+          skill_preference: 'plus'
+        })
+      })]
+  }
+
+  if (skillsDataToBeAdded.length) {
+    await XQodJobSkill.bulkCreate(skillsDataToBeAdded)
+  }
 
   // Destroying previous records of required courses and bonus courses
   await XQodJobCourse.destroy({
@@ -132,19 +172,33 @@ export async function updateJob (data) {
   })
 
   // Updating new required and bonus courses data
-  const coursesEntities = [
-    ...data.required_courses.map(course => ({
-      job_id: data.job_id,
-      course_id: course.courseId,
-      course_preference: 'required'
-    })),
-    ...data.bonus_courses.map(course => ({
-      job_id: data.job_id,
-      course_id: course.courseId,
-      course_preference: 'plus'
-    }))
-  ]
-  await XQodJobCourse.bulkCreate(coursesEntities)
+  if (data && data.required_courses && data.required_courses.length) {
+    coursesDataToBeAdded = [
+      ...coursesDataToBeAdded,
+      ...data.required_courses.map(course => {
+        return ({
+          job_id: data.job_id,
+          course_id: course.courseId,
+          course_preference: 'required'
+        })
+      })]
+  }
+
+  if (data && data.bonus_courses && data.bonus_courses.length) {
+    coursesDataToBeAdded = [
+      ...coursesDataToBeAdded,
+      ...data.bonus_courses.map(course => {
+        return ({
+          job_id: data.job_id,
+          course_id: course.courseId,
+          course_preference: 'plus'
+        })
+      })]
+  }
+
+  if (coursesDataToBeAdded.length) {
+    await XQodJobCourse.bulkCreate(coursesDataToBeAdded)
+  }
 
   return updatedJob
 }

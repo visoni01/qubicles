@@ -13,6 +13,9 @@ const constraints = {
   category_id: {
     presence: { allowEmpty: false }
   },
+  title: {
+    presence: { allowEmpty: false }
+  },
   job_type: {
     presence: { allowEmpty: true }
   },
@@ -25,14 +28,11 @@ const constraints = {
   experience_type: {
     presence: { allowEmpty: true }
   },
-  title: {
-    presence: { allowEmpty: false }
-  },
   description: {
     presence: { allowEmpty: true }
   },
   needed: {
-    presence: { allowEmpty: false }
+    presence: { allowEmpty: true }
   },
   required_courses: {
     presence: { allowEmpty: true }
@@ -41,15 +41,18 @@ const constraints = {
     presence: { allowEmpty: true }
   },
   required_skills: {
-    presence: { allowEmpty: false }
+    presence: { allowEmpty: true }
   },
   bonus_skills: {
     presence: { allowEmpty: true }
   },
   pay_amount: {
-    presence: { allowEmpty: false }
+    presence: { allowEmpty: true }
   },
   languages: {
+    presence: { allowEmpty: true }
+  },
+  status: {
     presence: { allowEmpty: true }
   }
 }
