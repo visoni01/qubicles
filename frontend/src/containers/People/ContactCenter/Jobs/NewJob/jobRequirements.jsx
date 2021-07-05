@@ -5,11 +5,13 @@ import '../styles.scss'
 import MultiSelectChipItems from '../../../../Shared/multiSelectChipItems'
 import RequiredCoursesField from '../../../Shared/requiredCoursesField'
 import { jobDetailsPropTypes } from '../jobsValidator'
+import errorsPropTypes from './errorsPropTypes'
 
 const NewJobRequirements = ({
   newJobData,
   setNewJobData,
   jobFields,
+  errors,
 }) => {
   const setRequiredSkillsCB = useCallback((items) => {
     setNewJobData((currentNewJobData) => ({
@@ -97,6 +99,8 @@ const NewJobRequirements = ({
                     title: skill.skillName,
                   })) }
                 onChange={ (items) => setRequiredSkillsCB(items) }
+                error={ errors && !!errors.requiredSkills }
+                helperText={ errors && errors.requiredSkills ? errors.requiredSkills.message : '' }
               />
             </div>
           </Grid>
@@ -126,6 +130,8 @@ const NewJobRequirements = ({
                 selectedCourses={ newJobData.jobCoursesData.requiredCourses }
                 setSelectedCourses={ setRequiredCoursesCB }
                 coursesType='requiredCourses'
+                error={ errors && !!errors.requiredCourses }
+                helperText={ errors && errors.requiredCourses ? errors.requiredCourses.message : '' }
               />
             </div>
           </Grid>
@@ -176,6 +182,7 @@ NewJobRequirements.propTypes = {
   newJobData: jobDetailsPropTypes,
   jobFields: jobDetailsPropTypes.isRequired,
   setNewJobData: PropTypes.func.isRequired,
+  errors: errorsPropTypes.isRequired,
 }
 
 export default React.memo(NewJobRequirements)

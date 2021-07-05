@@ -12,7 +12,7 @@ import MultiSelectLinkItems from '../../Shared/multiSelectLinkItems'
 import { formatDate } from '../../../utils/common'
 
 const RequiredCoursesField = ({
-  selectedCourses, setSelectedCourses, coursesType, currentCourseId, filterRequiredCourses,
+  selectedCourses, setSelectedCourses, coursesType, error, helperText, currentCourseId, filterRequiredCourses,
 }) => {
   const {
     allCourses, searchKeyword, count, offset, isLoading: coursesLoading,
@@ -117,6 +117,8 @@ const RequiredCoursesField = ({
       selectedLabel='Selected Courses'
       notSelectedLabel='Search'
       disableAutocomplete
+      error={ error }
+      helperText={ helperText }
     />
   )
 }
@@ -124,6 +126,8 @@ const RequiredCoursesField = ({
 RequiredCoursesField.defaultProps = {
   currentCourseId: null,
   filterRequiredCourses: false,
+  helperText: '',
+  error: false,
 }
 
 RequiredCoursesField.propTypes = {
@@ -138,6 +142,8 @@ RequiredCoursesField.propTypes = {
   coursesType: PropTypes.oneOf([ 'requiredCourses', 'bonusCourses' ]).isRequired,
   currentCourseId: PropTypes.number,
   filterRequiredCourses: PropTypes.bool,
+  helperText: PropTypes.string,
+  error: PropTypes.bool,
 }
 
 export default RequiredCoursesField

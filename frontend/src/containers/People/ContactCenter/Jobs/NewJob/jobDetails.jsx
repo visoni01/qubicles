@@ -8,11 +8,13 @@ import PropTypes from 'prop-types'
 import '../styles.scss'
 import { availableLanguages } from '../../constants'
 import { jobDetailsPropTypes } from '../jobsValidator'
+import errorsPropTypes from './errorsPropTypes'
 
 const NewJobDetails = ({
   newJobData,
   setNewJobData,
   setNewJobDataCB,
+  errors,
 }) => {
   // eslint-disable-next-line no-unused-vars
   const [ languages, setLanguages ] = useState([ 'english', 'spanish' ])
@@ -100,12 +102,13 @@ const NewJobDetails = ({
                   id='months'
                   type='number'
                   InputProps={ { inputProps: { min: 0, step: 1 } } }
-                  error={ newJobData.durationMonths < 0 }
                   name='duration'
                   value={ newJobData.durationMonths }
                   disabled={ !(newJobData.durationType === 'months') }
                   onChange={ setDurationMonthsCB }
                   required
+                  error={ errors && !!errors.durationMonths }
+                  helperText={ errors && errors.durationMonths ? errors.durationMonths.message : '' }
                 />
                 <p className='duration-label para mr-10'> Months </p>
                 <FormControlLabel value='open-ended' control={ <Radio /> } label='Open-ended' />
@@ -141,13 +144,14 @@ const NewJobDetails = ({
               id='payAmount'
               type='number'
               InputProps={ { inputProps: { min: 0, step: 1 } } }
-              error={ newJobData.payAmount < 0 }
               className='duration-field'
               name='payAmount'
               placeholder='10'
               value={ newJobData.payAmount }
               onChange={ setNewJobDataCB }
               required
+              error={ errors && !!errors.payAmount }
+              helperText={ errors && errors.payAmount ? errors.payAmount.message : '' }
             />
             <p className='duration-label para'> $/hour </p>
           </div>
@@ -219,6 +223,7 @@ NewJobDetails.propTypes = {
   newJobData: jobDetailsPropTypes,
   setNewJobData: PropTypes.func.isRequired,
   setNewJobDataCB: PropTypes.func.isRequired,
+  errors: errorsPropTypes.isRequired,
 }
 
 export default React.memo(NewJobDetails)

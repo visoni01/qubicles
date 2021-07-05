@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, { useState, useCallback } from 'react'
 import {
   Button, TextField,
@@ -13,6 +14,7 @@ import '../styles.scss'
 import Loader from '../../../../loaders/circularLoader'
 import SingleSelect from '../../../../Shared/singleSelect'
 import { jobDetailsPropTypes } from '../jobsValidator'
+import errorsPropTypes from './errorsPropTypes'
 
 const NewJobData = ({
   newJobData,
@@ -20,6 +22,7 @@ const NewJobData = ({
   jobFields,
   setNewJobDataCB,
   isEdit,
+  errors,
 }) => {
   const dispatch = useDispatch()
   const [ isImageUploading, setIsImageUploading ] = useState(false)
@@ -73,6 +76,8 @@ const NewJobData = ({
                 id: newJobData.categoryId,
                 title: newJobData.categoryName,
               } : null }
+              error={ errors && !!errors.category }
+              helperText={ errors && errors.category ? errors.category.message : '' }
             />
           </div>
 
@@ -95,6 +100,8 @@ const NewJobData = ({
               value={ (newJobData.title !== '' && newJobData.title) ? {
                 title: newJobData.title,
               } : null }
+              error={ errors && !!errors.title }
+              helperText={ errors && errors.title ? errors.title.message : '' }
             />
           </div>
         </div>
@@ -103,7 +110,6 @@ const NewJobData = ({
           <h3 className='h3'> Needed* </h3>
           <div className='display-inline-flex mt-10'>
             <TextField
-              error={ newJobData.needed < 0 }
               margin='dense'
               id='agentNumber'
               name='needed'
@@ -115,6 +121,8 @@ const NewJobData = ({
               value={ newJobData.needed }
               onChange={ setNewJobDataCB }
               required
+              error={ errors && !!errors.needed }
+              helperText={ errors && errors.needed ? errors.needed.message : '' }
             />
             <h4 className='h4 agent-label'> Agents </h4>
           </div>
@@ -136,6 +144,7 @@ const NewJobData = ({
           }
         } }
       />
+      {errors && errors.description && <span className='para red sz-xs ml-10'>{errors.description.message}</span>}
       <Loader
         displayLoaderManually={ isImageUploading }
         enableOverlay={ false }
@@ -180,6 +189,7 @@ NewJobData.propTypes = {
   jobFields: jobDetailsPropTypes,
   setNewJobDataCB: PropTypes.func.isRequired,
   isEdit: PropTypes.bool,
+  errors: errorsPropTypes.isRequired,
 }
 
 export default React.memo(NewJobData)

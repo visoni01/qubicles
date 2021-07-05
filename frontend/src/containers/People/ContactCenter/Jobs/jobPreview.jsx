@@ -1,13 +1,22 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { useSelector } from 'react-redux'
 import {
   Box, Grid,
 } from '@material-ui/core'
+import _ from 'lodash'
 import JobPostDetails from '../../../../components/People/ContactCenter/Jobs/jobPostDetails'
 import CreatePreviewActions from './NewJob/createPreviewActions'
+import checkAndSetErrors from './NewJob/checkAndSetErrors'
+import AlertPopover from '../../../../components/CommonModal/alertPopover'
 
 const JobPreview = () => {
   const { createJobData, isUpdatedData, isLoading } = useSelector((state) => state.createJobData)
+  const [ errors, setErrors ] = useState({})
+
+  const handleErrors = useCallback(({ status }) => (
+    checkAndSetErrors({ setErrors, newJobData: createJobData, status })
+  ), [ createJobData ])
+
   return (
     <>
       <Grid container spacing={ 3 }>
@@ -30,9 +39,16 @@ const JobPreview = () => {
             newJobData={ createJobData }
             isEdit={ isUpdatedData }
             isPreview
+            handleErrors={ handleErrors }
           />
         </Grid>
       </Grid>
+      <AlertPopover
+        open={ !_.isEmpty(errors) }
+        buttonOnClick={ () => setErrors({}) }
+        alertTitle='Oops!'
+        alertBody='Please fill in all the required fields first'
+      />
     </>
   )
 }

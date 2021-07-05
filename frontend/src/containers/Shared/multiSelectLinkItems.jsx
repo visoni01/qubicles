@@ -12,7 +12,7 @@ const filterOptions = createFilterOptions()
 const MultiSelectLinkItems = ({
   items, label, onChange, initialData, textLinkBase, onTextChange, loading,
   bottomActionText, bottomAction, inputText, showThumbnailImage, selectedLabel, notSelectedLabel, disableAutocomplete,
-  placeholderOnBlur, placeholderOnFocus,
+  placeholderOnBlur, placeholderOnFocus, error, helperText,
 }) => {
   const [ inputValue, setInputValue ] = useState('')
   const [ selectedItems, setSelectedItems ] = useState(initialData || [])
@@ -103,6 +103,8 @@ const MultiSelectLinkItems = ({
           renderInput={ (params) => (
             <TextField
               { ...params }
+              error={ error }
+              helperText={ helperText }
               margin='dense'
               label={ label || null }
               placeholder={ textfieldFocus ? placeholderOnFocus : placeholderOnBlur }
@@ -184,6 +186,8 @@ MultiSelectLinkItems.defaultProps = {
   disableAutocomplete: false,
   placeholderOnBlur: '',
   placeholderOnFocus: '',
+  error: false,
+  helperText: '',
 }
 
 MultiSelectLinkItems.propTypes = {
@@ -211,6 +215,8 @@ MultiSelectLinkItems.propTypes = {
   disableAutocomplete: PropTypes.bool,
   placeholderOnBlur: PropTypes.string,
   placeholderOnFocus: PropTypes.string,
+  helperText: PropTypes.string,
+  error: PropTypes.bool,
 }
 
 export default MultiSelectLinkItems

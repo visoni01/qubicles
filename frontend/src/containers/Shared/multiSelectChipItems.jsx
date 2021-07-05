@@ -7,7 +7,7 @@ import _ from 'lodash'
 import PropTypes from 'prop-types'
 
 const MultiSelectChipItems = ({
-  items, label, smallTag, onChange, initialData,
+  items, label, smallTag, onChange, initialData, error, helperText,
 }) => {
   const [ inputValue, setInputValue ] = useState('')
   const [ selectedItems, setSelectedItems ] = useState(initialData || [])
@@ -51,6 +51,8 @@ const MultiSelectChipItems = ({
               margin='dense'
               label={ label || null }
               variant='outlined'
+              error={ error }
+              helperText={ helperText }
             />
           ) }
           renderOption={ (option) => <span className='para light'>{option.title}</span> }
@@ -78,6 +80,8 @@ MultiSelectChipItems.defaultProps = {
   smallTag: false,
   initialData: [],
   onChange: () => {},
+  helperText: '',
+  error: false,
 }
 
 MultiSelectChipItems.propTypes = {
@@ -93,6 +97,8 @@ MultiSelectChipItems.propTypes = {
     title: PropTypes.string.isRequired,
   })),
   onChange: PropTypes.func,
+  helperText: PropTypes.string,
+  error: PropTypes.bool,
 }
 
 export default MultiSelectChipItems

@@ -16,11 +16,15 @@ import ROUTE_PATHS, { JOB_ROUTE } from '../../../../../routes/routesPath'
 import { jobDetailsPropTypes } from '../jobsValidator'
 
 const CreatePreviewActions = ({
-  newJobData, isEdit, isPreview,
+  newJobData, isEdit, isPreview, handleErrors,
 }) => {
   const dispatch = useDispatch()
   const history = useHistory()
+
   const saveDraft = () => {
+    if (handleErrors({ status: 'draft' })) {
+      return
+    }
     dispatch(addJob({
       ...newJobData,
       status: 'draft',
@@ -37,6 +41,9 @@ const CreatePreviewActions = ({
   }, [ jobPublishSuccess, publishedJobId, dispatch, history ])
 
   const publishJob = () => {
+    if (handleErrors({ status: 'recruiting' })) {
+      return
+    }
     if (isEdit) {
       dispatch(updateJob({ ...newJobData, status: 'recruiting' }))
       dispatch(resetJobDetails())
@@ -122,6 +129,7 @@ CreatePreviewActions.propTypes = {
   newJobData: jobDetailsPropTypes,
   isEdit: PropTypes.bool,
   isPreview: PropTypes.bool,
+  handleErrors: PropTypes.func.isRequired,
 }
 
 export default CreatePreviewActions
