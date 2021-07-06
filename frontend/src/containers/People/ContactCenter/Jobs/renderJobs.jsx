@@ -1,8 +1,9 @@
 import React from 'react'
-import { Box, Divider } from '@material-ui/core'
+import { Box } from '@material-ui/core'
 import { useSelector } from 'react-redux'
 import JobCategoryCard from '../../../../components/People/ContactCenter/Jobs/jobCategoryCard'
 import JobsSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/Jobs/jobsSkeleton'
+import './styles.scss'
 
 const RenderJobs = () => {
   const { jobsWithCategories, isLoading } = useSelector((state) => state.jobsWithCategories)
@@ -11,10 +12,9 @@ const RenderJobs = () => {
   if (isLoading) {
     return (
       <Box className='custom-box'>
-        <h3 className='h3 light'>
+        <h3 className='h3 mb-20'>
           {`${ statusTitle }`}
         </h3>
-        <Divider className='divider' />
         <JobsSkeleton />
       </Box>
     )
@@ -22,23 +22,24 @@ const RenderJobs = () => {
 
   return (
     <Box className='custom-box'>
-      <h3 className='h3 light'>
+      <h3 className='h3 mb-20'>
         {`${ statusTitle }`}
       </h3>
-      <Divider className='divider' />
 
       { jobsWithCategories.map((jobCategory) => (
         jobCategory.jobs.length > 0 && (
-          <JobCategoryCard
-            key={ jobCategory.categoryId }
-            categoryId={ jobCategory.categoryId }
-            categoryTitle={ jobCategory.categoryTitle }
-            jobs={ jobCategory.jobs }
-            inNeed={ jobCategory.needed }
-            fulfilled={ 2 }
-            evaluating={ 2 }
-            pending={ 0 }
-          />
+          <>
+            <JobCategoryCard
+              key={ jobCategory.categoryId }
+              categoryId={ jobCategory.categoryId }
+              categoryTitle={ jobCategory.categoryTitle }
+              jobs={ jobCategory.jobs }
+              inNeed={ jobCategory.needed }
+              fulfilled={ 2 }
+              evaluating={ 2 }
+              pending={ 0 }
+            />
+          </>
         )))}
       {((jobsWithCategories && jobsWithCategories.length === 0) || (jobsWithCategories[ 0 ].jobs.length === 0)) && (
       <div className='mt-10 mb-10'>

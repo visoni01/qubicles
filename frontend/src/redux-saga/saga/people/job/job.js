@@ -79,6 +79,7 @@ function* jobDetailsWorker(action) {
               evaluating: data.jobDetails.fulfilled,
               createdOn: data.jobDetails.created_on,
               jobApplicationStats: data.jobDetails.jobApplicationStats,
+              status: data.jobDetails.status,
               jobCoursesData: {
                 requiredCourses,
                 bonusCourses,

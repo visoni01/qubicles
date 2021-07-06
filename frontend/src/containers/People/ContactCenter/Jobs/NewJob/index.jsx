@@ -8,7 +8,9 @@ import JobRequirements from './jobRequirements'
 import JobDetails from './jobDetails'
 import CreatePreviewActions from './createPreviewActions'
 import '../styles.scss'
-import { getNewJobFields } from '../../../../../redux-saga/redux/actions'
+import {
+  getNewJobFields, startLoader, stopLoader,
+} from '../../../../../redux-saga/redux/actions'
 import { jobDetailsPropTypes } from '../jobsValidator'
 import checkAndSetErrors from './checkAndSetErrors'
 import AlertPopover from '../../../../../components/CommonModal/alertPopover'
@@ -41,13 +43,23 @@ const NewJob = (props) => {
     },
   }
   const [ newJobData, setNewJobData ] = useState(defaultJobData)
-  const { jobFields } = useSelector((state) => state.jobDetails)
+  const { jobFields, isLoading: jobDetailsLoading } = useSelector((state) => state.jobDetails)
   const { createJobData } = useSelector((state) => state.createJobData)
   const [ errors, setErrors ] = useState({})
 
   const handleErrors = useCallback(({ status }) => (
     checkAndSetErrors({ setErrors, newJobData, status })
   ), [ newJobData ])
+
+  useEffect(() => () => dispatch(stopLoader()), [ dispatch ])
+
+  useEffect(() => {
+    if (jobDetailsLoading) {
+      dispatch(startLoader())
+    } else {
+      dispatch(stopLoader())
+    }
+  }, [ dispatch, jobDetailsLoading ])
 
   // Setting jobData
   const setNewJobDataCB = useCallback((event) => {

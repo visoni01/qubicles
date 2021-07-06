@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { Button, Box } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
 import {
   addJob,
   updateJob,
@@ -10,6 +11,7 @@ import {
   resetJobDetails,
   resetJobData,
   resetJobPublishStatus,
+  startLoader,
 } from '../../../../../redux-saga/redux/actions'
 import '../../styles.scss'
 import ROUTE_PATHS, { JOB_ROUTE } from '../../../../../routes/routesPath'
@@ -18,20 +20,26 @@ import { jobDetailsPropTypes } from '../jobsValidator'
 const CreatePreviewActions = ({
   newJobData, isEdit, isPreview, handleErrors,
 }) => {
+  const { publishedJobId, jobPublishSuccess } = useSelector((state) => state.createJobData)
+  const { jobDetails } = useSelector((state) => state.jobDetails)
+
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const saveDraft = () => {
+  const saveDraft = useCallback(() => {
     if (handleErrors({ status: 'draft' })) {
       return
     }
-    dispatch(addJob({
-      ...newJobData,
-      status: 'draft',
-    }))
-  }
-
-  const { publishedJobId, jobPublishSuccess } = useSelector((state) => state.createJobData)
+    dispatch(startLoader())
+    if (isEdit) {
+      dispatch(updateJob({ ...newJobData, status: 'draft' }))
+      dispatch(resetJobDetails())
+      dispatch(resetJobData())
+    } else {
+      dispatch(addJob({ ...newJobData, status: 'draft' }))
+      dispatch(resetJobData())
+    }
+  }, [ dispatch, isEdit, newJobData, handleErrors ])
 
   useEffect(() => {
     if (jobPublishSuccess && publishedJobId) {
@@ -40,10 +48,11 @@ const CreatePreviewActions = ({
     }
   }, [ jobPublishSuccess, publishedJobId, dispatch, history ])
 
-  const publishJob = () => {
+  const publishJob = useCallback(() => {
     if (handleErrors({ status: 'recruiting' })) {
       return
     }
+    dispatch(startLoader())
     if (isEdit) {
       dispatch(updateJob({ ...newJobData, status: 'recruiting' }))
       dispatch(resetJobDetails())
@@ -52,7 +61,7 @@ const CreatePreviewActions = ({
       dispatch(addJob({ ...newJobData, status: 'recruiting' }))
       dispatch(resetJobData())
     }
-  }
+  }, [ dispatch, isEdit, newJobData, handleErrors ])
 
   const previewJob = () => {
     dispatch(createJobDataFetchSuccessful({ createJobData: newJobData, isUpdatedData: isEdit }))
@@ -60,32 +69,34 @@ const CreatePreviewActions = ({
   }
 
   return (
-    <>
-      <Box className='custom-box actions-box'>
-        <h3 className='h3 mb-20'> Actions </h3>
-        <Button
-          className='wide-button mb-15'
-          classes={ {
-            root: 'button-primary-small',
-            label: 'button-primary-small-label',
-          } }
-          onClick={ publishJob }
-        >
-          {isEdit ? '> Update' : '> Publish'}
-        </Button>
+    <Box className='custom-box actions-box'>
+      <h3 className='h3 mb-20'> Actions </h3>
+      <Button
+        className='wide-button mb-15'
+        classes={ {
+          root: 'button-primary-small',
+          label: 'button-primary-small-label',
+        } }
+        onClick={ publishJob }
+      >
+        {!_.isEmpty(jobDetails) && jobDetails.status !== 'draft' ? 'Update' : 'Publish'}
+      </Button>
 
-        { !isPreview && (
+      {!isPreview && (
         <>
-          <Button
-            className='wide-button mb-15'
-            classes={ {
-              root: 'button-secondary-small',
-              label: 'button-secondary-small-label',
-            } }
-            onClick={ saveDraft }
-          >
-            Save Draft
-          </Button>
+          {jobDetails && jobDetails.status !== 'recruiting'
+          && (
+            <Button
+              className='wide-button mb-15'
+              classes={ {
+                root: 'button-secondary-small',
+                label: 'button-secondary-small-label',
+              } }
+              onClick={ saveDraft }
+            >
+              Save Draft
+            </Button>
+          )}
 
           <Button
             className='wide-button mb-15'
@@ -98,9 +109,9 @@ const CreatePreviewActions = ({
             Preview
           </Button>
         </>
-        )}
+      )}
 
-        { isPreview && (
+      {isPreview && (
         <Button
           className='wide-button mb-15'
           classes={ {
@@ -111,11 +122,8 @@ const CreatePreviewActions = ({
         >
           End Preview
         </Button>
-        )}
-
-      </Box>
-
-    </>
+      )}
+    </Box>
   )
 }
 

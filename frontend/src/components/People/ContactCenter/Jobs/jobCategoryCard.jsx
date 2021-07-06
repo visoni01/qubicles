@@ -12,20 +12,20 @@ import JobOptions from '../../../../containers/People/ContactCenter/Jobs/jobOpti
 const JobCategoryCard = ({
   categoryTitle, jobs, inNeed, categoryId,
 }) => (
-  <div className='job-category-card' key={ categoryId }>
+  <div className='job-category-card list-divider pb-15' key={ categoryId }>
     <div className='section-heading display-inline-flex is-fullwidth'>
-      <h3 className='h3'>
+      <h3 className='h3 light'>
         { categoryTitle }
       </h3>
     </div>
 
-    <div className='mt-10 mb-30'>
+    <div>
       {jobs.length && jobs.map(({
         job_id, title, needed, status, fulfilled, pending, evaluating,
       }, index) => (
         <div key={ !job_id ? `${ index } ${ title } ${ categoryId }` : `${ job_id } ${ categoryId }` }>
-          <div className='job-info list-divider'>
-            <div className='job-details is-fullwidth'>
+          <div className='job-info'>
+            <div className='job-details is-fullwidth mt-5 mb-10'>
 
               <h4 className='h4 job-title'>
                 <Link to={ `${ JOB_ROUTE }/${ job_id }` }>
