@@ -164,7 +164,10 @@ export const fetchAgentJobApplicationList = async ({ agentUserId, limit, offset,
           'job_id', 'title', 'description',
           'job_type', 'duration_type', 'duration_months',
           'city', 'state', 'pay_amount', 'needed', 'fulfilled'
-        ]
+        ],
+        where: {
+          is_deleted: false
+        }
       }
     ]
   })

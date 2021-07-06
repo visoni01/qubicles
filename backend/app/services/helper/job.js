@@ -533,7 +533,8 @@ export async function getAgentJobs ({
   // WIP - requiredLocation
 }) {
   let xQodJobQuery = {
-    [Op.not]: [{ is_deleted: true }]
+    [Op.not]: [{ is_deleted: true }],
+    [Op.not]: [{ status: 'draft' }]
   }
 
   // Search Jobs
