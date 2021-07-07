@@ -1,5 +1,5 @@
 import ServiceBase from '../../../../common/serviceBase'
-import { getErrorMessageForService } from '../../../helper'
+import { getConnectionType, getErrorMessageForService } from '../../../helper'
 import { getAgentResume } from '../../../helper/people'
 import logger from '../../../../common/logger'
 import { ERRORS } from '../../../../utils/errors'
@@ -19,7 +19,7 @@ export class PeopleGetAgentResumeService extends ServiceBase {
   }
 
   async run () {
-    const { candidate_id } = this.filteredArgs
+    const { candidate_id, user_id } = this.filteredArgs
     try {
       const profile = await getAgentResume({ candidateId: candidate_id })
       if (profile) {
@@ -27,6 +27,7 @@ export class PeopleGetAgentResumeService extends ServiceBase {
         const primaryLanguage = [userDetails.primary_language]
         const secondaryLanguages = userDetails.other_languages ? userDetails.other_languages.split(',') : []
         const languages = primaryLanguage.concat(secondaryLanguages)
+        const connectionType = await getConnectionType({ follower_id: user_id, following_id: candidate_id })
         const agentResume = {
           candidateId: userDetails.user_id,
           candidateName: userDetails.first_name + ' ' + userDetails.last_name,
@@ -45,7 +46,8 @@ export class PeopleGetAgentResumeService extends ServiceBase {
             skillId: userSkill.skill_id,
             skillName: userSkill.skill.skill_name,
             endorsedCount: userSkill.endorsed
-          }))
+          })),
+          isFollowing: ['following', 'connected'].includes(connectionType)
         }
         return agentResume
       }

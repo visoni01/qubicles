@@ -1,7 +1,7 @@
 import ServiceBase from '../../../common/serviceBase'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
 import logger from '../../../common/logger'
-import { getErrorMessageForService, getClientData, getUserDetailsByClientId } from '../../helper'
+import { getErrorMessageForService, getClientData, getUserDetailsByClientId, getConnectionType } from '../../helper'
 
 const constraints = {
   user_id: {
@@ -19,13 +19,19 @@ export class CompanyDetailsService extends ServiceBase {
 
   async run () {
     try {
-      const { client_id } = this.filteredArgs
+      const { client_id, user_id } = this.filteredArgs
       const clientDetails = await getClientData({ client_id })
+
       if (!clientDetails) {
         this.addError(ERRORS.NOT_FOUND, MESSAGES.CLIENT_NOT_EXIST)
         return
       }
-      const userDetails = await getUserDetailsByClientId({ client_id: clientDetails.client_id })
+
+      const promises = [
+        () => getUserDetailsByClientId({ client_id: clientDetails.client_id }),
+        () => getConnectionType({ follower_id: user_id, following_id: client_id })
+      ]
+      const [userDetails, connectionType] = await Promise.all(promises.map(promise => promise()))
       const companyDetails = {
         registrationDate: clientDetails.registration_date,
         companyName: clientDetails.client_name,
@@ -34,8 +40,10 @@ export class CompanyDetailsService extends ServiceBase {
         summary: clientDetails.summary,
         location: `${clientDetails.city}, ${clientDetails.state}`,
         companyImg: userDetails.profile_image,
-        rating: clientDetails.rating
+        rating: clientDetails.rating,
+        isFollowing: connectionType === 'following'
       }
+
       return companyDetails
     } catch (err) {
       logger.error(`${getErrorMessageForService('CompanyDetailsService')} ${err}`)
