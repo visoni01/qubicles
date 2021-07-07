@@ -92,8 +92,7 @@ export const getConnectionType = async ({ following_id, follower_id }) => {
     where: {
       user_id: follower_id,
       record_id: following_id,
-      activity_type: 'connection',
-      activity_value: { [Op.in]: ['following', 'connected'] }
+      activity_type: 'connection'
     },
     attributes: ['activity_value'],
     raw: true
@@ -128,17 +127,17 @@ export const followOrUnfollowUser = async ({ following_id, follower_id, userCode
   ]
   const [connectionType, reverseConnectionType] = await Promise.all(promises.map(promise => promise()))
 
-  if (!connectionType && reverseConnectionType !== 'blocked') {
+  if (!connectionType) {
     await XUserActivity.create({
       user_id: follower_id,
       record_type: userCode,
       record_id: following_id,
       activity_type: 'connection',
-      activity_value: reverseConnectionType ? 'connected' : 'following',
+      activity_value: reverseConnectionType === 'following' ? 'connected' : 'following',
       activity_permission: 'public'
     })
 
-    if (reverseConnectionType) {
+    if (reverseConnectionType === 'following') {
       await XUserActivity.update(
         { activity_value: 'connected' },
         {
@@ -176,4 +175,55 @@ export const followOrUnfollowUser = async ({ following_id, follower_id, userCode
   }
 
   return true
+}
+
+export const blockOrUnblockUser = async ({ user_id, block_user_id }) => {
+  const promises = [
+    () => getConnectionType({ following_id: block_user_id, follower_id: user_id }),
+    () => getConnectionType({ following_id: user_id, follower_id: block_user_id })
+  ]
+  const [connectionType, reverseConnectionType] = await Promise.all(promises.map(promise => promise()))
+
+  if (connectionType === 'connected') {
+    await XUserActivity.update(
+      { activity_value: 'following' },
+      {
+        where: {
+          user_id,
+          record_id: block_user_id,
+          activity_type: 'connection'
+        }
+      }
+    )
+  }
+
+  if (!reverseConnectionType) {
+    await XUserActivity.create({
+      user_id: block_user_id,
+      record_type: 'user',
+      record_id: user_id,
+      activity_type: 'connection',
+      activity_value: 'blocked',
+      activity_permission: 'public'
+    })
+  } else if (reverseConnectionType === 'blocked') {
+    await XUserActivity.destroy({
+      where: {
+        user_id: block_user_id,
+        record_id: user_id,
+        activity_type: 'connection'
+      }
+    })
+  } else {
+    await XUserActivity.update(
+      { activity_value: 'blocked' },
+      {
+        where: {
+          user_id: block_user_id,
+          record_id: user_id,
+          activity_type: 'connection'
+        }
+      }
+    )
+  }
 }

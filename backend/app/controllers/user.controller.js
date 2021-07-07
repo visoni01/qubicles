@@ -11,7 +11,8 @@ import {
   PostSignUpEmployerDataService,
   PostSignUpAgentDataService,
   UploadProfileImageService,
-  UserFollowService
+  UserFollowService,
+  UserBlockService
 } from '../services/user'
 import { getNewTokenAfterUserCodeChanged } from '../services/helper'
 import config from '../../config/app'
@@ -137,6 +138,15 @@ export default class UserController {
 
   static async followUser (req, res) {
     const hasFollowed = await UserFollowService.execute({ ...req.body, ...req.params })
+    if (hasFollowed.successful) {
+      Responder.success(res, hasFollowed.result)
+    } else {
+      Responder.failed(res, hasFollowed.errors)
+    }
+  }
+
+  static async blockUser (req, res) {
+    const hasFollowed = await UserBlockService.execute({ ...req.body, ...req.params })
     if (hasFollowed.successful) {
       Responder.success(res, hasFollowed.result)
     } else {

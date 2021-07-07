@@ -72,4 +72,7 @@ userRouter.route('/details/:user_details_id')
 userRouter.route('/follow/:following_id')
   .put(isAuthenticated, userController.followUser)
 
+userRouter.route('/block/:block_user_id')
+  .put(isAuthenticated, userController.blockUser)
+
 export { userRouter }

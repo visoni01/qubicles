@@ -26,7 +26,7 @@ export class UserFollowService extends ServiceBase {
       const followFlag = await followOrUnfollowUser({ following_id, follower_id: user_id, userCode })
 
       if (!followFlag) {
-        this.addError(ERRORS.NOT_FOUND, MESSAGES.CANNOT_FOLLOW)
+        this.addError(ERRORS.FORBIDDEN, MESSAGES.CANNOT_FOLLOW)
       }
 
       return followFlag

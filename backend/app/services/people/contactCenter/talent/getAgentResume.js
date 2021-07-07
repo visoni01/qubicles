@@ -2,7 +2,7 @@ import ServiceBase from '../../../../common/serviceBase'
 import { getConnectionType, getErrorMessageForService, getNoOfFollowersAndFollowings } from '../../../helper'
 import { getAgentResume } from '../../../helper/people'
 import logger from '../../../../common/logger'
-import { ERRORS } from '../../../../utils/errors'
+import { ERRORS, MESSAGES } from '../../../../utils/errors'
 
 const constraints = {
   user_id: {
@@ -21,16 +21,22 @@ export class PeopleGetAgentResumeService extends ServiceBase {
   async run () {
     const { candidate_id, user_id } = this.filteredArgs
     try {
+      const connectionType = await getConnectionType({ follower_id: user_id, following_id: candidate_id })
+
+      if (connectionType === 'blocked') {
+        this.addError(ERRORS.NOT_FOUND, MESSAGES.USER_NOT_FOUND)
+      }
+
       const promises = [
         () => getAgentResume({ candidateId: candidate_id }),
-        () => getNoOfFollowersAndFollowings({ user_id: candidate_id }),
-        () => getConnectionType({ follower_id: user_id, following_id: candidate_id })
+        () => getConnectionType({ following_id: user_id, follower_id: candidate_id }),
+        () => getNoOfFollowersAndFollowings({ user_id: candidate_id })
       ]
       const [
         profile,
-        { noOfFollowers, noOfFollowings },
-        connectionType
-      ] = await Promise.all(promises.map((promise) => promise()))
+        reverseConnectionType,
+        { noOfFollowers, noOfFollowings }
+      ] = await Promise.all(promises.map(promise => promise()))
 
       if (profile) {
         const { UserDetail: userDetails } = profile
@@ -58,8 +64,10 @@ export class PeopleGetAgentResumeService extends ServiceBase {
           })),
           followers: noOfFollowers,
           following: noOfFollowings,
-          isFollowing: ['following', 'connected'].includes(connectionType)
+          isFollowing: ['following', 'connected'].includes(connectionType),
+          hasBlockedUser: reverseConnectionType === 'blocked'
         }
+
         return agentResume
       }
     } catch (err) {
