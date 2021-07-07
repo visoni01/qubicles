@@ -65,6 +65,11 @@ class User {
     const response = await apiClient.getRequest(`/user/details/${ userDetailsId }`)
     return response
   }
+
+  static async updateFollowingStatus({ candidateId, userCode }) {
+    const response = await apiClient.putRequest(`/user/follow/${ candidateId }`, { userCode })
+    return response
+  }
 }
 
 export default User

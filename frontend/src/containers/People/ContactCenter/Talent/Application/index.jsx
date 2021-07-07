@@ -18,7 +18,10 @@ const ClientViewApplication = ({
   const { agentResume } = useSelector((state) => state.agentResume)
   useEffect(() => {
     if (!applicationLoading && applicationSuccess && application.agentUserId !== agentResume.candidateId) {
-      dispatch(fetchAgentResumeStart({ candidateId: application.agentUserId }))
+      dispatch(fetchAgentResumeStart({
+        requestType: 'FETCH',
+        candidateId: application.agentUserId,
+      }))
     }
   }, [ dispatch, application.agentUserId, agentResume.candidateId, applicationLoading, applicationSuccess ])
 

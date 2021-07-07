@@ -17,7 +17,10 @@ const ViewResume = () => {
   candidateId = parseInt(candidateId, 10)
   const { agentResume } = useSelector((state) => state.agentResume)
   useEffect(() => {
-    dispatch(fetchAgentResumeStart({ candidateId }))
+    dispatch(fetchAgentResumeStart({
+      requestType: 'FETCH',
+      candidateId,
+    }))
   }, [ dispatch, candidateId ])
   return (
     <Grid container spacing={ 3 } justify='center'>

@@ -34,7 +34,10 @@ const OtherAgentProfile = () => {
 
   useEffect(() => {
     if (userId !== agentResume.candidateId) {
-      dispatch(fetchAgentResumeStart({ candidateId: userId }))
+      dispatch(fetchAgentResumeStart({
+        requestType: 'FETCH',
+        candidateId: userId,
+      }))
     }
   }, [ dispatch, userId, agentResume.candidateId ])
 
@@ -56,6 +59,8 @@ const OtherAgentProfile = () => {
                 hourlyRate={ agentResume.ratePerHourDollar }
                 highestEducation={ agentResume.highestEducation }
                 yearsOfExperience={ agentResume.yearsOfExperience }
+                isFollowing={ agentResume.isFollowing }
+                isBlocked={ agentResume.isBlocked }
               />
             ) : (
               <IntroductionSkeleton />

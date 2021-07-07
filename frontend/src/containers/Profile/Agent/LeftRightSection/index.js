@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+/* eslint-disable complexity */
+import React, { useCallback, useState } from 'react'
 import { Box, Divider, Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAward } from '@fortawesome/free-solid-svg-icons'
+import _ from 'lodash'
 import Introduction from '../../../../components/CommonModal/Introduction'
 import EditProfileModal from './editProfileModal'
+import { fetchAgentResumeStart } from '../../../../redux-saga/redux/actions'
 
 const AgentEditProfile = ({
   userName,
@@ -24,9 +27,20 @@ const AgentEditProfile = ({
   onVacation,
   profileVisible,
   candidateId,
+  isFollowing,
+  isBlocked,
 }) => {
   const [ openEditProfileModal, setOpenEditProfileModal ] = useState(false)
   const { userDetails } = useSelector((state) => state.login)
+  const dispatch = useDispatch()
+
+  const handleFollow = useCallback(() => {
+    dispatch(fetchAgentResumeStart({
+      requestType: 'UPDATE',
+      candidateId,
+      isFollowing: !isFollowing,
+    }))
+  }, [ dispatch, candidateId, isFollowing ])
 
   return (
     <Box className='custom-box contact-center-info-root'>
@@ -66,15 +80,17 @@ const AgentEditProfile = ({
         )}
       </div>
       <div className=' mt-20 mb-20'>
-        {candidateId && candidateId !== userDetails.user_id && (
+        {userDetails && !_.isEqual(userDetails.user_code, 'employer')
+        && candidateId && candidateId !== userDetails.user_id && !isBlocked && (
           <Button
             className='wide-button'
             classes={ {
               root: 'button-secondary-small',
               label: 'button-secondary-small-label',
             } }
+            onClick={ handleFollow }
           >
-            Unfollow
+            {isFollowing ? 'Unfollow' : 'Follow'}
           </Button>
         )}
       </div>
@@ -176,6 +192,8 @@ AgentEditProfile.propTypes = {
   onVacation: PropTypes.bool,
   profileVisible: PropTypes.number,
   candidateId: PropTypes.number,
+  isFollowing: PropTypes.bool,
+  isBlocked: PropTypes.bool,
 }
 
 AgentEditProfile.defaultProps = {
@@ -186,6 +204,8 @@ AgentEditProfile.defaultProps = {
   onVacation: null,
   profileVisible: null,
   registrationDate: '',
+  isFollowing: false,
+  isBlocked: false,
 }
 
 export default AgentEditProfile

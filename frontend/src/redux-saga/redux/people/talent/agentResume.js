@@ -13,6 +13,7 @@ const {
     fetchAgentResumeStart,
     fetchAgentResumeSuccess,
     fetchAgentResumeFailed,
+    updateAgentResume,
   }, reducer,
 } = createSlice({
   name: 'agentResume',
@@ -34,6 +35,15 @@ const {
       error: true,
       success: false,
     }),
+    updateAgentResume: (state) => ({
+      ...state,
+      isLoading: false,
+      success: true,
+      agentResume: {
+        ...state.agentResume,
+        isFollowing: state.agentResume && !state.agentResume.isFollowing,
+      },
+    }),
   },
 })
 
@@ -42,4 +52,5 @@ export {
   fetchAgentResumeStart,
   fetchAgentResumeSuccess,
   fetchAgentResumeFailed,
+  updateAgentResume,
 }
