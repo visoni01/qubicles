@@ -69,4 +69,7 @@ userRouter.route('/upload-profile-image')
 userRouter.route('/details/:user_details_id')
   .get(isAuthenticated, userController.getUserDetails)
 
+userRouter.route('/follow/:following_id')
+  .put(isAuthenticated, userController.followUser)
+
 export { userRouter }

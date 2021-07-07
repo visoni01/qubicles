@@ -1,7 +1,8 @@
-import { User, XClientUser, UserDetail, XClient } from '../../db/models'
+import { User, XClientUser, UserDetail, XClient, XUserActivity } from '../../db/models'
 import config from '../../../config/app'
 import jwt from 'jsonwebtoken'
 import { getOne } from './crud'
+import { Op } from 'sequelize'
 
 export const getUserById = ({ user_id }) => {
   return User.findOne({ where: { user_id }, raw: true })
@@ -84,4 +85,76 @@ export const getInviteLink = async ({ user_id }) => {
     inviteLink = `${baseInviteUrl}/${walletAddress}`
     return inviteLink
   }
+}
+
+export const getConnectionType = async ({ following_id, follower_id }) => {
+  const followingData = await XUserActivity.findOne({
+    where: {
+      user_id: follower_id,
+      record_id: following_id,
+      activity_type: 'connection',
+      activity_value: { [Op.in]: ['following', 'connected'] }
+    },
+    attributes: ['activity_value'],
+    raw: true
+  })
+
+  return followingData && followingData.activity_value
+}
+
+export const followOrUnfollowUser = async ({ following_id, follower_id, userCode }) => {
+  const promises = [
+    () => getConnectionType({ following_id, follower_id }),
+    () => getConnectionType({ following_id: follower_id, follower_id: following_id })
+  ]
+  const [connectionType, reverseConnectionType] = await Promise.all(promises.map(promise => promise()))
+
+  if (!connectionType && reverseConnectionType !== 'blocked') {
+    await XUserActivity.create({
+      user_id: follower_id,
+      record_type: userCode,
+      record_id: following_id,
+      activity_type: 'connection',
+      activity_value: reverseConnectionType ? 'connected' : 'following',
+      activity_permission: 'public'
+    })
+
+    if (reverseConnectionType) {
+      await XUserActivity.update(
+        { activity_value: 'connected' },
+        {
+          where: {
+            user_id: following_id,
+            record_id: follower_id,
+            activity_type: 'connection'
+          }
+        }
+      )
+    }
+  } else if (['following', 'connected'].includes(connectionType)) {
+    await XUserActivity.destroy({
+      where: {
+        user_id: follower_id,
+        record_id: following_id,
+        activity_type: 'connection'
+      }
+    })
+
+    if (reverseConnectionType === 'connected') {
+      await XUserActivity.update(
+        { activity_value: 'following' },
+        {
+          where: {
+            user_id: following_id,
+            record_id: follower_id,
+            activity_type: 'connection'
+          }
+        }
+      )
+    }
+  } else {
+    return false
+  }
+
+  return true
 }

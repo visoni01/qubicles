@@ -59,5 +59,6 @@ export const MESSAGES = {
   COURSE_NOT_FOUND: 'Course not found!',
   CANNOT_EDIT_COURSE: 'Course cannot be editted!',
   USER_ALREADY_ENROLLED: 'User already enrolled to this course',
-  CLIENT_NAME_ALREADY_EXISTS: 'Company name already exists'
+  CLIENT_NAME_ALREADY_EXISTS: 'Company name already exists',
+  CANNOT_FOLLOW: 'You cannot follow this user'
 }
