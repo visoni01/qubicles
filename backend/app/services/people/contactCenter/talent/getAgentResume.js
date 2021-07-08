@@ -1,5 +1,5 @@
 import ServiceBase from '../../../../common/serviceBase'
-import { getConnectionType, getErrorMessageForService } from '../../../helper'
+import { getConnectionType, getErrorMessageForService, getNoOfFollowersAndFollowings } from '../../../helper'
 import { getAgentResume } from '../../../helper/people'
 import logger from '../../../../common/logger'
 import { ERRORS } from '../../../../utils/errors'
@@ -21,13 +21,22 @@ export class PeopleGetAgentResumeService extends ServiceBase {
   async run () {
     const { candidate_id, user_id } = this.filteredArgs
     try {
-      const profile = await getAgentResume({ candidateId: candidate_id })
+      const promises = [
+        () => getAgentResume({ candidateId: candidate_id }),
+        () => getNoOfFollowersAndFollowings({ user_id: candidate_id }),
+        () => getConnectionType({ follower_id: user_id, following_id: candidate_id })
+      ]
+      const [
+        profile,
+        { noOfFollowers, noOfFollowings },
+        connectionType
+      ] = await Promise.all(promises.map((promise) => promise()))
+
       if (profile) {
         const { UserDetail: userDetails } = profile
         const primaryLanguage = [userDetails.primary_language]
         const secondaryLanguages = userDetails.other_languages ? userDetails.other_languages.split(',') : []
         const languages = primaryLanguage.concat(secondaryLanguages)
-        const connectionType = await getConnectionType({ follower_id: user_id, following_id: candidate_id })
         const agentResume = {
           candidateId: userDetails.user_id,
           candidateName: userDetails.first_name + ' ' + userDetails.last_name,
@@ -47,6 +56,8 @@ export class PeopleGetAgentResumeService extends ServiceBase {
             skillName: userSkill.skill.skill_name,
             endorsedCount: userSkill.endorsed
           })),
+          followers: noOfFollowers,
+          following: noOfFollowings,
           isFollowing: ['following', 'connected'].includes(connectionType)
         }
         return agentResume

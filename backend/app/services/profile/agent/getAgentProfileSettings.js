@@ -2,6 +2,7 @@ import { ERRORS, MESSAGES } from '../../../utils/errors'
 import ServiceBase from '../../../common/serviceBase'
 import {
   getErrorMessageForService,
+  getNoOfFollowersAndFollowings,
   getUserById,
   getUserDetails
 } from '../../helper'
@@ -27,9 +28,15 @@ export class GetAgentProfileSettingsService extends ServiceBase {
       const promises = [
         () => getUserById({ user_id }),
         () => getUserDetails({ user_id }),
-        () => getUserTalentData({ user_id })
+        () => getUserTalentData({ user_id }),
+        () => getNoOfFollowersAndFollowings({ user_id })
       ]
-      const [user, userDetails, talentData] = await Promise.all(promises.map(promise => promise()))
+      const [
+        user,
+        userDetails,
+        talentData,
+        { noOfFollowers, noOfFollowings }
+      ] = await Promise.all(promises.map(promise => promise()))
 
       if (!user) {
         this.addError(ERRORS.NOT_FOUND, MESSAGES.USER_NOT_FOUND)
@@ -71,6 +78,8 @@ export class GetAgentProfileSettingsService extends ServiceBase {
         yearsOfExperience: userDetails.years_of_experience,
         profilePic: userDetails.profile_image,
         languages,
+        followers: noOfFollowers,
+        following: noOfFollowings,
         ...userTalentData
       }
 

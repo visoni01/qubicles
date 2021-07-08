@@ -1,7 +1,7 @@
 import ServiceBase from '../../../common/serviceBase'
 import { ERRORS, MESSAGES } from '../../../utils/errors'
 import logger from '../../../common/logger'
-import { getErrorMessageForService, getClientData, getUserDetailsByClientId, getConnectionType } from '../../helper'
+import { getErrorMessageForService, getClientData, getUserDetailsByClientId, getConnectionType, getNoOfFollowersAndFollowings, getJobsAndHiredCount } from '../../helper'
 
 const constraints = {
   user_id: {
@@ -26,12 +26,14 @@ export class CompanyDetailsService extends ServiceBase {
         this.addError(ERRORS.NOT_FOUND, MESSAGES.CLIENT_NOT_EXIST)
         return
       }
-
+      console.log(clientDetails)
       const promises = [
         () => getUserDetailsByClientId({ client_id: clientDetails.client_id }),
-        () => getConnectionType({ follower_id: user_id, following_id: client_id })
+        () => getConnectionType({ follower_id: user_id, following_id: client_id }),
+        () => getNoOfFollowersAndFollowings({ user_id: client_id }),
+        () => getJobsAndHiredCount({ client_id })
       ]
-      const [userDetails, connectionType] = await Promise.all(promises.map(promise => promise()))
+      const [userDetails, connectionType, followData, jobData] = await Promise.all(promises.map(promise => promise()))
       const companyDetails = {
         registrationDate: clientDetails.registration_date,
         companyName: clientDetails.client_name,
@@ -41,7 +43,11 @@ export class CompanyDetailsService extends ServiceBase {
         location: `${clientDetails.city}, ${clientDetails.state}`,
         companyImg: userDetails.profile_image,
         rating: clientDetails.rating,
-        isFollowing: connectionType === 'following'
+        isFollowing: connectionType === 'following',
+        followers: followData.noOfFollowers,
+        following: followData.noOfFollowings,
+        jobsPosted: jobData.noOfJobsPosted,
+        hires: jobData.noOfHires
       }
 
       return companyDetails

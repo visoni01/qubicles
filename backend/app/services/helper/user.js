@@ -2,7 +2,7 @@ import { User, XClientUser, UserDetail, XClient, XUserActivity } from '../../db/
 import config from '../../../config/app'
 import jwt from 'jsonwebtoken'
 import { getOne } from './crud'
-import { Op } from 'sequelize'
+import Sequelize, { Op } from 'sequelize'
 
 export const getUserById = ({ user_id }) => {
   return User.findOne({ where: { user_id }, raw: true })
@@ -100,6 +100,25 @@ export const getConnectionType = async ({ following_id, follower_id }) => {
   })
 
   return followingData && followingData.activity_value
+}
+
+export const getNoOfFollowersAndFollowings = async ({ user_id }) => {
+  const followData = await XUserActivity.findOne({
+    attributes: [
+      [Sequelize.literal('COUNT(CASE WHEN `XUserActivity`.`record_id` = ' + user_id + ' THEN 1 END)'), 'noOfFollowers'],
+      [Sequelize.literal('COUNT(CASE WHEN `XUserActivity`.`user_id` = ' + user_id + ' THEN 1 END)'), 'noOfFollowings']
+    ],
+    where: {
+      activity_type: 'connection',
+      activity_value: { [Op.in]: ['following', 'connected'] }
+    },
+    raw: true
+  })
+
+  return {
+    noOfFollowers: followData.noOfFollowers,
+    noOfFollowings: followData.noOfFollowings
+  }
 }
 
 export const followOrUnfollowUser = async ({ following_id, follower_id, userCode }) => {

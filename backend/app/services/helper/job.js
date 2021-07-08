@@ -323,11 +323,15 @@ export async function getJobById ({ job_id }) {
   })
   const jobApplicationStats = await countJobApplicationsByJobId({ job_id })
   const userDetails = await getUserDetailsByClientId({ client_id: jobDetails.XClient.client_id })
+  const jobData = await getJobsAndHiredCount({ client_id: jobDetails.XClient.client_id })
+
   return {
     ...jobDetails,
     XClient: {
       ...jobDetails.XClient,
-      profile_image: userDetails.profile_image
+      profile_image: userDetails.profile_image,
+      jobsPosted: jobData.noOfJobsPosted,
+      hires: jobData.noOfHires
     },
     jobApplicationStats
   }
@@ -660,4 +664,23 @@ export const getPeoplpeYouMayKnow = async ({ user_id }) => {
     limit: 10
   })
   return knownPeople.map(people => people.get({ plain: true }))
+}
+
+export const getJobsAndHiredCount = async ({ client_id }) => {
+  const jobData = await XQodJob.findOne({
+    attributes: [
+      [Sequelize.fn('COUNT', Sequelize.col('job_id')), 'noOfJobsPosted'],
+      [Sequelize.fn('SUM', Sequelize.col('fulfilled')), 'noOfHires']
+    ],
+    where: {
+      client_id,
+      status: 'recruiting'
+    },
+    raw: true
+  })
+
+  return {
+    noOfJobsPosted: jobData.noOfJobsPosted,
+    noOfHires: jobData.noOfHires
+  }
 }

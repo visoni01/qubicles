@@ -2,7 +2,7 @@ import { ERRORS, MESSAGES } from '../../../utils/errors'
 import ServiceBase from '../../../common/serviceBase'
 import {
   getErrorMessageForService,
-  getClientIdByUserId, getUserById, getClientData, getUserDetails
+  getClientIdByUserId, getUserById, getClientData, getUserDetails, getNoOfFollowersAndFollowings, getJobsAndHiredCount
 } from '../../helper'
 import logger from '../../../common/logger'
 
@@ -24,9 +24,15 @@ export class GetCompanyProfileSettingsService extends ServiceBase {
       const promises = [
         () => getUserById({ user_id }),
         () => getClientIdByUserId({ user_id }),
-        () => getUserDetails({ user_id })
+        () => getUserDetails({ user_id }),
+        () => getNoOfFollowersAndFollowings({ user_id })
       ]
-      const [user, clientUser, userDetails] = await Promise.all(promises.map(promise => promise()))
+      const [
+        user,
+        clientUser,
+        userDetails,
+        { noOfFollowers, noOfFollowings }
+      ] = await Promise.all(promises.map(promise => promise()))
 
       if (!user) {
         this.addError(ERRORS.NOT_FOUND, MESSAGES.USER_NOT_FOUND)
@@ -34,7 +40,12 @@ export class GetCompanyProfileSettingsService extends ServiceBase {
       if (!(clientUser && clientUser.client_id)) {
         this.addError(ERRORS.NOT_FOUND, MESSAGES.CLIENT_NOT_EXIST)
       }
-      const clientDetails = await getClientData({ client_id: clientUser.client_id })
+
+      const clientPromises = [
+        () => getClientData({ client_id: clientUser.client_id }),
+        () => getJobsAndHiredCount({ client_id: clientUser.client_id })
+      ]
+      const [clientDetails, jobData] = await Promise.all(clientPromises.map(promise => promise()))
 
       const companyAccountSettings = {
         companyId: clientDetails.client_id,
@@ -53,13 +64,16 @@ export class GetCompanyProfileSettingsService extends ServiceBase {
         title: clientDetails.title,
         rating: clientDetails.rating,
         timezone: '',
-        profilePic: userDetails.profile_image
-
+        profilePic: userDetails.profile_image,
+        followers: noOfFollowers,
+        following: noOfFollowings,
+        jobsPosted: jobData.noOfJobsPosted,
+        hires: jobData.noOfHires
       }
 
       return companyAccountSettings
     } catch (err) {
-      logger.error(`${getErrorMessageForService('GetCompanyProfileSettingsService')} ${err}`)
+      logger.error(getErrorMessageForService('GetCompanyProfileSettingsService'), err)
       this.addError(ERRORS.INTERNAL)
     }
   }
