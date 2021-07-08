@@ -184,17 +184,14 @@ export const blockOrUnblockUser = async ({ user_id, block_user_id }) => {
   ]
   const [connectionType, reverseConnectionType] = await Promise.all(promises.map(promise => promise()))
 
-  if (connectionType === 'connected') {
-    await XUserActivity.update(
-      { activity_value: 'following' },
-      {
-        where: {
-          user_id,
-          record_id: block_user_id,
-          activity_type: 'connection'
-        }
+  if (['connected', 'following'].includes(connectionType)) {
+    await XUserActivity.destroy({
+      where: {
+        user_id: user_id,
+        record_id: block_user_id,
+        activity_type: 'connection'
       }
-    )
+    })
   }
 
   if (!reverseConnectionType) {
