@@ -2,9 +2,11 @@ import { takeLatest, put } from 'redux-saga/effects'
 import {
   jobPostCompanyDetailsFetchStart,
   jobPostCompanyDetailsFetchSuccessful,
+  updateJobPostCompanyDetails,
 } from '../../../redux/actions'
-import { showErrorMessage } from '../../../redux/utils/snackbar'
+import { showErrorMessage, showSuccessMessage } from '../../../redux/utils/snackbar'
 import CompanyProfile from '../../../service/profile/company'
+import User from '../../../service/user'
 
 function* companyDataFetchingWatcherStart() {
   yield takeLatest(jobPostCompanyDetailsFetchStart.type, companyDataFetchingWorker)
@@ -12,9 +14,24 @@ function* companyDataFetchingWatcherStart() {
 
 function* companyDataFetchingWorker(action) {
   try {
-    const { clientId } = action.payload
-    const { data } = yield CompanyProfile.fetchCompanyDetails({ clientId })
-    yield put(jobPostCompanyDetailsFetchSuccessful({ companyDetails: data }))
+    const { clientId, requestType, isFollowing } = action.payload
+
+    switch (requestType) {
+      case 'FETCH': {
+        const { data } = yield CompanyProfile.fetchCompanyDetails({ clientId })
+        yield put(jobPostCompanyDetailsFetchSuccessful({ companyDetails: data }))
+        break
+      }
+      case 'UPDATE': {
+        yield User.updateFollowingStatus({ candidateId: clientId, userCode: 'client' })
+        yield put(updateJobPostCompanyDetails())
+        yield put(showSuccessMessage({
+          msg: `You have successfully ${ isFollowing ? 'followed' : 'unfollowed' }!`,
+        }))
+        break
+      }
+      default: break
+    }
   } catch (e) {
     yield put(showErrorMessage({ msg: e.errMsg }))
   }

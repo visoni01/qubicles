@@ -1,24 +1,40 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { Box, Divider, Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
+import _ from 'lodash'
 import Introduction from '../../../../components/CommonModal/Introduction'
 import PrimaryContact from '../../Company/LeftRightSection/primaryContact'
 import ContactCenterSkeleton from
   '../../../../components/People/ContactCenter/SkeletonLoader/Jobs/contactCenterSkeleton'
-import { jobPostCompanyDetailsFetchStart } from '../../../../redux-saga/redux/actions'
+import { jobPostCompanyDetailsFetchStart, resetCompanyDetails } from '../../../../redux-saga/redux/actions'
 
 const OtherCompanyIntro = ({
   clientId,
   imageName,
 }) => {
   const { companyDetails, success, isCompanyDetailsLoading } = useSelector((state) => state.companyDetailsForProfile)
+  const { userDetails } = useSelector((state) => state.login)
   const dispatch = useDispatch()
+
   useEffect(() => {
-    dispatch(jobPostCompanyDetailsFetchStart({ clientId }))
+    dispatch(jobPostCompanyDetailsFetchStart({
+      requestType: 'FETCH',
+      clientId,
+    }))
   }, [ dispatch, clientId ])
 
-  if (isCompanyDetailsLoading && !success) {
+  useEffect(() => () => dispatch(resetCompanyDetails()), [ dispatch ])
+
+  const handleFollow = useCallback(() => {
+    dispatch(jobPostCompanyDetailsFetchStart({
+      requestType: 'UPDATE',
+      clientId,
+      isFollowing: companyDetails && !companyDetails.isFollowing,
+    }))
+  }, [ dispatch, clientId, companyDetails ])
+
+  if ((isCompanyDetailsLoading == null || isCompanyDetailsLoading) && !success) {
     return (
       <ContactCenterSkeleton />
     )
@@ -48,15 +64,18 @@ const OtherCompanyIntro = ({
           </Button>
         </div>
         <div className=' mt-20 mb-20'>
+          {userDetails && !_.isEqual(userDetails.user_code, 'employer') && (
           <Button
             className='wide-button'
             classes={ {
               root: 'button-secondary-small',
               label: 'button-secondary-small-label',
             } }
+            onClick={ handleFollow }
           >
-            Unfollow
+            {companyDetails.isFollowing ? 'Unfollow' : 'Follow'}
           </Button>
+          )}
         </div>
         <h4 className='h4 margin-top-bottom-10'>
           {companyDetails.title}

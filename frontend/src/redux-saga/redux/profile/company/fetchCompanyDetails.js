@@ -14,14 +14,16 @@ const {
     jobPostCompanyDetailsFetchSuccessful,
     jobPostCompanyDetailsFetchFailure,
     resetCompanyDetails,
+    updateJobPostCompanyDetails,
   },
   reducer,
 } = createSlice({
   name: 'jobPostCompanyDetails',
   initialState,
   reducers: {
-    jobPostCompanyDetailsFetchStart: () => ({
-      ...initialState,
+    jobPostCompanyDetailsFetchStart: (state) => ({
+      ...state,
+      success: false,
       isCompanyDetailsLoading: true,
     }),
     jobPostCompanyDetailsFetchSuccessful: (state, action) => ({
@@ -35,11 +37,17 @@ const {
       error: true,
       isCompanyDetailsLoading: false,
     }),
-    resetCompanyDetails: (state) => ({
+    resetCompanyDetails: () => ({
+      ...initialState,
+    }),
+    updateJobPostCompanyDetails: (state) => ({
       ...state,
-      companyDetails: {},
-      error: true,
+      success: true,
       isCompanyDetailsLoading: false,
+      companyDetails: {
+        ...state.companyDetails,
+        isFollowing: state.companyDetails && !state.companyDetails.isFollowing,
+      },
     }),
   },
 })
@@ -50,5 +58,5 @@ export {
   jobPostCompanyDetailsFetchSuccessful,
   jobPostCompanyDetailsFetchFailure,
   resetCompanyDetails,
-
+  updateJobPostCompanyDetails,
 }
