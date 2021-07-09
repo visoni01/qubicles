@@ -9,6 +9,7 @@ import _ from 'lodash'
 import Introduction from '../../../../components/CommonModal/Introduction'
 import EditProfileModal from './editProfileModal'
 import { fetchAgentResumeStart } from '../../../../redux-saga/redux/actions'
+import { formatCount } from '../../../../utils/common'
 
 const AgentEditProfile = ({
   userName,
@@ -27,6 +28,8 @@ const AgentEditProfile = ({
   onVacation,
   profileVisible,
   candidateId,
+  followers,
+  following,
   isFollowing,
   isBlocked,
 }) => {
@@ -103,13 +106,17 @@ const AgentEditProfile = ({
       <Divider className='divider' />
       <div className='display-inline-flex justify-between is-fullwidth'>
         <div>
-          <h4 className='h4'> 242 </h4>
+          <h4 className='h4'>
+            { formatCount(followers) }
+          </h4>
           <p className='para'> Followers</p>
           <h4 className='h4 mt-20'> 2K+ </h4>
           <p className='para'> Total Calls </p>
         </div>
         <div>
-          <h4 className='h4'> 156 </h4>
+          <h4 className='h4'>
+            { formatCount(following) }
+          </h4>
           <p className='para'> Following</p>
           <h4 className='h4 mt-20'>
             124
@@ -192,6 +199,8 @@ AgentEditProfile.propTypes = {
   onVacation: PropTypes.bool,
   profileVisible: PropTypes.number,
   candidateId: PropTypes.number,
+  followers: PropTypes.number,
+  following: PropTypes.number,
   isFollowing: PropTypes.bool,
   isBlocked: PropTypes.bool,
 }
@@ -204,6 +213,8 @@ AgentEditProfile.defaultProps = {
   onVacation: null,
   profileVisible: null,
   registrationDate: '',
+  followers: 0,
+  following: 0,
   isFollowing: false,
   isBlocked: false,
 }

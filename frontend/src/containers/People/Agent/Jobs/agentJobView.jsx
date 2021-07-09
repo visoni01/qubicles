@@ -37,6 +37,8 @@ const AgentJobView = () => {
               title={ jobDetails.companyDetails.title }
               summary={ jobDetails.companyDetails.summary }
               registrationDate={ jobDetails.companyDetails.registration_date }
+              hires={ jobDetails.companyDetails.hires }
+              jobsPosted={ jobDetails.companyDetails.jobsPosted }
             />
           ) : (<ContactCenterSkeleton />
           )}

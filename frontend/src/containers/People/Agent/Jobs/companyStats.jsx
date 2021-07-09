@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import Introduction from '../../../../components/CommonModal/Introduction'
+import { formatCount } from '../../../../utils/common'
 
 const CompanyStats = ({
   clientId,
@@ -14,6 +15,8 @@ const CompanyStats = ({
   title,
   summary,
   registrationDate,
+  hires,
+  jobsPosted,
 }) => (
   <>
     <Box className='custom-box contact-center-info-root'>
@@ -49,13 +52,17 @@ const CompanyStats = ({
         <div>
           <h4 className='h4'> 2K+ </h4>
           <p className='para'> Members</p>
-          <h4 className='h4 mt-20'> 2K+ </h4>
+          <h4 className='h4 mt-20'>
+            { formatCount(hires) }
+          </h4>
           <p className='para'> Hires </p>
         </div>
         <div>
           <h4 className='h4'> 2M+ </h4>
           <p className='para'> Total Calls </p>
-          <h4 className='h4 mt-20'> 124 </h4>
+          <h4 className='h4 mt-20'>
+            { formatCount(jobsPosted) }
+          </h4>
           <p className='para'> Jobs Posted </p>
         </div>
       </div>
@@ -65,6 +72,8 @@ const CompanyStats = ({
 
 CompanyStats.defaultProps = {
   companyRating: 3,
+  hires: 0,
+  jobsPosted: 0,
 }
 CompanyStats.propTypes = {
   clientId: PropTypes.number.isRequired,
@@ -76,6 +85,8 @@ CompanyStats.propTypes = {
   title: PropTypes.string.isRequired,
   summary: PropTypes.string.isRequired,
   registrationDate: PropTypes.string.isRequired,
+  hires: PropTypes.number,
+  jobsPosted: PropTypes.number,
 }
 
 export default CompanyStats

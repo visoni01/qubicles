@@ -46,6 +46,8 @@ const AgentProfile = () => {
               remoteJobs={ settings.remoteJobs }
               onVacation={ settings.onVacation }
               profileVisible={ settings.profileVisible }
+              followers={ settings.followers }
+              following={ settings.following }
             />
             )}
             { activeTab === 2 && (

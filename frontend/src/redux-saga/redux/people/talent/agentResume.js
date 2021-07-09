@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import _ from 'lodash'
 import { getDataForReducer } from '../../../../utils/common'
 
 const initialState = {
@@ -42,6 +43,12 @@ const {
       agentResume: {
         ...state.agentResume,
         isFollowing: state.agentResume && !state.agentResume.isFollowing,
+        // eslint-disable-next-line no-nested-ternary
+        followers: !_.isUndefined(state.agentResume.followers)
+          ? (state.agentResume && state.agentResume.isFollowing
+            ? state.agentResume.followers - 1
+            : state.agentResume.followers + 1)
+          : 0,
       },
     }),
   },

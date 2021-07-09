@@ -59,6 +59,8 @@ const OtherAgentProfile = () => {
                 hourlyRate={ agentResume.ratePerHourDollar }
                 highestEducation={ agentResume.highestEducation }
                 yearsOfExperience={ agentResume.yearsOfExperience }
+                followers={ agentResume.followers }
+                following={ agentResume.following }
                 isFollowing={ agentResume.isFollowing }
                 isBlocked={ agentResume.isBlocked }
               />

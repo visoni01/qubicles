@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import Introduction from '../../../../components/CommonModal/Introduction'
 import PrimaryContact from './primaryContact'
 import EditProfileModal from './editProfileModal'
+import { formatCount } from '../../../../utils/common'
 
 const ContactCenterEditProfile = ({
   clientId,
@@ -45,18 +46,24 @@ const ContactCenterEditProfile = ({
         <Divider className='divider' />
         <div className='display-inline-flex justify-between is-fullwidth'>
           <div>
-            <h4 className='h4'> 242 </h4>
+            <h4 className='h4'>
+              { formatCount(settings.followers || 0) }
+            </h4>
             <p className='para'> Followers</p>
-            <h4 className='h4 mt-20'> 2K+ </h4>
+            <h4 className='h4 mt-20'>
+              { formatCount(settings.hires || 0) }
+            </h4>
             <p className='para'> Hires </p>
             <h4 className='h4 mt-20'> 2M+ </h4>
             <p className='para'> Total Calss </p>
           </div>
           <div>
-            <h4 className='h4'> 156 </h4>
+            <h4 className='h4'>
+              { formatCount(settings.following || 0) }
+            </h4>
             <p className='para'> Following</p>
             <h4 className='h4 mt-20'>
-              124
+              { formatCount(settings.jobsPosted || 0) }
             </h4>
             <p className='para'> Jobs Posted </p>
           </div>

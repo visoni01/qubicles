@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, { useCallback, useEffect } from 'react'
 import { Box, Divider, Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
@@ -8,6 +9,7 @@ import PrimaryContact from '../../Company/LeftRightSection/primaryContact'
 import ContactCenterSkeleton from
   '../../../../components/People/ContactCenter/SkeletonLoader/Jobs/contactCenterSkeleton'
 import { jobPostCompanyDetailsFetchStart, resetCompanyDetails } from '../../../../redux-saga/redux/actions'
+import { formatCount } from '../../../../utils/common'
 
 const OtherCompanyIntro = ({
   clientId,
@@ -34,7 +36,7 @@ const OtherCompanyIntro = ({
     }))
   }, [ dispatch, clientId, companyDetails ])
 
-  if ((isCompanyDetailsLoading == null || isCompanyDetailsLoading) && !success) {
+  if ((_.isNull(isCompanyDetailsLoading) || isCompanyDetailsLoading) && !success) {
     return (
       <ContactCenterSkeleton />
     )
@@ -86,18 +88,24 @@ const OtherCompanyIntro = ({
         <Divider className='divider' />
         <div className='display-inline-flex justify-between is-fullwidth'>
           <div>
-            <h4 className='h4'> 242 </h4>
+            <h4 className='h4'>
+              { formatCount(companyDetails.followers || 0) }
+            </h4>
             <p className='para'> Followers</p>
-            <h4 className='h4 mt-20'> 2K+ </h4>
+            <h4 className='h4 mt-20'>
+              { formatCount(companyDetails.hires || 0) }
+            </h4>
             <p className='para'> Hires </p>
             <h4 className='h4 mt-20'> 2M+ </h4>
             <p className='para'> Total Calss </p>
           </div>
           <div>
-            <h4 className='h4'> 156 </h4>
+            <h4 className='h4'>
+              { formatCount(companyDetails.following || 0) }
+            </h4>
             <p className='para'> Following</p>
             <h4 className='h4 mt-20'>
-              124
+              { formatCount(companyDetails.jobsPosted || 0) }
             </h4>
             <p className='para'> Jobs Posted </p>
           </div>
