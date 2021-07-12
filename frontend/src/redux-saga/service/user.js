@@ -70,6 +70,11 @@ class User {
     const response = await apiClient.putRequest(`/user/follow/${ candidateId }`, { userCode })
     return response
   }
+
+  static async updateBlockStatus({ candidateId }) {
+    const response = await apiClient.putRequest(`/user/block/${ candidateId }`)
+    return response
+  }
 }
 
 export default User

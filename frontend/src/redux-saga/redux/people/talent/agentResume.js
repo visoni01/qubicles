@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-import _ from 'lodash'
 import { getDataForReducer } from '../../../../utils/common'
+import { updateAgentResumeReducer } from '../helper'
 
 const initialState = {
   isLoading: null,
@@ -36,20 +36,11 @@ const {
       error: true,
       success: false,
     }),
-    updateAgentResume: (state) => ({
+    updateAgentResume: (state, action) => ({
       ...state,
       isLoading: false,
       success: true,
-      agentResume: {
-        ...state.agentResume,
-        isFollowing: state.agentResume && !state.agentResume.isFollowing,
-        // eslint-disable-next-line no-nested-ternary
-        followers: !_.isUndefined(state.agentResume.followers)
-          ? (state.agentResume && state.agentResume.isFollowing
-            ? state.agentResume.followers - 1
-            : state.agentResume.followers + 1)
-          : 0,
-      },
+      agentResume: updateAgentResumeReducer({ state, action }),
     }),
   },
 })

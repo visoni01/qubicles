@@ -1,5 +1,5 @@
 import {
-  kareem, terry, sally, carolin, helen, thomas, defaultUser,
+  kareem, terry, sally, carolin, helen, thomas,
 } from '../../../assets/images/avatar'
 
 const courseCategories = [
@@ -216,22 +216,6 @@ const topCompanies = [
   },
 ]
 
-const contactCenterIntroduction = {
-  imageName: 'good',
-  rating: 5,
-  imageSrc: defaultUser,
-  name: 'Good Call Center',
-  location: 'San Francisco, CA',
-  date: 'Member since 11/2020',
-  title: 'Innovative Call Center',
-  description: `Whether you are looking for work in a contact center, seeking cloud-based contact center software
-  or you are in the market for talent, we have got you covered. Powered by blockchain smart contracts with no
-  middlemen involved, our patent-pending technology ensures the right agent is matched to the right position at
-  the right time. Members of our team have been on the battlefield as agents, supervisors and executives. We know
-  firsthand how irate customers respond, what makes employees happy, the key performance metrics for contact centers,
-  and how the right technology can make a difference.`,
-}
-
 const agentProfileData = {
   userName: 'arthurca',
   fullName: 'Arthur Castille',
@@ -356,7 +340,6 @@ export {
   talentCards,
   topTalents,
   topCompanies,
-  contactCenterIntroduction,
   agentProfileData,
   testResumeIntroduction,
   reviews,

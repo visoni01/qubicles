@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { takeEvery, put } from 'redux-saga/effects'
 import {
   fetchAgentResumeStart,
@@ -16,7 +17,9 @@ function* agentResumeSkillsWatcherStart() {
 
 function* agentResumeSkillsWorker(action) {
   try {
-    const { candidateId, requestType, isFollowing } = action.payload
+    const {
+      candidateId, requestType, isFollowing, hasBlockedUser,
+    } = action.payload
 
     switch (requestType) {
       case 'FETCH': {
@@ -25,11 +28,24 @@ function* agentResumeSkillsWorker(action) {
         break
       }
       case 'UPDATE': {
-        yield User.updateFollowingStatus({ candidateId, userCode: 'user' })
-        yield put(updateAgentResume())
-        yield put(showSuccessMessage({
-          msg: `You have successfully ${ isFollowing ? 'followed' : 'unfollowed' }!`,
-        }))
+        if (!_.isUndefined(isFollowing)) {
+          yield User.updateFollowingStatus({ candidateId, userCode: 'user' })
+          yield put(updateAgentResume({ isFollowing }))
+          yield put(showSuccessMessage({
+            msg: `You have successfully ${ isFollowing ? 'followed' : 'unfollowed' }!`,
+          }))
+        } else if (!_.isUndefined(hasBlockedUser)) {
+          const { data } = yield User.updateBlockStatus({ candidateId })
+          yield put(updateAgentResume({
+            isFollowing: false,
+            hasBlockedUser,
+            noOfFollowers: data.noOfFollowers,
+            noOfFollowings: data.noOfFollowings,
+          }))
+          yield put(showSuccessMessage({
+            msg: `You have successfully ${ hasBlockedUser ? 'blocked' : 'unblocked' }!`,
+          }))
+        }
         break
       }
       default: break

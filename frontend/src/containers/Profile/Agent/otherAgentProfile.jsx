@@ -62,7 +62,7 @@ const OtherAgentProfile = () => {
                 followers={ agentResume.followers }
                 following={ agentResume.following }
                 isFollowing={ agentResume.isFollowing }
-                isBlocked={ agentResume.isBlocked }
+                hasBlockedUser={ agentResume.hasBlockedUser }
               />
             ) : (
               <IntroductionSkeleton />

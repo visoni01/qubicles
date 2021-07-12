@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import _ from 'lodash'
 
 export const updateApplicationsListHelper = ({
@@ -221,5 +222,35 @@ export const updateTestEntriesReducer = ({ state, action }) => {
     }
 
     default: return state.courseTestEntries
+  }
+}
+
+export const updateAgentResumeReducer = ({ state, action }) => {
+  let followers
+
+  if (!_.isUndefined(action.payload.noOfFollowers)) {
+    followers = action.payload.noOfFollowers
+  } else if (!_.isUndefined(action.payload.isFollowing)) {
+    if (!_.isUndefined(state.agentResume.followers)) {
+      followers = (action.payload.isFollowing
+        ? state.agentResume.followers + 1
+        : state.agentResume.followers - 1)
+    } else {
+      followers = 0
+    }
+  }
+
+  return {
+    ...state.agentResume,
+    isFollowing: !_.isUndefined(action.payload.isFollowing)
+      ? action.payload.isFollowing
+      : (state.agentResume && state.agentResume.isFollowing),
+    hasBlockedUser: !_.isUndefined(action.payload.hasBlockedUser)
+      ? action.payload.hasBlockedUser
+      : (state.agentResume && state.agentResume.hasBlockedUser),
+    following: !_.isUndefined(action.payload.noOfFollowings)
+      ? action.payload.noOfFollowings
+      : state.agentResume.following,
+    followers,
   }
 }

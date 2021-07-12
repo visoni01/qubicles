@@ -31,7 +31,7 @@ const AgentEditProfile = ({
   followers,
   following,
   isFollowing,
-  isBlocked,
+  hasBlockedUser,
 }) => {
   const [ openEditProfileModal, setOpenEditProfileModal ] = useState(false)
   const { userDetails } = useSelector((state) => state.login)
@@ -54,6 +54,9 @@ const AgentEditProfile = ({
         name={ name }
         location={ location }
         date={ registrationDate }
+        userDetails={ userDetails }
+        candidateId={ candidateId }
+        hasBlockedUser={ hasBlockedUser }
       />
       <div className=' mt-20 mb-20'>
         {!candidateId && (
@@ -84,7 +87,7 @@ const AgentEditProfile = ({
       </div>
       <div className=' mt-20 mb-20'>
         {userDetails && !_.isEqual(userDetails.user_code, 'employer')
-        && candidateId && candidateId !== userDetails.user_id && !isBlocked && (
+        && candidateId && candidateId !== userDetails.user_id && !hasBlockedUser && (
           <Button
             className='wide-button'
             classes={ {
@@ -202,7 +205,7 @@ AgentEditProfile.propTypes = {
   followers: PropTypes.number,
   following: PropTypes.number,
   isFollowing: PropTypes.bool,
-  isBlocked: PropTypes.bool,
+  hasBlockedUser: PropTypes.bool,
 }
 
 AgentEditProfile.defaultProps = {
@@ -216,7 +219,7 @@ AgentEditProfile.defaultProps = {
   followers: 0,
   following: 0,
   isFollowing: false,
-  isBlocked: false,
+  hasBlockedUser: false,
 }
 
 export default AgentEditProfile

@@ -126,6 +126,10 @@ TABLE OF CONTENTS
       align-items: center;
       align-content: center;
   }
+
+  &.align-items-end {
+    align-items: end;
+  }
 }
 
 //Inline flex display
