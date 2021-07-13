@@ -68,3 +68,6 @@ export const noOfReviewsPerPage = 6
 export const maxVideoFileSize = 100 * 1024 * 1024
 export const maxImageFileSize = 1024 * 1024
 export const noOfRequiredCoursesPerFetch = 10
+export const acceptedImageFormats = [ 'image/jpg', 'image/jpeg', 'image/png' ]
+export const acceptedVideoFormats = [ 'video/mp4', 'video/webm', 'video/mkv' ]
+export const acceptedAudioFormats = [ 'audio/mp3' ]

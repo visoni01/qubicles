@@ -6,7 +6,7 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import { errorsPropTypes } from './propTypes'
 import { showErrorMessage } from '../../../../../redux-saga/redux/utils'
-import { maxImageFileSize } from '../../constants'
+import { acceptedImageFormats, maxImageFileSize } from '../../constants'
 
 export default function CourseThumbnail({
   contentSection, setContentSection, errors,
@@ -85,7 +85,7 @@ export default function CourseThumbnail({
         type='file'
         id='course-thumbnail-input'
         className='position-absolute'
-        accept='image/jpg,image/jpeg,image/png'
+        accept={ acceptedImageFormats.join(',') }
         onChange={ handleFileInputChange }
         style={ { display: 'none' } }
       />

@@ -8,7 +8,7 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { errorsPropTypes } from './propTypes'
 import MediaPlayer from '../ViewCourse/mediaPlayer'
 import { showErrorMessage } from '../../../../../redux-saga/redux/utils'
-import { maxVideoFileSize } from '../../constants'
+import { acceptedVideoFormats, maxVideoFileSize } from '../../constants'
 
 export default function IntroVideo({
   contentSection, setContentSection, errors,
@@ -88,7 +88,7 @@ export default function IntroVideo({
         type='file'
         id='course-introduction-input'
         className='position-absolute'
-        accept='video/mp4,video/webm,'
+        accept={ acceptedVideoFormats.join(',') }
         onChange={ handleFileInputChange }
         style={ { display: 'none' } }
       />

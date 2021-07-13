@@ -46,9 +46,12 @@ const uploadEmitter = async ({ course, method, unitType }) => {
 
   let oldProgressData = -1
 
+  const url = [ 'Video', 'Audio' ].includes(unitType)
+    ? `/people/course/file/${ unitType.toLowerCase() }`
+    : '/people/course'
   const response = await axiosInst({
     method,
-    url: [ 'Video', 'Audio' ].includes(unitType) ? `/people/course/file/${ unitType.toLowerCase() }` : '/people/course',
+    url,
     data: formData,
     headers: { 'Content-Type': 'multipart/form-data' },
     onUploadProgress: (progress) => {

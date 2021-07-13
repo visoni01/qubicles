@@ -15,7 +15,7 @@ import { unitPropType } from '../propTypes'
 import { DeleteIcon, UploadIcon } from '../../../../../../assets/images/training'
 import MediaPlayer from '../../ViewCourse/mediaPlayer'
 import { trainingCourseRequestStart, resetTrainingCourseReducerFlags } from '../../../../../../redux-saga/redux/people'
-import { maxVideoFileSize } from '../../../constants'
+import { acceptedAudioFormats, acceptedVideoFormats, maxVideoFileSize } from '../../../constants'
 import { showErrorMessage } from '../../../../../../redux-saga/redux/utils'
 
 // eslint-disable-next-line complexity
@@ -266,7 +266,7 @@ const AddArticleModal = ({
             type='file'
             id='unit-video'
             className='position-absolute'
-            accept='video/mp4,video/webm'
+            accept={ acceptedVideoFormats.join(',') }
             onChange={ handleFileInputChange }
             style={ { display: 'none' } }
           />
@@ -274,7 +274,7 @@ const AddArticleModal = ({
             type='file'
             id='unit-audio'
             className='position-absolute'
-            accept='audio/mp3'
+            accept={ acceptedAudioFormats.join(',') }
             onChange={ handleFileInputChange }
             style={ { display: 'none' } }
           />

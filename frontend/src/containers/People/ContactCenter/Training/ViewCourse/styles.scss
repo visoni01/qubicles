@@ -124,8 +124,9 @@
     }
 
     .course-content-video {
-      max-width: 93%;
       margin: 0 auto;
+      height: inherit;
+      width: 49.8vw;
     }
   }
 
@@ -192,6 +193,7 @@
 
   video {
     width: 100%;
+    height: inherit;
   }
 
   .media-loader {
@@ -207,6 +209,9 @@
   }
 
   &.video {
+    height: inherit;
+    background-color: black;
+
     .controls {
       position: absolute;
       bottom: 0;
@@ -214,7 +219,8 @@
   }
 
   &.audio {
-    margin-top: 100px;
+    margin: 100px auto 0 auto;
+    width: 95%;
 
     .media-loader {
       bottom: 125%;
@@ -232,11 +238,12 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    height: 3em;
+    height: 50px;
+    padding-top: 2px;
 
     .progress-slider-root {
       position: absolute;
-      bottom: 70%;
+      top: -13px;
       color: $color-primary;
     }
 
@@ -264,7 +271,7 @@
 
     .progress-buffer-root {
       position: absolute;
-      bottom: 70%;
+      top: -13px;
       color: #939393;
       &:hover {
         color: inherit;
