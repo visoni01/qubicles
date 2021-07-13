@@ -283,6 +283,18 @@ const config = convict({
     default: 100 * 1024 * 1024,
     env: 'AUDIO_MAX_SIZE'
   },
+  imageFileFormats: {
+    default: ['image/jpeg', 'image/png'],
+    env: 'IMAGE_FILE_FORMATS'
+  },
+  videoFileFormats: {
+    default: ['video/mp4', 'video/webm', 'video/mkv'],
+    env: 'VIDEO_FILE_FORMATS'
+  },
+  audioFileFormats: {
+    default: ['audio/mpeg'],
+    env: 'AUDIO_FILE_FORMATS'
+  },
   checkr: {
     baseUrl: {
       default: '',

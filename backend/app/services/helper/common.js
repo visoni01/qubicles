@@ -136,19 +136,19 @@ export const flatArray = (input) => {
 }
 
 export const validateImageFile = ({ mimetype, size }) => {
-  const isValidImage = ['image/jpeg', 'image/png'].includes(mimetype)
+  const isValidImage = config.get('imageFileFormats').includes(mimetype)
   const isValidFileSize = size <= config.get('imageFileSize')
   return { isValidImage, isValidFileSize }
 }
 
 export const validateVideoFile = ({ mimetype, size }) => {
-  const isValidVideo = ['video/mp4', 'video/webm'].includes(mimetype)
+  const isValidVideo = config.get('videoFileFormats').includes(mimetype)
   const isValidFileSize = size <= config.get('videoFileSize')
   return { isValidVideo, isValidFileSize }
 }
 
 export const validateAudioFile = ({ mimetype, size }) => {
-  const isValidAudio = ['audio/mpeg'].includes(mimetype)
+  const isValidAudio = config.get('audioFileFormats').includes(mimetype)
   const isValidFileSize = size <= config.get('audioFileSize')
   return { isValidAudio, isValidFileSize }
 }

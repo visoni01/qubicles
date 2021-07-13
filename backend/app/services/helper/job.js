@@ -532,18 +532,24 @@ export async function getAllJobs ({ client_id, category_id, search_keyword, stat
 export async function getAgentJobs ({
   searchKeyword,
   requiredEmploymentType,
-  requiredHourlyRate
-  // WIP - requiredRating,
+  requiredHourlyRate,
+  requiredRating
   // WIP - requiredLocation
 }) {
   let xQodJobQuery = {
-    [Op.not]: [{ is_deleted: true }],
+    is_deleted: false,
     [Op.not]: [{ status: 'draft' }]
   }
+  let xClientQuery = {}
 
   // Search Jobs
   if (!_.isEmpty(searchKeyword)) {
-    xQodJobQuery = { ...xQodJobQuery, title: { [Op.substring]: searchKeyword } }
+    xQodJobQuery = {
+      ...xQodJobQuery,
+      title: {
+        [Op.substring]: searchKeyword
+      }
+    }
   }
 
   // Employment type filter
@@ -584,27 +590,43 @@ export async function getAgentJobs ({
     }
   }
 
+  // Employers rating filter
+  if (requiredRating && requiredRating.greaterThanEq) {
+    xClientQuery = {
+      ...xClientQuery,
+      rating: {
+        [Op.gte]: requiredRating.greaterThanEq
+      }
+    }
+  }
+
   const agentJobs = await XQodJob.findAll({
-    include: [{
-      model: XClient,
-      attributes: [
-        'client_id',
-        'client_name',
-        'city',
-        'state',
-        'rating'
-      ]
-    }, {
-      model: XQodJobSkill,
-      attributes: ['skill_id', 'skill_preference'],
-      as: 'requiredJobSkills',
-      where: { skill_preference: 'required' }
-    }, {
-      model: UserDetail,
-      attributes: ['profile_image']
-    }],
+    include: [
+      {
+        model: XClient,
+        attributes: [
+          'client_id',
+          'client_name',
+          'city',
+          'state',
+          'rating'
+        ],
+        where: xClientQuery
+      },
+      {
+        model: XQodJobSkill,
+        attributes: ['skill_id', 'skill_preference'],
+        as: 'requiredJobSkills',
+        where: { skill_preference: 'required' }
+      },
+      {
+        model: UserDetail,
+        attributes: ['profile_image']
+      }
+    ],
     where: xQodJobQuery
   })
+
   return agentJobs.map(jobs => jobs.get({ plain: true }))
 }
 

@@ -114,7 +114,7 @@ export class AgentGetAllJobsService extends ServiceBase {
       }
       return agentJobCards
     } catch (e) {
-      logger.error(`${getErrorMessageForService('AgentGetAllJobsService')} ${e}`)
+      logger.error(getErrorMessageForService('AgentGetAllJobsService'), e)
       this.addError(ERRORS.INTERNAL)
     }
   }
