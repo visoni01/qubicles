@@ -60,7 +60,7 @@ const AgentJobCard = ({
       <ul className='action-buttons display-inline-flex justify-between'>
         <li>
           <FontAwesomeIcon className='custom-fa-icon light' icon={ faUserFriends } />
-          <span className='para bold'>{`${ 3 }/${ job.needed }`}</span>
+          <span className='para bold'>{`${ job.fulfilled }/${ job.needed }`}</span>
           <span className='para light ml-5'>Hired</span>
         </li>
         <li>
@@ -92,6 +92,7 @@ AgentJobCard.defaultProps = {
   I also have over 5 years of experience in management, quality control and supervision.
   I do have the ability and update your contact list in real time of experience in management, quality
   control and supervision.I do have the ability and update your contact list in real time `,
+    fulfilled: 0,
   },
 }
 
@@ -109,6 +110,7 @@ AgentJobCard.propTypes = {
     needed: PropTypes.number,
     durationMonths: PropTypes.number,
     durationType: PropTypes.string,
+    fulfilled: PropTypes.number,
   }),
 }
 

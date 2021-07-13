@@ -1,5 +1,5 @@
 /* eslint-disable complexity */
-import React, { useCallback } from 'react'
+import React, { useState, useCallback } from 'react'
 import {
   Button, TextField,
 } from '@material-ui/core'
@@ -8,6 +8,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CKEditor from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
+import MyUploadAdapter from '../../../../../utils/uploadImage'
+import Loader from '../../../../loaders/circularLoader'
 import '../styles.scss'
 import SingleSelect from '../../../../Shared/singleSelect'
 import { jobDetailsPropTypes } from '../jobsValidator'
@@ -21,6 +24,9 @@ const NewJobData = ({
   isEdit,
   errors,
 }) => {
+  const [ isImageUploading, setIsImageUploading ] = useState(false)
+  const dispatch = useDispatch()
+
   const handleDescriptionData = useCallback((event, editor) => {
     // eslint-disable-next-line
     setNewJobData((jobData) => ({
@@ -132,9 +138,19 @@ const NewJobData = ({
         data={ newJobData.description }
         onInit={ (editor) => {
           editor.setData(newJobData.description)
+          // eslint-disable-next-line
+          editor.plugins.get('FileRepository').createUploadAdapter = function (loader) {
+            return new MyUploadAdapter(loader, setIsImageUploading, dispatch)
+          }
         } }
       />
       {errors && errors.description && <span className='para red sz-xs ml-10'>{errors.description.message}</span>}
+      {isImageUploading && (
+        <Loader
+          displayLoaderManually={ isImageUploading }
+          size={ 50 }
+        />
+      )}
     </div>
   )
 }

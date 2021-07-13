@@ -22,7 +22,6 @@ const JobPostDetails = ({
 
   return (
     <>
-      <Divider className='divider' />
       <div className='job-post-description is-fullwidth display-inline-flex'>
         <h4 className='h4 margin-top-bottom-10 text-link'>
           {' '}
@@ -75,15 +74,19 @@ const JobPostDetails = ({
                   : null
               ))}
         </div>
-        <h3 className='h3 mt-10'> Bonus Skills</h3>
-        <div className='tags-set mb-20'>
-          { jobDetails.jobSkillsData
-              && jobDetails.jobSkillsData.bonusSkills.map((tag) => (
+        {jobDetails.jobSkillsData && jobDetails.jobSkillsData.bonusSkills
+        && jobDetails.jobSkillsData.bonusSkills.length > 0 && (
+          <>
+            <h3 className='h3 mt-10'> Bonus Skills</h3>
+            <div className='tags-set mb-20'>
+              { jobDetails.jobSkillsData.bonusSkills.map((tag) => (
                 (tag.skillPreference === 'plus')
                   ? (<Chip key={ tag.jobSkillId } label={ tag.skillName } className='tag-chip' />)
                   : null
               ))}
-        </div>
+            </div>
+          </>
+        )}
       </div>
       <div className='display-inline-flex course-section is-fullwidth'>
         {jobDetails.jobCoursesData && jobDetails.jobCoursesData.requiredCourses
