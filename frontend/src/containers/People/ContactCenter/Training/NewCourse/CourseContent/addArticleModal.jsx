@@ -17,11 +17,14 @@ import MediaPlayer from '../../ViewCourse/mediaPlayer'
 import { trainingCourseRequestStart, resetTrainingCourseReducerFlags } from '../../../../../../redux-saga/redux/people'
 import { acceptedAudioFormats, acceptedVideoFormats, maxVideoFileSize } from '../../../constants'
 import { showErrorMessage } from '../../../../../../redux-saga/redux/utils'
+import MyUploadAdapter from '../../../../../../utils/uploadImage'
+import Loader from '../../../../../loaders/circularLoader'
 
 // eslint-disable-next-line complexity
 const AddArticleModal = ({
   open, onClose, onSubmit, unit, setUnitDetails, savedUnit, title,
 }) => {
+  const [ isImageUploading, setIsImageUploading ] = useState(false)
   const [ currentFileUrl, setCurrentFileUrl ] = useState('')
   const [ currentFileName, setCurrentFileName ] = useState('')
   const { currentFileUrl: uploadedFileUrl, dataType } = useSelector((state) => state.trainingCourse)
@@ -186,6 +189,11 @@ const AddArticleModal = ({
                       editor.editing.view.document.getRoot(),
                     )
                   })
+                  editor.setData(unit.details)
+                  // eslint-disable-next-line
+                  editor.plugins.get('FileRepository').createUploadAdapter = function (loader) {
+                    return new MyUploadAdapter(loader, setIsImageUploading, dispatch)
+                  }
                 } }
               />
               )}
@@ -278,6 +286,12 @@ const AddArticleModal = ({
             onChange={ handleFileInputChange }
             style={ { display: 'none' } }
           />
+          {isImageUploading && (
+          <Loader
+            displayLoaderManually={ isImageUploading }
+            size={ 50 }
+          />
+          )}
         </div>
       </DialogContent>
       <DialogActions className='modal-actions'>

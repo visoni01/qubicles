@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  Box, Grid,
+  Box, Divider, Grid,
 } from '@material-ui/core'
 import _ from 'lodash'
 import JobPostDetails from '../../../../components/People/ContactCenter/Jobs/jobPostDetails'
@@ -35,6 +35,7 @@ const JobPreview = () => {
                 {createJobData.title}
               </h3>
             </div>
+            <Divider className='divider' />
             <JobPostDetails
               jobDetails={ createJobData }
               isLoading={ isLoading }

@@ -20,14 +20,19 @@ const OtherCompanyOpenPositionsList = ({ companyId }) => {
   }, [ dispatch, companyId, isAllJobsFetched ])
 
   if (isLoading) {
-    return <JobsSkeleton />
+    return (
+      <Box className='custom-box'>
+        <JobsSkeleton />
+      </Box>
+    )
   }
+
   return (
     <Box className='custom-box'>
       <h3 className='h3 mb-20'> Open Positions </h3>
-      {(
-        jobsWithCategories.map((jobCategory) => (
-          jobCategory.jobs.length && (
+
+      {jobsWithCategories.map((jobCategory) => (
+        jobCategory.jobs.length && (
           <OtherCompanyOpenPositionsCard
             key={ jobCategory.categoryId }
             categoryId={ jobCategory.categoryId }
@@ -36,15 +41,14 @@ const OtherCompanyOpenPositionsList = ({ companyId }) => {
             inNeed={ jobCategory.needed }
             fulfilled={ 2 }
           />
-          )))
-        )}
+        )))}
 
       {((jobsWithCategories && jobsWithCategories.length === 0) || (jobsWithCategories[ 0 ].jobs.length === 0)) && (
-      <div className='mt-10 mb-10'>
-        <div className='text-align-last-center'>
-          <h3 className=' h3'>No jobs found!</h3>
+        <div className='mt-10 mb-10'>
+          <div className='text-align-last-center'>
+            <h3 className=' h3'>No jobs found!</h3>
+          </div>
         </div>
-      </div>
       )}
 
       {!isAllJobsFetched && jobsWithCategories.length > 0 && (

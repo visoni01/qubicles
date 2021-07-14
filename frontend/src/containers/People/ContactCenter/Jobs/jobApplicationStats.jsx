@@ -7,6 +7,7 @@ import { formatCount } from '../../../../utils/common'
 
 const JobApplicationStats = () => {
   const { jobDetails } = useSelector((state) => state.jobDetails)
+
   return (
     <div>
       <div className='para mt-20'>
@@ -20,21 +21,21 @@ const JobApplicationStats = () => {
         <div className='data'>
           <FontAwesomeIcon className='custom-fa-icon light' icon={ faUserFriends } />
           <span className='para bold'>
-            {`${ jobDetails.jobApplicationStats.fulfilled }/${ jobDetails.needed }`}
+            {`${ jobDetails.fulfilled || 0 }/${ jobDetails.needed || 0 }`}
           </span>
           <span className='para light'> Agents Hired  </span>
         </div>
         <div className='data'>
           <FontAwesomeIcon className='custom-fa-icon light' icon={ faRedo } />
           <span className='para bold'>
-            {formatCount(jobDetails.jobApplicationStats.evaluating)}
+            {formatCount(jobDetails.evaluating || 0)}
           </span>
           <span className='para light'> Evaluating  </span>
         </div>
         <div className='data'>
           <FontAwesomeIcon className='custom-fa-icon light' icon={ faEnvelope } />
           <span className='para bold'>
-            {formatCount(jobDetails.jobApplicationStats.pending)}
+            {formatCount(jobDetails.pending || 0)}
           </span>
           <span className='para light'> Pending Applications  </span>
         </div>

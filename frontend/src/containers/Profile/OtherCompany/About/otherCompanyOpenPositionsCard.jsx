@@ -13,7 +13,7 @@ import JobPostModal from './jobPostModal'
 import '../styles.scss'
 
 const OpenJobPositionCard = ({
-  categoryTitle, jobs, fulfilled, inNeed, categoryId,
+  categoryTitle, jobs, inNeed, categoryId,
 }) => {
   const [ currentJobId, setCurrentJobId ] = useState(null)
 
@@ -37,7 +37,7 @@ const OpenJobPositionCard = ({
 
       <div className='mt-5'>
         {jobs.length && jobs.map(({
-          job_id, title, needed, job_type, duration_months, duration_type,
+          job_id, title, needed, job_type, duration_months, duration_type, fulfilled,
           description, pay_amount,
         }, index) => (
           <div
@@ -67,7 +67,7 @@ const OpenJobPositionCard = ({
                   <ul className='action-buttons display-inline-flex justify-between'>
                     <li>
                       <FontAwesomeIcon className='custom-fa-icon light' icon={ faUserFriends } />
-                      <span className='para bold'>{`${ fulfilled }/${ needed || inNeed }`}</span>
+                      <span className='para bold'>{`${ fulfilled || 0 }/${ needed || inNeed }`}</span>
                       <span className='para light ml-5'>Hired</span>
                     </li>
                     <li>
@@ -108,14 +108,12 @@ const OpenJobPositionCard = ({
 }
 
 OpenJobPositionCard.defaultProps = {
-  fulfilled: 0,
   inNeed: 0,
 }
 
 OpenJobPositionCard.propTypes = {
   categoryTitle: PropTypes.string.isRequired,
   categoryId: PropTypes.number.isRequired,
-  fulfilled: PropTypes.number,
   inNeed: PropTypes.number,
   jobs: PropTypes.arrayOf(
     PropTypes.shape({

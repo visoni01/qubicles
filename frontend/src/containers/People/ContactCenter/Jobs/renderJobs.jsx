@@ -26,27 +26,23 @@ const RenderJobs = () => {
         {`${ statusTitle }`}
       </h3>
 
-      { jobsWithCategories.map((jobCategory) => (
+      {jobsWithCategories.map((jobCategory) => (
         jobCategory.jobs.length > 0 && (
-          <>
-            <JobCategoryCard
-              key={ jobCategory.categoryId }
-              categoryId={ jobCategory.categoryId }
-              categoryTitle={ jobCategory.categoryTitle }
-              jobs={ jobCategory.jobs }
-              inNeed={ jobCategory.needed }
-              fulfilled={ 2 }
-              evaluating={ 2 }
-              pending={ 0 }
-            />
-          </>
+          <JobCategoryCard
+            key={ jobCategory.categoryId }
+            categoryId={ jobCategory.categoryId }
+            categoryTitle={ jobCategory.categoryTitle }
+            jobs={ jobCategory.jobs }
+            inNeed={ jobCategory.needed }
+          />
         )))}
+
       {((jobsWithCategories && jobsWithCategories.length === 0) || (jobsWithCategories[ 0 ].jobs.length === 0)) && (
-      <div className='mt-10 mb-10'>
-        <div className='text-align-last-center'>
-          <h3 className=' h3'>No jobs found!</h3>
+        <div className='mt-10 mb-10'>
+          <div className='text-align-last-center'>
+            <h3 className=' h3'>No jobs found!</h3>
+          </div>
         </div>
-      </div>
       )}
     </Box>
   )

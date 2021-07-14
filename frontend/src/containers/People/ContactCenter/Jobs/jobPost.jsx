@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import {
-  Box, Button,
+  Box, Button, Divider,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
@@ -27,7 +27,9 @@ const JobPost = ({
 
   if (isLoading) {
     return (
-      <JobPostSkeleton />
+      <Box className='box mt-20'>
+        <JobPostSkeleton />
+      </Box>
     )
   }
 
@@ -57,6 +59,8 @@ const JobPost = ({
           {' '}
           {getTimeFromNow(jobDetails.createdOn)}
         </p>
+
+        <Divider className='divider' />
 
         <JobPostDetails
           jobDetails={ jobDetails }
