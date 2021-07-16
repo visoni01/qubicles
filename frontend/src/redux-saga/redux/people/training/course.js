@@ -41,7 +41,7 @@ const initialState = {
       } ],
     },
   },
-  uploadProgressData: null,
+  uploadProgressData: 0,
   requestType: null,
   dataType: null,
   currentFileUrl: null,
