@@ -4,4 +4,10 @@ const MESSAGES = {
   SUCCESS: 'Request has been processed successfully.',
 }
 
+export const EVENTS = {
+  JOIN_ROOM: 'join-room',
+  SEND_NOTIFICATION: 'send-notification',
+  RECEIVE_NOTIFICATION: 'receive-notification',
+}
+
 export default MESSAGES

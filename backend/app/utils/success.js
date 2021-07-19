@@ -12,3 +12,9 @@ export const CONSTANTS = {
   VERIFY_EMAIL_TOKEN_TYPE: 'verifyEmail',
   RESET_EMAIL_TOKEN_TYPE: 'resetEmail'
 }
+
+export const EVENTS = {
+  JOIN_ROOM: 'join-room',
+  SEND_NOTIFICATION: 'send-notification',
+  RECEIVE_NOTIFICATION: 'receive-notification'
+}

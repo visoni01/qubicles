@@ -1,6 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit'
 import authReducers from './auth'
-import userReducers from './user'
+import userReducers, { clearStore } from './user'
 import companyStatsReducers from './dashboard/companyStats'
 import postsReducer from './dashboard/post'
 import forumReducers from './forum'
@@ -11,7 +11,7 @@ import commonProfileReducers from './profile/common'
 import profileReviewsReducers from './profile/review'
 import utilsReducers from './utils'
 
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
 
   // Auth Reducers
   ...authReducers,
@@ -39,5 +39,13 @@ const rootReducer = combineReducers({
   ...profileReviewsReducers,
 
 })
+
+const rootReducer = (state, action) => {
+  if (action.type === clearStore.type) {
+    return appReducer(undefined, action)
+  }
+
+  return appReducer(state, action)
+}
 
 export default rootReducer

@@ -1,5 +1,7 @@
 import _ from 'lodash'
 import { takeEvery, put } from 'redux-saga/effects'
+import WebSocket from '../../../../socket'
+import { getUserDetails } from '../../../../utils/common'
 import {
   fetchAgentResumeStart,
   fetchAgentResumeSuccess,
@@ -46,6 +48,13 @@ function* agentResumeSkillsWorker(action) {
             msg: `You have successfully ${ hasBlockedUser ? 'blocked' : 'unblocked' }!`,
           }))
         }
+
+        const userDetails = getUserDetails()
+
+        WebSocket.sendNotification({
+          to: candidateId && candidateId.toString(),
+          message: userDetails && `${ userDetails.full_name } started following you.`,
+        })
         break
       }
       default: break

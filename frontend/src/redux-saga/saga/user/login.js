@@ -9,17 +9,23 @@ import {
   userLoginFailure,
   userLogoutSuccessful,
   resetAgentProfileSettingsData,
+  clearStore,
 } from '../../redux/actions'
 import User from '../../service/user'
 import { getUserDetails } from '../../../utils/common'
 import { showSuccessMessage, showErrorMessage } from '../../redux/utils/snackbar'
 import { startLoader, stopLoader } from '../../redux/utils/loader'
+import WebSocket from '../../../socket'
 
 function* loginWatcher() {
-  yield takeLatest([ userLoginStart.type, userUpdateStart.type, userLogoutSuccessful.type ], loginWorker)
+  yield takeLatest(
+    [ userLoginStart.type, userUpdateStart.type, userLogoutSuccessful.type, clearStore.type ],
+    loginWorker,
+  )
 }
 
 // TODO: modify login to user
+// eslint-disable-next-line complexity
 function* loginWorker(action) {
   try {
     switch (action.type) {
@@ -29,6 +35,9 @@ function* loginWorker(action) {
         const userDetails = getUserDetails()
         yield put(showSuccessMessage({ msg: `Welcome ${ userDetails && userDetails.full_name }` }))
         yield put(userLoginSuccessful({ userDetails }))
+
+        WebSocket.connect()
+        WebSocket.joinRoom(userDetails.user_id && userDetails.user_id.toString())
         break
       }
       case userUpdateStart.type: {
@@ -46,6 +55,12 @@ function* loginWorker(action) {
         } else {
           yield put(resetCompanyProfileSettingsData())
         }
+
+        WebSocket.disconnect()
+        break
+      }
+      case clearStore.type: {
+        WebSocket.disconnect()
         break
       }
       default:
