@@ -4,6 +4,7 @@ import _ from 'lodash'
 import logger from '../app/common/logger'
 import config from '../config/app'
 import { EVENTS } from '../app/utils/success'
+import { addUserNotification } from '../app/services/helper'
 
 const createSocketConnection = (server) => {
   try {
@@ -24,8 +25,13 @@ const createSocketConnection = (server) => {
         }
       })
 
-      socket.on(EVENTS.SEND_NOTIFICATION, ({ to, message }) => {
-        io.to(to.toString()).emit(EVENTS.RECEIVE_NOTIFICATION, message)
+      socket.on(EVENTS.SEND_NOTIFICATION, async ({ to, message }) => {
+        try {
+          await addUserNotification({ user_id: to, notice: message })
+          io.to(to.toString()).emit(EVENTS.RECEIVE_NOTIFICATION, message)
+        } catch (e) {
+          logger.error('Error while adding user notification =====>', e)
+        }
       })
 
       socket.on(EVENTS.JOIN_ROOM, (id) => {

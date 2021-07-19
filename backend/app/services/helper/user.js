@@ -1,4 +1,4 @@
-import { User, XClientUser, UserDetail, XClient, XUserActivity } from '../../db/models'
+import { User, XClientUser, UserDetail, XClient, XUserActivity, XUserNotification } from '../../db/models'
 import config from '../../../config/app'
 import jwt from 'jsonwebtoken'
 import { getOne } from './crud'
@@ -228,4 +228,49 @@ export const blockOrUnblockUser = async ({ user_id, block_user_id }) => {
   }
 
   return true
+}
+
+export const addUserNotification = async ({ user_id, notice }) => {
+  await XUserNotification.create({
+    user_id,
+    notice
+  })
+}
+
+export const getUserNotifications = async ({ user_id, offset }) => {
+  const { rows, count } = await XUserNotification.findAndCountAll({
+    attributes: [
+      ['notification_id', 'id'],
+      ['notice', 'message'],
+      ['is_read', 'isRead']
+    ],
+    where: { user_id },
+    order: [['created_on', 'DESC']],
+    limit: 10,
+    offset: parseInt(offset)
+  })
+
+  return {
+    count,
+    notifications: rows
+  }
+}
+
+export const readUserNotifications = async ({ user_id, notification_ids }) => {
+  await XUserNotification.update({
+    is_read: true
+  }, {
+    where: {
+      user_id,
+      notification_id: notification_ids
+    }
+  })
+}
+
+export const deleteUserNotification = async ({ user_id, notification_id }) => {
+  const notifications = await XUserNotification.destroy({
+    where: { user_id, notification_id }
+  })
+
+  return notifications
 }

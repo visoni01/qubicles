@@ -12,7 +12,9 @@ import {
   PostSignUpAgentDataService,
   UploadProfileImageService,
   UserFollowService,
-  UserBlockService
+  UserBlockService,
+  UserGetNotificationsService,
+  UserReadNotificationsService
 } from '../services/user'
 import { getNewTokenAfterUserCodeChanged } from '../services/helper'
 import config from '../../config/app'
@@ -151,6 +153,24 @@ export default class UserController {
       Responder.success(res, hasBlocked.result)
     } else {
       Responder.failed(res, hasBlocked.errors)
+    }
+  }
+
+  static async getNotifications (req, res) {
+    const notifications = await UserGetNotificationsService.execute({ ...req.body, ...req.params, ...req.query })
+    if (notifications.successful) {
+      Responder.success(res, notifications.result)
+    } else {
+      Responder.failed(res, notifications.errors)
+    }
+  }
+
+  static async readNotifications (req, res) {
+    const notifications = await UserReadNotificationsService.execute({ ...req.body, ...req.params, ...req.query })
+    if (notifications.successful) {
+      Responder.success(res, notifications.result)
+    } else {
+      Responder.failed(res, notifications.errors)
     }
   }
 }

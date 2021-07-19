@@ -12,6 +12,7 @@ import {
 } from '../../../redux/actions'
 import People from '../../../service/people'
 import User from '../../../service/user'
+import { PROFILE_ROUTE } from '../../../../routes/routesPath'
 
 function* agentResumeSkillsWatcherStart() {
   yield takeEvery(fetchAgentResumeStart.type, agentResumeSkillsWorker)
@@ -53,7 +54,8 @@ function* agentResumeSkillsWorker(action) {
 
         WebSocket.sendNotification({
           to: candidateId && candidateId.toString(),
-          message: userDetails && `${ userDetails.full_name } started following you.`,
+          message: userDetails && `<span><a href=${ PROFILE_ROUTE }/${ userDetails.user_id }>${
+            userDetails.full_name }</a> started following you.</span>`,
         })
         break
       }

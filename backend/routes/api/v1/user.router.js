@@ -75,4 +75,10 @@ userRouter.route('/follow/:user_to_follow_id')
 userRouter.route('/block/:block_user_id')
   .put(isAuthenticated, userController.blockUser)
 
+userRouter.route('/notifications')
+  .get(isAuthenticated, userController.getNotifications)
+
+userRouter.route('/notifications')
+  .put(isAuthenticated, userController.readNotifications)
+
 export { userRouter }
