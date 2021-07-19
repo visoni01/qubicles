@@ -246,7 +246,7 @@ export const getUserNotifications = async ({ user_id, offset }) => {
     ],
     where: { user_id },
     order: [['created_on', 'DESC']],
-    limit: 10,
+    limit: 5,
     offset: parseInt(offset)
   })
 
@@ -267,10 +267,23 @@ export const readUserNotifications = async ({ user_id, notification_ids }) => {
   })
 }
 
-export const deleteUserNotification = async ({ user_id, notification_id }) => {
-  const notifications = await XUserNotification.destroy({
+export const deleteUserNotification = async ({ user_id, notification_id, offset }) => {
+  await XUserNotification.destroy({
     where: { user_id, notification_id }
   })
 
-  return notifications
+  const notifications = await XUserNotification.findAll({
+    attributes: [
+      ['notification_id', 'id'],
+      ['notice', 'message'],
+      ['is_read', 'isRead'],
+      ['created_on', 'createdAt']
+    ],
+    where: { user_id },
+    order: [['created_on', 'DESC']],
+    limit: 1,
+    offset: parseInt(offset)
+  })
+
+  return notifications && notifications[0]
 }

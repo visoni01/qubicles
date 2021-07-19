@@ -81,4 +81,7 @@ userRouter.route('/notifications')
 userRouter.route('/notifications')
   .put(isAuthenticated, userController.readNotifications)
 
+userRouter.route('/notifications/:notification_id')
+  .delete(isAuthenticated, userController.deleteNotification)
+
 export { userRouter }

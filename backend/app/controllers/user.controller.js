@@ -14,7 +14,8 @@ import {
   UserFollowService,
   UserBlockService,
   UserGetNotificationsService,
-  UserReadNotificationsService
+  UserReadNotificationsService,
+  UserDeleteNotificationService
 } from '../services/user'
 import { getNewTokenAfterUserCodeChanged } from '../services/helper'
 import config from '../../config/app'
@@ -157,7 +158,7 @@ export default class UserController {
   }
 
   static async getNotifications (req, res) {
-    const notifications = await UserGetNotificationsService.execute({ ...req.body, ...req.params, ...req.query })
+    const notifications = await UserGetNotificationsService.execute({ ...req.body, ...req.query })
     if (notifications.successful) {
       Responder.success(res, notifications.result)
     } else {
@@ -166,11 +167,20 @@ export default class UserController {
   }
 
   static async readNotifications (req, res) {
-    const notifications = await UserReadNotificationsService.execute({ ...req.body, ...req.params, ...req.query })
-    if (notifications.successful) {
-      Responder.success(res, notifications.result)
+    const data = await UserReadNotificationsService.execute({ ...req.body })
+    if (data.successful) {
+      Responder.success(res, data.result)
     } else {
-      Responder.failed(res, notifications.errors)
+      Responder.failed(res, data.errors)
+    }
+  }
+
+  static async deleteNotification (req, res) {
+    const notification = await UserDeleteNotificationService.execute({ ...req.body, ...req.params })
+    if (notification.successful) {
+      Responder.success(res, notification.result)
+    } else {
+      Responder.failed(res, notification.errors)
     }
   }
 }
