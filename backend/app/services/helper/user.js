@@ -230,27 +230,35 @@ export const blockOrUnblockUser = async ({ user_id, block_user_id }) => {
   return true
 }
 
-export const addUserNotification = async ({ user_id, notice }) => {
+export const addUserNotification = async ({ user_id, notice, image_url }) => {
   await XUserNotification.create({
     user_id,
-    notice
+    notice,
+    image_url
   })
 }
 
 export const getUserNotifications = async ({ user_id, offset }) => {
-  const { rows, count } = await XUserNotification.findAndCountAll({
-    attributes: [
-      ['notification_id', 'id'],
-      ['notice', 'message'],
-      ['is_read', 'isRead']
-    ],
-    where: { user_id },
-    order: [['created_on', 'DESC']],
-    limit: 5,
-    offset: parseInt(offset)
-  })
+  const promises = [
+    () => XUserNotification.findAndCountAll({
+      attributes: [
+        ['notification_id', 'id'],
+        ['notice', 'message'],
+        ['is_read', 'isRead'],
+        ['created_on', 'createdAt'],
+        ['image_url', 'imageUrl']
+      ],
+      where: { user_id },
+      order: [['created_on', 'DESC']],
+      limit: 5,
+      offset: parseInt(offset)
+    }),
+    () => areAllNotificationsRead({ user_id })
+  ]
+  const [{ rows, count }, allRead] = await Promise.all(promises.map(promise => promise()))
 
   return {
+    allRead,
     count,
     notifications: rows
   }
@@ -265,6 +273,10 @@ export const readUserNotifications = async ({ user_id, notification_ids }) => {
       notification_id: notification_ids
     }
   })
+
+  const allRead = await areAllNotificationsRead({ user_id })
+
+  return { allRead }
 }
 
 export const deleteUserNotification = async ({ user_id, notification_id, offset }) => {
@@ -272,18 +284,38 @@ export const deleteUserNotification = async ({ user_id, notification_id, offset 
     where: { user_id, notification_id }
   })
 
-  const notifications = await XUserNotification.findAll({
-    attributes: [
-      ['notification_id', 'id'],
-      ['notice', 'message'],
-      ['is_read', 'isRead'],
-      ['created_on', 'createdAt']
-    ],
-    where: { user_id },
-    order: [['created_on', 'DESC']],
-    limit: 1,
-    offset: parseInt(offset)
+  const promises = [
+    () => XUserNotification.findAll({
+      attributes: [
+        ['notification_id', 'id'],
+        ['notice', 'message'],
+        ['is_read', 'isRead'],
+        ['created_on', 'createdAt'],
+        ['image_url', 'imageUrl']
+      ],
+      where: { user_id },
+      order: [['created_on', 'DESC']],
+      limit: 1,
+      offset: parseInt(offset)
+    }),
+    () => areAllNotificationsRead({ user_id })
+  ]
+  const [notifications, allRead] = await Promise.all(promises.map(promise => promise()))
+
+  return {
+    notification: notifications && notifications[0],
+    allRead
+  }
+}
+
+export const areAllNotificationsRead = async ({ user_id }) => {
+  const notification = await XUserNotification.findOne({
+    where: {
+      user_id,
+      is_read: false
+    },
+    attributes: ['notification_id']
   })
 
-  return notifications && notifications[0]
+  return !notification
 }

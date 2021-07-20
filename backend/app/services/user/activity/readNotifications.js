@@ -20,7 +20,9 @@ export class UserReadNotificationsService extends ServiceBase {
   async run () {
     try {
       const { user_id, notification_ids } = this.filteredArgs
-      await readUserNotifications({ user_id, notification_ids })
+      const result = await readUserNotifications({ user_id, notification_ids })
+
+      return result
     } catch (e) {
       logger.error(getErrorMessageForService('UserReadNotificationsService'), e)
       this.addError(ERRORS.INTERNAL)

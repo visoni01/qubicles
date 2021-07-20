@@ -23,9 +23,9 @@ export class UserDeleteNotificationService extends ServiceBase {
   async run () {
     try {
       const { user_id, notification_id, offset } = this.filteredArgs
-      const nextNotification = await deleteUserNotification({ user_id, notification_id, offset })
+      const result = await deleteUserNotification({ user_id, notification_id, offset })
 
-      return nextNotification
+      return result
     } catch (e) {
       logger.error(getErrorMessageForService('UserDeleteNotificationService'), e)
       this.addError(ERRORS.INTERNAL)

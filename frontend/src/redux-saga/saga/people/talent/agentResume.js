@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { takeEvery, put } from 'redux-saga/effects'
+import { takeEvery, put, select } from 'redux-saga/effects'
 import WebSocket from '../../../../socket'
 import { getUserDetails } from '../../../../utils/common'
 import {
@@ -51,11 +51,13 @@ function* agentResumeSkillsWorker(action) {
         }
 
         const userDetails = getUserDetails()
+        const { settings } = yield select((state) => state.agentDetails)
 
         WebSocket.sendNotification({
           to: candidateId && candidateId.toString(),
-          message: userDetails && `<span><a href=${ PROFILE_ROUTE }/${ userDetails.user_id }>${
+          message: userDetails && `<span><a href="${ PROFILE_ROUTE }/${ userDetails.user_id }/feed" target="_blank">${
             userDetails.full_name }</a> started following you.</span>`,
+          image: settings.profilePic,
         })
         break
       }

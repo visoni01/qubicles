@@ -25,9 +25,9 @@ const createSocketConnection = (server) => {
         }
       })
 
-      socket.on(EVENTS.SEND_NOTIFICATION, async ({ to, message }) => {
+      socket.on(EVENTS.SEND_NOTIFICATION, async ({ to, message, image }) => {
         try {
-          await addUserNotification({ user_id: to, notice: message })
+          await addUserNotification({ user_id: to, notice: message, image_url: image })
           io.to(to.toString()).emit(EVENTS.RECEIVE_NOTIFICATION, message)
         } catch (e) {
           logger.error('Error while adding user notification =====>', e)
