@@ -428,3 +428,69 @@ export const getJobsByCategory = ({ state, payload }) => {
   }
   return jobsWithCategories
 }
+
+export const updateNotificationsData = ({ state, payload }) => {
+  let notificationsData
+
+  switch (state.requestType) {
+    case 'FETCH': {
+      const { notifications } = payload
+      notificationsData = [
+        ...state.notifications,
+        ...notifications,
+      ]
+      break
+    }
+    case 'UPDATE': {
+      const { notificationIds } = payload
+      notificationsData = state.notifications.map((notification) => {
+        let result = {
+          ...notification,
+        }
+        if (notificationIds.find((id) => id === notification.id)) {
+          result = {
+            ...result,
+            isRead: 1,
+          }
+        }
+        return result
+      })
+      break
+    }
+    case 'DELETE': {
+      const { notificationId, newNotification } = payload
+      notificationsData = state.notifications.filter((notification) => notification.id !== notificationId)
+      if (newNotification) {
+        notificationsData.push(newNotification)
+      }
+      break
+    }
+    default:
+      break
+  }
+
+  return notificationsData
+}
+
+export const updateCountData = ({ state, payload }) => {
+  let count
+
+  switch (state.requestType) {
+    case 'FETCH': {
+      count = payload.count
+      break
+    }
+    case 'UPDATE': {
+      count = state.count
+      break
+    }
+    case 'DELETE': {
+      count = state.count && state.count - 1
+      break
+    }
+    default:
+      break
+  }
+
+  return count
+}

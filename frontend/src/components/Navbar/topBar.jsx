@@ -1,13 +1,13 @@
 import React from 'react'
 import {
-  AppBar,
-  Container, IconButton, InputBase,
+  AppBar, Container, IconButton, InputBase,
 } from '@material-ui/core'
 import {
-  chatIcon, walletIcon, bellIcon,
+  chatIcon, walletIcon,
 } from '../../assets/images/icons/navBarIcons'
 import UserMenu from '../../containers/Navbar/userMenu'
 import { SearchIcon } from '../../assets/images/common'
+import Notifications from '../../containers/Navbar/notifications'
 
 const TopBar = () => (
   <AppBar
@@ -28,12 +28,13 @@ const TopBar = () => (
           <IconButton className='notification-button'>
             <img src={ chatIcon } alt='Chat Icon' />
           </IconButton>
+
           <IconButton className='notification-button'>
             <img src={ walletIcon } alt='Chat Icon' />
           </IconButton>
-          <IconButton className='notification-button'>
-            <img src={ bellIcon } alt='Chat Icon' />
-          </IconButton>
+
+          <Notifications />
+
           <UserMenu />
         </div>
       </div>

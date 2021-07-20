@@ -75,6 +75,23 @@ class User {
     const response = await apiClient.putRequest(`/user/block/${ candidateId }`)
     return response
   }
+
+  static async getAllNotifications({ offset }) {
+    const response = await apiClient.getRequest('/user/notifications', null, { offset })
+    return response
+  }
+
+  static async updateNotificationsReadStatus({ notificationIds }) {
+    const response = await apiClient.putRequest('/user/notifications', {
+      notification_ids: notificationIds,
+    })
+    return response
+  }
+
+  static async deleteNotification({ notificationId, offset }) {
+    const response = await apiClient.deleteRequest(`/user/notifications/${ notificationId }`, { offset })
+    return response
+  }
 }
 
 export default User

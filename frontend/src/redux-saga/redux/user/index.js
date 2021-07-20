@@ -3,6 +3,7 @@ import signupReducer from './signup'
 import postSignUpReducer from './postSignup'
 import invitePageReducer from './invitePage'
 import userDataReducer from './userData'
+import notificationsReducer from './notifications'
 
 const userReducers = {
   login: loginReducer,
@@ -10,6 +11,7 @@ const userReducers = {
   postSignUp: postSignUpReducer,
   invitePage: invitePageReducer,
   userData: userDataReducer,
+  notifications: notificationsReducer,
 }
 
 export default userReducers
@@ -18,3 +20,4 @@ export * from './signup'
 export * from './postSignup'
 export * from './invitePage'
 export * from './userData'
+export * from './notifications'
