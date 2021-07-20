@@ -18,6 +18,7 @@ const {
     notificationsFetchStart,
     notificationsFetchSuccessful,
     notificationsFetchFailure,
+    addNewNotification,
   },
   reducer,
 } = createSlice({
@@ -46,6 +47,16 @@ const {
       error: true,
       isLoading: false,
     }),
+    addNewNotification: (state, action) => ({
+      ...state,
+      notifications: [
+        action.payload.notification,
+        ...state.notifications,
+      ],
+      offset: state.offset + 1,
+      count: state.count + 1,
+      allRead: false,
+    }),
   },
 })
 
@@ -54,4 +65,5 @@ export {
   notificationsFetchStart,
   notificationsFetchSuccessful,
   notificationsFetchFailure,
+  addNewNotification,
 }
