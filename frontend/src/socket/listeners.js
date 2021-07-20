@@ -4,10 +4,10 @@ import { EVENTS } from '../utils/messages'
 
 const receiveNotification = {
   event: EVENTS.RECEIVE_NOTIFICATION,
-  callback: (msg) => {
+  callback: (notification) => {
     // eslint-disable-next-line no-console
-    console.log(msg)
-    store.dispatch(showSuccessMessage({ msg }))
+    console.log(notification)
+    store.dispatch(showSuccessMessage({ msg: notification.message }))
   },
 }
 

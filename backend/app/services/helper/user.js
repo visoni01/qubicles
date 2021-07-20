@@ -41,6 +41,16 @@ export const getUserDetails = ({ user_id }) => {
   return UserDetail.findOne({ where: { user_id }, raw: true })
 }
 
+export const getUserProfileImage = async ({ user_id }) => {
+  const data = await UserDetail.findOne({
+    where: { user_id },
+    attributes: ['profile_image'],
+    raw: true
+  })
+
+  return data && data.profile_image
+}
+
 export const getTokenAfterPostSignupCompleted = async ({ email, user_id, full_name, user_code }) => {
   await UserDetail.update({ is_post_signup_completed: true }, { where: { user_id } })
   const inviteLink = await getInviteLink({ user_id })
@@ -230,12 +240,24 @@ export const blockOrUnblockUser = async ({ user_id, block_user_id }) => {
   return true
 }
 
-export const addUserNotification = async ({ user_id, notice, image_url }) => {
-  await XUserNotification.create({
-    user_id,
-    notice,
-    image_url
-  })
+export const addUserNotification = async ({ user_id, notice, record_id }) => {
+  const promises = [
+    () => XUserNotification.create({
+      user_id,
+      notice,
+      record_id
+    }),
+    () => getUserProfileImage({ user_id: record_id })
+  ]
+  const [notification, imageUrl] = await Promise.all(promises.map(promise => promise()))
+
+  return {
+    id: notification.notification_id,
+    message: notification.notice,
+    isRead: notification.is_read,
+    createdAt: notification.created_on,
+    imageUrl
+  }
 }
 
 export const getUserNotifications = async ({ user_id, offset }) => {
@@ -246,21 +268,36 @@ export const getUserNotifications = async ({ user_id, offset }) => {
         ['notice', 'message'],
         ['is_read', 'isRead'],
         ['created_on', 'createdAt'],
-        ['image_url', 'imageUrl']
+        'record_id'
       ],
       where: { user_id },
       order: [['created_on', 'DESC']],
       limit: 5,
-      offset: parseInt(offset)
+      offset: parseInt(offset),
+      raw: true
     }),
     () => areAllNotificationsRead({ user_id })
   ]
   const [{ rows, count }, allRead] = await Promise.all(promises.map(promise => promise()))
+  const recordIds = [...new Set(rows.map((row) => row.record_id))]
+  const userData = await UserDetail.findAll({
+    where: {
+      user_id: recordIds
+    },
+    attributes: ['user_id', 'profile_image'],
+    raw: true
+  })
+  const profileImages = Object.fromEntries(
+    userData.map((user) => [user.user_id, user.profile_image])
+  )
 
   return {
     allRead,
     count,
-    notifications: rows
+    notifications: rows.map((row) => ({
+      ...row,
+      imageUrl: profileImages[row.record_id]
+    }))
   }
 }
 
@@ -291,7 +328,7 @@ export const deleteUserNotification = async ({ user_id, notification_id, offset 
         ['notice', 'message'],
         ['is_read', 'isRead'],
         ['created_on', 'createdAt'],
-        ['image_url', 'imageUrl']
+        'record_id'
       ],
       where: { user_id },
       order: [['created_on', 'DESC']],
@@ -301,6 +338,10 @@ export const deleteUserNotification = async ({ user_id, notification_id, offset 
     () => areAllNotificationsRead({ user_id })
   ]
   const [notifications, allRead] = await Promise.all(promises.map(promise => promise()))
+
+  if (notifications && notifications[0]) {
+    notifications[0].imageUrl = await getUserProfileImage({ user_id: notifications[0].record_id })
+  }
 
   return {
     notification: notifications && notifications[0],

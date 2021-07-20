@@ -1,7 +1,7 @@
 import _ from 'lodash'
-import { takeEvery, put, select } from 'redux-saga/effects'
+import { takeEvery, put } from 'redux-saga/effects'
 import WebSocket from '../../../../socket'
-import { getUserDetails } from '../../../../utils/common'
+import { getNotificationMessage, getUserDetails } from '../../../../utils/common'
 import {
   fetchAgentResumeStart,
   fetchAgentResumeSuccess,
@@ -12,12 +12,12 @@ import {
 } from '../../../redux/actions'
 import People from '../../../service/people'
 import User from '../../../service/user'
-import { PROFILE_ROUTE } from '../../../../routes/routesPath'
 
 function* agentResumeSkillsWatcherStart() {
   yield takeEvery(fetchAgentResumeStart.type, agentResumeSkillsWorker)
 }
 
+// eslint-disable-next-line complexity
 function* agentResumeSkillsWorker(action) {
   try {
     const {
@@ -51,13 +51,18 @@ function* agentResumeSkillsWorker(action) {
         }
 
         const userDetails = getUserDetails()
-        const { settings } = yield select((state) => state.agentDetails)
+        const message = getNotificationMessage({
+          type: 'follow',
+          payload: {
+            id: userDetails && userDetails.user_id,
+            name: userDetails && userDetails.full_name,
+          },
+        })
 
         WebSocket.sendNotification({
           to: candidateId && candidateId.toString(),
-          message: userDetails && `<span><a href="${ PROFILE_ROUTE }/${ userDetails.user_id }/feed" target="_blank">${
-            userDetails.full_name }</a> started following you.</span>`,
-          image: settings.profilePic,
+          from: userDetails.user_id,
+          message,
         })
         break
       }

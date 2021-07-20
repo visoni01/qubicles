@@ -19,8 +19,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
-    image_url: {
-      type: DataTypes.STRING
+    record_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
     created_on: {
       type: DataTypes.DATE,

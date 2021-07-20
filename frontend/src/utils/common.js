@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken'
 import _ from 'lodash'
 import config from './config'
 import MESSAGES from './messages'
+import { PROFILE_ROUTE } from '../routes/routesPath'
 
 export const regExpPhone = /^[+](\d{1,4})?\s(\d{10})$/
 export const regExpSSN = /^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$/
@@ -179,3 +180,13 @@ export const setDoumentTitle = ({ location }) => {
 }
 
 export const getUniqueId = () => (Date.now() + Math.random()).toString()
+
+export const getNotificationMessage = ({ type, payload }) => {
+  switch (type) {
+    case 'follow': {
+      return `<span><a href="${ PROFILE_ROUTE }/${ payload.id }/feed" target="_blank">${
+        payload.name }</a> started following you.</span>`
+    }
+    default: return ''
+  }
+}
