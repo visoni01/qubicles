@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import _ from 'lodash'
-import { updateCountData, updateNotificationsData } from '../helper'
+import { updateCountData, updateNotificationsData, updateAfterDelete } from '../helper'
 
 const initialState = {
   isLoading: null,
@@ -19,6 +19,7 @@ const {
     notificationsFetchSuccessful,
     notificationsFetchFailure,
     addNewNotification,
+    deleteNotification,
   },
   reducer,
 } = createSlice({
@@ -57,6 +58,10 @@ const {
       count: state.count + 1,
       allRead: false,
     }),
+    deleteNotification: (state, action) => ({
+      ...state,
+      ...updateAfterDelete({ state, payload: action.payload }),
+    }),
   },
 })
 
@@ -66,4 +71,5 @@ export {
   notificationsFetchSuccessful,
   notificationsFetchFailure,
   addNewNotification,
+  deleteNotification,
 }

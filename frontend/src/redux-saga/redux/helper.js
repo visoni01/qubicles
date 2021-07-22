@@ -494,3 +494,23 @@ export const updateCountData = ({ state, payload }) => {
 
   return count
 }
+
+export const updateAfterDelete = ({ state, payload }) => {
+  const { notificationId, allRead } = payload
+  const { notifications, offset, count } = state
+  const newNotifications = notifications.filter((notification) => notification.id !== notificationId)
+  let result = {
+    allRead,
+    count: count && count - 1,
+  }
+
+  if (notifications.length !== newNotifications.length) {
+    result = {
+      ...result,
+      notifications: newNotifications,
+      offset: offset && offset - 1,
+    }
+  }
+
+  return result
+}

@@ -1,4 +1,4 @@
-import { addNewNotification } from '../redux-saga/redux/user'
+import { addNewNotification, deleteNotification } from '../redux-saga/redux/user'
 import store from '../redux-saga/store'
 import { EVENTS } from '../utils/messages'
 
@@ -9,4 +9,11 @@ const receiveNotification = {
   },
 }
 
-export default [ receiveNotification ]
+const removeNotification = {
+  event: EVENTS.REMOVE_NOTIFICATION,
+  callback: (data) => {
+    store.dispatch(deleteNotification(data))
+  },
+}
+
+export default [ receiveNotification, removeNotification ]

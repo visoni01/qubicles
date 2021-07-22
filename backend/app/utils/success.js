@@ -16,5 +16,7 @@ export const CONSTANTS = {
 export const EVENTS = {
   JOIN_ROOM: 'join-room',
   SEND_NOTIFICATION: 'send-notification',
-  RECEIVE_NOTIFICATION: 'receive-notification'
+  RECEIVE_NOTIFICATION: 'receive-notification',
+  DELETE_NOTIFICATION: 'delete-notification',
+  REMOVE_NOTIFICATION: 'remove-notification'
 }

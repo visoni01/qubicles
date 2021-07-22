@@ -260,6 +260,33 @@ export const addUserNotification = async ({ user_id, notice, record_id }) => {
   }
 }
 
+export const deleteNotification = async ({ user_id, notice, record_id }) => {
+  const notification = await XUserNotification.findOne({
+    raw: true,
+    attributes: ['notification_id'],
+    where: {
+      user_id,
+      notice,
+      record_id
+    }
+  })
+
+  await XUserNotification.destroy({
+    where: {
+      user_id,
+      notice,
+      record_id
+    }
+  })
+
+  const allRead = await areAllNotificationsRead({ user_id })
+
+  return {
+    notificationId: notification && notification.notification_id,
+    allRead
+  }
+}
+
 export const getUserNotifications = async ({ user_id, offset }) => {
   const promises = [
     () => XUserNotification.findAndCountAll({

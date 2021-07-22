@@ -37,6 +37,29 @@ function* agentResumeSkillsWorker(action) {
           yield put(showSuccessMessage({
             msg: `You have successfully ${ isFollowing ? 'followed' : 'unfollowed' }!`,
           }))
+
+          const userDetails = getUserDetails()
+          const message = getNotificationMessage({
+            type: 'follow',
+            payload: {
+              id: userDetails && userDetails.user_id,
+              name: userDetails && userDetails.full_name,
+            },
+          })
+
+          if (isFollowing) {
+            WebSocket.sendNotification({
+              to: candidateId && candidateId.toString(),
+              from: userDetails.user_id,
+              message,
+            })
+          } else {
+            WebSocket.deleteNotification({
+              to: candidateId && candidateId.toString(),
+              from: userDetails.user_id,
+              message,
+            })
+          }
         } else if (!_.isUndefined(hasBlockedUser)) {
           const { data } = yield User.updateBlockStatus({ candidateId })
           yield put(updateAgentResume({
@@ -49,21 +72,6 @@ function* agentResumeSkillsWorker(action) {
             msg: `You have successfully ${ hasBlockedUser ? 'blocked' : 'unblocked' }!`,
           }))
         }
-
-        const userDetails = getUserDetails()
-        const message = getNotificationMessage({
-          type: 'follow',
-          payload: {
-            id: userDetails && userDetails.user_id,
-            name: userDetails && userDetails.full_name,
-          },
-        })
-
-        WebSocket.sendNotification({
-          to: candidateId && candidateId.toString(),
-          from: userDetails.user_id,
-          message,
-        })
         break
       }
       default: break

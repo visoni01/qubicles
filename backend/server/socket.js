@@ -4,7 +4,7 @@ import _ from 'lodash'
 import logger from '../app/common/logger'
 import config from '../config/app'
 import { EVENTS } from '../app/utils/success'
-import { addUserNotification } from '../app/services/helper'
+import { addUserNotification, deleteNotification } from '../app/services/helper'
 
 const createSocketConnection = (server) => {
   try {
@@ -31,6 +31,15 @@ const createSocketConnection = (server) => {
           io.to(to.toString()).emit(EVENTS.RECEIVE_NOTIFICATION, notification)
         } catch (e) {
           logger.error('Error while adding user notification =====>', e)
+        }
+      })
+
+      socket.on(EVENTS.DELETE_NOTIFICATION, async ({ to, message, from }) => {
+        try {
+          const data = await deleteNotification({ user_id: to, notice: message, record_id: from })
+          io.to(to.toString()).emit(EVENTS.REMOVE_NOTIFICATION, data)
+        } catch (e) {
+          logger.error('Error while deleting user notification =====>', e)
         }
       })
 
