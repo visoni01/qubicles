@@ -1,13 +1,16 @@
+/* eslint-disable complexity */
 import React, { useCallback, useEffect, useState } from 'react'
 import { Popover, IconButton, Button } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
+import _ from 'lodash'
 import { bellIcon, bellIconWithIndicator } from '../../assets/images/icons/navBarIcons'
 import NotificationCard from './notificationCard'
 import { notificationsFetchStart } from '../../redux-saga/redux/user/notifications'
+import NotificationsSkeleton from '../../components/Navbar/Skeletons/notificationsSkeleton'
 
 const Notifications = () => {
   const {
-    notifications, count, offset, allRead, isLoading, success,
+    notifications, count, offset, allRead, isLoading, success, requestType,
   } = useSelector((state) => state.notifications)
   const [ isDropDownOpen, setIsDropdownOpen ] = useState(false)
   const [ anchorEl, setAnchorEl ] = useState(null)
@@ -88,11 +91,10 @@ const Notifications = () => {
             />
           ))}
 
-          {notifications && notifications.length < count && (
+          {!isLoading && notifications && notifications.length < count && (
             <div className='view-more-button'>
               <Button
                 onClick={ handleViewMore }
-                disabled={ isLoading }
                 classes={ {
                   root: 'button-primary-text small-height',
                   label: 'button-primary-text-label primary-text-link',
@@ -103,8 +105,12 @@ const Notifications = () => {
             </div>
           )}
 
-          {notifications && !notifications.length && (
+          {!isLoading && notifications && !notifications.length && (
             <p className='para sz-xl mt-10 mb-10 text-center'>No notifications found...</p>
+          )}
+
+          {(isLoading && _.isEqual(requestType, 'FETCH')) && (
+            <NotificationsSkeleton />
           )}
         </div>
       </Popover>
