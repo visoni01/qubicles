@@ -206,7 +206,16 @@ export const getNotificationMessage = ({ type, payload }) => {
         JOB_ROUTE }/${ payload.jobId }" target="_blank">${ payload.jobTitle }</a> with Company <a href="${
         COMPANY_PROFILE_ROUTE }/${ payload.companyId }/feed" target="_blank">${ payload.companyName }</a>!</span>`
     }
-
+    case 'job-applied': {
+      return `<span><a href="${ config.APP_BASE_URL }${ PROFILE_ROUTE }/${ payload.userId }/resume" target="_blank">${
+        payload.userName }</a> just applied to your job
+        <a href="${ JOB_ROUTE }/${ payload.jobId }" target="_blank">${ payload.jobTitle }</a>.</span>`
+    }
+    case 'accept-job-invitation': {
+      return `<span><a href="${ config.APP_BASE_URL }${ PROFILE_ROUTE }/${ payload.userId }/resume" target="_blank">${
+        payload.userName }</a> has accepted your invitation
+        <a href="${ JOB_ROUTE }/${ payload.jobId }" target="_blank">${ payload.jobTitle }</a>.</span>`
+    }
     default: return ''
   }
 }

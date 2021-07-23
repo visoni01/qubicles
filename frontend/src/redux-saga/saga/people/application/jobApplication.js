@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import {
   takeEvery,
   put,
@@ -45,11 +46,10 @@ function* jobApplicationWorker(action) {
             : 'Applied successfully!',
         }))
 
-        if (data.status === 'invited') {
+        if (data && data.status === 'invited') {
           const userDetails = getUserDetails()
           const { agentResume } = yield select((state) => state.agentResume)
           const { jobsWithCategories } = yield select((state) => state.jobsWithCategories)
-
           let jobDetails
 
           _.find(jobsWithCategories, (jobsWithCategory) => {
@@ -70,6 +70,26 @@ function* jobApplicationWorker(action) {
           WebSocket.sendNotification({
             to: data.user_id && data.user_id.toString(),
             from: userDetails && userDetails.user_id,
+            message,
+          })
+        }
+
+        if (applicationData && applicationData.status === 'applied') {
+          const userDetails = getUserDetails()
+          const { jobDetails } = yield select((state) => state.jobDetails)
+          const message = getNotificationMessage({
+            type: 'job-applied',
+            payload: {
+              userId: userDetails && userDetails.user_id,
+              userName: userDetails && userDetails.full_name,
+              jobId: applicationData.jobId,
+              jobTitle: jobDetails && jobDetails.title,
+            },
+          })
+
+          WebSocket.sendNotification({
+            to: applicationData.clientId && applicationData.clientId.toString(),
+            from: userDetails.user_id,
             message,
           })
         }
@@ -118,7 +138,7 @@ function* jobApplicationWorker(action) {
           }))
         }
 
-        if (data.status === 'hired') {
+        if (data && data.status === 'hired') {
           const { settings } = yield select((state) => state.clientDetails)
           const { agentResume } = yield select((state) => state.agentResume)
           const { application } = yield select((state) => state.jobApplication)
@@ -141,6 +161,25 @@ function* jobApplicationWorker(action) {
           })
         }
 
+        if (data && data.status === 'declined') {
+          const userDetails = getUserDetails()
+          const { jobDetails } = yield select((state) => state.jobDetails)
+          const message = getNotificationMessage({
+            type: 'job-applied',
+            payload: {
+              userId: userDetails && userDetails.user_id,
+              userName: userDetails && userDetails.full_name,
+              jobId: data.job_id,
+              jobTitle: jobDetails && jobDetails.title,
+            },
+          })
+
+          WebSocket.deleteNotification({
+            to: data.client_id && data.client_id.toString(),
+            from: userDetails.user_id,
+            message,
+          })
+        }
         break
       }
       default: break
