@@ -1,5 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 
+import _ from 'lodash'
 import {
   POST_SIGNUP_EMPLOYER_PREVIOUS_DATA_FETCH,
 } from '../redux/constants'
@@ -119,4 +120,22 @@ export const formatAgentApplicationCards = ({ applications }) => {
     })
   })
   return agentApplications
+}
+
+export const getApplicationData = ({ status, userId, applicationsData }) => {
+  switch (status) {
+    case 'declined': {
+      return _.find(applicationsData.jobApplications.Archived, { application: { agentUserId: userId } })
+    }
+
+    case 'invited': {
+      return _.find(applicationsData.jobApplications.Pending, { application: { agentUserId: userId } })
+    }
+
+    case 'hired': {
+      return _.find(applicationsData.jobApplications.Hired, { application: { agentUserId: userId } })
+    }
+
+    default: return null
+  }
 }

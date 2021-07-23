@@ -367,6 +367,7 @@ export const deleteUserNotification = async ({ user_id, notification_id, offset 
   const [notifications, allRead] = await Promise.all(promises.map(promise => promise()))
 
   if (notifications && notifications[0]) {
+    notifications[0] = notifications[0].get({ plain: true })
     notifications[0].imageUrl = await getUserProfileImage({ user_id: notifications[0].record_id })
   }
 

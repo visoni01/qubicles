@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken'
 import _ from 'lodash'
 import config from './config'
 import MESSAGES from './messages'
-import { PROFILE_ROUTE } from '../routes/routesPath'
+import { COMPANY_PROFILE_ROUTE, JOB_ROUTE, PROFILE_ROUTE } from '../routes/routesPath'
 
 export const regExpPhone = /^[+](\d{1,4})?\s(\d{10})$/
 export const regExpSSN = /^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$/
@@ -184,9 +184,29 @@ export const getUniqueId = () => (Date.now() + Math.random()).toString()
 export const getNotificationMessage = ({ type, payload }) => {
   switch (type) {
     case 'follow': {
-      return `<span><a href="${ PROFILE_ROUTE }/${ payload.id }/feed" target="_blank">${
+      return `<span><a href="${ config.APP_BASE_URL }${ PROFILE_ROUTE }/${ payload.id }/feed" target="_blank">${
         payload.name }</a> started following you.</span>`
     }
+
+    case 'cancel-application': {
+      return `<span>We're sorry <a href="${ config.APP_BASE_URL }${ PROFILE_ROUTE }/${
+        payload.id }/feed" target="_blank">${ payload.name }</a>, but your application for <a href="${
+        JOB_ROUTE }/${ payload.jobId }" target="_blank">${ payload.jobTitle }</a> has been cancelled.</span>`
+    }
+
+    case 'invite-for-job': {
+      return `<span>Hi <a href="${ config.APP_BASE_URL }${ PROFILE_ROUTE }/${ payload.id }/feed" target="_blank">${
+        payload.name }</a>. You have been invited to join <a href="${ JOB_ROUTE }/${ payload.jobId }" target="_blank">${
+        payload.jobTitle }</a>!</span>`
+    }
+
+    case 'hire-for-job': {
+      return `<span>Congratulations, <a href="${ config.APP_BASE_URL }${ PROFILE_ROUTE }/${
+        payload.id }/feed" target="_blank">${ payload.name }</a>! You have been hired for the position <a href="${
+        JOB_ROUTE }/${ payload.jobId }" target="_blank">${ payload.jobTitle }</a> with Company <a href="${
+        COMPANY_PROFILE_ROUTE }/${ payload.companyId }/feed" target="_blank">${ payload.companyName }</a>!</span>`
+    }
+
     default: return ''
   }
 }

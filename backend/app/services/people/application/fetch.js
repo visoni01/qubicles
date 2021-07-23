@@ -44,7 +44,7 @@ export class PeopleFetchJobApplicationService extends ServiceBase {
 
       return jobApplication
     } catch (err) {
-      Logger.error(`${getErrorMessageForService('PeopleFetchJobApplicationService')} ${err}`)
+      Logger.error(getErrorMessageForService('PeopleFetchJobApplicationService'), err)
       this.addError(ERRORS.INTERNAL)
     }
   }

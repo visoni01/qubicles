@@ -94,10 +94,18 @@ export const fetchJobApplicationByQuery = async ({ applicationId, clientId, agen
     }
   }
 
-  const application = await getOne({
-    model: XQodApplication,
-    data: query
+  const application = await XQodApplication.findOne({
+    where: query,
+    raw: true,
+    include: {
+      model: XQodJob,
+      attributes: ['title']
+    }
   })
+
+  application.job_title = application['XQodJob.title']
+  delete application['XQodJob.title']
+
   return application
 }
 

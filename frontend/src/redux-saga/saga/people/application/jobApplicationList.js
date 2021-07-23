@@ -1,4 +1,6 @@
-import { takeEvery, put } from 'redux-saga/effects'
+import { takeEvery, put, select } from 'redux-saga/effects'
+import WebSocket from '../../../../socket'
+import { getNotificationMessage, getUserDetails } from '../../../../utils/common'
 import {
   jobApplicationListRequestStart,
   jobApplicationListRequestSuccess,
@@ -7,12 +9,13 @@ import {
   updateJobApplicationInList,
 } from '../../../redux/actions'
 import People from '../../../service/people'
-import { jobApplicationListData } from '../../helper'
+import { getApplicationData, jobApplicationListData } from '../../helper'
 
 function* jobApplicationListWatcherStart() {
   yield takeEvery(jobApplicationListRequestStart.type, jobApplicationListWorker)
 }
 
+// eslint-disable-next-line complexity
 function* jobApplicationListWorker(action) {
   try {
     const { applicationListData, requestType } = action.payload
@@ -42,6 +45,33 @@ function* jobApplicationListWorker(action) {
           updateOn: data.updatedAt,
         }
         yield put(updateJobApplicationInList({ updatedApplication }))
+
+        if ([ 'declined', 'invited', 'hired' ].includes(data.status)) {
+          const userDetails = getUserDetails()
+          const { jobDetails } = yield select((state) => state.jobDetails)
+          const { applicationsData } = yield select((state) => state.jobApplicationList)
+          const application = getApplicationData({ userId: data.user_id, status: data.status, applicationsData })
+          const message = getNotificationMessage({
+            type: (data.status === 'declined' && 'cancel-application')
+            || (data.status === 'invited' && 'invite-for-job')
+            || (data.status === 'hired' && 'hire-for-job'),
+            payload: {
+              id: data && data.user_id,
+              name: application && application.userDetails && application.userDetails.fullName,
+              jobId: jobDetails && jobDetails.jobId,
+              jobTitle: jobDetails && jobDetails.title,
+              companyId: jobDetails.companyDetails.client_id,
+              companyName: jobDetails.companyDetails.client_name,
+            },
+          })
+
+          WebSocket.sendNotification({
+            to: data.user_id && data.user_id.toString(),
+            from: userDetails && userDetails.user_id,
+            message,
+          })
+        }
+
         break
       }
       default: break

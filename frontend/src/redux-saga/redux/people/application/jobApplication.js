@@ -30,7 +30,10 @@ const {
       ...state,
       isLoading: false,
       success: true,
-      application: getDataForReducer(action, initialState.application, 'application'),
+      application: {
+        ...state.application,
+        ...getDataForReducer(action, initialState.application, 'application'),
+      },
     }),
     jobApplicationRequestFailed: (state) => ({
       ...state,

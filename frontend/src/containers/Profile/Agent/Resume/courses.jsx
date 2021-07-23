@@ -18,9 +18,11 @@ const Courses = ({ candidateId }) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchAgentResumeCoursesStart({
-      candidateId,
-    }))
+    if (candidateId) {
+      dispatch(fetchAgentResumeCoursesStart({
+        candidateId,
+      }))
+    }
   }, [ dispatch, candidateId ])
 
   useEffect(() => {
