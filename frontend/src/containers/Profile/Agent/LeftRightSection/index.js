@@ -144,15 +144,19 @@ const AgentEditProfile = ({
         } }
       />
       <Divider className='divider' />
+      {highestEducation && (
       <div className='mt-20'>
         <h4 className='h4 mb-5'>Highest level of Education</h4>
         <p className='para'>{ highestEducation }</p>
       </div>
+      )}
+      {yearsOfExperience && (
       <div className='mb-20 mt-20'>
         <h4 className='h4 mb-5'>Years of Experience</h4>
         <p className='para'>{`${ yearsOfExperience } years`}</p>
       </div>
-      <Divider className='divider' />
+      )}
+      {(highestEducation || yearsOfExperience) && <Divider className='divider' />}
       {!candidateId && (
       <div>
         <div className='mt-20 mb-10'>

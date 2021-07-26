@@ -206,21 +206,30 @@ export const getNotificationMessage = ({ type, payload }) => {
         JOB_ROUTE }/${ payload.jobId }" target="_blank">${ payload.jobTitle }</a> with Company <a href="${
         COMPANY_PROFILE_ROUTE }/${ payload.companyId }/feed" target="_blank">${ payload.companyName }</a>!</span>`
     }
+
     case 'job-applied': {
       return `<span><a href="${ config.APP_BASE_URL }${ PROFILE_ROUTE }/${ payload.userId }/resume" target="_blank">${
         payload.userName }</a> just applied to your job
         <a href="${ JOB_ROUTE }/${ payload.jobId }" target="_blank">${ payload.jobTitle }</a>.</span>`
     }
+
     case 'accept-job-invitation': {
       return `<span><a href="${ config.APP_BASE_URL }${ PROFILE_ROUTE }/${ payload.userId }/resume" target="_blank">${
         payload.userName }</a> has accepted your invitation
         <a href="${ JOB_ROUTE }/${ payload.jobId }" target="_blank">${ payload.jobTitle }</a>.</span>`
     }
+
     case 'resign-job': {
       return `<span><a href="${ config.APP_BASE_URL }${ PROFILE_ROUTE }/${ payload.userId }/resume" target="_blank">${
         payload.userName }</a> has resigned from your job
         <a href="${ JOB_ROUTE }/${ payload.jobId }" target="_blank">${ payload.jobTitle }</a>.</span>`
     }
+
+    case 'referral-signup': {
+      return `<span>Congrats - you’ve just earned free crypto! <a href="${ config.APP_BASE_URL }${ PROFILE_ROUTE }/${
+        payload.id }/feed" target="_blank">${ payload.name }</a> has accepted your invitation to sign up!</span>`
+    }
+
     default: return ''
   }
 }

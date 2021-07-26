@@ -104,11 +104,13 @@ const SkillsPage = ({
       {isLoading === false && (
         <>
           <h4 className='h4 mt-30'> Languages </h4>
-          {languages && languages.map((language, index) => (
-            <p key={ language } className='para mt-10'>
-              {`${ _.capitalize(language) } (${ index === 0 ? 'Primary' : 'Other' }) `}
-            </p>
-          ))}
+          {languages && languages.length
+            ? languages.map((language, index) => (
+              <p key={ language } className='para mt-10'>
+                {`${ _.capitalize(language) } (${ index === 0 ? 'Primary' : 'Other' }) `}
+              </p>
+            ))
+            : <p className='para sz-xl mt-20 text-center'>No Languages Present</p>}
         </>
       )}
     </div>

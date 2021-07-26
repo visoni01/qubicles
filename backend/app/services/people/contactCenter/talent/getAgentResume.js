@@ -42,11 +42,16 @@ export class PeopleGetAgentResumeService extends ServiceBase {
         const { UserDetail: userDetails } = profile
         const primaryLanguage = [userDetails.primary_language]
         const secondaryLanguages = userDetails.other_languages ? userDetails.other_languages.split(',') : []
-        const languages = primaryLanguage.concat(secondaryLanguages)
+        const languages = userDetails.primary_language ? primaryLanguage.concat(secondaryLanguages) : secondaryLanguages
+
+        let location = userDetails.city ? userDetails.city : ''
+        location = location.concat(location && userDetails.state ? ', ' : '')
+        location = location.concat(userDetails.state ? userDetails.state : '')
+
         const agentResume = {
           candidateId: userDetails.user_id,
           candidateName: userDetails.first_name + ' ' + userDetails.last_name,
-          location: userDetails.city + ', ' + userDetails.state,
+          location,
           languages,
           highestEducation: userDetails.highest_education,
           yearsOfExperience: userDetails.years_of_experience,

@@ -33,10 +33,12 @@ const Introduction = ({
           precision={ 0.5 }
         />
         <h4 className='h4'>{name}</h4>
+        {location && (
         <p className='para light'>
           <FontAwesomeIcon className='custom-fa-icon light mr-10' icon={ faMapMarkerAlt } />
           {location}
         </p>
+        )}
         {/* WIP untill registration date doubt resolve */}
         {/* <p className='para light'>
         Member since

@@ -27,7 +27,7 @@ function* allCoursesWorker(action) {
 
       case 'UPDATE': {
         const { data } = yield People.fetchCourse({ courseId: action.payload.courseId, requestType: 'CopyCourse' })
-        const { data: courseData } = yield People.copyCourse({
+        const { data: copiedCourse } = yield People.copyCourse({
           course: {
             ...data,
             status: 'draft',
@@ -36,7 +36,7 @@ function* allCoursesWorker(action) {
           },
         })
         yield put(updateAllCoursesReducer({
-          courseId: courseData.courseData.courseId,
+          courseId: copiedCourse.courseData.courseId,
           newCourseId: action.payload.courseId,
         }))
         yield put(showSuccessMessage({ msg: 'Course copied successfully!' }))

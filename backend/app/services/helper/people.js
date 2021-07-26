@@ -1020,7 +1020,7 @@ export async function getViewCourseById ({ course_id, user_id }) {
         user_id
       }
     }),
-    () => XQodCourse.findAll({
+    () => XQodCourse.findOne({
       include: [
         {
           model: XQodCourseSection,
@@ -1073,8 +1073,8 @@ export async function getViewCourseById ({ course_id, user_id }) {
     requiredCourses
   ] = await Promise.all(promiseArray.map(promise => promise()))
 
-  if (course && course.length) {
-    course = course.map(item => item.get({ plain: true }))[0]
+  if (course) {
+    course = course.get({ plain: true })
 
     let isEnrolled = false
     let newPromiseArray = []
