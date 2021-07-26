@@ -51,12 +51,23 @@ function* jobApplicationListWorker(action) {
           applicationCategoryId: applicationListData.applicationCategoryId,
         }))
 
-        if (data && data.status === 'screening') {
+        if (data && [ 'screening', 'resigned' ].includes(data.status)) {
           const userDetails = getUserDetails()
-          const application = applicationsList && applicationsList[ 0 ]
-            && applicationsList[ 0 ].find((item) => item.jobDetails && (item.jobDetails.jobId === data.job_id))
+          let application
+          let type
+
+          if (data.status === 'screening') {
+            type = 'accept-job-invitation'
+            application = applicationsList && applicationsList[ 0 ]
+              && applicationsList[ 0 ].find((item) => item.jobDetails && (item.jobDetails.jobId === data.job_id))
+          } else if (data.status === 'resigned') {
+            type = 'resign-job'
+            application = applicationsList && applicationsList[ 3 ]
+              && applicationsList[ 3 ].find((item) => item.jobDetails && (item.jobDetails.jobId === data.job_id))
+          }
+
           const message = getNotificationMessage({
-            type: 'accept-job-invitation',
+            type,
             payload: {
               userId: userDetails && userDetails.user_id,
               userName: userDetails && userDetails.full_name,

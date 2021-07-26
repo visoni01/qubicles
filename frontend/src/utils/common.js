@@ -216,6 +216,11 @@ export const getNotificationMessage = ({ type, payload }) => {
         payload.userName }</a> has accepted your invitation
         <a href="${ JOB_ROUTE }/${ payload.jobId }" target="_blank">${ payload.jobTitle }</a>.</span>`
     }
+    case 'resign-job': {
+      return `<span><a href="${ config.APP_BASE_URL }${ PROFILE_ROUTE }/${ payload.userId }/resume" target="_blank">${
+        payload.userName }</a> has resigned from your job
+        <a href="${ JOB_ROUTE }/${ payload.jobId }" target="_blank">${ payload.jobTitle }</a>.</span>`
+    }
     default: return ''
   }
 }
