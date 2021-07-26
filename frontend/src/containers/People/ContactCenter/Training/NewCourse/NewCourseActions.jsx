@@ -96,7 +96,7 @@ const NewCourseActions = ({
   }, [ informationSection, contentSection, courseContent, courseId, dispatch ])
 
   useEffect(() => {
-    if (courseId && courseStatus === 'draft') {
+    if (courseId && courseStatus === 'draft' && history.location.pathname !== `${ EDIT_COURSE_ROUTE }/${ courseId }`) {
       history.push(`${ EDIT_COURSE_ROUTE }/${ courseId }`)
     }
     if (success && requestType !== 'FETCH' && courseId && courseStatus === 'published') {

@@ -39,6 +39,12 @@ const MediaPlayer = ({ source, small, type }) => {
     setBufferedData(0)
   }, [ source ])
 
+  useEffect(() => {
+    document.addEventListener('fullscreenchange', () => {
+      setSettingsAnchor(null)
+    })
+  }, [])
+
   useEffect(() => () => { mediaRef.current.src = '' }, [])
 
   const playOrPause = useCallback(() => {

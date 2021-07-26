@@ -56,6 +56,10 @@ const MyCourseCardSkeleton = () => (
       animation='wave'
       classes={ { root: 'my-courses-card-button' } }
     />
+    <Skeleton
+      animation='wave'
+      classes={ { root: 'my-courses-card-button' } }
+    />
   </Card>
 )
 
