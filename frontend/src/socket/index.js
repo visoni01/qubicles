@@ -5,13 +5,19 @@ import emitters from './emitters'
 const WebSocket = class {
   static socket
 
+  static listeners
+
   static initialize = ({ userId, listeners }) => {
+    if (listeners) {
+      WebSocket.listeners = listeners
+    }
+
     WebSocket.socket = io(configEnv.BASE_URL, {
       query: { userId },
       transports: [ 'websocket', 'polling' ],
     })
 
-    listeners.forEach(({ event, callback }) => {
+    WebSocket.listeners.forEach(({ event, callback }) => {
       WebSocket.socket.on(event, callback)
     })
 

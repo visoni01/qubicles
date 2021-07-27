@@ -36,7 +36,7 @@ function* loginWorker(action) {
         yield put(showSuccessMessage({ msg: `Welcome ${ userDetails && userDetails.full_name }` }))
         yield put(userLoginSuccessful({ userDetails }))
 
-        WebSocket.connect()
+        WebSocket.initialize({ userId: userDetails && userDetails.user_id })
         WebSocket.joinRoom(userDetails.user_id && userDetails.user_id.toString())
         break
       }
