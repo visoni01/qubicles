@@ -48,9 +48,9 @@ export function newNotificationEmailTemplate ({
                       <table border="0">
                           <tr>
                               <td style="padding: 0px 15px;">
-                                <div style="font-family:'SF Pro Text';font-weight: normal;font-size:14px;color:#4A4A4A;text-align:left">
+                                <div style="font-family:'SF Pro Text';font-weight: normal;font-size:14px;color:#4A4A4A;text-align:left;margin-top:20px">
                                   ${EMAIL_TEMPLATE_BODY}<br /><br />
-                                  ${EMAIL_TEMPLATE_CLOSING}<br /><br />
+                                  ${EMAIL_TEMPLATE_CLOSING ? `${EMAIL_TEMPLATE_CLOSING}<br /><br />` : ''}
                                   <span style="font:inherit;"> Sincerely, </span>
                                 </div>
                                 <p style="font-family:'SF Pro Text';font-weight: normal;font-size:14px;color:#4A4A4A;text-align:left">

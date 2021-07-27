@@ -1,7 +1,8 @@
 import _ from 'lodash'
-import { takeEvery, put } from 'redux-saga/effects'
+import { takeEvery, put, select } from 'redux-saga/effects'
 import WebSocket from '../../../../socket'
 import { getNotificationMessage, getUserDetails } from '../../../../utils/common'
+import { SUBJECTS } from '../../../../utils/messages'
 import {
   fetchAgentResumeStart,
   fetchAgentResumeSuccess,
@@ -39,11 +40,14 @@ function* agentResumeSkillsWorker(action) {
           }))
 
           const userDetails = getUserDetails()
+          const { agentResume } = yield select((state) => state.agentResume)
           const message = getNotificationMessage({
             type: 'follow',
             payload: {
               id: userDetails && userDetails.user_id,
               name: userDetails && userDetails.full_name,
+              userId: candidateId,
+              userName: agentResume && agentResume.candidateName,
             },
           })
 
@@ -52,6 +56,7 @@ function* agentResumeSkillsWorker(action) {
               to: candidateId && candidateId.toString(),
               from: userDetails.user_id,
               message,
+              subject: SUBJECTS.FOLLOW,
             })
           } else {
             WebSocket.deleteNotification({

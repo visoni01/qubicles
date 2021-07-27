@@ -2,6 +2,7 @@
 import { takeEvery, put, select } from 'redux-saga/effects'
 import WebSocket from '../../../../socket'
 import { getNotificationMessage, getUserDetails } from '../../../../utils/common'
+import { SUBJECTS } from '../../../../utils/messages'
 import {
   agentJobApplicationsRequestStart,
   agentJobApplicationsRequestSuccess,
@@ -55,13 +56,16 @@ function* jobApplicationListWorker(action) {
           const userDetails = getUserDetails()
           let application
           let type
+          let subject
 
           if (data.status === 'screening') {
             type = 'accept-job-invitation'
+            subject = SUBJECTS.ACCEPT_JOB_INVITATION
             application = applicationsList && applicationsList[ 0 ]
               && applicationsList[ 0 ].find((item) => item.jobDetails && (item.jobDetails.jobId === data.job_id))
           } else if (data.status === 'resigned') {
             type = 'resign-job'
+            subject = SUBJECTS.RESIGN_JOB
             application = applicationsList && applicationsList[ 3 ]
               && applicationsList[ 3 ].find((item) => item.jobDetails && (item.jobDetails.jobId === data.job_id))
           }
@@ -80,6 +84,7 @@ function* jobApplicationListWorker(action) {
             to: data.client_user_id && data.client_user_id.toString(),
             from: userDetails.user_id,
             message,
+            subject,
           })
         }
         break

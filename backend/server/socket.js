@@ -4,7 +4,8 @@ import _ from 'lodash'
 import logger from '../app/common/logger'
 import config from '../config/app'
 import { EVENTS } from '../app/utils/success'
-import { addUserNotification, deleteNotification } from '../app/services/helper'
+import { addUserNotification, deleteNotification, getUserDetailsByUserId } from '../app/services/helper'
+import SendNotificationMailService from '../app/services/email/sendNotificationMail'
 
 const createSocketConnection = (server) => {
   try {
@@ -25,10 +26,22 @@ const createSocketConnection = (server) => {
         }
       })
 
-      socket.on(EVENTS.SEND_NOTIFICATION, async ({ to, message, from }) => {
+      socket.on(EVENTS.SEND_NOTIFICATION, async ({ to, message, from, notifyEmail, subject }) => {
         try {
           const notification = await addUserNotification({ user_id: to, notice: message, record_id: from })
           io.to(to.toString()).emit(EVENTS.RECEIVE_NOTIFICATION, notification)
+
+          // For sending Email Notification
+          const data = await getUserDetailsByUserId({ user_id: to })
+          notifyEmail = notifyEmail || (data && data.notifyEmail)
+
+          if (data && notifyEmail) {
+            await SendNotificationMailService.execute({
+              email_id: data.emailId,
+              subject,
+              message
+            })
+          }
         } catch (e) {
           logger.error('Error while adding user notification =====>', e)
         }

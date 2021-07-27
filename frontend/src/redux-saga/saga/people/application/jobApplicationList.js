@@ -1,6 +1,7 @@
 import { takeEvery, put, select } from 'redux-saga/effects'
 import WebSocket from '../../../../socket'
 import { getNotificationMessage, getUserDetails } from '../../../../utils/common'
+import { SUBJECTS } from '../../../../utils/messages'
 import {
   jobApplicationListRequestStart,
   jobApplicationListRequestSuccess,
@@ -69,6 +70,10 @@ function* jobApplicationListWorker(action) {
             to: data.user_id && data.user_id.toString(),
             from: userDetails && userDetails.user_id,
             message,
+            notifyEmail: data.status === 'hired',
+            subject: (data.status === 'declined' && SUBJECTS.JOB_APPLICATION_CANCELLED)
+            || (data.status === 'invited' && SUBJECTS.JOB_INVITATION)
+            || (data.status === 'hired' && SUBJECTS.HIRED_BY_COMPANY),
           })
         }
 

@@ -16,6 +16,7 @@ import {
 import People from '../../../service/people'
 import { getNotificationMessage, getUserDetails } from '../../../../utils/common'
 import WebSocket from '../../../../socket'
+import { SUBJECTS } from '../../../../utils/messages'
 
 function* jobApplicationWatcherStart() {
   yield takeEvery(jobApplicationRequestStart.type, jobApplicationWorker)
@@ -71,6 +72,7 @@ function* jobApplicationWorker(action) {
             to: data.user_id && data.user_id.toString(),
             from: userDetails && userDetails.user_id,
             message,
+            subject: SUBJECTS.JOB_INVITATION,
           })
         }
 
@@ -91,6 +93,7 @@ function* jobApplicationWorker(action) {
             to: jobDetails && jobDetails.jobPostOwnerId && jobDetails.jobPostOwnerId.toString(),
             from: userDetails.user_id,
             message,
+            subject: SUBJECTS.JOB_APPLIED,
           })
         }
         break
@@ -158,6 +161,8 @@ function* jobApplicationWorker(action) {
             to: data.user_id && data.user_id.toString(),
             from: settings && settings.companyId,
             message,
+            subject: SUBJECTS.HIRED_BY_COMPANY,
+            notifyEmail: true,
           })
         }
 

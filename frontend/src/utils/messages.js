@@ -12,4 +12,15 @@ export const EVENTS = {
   REMOVE_NOTIFICATION: 'remove-notification',
 }
 
+export const SUBJECTS = {
+  FOLLOW: 'New Follower',
+  JOB_APPLIED: 'New Job Entry',
+  ACCEPT_JOB_INVITATION: 'Accepted Job Invitaion',
+  RESIGN_JOB: 'Resignation Mail',
+  JOB_APPLICATION_CANCELLED: 'Job Application Cancelled',
+  HIRED_BY_COMPANY: 'Hired By Company',
+  JOB_INVITATION: 'New Job Invitation',
+  REFER_USER: 'Reward Inside',
+}
+
 export default MESSAGES

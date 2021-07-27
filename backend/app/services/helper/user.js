@@ -388,3 +388,29 @@ export const areAllNotificationsRead = async ({ user_id }) => {
 
   return !notification
 }
+
+export const getUserDetailsByUserId = async ({ user_id }) => {
+  const userDetails = await UserDetail.findOne({
+    raw: true,
+    attributes: [
+      ['notify_email', 'notifyEmail'],
+      ['notify_sms', 'notifySms']
+    ],
+    include: [
+      {
+        model: User,
+        as: 'user',
+        attributes: ['email']
+      }
+    ],
+    where: {
+      user_id
+    }
+  })
+
+  return {
+    notifyEmail: userDetails && userDetails.notifyEmail,
+    notifySms: userDetails && userDetails.notifySms,
+    emailId: userDetails && userDetails['user.email']
+  }
+}

@@ -8,6 +8,7 @@ import {
 } from '../../redux/actions'
 import { showErrorMessage } from '../../redux/utils/snackbar'
 import WebSocket from '../../../socket'
+import { SUBJECTS } from '../../../utils/messages'
 
 function* signupWatcher() {
   yield takeEvery(userSignupStart.type, signupWorker)
@@ -31,6 +32,7 @@ function* signupWorker(action) {
         to: data && data.inviter_id,
         from: userData && userData.user_id,
         message,
+        subject: SUBJECTS.REFER_USER,
       })
     }
 
