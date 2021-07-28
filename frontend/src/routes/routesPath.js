@@ -3,6 +3,7 @@ export const PEOPLE_ROUTE = '/people'
 export const PROGRAMS_NAVIGATION_ROUTE = '/programs'
 export const INSIGHTS_NAVIGATION_ROUTE = '/insights'
 export const SETTINGS_NAVIGATION_ROUTE = '/settings'
+export const CHAT_ROUTE = '/chat'
 export const JOB_ROUTE = `${ PEOPLE_ROUTE }/jobs`
 export const TRAINING_ROUTE = `${ PEOPLE_ROUTE }/training`
 export const JOB_POST_ROUTE = `${ PEOPLE_ROUTE }/job/view`

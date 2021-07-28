@@ -82,13 +82,15 @@
       }
   }
 
-  .notification-icons {
+  .topbar-icons {
     display: inline-flex;
-      img{
+
+    img {
       width: 24px;
       height: 24px
     }
-    .notification-button {
+
+    .topbar-button {
       width: 64px;
     }
   }

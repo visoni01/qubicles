@@ -1,0 +1,56 @@
+@import '../../customStyles/scss/partials/variables';
+
+.chat-left-section {
+  .chat-left-section-header {
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 10px;
+  }
+
+  .search-icon {
+    height: 19.5px;
+    width: 19.5px;
+  }
+
+  .search-field {
+    margin-left: 20px;
+    margin-right: 20px;
+    width: calc(100% - 40px);
+  }
+
+  .user-list {
+    .user-list-divider {
+      width: auto;
+      margin: 0px 20px 0px 90px;
+    }
+
+    .user-card-item {
+      padding: 15px 20px;
+
+      .profile-pic {
+        width: 60px;
+        height: 60px;
+        margin: 0px;
+        margin-right: 10px;
+      }
+
+      .text-message {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-top: 3px;
+      }
+    }
+
+    .user-card-item:hover {
+      background-color: $color-primary-light;
+      cursor: pointer;
+    }
+
+    .user-card-item:last-child {
+      padding-bottom: 20px;
+    }
+  }
+}

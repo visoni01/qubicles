@@ -62,7 +62,7 @@ const Notifications = () => {
   return (
     <>
       <IconButton
-        className='notification-button'
+        className='topbar-button'
         onClick={ toggleDropdownOpen }
       >
         <img

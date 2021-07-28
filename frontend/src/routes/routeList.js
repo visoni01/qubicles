@@ -2,7 +2,7 @@ import { lazy } from 'react'
 import Auth from '../components/User/auth'
 import ROUTE_PATHS, {
   PEOPLE_ROUTE, PROFILE_ROUTE, PROGRAMS_NAVIGATION_ROUTE,
-  INSIGHTS_NAVIGATION_ROUTE, SETTINGS_NAVIGATION_ROUTE, COMPANY_PROFILE_ROUTE,
+  INSIGHTS_NAVIGATION_ROUTE, SETTINGS_NAVIGATION_ROUTE, COMPANY_PROFILE_ROUTE, CHAT_ROUTE,
 } from './routesPath'
 
 const routes = [
@@ -136,6 +136,13 @@ const routes = [
   {
     path: [ ROUTE_PATHS.WALLET ],
     component: lazy(() => import('../containers/Wallet/index')),
+    auth: true,
+    exact: true,
+  },
+  // Chat
+  {
+    path: CHAT_ROUTE,
+    component: lazy(() => import('../containers/Chat/index')),
     auth: true,
     exact: true,
   },
