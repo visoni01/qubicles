@@ -953,7 +953,7 @@ export const formatViewRequiredCoursesData = ({ requiredCourses }) => {
       courseImage: course.image_url,
       creatorName: course.creatorDetails && course.creatorDetails.firstName + ' ' + course.creatorDetails.lastName,
       createdAt: formatDate(course.createdAt),
-      status: course.students && course.students && course.students.length
+      status: course.students && course.students.length
         ? course.students[0].status
         : 'unenrolled'
     }

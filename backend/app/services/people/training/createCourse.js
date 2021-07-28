@@ -98,6 +98,7 @@ export class PeopleAddNewCourseService extends ServiceBase {
       course.informationSection.requiredCourses.length) {
         let requiredCourses = course.informationSection.requiredCourses
 
+        // To store the course IDs of required courses
         if (course.informationSection.requiredCourses[0].courseId) {
           requiredCourses = course.informationSection.requiredCourses.map((course) => course.courseId)
         }

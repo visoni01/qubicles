@@ -114,7 +114,8 @@
     }
 
     .course-content-area {
-      overflow: auto;
+      overflow-y: auto;
+      overflow-x: hidden;
       height: 55vh;
 
       .text-align-justify {
