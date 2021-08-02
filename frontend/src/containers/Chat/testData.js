@@ -1,4 +1,4 @@
-const userList = [
+export const userList = [
   {
     id: 1,
     name: 'Arthur Castle',
@@ -19,7 +19,103 @@ const userList = [
   },
 ]
 
-export {
-  // eslint-disable-next-line import/prefer-default-export
-  userList,
-}
+export const members = [ {
+  id: 1,
+  name: 'Kautzer LLC',
+  profilePic: 'https://ipfs.telos.miami/ipfs/QmUVSHmTub6MSWh8bzJWxYCwujNcJpK2nf2ahQ6bTt1Zy9',
+  location: 'Nesterovskaya',
+  title: 'Teacher',
+  userCode: 'employer',
+}, {
+  id: 2,
+  name: 'Delainey Blackadder',
+  profilePic: 'https://ipfs.telos.miami/ipfs/Qmf8WukCjBqbEizmvtL8BRtSwCNqmpZDrj2rxq5XuBagZk',
+  location: 'San Fransisco, CA',
+  title: 'Customer Service Manager & Consultant',
+  userCode: 'employer',
+}, {
+  id: 3,
+  name: 'Pebrook Lias',
+  profilePic: 'https://ipfs.telos.miami/ipfs/QmU5gDcgrQUdyaV5vTxLnxouu7SomBCSxHpBCWbRDwzRqj',
+  location: 'Sanski Most',
+  title: 'Database Administrator IV',
+  userCode: 'agent',
+}, {
+  id: 4,
+  name: 'Ingar Durante',
+  profilePic: 'https://robohash.org/cupiditateetplaceat.jpg?size=300x328&set=set1',
+  location: 'Ban Pong',
+  title: 'Executive Secretary',
+  userCode: 'agent',
+}, {
+  id: 5,
+  name: 'Abeu Bringloe',
+  profilePic: 'https://robohash.org/vitaenihildistinctio.jpg?size=300x328&set=set1',
+  location: 'Hamm',
+  title: 'Software Test Engineer IV',
+  userCode: 'agent',
+}, {
+  id: 6,
+  name: 'Lavina Ciraldo',
+  profilePic: 'https://robohash.org/earumvoluptatesest.jpg?size=300x328&set=set1',
+  location: 'El Rosario',
+  title: 'Database Administrator III',
+  userCode: 'agent',
+}, {
+  id: 7,
+  name: 'Corrine Carrick',
+  profilePic: 'https://robohash.org/voluptatemestnihil.jpg?size=300x328&set=set1',
+  location: 'San Jose',
+  title: 'Health Coach II',
+  userCode: 'agent',
+}, {
+  id: 8,
+  name: 'Bennie Houseman',
+  profilePic: 'https://robohash.org/quosnihilvelit.jpg?size=300x328&set=set1',
+  location: 'Skene',
+  title: 'Safety Technician IV',
+  userCode: 'agent',
+}, {
+  id: 9,
+  name: 'Henderson Heams',
+  profilePic: 'https://robohash.org/utesseea.jpg?size=300x328&set=set1',
+  location: 'Pingpo',
+  title: 'Structural Analysis Engineer',
+  userCode: 'agent',
+}, {
+  id: 10,
+  name: 'Briggs Domb',
+  profilePic: 'https://robohash.org/officiaerrormodi.jpg?size=300x328&set=set1',
+  location: 'Seremban',
+  title: 'Speech Pathologist',
+  userCode: 'agent',
+} ]
+
+export const chats = [
+  {
+    conversationId: 1,
+    name: 'Kautzer LLC',
+    profilePic: 'https://ipfs.telos.miami/ipfs/QmUVSHmTub6MSWh8bzJWxYCwujNcJpK2nf2ahQ6bTt1Zy9',
+    isGroup: false,
+  }, {
+    conversationId: 2,
+    name: 'Delainey Blackadder',
+    profilePic: 'https://ipfs.telos.miami/ipfs/Qmf8WukCjBqbEizmvtL8BRtSwCNqmpZDrj2rxq5XuBagZk',
+    isGroup: true,
+  }, {
+    conversationId: 3,
+    name: 'Pebrook Lias',
+    profilePic: 'https://ipfs.telos.miami/ipfs/QmU5gDcgrQUdyaV5vTxLnxouu7SomBCSxHpBCWbRDwzRqj',
+    isGroup: false,
+  }, {
+    conversationId: 4,
+    name: 'Ingar Durante',
+    profilePic: 'https://robohash.org/cupiditateetplaceat.jpg?size=300x328&set=set1',
+    isGroup: false,
+  }, {
+    conversationId: 5,
+    name: 'Abeu Bringloe',
+    profilePic: 'https://robohash.org/vitaenihildistinctio.jpg?size=300x328&set=set1',
+    isGroup: true,
+  },
+]

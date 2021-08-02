@@ -54,3 +54,76 @@
     }
   }
 }
+
+.right-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 15px;
+
+  .avatar-group {
+    margin-top: 10px;
+
+    .avatar {
+      height: 60px;
+      width: 60px;
+      border: none;
+    }
+  }
+
+  .options-icon {
+    align-self: flex-end;
+    position: absolute;
+
+    &:hover {
+      background-color: inherit;
+    }
+  }
+}
+
+.add-people-modal{
+  .paper {
+    max-width: 700px;
+  }
+
+  .suggestion-cards {
+    overflow-y: auto;
+    max-height: 55vh;
+
+    &.new-group {
+      max-height: 40vh;
+    }
+
+    scrollbar-color: rgba(72, 119, 244, 0.7) rgb(201, 201, 201);
+
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(72, 119, 244, 0.7);
+      border-radius: 20px 20px 20px 20px ;
+    }
+  }
+}
+
+
+.person-card {
+
+  &:hover {
+    background-color: $color-primary-light;
+    cursor: pointer;
+  }
+
+  &:not(:last-child):after {
+    content: '';
+    display: block;
+    position: relative;
+    width: calc(100% - 80px);
+    left: 70px;
+    border-bottom: 1px solid $color-border;
+    margin-top: 5px;
+  }
+
+  .profile-pic {
+    width: 60px;
+    height: 60px;
+    margin-left: 0;
+  }
+}
