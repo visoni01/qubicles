@@ -4,14 +4,20 @@ import {
 import React, { useCallback, useState } from 'react'
 import { EditIcon, SearchIcon } from '../../../assets/images/common'
 import UserCard from './userCard'
+import NewChat from '../Common/addPeople'
 import { userList } from '../testData'
 import '../styles.scss'
 
 const LeftCard = () => {
   const [ openSearchField, setOpenSearchField ] = useState(false)
+  const [ openNewChatModal, setOpenNewChatModal ] = useState(false)
 
   const handleSearchClick = useCallback(() => {
     setOpenSearchField((prevState) => !prevState)
+  }, [])
+
+  const handleNewChatClick = useCallback(() => {
+    setOpenNewChatModal((prevState) => !prevState)
   }, [])
 
   return (
@@ -31,7 +37,9 @@ const LeftCard = () => {
             <SearchIcon className='search-icon' />
           </IconButton>
 
-          <IconButton>
+          <IconButton
+            onClick={ handleNewChatClick }
+          >
             <EditIcon />
           </IconButton>
 
@@ -41,6 +49,7 @@ const LeftCard = () => {
         </div>
       </div>
 
+      {/* Search Text Field */}
       {openSearchField && (
         <TextField
           className='search-field'
@@ -52,7 +61,14 @@ const LeftCard = () => {
         />
       )}
 
-      {/* User List */}
+      {/* New Chat Modal */}
+      <NewChat
+        open={ openNewChatModal }
+        handleCancel={ () => setOpenNewChatModal(false) }
+        actionType='NEW_CHAT'
+      />
+
+      {/* Users List */}
       <div className='user-list'>
         {userList && userList.map((item, index) => (
           <div

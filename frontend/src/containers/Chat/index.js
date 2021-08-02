@@ -1,7 +1,7 @@
 import { Grid } from '@material-ui/core'
 import React from 'react'
 import LeftSection from './LeftSection'
-import RightCard from './rightCard'
+import RightSection from './RightSection'
 import { members } from './testData'
 
 const ChatSection = () => (
@@ -14,7 +14,7 @@ const ChatSection = () => (
         {/* <MiddleSection /> */}
       </Grid>
       <Grid item xl={ 3 } lg={ 3 } md={ 9 } sm={ 12 } xs={ 12 }>
-        <RightCard members={ members } isGroup />
+        <RightSection members={ members } isGroup />
       </Grid>
     </Grid>
   </div>

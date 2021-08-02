@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Box, Avatar, Button } from '@material-ui/core'
 import { AvatarGroup } from '@material-ui/lab'
-import { LocationIcon } from '../../assets/images/common'
-import { COMPANY_PROFILE_ROUTE, PROFILE_ROUTE } from '../../routes/routesPath'
+import { LocationIcon } from '../../../assets/images/common'
+import { COMPANY_PROFILE_ROUTE, PROFILE_ROUTE } from '../../../routes/routesPath'
 import ChatOptions from './chatOptions'
 
 const RightCard = ({ members, isGroup }) => {

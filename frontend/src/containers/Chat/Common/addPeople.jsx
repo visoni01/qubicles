@@ -4,15 +4,13 @@
 import React, { useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Button,
-  Chip,
-  Dialog, DialogActions, DialogContent, DialogTitle, IconButton, TextField,
+  Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, TextField,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import _ from 'lodash'
-import Loader from '../loaders/circularLoader'
-import { members as people } from './testData'
+import Loader from '../../loaders/circularLoader'
+import { members as people } from '../testData'
 import PersonCard from './personCard'
 
 const AddPeople = ({ open, handleCancel, actionType }) => {

@@ -5,8 +5,8 @@ import {
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
-import ConfirmationModal from '../../components/CommonModal/confirmationModal'
-import AddPeople from './addPeople'
+import ConfirmationModal from '../../../components/CommonModal/confirmationModal'
+import AddPeople from '../Common/addPeople'
 
 const ChatOptions = ({ isGroup }) => {
   const [ openOptions, setOpenOptions ] = useState(false)
