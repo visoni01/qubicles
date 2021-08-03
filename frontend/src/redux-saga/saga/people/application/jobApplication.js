@@ -88,7 +88,7 @@ function* jobApplicationWorker(action) {
           })
 
           WebSocket.sendNotification({
-            to: applicationData.clientId && applicationData.clientId.toString(),
+            to: jobDetails && jobDetails.jobPostOwnerId && jobDetails.jobPostOwnerId.toString(),
             from: userDetails.user_id,
             message,
           })
@@ -175,7 +175,7 @@ function* jobApplicationWorker(action) {
           })
 
           WebSocket.deleteNotification({
-            to: data.client_id && data.client_id.toString(),
+            to: jobDetails && jobDetails.jobPostOwnerId && jobDetails.jobPostOwnerId.toString(),
             from: userDetails.user_id,
             message,
           })

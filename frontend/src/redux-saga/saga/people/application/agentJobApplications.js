@@ -77,7 +77,7 @@ function* jobApplicationListWorker(action) {
           })
 
           WebSocket.sendNotification({
-            to: data.client_id && data.client_id.toString(),
+            to: data.client_user_id && data.client_user_id.toString(),
             from: userDetails.user_id,
             message,
           })

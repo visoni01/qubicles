@@ -24,10 +24,10 @@ const constraintsStep1 = {
     presence: { allowEmpty: false }
   },
   city: {
-    presence: { allowEmpty: true }
+    presence: false
   },
   state: {
-    presence: { allowEmpty: true }
+    presence: false
   },
   zip: {
     presence: { allowEmpty: false }

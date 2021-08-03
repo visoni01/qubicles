@@ -41,6 +41,18 @@ export const fetchJobApplicationById = async ({ application_id }) => {
   return application
 }
 
+export const getUserIdByJobId = async ({ job_id }) => {
+  const jobDetails = await XQodJob.findOne({
+    raw: true,
+    attributes: ['user_id'],
+    where: {
+      job_id
+    }
+  })
+
+  return jobDetails && jobDetails.user_id
+}
+
 export const updateJobApplicationById = async ({ application_id, jobId, status, statusReason = '' }) => {
   let updatedFields = { status, status_reason: statusReason }
   if (status === 'hired') {
@@ -94,17 +106,26 @@ export const fetchJobApplicationByQuery = async ({ applicationId, clientId, agen
     }
   }
 
-  const application = await XQodApplication.findOne({
-    where: query,
-    raw: true,
-    include: {
-      model: XQodJob,
-      attributes: ['title']
-    }
-  })
+  let application
 
-  application.job_title = application['XQodJob.title']
-  delete application['XQodJob.title']
+  if (applicationId) {
+    application = await XQodApplication.findOne({
+      where: query,
+      raw: true,
+      include: {
+        model: XQodJob,
+        attributes: ['title']
+      }
+    })
+
+    application.job_title = application['XQodJob.title']
+    delete application['XQodJob.title']
+  } else {
+    application = await getOne({
+      model: XQodApplication,
+      data: query
+    })
+  }
 
   return application
 }
