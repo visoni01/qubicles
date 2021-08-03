@@ -11,6 +11,7 @@ import '../styles.scss'
 const LeftCard = () => {
   const [ openSearchField, setOpenSearchField ] = useState(false)
   const [ openNewChatModal, setOpenNewChatModal ] = useState(false)
+  const [ openNewGroupModal, setOpenNewGroupModal ] = useState(false)
 
   const handleSearchClick = useCallback(() => {
     setOpenSearchField((prevState) => !prevState)
@@ -18,6 +19,10 @@ const LeftCard = () => {
 
   const handleNewChatClick = useCallback(() => {
     setOpenNewChatModal((prevState) => !prevState)
+  }, [])
+
+  const handleNewGroupClick = useCallback(() => {
+    setOpenNewGroupModal((prevState) => !prevState)
   }, [])
 
   return (
@@ -43,7 +48,9 @@ const LeftCard = () => {
             <EditIcon />
           </IconButton>
 
-          <IconButton>
+          <IconButton
+            onClick={ handleNewGroupClick }
+          >
             <EditIcon />
           </IconButton>
         </div>
@@ -66,6 +73,13 @@ const LeftCard = () => {
         open={ openNewChatModal }
         handleCancel={ () => setOpenNewChatModal(false) }
         actionType='NEW_CHAT'
+      />
+
+      {/* New Group Modal */}
+      <NewChat
+        open={ openNewGroupModal }
+        handleCancel={ () => setOpenNewGroupModal(false) }
+        actionType='NEW_GROUP'
       />
 
       {/* Users List */}

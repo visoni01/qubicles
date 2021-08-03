@@ -55,6 +55,80 @@
   }
 }
 
+.chat-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 80vh;
+
+  .chat-section-body {
+    overflow-y: auto;
+
+    .profile-picture {
+      height: 36px;
+      width: 36px;
+    }
+
+    .text-message {
+      width: auto;
+      max-width: 60%;
+
+      .text-message-body {
+        border-radius: 6px;
+        opacity: 1;
+        padding: 15px;
+        text-align: left;
+      }
+
+      .self-message {
+        background: #4877F4;
+        color: #ffffff;
+      }
+
+      .other-user-message {
+        border: 1px solid #DBDBDB;
+      }
+    }
+  }
+
+  .chat-section-body::-webkit-scrollbar {
+    width: 8px !important;
+  }
+
+  .chat-section-body::-webkit-scrollbar-thumb {
+    background-color: rgba(72, 119, 244, 0.7);
+    border-radius: 20px 20px 20px 20px ;
+  }
+
+  .image-icon {
+    margin-top: 2px;
+  }
+
+  .chat-section-footer {
+    height: auto;
+    padding: 5px 20px 20px 20px;
+
+    .MuiFormControl-root {
+      margin: 0px 15px 0px 15px;
+
+      .MuiInputBase-root {
+        height: auto;
+        padding: 7px 10px;
+        font-size: 0.9rem;
+
+        *::-webkit-scrollbar {
+          width: 8px !important;
+        }
+
+        *::-webkit-scrollbar-thumb {
+          background-color: rgba(72, 119, 244, 0.7);
+          border-radius: 20px 20px 20px 20px ;
+        }
+      }
+    }
+  }
+}
+
 .right-card {
   display: flex;
   flex-direction: column;
@@ -105,7 +179,6 @@
 
 
 .person-card {
-
   &:hover {
     background-color: $color-primary-light;
     cursor: pointer;

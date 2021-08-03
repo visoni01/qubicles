@@ -16,6 +16,18 @@ export const regSplChar = /^[^!@#$%^&*(),.?":{}|<>]*$/
 
 export const formatDate = (date, format = 'DD MMM') => moment(date).format(format)
 
+export const formatDateTime = (date) => {
+  const currTime = moment()
+  const actualDate = moment(date).format('L')
+  const differenceInTime = currTime.diff(date, 'days')
+
+  switch (differenceInTime) {
+    case 0: return 'Today'
+    case 1: return 'Yesterday'
+    default: return actualDate
+  }
+}
+
 export const isEmptyObject = (input) => {
   const isObject = Object.prototype.toString.call(input) === '[object Object]'
   const objKeys = Object.keys(input)
