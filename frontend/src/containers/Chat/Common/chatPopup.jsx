@@ -7,6 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faTimes, faWindowMaximize, faMinus,
 } from '@fortawesome/free-solid-svg-icons'
+import ChatView from '../MiddleSection/chatView'
+import ChatControls from '../MiddleSection/chatControls'
+import { chats } from '../testData'
 
 const ChatPopup = ({ chat }) => {
   const [ popupOpen, setPopupOpen ] = useState(false)
@@ -43,9 +46,18 @@ const ChatPopup = ({ chat }) => {
         ) }
       />
       <Collapse in={ popupOpen }>
-        <CardContent className='message-section'>
-          {/* WIP - Add common component */}
-          <div>Messages</div>
+        <CardContent className='message-section no-padding'>
+          <div className='is-fullheight chat-section'>
+            {/* Chat Body */}
+            <div className='chat-section-body padding-10'>
+              <ChatView
+                chats={ chats && chats.data }
+              />
+            </div>
+
+            {/* Chat Controls */}
+            <ChatControls />
+          </div>
         </CardContent>
       </Collapse>
     </Card>
