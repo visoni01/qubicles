@@ -200,3 +200,54 @@
     margin-left: 0;
   }
 }
+
+.chat-popup-root {
+  visibility: hidden;
+  overflow: hidden;
+  display: inline-flex;
+  position: fixed;
+  bottom: 0;
+  right: 10px;
+  z-index: 1100;
+  max-height: 420px;
+  flex-wrap: wrap-reverse;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  row-gap: 100vh;
+  column-gap: 10px;
+  max-width: calc(100% - 80px);
+
+  .chat-popup-card {
+    visibility: visible;
+    align-self: flex-start;
+    width: 360px;
+    max-height: 420px;
+    border-radius: 8px 8px 0 0;
+    border-color: $color-primary-dark;
+    border-bottom: none;
+
+    .header {
+      border-bottom: 1px solid $color-primary-dark;
+      padding: 11px 16px;
+      background-color: $color-primary;
+
+      .header-action {
+        margin: unset;
+        align-self: unset;
+      }
+
+      .header-title {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width: 195px;
+        color: $color-white;
+      }
+    }
+
+    .message-section {
+      height: 355px;
+      max-height: 60vh;
+    }
+  }
+}

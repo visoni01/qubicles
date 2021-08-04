@@ -7,6 +7,9 @@ import { LinearProgress } from '@material-ui/core'
 import routes from './routeList'
 import { getToken, getUserDetails, setDoumentTitle } from '../utils/common'
 import Navbar from '../components/Navbar'
+import ChatPopupWrapper from '../containers/Chat/Common/chatPopupWrapper'
+import { popupChats } from '../containers/Chat/testData'
+import { CHAT_ROUTE } from './routesPath'
 
 const suspenseWrapper = (Component, propsToPass) => (
   <Suspense fallback={ <LinearProgress /> }>
@@ -53,9 +56,12 @@ const Validator = ({ component: Component, path, propsToPass }) => {
     component = <Redirect to='/dashboard' />
   } else {
     component = (
-      <Navbar>
-        {suspenseWrapper(Component, propsToPass)}
-      </Navbar>
+      <>
+        <Navbar>
+          {suspenseWrapper(Component, propsToPass)}
+        </Navbar>
+        {path !== CHAT_ROUTE && <ChatPopupWrapper chats={ popupChats } />}
+      </>
     )
   }
 

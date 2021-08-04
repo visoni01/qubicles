@@ -164,9 +164,42 @@ const chats = {
   ],
 }
 
+const popupChats = [
+  {
+    conversationId: 1,
+    name: 'Kautzer LLC',
+    profilePic: 'https://ipfs.telos.miami/ipfs/QmUVSHmTub6MSWh8bzJWxYCwujNcJpK2nf2ahQ6bTt1Zy9',
+    isGroup: false,
+  },
+  {
+    conversationId: 2,
+    name: 'Delainey Blackadder',
+    profilePic: 'https://ipfs.telos.miami/ipfs/Qmf8WukCjBqbEizmvtL8BRtSwCNqmpZDrj2rxq5XuBagZk',
+    isGroup: true,
+  },
+  {
+    conversationId: 3,
+    name: 'Pebrook Lias',
+    profilePic: 'https://ipfs.telos.miami/ipfs/QmU5gDcgrQUdyaV5vTxLnxouu7SomBCSxHpBCWbRDwzRqj',
+    isGroup: false,
+  },
+  {
+    conversationId: 4,
+    name: 'Ingar Durante',
+    profilePic: 'https://robohash.org/cupiditateetplaceat.jpg?size=300x328&set=set1',
+    isGroup: false,
+  },
+  {
+    conversationId: 5,
+    name: 'Abeu Bringloe',
+    profilePic: 'https://robohash.org/vitaenihildistinctio.jpg?size=300x328&set=set1',
+    isGroup: true,
+  },
+]
+
 export {
-  // eslint-disable-next-line import/prefer-default-export
   userList,
   chats,
   members,
+  popupChats,
 }

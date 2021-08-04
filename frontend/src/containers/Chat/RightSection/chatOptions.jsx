@@ -92,6 +92,7 @@ const ChatOptions = ({ isGroup }) => {
       <ConfirmationModal
         open={ openConfirmBlockModal }
         handleClose={ handleCancelActivity }
+        handleConfirm={ () => {} }
         message='Are you sure you want to delete this chat?'
         confirmButtonText='Yes'
       />
