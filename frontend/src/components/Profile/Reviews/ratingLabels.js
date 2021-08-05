@@ -44,13 +44,13 @@ const agentRatingLabels = [
     icon: teamplayerIcon,
   },
   {
-    id: 0,
+    id: 2,
     name: 'customerInteractionRating',
     label: 'Customer Interaction',
     icon: customerInteractionIcon,
   },
   {
-    id: 2,
+    id: 3,
     name: 'dependabilityRating',
     label: 'Dependability',
     icon: dependabilityIcon,

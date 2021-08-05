@@ -8,10 +8,10 @@ const UserCoursesSkeleton = () => (
   <div className='all-courses-skeleton-container'>
     <div className='all-courses-body'>
       {[ ...Array(3).keys() ].map((val, index) => (
-        <>
-          <CourseSkeleton key={ val } />
+        <div key={ val }>
+          <CourseSkeleton />
           {index < 2 && <Divider className='divider' />}
-        </>
+        </div>
       ))}
     </div>
     <Skeleton

@@ -13,8 +13,8 @@ function* requiredCoursesFetchWatcher() {
 
 function* requiredCoursesFetchWorker(action) {
   try {
-    const { searchKeyword, offset } = action.payload
-    const { data } = yield People.fetchRequiredCourses({ searchKeyword, offset })
+    const { searchKeyword, offset, courseId } = action.payload
+    const { data } = yield People.fetchRequiredCourses({ searchKeyword, offset, courseId })
     yield put(requiredCoursesFetchSuccess({ courses: data.courses, count: data.count }))
   } catch (e) {
     yield put(requiredCoursesFetchFailure())

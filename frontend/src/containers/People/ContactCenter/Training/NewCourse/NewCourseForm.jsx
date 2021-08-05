@@ -89,6 +89,8 @@ const NewCourseForm = ({
         informationSection={ informationSection }
         setInformationSection={ setInformationSection }
         errors={ errors }
+        courseId={ course.courseId }
+        isEdit={ isEdit }
       />
       ) }
       { activeTab === 1 && (
@@ -110,6 +112,7 @@ NewCourseForm.defaultProps = {
 
 NewCourseForm.propTypes = {
   course: PropTypes.shape({
+    courseId: PropTypes.number,
     createdOn: PropTypes.string.isRequired,
     updatedOn: PropTypes.string.isRequired,
   }).isRequired,

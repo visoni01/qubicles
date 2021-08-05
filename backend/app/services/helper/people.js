@@ -2059,7 +2059,7 @@ export const formatEnrolledCoursesData = ({ courses }) => {
   })
 }
 
-export const fetchAllCourses = async ({ offset, search_keyword }) => {
+export const fetchAllCourses = async ({ offset, search_keyword, course_id }) => {
   let query = {}
   let additionalParams = {
     limit: 10,
@@ -2079,6 +2079,13 @@ export const fetchAllCourses = async ({ offset, search_keyword }) => {
     query = {
       ...query,
       title: { [Op.substring]: search_keyword }
+    }
+  }
+
+  if (!_.isUndefined(course_id)) {
+    query = {
+      ...query,
+      course_id: { [Op.not]: course_id }
     }
   }
 

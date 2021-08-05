@@ -210,12 +210,14 @@ class People {
     return response
   }
 
-  static async fetchRequiredCourses({ searchKeyword, offset }) {
-    const response = await apiClient.getRequest(
-      '/people/required-courses',
-      null,
-      { search_keyword: searchKeyword, offset },
-    )
+  static async fetchRequiredCourses({ searchKeyword, offset, courseId }) {
+    let query = { search_keyword: searchKeyword, offset }
+
+    if (courseId) {
+      query = { ...query, course_id: courseId }
+    }
+
+    const response = await apiClient.getRequest('/people/required-courses', null, query)
     return response
   }
 

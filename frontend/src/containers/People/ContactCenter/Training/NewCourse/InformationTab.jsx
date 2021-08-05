@@ -13,7 +13,7 @@ import { jobCategoriesOnlyFetchStart } from '../../../../../redux-saga/redux/act
 import { errorsPropTypes, informationSectionPropType } from './propTypes'
 
 export default function InformationTab({
-  informationSection, setInformationSection, errors,
+  informationSection, setInformationSection, errors, courseId, isEdit,
 }) {
   const [ priceType, setPriceType ] = useState('price')
   const { jobCategoriesOnly, isLoading, error } = useSelector((state) => state.jobCategoriesOnly)
@@ -234,6 +234,8 @@ export default function InformationTab({
               selectedCourses={ informationSection.requiredCourses }
               setSelectedCourses={ setRequiredCourses }
               coursesType='requiredCourses'
+              currentCourseId={ courseId }
+              filterRequiredCourses={ isEdit }
             />
           </div>
         </Grid>
@@ -313,8 +315,15 @@ export default function InformationTab({
   )
 }
 
+InformationTab.defaultProps = {
+  courseId: null,
+  isEdit: false,
+}
+
 InformationTab.propTypes = {
   informationSection: informationSectionPropType.isRequired,
   setInformationSection: PropTypes.func.isRequired,
   errors: errorsPropTypes.isRequired,
+  courseId: PropTypes.number,
+  isEdit: PropTypes.bool,
 }

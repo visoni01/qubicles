@@ -45,8 +45,8 @@ const Courses = ({ candidateId }) => {
       {/* All Courses */}
       <div>
         {!isLoading && currentCourses && currentCourses.length > 0 && currentCourses.map((course, index) => (
-          <>
-            <div key={ course.courseId } className='is-flex is-between mt-20 mb-20'>
+          <div key={ course.courseId }>
+            <div className='is-flex is-between mt-20 mb-20'>
               <div>
                 <Link
                   to={ `${ VIEW_COURSE_ROUTE }/${ course.courseId }` }
@@ -66,7 +66,7 @@ const Courses = ({ candidateId }) => {
               {course.grade && <CourseBadge grade={ course.grade } />}
             </div>
             { currentCourses.length !== (index + 1) && <Divider />}
-          </>
+          </div>
         ))}
         {isLoading === false && currentCourses && !currentCourses.length && (
           <p className='para sz-xl mt-20 text-center'>

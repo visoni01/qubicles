@@ -14,6 +14,9 @@ const constraints = {
   },
   search_keyword: {
     presence: false
+  },
+  course_id: {
+    presence: false
   }
 }
 
@@ -24,9 +27,9 @@ export class PeopleGetAllCoursesService extends ServiceBase {
 
   async run () {
     try {
-      const { offset, search_keyword } = this.filteredArgs
+      const { offset, search_keyword, course_id } = this.filteredArgs
 
-      const coursesData = await fetchAllCourses({ offset, search_keyword })
+      const coursesData = await fetchAllCourses({ offset, search_keyword, course_id })
 
       let result = {}
 

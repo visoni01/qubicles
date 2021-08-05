@@ -11,22 +11,27 @@ import { VIEW_COURSE_ROUTE } from '../../../routes/routesPath'
 import MultiSelectLinkItems from '../../Shared/multiSelectLinkItems'
 import { formatDate } from '../../../utils/common'
 
-const RequiredCoursesField = ({ selectedCourses, setSelectedCourses, coursesType }) => {
+const RequiredCoursesField = ({
+  selectedCourses, setSelectedCourses, coursesType, currentCourseId, filterRequiredCourses,
+}) => {
   const {
     allCourses, searchKeyword, count, offset, isLoading: coursesLoading,
   } = useSelector((state) => state[ coursesType ])
+  const { success } = useSelector((state) => state.trainingCourse)
   const dispatch = useDispatch()
 
   // Fetch courses initially
   useEffect(() => {
     if (_.isNull(coursesLoading) && _.isEmpty(allCourses)) {
       if (_.isEqual(coursesType, 'requiredCourses')) {
-        dispatch(requiredCoursesFetchStart({ searchKeyword: '', offset: 0 }))
+        if (!filterRequiredCourses || (filterRequiredCourses && _.isEqual(success, true))) {
+          dispatch(requiredCoursesFetchStart({ searchKeyword: '', offset: 0, courseId: currentCourseId }))
+        }
       } else {
         dispatch(bonusCoursesFetchStart({ searchKeyword: '', offset: 0 }))
       }
     }
-  }, [ dispatch, coursesLoading, allCourses, coursesType ])
+  }, [ dispatch, coursesLoading, allCourses, coursesType, currentCourseId, filterRequiredCourses, success ])
 
   // Reset data in reducer
   useEffect(() => () => {
@@ -43,6 +48,7 @@ const RequiredCoursesField = ({ selectedCourses, setSelectedCourses, coursesType
       dispatch(requiredCoursesFetchStart({
         searchKeyword: nextValue,
         offset: 0,
+        courseId: currentCourseId,
       }))
     } else {
       dispatch(bonusCoursesFetchStart({
@@ -58,6 +64,7 @@ const RequiredCoursesField = ({ selectedCourses, setSelectedCourses, coursesType
       dispatch(requiredCoursesFetchStart({
         searchKeyword,
         offset: offset + noOfRequiredCoursesPerFetch,
+        courseId: currentCourseId,
       }))
     } else {
       dispatch(bonusCoursesFetchStart({
@@ -65,7 +72,7 @@ const RequiredCoursesField = ({ selectedCourses, setSelectedCourses, coursesType
         offset: offset + noOfRequiredCoursesPerFetch,
       }))
     }
-  }, [ dispatch, searchKeyword, offset, coursesType ])
+  }, [ dispatch, searchKeyword, offset, coursesType, currentCourseId ])
 
   return (
     <MultiSelectLinkItems
@@ -114,6 +121,11 @@ const RequiredCoursesField = ({ selectedCourses, setSelectedCourses, coursesType
   )
 }
 
+RequiredCoursesField.defaultProps = {
+  currentCourseId: null,
+  filterRequiredCourses: false,
+}
+
 RequiredCoursesField.propTypes = {
   selectedCourses: PropTypes.arrayOf(PropTypes.shape({
     courseId: PropTypes.number.isRequired,
@@ -124,6 +136,8 @@ RequiredCoursesField.propTypes = {
   })).isRequired,
   setSelectedCourses: PropTypes.func.isRequired,
   coursesType: PropTypes.oneOf([ 'requiredCourses', 'bonusCourses' ]).isRequired,
+  currentCourseId: PropTypes.number,
+  filterRequiredCourses: PropTypes.bool,
 }
 
 export default RequiredCoursesField

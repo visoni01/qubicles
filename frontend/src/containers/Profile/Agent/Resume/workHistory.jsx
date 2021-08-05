@@ -7,8 +7,8 @@ const WorkHistory = () => (
     <h3 className='h3 mb-20'>Work History</h3>
     <div>
       {workHistory.map((work, index) => (
-        <>
-          <div key={ work.company } className='mb-20 mt-20'>
+        <div key={ work.company }>
+          <div className='mb-20 mt-20'>
             <p className='para bold mb-5'>{work.title}</p>
             <p className='para'>{work.company}</p>
             <p className='para light mb-10'>{work.duration}</p>
@@ -26,7 +26,7 @@ const WorkHistory = () => (
             ))}
           </div>
           { workHistory.length !== (index + 1) && <Divider />}
-        </>
+        </div>
       ))}
     </div>
   </Box>
