@@ -177,13 +177,7 @@
   }
 }
 
-
 .person-card {
-  &:hover {
-    background-color: $color-primary-light;
-    cursor: pointer;
-  }
-
   &:not(:last-child):after {
     content: '';
     display: block;
@@ -198,6 +192,49 @@
     width: 60px;
     height: 60px;
     margin-left: 0;
+  }
+
+  .self-name {
+    align-self: self-start;
+    margin-top: revert;
+  }
+
+  .remove-button {
+    height: fit-content;
+    padding: 0px;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+
+  .primary-text-link-red {
+    color: $color-red;
+
+    &:hover {
+      text-decoration: underline;
+      color: $color-red;
+    }
+  }
+
+  .color-red {
+    color: $color-red;
+  }
+}
+
+.person-card-hover.person-card:hover{
+  background-color: $color-primary-light;
+  cursor: pointer;
+}
+
+.view-members-modal {
+  *::-webkit-scrollbar {
+    width: 8px !important;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: rgba(72, 119, 244, 0.7);
+    border-radius: 20px 20px 20px 20px ;
   }
 }
 

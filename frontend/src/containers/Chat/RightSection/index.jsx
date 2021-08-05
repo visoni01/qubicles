@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Box, Avatar, Button } from '@material-ui/core'
@@ -6,8 +6,10 @@ import { AvatarGroup } from '@material-ui/lab'
 import { LocationIcon } from '../../../assets/images/common'
 import { COMPANY_PROFILE_ROUTE, PROFILE_ROUTE } from '../../../routes/routesPath'
 import ChatOptions from './chatOptions'
+import ViewMembers from './viewMembers'
 
 const RightCard = ({ members, isGroup }) => {
+  const [ openViewMembersModal, setOpenViewMembersModal ] = useState(false)
   const otherUser = members && members.length && members[ 0 ]
 
   return (
@@ -41,9 +43,7 @@ const RightCard = ({ members, isGroup }) => {
       <div>
         {isGroup ? (
           <div className='para'>
-            { members.length }
-            {' '}
-            people in this conversation
+            {`${ members.length } people in this conversation`}
           </div>
         ) : (
           <div className='text-center'>
@@ -63,6 +63,7 @@ const RightCard = ({ members, isGroup }) => {
             root: 'button-primary-text',
             label: 'button-primary-text-label',
           } }
+          onClick={ () => setOpenViewMembersModal(true) }
         >
           View Members
         </Button>
@@ -70,10 +71,17 @@ const RightCard = ({ members, isGroup }) => {
         <Link
           className='text-link'
           to={ `${ otherUser.userCode === 'agent' ? PROFILE_ROUTE : COMPANY_PROFILE_ROUTE }/${ otherUser.id }/feed` }
+          target='_blank'
         >
           View Profile
         </Link>
       )}
+
+      {/* View Members Modal */}
+      <ViewMembers
+        open={ openViewMembersModal }
+        handleClose={ () => setOpenViewMembersModal(false) }
+      />
     </Box>
   )
 }
