@@ -78,7 +78,7 @@ CourseFilterModal.defaultProps = {
 CourseFilterModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-  anchorEl: PropTypes.shape(PropTypes.any),
+  anchorEl: PropTypes.instanceOf(Element),
   setAnchorEl: PropTypes.func.isRequired,
   id: PropTypes.string,
 }

@@ -139,8 +139,7 @@ export const fetchAllJobApplications = async ({ applicationId, clientId, agentUs
 }
 
 export const fetchAgentJobApplicationList = async ({ agentUserId, limit, offset, statusTypes }) => {
-  let applicationQuery = {}
-  applicationQuery = {
+  let applicationQuery = {
     user_id: agentUserId
   }
 

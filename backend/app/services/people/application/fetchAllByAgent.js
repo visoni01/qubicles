@@ -53,12 +53,12 @@ export class PeopleFetchJobApplicationsByAgentService extends ServiceBase {
 
           applications = applications.map((application) => {
             const clientUserId = userData.find((item) => item.client_id === application.client_id)
-            const userId = clientUserId && clientProfilePictures.find((item) => item.user_id === clientUserId.user_id)
-            const profilePicture = userId && userId.profile_image
+            const clientData = clientUserId && clientProfilePictures.find((item) => item.user_id === clientUserId.user_id)
+            const profilePicture = clientData && clientData.profile_image
 
             return {
               ...application,
-              profilePicture: profilePicture
+              profilePicture
             }
           })
         }

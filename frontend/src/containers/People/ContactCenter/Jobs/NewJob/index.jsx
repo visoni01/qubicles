@@ -116,8 +116,8 @@ const NewJob = (props) => {
 
 NewJob.defaultProps = {
   jobsData: {
-    jobId: '',
-    categoryId: '',
+    jobId: null,
+    categoryId: null,
     categoryName: '',
     needed: 0,
     title: '',

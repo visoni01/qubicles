@@ -78,7 +78,7 @@ JobFilterModal.defaultProps = {
 JobFilterModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-  anchorEl: PropTypes.shape({}),
+  anchorEl: PropTypes.instanceOf(Element),
   setAnchorEl: PropTypes.func.isRequired,
   id: PropTypes.string,
 }
