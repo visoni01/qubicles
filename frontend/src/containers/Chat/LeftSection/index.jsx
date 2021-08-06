@@ -1,17 +1,21 @@
 import {
   Box, Divider, IconButton, TextField,
 } from '@material-ui/core'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import PropTypes from 'prop-types'
 import { EditIcon, SearchIcon } from '../../../assets/images/common'
 import UserCard from './userCard'
 import NewChat from '../Common/addPeople'
-import { userList } from '../testData'
+import { allChatsRequestStart } from '../../../redux-saga/redux/chat'
 import '../styles.scss'
 
-const LeftCard = () => {
+const LeftCard = ({ setConversationId }) => {
   const [ openSearchField, setOpenSearchField ] = useState(false)
   const [ openNewChatModal, setOpenNewChatModal ] = useState(false)
   const [ openNewGroupModal, setOpenNewGroupModal ] = useState(false)
+  const { chatsList } = useSelector((state) => state.allChats)
+  const dispatch = useDispatch()
 
   const handleSearchClick = useCallback(() => {
     setOpenSearchField((prevState) => !prevState)
@@ -24,6 +28,13 @@ const LeftCard = () => {
   const handleNewGroupClick = useCallback(() => {
     setOpenNewGroupModal((prevState) => !prevState)
   }, [])
+
+  useEffect(() => {
+    dispatch(allChatsRequestStart({
+      requestType: 'FETCH',
+      dataType: 'chats-list',
+    }))
+  }, [ dispatch ])
 
   return (
     <Box
@@ -84,7 +95,7 @@ const LeftCard = () => {
 
       {/* Users List */}
       <div className='user-list'>
-        {userList && userList.map((item, index) => (
+        {chatsList && chatsList.map((item, index) => (
           <div
             key={ item.id }
           >
@@ -95,19 +106,24 @@ const LeftCard = () => {
               allRead={ item.allRead }
               latestMessage={ item.latestMessage }
               time={ item.time }
+              setConversationId={ setConversationId }
             />
-            {index !== userList.length - 1 ? <Divider className='user-list-divider' /> : ''}
+            {index !== chatsList.length - 1 ? <Divider className='user-list-divider' /> : ''}
           </div>
         ))}
       </div>
 
-      {userList && !userList.length && (
+      {chatsList && !chatsList.length && (
         <p className='para sz-xl mt-20 mb-20 text-center'>
           No conversations yet...
         </p>
       )}
     </Box>
   )
+}
+
+LeftCard.propTypes = {
+  setConversationId: PropTypes.func.isRequired,
 }
 
 export default LeftCard

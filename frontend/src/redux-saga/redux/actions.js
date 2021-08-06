@@ -22,3 +22,6 @@ export * from './profile/common'
 export * from './profile/company'
 export * from './profile/agent'
 export * from './profile/review'
+
+// Chat Actions
+export * from './chat'

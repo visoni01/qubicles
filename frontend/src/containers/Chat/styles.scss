@@ -250,7 +250,7 @@
   flex-wrap: wrap-reverse;
   flex-direction: row-reverse;
   justify-content: flex-start;
-  row-gap: 100vh;
+  row-gap: calc(100vh + 420px);
   column-gap: 10px;
   max-width: calc(100% - 80px);
 
@@ -267,6 +267,7 @@
       border-bottom: 1px solid $color-primary-dark;
       padding: 11px 16px;
       background-color: $color-primary;
+      cursor: pointer;
 
       .header-action {
         margin: unset;
@@ -279,6 +280,10 @@
         overflow: hidden;
         width: 195px;
         color: $color-white;
+      }
+
+      .header-avatar {
+        background-color: $color-white;
       }
     }
 

@@ -6,6 +6,7 @@ import dashboardWatcherFunctions from './dashboard'
 import forumWatcherFunctions from './forum'
 import peopleWatcherFunctions from './people'
 import profileWatcherFunctions from './profile'
+import chatWatcherFunctions from './chat'
 
 export default function* rootSaga() {
   yield all([
@@ -15,5 +16,6 @@ export default function* rootSaga() {
     ...forumWatcherFunctions.map((watcherFn) => watcherFn()),
     ...peopleWatcherFunctions.map((watcherFn) => watcherFn()),
     ...profileWatcherFunctions.map((watcherFn) => watcherFn()),
+    ...chatWatcherFunctions.map((watcherFn) => watcherFn()),
   ])
 }

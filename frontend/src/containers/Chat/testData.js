@@ -23,7 +23,7 @@ const members = [
   {
     id: 1,
     name: 'Kautzer LLC',
-    profilePic: 'https://ipfs.telos.miami/ipfs/QmUVSHmTub6MSWh8bzJWxYCwujNcJpK2nf2ahQ6bTt1Zy9',
+    profilePic: 'https://ipfs.telos.miami/ipfs/QmaoSD6dZHNB3xMQrpxd4cMAHaGH4c9mMXNg79cAmtuvPF',
     location: 'Nesterovskaya',
     title: 'Teacher',
     userCode: 'employer',
@@ -102,10 +102,8 @@ const members = [
   },
 ]
 
-const chats = {
-  conversationId: 1,
-  isGroup: false,
-  data: [
+const chatData = [
+  [
     {
       msgId: 123,
       candidateId: 4,
@@ -152,49 +150,116 @@ const chats = {
       isRead: false,
     },
   ],
-  candidatesInfo: [
+  [
     {
+      msgId: 56,
       candidateId: 2,
-      name: 'Jack',
-      profilePic: 'https://ipfs.telos.miami/ipfs/QmUVSHmTub6MSWh8bzJWxYCwujNcJpK2nf2ahQ6bTt1Zy9',
-      location: 'Nesterovskaya',
-      title: 'Teacher',
-      userCode: 'agent',
+      profilePic: 'https://ipfs.telos.miami/ipfs/Qmf8WukCjBqbEizmvtL8BRtSwCNqmpZDrj2rxq5XuBagZk',
+      isNotification: false,
+      text: 'Hi, this is Client 2!',
+      sentAt: '2021-08-01 10:15:40',
+      isRead: false,
+    },
+    {
+      msgId: 78,
+      candidateId: 3,
+      profilePic: 'https://ipfs.telos.miami/ipfs/QmPRkEvfv22rXQDtpaDGMfn3E93Dmxuc2YCS2QrYnVieTj',
+      isNotification: false,
+      text: 'Hi, this is Arthur! How are you doing? I hope you are good. Looking forward to meet you soon.',
+      sentAt: '2021-08-03 11:08:40',
+      isRead: false,
+    },
+    {
+      msgId: 2345,
+      candidateId: 3,
+      profilePic: 'https://ipfs.telos.miami/ipfs/QmPRkEvfv22rXQDtpaDGMfn3E93Dmxuc2YCS2QrYnVieTj',
+      isNotification: false,
+      text: 'Hi, this is Arthur! How are you doing? I hope you are good. Looking forward to meet you soon.',
+      sentAt: '2021-08-03 19:08:40',
+      isRead: false,
+    },
+    {
+      msgId: 23456,
+      candidateId: null,
+      profilePic: '',
+      isNotification: true,
+      text: '<span><b>Arthur Castle</b> was added by <b>Jack Downey</b></span>',
+      sentAt: '2021-08-03 21:08:40',
+      isRead: false,
+    },
+    {
+      msgId: 234567,
+      candidateId: 2,
+      profilePic: 'https://ipfs.telos.miami/ipfs/Qmf8WukCjBqbEizmvtL8BRtSwCNqmpZDrj2rxq5XuBagZk',
+      isNotification: false,
+      text: 'Hi, this is Arthur! How are you doing? I hope you are good. Looking forward to meet you soon.',
+      sentAt: '2021-08-04 23:08:40',
+      isRead: false,
     },
   ],
-}
+]
+
+const chats = [
+  {
+    conversationId: 1,
+    isGroup: false,
+    data: chatData[ 0 ],
+    candidatesInfo: [
+      {
+        id: 2,
+        name: 'Jack Downey',
+        profilePic: 'https://ipfs.telos.miami/ipfs/QmaoSD6dZHNB3xMQrpxd4cMAHaGH4c9mMXNg79cAmtuvPF',
+        location: 'Nesterovskaya',
+        title: 'Teacher',
+        userCode: 'agent',
+      },
+    ],
+  },
+  {
+    conversationId: 2,
+    isGroup: true,
+    data: chatData[ 1 ],
+    candidatesInfo: members,
+  },
+]
 
 const popupChats = [
   {
     conversationId: 1,
     name: 'Kautzer LLC',
-    profilePic: 'https://ipfs.telos.miami/ipfs/QmUVSHmTub6MSWh8bzJWxYCwujNcJpK2nf2ahQ6bTt1Zy9',
+    profilePic: 'https://ipfs.telos.miami/ipfs/QmaoSD6dZHNB3xMQrpxd4cMAHaGH4c9mMXNg79cAmtuvPF',
     isGroup: false,
+    data: chatData[ 0 ],
   },
   {
     conversationId: 2,
     name: 'Delainey Blackadder',
     profilePic: 'https://ipfs.telos.miami/ipfs/Qmf8WukCjBqbEizmvtL8BRtSwCNqmpZDrj2rxq5XuBagZk',
     isGroup: true,
+    data: chatData[ 1 ],
   },
   {
     conversationId: 3,
     name: 'Pebrook Lias',
     profilePic: 'https://ipfs.telos.miami/ipfs/QmU5gDcgrQUdyaV5vTxLnxouu7SomBCSxHpBCWbRDwzRqj',
     isGroup: false,
+    data: chatData[ 0 ],
   },
   {
     conversationId: 4,
     name: 'Ingar Durante',
     profilePic: 'https://robohash.org/cupiditateetplaceat.jpg?size=300x328&set=set1',
     isGroup: false,
+    data: chatData[ 1 ],
   },
   {
     conversationId: 5,
     name: 'Abeu Bringloe',
     profilePic: 'https://robohash.org/vitaenihildistinctio.jpg?size=300x328&set=set1',
     isGroup: true,
+    data: chatData[ 0 ],
   },
+
 ]
 
 export {

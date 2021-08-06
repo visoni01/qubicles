@@ -10,6 +10,7 @@ import agentProfileReducers from './profile/agent'
 import commonProfileReducers from './profile/common'
 import profileReviewsReducers from './profile/review'
 import utilsReducers from './utils'
+import chatReducers from './chat'
 
 const appReducer = combineReducers({
 
@@ -37,6 +38,9 @@ const appReducer = combineReducers({
   ...companyProfileReducers,
   ...commonProfileReducers,
   ...profileReviewsReducers,
+
+  // Chat Reducers
+  ...chatReducers,
 
 })
 

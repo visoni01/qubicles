@@ -1,23 +1,18 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 import ChatPopup from './chatPopup'
 import '../styles.scss'
 
-const ChatPopupWrapper = ({ chats }) => (
-  <div className='chat-popup-root'>
-    {chats && chats.map((chat) => (
-      <ChatPopup key={ chat.conversationId } chat={ chat } />
-    ))}
-  </div>
-)
+const ChatPopupWrapper = () => {
+  const { chatPopups } = useSelector((state) => state.currentChat)
 
-ChatPopupWrapper.propTypes = {
-  chats: PropTypes.arrayOf(PropTypes.shape({
-    conversationId: PropTypes.number,
-    name: PropTypes.string,
-    profilePic: PropTypes.string,
-    isGroup: PropTypes.bool,
-  })).isRequired,
+  return (
+    <div className='chat-popup-root'>
+      {chatPopups && chatPopups.map((chat) => (
+        <ChatPopup key={ chat.conversationId } chat={ chat } />
+      ))}
+    </div>
+  )
 }
 
 export default ChatPopupWrapper

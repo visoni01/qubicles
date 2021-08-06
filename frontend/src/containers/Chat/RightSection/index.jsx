@@ -1,15 +1,18 @@
+/* eslint-disable complexity */
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types'
 import { Box, Avatar, Button } from '@material-ui/core'
 import { AvatarGroup } from '@material-ui/lab'
+import { useSelector } from 'react-redux'
 import { LocationIcon } from '../../../assets/images/common'
 import { COMPANY_PROFILE_ROUTE, PROFILE_ROUTE } from '../../../routes/routesPath'
 import ChatOptions from './chatOptions'
 import ViewMembers from './viewMembers'
 
-const RightCard = ({ members, isGroup }) => {
+const RightCard = () => {
   const [ openViewMembersModal, setOpenViewMembersModal ] = useState(false)
+  const { chat } = useSelector((state) => state.currentChat)
+  const { candidatesInfo: members, isGroup } = chat
   const otherUser = members && members.length && members[ 0 ]
 
   return (
@@ -20,7 +23,7 @@ const RightCard = ({ members, isGroup }) => {
 
       {/* Profile Pictures */}
       <AvatarGroup max={ 3 } spacing='small' className='avatar-group'>
-        { members.length && members.map((member, index) => {
+        { members && members.length && members.map((member, index) => {
           if (index < 3) {
             return (
               <Avatar
@@ -36,7 +39,7 @@ const RightCard = ({ members, isGroup }) => {
 
       {/* User name or Group */}
       <div className='h4'>
-        {isGroup ? 'Group' : otherUser.name}
+        {isGroup ? 'Group' : otherUser && otherUser.name}
       </div>
 
       {/* User details or number of members */}
@@ -47,10 +50,10 @@ const RightCard = ({ members, isGroup }) => {
           </div>
         ) : (
           <div className='text-center'>
-            <div className='para mb-5 text-center'>{otherUser.title}</div>
+            <div className='para mb-5 text-center'>{otherUser && otherUser.title}</div>
             <div className='para light display-inline-flex align-items-center'>
               <LocationIcon className='mr-5' />
-              {otherUser.location}
+              {otherUser && otherUser.location}
             </div>
           </div>
         )}
@@ -70,7 +73,8 @@ const RightCard = ({ members, isGroup }) => {
       ) : (
         <Link
           className='text-link'
-          to={ `${ otherUser.userCode === 'agent' ? PROFILE_ROUTE : COMPANY_PROFILE_ROUTE }/${ otherUser.id }/feed` }
+          to={ `${ otherUser && otherUser.userCode === 'agent'
+            ? PROFILE_ROUTE : COMPANY_PROFILE_ROUTE }/${ otherUser && otherUser.id }/feed` }
           target='_blank'
         >
           View Profile
@@ -84,22 +88,6 @@ const RightCard = ({ members, isGroup }) => {
       />
     </Box>
   )
-}
-
-RightCard.defaultProps = {
-  isGroup: false,
-}
-
-RightCard.propTypes = {
-  isGroup: PropTypes.bool,
-  members: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-    profilePic: PropTypes.string,
-    location: PropTypes.string,
-    title: PropTypes.string,
-    userCode: PropTypes.string,
-  })).isRequired,
 }
 
 export default RightCard

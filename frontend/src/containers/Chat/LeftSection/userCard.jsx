@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Avatar } from '@material-ui/core'
@@ -5,9 +7,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircle } from '@fortawesome/free-solid-svg-icons'
 
 const UserCard = ({
-  name, imageUrl, allRead, latestMessage, time,
+  id, name, imageUrl, allRead, latestMessage, time, setConversationId,
 }) => (
-  <div className='is-flex user-card-item'>
+  <div
+    className='is-flex user-card-item'
+    onClick={ () => setConversationId(id) }
+  >
     <Avatar className='profile-pic' alt={ name } src={ imageUrl } />
 
     <div className='is-fullwidth'>
@@ -31,19 +36,23 @@ const UserCard = ({
 )
 
 UserCard.defaultProps = {
+  id: null,
   name: '',
   imageUrl: '',
   allRead: '',
   latestMessage: '',
   time: '',
+  setConversationId: () => {},
 }
 
 UserCard.propTypes = {
+  id: PropTypes.number,
   name: PropTypes.string,
   imageUrl: PropTypes.string,
   allRead: PropTypes.bool,
   latestMessage: PropTypes.string,
   time: PropTypes.string,
+  setConversationId: PropTypes.func,
 }
 
 export default UserCard

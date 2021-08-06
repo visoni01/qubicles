@@ -8,7 +8,6 @@ import routes from './routeList'
 import { getToken, getUserDetails, setDoumentTitle } from '../utils/common'
 import Navbar from '../components/Navbar'
 import ChatPopupWrapper from '../containers/Chat/Common/chatPopupWrapper'
-import { popupChats } from '../containers/Chat/testData'
 import { CHAT_ROUTE } from './routesPath'
 
 const suspenseWrapper = (Component, propsToPass) => (
@@ -60,7 +59,7 @@ const Validator = ({ component: Component, path, propsToPass }) => {
         <Navbar>
           {suspenseWrapper(Component, propsToPass)}
         </Navbar>
-        {path !== CHAT_ROUTE && <ChatPopupWrapper chats={ popupChats } />}
+        {path !== CHAT_ROUTE && <ChatPopupWrapper />}
       </>
     )
   }
