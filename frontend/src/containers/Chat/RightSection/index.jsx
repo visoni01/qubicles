@@ -1,19 +1,45 @@
 /* eslint-disable complexity */
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Box, Avatar, Button } from '@material-ui/core'
 import { AvatarGroup } from '@material-ui/lab'
 import { useSelector } from 'react-redux'
+import PropTypes from 'prop-types'
+import {
+  Box, Avatar, Button, IconButton, TextField,
+} from '@material-ui/core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPen } from '@fortawesome/free-solid-svg-icons'
 import { LocationIcon } from '../../../assets/images/common'
 import { COMPANY_PROFILE_ROUTE, PROFILE_ROUTE } from '../../../routes/routesPath'
 import ChatOptions from './chatOptions'
 import ViewMembers from './viewMembers'
 
-const RightCard = () => {
-  const [ openViewMembersModal, setOpenViewMembersModal ] = useState(false)
+const RightCard = ({
+  groupName, changeGroupName,
+}) => {
   const { chat } = useSelector((state) => state.currentChat)
+
+  const [ openViewMembersModal, setOpenViewMembersModal ] = useState(false)
+  const [ showGroupNameField, setShowGroupNameField ] = useState(false)
+  const [ groupNameValue, setGroupNameValue ] = useState(groupName)
+
   const { candidatesInfo: members, isGroup } = chat
-  const otherUser = members && members.length && members[ 0 ]
+  const otherUser = members && members.length > 0 && members[ 0 ]
+
+  const handleEdit = useCallback(() => {
+    setShowGroupNameField(true)
+  }, [])
+
+  const handleOnChange = useCallback((event) => {
+    setGroupNameValue(event.target.value)
+  }, [])
+
+  const handleKeyDown = useCallback((event) => {
+    if (event.key === 'Enter') {
+      setShowGroupNameField(false)
+      changeGroupName(groupNameValue)
+    }
+  }, [ changeGroupName, groupNameValue ])
 
   return (
     <Box className='custom-box right-card'>
@@ -23,12 +49,12 @@ const RightCard = () => {
 
       {/* Profile Pictures */}
       <AvatarGroup max={ 3 } spacing='small' className='avatar-group'>
-        { members && members.length && members.map((member, index) => {
+        { members && members.length > 0 && members.map((member, index) => {
           if (index < 3) {
             return (
               <Avatar
                 className='avatar'
-                key={ member.id }
+                key={ member.candidateId }
                 alt={ member.name }
                 src={ member.profilePic }
               />
@@ -38,9 +64,38 @@ const RightCard = () => {
       </AvatarGroup>
 
       {/* User name or Group */}
-      <div className='h4'>
-        {isGroup ? 'Group' : otherUser && otherUser.name}
-      </div>
+      {isGroup
+        ? (
+          <div className='is-flex align-items-start mt-10 group-field'>
+            {showGroupNameField
+              ? (
+                <TextField
+                  value={ groupNameValue }
+                  onChange={ handleOnChange }
+                  onKeyDown={ handleKeyDown }
+                  multiline
+                />
+              )
+              : (
+                <>
+                  <div className='h4 sz-xl mr-10'>
+                    {groupNameValue}
+                  </div>
+                  <IconButton
+                    className='no-padding'
+                    onClick={ handleEdit }
+                  >
+                    <FontAwesomeIcon className='custom-fa-icon pointer' icon={ faPen } />
+                  </IconButton>
+                </>
+              )}
+          </div>
+        )
+        : (
+          <div className='h4 sz-xl mt-10'>
+            {otherUser && otherUser.name}
+          </div>
+        )}
 
       {/* User details or number of members */}
       <div>
@@ -50,7 +105,7 @@ const RightCard = () => {
           </div>
         ) : (
           <div className='text-center'>
-            <div className='para mb-5 text-center'>{otherUser && otherUser.title}</div>
+            <div className='para sz-lg mb-5 text-center'>{otherUser && otherUser.title}</div>
             <div className='para light display-inline-flex align-items-center'>
               <LocationIcon className='mr-5' />
               {otherUser && otherUser.location}
@@ -74,8 +129,7 @@ const RightCard = () => {
         <Link
           className='text-link'
           to={ `${ otherUser && otherUser.userCode === 'agent'
-            ? PROFILE_ROUTE : COMPANY_PROFILE_ROUTE }/${ otherUser && otherUser.id }/feed` }
-          target='_blank'
+            ? PROFILE_ROUTE : COMPANY_PROFILE_ROUTE }/${ otherUser && otherUser.candidateId }/feed` }
         >
           View Profile
         </Link>
@@ -88,6 +142,15 @@ const RightCard = () => {
       />
     </Box>
   )
+}
+
+RightCard.defaultProps = {
+  groupName: '',
+}
+
+RightCard.propTypes = {
+  groupName: PropTypes.string,
+  changeGroupName: PropTypes.func.isRequired,
 }
 
 export default RightCard

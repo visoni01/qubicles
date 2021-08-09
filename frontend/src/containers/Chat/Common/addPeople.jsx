@@ -70,12 +70,12 @@ const AddPeople = ({ open, handleCancel, actionType }) => {
               }
             </div>
             {false && (
-            <Loader
-              className='static-small-loader'
-              enableOverlay={ false }
-              displayLoaderManually
-              size={ 25 }
-            />
+              <Loader
+                className='static-small-loader'
+                enableOverlay={ false }
+                displayLoaderManually
+                size={ 25 }
+              />
             )}
           </div>
         </DialogTitle>
@@ -104,7 +104,7 @@ const AddPeople = ({ open, handleCancel, actionType }) => {
           <div className='h3'>Add People</div>
         )}
         <TextField
-          className='is-fullwidth custom-text-input-field '
+          className='is-fullwidth search-text-field'
           variant='outlined'
           margin='dense'
           placeholder='Search people...'

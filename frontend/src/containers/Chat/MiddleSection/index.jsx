@@ -36,7 +36,9 @@ const MiddleCard = ({ conversationId }) => {
       {/* Chat Controls */}
       <div className='mb-5'>
         <Divider className='divider is-fullwidth no-margin-top' />
-        <ChatControls />
+        <ChatControls
+          conversationId={ chat && chat.conversationId }
+        />
       </div>
     </Box>
   )

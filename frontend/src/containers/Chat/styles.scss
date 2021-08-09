@@ -108,21 +108,57 @@
     height: auto;
     padding: 5px 20px 15px 20px;
 
-    .MuiFormControl-root {
+    .message-field {
       margin: 0px 15px 0px 15px;
+      border: 1px solid $color-border;
+      border-radius: 8px;
 
-      .MuiInputBase-root {
-        height: auto;
-        padding: 7px 10px;
-        font-size: 0.9rem;
+      .MuiFormControl-root {
+        margin: 0px;
 
-        *::-webkit-scrollbar {
-          width: 8px !important;
+        &:focus {
+          outline: none;
+          box-shadow: inherit;
         }
 
-        *::-webkit-scrollbar-thumb {
-          background-color: rgba(72, 119, 244, 0.7);
-          border-radius: 20px 20px 20px 20px ;
+        .MuiInputBase-root {
+          height: auto;
+          padding: 7px 10px;
+          font-size: 0.9rem;
+
+          *::-webkit-scrollbar {
+            width: 8px !important;
+          }
+
+          *::-webkit-scrollbar-thumb {
+            background-color: rgba(72, 119, 244, 0.7);
+            border-radius: 20px 20px 20px 20px ;
+          }
+
+          .MuiOutlinedInput-notchedOutline {
+            border: none;
+          }
+        }
+      }
+
+      .image-preview {
+        height: 100px;
+        width: 150px;
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-bottom: 10px;
+        position: relative;
+
+        img {
+          height: inherit;
+          width: inherit;
+          border-radius: 8px;
+        }
+
+        .cross-button {
+          position: absolute;
+          top: -25px;
+          right: -28px;
         }
       }
     }
@@ -133,10 +169,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  row-gap: 15px;
+  row-gap: 10px;
 
   .avatar-group {
-    margin-top: 10px;
+    margin-top: 5px;
 
     .avatar {
       height: 60px;
@@ -145,7 +181,12 @@
     }
   }
 
+  .group-field {
+    max-width: 80%;
+  }
+
   .options-icon {
+    padding-top: 5px;
     align-self: flex-end;
     position: absolute;
 
@@ -153,6 +194,10 @@
       background-color: inherit;
     }
   }
+}
+
+.chat-options-popover {
+  border-radius: 6px !important;
 }
 
 .add-people-modal{
@@ -174,6 +219,10 @@
       background-color: rgba(72, 119, 244, 0.7);
       border-radius: 20px 20px 20px 20px ;
     }
+  }
+
+  .search-text-field {
+    border-radius: 6px;
   }
 }
 

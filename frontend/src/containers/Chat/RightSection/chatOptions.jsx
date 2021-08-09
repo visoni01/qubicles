@@ -58,6 +58,9 @@ const ChatOptions = ({ isGroup }) => {
           vertical: 'top',
           horizontal: 'right',
         } }
+        classes={ {
+          paper: 'chat-options-popover',
+        } }
       >
         <div className='ellipsis-options-menu border-2'>
           {isGroup && (

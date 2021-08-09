@@ -60,6 +60,7 @@ const ChatPopup = ({ chat }) => {
           </>
         ) }
       />
+
       <Collapse in={ popupOpen }>
         <CardContent className='message-section no-padding'>
           <div className='is-fullheight chat-section'>
@@ -69,8 +70,11 @@ const ChatPopup = ({ chat }) => {
                 chats={ (chat && chat.data) || [] }
               />
             </div>
+
             {/* Chat Controls */}
-            <ChatControls />
+            <ChatControls
+              conversationId={ chat && chat.conversationId }
+            />
           </div>
         </CardContent>
       </Collapse>
