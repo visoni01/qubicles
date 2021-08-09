@@ -9,12 +9,16 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import _ from 'lodash'
+import { useDispatch } from 'react-redux'
 import Loader from '../../loaders/circularLoader'
 import { members as people } from '../testData'
 import PersonCard from './personCard'
+import { allChatsRequestStart } from '../../../redux-saga/redux/chat'
 
 const AddPeople = ({ open, handleCancel, actionType }) => {
   const [ selectedPeople, setSelectedPeople ] = useState([])
+  const [ groupTitle, setGroupTitle ] = useState('')
+  const dispatch = useDispatch()
 
   const addPerson = useCallback((event) => {
     if (actionType !== 'NEW_CHAT') {
@@ -44,8 +48,26 @@ const AddPeople = ({ open, handleCancel, actionType }) => {
 
   const handleCloseModal = useCallback(() => {
     setSelectedPeople([])
+    setGroupTitle('')
     handleCancel()
   }, [ handleCancel ])
+
+  const handleDone = useCallback(() => {
+    switch (actionType) {
+      case 'NEW_GROUP': {
+        dispatch(allChatsRequestStart({
+          requestType: 'UPDATE',
+          dataType: 'new-group',
+          title: !groupTitle || _.isEmpty(groupTitle.trim()) ? 'Group' : groupTitle.trim(),
+          members: selectedPeople,
+        }))
+        break
+      }
+
+      default:
+    }
+    handleCloseModal()
+  }, [ dispatch, actionType, groupTitle, selectedPeople, handleCloseModal ])
 
   return (
     <Dialog
@@ -97,6 +119,7 @@ const AddPeople = ({ open, handleCancel, actionType }) => {
             margin='dense'
             className='is-fullwidth'
             placeholder='Group title (optional)'
+            onChange={ (e) => setGroupTitle(e.target.value) }
           />
         </div>
         )}
@@ -157,7 +180,8 @@ const AddPeople = ({ open, handleCancel, actionType }) => {
             root: 'button-primary-small',
             label: 'button-primary-small-label',
           } }
-          onClick={ () => {} }
+          onClick={ handleDone }
+          disabled={ selectedPeople.length === 0 }
         >
           Done
         </Button>

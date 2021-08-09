@@ -139,6 +139,7 @@ const RightCard = ({
       <ViewMembers
         open={ openViewMembersModal }
         handleClose={ () => setOpenViewMembersModal(false) }
+        members={ members }
       />
     </Box>
   )

@@ -17,6 +17,6 @@ export const updateChatPopupsHelper = ({ chatPopups, payload }) => {
   }
 }
 
-export const updateChatReducer = () => {
+export const updateCurrentChatReducer = () => {
 
 }

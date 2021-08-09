@@ -33,7 +33,7 @@ const {
       isLoading: false,
       success: true,
       error: false,
-      chatsList: action.payload.chats,
+      chatsList: state.requestType === 'FETCH' ? action.payload.chats : [ action.payload.newChat, ...state.chatsList ],
     }),
     allChatsRequestFailed: (state) => ({
       ...state,

@@ -20,6 +20,7 @@ const {
     currentChatRequestFailed,
     resetCurrentChatReducer,
     updateChatPopups,
+    updateCurrentChat,
   }, reducer,
 } = createSlice({
   name: 'currentChat',
@@ -54,6 +55,10 @@ const {
       ...state,
       chatPopups: updateChatPopupsHelper({ chatPopups: state.chatPopups, payload: action.payload }),
     }),
+    updateCurrentChat: (state, action) => ({
+      ...state,
+      chat: action.payload.currentChat,
+    }),
   },
 })
 
@@ -64,4 +69,5 @@ export {
   currentChatRequestFailed,
   resetCurrentChatReducer,
   updateChatPopups,
+  updateCurrentChat,
 }

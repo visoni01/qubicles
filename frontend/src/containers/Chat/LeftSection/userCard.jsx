@@ -5,15 +5,16 @@ import PropTypes from 'prop-types'
 import { Avatar } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircle } from '@fortawesome/free-solid-svg-icons'
+import { groupChatIcon } from '../../../assets/images/chat'
 
 const UserCard = ({
-  id, name, imageUrl, allRead, latestMessage, time, setConversationId,
+  id, name, imageUrl, allRead, latestMessage, time, setConversationId, isGroup, selectedConversationId,
 }) => (
   <div
-    className='is-flex user-card-item'
+    className={ `is-flex user-card-item ${ selectedConversationId === id ? 'selected' : '' }` }
     onClick={ () => setConversationId(id) }
   >
-    <Avatar className='profile-pic' alt={ name } src={ imageUrl } />
+    <Avatar className='profile-pic' alt={ name } src={ isGroup ? groupChatIcon : imageUrl } />
 
     <div className='is-fullwidth'>
       <div className='is-flex is-between'>
@@ -43,6 +44,8 @@ UserCard.defaultProps = {
   latestMessage: '',
   time: '',
   setConversationId: () => {},
+  isGroup: false,
+  selectedConversationId: null,
 }
 
 UserCard.propTypes = {
@@ -53,6 +56,8 @@ UserCard.propTypes = {
   latestMessage: PropTypes.string,
   time: PropTypes.string,
   setConversationId: PropTypes.func,
+  isGroup: PropTypes.bool,
+  selectedConversationId: PropTypes.number,
 }
 
 export default UserCard

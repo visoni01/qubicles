@@ -4,6 +4,7 @@ import {
   allChatsRequestSuccess,
   allChatsRequestFailed,
   showErrorMessage,
+  updateCurrentChat,
 } from '../../redux/actions'
 import Chat from '../../service/chat'
 
@@ -13,7 +14,9 @@ function* allChatsWatcher() {
 
 function* allChatsWorker(action) {
   try {
-    const { requestType, dataType } = action.payload
+    const {
+      requestType, dataType, title, members,
+    } = action.payload
 
     switch (requestType) {
       case 'FETCH': {
@@ -31,6 +34,30 @@ function* allChatsWorker(action) {
 
       case 'UPDATE': {
         switch (dataType) {
+          case 'new-group': {
+            const { data } = yield Chat.createNewGroup({ title, members })
+            yield put(allChatsRequestSuccess({
+              newChat: {
+                id: data && data.conversationId,
+                name: title,
+                imageUrl: '',
+                time: null,
+                isGroup: true,
+                latestMessage: null,
+                allRead: true,
+              },
+            }))
+            yield put(updateCurrentChat({
+              currentChat: {
+                conversationId: data && data.conversationId,
+                isGroup: true,
+                data: [],
+                candidatesInfo: members,
+              },
+            }))
+            break
+          }
+
           default: break
         }
         break

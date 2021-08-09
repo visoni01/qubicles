@@ -342,3 +342,12 @@
     }
   }
 }
+
+.custom-svg-icon{
+  &.color-white {
+    path, g, circle {
+      stroke: $color-white;
+      stroke-width: 3px;
+    }
+  }
+}

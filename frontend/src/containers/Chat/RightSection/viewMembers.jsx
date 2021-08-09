@@ -7,9 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import Loader from '../../loaders/circularLoader'
 import PersonCard from '../Common/personCard'
-import { members as people } from '../testData'
 
-const ViewMembers = ({ open, handleClose }) => (
+const ViewMembers = ({ open, handleClose, members }) => (
   <Dialog
     scroll='paper'
     open={ open }
@@ -48,7 +47,7 @@ const ViewMembers = ({ open, handleClose }) => (
 
     <DialogContent>
       <div>
-        {people && people.map((person) => (
+        {members && members.map((person) => (
           <PersonCard
             key={ person.id }
             id={ person.id }
@@ -71,6 +70,8 @@ ViewMembers.defaultProps = {
 ViewMembers.propTypes = {
   open: PropTypes.bool,
   handleClose: PropTypes.func.isRequired,
+  // To Do: Add proptype validation
+  members: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 }
 
 export default ViewMembers

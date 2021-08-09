@@ -10,7 +10,7 @@ import NewChat from '../Common/addPeople'
 import { allChatsRequestStart } from '../../../redux-saga/redux/chat'
 import '../styles.scss'
 
-const LeftCard = ({ setConversationId }) => {
+const LeftCard = ({ setConversationId, conversationId }) => {
   const [ openSearchField, setOpenSearchField ] = useState(false)
   const [ openNewChatModal, setOpenNewChatModal ] = useState(false)
   const [ openNewGroupModal, setOpenNewGroupModal ] = useState(false)
@@ -107,6 +107,8 @@ const LeftCard = ({ setConversationId }) => {
               latestMessage={ item.latestMessage }
               time={ item.time }
               setConversationId={ setConversationId }
+              isGroup={ item.isGroup }
+              selectedConversationId={ conversationId }
             />
             {index !== chatsList.length - 1 ? <Divider className='user-list-divider' /> : ''}
           </div>
@@ -122,8 +124,13 @@ const LeftCard = ({ setConversationId }) => {
   )
 }
 
+LeftCard.defaultProps = {
+  conversationId: null,
+}
+
 LeftCard.propTypes = {
   setConversationId: PropTypes.func.isRequired,
+  conversationId: PropTypes.number,
 }
 
 export default LeftCard

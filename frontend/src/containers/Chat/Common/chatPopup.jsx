@@ -5,12 +5,11 @@ import {
   Avatar, Card, CardContent, CardHeader, IconButton, Collapse,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faTimes, faWindowMaximize, faMinus,
-} from '@fortawesome/free-solid-svg-icons'
+import { faTimes, faMinus } from '@fortawesome/free-solid-svg-icons'
 import ChatView from '../MiddleSection/chatView'
 import ChatControls from '../MiddleSection/chatControls'
 import { updateChatPopups } from '../../../redux-saga/redux/chat'
+import { MaximizeIcon } from '../../../assets/images/chat'
 
 const ChatPopup = ({ chat }) => {
   const [ popupOpen, setPopupOpen ] = useState(false)
@@ -45,14 +44,16 @@ const ChatPopup = ({ chat }) => {
         action={ (
           <>
             <IconButton>
-              <FontAwesomeIcon
-                className='custom-fa-icon white pointer'
-                icon={ popupOpen ? faMinus : faWindowMaximize }
-              />
+              {popupOpen ? (
+                <FontAwesomeIcon
+                  className='custom-fa-icon white'
+                  icon={ faMinus }
+                />
+              ) : <MaximizeIcon className='custom-svg-icon color-white' />}
             </IconButton>
             <IconButton onClick={ closePopup }>
               <FontAwesomeIcon
-                className='custom-fa-icon white pointer'
+                className='custom-fa-icon white'
                 icon={ faTimes }
 
               />
