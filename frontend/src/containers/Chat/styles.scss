@@ -34,12 +34,20 @@
         margin-right: 10px;
       }
 
-      .text-message {
+      .short-message {
         display: -webkit-box;
-        -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
+      }
+
+      .conversation-title {
+        -webkit-line-clamp: 1;
+        width: calc(100% - 65px);
+      }
+
+      .text-message {
+        -webkit-line-clamp: 2;
         margin-top: 3px;
       }
     }
@@ -349,5 +357,17 @@
       stroke: $color-white;
       stroke-width: 3px;
     }
+  }
+}
+
+.new-conversation-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: auto;
+  padding: 130px !important;
+
+  .MuiButton-text {
+    margin: 20px;
   }
 }

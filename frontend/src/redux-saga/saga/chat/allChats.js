@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import { takeEvery, put } from 'redux-saga/effects'
 import {
   allChatsRequestStart,
@@ -36,10 +37,11 @@ function* allChatsWorker(action) {
         switch (dataType) {
           case 'new-group': {
             const { data } = yield Chat.createNewGroup({ title, members })
+            const groupName = title || (members && members.map((item) => item.name).join(', '))
             yield put(allChatsRequestSuccess({
               newChat: {
                 id: data && data.conversationId,
-                name: title,
+                name: groupName,
                 imageUrl: '',
                 time: null,
                 isGroup: true,
@@ -51,6 +53,7 @@ function* allChatsWorker(action) {
               currentChat: {
                 conversationId: data && data.conversationId,
                 isGroup: true,
+                groupName,
                 data: [],
                 candidatesInfo: members,
               },

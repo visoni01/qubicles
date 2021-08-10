@@ -11,10 +11,12 @@ import { allChatsRequestStart } from '../../../redux-saga/redux/chat'
 import '../styles.scss'
 
 const LeftCard = ({ setConversationId, conversationId }) => {
+  const { chatsList } = useSelector((state) => state.allChats)
+
   const [ openSearchField, setOpenSearchField ] = useState(false)
   const [ openNewChatModal, setOpenNewChatModal ] = useState(false)
   const [ openNewGroupModal, setOpenNewGroupModal ] = useState(false)
-  const { chatsList } = useSelector((state) => state.allChats)
+
   const dispatch = useDispatch()
 
   const handleSearchClick = useCallback(() => {
@@ -35,6 +37,12 @@ const LeftCard = ({ setConversationId, conversationId }) => {
       dataType: 'chats-list',
     }))
   }, [ dispatch ])
+
+  useEffect(() => {
+    if (chatsList && chatsList.length > 0) {
+      setConversationId(chatsList[ 0 ] && chatsList[ 0 ].id)
+    }
+  }, [ chatsList, setConversationId ])
 
   return (
     <Box
@@ -96,9 +104,7 @@ const LeftCard = ({ setConversationId, conversationId }) => {
       {/* Users List */}
       <div className='user-list'>
         {chatsList && chatsList.map((item, index) => (
-          <div
-            key={ item.id }
-          >
+          <div key={ item.id }>
             <UserCard
               id={ item.id }
               name={ item.name }

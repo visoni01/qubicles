@@ -58,7 +58,7 @@ const AddPeople = ({ open, handleCancel, actionType }) => {
         dispatch(allChatsRequestStart({
           requestType: 'UPDATE',
           dataType: 'new-group',
-          title: !groupTitle || _.isEmpty(groupTitle.trim()) ? 'Group' : groupTitle.trim(),
+          title: !groupTitle || _.isEmpty(groupTitle.trim()) ? '' : groupTitle.trim(),
           members: selectedPeople,
         }))
         break

@@ -18,12 +18,12 @@ const UserCard = ({
 
     <div className='is-fullwidth'>
       <div className='is-flex is-between'>
-        <span className='h4'>{name}</span>
+        <span className='h4 short-message conversation-title'>{name}</span>
         <p className='para light'>{time}</p>
       </div>
 
       <div className='is-flex is-between align-items-flex-end'>
-        <p className={ `para text-message ${ allRead ? 'light' : '' }` }>
+        <p className={ `para short-message text-message ${ allRead ? 'light' : '' }` }>
           {latestMessage || 'Start a conversation...'}
         </p>
         {!allRead ? (

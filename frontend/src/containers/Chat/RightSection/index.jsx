@@ -1,5 +1,5 @@
 /* eslint-disable complexity */
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { AvatarGroup } from '@material-ui/lab'
 import { useSelector } from 'react-redux'
@@ -14,17 +14,17 @@ import { COMPANY_PROFILE_ROUTE, PROFILE_ROUTE } from '../../../routes/routesPath
 import ChatOptions from './chatOptions'
 import ViewMembers from './viewMembers'
 
-const RightCard = ({
-  groupName, changeGroupName,
-}) => {
+const RightCard = ({ changeGroupName }) => {
   const { chat } = useSelector((state) => state.currentChat)
 
   const [ openViewMembersModal, setOpenViewMembersModal ] = useState(false)
   const [ showGroupNameField, setShowGroupNameField ] = useState(false)
-  const [ groupNameValue, setGroupNameValue ] = useState(groupName)
+  const [ groupNameValue, setGroupNameValue ] = useState('')
 
   const { candidatesInfo: members, isGroup } = chat
   const otherUser = members && members.length > 0 && members[ 0 ]
+
+  useEffect(() => setGroupNameValue(chat.groupName), [ chat ])
 
   const handleEdit = useCallback(() => {
     setShowGroupNameField(true)
@@ -145,12 +145,7 @@ const RightCard = ({
   )
 }
 
-RightCard.defaultProps = {
-  groupName: '',
-}
-
 RightCard.propTypes = {
-  groupName: PropTypes.string,
   changeGroupName: PropTypes.func.isRequired,
 }
 

@@ -18,6 +18,7 @@ const Chat = class {
     chats.push({
       conversationId: nextConversationId,
       isGroup: true,
+      groupName: title,
       data: [],
       candidatesInfo: members,
     })
