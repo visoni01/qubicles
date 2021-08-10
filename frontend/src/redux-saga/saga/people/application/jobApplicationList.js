@@ -1,6 +1,6 @@
 import { takeEvery, put, select } from 'redux-saga/effects'
 import WebSocket from '../../../../socket'
-import { getNotificationMessage, getUserDetails } from '../../../../utils/common'
+import { getNotificationMessage, getSmsNotificationMessage, getUserDetails } from '../../../../utils/common'
 import { SUBJECTS } from '../../../../utils/messages'
 import {
   jobApplicationListRequestStart,
@@ -66,6 +66,17 @@ function* jobApplicationListWorker(action) {
             },
           })
 
+          const smsText = getSmsNotificationMessage({
+            type: (data.status === 'declined' && 'cancel-application')
+            || (data.status === 'invited' && 'invite-for-job')
+            || (data.status === 'hired' && 'hire-for-job'),
+            payload: {
+              name: application && application.userDetails && application.userDetails.fullName,
+              jobTitle: jobDetails && jobDetails.title,
+              companyName: jobDetails.companyDetails.client_name,
+            },
+          })
+
           WebSocket.sendNotification({
             to: data.user_id && data.user_id.toString(),
             from: userDetails && userDetails.user_id,
@@ -74,6 +85,7 @@ function* jobApplicationListWorker(action) {
             subject: (data.status === 'declined' && SUBJECTS.JOB_APPLICATION_CANCELLED)
             || (data.status === 'invited' && SUBJECTS.JOB_INVITATION)
             || (data.status === 'hired' && SUBJECTS.HIRED_BY_COMPANY),
+            smsText,
           })
         }
 

@@ -41,7 +41,7 @@ const ChangeNumber = ({
         dispatch(updateCompanyProfileSettingsApiStart({
           updatedDataType: 'number',
           updatedData: {
-            phoneNumber: formState.newNumber,
+            phoneNumber: formState.newNumber && formState.newNumber.slice(1),
           },
         }))
       } else if (userType === 'agent') {
@@ -49,7 +49,7 @@ const ChangeNumber = ({
           dispatch(agentProfileSettingsApiStart({
             updatedDataType: 'mobile phone',
             updatedData: {
-              mobileNumber: formState.newNumber,
+              mobileNumber: formState.newNumber && formState.newNumber.slice(1),
             },
             requestType: 'UPDATE',
           }))
@@ -57,7 +57,7 @@ const ChangeNumber = ({
           dispatch(agentProfileSettingsApiStart({
             updatedDataType: 'home phone',
             updatedData: {
-              homePhone: formState.newNumber,
+              homePhone: formState.newNumber && formState.newNumber.slice(1),
             },
             requestType: 'UPDATE',
           }))

@@ -74,7 +74,7 @@ const Notifications = () => {
       <Popover
         disableScrollLock
         open={ isDropDownOpen }
-        className='mt-60'
+        className='notifications-popover mt-60'
         onClose={ handleClose }
         anchorEl={ anchorEl }
       >

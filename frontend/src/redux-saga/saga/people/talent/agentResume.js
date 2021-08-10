@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { takeEvery, put, select } from 'redux-saga/effects'
 import WebSocket from '../../../../socket'
-import { getNotificationMessage, getUserDetails } from '../../../../utils/common'
+import { getNotificationMessage, getSmsNotificationMessage, getUserDetails } from '../../../../utils/common'
 import { SUBJECTS } from '../../../../utils/messages'
 import {
   fetchAgentResumeStart,
@@ -52,11 +52,20 @@ function* agentResumeSkillsWorker(action) {
           })
 
           if (isFollowing) {
+            const smsText = getSmsNotificationMessage({
+              type: 'follow',
+              payload: {
+                name: userDetails && userDetails.full_name,
+                userName: agentResume && agentResume.candidateName,
+              },
+            })
+
             WebSocket.sendNotification({
               to: candidateId && candidateId.toString(),
               from: userDetails.user_id,
               message,
               subject: SUBJECTS.FOLLOW,
+              smsText,
             })
           } else {
             WebSocket.deleteNotification({

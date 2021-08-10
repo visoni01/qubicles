@@ -1,6 +1,7 @@
+/* eslint-disable complexity */
 import { takeEvery, put } from 'redux-saga/effects'
 import apiClient from '../../../utils/apiClient'
-import { getNotificationMessage } from '../../../utils/common'
+import { getNotificationMessage, getSmsNotificationMessage } from '../../../utils/common'
 import {
   userSignupStart,
   userSignupFailure,
@@ -25,7 +26,13 @@ function* signupWorker(action) {
         payload: {
           id: userData && userData.user_id,
           name: userData && userData.full_name,
-          userCode: userData && userData.inviter_user_code,
+        },
+      })
+
+      const smsText = getSmsNotificationMessage({
+        type: 'referral-signup',
+        payload: {
+          name: userData && userData.full_name,
         },
       })
 
@@ -34,6 +41,7 @@ function* signupWorker(action) {
         from: userData && userData.user_id,
         message,
         subject: SUBJECTS.REFER_USER,
+        smsText,
       })
     }
 

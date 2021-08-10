@@ -42,6 +42,7 @@ const appReducer = combineReducers({
 
 const rootReducer = (state, action) => {
   if (action.type === clearStore.type) {
+    // Reference link: https://stackoverflow.com/a/35641992
     return appReducer(undefined, action)
   }
 

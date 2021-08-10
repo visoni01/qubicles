@@ -394,13 +394,14 @@ export const getUserDetailsByUserId = async ({ user_id }) => {
     raw: true,
     attributes: [
       ['notify_email', 'notifyEmail'],
-      ['notify_sms', 'notifySms']
+      ['notify_sms', 'notifySms'],
+      ['mobile_phone', 'mobileNumber']
     ],
     include: [
       {
         model: User,
         as: 'user',
-        attributes: ['email']
+        attributes: ['email', 'user_code']
       }
     ],
     where: {
@@ -408,9 +409,44 @@ export const getUserDetailsByUserId = async ({ user_id }) => {
     }
   })
 
-  return {
-    notifyEmail: userDetails && userDetails.notifyEmail,
-    notifySms: userDetails && userDetails.notifySms,
-    emailId: userDetails && userDetails['user.email']
+  if (userDetails) {
+    const { notifyEmail, notifySms } = userDetails
+    let result = {
+      notifyEmail,
+      notifySms,
+      emailId: userDetails['user.email']
+    }
+
+    if (userDetails['user.user_code'] === 'employer' && notifySms) {
+      const clientUserId = await XClientUser.findOne({
+        raw: true,
+        attributes: ['client_id'],
+        where: {
+          user_id
+        }
+      })
+
+      if (clientUserId && clientUserId.client_id) {
+        const clientDetails = await XClient.findOne({
+          raw: true,
+          attributes: ['phone_number'],
+          where: {
+            client_id: clientUserId.client_id
+          }
+        })
+
+        result = {
+          ...result,
+          mobileNumber: clientDetails && clientDetails.phone_number
+        }
+      }
+    } else {
+      result = {
+        ...result,
+        mobileNumber: userDetails.mobileNumber
+      }
+    }
+
+    return result
   }
 }

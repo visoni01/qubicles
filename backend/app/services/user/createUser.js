@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken'
 import config from '../../../config/app'
 import { ERRORS, MESSAGES } from '../../utils/errors'
 import logger from '../../common/logger'
-import { getErrorMessageForService, getUserById } from '../helper'
+import { getErrorMessageForService } from '../helper'
 import { generateUserWalletId } from '../../utils/generateWalletId'
 
 const constraints = {
@@ -55,7 +55,7 @@ export class CreateUserService extends ServiceBase {
         user: walletAddress
       }
       try {
-        let user = await User.create(newUser)
+        const user = await User.create(newUser)
         await UserDetail.create({
           user_id: user.user_id,
           first_name: this.first_name,
@@ -78,13 +78,6 @@ export class CreateUserService extends ServiceBase {
           await findOrCreateContact({ user_id: inviter_id, referral_email: this.email })
           // Assign User and Referrel Credits rewards
           await assignCredits({ user_id: inviter_id, referral_email: this.email })
-          // Get Inviter ID user code
-          const data = await getUserById({ user_id: inviter_id })
-          user = user && user.get({ plain: true })
-          user = {
-            ...user,
-            inviter_user_code: data && data.user_code
-          }
         }
         return user
       } catch (e) {

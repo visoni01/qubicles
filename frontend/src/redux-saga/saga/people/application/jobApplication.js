@@ -14,7 +14,7 @@ import {
   updateAgentApplicationInList,
 } from '../../../redux/actions'
 import People from '../../../service/people'
-import { getNotificationMessage, getUserDetails } from '../../../../utils/common'
+import { getNotificationMessage, getSmsNotificationMessage, getUserDetails } from '../../../../utils/common'
 import WebSocket from '../../../../socket'
 import { SUBJECTS } from '../../../../utils/messages'
 
@@ -68,11 +68,20 @@ function* jobApplicationWorker(action) {
             },
           })
 
+          const smsText = getSmsNotificationMessage({
+            type: 'invite-for-job',
+            payload: {
+              name: agentResume && agentResume.candidateName,
+              jobTitle: jobDetails && jobDetails.title,
+            },
+          })
+
           WebSocket.sendNotification({
             to: data.user_id && data.user_id.toString(),
             from: userDetails && userDetails.user_id,
             message,
             subject: SUBJECTS.JOB_INVITATION,
+            smsText,
           })
         }
 
@@ -89,11 +98,20 @@ function* jobApplicationWorker(action) {
             },
           })
 
+          const smsText = getSmsNotificationMessage({
+            type: 'job-applied',
+            payload: {
+              userName: userDetails && userDetails.full_name,
+              jobTitle: jobDetails && jobDetails.title,
+            },
+          })
+
           WebSocket.sendNotification({
             to: jobDetails && jobDetails.jobPostOwnerId && jobDetails.jobPostOwnerId.toString(),
             from: userDetails.user_id,
             message,
             subject: SUBJECTS.JOB_APPLIED,
+            smsText,
           })
         }
         break
@@ -157,12 +175,22 @@ function* jobApplicationWorker(action) {
             },
           })
 
+          const smsText = getSmsNotificationMessage({
+            type: 'hire-for-job',
+            payload: {
+              name: agentResume && agentResume.candidateName,
+              jobTitle: application && application.jobTitle,
+              companyName: settings && settings.companyName,
+            },
+          })
+
           WebSocket.sendNotification({
             to: data.user_id && data.user_id.toString(),
             from: settings && settings.companyId,
             message,
             subject: SUBJECTS.HIRED_BY_COMPANY,
             notifyEmail: true,
+            smsText,
           })
         }
 
@@ -191,12 +219,22 @@ function* jobApplicationWorker(action) {
               message,
             })
           } else {
+            const smsText = getSmsNotificationMessage({
+              type: (data.status === 'screening' && 'accept-job-invitation')
+              || (data.status === 'resigned' && 'resign-job'),
+              payload: {
+                userName: userDetails && userDetails.full_name,
+                jobTitle: jobDetails && jobDetails.title,
+              },
+            })
+
             WebSocket.sendNotification({
               to: jobDetails && jobDetails.jobPostOwnerId && jobDetails.jobPostOwnerId.toString(),
               from: userDetails.user_id,
               message,
               subject: (data.status === 'screening' && SUBJECTS.ACCEPT_JOB_INVITATION)
               || (data.status === 'resigned' && SUBJECTS.RESIGN_JOB),
+              smsText,
             })
           }
         }
@@ -216,12 +254,22 @@ function* jobApplicationWorker(action) {
             },
           })
 
+          const smsText = getSmsNotificationMessage({
+            type: (data.status === 'declined' && 'cancel-application')
+            || (data.status === 'invited' && 'invite-for-job'),
+            payload: {
+              name: agentResume && agentResume.candidateName,
+              jobTitle: application && application.jobTitle,
+            },
+          })
+
           WebSocket.sendNotification({
             to: data.user_id && data.user_id.toString(),
             from: userDetails && userDetails.user_id,
             message,
             subject: (data.status === 'declined' && SUBJECTS.JOB_APPLICATION_CANCELLED)
             || (data.status === 'invited' && SUBJECTS.JOB_INVITATION),
+            smsText,
           })
         }
         break

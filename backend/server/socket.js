@@ -6,6 +6,7 @@ import config from '../config/app'
 import { EVENTS } from '../app/utils/success'
 import { addUserNotification, deleteNotification, getUserDetailsByUserId } from '../app/services/helper'
 import SendNotificationMailService from '../app/services/email/sendNotificationMail'
+import SendSmsNotificationService from '../app/services/sms/sendSmsNotification'
 
 const createSocketConnection = (server) => {
   try {
@@ -26,20 +27,28 @@ const createSocketConnection = (server) => {
         }
       })
 
-      socket.on(EVENTS.SEND_NOTIFICATION, async ({ to, message, from, notifyEmail, subject }) => {
+      socket.on(EVENTS.SEND_NOTIFICATION, async ({ to, message, from, notifyEmail, subject, smsText }) => {
         try {
           const notification = await addUserNotification({ user_id: to, notice: message, record_id: from })
           io.to(to.toString()).emit(EVENTS.RECEIVE_NOTIFICATION, notification)
 
-          // For sending Email Notification
           const data = await getUserDetailsByUserId({ user_id: to })
           notifyEmail = notifyEmail || (data && data.notifyEmail)
 
-          if (data && notifyEmail) {
+          // For sending Email Notification
+          if (data && data.emailId && notifyEmail) {
             await SendNotificationMailService.execute({
               email_id: data.emailId,
               subject,
               message
+            })
+          }
+
+          // For sending SMS Notification
+          if (data && data.notifySms && data.mobileNumber && smsText) {
+            await SendSmsNotificationService.execute({
+              mobile_number: data.mobileNumber,
+              message: smsText
             })
           }
         } catch (e) {

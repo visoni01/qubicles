@@ -1,7 +1,7 @@
 /* eslint-disable complexity */
 import { takeEvery, put, select } from 'redux-saga/effects'
 import WebSocket from '../../../../socket'
-import { getNotificationMessage, getUserDetails } from '../../../../utils/common'
+import { getNotificationMessage, getSmsNotificationMessage, getUserDetails } from '../../../../utils/common'
 import { SUBJECTS } from '../../../../utils/messages'
 import {
   agentJobApplicationsRequestStart,
@@ -80,11 +80,20 @@ function* jobApplicationListWorker(action) {
             },
           })
 
+          const smsText = getSmsNotificationMessage({
+            type,
+            payload: {
+              userName: userDetails && userDetails.full_name,
+              jobTitle: application && application.jobDetails && application.jobDetails.jobTitle,
+            },
+          })
+
           WebSocket.sendNotification({
             to: data.client_user_id && data.client_user_id.toString(),
             from: userDetails.user_id,
             message,
             subject,
+            smsText,
           })
         }
         break

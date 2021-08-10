@@ -312,6 +312,20 @@ const config = convict({
       default: '',
       env: 'CHECKR_SECRET_KEY'
     }
+  },
+  twilio: {
+    accountSid: {
+      default: '',
+      env: 'TWILIO_ACCOUNT_SID'
+    },
+    authToken: {
+      default: '',
+      env: 'TWILIO_AUTH_TOKEN'
+    },
+    defaultMobileNumber: {
+      default: '',
+      env: 'TWILIO_MOBILE_NUMBER'
+    }
   }
 })
 config.validate({ allowed: 'strict' })

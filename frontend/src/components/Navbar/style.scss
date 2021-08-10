@@ -142,62 +142,74 @@
   max-width: 1480px !important;
 }
 
-.notification-menu {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-content: space-around;
-  width: 450px;
 
-  .options {
+.notifications-popover {
+  .notification-menu {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    padding: 10px 20px;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-content: space-around;
+    width: 450px;
 
-    .profile-picture {
-      width: 100%;
-      height: 40px;
-      max-width: 40px;
-      margin-right: 10px;
-    }
-
-    .notification-message {
-      width: 100%;
-      max-width: calc(100% - 110px);
-      margin-right: 0px;
-      font-size: 14px;
-    }
-
-    .icons {
+    .options {
       display: flex;
-      justify-content: flex-end;
-      width: 100%;
-      max-width: 50px;
-      margin-left: 10px;
-      align-items: self-start;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      padding: 10px 20px;
+
+      .profile-picture {
+        width: 100%;
+        height: 40px;
+        max-width: 40px;
+        margin-right: 10px;
+      }
+
+      .notification-message {
+        width: 100%;
+        max-width: calc(100% - 110px);
+        margin-right: 0px;
+        font-size: 14px;
+      }
+
+      .icons {
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+        max-width: 50px;
+        margin-left: 10px;
+        align-items: self-start;
+      }
+
+      .notification-time {
+        font-size: 13px;
+        color: gray;
+      }
     }
 
-    .notification-time {
-      font-size: 13px;
-      color: gray;
+    .options:hover {
+      background-color: $color-primary-light;
+      cursor: pointer;
+    }
+
+    .options:first-child {
+      padding-top: 20px;
+    }
+
+    .options:last-child {
+      padding-bottom: 20px;
+    }
+
+    .view-more-button {
+      margin: 0px auto 10px auto;
     }
   }
 
-  .options:hover {
-    background-color: $color-primary-light;
-    cursor: pointer;
+  .MuiPaper-root::-webkit-scrollbar {
+    width: 8px !important;
   }
 
-  .options:first-child {
-    padding-top: 20px;
-  }
-
-  .options:last-child {
-    padding-bottom: 20px;
-  }
-
-  .view-more-button {
-    margin: 0px auto 10px auto;
+  .MuiPaper-root::-webkit-scrollbar-thumb {
+    background-color: rgba(72, 119, 244, 0.7);
+    border-radius: 20px 20px 20px 20px ;
   }
 }

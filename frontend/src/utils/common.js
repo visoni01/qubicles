@@ -230,9 +230,48 @@ export const getNotificationMessage = ({ type, payload }) => {
     }
 
     case 'referral-signup': {
-      return `<span>Congrats - you’ve just earned free crypto! <a href="${ config.APP_BASE_URL }
-        ${ _.isEqual(payload.userCode, 'employer') ? COMPANY_PROFILE_ROUTE : PROFILE_ROUTE }/
-        ${ payload.id }/feed" target="_blank">${ payload.name }</a> has accepted your invitation to sign up!</span>`
+      return `<span>Congrats - you’ve just earned free crypto!
+        <a href="${ config.APP_BASE_URL }${ PROFILE_ROUTE }/${ payload.id }/feed" target="_blank">${ payload.name }
+        </a> has accepted your invitation to sign up!</span>`
+    }
+
+    default: return ''
+  }
+}
+
+export const getSmsNotificationMessage = ({ type, payload }) => {
+  switch (type) {
+    case 'follow': {
+      return `Hi ${ payload.userName }, ${ payload.name } has started following you.`
+    }
+
+    case 'cancel-application': {
+      return `We're sorry ${ payload.name }, but your application for ${ payload.jobTitle } has been cancelled.`
+    }
+
+    case 'invite-for-job': {
+      return `Hi ${ payload.name }, you have been invited to join ${ payload.jobTitle }!`
+    }
+
+    case 'hire-for-job': {
+      return `Congratulations, ${ payload.name }! You have been hired for the position ${ payload.jobTitle }
+        with Company ${ payload.companyName }!`
+    }
+
+    case 'job-applied': {
+      return `${ payload.userName } just applied to your job ${ payload.jobTitle }.`
+    }
+
+    case 'accept-job-invitation': {
+      return `${ payload.userName } has accepted your invitation for ${ payload.jobTitle }.`
+    }
+
+    case 'resign-job': {
+      return `${ payload.userName } has resigned from your job ${ payload.jobTitle }.`
+    }
+
+    case 'referral-signup': {
+      return `Congrats - you’ve just earned free crypto! ${ payload.name } has accepted your invitation to sign up!`
     }
 
     default: return ''
