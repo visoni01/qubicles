@@ -32,7 +32,7 @@ const JobPostModal = ({
       scroll='body'
     >
       <div className='header'>
-        <DialogTitle className='jobPost-modal-title'>
+        <DialogTitle>
           <div className='h2'>Job Post</div>
         </DialogTitle>
         <DialogActions className='cross-button'>

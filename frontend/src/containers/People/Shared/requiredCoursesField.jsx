@@ -56,7 +56,7 @@ const RequiredCoursesField = ({
         offset: 0,
       }))
     }
-  }, 500), [ dispatch, coursesType ])
+  }, 500), [ dispatch, coursesType, currentCourseId ])
 
   // Fetch more courses
   const viewMoreCourses = useCallback(() => {

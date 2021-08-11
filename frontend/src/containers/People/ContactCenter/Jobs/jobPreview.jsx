@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useCallback, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Box, Grid,
 } from '@material-ui/core'
@@ -8,10 +8,17 @@ import JobPostDetails from '../../../../components/People/ContactCenter/Jobs/job
 import CreatePreviewActions from './NewJob/createPreviewActions'
 import checkAndSetErrors from './NewJob/checkAndSetErrors'
 import AlertPopover from '../../../../components/CommonModal/alertPopover'
+import { stopLoader } from '../../../../redux-saga/redux/utils'
 
 const JobPreview = () => {
   const { createJobData, isUpdatedData, isLoading } = useSelector((state) => state.createJobData)
+  const { loading } = useSelector((state) => state.loader)
+
+  const dispatch = useDispatch()
+
   const [ errors, setErrors ] = useState({})
+
+  useEffect(() => () => loading && dispatch(stopLoader()), [ loading, dispatch ])
 
   const handleErrors = useCallback(({ status }) => (
     checkAndSetErrors({ setErrors, newJobData: createJobData, status })

@@ -42,16 +42,18 @@ const NewJob = (props) => {
       bonusCourses: [ ],
     },
   }
-  const [ newJobData, setNewJobData ] = useState(defaultJobData)
   const { jobFields, isLoading: jobDetailsLoading } = useSelector((state) => state.jobDetails)
   const { createJobData } = useSelector((state) => state.createJobData)
+  const { loading } = useSelector((state) => state.loader)
+
+  const [ newJobData, setNewJobData ] = useState(defaultJobData)
   const [ errors, setErrors ] = useState({})
 
   const handleErrors = useCallback(({ status }) => (
     checkAndSetErrors({ setErrors, newJobData, status })
   ), [ newJobData ])
 
-  useEffect(() => () => dispatch(stopLoader()), [ dispatch ])
+  useEffect(() => () => loading && dispatch(stopLoader()), [ loading, dispatch ])
 
   useEffect(() => {
     if (jobDetailsLoading) {
