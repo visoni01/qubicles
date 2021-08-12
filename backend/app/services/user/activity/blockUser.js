@@ -1,5 +1,5 @@
 import ServiceBase from '../../../common/serviceBase'
-import { ERRORS } from '../../../utils/errors'
+import { ERRORS, MESSAGES } from '../../../utils/errors'
 import logger from '../../../common/logger'
 import { blockOrUnblockUser, getErrorMessageForService, getNoOfFollowersAndFollowings } from '../../helper'
 
@@ -20,7 +20,12 @@ export class UserBlockService extends ServiceBase {
   async run () {
     try {
       const { block_user_id, user_id } = this.filteredArgs
-      await blockOrUnblockUser({ block_user_id, user_id })
+      const blockFlag = await blockOrUnblockUser({ block_user_id, user_id })
+
+      if (!blockFlag) {
+        this.addError(ERRORS.FORBIDDEN, MESSAGES.CANNOT_BLOCK)
+      }
+
       const { noOfFollowers, noOfFollowings } = await getNoOfFollowersAndFollowings({ user_id: block_user_id })
 
       return {

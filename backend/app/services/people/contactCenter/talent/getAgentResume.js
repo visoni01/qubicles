@@ -21,7 +21,7 @@ export class PeopleGetAgentResumeService extends ServiceBase {
   async run () {
     const { candidate_id, user_id } = this.filteredArgs
     try {
-      const connectionType = await getConnectionType({ follower_id: user_id, following_id: candidate_id })
+      const connectionType = await getConnectionType({ follower_id: user_id, user_to_follow_id: candidate_id })
 
       if (connectionType === 'blocked') {
         this.addError(ERRORS.NOT_FOUND, MESSAGES.USER_NOT_FOUND)
@@ -29,7 +29,7 @@ export class PeopleGetAgentResumeService extends ServiceBase {
 
       const promises = [
         () => getAgentResume({ candidateId: candidate_id }),
-        () => getConnectionType({ following_id: user_id, follower_id: candidate_id }),
+        () => getConnectionType({ user_to_follow_id: user_id, follower_id: candidate_id }),
         () => getNoOfFollowersAndFollowings({ user_id: candidate_id })
       ]
       const [

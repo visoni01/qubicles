@@ -26,10 +26,10 @@ export class CompanyDetailsService extends ServiceBase {
         this.addError(ERRORS.NOT_FOUND, MESSAGES.CLIENT_NOT_EXIST)
         return
       }
-      console.log(clientDetails)
+
       const promises = [
         () => getUserDetailsByClientId({ client_id: clientDetails.client_id }),
-        () => getConnectionType({ follower_id: user_id, following_id: client_id }),
+        () => getConnectionType({ follower_id: user_id, user_to_follow_id: client_id }),
         () => getNoOfFollowersAndFollowings({ user_id: client_id }),
         () => getJobsAndHiredCount({ client_id })
       ]

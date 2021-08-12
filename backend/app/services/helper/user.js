@@ -3,6 +3,7 @@ import config from '../../../config/app'
 import jwt from 'jsonwebtoken'
 import { getOne } from './crud'
 import Sequelize, { Op } from 'sequelize'
+import _ from 'lodash'
 
 export const getUserById = ({ user_id }) => {
   return User.findOne({ where: { user_id }, raw: true })
@@ -87,11 +88,11 @@ export const getInviteLink = async ({ user_id }) => {
   }
 }
 
-export const getConnectionType = async ({ following_id, follower_id }) => {
+export const getConnectionType = async ({ user_to_follow_id, follower_id }) => {
   const followingData = await XUserActivity.findOne({
     where: {
       user_id: follower_id,
-      record_id: following_id,
+      record_id: user_to_follow_id,
       activity_type: 'connection'
     },
     attributes: ['activity_value'],
@@ -120,10 +121,10 @@ export const getNoOfFollowersAndFollowings = async ({ user_id }) => {
   }
 }
 
-export const followOrUnfollowUser = async ({ following_id, follower_id, userCode }) => {
+export const followOrUnfollowUser = async ({ user_to_follow_id, follower_id, userCode }) => {
   const promises = [
-    () => getConnectionType({ following_id, follower_id }),
-    () => getConnectionType({ following_id: follower_id, follower_id: following_id })
+    () => getConnectionType({ user_to_follow_id, follower_id }),
+    () => getConnectionType({ user_to_follow_id: follower_id, follower_id: user_to_follow_id })
   ]
   const [connectionType, reverseConnectionType] = await Promise.all(promises.map(promise => promise()))
 
@@ -131,7 +132,7 @@ export const followOrUnfollowUser = async ({ following_id, follower_id, userCode
     await XUserActivity.create({
       user_id: follower_id,
       record_type: userCode,
-      record_id: following_id,
+      record_id: user_to_follow_id,
       activity_type: 'connection',
       activity_value: reverseConnectionType === 'following' ? 'connected' : 'following',
       activity_permission: 'public'
@@ -142,7 +143,7 @@ export const followOrUnfollowUser = async ({ following_id, follower_id, userCode
         { activity_value: 'connected' },
         {
           where: {
-            user_id: following_id,
+            user_id: user_to_follow_id,
             record_id: follower_id,
             activity_type: 'connection'
           }
@@ -153,7 +154,7 @@ export const followOrUnfollowUser = async ({ following_id, follower_id, userCode
     await XUserActivity.destroy({
       where: {
         user_id: follower_id,
-        record_id: following_id,
+        record_id: user_to_follow_id,
         activity_type: 'connection'
       }
     })
@@ -163,7 +164,7 @@ export const followOrUnfollowUser = async ({ following_id, follower_id, userCode
         { activity_value: 'following' },
         {
           where: {
-            user_id: following_id,
+            user_id: user_to_follow_id,
             record_id: follower_id,
             activity_type: 'connection'
           }
@@ -179,8 +180,8 @@ export const followOrUnfollowUser = async ({ following_id, follower_id, userCode
 
 export const blockOrUnblockUser = async ({ user_id, block_user_id }) => {
   const promises = [
-    () => getConnectionType({ following_id: block_user_id, follower_id: user_id }),
-    () => getConnectionType({ following_id: user_id, follower_id: block_user_id })
+    () => getConnectionType({ user_to_follow_id: block_user_id, follower_id: user_id }),
+    () => getConnectionType({ user_to_follow_id: user_id, follower_id: block_user_id })
   ]
   const [connectionType, reverseConnectionType] = await Promise.all(promises.map(promise => promise()))
 
@@ -192,6 +193,8 @@ export const blockOrUnblockUser = async ({ user_id, block_user_id }) => {
         activity_type: 'connection'
       }
     })
+  } else if (_.isEqual(connectionType, 'blocked')) {
+    return false
   }
 
   if (!reverseConnectionType) {
@@ -223,4 +226,6 @@ export const blockOrUnblockUser = async ({ user_id, block_user_id }) => {
       }
     )
   }
+
+  return true
 }

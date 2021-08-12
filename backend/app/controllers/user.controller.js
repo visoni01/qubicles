@@ -146,11 +146,11 @@ export default class UserController {
   }
 
   static async blockUser (req, res) {
-    const hasFollowed = await UserBlockService.execute({ ...req.body, ...req.params })
-    if (hasFollowed.successful) {
-      Responder.success(res, hasFollowed.result)
+    const hasBlocked = await UserBlockService.execute({ ...req.body, ...req.params })
+    if (hasBlocked.successful) {
+      Responder.success(res, hasBlocked.result)
     } else {
-      Responder.failed(res, hasFollowed.errors)
+      Responder.failed(res, hasBlocked.errors)
     }
   }
 }

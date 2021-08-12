@@ -3,7 +3,7 @@ import {
   Popover, IconButton, Button,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
+import { faBan, faCopy, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { fetchAgentResumeStart, showSuccessMessage } from '../../../../redux-saga/redux/actions'
@@ -68,12 +68,14 @@ const ProfileOptions = ({ candidateId, hasBlockedUser }) => {
           vertical: 'top',
           horizontal: 'right',
         } }
+        className='profile-options'
       >
         <div className='ellipsis-options-menu border-2'>
           <Button
             size='small'
             className='option'
             classes={ { label: 'option-label' } }
+            startIcon={ <FontAwesomeIcon icon={ faBan } className='custom-fa-icon dark' /> }
             onClick={ () => setOpenConfirmBlockModal(true) }
           >
             <p className='para red'>
@@ -84,6 +86,7 @@ const ProfileOptions = ({ candidateId, hasBlockedUser }) => {
             size='small'
             className='option'
             classes={ { label: 'option-label' } }
+            startIcon={ <FontAwesomeIcon icon={ faCopy } className='custom-fa-icon dark' /> }
             onClick={ handleCopyProfileUrl }
           >
             <p className='para'> Copy Profile Url </p>
