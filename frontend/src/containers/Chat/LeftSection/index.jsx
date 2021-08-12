@@ -11,7 +11,7 @@ import { allChatsRequestStart } from '../../../redux-saga/redux/chat'
 import '../styles.scss'
 
 const LeftCard = ({ setConversationId, conversationId }) => {
-  const { chatsList } = useSelector((state) => state.allChats)
+  const { chatsList, dataType } = useSelector((state) => state.allChats)
 
   const [ openSearchField, setOpenSearchField ] = useState(false)
   const [ openNewChatModal, setOpenNewChatModal ] = useState(false)
@@ -39,10 +39,10 @@ const LeftCard = ({ setConversationId, conversationId }) => {
   }, [ dispatch ])
 
   useEffect(() => {
-    if (chatsList && chatsList.length > 0) {
+    if (chatsList && chatsList.length > 0 && dataType === 'chats-list') {
       setConversationId(chatsList[ 0 ] && chatsList[ 0 ].id)
     }
-  }, [ chatsList, setConversationId ])
+  }, [ chatsList, setConversationId, dataType ])
 
   return (
     <Box

@@ -5,14 +5,17 @@ import {
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
+import { useDispatch } from 'react-redux'
 import ConfirmationModal from '../../../components/CommonModal/confirmationModal'
 import AddPeople from '../Common/addPeople'
+import { allChatsRequestStart } from '../../../redux-saga/redux/chat'
 
-const ChatOptions = ({ isGroup }) => {
+const ChatOptions = ({ isGroup, conversationId }) => {
   const [ openOptions, setOpenOptions ] = useState(false)
   const [ anchorEl, setAnchorEl ] = useState(null)
   const [ openConfirmBlockModal, setOpenConfirmBlockModal ] = useState(false)
   const [ openAddPeopleModal, setOpenAddPeopleModal ] = useState(false)
+  const dispatch = useDispatch()
 
   const handleClose = useCallback(() => {
     setOpenOptions(false)
@@ -35,6 +38,16 @@ const ChatOptions = ({ isGroup }) => {
     setOpenOptions(false)
     setOpenAddPeopleModal(true)
   }, [])
+
+  const handleMarkAsUnread = useCallback(() => {
+    dispatch(allChatsRequestStart({
+      requestType: 'UPDATE',
+      dataType: 'mark-as-unread',
+      conversationId,
+    }))
+    setAnchorEl(null)
+    setOpenOptions(false)
+  }, [ dispatch, conversationId ])
 
   return (
     <>
@@ -77,6 +90,7 @@ const ChatOptions = ({ isGroup }) => {
             size='small'
             className='option'
             classes={ { label: 'option-label' } }
+            onClick={ handleMarkAsUnread }
           >
             <p className='para'> Mark as unread </p>
           </Button>
@@ -103,6 +117,7 @@ const ChatOptions = ({ isGroup }) => {
         open={ openAddPeopleModal }
         handleCancel={ () => setOpenAddPeopleModal(false) }
         actionType='ADD_PEOPLE'
+        conversationId={ conversationId }
       />
     </>
   )
@@ -114,6 +129,7 @@ ChatOptions.defaultProps = {
 
 ChatOptions.propTypes = {
   isGroup: PropTypes.bool,
+  conversationId: PropTypes.number.isRequired,
 }
 
 export default ChatOptions

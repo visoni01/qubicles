@@ -3,6 +3,7 @@ import {
   currentChatRequestStart,
   currentChatRequestSuccess,
   currentChatRequestFailed,
+  updateAllChats,
   showErrorMessage,
 } from '../../redux/actions'
 import Chat from '../../service/chat'
@@ -13,7 +14,9 @@ function* currentChatWatcher() {
 
 function* currentChatWorker(action) {
   try {
-    const { requestType, dataType, conversationId } = action.payload
+    const {
+      requestType, dataType, conversationId, members, candidateId,
+    } = action.payload
 
     switch (requestType) {
       case 'FETCH': {
@@ -31,6 +34,25 @@ function* currentChatWorker(action) {
 
       case 'UPDATE': {
         switch (dataType) {
+          case 'add-people': {
+            yield Chat.addPeople({ conversationId, members })
+            yield put(currentChatRequestSuccess({ newMembers: members }))
+            break
+          }
+
+          case 'remove-person': {
+            yield Chat.addPeople({ conversationId, candidateId })
+            yield put(currentChatRequestSuccess({ removedPersonId: candidateId }))
+            break
+          }
+
+          case 'mark-as-read': {
+            yield Chat.markChatAsRead({ conversationId })
+            yield put(currentChatRequestSuccess())
+            yield put(updateAllChats({ dataType: 'mark-as-read', conversationId }))
+            break
+          }
+
           default: break
         }
         break

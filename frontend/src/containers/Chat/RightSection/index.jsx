@@ -45,7 +45,7 @@ const RightCard = ({ changeGroupName }) => {
     <Box className='custom-box right-card'>
 
       {/* Chat Options */}
-      <ChatOptions isGroup={ isGroup } />
+      <ChatOptions isGroup={ isGroup } conversationId={ chat.conversationId } />
 
       {/* Profile Pictures */}
       <AvatarGroup max={ 3 } spacing='small' className='avatar-group'>
@@ -129,7 +129,7 @@ const RightCard = ({ changeGroupName }) => {
         <Link
           className='text-link'
           to={ `${ otherUser && otherUser.userCode === 'agent'
-            ? PROFILE_ROUTE : COMPANY_PROFILE_ROUTE }/${ otherUser && otherUser.candidateId }/feed` }
+            ? PROFILE_ROUTE : COMPANY_PROFILE_ROUTE }/${ otherUser && otherUser.id }/feed` }
         >
           View Profile
         </Link>
@@ -140,6 +140,7 @@ const RightCard = ({ changeGroupName }) => {
         open={ openViewMembersModal }
         handleClose={ () => setOpenViewMembersModal(false) }
         members={ members }
+        conversationId={ chat.conversationId }
       />
     </Box>
   )

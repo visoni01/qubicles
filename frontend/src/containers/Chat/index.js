@@ -1,18 +1,29 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { Grid } from '@material-ui/core'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import LeftSection from './LeftSection'
 import RightSection from './RightSection'
 import MiddleSection from './MiddleSection'
 import NewConversationBox from './MiddleSection/newConversationBox'
+import { resetAllChatsReducer, resetCurrentChatReducer } from '../../redux-saga/redux/chat'
 
 const ChatSection = () => {
   const { chat } = useSelector((state) => state.currentChat)
+  const dispatch = useDispatch()
 
   const [ conversationId, setConversationId ] = useState(null)
 
   const handleGroupNameChange = useCallback(() => {
   }, [])
+
+  useEffect(() => {
+    setConversationId(chat.conversationId)
+  }, [ chat.conversationId ])
+
+  useEffect(() => () => {
+    dispatch(resetAllChatsReducer())
+    dispatch(resetCurrentChatReducer())
+  }, [ dispatch ])
 
   return (
     <div>

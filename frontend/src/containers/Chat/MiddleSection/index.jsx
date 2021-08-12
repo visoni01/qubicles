@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Box, Divider } from '@material-ui/core'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
 import ChatView from './chatView'
 import '../styles.scss'
 import ChatControls from './chatControls'
@@ -9,7 +10,9 @@ import { currentChatRequestStart, resetCurrentChatReducer } from '../../../redux
 
 const MiddleCard = ({ conversationId }) => {
   const { chat } = useSelector((state) => state.currentChat)
+  const { chatsList } = useSelector((state) => state.allChats)
   const dispatch = useDispatch()
+  const currentChat = _.find(chatsList, { id: chat.conversationId })
 
   useEffect(() => {
     if (conversationId) {
@@ -30,6 +33,8 @@ const MiddleCard = ({ conversationId }) => {
       <div className='chat-section-body padding-20'>
         <ChatView
           chats={ (chat && chat.data) || [] }
+          conversationId={ chat && chat.conversationId }
+          allRead={ currentChat && currentChat.allRead }
         />
       </div>
 

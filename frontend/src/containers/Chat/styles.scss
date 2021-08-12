@@ -50,6 +50,10 @@
         -webkit-line-clamp: 2;
         margin-top: 3px;
       }
+
+      &.selected {
+        background-color: $color-primary-light;
+      }
     }
 
     .user-card-item:hover {
@@ -322,7 +326,7 @@
 
     .header {
       border-bottom: 1px solid $color-primary-dark;
-      padding: 11px 16px;
+      padding: 6px 16px;
       background-color: $color-primary;
       cursor: pointer;
 
@@ -341,6 +345,8 @@
 
       .header-avatar {
         background-color: $color-white;
+        height: 35px;
+        width: 35px;
       }
     }
 

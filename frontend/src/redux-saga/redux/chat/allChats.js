@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { updateAllChatsReducer } from './helper'
 
 const initialState = {
   isLoading: null,
@@ -14,7 +15,8 @@ const {
     allChatsRequestStart,
     allChatsRequestSuccess,
     allChatsRequestFailed,
-    resetChatReducer,
+    resetAllChatsReducer,
+    updateAllChats,
   }, reducer,
 } = createSlice({
   name: 'allChats',
@@ -33,7 +35,10 @@ const {
       isLoading: false,
       success: true,
       error: false,
-      chatsList: state.requestType === 'FETCH' ? action.payload.chats : [ action.payload.newChat, ...state.chatsList ],
+      chatsList: updateAllChatsReducer({
+        payload: { ...action.payload, dataType: state.dataType },
+        chatsList: state.chatsList,
+      }),
     }),
     allChatsRequestFailed: (state) => ({
       ...state,
@@ -44,6 +49,10 @@ const {
     resetAllChatsReducer: () => ({
       ...initialState,
     }),
+    updateAllChats: (state, action) => ({
+      ...state,
+      chatsList: updateAllChatsReducer({ payload: action.payload, chatsList: state.chatsList }),
+    }),
   },
 })
 
@@ -52,5 +61,6 @@ export {
   allChatsRequestStart,
   allChatsRequestSuccess,
   allChatsRequestFailed,
-  resetChatReducer,
+  resetAllChatsReducer,
+  updateAllChats,
 }

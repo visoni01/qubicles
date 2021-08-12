@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { updateChatPopupsHelper } from './helper'
+import { updateChatPopupsHelper, updateCurrentChatReducer } from './helper'
 import { popupChats } from '../../../containers/Chat/testData'
 
 const initialState = {
@@ -39,7 +39,7 @@ const {
       isLoading: false,
       success: true,
       error: false,
-      ...action.payload,
+      chat: updateCurrentChatReducer({ payload: { ...action.payload, dataType: state.dataType }, chat: state.chat }),
     }),
     currentChatRequestFailed: (state) => ({
       ...state,
@@ -57,7 +57,7 @@ const {
     }),
     updateCurrentChat: (state, action) => ({
       ...state,
-      chat: action.payload.currentChat,
+      chat: updateCurrentChatReducer({ payload: action.payload, chat: state.chat }),
     }),
   },
 })

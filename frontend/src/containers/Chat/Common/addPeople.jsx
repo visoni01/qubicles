@@ -13,9 +13,11 @@ import { useDispatch } from 'react-redux'
 import Loader from '../../loaders/circularLoader'
 import { members as people } from '../testData'
 import PersonCard from './personCard'
-import { allChatsRequestStart } from '../../../redux-saga/redux/chat'
+import { allChatsRequestStart, currentChatRequestStart } from '../../../redux-saga/redux/chat'
 
-const AddPeople = ({ open, handleCancel, actionType }) => {
+const AddPeople = ({
+  open, handleCancel, actionType, conversationId,
+}) => {
   const [ selectedPeople, setSelectedPeople ] = useState([])
   const [ groupTitle, setGroupTitle ] = useState('')
   const dispatch = useDispatch()
@@ -56,7 +58,7 @@ const AddPeople = ({ open, handleCancel, actionType }) => {
     switch (actionType) {
       case 'NEW_GROUP': {
         dispatch(allChatsRequestStart({
-          requestType: 'UPDATE',
+          requestType: 'CREATE',
           dataType: 'new-group',
           title: !groupTitle || _.isEmpty(groupTitle.trim()) ? '' : groupTitle.trim(),
           members: selectedPeople,
@@ -64,10 +66,33 @@ const AddPeople = ({ open, handleCancel, actionType }) => {
         break
       }
 
+      case 'ADD_PEOPLE': {
+        dispatch(currentChatRequestStart({
+          requestType: 'UPDATE',
+          dataType: 'add-people',
+          members: selectedPeople,
+          conversationId,
+        }))
+        break
+      }
+
       default:
     }
     handleCloseModal()
-  }, [ dispatch, actionType, groupTitle, selectedPeople, handleCloseModal ])
+  }, [ dispatch, actionType, groupTitle, selectedPeople, handleCloseModal, conversationId ])
+
+  const createNewChat = useCallback((event) => {
+    const personCard = event.target.closest('.person-card')
+    if (personCard && personCard.id) {
+      const person = _.find(people, { id: parseInt(personCard.id, 10) })
+      dispatch(allChatsRequestStart({
+        requestType: 'CREATE',
+        dataType: 'new-chat',
+        candidate: person,
+      }))
+    }
+    handleCloseModal()
+  }, [ dispatch, handleCloseModal ])
 
   return (
     <Dialog
@@ -148,7 +173,7 @@ const AddPeople = ({ open, handleCancel, actionType }) => {
           <div className='h4 mt-20 mb-10'>Suggestions</div>
           <div
             className={ `suggestion-cards ${ actionType === 'NEW_GROUP' ? 'new-group' : '' }` }
-            onClick={ addPerson }
+            onClick={ actionType === 'NEW_CHAT' ? createNewChat : addPerson }
           >
             {people && people.length && _.differenceBy(people, selectedPeople, 'id').map((person) => (
               <PersonCard
@@ -165,6 +190,7 @@ const AddPeople = ({ open, handleCancel, actionType }) => {
           </div>
         </div>
       </DialogContent>
+      {actionType !== 'NEW_CHAT' && (
       <DialogActions className='modal-actions'>
         <Button
           classes={ {
@@ -186,6 +212,7 @@ const AddPeople = ({ open, handleCancel, actionType }) => {
           Done
         </Button>
       </DialogActions>
+      )}
     </Dialog>
   )
 }
@@ -199,6 +226,7 @@ AddPeople.propTypes = {
   open: PropTypes.bool,
   handleCancel: PropTypes.func.isRequired,
   actionType: PropTypes.string,
+  conversationId: PropTypes.number.isRequired,
 }
 
 export default AddPeople

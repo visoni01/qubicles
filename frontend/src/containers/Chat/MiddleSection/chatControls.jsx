@@ -11,6 +11,7 @@ import { ImageIcon } from '../../../assets/images/common'
 import { showErrorMessage } from '../../../redux-saga/redux/utils'
 import { getUniqueId } from '../../../utils/common'
 import { acceptedImageFormats, maxImageFileSize } from '../../People/ContactCenter/constants'
+import { currentChatRequestStart, updateCurrentChat } from '../../../redux-saga/redux/chat'
 
 const ChatControls = ({ conversationId }) => {
   const { userDetails } = useSelector((state) => state.login)
@@ -67,11 +68,21 @@ const ChatControls = ({ conversationId }) => {
       isRead: false,
     }
 
-    // TODO Dispatch action to update chat reducer with newMessage
+    // TODO Dispatch the action conditionally for currentChat and popupChat
+    dispatch(updateCurrentChat({
+      dataType: 'new-message',
+      newMessage,
+    }))
+
+    dispatch(currentChatRequestStart({
+      requestType: 'UPDATE',
+      dataType: 'mark-as-read',
+      conversationId,
+    }))
 
     setMessageText('')
     setImageUrl('')
-  }, [ messageText, userDetails, agentSettings, clientSettings, imageUrl ])
+  }, [ messageText, userDetails, agentSettings, clientSettings, imageUrl, dispatch, conversationId ])
 
   return (
     <div className='is-flex is-between align-items-start chat-section-footer'>
