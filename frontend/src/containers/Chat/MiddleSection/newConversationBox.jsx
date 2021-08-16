@@ -39,18 +39,22 @@ const NewConversationBox = () => {
       </Button>
 
       {/* New Chat Modal */}
+      {openNewChatModal && (
       <NewChat
         open={ openNewChatModal }
         handleCancel={ () => setOpenNewChatModal(false) }
         actionType='NEW_CHAT'
       />
+      )}
 
       {/* New Group Modal */}
+      {openNewGroupModal && (
       <NewChat
         open={ openNewGroupModal }
         handleCancel={ () => setOpenNewGroupModal(false) }
         actionType='NEW_GROUP'
       />
+      )}
     </Box>
   )
 }

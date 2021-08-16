@@ -13,9 +13,9 @@ const PersonCard = ({
   const [ openConfirmBlockModal, setOpenConfirmBlockModal ] = useState(false)
 
   const handleRemoveUser = useCallback(() => {
-    handleRemove(id)
+    handleRemove({ id, name })
     setOpenConfirmBlockModal(false)
-  }, [ handleRemove, id ])
+  }, [ handleRemove, id, name ])
 
   return (
     <div className={ `person-card ${ actionType !== 'VIEW_MEMBERS' && 'person-card-hover' }` } id={ id }>

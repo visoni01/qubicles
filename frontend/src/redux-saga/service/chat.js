@@ -1,4 +1,7 @@
-import { chats, popupChats, userList } from '../../containers/Chat/testData'
+/* eslint-disable no-unused-vars */
+import {
+  chats, members as suggestions, popupChats, userList,
+} from '../../containers/Chat/testData'
 
 let nextConversationId = userList.length
 
@@ -12,7 +15,6 @@ const Chat = class {
     data: chats[ conversationId - 1 ] || chats[ 0 ],
   })
 
-  // eslint-disable-next-line no-unused-vars
   static createNewGroup = async ({ title, members }) => {
     nextConversationId += 1
     chats.push({
@@ -25,27 +27,22 @@ const Chat = class {
     return { data: { conversationId: nextConversationId } }
   }
 
-  // eslint-disable-next-line no-unused-vars
   static addPeople = async ({ conversationId, members }) => {
 
   }
 
-  // eslint-disable-next-line no-unused-vars
   static removePerson = async ({ conversationId, candidateId }) => {
 
   }
 
-  // eslint-disable-next-line no-unused-vars
   static markChatAsUnread = async ({ conversationId }) => {
 
   }
 
-  // eslint-disable-next-line no-unused-vars
   static markChatAsRead = async ({ conversationId }) => {
 
   }
 
-  // eslint-disable-next-line no-unused-vars
   static createNewChat = async ({ candidate }) => {
     nextConversationId += 1
     chats.push({
@@ -58,6 +55,11 @@ const Chat = class {
   }
 
   static createNewPopup = async ({ conversationId }) => popupChats[ conversationId - 1 ] || popupChats[ 0 ]
+
+  // eslint-disable-next-line arrow-body-style
+  static getChatSuggestions = async ({ offset, searchKeyword }) => {
+    return { data: { users: suggestions, count: 10 } }
+  }
 }
 
 export default Chat

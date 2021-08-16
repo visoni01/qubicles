@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable complexity */
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import {
   Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, TextField,
@@ -9,18 +9,29 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import _ from 'lodash'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../loaders/circularLoader'
-import { members as people } from '../testData'
 import PersonCard from './personCard'
-import { allChatsRequestStart, currentChatRequestStart } from '../../../redux-saga/redux/chat'
+import {
+  allChatsRequestStart, chatSuggestionsFetchStart, currentChatRequestStart, resetChatSuggestionsReducer,
+} from '../../../redux-saga/redux/chat'
 
 const AddPeople = ({
   open, handleCancel, actionType, conversationId,
 }) => {
   const [ selectedPeople, setSelectedPeople ] = useState([])
   const [ groupTitle, setGroupTitle ] = useState('')
+  const { users: people } = useSelector((state) => state.chatSuggestions)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(chatSuggestionsFetchStart({
+      offset: 0,
+      searchKeyword: '',
+    }))
+
+    return () => dispatch(resetChatSuggestionsReducer())
+  }, [ dispatch ])
 
   const addPerson = useCallback((event) => {
     if (actionType !== 'NEW_CHAT') {
@@ -33,7 +44,7 @@ const AddPeople = ({
         ]))
       }
     }
-  }, [ actionType ])
+  }, [ actionType, people ])
 
   const removePerson = useCallback((id) => {
     setSelectedPeople((state) => {
@@ -92,7 +103,7 @@ const AddPeople = ({
       }))
     }
     handleCloseModal()
-  }, [ dispatch, handleCloseModal ])
+  }, [ dispatch, handleCloseModal, people ])
 
   return (
     <Dialog

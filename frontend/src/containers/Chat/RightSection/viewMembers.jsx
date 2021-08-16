@@ -15,12 +15,13 @@ const ViewMembers = ({
 }) => {
   const dispatch = useDispatch()
 
-  const handleRemove = useCallback((id) => {
+  const handleRemove = useCallback(({ id, name }) => {
     dispatch(currentChatRequestStart({
       requestType: 'UPDATE',
       dataType: 'remove-person',
       conversationId,
       candidateId: id,
+      name,
     }))
   }, [ dispatch, conversationId ])
 

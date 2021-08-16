@@ -1,11 +1,13 @@
 import React, { useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Box, Divider } from '@material-ui/core'
-import PropTypes from 'prop-types'
 import _ from 'lodash'
+import PropTypes from 'prop-types'
 import ChatView from './chatView'
 import ChatControls from './chatControls'
-import { currentChatRequestStart, resetCurrentChatReducer, updateCurrentChat } from '../../../redux-saga/redux/chat'
+import {
+  currentChatRequestStart, resetCurrentChatReducer, updateAllChats, updateCurrentChat,
+} from '../../../redux-saga/redux/chat'
 import '../styles.scss'
 
 const MiddleCard = ({ conversationId }) => {
@@ -13,16 +15,6 @@ const MiddleCard = ({ conversationId }) => {
   const { chatsList } = useSelector((state) => state.allChats)
   const dispatch = useDispatch()
   const currentChat = _.find(chatsList, { id: chat.conversationId })
-
-  useEffect(() => {
-    if (conversationId) {
-      dispatch(currentChatRequestStart({
-        requestType: 'FETCH',
-        dataType: 'current-chat',
-        conversationId,
-      }))
-    }
-  }, [ conversationId, dispatch ])
 
   useEffect(() => () => dispatch(resetCurrentChatReducer()), [ dispatch ])
 
@@ -32,12 +24,21 @@ const MiddleCard = ({ conversationId }) => {
       newMessage,
     }))
 
-    dispatch(currentChatRequestStart({
-      requestType: 'UPDATE',
-      dataType: 'mark-as-read',
+    dispatch(updateAllChats({
+      dataType: 'new-message',
+      latestMessage: newMessage.text,
+      time: Date.now(),
       conversationId,
     }))
-  }, [ dispatch, conversationId ])
+
+    if (currentChat && !currentChat.allRead) {
+      dispatch(currentChatRequestStart({
+        requestType: 'UPDATE',
+        dataType: 'mark-as-read',
+        conversationId,
+      }))
+    }
+  }, [ dispatch, conversationId, currentChat ])
 
   return (
     <Box className='custom-box no-padding chat-section'>
@@ -63,6 +64,8 @@ const MiddleCard = ({ conversationId }) => {
   )
 }
 
+export default MiddleCard
+
 MiddleCard.defaultProps = {
   conversationId: null,
 }
@@ -70,5 +73,3 @@ MiddleCard.defaultProps = {
 MiddleCard.propTypes = {
   conversationId: PropTypes.number,
 }
-
-export default MiddleCard

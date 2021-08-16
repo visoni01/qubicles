@@ -215,6 +215,27 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
       })
     }
 
+    case 'new-message': {
+      let latestChat
+
+      const filteredChatsList = chatsList.filter((chat) => {
+        if (chat.id === payload.conversationId) {
+          latestChat = chat
+          return false
+        }
+        return true
+      })
+
+      return [
+        {
+          ...latestChat,
+          time: payload.time,
+          latestMessage: payload.latestMessage,
+        },
+        ...filteredChatsList,
+      ]
+    }
+
     default: return chatsList
   }
 }

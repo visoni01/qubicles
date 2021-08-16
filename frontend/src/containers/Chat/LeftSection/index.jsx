@@ -3,15 +3,17 @@ import {
 } from '@material-ui/core'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import _ from 'lodash'
 import PropTypes from 'prop-types'
 import { EditIcon, SearchIcon } from '../../../assets/images/common'
 import UserCard from './userCard'
 import NewChat from '../Common/addPeople'
-import { allChatsRequestStart } from '../../../redux-saga/redux/chat'
+import { allChatsRequestStart, currentChatRequestStart } from '../../../redux-saga/redux/chat'
 import '../styles.scss'
 
 const LeftCard = ({ setConversationId, conversationId }) => {
-  const { chatsList, dataType } = useSelector((state) => state.allChats)
+  const { chatsList } = useSelector((state) => state.allChats)
+  const { isLoading } = useSelector((state) => state.currentChat)
 
   const [ openSearchField, setOpenSearchField ] = useState(false)
   const [ openNewChatModal, setOpenNewChatModal ] = useState(false)
@@ -39,10 +41,14 @@ const LeftCard = ({ setConversationId, conversationId }) => {
   }, [ dispatch ])
 
   useEffect(() => {
-    if (chatsList && chatsList.length > 0 && dataType === 'chats-list') {
-      setConversationId(chatsList[ 0 ] && chatsList[ 0 ].id)
+    if (chatsList && chatsList.length > 0 && chatsList[ 0 ] && _.isNull(isLoading)) {
+      dispatch(currentChatRequestStart({
+        requestType: 'FETCH',
+        dataType: 'current-chat',
+        conversationId: chatsList[ 0 ].id,
+      }))
     }
-  }, [ chatsList, setConversationId, dataType ])
+  }, [ chatsList, setConversationId, isLoading, dispatch ])
 
   return (
     <Box
@@ -88,18 +94,22 @@ const LeftCard = ({ setConversationId, conversationId }) => {
       )}
 
       {/* New Chat Modal */}
+      {openNewChatModal && (
       <NewChat
         open={ openNewChatModal }
         handleCancel={ () => setOpenNewChatModal(false) }
         actionType='NEW_CHAT'
       />
+      )}
 
       {/* New Group Modal */}
+      {openNewGroupModal && (
       <NewChat
         open={ openNewGroupModal }
         handleCancel={ () => setOpenNewGroupModal(false) }
         actionType='NEW_GROUP'
       />
+      )}
 
       {/* Users List */}
       <div className='user-list'>
@@ -112,7 +122,6 @@ const LeftCard = ({ setConversationId, conversationId }) => {
               allRead={ item.allRead }
               latestMessage={ item.latestMessage }
               time={ item.time }
-              setConversationId={ setConversationId }
               isGroup={ item.isGroup }
               selectedConversationId={ conversationId }
             />

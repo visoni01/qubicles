@@ -1,40 +1,58 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React from 'react'
+import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { Avatar } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircle } from '@fortawesome/free-solid-svg-icons'
+import { useDispatch } from 'react-redux'
 import { groupChatIcon } from '../../../assets/images/chat'
+import { formatDate } from '../../../utils/common'
+import { currentChatRequestStart } from '../../../redux-saga/redux/chat'
 
 const UserCard = ({
   id, name, imageUrl, allRead, latestMessage, time, setConversationId, isGroup, selectedConversationId,
-}) => (
-  <div
-    className={ `is-flex user-card-item ${ selectedConversationId === id ? 'selected' : '' }` }
-    onClick={ () => setConversationId(id) }
-  >
-    <Avatar className='profile-pic' alt={ name } src={ isGroup ? groupChatIcon : imageUrl } />
+}) => {
+  const dispatch = useDispatch()
 
-    <div className='is-fullwidth'>
-      <div className='is-flex is-between'>
-        <span className='h4 short-message conversation-title'>{name}</span>
-        <p className='para light'>{time}</p>
-      </div>
+  const handleOpenChat = useCallback(() => {
+    if (id !== selectedConversationId) {
+      setConversationId(id)
+      dispatch(currentChatRequestStart({
+        requestType: 'FETCH',
+        dataType: 'current-chat',
+        conversationId: id,
+      }))
+    }
+  }, [ dispatch, id, selectedConversationId, setConversationId ])
 
-      <div className='is-flex is-between align-items-flex-end'>
-        <p className={ `para short-message text-message ${ allRead ? 'light' : '' }` }>
-          {latestMessage || 'Start a conversation...'}
-        </p>
-        {!allRead ? (
-          <div>
-            <FontAwesomeIcon icon={ faCircle } className='custom-fa-icon sz-xs' />
-          </div>
-        ) : ''}
+  return (
+    <div
+      className={ `is-flex user-card-item ${ selectedConversationId === id ? 'selected' : '' }` }
+      onClick={ handleOpenChat }
+    >
+      <Avatar className='profile-pic' alt={ name } src={ isGroup ? groupChatIcon : imageUrl } />
+
+      <div className='is-fullwidth'>
+        <div className='is-flex is-between'>
+          <span className='h4 short-message conversation-title'>{name}</span>
+          <p className='para light'>{formatDate(time, 'hh:mm a')}</p>
+        </div>
+
+        <div className='is-flex is-between align-items-flex-end'>
+          <p className={ `para short-message text-message ${ allRead ? 'light' : '' }` }>
+            {latestMessage || 'Start a conversation...'}
+          </p>
+          {!allRead ? (
+            <div>
+              <FontAwesomeIcon icon={ faCircle } className='custom-fa-icon sz-xs' />
+            </div>
+          ) : ''}
+        </div>
       </div>
     </div>
-  </div>
-)
+  )
+}
 
 UserCard.defaultProps = {
   id: null,

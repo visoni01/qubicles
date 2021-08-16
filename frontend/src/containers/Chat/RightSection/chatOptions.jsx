@@ -113,12 +113,14 @@ const ChatOptions = ({ isGroup, conversationId }) => {
         message='Are you sure you want to delete this chat?'
         confirmButtonText='Yes'
       />
+      {openAddPeopleModal && (
       <AddPeople
         open={ openAddPeopleModal }
         handleCancel={ () => setOpenAddPeopleModal(false) }
         actionType='ADD_PEOPLE'
         conversationId={ conversationId }
       />
+      )}
     </>
   )
 }

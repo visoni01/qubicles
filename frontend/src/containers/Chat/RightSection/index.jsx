@@ -78,7 +78,7 @@ const RightCard = ({ changeGroupName }) => {
               )
               : (
                 <>
-                  <div className='h4 sz-xl mr-10'>
+                  <div className='h4 sz-xl mr-10 short-message'>
                     {groupNameValue}
                   </div>
                   <IconButton
@@ -92,7 +92,7 @@ const RightCard = ({ changeGroupName }) => {
           </div>
         )
         : (
-          <div className='h4 sz-xl mt-10'>
+          <div className='h4 sz-xl mt-10 short-message'>
             {otherUser && otherUser.name}
           </div>
         )}
