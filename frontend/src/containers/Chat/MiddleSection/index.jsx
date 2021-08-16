@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Box, Divider } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import ChatView from './chatView'
-import '../styles.scss'
 import ChatControls from './chatControls'
-import { currentChatRequestStart, resetCurrentChatReducer } from '../../../redux-saga/redux/chat'
+import { currentChatRequestStart, resetCurrentChatReducer, updateCurrentChat } from '../../../redux-saga/redux/chat'
+import '../styles.scss'
 
 const MiddleCard = ({ conversationId }) => {
   const { chat } = useSelector((state) => state.currentChat)
@@ -26,6 +26,19 @@ const MiddleCard = ({ conversationId }) => {
 
   useEffect(() => () => dispatch(resetCurrentChatReducer()), [ dispatch ])
 
+  const handleSend = useCallback(({ newMessage }) => {
+    dispatch(updateCurrentChat({
+      dataType: 'new-message',
+      newMessage,
+    }))
+
+    dispatch(currentChatRequestStart({
+      requestType: 'UPDATE',
+      dataType: 'mark-as-read',
+      conversationId,
+    }))
+  }, [ dispatch, conversationId ])
+
   return (
     <Box className='custom-box no-padding chat-section'>
 
@@ -43,6 +56,7 @@ const MiddleCard = ({ conversationId }) => {
         <Divider className='divider is-fullwidth no-margin-top' />
         <ChatControls
           conversationId={ chat && chat.conversationId }
+          handleSend={ handleSend }
         />
       </div>
     </Box>

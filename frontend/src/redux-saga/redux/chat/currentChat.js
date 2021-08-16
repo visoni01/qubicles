@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { updateChatPopupsHelper, updateCurrentChatReducer } from './helper'
-import { popupChats } from '../../../containers/Chat/testData'
+import { updateCurrentChatReducer } from './helper'
 
 const initialState = {
   isLoading: null,
@@ -9,8 +8,6 @@ const initialState = {
   requestType: '',
   dataType: '',
   chat: {},
-  // WIP - Remove test data
-  chatPopups: popupChats,
 }
 
 const {
@@ -19,7 +16,6 @@ const {
     currentChatRequestSuccess,
     currentChatRequestFailed,
     resetCurrentChatReducer,
-    updateChatPopups,
     updateCurrentChat,
   }, reducer,
 } = createSlice({
@@ -51,10 +47,6 @@ const {
       ...initialState,
       chatPopups: state.chatPopups,
     }),
-    updateChatPopups: (state, action) => ({
-      ...state,
-      chatPopups: updateChatPopupsHelper({ chatPopups: state.chatPopups, payload: action.payload }),
-    }),
     updateCurrentChat: (state, action) => ({
       ...state,
       chat: updateCurrentChatReducer({ payload: action.payload, chat: state.chat }),
@@ -68,6 +60,5 @@ export {
   currentChatRequestSuccess,
   currentChatRequestFailed,
   resetCurrentChatReducer,
-  updateChatPopups,
   updateCurrentChat,
 }

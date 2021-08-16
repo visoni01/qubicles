@@ -8,10 +8,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faMinus } from '@fortawesome/free-solid-svg-icons'
 import ChatView from '../MiddleSection/chatView'
 import ChatControls from '../MiddleSection/chatControls'
-import { updateChatPopups } from '../../../redux-saga/redux/chat'
+import { chatPopupsRequestStart, updateChatPopups } from '../../../redux-saga/redux/chat'
 import { MaximizeIcon } from '../../../assets/images/chat'
 
-const ChatPopup = ({ chat }) => {
+const ChatPopup = ({ conversationData }) => {
   const [ popupOpen, setPopupOpen ] = useState(false)
   const dispatch = useDispatch()
 
@@ -22,10 +22,25 @@ const ChatPopup = ({ chat }) => {
   const closePopup = useCallback((event) => {
     event.stopPropagation()
     dispatch(updateChatPopups({
-      dataType: 'DELETE',
-      conversationId: chat.conversationId,
+      requestType: 'DELETE',
+      conversationId: conversationData && conversationData.conversationId,
     }))
-  }, [ dispatch, chat.conversationId ])
+  }, [ dispatch, conversationData ])
+
+  const handleSend = useCallback(({ newMessage }) => {
+    dispatch(updateChatPopups({
+      requestType: 'UPDATE',
+      dataType: 'new-message',
+      newMessage,
+      conversationId: conversationData && conversationData.conversationId,
+    }))
+
+    dispatch(chatPopupsRequestStart({
+      requestType: 'UPDATE',
+      dataType: 'mark-as-read',
+      conversationId: conversationData && conversationData.conversationId,
+    }))
+  }, [ dispatch, conversationData ])
 
   return (
     <Card className='chat-popup-card' variant='outlined'>
@@ -37,9 +52,9 @@ const ChatPopup = ({ chat }) => {
           title: 'header-title',
         } }
         avatar={
-          <Avatar src={ chat.profilePic } alt={ chat.name } className='header-avatar' />
+          <Avatar src={ conversationData.profilePic } alt={ conversationData.name } className='header-avatar' />
         }
-        title={ chat.name }
+        title={ conversationData.name }
         titleTypographyProps={ { variant: 'h6' } }
         action={ (
           <>
@@ -68,13 +83,14 @@ const ChatPopup = ({ chat }) => {
             {/* Chat Body */}
             <div className='chat-section-body padding-10'>
               <ChatView
-                chats={ (chat && chat.data) || [] }
+                chats={ (conversationData && conversationData.chats) || [] }
               />
             </div>
 
             {/* Chat Controls */}
             <ChatControls
-              conversationId={ chat && chat.conversationId }
+              conversationId={ conversationData && conversationData.conversationId }
+              handleSend={ handleSend }
             />
           </div>
         </CardContent>
@@ -84,16 +100,17 @@ const ChatPopup = ({ chat }) => {
 }
 
 ChatPopup.propTypes = {
-  chat: PropTypes.shape({
+  conversationData: PropTypes.shape({
     conversationId: PropTypes.number,
     name: PropTypes.string,
     profilePic: PropTypes.string,
     isGroup: PropTypes.bool,
-    data: PropTypes.arrayOf(PropTypes.shape({
+    chats: PropTypes.arrayOf(PropTypes.shape({
       msgId: PropTypes.number,
       candidateId: PropTypes.number,
       profilePic: PropTypes.string,
       isNotification: PropTypes.bool,
+      imageUrl: PropTypes.string,
       text: PropTypes.string,
       sentAt: PropTypes.string,
       isRead: PropTypes.bool,

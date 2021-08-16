@@ -11,9 +11,8 @@ import { ImageIcon } from '../../../assets/images/common'
 import { showErrorMessage } from '../../../redux-saga/redux/utils'
 import { getUniqueId } from '../../../utils/common'
 import { acceptedImageFormats, maxImageFileSize } from '../../People/ContactCenter/constants'
-import { currentChatRequestStart, updateCurrentChat } from '../../../redux-saga/redux/chat'
 
-const ChatControls = ({ conversationId }) => {
+const ChatControls = ({ conversationId, handleSend }) => {
   const { userDetails } = useSelector((state) => state.login)
   const { settings: clientSettings } = useSelector((state) => state.clientDetails)
   const { settings: agentSettings } = useSelector((state) => state.agentDetails)
@@ -53,8 +52,7 @@ const ChatControls = ({ conversationId }) => {
     }
   }, [ dispatch ])
 
-  const handleSend = useCallback(() => {
-    // eslint-disable-next-line no-unused-vars
+  const handleSendClick = useCallback(() => {
     const newMessage = {
       msgId: getUniqueId(),
       candidateId: userDetails && userDetails.user_id,
@@ -68,21 +66,11 @@ const ChatControls = ({ conversationId }) => {
       isRead: false,
     }
 
-    // TODO Dispatch the action conditionally for currentChat and popupChat
-    dispatch(updateCurrentChat({
-      dataType: 'new-message',
-      newMessage,
-    }))
-
-    dispatch(currentChatRequestStart({
-      requestType: 'UPDATE',
-      dataType: 'mark-as-read',
-      conversationId,
-    }))
+    handleSend({ newMessage })
 
     setMessageText('')
     setImageUrl('')
-  }, [ messageText, userDetails, agentSettings, clientSettings, imageUrl, dispatch, conversationId ])
+  }, [ messageText, userDetails, agentSettings, clientSettings, imageUrl, handleSend ])
 
   return (
     <div className='is-flex is-between align-items-start chat-section-footer'>
@@ -123,7 +111,7 @@ const ChatControls = ({ conversationId }) => {
           root: 'button-primary-small',
           label: 'button-primary-small-label',
         } }
-        onClick={ handleSend }
+        onClick={ handleSendClick }
       >
         Send
       </Button>
@@ -146,6 +134,7 @@ ChatControls.defaultProps = {
 
 ChatControls.propTypes = {
   conversationId: PropTypes.number,
+  handleSend: PropTypes.func.isRequired,
 }
 
 export default ChatControls

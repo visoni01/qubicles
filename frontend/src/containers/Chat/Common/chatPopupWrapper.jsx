@@ -4,12 +4,12 @@ import ChatPopup from './chatPopup'
 import '../styles.scss'
 
 const ChatPopupWrapper = () => {
-  const { chatPopups } = useSelector((state) => state.currentChat)
+  const { chatPopups } = useSelector((state) => state.chatPopups)
 
   return (
     <div className='chat-popup-root'>
-      {chatPopups && chatPopups.map((chat) => (
-        <ChatPopup key={ chat.conversationId } chat={ chat } />
+      {chatPopups && chatPopups.map((item) => (
+        <ChatPopup key={ item.data.conversationId } conversationData={ item.data } />
       ))}
     </div>
   )

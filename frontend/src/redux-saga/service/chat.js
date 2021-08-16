@@ -1,4 +1,4 @@
-import { chats, userList } from '../../containers/Chat/testData'
+import { chats, popupChats, userList } from '../../containers/Chat/testData'
 
 let nextConversationId = userList.length
 
@@ -56,6 +56,8 @@ const Chat = class {
     })
     return { data: { conversationId: nextConversationId } }
   }
+
+  static createNewPopup = async ({ conversationId }) => popupChats[ conversationId - 1 ] || popupChats[ 0 ]
 }
 
 export default Chat
