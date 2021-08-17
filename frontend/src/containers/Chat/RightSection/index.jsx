@@ -79,7 +79,7 @@ const RightCard = ({ changeGroupName }) => {
               : (
                 <>
                   <div className='h4 sz-xl mr-10 short-message'>
-                    {groupNameValue}
+                    {groupNameValue || members.map((member) => member.name).join(', ')}
                   </div>
                   <IconButton
                     className='no-padding'

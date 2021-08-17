@@ -173,6 +173,13 @@ export const updateCurrentChatReducer = ({ payload, chat }) => {
       }
     }
 
+    case 'change-group-name': {
+      return {
+        ...chat,
+        groupName: payload.newGroupName,
+      }
+    }
+
     default: return chat
   }
 }
@@ -234,6 +241,18 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
         },
         ...filteredChatsList,
       ]
+    }
+
+    case 'change-group-name': {
+      return chatsList.map((chat) => {
+        if (payload.conversationId === chat.id) {
+          return {
+            ...chat,
+            name: payload.newGroupName,
+          }
+        }
+        return chat
+      })
     }
 
     default: return chatsList

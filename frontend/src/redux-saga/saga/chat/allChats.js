@@ -61,7 +61,6 @@ function* allChatsWorker(action) {
       case 'CREATE': {
         switch (dataType) {
           case 'new-group': {
-            const groupName = title || (members && members.map((item) => item.name).join(', '))
             const { userDetails } = yield select((state) => state.login)
             const { settings: agentSettings } = yield select((state) => state.agentDetails)
             const { settings: clientSettings } = yield select((state) => state.clientDetails)
@@ -119,7 +118,7 @@ function* allChatsWorker(action) {
             yield put(allChatsRequestSuccess({
               newChat: {
                 id: data && data.conversationId,
-                name: groupName,
+                name: title || (members && [ loggedInUser, ...members ].map((item) => item.name).join(', ')),
                 imageUrl: '',
                 time: Date.now(),
                 isGroup: true,
@@ -132,7 +131,7 @@ function* allChatsWorker(action) {
               currentChat: {
                 conversationId: data && data.conversationId,
                 isGroup: true,
-                groupName,
+                groupName: title,
                 data: [ ...newMessages ],
                 candidatesInfo: [ loggedInUser, ...members ],
               },
@@ -169,7 +168,7 @@ function* allChatsWorker(action) {
               currentChat: {
                 conversationId: data && data.conversationId,
                 isGroup: false,
-                data: [ newMessage ],
+                data: data.messages ? [ ...data.messages ] : [ newMessage ],
                 candidatesInfo: [ candidate ],
               },
             }))

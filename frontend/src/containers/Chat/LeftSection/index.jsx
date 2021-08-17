@@ -114,7 +114,7 @@ const LeftCard = ({ setConversationId, conversationId }) => {
       {/* Users List */}
       <div className='user-list'>
         {chatsList && chatsList.map((item, index) => (
-          <div key={ item.id }>
+          <div key={ item.id } className={ `user-card-root ${ conversationId === item.id ? 'selected' : '' }` }>
             <UserCard
               id={ item.id }
               name={ item.name }

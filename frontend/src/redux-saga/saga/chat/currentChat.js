@@ -18,7 +18,7 @@ function* currentChatWatcher() {
 function* currentChatWorker(action) {
   try {
     const {
-      requestType, dataType, conversationId, members, candidateId, name,
+      requestType, dataType, conversationId, members, candidateId, name, newGroupName,
     } = action.payload
 
     switch (requestType) {
@@ -26,10 +26,8 @@ function* currentChatWorker(action) {
         switch (dataType) {
           case 'current-chat': {
             const { data } = yield Chat.getChatById({ conversationId })
-            const groupName = data.groupName
-              || (data.candidatesInfo && data.candidatesInfo.map((item) => item.name).join(', '))
 
-            yield put(currentChatRequestSuccess({ chat: { ...data, groupName } }))
+            yield put(currentChatRequestSuccess({ chat: data }))
             break
           }
 
@@ -83,6 +81,18 @@ function* currentChatWorker(action) {
             yield Chat.markChatAsRead({ conversationId })
             yield put(currentChatRequestSuccess())
             yield put(updateAllChats({ dataType: 'mark-as-read', conversationId }))
+            break
+          }
+
+          case 'change-group-name': {
+            yield Chat.changeGroupName({ conversationId, newGroupName })
+            yield put(currentChatRequestSuccess({ newGroupName }))
+
+            const { chat } = yield select((state) => state.currentChat)
+            const groupName = newGroupName
+              || (chat.candidatesInfo && chat.candidatesInfo.map((member) => member.name).join(', '))
+
+            yield put(updateAllChats({ dataType: 'change-group-name', conversationId, newGroupName: groupName }))
             break
           }
 

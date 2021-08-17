@@ -60,6 +60,10 @@ const Chat = class {
   static getChatSuggestions = async ({ offset, searchKeyword }) => {
     return { data: { users: suggestions, count: 10 } }
   }
+
+  static changeGroupName = async ({ conversationId, newGroupName }) => {
+
+  }
 }
 
 export default Chat

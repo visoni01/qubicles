@@ -5,7 +5,7 @@ import LeftSection from './LeftSection'
 import RightSection from './RightSection'
 import MiddleSection from './MiddleSection'
 import NewConversationBox from './MiddleSection/newConversationBox'
-import { resetAllChatsReducer, resetCurrentChatReducer } from '../../redux-saga/redux/chat'
+import { currentChatRequestStart, resetAllChatsReducer, resetCurrentChatReducer } from '../../redux-saga/redux/chat'
 
 const ChatSection = () => {
   const { chat } = useSelector((state) => state.currentChat)
@@ -13,8 +13,14 @@ const ChatSection = () => {
 
   const [ conversationId, setConversationId ] = useState(null)
 
-  const handleGroupNameChange = useCallback(() => {
-  }, [])
+  const handleGroupNameChange = useCallback((newGroupName) => {
+    dispatch(currentChatRequestStart({
+      requestType: 'UPDATE',
+      dataType: 'change-group-name',
+      conversationId: chat.conversationId,
+      newGroupName,
+    }))
+  }, [ dispatch, chat.conversationId ])
 
   useEffect(() => {
     setConversationId(chat.conversationId)

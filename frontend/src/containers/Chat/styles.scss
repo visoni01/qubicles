@@ -24,6 +24,17 @@
       margin: 0px 20px 0px 90px;
     }
 
+    .user-card-root {
+      &.selected {
+        background-color: $color-primary-light;
+      }
+
+      &:hover {
+        background-color: $color-primary-light;
+        cursor: pointer;
+      }
+    }
+
     .user-card-item {
       padding: 15px 20px;
 
@@ -42,7 +53,7 @@
       }
 
       .conversation-title {
-        -webkit-line-clamp: 1;
+        -webkit-line-clamp: 2;
         width: calc(100% - 65px);
       }
 
@@ -50,15 +61,6 @@
         -webkit-line-clamp: 2;
         margin-top: 3px;
       }
-
-      &.selected {
-        background-color: $color-primary-light;
-      }
-    }
-
-    .user-card-item:hover {
-      background-color: $color-primary-light;
-      cursor: pointer;
     }
 
     .user-card-item:last-child {
