@@ -78,6 +78,25 @@
   .chat-section-body {
     overflow-y: auto;
 
+    .new-message-separator {
+      position: relative;
+      margin: 40px 0px;
+
+      .new-message-divider {
+        background-color: $color-primary;
+      }
+
+      .new-message-box {
+        position: absolute;
+        padding: 0px 10px;
+        background-color: #ffffff;
+        color: $color-primary;
+        left: 50%;
+        transform: translateX(-50%);
+        top: -10px;
+      }
+    }
+
     .profile-picture {
       height: 36px;
       width: 36px;
@@ -87,16 +106,43 @@
       width: auto;
       max-width: 60%;
 
+      .image-body {
+        line-height: 1;
+        border-radius: 6px;
+        opacity: 1;
+        padding: 5px;
+
+        img {
+          border-radius: 6px;
+        }
+
+        img:hover {
+          cursor: pointer;
+        }
+      }
+
       .text-message-body {
         border-radius: 6px;
         opacity: 1;
         padding: 12px;
         text-align: left;
+        white-space: pre-line;
+
+        img {
+          border-radius: 6px;
+        }
+
+        img:hover {
+          cursor: pointer;
+        }
       }
 
       .self-message {
         background: #4877F4;
-        color: #ffffff;
+
+        p {
+          color: #ffffff;
+        }
       }
 
       .other-user-message {
@@ -167,6 +213,10 @@
           height: inherit;
           width: inherit;
           border-radius: 8px;
+        }
+
+        img:hover {
+          cursor: pointer;
         }
 
         .cross-button {
@@ -386,5 +436,44 @@
 
   .MuiButton-text {
     margin: 20px;
+  }
+}
+
+.image-preview-dialog {
+  .MuiPaper-root {
+    overflow: hidden;
+    outline: none;
+    width: auto;
+    height: auto;
+    margin: 50px 100px;
+    max-width: calc(100% - 200px);
+    max-height: calc(100vh - 100px);
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0px;
+  }
+
+  .MuiDialogActions-root {
+    padding: 0px;
+  }
+
+  .MuiIconButton-root {
+    padding: 0px;
+    top: -2px;
+    right: 2px;
+  }
+
+  .MuiDialogContent-root {
+    overflow: hidden;
+    padding: 10px 10px 0px 0px;
+    height: 100%;
+    width: 100%;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    max-height: 80vh;
+    object-fit: cover;
   }
 }

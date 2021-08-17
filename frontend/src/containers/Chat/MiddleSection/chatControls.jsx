@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -11,6 +13,7 @@ import { ImageIcon } from '../../../assets/images/common'
 import { showErrorMessage } from '../../../redux-saga/redux/utils'
 import { getUniqueId } from '../../../utils/common'
 import { acceptedImageFormats, maxImageFileSize } from '../../People/ContactCenter/constants'
+import ImagePreview from '../../../components/CommonModal/imagePreview'
 
 const ChatControls = ({ conversationId, handleSend }) => {
   const { userDetails } = useSelector((state) => state.login)
@@ -19,6 +22,7 @@ const ChatControls = ({ conversationId, handleSend }) => {
 
   const [ messageText, setMessageText ] = useState('')
   const [ imageUrl, setImageUrl ] = useState('')
+  const [ openImagePreview, setOpenImagePreview ] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -59,7 +63,7 @@ const ChatControls = ({ conversationId, handleSend }) => {
       profilePic: userDetails && _.isEqual(userDetails.user_code, 'agent')
         ? agentSettings.profilePic
         : clientSettings.profilePic,
-      text: messageText,
+      text: messageText && messageText.trim(),
       imageUrl,
       isNotification: false,
       sentAt: Date.now(),
@@ -95,12 +99,16 @@ const ChatControls = ({ conversationId, handleSend }) => {
 
         {imageUrl && (
           <div className='image-preview'>
-            <img alt='Preview' src={ imageUrl } />
+            <img
+              alt='preview'
+              src={ imageUrl }
+              onClick={ () => setOpenImagePreview(true) }
+            />
             <IconButton
               className='cross-button'
               onClick={ () => setImageUrl('') }
             >
-              <FontAwesomeIcon className='custom-fa-icon dark pointer sz-xl' icon={ faTimesCircle } />
+              <FontAwesomeIcon className='custom-fa-icon pointer sz-xl' icon={ faTimesCircle } />
             </IconButton>
           </div>
         )}
@@ -111,6 +119,7 @@ const ChatControls = ({ conversationId, handleSend }) => {
           root: 'button-primary-small',
           label: 'button-primary-small-label',
         } }
+        disabled={ !((messageText && messageText.trim()) || imageUrl) }
         onClick={ handleSendClick }
       >
         Send
@@ -118,12 +127,19 @@ const ChatControls = ({ conversationId, handleSend }) => {
 
       <input
         type='file'
-        multiple
         id={ conversationId }
         accept={ acceptedImageFormats.join(',') }
         onChange={ handleFileInputChange }
         style={ { display: 'none' } }
       />
+
+      {openImagePreview && (
+        <ImagePreview
+          open={ openImagePreview }
+          handleClose={ () => setOpenImagePreview(false) }
+          imageUrl={ imageUrl }
+        />
+      )}
     </div>
   )
 }
