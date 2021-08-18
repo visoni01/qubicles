@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, { useState, useCallback, useEffect } from 'react'
 import {
   FormControl, TextField, Avatar, CircularProgress, Checkbox, Button,
@@ -54,11 +55,16 @@ const MultiSelectLinkItems = ({
           getOptionSelected={ (option) => option.title }
           inputValue={ inputValue }
           clearOnBlur={ false }
-          noOptionsText='no match found'
+          noOptionsText='No match found'
           onInputChange={ (event, value) => setInputValue(value) }
           onChange={ setSelectedItemsCB }
           clearOnEscape
-          options={ bottomActionText ? [ ...items, { id: -1, title: '', status: 'bottom' } ] : items }
+          // eslint-disable-next-line no-nested-ternary
+          options={ bottomActionText
+            ? [ ...items, { id: -1, title: '', status: 'bottom' } ] : (
+              items && selectedItems && items.length === selectedItems.length
+                ? [ ...items, { id: -2, title: '', status: 'no-options' } ]
+                : items) }
           getOptionLabel={ (option) => option.title }
           disableCloseOnSelect
           loading={ loading }
@@ -81,9 +87,11 @@ const MultiSelectLinkItems = ({
                     </Button>
                   </div>
                 )}
-                {option.group === false && <div className='para light'>{notSelectedLabel}</div>}
+                {(option.group === false || (option.group === 'no-options' && items && items.length > 0))
+                  && <div className='para light'>{notSelectedLabel}</div>}
               </div>
               {(option.group === true || option.group === false) && option.children}
+              {option.group === 'no-options' && <p className='para mt-5 ml-15'>No match found</p>}
               {bottomActionText && option.group === 'bottom' && (
                 <div className='view-more'>
                   <Button

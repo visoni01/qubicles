@@ -32,11 +32,17 @@ const CreatePreviewActions = ({
     }
     dispatch(startLoader())
     if (isEdit) {
-      dispatch(updateJob({ ...newJobData, status: 'draft' }))
+      dispatch(updateJob({
+        ...newJobData,
+        status: 'draft',
+      }))
       dispatch(resetJobDetails())
       dispatch(resetJobData())
     } else {
-      dispatch(addJob({ ...newJobData, status: 'draft' }))
+      dispatch(addJob({
+        ...newJobData,
+        status: 'draft',
+      }))
       dispatch(resetJobData())
     }
   }, [ dispatch, isEdit, newJobData, handleErrors ])
@@ -54,14 +60,21 @@ const CreatePreviewActions = ({
     }
     dispatch(startLoader())
     if (isEdit) {
-      dispatch(updateJob({ ...newJobData, status: 'recruiting' }))
+      dispatch(updateJob({
+        ...newJobData,
+        status: 'recruiting',
+        isUpdated: jobDetails && jobDetails.status !== 'draft',
+      }))
       dispatch(resetJobDetails())
       dispatch(resetJobData())
     } else {
-      dispatch(addJob({ ...newJobData, status: 'recruiting' }))
+      dispatch(addJob({
+        ...newJobData,
+        status: 'recruiting',
+      }))
       dispatch(resetJobData())
     }
-  }, [ dispatch, isEdit, newJobData, handleErrors ])
+  }, [ dispatch, isEdit, newJobData, handleErrors, jobDetails ])
 
   const previewJob = () => {
     dispatch(createJobDataFetchSuccessful({ createJobData: newJobData, isUpdatedData: isEdit }))

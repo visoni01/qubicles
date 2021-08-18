@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { takeLatest, put } from 'redux-saga/effects'
 import {
   updateJobsData, jobDetailsFetchSuccessful, jobPublishSuccessful, jobPublishFailure,
@@ -46,7 +47,7 @@ function* jobCrudWorker(action) {
           newJob: data,
         }))
         yield put(jobPublishSuccessful({ publishedJobId: data.job_id }))
-        msg = 'Job has been successfully created!'
+        msg = `Job has been successfully ${ _.isEqual(data.status, 'draft') ? 'created' : 'published' }!`
         break
       }
       case UPDATE_JOB: {
@@ -65,6 +66,7 @@ function* jobCrudWorker(action) {
           description,
           needed,
           jobPostOwnerId,
+          isUpdated,
           ...rest
         } = action.payload
         yield People.updateJob({
@@ -103,7 +105,8 @@ function* jobCrudWorker(action) {
         }))
         yield put(jobDetailsFetchSuccessful(action.payload))
         yield put(jobPublishSuccessful({ publishedJobId: jobId }))
-        msg = 'Job has been successfully updated!'
+        msg = `Job has been successfully ${ (action.payload && _.isEqual(action.payload.status, 'draft')) || isUpdated
+          ? 'updated' : 'published' }!`
         break
       }
       case DELETE_JOB: {

@@ -2,6 +2,7 @@
   .job-post-stats {
     display: inline-flex;
     flex-direction: column;
+
     .data {
       svg {
         margin-right: 10px;
@@ -15,9 +16,11 @@
     padding: 10px 0;
     font-size: 14px;
     flex-direction: column;
+
     li {
       margin-right: 10%;
       margin: 10px 0px;
+
       svg {
         margin-right: 10px;
       }
@@ -46,6 +49,7 @@
     .agent-field{
       width: 75px;
     }
+
     .agent-label {
       align-self: center;
       margin-left: 10px;
@@ -64,7 +68,6 @@
 }
 
 .job-requirements-root {
-
   .drop-down-field {
     width: 80%;
   }
@@ -74,16 +77,14 @@
   .duration-field{
     width: 75px;
   }
+
   .duration-label {
     align-self: center;
     margin-left: 10px;
   }
+
   .location {
     width: 80%;
-  }
-  .drop-down-bar {
-    width: 80%;
-    height: 30px;
   }
 }
 
@@ -113,8 +114,9 @@
 
   li {
     margin-right: 10%;
-      svg {
-        margin-right: 5px;
-      }
+
+    svg {
+      margin-right: 5px;
+    }
   }
 }
