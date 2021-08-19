@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
-import { EditIcon, SearchIcon } from '../../../assets/images/common'
+import { AddNewChatIcon, SearchIcon } from '../../../assets/images/common'
 import UserCard from './userCard'
 import NewChat from '../Common/addPeople'
 import { allChatsRequestStart, currentChatRequestStart } from '../../../redux-saga/redux/chat'
@@ -70,13 +70,13 @@ const LeftCard = ({ setConversationId, conversationId }) => {
           <IconButton
             onClick={ handleNewChatClick }
           >
-            <EditIcon />
+            <AddNewChatIcon />
           </IconButton>
 
           <IconButton
             onClick={ handleNewGroupClick }
           >
-            <EditIcon />
+            <AddNewChatIcon />
           </IconButton>
         </div>
       </div>
@@ -121,7 +121,7 @@ const LeftCard = ({ setConversationId, conversationId }) => {
               imageUrl={ item.imageUrl }
               allRead={ item.allRead }
               latestMessage={ item.latestMessage }
-              time={ item.time }
+              dateTime={ item.dateTime }
               isGroup={ item.isGroup }
               selectedConversationId={ conversationId }
             />

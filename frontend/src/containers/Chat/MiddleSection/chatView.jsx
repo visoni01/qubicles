@@ -1,5 +1,4 @@
 /* eslint-disable complexity */
-/* eslint-disable no-nested-ternary */
 import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
@@ -7,6 +6,7 @@ import { Divider } from '@material-ui/core'
 import UserMessage from './userMessage'
 import { formatDate, formatDateTime } from '../../../utils/common'
 import { allChatsRequestStart } from '../../../redux-saga/redux/chat'
+import UserNotification from './userNotification'
 
 const ChatView = ({ chats, conversationId, allRead }) => {
   const messagesEndRef = useRef(null)
@@ -43,13 +43,7 @@ const ChatView = ({ chats, conversationId, allRead }) => {
             : ''}
 
           {(item.isNotification)
-            ? (
-              <div
-                className='para text-center mt-10 mb-20'
-                // eslint-disable-next-line react/no-danger
-                dangerouslySetInnerHTML={ { __html: item.text } }
-              />
-            )
+            ? (<UserNotification message={ item.text } />)
             : (
               <UserMessage
                 candidateId={ item.candidateId }

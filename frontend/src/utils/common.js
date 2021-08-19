@@ -289,3 +289,42 @@ export const getSmsNotificationMessage = ({ type, payload }) => {
     default: return ''
   }
 }
+
+export const getChatNotificationMessage = ({ type, payload }) => {
+  switch (type) {
+    case 'new-chat': {
+      return `<span><b class=${ payload.userId }>${ payload.userName }</b> started a new chat</span>`
+    }
+
+    case 'new-group': {
+      return `<span><b class=${ payload.userId }>${ payload.userName }</b> created the group
+        <b>${ payload.groupName }</b></span>`
+    }
+
+    case 'add-people': {
+      return `<span><b class=${ payload.userId }>${ payload.userName }</b> added <b>${ payload.usersName }</b></span>`
+    }
+
+    case 'remove-person': {
+      return `<span><b class=${ payload.userId }>${ payload.userName }</b> removed
+        <b class=${ payload.otherUserId }>${ payload.otherUserName }</b></span>`
+    }
+
+    case 'add-group-name': {
+      return `<span><b class=${ payload.userId }>${ payload.userName }</b> added the group name
+        <b>${ payload.newGroupName }</b></span>`
+    }
+
+    case 'remove-group-name': {
+      return `<span><b class=${ payload.userId }>${ payload.userName }</b> removed the group name
+        <b>${ payload.oldGroupName }</b></span>`
+    }
+
+    case 'change-group-name': {
+      return `<span><b class=${ payload.userId }>${ payload.userName }</b> changed the group name from
+        <b>${ payload.oldGroupName }</b> to <b>${ payload.newGroupName }</b></span>`
+    }
+
+    default: return ''
+  }
+}

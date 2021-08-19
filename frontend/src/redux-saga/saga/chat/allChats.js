@@ -1,7 +1,7 @@
 /* eslint-disable complexity */
 import _ from 'lodash'
 import { takeEvery, put, select } from 'redux-saga/effects'
-import { getUniqueId } from '../../../utils/common'
+import { getChatNotificationMessage, getUniqueId } from '../../../utils/common'
 import {
   allChatsRequestStart,
   allChatsRequestSuccess,
@@ -69,8 +69,14 @@ function* allChatsWorker(action) {
               {
                 msgId: getUniqueId(),
                 candidateId: userDetails && userDetails.user_id,
-                text: `<span><b>${ userDetails && userDetails.full_name }</b> created the group <b>${
-                  title || '' }</b></span>`,
+                text: getChatNotificationMessage({
+                  type: dataType,
+                  payload: {
+                    userId: userDetails && userDetails.user_id,
+                    userName: userDetails && userDetails.full_name,
+                    groupName: title || '',
+                  },
+                }),
                 isNotification: true,
                 sentAt: Date.now(),
                 isRead: true,
@@ -78,8 +84,14 @@ function* allChatsWorker(action) {
               {
                 msgId: getUniqueId(),
                 candidateId: userDetails && userDetails.user_id,
-                text: `<span><b>${ userDetails && userDetails.full_name }</b> added <b>${
-                  members && members.map((item) => item.name).join(', ') }</b></span>`,
+                text: getChatNotificationMessage({
+                  type: 'add-people',
+                  payload: {
+                    userId: userDetails && userDetails.user_id,
+                    userName: userDetails && userDetails.full_name,
+                    usersName: members && members.map((item) => item.name).join(', '),
+                  },
+                }),
                 isNotification: true,
                 sentAt: Date.now(),
                 isRead: true,
@@ -146,7 +158,13 @@ function* allChatsWorker(action) {
             const newMessage = {
               msgId: getUniqueId(),
               candidateId: userDetails && userDetails.user_id,
-              text: `<span><b>${ userDetails && userDetails.full_name }</b> started a new chat</span>`,
+              text: getChatNotificationMessage({
+                type: dataType,
+                payload: {
+                  userId: userDetails && userDetails.user_id,
+                  userName: userDetails && userDetails.full_name,
+                },
+              }),
               isNotification: true,
               sentAt: Date.now(),
               isRead: true,

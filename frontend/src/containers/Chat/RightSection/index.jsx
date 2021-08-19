@@ -37,9 +37,12 @@ const RightCard = ({ changeGroupName }) => {
   const handleKeyDown = useCallback((event) => {
     if (event.key === 'Enter') {
       setShowGroupNameField(false)
-      changeGroupName(groupNameValue)
+      changeGroupName({
+        newGroupName: groupNameValue && groupNameValue.trim(),
+        oldGroupName: chat && chat.groupName,
+      })
     }
-  }, [ changeGroupName, groupNameValue ])
+  }, [ changeGroupName, groupNameValue, chat ])
 
   return (
     <Box className='custom-box right-card'>
@@ -136,12 +139,14 @@ const RightCard = ({ changeGroupName }) => {
       )}
 
       {/* View Members Modal */}
-      <ViewMembers
-        open={ openViewMembersModal }
-        handleClose={ () => setOpenViewMembersModal(false) }
-        members={ members }
-        conversationId={ chat.conversationId }
-      />
+      {openViewMembersModal && (
+        <ViewMembers
+          open={ openViewMembersModal }
+          handleClose={ () => setOpenViewMembersModal(false) }
+          members={ members }
+          conversationId={ chat.conversationId }
+        />
+      )}
     </Box>
   )
 }

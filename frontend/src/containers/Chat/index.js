@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { Grid } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
+import _ from 'lodash'
 import LeftSection from './LeftSection'
 import RightSection from './RightSection'
 import MiddleSection from './MiddleSection'
@@ -13,13 +14,16 @@ const ChatSection = () => {
 
   const [ conversationId, setConversationId ] = useState(null)
 
-  const handleGroupNameChange = useCallback((newGroupName) => {
-    dispatch(currentChatRequestStart({
-      requestType: 'UPDATE',
-      dataType: 'change-group-name',
-      conversationId: chat.conversationId,
-      newGroupName,
-    }))
+  const handleGroupNameChange = useCallback(({ newGroupName, oldGroupName }) => {
+    if (!_.isEqual(newGroupName, oldGroupName)) {
+      dispatch(currentChatRequestStart({
+        requestType: 'UPDATE',
+        dataType: 'change-group-name',
+        conversationId: chat.conversationId,
+        newGroupName,
+        oldGroupName,
+      }))
+    }
   }, [ dispatch, chat.conversationId ])
 
   useEffect(() => {

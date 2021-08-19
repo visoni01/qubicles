@@ -1,6 +1,7 @@
 /* eslint-disable complexity */
+import _ from 'lodash'
 import { takeEvery, put, select } from 'redux-saga/effects'
-import { getUniqueId } from '../../../utils/common'
+import { getChatNotificationMessage, getUniqueId } from '../../../utils/common'
 import {
   currentChatRequestStart,
   currentChatRequestSuccess,
@@ -18,7 +19,7 @@ function* currentChatWatcher() {
 function* currentChatWorker(action) {
   try {
     const {
-      requestType, dataType, conversationId, members, candidateId, name, newGroupName,
+      requestType, dataType, conversationId, members, candidateId, name, newGroupName, oldGroupName,
     } = action.payload
 
     switch (requestType) {
@@ -46,8 +47,14 @@ function* currentChatWorker(action) {
             const newMessage = {
               msgId: getUniqueId(),
               candidateId: userDetails && userDetails.user_id,
-              text: `<span><b>${ userDetails && userDetails.full_name }</b> added <b>${
-                members && members.map((item) => item.name).join(', ') }</b></span>`,
+              text: getChatNotificationMessage({
+                type: dataType,
+                payload: {
+                  userId: userDetails && userDetails.user_id,
+                  userName: userDetails && userDetails.full_name,
+                  usersName: members && members.map((item) => item.name).join(', '),
+                },
+              }),
               isNotification: true,
               sentAt: Date.now(),
               isRead: true,
@@ -66,7 +73,15 @@ function* currentChatWorker(action) {
             const newMessage = {
               msgId: getUniqueId(),
               candidateId: userDetails && userDetails.user_id,
-              text: `<span><b>${ userDetails && userDetails.full_name }</b> removed <b>${ name }</b></span>`,
+              text: getChatNotificationMessage({
+                type: dataType,
+                payload: {
+                  userId: userDetails && userDetails.user_id,
+                  userName: userDetails && userDetails.full_name,
+                  otherUserId: candidateId,
+                  otherUserName: name,
+                },
+              }),
               isNotification: true,
               sentAt: Date.now(),
               isRead: true,
@@ -86,7 +101,38 @@ function* currentChatWorker(action) {
 
           case 'change-group-name': {
             yield Chat.changeGroupName({ conversationId, newGroupName })
+
+            const { userDetails } = yield select((state) => state.login)
+
+            let type
+
+            if (_.isEmpty(newGroupName)) {
+              type = 'remove-group-name'
+            } else if (_.isEmpty(oldGroupName)) {
+              type = 'add-group-name'
+            } else {
+              type = 'change-group-name'
+            }
+
+            const newMessage = {
+              msgId: getUniqueId(),
+              candidateId: userDetails && userDetails.user_id,
+              text: getChatNotificationMessage({
+                type,
+                payload: {
+                  userId: userDetails && userDetails.user_id,
+                  userName: userDetails && userDetails.full_name,
+                  newGroupName,
+                  oldGroupName,
+                },
+              }),
+              isNotification: true,
+              sentAt: Date.now(),
+              isRead: true,
+            }
+
             yield put(currentChatRequestSuccess({ newGroupName }))
+            yield put(updateCurrentChat({ newMessage, dataType: 'new-message' }))
 
             const { chat } = yield select((state) => state.currentChat)
             const groupName = newGroupName

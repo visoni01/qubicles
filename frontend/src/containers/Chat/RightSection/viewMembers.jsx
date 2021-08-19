@@ -1,11 +1,12 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import {
   Dialog, DialogActions, DialogContent, DialogTitle, IconButton,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import _ from 'lodash'
 import Loader from '../../loaders/circularLoader'
 import PersonCard from '../Common/personCard'
 import { currentChatRequestStart } from '../../../redux-saga/redux/chat'
@@ -13,7 +14,22 @@ import { currentChatRequestStart } from '../../../redux-saga/redux/chat'
 const ViewMembers = ({
   open, handleClose, members, conversationId,
 }) => {
+  const { userDetails } = useSelector((state) => state.login)
+  const [ sortedMembersList, setSortedMembersList ] = useState(members)
+
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (members && members.length) {
+      let newMembersList = members.filter((item) => userDetails && _.isEqual(item.id, userDetails.user_id))
+      newMembersList = [
+        ...newMembersList,
+        ..._.sortBy(_.difference(members, newMembersList), (item) => item.name),
+      ]
+
+      setSortedMembersList(newMembersList)
+    }
+  }, [ members, userDetails ])
 
   const handleRemove = useCallback(({ id, name }) => {
     dispatch(currentChatRequestStart({
@@ -64,7 +80,7 @@ const ViewMembers = ({
 
       <DialogContent>
         <div>
-          {members && members.map((person) => (
+          {sortedMembersList && sortedMembersList.map((person) => (
             <PersonCard
               key={ person.id }
               id={ person.id }

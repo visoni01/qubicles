@@ -6,12 +6,13 @@ import { Avatar } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircle } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from 'react-redux'
+import _ from 'lodash'
 import { groupChatIcon } from '../../../assets/images/chat'
-import { formatDate } from '../../../utils/common'
+import { formatDate, formatDateTime } from '../../../utils/common'
 import { currentChatRequestStart } from '../../../redux-saga/redux/chat'
 
 const UserCard = ({
-  id, name, imageUrl, allRead, latestMessage, time, setConversationId, isGroup, selectedConversationId,
+  id, name, imageUrl, allRead, latestMessage, dateTime, setConversationId, isGroup, selectedConversationId,
 }) => {
   const dispatch = useDispatch()
 
@@ -36,7 +37,10 @@ const UserCard = ({
       <div className='is-fullwidth'>
         <div className='is-flex is-between'>
           <span className='h4 short-message conversation-title'>{name}</span>
-          <p className='para light'>{formatDate(time, 'hh:mm a')}</p>
+          <p className='para light'>
+            {dateTime
+            && (formatDate(dateTime, _.isEqual(formatDateTime(dateTime), 'Today') ? 'hh:mm a' : 'L'))}
+          </p>
         </div>
 
         <div className='is-flex is-between align-items-flex-end'>
@@ -60,7 +64,7 @@ UserCard.defaultProps = {
   imageUrl: '',
   allRead: '',
   latestMessage: '',
-  time: '',
+  dateTime: '',
   setConversationId: () => {},
   isGroup: false,
   selectedConversationId: null,
@@ -72,7 +76,7 @@ UserCard.propTypes = {
   imageUrl: PropTypes.string,
   allRead: PropTypes.bool,
   latestMessage: PropTypes.string,
-  time: PropTypes.string,
+  dateTime: PropTypes.string,
   setConversationId: PropTypes.func,
   isGroup: PropTypes.bool,
   selectedConversationId: PropTypes.number,
