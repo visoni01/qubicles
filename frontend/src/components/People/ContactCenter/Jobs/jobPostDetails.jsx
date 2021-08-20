@@ -57,7 +57,6 @@ const JobPostDetails = ({
           <h4 className='h4'>{_.capitalize(jobDetails.experienceType)}</h4>
           <p className='para'>Experience Level</p>
           <h4 className='h4 mt-20'>
-            {jobDetails.fulfilled}
             {jobDetails.needed}
           </h4>
           <p className='para'>Needed</p>

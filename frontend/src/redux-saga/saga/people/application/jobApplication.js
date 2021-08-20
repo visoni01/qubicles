@@ -161,11 +161,16 @@ function* jobApplicationWorker(action) {
           })
         }
 
-        if (data && data.status === 'declined') {
-          const userDetails = getUserDetails()
+        const userDetails = getUserDetails()
+
+        if (userDetails && _.isEqual(userDetails.user_code, 'agent')
+          && data && [ 'declined', 'screening', 'resigned' ].includes(data.status)) {
           const { jobDetails } = yield select((state) => state.jobDetails)
+
           const message = getNotificationMessage({
-            type: 'job-applied',
+            type: (data.status === 'declined' && 'job-applied')
+            || (data.status === 'screening' && 'accept-job-invitation')
+            || (data.status === 'resigned' && 'resign-job'),
             payload: {
               userId: userDetails && userDetails.user_id,
               userName: userDetails && userDetails.full_name,
@@ -174,9 +179,39 @@ function* jobApplicationWorker(action) {
             },
           })
 
-          WebSocket.deleteNotification({
-            to: jobDetails && jobDetails.jobPostOwnerId && jobDetails.jobPostOwnerId.toString(),
-            from: userDetails.user_id,
+          if (_.isEqual(data.status, 'declined')) {
+            WebSocket.deleteNotification({
+              to: jobDetails && jobDetails.jobPostOwnerId && jobDetails.jobPostOwnerId.toString(),
+              from: userDetails.user_id,
+              message,
+            })
+          } else {
+            WebSocket.sendNotification({
+              to: jobDetails && jobDetails.jobPostOwnerId && jobDetails.jobPostOwnerId.toString(),
+              from: userDetails.user_id,
+              message,
+            })
+          }
+        }
+
+        if (userDetails && _.isEqual(userDetails.user_code, 'employer')
+          && data && [ 'declined', 'invited' ].includes(data.status)) {
+          const { application } = yield select((state) => state.jobApplication)
+          const { agentResume } = yield select((state) => state.agentResume)
+          const message = getNotificationMessage({
+            type: (data.status === 'declined' && 'cancel-application')
+            || (data.status === 'invited' && 'invite-for-job'),
+            payload: {
+              id: data && data.user_id,
+              name: agentResume && agentResume.candidateName,
+              jobId: application && application.jobId,
+              jobTitle: application && application.jobTitle,
+            },
+          })
+
+          WebSocket.sendNotification({
+            to: data.user_id && data.user_id.toString(),
+            from: userDetails && userDetails.user_id,
             message,
           })
         }
