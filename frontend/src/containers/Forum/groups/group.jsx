@@ -5,16 +5,17 @@ import {
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  addNewGroupTopic, updateGroupTopicsList, updateExistingGroup, updateExistingTopic,
+  addNewGroupTopic, updateGroupTopicsList, updateExistingGroup, updateExistingTopic, deleteGroup,
 } from '../../../redux-saga/redux/actions'
 import CreateOrUpdateTopicForm from '../topics/createAndUpdateTopic'
 import SelectedTopic from '../topics/topic'
 import { UPDATE_TOPIC_STATS } from '../../../redux-saga/redux/constants'
 import TopicsList from '../topics/list'
 import ScrollToTop from '../../../components/scrollToTop'
-import GroupOptions from './groupOptions'
 import UpdateGroup from './createOrUpdate'
 import { SearchIcon } from '../../../assets/images/common'
+import MenuOptions from '../../Shared/menuOptions'
+import { DeleteIcon } from '../../../assets/images/training'
 
 const SelectedGroup = ({ group }) => {
   const {
@@ -69,6 +70,12 @@ const SelectedGroup = ({ group }) => {
     dispatch(updateExistingTopic({ topicData, topicId: topicData.id }))
     updateTopicAndToggle()
   }
+
+  const handleConfirmModal = useCallback(() => {
+    dispatch(deleteGroup({
+      groupId: id,
+    }))
+  }, [ dispatch, id ])
 
   if (openUpdateTopic) {
     return (
@@ -140,9 +147,15 @@ const SelectedGroup = ({ group }) => {
               {title}
             </h3>
             {userDetails.user_id === ownerId && (
-              <GroupOptions
-                groupId={ id }
-                handleOpenModal={ handleUpdateGroupToggle }
+              <MenuOptions
+                handleFirstOptionClick={ handleUpdateGroupToggle }
+                handleConfirmModal={ handleConfirmModal }
+                confirmButtonText='Delete'
+                firstOption='Edit'
+                secondOption='Delete'
+                FirstIcon={ DeleteIcon } // Change this
+                SecondIcon={ DeleteIcon }
+                message='Are you sure you want to delete this group ?'
               />
             )}
           </div>

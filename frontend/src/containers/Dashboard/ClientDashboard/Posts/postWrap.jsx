@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Box } from '@material-ui/core'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import PostHead from './postHead'
 import PostBody from './postBody'
 import { commentsArrayValidator } from '../postValidators'
-import PostOptions from './postOptions'
+import MenuOptions from '../../../Shared/menuOptions'
+import { DeleteIcon } from '../../../../assets/images/training'
+import { deletePostStatus } from '../../../../redux-saga/redux/actions'
+import EditPostModal from './editPostModal'
 
 const PostWrap = ({
   userActivityId, activityValue, activityCustom,
@@ -13,6 +16,16 @@ const PostWrap = ({
   likesCount, commentsCount, comments, commentLoading, permission,
 }) => {
   const { userDetails } = useSelector((state) => state.login)
+  const [ openEditPostModal, setOpenEditPostModal ] = useState(false)
+
+  const dispatch = useDispatch()
+
+  const handleConfirmModal = useCallback(() => {
+    dispatch(deletePostStatus({
+      userActivityId,
+    }))
+  }, [ dispatch, userActivityId ])
+
   return (
     <Box className='custom-box mb-25'>
       <div className='display-inline-flex justify-between is-fullwidth align-items-start'>
@@ -23,14 +36,16 @@ const PostWrap = ({
         />
         {owner.userId === userDetails.user_id
         && (
-        <PostOptions
-          owner={ owner }
-          createdAt={ createdAt }
-          postId={ userActivityId }
-          postText={ activityValue }
-          postImage={ activityCustom }
-          permission={ permission }
-        />
+          <MenuOptions
+            handleFirstOptionClick={ () => setOpenEditPostModal(true) }
+            handleConfirmModal={ handleConfirmModal }
+            confirmButtonText='Delete'
+            firstOption='Edit'
+            secondOption='Delete'
+            FirstIcon={ DeleteIcon } // Change this
+            SecondIcon={ DeleteIcon }
+            message='Are you sure you want to delete this post ?'
+          />
         )}
       </div>
 
@@ -45,6 +60,19 @@ const PostWrap = ({
         comments={ comments }
         commentLoading={ commentLoading }
       />
+
+      {openEditPostModal && (
+        <EditPostModal
+          open={ openEditPostModal }
+          handleClose={ () => setOpenEditPostModal(false) }
+          owner={ owner }
+          createdAt={ createdAt }
+          postId={ userActivityId }
+          postText={ activityValue }
+          postImage={ activityCustom }
+          permission={ permission }
+        />
+      )}
     </Box>
   )
 }

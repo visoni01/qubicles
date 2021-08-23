@@ -6,22 +6,26 @@
     justify-content: space-between;
     padding: 0px 2px;
     margin-top: 7px;
+
     li {
       margin-right: 10%;
       display: flex;
       color: $color-dark-grey;
       align-items: center;
+
         svg {
           margin-right: 6px;
           stroke: $color-dark-grey;
           stroke-width: 60px;
           color: white;
+
           path {
             &:hover {
               color: white !important;
             }
           }
         }
+
         &:hover {
           color: $color-dark-grey;
         }
@@ -66,17 +70,21 @@
   @extend .section-stats;
   .topic-info {
     display: flex;
+
     .avatar-logo {
       width: 30px;
       height: 30px;
     }
+
     svg {
       vertical-align: text-bottom;
     }
   }
+
   p {
     padding: 6px 2px;
   }
+
   .divider {
     width: 100%;
     margin: 10px 0;
@@ -86,6 +94,7 @@
 .section-heading {
   position: relative;
   margin-bottom: 10px;
+
    .action-button {
       font-size: 14px;
       position: absolute;
@@ -97,6 +106,7 @@
 .topics-pagination {
   height: 32px;
   margin: 30px 0 10px;
+
   ul {
     float: right;
   }
@@ -105,6 +115,7 @@
 .textarea-input {
   display: inline-flex;
   width: 100%;
+
   .avatar {
     margin-right: 8px;
   }
@@ -127,6 +138,7 @@
       font-family: 'SF Pro Text', Regular;
       font-weight: normal;
       color: #4A4A4A;
+
       &:focus {
         outline: none;
         box-shadow: inherit;
@@ -174,6 +186,7 @@
     font-size: 24px;
     height: 100%;
     color: $color-dark-grey;
+
     path{
     &:hover {
         color: $color-dark-grey;
@@ -216,37 +229,10 @@
   path{
     color: $color-red;
     stroke: $color-red;
+
     &:hover {
       color: $color-red;
     }
-  }
-}
-
-// Group Options
-.group-options {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-content: space-around;
-  border-radius: 8px;
-  padding: 5px;
-
-  .option {
-    display: flex;
-    justify-content: flex-start;
-    background-color: $color-white;
-    .option-icon {
-      flex: 1;
-      margin: auto;
-    }
-    .option-name {
-      flex: 2;
-      margin: 5px;
-      font-size: 14px;
-    }
-  }
-  .option-label {
-    margin: 2px 6px;
   }
 }
 
@@ -268,9 +254,9 @@
 }
 
 .edit-comment-buttons{
- justify-content: space-between;
+  justify-content: space-between;
 }
 
 .post-comment-button{
- justify-content: flex-end;
+  justify-content: flex-end;
 }

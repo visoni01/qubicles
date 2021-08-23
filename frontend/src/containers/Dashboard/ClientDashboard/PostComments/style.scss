@@ -153,32 +153,3 @@
 .comment-body:hover .comment-option-button-hidden {
   display: block;
 }
-
-// comment Options
-
-.comment-options {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-content: space-around;
-  border-radius: 8px;
-  padding: 5px;
-
-  .option {
-    display: flex;
-    justify-content: flex-start;
-    background-color: $color-white;
-    .option-icon {
-      flex: 1;
-      margin: auto;
-    }
-    .option-name {
-      flex: 2;
-      margin: 5px;
-      font-size: 14px;
-    }
-  }
-  .option-label {
-    margin: 2px 6px;
-  }
-}

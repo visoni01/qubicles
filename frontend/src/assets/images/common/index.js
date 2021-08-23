@@ -1,6 +1,6 @@
 import { ReactComponent as SearchIcon } from './search.svg'
+import { ReactComponent as MenuIcon } from './menu.svg'
 
 export {
-  // eslint-disable-next-line import/prefer-default-export
-  SearchIcon,
+  SearchIcon, MenuIcon,
 }

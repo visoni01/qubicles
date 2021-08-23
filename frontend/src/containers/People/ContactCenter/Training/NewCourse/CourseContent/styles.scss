@@ -11,7 +11,6 @@
     .wide-button {
       width: 49%;
     }
-
   }
 
   .list-sections {
@@ -27,6 +26,7 @@
       justify-content: space-between;
       padding: 2px 15px;
       min-height: 45px;
+
       &.section-label {
        height: 45px;
       }
@@ -79,13 +79,5 @@
 
   .video-player-root {
     display: flex;
-  }
-}
-
-.custom-svg-icon{
-  &.color-red {
-    path, line, rect {
-      stroke: $color-red;
-    }
   }
 }

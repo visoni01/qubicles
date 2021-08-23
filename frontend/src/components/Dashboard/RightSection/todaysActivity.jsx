@@ -1,14 +1,13 @@
 import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Grid } from '@material-ui/core'
-import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
+import { MenuIcon } from '../../../assets/images/common'
 
 const TodayActivity = () => (
   <Box className='custom-box mb-25'>
     <div className='activity-section'>
       <h3 className='h3 mb-15'>
         Today's Activity
-        <FontAwesomeIcon icon={ faEllipsisV } className='pull-right' />
+        <MenuIcon className='pull-right mt-5' />
       </h3>
       <Grid container spacing={ 1 } justify='space-between'>
         <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 12 }>

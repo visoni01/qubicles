@@ -3,16 +3,28 @@ import {
   Avatar,
 } from '@material-ui/core'
 import moment from 'moment'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
-import CommentOptions from './commentOptions'
 import EditComment from './postComment'
+import { deleteTopicComment } from '../../../redux-saga/redux/actions'
+import MenuOptions from '../../Shared/menuOptions'
+import { DeleteIcon } from '../../../assets/images/training'
 
 const Comment = ({ comment }) => {
   const [ openEditComment, setOpenEditComment ] = useState(false)
   const { userDetails } = useSelector((state) => state.login)
 
+  const dispatch = useDispatch()
+
   const handleEditCommentModal = useCallback(() => setOpenEditComment((state) => !state), [ setOpenEditComment ])
+
+  const handleConfirmModal = useCallback(() => {
+    dispatch(deleteTopicComment({
+      topicId: comment && comment.topicId,
+      activityId: comment && comment.id,
+      ownerId: comment && comment.ownerId,
+    }))
+  }, [ dispatch, comment ])
 
   if (openEditComment) {
     return (
@@ -38,12 +50,16 @@ const Comment = ({ comment }) => {
         </div>
         <div>
           {userDetails.user_id === comment.ownerId && (
-          <CommentOptions
-            topicId={ comment.topicId }
-            activityId={ comment.id }
-            ownerId={ comment.ownerId }
-            handleEdit={ handleEditCommentModal }
-          />
+            <MenuOptions
+              handleFirstOptionClick={ handleEditCommentModal }
+              handleConfirmModal={ handleConfirmModal }
+              confirmButtonText='Delete'
+              firstOption='Edit'
+              secondOption='Delete'
+              FirstIcon={ DeleteIcon } // Change this
+              SecondIcon={ DeleteIcon }
+              message='Are you sure you want to delete this comment ?'
+            />
           )}
         </div>
       </div>

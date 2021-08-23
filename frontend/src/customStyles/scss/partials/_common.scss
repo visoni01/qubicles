@@ -256,6 +256,12 @@
       stroke: $color-primary;
     }
   }
+
+  &.color-red {
+    path, line, rect {
+      stroke: $color-red;
+    }
+  }
 }
 
 // Ellipsis Options
@@ -271,16 +277,19 @@
     display: flex;
     justify-content: flex-start;
     background-color: $color-white;
+
     .option-icon {
       flex: 1;
       margin: auto;
     }
+
     .option-name {
       flex: 2;
       margin: 5px;
       font-size: 14px;
     }
   }
+
   .option-label {
     margin: 2px 6px;
   }

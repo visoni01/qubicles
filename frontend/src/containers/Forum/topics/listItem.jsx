@@ -9,8 +9,9 @@ import {
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import { formatDate } from '../../../utils/common'
-import { topicActivity } from '../../../redux-saga/redux/actions'
-import TopicOptions from './topicOptions'
+import { deleteGroupTopic, topicActivity } from '../../../redux-saga/redux/actions'
+import MenuOptions from '../../Shared/menuOptions'
+import { DeleteIcon } from '../../../assets/images/training'
 
 const ListItem = ({
   topic, index, setSelectedTopic, updateTopicAndToggle,
@@ -33,6 +34,14 @@ const ListItem = ({
     }))
   }, [ dispatch, topic.id, topic.isTopicLiked ])
 
+  const handleConfirmModal = useCallback(() => {
+    dispatch(deleteGroupTopic({
+      topicId: topic && topic.id,
+      ownerId: topic && topic.ownerId,
+      groupId: topic && topic.groupId,
+    }))
+  }, [ dispatch, topic ])
+
   return (
     <>
       <div className='display-inline-flex is-fullwidth' key={ topic.id }>
@@ -53,12 +62,16 @@ const ListItem = ({
             </div>
             {userDetails.user_id === topic.ownerId
             && (
-            <TopicOptions
-              childTopicData={ childTopicData }
-              ownerId={ topic.ownerId }
-              topicId={ topic.id }
-              groupId={ topic.groupId }
-            />
+              <MenuOptions
+                handleFirstOptionClick={ childTopicData }
+                handleConfirmModal={ handleConfirmModal }
+                confirmButtonText='Delete'
+                firstOption='Edit'
+                secondOption='Delete'
+                FirstIcon={ DeleteIcon } // Change this
+                SecondIcon={ DeleteIcon }
+                message='Are you sure you want to delete this topic ?'
+              />
             )}
           </div>
           <div className='display-inline-flex is-fullwidth'>

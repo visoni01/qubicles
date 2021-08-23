@@ -2,14 +2,13 @@ import React, { useState, useEffect, useCallback } from 'react'
 import {
   Box, IconButton, Divider,
 } from '@material-ui/core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSlidersH } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import Pagination from '@material-ui/lab/Pagination'
 import { groupTopicsFetchingStart } from '../../../redux-saga/redux/actions'
 import ListSkeleton from '../../../components/Forum/Skeletons/topicsList'
 import TopicsListItem from './listItem'
+import { FilterIcon } from '../../../assets/images/training'
 
 const Topics = ({
   groupId, groupTitle, setSelectedTopic, updateTopicAndToggle,
@@ -46,12 +45,10 @@ const Topics = ({
     <Box className='custom-box'>
       <div className='section-heading display-inline-flex align-items-center is-fullwidth'>
         <h3 className='h3 topics-list-action-icon'>
-          Topics in
-          {' '}
-          {groupTitle}
+          {`Topics in ${ groupTitle }`}
         </h3>
         <IconButton className='action-button ml-10'>
-          <FontAwesomeIcon icon={ faSlidersH } />
+          <FilterIcon />
         </IconButton>
 
       </div>
