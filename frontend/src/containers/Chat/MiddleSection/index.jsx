@@ -1,44 +1,33 @@
-import React, { useEffect, useCallback } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Box, Divider } from '@material-ui/core'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
 import ChatView from './chatView'
 import ChatControls from './chatControls'
-import {
-  currentChatRequestStart, resetCurrentChatReducer, updateAllChats, updateCurrentChat,
-} from '../../../redux-saga/redux/chat'
+import { chatDataRequestStart } from '../../../redux-saga/redux/chat'
 import '../styles.scss'
 
-const MiddleCard = ({ conversationId }) => {
-  const { chat } = useSelector((state) => state.currentChat)
+const MiddleCard = ({
+  conversationId, messageText, setMessageText, imageUrl, setImageUrl,
+}) => {
+  const { conversations, currentChatId } = useSelector((state) => state.chatData)
   const { chatsList } = useSelector((state) => state.allChats)
   const dispatch = useDispatch()
-  const currentChat = _.find(chatsList, { id: chat.conversationId })
 
-  useEffect(() => () => dispatch(resetCurrentChatReducer()), [ dispatch ])
+  const chatData = conversations.find((conversation) => conversation.data.conversationId === currentChatId)
+  const chat = chatData?.data
+  const currentChat = chat && _.find(chatsList, { id: chat.conversationId })
 
-  const handleSend = useCallback(({ newMessage }) => {
-    dispatch(updateCurrentChat({
-      dataType: 'new-message',
-      newMessage,
-    }))
-
-    dispatch(updateAllChats({
-      dataType: 'new-message',
-      latestMessage: newMessage.text,
-      time: Date.now(),
-      conversationId,
-    }))
-
-    if (currentChat && !currentChat.allRead) {
-      dispatch(currentChatRequestStart({
-        requestType: 'UPDATE',
-        dataType: 'mark-as-read',
+  useEffect(() => {
+    if (currentChatId && !chat) {
+      dispatch(chatDataRequestStart({
+        requestType: 'FETCH',
+        dataType: 'current-chat',
         conversationId,
       }))
     }
-  }, [ dispatch, conversationId, currentChat ])
+  }, [ dispatch, conversationId, chat, currentChatId ])
 
   return (
     <Box className='custom-box no-padding chat-section'>
@@ -46,8 +35,8 @@ const MiddleCard = ({ conversationId }) => {
       {/* Chat Body */}
       <div className='chat-section-body padding-20'>
         <ChatView
-          chats={ (chat && chat.data) || [] }
-          conversationId={ chat && chat.conversationId }
+          chats={ chat?.chats || [] }
+          conversationId={ chat?.conversationId }
           allRead={ currentChat && currentChat.allRead }
         />
       </div>
@@ -57,19 +46,28 @@ const MiddleCard = ({ conversationId }) => {
         <Divider className='divider is-fullwidth no-margin-top' />
         <ChatControls
           conversationId={ chat && chat.conversationId }
-          handleSend={ handleSend }
+          messageText={ messageText }
+          setMessageText={ setMessageText }
+          imageUrl={ imageUrl }
+          setImageUrl={ setImageUrl }
         />
       </div>
     </Box>
   )
 }
 
-export default MiddleCard
-
 MiddleCard.defaultProps = {
   conversationId: null,
+  messageText: '',
+  imageUrl: '',
 }
 
 MiddleCard.propTypes = {
   conversationId: PropTypes.number,
+  messageText: PropTypes.string,
+  imageUrl: PropTypes.string,
+  setMessageText: PropTypes.func.isRequired,
+  setImageUrl: PropTypes.func.isRequired,
 }
+
+export default MiddleCard

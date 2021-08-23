@@ -1,5 +1,5 @@
 import {
-  Box, Divider, IconButton, TextField,
+  Box, Divider, IconButton, TextField, Tooltip,
 } from '@material-ui/core'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,12 +8,12 @@ import PropTypes from 'prop-types'
 import { AddNewChatIcon, SearchIcon } from '../../../assets/images/common'
 import UserCard from './userCard'
 import NewChat from '../Common/addPeople'
-import { allChatsRequestStart, currentChatRequestStart } from '../../../redux-saga/redux/chat'
+import { allChatsRequestStart } from '../../../redux-saga/redux/chat'
+import { NewGroupIcon } from '../../../assets/images/chat'
 import '../styles.scss'
 
-const LeftCard = ({ setConversationId, conversationId }) => {
-  const { chatsList } = useSelector((state) => state.allChats)
-  const { isLoading } = useSelector((state) => state.currentChat)
+const LeftCard = ({ conversationId }) => {
+  const { chatsList, isLoading } = useSelector((state) => state.allChats)
 
   const [ openSearchField, setOpenSearchField ] = useState(false)
   const [ openNewChatModal, setOpenNewChatModal ] = useState(false)
@@ -34,21 +34,13 @@ const LeftCard = ({ setConversationId, conversationId }) => {
   }, [])
 
   useEffect(() => {
-    dispatch(allChatsRequestStart({
-      requestType: 'FETCH',
-      dataType: 'chats-list',
-    }))
-  }, [ dispatch ])
-
-  useEffect(() => {
-    if (chatsList && chatsList.length > 0 && chatsList[ 0 ] && _.isNull(isLoading)) {
-      dispatch(currentChatRequestStart({
+    if (_.isNull(isLoading)) {
+      dispatch(allChatsRequestStart({
         requestType: 'FETCH',
-        dataType: 'current-chat',
-        conversationId: chatsList[ 0 ].id,
+        dataType: 'chats-list',
       }))
     }
-  }, [ chatsList, setConversationId, isLoading, dispatch ])
+  }, [ dispatch, isLoading ])
 
   return (
     <Box
@@ -61,23 +53,29 @@ const LeftCard = ({ setConversationId, conversationId }) => {
         </h3>
 
         <div className='is-flex is-between'>
-          <IconButton
-            onClick={ handleSearchClick }
-          >
-            <SearchIcon className='search-icon' />
-          </IconButton>
+          <Tooltip title='Search'>
+            <IconButton
+              onClick={ handleSearchClick }
+            >
+              <SearchIcon className='search-icon' />
+            </IconButton>
+          </Tooltip>
 
-          <IconButton
-            onClick={ handleNewChatClick }
-          >
-            <AddNewChatIcon />
-          </IconButton>
+          <Tooltip title='New Chat'>
+            <IconButton
+              onClick={ handleNewChatClick }
+            >
+              <AddNewChatIcon />
+            </IconButton>
+          </Tooltip>
 
-          <IconButton
-            onClick={ handleNewGroupClick }
-          >
-            <AddNewChatIcon />
-          </IconButton>
+          <Tooltip title='New Group'>
+            <IconButton
+              onClick={ handleNewGroupClick }
+            >
+              <NewGroupIcon />
+            </IconButton>
+          </Tooltip>
         </div>
       </div>
 
@@ -144,7 +142,6 @@ LeftCard.defaultProps = {
 }
 
 LeftCard.propTypes = {
-  setConversationId: PropTypes.func.isRequired,
   conversationId: PropTypes.number,
 }
 

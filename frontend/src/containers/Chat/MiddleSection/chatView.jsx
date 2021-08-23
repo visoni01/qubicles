@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { Divider } from '@material-ui/core'
 import UserMessage from './userMessage'
 import { formatDate, formatDateTime } from '../../../utils/common'
-import { allChatsRequestStart } from '../../../redux-saga/redux/chat'
+import { chatDataRequestStart } from '../../../redux-saga/redux/chat'
 import UserNotification from './userNotification'
 
 const ChatView = ({ chats, conversationId, allRead }) => {
@@ -14,11 +14,11 @@ const ChatView = ({ chats, conversationId, allRead }) => {
 
   useEffect(() => {
     messagesEndRef.current.scrollIntoView()
-  })
+  }, [ chats ])
 
   useEffect(() => () => {
     if (!allRead) {
-      dispatch(allChatsRequestStart({
+      dispatch(chatDataRequestStart({
         requestType: 'UPDATE',
         dataType: 'mark-as-read',
         conversationId,
@@ -38,7 +38,7 @@ const ChatView = ({ chats, conversationId, allRead }) => {
           )}
 
           {(index === 0 || (item && chats[ index - 1 ]
-          && formatDate(item.sentAt, 'd') !== formatDate(chats[ index - 1 ].sentAt, 'd')))
+          && formatDate(item.sentAt, 'L') !== formatDate(chats[ index - 1 ].sentAt, 'L')))
             ? (<p className='para light text-center mb-20'>{ item.sentAt && formatDateTime(item.sentAt) }</p>)
             : ''}
 

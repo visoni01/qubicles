@@ -17,6 +17,15 @@ const userList = [
     latestMessage: 'Hello, this is the message from Jack Downey!',
     allRead: true,
   },
+  {
+    id: 3,
+    name: 'Pebrook Lias',
+    imageUrl: 'https://ipfs.telos.miami/ipfs/QmU5gDcgrQUdyaV5vTxLnxouu7SomBCSxHpBCWbRDwzRqj',
+    dateTime: '2021-05-21 10:25:57',
+    isGroup: false,
+    latestMessage: 'Hello, this is the message from Jack Downey!',
+    allRead: true,
+  },
 ]
 
 const members = [
@@ -209,7 +218,7 @@ const chats = [
     conversationId: 1,
     isGroup: false,
     groupName: '',
-    data: chatData[ 0 ],
+    chats: chatData[ 0 ],
     candidatesInfo: [
       {
         id: 2,
@@ -225,8 +234,23 @@ const chats = [
     conversationId: 2,
     isGroup: true,
     groupName: 'Incognito',
-    data: chatData[ 1 ],
+    chats: chatData[ 1 ],
     candidatesInfo: members,
+  },
+  {
+    conversationId: 3,
+    isGroup: false,
+    chats: chatData[ 1 ],
+    candidatesInfo: [
+      {
+        id: 3,
+        name: 'Pebrook Lias',
+        profilePic: 'https://ipfs.telos.miami/ipfs/QmU5gDcgrQUdyaV5vTxLnxouu7SomBCSxHpBCWbRDwzRqj',
+        location: 'Sanski Most',
+        title: 'Database Administrator IV',
+        userCode: 'agent',
+      },
+    ],
   },
 ]
 

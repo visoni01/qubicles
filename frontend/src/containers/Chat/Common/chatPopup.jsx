@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, { useCallback, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -8,12 +9,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faMinus } from '@fortawesome/free-solid-svg-icons'
 import ChatView from '../MiddleSection/chatView'
 import ChatControls from '../MiddleSection/chatControls'
-import { chatPopupsRequestStart, updateChatPopups } from '../../../redux-saga/redux/chat'
-import { MaximizeIcon } from '../../../assets/images/chat'
+import { updateChatPopups, updateConversations } from '../../../redux-saga/redux/chat'
+import { groupChatIcon, MaximizeIcon } from '../../../assets/images/chat'
 
 const ChatPopup = ({ conversationData }) => {
   const [ popupOpen, setPopupOpen ] = useState(false)
+  const [ messageText, setMessageText ] = useState('')
+  const [ imageUrl, setImageUrl ] = useState('')
+
   const dispatch = useDispatch()
+
+  const members = conversationData?.candidatesInfo
+  const isGroup = conversationData?.isGroup
+  const otherUser = members && members.length > 0 && members[ 0 ]
 
   const togglePopup = useCallback(() => {
     setPopupOpen((state) => !state)
@@ -25,19 +33,8 @@ const ChatPopup = ({ conversationData }) => {
       requestType: 'DELETE',
       conversationId: conversationData && conversationData.conversationId,
     }))
-  }, [ dispatch, conversationData ])
-
-  const handleSend = useCallback(({ newMessage }) => {
-    dispatch(updateChatPopups({
-      requestType: 'UPDATE',
-      dataType: 'new-message',
-      newMessage,
-      conversationId: conversationData && conversationData.conversationId,
-    }))
-
-    dispatch(chatPopupsRequestStart({
-      requestType: 'UPDATE',
-      dataType: 'mark-as-read',
+    dispatch(updateConversations({
+      requestType: 'DELETE',
       conversationId: conversationData && conversationData.conversationId,
     }))
   }, [ dispatch, conversationData ])
@@ -51,10 +48,16 @@ const ChatPopup = ({ conversationData }) => {
           action: 'header-action',
           title: 'header-title',
         } }
-        avatar={
-          <Avatar src={ conversationData.profilePic } alt={ conversationData.name } className='header-avatar' />
-        }
-        title={ conversationData.name }
+        avatar={ (
+          <Avatar
+            src={ isGroup ? groupChatIcon : otherUser?.profilePic }
+            alt={ isGroup ? conversationData?.groupName : otherUser?.name }
+            className='header-avatar'
+          />
+        ) }
+        title={ isGroup
+          ? conversationData?.groupName || members.map((member) => member.name).join(', ')
+          : otherUser?.name }
         titleTypographyProps={ { variant: 'h6' } }
         action={ (
           <>
@@ -90,7 +93,10 @@ const ChatPopup = ({ conversationData }) => {
             {/* Chat Controls */}
             <ChatControls
               conversationId={ conversationData && conversationData.conversationId }
-              handleSend={ handleSend }
+              messageText={ messageText }
+              setMessageText={ setMessageText }
+              imageUrl={ imageUrl }
+              setImageUrl={ setImageUrl }
             />
           </div>
         </CardContent>

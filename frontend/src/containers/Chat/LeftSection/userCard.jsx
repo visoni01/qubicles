@@ -9,23 +9,16 @@ import { useDispatch } from 'react-redux'
 import _ from 'lodash'
 import { groupChatIcon } from '../../../assets/images/chat'
 import { formatDate, formatDateTime } from '../../../utils/common'
-import { currentChatRequestStart } from '../../../redux-saga/redux/chat'
+import { updateCurrentChatId } from '../../../redux-saga/redux/chat'
 
 const UserCard = ({
-  id, name, imageUrl, allRead, latestMessage, dateTime, setConversationId, isGroup, selectedConversationId,
+  id, name, imageUrl, allRead, latestMessage, dateTime, isGroup, selectedConversationId,
 }) => {
   const dispatch = useDispatch()
 
   const handleOpenChat = useCallback(() => {
-    if (id !== selectedConversationId) {
-      setConversationId(id)
-      dispatch(currentChatRequestStart({
-        requestType: 'FETCH',
-        dataType: 'current-chat',
-        conversationId: id,
-      }))
-    }
-  }, [ dispatch, id, selectedConversationId, setConversationId ])
+    dispatch(updateCurrentChatId({ conversationId: id }))
+  }, [ dispatch, id ])
 
   return (
     <div
@@ -65,7 +58,6 @@ UserCard.defaultProps = {
   allRead: '',
   latestMessage: '',
   dateTime: '',
-  setConversationId: () => {},
   isGroup: false,
   selectedConversationId: null,
 }
@@ -77,7 +69,6 @@ UserCard.propTypes = {
   allRead: PropTypes.bool,
   latestMessage: PropTypes.string,
   dateTime: PropTypes.string,
-  setConversationId: PropTypes.func,
   isGroup: PropTypes.bool,
   selectedConversationId: PropTypes.number,
 }

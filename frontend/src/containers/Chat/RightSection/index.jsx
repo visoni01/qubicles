@@ -15,16 +15,19 @@ import ChatOptions from './chatOptions'
 import ViewMembers from './viewMembers'
 
 const RightCard = ({ changeGroupName }) => {
-  const { chat } = useSelector((state) => state.currentChat)
+  const { conversations, currentChatId } = useSelector((state) => state.chatData)
 
   const [ openViewMembersModal, setOpenViewMembersModal ] = useState(false)
   const [ showGroupNameField, setShowGroupNameField ] = useState(false)
   const [ groupNameValue, setGroupNameValue ] = useState('')
 
-  const { candidatesInfo: members, isGroup } = chat
+  const chatData = conversations.find((conversation) => conversation.data.conversationId === currentChatId)
+  const chat = chatData?.data
+  const members = chat?.candidatesInfo
+  const isGroup = chat?.isGroup
   const otherUser = members && members.length > 0 && members[ 0 ]
 
-  useEffect(() => setGroupNameValue(chat.groupName), [ chat ])
+  useEffect(() => setGroupNameValue(chat?.groupName), [ chat ])
 
   const handleEdit = useCallback(() => {
     setShowGroupNameField(true)
@@ -48,7 +51,7 @@ const RightCard = ({ changeGroupName }) => {
     <Box className='custom-box right-card'>
 
       {/* Chat Options */}
-      <ChatOptions isGroup={ isGroup } conversationId={ chat.conversationId } />
+      <ChatOptions isGroup={ isGroup } conversationId={ chat?.conversationId } />
 
       {/* Profile Pictures */}
       <AvatarGroup max={ 3 } spacing='small' className='avatar-group'>
@@ -144,7 +147,7 @@ const RightCard = ({ changeGroupName }) => {
           open={ openViewMembersModal }
           handleClose={ () => setOpenViewMembersModal(false) }
           members={ members }
-          conversationId={ chat.conversationId }
+          conversationId={ chat?.conversationId }
         />
       )}
     </Box>

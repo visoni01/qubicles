@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
 import Loader from '../../loaders/circularLoader'
 import PersonCard from '../Common/personCard'
-import { currentChatRequestStart } from '../../../redux-saga/redux/chat'
+import { chatDataRequestStart } from '../../../redux-saga/redux/chat'
 
 const ViewMembers = ({
   open, handleClose, members, conversationId,
@@ -32,7 +32,7 @@ const ViewMembers = ({
   }, [ members, userDetails ])
 
   const handleRemove = useCallback(({ id, name }) => {
-    dispatch(currentChatRequestStart({
+    dispatch(chatDataRequestStart({
       requestType: 'UPDATE',
       dataType: 'remove-person',
       conversationId,

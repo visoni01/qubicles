@@ -1,7 +1,8 @@
-export const chatPopupsStartHelper = ({ chatPopups, payload }) => {
+/* eslint-disable complexity */
+export const chatDataStartHelper = ({ conversations, payload }) => {
   const { conversationId, requestType, dataType } = payload
-  const currentChatPopup = chatPopups
-    && chatPopups.find((item) => item.data && item.data.conversationId === conversationId)
+  const currentChatPopup = conversations
+    && conversations.find((item) => item.data && item.data.conversationId === conversationId)
 
   const result = {
     isLoading: true,
@@ -13,7 +14,7 @@ export const chatPopupsStartHelper = ({ chatPopups, payload }) => {
 
   if (!currentChatPopup) {
     return [
-      ...chatPopups,
+      ...conversations,
       {
         ...result,
         data: {
@@ -23,7 +24,7 @@ export const chatPopupsStartHelper = ({ chatPopups, payload }) => {
     ]
   }
 
-  return chatPopups && chatPopups.map((item) => (item.data && item.data.conversationId === conversationId
+  return conversations && conversations.map((item) => (item.data && item.data.conversationId === conversationId
     ? {
       ...item,
       ...result,
@@ -31,10 +32,8 @@ export const chatPopupsStartHelper = ({ chatPopups, payload }) => {
     : item))
 }
 
-export const chatPopupsSuccessHelper = ({ chatPopups, payload }) => {
-  const {
-    conversationId, data, requestType, dataType,
-  } = payload
+export const chatDataSuccessHelper = ({ conversations, payload }) => {
+  const { conversationId, requestType, dataType } = payload
 
   const result = {
     isLoading: false,
@@ -43,23 +42,44 @@ export const chatPopupsSuccessHelper = ({ chatPopups, payload }) => {
   }
 
   switch (requestType) {
-    case 'ADD': return chatPopups && chatPopups.map((item) => (item.data && item.data.conversationId === conversationId
-      ? {
-        ...item,
-        ...result,
-        data: {
-          ...item.data,
-          ...data,
-        },
+    case 'FETCH': {
+      switch (dataType) {
+        case 'current-chat': {
+          const currentConversation = conversations
+            && conversations.find((item) => item.data && item.data.conversationId === conversationId)
+
+          if (!currentConversation) {
+            return [
+              ...conversations,
+              {
+                ...result,
+                requestType,
+                dataType,
+                data: payload.chat,
+              },
+            ]
+          }
+
+          return conversations && conversations.map((item) => (item.data && item.data.conversationId === conversationId
+            ? {
+              ...item,
+              ...result,
+              data: payload.chat,
+            }
+            : item))
+        }
+
+        default: return conversations
       }
-      : item))
+    }
 
     case 'UPDATE': {
       switch (dataType) {
-        case 'mark-as-read': return chatPopups && chatPopups.map((item) => (
+        case 'mark-as-read': return conversations && conversations.map((item) => (
           item.data && item.data.conversationId === conversationId
             ? {
               ...item,
+              ...result,
               data: {
                 ...item.data,
                 chats: item.data && item.data.chats && item.data.chats.map((chat) => ({
@@ -71,18 +91,66 @@ export const chatPopupsSuccessHelper = ({ chatPopups, payload }) => {
             : item
         ))
 
-        default: return chatPopups
+        case 'add-people': {
+          return conversations && conversations.map((item) => (
+            item.data && item.data.conversationId === conversationId
+              ? {
+                ...item,
+                ...result,
+                data: {
+                  ...item.data,
+                  candidatesInfo: [
+                    ...item.data.candidatesInfo,
+                    ...payload.newMembers,
+                  ],
+                },
+              }
+              : item
+          ))
+        }
+
+        case 'remove-person': {
+          return conversations && conversations.map((item) => (
+            item.data && item.data.conversationId === conversationId
+              ? {
+                ...item,
+                ...result,
+                data: {
+                  ...item.data,
+                  candidatesInfo: item.data.candidatesInfo.filter((person) => person.id !== payload.removedPersonId),
+                },
+              }
+              : item
+          ))
+        }
+
+        case 'change-group-name': {
+          return conversations && conversations.map((item) => (
+            item.data && item.data.conversationId === conversationId
+              ? {
+                ...item,
+                ...result,
+                data: {
+                  ...item.data,
+                  groupName: payload.newGroupName,
+                },
+              }
+              : item
+          ))
+        }
+
+        default: return conversations
       }
     }
 
-    default: return chatPopups
+    default: return conversations
   }
 }
 
-export const chatPopupsFailureHelper = ({ chatPopups, payload }) => {
+export const chatDataFailureHelper = ({ conversations, payload }) => {
   const { conversationId } = payload
 
-  return chatPopups && chatPopups.map((item) => (item.data && item.data.conversationId === conversationId
+  return conversations && conversations.map((item) => (item.data && item.data.conversationId === conversationId
     ? {
       ...item,
       isLoading: false,
@@ -92,18 +160,32 @@ export const chatPopupsFailureHelper = ({ chatPopups, payload }) => {
     : item))
 }
 
-export const updateChatPopupsHelper = ({ chatPopups, payload }) => {
+export const updateChatPopupsHelper = ({ chatPopupIds, payload }) => {
+  const { requestType, conversationId } = payload
+
+  switch (requestType) {
+    case 'DELETE': return chatPopupIds && chatPopupIds.filter((item) => item !== conversationId)
+
+    case 'ADD': {
+      return [
+        conversationId,
+        ...chatPopupIds.filter((item) => item !== conversationId),
+      ]
+    }
+
+    default: return chatPopupIds
+  }
+}
+
+export const updateConversationsHelper = ({ payload, conversations }) => {
   const {
     requestType, conversationId, newMessage, dataType,
   } = payload
 
   switch (requestType) {
-    case 'DELETE': return chatPopups && chatPopups.filter((item) => item.data
-      && item.data.conversationId !== conversationId)
-
     case 'UPDATE': {
       switch (dataType) {
-        case 'new-message': return chatPopups && chatPopups.map((item) => (
+        case 'new-message': return conversations && conversations.map((item) => (
           item.data && item.data.conversationId === conversationId
             ? {
               ...item,
@@ -118,69 +200,35 @@ export const updateChatPopupsHelper = ({ chatPopups, payload }) => {
             : item
         ))
 
-        default: return chatPopups
+        default: return conversations
       }
     }
 
-    default: return chatPopups
-  }
-}
+    case 'CREATE': {
+      switch (payload.dataType) {
+        case 'add-conversation': {
+          return [
+            ...conversations,
+            {
+              isLoading: null,
+              success: null,
+              error: null,
+              dataType: '',
+              requestType: '',
+              data: payload.newChat,
+            },
+          ]
+        }
 
-export const updateCurrentChatReducer = ({ payload, chat }) => {
-  switch (payload.dataType) {
-    case 'open-chat': {
-      return payload.currentChat
-    }
-
-    case 'new-message': {
-      return {
-        ...chat,
-        data: [
-          ...chat.data,
-          payload.newMessage,
-        ],
+        default: return conversations
       }
     }
 
-    case 'current-chat': {
-      return payload.chat
+    case 'DELETE': {
+      return conversations.filter((item) => item.data.conversationId !== payload.conversationId)
     }
 
-    case 'add-people': {
-      return {
-        ...chat,
-        candidatesInfo: [
-          ...chat.candidatesInfo,
-          ...payload.newMembers,
-        ],
-      }
-    }
-
-    case 'remove-person': {
-      return {
-        ...chat,
-        candidatesInfo: chat.candidatesInfo.filter((person) => person.id !== payload.removedPersonId),
-      }
-    }
-
-    case 'mark-as-read': {
-      return {
-        ...chat,
-        data: chat.data.map((item) => ({
-          ...item,
-          isRead: true,
-        })),
-      }
-    }
-
-    case 'change-group-name': {
-      return {
-        ...chat,
-        groupName: payload.newGroupName,
-      }
-    }
-
-    default: return chat
+    default: return conversations
   }
 }
 
@@ -236,7 +284,7 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
       return [
         {
           ...latestChat,
-          time: payload.time,
+          dateTime: payload.dateTime,
           latestMessage: payload.latestMessage,
         },
         ...filteredChatsList,
@@ -258,3 +306,7 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
     default: return chatsList
   }
 }
+
+export const resetConversationsHelper = ({ conversations, chatPopupIds }) => (
+  conversations.filter((item) => chatPopupIds.includes(item.data.conversationId))
+)

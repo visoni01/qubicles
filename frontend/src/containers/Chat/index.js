@@ -6,33 +6,35 @@ import LeftSection from './LeftSection'
 import RightSection from './RightSection'
 import MiddleSection from './MiddleSection'
 import NewConversationBox from './MiddleSection/newConversationBox'
-import { currentChatRequestStart, resetAllChatsReducer, resetCurrentChatReducer } from '../../redux-saga/redux/chat'
+import { chatDataRequestStart, resetAllChatsReducer, resetConversations } from '../../redux-saga/redux/chat'
 
 const ChatSection = () => {
-  const { chat } = useSelector((state) => state.currentChat)
+  const { currentChatId } = useSelector((state) => state.chatData)
   const dispatch = useDispatch()
 
-  const [ conversationId, setConversationId ] = useState(null)
+  const [ messageText, setMessageText ] = useState('')
+  const [ imageUrl, setImageUrl ] = useState('')
 
   const handleGroupNameChange = useCallback(({ newGroupName, oldGroupName }) => {
     if (!_.isEqual(newGroupName, oldGroupName)) {
-      dispatch(currentChatRequestStart({
+      dispatch(chatDataRequestStart({
         requestType: 'UPDATE',
         dataType: 'change-group-name',
-        conversationId: chat.conversationId,
+        conversationId: currentChatId,
         newGroupName,
         oldGroupName,
       }))
     }
-  }, [ dispatch, chat.conversationId ])
+  }, [ dispatch, currentChatId ])
 
   useEffect(() => {
-    setConversationId(chat.conversationId)
-  }, [ chat.conversationId ])
+    setMessageText('')
+    setImageUrl('')
+  }, [ currentChatId ])
 
   useEffect(() => () => {
+    dispatch(resetConversations())
     dispatch(resetAllChatsReducer())
-    dispatch(resetCurrentChatReducer())
   }, [ dispatch ])
 
   return (
@@ -40,23 +42,26 @@ const ChatSection = () => {
       <Grid container spacing={ 3 } justify='center'>
         <Grid item xl={ 3 } lg={ 3 } md={ 9 } sm={ 12 } xs={ 12 }>
           <LeftSection
-            conversationId={ conversationId }
-            setConversationId={ setConversationId }
+            conversationId={ currentChatId }
           />
         </Grid>
 
         <Grid item xl={ 6 } lg={ 6 } md={ 9 } sm={ 12 } xs={ 12 }>
-          {(conversationId || (chat && chat.conversationId))
+          {currentChatId
             ? (
               <MiddleSection
-                conversationId={ (conversationId || (chat && chat.conversationId)) }
+                conversationId={ currentChatId }
+                messageText={ messageText }
+                setMessageText={ setMessageText }
+                imageUrl={ imageUrl }
+                setImageUrl={ setImageUrl }
               />
             )
             : <NewConversationBox />}
         </Grid>
 
         <Grid item xl={ 3 } lg={ 3 } md={ 9 } sm={ 12 } xs={ 12 }>
-          {(conversationId || (chat && chat.conversationId)) && (
+          {(currentChatId) && (
             <RightSection
               changeGroupName={ handleGroupNameChange }
             />

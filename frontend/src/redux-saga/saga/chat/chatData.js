@@ -3,32 +3,43 @@ import _ from 'lodash'
 import { takeEvery, put, select } from 'redux-saga/effects'
 import { getChatNotificationMessage, getUniqueId } from '../../../utils/common'
 import {
-  currentChatRequestStart,
-  currentChatRequestSuccess,
-  currentChatRequestFailed,
-  updateAllChats,
+  chatDataRequestStart,
+  chatDataRequestSuccess,
+  chatDataRequestFailed,
   showErrorMessage,
-  updateCurrentChat,
+  updateAllChats,
+  updateConversations,
 } from '../../redux/actions'
 import Chat from '../../service/chat'
 
-function* currentChatWatcher() {
-  yield takeEvery(currentChatRequestStart.type, currentChatWorker)
+function* chatDataWatcher() {
+  yield takeEvery(chatDataRequestStart.type, chatDataWorker)
 }
 
-function* currentChatWorker(action) {
+function* chatDataWorker(action) {
   try {
     const {
-      requestType, dataType, conversationId, members, candidateId, name, newGroupName, oldGroupName,
+      requestType, dataType, conversationId, members, candidateId, name, newGroupName, oldGroupName, offset,
     } = action.payload
 
     switch (requestType) {
       case 'FETCH': {
         switch (dataType) {
           case 'current-chat': {
-            const { data } = yield Chat.getChatById({ conversationId })
+            const { data } = yield Chat.getChatData({ conversationId })
 
-            yield put(currentChatRequestSuccess({ chat: data }))
+            yield put(chatDataRequestSuccess({
+              chat: data, conversationId, requestType, dataType,
+            }))
+            break
+          }
+
+          case 'chat-messages': {
+            const { data } = yield Chat.getChatMessages({ conversationId, offset })
+
+            yield put(chatDataRequestSuccess({
+              chatMessages: data, conversationId, requestType, dataType,
+            }))
             break
           }
 
@@ -39,6 +50,13 @@ function* currentChatWorker(action) {
 
       case 'UPDATE': {
         switch (dataType) {
+          case 'mark-as-read': {
+            yield Chat.markChatAsRead({ conversationId })
+            yield put(chatDataRequestSuccess({ conversationId, requestType, dataType }))
+            yield put(updateAllChats({ dataType, conversationId }))
+            break
+          }
+
           case 'add-people': {
             yield Chat.addPeople({ conversationId, members })
 
@@ -60,8 +78,12 @@ function* currentChatWorker(action) {
               isRead: true,
             }
 
-            yield put(currentChatRequestSuccess({ newMembers: members }))
-            yield put(updateCurrentChat({ newMessage, dataType: 'new-message' }))
+            yield put(chatDataRequestSuccess({
+              newMembers: members, dataType, requestType, conversationId,
+            }))
+            yield put(updateConversations({
+              newMessage, dataType: 'new-message', requestType, conversationId,
+            }))
             break
           }
 
@@ -87,15 +109,12 @@ function* currentChatWorker(action) {
               isRead: true,
             }
 
-            yield put(currentChatRequestSuccess({ removedPersonId: candidateId }))
-            yield put(updateCurrentChat({ newMessage, dataType: 'new-message' }))
-            break
-          }
-
-          case 'mark-as-read': {
-            yield Chat.markChatAsRead({ conversationId })
-            yield put(currentChatRequestSuccess())
-            yield put(updateAllChats({ dataType: 'mark-as-read', conversationId }))
+            yield put(chatDataRequestSuccess({
+              removedPersonId: candidateId, dataType, requestType, conversationId,
+            }))
+            yield put(updateConversations({
+              newMessage, dataType: 'new-message', requestType, conversationId,
+            }))
             break
           }
 
@@ -131,14 +150,20 @@ function* currentChatWorker(action) {
               isRead: true,
             }
 
-            yield put(currentChatRequestSuccess({ newGroupName }))
-            yield put(updateCurrentChat({ newMessage, dataType: 'new-message' }))
+            yield put(chatDataRequestSuccess({
+              newGroupName, dataType, requestType, conversationId,
+            }))
+            yield put(updateConversations({
+              newMessage, dataType: 'new-message', requestType, conversationId,
+            }))
 
-            const { chat } = yield select((state) => state.currentChat)
+            const { conversations } = yield select((state) => state.chatData)
+            const chatData = conversations.find((conversation) => conversation.data.conversationId === conversationId)
+            const chat = chatData?.data
             const groupName = newGroupName
               || (chat.candidatesInfo && chat.candidatesInfo.map((member) => member.name).join(', '))
 
-            yield put(updateAllChats({ dataType: 'change-group-name', conversationId, newGroupName: groupName }))
+            yield put(updateAllChats({ dataType, conversationId, newGroupName: groupName }))
             break
           }
 
@@ -150,9 +175,9 @@ function* currentChatWorker(action) {
       default: break
     }
   } catch (e) {
-    yield put(currentChatRequestFailed())
+    yield put(chatDataRequestFailed({ conversationId: action.payload && action.payload.conversationId }))
     yield put(showErrorMessage({ msg: e.errMsg }))
   }
 }
 
-export default currentChatWatcher
+export default chatDataWatcher

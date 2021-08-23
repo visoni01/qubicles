@@ -7,7 +7,8 @@ import {
   allChatsRequestSuccess,
   allChatsRequestFailed,
   showErrorMessage,
-  updateCurrentChat,
+  updateCurrentChatId,
+  updateConversations,
 } from '../../redux/actions'
 import Chat from '../../service/chat'
 
@@ -18,15 +19,20 @@ function* allChatsWatcher() {
 function* allChatsWorker(action) {
   try {
     const {
-      requestType, dataType, title, members, conversationId, candidate,
+      requestType, dataType, title, members, conversationId, candidate, offset, searchKeyword,
     } = action.payload
 
     switch (requestType) {
       case 'FETCH': {
         switch (dataType) {
           case 'chats-list': {
-            const { data } = yield Chat.getAllChats()
+            const { data } = yield Chat.getAllChats({ offset, searchKeyword })
             yield put(allChatsRequestSuccess({ chats: data }))
+
+            if (data.length && data[ 0 ]) {
+              yield put(updateCurrentChatId({ conversationId: data[ 0 ].id }))
+            }
+
             break
           }
 
@@ -39,14 +45,6 @@ function* allChatsWorker(action) {
         switch (dataType) {
           case 'mark-as-unread': {
             yield Chat.markChatAsUnread({ conversationId })
-            yield put(allChatsRequestSuccess({
-              conversationId,
-            }))
-            break
-          }
-
-          case 'mark-as-read': {
-            yield Chat.markChatAsRead({ conversationId })
             yield put(allChatsRequestSuccess({
               conversationId,
             }))
@@ -138,16 +136,18 @@ function* allChatsWorker(action) {
                 allRead: true,
               },
             }))
-            yield put(updateCurrentChat({
-              dataType: 'open-chat',
-              currentChat: {
+            yield put(updateConversations({
+              requestType,
+              dataType: 'add-conversation',
+              newChat: {
                 conversationId: data && data.conversationId,
                 isGroup: true,
                 groupName: title,
-                data: [ ...newMessages ],
+                chats: [ ...newMessages ],
                 candidatesInfo: [ loggedInUser, ...members ],
               },
             }))
+            yield put(updateCurrentChatId({ conversationId: data?.conversationId }))
             break
           }
 
@@ -181,15 +181,17 @@ function* allChatsWorker(action) {
                 allRead: true,
               },
             }))
-            yield put(updateCurrentChat({
-              dataType: 'open-chat',
-              currentChat: {
+            yield put(updateConversations({
+              requestType,
+              dataType: 'add-conversation',
+              newChat: {
                 conversationId: data && data.conversationId,
                 isGroup: false,
-                data: data.messages ? [ ...data.messages ] : [ newMessage ],
+                chats: data.messages ? [ ...data.messages ] : [ newMessage ],
                 candidatesInfo: [ candidate ],
               },
             }))
+            yield put(updateCurrentChatId({ conversationId: data?.conversationId }))
             break
           }
 

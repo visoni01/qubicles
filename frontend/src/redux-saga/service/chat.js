@@ -7,12 +7,16 @@ let nextConversationId = userList.length
 
 // WIP - Call APIs
 const Chat = class {
-  static getAllChats = async () => ({
+  static getAllChats = async ({ offset, searchKeyword }) => ({
     data: userList,
   })
 
-  static getChatById = async ({ conversationId }) => ({
+  static getChatData = async ({ conversationId }) => ({
     data: chats[ conversationId - 1 ] || chats[ 0 ],
+  })
+
+  static getChatMessages = async ({ conversationId, offset }) => ({
+    data: chats[ conversationId - 1 ].chats || chats[ 0 ].chats,
   })
 
   static createNewGroup = async ({ title, members }) => {

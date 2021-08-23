@@ -1,12 +1,10 @@
 import allChats from './allChats'
-import currentChat from './currentChat'
-import chatPopups from './chatPopups'
+import chatData from './chatData'
 import chatSuggestions from './chatSuggestions'
 
 const chatWatcherFunctions = [
   () => allChats(),
-  () => currentChat(),
-  () => chatPopups(),
+  () => chatData(),
   () => chatSuggestions(),
 ]
 

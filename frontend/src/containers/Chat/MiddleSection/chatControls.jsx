@@ -14,21 +14,25 @@ import { showErrorMessage } from '../../../redux-saga/redux/utils'
 import { getUniqueId } from '../../../utils/common'
 import { acceptedImageFormats, maxImageFileSize } from '../../People/ContactCenter/constants'
 import ImagePreview from '../../../components/CommonModal/imagePreview'
+import { chatDataRequestStart, updateAllChats, updateConversations } from '../../../redux-saga/redux/chat'
 
-const ChatControls = ({ conversationId, handleSend }) => {
+const ChatControls = ({
+  conversationId, messageText, setMessageText, imageUrl, setImageUrl,
+}) => {
   const { userDetails } = useSelector((state) => state.login)
   const { settings: clientSettings } = useSelector((state) => state.clientDetails)
   const { settings: agentSettings } = useSelector((state) => state.agentDetails)
+  const { chatsList } = useSelector((state) => state.allChats)
 
-  const [ messageText, setMessageText ] = useState('')
-  const [ imageUrl, setImageUrl ] = useState('')
+  const currentChat = _.find(chatsList, { id: conversationId })
+
   const [ openImagePreview, setOpenImagePreview ] = useState(false)
 
   const dispatch = useDispatch()
 
   const handleOnChange = useCallback((event) => {
     setMessageText(event.target.value)
-  }, [])
+  }, [ setMessageText ])
 
   const handleFileInputChange = useCallback((event) => {
     event.preventDefault()
@@ -54,7 +58,7 @@ const ChatControls = ({ conversationId, handleSend }) => {
       // eslint-disable-next-line no-param-reassign
       event.target.value = ''
     }
-  }, [ dispatch ])
+  }, [ dispatch, setImageUrl ])
 
   const handleSendClick = useCallback(() => {
     const newMessage = {
@@ -67,14 +71,35 @@ const ChatControls = ({ conversationId, handleSend }) => {
       imageUrl,
       isNotification: false,
       sentAt: Date.now(),
-      isRead: false,
+      isRead: true,
     }
 
-    handleSend({ newMessage })
+    dispatch(updateConversations({
+      requestType: 'UPDATE',
+      dataType: 'new-message',
+      conversationId,
+      newMessage,
+    }))
+
+    dispatch(updateAllChats({
+      dataType: 'new-message',
+      latestMessage: newMessage.text || 'Sent an image',
+      dateTime: Date.now(),
+      conversationId,
+    }))
+
+    if (currentChat && !currentChat.allRead) {
+      dispatch(chatDataRequestStart({
+        requestType: 'UPDATE',
+        dataType: 'mark-as-read',
+        conversationId,
+      }))
+    }
 
     setMessageText('')
     setImageUrl('')
-  }, [ messageText, userDetails, agentSettings, clientSettings, imageUrl, handleSend ])
+  }, [ messageText, userDetails, agentSettings, clientSettings, imageUrl, setImageUrl, setMessageText,
+    conversationId, currentChat, dispatch ])
 
   return (
     <div className='is-flex is-between align-items-start chat-section-footer'>
@@ -146,11 +171,16 @@ const ChatControls = ({ conversationId, handleSend }) => {
 
 ChatControls.defaultProps = {
   conversationId: null,
+  messageText: '',
+  imageUrl: '',
 }
 
 ChatControls.propTypes = {
   conversationId: PropTypes.number,
-  handleSend: PropTypes.func.isRequired,
+  messageText: PropTypes.string,
+  imageUrl: PropTypes.string,
+  setMessageText: PropTypes.func.isRequired,
+  setImageUrl: PropTypes.func.isRequired,
 }
 
 export default ChatControls

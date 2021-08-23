@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../loaders/circularLoader'
 import PersonCard from './personCard'
 import {
-  allChatsRequestStart, chatSuggestionsFetchStart, currentChatRequestStart, resetChatSuggestionsReducer,
+  allChatsRequestStart, chatDataRequestStart, chatSuggestionsFetchStart, resetChatSuggestionsReducer,
 } from '../../../redux-saga/redux/chat'
 
 const AddPeople = ({
@@ -78,7 +78,7 @@ const AddPeople = ({
       }
 
       case 'ADD_PEOPLE': {
-        dispatch(currentChatRequestStart({
+        dispatch(chatDataRequestStart({
           requestType: 'UPDATE',
           dataType: 'add-people',
           members: selectedPeople,
