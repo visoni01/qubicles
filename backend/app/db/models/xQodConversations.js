@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
   XQodConversations.associate = function (models) {
     XQodConversations.hasMany(models.XQodChatGroupMembers, { as: 'group', foreignKey: 'conversation_id' })
     XQodConversations.hasMany(models.XQodChatAllRead, { as: 'all-read', foreignKey: 'conversation_id' })
+    XQodConversations.hasMany(models.XQodChatMessage, { as: 'messages', foreignKey: 'conversation_id' })
   }
   return XQodConversations
 }

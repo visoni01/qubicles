@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     all_read: DataTypes.BOOLEAN
   },
   {
-    tableName: 'x_qod_chat_group_members'
+    tableName: 'x_qod_chat_all_read'
   })
   XQodChatAllRead.associate = function (models) {
   }
