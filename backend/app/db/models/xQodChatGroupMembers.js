@@ -1,0 +1,25 @@
+'use strict'
+module.exports = (sequelize, DataTypes) => {
+  const XQodChatGroupMembers = sequelize.define('XQodChatGroupMembers', {
+    group_id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      allowNull: false,
+      primaryKey: true
+    },
+    conversation_id: DataTypes.INTEGER,
+    user_id: DataTypes.INTEGER,
+    is_removed: DataTypes.BOOLEAN,
+    updatedAt: {
+      field: 'updated_on',
+      type: DataTypes.DATE
+    }
+  },
+  {
+    tableName: 'x_qod_chat_group_members',
+    timestamps: true
+  })
+  XQodChatGroupMembers.associate = function (models) {
+  }
+  return XQodChatGroupMembers
+}
