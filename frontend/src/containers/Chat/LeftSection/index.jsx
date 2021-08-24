@@ -5,11 +5,11 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
-import { AddNewChatIcon, SearchIcon } from '../../../assets/images/common'
+import { SearchIcon } from '../../../assets/images/common'
 import UserCard from './userCard'
 import NewChat from '../Common/addPeople'
 import { allChatsRequestStart } from '../../../redux-saga/redux/chat'
-import { NewGroupIcon } from '../../../assets/images/chat'
+import { NewChatIcon, NewGroupIcon } from '../../../assets/images/chat'
 import '../styles.scss'
 
 const LeftCard = ({ conversationId }) => {
@@ -65,7 +65,7 @@ const LeftCard = ({ conversationId }) => {
             <IconButton
               onClick={ handleNewChatClick }
             >
-              <AddNewChatIcon />
+              <NewChatIcon />
             </IconButton>
           </Tooltip>
 
