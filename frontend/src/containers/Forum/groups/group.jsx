@@ -13,7 +13,7 @@ import { UPDATE_TOPIC_STATS } from '../../../redux-saga/redux/constants'
 import TopicsList from '../topics/list'
 import ScrollToTop from '../../../components/scrollToTop'
 import UpdateGroup from './createOrUpdate'
-import { SearchIcon } from '../../../assets/images/common'
+import { EditIcon, SearchIcon } from '../../../assets/images/common'
 import MenuOptions from '../../Shared/menuOptions'
 import { DeleteIcon } from '../../../assets/images/training'
 
@@ -153,7 +153,7 @@ const SelectedGroup = ({ group }) => {
                 confirmButtonText='Delete'
                 firstOption='Edit'
                 secondOption='Delete'
-                FirstIcon={ DeleteIcon } // Change this
+                FirstIcon={ EditIcon }
                 SecondIcon={ DeleteIcon }
                 message='Are you sure you want to delete this group ?'
               />

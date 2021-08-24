@@ -12,6 +12,7 @@ import { formatDate } from '../../../utils/common'
 import { deleteGroupTopic, topicActivity } from '../../../redux-saga/redux/actions'
 import MenuOptions from '../../Shared/menuOptions'
 import { DeleteIcon } from '../../../assets/images/training'
+import { EditIcon } from '../../../assets/images/common'
 
 const ListItem = ({
   topic, index, setSelectedTopic, updateTopicAndToggle,
@@ -68,7 +69,7 @@ const ListItem = ({
                 confirmButtonText='Delete'
                 firstOption='Edit'
                 secondOption='Delete'
-                FirstIcon={ DeleteIcon } // Change this
+                FirstIcon={ EditIcon }
                 SecondIcon={ DeleteIcon }
                 message='Are you sure you want to delete this topic ?'
               />

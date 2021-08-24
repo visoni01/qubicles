@@ -11,6 +11,7 @@ import { JOB_ROUTE } from '../../../../routes/routesPath'
 import MenuOptions from '../../../../containers/Shared/menuOptions'
 import { DeleteIcon } from '../../../../assets/images/training'
 import { deleteJob } from '../../../../redux-saga/redux/people'
+import { EditIcon } from '../../../../assets/images/common'
 
 const JobCategoryCard = ({
   categoryTitle, jobs, inNeed, categoryId,
@@ -52,7 +53,7 @@ const JobCategoryCard = ({
                     confirmButtonText='Delete'
                     firstOption='Edit'
                     secondOption='Delete'
-                    FirstIcon={ DeleteIcon } // Change this
+                    FirstIcon={ EditIcon }
                     SecondIcon={ DeleteIcon }
                     message='Are you sure you want to delete this job ?'
                   />
