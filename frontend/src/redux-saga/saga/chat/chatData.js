@@ -63,8 +63,8 @@ function* chatDataWorker(action) {
             const { userDetails } = yield select((state) => state.login)
 
             const newMessage = {
-              msgId: getUniqueId(),
-              candidateId: userDetails && userDetails.user_id,
+              messageId: getUniqueId(),
+              senderId: userDetails && userDetails.user_id,
               text: getChatNotificationMessage({
                 type: dataType,
                 payload: {
@@ -93,8 +93,8 @@ function* chatDataWorker(action) {
             const { userDetails } = yield select((state) => state.login)
 
             const newMessage = {
-              msgId: getUniqueId(),
-              candidateId: userDetails && userDetails.user_id,
+              messageId: getUniqueId(),
+              senderId: userDetails && userDetails.user_id,
               text: getChatNotificationMessage({
                 type: dataType,
                 payload: {
@@ -134,8 +134,8 @@ function* chatDataWorker(action) {
             }
 
             const newMessage = {
-              msgId: getUniqueId(),
-              candidateId: userDetails && userDetails.user_id,
+              messageId: getUniqueId(),
+              senderId: userDetails && userDetails.user_id,
               text: getChatNotificationMessage({
                 type,
                 payload: {

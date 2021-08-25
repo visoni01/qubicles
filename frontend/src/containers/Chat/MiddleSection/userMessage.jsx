@@ -10,7 +10,7 @@ import { formatDate } from '../../../utils/common'
 import ImagePreview from '../../../components/CommonModal/imagePreview'
 
 const UserMessage = ({
-  candidateId, message, profilePic, imageUrl, sentAt,
+  senderId, message, profilePic, imageUrl, sentAt,
 }) => {
   const { userDetails } = useSelector((state) => state.login)
   const [ openImagePreview, setOpenImagePreview ] = useState(false)
@@ -19,10 +19,10 @@ const UserMessage = ({
     <>
       <div
         className={ `is-flex align-items-start
-          ${ userDetails && _.isEqual(candidateId, userDetails.user_id) && 'is-end' }` }
+          ${ userDetails && _.isEqual(senderId, userDetails.user_id) && 'is-end' }` }
       >
         {/* Profile Picture for Other User Message */}
-        {(userDetails && _.isEqual(candidateId, userDetails.user_id)) || (
+        {(userDetails && _.isEqual(senderId, userDetails.user_id)) || (
           <Avatar
             src={ profilePic }
             className='profile-picture'
@@ -33,7 +33,7 @@ const UserMessage = ({
         <div className='ml-15 mr-15 mb-15 text-message'>
           <div
             className={ `${ _.isEmpty(message) ? 'image-body' : 'text-message-body' }
-            ${ userDetails && _.isEqual(candidateId, userDetails.user_id) ? 'self-message' : 'other-user-message' }` }
+            ${ userDetails && _.isEqual(senderId, userDetails.user_id) ? 'self-message' : 'other-user-message' }` }
           >
             {imageUrl && (
               <img
@@ -47,14 +47,14 @@ const UserMessage = ({
 
           <p
             className={ `para light mt-10
-              ${ (userDetails && _.isEqual(candidateId, userDetails.user_id)) && 'text-align-end' }` }
+              ${ (userDetails && _.isEqual(senderId, userDetails.user_id)) && 'text-align-end' }` }
           >
             { sentAt && formatDate(sentAt, 'hh:mm a') }
           </p>
         </div>
 
         {/* Profile Picture for Self message */}
-        {userDetails && _.isEqual(candidateId, userDetails.user_id) && (
+        {userDetails && _.isEqual(senderId, userDetails.user_id) && (
           <Avatar
             src={ profilePic }
             className='profile-picture'
@@ -78,7 +78,7 @@ UserMessage.defaultProps = {
 }
 
 UserMessage.propTypes = {
-  candidateId: PropTypes.number.isRequired,
+  senderId: PropTypes.number.isRequired,
   message: PropTypes.string.isRequired,
   profilePic: PropTypes.string.isRequired,
   imageUrl: PropTypes.string,

@@ -65,8 +65,8 @@ function* allChatsWorker(action) {
 
             const newMessages = [
               {
-                msgId: getUniqueId(),
-                candidateId: userDetails && userDetails.user_id,
+                messageId: getUniqueId(),
+                senderId: userDetails && userDetails.user_id,
                 text: getChatNotificationMessage({
                   type: dataType,
                   payload: {
@@ -80,8 +80,8 @@ function* allChatsWorker(action) {
                 isRead: true,
               },
               {
-                msgId: getUniqueId(),
-                candidateId: userDetails && userDetails.user_id,
+                messageId: getUniqueId(),
+                senderId: userDetails && userDetails.user_id,
                 text: getChatNotificationMessage({
                   type: 'add-people',
                   payload: {
@@ -152,12 +152,12 @@ function* allChatsWorker(action) {
           }
 
           case 'new-chat': {
-            const { data } = yield Chat.createNewChat({ candidate })
+            const { data } = yield Chat.createNewChat({ candidateId: candidate?.id })
             const { userDetails } = yield select((state) => state.login)
 
             const newMessage = {
-              msgId: getUniqueId(),
-              candidateId: userDetails && userDetails.user_id,
+              messageId: getUniqueId(),
+              senderId: userDetails && userDetails.user_id,
               text: getChatNotificationMessage({
                 type: dataType,
                 payload: {
@@ -175,10 +175,10 @@ function* allChatsWorker(action) {
                 id: data && data.conversationId,
                 name: candidate.name,
                 imageUrl: candidate.profilePic,
-                time: Date.now(),
+                dateTime: data?.messages[data.messages.length - 1]?.sentAt || Date.now(),
                 isGroup: false,
-                latestMessage: null,
-                allRead: true,
+                latestMessage: data?.messages[data.messages.length - 1]?.text,
+                allRead: data?.allRead,
               },
             }))
             yield put(updateConversations({

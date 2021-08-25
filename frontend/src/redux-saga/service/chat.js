@@ -2,6 +2,7 @@
 import {
   chats, members as suggestions, popupChats, userList,
 } from '../../containers/Chat/testData'
+import apiClient from '../../utils/apiClient'
 
 let nextConversationId = userList.length
 
@@ -47,15 +48,13 @@ const Chat = class {
 
   }
 
-  static createNewChat = async ({ candidate }) => {
-    nextConversationId += 1
-    chats.push({
-      conversationId: nextConversationId,
-      isGroup: false,
-      data: [],
-      candidatesInfo: [ candidate ],
-    })
-    return { data: { conversationId: nextConversationId } }
+  static createNewChat = async ({ candidateId }) => {
+    const response = await apiClient.postRequest(
+      '/chat',
+      { candidate_id: candidateId },
+    )
+
+    return response
   }
 
   static createNewPopup = async ({ conversationId }) => popupChats[ conversationId - 1 ] || popupChats[ 0 ]

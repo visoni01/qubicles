@@ -114,8 +114,8 @@ const members = [
 const chatData = [
   [
     {
-      msgId: 123,
-      candidateId: 4,
+      messageId: 123,
+      senderId: 4,
       profilePic: 'https://ipfs.telos.miami/ipfs/QmPoR4wpQVA3U1P2mS6ezG3KPmTfq4uQubJiGWSzier3DW',
       imageUrl: 'https://ipfs.telos.miami/ipfs/QmPRkEvfv22rXQDtpaDGMfn3E93Dmxuc2YCS2QrYnVieTj',
       isNotification: false,
@@ -124,8 +124,8 @@ const chatData = [
       isRead: true,
     },
     {
-      msgId: 234,
-      candidateId: 3,
+      messageId: 234,
+      senderId: 3,
       profilePic: 'https://ipfs.telos.miami/ipfs/QmPRkEvfv22rXQDtpaDGMfn3E93Dmxuc2YCS2QrYnVieTj',
       imageUrl: 'https://ipfs.telos.miami/ipfs/QmPRkEvfv22rXQDtpaDGMfn3E93Dmxuc2YCS2QrYnVieTj',
       isNotification: false,
@@ -134,8 +134,8 @@ const chatData = [
       isRead: false,
     },
     {
-      msgId: 2345,
-      candidateId: 3,
+      messageId: 2345,
+      senderId: 3,
       profilePic: 'https://ipfs.telos.miami/ipfs/QmPRkEvfv22rXQDtpaDGMfn3E93Dmxuc2YCS2QrYnVieTj',
       imageUrl: '',
       isNotification: false,
@@ -144,8 +144,8 @@ const chatData = [
       isRead: false,
     },
     {
-      msgId: 23456,
-      candidateId: null,
+      messageId: 23456,
+      senderId: null,
       profilePic: '',
       imageUrl: '',
       isNotification: true,
@@ -154,8 +154,8 @@ const chatData = [
       isRead: false,
     },
     {
-      msgId: 234567,
-      candidateId: 4,
+      messageId: 234567,
+      senderId: 4,
       profilePic: 'https://ipfs.telos.miami/ipfs/QmPoR4wpQVA3U1P2mS6ezG3KPmTfq4uQubJiGWSzier3DW',
       imageUrl: '',
       isNotification: false,
@@ -166,8 +166,8 @@ const chatData = [
   ],
   [
     {
-      msgId: 56,
-      candidateId: 2,
+      messageId: 56,
+      senderId: 2,
       profilePic: 'https://ipfs.telos.miami/ipfs/Qmf8WukCjBqbEizmvtL8BRtSwCNqmpZDrj2rxq5XuBagZk',
       isNotification: false,
       text: 'Hi, this is Client 2!',
@@ -175,8 +175,8 @@ const chatData = [
       isRead: false,
     },
     {
-      msgId: 78,
-      candidateId: 3,
+      messageId: 78,
+      senderId: 3,
       profilePic: 'https://ipfs.telos.miami/ipfs/QmPRkEvfv22rXQDtpaDGMfn3E93Dmxuc2YCS2QrYnVieTj',
       isNotification: false,
       text: 'Hi, this is Arthur! How are you doing? I hope you are good. Looking forward to meet you soon.',
@@ -184,8 +184,8 @@ const chatData = [
       isRead: false,
     },
     {
-      msgId: 2345,
-      candidateId: 3,
+      messageId: 2345,
+      senderId: 3,
       profilePic: 'https://ipfs.telos.miami/ipfs/QmPRkEvfv22rXQDtpaDGMfn3E93Dmxuc2YCS2QrYnVieTj',
       isNotification: false,
       text: 'Hi, this is Arthur! How are you doing? I hope you are good. Looking forward to meet you soon.',
@@ -193,8 +193,8 @@ const chatData = [
       isRead: false,
     },
     {
-      msgId: 23456,
-      candidateId: null,
+      messageId: 23456,
+      senderId: null,
       profilePic: '',
       isNotification: true,
       text: '<span><b class="4">Jack Downey</b> added <b class="3">Arthur Castle</b></span>',
@@ -202,8 +202,8 @@ const chatData = [
       isRead: false,
     },
     {
-      msgId: 234567,
-      candidateId: 2,
+      messageId: 234567,
+      senderId: 2,
       profilePic: 'https://ipfs.telos.miami/ipfs/Qmf8WukCjBqbEizmvtL8BRtSwCNqmpZDrj2rxq5XuBagZk',
       isNotification: false,
       text: 'Hi, this is Arthur! How are you doing? I hope you are good. Looking forward to meet you soon.',

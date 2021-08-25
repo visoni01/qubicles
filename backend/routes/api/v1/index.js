@@ -12,6 +12,7 @@ import { jobRouter } from './job.router'
 import { companyProfileRouter } from './companyProfile.router'
 import { agentJobRouter } from './agentJob.router'
 import { agentProfileRouter } from './agentProfile.router'
+import { chatRouter } from './chat.router'
 
 const router = express.Router()
 const NAMESPACE = 'v1'
@@ -30,5 +31,6 @@ router.use(`/${NAMESPACE}/forum`, forumRouter)
 router.use(`/${NAMESPACE}/people`, peopleRouter)
 router.use(`/${NAMESPACE}/profile/company`, companyProfileRouter)
 router.use(`/${NAMESPACE}/profile/agent`, agentProfileRouter)
+router.use(`/${NAMESPACE}/chat`, chatRouter)
 
 export default router

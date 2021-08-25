@@ -29,7 +29,7 @@ const ChatView = ({ chats, conversationId, allRead }) => {
   return (
     <>
       {chats && chats.map((item, index) => (
-        <div key={ item.msgId }>
+        <div key={ item.messageId }>
           {index > 0 && chats[ index - 1 ] && chats[ index - 1 ].isRead && item && !item.isRead && (
             <div className='new-message-separator'>
               <Divider className='new-message-divider' />
@@ -46,7 +46,7 @@ const ChatView = ({ chats, conversationId, allRead }) => {
             ? (<UserNotification message={ item.text } />)
             : (
               <UserMessage
-                candidateId={ item.candidateId }
+                senderId={ item.senderId }
                 message={ item.text }
                 profilePic={ item.profilePic }
                 imageUrl={ item.imageUrl }

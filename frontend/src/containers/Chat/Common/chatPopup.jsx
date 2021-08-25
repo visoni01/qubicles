@@ -112,8 +112,8 @@ ChatPopup.propTypes = {
     profilePic: PropTypes.string,
     isGroup: PropTypes.bool,
     chats: PropTypes.arrayOf(PropTypes.shape({
-      msgId: PropTypes.number,
-      candidateId: PropTypes.number,
+      messageId: PropTypes.number,
+      senderId: PropTypes.number,
       profilePic: PropTypes.string,
       isNotification: PropTypes.bool,
       imageUrl: PropTypes.string,
