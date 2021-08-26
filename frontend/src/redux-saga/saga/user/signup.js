@@ -25,6 +25,7 @@ function* signupWorker(action) {
         payload: {
           id: userData && userData.user_id,
           name: userData && userData.full_name,
+          userCode: userData && userData.inviter_user_code,
         },
       })
 

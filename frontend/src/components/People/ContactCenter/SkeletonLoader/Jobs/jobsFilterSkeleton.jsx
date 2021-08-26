@@ -7,11 +7,13 @@ const JobFilterSkeleton = () => (
   <>
     <Box className='box'>
       <div className='job-skeleton-container'>
-        <Skeleton animation='wave' classes={ { root: 'custom-skeleton-side-filter' } } />
-        <Skeleton animation='wave' classes={ { root: 'custom-skeleton-side-filter' } } />
-        <Skeleton animation='wave' classes={ { root: 'custom-skeleton-side-filter' } } />
-        <Skeleton animation='wave' classes={ { root: 'custom-skeleton-side-filter' } } />
-        <Skeleton animation='wave' classes={ { root: 'custom-skeleton-side-filter' } } />
+        {[ ...Array(5).keys() ].map((key) => (
+          <Skeleton
+            animation='wave'
+            classes={ { root: 'custom-skeleton-side-filter' } }
+            key={ key }
+          />
+        ))}
       </div>
     </Box>
   </>

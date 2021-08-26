@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box } from '@material-ui/core'
+import { Box, Divider } from '@material-ui/core'
 import { useSelector } from 'react-redux'
 import AgentJobCard from '../../../../components/People/Agent/Jobs/agentJobCard'
 import AgentJobsSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/Jobs/agentJobSkeleton'
@@ -10,7 +10,12 @@ const RenderAgentJobs = () => {
     return (
       <Box className='custom-box'>
         {/* Agent Job Loader */}
-        {[ ...Array(3).keys() ].map((key) => (<AgentJobsSkeleton key={ key } />))}
+        {[ ...Array(3).keys() ].map((key, index) => (
+          <div key={ key }>
+            <AgentJobsSkeleton />
+            {index < 2 && <Divider className='divider' />}
+          </div>
+        ))}
       </Box>
     )
   }

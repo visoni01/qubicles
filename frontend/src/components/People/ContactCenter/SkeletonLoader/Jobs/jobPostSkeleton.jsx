@@ -8,20 +8,32 @@ const JobPostSkeleton = () => (
     <Skeleton animation='wave' classes={ { root: 'custom-skeleton-jobpost-title' } } />
     <Skeleton animation='wave' variant='rect' classes={ { root: 'custom-skeleton-summary' } } />
     <div className='job-status-tray mt-20'>
-      <Skeleton animation='wave' classes={ { root: 'job-status-item' } } />
-      <Skeleton animation='wave' classes={ { root: 'job-status-item' } } />
-      <Skeleton animation='wave' classes={ { root: 'job-status-item' } } />
+      {[ ...Array(3).keys() ].map((key) => (
+        <Skeleton
+          animation='wave'
+          classes={ { root: 'job-status-item' } }
+          key={ key }
+        />
+      ))}
     </div>
     <div className='job-status-tray'>
-      <Skeleton animation='wave' classes={ { root: 'job-status-item' } } />
-      <Skeleton animation='wave' classes={ { root: 'job-status-item' } } />
-      <Skeleton animation='wave' classes={ { root: 'job-status-item' } } />
+      {[ ...Array(3).keys() ].map((key) => (
+        <Skeleton
+          animation='wave'
+          classes={ { root: 'job-status-item' } }
+          key={ key }
+        />
+      ))}
     </div>
     <Skeleton animation='wave' classes={ { root: 'custom-skeleton-title' } } />
     <div className='job-status-tray'>
-      <Skeleton animation='wave' classes={ { root: 'job-status-item' } } />
-      <Skeleton animation='wave' classes={ { root: 'job-status-item' } } />
-      <Skeleton animation='wave' classes={ { root: 'job-status-item' } } />
+      {[ ...Array(3).keys() ].map((key) => (
+        <Skeleton
+          animation='wave'
+          classes={ { root: 'job-status-item' } }
+          key={ key }
+        />
+      ))}
     </div>
   </div>
 )

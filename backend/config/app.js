@@ -295,6 +295,10 @@ const config = convict({
     default: ['audio/mpeg'],
     env: 'AUDIO_FILE_FORMATS'
   },
+  emailTemplateImageSrc: {
+    default: 'https://ipfs.telos.miami/ipfs/QmTu7wUptNGPQfpPX3AJNyQce4NoC2GCcf7DNyHqt7myVa',
+    env: 'EMAIL_TEMPLATE_IMAGE_SRC'
+  },
   checkr: {
     baseUrl: {
       default: '',

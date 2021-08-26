@@ -6,7 +6,6 @@ import { Rating } from '@material-ui/lab'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAward, faMapMarkerAlt, faLanguage } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
-import { terry } from '../../../../assets/images/avatar'
 import { VIEW_RESUME_ROUTE } from '../../../../routes/routesPath'
 import TalentCardSkills from '../../../../containers/People/ContactCenter/Talent/talentCardSkills'
 
@@ -78,33 +77,24 @@ const TalentCard = ({
   </div>
 )
 
-TalentCard.defaultProps = {
-  candidateName: 'Terry Garret',
-  candidatePic: terry,
-  availability: 'available',
-  candidateRating: 5,
-  location: 'San Francisco, CA',
-  languages: 'english',
-  ratePerHourDollar: 12.50,
-  profileName: 'Customer Service Expert',
-  profileDescription: `I have over 15 years of experience in telemarketing and lead generation.
-  I also have over 5 years of experience in management, quality control and supervision.
-  I do have the ability and update your contact list in real time...`,
-  skills: [],
-}
-
 TalentCard.propTypes = {
   candidateId: PropTypes.number.isRequired,
-  candidateName: PropTypes.string,
-  candidatePic: PropTypes.string,
-  availability: PropTypes.string,
-  candidateRating: PropTypes.number,
-  location: PropTypes.string,
-  languages: PropTypes.string,
-  ratePerHourDollar: PropTypes.number,
-  profileName: PropTypes.string,
-  profileDescription: PropTypes.string,
-  skills: PropTypes.arrayOf(PropTypes.any),
+  candidateName: PropTypes.string.isRequired,
+  candidatePic: PropTypes.string.isRequired,
+  availability: PropTypes.string.isRequired,
+  candidateRating: PropTypes.number.isRequired,
+  location: PropTypes.string.isRequired,
+  languages: PropTypes.string.isRequired,
+  ratePerHourDollar: PropTypes.number.isRequired,
+  profileName: PropTypes.string.isRequired,
+  profileDescription: PropTypes.string.isRequired,
+  skills: PropTypes.arrayOf(
+    PropTypes.shape({
+      skillId: PropTypes.number,
+      skillName: PropTypes.string,
+      endorsedCount: PropTypes.number,
+    }),
+  ).isRequired,
 }
 
 export default TalentCard

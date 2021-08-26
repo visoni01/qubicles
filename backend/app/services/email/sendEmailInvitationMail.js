@@ -3,6 +3,7 @@ import logger from '../../common/logger'
 import { UserContact } from '../../db/models'
 import NodeMailer from '../../utils/getNodeMailer'
 import { newNotificationEmailTemplate } from '../../templates/newNotificationEmailTemplate'
+import config from '../../../config/app'
 
 const constraints = {
   contacts: {
@@ -86,7 +87,7 @@ function getHtml ({ inviteUrl, inviter_first_name, inviter_last_name }) {
   you sign up today - even if it's just to collect this free money! Once you/'ve signed up, connect with <b>${inviter_first_name}</b> inside
   Qubicles. See you there!</span>`
   const EMAIL_TEMPLATE_TITLE = `${inviter_first_name} ${inviter_last_name} has invited you to join Qubicles!`
-  const EMAIL_TEMPLATE_IMAGE_SRC = 'https://ipfs.telos.miami/ipfs/QmTu7wUptNGPQfpPX3AJNyQce4NoC2GCcf7DNyHqt7myVa'
+  const EMAIL_TEMPLATE_IMAGE_SRC = config.get('emailTemplateImageSrc')
 
   return newNotificationEmailTemplate({
     EMAIL_TEMPLATE_IMAGE_SRC,

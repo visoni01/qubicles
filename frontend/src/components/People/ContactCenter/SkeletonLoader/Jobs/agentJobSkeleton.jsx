@@ -13,16 +13,25 @@ const AgentJobsSkeleton = () => (
             variant='circle'
           />
           <div>
-            <Skeleton animation='wave' classes={ { root: 'custom-skeleton-location' } } />
-            <Skeleton animation='wave' classes={ { root: 'custom-skeleton-location' } } />
+            {[ ...Array(2).keys() ].map((key) => (
+              <Skeleton
+                animation='wave'
+                classes={ { root: 'custom-skeleton-location' } }
+                key={ key }
+              />
+            ))}
           </div>
         </div>
         <Skeleton animation='wave' classes={ { root: 'custom-skeleton-title' } } />
         <Skeleton animation='wave' className='mt-10' variant='rect' classes={ { root: 'custom-skeleton-summary' } } />
         <div className='job-status-tray'>
-          <Skeleton animation='wave' classes={ { root: 'job-status-item' } } />
-          <Skeleton animation='wave' classes={ { root: 'job-status-item' } } />
-          <Skeleton animation='wave' classes={ { root: 'job-status-item' } } />
+          {[ ...Array(3).keys() ].map((key) => (
+            <Skeleton
+              animation='wave'
+              classes={ { root: 'job-status-item' } }
+              key={ key }
+            />
+          ))}
         </div>
       </div>
     </div>

@@ -12,7 +12,7 @@ const WebSocket = class {
       WebSocket.listeners = listeners
     }
 
-    WebSocket.socket = io(configEnv.BASE_URL, {
+    WebSocket.socket = io(configEnv.NODE_URL, {
       query: { userId },
       transports: [ 'websocket', 'polling' ],
     })

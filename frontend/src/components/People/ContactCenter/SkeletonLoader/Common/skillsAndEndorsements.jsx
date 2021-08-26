@@ -10,22 +10,14 @@ const SkillsAndEndorsementsSkeleton = () => (
     />
     <div className='endorsement'>
       <AvatarGroup max={ 3 } spacing='small' className='avatar-group mr-15'>
-        <Skeleton
-          classes={ { root: 'avatar' } }
-          animation='wave'
-          variant='circle'
-        />
-        <Skeleton
-          classes={ { root: 'avatar' } }
-          animation='wave'
-          variant='circle'
-        />
-        <Skeleton
-          classes={ { root: 'avatar' } }
-          animation='wave'
-          variant='circle'
-        />
-        )
+        {[ ...Array(3).keys() ].map((key) => (
+          <Skeleton
+            classes={ { root: 'avatar' } }
+            animation='wave'
+            variant='circle'
+            key={ key }
+          />
+        ))}
       </AvatarGroup>
       <Skeleton
         animation='wave'

@@ -9,7 +9,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import _ from 'lodash'
-import { good } from '../../../../assets/images/avatar'
 import { JOB_ROUTE } from '../../../../routes/routesPath'
 import '../../../../containers/People/ContactCenter/Talent/styles.scss'
 
@@ -80,22 +79,6 @@ const AgentJobCard = ({
   </div>
 )
 
-AgentJobCard.defaultProps = {
-  job: {
-    clientName: 'Good Call Center',
-    clientPic: good,
-    clientRating: 4.5,
-    clientLocation: 'San Francisco, CA',
-    payAmount: 13,
-    title: 'Looking For Experienced Customer Service Expert',
-    description: `I have over 15 years of experience in telemarketing and lead generation.
-  I also have over 5 years of experience in management, quality control and supervision.
-  I do have the ability and update your contact list in real time of experience in management, quality
-  control and supervision.I do have the ability and update your contact list in real time `,
-    fulfilled: 0,
-  },
-}
-
 AgentJobCard.propTypes = {
   job: PropTypes.shape({
     jobId: PropTypes.number,
@@ -111,7 +94,7 @@ AgentJobCard.propTypes = {
     durationMonths: PropTypes.number,
     durationType: PropTypes.string,
     fulfilled: PropTypes.number,
-  }),
+  }).isRequired,
 }
 
 export default AgentJobCard

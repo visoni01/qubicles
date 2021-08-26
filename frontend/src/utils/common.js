@@ -230,8 +230,9 @@ export const getNotificationMessage = ({ type, payload }) => {
     }
 
     case 'referral-signup': {
-      return `<span>Congrats - you’ve just earned free crypto! <a href="${ config.APP_BASE_URL }${ PROFILE_ROUTE }/${
-        payload.id }/resume" target="_blank">${ payload.name }</a> has accepted your invitation to sign up!</span>`
+      return `<span>Congrats - you’ve just earned free crypto! <a href="${ config.APP_BASE_URL }
+        ${ _.isEqual(payload.userCode, 'employer') ? COMPANY_PROFILE_ROUTE : PROFILE_ROUTE }/
+        ${ payload.id }/feed" target="_blank">${ payload.name }</a> has accepted your invitation to sign up!</span>`
     }
 
     default: return ''

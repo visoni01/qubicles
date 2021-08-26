@@ -2,6 +2,7 @@ import ServiceBase from '../../common/serviceBase'
 import logger from '../../common/logger'
 import NodeMailer from '../../utils/getNodeMailer'
 import { newNotificationEmailTemplate } from '../../templates/newNotificationEmailTemplate'
+import config from '../../../config/app'
 
 const constraints = {
   email_id: {
@@ -45,7 +46,7 @@ function getHtml ({ templateBody }) {
   const EMAIL_TEMPLATE_BODY = templateBody
   const EMAIL_TEMPLATE_CLOSING = ''
   const EMAIL_TEMPLATE_TITLE = 'You have a new notification!'
-  const EMAIL_TEMPLATE_IMAGE_SRC = 'https://ipfs.telos.miami/ipfs/QmTu7wUptNGPQfpPX3AJNyQce4NoC2GCcf7DNyHqt7myVa'
+  const EMAIL_TEMPLATE_IMAGE_SRC = config.get('emailTemplateImageSrc')
 
   return newNotificationEmailTemplate({
     EMAIL_TEMPLATE_IMAGE_SRC,

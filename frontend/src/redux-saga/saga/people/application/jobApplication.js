@@ -195,6 +195,8 @@ function* jobApplicationWorker(action) {
               to: jobDetails && jobDetails.jobPostOwnerId && jobDetails.jobPostOwnerId.toString(),
               from: userDetails.user_id,
               message,
+              subject: (data.status === 'screening' && SUBJECTS.ACCEPT_JOB_INVITATION)
+              || (data.status === 'resigned' && SUBJECTS.RESIGN_JOB),
             })
           }
         }
@@ -218,6 +220,8 @@ function* jobApplicationWorker(action) {
             to: data.user_id && data.user_id.toString(),
             from: userDetails && userDetails.user_id,
             message,
+            subject: (data.status === 'declined' && SUBJECTS.JOB_APPLICATION_CANCELLED)
+            || (data.status === 'invited' && SUBJECTS.JOB_INVITATION),
           })
         }
         break

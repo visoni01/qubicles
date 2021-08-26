@@ -57,7 +57,7 @@ const NotificationCard = ({
 NotificationCard.defaultProps = {
   id: null,
   message: '',
-  isRead: false,
+  isRead: 0,
   createdAt: '',
   imageUrl: '',
 }
@@ -65,7 +65,7 @@ NotificationCard.defaultProps = {
 NotificationCard.propTypes = {
   id: PropTypes.number,
   message: PropTypes.string,
-  isRead: PropTypes.bool,
+  isRead: PropTypes.number,
   createdAt: PropTypes.string,
   imageUrl: PropTypes.string,
   handleDelete: PropTypes.func.isRequired,

@@ -14,8 +14,13 @@ const IntroductionSkeleton = () => (
             variant='circle'
           />
           <div>
-            <Skeleton animation='wave' classes={ { root: 'custom-skeleton-location' } } />
-            <Skeleton animation='wave' classes={ { root: 'custom-skeleton-location' } } />
+            {[ ...Array(2).keys() ].map((key) => (
+              <Skeleton
+                animation='wave'
+                classes={ { root: 'custom-skeleton-location' } }
+                key={ key }
+              />
+            ))}
           </div>
         </div>
         <div className='skeleton-title-container'>
@@ -23,9 +28,13 @@ const IntroductionSkeleton = () => (
         </div>
         <Skeleton animation='wave' variant='rect' classes={ { root: 'custom-skeleton-summary' } } />
         <div className='status-tray'>
-          <Skeleton animation='wave' classes={ { root: 'status-item' } } />
-          <Skeleton animation='wave' classes={ { root: 'status-item' } } />
-          <Skeleton animation='wave' classes={ { root: 'status-item' } } />
+          {[ ...Array(3).keys() ].map((key) => (
+            <Skeleton
+              animation='wave'
+              classes={ { root: 'status-item' } }
+              key={ key }
+            />
+          ))}
         </div>
       </div>
     </Box>
