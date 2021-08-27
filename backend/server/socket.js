@@ -18,16 +18,19 @@ const createSocketConnection = (server) => {
 
     io.on('connection', (socket) => {
       if (!_.isEqual(socket.handshake.query.userId, 'undefined')) {
+        logger.info(`Socket connection created ======> ${socket.handshake.query.userId}`)
         socket.join(socket.handshake.query.userId)
       }
 
       socket.on('disconnect', (reason) => {
+        logger.info(`Socket disconnected ======> ${reason}`)
         if (reason === 'io server disconnect') {
           socket.connect()
         }
       })
 
       socket.on(EVENTS.SEND_NOTIFICATION, async ({ to, message, from, notifyEmail, subject, smsText }) => {
+        logger.info(`Socket send notification ======> ${message}`)
         try {
           const notification = await addUserNotification({ user_id: to, notice: message, record_id: from })
           io.to(to.toString()).emit(EVENTS.RECEIVE_NOTIFICATION, notification)
