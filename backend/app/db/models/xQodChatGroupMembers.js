@@ -9,7 +9,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     conversation_id: DataTypes.INTEGER,
     user_id: DataTypes.INTEGER,
-    is_removed: DataTypes.BOOLEAN,
+    is_removed: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    createdAt: {
+      field: 'created_on',
+      type: DataTypes.DATE
+    },
     updatedAt: {
       field: 'updated_on',
       type: DataTypes.DATE

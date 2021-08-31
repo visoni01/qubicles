@@ -1,0 +1,1 @@
+export { ChatCreateNewGroupService } from './createNewGroup'

@@ -8,4 +8,7 @@ const chatRouter = express.Router(args)
 chatRouter.route('/')
   .post(isAuthenticated, chatController.startNewChat)
 
+chatRouter.route('/new-group')
+  .post(isAuthenticated, chatController.createNewGroup)
+
 export { chatRouter }

@@ -20,16 +20,9 @@ const Chat = class {
     data: chats[ conversationId - 1 ].chats || chats[ 0 ].chats,
   })
 
-  static createNewGroup = async ({ title, members }) => {
-    nextConversationId += 1
-    chats.push({
-      conversationId: nextConversationId,
-      isGroup: true,
-      groupName: title,
-      data: [],
-      candidatesInfo: members,
-    })
-    return { data: { conversationId: nextConversationId } }
+  static createNewGroup = async (payload) => {
+    const response = await apiClient.postRequest('/chat/new-group', payload)
+    return response
   }
 
   static addPeople = async ({ conversationId, members }) => {

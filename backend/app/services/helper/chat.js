@@ -1,4 +1,6 @@
-import { XQodConversations, XQodChatMessage, XQodChatMessageRead, XQodChatAllRead, UserDetail } from '../../db/models'
+import {
+  XQodConversations, XQodChatMessage, XQodChatMessageRead, XQodChatAllRead, XQodChatGroupMembers, UserDetail
+} from '../../db/models'
 import { Op } from 'sequelize'
 
 export const createOrFindChat = async ({ user_id, candidate_id }) => {
@@ -62,4 +64,22 @@ export const formatChatMessage = ({ message }) => {
   }
 
   return formattedMessage
+}
+
+export const createNewGroup = async ({ group_title }) => {
+  const group = await XQodConversations.create({
+    is_group: true,
+    group_title
+  })
+
+  return group
+}
+
+export const addNewMembers = async ({ conversation_id, user_ids }) => {
+  const bulkDataToBeAdded = user_ids && user_ids.map((user_id) => ({
+    conversation_id,
+    user_id
+  }))
+
+  await XQodChatGroupMembers.bulkCreate(bulkDataToBeAdded)
 }

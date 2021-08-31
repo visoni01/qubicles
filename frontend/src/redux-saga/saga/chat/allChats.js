@@ -123,14 +123,17 @@ function* allChatsWorker(action) {
               }
             }
 
-            const { data } = yield Chat.createNewGroup({ title, members: [ loggedInUser, ...members ] })
+            const { data } = yield Chat.createNewGroup({
+              group_title: title,
+              user_ids: [ loggedInUser, ...members ].map((item) => item.id),
+            })
 
             yield put(allChatsRequestSuccess({
               newChat: {
-                id: data && data.conversationId,
+                id: data,
                 name: title || (members && [ loggedInUser, ...members ].map((item) => item.name).join(', ')),
                 imageUrl: '',
-                time: Date.now(),
+                dateTime: Date.now(),
                 isGroup: true,
                 latestMessage: null,
                 allRead: true,
@@ -140,14 +143,14 @@ function* allChatsWorker(action) {
               requestType,
               dataType: 'add-conversation',
               newChat: {
-                conversationId: data && data.conversationId,
+                conversationId: data,
                 isGroup: true,
                 groupName: title,
                 chats: [ ...newMessages ],
                 candidatesInfo: [ loggedInUser, ...members ],
               },
             }))
-            yield put(updateCurrentChatId({ conversationId: data?.conversationId }))
+            yield put(updateCurrentChatId({ conversationId: data }))
             break
           }
 
