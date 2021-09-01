@@ -12,7 +12,7 @@ import { formatDate, formatDateTime } from '../../../utils/common'
 import { updateCurrentChatId } from '../../../redux-saga/redux/chat'
 
 const UserCard = ({
-  id, name, imageUrl, allRead, latestMessage, dateTime, isGroup, selectedConversationId,
+  id, name, imageUrl, allRead, latestMessage, dateTime, isGroup, isRemoved, selectedConversationId,
 }) => {
   const dispatch = useDispatch()
 
@@ -38,7 +38,7 @@ const UserCard = ({
 
         <div className='is-flex is-between align-items-flex-end'>
           <p className={ `para short-message text-message ${ allRead ? 'light' : '' }` }>
-            {latestMessage || 'Start a conversation...'}
+            {(isRemoved && 'You are no longer a participant') || latestMessage || 'Start a conversation...'}
           </p>
           {!allRead ? (
             <div>
@@ -59,6 +59,7 @@ UserCard.defaultProps = {
   latestMessage: '',
   dateTime: '',
   isGroup: false,
+  isRemoved: false,
   selectedConversationId: null,
 }
 
@@ -70,6 +71,7 @@ UserCard.propTypes = {
   latestMessage: PropTypes.string,
   dateTime: PropTypes.string,
   isGroup: PropTypes.bool,
+  isRemoved: PropTypes.bool,
   selectedConversationId: PropTypes.number,
 }
 

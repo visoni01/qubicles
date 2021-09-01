@@ -8,6 +8,8 @@ const initialState = {
   requestType: '',
   dataType: '',
   chatsList: [],
+  offset: 0,
+  searchKeyword: '',
 }
 
 const {
@@ -29,6 +31,8 @@ const {
       error: null,
       requestType: action.payload.requestType,
       dataType: action.payload.dataType,
+      offset: action.payload.offset,
+      searchKeyword: action.payload.searchKeyword,
     }),
     allChatsRequestSuccess: (state, action) => ({
       ...state,

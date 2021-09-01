@@ -1,5 +1,5 @@
 import {
-  Box, Divider, IconButton, TextField, Tooltip,
+  Box, debounce, Divider, IconButton, TextField, Tooltip,
 } from '@material-ui/core'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -32,6 +32,16 @@ const LeftCard = ({ conversationId }) => {
   const handleNewGroupClick = useCallback(() => {
     setOpenNewGroupModal((prevState) => !prevState)
   }, [])
+
+  // Search Conversations
+  const searchConversations = useCallback(debounce((nextValue) => {
+    dispatch(allChatsRequestStart({
+      requestType: 'FETCH',
+      dataType: 'chats-list',
+      searchKeyword: nextValue,
+      offset: 0,
+    }))
+  }, 500), [ dispatch ])
 
   useEffect(() => {
     if (_.isNull(isLoading)) {
@@ -84,7 +94,7 @@ const LeftCard = ({ conversationId }) => {
         <TextField
           className='search-field'
           defaultValue=''
-          onChange=''
+          onChange={ (e) => searchConversations(e.target.value) }
           placeholder='Search...'
           margin='dense'
           variant='outlined'
@@ -121,6 +131,7 @@ const LeftCard = ({ conversationId }) => {
               latestMessage={ item.latestMessage }
               dateTime={ item.dateTime }
               isGroup={ item.isGroup }
+              isRemoved={ item.isRemoved }
               selectedConversationId={ conversationId }
             />
             {index !== chatsList.length - 1 ? <Divider className='user-list-divider' /> : ''}

@@ -63,7 +63,7 @@ const ChatControls = ({
   const handleSendClick = useCallback(() => {
     const newMessage = {
       messageId: getUniqueId(),
-      candidateId: userDetails && userDetails.user_id,
+      senderId: userDetails && userDetails.user_id,
       profilePic: userDetails && _.isEqual(userDetails.user_code, 'agent')
         ? agentSettings.profilePic
         : clientSettings.profilePic,

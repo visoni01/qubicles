@@ -25,7 +25,7 @@ export class StartNewChatService extends ServiceBase {
 
       if (conversation && conversation.messages && conversation.messages.length) {
         for (let index = conversation.messages.length - 1; index >= 0; index -= 1) {
-          messages.push(formatChatMessage({ message: conversation.messages[index] }))
+          conversation.messages[index] && messages.push(formatChatMessage({ message: conversation.messages[index] }))
         }
       }
 

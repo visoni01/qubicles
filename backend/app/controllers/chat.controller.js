@@ -1,6 +1,6 @@
 import Responder from '../../server/expressResponder'
 import { ChatCreateNewGroupService, ChatAddNewGroupMembersService } from '../services/chat/group'
-import { StartNewChatService } from '../services/chat'
+import { GetAllChatsService, StartNewChatService } from '../services/chat'
 
 export default class ChatController {
   static async startNewChat (req, res) {
@@ -27,6 +27,15 @@ export default class ChatController {
       Responder.success(res, group.result)
     } else {
       Responder.failed(res, group.errors)
+    }
+  }
+
+  static async getAllChats (req, res) {
+    const conversations = await GetAllChatsService.execute({ ...req.body, ...req.query })
+    if (conversations.successful) {
+      Responder.success(res, conversations.result)
+    } else {
+      Responder.failed(res, conversations.errors)
     }
   }
 }

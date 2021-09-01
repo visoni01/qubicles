@@ -14,4 +14,7 @@ chatRouter.route('/new-group')
 chatRouter.route('/group/:conversation_id')
   .put(isAuthenticated, chatController.addNewGroupMembers)
 
+chatRouter.route('/')
+  .get(isAuthenticated, chatController.getAllChats)
+
 export { chatRouter }

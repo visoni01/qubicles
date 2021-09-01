@@ -6,12 +6,13 @@ import apiClient from '../../utils/apiClient'
 
 // WIP - Call APIs
 const Chat = class {
-  static getAllChats = async ({ offset, searchKeyword }) => ({
-    data: userList,
-  })
+  static getAllChats = async ({ offset, searchKeyword }) => {
+    const response = await apiClient.getRequest('/chat', null, { offset, search_keyword: searchKeyword })
+    return response
+  }
 
   static getChatData = async ({ conversationId }) => ({
-    data: chats[ conversationId - 1 ] || chats[ 0 ],
+    data: chats[ conversationId - 1 ] || { ...chats[ 0 ], conversationId },
   })
 
   static getChatMessages = async ({ conversationId, offset }) => ({
