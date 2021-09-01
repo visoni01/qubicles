@@ -58,7 +58,10 @@ function* chatDataWorker(action) {
           }
 
           case 'add-people': {
-            yield Chat.addPeople({ conversationId, members })
+            yield Chat.addPeople({
+              conversationId,
+              user_ids: members && members.map((user) => user.id),
+            })
 
             const { userDetails } = yield select((state) => state.login)
 

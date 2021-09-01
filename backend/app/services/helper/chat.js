@@ -83,3 +83,24 @@ export const addNewMembers = async ({ conversation_id, user_ids }) => {
 
   await XQodChatGroupMembers.bulkCreate(bulkDataToBeAdded)
 }
+
+export const fetchAllGroupMembers = async ({ conversation_id }) => {
+  const groupMembersIds = await XQodChatGroupMembers.findAll({
+    raw: true,
+    attributes: ['user_id'],
+    where: { conversation_id }
+  })
+
+  return groupMembersIds && groupMembersIds.map((item) => item.user_id)
+}
+
+export const changeGroupMembersStatus = async ({ conversation_id, user_ids }) => {
+  await XQodChatGroupMembers.update({
+    is_removed: false
+  }, {
+    where: {
+      conversation_id,
+      user_id: user_ids
+    }
+  })
+}

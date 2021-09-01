@@ -4,8 +4,6 @@ import {
 } from '../../containers/Chat/testData'
 import apiClient from '../../utils/apiClient'
 
-let nextConversationId = userList.length
-
 // WIP - Call APIs
 const Chat = class {
   static getAllChats = async ({ offset, searchKeyword }) => ({
@@ -20,13 +18,19 @@ const Chat = class {
     data: chats[ conversationId - 1 ].chats || chats[ 0 ].chats,
   })
 
+  static createNewChat = async (payload) => {
+    const response = await apiClient.postRequest('/chat', payload)
+    return response
+  }
+
   static createNewGroup = async (payload) => {
     const response = await apiClient.postRequest('/chat/new-group', payload)
     return response
   }
 
-  static addPeople = async ({ conversationId, members }) => {
-
+  static addPeople = async ({ conversationId, ...payload }) => {
+    const response = await apiClient.putRequest(`/chat/group/${ conversationId }`, payload)
+    return response
   }
 
   static removePerson = async ({ conversationId, candidateId }) => {
@@ -39,15 +43,6 @@ const Chat = class {
 
   static markChatAsRead = async ({ conversationId }) => {
 
-  }
-
-  static createNewChat = async ({ candidateId }) => {
-    const response = await apiClient.postRequest(
-      '/chat',
-      { candidate_id: candidateId },
-    )
-
-    return response
   }
 
   static createNewPopup = async ({ conversationId }) => popupChats[ conversationId - 1 ] || popupChats[ 0 ]

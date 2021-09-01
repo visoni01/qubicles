@@ -155,7 +155,7 @@ function* allChatsWorker(action) {
           }
 
           case 'new-chat': {
-            const { data } = yield Chat.createNewChat({ candidateId: candidate?.id })
+            const { data } = yield Chat.createNewChat({ candidate_id: candidate?.id })
             const { userDetails } = yield select((state) => state.login)
 
             const newMessage = {

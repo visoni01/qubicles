@@ -1,8 +1,7 @@
 import ServiceBase from '../../../common/serviceBase'
 import { ERRORS } from '../../../utils/errors'
 import logger from '../../../common/logger'
-import { addNewMembers, getErrorMessageForService } from '../../helper'
-import { createNewGroup } from '../../helper/chat'
+import { createNewGroup, addNewMembers, getErrorMessageForService } from '../../helper'
 
 const constraints = {
   user_ids: {
