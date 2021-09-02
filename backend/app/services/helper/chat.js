@@ -196,3 +196,13 @@ export const formatChatListItem = ({ chatListItem }) => {
 
   return formattedChatListItem
 }
+
+export const changeGroupName = async ({ conversation_id, group_title }) => {
+  await XQodConversations.update({
+    group_title
+  }, {
+    where: {
+      conversation_id
+    }
+  })
+}

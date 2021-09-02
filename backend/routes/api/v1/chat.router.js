@@ -20,4 +20,7 @@ chatRouter.route('/group/:conversation_id')
 chatRouter.route('/group/:conversation_id/candidate/:candidate_id')
   .delete(isAuthenticated, chatController.removeGroupMember)
 
+chatRouter.route('/group/:conversation_id/group-name')
+  .put(isAuthenticated, chatController.changeGroupName)
+
 export { chatRouter }

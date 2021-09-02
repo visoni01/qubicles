@@ -1,7 +1,7 @@
 import Responder from '../../server/expressResponder'
 import { StartNewChatService, GetAllChatsService } from '../services/chat'
 import {
-  ChatCreateNewGroupService, ChatAddNewGroupMembersService, ChatRemoveGroupMemberService
+  ChatCreateNewGroupService, ChatAddNewGroupMembersService, ChatRemoveGroupMemberService, ChatChangeGroupNameService
 } from '../services/chat/group'
 
 export default class ChatController {
@@ -43,6 +43,15 @@ export default class ChatController {
 
   static async removeGroupMember (req, res) {
     const group = await ChatRemoveGroupMemberService.execute({ ...req.params })
+    if (group.successful) {
+      Responder.success(res, group.result)
+    } else {
+      Responder.failed(res, group.errors)
+    }
+  }
+
+  static async changeGroupName (req, res) {
+    const group = await ChatChangeGroupNameService.execute({ ...req.params, ...req.body })
     if (group.successful) {
       Responder.success(res, group.result)
     } else {

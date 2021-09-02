@@ -126,7 +126,10 @@ function* chatDataWorker(action) {
           }
 
           case 'change-group-name': {
-            yield Chat.changeGroupName({ conversationId, newGroupName })
+            yield Chat.changeGroupName({
+              conversationId,
+              group_title: newGroupName,
+            })
 
             const { userDetails } = yield select((state) => state.login)
 

@@ -39,6 +39,11 @@ const Chat = class {
     return response
   }
 
+  static changeGroupName = async ({ conversationId, ...payload }) => {
+    const response = await apiClient.putRequest(`/chat/group/${ conversationId }/group-name`, payload)
+    return response
+  }
+
   static markChatAsUnread = async ({ conversationId }) => {
 
   }
@@ -52,10 +57,6 @@ const Chat = class {
   // eslint-disable-next-line arrow-body-style
   static getChatSuggestions = async ({ offset, searchKeyword }) => {
     return { data: { users: suggestions, count: 10 } }
-  }
-
-  static changeGroupName = async ({ conversationId, newGroupName }) => {
-
   }
 }
 
