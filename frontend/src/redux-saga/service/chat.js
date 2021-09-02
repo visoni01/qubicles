@@ -6,8 +6,8 @@ import apiClient from '../../utils/apiClient'
 
 // WIP - Call APIs
 const Chat = class {
-  static getAllChats = async ({ offset, searchKeyword }) => {
-    const response = await apiClient.getRequest('/chat', null, { offset, search_keyword: searchKeyword })
+  static getAllChats = async (payload) => {
+    const response = await apiClient.getRequest('/chat', null, payload)
     return response
   }
 
@@ -35,7 +35,8 @@ const Chat = class {
   }
 
   static removePerson = async ({ conversationId, candidateId }) => {
-
+    const response = await apiClient.deleteRequest(`/chat/group/${ conversationId }/candidate/${ candidateId }`)
+    return response
   }
 
   static markChatAsUnread = async ({ conversationId }) => {

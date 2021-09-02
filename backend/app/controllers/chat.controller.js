@@ -1,8 +1,19 @@
 import Responder from '../../server/expressResponder'
-import { ChatCreateNewGroupService, ChatAddNewGroupMembersService } from '../services/chat/group'
-import { GetAllChatsService, StartNewChatService } from '../services/chat'
+import { StartNewChatService, GetAllChatsService } from '../services/chat'
+import {
+  ChatCreateNewGroupService, ChatAddNewGroupMembersService, ChatRemoveGroupMemberService
+} from '../services/chat/group'
 
 export default class ChatController {
+  static async getAllChats (req, res) {
+    const conversations = await GetAllChatsService.execute({ ...req.body, ...req.query })
+    if (conversations.successful) {
+      Responder.success(res, conversations.result)
+    } else {
+      Responder.failed(res, conversations.errors)
+    }
+  }
+
   static async startNewChat (req, res) {
     const conversation = await StartNewChatService.execute({ ...req.body, ...req.query })
     if (conversation.successful) {
@@ -30,12 +41,12 @@ export default class ChatController {
     }
   }
 
-  static async getAllChats (req, res) {
-    const conversations = await GetAllChatsService.execute({ ...req.body, ...req.query })
-    if (conversations.successful) {
-      Responder.success(res, conversations.result)
+  static async removeGroupMember (req, res) {
+    const group = await ChatRemoveGroupMemberService.execute({ ...req.params })
+    if (group.successful) {
+      Responder.success(res, group.result)
     } else {
-      Responder.failed(res, conversations.errors)
+      Responder.failed(res, group.errors)
     }
   }
 }

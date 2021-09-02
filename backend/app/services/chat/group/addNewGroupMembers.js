@@ -29,7 +29,11 @@ export class ChatAddNewGroupMembersService extends ServiceBase {
         const dataToBeUpdated = _.intersection(user_ids, groupMembersIds)
 
         await addNewMembers({ conversation_id, user_ids: newDataToBeAdded })
-        await changeGroupMembersStatus({ conversation_id, user_ids: dataToBeUpdated })
+        await changeGroupMembersStatus({
+          conversation_id,
+          user_ids: dataToBeUpdated,
+          is_removed: false
+        })
       }
     } catch (e) {
       logger.error(getErrorMessageForService('ChatAddNewGroupMembersService'), e)

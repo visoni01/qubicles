@@ -94,9 +94,9 @@ export const fetchAllGroupMembers = async ({ conversation_id }) => {
   return groupMembersIds && groupMembersIds.map((item) => item.user_id)
 }
 
-export const changeGroupMembersStatus = async ({ conversation_id, user_ids }) => {
+export const changeGroupMembersStatus = async ({ conversation_id, user_ids, is_removed }) => {
   await XQodChatGroupMembers.update({
-    is_removed: false
+    is_removed
   }, {
     where: {
       conversation_id,

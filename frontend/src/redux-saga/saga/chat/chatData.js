@@ -9,6 +9,7 @@ import {
   showErrorMessage,
   updateAllChats,
   updateConversations,
+  showSuccessMessage,
 } from '../../redux/actions'
 import Chat from '../../service/chat'
 
@@ -91,7 +92,7 @@ function* chatDataWorker(action) {
           }
 
           case 'remove-person': {
-            yield Chat.addPeople({ conversationId, candidateId })
+            yield Chat.removePerson({ conversationId, candidateId })
 
             const { userDetails } = yield select((state) => state.login)
 
@@ -117,6 +118,9 @@ function* chatDataWorker(action) {
             }))
             yield put(updateConversations({
               newMessage, dataType: 'new-message', requestType, conversationId,
+            }))
+            yield put(showSuccessMessage({
+              msg: `You have successfully removed ${ name }!`,
             }))
             break
           }

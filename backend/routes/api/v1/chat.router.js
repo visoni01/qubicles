@@ -6,6 +6,9 @@ const args = { mergeParams: true }
 const chatRouter = express.Router(args)
 
 chatRouter.route('/')
+  .get(isAuthenticated, chatController.getAllChats)
+
+chatRouter.route('/')
   .post(isAuthenticated, chatController.startNewChat)
 
 chatRouter.route('/new-group')
@@ -14,7 +17,7 @@ chatRouter.route('/new-group')
 chatRouter.route('/group/:conversation_id')
   .put(isAuthenticated, chatController.addNewGroupMembers)
 
-chatRouter.route('/')
-  .get(isAuthenticated, chatController.getAllChats)
+chatRouter.route('/group/:conversation_id/candidate/:candidate_id')
+  .delete(isAuthenticated, chatController.removeGroupMember)
 
 export { chatRouter }

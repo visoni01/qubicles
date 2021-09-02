@@ -26,7 +26,7 @@ function* allChatsWorker(action) {
       case 'FETCH': {
         switch (dataType) {
           case 'chats-list': {
-            const { data } = yield Chat.getAllChats({ offset, searchKeyword })
+            const { data } = yield Chat.getAllChats({ offset, search_keyword: searchKeyword })
             yield put(allChatsRequestSuccess({ chats: data }))
 
             if (data.length && data[ 0 ]) {
