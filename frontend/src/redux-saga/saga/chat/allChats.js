@@ -27,10 +27,10 @@ function* allChatsWorker(action) {
         switch (dataType) {
           case 'chats-list': {
             const { data } = yield Chat.getAllChats({ offset, search_keyword: searchKeyword })
-            yield put(allChatsRequestSuccess({ chats: data }))
+            yield put(allChatsRequestSuccess({ chats: data?.chatsList, more: data?.more, offset }))
 
-            if (data.length && data[ 0 ]) {
-              yield put(updateCurrentChatId({ conversationId: data[ 0 ].id }))
+            if (offset === 0 && data?.chatsList?.length && data?.chatsList[ 0 ]) {
+              yield put(updateCurrentChatId({ conversationId: data.chatsList[ 0 ].id }))
             }
 
             break

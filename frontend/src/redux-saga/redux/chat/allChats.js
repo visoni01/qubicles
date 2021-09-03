@@ -10,6 +10,7 @@ const initialState = {
   chatsList: [],
   offset: 0,
   searchKeyword: '',
+  more: false,
 }
 
 const {
@@ -31,8 +32,9 @@ const {
       error: null,
       requestType: action.payload.requestType,
       dataType: action.payload.dataType,
-      offset: action.payload.offset,
-      searchKeyword: action.payload.searchKeyword,
+      offset: action.payload.offset || 0,
+      searchKeyword: action.payload.searchKeyword || '',
+      more: state.dataType === 'chats-list' ? false : state.more,
     }),
     allChatsRequestSuccess: (state, action) => ({
       ...state,
@@ -43,6 +45,7 @@ const {
         payload: { ...action.payload, dataType: state.dataType },
         chatsList: state.chatsList,
       }),
+      more: state.dataType === 'chats-list' ? action.payload.more : state.more,
     }),
     allChatsRequestFailed: (state) => ({
       ...state,

@@ -235,7 +235,12 @@ export const updateConversationsHelper = ({ payload, conversations }) => {
 export const updateAllChatsReducer = ({ payload, chatsList }) => {
   switch (payload.dataType) {
     case 'chats-list': {
-      return payload.chats
+      return payload.offset === 0
+        ? payload.chats
+        : [
+          ...chatsList,
+          ...payload.chats,
+        ]
     }
 
     case 'new-group': {

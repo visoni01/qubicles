@@ -5,20 +5,64 @@ import PropTypes from 'prop-types'
 import { Avatar } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircle } from '@fortawesome/free-solid-svg-icons'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
 import { groupChatIcon } from '../../../assets/images/chat'
 import { formatDate, formatDateTime } from '../../../utils/common'
 import { updateCurrentChatId } from '../../../redux-saga/redux/chat'
 
 const UserCard = ({
-  id, name, imageUrl, allRead, latestMessage, dateTime, isGroup, isRemoved, selectedConversationId,
+  id, name, imageUrl, allRead, latestMessage, dateTime, selectedConversationId,
+  isGroup, isRemoved, isNotification, isImage,
 }) => {
+  const { userDetails } = useSelector((state) => state.login)
+
   const dispatch = useDispatch()
 
   const handleOpenChat = useCallback(() => {
     dispatch(updateCurrentChatId({ conversationId: id }))
   }, [ dispatch, id ])
+
+  const getNotificationMessage = useCallback((htmlElement) => {
+    const elements = htmlElement.getElementsByClassName(userDetails && userDetails.user_id)
+    if (elements.length > 0) {
+      Array.from(elements).forEach((item) => {
+        // eslint-disable-next-line no-param-reassign
+        item.innerHTML = 'You'
+      })
+    }
+  }, [ userDetails ])
+
+  // To convert HTML text to normal text
+  const stripHtml = useCallback((html) => {
+    const temporalDivElement = document.createElement('div')
+    temporalDivElement.innerHTML = html
+    getNotificationMessage(temporalDivElement)
+    return temporalDivElement.textContent || temporalDivElement.innerText || ''
+  }, [ getNotificationMessage ])
+
+  const getLatestMessage = useCallback(() => {
+    let message = latestMessage
+    let className = 'italic'
+
+    if (isRemoved) {
+      message = 'You are no longer a participant'
+    } else if (isNotification) {
+      message = stripHtml(latestMessage)
+    } else if (isImage && !latestMessage) {
+      message = 'Sent an image'
+    } else if (!latestMessage) {
+      message = 'Start a conversation...'
+    } else {
+      className = ''
+    }
+
+    return (
+      <p className={ `para short-message text-message ${ allRead ? 'light' : '' } ${ className }` }>
+        {message}
+      </p>
+    )
+  }, [ isNotification, isRemoved, isImage, latestMessage, stripHtml, allRead ])
 
   return (
     <div
@@ -37,9 +81,7 @@ const UserCard = ({
         </div>
 
         <div className='is-flex is-between align-items-flex-end'>
-          <p className={ `para short-message text-message ${ allRead ? 'light' : '' }` }>
-            {(isRemoved && 'You are no longer a participant') || latestMessage || 'Start a conversation...'}
-          </p>
+          {getLatestMessage()}
           {!allRead ? (
             <div>
               <FontAwesomeIcon icon={ faCircle } className='custom-fa-icon sz-xs' />
@@ -60,6 +102,8 @@ UserCard.defaultProps = {
   dateTime: '',
   isGroup: false,
   isRemoved: false,
+  isNotification: false,
+  isImage: false,
   selectedConversationId: null,
 }
 
@@ -72,6 +116,8 @@ UserCard.propTypes = {
   dateTime: PropTypes.string,
   isGroup: PropTypes.bool,
   isRemoved: PropTypes.bool,
+  isNotification: PropTypes.bool,
+  isImage: PropTypes.bool,
   selectedConversationId: PropTypes.number,
 }
 

@@ -169,7 +169,7 @@ export const getChatsList = async ({ user_id, offset, search_keyword }) => {
         OR t3.group_title LIKE '%${search_keyword}%'`
       : ''}
     ORDER BY t1.sent_at DESC
-    LIMIT 5
+    LIMIT 11
     OFFSET ${offset || 0}
   `
 
@@ -181,7 +181,7 @@ export const getChatsList = async ({ user_id, offset, search_keyword }) => {
 export const formatChatListItem = ({ chatListItem }) => {
   const {
     conversation_id, is_group, first_name, last_name, group_title, group_name, profile_image,
-    sent_at, text, all_read, is_removed
+    sent_at, text, all_read, is_removed, is_notification, image_url
   } = chatListItem
   const formattedChatListItem = {
     id: conversation_id,
@@ -191,7 +191,9 @@ export const formatChatListItem = ({ chatListItem }) => {
     isGroup: !!is_group,
     latestMessage: text,
     allRead: !!all_read,
-    isRemoved: !!is_removed
+    isRemoved: !!is_removed,
+    isNotification: !!is_notification,
+    isImage: !!image_url
   }
 
   return formattedChatListItem

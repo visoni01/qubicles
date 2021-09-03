@@ -1,7 +1,9 @@
 import {
   Box, debounce, Divider, IconButton, TextField, Tooltip,
 } from '@material-ui/core'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, {
+  useCallback, useEffect, useRef, useState,
+} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
@@ -13,11 +15,16 @@ import { NewChatIcon, NewGroupIcon } from '../../../assets/images/chat'
 import '../styles.scss'
 
 const LeftCard = ({ conversationId }) => {
-  const { chatsList, isLoading } = useSelector((state) => state.allChats)
+  const {
+    chatsList, isLoading, offset, more, searchKeyword,
+  } = useSelector((state) => state.allChats)
 
   const [ openSearchField, setOpenSearchField ] = useState(false)
   const [ openNewChatModal, setOpenNewChatModal ] = useState(false)
   const [ openNewGroupModal, setOpenNewGroupModal ] = useState(false)
+
+  const userListRef = useRef()
+  const observer = useRef()
 
   const dispatch = useDispatch()
 
@@ -48,9 +55,40 @@ const LeftCard = ({ conversationId }) => {
       dispatch(allChatsRequestStart({
         requestType: 'FETCH',
         dataType: 'chats-list',
+        offset: 0,
+        searchKeyword: '',
       }))
     }
   }, [ dispatch, isLoading ])
+
+  const handleObserver = useCallback((entries) => {
+    const target = entries[ 0 ]
+    if (target?.isIntersecting && more) {
+      dispatch(allChatsRequestStart({
+        requestType: 'FETCH',
+        dataType: 'chats-list',
+        offset: offset + 10,
+        searchKeyword,
+      }))
+    }
+  }, [ dispatch, more, searchKeyword, offset ])
+
+  // Lazy loading and infinite scrolling
+  /*
+  Reference Links:
+  https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
+  https://github.com/WebDevSimplified/React-Infinite-Scrolling/blob/master/src/App.js
+  */
+  const endRef = useCallback((node) => {
+    const option = {
+      root: userListRef.current,
+      rootMargin: '0px',
+      threshold: 1,
+    }
+    if (observer.current) observer.current.disconnect()
+    observer.current = new IntersectionObserver(handleObserver, option)
+    if (node) observer.current.observe(node)
+  }, [ handleObserver ])
 
   return (
     <Box
@@ -120,7 +158,7 @@ const LeftCard = ({ conversationId }) => {
       )}
 
       {/* Users List */}
-      <div className='user-list'>
+      <div ref={ userListRef } className='user-list'>
         {chatsList && chatsList.map((item, index) => (
           <div key={ item.id } className={ `user-card-root ${ conversationId === item.id ? 'selected' : '' }` }>
             <UserCard
@@ -132,11 +170,14 @@ const LeftCard = ({ conversationId }) => {
               dateTime={ item.dateTime }
               isGroup={ item.isGroup }
               isRemoved={ item.isRemoved }
+              isNotification={ item.isNotification }
+              isImage={ item.isImage }
               selectedConversationId={ conversationId }
             />
             {index !== chatsList.length - 1 ? <Divider className='user-list-divider' /> : ''}
           </div>
         ))}
+        <div ref={ endRef } />
       </div>
 
       {chatsList && !chatsList.length && (
