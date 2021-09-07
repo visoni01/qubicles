@@ -1,2 +1,3 @@
-export * from './startNewChat'
-export * from './getAllChats'
+export { StartNewChatService } from './startNewChat'
+export { GetAllChatsService } from './getAllChats'
+export { GetChatDataService } from './getChatData'

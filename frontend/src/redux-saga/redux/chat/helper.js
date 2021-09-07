@@ -55,7 +55,7 @@ export const chatDataSuccessHelper = ({ conversations, payload }) => {
                 ...result,
                 requestType,
                 dataType,
-                data: payload.chat,
+                data: payload.conversationData,
               },
             ]
           }
@@ -64,7 +64,7 @@ export const chatDataSuccessHelper = ({ conversations, payload }) => {
             ? {
               ...item,
               ...result,
-              data: payload.chat,
+              data: payload.conversationData,
             }
             : item))
         }

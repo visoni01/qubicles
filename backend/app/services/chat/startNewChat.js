@@ -1,7 +1,7 @@
 import ServiceBase from '../../common/serviceBase'
 import { ERRORS } from '../../utils/errors'
 import logger from '../../common/logger'
-import { createOrFindChat, formatChatMessage, getErrorMessageForService } from '../helper'
+import { createOrFindChat, formatMessagesOrder, getErrorMessageForService } from '../helper'
 
 const constraints = {
   user_id: {
@@ -21,12 +21,10 @@ export class StartNewChatService extends ServiceBase {
     try {
       const { user_id, candidate_id } = this.filteredArgs
       const conversation = await createOrFindChat({ user_id, candidate_id })
-      const messages = []
+      let messages = []
 
       if (conversation && conversation.messages && conversation.messages.length) {
-        for (let index = conversation.messages.length - 1; index >= 0; index -= 1) {
-          conversation.messages[index] && messages.push(formatChatMessage({ message: conversation.messages[index] }))
-        }
+        messages = formatMessagesOrder({ messageArray: messages, messages: conversation.messages })
       }
 
       return {

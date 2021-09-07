@@ -11,9 +11,10 @@ const Chat = class {
     return response
   }
 
-  static getChatData = async ({ conversationId }) => ({
-    data: chats[ conversationId - 1 ] || { ...chats[ 0 ], conversationId },
-  })
+  static getChatData = async ({ conversationId }) => {
+    const response = await apiClient.getRequest(`/chat/chat-data/${ conversationId }`)
+    return response
+  }
 
   static getChatMessages = async ({ conversationId, offset }) => ({
     data: chats[ conversationId - 1 ].chats || chats[ 0 ].chats,

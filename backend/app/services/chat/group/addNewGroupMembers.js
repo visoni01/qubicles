@@ -22,7 +22,8 @@ export class ChatAddNewGroupMembersService extends ServiceBase {
     try {
       const { conversation_id, user_ids } = this.filteredArgs
 
-      const groupMembersIds = await fetchAllGroupMembers({ conversation_id })
+      const groupMembers = await fetchAllGroupMembers({ conversation_id })
+      const groupMembersIds = groupMembers && groupMembers.map((user) => user.user_id)
 
       if (groupMembersIds && groupMembersIds.length) {
         const newDataToBeAdded = _.difference(user_ids, groupMembersIds)

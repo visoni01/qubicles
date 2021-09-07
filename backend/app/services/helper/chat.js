@@ -3,6 +3,8 @@ import {
 } from '../../db/models'
 import { Op } from 'sequelize'
 import { SqlHelper } from '../../utils/sql'
+import _ from 'lodash'
+import { formatDate } from './common'
 
 export const createOrFindChat = async ({ user_id, candidate_id }) => {
   const [conversation] = await XQodConversations.findOrCreate({
@@ -51,20 +53,18 @@ export const createOrFindChat = async ({ user_id, candidate_id }) => {
   return conversation.get({ plain: true })
 }
 
-export const formatChatMessage = ({ message }) => {
-  const formattedMessage = {
-    messageId: message.message_id,
-    senderId: message.sender_id,
-    text: message.text,
-    imageUrl: message.image_url,
-    profilePic: message.senderDetails && message.senderDetails.profile_image,
-    isNotification: !!message.is_notification,
-    sentAt: message.sent_at,
-    isRead: message.messageReadStatus && message.messageReadStatus[0] ? message.messageReadStatus[0].is_read : true
-  }
-
-  return formattedMessage
-}
+export const formatChatMessage = ({ message }) => ({
+  messageId: message.message_id,
+  senderId: message.sender_id,
+  text: message.text,
+  imageUrl: message.image_url,
+  profilePic: (message.senderDetails && message.senderDetails.profile_image) || message.profile_image,
+  isNotification: !!message.is_notification,
+  sentAt: message.sent_at,
+  isRead: !_.isUndefined(message.is_read)
+    ? !!message.is_read
+    : (message.messageReadStatus && message.messageReadStatus[0] ? message.messageReadStatus[0].is_read : true)
+})
 
 export const createNewGroup = async ({ group_title }) => {
   const group = await XQodConversations.create({
@@ -85,13 +85,13 @@ export const addNewMembers = async ({ conversation_id, user_ids }) => {
 }
 
 export const fetchAllGroupMembers = async ({ conversation_id }) => {
-  const groupMembersIds = await XQodChatGroupMembers.findAll({
+  const groupMembers = await XQodChatGroupMembers.findAll({
     raw: true,
-    attributes: ['user_id'],
+    attributes: ['user_id', 'is_removed'],
     where: { conversation_id }
   })
 
-  return groupMembersIds && groupMembersIds.map((item) => item.user_id)
+  return groupMembers
 }
 
 export const changeGroupMembersStatus = async ({ conversation_id, user_ids, is_removed }) => {
@@ -208,3 +208,134 @@ export const changeGroupName = async ({ conversation_id, group_title }) => {
     }
   })
 }
+
+export const getChatData = async ({ conversation_id, user_id }) => {
+  const query = `
+    SELECT conversationDetails.is_group, conversationDetails.group_title, conversationDetails.user_one_id,
+      conversationDetails.user_two_id, conversationMessages.*
+    FROM x_qod_conversations conversationDetails
+    LEFT JOIN (
+      SELECT messages.*, groupMemberStatus.is_removed, groupMemberStatus.updated_on, senderDetails.profile_image,
+        messageReadStatus.is_read
+      FROM x_qod_chat_messages messages
+      LEFT JOIN (
+        SELECT conversation_id, is_removed, updated_on
+        FROM x_qod_chat_group_members
+        WHERE user_id = ${user_id}
+      ) groupMemberStatus
+      ON messages.conversation_id = groupMemberStatus.conversation_id
+      LEFT JOIN (
+      SELECT userDetails.user_id, userDetails.profile_image
+          FROM x_user_details userDetails
+      ) senderDetails
+      ON messages.sender_id = senderDetails.user_id
+      JOIN (
+      SELECT chatMessageRead.message_id, chatMessageRead.is_read
+          FROM x_qod_chat_message_read chatMessageRead
+          WHERE chatMessageRead.user_id = ${user_id}
+      ) messageReadStatus
+      ON messages.message_id = messageReadStatus.message_id
+      WHERE sent_at <=
+      CASE
+        WHEN groupMemberStatus.is_removed = 1
+        THEN groupMemberStatus.updated_on
+        ELSE sent_at
+      END
+    ) conversationMessages
+    ON conversationDetails.conversation_id = conversationMessages.conversation_id
+    WHERE conversationDetails.conversation_id = ${conversation_id}
+    ORDER BY conversationMessages.sent_at DESC
+  `
+
+  const conversationWithUnReadMessages = await SqlHelper.select(query)
+
+  return conversationWithUnReadMessages
+}
+
+export const getReadMessages = ({ conversation_id, user_id, is_group, is_removed, updated_on }) => {
+  return `
+    SELECT messages.*, senderDetails.profile_image
+    FROM x_qod_chat_messages messages
+    JOIN (
+      SELECT x_qod_chat_messages.message_id
+      FROM x_qod_chat_messages
+      WHERE conversation_id = ${conversation_id}
+      EXCEPT
+      SELECT x_qod_chat_message_read.message_id FROM x_qod_chat_message_read WHERE user_id = ${user_id}
+    ) readMessageData
+    ON messages.message_id = readMessageData.message_id
+    LEFT JOIN (
+      SELECT user_id, profile_image
+      FROM x_user_details
+    ) senderDetails
+    ON messages.sender_id = senderDetails.user_id
+    WHERE messages.sent_at <=
+    CASE
+      WHEN ${is_group} AND ${is_removed}
+      THEN '${formatDate(updated_on)}'
+      ELSE messages.sent_at
+    END
+    ORDER BY messages.sent_at DESC
+    LIMIT 10`
+}
+
+export const getCandidatesInfo = ({ user_ids }) => {
+  // TODO - Change table name aliases
+  return `
+    SELECT t1.user_id, t1.profile_image, t1.city, t1.state, t1.work_title, t3.full_name, t3.user_code,
+      t3.title, t3.client_city, t3.client_state
+    FROM x_user_details t1
+    JOIN (
+      SELECT t2.user_id, t2.full_name, t2.user_code, t4.title, t4.client_city, t4.client_state
+      FROM x_users t2
+      LEFT JOIN (
+        SELECT t5.user_id, t7.title, t7.client_city, t7.client_state
+        FROM x_client_users t5
+        JOIN (
+          SELECT t6.client_id, t6.title, t6.city AS client_city, t6.state AS client_state
+          FROM x_clients t6
+        ) t7
+        ON t5.client_id = t7.client_id
+      ) t4
+      ON t2.user_id = t4.user_id AND t2.user_code = 'employer'
+    ) t3
+    ON t1.user_id = t3.user_id
+    WHERE t3.user_id IN (${user_ids})`
+}
+
+export const formatMessagesOrder = ({ messageArray, messages }) => {
+  for (let index = messages.length - 1; index >= 0; index -= 1) {
+    messageArray = [
+      ...messageArray,
+      formatChatMessage({ message: messages[index] })
+    ]
+  }
+
+  return messageArray
+}
+
+export const formatCandidateInfoData = ({ candidateInfo, groupMembers }) => {
+  return candidateInfo.map((user) => {
+    const groupMember = groupMembers && groupMembers.find((member) => member.user_id === user.user_id)
+
+    return {
+      id: user.user_id,
+      name: user.full_name,
+      profilePic: user.profile_image,
+      location: _.isEqual(user.user_code, 'employer')
+        ? user.client_city + ' ' + user.client_state
+        : user.city + ' ' + user.state,
+      title: _.isEqual(user.user_code, 'employer') ? user.title : user.work_title,
+      userCode: user.user_code,
+      isRemoved: groupMember && !!groupMember.is_removed
+    }
+  })
+}
+
+export const formatChatData = ({ conversation_id, conversation, messages, candidateInfo, groupMembers }) => ({
+  conversationId: conversation_id && parseInt(conversation_id),
+  isGroup: !!conversation.is_group,
+  groupName: conversation.group_title,
+  chats: messages,
+  candidatesInfo: candidateInfo && formatCandidateInfoData({ candidateInfo, groupMembers })
+})

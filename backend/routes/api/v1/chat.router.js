@@ -23,4 +23,7 @@ chatRouter.route('/group/:conversation_id/candidate/:candidate_id')
 chatRouter.route('/group/:conversation_id/group-name')
   .put(isAuthenticated, chatController.changeGroupName)
 
+chatRouter.route('/chat-data/:conversation_id')
+  .get(isAuthenticated, chatController.getChatData)
+
 export { chatRouter }
