@@ -14,9 +14,13 @@ function* chatSuggestionsWatcher() {
 
 function* chatSuggestionsWorker(action) {
   try {
-    const { offset, searchKeyword } = action.payload
-    const { data } = yield Chat.getChatSuggestions({ offset, searchKeyword })
-    yield put(chatSuggestionsFetchSuccess({ users: data.users, count: data.count }))
+    const { offset, searchKeyword, conversationId } = action.payload
+    const { data } = yield Chat.getChatSuggestions({
+      offset,
+      search_keyword: searchKeyword,
+      conversation_id: conversationId,
+    })
+    yield put(chatSuggestionsFetchSuccess({ users: data.suggestions, more: data.more }))
   } catch (e) {
     yield put(chatSuggestionsFetchFailed())
     yield put(showErrorMessage({ msg: e.errMsg }))

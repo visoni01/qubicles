@@ -29,7 +29,7 @@ export class GetAllChatsService extends ServiceBase {
       ))
 
       return {
-        chatsList: formattedChatListItems,
+        chatsList: formattedChatListItems || [],
         more: latestChats && latestChats.length > 10
       }
     } catch (e) {

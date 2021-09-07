@@ -1,10 +1,12 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable complexity */
-import React, { useCallback, useEffect, useState } from 'react'
+import React, {
+  useCallback, useEffect, useRef, useState,
+} from 'react'
 import PropTypes from 'prop-types'
 import {
-  Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, TextField,
+  Button, Chip, debounce, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, TextField,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -21,17 +23,31 @@ const AddPeople = ({
 }) => {
   const [ selectedPeople, setSelectedPeople ] = useState([])
   const [ groupTitle, setGroupTitle ] = useState('')
-  const { users: people } = useSelector((state) => state.chatSuggestions)
+  const {
+    users: people, more, offset, searchKeyword,
+  } = useSelector((state) => state.chatSuggestions)
   const dispatch = useDispatch()
+  const observer = useRef()
 
+  // Initial Fetch
   useEffect(() => {
     dispatch(chatSuggestionsFetchStart({
       offset: 0,
       searchKeyword: '',
+      conversationId,
     }))
 
     return () => dispatch(resetChatSuggestionsReducer())
-  }, [ dispatch ])
+  }, [ dispatch, conversationId ])
+
+  // Search Users
+  const searchUsers = useCallback(debounce((nextValue) => {
+    dispatch(chatSuggestionsFetchStart({
+      offset: 0,
+      searchKeyword: nextValue,
+      conversationId,
+    }))
+  }, 500), [ dispatch ])
 
   const addPerson = useCallback((event) => {
     if (actionType !== 'NEW_CHAT') {
@@ -105,6 +121,29 @@ const AddPeople = ({
     handleCloseModal()
   }, [ dispatch, handleCloseModal, people ])
 
+  const handleObserver = useCallback((entries) => {
+    const target = entries[ 0 ]
+    if (target?.isIntersecting && more) {
+      dispatch(chatSuggestionsFetchStart({
+        offset: offset + 10,
+        searchKeyword,
+        conversationId,
+      }))
+    }
+  }, [ dispatch, more, searchKeyword, offset, conversationId ])
+
+  // Lazy loading and infinite scrolling
+  const endRef = useCallback((node) => {
+    const option = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 1,
+    }
+    if (observer.current) observer.current.disconnect()
+    observer.current = new IntersectionObserver(handleObserver, option)
+    if (node) observer.current.observe(node)
+  }, [ handleObserver ])
+
   return (
     <Dialog
       scroll='paper'
@@ -167,6 +206,7 @@ const AddPeople = ({
           variant='outlined'
           margin='dense'
           placeholder='Search people...'
+          onChange={ (e) => searchUsers(e.target.value) }
         />
         <div className='tags-set'>
           {selectedPeople.map((selectedPerson) => (
@@ -186,7 +226,7 @@ const AddPeople = ({
             className={ `suggestion-cards ${ actionType === 'NEW_GROUP' ? 'new-group' : '' }` }
             onClick={ actionType === 'NEW_CHAT' ? createNewChat : addPerson }
           >
-            {people && people.length && _.differenceBy(people, selectedPeople, 'id').map((person) => (
+            {people && people.length > 0 && _.differenceBy(people, selectedPeople, 'id').map((person) => (
               <PersonCard
                 key={ person.id }
                 id={ person.id }
@@ -195,9 +235,10 @@ const AddPeople = ({
                 profilePic={ person.profilePic }
               />
             ))}
-            {people && (people.length === 0 || selectedPeople.length === people.length) && (
+            {people && (people.length === 0 || _.differenceBy(people, selectedPeople, 'id').length === 0) && (
               <div className='para'>No suggestions available...</div>
             )}
+            <div ref={ endRef } />
           </div>
         </div>
       </DialogContent>

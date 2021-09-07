@@ -26,4 +26,7 @@ chatRouter.route('/group/:conversation_id/group-name')
 chatRouter.route('/chat-data/:conversation_id')
   .get(isAuthenticated, chatController.getChatData)
 
+chatRouter.route('/suggested-users')
+  .get(isAuthenticated, chatController.getSuggestedUsers)
+
 export { chatRouter }

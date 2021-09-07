@@ -339,3 +339,122 @@ export const formatChatData = ({ conversation_id, conversation, messages, candid
   chats: messages,
   candidatesInfo: candidateInfo && formatCandidateInfoData({ candidateInfo, groupMembers })
 })
+
+export const getSuggestedUsersList = async ({ user_id, conversation_id, offset, search_keyword }) => {
+  const sqlQuery = `
+    SELECT * FROM (
+    SELECT t5_suggested_user_data.suggested_user_id, t6_users.user_code, t6_users.full_name,
+      t7_user_details.profile_image,
+      CASE WHEN t6_users.user_code = 'agent'
+        THEN t7_user_details.city
+        ELSE t8_clients.city
+      END AS city,
+      CASE WHEN t6_users.user_code = 'agent'
+        THEN t7_user_details.state
+        ELSE t8_clients.state
+      END AS state,
+      CASE WHEN t6_users.user_code = 'agent'
+        THEN t7_user_details.work_title
+        ELSE t8_clients.title
+      END AS title
+    FROM (
+      SELECT MAX(updated_on) updated_on, t4_user_data.client_id,
+        CASE WHEN t4_user_data.record_type = 'client' AND t4_user_data.user_id = ${user_id}
+          THEN t4_user_data.user_id_client
+        WHEN t4_user_data.record_type = 'user' AND t4_user_data.user_id = ${user_id}
+          THEN t4_user_data.record_id
+        WHEN t4_user_data.record_type in ('client', 'user') AND t4_user_data.user_id != ${user_id}
+          THEN t4_user_data.user_id
+        WHEN t4_user_data.record_type = 'activity' AND t4_user_data.user_id = ${user_id}
+          THEN t4_user_data.user_id_like
+        WHEN t4_user_data.record_type = 'activity' AND t4_user_data.user_id != ${user_id}
+          THEN t4_user_data.user_id
+        END AS suggested_user_id
+        FROM (
+          SELECT t1_user_activities.*, t2_client_users.user_id user_id_client,
+            t3_status_activities.user_id user_id_like, t2_client_users.client_id
+          FROM x_user_activities t1_user_activities
+          LEFT JOIN x_client_users t2_client_users
+          ON t1_user_activities.record_id = t2_client_users.client_id AND t1_user_activities.record_type = 'client'
+          LEFT JOIN x_user_activities t3_status_activities
+          ON t1_user_activities.record_id = t3_status_activities.user_activity_id
+            AND t1_user_activities.record_type = 'activity' AND t1_user_activities.activity_type = 'like'
+            AND t3_status_activities.record_type = 'activity' AND t3_status_activities.activity_type = 'status'
+          WHERE (
+            t1_user_activities.user_id = ${user_id}
+            OR (t1_user_activities.record_id = ${user_id} AND t1_user_activities.record_type = 'user')
+            OR (t2_client_users.user_id = ${user_id} AND t1_user_activities.record_type = 'client')
+            OR (t3_status_activities.user_id = ${user_id} AND t1_user_activities.record_type = 'activity')
+          )
+          AND (
+            (t1_user_activities.activity_type = 'connection' AND t1_user_activities.activity_value != 'blocked')
+            OR
+            (t1_user_activities.activity_type like 'rating_%' AND t1_user_activities.record_type IN ('user', 'client'))
+            OR
+            (t1_user_activities.activity_type = 'like' AND t1_user_activities.record_type = 'activity')
+          )
+        ) t4_user_data
+        GROUP BY suggested_user_id
+        ORDER BY updated_on desc
+      ) t5_suggested_user_data
+    LEFT JOIN x_users t6_users
+    ON t5_suggested_user_data.suggested_user_id = t6_users.user_id
+    LEFT JOIN x_user_details t7_user_details
+    ON t5_suggested_user_data.suggested_user_id = t7_user_details.user_id
+    LEFT JOIN x_clients t8_clients
+    ON t5_suggested_user_data.client_id = t8_clients.client_id
+    ${search_keyword
+    ? `
+        UNION
+        SELECT ut1_users.user_id, ut1_users.user_code, ut1_users.full_name, ut2_user_details.profile_image,
+        CASE WHEN ut1_users.user_code = 'agent'
+          THEN ut2_user_details.city
+          ELSE ut4_clients.city
+        END AS city,
+        CASE WHEN ut1_users.user_code = 'agent'
+          THEN ut2_user_details.state
+          ELSE ut4_clients.state
+        END AS state,
+        CASE WHEN ut1_users.user_code = 'agent'
+          THEN ut2_user_details.work_title
+          ELSE ut4_clients.title
+        END AS title
+        FROM x_users ut1_users
+        LEFT JOIN x_user_details ut2_user_details
+        ON ut1_users.user_id = ut2_user_details.user_id
+        LEFT JOIN x_client_users ut3_client_users
+        ON ut1_users.user_id = ut3_client_users.user_id AND ut1_users.user_code = 'employer'
+        LEFT JOIN x_clients ut4_clients
+        ON ut3_client_users.client_id = ut4_clients.client_id
+      `
+    : ''}
+    ) union_result
+    WHERE suggested_user_id != ${user_id}
+      ${search_keyword ? `AND full_name LIKE '%${search_keyword}%'` : ''}
+      ${conversation_id ? `
+        AND suggested_user_id NOT IN (
+          SELECT user_id FROM x_qod_chat_group_members
+          WHERE conversation_id = ${conversation_id}
+        )
+      ` : ''}
+    LIMIT 11
+    OFFSET ${offset || 0}
+  `
+
+  const suggestedUsers = await SqlHelper.select(sqlQuery)
+
+  return suggestedUsers
+}
+
+export const formatSuggestedUser = ({ user }) => {
+  const formattedUserData = {
+    id: user.suggested_user_id,
+    name: user.full_name,
+    profilePic: user.profile_image,
+    location: user.city + ', ' + user.state, // TODO - Add checks
+    title: user.title,
+    userCode: user.user_code
+  }
+
+  return formattedUserData
+}

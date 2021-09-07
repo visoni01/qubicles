@@ -156,41 +156,32 @@ function* allChatsWorker(action) {
 
           case 'new-chat': {
             const { data } = yield Chat.createNewChat({ candidate_id: candidate?.id })
-            const { userDetails } = yield select((state) => state.login)
+            const { chatsList } = yield select((state) => state.allChats)
+            const exists = _.findIndex(chatsList, { id: data?.conversationId }) !== -1
 
-            const newMessage = {
-              messageId: getUniqueId(),
-              senderId: userDetails && userDetails.user_id,
-              text: getChatNotificationMessage({
-                type: dataType,
-                payload: {
-                  userId: userDetails && userDetails.user_id,
-                  userName: userDetails && userDetails.full_name,
+            if (!exists) {
+              yield put(allChatsRequestSuccess({
+                newChat: {
+                  id: data && data.conversationId,
+                  name: candidate.name,
+                  imageUrl: candidate.profilePic,
+                  dateTime: data?.messages[data.messages.length - 1]?.sentAt || Date.now(),
+                  isGroup: false,
+                  latestMessage: data?.messages[data.messages.length - 1]?.text,
+                  allRead: data?.allRead,
                 },
-              }),
-              isNotification: true,
-              sentAt: Date.now(),
-              isRead: true,
+              }))
+            } else {
+              yield put(allChatsRequestSuccess())
             }
 
-            yield put(allChatsRequestSuccess({
-              newChat: {
-                id: data && data.conversationId,
-                name: candidate.name,
-                imageUrl: candidate.profilePic,
-                dateTime: data?.messages[data.messages.length - 1]?.sentAt || Date.now(),
-                isGroup: false,
-                latestMessage: data?.messages[data.messages.length - 1]?.text,
-                allRead: data?.allRead,
-              },
-            }))
             yield put(updateConversations({
               requestType,
               dataType: 'add-conversation',
               newChat: {
-                conversationId: data && data.conversationId,
+                conversationId: data?.conversationId,
                 isGroup: false,
-                chats: data.messages ? [ ...data.messages ] : [ newMessage ],
+                chats: data.messages ? [ ...data.messages ] : [],
                 candidatesInfo: [ candidate ],
               },
             }))

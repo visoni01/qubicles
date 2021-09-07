@@ -207,17 +207,22 @@ export const updateConversationsHelper = ({ payload, conversations }) => {
     case 'CREATE': {
       switch (payload.dataType) {
         case 'add-conversation': {
-          return [
-            ...conversations,
-            {
-              isLoading: null,
-              success: null,
-              error: null,
-              dataType: '',
-              requestType: '',
-              data: payload.newChat,
-            },
-          ]
+          const currentConversation = conversations
+            && conversations.find((item) => item.data && item.data.conversationId === conversationId)
+
+          return currentConversation
+            ? conversations
+            : [
+              ...conversations,
+              {
+                isLoading: null,
+                success: null,
+                error: null,
+                dataType: '',
+                requestType: '',
+                data: payload.newChat,
+              },
+            ]
         }
 
         default: return conversations
@@ -248,7 +253,7 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
     }
 
     case 'new-chat': {
-      return [ payload.newChat, ...chatsList ]
+      return payload.newChat ? [ payload.newChat, ...chatsList ] : chatsList
     }
 
     case 'mark-as-unread': {

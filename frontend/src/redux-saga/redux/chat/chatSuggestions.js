@@ -6,7 +6,7 @@ const initialState = {
   success: null,
   offset: 0,
   searchKeyword: '',
-  count: 0,
+  more: false,
   users: [],
 }
 
@@ -26,15 +26,17 @@ const {
       isLoading: true,
       success: null,
       error: null,
-      offset: action.payload.offset,
-      searchKeyword: action.payload.searchKeyword,
+      offset: action.payload.offset || 0,
+      searchKeyword: action.payload.searchKeyword || '',
+      more: false,
     }),
     chatSuggestionsFetchSuccess: (state, action) => ({
       ...state,
       isLoading: false,
       success: true,
       error: false,
-      users: action.payload.users,
+      users: state.offset === 0 ? action.payload.users : [ ...state.users, ...action.payload.users ],
+      more: action.payload.more,
     }),
     chatSuggestionsFetchFailed: (state) => ({
       ...state,

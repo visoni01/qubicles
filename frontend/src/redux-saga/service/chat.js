@@ -55,9 +55,9 @@ const Chat = class {
 
   static createNewPopup = async ({ conversationId }) => popupChats[ conversationId - 1 ] || popupChats[ 0 ]
 
-  // eslint-disable-next-line arrow-body-style
-  static getChatSuggestions = async ({ offset, searchKeyword }) => {
-    return { data: { users: suggestions, count: 10 } }
+  static getChatSuggestions = async (payload) => {
+    const response = await apiClient.getRequest('/chat/suggested-users', null, payload)
+    return response
   }
 }
 
