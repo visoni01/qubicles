@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
 import { SearchIcon } from '../../../assets/images/common'
 import UserCard from './userCard'
 import NewChat from '../Common/addPeople'
-import { allChatsRequestStart } from '../../../redux-saga/redux/chat'
+import { allChatsRequestStart, chatDataRequestStart, updateCurrentChatId } from '../../../redux-saga/redux/chat'
 import { NewChatIcon, NewGroupIcon } from '../../../assets/images/chat'
 import '../styles.scss'
 
@@ -39,6 +39,20 @@ const LeftCard = ({ conversationId }) => {
   const handleNewGroupClick = useCallback(() => {
     setOpenNewGroupModal((prevState) => !prevState)
   }, [])
+
+  const handleOpenChat = useCallback((id) => {
+    if (id !== conversationId) {
+      const currentChat = _.find(chatsList, { id: conversationId })
+      if (currentChat && !currentChat.allRead) {
+        dispatch(chatDataRequestStart({
+          requestType: 'UPDATE',
+          dataType: 'mark-as-read',
+          conversationId,
+        }))
+      }
+      dispatch(updateCurrentChatId({ conversationId: id }))
+    }
+  }, [ dispatch, chatsList, conversationId ])
 
   // Search Conversations
   const searchConversations = useCallback(debounce((nextValue) => {
@@ -173,6 +187,7 @@ const LeftCard = ({ conversationId }) => {
               isNotification={ item.isNotification }
               isImage={ item.isImage }
               selectedConversationId={ conversationId }
+              handleOpenChat={ handleOpenChat }
             />
             {index !== chatsList.length - 1 ? <Divider className='user-list-divider' /> : ''}
           </div>

@@ -14,14 +14,14 @@ export const createOrFindChat = async ({ user_id, candidate_id }) => {
     },
     defaults: {
       user_one_id: user_id,
-      user_two_id: candidate_id
+      user_two_id: candidate_id,
+      is_group: false
     },
     attributes: ['conversation_id'],
     include: [
       {
         model: XQodChatMessage,
         as: 'messages',
-        limit: 10,
         order: [
           ['sent_at', 'DESC']
         ],
@@ -30,8 +30,7 @@ export const createOrFindChat = async ({ user_id, candidate_id }) => {
             model: XQodChatMessageRead,
             as: 'messageReadStatus',
             attributes: ['is_read'],
-            where: { user_id },
-            required: false
+            where: { user_id }
           },
           {
             model: UserDetail,
@@ -462,7 +461,7 @@ export const formatSuggestedUser = ({ user }) => ({
   id: user.suggested_user_id,
   name: user.full_name,
   profilePic: user.profile_image,
-  location: user.city + ', ' + user.state, // TODO - Add checks
+  location: `${user.city || ''}${user.city && user.state ? ', ' : ''}${user.state || ''}`,
   title: user.title,
   userCode: user.user_code
 })
@@ -490,4 +489,33 @@ export const getConversationDetails = async ({ conversation_id, user_id }) => {
       updated_on: conversation['group.updated_on']
     }
   }
+}
+
+export const markChatAsRead = async ({ user_id, conversation_id }) => {
+  await XQodChatAllRead.update({
+    all_read: true
+  }, {
+    where: {
+      conversation_id,
+      user_id
+    }
+  })
+}
+
+export const markMessagesAsRead = async ({ user_id, conversation_id }) => {
+  const messages = await XQodChatMessage.findAll({
+    attributes: ['message_id'],
+    where: {
+      conversation_id
+    }
+  })
+
+  const messageIds = messages && messages.map((message) => message.message_id)
+
+  await XQodChatMessageRead.destroy({
+    where: {
+      user_id,
+      message_id: { [Op.in]: messageIds }
+    }
+  })
 }

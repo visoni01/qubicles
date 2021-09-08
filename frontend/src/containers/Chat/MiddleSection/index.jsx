@@ -2,7 +2,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Box, Divider } from '@material-ui/core'
-import _ from 'lodash'
 import PropTypes from 'prop-types'
 import ChatView from './chatView'
 import ChatControls from './chatControls'
@@ -13,12 +12,10 @@ const MiddleCard = ({
   conversationId, messageText, setMessageText, imageUrl, setImageUrl,
 }) => {
   const { conversations, currentChatId } = useSelector((state) => state.chatData)
-  const { chatsList } = useSelector((state) => state.allChats)
   const dispatch = useDispatch()
 
   const currentConversation = conversations.find((conversation) => conversation.data.conversationId === currentChatId)
   const conversationData = currentConversation?.data
-  const currentChat = conversationData && _.find(chatsList, { id: conversationData.conversationId })
 
   useEffect(() => {
     if (currentChatId && !conversationData) {
@@ -37,7 +34,6 @@ const MiddleCard = ({
       <div className='chat-section-body padding-20'>
         <ChatView
           conversationId={ conversationData?.conversationId }
-          allRead={ currentChat?.allRead }
           chats={ (conversationData?.chatData?.chats) || [] }
           more={ conversationData?.chatData?.more }
           offset={ conversationData?.chatData?.offset }

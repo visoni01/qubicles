@@ -5,23 +5,16 @@ import PropTypes from 'prop-types'
 import { Avatar } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircle } from '@fortawesome/free-solid-svg-icons'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import _ from 'lodash'
 import { groupChatIcon } from '../../../assets/images/chat'
 import { formatDate, formatDateTime } from '../../../utils/common'
-import { updateCurrentChatId } from '../../../redux-saga/redux/chat'
 
 const UserCard = ({
   id, name, imageUrl, allRead, latestMessage, dateTime, selectedConversationId,
-  isGroup, isRemoved, isNotification, isImage,
+  isGroup, isRemoved, isNotification, isImage, handleOpenChat,
 }) => {
   const { userDetails } = useSelector((state) => state.login)
-
-  const dispatch = useDispatch()
-
-  const handleOpenChat = useCallback(() => {
-    dispatch(updateCurrentChatId({ conversationId: id }))
-  }, [ dispatch, id ])
 
   const getNotificationMessage = useCallback((htmlElement) => {
     const elements = htmlElement.getElementsByClassName(userDetails && userDetails.user_id)
@@ -67,7 +60,7 @@ const UserCard = ({
   return (
     <div
       className={ `is-flex user-card-item ${ selectedConversationId === id ? 'selected' : '' }` }
-      onClick={ handleOpenChat }
+      onClick={ () => handleOpenChat(id) }
     >
       <Avatar className='profile-pic' alt={ name } src={ isGroup ? groupChatIcon : imageUrl } />
 
@@ -119,6 +112,7 @@ UserCard.propTypes = {
   isNotification: PropTypes.bool,
   isImage: PropTypes.bool,
   selectedConversationId: PropTypes.number,
+  handleOpenChat: PropTypes.func.isRequired,
 }
 
 export default UserCard

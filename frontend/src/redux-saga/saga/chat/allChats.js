@@ -181,8 +181,13 @@ function* allChatsWorker(action) {
               newChat: {
                 conversationId: data?.conversationId,
                 isGroup: false,
-                chats: data.messages ? [ ...data.messages ] : [],
+                chatData: {
+                  chats: data.messages ? [ ...data.messages ] : [],
+                  more: data?.more,
+                  offset: 0,
+                },
                 candidatesInfo: [ candidate ],
+                allRead: data?.allRead,
               },
             }))
             yield put(updateCurrentChatId({ conversationId: data?.conversationId }))

@@ -11,6 +11,9 @@ chatRouter.route('/')
 chatRouter.route('/')
   .post(isAuthenticated, chatController.startNewChat)
 
+chatRouter.route('/suggested-users')
+  .get(isAuthenticated, chatController.getSuggestedUsers)
+
 chatRouter.route('/:conversation_id')
   .get(isAuthenticated, chatController.getOlderChats)
 
@@ -29,7 +32,7 @@ chatRouter.route('/group/:conversation_id/group-name')
 chatRouter.route('/chat-data/:conversation_id')
   .get(isAuthenticated, chatController.getChatData)
 
-chatRouter.route('/suggested-users')
-  .get(isAuthenticated, chatController.getSuggestedUsers)
+chatRouter.route('/:conversation_id/read')
+  .put(isAuthenticated, chatController.markChatAsRead)
 
 export { chatRouter }

@@ -12,7 +12,7 @@ import UserNotification from './userNotification'
 import { ThreeDotLoader } from '../../loaders'
 
 const ChatView = ({
-  conversationId, allRead, chats, more, offset, isLoading,
+  conversationId, chats, more, offset, isLoading,
 }) => {
   const [ hasIntersect, setHasIntersect ] = useState(false)
   const messagesEndRef = useRef(null)
@@ -25,16 +25,6 @@ const ChatView = ({
       messagesEndRef.current.scrollIntoView()
     }
   }, [ hasIntersect, chats ])
-
-  useEffect(() => () => {
-    if (!allRead) {
-      dispatch(chatDataRequestStart({
-        requestType: 'UPDATE',
-        dataType: 'mark-as-read',
-        conversationId,
-      }))
-    }
-  }, [ allRead, conversationId, dispatch ])
 
   const handleObserver = useCallback((entries) => {
     const target = entries[ 0 ]
@@ -101,7 +91,6 @@ const ChatView = ({
 
 ChatView.defaultProps = {
   chats: [],
-  allRead: true,
   more: false,
   offset: 0,
   isLoading: false,
@@ -111,7 +100,6 @@ ChatView.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   chats: PropTypes.any,
   conversationId: PropTypes.number.isRequired,
-  allRead: PropTypes.bool,
   more: PropTypes.bool,
   offset: PropTypes.number,
   isLoading: PropTypes.bool,

@@ -51,10 +51,9 @@ const Chat = class {
   }
 
   static markChatAsRead = async ({ conversationId }) => {
-
+    const response = await apiClient.putRequest(`/chat/${ conversationId }/read`)
+    return response
   }
-
-  static createNewPopup = async ({ conversationId }) => popupChats[ conversationId - 1 ] || popupChats[ 0 ]
 
   static getChatSuggestions = async (payload) => {
     const response = await apiClient.getRequest('/chat/suggested-users', null, payload)
