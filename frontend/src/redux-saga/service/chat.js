@@ -16,9 +16,10 @@ const Chat = class {
     return response
   }
 
-  static getChatMessages = async ({ conversationId, offset }) => ({
-    data: chats[ conversationId - 1 ].chats || chats[ 0 ].chats,
-  })
+  static getChatMessages = async ({ conversationId, ...payload }) => {
+    const response = await apiClient.getRequest(`/chat/${ conversationId }`, null, payload)
+    return response
+  }
 
   static createNewChat = async (payload) => {
     const response = await apiClient.postRequest('/chat', payload)

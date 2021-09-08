@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Box, Divider } from '@material-ui/core'
@@ -15,19 +16,19 @@ const MiddleCard = ({
   const { chatsList } = useSelector((state) => state.allChats)
   const dispatch = useDispatch()
 
-  const chatData = conversations.find((conversation) => conversation.data.conversationId === currentChatId)
-  const chat = chatData?.data
-  const currentChat = chat && _.find(chatsList, { id: chat.conversationId })
+  const currentConversation = conversations.find((conversation) => conversation.data.conversationId === currentChatId)
+  const conversationData = currentConversation?.data
+  const currentChat = conversationData && _.find(chatsList, { id: conversationData.conversationId })
 
   useEffect(() => {
-    if (currentChatId && !chat) {
+    if (currentChatId && !conversationData) {
       dispatch(chatDataRequestStart({
         requestType: 'FETCH',
         dataType: 'current-chat',
         conversationId,
       }))
     }
-  }, [ dispatch, conversationId, chat, currentChatId ])
+  }, [ dispatch, conversationId, conversationData, currentChatId ])
 
   return (
     <Box className='custom-box no-padding chat-section'>
@@ -35,9 +36,12 @@ const MiddleCard = ({
       {/* Chat Body */}
       <div className='chat-section-body padding-20'>
         <ChatView
-          chats={ chat?.chats || [] }
-          conversationId={ chat?.conversationId }
-          allRead={ currentChat && currentChat.allRead }
+          conversationId={ conversationData?.conversationId }
+          allRead={ currentChat?.allRead }
+          chats={ (conversationData?.chatData?.chats) || [] }
+          more={ conversationData?.chatData?.more }
+          offset={ conversationData?.chatData?.offset }
+          isLoading={ currentConversation?.isLoading }
         />
       </div>
 
@@ -45,7 +49,7 @@ const MiddleCard = ({
       <div className='mb-5'>
         <Divider className='divider is-fullwidth no-margin-top' />
         <ChatControls
-          conversationId={ chat && chat.conversationId }
+          conversationId={ conversationData?.conversationId }
           messageText={ messageText }
           setMessageText={ setMessageText }
           imageUrl={ imageUrl }

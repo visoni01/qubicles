@@ -12,7 +12,7 @@ import ChatControls from '../MiddleSection/chatControls'
 import { updateChatPopups, updateConversations } from '../../../redux-saga/redux/chat'
 import { groupChatIcon, MaximizeIcon } from '../../../assets/images/chat'
 
-const ChatPopup = ({ conversationData }) => {
+const ChatPopup = ({ conversationData, isLoading }) => {
   const [ popupOpen, setPopupOpen ] = useState(false)
   const [ messageText, setMessageText ] = useState('')
   const [ imageUrl, setImageUrl ] = useState('')
@@ -86,13 +86,18 @@ const ChatPopup = ({ conversationData }) => {
             {/* Chat Body */}
             <div className='chat-section-body padding-10'>
               <ChatView
-                chats={ (conversationData && conversationData.chats) || [] }
+                conversationId={ conversationData?.conversationId }
+                allRead={ conversationData?.allRead }
+                chats={ (conversationData?.chatData?.chats) || [] }
+                more={ conversationData?.chatData?.more }
+                offset={ conversationData?.chatData?.offset }
+                isLoading={ isLoading }
               />
             </div>
 
             {/* Chat Controls */}
             <ChatControls
-              conversationId={ conversationData && conversationData.conversationId }
+              conversationId={ conversationData?.conversationId }
               messageText={ messageText }
               setMessageText={ setMessageText }
               imageUrl={ imageUrl }
@@ -105,23 +110,33 @@ const ChatPopup = ({ conversationData }) => {
   )
 }
 
+ChatPopup.defaultProps = {
+  isLoading: false,
+}
+
 ChatPopup.propTypes = {
   conversationData: PropTypes.shape({
     conversationId: PropTypes.number,
     name: PropTypes.string,
     profilePic: PropTypes.string,
     isGroup: PropTypes.bool,
-    chats: PropTypes.arrayOf(PropTypes.shape({
-      messageId: PropTypes.number,
-      senderId: PropTypes.number,
-      profilePic: PropTypes.string,
-      isNotification: PropTypes.bool,
-      imageUrl: PropTypes.string,
-      text: PropTypes.string,
-      sentAt: PropTypes.string,
-      isRead: PropTypes.bool,
-    })),
+    allRead: PropTypes.bool,
+    chatData: PropTypes.shape({
+      chats: PropTypes.arrayOf(PropTypes.shape({
+        messageId: PropTypes.number,
+        senderId: PropTypes.number,
+        profilePic: PropTypes.string,
+        isNotification: PropTypes.bool,
+        imageUrl: PropTypes.string,
+        text: PropTypes.string,
+        sentAt: PropTypes.string,
+        isRead: PropTypes.bool,
+      })),
+      more: PropTypes.bool,
+      offset: PropTypes.number,
+    }),
   }).isRequired,
+  isLoading: PropTypes.bool,
 }
 
 export default ChatPopup

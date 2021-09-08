@@ -212,7 +212,7 @@ export const changeGroupName = async ({ conversation_id, group_title }) => {
 export const getChatData = async ({ conversation_id, user_id }) => {
   const query = `
     SELECT conversationDetails.is_group, conversationDetails.group_title, conversationDetails.user_one_id,
-      conversationDetails.user_two_id, conversationMessages.*
+      conversationDetails.user_two_id, conversationMessages.*, chatAllReadStatus.all_read
     FROM x_qod_conversations conversationDetails
     LEFT JOIN (
       SELECT messages.*, groupMemberStatus.is_removed, groupMemberStatus.updated_on, senderDetails.profile_image,
@@ -243,6 +243,12 @@ export const getChatData = async ({ conversation_id, user_id }) => {
       END
     ) conversationMessages
     ON conversationDetails.conversation_id = conversationMessages.conversation_id
+    LEFT JOIN (
+      SELECT chatAllRead.conversation_id, chatAllRead.user_id, chatAllRead.all_read
+      FROM x_qod_chat_all_read chatAllRead
+      where user_id = ${user_id}
+    ) chatAllReadStatus
+    ON chatAllReadStatus.conversation_id = conversationDetails.conversation_id
     WHERE conversationDetails.conversation_id = ${conversation_id}
     ORDER BY conversationMessages.sent_at DESC
   `
@@ -252,7 +258,7 @@ export const getChatData = async ({ conversation_id, user_id }) => {
   return conversationWithUnReadMessages
 }
 
-export const getReadMessages = ({ conversation_id, user_id, is_group, is_removed, updated_on }) => {
+export const getReadMessages = ({ conversation_id, user_id, is_group, is_removed, updated_on, offset }) => {
   return `
     SELECT messages.*, senderDetails.profile_image
     FROM x_qod_chat_messages messages
@@ -276,7 +282,9 @@ export const getReadMessages = ({ conversation_id, user_id, is_group, is_removed
       ELSE messages.sent_at
     END
     ORDER BY messages.sent_at DESC
-    LIMIT 10`
+    LIMIT 11
+    OFFSET ${offset || 0}
+  `
 }
 
 export const getCandidatesInfo = ({ user_ids }) => {
@@ -305,10 +313,7 @@ export const getCandidatesInfo = ({ user_ids }) => {
 
 export const formatMessagesOrder = ({ messageArray, messages }) => {
   for (let index = messages.length - 1; index >= 0; index -= 1) {
-    messageArray = [
-      ...messageArray,
-      formatChatMessage({ message: messages[index] })
-    ]
+    messages[index] && messageArray.push(formatChatMessage({ message: messages[index] }))
   }
 
   return messageArray
@@ -332,12 +337,19 @@ export const formatCandidateInfoData = ({ candidateInfo, groupMembers }) => {
   })
 }
 
-export const formatChatData = ({ conversation_id, conversation, messages, candidateInfo, groupMembers }) => ({
+export const formatChatData = ({
+  conversation_id, conversation, messages, candidateInfo, groupMembers, more, allRead
+}) => ({
   conversationId: conversation_id && parseInt(conversation_id),
   isGroup: !!conversation.is_group,
   groupName: conversation.group_title,
-  chats: messages,
-  candidatesInfo: candidateInfo && formatCandidateInfoData({ candidateInfo, groupMembers })
+  chatData: {
+    chats: messages,
+    more,
+    offset: 0
+  },
+  candidatesInfo: candidateInfo && formatCandidateInfoData({ candidateInfo, groupMembers }),
+  allRead: !!allRead
 })
 
 export const getSuggestedUsersList = async ({ user_id, conversation_id, offset, search_keyword }) => {
@@ -446,15 +458,36 @@ export const getSuggestedUsersList = async ({ user_id, conversation_id, offset, 
   return suggestedUsers
 }
 
-export const formatSuggestedUser = ({ user }) => {
-  const formattedUserData = {
-    id: user.suggested_user_id,
-    name: user.full_name,
-    profilePic: user.profile_image,
-    location: user.city + ', ' + user.state, // TODO - Add checks
-    title: user.title,
-    userCode: user.user_code
-  }
+export const formatSuggestedUser = ({ user }) => ({
+  id: user.suggested_user_id,
+  name: user.full_name,
+  profilePic: user.profile_image,
+  location: user.city + ', ' + user.state, // TODO - Add checks
+  title: user.title,
+  userCode: user.user_code
+})
 
-  return formattedUserData
+export const getConversationDetails = async ({ conversation_id, user_id }) => {
+  const conversation = await XQodConversations.findOne({
+    raw: true,
+    attributes: ['is_group'],
+    include: [
+      {
+        model: XQodChatGroupMembers,
+        as: 'group',
+        required: false,
+        attributes: ['is_removed', 'updated_on'],
+        where: { user_id }
+      }
+    ],
+    where: { conversation_id }
+  })
+
+  if (conversation) {
+    return {
+      is_group: !!conversation.is_group,
+      is_removed: !!conversation['group.is_removed'],
+      updated_on: conversation['group.updated_on']
+    }
+  }
 }

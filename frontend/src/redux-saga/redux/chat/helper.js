@@ -69,6 +69,26 @@ export const chatDataSuccessHelper = ({ conversations, payload }) => {
             : item))
         }
 
+        case 'chat-messages': {
+          return conversations && conversations.map((item) => (item.data && item.data.conversationId === conversationId
+            ? {
+              ...item,
+              ...result,
+              data: {
+                ...item.data,
+                chatData: {
+                  chats: [
+                    ...payload.olderMessages,
+                    ...item.data.chatData.chats,
+                  ],
+                  more: payload.more,
+                  offset: payload.offset,
+                },
+              },
+            }
+            : item))
+        }
+
         default: return conversations
       }
     }

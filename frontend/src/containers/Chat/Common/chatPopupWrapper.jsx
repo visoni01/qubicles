@@ -11,7 +11,11 @@ const ChatPopupWrapper = () => {
   return (
     <div className='chat-popup-root'>
       {openedPopups && openedPopups.map((item) => (
-        <ChatPopup key={ item.data.conversationId } conversationData={ item.data } />
+        <ChatPopup
+          key={ item.data.conversationId }
+          isLoading={ item.isLoading }
+          conversationData={ item.data }
+        />
       ))}
     </div>
   )

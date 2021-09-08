@@ -39,7 +39,7 @@ function* chatDataWorker(action) {
             const { data } = yield Chat.getChatMessages({ conversationId, offset })
 
             yield put(chatDataRequestSuccess({
-              chatMessages: data, conversationId, requestType, dataType,
+              olderMessages: data.messages, more: data.more, offset, conversationId, requestType, dataType,
             }))
             break
           }

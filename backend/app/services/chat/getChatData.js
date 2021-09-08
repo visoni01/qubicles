@@ -33,7 +33,7 @@ export class GetChatDataService extends ServiceBase {
 
       if (conversationDataWithUnReadMessages && conversationDataWithUnReadMessages.length) {
         const {
-          is_group, user_one_id, user_two_id, message_id, is_removed, updated_on
+          is_group, user_one_id, user_two_id, message_id, is_removed, updated_on, all_read
         } = conversationDataWithUnReadMessages[0]
 
         if (is_group) {
@@ -51,7 +51,9 @@ export class GetChatDataService extends ServiceBase {
         const [candidateInfo, readMessages] = await Promise.all(promiseArray.map(promise => promise()))
 
         if (readMessages && readMessages.length) {
-          allMessages = formatMessagesOrder({ messageArray: allMessages, messages: readMessages })
+          allMessages = formatMessagesOrder({
+            messageArray: allMessages, messages: readMessages && readMessages.slice(0, 10)
+          })
         }
 
         if (message_id) {
@@ -63,7 +65,9 @@ export class GetChatDataService extends ServiceBase {
           conversation: conversationDataWithUnReadMessages[0],
           messages: allMessages,
           candidateInfo,
-          groupMembers
+          groupMembers,
+          more: readMessages && readMessages.length > 10,
+          allRead: all_read
         })
 
         return formattedChatData

@@ -1,6 +1,6 @@
 import Responder from '../../server/expressResponder'
 import {
-  StartNewChatService, GetAllChatsService, GetChatDataService, ChatGetSuggestedUsersService
+  StartNewChatService, GetAllChatsService, GetChatDataService, ChatGetSuggestedUsersService, GetOlderChatsService
 } from '../services/chat'
 import {
   ChatCreateNewGroupService, ChatAddNewGroupMembersService, ChatRemoveGroupMemberService, ChatChangeGroupNameService
@@ -76,6 +76,15 @@ export default class ChatController {
       Responder.success(res, suggestedUsers.result)
     } else {
       Responder.failed(res, suggestedUsers.errors)
+    }
+  }
+
+  static async getOlderChats (req, res) {
+    const conversation = await GetOlderChatsService.execute({ ...req.params, ...req.body, ...req.query })
+    if (conversation.successful) {
+      Responder.success(res, conversation.result)
+    } else {
+      Responder.failed(res, conversation.errors)
     }
   }
 }

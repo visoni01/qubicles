@@ -11,6 +11,9 @@ chatRouter.route('/')
 chatRouter.route('/')
   .post(isAuthenticated, chatController.startNewChat)
 
+chatRouter.route('/:conversation_id')
+  .get(isAuthenticated, chatController.getOlderChats)
+
 chatRouter.route('/new-group')
   .post(isAuthenticated, chatController.createNewGroup)
 
