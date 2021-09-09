@@ -211,10 +211,13 @@ export const updateConversationsHelper = ({ payload, conversations }) => {
               ...item,
               data: {
                 ...item.data,
-                chats: [
-                  ...item.data.chats,
-                  newMessage,
-                ],
+                chatData: {
+                  ...item.data.chatData,
+                  chats: [
+                    ...item.data.chatData.chats,
+                    newMessage,
+                  ],
+                },
               },
             }
             : item

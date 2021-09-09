@@ -122,6 +122,16 @@ function* chatDataWorker(action) {
             yield put(showSuccessMessage({
               msg: `You have successfully removed ${ name }!`,
             }))
+
+            const { conversations } = yield select((state) => state.chatData)
+            const currentCoversation = conversations.find((conversation) => conversation.data.conversationId
+              === conversationId)
+            const conversationData = currentCoversation?.data
+
+            if (_.isEmpty(conversationData.groupName)) {
+              const groupName = conversationData.candidatesInfo?.map((member) => member.name).join(', ')
+              yield put(updateAllChats({ dataType: 'change-group-name', conversationId, newGroupName: groupName }))
+            }
             break
           }
 

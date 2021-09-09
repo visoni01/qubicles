@@ -83,14 +83,17 @@ export const addNewMembers = async ({ conversation_id, user_ids }) => {
   await XQodChatGroupMembers.bulkCreate(bulkDataToBeAdded)
 }
 
-export const fetchAllGroupMembers = async ({ conversation_id }) => {
+export const fetchAllGroupMembersIds = async ({ conversation_id, is_removed = [true, false] }) => {
   const groupMembers = await XQodChatGroupMembers.findAll({
     raw: true,
-    attributes: ['user_id', 'is_removed'],
-    where: { conversation_id }
+    attributes: ['user_id'],
+    where: {
+      conversation_id,
+      is_removed
+    }
   })
 
-  return groupMembers
+  return groupMembers && groupMembers.map((user) => user.user_id)
 }
 
 export const changeGroupMembersStatus = async ({ conversation_id, user_ids, is_removed }) => {
@@ -211,11 +214,11 @@ export const changeGroupName = async ({ conversation_id, group_title }) => {
 export const getChatData = async ({ conversation_id, user_id }) => {
   const query = `
     SELECT conversationDetails.is_group, conversationDetails.group_title, conversationDetails.user_one_id,
-      conversationDetails.user_two_id, conversationMessages.*, chatAllReadStatus.all_read
+      conversationDetails.user_two_id, conversationMessages.*, chatAllReadStatus.all_read, groupStatus.is_removed,
+      groupStatus.updated_on
     FROM x_qod_conversations conversationDetails
     LEFT JOIN (
-      SELECT messages.*, groupMemberStatus.is_removed, groupMemberStatus.updated_on, senderDetails.profile_image,
-        messageReadStatus.is_read
+      SELECT messages.*, senderDetails.profile_image, messageReadStatus.is_read
       FROM x_qod_chat_messages messages
       LEFT JOIN (
         SELECT conversation_id, is_removed, updated_on
@@ -224,14 +227,14 @@ export const getChatData = async ({ conversation_id, user_id }) => {
       ) groupMemberStatus
       ON messages.conversation_id = groupMemberStatus.conversation_id
       LEFT JOIN (
-      SELECT userDetails.user_id, userDetails.profile_image
-          FROM x_user_details userDetails
+        SELECT userDetails.user_id, userDetails.profile_image
+        FROM x_user_details userDetails
       ) senderDetails
       ON messages.sender_id = senderDetails.user_id
       JOIN (
-      SELECT chatMessageRead.message_id, chatMessageRead.is_read
-          FROM x_qod_chat_message_read chatMessageRead
-          WHERE chatMessageRead.user_id = ${user_id}
+        SELECT chatMessageRead.message_id, chatMessageRead.is_read
+        FROM x_qod_chat_message_read chatMessageRead
+        WHERE chatMessageRead.user_id = ${user_id}
       ) messageReadStatus
       ON messages.message_id = messageReadStatus.message_id
       WHERE sent_at <=
@@ -248,6 +251,12 @@ export const getChatData = async ({ conversation_id, user_id }) => {
       where user_id = ${user_id}
     ) chatAllReadStatus
     ON chatAllReadStatus.conversation_id = conversationDetails.conversation_id
+    LEFT JOIN (
+      SELECT conversation_id, is_removed, updated_on
+      FROM x_qod_chat_group_members
+      WHERE user_id = ${user_id}
+    ) groupStatus
+    ON groupStatus.conversation_id = conversationDetails.conversation_id
     WHERE conversationDetails.conversation_id = ${conversation_id}
     ORDER BY conversationMessages.sent_at DESC
   `
@@ -318,36 +327,32 @@ export const formatMessagesOrder = ({ messageArray, messages }) => {
   return messageArray
 }
 
-export const formatCandidateInfoData = ({ candidateInfo, groupMembers }) => {
-  return candidateInfo.map((user) => {
-    const groupMember = groupMembers && groupMembers.find((member) => member.user_id === user.user_id)
-
-    return {
-      id: user.user_id,
-      name: user.full_name,
-      profilePic: user.profile_image,
-      location: _.isEqual(user.user_code, 'employer')
-        ? user.client_city + ' ' + user.client_state
-        : user.city + ' ' + user.state,
-      title: _.isEqual(user.user_code, 'employer') ? user.title : user.work_title,
-      userCode: user.user_code,
-      isRemoved: groupMember && !!groupMember.is_removed
-    }
-  })
+export const formatCandidateInfoData = ({ candidateInfo }) => {
+  return candidateInfo.map((user) => ({
+    id: user.user_id,
+    name: user.full_name,
+    profilePic: user.profile_image,
+    location: _.isEqual(user.user_code, 'employer')
+      ? user.client_city + ' ' + user.client_state
+      : user.city + ' ' + user.state,
+    title: _.isEqual(user.user_code, 'employer') ? user.title : user.work_title,
+    userCode: user.user_code
+  }))
 }
 
 export const formatChatData = ({
-  conversation_id, conversation, messages, candidateInfo, groupMembers, more, allRead
+  conversation_id, conversation, messages, candidateInfo, more, allRead
 }) => ({
   conversationId: conversation_id && parseInt(conversation_id),
   isGroup: !!conversation.is_group,
   groupName: conversation.group_title,
+  isRemoved: !!conversation.is_removed,
   chatData: {
     chats: messages,
     more,
     offset: 0
   },
-  candidatesInfo: candidateInfo && formatCandidateInfoData({ candidateInfo, groupMembers }),
+  candidatesInfo: candidateInfo && formatCandidateInfoData({ candidateInfo }),
   allRead: !!allRead
 })
 

@@ -1,9 +1,10 @@
+import _ from 'lodash'
 import ServiceBase from '../../common/serviceBase'
 import { ERRORS } from '../../utils/errors'
 import { SqlHelper } from '../../utils/sql'
 import logger from '../../common/logger'
 import {
-  getChatData, getReadMessages, fetchAllGroupMembers, getCandidatesInfo, getErrorMessageForService,
+  getChatData, getReadMessages, fetchAllGroupMembersIds, getCandidatesInfo, getErrorMessageForService,
   formatMessagesOrder, formatChatData
 } from '../helper'
 
@@ -29,7 +30,6 @@ export class GetChatDataService extends ServiceBase {
 
       let allMessages = []
       let user_ids = []
-      let groupMembers = []
 
       if (conversationDataWithUnReadMessages && conversationDataWithUnReadMessages.length) {
         const {
@@ -37,10 +37,9 @@ export class GetChatDataService extends ServiceBase {
         } = conversationDataWithUnReadMessages[0]
 
         if (is_group) {
-          groupMembers = await fetchAllGroupMembers({ conversation_id })
-          user_ids = groupMembers && groupMembers.map((user) => user.user_id)
+          user_ids = await fetchAllGroupMembersIds({ conversation_id, is_removed: false })
         } else {
-          user_ids = [user_one_id, user_two_id]
+          user_ids = [_.isEqual(user_one_id, user_id) ? user_two_id : user_one_id]
         }
 
         const promiseArray = [
@@ -65,7 +64,6 @@ export class GetChatDataService extends ServiceBase {
           conversation: conversationDataWithUnReadMessages[0],
           messages: allMessages,
           candidateInfo,
-          groupMembers,
           more: readMessages && readMessages.length > 10,
           allRead: all_read
         })

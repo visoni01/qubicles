@@ -2,7 +2,7 @@ import ServiceBase from '../../../common/serviceBase'
 import { ERRORS } from '../../../utils/errors'
 import logger from '../../../common/logger'
 import _ from 'lodash'
-import { fetchAllGroupMembers, addNewMembers, changeGroupMembersStatus, getErrorMessageForService } from '../../helper'
+import { fetchAllGroupMembersIds, addNewMembers, changeGroupMembersStatus, getErrorMessageForService } from '../../helper'
 
 const constraints = {
   conversation_id: {
@@ -22,8 +22,7 @@ export class ChatAddNewGroupMembersService extends ServiceBase {
     try {
       const { conversation_id, user_ids } = this.filteredArgs
 
-      const groupMembers = await fetchAllGroupMembers({ conversation_id })
-      const groupMembersIds = groupMembers && groupMembers.map((user) => user.user_id)
+      const groupMembersIds = await fetchAllGroupMembersIds({ conversation_id })
 
       if (groupMembersIds && groupMembersIds.length) {
         const newDataToBeAdded = _.difference(user_ids, groupMembersIds)
