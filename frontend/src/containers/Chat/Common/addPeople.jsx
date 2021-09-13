@@ -17,6 +17,7 @@ import PersonCard from './personCard'
 import {
   allChatsRequestStart, chatDataRequestStart, chatSuggestionsFetchStart, resetChatSuggestionsReducer,
 } from '../../../redux-saga/redux/chat'
+import SuggestedUsersSkeleton from '../../../components/Chat/Skeletons/suggestedUsersSkeleton'
 
 const AddPeople = ({
   open, handleCancel, actionType, conversationId,
@@ -24,7 +25,7 @@ const AddPeople = ({
   const [ selectedPeople, setSelectedPeople ] = useState([])
   const [ groupTitle, setGroupTitle ] = useState('')
   const {
-    users: people, more, offset, searchKeyword,
+    users: people, more, offset, searchKeyword, isLoading,
   } = useSelector((state) => state.chatSuggestions)
   const dispatch = useDispatch()
   const observer = useRef()
@@ -154,6 +155,7 @@ const AddPeople = ({
       className='custom-modal auto-height add-people-modal'
       classes={ {
         paperWidthSm: 'paper',
+        scrollPaper: 'scroll-paper',
       } }
     >
       <div className='header'>
@@ -226,7 +228,8 @@ const AddPeople = ({
             className={ `suggestion-cards ${ actionType === 'NEW_GROUP' ? 'new-group' : '' }` }
             onClick={ actionType === 'NEW_CHAT' ? createNewChat : addPerson }
           >
-            {people && people.length > 0 && _.differenceBy(people, selectedPeople, 'id').map((person, index) => (
+            {(!isLoading || offset !== 0) && people && people.length > 0
+            && _.differenceBy(people, selectedPeople, 'id').map((person, index) => (
               <div
                 key={ person.id }
                 ref={ index === _.differenceBy(people, selectedPeople, 'id').length - 1 ? endRef : null }
@@ -240,7 +243,9 @@ const AddPeople = ({
                 {index !== people.length - 1 && <Divider className='user-list-divider' />}
               </div>
             ))}
-            {people && (people.length === 0 || _.differenceBy(people, selectedPeople, 'id').length === 0) && (
+            {isLoading && <SuggestedUsersSkeleton />}
+            {!isLoading && people
+              && (people.length === 0 || _.differenceBy(people, selectedPeople, 'id').length === 0) && (
               <div className='para'>No suggestions available...</div>
             )}
           </div>

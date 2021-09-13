@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import {
   Box, debounce, Divider, IconButton, TextField, Tooltip,
 } from '@material-ui/core'
@@ -13,10 +14,11 @@ import NewChat from '../Common/addPeople'
 import { allChatsRequestStart, chatDataRequestStart, updateCurrentChatId } from '../../../redux-saga/redux/chat'
 import { NewChatIcon, NewGroupIcon } from '../../../assets/images/chat'
 import '../styles.scss'
+import LeftSectionSkeleton from '../../../components/Chat/Skeletons/leftSectionSkeleton'
 
 const LeftCard = ({ conversationId }) => {
   const {
-    chatsList, isLoading, offset, more, searchKeyword,
+    chatsList, isLoading, offset, more, searchKeyword, dataType,
   } = useSelector((state) => state.allChats)
 
   const [ openSearchField, setOpenSearchField ] = useState(false)
@@ -173,7 +175,8 @@ const LeftCard = ({ conversationId }) => {
 
       {/* Users List */}
       <div ref={ userListRef } className='user-list'>
-        {chatsList && chatsList.map((item, index) => (
+        {(!isLoading || offset !== 0 || !_.isEqual(dataType, 'chats-list')) && chatsList
+        && chatsList.map((item, index) => (
           <div
             key={ item.id }
             className={ `user-card-root ${ conversationId === item.id ? 'selected' : '' }` }
@@ -196,9 +199,10 @@ const LeftCard = ({ conversationId }) => {
             {index !== chatsList.length - 1 ? <Divider className='user-list-divider' /> : ''}
           </div>
         ))}
+        {isLoading && _.isEqual(dataType, 'chats-list') && <LeftSectionSkeleton />}
       </div>
 
-      {chatsList && !chatsList.length && (
+      {!isLoading && chatsList && !chatsList.length && (
         <p className='para sz-xl mt-20 mb-20 text-center'>
           No conversations yet...
         </p>
