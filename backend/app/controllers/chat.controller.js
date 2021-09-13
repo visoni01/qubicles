@@ -1,7 +1,7 @@
 import Responder from '../../server/expressResponder'
 import {
   StartNewChatService, GetAllChatsService, GetChatDataService, ChatGetSuggestedUsersService, GetOlderChatsService,
-  ChatMarkAsReadService
+  ChatMarkAsReadService, ChatMarkAsUnreadService
 } from '../services/chat'
 import {
   ChatCreateNewGroupService, ChatAddNewGroupMembersService, ChatRemoveGroupMemberService, ChatChangeGroupNameService
@@ -95,6 +95,15 @@ export default class ChatController {
       Responder.success(res, response.result)
     } else {
       Responder.failed(res, response.errors)
+    }
+  }
+
+  static async markAsUnread (req, res) {
+    const conversation = await ChatMarkAsUnreadService.execute({ ...req.params, ...req.body })
+    if (conversation.successful) {
+      Responder.success(res, conversation.result)
+    } else {
+      Responder.failed(res, conversation.errors)
     }
   }
 }

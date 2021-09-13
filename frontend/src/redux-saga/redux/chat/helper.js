@@ -102,10 +102,15 @@ export const chatDataSuccessHelper = ({ conversations, payload }) => {
               ...result,
               data: {
                 ...item.data,
-                chats: item.data && item.data.chats && item.data.chats.map((chat) => ({
-                  ...chat,
-                  isRead: true,
-                })),
+                allRead: true,
+                chatData: {
+                  chats: item.data.chatData.chats.map((chat) => ({
+                    ...chat,
+                    isRead: true,
+                  })),
+                  more: item.data.chatData.more,
+                  offset: item.data.chatData.offset,
+                },
               },
             }
             : item
@@ -218,6 +223,18 @@ export const updateConversationsHelper = ({ payload, conversations }) => {
                     newMessage,
                   ],
                 },
+              },
+            }
+            : item
+        ))
+
+        case 'mark-as-unread': return conversations && conversations.map((item) => (
+          item.data && item.data.conversationId === conversationId
+            ? {
+              ...item,
+              data: {
+                ...item.data,
+                allRead: false,
               },
             }
             : item

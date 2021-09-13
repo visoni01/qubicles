@@ -524,3 +524,14 @@ export const markMessagesAsRead = async ({ user_id, conversation_id }) => {
     }
   })
 }
+
+export const markAsUnread = async ({ user_id, conversation_id }) => {
+  await XQodChatAllRead.update({
+    all_read: false
+  }, {
+    where: {
+      user_id,
+      conversation_id
+    }
+  })
+}

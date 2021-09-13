@@ -47,7 +47,8 @@ const Chat = class {
   }
 
   static markChatAsUnread = async ({ conversationId }) => {
-
+    const response = await apiClient.putRequest(`/chat/${ conversationId }/mark-as-unread`)
+    return response
   }
 
   static markChatAsRead = async ({ conversationId }) => {
