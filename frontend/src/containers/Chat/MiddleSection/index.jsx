@@ -42,16 +42,24 @@ const MiddleCard = ({
       </div>
 
       {/* Chat Controls */}
-      <div className='mb-5'>
-        <Divider className='divider is-fullwidth no-margin-top' />
-        <ChatControls
-          conversationId={ conversationData?.conversationId }
-          messageText={ messageText }
-          setMessageText={ setMessageText }
-          imageUrl={ imageUrl }
-          setImageUrl={ setImageUrl }
-        />
-      </div>
+      {conversationData?.isRemoved
+        ? (
+          <p className='para text-center removed-message'>
+            You can't send messages to this group because you're no longer a participant.
+          </p>
+        )
+        : (
+          <div className='mb-5'>
+            <Divider className='divider is-fullwidth no-margin-top' />
+            <ChatControls
+              conversationId={ conversationData?.conversationId }
+              messageText={ messageText }
+              setMessageText={ setMessageText }
+              imageUrl={ imageUrl }
+              setImageUrl={ setImageUrl }
+            />
+          </div>
+        )}
     </Box>
   )
 }

@@ -178,6 +178,11 @@
     margin-top: 2px;
   }
 
+  .removed-message {
+    padding: 15px 0px;
+    background-color: $color-primary-light;
+  }
+
   .chat-section-footer {
     height: auto;
     padding: 5px 20px 15px 20px;

@@ -59,7 +59,11 @@ const RightCard = ({ changeGroupName }) => {
     <Box className='custom-box right-card'>
 
       {/* Chat Options */}
-      <ChatOptions isGroup={ isGroup } conversationId={ chat?.conversationId } />
+      <ChatOptions
+        isGroup={ isGroup }
+        conversationId={ chat?.conversationId }
+        isRemoved={ chat?.isRemoved }
+      />
 
       {/* Profile Pictures */}
       <AvatarGroup max={ 3 } spacing='small' className='avatar-group'>
@@ -156,6 +160,7 @@ const RightCard = ({ changeGroupName }) => {
           handleClose={ () => setOpenViewMembersModal(false) }
           members={ members }
           conversationId={ chat?.conversationId }
+          isRemoved={ chat?.isRemoved }
         />
       )}
     </Box>

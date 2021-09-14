@@ -7,7 +7,7 @@ import { COMPANY_PROFILE_ROUTE, PROFILE_ROUTE } from '../../../routes/routesPath
 import ConfirmationModal from '../../../components/CommonModal/confirmationModal'
 
 const PersonCard = ({
-  id, name, title, profilePic, userCode, actionType, handleRemove,
+  id, name, title, profilePic, userCode, actionType, handleRemove, isRemoved,
 }) => {
   const { userDetails } = useSelector((state) => state.login)
   const [ openConfirmBlockModal, setOpenConfirmBlockModal ] = useState(false)
@@ -47,7 +47,7 @@ const PersonCard = ({
                       </Link>
                     </div>
 
-                    {userDetails.user_id !== id && (
+                    {!isRemoved && userDetails.user_id !== id && (
                       <Button
                         classes={ {
                           root: 'remove-button',
@@ -80,6 +80,7 @@ PersonCard.defaultProps = {
   actionType: '',
   userCode: '',
   handleRemove: () => {},
+  isRemoved: false,
 }
 
 PersonCard.propTypes = {
@@ -90,6 +91,7 @@ PersonCard.propTypes = {
   userCode: PropTypes.string,
   actionType: PropTypes.string,
   handleRemove: PropTypes.func,
+  isRemoved: PropTypes.bool,
 }
 
 export default PersonCard

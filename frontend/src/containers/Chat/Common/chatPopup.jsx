@@ -96,13 +96,21 @@ const ChatPopup = ({ conversationData, isLoading }) => {
             </div>
 
             {/* Chat Controls */}
-            <ChatControls
-              conversationId={ conversationData?.conversationId }
-              messageText={ messageText }
-              setMessageText={ setMessageText }
-              imageUrl={ imageUrl }
-              setImageUrl={ setImageUrl }
-            />
+            {conversationData?.isRemoved
+              ? (
+                <p className='para text-center removed-message'>
+                  You can't send messages to this group because you're no longer a participant.
+                </p>
+              )
+              : (
+                <ChatControls
+                  conversationId={ conversationData?.conversationId }
+                  messageText={ messageText }
+                  setMessageText={ setMessageText }
+                  imageUrl={ imageUrl }
+                  setImageUrl={ setImageUrl }
+                />
+              )}
           </div>
         </CardContent>
       </Collapse>
@@ -117,7 +125,7 @@ ChatPopup.defaultProps = {
 ChatPopup.propTypes = {
   conversationData: PropTypes.shape({
     conversationId: PropTypes.number,
-    name: PropTypes.string,
+    groupName: PropTypes.string,
     profilePic: PropTypes.string,
     isGroup: PropTypes.bool,
     allRead: PropTypes.bool,

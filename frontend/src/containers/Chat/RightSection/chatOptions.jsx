@@ -10,7 +10,7 @@ import ConfirmationModal from '../../../components/CommonModal/confirmationModal
 import AddPeople from '../Common/addPeople'
 import { allChatsRequestStart } from '../../../redux-saga/redux/chat'
 
-const ChatOptions = ({ isGroup, conversationId }) => {
+const ChatOptions = ({ isGroup, conversationId, isRemoved }) => {
   const [ openOptions, setOpenOptions ] = useState(false)
   const [ anchorEl, setAnchorEl ] = useState(null)
   const [ openConfirmBlockModal, setOpenConfirmBlockModal ] = useState(false)
@@ -58,6 +58,7 @@ const ChatOptions = ({ isGroup, conversationId }) => {
       >
         <FontAwesomeIcon icon={ faEllipsisV } className='custom-fa-icon sz-md light' />
       </IconButton>
+
       <Popover
         open={ openOptions }
         anchorEl={ anchorEl }
@@ -76,24 +77,28 @@ const ChatOptions = ({ isGroup, conversationId }) => {
         } }
       >
         <div className='ellipsis-options-menu border-2'>
-          {isGroup && (
-          <Button
-            size='small'
-            className='option'
-            classes={ { label: 'option-label' } }
-            onClick={ handleOpenAddPeopleModal }
-          >
-            <p className='para'> Add People </p>
-          </Button>
+          {!isRemoved && isGroup && (
+            <Button
+              size='small'
+              className='option'
+              classes={ { label: 'option-label' } }
+              onClick={ handleOpenAddPeopleModal }
+            >
+              <p className='para'> Add People </p>
+            </Button>
           )}
-          <Button
-            size='small'
-            className='option'
-            classes={ { label: 'option-label' } }
-            onClick={ handleMarkAsUnread }
-          >
-            <p className='para'> Mark as unread </p>
-          </Button>
+
+          {!isRemoved && (
+            <Button
+              size='small'
+              className='option'
+              classes={ { label: 'option-label' } }
+              onClick={ handleMarkAsUnread }
+            >
+              <p className='para'> Mark as unread </p>
+            </Button>
+          )}
+
           <Button
             size='small'
             className='option'
@@ -106,6 +111,7 @@ const ChatOptions = ({ isGroup, conversationId }) => {
           </Button>
         </div>
       </Popover>
+
       <ConfirmationModal
         open={ openConfirmBlockModal }
         handleClose={ handleCancelActivity }
@@ -113,13 +119,14 @@ const ChatOptions = ({ isGroup, conversationId }) => {
         message='Are you sure you want to delete this chat?'
         confirmButtonText='Yes'
       />
+
       {openAddPeopleModal && (
-      <AddPeople
-        open={ openAddPeopleModal }
-        handleCancel={ () => setOpenAddPeopleModal(false) }
-        actionType='ADD_PEOPLE'
-        conversationId={ conversationId }
-      />
+        <AddPeople
+          open={ openAddPeopleModal }
+          handleCancel={ () => setOpenAddPeopleModal(false) }
+          actionType='ADD_PEOPLE'
+          conversationId={ conversationId }
+        />
       )}
     </>
   )
@@ -127,11 +134,13 @@ const ChatOptions = ({ isGroup, conversationId }) => {
 
 ChatOptions.defaultProps = {
   isGroup: false,
+  isRemoved: false,
 }
 
 ChatOptions.propTypes = {
   isGroup: PropTypes.bool,
   conversationId: PropTypes.number.isRequired,
+  isRemoved: PropTypes.bool,
 }
 
 export default ChatOptions

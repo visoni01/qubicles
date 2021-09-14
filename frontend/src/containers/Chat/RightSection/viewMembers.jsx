@@ -12,7 +12,7 @@ import PersonCard from '../Common/personCard'
 import { chatDataRequestStart } from '../../../redux-saga/redux/chat'
 
 const ViewMembers = ({
-  open, handleClose, members, conversationId,
+  open, handleClose, members, conversationId, isRemoved,
 }) => {
   const { userDetails } = useSelector((state) => state.login)
   const [ sortedMembersList, setSortedMembersList ] = useState(members)
@@ -90,6 +90,7 @@ const ViewMembers = ({
               userCode={ person.userCode }
               actionType='VIEW_MEMBERS'
               handleRemove={ handleRemove }
+              isRemoved={ isRemoved }
             />
           ))}
         </div>
@@ -100,6 +101,7 @@ const ViewMembers = ({
 
 ViewMembers.defaultProps = {
   open: false,
+  isRemoved: false,
 }
 
 ViewMembers.propTypes = {
@@ -108,6 +110,7 @@ ViewMembers.propTypes = {
   conversationId: PropTypes.number.isRequired,
   // To Do: Add proptype validation
   members: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  isRemoved: PropTypes.bool,
 }
 
 export default ViewMembers
