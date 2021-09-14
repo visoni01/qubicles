@@ -11,6 +11,7 @@ import ChatView from '../MiddleSection/chatView'
 import ChatControls from '../MiddleSection/chatControls'
 import { updateChatPopups, updateConversations } from '../../../redux-saga/redux/chat'
 import { groupChatIcon, MaximizeIcon } from '../../../assets/images/chat'
+import { chatDataPropTypes } from '../propTypes'
 
 const ChatPopup = ({ conversationData, isLoading }) => {
   const [ popupOpen, setPopupOpen ] = useState(false)
@@ -129,20 +130,7 @@ ChatPopup.propTypes = {
     profilePic: PropTypes.string,
     isGroup: PropTypes.bool,
     allRead: PropTypes.bool,
-    chatData: PropTypes.shape({
-      chats: PropTypes.arrayOf(PropTypes.shape({
-        messageId: PropTypes.number,
-        senderId: PropTypes.number,
-        profilePic: PropTypes.string,
-        isNotification: PropTypes.bool,
-        imageUrl: PropTypes.string,
-        text: PropTypes.string,
-        sentAt: PropTypes.string,
-        isRead: PropTypes.bool,
-      })),
-      more: PropTypes.bool,
-      offset: PropTypes.number,
-    }),
+    chatData: chatDataPropTypes,
   }).isRequired,
   isLoading: PropTypes.bool,
 }

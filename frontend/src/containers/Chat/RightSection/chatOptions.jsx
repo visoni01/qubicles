@@ -170,13 +170,14 @@ const ChatOptions = ({
 
 ChatOptions.defaultProps = {
   isGroup: false,
+  conversationId: null,
   isRemoved: false,
   isAllRead: false,
 }
 
 ChatOptions.propTypes = {
   isGroup: PropTypes.bool,
-  conversationId: PropTypes.number.isRequired,
+  conversationId: PropTypes.number,
   isRemoved: PropTypes.bool,
   isAllRead: PropTypes.bool,
 }

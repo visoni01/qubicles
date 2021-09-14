@@ -276,13 +276,14 @@ const AddPeople = ({
 AddPeople.defaultProps = {
   open: false,
   actionType: 'ADD_PEOPLE',
+  conversationId: null,
 }
 
 AddPeople.propTypes = {
   open: PropTypes.bool,
   handleCancel: PropTypes.func.isRequired,
   actionType: PropTypes.string,
-  conversationId: PropTypes.number.isRequired,
+  conversationId: PropTypes.number,
 }
 
 export default AddPeople

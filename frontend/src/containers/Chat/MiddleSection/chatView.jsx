@@ -11,6 +11,7 @@ import { chatDataRequestStart } from '../../../redux-saga/redux/chat'
 import UserNotification from './userNotification'
 import { ThreeDotLoader } from '../../loaders'
 import { NoMessagesIcon } from '../../../assets/images/chat'
+import { chatsPropTypes } from '../propTypes'
 
 const ChatView = ({
   conversationId, chats, more, offset, isLoading,
@@ -99,15 +100,15 @@ const ChatView = ({
 
 ChatView.defaultProps = {
   chats: [],
+  conversationId: null,
   more: false,
   offset: 0,
   isLoading: false,
 }
 
 ChatView.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  chats: PropTypes.any,
-  conversationId: PropTypes.number.isRequired,
+  chats: chatsPropTypes,
+  conversationId: PropTypes.number,
   more: PropTypes.bool,
   offset: PropTypes.number,
   isLoading: PropTypes.bool,

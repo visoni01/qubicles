@@ -82,7 +82,7 @@ const RightCard = ({ changeGroupName }) => {
             return (
               <Avatar
                 className='avatar'
-                key={ member.candidateId }
+                key={ member.id }
                 alt={ member.name }
                 src={ member.profilePic }
               />

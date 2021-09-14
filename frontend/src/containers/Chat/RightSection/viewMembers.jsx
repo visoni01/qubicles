@@ -10,6 +10,7 @@ import _ from 'lodash'
 import Loader from '../../loaders/circularLoader'
 import PersonCard from '../Common/personCard'
 import { chatDataRequestStart } from '../../../redux-saga/redux/chat'
+import { groupMembersPropTypes } from '../propTypes'
 
 const ViewMembers = ({
   open, handleClose, members, conversationId, isRemoved,
@@ -112,8 +113,7 @@ ViewMembers.propTypes = {
   open: PropTypes.bool,
   handleClose: PropTypes.func.isRequired,
   conversationId: PropTypes.number.isRequired,
-  // To Do: Add proptype validation
-  members: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  members: groupMembersPropTypes.isRequired,
   isRemoved: PropTypes.bool,
 }
 
