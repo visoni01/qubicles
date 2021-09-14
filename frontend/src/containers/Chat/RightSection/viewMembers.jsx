@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent, DialogTitle, IconButton,
+  Dialog, DialogActions, DialogContent, DialogTitle, Divider, IconButton,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -80,18 +80,21 @@ const ViewMembers = ({
 
       <DialogContent>
         <div>
-          {sortedMembersList && sortedMembersList.map((person) => (
-            <PersonCard
-              key={ person.id }
-              id={ person.id }
-              name={ person.name }
-              title={ person.title }
-              profilePic={ person.profilePic }
-              userCode={ person.userCode }
-              actionType='VIEW_MEMBERS'
-              handleRemove={ handleRemove }
-              isRemoved={ isRemoved }
-            />
+          {sortedMembersList && sortedMembersList.map((person, index) => (
+            <>
+              <PersonCard
+                key={ person.id }
+                id={ person.id }
+                name={ person.name }
+                title={ person.title }
+                profilePic={ person.profilePic }
+                userCode={ person.userCode }
+                actionType='VIEW_MEMBERS'
+                handleRemove={ handleRemove }
+                isRemoved={ isRemoved }
+              />
+              {index !== sortedMembersList.length - 1 && <Divider className='user-list-divider' />}
+            </>
           ))}
         </div>
       </DialogContent>

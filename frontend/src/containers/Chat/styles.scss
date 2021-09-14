@@ -310,6 +310,11 @@
       background-color: rgba(72, 119, 244, 0.7);
       border-radius: 20px 20px 20px 20px ;
     }
+
+    .user-list-divider {
+      width: auto;
+      margin: 0px 20px 0px 70px;
+    }
   }
 
   .search-text-field {
@@ -318,16 +323,6 @@
 }
 
 .person-card {
-  &:not(:last-child):after {
-    content: '';
-    display: block;
-    position: relative;
-    width: calc(100% - 80px);
-    left: 70px;
-    border-bottom: 1px solid $color-border;
-    margin-top: 5px;
-  }
-
   .profile-pic {
     width: 60px;
     height: 60px;

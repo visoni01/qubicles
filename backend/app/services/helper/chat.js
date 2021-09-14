@@ -25,17 +25,20 @@ export const createOrFindChat = async ({ user_id, candidate_id }) => {
         order: [
           ['sent_at', 'DESC']
         ],
+        required: false,
         include: [
           {
             model: XQodChatMessageRead,
             as: 'messageReadStatus',
             attributes: ['is_read'],
-            where: { user_id }
+            where: { user_id },
+            required: false
           },
           {
             model: UserDetail,
             as: 'senderDetails',
-            attributes: ['profile_image']
+            attributes: ['profile_image'],
+            required: false
           }
         ]
       },
@@ -450,7 +453,7 @@ export const getSuggestedUsersList = async ({ user_id, conversation_id, offset, 
       ${conversation_id ? `
         AND suggested_user_id NOT IN (
           SELECT user_id FROM x_qod_chat_group_members
-          WHERE conversation_id = ${conversation_id}
+          WHERE conversation_id = ${conversation_id} AND is_removed = 0
         )
       ` : ''}
     LIMIT 11

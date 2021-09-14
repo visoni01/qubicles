@@ -6,7 +6,7 @@ import React, {
 } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Button, Chip, debounce, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, TextField,
+  Button, Chip, debounce, Dialog, DialogActions, DialogContent, DialogTitle, Divider, IconButton, TextField,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -226,14 +226,17 @@ const AddPeople = ({
             className={ `suggestion-cards ${ actionType === 'NEW_GROUP' ? 'new-group' : '' }` }
             onClick={ actionType === 'NEW_CHAT' ? createNewChat : addPerson }
           >
-            {people && people.length > 0 && _.differenceBy(people, selectedPeople, 'id').map((person) => (
-              <PersonCard
-                key={ person.id }
-                id={ person.id }
-                name={ person.name }
-                title={ person.title }
-                profilePic={ person.profilePic }
-              />
+            {people && people.length > 0 && _.differenceBy(people, selectedPeople, 'id').map((person, index) => (
+              <>
+                <PersonCard
+                  key={ person.id }
+                  id={ person.id }
+                  name={ person.name }
+                  title={ person.title }
+                  profilePic={ person.profilePic }
+                />
+                {index !== people.length - 1 && <Divider className='user-list-divider' />}
+              </>
             ))}
             {people && (people.length === 0 || _.differenceBy(people, selectedPeople, 'id').length === 0) && (
               <div className='para'>No suggestions available...</div>
