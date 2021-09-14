@@ -10,6 +10,7 @@ import { formatDate, formatDateTime } from '../../../utils/common'
 import { chatDataRequestStart } from '../../../redux-saga/redux/chat'
 import UserNotification from './userNotification'
 import { ThreeDotLoader } from '../../loaders'
+import { NoMessagesIcon } from '../../../assets/images/chat'
 
 const ChatView = ({
   conversationId, chats, more, offset, isLoading,
@@ -54,6 +55,13 @@ const ChatView = ({
 
   return (
     <>
+      {!isLoading && chats && chats.length === 0 && (
+        <div className='no-messages'>
+          <NoMessagesIcon />
+          <h2 className='h2 text-center'>No messages yet</h2>
+        </div>
+      )}
+
       {isLoading && more && <ThreeDotLoader />}
 
       {chats && chats.map((item, index) => (

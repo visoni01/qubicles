@@ -1,8 +1,9 @@
 import { Box, Button } from '@material-ui/core'
 import React, { useCallback, useState } from 'react'
+import { NoMessagesIcon } from '../../../assets/images/chat'
 import NewChat from '../Common/addPeople'
 
-const NewConversationBox = () => {
+const NoConversationBox = () => {
   const [ openNewChatModal, setOpenNewChatModal ] = useState(false)
   const [ openNewGroupModal, setOpenNewGroupModal ] = useState(false)
 
@@ -16,27 +17,32 @@ const NewConversationBox = () => {
 
   return (
     <Box className='custom-box new-conversation-box'>
-      <Button
-        classes={ {
-          root: 'button-primary-large',
-          label: 'button-primary-large-label',
-        } }
-        onClick={ handleNewChatClick }
-      >
-        New Chat
-      </Button>
+      <NoMessagesIcon />
+      <div className='message-text'>
+        <h2 className='h2 text-center'>No messages yet</h2>
+        <h4 className='h4 text-center'>Start a chat or create a group</h4>
+      </div>
+      <div className='action-buttons'>
+        <Button
+          classes={ {
+            root: 'button-primary-large',
+            label: 'button-primary-large-label',
+          } }
+          onClick={ handleNewChatClick }
+        >
+          New Chat
+        </Button>
 
-      <p className='para light sz-xl text-center'>or</p>
-
-      <Button
-        classes={ {
-          root: 'button-primary-large',
-          label: 'button-primary-large-label',
-        } }
-        onClick={ handleNewGroupClick }
-      >
-        New Group
-      </Button>
+        <Button
+          classes={ {
+            root: 'button-primary-large',
+            label: 'button-primary-large-label',
+          } }
+          onClick={ handleNewGroupClick }
+        >
+          New Group
+        </Button>
+      </div>
 
       {/* New Chat Modal */}
       {openNewChatModal && (
@@ -59,4 +65,4 @@ const NewConversationBox = () => {
   )
 }
 
-export default NewConversationBox
+export default NoConversationBox

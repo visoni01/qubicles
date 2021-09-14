@@ -91,6 +91,16 @@
 
   .chat-section-body {
     overflow-y: auto;
+    height: 100%;
+
+    .no-messages {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 50px;
+      height: 100%;
+    }
 
     .new-message-separator {
       position: relative;
@@ -436,6 +446,14 @@
     .message-section {
       height: 355px;
       max-height: 60vh;
+
+      .chat-section {
+        .no-messages {
+          h2 {
+            font-size: 20px;
+          }
+        }
+      }
     }
   }
 }
@@ -452,12 +470,24 @@
 .new-conversation-box {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  height: auto;
-  padding: 130px !important;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  height: 80vh;
+  padding: 10% !important;
 
-  .MuiButton-text {
-    margin: 20px;
+  .message-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
 

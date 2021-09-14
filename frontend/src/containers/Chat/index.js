@@ -5,7 +5,7 @@ import _ from 'lodash'
 import LeftSection from './LeftSection'
 import RightSection from './RightSection'
 import MiddleSection from './MiddleSection'
-import NewConversationBox from './MiddleSection/newConversationBox'
+import NoConversationBox from './MiddleSection/noConversationBox'
 import { chatDataRequestStart, resetAllChatsReducer, resetConversations } from '../../redux-saga/redux/chat'
 
 const ChatSection = () => {
@@ -57,7 +57,7 @@ const ChatSection = () => {
                 setImageUrl={ setImageUrl }
               />
             )
-            : <NewConversationBox />}
+            : <NoConversationBox />}
         </Grid>
 
         <Grid item xl={ 3 } lg={ 3 } md={ 9 } sm={ 12 } xs={ 12 }>
