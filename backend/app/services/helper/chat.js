@@ -301,14 +301,14 @@ export const getReadMessages = ({ conversation_id, user_id, is_group, is_removed
 export const getCandidatesInfo = ({ user_ids }) => {
   // TODO - Change table name aliases
   return `
-    SELECT t1.user_id, t1.profile_image, t1.city, t1.state, t1.work_title, t3.full_name, t3.user_code,
+    SELECT t1.user_id, t1.profile_image, t1.city, t1.state, t1.work_title, t3.client_id , t3.full_name, t3.user_code,
       t3.title, t3.client_city, t3.client_state
     FROM x_user_details t1
     JOIN (
-      SELECT t2.user_id, t2.full_name, t2.user_code, t4.title, t4.client_city, t4.client_state
+      SELECT t2.user_id, t2.full_name, t2.user_code, t4.client_id, t4.title, t4.client_city, t4.client_state
       FROM x_users t2
       LEFT JOIN (
-        SELECT t5.user_id, t7.title, t7.client_city, t7.client_state
+        SELECT t5.user_id, t7.client_id, t7.title, t7.client_city, t7.client_state
         FROM x_client_users t5
         JOIN (
           SELECT t6.client_id, t6.title, t6.city AS client_city, t6.state AS client_state
@@ -333,6 +333,7 @@ export const formatMessagesOrder = ({ messageArray, messages }) => {
 export const formatCandidateInfoData = ({ candidateInfo }) => {
   return candidateInfo.map((user) => ({
     id: user.user_id,
+    clientId: user.client_id,
     name: user.full_name,
     profilePic: user.profile_image,
     location: _.isEqual(user.user_code, 'employer')
