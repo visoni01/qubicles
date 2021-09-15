@@ -18,7 +18,7 @@ import LeftSectionSkeleton from '../../../components/Chat/Skeletons/leftSectionS
 
 const LeftCard = ({ conversationId }) => {
   const {
-    chatsList, isLoading, offset, more, searchKeyword, dataType,
+    chatsList, isLoading, offset, more, searchKeyword, dataType, success,
   } = useSelector((state) => state.allChats)
 
   const [ openSearchField, setOpenSearchField ] = useState(false)
@@ -106,6 +106,16 @@ const LeftCard = ({ conversationId }) => {
     if (node) observer.current.observe(node)
   }, [ handleObserver ])
 
+  useEffect(() => {
+    if (!isLoading && success && [ 'new-chat', 'new-group' ].includes(dataType)) {
+      if (_.isEqual(dataType, 'new-chat')) {
+        setOpenNewChatModal(false)
+      } else if (_.isEqual(dataType, 'new-group')) {
+        setOpenNewGroupModal(false)
+      }
+    }
+  }, [ isLoading, success, dataType ])
+
   return (
     <Box
       className='custom-box no-padding chat-left-section'
@@ -161,6 +171,7 @@ const LeftCard = ({ conversationId }) => {
         open={ openNewChatModal }
         handleCancel={ () => setOpenNewChatModal(false) }
         actionType='NEW_CHAT'
+        loading={ isLoading && _.isEqual(dataType, 'new-chat') }
       />
       )}
 
@@ -170,6 +181,7 @@ const LeftCard = ({ conversationId }) => {
         open={ openNewGroupModal }
         handleCancel={ () => setOpenNewGroupModal(false) }
         actionType='NEW_GROUP'
+        loading={ isLoading && _.isEqual(dataType, 'new-group') }
       />
       )}
 

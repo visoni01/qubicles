@@ -1,10 +1,11 @@
 /* eslint-disable complexity */
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import {
   Popover, IconButton, Button,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import _ from 'lodash'
 import ConfirmationModal from '../../../components/CommonModal/confirmationModal'
 import AddPeople from '../Common/addPeople'
 import { allChatsRequestStart, chatDataRequestStart } from '../../../redux-saga/redux/chat'
@@ -21,6 +22,12 @@ const ChatOptions = ({
   const [ openConfirmDeleteModal, setOpenConfirmDeleteModal ] = useState(false)
   const [ openConfirmLeaveModal, setOpenConfirmLeaveModal ] = useState(false)
   const [ openAddPeopleModal, setOpenAddPeopleModal ] = useState(false)
+
+  const { conversations } = useSelector((state) => state.chatData)
+  const currentConversation = conversations?.find((conversation) => conversation.data.conversationId === conversationId)
+  const dataType = currentConversation?.dataType
+  const success = currentConversation?.success
+  const isLoading = currentConversation?.isLoading
 
   const dispatch = useDispatch()
 
@@ -69,6 +76,12 @@ const ChatOptions = ({
     setOpenConfirmLeaveModal(false)
     handleClose()
   }, [ dispatch, conversationId, handleClose ])
+
+  useEffect(() => {
+    if (!isLoading && success && _.isEqual(dataType, 'add-people')) {
+      setOpenAddPeopleModal(false)
+    }
+  }, [ isLoading, success, dataType ])
 
   return (
     <>
@@ -162,6 +175,7 @@ const ChatOptions = ({
           handleCancel={ () => setOpenAddPeopleModal(false) }
           actionType='ADD_PEOPLE'
           conversationId={ conversationId }
+          loading={ isLoading && _.isEqual(dataType, 'add-people') }
         />
       )}
     </>

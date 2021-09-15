@@ -7,7 +7,7 @@ import { COMPANY_PROFILE_ROUTE, PROFILE_ROUTE } from '../../../routes/routesPath
 import ConfirmationModal from '../../../components/CommonModal/confirmationModal'
 
 const PersonCard = ({
-  id, clientId, name, title, profilePic, userCode, actionType, handleRemove, isRemoved,
+  id, clientId, name, title, profilePic, userCode, actionType, handleRemove, isRemoved, loading,
 }) => {
   const { userDetails } = useSelector((state) => state.login)
   const [ openConfirmBlockModal, setOpenConfirmBlockModal ] = useState(false)
@@ -18,7 +18,12 @@ const PersonCard = ({
   }, [ handleRemove, id, name ])
 
   return (
-    <div className={ `person-card ${ actionType !== 'VIEW_MEMBERS' && 'person-card-hover' }` } id={ id }>
+    <div
+      className={
+        `person-card ${ actionType !== 'VIEW_MEMBERS' ? 'person-card-hover' : '' } ${ loading ? 'no-hover' : '' }`
+      }
+      id={ id }
+    >
       <div className={ `is-flex is-vcenter ${ actionType === 'VIEW_MEMBERS' && 'pt-5 pb-5' }` }>
         <Avatar className='profile-pic' alt={ name } src={ profilePic } />
 
@@ -55,6 +60,7 @@ const PersonCard = ({
                           label: 'primary-text-link-red',
                         } }
                         onClick={ () => setOpenConfirmBlockModal(true) }
+                        disabled={ loading }
                       >
                         Remove
                       </Button>
@@ -83,6 +89,7 @@ PersonCard.defaultProps = {
   userCode: '',
   handleRemove: () => {},
   isRemoved: false,
+  loading: false,
 }
 
 PersonCard.propTypes = {
@@ -95,6 +102,7 @@ PersonCard.propTypes = {
   actionType: PropTypes.string,
   handleRemove: PropTypes.func,
   isRemoved: PropTypes.bool,
+  loading: PropTypes.bool,
 }
 
 export default PersonCard

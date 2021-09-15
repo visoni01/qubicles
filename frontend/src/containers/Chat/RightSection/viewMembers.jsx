@@ -18,6 +18,11 @@ const ViewMembers = ({
   const { userDetails } = useSelector((state) => state.login)
   const [ sortedMembersList, setSortedMembersList ] = useState(members)
 
+  const { conversations } = useSelector((state) => state.chatData)
+  const currentConversation = conversations?.find((conversation) => conversation.data.conversationId === conversationId)
+  const dataType = currentConversation?.dataType
+  const isLoading = currentConversation?.isLoading
+
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -58,7 +63,7 @@ const ViewMembers = ({
               Members
             </div>
 
-            {false && (
+            {isLoading && _.isEqual(dataType, 'remove-person') && (
             <Loader
               className='static-small-loader'
               enableOverlay={ false }
@@ -94,6 +99,7 @@ const ViewMembers = ({
                 actionType='VIEW_MEMBERS'
                 handleRemove={ handleRemove }
                 isRemoved={ isRemoved }
+                loading={ isLoading && _.isEqual(dataType, 'remove-person') }
               />
               {index !== sortedMembersList.length - 1 && <Divider className='user-list-divider' />}
             </>

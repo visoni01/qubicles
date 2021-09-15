@@ -377,6 +377,20 @@
   .color-red {
     color: $color-red;
   }
+
+  &.person-card-hover {
+    &:hover {
+      background-color: $color-primary-light;
+      cursor: pointer;
+    }
+
+    &.no-hover {
+      &:hover {
+        background-color: unset;
+        cursor: unset;
+      }
+    }
+  }
 }
 
 .person-card-hover.person-card:hover{
@@ -531,5 +545,13 @@
     height: 100%;
     max-height: 80vh;
     object-fit: cover;
+  }
+}
+
+.static-small-loader {
+  position: inherit;
+  margin: 2px 10px 0px 20px;
+  .MuiCircularProgress-colorPrimary {
+    color: $color-primary;
   }
 }

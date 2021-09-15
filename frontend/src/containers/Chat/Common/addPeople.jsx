@@ -20,7 +20,7 @@ import {
 import SuggestedUsersSkeleton from '../../../components/Chat/Skeletons/suggestedUsersSkeleton'
 
 const AddPeople = ({
-  open, handleCancel, actionType, conversationId,
+  open, handleCancel, actionType, conversationId, loading,
 }) => {
   const [ selectedPeople, setSelectedPeople ] = useState([])
   const [ groupTitle, setGroupTitle ] = useState('')
@@ -51,7 +51,7 @@ const AddPeople = ({
   }, 500), [ dispatch ])
 
   const addPerson = useCallback((event) => {
-    if (actionType !== 'NEW_CHAT') {
+    if (!loading && actionType !== 'NEW_CHAT') {
       const personCard = event.target.closest('.person-card')
       if (personCard && personCard.id) {
         const person = _.find(people, { id: parseInt(personCard.id, 10) })
@@ -61,20 +61,22 @@ const AddPeople = ({
         ]))
       }
     }
-  }, [ actionType, people ])
+  }, [ actionType, people, loading ])
 
   const removePerson = useCallback((id) => {
-    setSelectedPeople((state) => {
-      const index = _.findIndex(state, { id })
-      if (index !== -1) {
-        return [
-          ...state.slice(0, index),
-          ...state.slice(index + 1),
-        ]
-      }
-      return state
-    })
-  }, [])
+    if (!loading) {
+      setSelectedPeople((state) => {
+        const index = _.findIndex(state, { id })
+        if (index !== -1) {
+          return [
+            ...state.slice(0, index),
+            ...state.slice(index + 1),
+          ]
+        }
+        return state
+      })
+    }
+  }, [ loading ])
 
   const handleCloseModal = useCallback(() => {
     setSelectedPeople([])
@@ -106,21 +108,21 @@ const AddPeople = ({
 
       default:
     }
-    handleCloseModal()
-  }, [ dispatch, actionType, groupTitle, selectedPeople, handleCloseModal, conversationId ])
+  }, [ dispatch, actionType, groupTitle, selectedPeople, conversationId ])
 
   const createNewChat = useCallback((event) => {
-    const personCard = event.target.closest('.person-card')
-    if (personCard && personCard.id) {
-      const person = _.find(people, { id: parseInt(personCard.id, 10) })
-      dispatch(allChatsRequestStart({
-        requestType: 'CREATE',
-        dataType: 'new-chat',
-        candidate: person,
-      }))
+    if (!loading) {
+      const personCard = event.target.closest('.person-card')
+      if (personCard && personCard.id) {
+        const person = _.find(people, { id: parseInt(personCard.id, 10) })
+        dispatch(allChatsRequestStart({
+          requestType: 'CREATE',
+          dataType: 'new-chat',
+          candidate: person,
+        }))
+      }
     }
-    handleCloseModal()
-  }, [ dispatch, handleCloseModal, people ])
+  }, [ dispatch, people, loading ])
 
   const handleObserver = useCallback((entries) => {
     const target = entries[ 0 ]
@@ -168,7 +170,7 @@ const AddPeople = ({
                 || (actionType === 'NEW_GROUP' && 'New Group')
               }
             </div>
-            {false && (
+            {loading && (
               <Loader
                 className='static-small-loader'
                 enableOverlay={ false }
@@ -239,6 +241,7 @@ const AddPeople = ({
                   name={ person.name }
                   title={ person.title }
                   profilePic={ person.profilePic }
+                  loading={ loading }
                 />
                 {index !== people.length - 1 && <Divider className='user-list-divider' />}
               </div>
@@ -259,6 +262,7 @@ const AddPeople = ({
             label: 'button-secondary-small-label',
           } }
           onClick={ handleCloseModal }
+          disabled={ loading }
         >
           Cancel
         </Button>
@@ -268,7 +272,7 @@ const AddPeople = ({
             label: 'button-primary-small-label',
           } }
           onClick={ handleDone }
-          disabled={ selectedPeople.length === 0 }
+          disabled={ loading || selectedPeople.length === 0 }
         >
           Done
         </Button>
@@ -282,6 +286,7 @@ AddPeople.defaultProps = {
   open: false,
   actionType: 'ADD_PEOPLE',
   conversationId: null,
+  loading: false,
 }
 
 AddPeople.propTypes = {
@@ -289,6 +294,7 @@ AddPeople.propTypes = {
   handleCancel: PropTypes.func.isRequired,
   actionType: PropTypes.string,
   conversationId: PropTypes.number,
+  loading: PropTypes.bool,
 }
 
 export default AddPeople
