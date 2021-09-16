@@ -5,7 +5,7 @@ import { AvatarGroup } from '@material-ui/lab'
 import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import {
-  Box, Avatar, Button, IconButton, TextField,
+  Box, Avatar, Button, IconButton, TextField, ClickAwayListener,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faPen, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
@@ -28,6 +28,8 @@ const RightCard = ({ changeGroupName }) => {
   const otherUser = members && members.length > 0 && members[ 0 ]
 
   useEffect(() => setGroupNameValue(chat?.groupName), [ chat ])
+
+  useEffect(() => () => setShowGroupNameField(false), [ chatData ])
 
   const stripHtml = useCallback((html) => {
     const temporalDivElement = document.createElement('div')
@@ -95,36 +97,38 @@ const RightCard = ({ changeGroupName }) => {
           <div className='is-flex align-items-start mt-10 group-field'>
             {showGroupNameField
               ? (
-                <TextField
-                  value={ groupNameValue }
-                  onChange={ handleOnChange }
-                  onKeyDown={ handleKeyDown }
-                  multiline
-                  InputProps={ {
-                    endAdornment: (
-                      <>
-                        <IconButton
-                          onClick={ handleCheck }
-                          className='no-padding check-button'
-                        >
-                          <FontAwesomeIcon
-                            icon={ faCheck }
-                            className='custom-fa-icon sz-md'
-                          />
-                        </IconButton>
-                        <IconButton
-                          onClick={ handleCancelEdit }
-                          className='no-padding'
-                        >
-                          <FontAwesomeIcon
-                            icon={ faTimesCircle }
-                            className='custom-fa-icon sz-md'
-                          />
-                        </IconButton>
-                      </>
-                    ),
-                  } }
-                />
+                <ClickAwayListener onClickAway={ handleCancelEdit }>
+                  <TextField
+                    value={ groupNameValue }
+                    onChange={ handleOnChange }
+                    onKeyDown={ handleKeyDown }
+                    multiline
+                    InputProps={ {
+                      endAdornment: (
+                        <>
+                          <IconButton
+                            onClick={ handleCheck }
+                            className='no-padding check-button'
+                          >
+                            <FontAwesomeIcon
+                              icon={ faCheck }
+                              className='custom-fa-icon sz-md'
+                            />
+                          </IconButton>
+                          <IconButton
+                            onClick={ handleCancelEdit }
+                            className='no-padding'
+                          >
+                            <FontAwesomeIcon
+                              icon={ faTimesCircle }
+                              className='custom-fa-icon sz-md'
+                            />
+                          </IconButton>
+                        </>
+                      ),
+                    } }
+                  />
+                </ClickAwayListener>
               )
               : (
                 <>
