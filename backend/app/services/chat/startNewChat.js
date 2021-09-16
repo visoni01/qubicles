@@ -1,7 +1,9 @@
 import ServiceBase from '../../common/serviceBase'
 import { ERRORS } from '../../utils/errors'
 import logger from '../../common/logger'
-import { createOrFindChat, formatMessagesOrder, getErrorMessageForService, getReadMessages } from '../helper'
+import {
+  addConversationStatusEntry, createOrFindChat, formatMessagesOrder, getErrorMessageForService, getReadMessages
+} from '../helper'
 import { SqlHelper } from '../../utils/sql'
 
 const constraints = {
@@ -21,11 +23,11 @@ export class StartNewChatService extends ServiceBase {
   async run () {
     try {
       const { user_id, candidate_id } = this.filteredArgs
-      const conversation = await createOrFindChat({ user_id, candidate_id })
+      const { conversation, isNewConversation } = await createOrFindChat({ user_id, candidate_id })
 
       let readMessages = []
 
-      if (conversation && conversation.conversation_id) {
+      if (!isNewConversation && conversation && conversation.conversation_id) {
         readMessages = await SqlHelper.select(getReadMessages({
           conversation_id: conversation.conversation_id,
           user_id,
@@ -48,6 +50,13 @@ export class StartNewChatService extends ServiceBase {
         messages = formatMessagesOrder({
           messageArray: messages,
           messages: conversation.messages
+        })
+      }
+
+      if (conversation && isNewConversation) {
+        await addConversationStatusEntry({
+          conversation_id: conversation.conversation_id,
+          user_ids: [user_id, candidate_id]
         })
       }
 

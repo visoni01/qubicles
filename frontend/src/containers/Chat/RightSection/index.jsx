@@ -162,10 +162,12 @@ const RightCard = ({ changeGroupName }) => {
         ) : (
           <div className='text-center'>
             <div className='para sz-lg mb-5 text-center'>{otherUser && otherUser.title}</div>
-            <div className='para light display-inline-flex align-items-center'>
-              <LocationIcon className='mr-5' />
-              {otherUser && otherUser.location}
-            </div>
+            {otherUser?.location && (
+              <div className='para light display-inline-flex align-items-center'>
+                <LocationIcon className='mr-5' />
+                {otherUser && otherUser.location}
+              </div>
+            )}
           </div>
         )}
       </div>

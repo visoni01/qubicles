@@ -62,7 +62,10 @@ export const createOrFindChat = async ({ user_id, candidate_id }) => {
     })
   }
 
-  return conversationDetails ? conversationDetails.get({ plain: true }) : conversation.get({ plain: true })
+  return {
+    conversation: conversationDetails ? conversationDetails.get({ plain: true }) : conversation.get({ plain: true }),
+    isNewConversation: !(conversation && conversation.conversation_id)
+  }
 }
 
 export const formatChatMessage = ({ message }) => ({
@@ -346,9 +349,9 @@ export const formatCandidateInfoData = ({ candidateInfo }) => {
     clientId: user.client_id,
     name: user.full_name,
     profilePic: user.profile_image,
-    location: _.isEqual(user.user_code, 'employer')
-      ? user.client_city + ' ' + user.client_state
-      : user.city + ' ' + user.state,
+    location: `${user.city || user.client_city || ''}${
+      (user.city || user.client_city) && (user.state || user.client_state) ? ', ' : ''}${
+        user.state || user.client_state || ''}`,
     title: _.isEqual(user.user_code, 'employer') ? user.title : user.work_title,
     userCode: user.user_code
   }))
@@ -550,4 +553,14 @@ export const markAsUnread = async ({ user_id, conversation_id }) => {
       conversation_id
     }
   })
+}
+
+export const addConversationStatusEntry = async ({ conversation_id, user_ids }) => {
+  const conversationStatusData = user_ids && user_ids.map((user_id) => ({
+    conversation_id,
+    user_id,
+    all_read: true
+  }))
+
+  await XQodChatAllRead.bulkCreate(conversationStatusData)
 }

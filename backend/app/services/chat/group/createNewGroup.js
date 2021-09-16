@@ -1,7 +1,7 @@
 import ServiceBase from '../../../common/serviceBase'
 import { ERRORS } from '../../../utils/errors'
 import logger from '../../../common/logger'
-import { createNewGroup, addNewMembers, getErrorMessageForService } from '../../helper'
+import { createNewGroup, addNewMembers, getErrorMessageForService, addConversationStatusEntry } from '../../helper'
 
 const constraints = {
   user_ids: {
@@ -25,8 +25,12 @@ export class ChatCreateNewGroupService extends ServiceBase {
 
       if (group) {
         const { conversation_id } = group
+        const promises = [
+          () => addNewMembers({ conversation_id, user_ids }),
+          () => addConversationStatusEntry({ conversation_id, user_ids })
+        ]
 
-        await addNewMembers({ conversation_id, user_ids })
+        await Promise.all(promises.map(promise => promise()))
 
         return conversation_id
       }

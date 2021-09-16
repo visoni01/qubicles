@@ -17,9 +17,9 @@ export const regSplChar = /^[^!@#$%^&*(),.?":{}|<>]*$/
 export const formatDate = (date, format = 'DD MMM') => moment(date).format(format)
 
 export const formatDateTime = (date) => {
-  const currTime = moment()
+  const currTime = moment().startOf('day')
   const actualDate = moment(date).format('L')
-  const differenceInTime = currTime.diff(date, 'days')
+  const differenceInTime = currTime.diff(moment(date).startOf('day'), 'days')
 
   switch (differenceInTime) {
     case 0: return 'Today'
