@@ -325,6 +325,10 @@ export const getChatNotificationMessage = ({ type, payload }) => {
         <b>${ payload.oldGroupName }</b> to <b>${ payload.newGroupName }</b></span>`
     }
 
+    case 'leave-group': {
+      return `<span><b class=${ payload.userId }>${ payload.userName }</b> left the group</span>`
+    }
+
     default: return ''
   }
 }

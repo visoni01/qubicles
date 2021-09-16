@@ -187,6 +187,46 @@ function* chatDataWorker(action) {
             break
           }
 
+          case 'leave-group': {
+            const { userDetails } = yield select((state) => state.login)
+
+            yield Chat.removePerson({ conversationId, candidateId: userDetails && userDetails.user_id })
+
+            const newMessage = {
+              messageId: getUniqueId(),
+              senderId: userDetails && userDetails.user_id,
+              text: getChatNotificationMessage({
+                type: 'leave-group',
+                payload: {
+                  userId: userDetails && userDetails.user_id,
+                  userName: userDetails && userDetails.full_name,
+                },
+              }),
+              isNotification: true,
+              sentAt: Date.now(),
+              isRead: true,
+            }
+
+            yield put(chatDataRequestSuccess({
+              requestType, dataType, conversationId, newMessage, userId: userDetails && userDetails.user_id,
+            }))
+
+            const { conversations } = yield select((state) => state.chatData)
+            const currentCoversation = conversations.find((conversation) => conversation.data.conversationId
+              === conversationId)
+            const conversationData = currentCoversation?.data
+            let groupName
+
+            if (_.isEmpty(conversationData.groupName)) {
+              groupName = conversationData.candidatesInfo?.map((member) => member.name).join(', ')
+            }
+
+            yield put(updateAllChats({
+              dataType, conversationId, newMessage, newGroupName: groupName,
+            }))
+            break
+          }
+
           default: break
         }
         break

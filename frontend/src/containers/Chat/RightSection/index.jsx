@@ -8,7 +8,7 @@ import {
   Box, Avatar, Button, IconButton, TextField,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPen } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faPen, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { LocationIcon } from '../../../assets/images/common'
 import { COMPANY_PROFILE_ROUTE, PROFILE_ROUTE } from '../../../routes/routesPath'
 import ChatOptions from './chatOptions'
@@ -43,17 +43,24 @@ const RightCard = ({ changeGroupName }) => {
     setGroupNameValue(event.target.value)
   }, [])
 
-  const handleKeyDown = useCallback((event) => {
-    if (event.key === 'Enter') {
-      const newGroupName = stripHtml(groupNameValue && groupNameValue.trim())
-      setGroupNameValue(newGroupName)
-      setShowGroupNameField(false)
-      changeGroupName({
-        newGroupName,
-        oldGroupName: chat && chat.groupName,
-      })
-    }
+  const handleCheck = useCallback(() => {
+    const newGroupName = stripHtml(groupNameValue && groupNameValue.trim())
+    setGroupNameValue(newGroupName)
+    setShowGroupNameField(false)
+    changeGroupName({
+      newGroupName,
+      oldGroupName: chat && chat.groupName,
+    })
   }, [ changeGroupName, groupNameValue, chat, stripHtml ])
+
+  const handleKeyDown = useCallback((event) => {
+    if (event.key === 'Enter') { handleCheck() }
+  }, [ handleCheck ])
+
+  const handleCancelEdit = useCallback(() => {
+    setShowGroupNameField(false)
+    setGroupNameValue(chat?.groupName)
+  }, [ chat ])
 
   return (
     <Box className='custom-box right-card'>
@@ -63,6 +70,7 @@ const RightCard = ({ changeGroupName }) => {
         isGroup={ isGroup }
         conversationId={ chat?.conversationId }
         isRemoved={ chat?.isRemoved }
+        isAllRead={ chat?.allRead }
       />
 
       {/* Profile Pictures */}
@@ -92,6 +100,30 @@ const RightCard = ({ changeGroupName }) => {
                   onChange={ handleOnChange }
                   onKeyDown={ handleKeyDown }
                   multiline
+                  InputProps={ {
+                    endAdornment: (
+                      <>
+                        <IconButton
+                          onClick={ handleCheck }
+                          className='no-padding check-button'
+                        >
+                          <FontAwesomeIcon
+                            icon={ faCheck }
+                            className='custom-fa-icon sz-md'
+                          />
+                        </IconButton>
+                        <IconButton
+                          onClick={ handleCancelEdit }
+                          className='no-padding'
+                        >
+                          <FontAwesomeIcon
+                            icon={ faTimesCircle }
+                            className='custom-fa-icon sz-md'
+                          />
+                        </IconButton>
+                      </>
+                    ),
+                  } }
                 />
               )
               : (
@@ -99,12 +131,14 @@ const RightCard = ({ changeGroupName }) => {
                   <div className='h4 sz-xl mr-10 short-message'>
                     {groupNameValue || members.map((member) => member.name).join(', ')}
                   </div>
-                  <IconButton
-                    className='no-padding'
-                    onClick={ handleEdit }
-                  >
-                    <FontAwesomeIcon className='custom-fa-icon pointer' icon={ faPen } />
-                  </IconButton>
+                  {!chat?.isRemoved && (
+                    <IconButton
+                      className='no-padding'
+                      onClick={ handleEdit }
+                    >
+                      <FontAwesomeIcon className='custom-fa-icon pointer' icon={ faPen } />
+                    </IconButton>
+                  )}
                 </>
               )}
           </div>

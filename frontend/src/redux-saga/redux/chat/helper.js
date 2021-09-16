@@ -164,6 +164,29 @@ export const chatDataSuccessHelper = ({ conversations, payload }) => {
           ))
         }
 
+        case 'leave-group': {
+          return conversations && conversations.map((item) => (
+            item.data && item.data.conversationId === conversationId
+              ? {
+                ...item,
+                ...result,
+                data: {
+                  ...item.data,
+                  isRemoved: true,
+                  candidatesInfo: item.data.candidatesInfo.filter((user) => user.id !== payload.userId),
+                  chatData: {
+                    ...item.data.chatData,
+                    chats: [
+                      ...item.data.chatData.chats,
+                      payload.newMessage,
+                    ],
+                  },
+                },
+              }
+              : item
+          ))
+        }
+
         default: return conversations
       }
     }
@@ -347,6 +370,23 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
           return {
             ...chat,
             name: payload.newGroupName,
+          }
+        }
+        return chat
+      })
+    }
+
+    case 'leave-group': {
+      return chatsList.map((chat) => {
+        if (payload.conversationId === chat.id) {
+          return {
+            ...chat,
+            name: payload.newGroupName || chat.name,
+            latestMessage: payload.newMessage,
+            dateTime: Date.now(),
+            allRead: true,
+            isRemoved: true,
+            isNotification: true,
           }
         }
         return chat

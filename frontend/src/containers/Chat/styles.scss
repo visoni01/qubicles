@@ -266,6 +266,10 @@
 
   .group-field {
     max-width: 80%;
+
+    .check-button {
+      margin-right: 8px !important;
+    }
   }
 
   .short-message {
@@ -289,6 +293,10 @@
 
 .chat-options-popover {
   border-radius: 6px !important;
+
+  .padding-8 {
+    padding: 8px !important;
+  }
 }
 
 .add-people-modal{

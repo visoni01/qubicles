@@ -1,19 +1,25 @@
+/* eslint-disable complexity */
 import React, { useState, useCallback } from 'react'
 import {
   Popover, IconButton, Button,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from 'react-redux'
 import ConfirmationModal from '../../../components/CommonModal/confirmationModal'
 import AddPeople from '../Common/addPeople'
-import { allChatsRequestStart } from '../../../redux-saga/redux/chat'
+import { allChatsRequestStart, chatDataRequestStart } from '../../../redux-saga/redux/chat'
+import { MenuIcon } from '../../../assets/images/common'
+import { LogoutIcon } from '../../../assets/images/icons/navBarIcons'
+import { DeleteIcon } from '../../../assets/images/training'
+import { AddPeopleIcon, MarkAsUnreadIcon } from '../../../assets/images/chat'
 
-const ChatOptions = ({ isGroup, conversationId, isRemoved }) => {
+const ChatOptions = ({
+  isGroup, conversationId, isRemoved, isAllRead,
+}) => {
   const [ openOptions, setOpenOptions ] = useState(false)
   const [ anchorEl, setAnchorEl ] = useState(null)
-  const [ openConfirmBlockModal, setOpenConfirmBlockModal ] = useState(false)
+  const [ openConfirmDeleteModal, setOpenConfirmDeleteModal ] = useState(false)
+  const [ openConfirmLeaveModal, setOpenConfirmLeaveModal ] = useState(false)
   const [ openAddPeopleModal, setOpenAddPeopleModal ] = useState(false)
   const dispatch = useDispatch()
 
@@ -30,7 +36,8 @@ const ChatOptions = ({ isGroup, conversationId, isRemoved }) => {
   const handleCancelActivity = useCallback(() => {
     setAnchorEl(null)
     setOpenOptions(false)
-    setOpenConfirmBlockModal(false)
+    setOpenConfirmDeleteModal(false)
+    setOpenConfirmLeaveModal(false)
   }, [])
 
   const handleOpenAddPeopleModal = useCallback(() => {
@@ -49,6 +56,24 @@ const ChatOptions = ({ isGroup, conversationId, isRemoved }) => {
     setOpenOptions(false)
   }, [ dispatch, conversationId ])
 
+  const handleDeleteChat = useCallback(() => {
+    // TODO
+    setOpenConfirmDeleteModal(false)
+    setAnchorEl(null)
+    setOpenOptions(false)
+  }, [])
+
+  const handleLeaveGroup = useCallback(() => {
+    dispatch(chatDataRequestStart({
+      requestType: 'UPDATE',
+      dataType: 'leave-group',
+      conversationId,
+    }))
+    setOpenConfirmLeaveModal(false)
+    setAnchorEl(null)
+    setOpenOptions(false)
+  }, [ dispatch, conversationId ])
+
   return (
     <>
       <IconButton
@@ -56,7 +81,7 @@ const ChatOptions = ({ isGroup, conversationId, isRemoved }) => {
         onClick={ handleChatOptionsClick }
         disableRipple
       >
-        <FontAwesomeIcon icon={ faEllipsisV } className='custom-fa-icon sz-md light' />
+        <MenuIcon className='mt-5' />
       </IconButton>
 
       <Popover
@@ -77,46 +102,61 @@ const ChatOptions = ({ isGroup, conversationId, isRemoved }) => {
         } }
       >
         <div className='ellipsis-options-menu border-2'>
-          {!isRemoved && isGroup && (
+          {isGroup && !isRemoved && (
             <Button
               size='small'
-              className='option'
+              className='option padding-8'
               classes={ { label: 'option-label' } }
               onClick={ handleOpenAddPeopleModal }
+              startIcon={ <AddPeopleIcon className='mr-5' /> }
             >
-              <p className='para'> Add People </p>
+              <p className='para'>Add People</p>
             </Button>
           )}
 
-          {!isRemoved && (
+          {!isRemoved && isAllRead && (
             <Button
               size='small'
-              className='option'
+              className='option padding-8'
               classes={ { label: 'option-label' } }
               onClick={ handleMarkAsUnread }
+              startIcon={ <MarkAsUnreadIcon className='mr-5' /> }
             >
-              <p className='para'> Mark as unread </p>
+              <p className='para'>Mark as unread</p>
             </Button>
           )}
 
           <Button
             size='small'
-            className='option'
+            className='option padding-8'
             classes={ { label: 'option-label' } }
-            onClick={ () => setOpenConfirmBlockModal(true) }
+            onClick={ () => setOpenConfirmDeleteModal(true) }
+            startIcon={ <DeleteIcon className='custom-svg-icon color-red mr-5' /> }
           >
-            <p className='para red'>
-              Delete Chat
-            </p>
+            <p className='para red'>Delete Chat</p>
           </Button>
+
+          {isGroup && !isRemoved && (
+            <Button
+              size='small'
+              className='option padding-8'
+              classes={ { label: 'option-label' } }
+              onClick={ () => setOpenConfirmLeaveModal(true) }
+              startIcon={ <LogoutIcon className='mr-5' /> }
+            >
+              <p className='para red'>Leave Group</p>
+            </Button>
+          )}
         </div>
       </Popover>
 
       <ConfirmationModal
-        open={ openConfirmBlockModal }
+        open={ openConfirmDeleteModal || openConfirmLeaveModal }
         handleClose={ handleCancelActivity }
-        handleConfirm={ () => {} }
-        message='Are you sure you want to delete this chat?'
+        handleConfirm={ openConfirmDeleteModal ? handleDeleteChat : handleLeaveGroup }
+        message={ openConfirmDeleteModal
+          ? 'Are you sure you want to delete this chat ?'
+          : 'Are you sure you want to leave the group ?' }
         confirmButtonText='Yes'
       />
 
@@ -135,12 +175,14 @@ const ChatOptions = ({ isGroup, conversationId, isRemoved }) => {
 ChatOptions.defaultProps = {
   isGroup: false,
   isRemoved: false,
+  isAllRead: false,
 }
 
 ChatOptions.propTypes = {
   isGroup: PropTypes.bool,
   conversationId: PropTypes.number.isRequired,
   isRemoved: PropTypes.bool,
+  isAllRead: PropTypes.bool,
 }
 
 export default ChatOptions
