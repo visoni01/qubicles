@@ -82,3 +82,37 @@
     }
   }
 }
+
+.right-section-skeleton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 10px;
+
+  .options-icon {
+    height: 30px;
+    position: absolute;
+    align-self: flex-end;
+  }
+
+  .profile-picture {
+    width: 100%;
+    height: 60px;
+    max-width: 60px;
+  }
+
+  .name {
+    width: 60%;
+    height: 20px;
+  }
+
+  .short-message {
+    width: 80%;
+    height: 20px;
+  }
+
+  .link {
+    width: 50%;
+    height: 25px;
+  }
+}

@@ -9,10 +9,12 @@ import {
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faPen, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import _ from 'lodash'
 import { LocationIcon } from '../../../assets/images/common'
 import { COMPANY_PROFILE_ROUTE, PROFILE_ROUTE } from '../../../routes/routesPath'
 import ChatOptions from './chatOptions'
 import ViewMembers from './viewMembers'
+import RightSectionSkeleton from '../../../components/Chat/Skeletons/rightSectionSkeleton'
 
 const RightCard = ({ changeGroupName }) => {
   const { conversations, currentChatId } = useSelector((state) => state.chatData)
@@ -63,6 +65,12 @@ const RightCard = ({ changeGroupName }) => {
     setShowGroupNameField(false)
     setGroupNameValue(chat?.groupName)
   }, [ chat ])
+
+  if (_.isNull(chatData?.isLoading) || chatData?.isLoading) {
+    return (
+      <RightSectionSkeleton />
+    )
+  }
 
   return (
     <Box className='custom-box right-card'>
