@@ -7,52 +7,62 @@ import _ from 'lodash'
 import { formatDate } from './common'
 
 export const createOrFindChat = async ({ user_id, candidate_id }) => {
-  const [conversation] = await XQodConversations.findOrCreate({
+  const conversation = await XQodConversations.findOne({
+    attributes: ['conversation_id'],
     where: {
       user_one_id: { [Op.or]: [user_id, candidate_id] },
       user_two_id: { [Op.or]: [user_id, candidate_id] }
-    },
-    defaults: {
+    }
+  })
+
+  let conversationDetails
+
+  if (conversation) {
+    conversationDetails = await XQodConversations.findOne({
+      where: {
+        user_one_id: { [Op.or]: [user_id, candidate_id] },
+        user_two_id: { [Op.or]: [user_id, candidate_id] }
+      },
+      attributes: ['conversation_id'],
+      include: [
+        {
+          model: XQodChatMessage,
+          as: 'messages',
+          required: false,
+          order: [
+            ['sent_at', 'DESC']
+          ],
+          include: [
+            {
+              model: XQodChatMessageRead,
+              as: 'messageReadStatus',
+              attributes: ['is_read'],
+              where: { user_id }
+            },
+            {
+              model: UserDetail,
+              as: 'senderDetails',
+              attributes: ['profile_image']
+            }
+          ]
+        },
+        {
+          model: XQodChatAllRead,
+          as: 'allRead',
+          where: { user_id },
+          attributes: ['all_read']
+        }
+      ]
+    })
+  } else {
+    conversationDetails = await XQodConversations.create({
       user_one_id: user_id,
       user_two_id: candidate_id,
       is_group: false
-    },
-    attributes: ['conversation_id'],
-    include: [
-      {
-        model: XQodChatMessage,
-        as: 'messages',
-        order: [
-          ['sent_at', 'DESC']
-        ],
-        required: false,
-        include: [
-          {
-            model: XQodChatMessageRead,
-            as: 'messageReadStatus',
-            attributes: ['is_read'],
-            where: { user_id },
-            required: false
-          },
-          {
-            model: UserDetail,
-            as: 'senderDetails',
-            attributes: ['profile_image'],
-            required: false
-          }
-        ]
-      },
-      {
-        model: XQodChatAllRead,
-        as: 'allRead',
-        where: { user_id },
-        attributes: ['all_read'],
-        required: false
-      }
-    ]
-  })
+    })
+  }
 
-  return conversation.get({ plain: true })
+  return conversationDetails ? conversationDetails.get({ plain: true }) : conversation.get({ plain: true })
 }
 
 export const formatChatMessage = ({ message }) => ({
@@ -364,7 +374,7 @@ export const getSuggestedUsersList = async ({ user_id, conversation_id, offset, 
   const sqlQuery = `
     SELECT * FROM (
     SELECT t5_suggested_user_data.suggested_user_id, t6_users.user_code, t6_users.full_name,
-      t7_user_details.profile_image,
+      t7_user_details.profile_image, t5_suggested_user_data.client_id,
       CASE WHEN t6_users.user_code = 'agent'
         THEN t7_user_details.city
         ELSE t8_clients.city
@@ -427,6 +437,7 @@ export const getSuggestedUsersList = async ({ user_id, conversation_id, offset, 
     ? `
         UNION
         SELECT ut1_users.user_id, ut1_users.user_code, ut1_users.full_name, ut2_user_details.profile_image,
+          ut4_clients.client_id,
         CASE WHEN ut1_users.user_code = 'agent'
           THEN ut2_user_details.city
           ELSE ut4_clients.city
@@ -468,6 +479,7 @@ export const getSuggestedUsersList = async ({ user_id, conversation_id, offset, 
 
 export const formatSuggestedUser = ({ user }) => ({
   id: user.suggested_user_id,
+  clientId: user.client_id,
   name: user.full_name,
   profilePic: user.profile_image,
   location: `${user.city || ''}${user.city && user.state ? ', ' : ''}${user.state || ''}`,

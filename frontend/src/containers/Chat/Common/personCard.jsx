@@ -7,7 +7,7 @@ import { COMPANY_PROFILE_ROUTE, PROFILE_ROUTE } from '../../../routes/routesPath
 import ConfirmationModal from '../../../components/CommonModal/confirmationModal'
 
 const PersonCard = ({
-  id, name, title, profilePic, userCode, actionType, handleRemove, isRemoved,
+  id, clientId, name, title, profilePic, userCode, actionType, handleRemove, isRemoved,
 }) => {
   const { userDetails } = useSelector((state) => state.login)
   const [ openConfirmBlockModal, setOpenConfirmBlockModal ] = useState(false)
@@ -40,7 +40,8 @@ const PersonCard = ({
                       <p className='para light'>{title}</p>
                       <Link
                         className='primary-text-link'
-                        to={ `${ userCode === 'agent' ? PROFILE_ROUTE : COMPANY_PROFILE_ROUTE }/${ id }/feed` }
+                        to={ `${ userCode === 'agent'
+                          ? PROFILE_ROUTE : COMPANY_PROFILE_ROUTE }/${ userCode === 'agent' ? id : clientId }/feed` }
                         target='_blank'
                       >
                         View Profile
@@ -75,6 +76,7 @@ const PersonCard = ({
 }
 
 PersonCard.defaultProps = {
+  clientId: null,
   profilePic: '',
   title: '',
   actionType: '',
@@ -85,6 +87,7 @@ PersonCard.defaultProps = {
 
 PersonCard.propTypes = {
   id: PropTypes.number.isRequired,
+  clientId: PropTypes.number,
   name: PropTypes.string.isRequired,
   title: PropTypes.string,
   profilePic: PropTypes.string,

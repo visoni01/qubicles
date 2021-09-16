@@ -181,7 +181,9 @@ const RightCard = ({ changeGroupName }) => {
         <Link
           className='text-link'
           to={ `${ otherUser && otherUser.userCode === 'agent'
-            ? PROFILE_ROUTE : COMPANY_PROFILE_ROUTE }/${ otherUser && otherUser.id }/feed` }
+            ? PROFILE_ROUTE : COMPANY_PROFILE_ROUTE }/${ otherUser?.userCode === 'agent'
+              ? otherUser?.id : otherUser?.clientId }/feed` }
+          target='_blank'
         >
           View Profile
         </Link>

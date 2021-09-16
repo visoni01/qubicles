@@ -85,6 +85,7 @@ const ViewMembers = ({
               <PersonCard
                 key={ person.id }
                 id={ person.id }
+                clientId={ person.clientId }
                 name={ person.name }
                 title={ person.title }
                 profilePic={ person.profilePic }

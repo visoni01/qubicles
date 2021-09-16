@@ -37,10 +37,17 @@ export class StartNewChatService extends ServiceBase {
 
       let messages = []
 
+      if (readMessages && readMessages.length) {
+        messages = formatMessagesOrder({
+          messageArray: messages,
+          messages: readMessages.slice(0, 10)
+        })
+      }
+
       if (conversation && conversation.messages && conversation.messages.length) {
         messages = formatMessagesOrder({
           messageArray: messages,
-          messages: [...conversation.messages, ...readMessages.slice(0, 10)]
+          messages: conversation.messages
         })
       }
 
