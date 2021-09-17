@@ -17,7 +17,7 @@ import ImagePreview from '../../../components/CommonModal/imagePreview'
 import { chatDataRequestStart, updateAllChats, updateConversations } from '../../../redux-saga/redux/chat'
 
 const ChatControls = ({
-  conversationId, messageText, setMessageText, imageUrl, setImageUrl,
+  conversationId, messageText, setMessageText, imageUrl, setImageUrl, isLoading,
 }) => {
   const { userDetails } = useSelector((state) => state.login)
   const { settings: clientSettings } = useSelector((state) => state.clientDetails)
@@ -120,6 +120,7 @@ const ChatControls = ({
           margin='dense'
           variant='outlined'
           rowsMax={ 4 }
+          disabled={ isLoading }
         />
 
         {imageUrl && (
@@ -144,7 +145,7 @@ const ChatControls = ({
           root: 'button-primary-small',
           label: 'button-primary-small-label',
         } }
-        disabled={ !((messageText && messageText.trim()) || imageUrl) }
+        disabled={ !((messageText && messageText.trim()) || imageUrl) || isLoading }
         onClick={ handleSendClick }
       >
         Send
@@ -156,6 +157,7 @@ const ChatControls = ({
         accept={ acceptedImageFormats.join(',') }
         onChange={ handleFileInputChange }
         style={ { display: 'none' } }
+        disabled={ isLoading }
       />
 
       {openImagePreview && (
@@ -173,6 +175,7 @@ ChatControls.defaultProps = {
   conversationId: null,
   messageText: '',
   imageUrl: '',
+  isLoading: false,
 }
 
 ChatControls.propTypes = {
@@ -181,6 +184,7 @@ ChatControls.propTypes = {
   imageUrl: PropTypes.string,
   setMessageText: PropTypes.func.isRequired,
   setImageUrl: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool,
 }
 
 export default ChatControls

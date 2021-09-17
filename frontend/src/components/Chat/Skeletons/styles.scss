@@ -116,3 +116,54 @@
     height: 25px;
   }
 }
+
+.middle-section-chat-skeletons {
+  width: 100%;
+
+  .date {
+    width: 20%;
+    height: 20px;
+    margin: 0px auto;
+    transform: none;
+  }
+
+  .message {
+    display: flex;
+    background: none;
+
+    .profile-picture {
+      height: 36px;
+      width: 36px;
+      transform: none;
+    }
+
+    .text {
+      width: 60%;
+      border-radius: 10px;
+    }
+
+    .h-60 {
+      height: 60px;
+      transform: none;
+    }
+
+    .h-80 {
+      height: 80px;
+      transform: none;
+    }
+  }
+
+  .self-message {
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+
+  .notification {
+    width: 60%;
+    height: 20px;
+    padding: 0px;
+    transform: none;
+    margin: 0px auto;
+    margin-top: 20px;
+  }
+}

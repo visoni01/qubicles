@@ -3,13 +3,15 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Box, Divider } from '@material-ui/core'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
 import ChatView from './chatView'
 import ChatControls from './chatControls'
 import { chatDataRequestStart } from '../../../redux-saga/redux/chat'
+import MiddleSectionChatSkeletons from '../../../components/Chat/Skeletons/middleSectionChatSkeletons'
 import '../styles.scss'
 
 const MiddleCard = ({
-  conversationId, messageText, setMessageText, imageUrl, setImageUrl,
+  conversationId, messageText, setMessageText, imageUrl, setImageUrl, isLoading,
 }) => {
   const { conversations, currentChatId } = useSelector((state) => state.chatData)
   const dispatch = useDispatch()
@@ -32,13 +34,18 @@ const MiddleCard = ({
 
       {/* Chat Body */}
       <div className='chat-section-body padding-20'>
-        <ChatView
-          conversationId={ conversationData?.conversationId }
-          chats={ (conversationData?.chatData?.chats) || [] }
-          more={ conversationData?.chatData?.more }
-          offset={ conversationData?.chatData?.offset }
-          isLoading={ currentConversation?.isLoading }
-        />
+        {isLoading
+        || (currentConversation?.isLoading && _.isEqual(currentConversation?.dataType, 'current-chat'))
+          ? <MiddleSectionChatSkeletons />
+          : (
+            <ChatView
+              conversationId={ conversationData?.conversationId }
+              chats={ conversationData?.chatData?.chats }
+              more={ conversationData?.chatData?.more }
+              offset={ conversationData?.chatData?.offset }
+              isLoading={ currentConversation?.isLoading }
+            />
+          )}
       </div>
 
       {/* Chat Controls */}
@@ -57,6 +64,7 @@ const MiddleCard = ({
               setMessageText={ setMessageText }
               imageUrl={ imageUrl }
               setImageUrl={ setImageUrl }
+              isLoading={ isLoading || currentConversation?.isLoading }
             />
           </div>
         )}
@@ -68,6 +76,7 @@ MiddleCard.defaultProps = {
   conversationId: null,
   messageText: '',
   imageUrl: '',
+  isLoading: true,
 }
 
 MiddleCard.propTypes = {
@@ -76,6 +85,7 @@ MiddleCard.propTypes = {
   imageUrl: PropTypes.string,
   setMessageText: PropTypes.func.isRequired,
   setImageUrl: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool,
 }
 
 export default MiddleCard

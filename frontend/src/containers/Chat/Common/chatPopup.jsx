@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-condition */
 /* eslint-disable complexity */
 import React, { useCallback, useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -12,6 +13,7 @@ import ChatControls from '../MiddleSection/chatControls'
 import { updateChatPopups, updateConversations } from '../../../redux-saga/redux/chat'
 import { groupChatIcon, MaximizeIcon } from '../../../assets/images/chat'
 import { chatDataPropTypes } from '../propTypes'
+import MiddleSectionChatSkeletons from '../../../components/Chat/Skeletons/middleSectionChatSkeletons'
 
 const ChatPopup = ({ conversationData, isLoading }) => {
   const [ popupOpen, setPopupOpen ] = useState(false)
@@ -86,14 +88,18 @@ const ChatPopup = ({ conversationData, isLoading }) => {
           <div className='is-fullheight chat-section'>
             {/* Chat Body */}
             <div className='chat-section-body padding-10'>
-              <ChatView
-                conversationId={ conversationData?.conversationId }
-                allRead={ conversationData?.allRead }
-                chats={ (conversationData?.chatData?.chats) || [] }
-                more={ conversationData?.chatData?.more }
-                offset={ conversationData?.chatData?.offset }
-                isLoading={ isLoading }
-              />
+              {false && isLoading // WIP
+                ? <MiddleSectionChatSkeletons />
+                : (
+                  <ChatView
+                    conversationId={ conversationData?.conversationId }
+                    allRead={ conversationData?.allRead }
+                    chats={ conversationData?.chatData?.chats }
+                    more={ conversationData?.chatData?.more }
+                    offset={ conversationData?.chatData?.offset }
+                    isLoading={ isLoading }
+                  />
+                )}
             </div>
 
             {/* Chat Controls */}
@@ -110,6 +116,7 @@ const ChatPopup = ({ conversationData, isLoading }) => {
                   setMessageText={ setMessageText }
                   imageUrl={ imageUrl }
                   setImageUrl={ setImageUrl }
+                  isLoading={ isLoading }
                 />
               )}
           </div>

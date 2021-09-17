@@ -99,7 +99,7 @@ const ChatView = ({
 }
 
 ChatView.defaultProps = {
-  chats: [],
+  chats: null,
   conversationId: null,
   more: false,
   offset: 0,

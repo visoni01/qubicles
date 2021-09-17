@@ -13,8 +13,8 @@ import UserCard from './userCard'
 import NewChat from '../Common/addPeople'
 import { allChatsRequestStart, chatDataRequestStart, updateCurrentChatId } from '../../../redux-saga/redux/chat'
 import { NewChatIcon, NewGroupIcon } from '../../../assets/images/chat'
-import '../styles.scss'
 import LeftSectionSkeleton from '../../../components/Chat/Skeletons/leftSectionSkeleton'
+import '../styles.scss'
 
 const LeftCard = ({ conversationId }) => {
   const {

@@ -43,13 +43,11 @@ const ChatSection = () => {
     <div>
       <Grid container spacing={ 3 } justify='center'>
         <Grid item xl={ 3 } lg={ 3 } md={ 9 } sm={ 12 } xs={ 12 }>
-          <LeftSection
-            conversationId={ currentChatId }
-          />
+          <LeftSection conversationId={ currentChatId } />
         </Grid>
 
         <Grid item xl={ 6 } lg={ 6 } md={ 9 } sm={ 12 } xs={ 12 }>
-          {currentChatId
+          {_.isNull(isLoading) || isLoading || currentChatId
             ? (
               <MiddleSection
                 conversationId={ currentChatId }
@@ -57,6 +55,7 @@ const ChatSection = () => {
                 setMessageText={ setMessageText }
                 imageUrl={ imageUrl }
                 setImageUrl={ setImageUrl }
+                isLoading={ _.isNull(isLoading) || isLoading }
               />
             )
             : <NoConversationBox />}

@@ -278,9 +278,9 @@ export const updateConversationsHelper = ({ payload, conversations }) => {
             : [
               ...conversations,
               {
-                isLoading: null,
-                success: null,
-                error: null,
+                isLoading: false,
+                success: true,
+                error: false,
                 dataType: '',
                 requestType: '',
                 data: payload.newChat,

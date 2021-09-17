@@ -17,6 +17,7 @@ import ViewMembers from './viewMembers'
 import RightSectionSkeleton from '../../../components/Chat/Skeletons/rightSectionSkeleton'
 
 const RightCard = ({ changeGroupName }) => {
+  const { isLoading, offset } = useSelector((state) => state.allChats)
   const { conversations, currentChatId } = useSelector((state) => state.chatData)
 
   const [ openViewMembersModal, setOpenViewMembersModal ] = useState(false)
@@ -66,7 +67,8 @@ const RightCard = ({ changeGroupName }) => {
     setGroupNameValue(chat?.groupName)
   }, [ chat ])
 
-  if (_.isNull(chatData?.isLoading) || chatData?.isLoading) {
+  if (((_.isNull(chatData?.isLoading) || chatData?.isLoading) && _.isEqual(chatData?.dataType, 'current-chat'))
+    || (isLoading && !offset)) {
     return (
       <RightSectionSkeleton />
     )
