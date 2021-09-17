@@ -8,8 +8,11 @@ const chatRouter = express.Router(args)
 chatRouter.route('/')
   .get(isAuthenticated, chatController.getAllChats)
 
-chatRouter.route('/')
+chatRouter.route('/new-chat')
   .post(isAuthenticated, chatController.startNewChat)
+
+chatRouter.route('/new-group')
+  .post(isAuthenticated, chatController.createNewGroup)
 
 chatRouter.route('/suggested-users')
   .get(isAuthenticated, chatController.getSuggestedUsers)
@@ -17,25 +20,22 @@ chatRouter.route('/suggested-users')
 chatRouter.route('/:conversation_id')
   .get(isAuthenticated, chatController.getOlderChats)
 
-chatRouter.route('/new-group')
-  .post(isAuthenticated, chatController.createNewGroup)
-
-chatRouter.route('/group/:conversation_id')
+chatRouter.route('/:conversation_id/group')
   .put(isAuthenticated, chatController.addNewGroupMembers)
 
-chatRouter.route('/group/:conversation_id/candidate/:candidate_id')
+chatRouter.route('/:conversation_id/candidate/:candidate_id')
   .delete(isAuthenticated, chatController.removeGroupMember)
 
-chatRouter.route('/group/:conversation_id/group-name')
+chatRouter.route('/:conversation_id/group-name')
   .put(isAuthenticated, chatController.changeGroupName)
 
-chatRouter.route('/chat-data/:conversation_id')
+chatRouter.route('/:conversation_id/chat-data')
   .get(isAuthenticated, chatController.getChatData)
 
-chatRouter.route('/:conversation_id/read')
+chatRouter.route('/:conversation_id/mark-as-read')
   .put(isAuthenticated, chatController.markChatAsRead)
 
 chatRouter.route('/:conversation_id/mark-as-unread')
-  .put(isAuthenticated, chatController.markAsUnread)
+  .put(isAuthenticated, chatController.markChatAsUnread)
 
 export { chatRouter }

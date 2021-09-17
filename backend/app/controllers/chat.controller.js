@@ -35,6 +35,24 @@ export default class ChatController {
     }
   }
 
+  static async getSuggestedUsers (req, res) {
+    const suggestedUsers = await ChatGetSuggestedUsersService.execute({ ...req.body, ...req.query })
+    if (suggestedUsers.successful) {
+      Responder.success(res, suggestedUsers.result)
+    } else {
+      Responder.failed(res, suggestedUsers.errors)
+    }
+  }
+
+  static async getOlderChats (req, res) {
+    const conversation = await GetOlderChatsService.execute({ ...req.params, ...req.body, ...req.query })
+    if (conversation.successful) {
+      Responder.success(res, conversation.result)
+    } else {
+      Responder.failed(res, conversation.errors)
+    }
+  }
+
   static async addNewGroupMembers (req, res) {
     const group = await ChatAddNewGroupMembersService.execute({ ...req.params, ...req.body })
     if (group.successful) {
@@ -71,24 +89,6 @@ export default class ChatController {
     }
   }
 
-  static async getSuggestedUsers (req, res) {
-    const suggestedUsers = await ChatGetSuggestedUsersService.execute({ ...req.body, ...req.query })
-    if (suggestedUsers.successful) {
-      Responder.success(res, suggestedUsers.result)
-    } else {
-      Responder.failed(res, suggestedUsers.errors)
-    }
-  }
-
-  static async getOlderChats (req, res) {
-    const conversation = await GetOlderChatsService.execute({ ...req.params, ...req.body, ...req.query })
-    if (conversation.successful) {
-      Responder.success(res, conversation.result)
-    } else {
-      Responder.failed(res, conversation.errors)
-    }
-  }
-
   static async markChatAsRead (req, res) {
     const response = await ChatMarkAsReadService.execute({ ...req.body, ...req.params })
     if (response.successful) {
@@ -98,7 +98,7 @@ export default class ChatController {
     }
   }
 
-  static async markAsUnread (req, res) {
+  static async markChatAsUnread (req, res) {
     const conversation = await ChatMarkAsUnreadService.execute({ ...req.params, ...req.body })
     if (conversation.successful) {
       Responder.success(res, conversation.result)
