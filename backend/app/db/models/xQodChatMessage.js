@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'x_qod_chat_messages'
   })
   XQodChatMessage.associate = function (models) {
-    XQodChatMessage.hasMany(models.XQodChatMessageRead, { as: 'messageReadStatus', foreignKey: 'message_id' })
+    XQodChatMessage.hasMany(models.XQodChatMessagesReadStatus, { as: 'messageReadStatus', foreignKey: 'message_id' })
     XQodChatMessage.belongsTo(models.UserDetail, { as: 'senderDetails', foreignKey: 'sender_id' })
     XQodChatMessage.belongsTo(models.XQodConversations, { as: 'conversation', foreignKey: 'conversation_id' })
   }

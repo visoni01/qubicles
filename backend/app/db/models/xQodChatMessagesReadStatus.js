@@ -1,6 +1,6 @@
 'use strict'
 module.exports = (sequelize, DataTypes) => {
-  const XQodChatMessageRead = sequelize.define('XQodChatMessageRead', {
+  const XQodChatMessagesReadStatus = sequelize.define('XQodChatMessagesReadStatus', {
     message_read_id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -12,9 +12,9 @@ module.exports = (sequelize, DataTypes) => {
     is_read: DataTypes.BOOLEAN
   },
   {
-    tableName: 'x_qod_chat_message_read'
+    tableName: 'x_qod_chat_messages_read_status'
   })
-  XQodChatMessageRead.associate = function (models) {
+  XQodChatMessagesReadStatus.associate = function (models) {
   }
-  return XQodChatMessageRead
+  return XQodChatMessagesReadStatus
 }

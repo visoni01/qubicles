@@ -1,5 +1,6 @@
 import {
-  XQodConversations, XQodChatMessage, XQodChatMessageRead, XQodChatAllRead, XQodChatGroupMembers, UserDetail
+  XQodConversations, XQodChatMessage, XQodChatMessagesReadStatus, XQodUserConversationsStatus, XQodChatGroupMembers,
+  UserDetail
 } from '../../db/models'
 import { Op } from 'sequelize'
 import { SqlHelper } from '../../utils/sql'
@@ -34,7 +35,7 @@ export const createOrFindChat = async ({ user_id, candidate_id }) => {
           ],
           include: [
             {
-              model: XQodChatMessageRead,
+              model: XQodChatMessagesReadStatus,
               as: 'messageReadStatus',
               attributes: ['is_read'],
               where: { user_id }
@@ -47,7 +48,7 @@ export const createOrFindChat = async ({ user_id, candidate_id }) => {
           ]
         },
         {
-          model: XQodChatAllRead,
+          model: XQodUserConversationsStatus,
           as: 'allRead',
           where: { user_id },
           attributes: ['all_read']
@@ -198,7 +199,7 @@ export const getChatsList = async ({ user_id, offset, search_keyword }) => {
       AND (t3_private_conversations.group_title IS NULL OR t3_private_conversations.group_title = '')
     LEFT JOIN (
       SELECT conversation_id, user_id, all_read
-      FROM x_qod_chat_all_read
+      FROM x_qod_user_conversations_status
       where user_id = ${user_id}
     ) t8_conversation_status
     ON t8_conversation_status.conversation_id = t1_messages_details.conversation_id
@@ -288,7 +289,7 @@ export const getChatData = async ({ conversation_id, user_id }) => {
       ON messages.sender_id = senderDetails.user_id
       JOIN (
         SELECT chatMessageRead.message_id, chatMessageRead.is_read
-        FROM x_qod_chat_message_read chatMessageRead
+        FROM x_qod_chat_messages_read_status chatMessageRead
         WHERE chatMessageRead.user_id = ${user_id}
       ) messageReadStatus
       ON messages.message_id = messageReadStatus.message_id
@@ -302,7 +303,7 @@ export const getChatData = async ({ conversation_id, user_id }) => {
     ON conversationDetails.conversation_id = conversationMessages.conversation_id
     LEFT JOIN (
       SELECT chatAllRead.conversation_id, chatAllRead.user_id, chatAllRead.all_read
-      FROM x_qod_chat_all_read chatAllRead
+      FROM x_qod_user_conversations_status chatAllRead
       where user_id = ${user_id}
     ) chatAllReadStatus
     ON chatAllReadStatus.conversation_id = conversationDetails.conversation_id
@@ -338,7 +339,7 @@ export const getReadMessages = ({ conversation_id, user_id, is_group, is_removed
       FROM x_qod_chat_messages
       WHERE conversation_id = ${conversation_id}
       EXCEPT
-      SELECT x_qod_chat_message_read.message_id FROM x_qod_chat_message_read WHERE user_id = ${user_id}
+      SELECT x_qod_chat_messages_read_status.message_id FROM x_qod_chat_messages_read_status WHERE user_id = ${user_id}
     ) readMessageData
     ON messages.message_id = readMessageData.message_id
     LEFT JOIN (
@@ -599,7 +600,7 @@ export const getConversationDetails = async ({ conversation_id, user_id }) => {
 }
 
 export const markChatAsRead = async ({ user_id, conversation_id }) => {
-  await XQodChatAllRead.update({
+  await XQodUserConversationsStatus.update({
     all_read: true
   }, {
     where: {
@@ -619,7 +620,7 @@ export const markMessagesAsRead = async ({ user_id, conversation_id }) => {
 
   const messageIds = messages && messages.map((message) => message.message_id)
 
-  await XQodChatMessageRead.destroy({
+  await XQodChatMessagesReadStatus.destroy({
     where: {
       user_id,
       message_id: { [Op.in]: messageIds }
@@ -628,7 +629,7 @@ export const markMessagesAsRead = async ({ user_id, conversation_id }) => {
 }
 
 export const markAsUnread = async ({ user_id, conversation_id }) => {
-  await XQodChatAllRead.update({
+  await XQodUserConversationsStatus.update({
     all_read: false
   }, {
     where: {
@@ -642,8 +643,9 @@ export const addConversationStatusEntry = async ({ conversation_id, user_ids }) 
   const conversationStatusData = user_ids && user_ids.map((user_id) => ({
     conversation_id,
     user_id,
-    all_read: true
+    all_read: true,
+    deleted_on: Date.now()
   }))
 
-  await XQodChatAllRead.bulkCreate(conversationStatusData)
+  await XQodUserConversationsStatus.bulkCreate(conversationStatusData)
 }
