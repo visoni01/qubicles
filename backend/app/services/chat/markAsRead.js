@@ -1,7 +1,7 @@
 import ServiceBase from '../../common/serviceBase'
 import { ERRORS } from '../../utils/errors'
 import logger from '../../common/logger'
-import { getErrorMessageForService, markChatAsRead, markMessagesAsRead } from '../helper'
+import { getErrorMessageForService, updateXQodUserConversationsStatus, markMessagesAsRead } from '../helper'
 
 const constraints = {
   user_id: {
@@ -21,7 +21,7 @@ export class ChatMarkAsReadService extends ServiceBase {
     try {
       const { user_id, conversation_id } = this.filteredArgs
       const promises = [
-        () => markChatAsRead({ user_id, conversation_id }),
+        () => updateXQodUserConversationsStatus({ user_id, conversation_id, all_read: true }),
         () => markMessagesAsRead({ user_id, conversation_id })
       ]
       await Promise.all(promises.map(promise => promise()))

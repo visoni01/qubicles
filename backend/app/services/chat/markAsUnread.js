@@ -1,7 +1,7 @@
 import ServiceBase from '../../common/serviceBase'
 import { ERRORS } from '../../utils/errors'
 import logger from '../../common/logger'
-import { markAsUnread, getErrorMessageForService } from '../helper'
+import { updateXQodUserConversationsStatus, getErrorMessageForService } from '../helper'
 
 const constraints = {
   user_id: {
@@ -20,7 +20,7 @@ export class ChatMarkAsUnreadService extends ServiceBase {
   async run () {
     try {
       const { user_id, conversation_id } = this.filteredArgs
-      await markAsUnread({ user_id, conversation_id })
+      await updateXQodUserConversationsStatus({ user_id, conversation_id, all_read: false })
     } catch (e) {
       logger.error(getErrorMessageForService('ChatMarkAsUnreadService'), e)
       this.addError(ERRORS.INTERNAL)

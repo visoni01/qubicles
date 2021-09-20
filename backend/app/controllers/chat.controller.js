@@ -1,7 +1,7 @@
 import Responder from '../../server/expressResponder'
 import {
   StartNewChatService, GetAllChatsService, GetChatDataService, ChatGetSuggestedUsersService, GetOlderChatsService,
-  ChatMarkAsReadService, ChatMarkAsUnreadService
+  ChatMarkAsReadService, ChatMarkAsUnreadService, DeleteChatService
 } from '../services/chat'
 import {
   ChatCreateNewGroupService, ChatAddNewGroupMembersService, ChatRemoveGroupMemberService, ChatChangeGroupNameService
@@ -100,6 +100,15 @@ export default class ChatController {
 
   static async markChatAsUnread (req, res) {
     const conversation = await ChatMarkAsUnreadService.execute({ ...req.params, ...req.body })
+    if (conversation.successful) {
+      Responder.success(res, conversation.result)
+    } else {
+      Responder.failed(res, conversation.errors)
+    }
+  }
+
+  static async deleteChat (req, res) {
+    const conversation = await DeleteChatService.execute({ ...req.params, ...req.body })
     if (conversation.successful) {
       Responder.success(res, conversation.result)
     } else {

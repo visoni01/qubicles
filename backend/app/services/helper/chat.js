@@ -599,17 +599,6 @@ export const getConversationDetails = async ({ conversation_id, user_id }) => {
   }
 }
 
-export const markChatAsRead = async ({ user_id, conversation_id }) => {
-  await XQodUserConversationsStatus.update({
-    all_read: true
-  }, {
-    where: {
-      conversation_id,
-      user_id
-    }
-  })
-}
-
 export const markMessagesAsRead = async ({ user_id, conversation_id }) => {
   const messages = await XQodChatMessage.findAll({
     attributes: ['message_id'],
@@ -628,17 +617,6 @@ export const markMessagesAsRead = async ({ user_id, conversation_id }) => {
   })
 }
 
-export const markAsUnread = async ({ user_id, conversation_id }) => {
-  await XQodUserConversationsStatus.update({
-    all_read: false
-  }, {
-    where: {
-      user_id,
-      conversation_id
-    }
-  })
-}
-
 export const addConversationStatusEntry = async ({ conversation_id, user_ids }) => {
   const conversationStatusData = user_ids && user_ids.map((user_id) => ({
     conversation_id,
@@ -648,4 +626,30 @@ export const addConversationStatusEntry = async ({ conversation_id, user_ids }) 
   }))
 
   await XQodUserConversationsStatus.bulkCreate(conversationStatusData)
+}
+
+export const updateXQodUserConversationsStatus = async ({ user_id, conversation_id, all_read, deleted_on }) => {
+  await XQodUserConversationsStatus.update({
+    all_read,
+    deleted_on
+  }, {
+    where: {
+      user_id,
+      conversation_id
+    }
+  })
+}
+
+export const getLatestMessageDetails = async ({ conversation_id }) => {
+  const latestMessage = await XQodChatMessage.findOne({
+    raw: true,
+    where: {
+      conversation_id
+    },
+    order: [
+      ['sent_at', 'DESC']
+    ]
+  })
+
+  return latestMessage
 }

@@ -38,4 +38,7 @@ chatRouter.route('/:conversation_id/mark-as-read')
 chatRouter.route('/:conversation_id/mark-as-unread')
   .put(isAuthenticated, chatController.markChatAsUnread)
 
+chatRouter.route('/:conversation_id/delete-chat')
+  .put(isAuthenticated, chatController.deleteChat)
+
 export { chatRouter }
