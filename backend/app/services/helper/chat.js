@@ -2,10 +2,10 @@ import {
   XQodConversations, XQodChatMessage, XQodChatMessagesReadStatus, XQodUserConversationsStatus, XQodChatGroupMembers,
   UserDetail
 } from '../../db/models'
-import { Op } from 'sequelize'
+import Sequelize, { Op } from 'sequelize'
 import _ from 'lodash'
 import { SqlHelper } from '../../utils/sql'
-import { formatDate } from './common'
+import { formatDate, isSameDate } from './common'
 
 export const createOrFindChat = async ({ user_id, candidate_id }) => {
   const conversation = await XQodConversations.findOne({
@@ -17,12 +17,14 @@ export const createOrFindChat = async ({ user_id, candidate_id }) => {
   })
 
   let conversationDetails
+  let newconversation
 
   if (conversation) {
-    conversationDetails = await XQodConversations.findOne({
+    conversationDetails = await XQodConversations.findAll({
       where: {
         user_one_id: { [Op.or]: [user_id, candidate_id] },
-        user_two_id: { [Op.or]: [user_id, candidate_id] }
+        user_two_id: { [Op.or]: [user_id, candidate_id] },
+        '$messages.sent_at$': { [Op.gt]: Sequelize.col('allRead.deleted_on') }
       },
       attributes: ['conversation_id'],
       include: [
@@ -51,12 +53,12 @@ export const createOrFindChat = async ({ user_id, candidate_id }) => {
           model: XQodUserConversationsStatus,
           as: 'allRead',
           where: { user_id },
-          attributes: ['all_read']
+          attributes: ['all_read', 'deleted_on']
         }
       ]
     })
   } else {
-    conversationDetails = await XQodConversations.create({
+    newconversation = await XQodConversations.create({
       user_one_id: user_id,
       user_two_id: candidate_id,
       is_group: false
@@ -64,7 +66,9 @@ export const createOrFindChat = async ({ user_id, candidate_id }) => {
   }
 
   return {
-    conversation: conversationDetails ? conversationDetails.get({ plain: true }) : conversation.get({ plain: true }),
+    conversation: (conversationDetails && conversationDetails[0] && conversationDetails[0].get({ plain: true })) ||
+      (newconversation && newconversation.get({ plain: true })) ||
+      (conversation && conversation.get({ plain: true })),
     isNewConversation: !(conversation && conversation.conversation_id)
   }
 }
@@ -138,18 +142,21 @@ export const getChatsList = async ({ user_id, offset, search_keyword }) => {
    * t8_conversation_status - all_read status of each conversation
    * t9_messages - id and sent_at of latest message in each convesation
    * t10_all_user_conversations - both private and group chats of user
+   * t11_deleted_conversation_status - deleted_on status of each conversation
   **/
 
   const sqlQuery = `
     SELECT t1_messages_details.*, t3_private_conversations.is_group, t3_private_conversations.group_title,
       t4_user_details.first_name, t4_user_details.last_name, t4_user_details.profile_image,
       t7_group_name_details.group_name, t8_conversation_status.all_read, t2_conversation_latest_message.is_removed,
-      t2_conversation_latest_message.all_texts
+      t2_conversation_latest_message.all_texts, t2_conversation_latest_message.deleted_on
     FROM x_qod_chat_messages t1_messages_details
     JOIN (
       SELECT t9_messages.conversation_id, max(sent_at) sent_at, t10_all_user_conversations.is_removed,
-        t10_all_user_conversations.updated_on,
-        group_concat(t9_messages.text SEPARATOR ' ') AS all_texts
+        t10_all_user_conversations.updated_on, t11_deleted_conversation_status.deleted_on
+        group_concat((
+          CASE WHEN sent_at > deleted_on THEN t9_messages.text END
+        ) SEPARATOR ' ') AS all_texts
       FROM x_qod_chat_messages t9_messages
       JOIN (
         SELECT conversation_id, NULL AS is_removed, NULL AS updated_on
@@ -161,6 +168,9 @@ export const getChatsList = async ({ user_id, offset, search_keyword }) => {
         WHERE user_id = ${user_id}
       ) t10_all_user_conversations
       ON t9_messages.conversation_id = t10_all_user_conversations.conversation_id
+      LEFT JOIN x_qod_user_conversations_status t11_deleted_conversation_status
+      ON t11_deleted_conversation_status.conversation_id = t9_messages.conversation_id
+        AND t11_deleted_conversation_status.user_id = ${user_id}
       WHERE sent_at <=
         CASE
           WHEN t10_all_user_conversations.is_removed = 1
@@ -222,7 +232,7 @@ export const getChatsList = async ({ user_id, offset, search_keyword }) => {
 export const formatChatListItem = ({ chatListItem }) => {
   const {
     conversation_id, is_group, first_name, last_name, group_title, group_name, profile_image,
-    sent_at, text, all_read, is_removed, is_notification, image_url
+    sent_at, text, all_read, is_removed, is_notification, image_url, deleted_on
   } = chatListItem
   const formattedChatListItem = {
     id: conversation_id,
@@ -230,11 +240,11 @@ export const formatChatListItem = ({ chatListItem }) => {
     imageUrl: profile_image,
     dateTime: sent_at,
     isGroup: !!is_group,
-    latestMessage: text,
+    latestMessage: isSameDate(sent_at, deleted_on) ? null : text,
     allRead: !!all_read,
     isRemoved: !!is_removed,
-    isNotification: !!is_notification,
-    isImage: !!image_url
+    isNotification: isSameDate(sent_at, deleted_on) ? false : !!is_notification,
+    isImage: isSameDate(sent_at, deleted_on) ? false : !!image_url
   }
 
   return formattedChatListItem

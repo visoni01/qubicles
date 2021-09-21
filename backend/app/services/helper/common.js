@@ -73,6 +73,10 @@ export const formatDate = (date) => {
   return moment(date).format('YYYY-MM-DD HH:mm:ss')
 }
 
+export const isSameDate = (firstDate, secondDate) => {
+  return moment(firstDate).isSame(secondDate)
+}
+
 export const getFirstElement = (input) => {
   const isArray = Object.prototype.toString.call(input) === '[object Array]'
   return (isArray && input[0]) || ''
