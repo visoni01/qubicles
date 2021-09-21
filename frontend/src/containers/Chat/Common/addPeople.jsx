@@ -243,7 +243,8 @@ const AddPeople = ({
                   profilePic={ person.profilePic }
                   loading={ loading }
                 />
-                {index !== people.length - 1 && <Divider className='user-list-divider' />}
+                {index !== _.differenceBy(people, selectedPeople, 'id').length - 1
+                && <Divider className='user-list-divider' />}
               </div>
             ))}
             {isLoading && <SuggestedUsersSkeleton />}

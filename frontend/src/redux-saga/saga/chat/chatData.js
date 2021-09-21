@@ -227,6 +227,35 @@ function* chatDataWorker(action) {
             break
           }
 
+          case 'delete-chat': {
+            const { data } = yield Chat.deleteChat({ conversationId })
+
+            yield put(chatDataRequestSuccess({
+              requestType, dataType, conversationId, latestDeletedMessageId: data,
+            }))
+
+            const { conversations } = yield select((state) => state.chatData)
+            const conversationData = conversations?.find((conversation) => (
+              conversation?.data?.conversationId === conversationId
+            ))
+
+            if (conversationData?.data?.chatData?.chats?.length === 0) {
+              yield put(updateAllChats({
+                dataType: 'new-message',
+                latestMessage: '',
+                isImage: false,
+                dateTime: Date.now(),
+                conversationId,
+              }))
+
+              yield put(updateAllChats({
+                dataType: 'mark-as-read',
+                conversationId,
+              }))
+            }
+            break
+          }
+
           default: break
         }
         break

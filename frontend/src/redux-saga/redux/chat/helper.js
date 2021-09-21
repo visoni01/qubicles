@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 /* eslint-disable complexity */
 export const chatDataStartHelper = ({ conversations, payload }) => {
   const { conversationId, requestType, dataType } = payload
@@ -187,6 +189,28 @@ export const chatDataSuccessHelper = ({ conversations, payload }) => {
           ))
         }
 
+        case 'delete-chat': {
+          return conversations && conversations.map((item) => {
+            if (item.data && item.data.conversationId === conversationId) {
+              const latestDeletedMessageIndex = item?.data?.chatData?.chats
+              && _.findLastIndex(item.data.chatData.chats, { messageId: payload.latestDeletedMessageId })
+
+              return {
+                ...item,
+                ...result,
+                data: {
+                  ...item.data,
+                  chatData: {
+                    ...item.data.chatData,
+                    chats: item.data.chatData.chats.slice(latestDeletedMessageIndex + 1),
+                  },
+                },
+              }
+            }
+            return item
+          })
+        }
+
         default: return conversations
       }
     }
@@ -359,6 +383,7 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
           ...latestChat,
           dateTime: payload.dateTime,
           latestMessage: payload.latestMessage,
+          isImage: payload.isImage,
         },
         ...filteredChatsList,
       ]

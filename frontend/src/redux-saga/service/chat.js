@@ -55,6 +55,11 @@ const Chat = class {
     const response = await apiClient.putRequest(`/chat/${ conversationId }/mark-as-unread`)
     return response
   }
+
+  static deleteChat = async ({ conversationId }) => {
+    const response = await apiClient.putRequest(`/chat/${ conversationId }/delete-chat`)
+    return response
+  }
 }
 
 export default Chat

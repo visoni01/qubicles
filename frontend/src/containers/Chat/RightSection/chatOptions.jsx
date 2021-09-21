@@ -13,6 +13,7 @@ import { MenuIcon } from '../../../assets/images/common'
 import { LogoutIcon } from '../../../assets/images/icons/navBarIcons'
 import { DeleteIcon } from '../../../assets/images/training'
 import { AddPeopleIcon, MarkAsUnreadIcon } from '../../../assets/images/chat'
+import { startLoader, stopLoader } from '../../../redux-saga/redux/utils'
 
 const ChatOptions = ({
   isGroup, conversationId, isRemoved, isAllRead,
@@ -62,10 +63,13 @@ const ChatOptions = ({
   }, [ conversationId, dispatch, handleClose ])
 
   const handleDeleteChat = useCallback(() => {
-    // TODO
-    setOpenConfirmDeleteModal(false)
-    handleClose()
-  }, [ handleClose ])
+    dispatch(chatDataRequestStart({
+      requestType: 'UPDATE',
+      dataType: 'delete-chat',
+      conversationId,
+    }))
+    dispatch(startLoader())
+  }, [ conversationId, dispatch ])
 
   const handleLeaveGroup = useCallback(() => {
     dispatch(chatDataRequestStart({
@@ -82,6 +86,15 @@ const ChatOptions = ({
       setOpenAddPeopleModal(false)
     }
   }, [ isLoading, success, dataType ])
+
+  useEffect(() => {
+    if (!isLoading && success && _.isEqual(dataType, 'delete-chat')) {
+      setOpenConfirmDeleteModal(false)
+      setAnchorEl(null)
+      setOpenOptions(false)
+      dispatch(stopLoader())
+    }
+  }, [ isLoading, success, dataType, dispatch ])
 
   return (
     <>
