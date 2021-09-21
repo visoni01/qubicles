@@ -3,8 +3,8 @@ import {
   UserDetail
 } from '../../db/models'
 import { Op } from 'sequelize'
-import { SqlHelper } from '../../utils/sql'
 import _ from 'lodash'
+import { SqlHelper } from '../../utils/sql'
 import { formatDate } from './common'
 
 export const createOrFindChat = async ({ user_id, candidate_id }) => {
@@ -250,7 +250,7 @@ export const changeGroupName = async ({ conversation_id, group_title }) => {
   })
 }
 
-export const getChatData = async ({ conversation_id, user_id }) => {
+export const getChatData = async ({ conversation_id, user_id, deleted_on }) => {
   /**
    * Table/Join Alias - Description of details fetched
    *
@@ -293,7 +293,7 @@ export const getChatData = async ({ conversation_id, user_id }) => {
         WHERE chatMessageRead.user_id = ${user_id}
       ) messageReadStatus
       ON messages.message_id = messageReadStatus.message_id
-      WHERE sent_at <=
+      WHERE sent_at > '${formatDate(deleted_on)}' AND sent_at <=
       CASE
         WHEN groupMemberStatus.is_removed = 1
         THEN groupMemberStatus.updated_on
@@ -322,7 +322,7 @@ export const getChatData = async ({ conversation_id, user_id }) => {
   return conversationWithUnReadMessages
 }
 
-export const getReadMessages = ({ conversation_id, user_id, is_group, is_removed, updated_on, offset }) => {
+export const getReadMessages = ({ conversation_id, user_id, is_group, is_removed, updated_on, offset, deleted_on }) => {
   /**
    * Table/Join Alias - Description of details fetched
    *
@@ -347,7 +347,7 @@ export const getReadMessages = ({ conversation_id, user_id, is_group, is_removed
       FROM x_user_details
     ) senderDetails
     ON messages.sender_id = senderDetails.user_id
-    WHERE messages.sent_at <=
+    WHERE messages.sent_at > '${formatDate(deleted_on)}' AND messages.sent_at <=
     CASE
       WHEN ${is_group} AND ${is_removed}
       THEN '${formatDate(updated_on)}'
@@ -585,6 +585,13 @@ export const getConversationDetails = async ({ conversation_id, user_id }) => {
         required: false,
         attributes: ['is_removed', 'updated_on'],
         where: { user_id }
+      },
+      {
+        model: XQodUserConversationsStatus,
+        as: 'allRead',
+        required: false,
+        attributes: ['deleted_on'],
+        where: { user_id }
       }
     ],
     where: { conversation_id }
@@ -594,7 +601,8 @@ export const getConversationDetails = async ({ conversation_id, user_id }) => {
     return {
       is_group: !!conversation.is_group,
       is_removed: !!conversation['group.is_removed'],
-      updated_on: conversation['group.updated_on']
+      updated_on: conversation['group.updated_on'],
+      deleted_on: conversation['allRead.deleted_on']
     }
   }
 }
@@ -652,4 +660,17 @@ export const getLatestMessageDetails = async ({ conversation_id }) => {
   })
 
   return latestMessage
+}
+
+export const getUserConversationStatus = async ({ conversation_id, user_id }) => {
+  const userConversationStatus = await XQodUserConversationsStatus.findOne({
+    raw: true,
+    attributes: ['deleted_on'],
+    where: {
+      user_id,
+      conversation_id
+    }
+  })
+
+  return userConversationStatus
 }

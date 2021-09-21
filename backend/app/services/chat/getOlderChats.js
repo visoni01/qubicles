@@ -28,10 +28,10 @@ export class GetOlderChatsService extends ServiceBase {
       const conversation = await getConversationDetails({ conversation_id, user_id })
 
       if (conversation) {
-        const { is_group, is_removed, updated_on } = conversation
+        const { is_group, is_removed, updated_on, deleted_on } = conversation
 
         const messages = await SqlHelper.select(getReadMessages({
-          conversation_id, user_id, is_group, is_removed, updated_on, offset
+          conversation_id, user_id, is_group, is_removed, updated_on, offset, deleted_on
         }))
 
         const formattedMessages = formatMessagesOrder({ messageArray: [], messages: messages && messages.slice(0, 10) })

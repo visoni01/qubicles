@@ -4,8 +4,8 @@ import { ERRORS } from '../../utils/errors'
 import { SqlHelper } from '../../utils/sql'
 import logger from '../../common/logger'
 import {
-  getChatData, getReadMessages, fetchAllGroupMembersIds, getCandidatesInfo, getErrorMessageForService,
-  formatMessagesOrder, formatChatData
+  getUserConversationStatus, getChatData, getReadMessages, fetchAllGroupMembersIds, getCandidatesInfo,
+  formatMessagesOrder, formatChatData, getErrorMessageForService
 } from '../helper'
 
 const constraints = {
@@ -26,7 +26,11 @@ export class GetChatDataService extends ServiceBase {
     try {
       const { conversation_id, user_id } = this.filteredArgs
 
-      const conversationDataWithUnReadMessages = await getChatData({ conversation_id, user_id })
+      const userConversationStatus = await getUserConversationStatus({ conversation_id, user_id })
+
+      const conversationDataWithUnReadMessages = await getChatData({
+        conversation_id, user_id, deleted_on: userConversationStatus && userConversationStatus.deleted_on
+      })
 
       let allMessages = []
       let user_ids = []
@@ -44,7 +48,14 @@ export class GetChatDataService extends ServiceBase {
 
         const promiseArray = [
           () => SqlHelper.select(getCandidatesInfo({ user_ids })),
-          () => SqlHelper.select(getReadMessages({ conversation_id, user_id, is_group, is_removed, updated_on }))
+          () => SqlHelper.select(getReadMessages({
+            conversation_id,
+            user_id,
+            is_group,
+            is_removed,
+            updated_on,
+            deleted_on: userConversationStatus && userConversationStatus.deleted_on
+          }))
         ]
 
         const [candidateInfo, readMessages] = await Promise.all(promiseArray.map(promise => promise()))
