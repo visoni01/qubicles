@@ -418,6 +418,20 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
       })
     }
 
+    case 'delete-chat': {
+      return chatsList.map((chat) => (
+        payload.conversationId === chat.id
+          ? {
+            ...chat,
+            latestMessage: '',
+            allRead: true,
+            isImage: false,
+            isNotification: false,
+          }
+          : chat
+      ))
+    }
+
     default: return chatsList
   }
 }

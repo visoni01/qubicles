@@ -241,15 +241,7 @@ function* chatDataWorker(action) {
 
             if (conversationData?.data?.chatData?.chats?.length === 0) {
               yield put(updateAllChats({
-                dataType: 'new-message',
-                latestMessage: '',
-                isImage: false,
-                dateTime: Date.now(),
-                conversationId,
-              }))
-
-              yield put(updateAllChats({
-                dataType: 'mark-as-read',
+                dataType: 'delete-chat',
                 conversationId,
               }))
             }
