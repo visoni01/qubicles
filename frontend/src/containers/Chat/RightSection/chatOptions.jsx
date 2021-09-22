@@ -16,7 +16,7 @@ import { AddPeopleIcon, MarkAsUnreadIcon } from '../../../assets/images/chat'
 import { startLoader, stopLoader } from '../../../redux-saga/redux/utils'
 
 const ChatOptions = ({
-  isGroup, conversationId, isRemoved, isAllRead,
+  isGroup, conversationId, isRemoved, isAllRead, isEmpty,
 }) => {
   const [ openOptions, setOpenOptions ] = useState(false)
   const [ anchorEl, setAnchorEl ] = useState(null)
@@ -148,15 +148,17 @@ const ChatOptions = ({
             </Button>
           )}
 
-          <Button
-            size='small'
-            className='option padding-8'
-            classes={ { label: 'option-label' } }
-            onClick={ () => setOpenConfirmDeleteModal(true) }
-            startIcon={ <DeleteIcon className='custom-svg-icon color-red mr-5' /> }
-          >
-            <p className='para red'>Delete Chat</p>
-          </Button>
+          {isEmpty && (
+            <Button
+              size='small'
+              className='option padding-8'
+              classes={ { label: 'option-label' } }
+              onClick={ () => setOpenConfirmDeleteModal(true) }
+              startIcon={ <DeleteIcon className='custom-svg-icon color-red mr-5' /> }
+            >
+              <p className='para red'>Delete Chat</p>
+            </Button>
+          )}
 
           {isGroup && !isRemoved && (
             <Button
@@ -200,6 +202,7 @@ ChatOptions.defaultProps = {
   conversationId: null,
   isRemoved: false,
   isAllRead: false,
+  isEmpty: false,
 }
 
 ChatOptions.propTypes = {
@@ -207,6 +210,7 @@ ChatOptions.propTypes = {
   conversationId: PropTypes.number,
   isRemoved: PropTypes.bool,
   isAllRead: PropTypes.bool,
+  isEmpty: PropTypes.bool,
 }
 
 export default ChatOptions

@@ -244,6 +244,8 @@ function* chatDataWorker(action) {
                 dataType: 'delete-chat',
                 conversationId,
               }))
+
+              yield put(showSuccessMessage({ msg: 'Chat deleted successfully!' }))
             }
             break
           }

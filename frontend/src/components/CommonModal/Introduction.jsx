@@ -76,7 +76,7 @@ const Introduction = ({
 
       {userDetails && !_.isEqual(userDetails.user_code, 'employer')
         && candidateId && candidateId !== userDetails.user_id && (
-        <div className='mt-5'>
+        <div className='other-agent-menu mt-5'>
           <MenuOptions
             handleFirstOptionClick={ handleCopyProfileUrl }
             handleConfirmModal={ handleConfirmModal }

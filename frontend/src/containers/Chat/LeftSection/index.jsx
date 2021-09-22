@@ -8,6 +8,8 @@ import React, {
 import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { SearchIcon } from '../../../assets/images/common'
 import UserCard from './userCard'
 import NewChat from '../Common/addPeople'
@@ -24,6 +26,7 @@ const LeftCard = ({ conversationId }) => {
   const [ openSearchField, setOpenSearchField ] = useState(false)
   const [ openNewChatModal, setOpenNewChatModal ] = useState(false)
   const [ openNewGroupModal, setOpenNewGroupModal ] = useState(false)
+  const [ searchUserField, setSearchUserField ] = useState('')
 
   const userListRef = useRef()
   const observer = useRef()
@@ -106,6 +109,18 @@ const LeftCard = ({ conversationId }) => {
     if (node) observer.current.observe(node)
   }, [ handleObserver ])
 
+  const handleSearch = useCallback((e) => {
+    const nextValue = e.target.value
+    setSearchUserField(nextValue)
+    searchConversations(nextValue)
+  }, [ searchConversations ])
+
+  const handleCloseSearch = useCallback(() => {
+    if (!_.isEmpty(searchUserField)) { searchConversations('') }
+    setSearchUserField('')
+    setOpenSearchField(false)
+  }, [ searchUserField, searchConversations ])
+
   useEffect(() => {
     if (!isLoading && success && [ 'new-chat', 'new-group' ].includes(dataType)) {
       if (_.isEqual(dataType, 'new-chat')) {
@@ -115,6 +130,13 @@ const LeftCard = ({ conversationId }) => {
       }
     }
   }, [ isLoading, success, dataType ])
+
+  useEffect(() => {
+    if (openSearchField) {
+      document.getElementById('search').focus()
+      document.getElementById('search').select()
+    }
+  }, [ openSearchField ])
 
   return (
     <Box
@@ -156,33 +178,47 @@ const LeftCard = ({ conversationId }) => {
       {/* Search Text Field */}
       {openSearchField && (
         <TextField
+          id='search'
           className='search-field'
-          defaultValue=''
-          onChange={ (e) => searchConversations(e.target.value) }
+          value={ searchUserField }
+          onChange={ handleSearch }
           placeholder='Search...'
           margin='dense'
           variant='outlined'
+          InputProps={ {
+            endAdornment: (
+              <IconButton
+                onClick={ handleCloseSearch }
+                className='no-padding check-button'
+              >
+                <FontAwesomeIcon
+                  icon={ faTimesCircle }
+                  className='custom-fa-icon sz-md'
+                />
+              </IconButton>
+            ),
+          } }
         />
       )}
 
       {/* New Chat Modal */}
       {openNewChatModal && (
-      <NewChat
-        open={ openNewChatModal }
-        handleCancel={ () => setOpenNewChatModal(false) }
-        actionType='NEW_CHAT'
-        loading={ isLoading && _.isEqual(dataType, 'new-chat') }
-      />
+        <NewChat
+          open={ openNewChatModal }
+          handleCancel={ () => setOpenNewChatModal(false) }
+          actionType='NEW_CHAT'
+          loading={ isLoading && _.isEqual(dataType, 'new-chat') }
+        />
       )}
 
       {/* New Group Modal */}
       {openNewGroupModal && (
-      <NewChat
-        open={ openNewGroupModal }
-        handleCancel={ () => setOpenNewGroupModal(false) }
-        actionType='NEW_GROUP'
-        loading={ isLoading && _.isEqual(dataType, 'new-group') }
-      />
+        <NewChat
+          open={ openNewGroupModal }
+          handleCancel={ () => setOpenNewGroupModal(false) }
+          actionType='NEW_GROUP'
+          loading={ isLoading && _.isEqual(dataType, 'new-group') }
+        />
       )}
 
       {/* Users List */}

@@ -78,12 +78,16 @@ const RightCard = ({ changeGroupName }) => {
     <Box className='custom-box right-card'>
 
       {/* Chat Options */}
-      <ChatOptions
-        isGroup={ isGroup }
-        conversationId={ chat?.conversationId }
-        isRemoved={ chat?.isRemoved }
-        isAllRead={ chat?.allRead }
-      />
+      {chat && ((isGroup && !(chat.isRemoved && !chat.chatData?.chats?.length))
+        || (!isGroup && !(!chat.allRead && !chat.chatData?.chats?.length))) && (
+        <ChatOptions
+          isGroup={ isGroup }
+          conversationId={ chat?.conversationId }
+          isRemoved={ chat?.isRemoved }
+          isAllRead={ chat?.allRead }
+          isEmpty={ !!chat?.chatData?.chats?.length }
+        />
+      )}
 
       {/* Profile Pictures */}
       <AvatarGroup max={ 3 } spacing='small' className='avatar-group'>
