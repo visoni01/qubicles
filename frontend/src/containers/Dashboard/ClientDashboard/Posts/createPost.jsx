@@ -7,13 +7,12 @@ import {
   Radio, Popover, TextareaAutosize, Box, RadioGroup, FormControlLabel, Grid,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faChevronDown, faImage, faTimesCircle,
-} from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import { createStatusPostStart, startLoader, stopLoader } from '../../../../redux-saga/redux/actions'
 import { postStatusPermissions } from '../../../People/ContactCenter/constants'
+import { ImageIcon } from '../../../../assets/images/common'
 
 const CreatePost = ({ initialPostData }) => {
   const [ postText, setPostText ] = useState(initialPostData.postText)
@@ -197,7 +196,7 @@ const CreatePost = ({ initialPostData }) => {
               onChange={ handleFileInputChange }
             />
             <label htmlFor='create-post-photo-input'>
-              <FontAwesomeIcon icon={ faImage } className='image-icon' />
+              <ImageIcon className='image-icon' />
             </label>
           </p>
         </form>

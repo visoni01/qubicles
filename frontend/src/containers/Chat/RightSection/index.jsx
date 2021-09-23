@@ -29,6 +29,12 @@ const RightCard = ({ changeGroupName }) => {
 
   useEffect(() => setGroupNameValue(chat?.groupName), [ chat ])
 
+  const stripHtml = useCallback((html) => {
+    const temporalDivElement = document.createElement('div')
+    temporalDivElement.innerHTML = html
+    return temporalDivElement.textContent || temporalDivElement.innerText || ''
+  }, [])
+
   const handleEdit = useCallback(() => {
     setShowGroupNameField(true)
   }, [])
@@ -39,13 +45,15 @@ const RightCard = ({ changeGroupName }) => {
 
   const handleKeyDown = useCallback((event) => {
     if (event.key === 'Enter') {
+      const newGroupName = stripHtml(groupNameValue && groupNameValue.trim())
+      setGroupNameValue(newGroupName)
       setShowGroupNameField(false)
       changeGroupName({
-        newGroupName: groupNameValue && groupNameValue.trim(),
+        newGroupName,
         oldGroupName: chat && chat.groupName,
       })
     }
-  }, [ changeGroupName, groupNameValue, chat ])
+  }, [ changeGroupName, groupNameValue, chat, stripHtml ])
 
   return (
     <Box className='custom-box right-card'>

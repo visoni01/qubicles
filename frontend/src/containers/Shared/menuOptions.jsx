@@ -25,23 +25,20 @@ const MenuOptions = ({
   }, [])
 
   const handleCancelActivity = useCallback(() => {
-    setAnchorEl(null)
-    setOpenOptions(false)
+    handleClose()
     setOpenConfirmDelete(false)
-  }, [])
+  }, [ handleClose ])
 
   const handleFirstOption = useCallback(() => {
-    setAnchorEl(null)
-    setOpenOptions(false)
+    handleClose()
     handleFirstOptionClick()
-  }, [ handleFirstOptionClick ])
+  }, [ handleClose, handleFirstOptionClick ])
 
   const handleConfirmModalClick = useCallback(() => {
-    setAnchorEl(null)
-    setOpenOptions(false)
+    handleClose()
     setOpenConfirmDelete(false)
     handleConfirmModal({ id })
-  }, [ handleConfirmModal, id ])
+  }, [ handleClose, handleConfirmModal, id ])
 
   return (
     <>

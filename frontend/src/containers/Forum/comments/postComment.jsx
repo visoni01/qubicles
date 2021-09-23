@@ -1,9 +1,5 @@
-import React, {
-  useCallback, useRef, useState,
-} from 'react'
-import {
-  faImage, faTimesCircle,
-} from '@fortawesome/free-solid-svg-icons'
+import React, { useCallback, useRef, useState } from 'react'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   Avatar, Box, Button, IconButton, TextareaAutosize,
@@ -12,6 +8,7 @@ import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import classNames from 'classnames'
 import { postTopicComment, updateTopicComment } from '../../../redux-saga/redux/actions'
+import { ImageIcon } from '../../../assets/images/common'
 
 const PostComment = ({
   topicId, isEdit, closeEditModal, commentDetails,
@@ -96,7 +93,7 @@ const PostComment = ({
             onChange={ changeFileInput }
           />
           <label htmlFor='photo-input'>
-            <FontAwesomeIcon icon={ faImage } className='image-icon' />
+            <ImageIcon className='image-icon' />
           </label>
         </p>
       </div>

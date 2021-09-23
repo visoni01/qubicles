@@ -1,6 +1,4 @@
 import React, { useCallback } from 'react'
-import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Avatar } from '@material-ui/core'
 import Rating from '@material-ui/lab/Rating'
 import PropTypes from 'prop-types'
@@ -11,6 +9,7 @@ import MenuOptions from '../../containers/Shared/menuOptions'
 import { showSuccessMessage } from '../../redux-saga/redux/utils'
 import { fetchAgentResumeStart } from '../../redux-saga/redux/people'
 import { BlockIcon, CopyIcon } from '../../assets/images/profile'
+import { LocationIcon } from '../../assets/images/common'
 // import { formatDate } from '../../utils/common'
 
 const Introduction = ({
@@ -61,7 +60,7 @@ const Introduction = ({
 
           {location && (
             <p className='para light'>
-              <FontAwesomeIcon className='custom-fa-icon light mr-10' icon={ faMapMarkerAlt } />
+              <LocationIcon className='mr-5' />
               {location}
             </p>
           )}

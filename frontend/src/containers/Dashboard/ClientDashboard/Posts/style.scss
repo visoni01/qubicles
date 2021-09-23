@@ -1,9 +1,10 @@
 // Create New Post
-
 .create-post-container {
   .image-icon {
     font-size: 25px;
+    cursor: pointer;
   }
+
   .MuiList-padding {
     padding: 10px;
   }
@@ -12,6 +13,7 @@
   .comment-avatar {
     margin: 0px 10px 10px 0px;
   }
+
   .create-post {
     width: calc(100% - 100px);
 
@@ -31,6 +33,7 @@
         font-family: 'SF Pro Text', Regular;
         font-weight: normal;
         color: #4A4A4A;
+
         &:focus {
           outline: none;
           box-shadow: inherit;
@@ -200,6 +203,7 @@
   .post-text {
     margin: 10px 0px 15px 0px;
   }
+
   .render-post-image-container {
     .post-image {
       border-radius: 8px;
@@ -220,6 +224,7 @@
     @include fa-icon-hover($color-red);
     @include fa-icon-outlined($color-red);
   }
+
   .liked-icon {
     @extend .like-icon;
     color: $color-red;
@@ -230,6 +235,7 @@
     @include fa-icon-hover($color-white);
     @include fa-icon-outlined($color-info);
   }
+
   .share-icon {
     @extend .post-icons;
     @include fa-icon-hover($color-primary);
@@ -239,10 +245,12 @@
   .option-text {
     padding: 15px 0px 15px 0px;
     background-color: $color-white;
+
     .MuiButtonBase-root {
       color: $color-dark-grey;
       background-color: $color-white;
     }
+
     .MuiButton-label {
       font-family: $pro-font;
       font-size: 15px;
@@ -254,13 +262,15 @@
     display: inline-flex;
     width: 100%;
     padding: 10px 0;
+
     li {
       display: flex;
+      font-size: 14px;
+      width: 100%;
+
       svg {
         margin-right: 4px;
       }
-      font-size: 14px;
-      width: 100%;
     }
   }
 }
