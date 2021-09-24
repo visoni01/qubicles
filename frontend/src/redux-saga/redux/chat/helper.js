@@ -1,6 +1,141 @@
 import _ from 'lodash'
 
 /* eslint-disable complexity */
+export const updateConversationsHelper = ({ payload, conversations, result = {} }) => {
+  const {
+    requestType, conversationId, newMessage, dataType,
+  } = payload
+
+  switch (requestType) {
+    case 'UPDATE': {
+      switch (dataType) {
+        case 'new-message': return conversations && conversations.map((item) => (
+          item.data && item.data.conversationId === conversationId
+            ? {
+              ...item,
+              data: {
+                ...item.data,
+                chatData: {
+                  ...item.data.chatData,
+                  chats: payload.updateOnlyMessageId
+                    ? item.data.chatData.chats.map((message) => (
+                      message.messageId === newMessage.messageId
+                        ? {
+                          ...message,
+                          messageId: newMessage.newMessageId,
+                        }
+                        : message
+                    ))
+                    : [
+                      ...item.data.chatData.chats,
+                      {
+                        ...newMessage,
+                        messageId: newMessage.newMessageId || newMessage.messageId,
+                      },
+                    ],
+                },
+              },
+            }
+            : item
+        ))
+
+        case 'mark-as-unread': return conversations && conversations.map((item) => (
+          item.data && item.data.conversationId === conversationId
+            ? {
+              ...item,
+              data: {
+                ...item.data,
+                allRead: false,
+              },
+            }
+            : item
+        ))
+
+        case 'remove-person': {
+          return conversations && conversations.map((item) => (
+            item.data && item.data.conversationId === conversationId
+              ? {
+                ...item,
+                ...result,
+                data: {
+                  ...item.data,
+                  candidatesInfo: item.data.candidatesInfo.filter((person) => person.id !== payload.removedPersonId),
+                },
+              }
+              : item
+          ))
+        }
+
+        case 'add-people': {
+          return conversations && conversations.map((item) => (
+            item.data && item.data.conversationId === conversationId
+              ? {
+                ...item,
+                ...result,
+                data: {
+                  ...item.data,
+                  candidatesInfo: [
+                    ...item.data.candidatesInfo,
+                    ...payload.newMembers,
+                  ],
+                },
+              }
+              : item
+          ))
+        }
+
+        case 'change-group-name': {
+          return conversations && conversations.map((item) => (
+            item.data && item.data.conversationId === conversationId
+              ? {
+                ...item,
+                ...result,
+                data: {
+                  ...item.data,
+                  groupName: payload.newGroupName,
+                },
+              }
+              : item
+          ))
+        }
+
+        default: return conversations
+      }
+    }
+
+    case 'CREATE': {
+      switch (payload.dataType) {
+        case 'add-conversation': {
+          const currentConversation = conversations
+            && conversations.find((item) => item.data && item.data.conversationId === conversationId)
+
+          return currentConversation
+            ? conversations
+            : [
+              ...conversations,
+              {
+                isLoading: false,
+                success: true,
+                error: false,
+                dataType: '',
+                requestType: '',
+                data: payload.newChat,
+              },
+            ]
+        }
+
+        default: return conversations
+      }
+    }
+
+    case 'DELETE': {
+      return conversations.filter((item) => item.data.conversationId !== payload.conversationId)
+    }
+
+    default: return conversations
+  }
+}
+
 export const chatDataStartHelper = ({ conversations, payload }) => {
   const { conversationId, requestType, dataType } = payload
   const currentChatPopup = conversations
@@ -97,6 +232,11 @@ export const chatDataSuccessHelper = ({ conversations, payload }) => {
 
     case 'UPDATE': {
       switch (dataType) {
+        case 'add-people':
+        case 'remove-person':
+        case 'change-group-name':
+          return updateConversationsHelper({ payload, conversations, result })
+
         case 'mark-as-read': return conversations && conversations.map((item) => (
           item.data && item.data.conversationId === conversationId
             ? {
@@ -117,54 +257,6 @@ export const chatDataSuccessHelper = ({ conversations, payload }) => {
             }
             : item
         ))
-
-        case 'add-people': {
-          return conversations && conversations.map((item) => (
-            item.data && item.data.conversationId === conversationId
-              ? {
-                ...item,
-                ...result,
-                data: {
-                  ...item.data,
-                  candidatesInfo: [
-                    ...item.data.candidatesInfo,
-                    ...payload.newMembers,
-                  ],
-                },
-              }
-              : item
-          ))
-        }
-
-        case 'remove-person': {
-          return conversations && conversations.map((item) => (
-            item.data && item.data.conversationId === conversationId
-              ? {
-                ...item,
-                ...result,
-                data: {
-                  ...item.data,
-                  candidatesInfo: item.data.candidatesInfo.filter((person) => person.id !== payload.removedPersonId),
-                },
-              }
-              : item
-          ))
-        }
-
-        case 'change-group-name': {
-          return conversations && conversations.map((item) => (
-            item.data && item.data.conversationId === conversationId
-              ? {
-                ...item,
-                ...result,
-                data: {
-                  ...item.data,
-                  groupName: payload.newGroupName,
-                },
-              }
-              : item
-          ))
-        }
 
         case 'leave-group': {
           return conversations && conversations.map((item) => (
@@ -246,81 +338,6 @@ export const updateChatPopupsHelper = ({ chatPopupIds, payload }) => {
     }
 
     default: return chatPopupIds
-  }
-}
-
-export const updateConversationsHelper = ({ payload, conversations }) => {
-  const {
-    requestType, conversationId, newMessage, dataType,
-  } = payload
-
-  switch (requestType) {
-    case 'UPDATE': {
-      switch (dataType) {
-        case 'new-message': return conversations && conversations.map((item) => (
-          item.data && item.data.conversationId === conversationId
-            ? {
-              ...item,
-              data: {
-                ...item.data,
-                chatData: {
-                  ...item.data.chatData,
-                  chats: [
-                    ...item.data.chatData.chats,
-                    newMessage,
-                  ],
-                },
-              },
-            }
-            : item
-        ))
-
-        case 'mark-as-unread': return conversations && conversations.map((item) => (
-          item.data && item.data.conversationId === conversationId
-            ? {
-              ...item,
-              data: {
-                ...item.data,
-                allRead: false,
-              },
-            }
-            : item
-        ))
-
-        default: return conversations
-      }
-    }
-
-    case 'CREATE': {
-      switch (payload.dataType) {
-        case 'add-conversation': {
-          const currentConversation = conversations
-            && conversations.find((item) => item.data && item.data.conversationId === conversationId)
-
-          return currentConversation
-            ? conversations
-            : [
-              ...conversations,
-              {
-                isLoading: false,
-                success: true,
-                error: false,
-                dataType: '',
-                requestType: '',
-                data: payload.newChat,
-              },
-            ]
-        }
-
-        default: return conversations
-      }
-    }
-
-    case 'DELETE': {
-      return conversations.filter((item) => item.data.conversationId !== payload.conversationId)
-    }
-
-    default: return conversations
   }
 }
 

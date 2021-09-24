@@ -10,6 +10,8 @@ export const EVENTS = {
   RECEIVE_NOTIFICATION: 'receive-notification',
   DELETE_NOTIFICATION: 'delete-notification',
   REMOVE_NOTIFICATION: 'remove-notification',
+  SEND_MESSAGE: 'send-message',
+  RECEIVE_MESSAGE: 'receive-message',
 }
 
 export const SUBJECTS = {

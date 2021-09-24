@@ -66,6 +66,7 @@ const MiddleCard = ({
               imageUrl={ imageUrl }
               setImageUrl={ setImageUrl }
               isLoading={ isLoading || currentConversation?.isLoading }
+              candidatesInfo={ conversationData?.candidatesInfo }
             />
           </div>
         )}

@@ -15,4 +15,9 @@ const deleteNotification = {
   event: EVENTS.DELETE_NOTIFICATION,
 }
 
-export default [ joinRoom, sendNotification, deleteNotification ]
+const sendMessage = {
+  method: 'sendMessage',
+  event: EVENTS.SEND_MESSAGE,
+}
+
+export default [ joinRoom, sendNotification, deleteNotification, sendMessage ]

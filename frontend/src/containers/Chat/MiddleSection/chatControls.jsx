@@ -15,9 +15,10 @@ import { getUniqueId } from '../../../utils/common'
 import { acceptedImageFormats, maxImageFileSize } from '../../People/ContactCenter/constants'
 import ImagePreview from '../../../components/CommonModal/imagePreview'
 import { chatDataRequestStart, updateAllChats, updateConversations } from '../../../redux-saga/redux/chat'
+import WebSocket from '../../../socket'
 
 const ChatControls = ({
-  conversationId, messageText, setMessageText, imageUrl, setImageUrl, isLoading,
+  conversationId, messageText, setMessageText, imageUrl, setImageUrl, isLoading, candidatesInfo,
 }) => {
   const { userDetails } = useSelector((state) => state.login)
   const { settings: clientSettings } = useSelector((state) => state.clientDetails)
@@ -88,6 +89,16 @@ const ChatControls = ({
       conversationId,
     }))
 
+    WebSocket.sendMessage({
+      to: `c-${ conversationId }`, // TODO: Call helper method formatConversationRoomId
+      from: userDetails && userDetails.user_id,
+      messsages: [ newMessage ],
+      dataType: 'new-message',
+      payload: {
+        userIds: candidatesInfo?.map((user) => user.id)?.filter((id) => id !== (userDetails && userDetails.user_id)),
+      },
+    })
+
     if (currentChat && !currentChat.allRead) {
       dispatch(chatDataRequestStart({
         requestType: 'UPDATE',
@@ -99,7 +110,7 @@ const ChatControls = ({
     setMessageText('')
     setImageUrl('')
   }, [ messageText, userDetails, agentSettings, clientSettings, imageUrl, setImageUrl, setMessageText,
-    conversationId, currentChat, dispatch ])
+    conversationId, currentChat, dispatch, candidatesInfo ])
 
   return (
     <div className='is-flex is-between align-items-start chat-section-footer'>
@@ -176,6 +187,7 @@ ChatControls.defaultProps = {
   messageText: '',
   imageUrl: '',
   isLoading: false,
+  candidatesInfo: [],
 }
 
 ChatControls.propTypes = {
@@ -185,6 +197,9 @@ ChatControls.propTypes = {
   setMessageText: PropTypes.func.isRequired,
   setImageUrl: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
+  candidatesInfo: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+  })),
 }
 
 export default ChatControls
