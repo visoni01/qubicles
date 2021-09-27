@@ -332,3 +332,14 @@ export const getChatNotificationMessage = ({ type, payload }) => {
     default: return ''
   }
 }
+
+export const getFormattedChatNotificationMessage = ({ senderId, type, payload }) => ({
+  messageId: getUniqueId(),
+  senderId,
+  text: getChatNotificationMessage({ type, payload }),
+  isNotification: true,
+  isRead: true,
+  sentAt: Date.now(),
+})
+
+export const formatConversationRoomId = (conversationId) => `c-${ conversationId }`

@@ -1,7 +1,8 @@
 /* eslint-disable complexity */
 import _ from 'lodash'
 import { takeEvery, put, select } from 'redux-saga/effects'
-import { getChatNotificationMessage, getUniqueId } from '../../../utils/common'
+import WebSocket from '../../../socket'
+import { formatConversationRoomId, getFormattedChatNotificationMessage } from '../../../utils/common'
 import {
   allChatsRequestStart,
   allChatsRequestSuccess,
@@ -62,43 +63,31 @@ function* allChatsWorker(action) {
             const { settings: agentSettings } = yield select((state) => state.agentDetails)
             const { settings: clientSettings } = yield select((state) => state.clientDetails)
 
-            const newMessages = [
-              {
-                messageId: getUniqueId(),
-                senderId: userDetails && userDetails.user_id,
-                text: getChatNotificationMessage({
-                  type: dataType,
-                  payload: {
-                    userId: userDetails && userDetails.user_id,
-                    userName: userDetails && userDetails.full_name,
-                    groupName: title || '',
-                  },
-                }),
-                isNotification: true,
-                sentAt: Date.now(),
-                isRead: true,
-              },
-              {
-                messageId: getUniqueId(),
-                senderId: userDetails && userDetails.user_id,
-                text: getChatNotificationMessage({
-                  type: 'add-people',
-                  payload: {
-                    userId: userDetails && userDetails.user_id,
-                    userName: userDetails && userDetails.full_name,
-                    usersName: members && members.map((item) => item.name).join(', '),
-                  },
-                }),
-                isNotification: true,
-                sentAt: Date.now(),
-                isRead: true,
-              },
-            ]
-
+            const userId = userDetails && userDetails.user_id
             let loggedInUser = {
-              id: userDetails && userDetails.user_id,
+              id: userId,
               userCode: userDetails && userDetails.user_code,
             }
+            const newMessages = [
+              getFormattedChatNotificationMessage({
+                senderId: userId,
+                type: dataType,
+                payload: {
+                  userId,
+                  userName: userDetails && userDetails.full_name,
+                  groupName: title || '',
+                },
+              }),
+              getFormattedChatNotificationMessage({
+                senderId: userId,
+                type: 'add-people',
+                payload: {
+                  userId,
+                  userName: userDetails && userDetails.full_name,
+                  usersName: members?.map((item) => item.name).join(', '),
+                },
+              }),
+            ]
 
             if (userDetails && _.isEqual(userDetails.user_code, 'agent')) {
               let location = agentSettings.city || ''
@@ -127,18 +116,17 @@ function* allChatsWorker(action) {
               user_ids: [ loggedInUser, ...members ].map((item) => item.id),
             })
 
-            yield put(allChatsRequestSuccess({
-              newChat: {
-                id: data,
-                name: title || (members && [ loggedInUser, ...members ].map((item) => item.name).join(', ')),
-                imageUrl: '',
-                dateTime: Date.now(),
-                isGroup: true,
-                latestMessage: null,
-                allRead: true,
-              },
-            }))
-            yield put(updateConversations({
+            const roomId = formatConversationRoomId(data)
+            const newChat = {
+              id: data,
+              name: title || (members && [ loggedInUser, ...members ].map((item) => item.name).join(', ')),
+              imageUrl: '',
+              dateTime: Date.now(),
+              isGroup: true,
+              latestMessage: null,
+              allRead: true,
+            }
+            const newConversation = {
               requestType,
               dataType: 'add-conversation',
               newChat: {
@@ -151,8 +139,43 @@ function* allChatsWorker(action) {
                   offset: 2,
                 },
                 candidatesInfo: [ loggedInUser, ...members ],
+                allRead: true,
               },
-            }))
+            }
+
+            WebSocket.joinChatRoom(roomId)
+
+            WebSocket.joinChatRoomForOtherUsers({
+              userIds: members?.map((user) => user.id?.toString()),
+              roomId,
+            })
+
+            WebSocket.sendMessage({
+              to: roomId,
+              from: userId,
+              messages: newMessages?.map((message) => ({
+                ...message,
+                isRead: false,
+              })),
+              dataType: 'new-group',
+              payload: {
+                userIds: members?.map((user) => user.id),
+                newChat: {
+                  ...newChat,
+                  allRead: false,
+                },
+                newConversation: {
+                  ...newConversation,
+                  newChat: {
+                    ...newConversation.newChat,
+                    allRead: false,
+                  },
+                },
+              },
+            })
+
+            yield put(allChatsRequestSuccess({ newChat }))
+            yield put(updateConversations(newConversation))
             yield put(updateCurrentChatId({ conversationId: data }))
             break
           }
@@ -160,12 +183,23 @@ function* allChatsWorker(action) {
           case 'new-chat': {
             const { data } = yield Chat.createNewChat({ candidate_id: candidate?.id })
             const { chatsList } = yield select((state) => state.allChats)
-            const exists = _.findIndex(chatsList, { id: data?.conversationId }) !== -1
+
+            const newConversationId = data?.conversationId
+            const exists = _.findIndex(chatsList, { id: newConversationId }) !== -1
 
             if (!exists) {
+              const roomId = formatConversationRoomId(newConversationId)
+
+              WebSocket.joinChatRoom(roomId)
+
+              WebSocket.joinChatRoomForOtherUsers({
+                userIds: [ candidate?.id?.toString() ],
+                roomId,
+              })
+
               yield put(allChatsRequestSuccess({
                 newChat: {
-                  id: data && data.conversationId,
+                  id: newConversationId,
                   name: candidate.name,
                   imageUrl: candidate.profilePic,
                   dateTime: data?.messages[data.messages.length - 1]?.sentAt || Date.now(),
@@ -182,7 +216,7 @@ function* allChatsWorker(action) {
               requestType,
               dataType: 'add-conversation',
               newChat: {
-                conversationId: data?.conversationId,
+                conversationId: newConversationId,
                 isGroup: false,
                 chatData: {
                   chats: data.messages ? [ ...data.messages ] : [],
@@ -193,7 +227,7 @@ function* allChatsWorker(action) {
                 allRead: data?.allRead,
               },
             }))
-            yield put(updateCurrentChatId({ conversationId: data?.conversationId }))
+            yield put(updateCurrentChatId({ conversationId: newConversationId }))
             break
           }
 

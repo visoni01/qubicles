@@ -1,9 +1,9 @@
-import { User, XClientUser, UserDetail, XClient, XUserActivity, XUserNotification } from '../../db/models'
-import config from '../../../config/app'
 import jwt from 'jsonwebtoken'
-import { getOne } from './crud'
 import Sequelize, { Op } from 'sequelize'
 import _ from 'lodash'
+import config from '../../../config/app'
+import { getOne } from './crud'
+import { User, XClientUser, UserDetail, XClient, XUserActivity, XUserNotification } from '../../db/models'
 
 export const getUserById = ({ user_id }) => {
   return User.findOne({ where: { user_id }, raw: true })

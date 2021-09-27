@@ -1,11 +1,11 @@
+import Sequelize, { Op } from 'sequelize'
+import _ from 'lodash'
+import { SqlHelper } from '../../utils/sql'
+import { formatDate, isSameDate, formatConversationRoomId } from './common'
 import {
   XQodConversations, XQodChatMessage, XQodChatMessagesReadStatus, XQodUserConversationsStatus, XQodChatGroupMembers,
   UserDetail
 } from '../../db/models'
-import Sequelize, { Op } from 'sequelize'
-import _ from 'lodash'
-import { SqlHelper } from '../../utils/sql'
-import { formatDate, isSameDate } from './common'
 
 export const createOrFindChat = async ({ user_id, candidate_id }) => {
   const conversation = await XQodConversations.findOne({
@@ -683,4 +683,79 @@ export const getUserConversationStatus = async ({ conversation_id, user_id }) =>
   })
 
   return userConversationStatus
+}
+
+export const addUserMessages = async ({ messages, conversation_id }) => {
+  const messagesToBeAdded = messages && messages.map((message) => ({
+    sender_id: message.senderId,
+    conversation_id,
+    text: message.text,
+    image_url: message.imageUrl,
+    is_notification: message.isNotification,
+    sent_at: message.sentAt
+  }))
+
+  if (messagesToBeAdded && messagesToBeAdded[0]) {
+    const messageDetails = await XQodChatMessage.create(messagesToBeAdded[0])
+    messages[0].newMessageId = messageDetails && messageDetails.get({ plain: true }).message_id
+  }
+
+  if (messagesToBeAdded && messagesToBeAdded[1]) {
+    const messageDetails = await XQodChatMessage.create(messagesToBeAdded[1])
+    messages[1].newMessageId = messageDetails && messageDetails.get({ plain: true }).message_id
+  }
+
+  return messages
+}
+
+export const fetchAllConversationRoomIds = async ({ user_id }) => {
+  const promiseArray = [
+    () => XQodConversations.findAll({
+      raw: true,
+      attributes: ['conversation_id'],
+      where: {
+        is_group: false,
+        [Op.or]: [
+          { user_one_id: user_id },
+          { user_two_id: user_id }
+        ]
+      }
+    }),
+    () => XQodChatGroupMembers.findAll({
+      raw: true,
+      attributes: ['conversation_id'],
+      where: {
+        user_id,
+        is_removed: false
+      }
+    })
+  ]
+
+  const [privateChatConversationIds, groupChatConversationIds] = await Promise.all(
+    promiseArray.map(promise => promise()))
+
+  let conversationIds = privateChatConversationIds && privateChatConversationIds.map((item) => item.conversation_id)
+  conversationIds = [
+    ...conversationIds,
+    ...groupChatConversationIds && groupChatConversationIds.map((item) => item.conversation_id)
+  ]
+
+  return conversationIds && conversationIds.map(formatConversationRoomId)
+}
+
+export const markMessagesAsUnread = async ({ userIds, messageIds }) => {
+  let bulkDataToBeAdded = []
+
+  messageIds.forEach((message_id) => {
+    bulkDataToBeAdded = [
+      ...bulkDataToBeAdded,
+      ...userIds.map((user_id) => ({
+        message_id,
+        user_id,
+        is_read: false
+      }))
+    ]
+  })
+
+  await XQodChatMessagesReadStatus.bulkCreate(bulkDataToBeAdded)
 }

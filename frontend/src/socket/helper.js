@@ -49,7 +49,7 @@ const addMessagesInChatReducers = ({ messages, conversationId, fromSelf }) => {
       dataType: 'new-message',
       conversationId,
       newMessage: message,
-      updateOnlyMessageId: fromSelf,
+      fromSelf,
     }))
   })
 
@@ -63,6 +63,7 @@ const addMessagesInChatReducers = ({ messages, conversationId, fromSelf }) => {
       latestMessage: lastMessage?.text,
       isImage: !!lastMessage?.imageUrl,
       isNotification: lastMessage?.isNotification,
+      fromSelf,
     }))
   }
 }
@@ -84,26 +85,36 @@ const chatNewGroupHandler = ({ payload }) => {
 
 const chatRemovePersonHandler = ({ payload, conversationData, conversationId }) => {
   if (conversationData) {
+    const { userDetails } = store.getState().login
+    const userId = userDetails && userDetails.user_id
     store.dispatch(updateConversations({
       requestType: 'UPDATE',
       dataType: 'remove-person',
       conversationId,
       removedPersonId: payload.removedPersonId,
+      fromSelf: _.isEqual(userId, payload.removedPersonId),
     }))
 
-    if (_.isEmpty(conversationData.groupName) && window.location.pathname === CHAT_ROUTE) {
+    if (window.location.pathname === CHAT_ROUTE) {
       const { conversations } = store.getState().chatData
       const currentCoversation = conversations.find((conversation) => (
         conversation?.data?.conversationId === conversationId
       ))
-      const updatedconversationData = currentCoversation?.data
-      const groupName = updatedconversationData.candidatesInfo?.map((member) => member.name).join(', ')
+      const groupName = currentCoversation?.data?.candidatesInfo?.map((member) => member.name).join(', ')
 
-      store.dispatch(updateAllChats({
-        dataType: 'change-group-name',
-        conversationId,
-        newGroupName: groupName,
-      }))
+      if (_.isEqual(userId, payload.removedPersonId)) {
+        store.dispatch(updateAllChats({
+          dataType: 'leave-group',
+          conversationId,
+          newGroupName: _.isEmpty(conversationData.groupName) && groupName,
+        }))
+      } else if (_.isEmpty(conversationData.groupName)) {
+        store.dispatch(updateAllChats({
+          dataType: 'change-group-name',
+          conversationId,
+          newGroupName: groupName,
+        }))
+      }
     }
   } else {
     fetchAndAddChatData({ conversationId })
@@ -112,14 +123,18 @@ const chatRemovePersonHandler = ({ payload, conversationData, conversationId }) 
 
 const chatAddPeopleHandler = ({ payload, conversationData, conversationId }) => {
   if (conversationData) {
+    const { userDetails } = store.getState().login
+    const userId = userDetails && userDetails.user_id
+    const isUserBelongsToGroup = payload.newMembers?.find((member) => member.id === userId)
     store.dispatch(updateConversations({
       requestType: 'UPDATE',
       dataType: 'add-people',
       conversationId,
       newMembers: payload.newMembers,
+      fromSelf: isUserBelongsToGroup,
     }))
 
-    if (_.isEmpty(conversationData.groupName) && window.location.pathname === CHAT_ROUTE) {
+    if (window.location.pathname === CHAT_ROUTE) {
       const { conversations } = store.getState().chatData
       const currentCoversation = conversations.find((conversation) => (
         conversation?.data?.conversationId === conversationId
@@ -127,11 +142,19 @@ const chatAddPeopleHandler = ({ payload, conversationData, conversationId }) => 
       const updatedconversationData = currentCoversation?.data
       const groupName = updatedconversationData.candidatesInfo?.map((member) => member.name).join(', ')
 
-      store.dispatch(updateAllChats({
-        dataType: 'change-group-name',
-        conversationId,
-        newGroupName: groupName,
-      }))
+      if (isUserBelongsToGroup) {
+        store.dispatch(updateAllChats({
+          dataType: 'add-people',
+          conversationId,
+          newGroupName: _.isEmpty(conversationData.groupName) && groupName,
+        }))
+      } else if (_.isEmpty(conversationData.groupName)) {
+        store.dispatch(updateAllChats({
+          dataType: 'change-group-name',
+          conversationId,
+          newGroupName: groupName,
+        }))
+      }
     }
   } else {
     fetchAndAddChatData({ conversationId })
@@ -159,7 +182,7 @@ const chatChangeGroupNameHandler = ({ payload, conversationData, conversationId 
   }
 }
 
-const getConversationIdFromRoomId = ({ roomId }) => parseInt(roomId?.replace('c-', ''), 10)
+const getConversationIdFromRoomId = (roomId) => parseInt(roomId?.replace('c-', ''), 10)
 
 // eslint-disable-next-line import/prefer-default-export
 export const receiveMessageEventCallback = ({

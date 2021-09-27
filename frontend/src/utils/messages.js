@@ -12,6 +12,12 @@ export const EVENTS = {
   REMOVE_NOTIFICATION: 'remove-notification',
   SEND_MESSAGE: 'send-message',
   RECEIVE_MESSAGE: 'receive-message',
+  JOIN_CHAT_ROOM: 'join-chat-room',
+  LEAVE_CHAT_ROOM: 'leave-chat-room',
+  JOIN_CHAT_ROOM_FOR_OTHER_USERS: 'join-chat-room-for-other-users',
+  LEAVE_CHAT_ROOM_FOR_OTHER_USER: 'leave-chat-room-for-other-user',
+  JOIN_CHAT_ROOM_FOR_SELF: 'join-chat-room-for-self',
+  LEAVE_CHAT_ROOM_FOR_SELF: 'leave-chat-room-for-self',
 }
 
 export const SUBJECTS = {

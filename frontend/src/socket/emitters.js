@@ -20,4 +20,27 @@ const sendMessage = {
   event: EVENTS.SEND_MESSAGE,
 }
 
-export default [ joinRoom, sendNotification, deleteNotification, sendMessage ]
+const joinChatRoom = {
+  method: 'joinChatRoom',
+  event: EVENTS.JOIN_CHAT_ROOM,
+}
+
+const leaveChatRoom = {
+  method: 'leaveChatRoom',
+  event: EVENTS.LEAVE_CHAT_ROOM,
+}
+
+const joinChatRoomForOtherUsers = {
+  method: 'joinChatRoomForOtherUsers',
+  event: EVENTS.JOIN_CHAT_ROOM_FOR_OTHER_USERS,
+}
+
+const leaveChatRoomForOtherUser = {
+  method: 'leaveChatRoomForOtherUser',
+  event: EVENTS.LEAVE_CHAT_ROOM_FOR_OTHER_USER,
+}
+
+export default [
+  joinRoom, sendNotification, deleteNotification, sendMessage, joinChatRoom, leaveChatRoom, joinChatRoomForOtherUsers,
+  leaveChatRoomForOtherUser,
+]

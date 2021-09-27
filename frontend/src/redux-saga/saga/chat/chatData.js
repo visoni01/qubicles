@@ -1,7 +1,8 @@
 /* eslint-disable complexity */
 import _ from 'lodash'
 import { takeEvery, put, select } from 'redux-saga/effects'
-import { getChatNotificationMessage, getUniqueId } from '../../../utils/common'
+import WebSocket from '../../../socket'
+import { formatConversationRoomId, getFormattedChatNotificationMessage } from '../../../utils/common'
 import {
   chatDataRequestStart,
   chatDataRequestSuccess,
@@ -59,28 +60,44 @@ function* chatDataWorker(action) {
           }
 
           case 'add-people': {
-            yield Chat.addPeople({
-              conversationId,
-              user_ids: members && members.map((user) => user.id),
-            })
+            yield Chat.addPeople({ conversationId, user_ids: members?.map((user) => user.id) })
 
             const { userDetails } = yield select((state) => state.login)
+            const { conversations } = yield select((state) => state.chatData)
 
-            const newMessage = {
-              messageId: getUniqueId(),
-              senderId: userDetails && userDetails.user_id,
-              text: getChatNotificationMessage({
-                type: dataType,
-                payload: {
-                  userId: userDetails && userDetails.user_id,
-                  userName: userDetails && userDetails.full_name,
-                  usersName: members && members.map((item) => item.name).join(', '),
-                },
-              }),
-              isNotification: true,
-              sentAt: Date.now(),
-              isRead: true,
-            }
+            const currentCoversation = conversations.find((conversation) => conversation?.data?.conversationId
+              === conversationId)
+            const conversationData = currentCoversation?.data
+            const userId = userDetails && userDetails.user_id
+            const roomId = formatConversationRoomId(conversationId)
+            const newMessage = getFormattedChatNotificationMessage({
+              senderId: userId,
+              type: dataType,
+              payload: {
+                userId,
+                userName: userDetails && userDetails.full_name,
+                usersName: members?.map((item) => item.name).join(', '),
+              },
+            })
+
+            WebSocket.joinChatRoomForOtherUsers({
+              userIds: members?.map((user) => user.id?.toString()),
+              roomId,
+            })
+
+            WebSocket.sendMessage({
+              to: roomId,
+              from: userId,
+              messages: [ { ...newMessage, isRead: false } ],
+              dataType: 'add-people',
+              payload: {
+                userIds: [
+                  ...conversationData.candidatesInfo,
+                  ...members,
+                ].map((user) => user.id).filter((id) => id !== userId),
+                newMembers: members,
+              },
+            })
 
             yield put(chatDataRequestSuccess({
               newMembers: members, dataType, requestType, conversationId,
@@ -88,6 +105,16 @@ function* chatDataWorker(action) {
             yield put(updateConversations({
               newMessage, dataType: 'new-message', requestType, conversationId,
             }))
+            yield put(updateAllChats({
+              dataType: 'add-people',
+              conversationId,
+              newGroupName: _.isEmpty(conversationData.groupName) && [
+                ...conversationData.candidatesInfo,
+                ...members,
+              ].map((member) => member.name).join(', '),
+              latestMessage: newMessage?.text,
+            }))
+
             break
           }
 
@@ -95,23 +122,39 @@ function* chatDataWorker(action) {
             yield Chat.removePerson({ conversationId, candidateId })
 
             const { userDetails } = yield select((state) => state.login)
+            const { conversations } = yield select((state) => state.chatData)
 
-            const newMessage = {
-              messageId: getUniqueId(),
-              senderId: userDetails && userDetails.user_id,
-              text: getChatNotificationMessage({
-                type: dataType,
-                payload: {
-                  userId: userDetails && userDetails.user_id,
-                  userName: userDetails && userDetails.full_name,
-                  otherUserId: candidateId,
-                  otherUserName: name,
-                },
-              }),
-              isNotification: true,
-              sentAt: Date.now(),
-              isRead: true,
-            }
+            const currentCoversation = conversations.find((conversation) => conversation?.data?.conversationId
+              === conversationId)
+            const conversationData = currentCoversation?.data
+            const userId = userDetails && userDetails.user_id
+            const roomId = formatConversationRoomId(conversationId)
+            const newMessage = getFormattedChatNotificationMessage({
+              senderId: userId,
+              type: dataType,
+              payload: {
+                userId,
+                userName: userDetails && userDetails.full_name,
+                otherUserId: candidateId,
+                otherUserName: name,
+              },
+            })
+
+            WebSocket.sendMessage({
+              to: roomId,
+              from: userId,
+              messages: [ { ...newMessage, isRead: false } ],
+              dataType: 'remove-person',
+              payload: {
+                userIds: conversationData?.candidatesInfo?.map((user) => user.id)?.filter((id) => id !== userId),
+                removedPersonId: candidateId,
+              },
+            })
+
+            WebSocket.leaveChatRoomForOtherUser({
+              userId: candidateId?.toString(),
+              roomId,
+            })
 
             yield put(chatDataRequestSuccess({
               removedPersonId: candidateId, dataType, requestType, conversationId,
@@ -123,14 +166,13 @@ function* chatDataWorker(action) {
               msg: `You have successfully removed ${ name }!`,
             }))
 
-            const { conversations } = yield select((state) => state.chatData)
-            const currentCoversation = conversations.find((conversation) => conversation.data.conversationId
-              === conversationId)
-            const conversationData = currentCoversation?.data
-
             if (_.isEmpty(conversationData.groupName)) {
-              const groupName = conversationData.candidatesInfo?.map((member) => member.name).join(', ')
-              yield put(updateAllChats({ dataType: 'change-group-name', conversationId, newGroupName: groupName }))
+              yield put(updateAllChats({
+                dataType: 'change-group-name',
+                conversationId,
+                newGroupName: conversationData.candidatesInfo?.filter((user) => user.id !== candidateId)
+                  .map((member) => member.name).join(', '),
+              }))
             }
             break
           }
@@ -142,8 +184,13 @@ function* chatDataWorker(action) {
             })
 
             const { userDetails } = yield select((state) => state.login)
+            const { conversations } = yield select((state) => state.chatData)
 
             let type
+            const currentCoversation = conversations.find((conversation) => conversation?.data?.conversationId
+              === conversationId)
+            const conversationData = currentCoversation?.data
+            const userId = userDetails && userDetails.user_id
 
             if (_.isEmpty(newGroupName)) {
               type = 'remove-group-name'
@@ -153,22 +200,28 @@ function* chatDataWorker(action) {
               type = 'change-group-name'
             }
 
-            const newMessage = {
-              messageId: getUniqueId(),
-              senderId: userDetails && userDetails.user_id,
-              text: getChatNotificationMessage({
-                type,
-                payload: {
-                  userId: userDetails && userDetails.user_id,
-                  userName: userDetails && userDetails.full_name,
-                  newGroupName,
-                  oldGroupName,
-                },
-              }),
-              isNotification: true,
-              sentAt: Date.now(),
-              isRead: true,
-            }
+            const newMessage = getFormattedChatNotificationMessage({
+              senderId: userId,
+              type,
+              payload: {
+                userId,
+                userName: userDetails && userDetails.full_name,
+                newGroupName,
+                oldGroupName,
+              },
+            })
+
+            WebSocket.sendMessage({
+              to: formatConversationRoomId(conversationId),
+              from: userId,
+              messages: [ { ...newMessage, isRead: false } ],
+              dataType: 'change-group-name',
+              payload: {
+                userIds: conversationData?.candidatesInfo?.map((user) => user.id)?.filter((id) => id !== userId),
+                newGroupName: newGroupName
+                  || (conversationData?.candidatesInfo.map((member) => member.name).join(', ')),
+              },
+            })
 
             yield put(chatDataRequestSuccess({
               newGroupName, dataType, requestType, conversationId,
@@ -176,53 +229,61 @@ function* chatDataWorker(action) {
             yield put(updateConversations({
               newMessage, dataType: 'new-message', requestType, conversationId,
             }))
-
-            const { conversations } = yield select((state) => state.chatData)
-            const chatData = conversations.find((conversation) => conversation.data.conversationId === conversationId)
-            const chat = chatData?.data
-            const groupName = newGroupName
-              || (chat.candidatesInfo && chat.candidatesInfo.map((member) => member.name).join(', '))
-
-            yield put(updateAllChats({ dataType, conversationId, newGroupName: groupName }))
+            yield put(updateAllChats({
+              dataType,
+              conversationId,
+              newGroupName: newGroupName
+                || (conversationData?.candidatesInfo.map((member) => member.name).join(', ')),
+              latestMessage: newMessage?.text,
+              isNotification: true,
+            }))
             break
           }
 
           case 'leave-group': {
             const { userDetails } = yield select((state) => state.login)
-
-            yield Chat.removePerson({ conversationId, candidateId: userDetails && userDetails.user_id })
-
-            const newMessage = {
-              messageId: getUniqueId(),
-              senderId: userDetails && userDetails.user_id,
-              text: getChatNotificationMessage({
-                type: 'leave-group',
-                payload: {
-                  userId: userDetails && userDetails.user_id,
-                  userName: userDetails && userDetails.full_name,
-                },
-              }),
-              isNotification: true,
-              sentAt: Date.now(),
-              isRead: true,
-            }
-
-            yield put(chatDataRequestSuccess({
-              requestType, dataType, conversationId, newMessage, userId: userDetails && userDetails.user_id,
-            }))
-
             const { conversations } = yield select((state) => state.chatData)
-            const currentCoversation = conversations.find((conversation) => conversation.data.conversationId
+
+            const currentCoversation = conversations.find((conversation) => conversation?.data?.conversationId
               === conversationId)
             const conversationData = currentCoversation?.data
-            let groupName
+            const userId = userDetails && userDetails.user_id
 
-            if (_.isEmpty(conversationData.groupName)) {
-              groupName = conversationData.candidatesInfo?.map((member) => member.name).join(', ')
-            }
+            yield Chat.removePerson({ conversationId, candidateId: userId })
 
+            const roomId = formatConversationRoomId(conversationId)
+            const newMessage = getFormattedChatNotificationMessage({
+              senderId: userId,
+              type: 'leave-group',
+              payload: {
+                userId,
+                userName: userDetails && userDetails.full_name,
+              },
+            })
+
+            WebSocket.sendMessage({
+              to: roomId,
+              from: userId,
+              messages: [ { ...newMessage, isRead: false } ],
+              dataType: 'remove-person',
+              payload: {
+                userIds: conversationData?.candidatesInfo?.map((user) => user.id)?.filter((id) => id !== userId),
+                removedPersonId: userId,
+              },
+            })
+
+            WebSocket.leaveChatRoom(roomId)
+
+            yield put(chatDataRequestSuccess({
+              requestType, dataType, conversationId, newMessage, userId,
+            }))
             yield put(updateAllChats({
-              dataType, conversationId, newMessage: newMessage?.text, newGroupName: groupName,
+              dataType,
+              conversationId,
+              newMessage: newMessage?.text,
+              newGroupName: _.isEmpty(conversationData.groupName)
+                && conversationData.candidatesInfo?.filter((user) => user.id !== userId)
+                  .map((member) => member.name).join(', '),
             }))
             break
           }
@@ -258,7 +319,7 @@ function* chatDataWorker(action) {
       default: break
     }
   } catch (e) {
-    yield put(chatDataRequestFailed({ conversationId: action.payload && action.payload.conversationId }))
+    yield put(chatDataRequestFailed({ conversationId: action.payload?.conversationId }))
     yield put(showErrorMessage({ msg: e.errMsg }))
   }
 }

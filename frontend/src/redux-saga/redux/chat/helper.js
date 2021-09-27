@@ -15,9 +15,10 @@ export const updateConversationsHelper = ({ payload, conversations, result = {} 
               ...item,
               data: {
                 ...item.data,
+                allRead: payload.fromSelf ? item.data.allRead : false,
                 chatData: {
                   ...item.data.chatData,
-                  chats: payload.updateOnlyMessageId
+                  chats: payload.fromSelf
                     ? item.data.chatData.chats.map((message) => (
                       message.messageId === newMessage.messageId
                         ? {
@@ -59,6 +60,7 @@ export const updateConversationsHelper = ({ payload, conversations, result = {} 
                 ...result,
                 data: {
                   ...item.data,
+                  isRemoved: payload.fromSelf ? true : item.data.isRemoved,
                   candidatesInfo: item.data.candidatesInfo.filter((person) => person.id !== payload.removedPersonId),
                 },
               }
@@ -74,6 +76,7 @@ export const updateConversationsHelper = ({ payload, conversations, result = {} 
                 ...result,
                 data: {
                   ...item.data,
+                  isRemoved: payload.fromSelf ? false : item.data.isRemoved,
                   candidatesInfo: [
                     ...item.data.candidatesInfo,
                     ...payload.newMembers,
@@ -401,6 +404,7 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
           dateTime: payload.dateTime,
           latestMessage: payload.latestMessage,
           isImage: payload.isImage,
+          allRead: payload.fromSelf === false ? false : latestChat.allRead,
         },
         ...filteredChatsList,
       ]
@@ -412,6 +416,8 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
           return {
             ...chat,
             name: payload.newGroupName,
+            latestMessage: payload.latestMessage ? payload.latestMessage : chat.latestMessage,
+            isNotification: payload.isNotification ? payload.isNotification : chat.isNotification,
           }
         }
         return chat
@@ -424,7 +430,7 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
           return {
             ...chat,
             name: payload.newGroupName || chat.name,
-            latestMessage: payload.newMessage,
+            latestMessage: payload.newMessage || chat.latestMessage,
             dateTime: Date.now(),
             allRead: true,
             isRemoved: true,
@@ -444,6 +450,22 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
             allRead: true,
             isImage: false,
             isNotification: false,
+          }
+          : chat
+      ))
+    }
+
+    case 'add-people': {
+      return chatsList.map((chat) => (
+        payload.conversationId === chat.id
+          ? {
+            ...chat,
+            name: payload.newGroupName || chat.name,
+            latestMessage: payload.latestMessage || chat.latestMessage,
+            isRemoved: false,
+            allRead: false,
+            isImage: false,
+            isNotification: true,
           }
           : chat
       ))

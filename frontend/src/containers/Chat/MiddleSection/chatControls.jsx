@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core'
 import { ImageIcon } from '../../../assets/images/common'
 import { showErrorMessage } from '../../../redux-saga/redux/utils'
-import { getUniqueId } from '../../../utils/common'
+import { formatConversationRoomId, getUniqueId } from '../../../utils/common'
 import { acceptedImageFormats, maxImageFileSize } from '../../People/ContactCenter/constants'
 import ImagePreview from '../../../components/CommonModal/imagePreview'
 import { chatDataRequestStart, updateAllChats, updateConversations } from '../../../redux-saga/redux/chat'
@@ -62,9 +62,10 @@ const ChatControls = ({
   }, [ dispatch, setImageUrl ])
 
   const handleSendClick = useCallback(() => {
+    const userId = userDetails && userDetails.user_id
     const newMessage = {
       messageId: getUniqueId(),
-      senderId: userDetails && userDetails.user_id,
+      senderId: userId,
       profilePic: userDetails && _.isEqual(userDetails.user_code, 'agent')
         ? agentSettings.profilePic
         : clientSettings.profilePic,
@@ -90,12 +91,12 @@ const ChatControls = ({
     }))
 
     WebSocket.sendMessage({
-      to: `c-${ conversationId }`, // TODO: Call helper method formatConversationRoomId
-      from: userDetails && userDetails.user_id,
-      messsages: [ newMessage ],
+      to: formatConversationRoomId(conversationId),
+      from: userId,
+      messages: [ { ...newMessage, isRead: false } ],
       dataType: 'new-message',
       payload: {
-        userIds: candidatesInfo?.map((user) => user.id)?.filter((id) => id !== (userDetails && userDetails.user_id)),
+        userIds: candidatesInfo?.map((user) => user.id)?.filter((id) => id !== userId),
       },
     })
 

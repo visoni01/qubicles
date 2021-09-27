@@ -4,9 +4,12 @@ import _ from 'lodash'
 import logger from '../app/common/logger'
 import config from '../config/app'
 import { EVENTS } from '../app/utils/success'
-import { addUserNotification, deleteNotification, getUserDetailsByUserId } from '../app/services/helper'
 import SendNotificationMailService from '../app/services/email/sendNotificationMail'
 import SendSmsNotificationService from '../app/services/sms/sendSmsNotification'
+import {
+  addUserNotification, deleteNotification, getUserDetailsByUserId, addUserMessages, fetchAllConversationRoomIds,
+  getErrorMessageForSocket, displayLoggerMessageForSocket, updateXQodUserConversationsStatus, markMessagesAsUnread
+} from '../app/services/helper'
 
 const createSocketConnection = (server) => {
   try {
@@ -17,20 +20,60 @@ const createSocketConnection = (server) => {
     })
 
     io.on('connection', (socket) => {
+      displayLoggerMessageForSocket('Connection created', socket.handshake.query.userId)
+
       if (!_.isEqual(socket.handshake.query.userId, 'undefined')) {
-        logger.info(`Socket connection created ======> ${socket.handshake.query.userId}`)
         socket.join(socket.handshake.query.userId)
+        displayLoggerMessageForSocket('Join room', socket.handshake.query.userId)
+
+        // Join all conversation Ids room for chats
+        fetchAllConversationRoomIds({ user_id: socket.handshake.query.userId })
+          .then((conversationRoomIds) => {
+            socket.join(conversationRoomIds)
+            displayLoggerMessageForSocket('Join chat room', conversationRoomIds)
+          })
+          .catch((e) => {
+            logger.error(getErrorMessageForSocket('connecting to socket'), e)
+          })
       }
 
       socket.on('disconnect', (reason) => {
-        logger.info(`Socket disconnected ======> ${reason}`)
+        displayLoggerMessageForSocket('Disconnected', reason)
+
         if (reason === 'io server disconnect') {
           socket.connect()
         }
       })
 
+      socket.on(EVENTS.JOIN_ROOM, (id) => {
+        socket.handshake.query.userId = id
+        socket.join(id.toString())
+        displayLoggerMessageForSocket('Join room', id)
+      })
+
+      socket.on(EVENTS.JOIN_CHAT_ROOM, (roomId) => {
+        socket.join(roomId)
+        displayLoggerMessageForSocket('Join chat room', roomId)
+      })
+
+      socket.on(EVENTS.LEAVE_CHAT_ROOM, (roomId) => {
+        socket.leave(roomId)
+        displayLoggerMessageForSocket('Leave chat room', roomId)
+      })
+
+      socket.on(EVENTS.JOIN_CHAT_ROOM_FOR_OTHER_USERS, ({ userIds, roomId }) => {
+        displayLoggerMessageForSocket('Join chat room for others', roomId)
+        io.to(userIds).emit(EVENTS.JOIN_CHAT_ROOM_FOR_SELF, roomId)
+      })
+
+      socket.on(EVENTS.LEAVE_CHAT_ROOM_FOR_OTHER_USER, ({ userId, roomId }) => {
+        displayLoggerMessageForSocket('Leave chat room for others', roomId)
+        io.to(userId).emit(EVENTS.LEAVE_CHAT_ROOM_FOR_SELF, roomId)
+      })
+
       socket.on(EVENTS.SEND_NOTIFICATION, async ({ to, message, from, notifyEmail, subject, smsText }) => {
-        logger.info(`Socket send notification ======> ${message}`)
+        displayLoggerMessageForSocket('Send notification', message)
+
         try {
           const notification = await addUserNotification({ user_id: to, notice: message, record_id: from })
           io.to(to.toString()).emit(EVENTS.RECEIVE_NOTIFICATION, notification)
@@ -55,28 +98,56 @@ const createSocketConnection = (server) => {
             })
           }
         } catch (e) {
-          logger.error('Error while adding user notification =====>', e)
+          logger.error(getErrorMessageForSocket('adding user notification'), e)
         }
       })
 
       socket.on(EVENTS.DELETE_NOTIFICATION, async ({ to, message, from }) => {
+        displayLoggerMessageForSocket('Delete notification', message)
+
         try {
           const data = await deleteNotification({ user_id: to, notice: message, record_id: from })
           io.to(to.toString()).emit(EVENTS.REMOVE_NOTIFICATION, data)
         } catch (e) {
-          logger.error('Error while deleting user notification =====>', e)
+          logger.error(getErrorMessageForSocket('deleting user notification'), e)
         }
       })
 
-      socket.on(EVENTS.JOIN_ROOM, (id) => {
-        socket.handshake.query.userId = id
-        socket.join(id.toString())
+      socket.on(EVENTS.SEND_MESSSAGE, async ({ to, messages, from, dataType, payload }) => {
+        displayLoggerMessageForSocket('Send message', to)
+
+        try {
+          let newMessages = []
+          if (messages && messages.length) {
+            const conversation_id = parseInt(to && to.slice(2))
+
+            newMessages = await addUserMessages({ messages, conversation_id })
+
+            const promiseArray = [
+              () => updateXQodUserConversationsStatus({
+                conversation_id,
+                user_id: payload.userIds,
+                all_read: false
+              }),
+              () => markMessagesAsUnread({
+                userIds: payload.userIds,
+                messageIds: newMessages && newMessages.map((message) => message.newMessageId)
+              })
+            ]
+
+            await Promise.all(promiseArray.map(promise => promise()))
+          }
+
+          io.in(to).emit(EVENTS.RECEIVE_MESSAGE, { to, messages: newMessages, from, dataType, payload })
+        } catch (e) {
+          logger.error(getErrorMessageForSocket('adding user message'), e)
+        }
       })
     })
 
     instrument(io, { auth: false })
   } catch (e) {
-    logger.error('Error while connecting to socket =====>', e)
+    logger.error(getErrorMessageForSocket('connecting to socket'), e)
   }
 }
 

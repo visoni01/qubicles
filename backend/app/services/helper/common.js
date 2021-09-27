@@ -98,6 +98,14 @@ export const displayErrorMessageForMethod = (methodName, error) => {
   return logger.error(`Error while executing the method ${methodName} =====> ${error}`)
 }
 
+export const getErrorMessageForSocket = (event) => {
+  return `Socket : Error while ${event} =====>`
+}
+
+export const displayLoggerMessageForSocket = (event, value) => {
+  return logger.info(`Socket : ${event} =====> ${value}`)
+}
+
 export const createDate = ({ year, month, day, hours, minutes, seconds }) => {
   return moment(`${month}/${day}/${year} ${hours}:${minutes}:${seconds}`, 'MM/DD/YYYY HH:mm:ss A')
 }
@@ -173,4 +181,9 @@ export const asyncForEach = async (array, callback) => {
   for (let index = 0; index < array.length; index++) {
     await callback(array[index], index, array)
   }
+}
+
+// This method is used to generate chat room Id
+export const formatConversationRoomId = (conversationId) => {
+  return `c-${conversationId}`
 }
