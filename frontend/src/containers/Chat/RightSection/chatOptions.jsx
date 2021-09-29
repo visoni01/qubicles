@@ -21,6 +21,7 @@ const ChatOptions = ({
   const [ openConfirmDeleteModal, setOpenConfirmDeleteModal ] = useState(false)
   const [ openConfirmLeaveModal, setOpenConfirmLeaveModal ] = useState(false)
   const [ openAddPeopleModal, setOpenAddPeopleModal ] = useState(false)
+
   const dispatch = useDispatch()
 
   const handleClose = useCallback(() => {
@@ -34,17 +35,15 @@ const ChatOptions = ({
   }, [])
 
   const handleCancelActivity = useCallback(() => {
-    setAnchorEl(null)
-    setOpenOptions(false)
+    handleClose()
     setOpenConfirmDeleteModal(false)
     setOpenConfirmLeaveModal(false)
-  }, [])
+  }, [ handleClose ])
 
   const handleOpenAddPeopleModal = useCallback(() => {
-    setAnchorEl(null)
-    setOpenOptions(false)
+    handleClose()
     setOpenAddPeopleModal(true)
-  }, [])
+  }, [ handleClose ])
 
   const handleMarkAsUnread = useCallback(() => {
     dispatch(allChatsRequestStart({
@@ -52,16 +51,14 @@ const ChatOptions = ({
       dataType: 'mark-as-unread',
       conversationId,
     }))
-    setAnchorEl(null)
-    setOpenOptions(false)
-  }, [ dispatch, conversationId ])
+    handleClose()
+  }, [ conversationId, dispatch, handleClose ])
 
   const handleDeleteChat = useCallback(() => {
     // TODO
     setOpenConfirmDeleteModal(false)
-    setAnchorEl(null)
-    setOpenOptions(false)
-  }, [])
+    handleClose()
+  }, [ handleClose ])
 
   const handleLeaveGroup = useCallback(() => {
     dispatch(chatDataRequestStart({
@@ -70,9 +67,8 @@ const ChatOptions = ({
       conversationId,
     }))
     setOpenConfirmLeaveModal(false)
-    setAnchorEl(null)
-    setOpenOptions(false)
-  }, [ dispatch, conversationId ])
+    handleClose()
+  }, [ dispatch, conversationId, handleClose ])
 
   return (
     <>

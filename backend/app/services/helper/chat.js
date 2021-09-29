@@ -124,20 +124,20 @@ export const changeGroupMembersStatus = async ({ conversation_id, user_ids, is_r
 }
 
 export const getChatsList = async ({ user_id, offset, search_keyword }) => {
-  /*
-    Table/Join Alias - Description of details fetched
-
-    t1_messages_details - all the details of the latest message in each conversation
-    t2_conversation_latest_message - id and sent_at of the latest message and concatenation of all message texts (used for searching) in each conversation
-    t3_private_conversations - user_id of the other user in a private conversation
-    t4_user_details - name and profile picture of the users
-    t5_group_members - conversation_id of group chats
-    t6_users - user full name to create the group title
-    t7_group_name_details - comma separated user full names in group title
-    t8_conversation_status - all_read status of each conversation
-    t9_messages - id and sent_at of latest message in each convesation
-    t10_all_user_conversations - both private and group chats of user
-  */
+  /**
+   * Table/Join Alias - Description of details fetched
+   *
+   * t1_messages_details - all the details of the latest message in each conversation
+   * t2_conversation_latest_message - id and sent_at of the latest message and concatenation of all message texts (used for searching) in each conversation
+   * t3_private_conversations - user_id of the other user in a private conversation
+   * t4_user_details - name and profile picture of the users
+   * t5_group_members - conversation_id of group chats
+   * t6_users - user full name to create the group title
+   * t7_group_name_details - comma separated user full names in group title
+   * t8_conversation_status - all_read status of each conversation
+   * t9_messages - id and sent_at of latest message in each convesation
+   * t10_all_user_conversations - both private and group chats of user
+  **/
 
   const sqlQuery = `
     SELECT t1_messages_details.*, t3_private_conversations.is_group, t3_private_conversations.group_title,
@@ -249,6 +249,23 @@ export const changeGroupName = async ({ conversation_id, group_title }) => {
 }
 
 export const getChatData = async ({ conversation_id, user_id }) => {
+  /**
+   * Table/Join Alias - Description of details fetched
+   *
+   * conversationDetails => chat data from x_qod_conversations table
+   * messages => message data from x_qod_chat_messages table
+   * userDetails => user data from x_user_details table
+   * chatMessageRead => message read status data from x_qod_chat_message_read table
+   * chatAllRead => chat all read status from x_qod_chat_all_read table
+   * groupMemberStatus => JOIN to fetch group member removed status to filter out messages sent after user removed
+   *                      from the group
+   * senderDetails => JOIN to fetch sender details
+   * messageReadStatus => JOIN to fetch each message having read status false
+   * conversationMessages => JOIN to fetch all the unread messages
+   * chatAllReadStatus => JOIN to fetch chat all read status
+   * groupStatus => JOIN to fetch logged in user removed status
+  **/
+
   const query = `
     SELECT conversationDetails.is_group, conversationDetails.group_title, conversationDetails.user_one_id,
       conversationDetails.user_two_id, conversationMessages.*, chatAllReadStatus.all_read, groupStatus.is_removed,
@@ -304,6 +321,14 @@ export const getChatData = async ({ conversation_id, user_id }) => {
 }
 
 export const getReadMessages = ({ conversation_id, user_id, is_group, is_removed, updated_on, offset }) => {
+  /**
+   * Table/Join Alias - Description of details fetched
+   *
+   * messages => message data from x_qod_chat_messages table
+   * readMessageData => JOIN to fetch only read messages
+   * senderDetails => JOIN to fetch sender details
+  **/
+
   return `
     SELECT messages.*, senderDetails.profile_image
     FROM x_qod_chat_messages messages
@@ -333,27 +358,41 @@ export const getReadMessages = ({ conversation_id, user_id, is_group, is_removed
 }
 
 export const getCandidatesInfo = ({ user_ids }) => {
-  // TODO - Change table name aliases
+  /**
+   * Table/Join Alias - Description of details fetched
+   *
+   * userDetails => user data from x_user_details table
+   * users => user data from x_users table (To fetch user_code and full_name)
+   * clientUsers => client_id corresponding to user_id from x_client_users table
+   * clients => client data from x_clients table (To fetch client title, city and state)
+   * clientDetails => JOIN to fetch client details for corresponding client_id
+   * clientData => JOIN to fetch client_id details for corresponding user_id
+   * userClientData => JOIN to combine client data and agent data
+  **/
+
   return `
-    SELECT t1.user_id, t1.profile_image, t1.city, t1.state, t1.work_title, t3.client_id , t3.full_name, t3.user_code,
-      t3.title, t3.client_city, t3.client_state
-    FROM x_user_details t1
+    SELECT userDetails.user_id, userDetails.profile_image, userDetails.city, userDetails.state, userDetails.work_title,
+      userClientData.client_id , userClientData.full_name, userClientData.user_code, userClientData.title,
+      userClientData.client_city, userClientData.client_state
+    FROM x_user_details userDetails
     JOIN (
-      SELECT t2.user_id, t2.full_name, t2.user_code, t4.client_id, t4.title, t4.client_city, t4.client_state
-      FROM x_users t2
+      SELECT users.user_id, users.full_name, users.user_code, clientData.client_id, clientData.title,
+        clientData.client_city, clientData.client_state
+      FROM x_users users
       LEFT JOIN (
-        SELECT t5.user_id, t7.client_id, t7.title, t7.client_city, t7.client_state
-        FROM x_client_users t5
+        SELECT clientUsers.user_id, clientDetails.client_id, clientDetails.title, clientDetails.client_city,
+          clientDetails.client_state
+        FROM x_client_users clientUsers
         JOIN (
-          SELECT t6.client_id, t6.title, t6.city AS client_city, t6.state AS client_state
-          FROM x_clients t6
-        ) t7
-        ON t5.client_id = t7.client_id
-      ) t4
-      ON t2.user_id = t4.user_id AND t2.user_code = 'employer'
-    ) t3
-    ON t1.user_id = t3.user_id
-    WHERE t3.user_id IN (${user_ids})`
+          SELECT clients.client_id, clients.title, clients.city AS client_city, clients.state AS client_state
+          FROM x_clients clients
+        ) clientDetails
+        ON clientUsers.client_id = clientDetails.client_id
+      ) clientData
+      ON users.user_id = clientData.user_id AND users.user_code = 'employer'
+    ) userClientData
+    ON userDetails.user_id = userClientData.user_id
+    WHERE userClientData.user_id IN (${user_ids})`
 }
 
 export const formatMessagesOrder = ({ messageArray, messages }) => {
@@ -395,26 +434,26 @@ export const formatChatData = ({
 })
 
 export const getSuggestedUsersList = async ({ user_id, conversation_id, offset, search_keyword }) => {
-  /*
-    Table/Join Alias - Description of details fetched
-
-    - Used to fetch initial list of suggested users based on the recent activities (follow, rate, like status)
-    t1_user_activities - all the required user activities from x_user_activities table
-    t2_client_users - client_id for clients from x_client_users
-    t3_status_activities - all the 'status' activities of the user
-    t4_user_data - activity details along with the user_id and clilent_id of the other user involved in the activity
-    t5_suggested_user_data - suggested user data in ordered form (latest to oldest)
-    t6_users - user details from x_users table
-    t7_user_details - user details from x_user_details table
-    t8_clients - client details from x_clients table
-
-    - Used to fetch all users to search by name
-    ut1_users - user details from x_users table
-    ut2_user_details - user details from x_user_details table
-    ut3_client_users - client_id for clients from x_client_users
-    ut4_clients - client details from x_clients table
-    union_result - union result of both the queries (suggestions and search)
-  */
+  /**
+   * Table/Join Alias - Description of details fetched
+   *
+   * - Used to fetch initial list of suggested users based on the recent activities (follow, rate, like status)
+   * t1_user_activities - all the required user activities from x_user_activities table
+   * t2_client_users - client_id for clients from x_client_users
+   * t3_status_activities - all the 'status' activities of the user
+   * t4_user_data - activity details along with the user_id and clilent_id of the other user involved in the activity
+   * t5_suggested_user_data - suggested user data in ordered form (latest to oldest)
+   * t6_users - user details from x_users table
+   * t7_user_details - user details from x_user_details table
+   * t8_clients - client details from x_clients table
+   *
+   * - Used to fetch all users to search by name
+   * ut1_users - user details from x_users table
+   * ut2_user_details - user details from x_user_details table
+   * ut3_client_users - client_id for clients from x_client_users
+   * ut4_clients - client details from x_clients table
+   * union_result - union result of both the queries (suggestions and search)
+  **/
 
   const sqlQuery = `
     SELECT * FROM (
