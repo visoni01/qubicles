@@ -97,7 +97,7 @@ const LeftCard = ({ conversationId }) => {
     const option = {
       root: userListRef.current,
       rootMargin: '0px',
-      threshold: 1,
+      threshold: 0.9,
     }
     if (observer.current) observer.current.disconnect()
     observer.current = new IntersectionObserver(handleObserver, option)
@@ -174,7 +174,11 @@ const LeftCard = ({ conversationId }) => {
       {/* Users List */}
       <div ref={ userListRef } className='user-list'>
         {chatsList && chatsList.map((item, index) => (
-          <div key={ item.id } className={ `user-card-root ${ conversationId === item.id ? 'selected' : '' }` }>
+          <div
+            key={ item.id }
+            className={ `user-card-root ${ conversationId === item.id ? 'selected' : '' }` }
+            ref={ index === chatsList.length - 1 ? endRef : null }
+          >
             <UserCard
               id={ item.id }
               name={ item.name }
@@ -192,7 +196,6 @@ const LeftCard = ({ conversationId }) => {
             {index !== chatsList.length - 1 ? <Divider className='user-list-divider' /> : ''}
           </div>
         ))}
-        <div ref={ endRef } />
       </div>
 
       {chatsList && !chatsList.length && (

@@ -137,7 +137,7 @@ const AddPeople = ({
     const option = {
       root: null,
       rootMargin: '0px',
-      threshold: 1,
+      threshold: 0.9,
     }
     if (observer.current) observer.current.disconnect()
     observer.current = new IntersectionObserver(handleObserver, option)
@@ -227,21 +227,22 @@ const AddPeople = ({
             onClick={ actionType === 'NEW_CHAT' ? createNewChat : addPerson }
           >
             {people && people.length > 0 && _.differenceBy(people, selectedPeople, 'id').map((person, index) => (
-              <>
+              <div
+                key={ person.id }
+                ref={ index === _.differenceBy(people, selectedPeople, 'id').length - 1 ? endRef : null }
+              >
                 <PersonCard
-                  key={ person.id }
                   id={ person.id }
                   name={ person.name }
                   title={ person.title }
                   profilePic={ person.profilePic }
                 />
                 {index !== people.length - 1 && <Divider className='user-list-divider' />}
-              </>
+              </div>
             ))}
             {people && (people.length === 0 || _.differenceBy(people, selectedPeople, 'id').length === 0) && (
               <div className='para'>No suggestions available...</div>
             )}
-            <div ref={ endRef } />
           </div>
         </div>
       </DialogContent>

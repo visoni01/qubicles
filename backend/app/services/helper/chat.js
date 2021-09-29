@@ -124,15 +124,32 @@ export const changeGroupMembersStatus = async ({ conversation_id, user_ids, is_r
 }
 
 export const getChatsList = async ({ user_id, offset, search_keyword }) => {
-  // TODO - Change table name aliases
+  /*
+    Table/Join Alias - Description of details fetched
+
+    t1_messages_details - all the details of the latest message in each conversation
+    t2_conversation_latest_message - id and sent_at of the latest message and concatenation of all message texts (used for searching) in each conversation
+    t3_private_conversations - user_id of the other user in a private conversation
+    t4_user_details - name and profile picture of the users
+    t5_group_members - conversation_id of group chats
+    t6_users - user full name to create the group title
+    t7_group_name_details - comma separated user full names in group title
+    t8_conversation_status - all_read status of each conversation
+    t9_messages - id and sent_at of latest message in each convesation
+    t10_all_user_conversations - both private and group chats of user
+  */
+
   const sqlQuery = `
-    SELECT t1.*, t3.is_group, t3.group_title, t4.first_name, t4.last_name, t4.profile_image, t7.group_name,
-      t8.all_read, t2.is_removed, t2.all_texts
-    FROM x_qod_chat_messages t1
+    SELECT t1_messages_details.*, t3_private_conversations.is_group, t3_private_conversations.group_title,
+      t4_user_details.first_name, t4_user_details.last_name, t4_user_details.profile_image,
+      t7_group_name_details.group_name, t8_conversation_status.all_read, t2_conversation_latest_message.is_removed,
+      t2_conversation_latest_message.all_texts
+    FROM x_qod_chat_messages t1_messages_details
     JOIN (
-      SELECT t9.conversation_id, max(sent_at) sent_at, t10.is_removed, t10.updated_on,
-        group_concat(t9.text SEPARATOR ' ') AS all_texts
-      FROM x_qod_chat_messages t9
+      SELECT t9_messages.conversation_id, max(sent_at) sent_at, t10_all_user_conversations.is_removed,
+        t10_all_user_conversations.updated_on,
+        group_concat(t9_messages.text SEPARATOR ' ') AS all_texts
+      FROM x_qod_chat_messages t9_messages
       JOIN (
         SELECT conversation_id, NULL AS is_removed, NULL AS updated_on
         FROM x_qod_conversations
@@ -141,17 +158,18 @@ export const getChatsList = async ({ user_id, offset, search_keyword }) => {
         SELECT conversation_id, is_removed, updated_on
         FROM x_qod_chat_group_members
         WHERE user_id = ${user_id}
-      ) t10
-      ON t9.conversation_id = t10.conversation_id
+      ) t10_all_user_conversations
+      ON t9_messages.conversation_id = t10_all_user_conversations.conversation_id
       WHERE sent_at <=
         CASE
-          WHEN t10.is_removed = 1
-          THEN t10.updated_on
+          WHEN t10_all_user_conversations.is_removed = 1
+          THEN t10_all_user_conversations.updated_on
           ELSE sent_at
         END
       GROUP BY conversation_id
-    ) t2
-    ON t1.conversation_id = t2.conversation_id AND t1.sent_at = t2.sent_at
+    ) t2_conversation_latest_message
+    ON t1_messages_details.conversation_id = t2_conversation_latest_message.conversation_id
+      AND t1_messages_details.sent_at = t2_conversation_latest_message.sent_at
     JOIN (
       SELECT *,
         CASE WHEN user_one_id = ${user_id}
@@ -159,34 +177,37 @@ export const getChatsList = async ({ user_id, offset, search_keyword }) => {
           ELSE user_one_id
         END AS candidate_id
       FROM x_qod_conversations
-    ) t3
-    ON t3.conversation_id = t1.conversation_id
+    ) t3_private_conversations
+    ON t3_private_conversations.conversation_id = t1_messages_details.conversation_id
     LEFT JOIN (
       SELECT user_id, profile_image, first_name, last_name
       FROM x_user_details
-    ) t4
-    ON t3.candidate_id = t4.user_id AND t3.is_group = 0
+    ) t4_user_details
+    ON t3_private_conversations.candidate_id = t4_user_details.user_id AND t3_private_conversations.is_group = 0
     LEFT JOIN (
-      SELECT t5.conversation_id, group_concat(t6.full_name ORDER BY t6.full_name SEPARATOR ', ') AS group_name
-      FROM x_qod_chat_group_members t5
-      JOIN x_users t6
-      ON t5.user_id = t6.user_id
-      WHERE t5.is_removed = 0
+      SELECT t5_group_members.conversation_id,
+        group_concat(t6_users.full_name ORDER BY t6_users.full_name SEPARATOR ', ') AS group_name
+      FROM x_qod_chat_group_members t5_group_members
+      JOIN x_users t6_users
+      ON t5_group_members.user_id = t6_users.user_id
+      WHERE t5_group_members.is_removed = 0
       GROUP BY conversation_id
-    ) t7
-    ON t7.conversation_id = t1.conversation_id AND t3.is_group = 1 AND (t3.group_title IS NULL OR t3.group_title = '')
+    ) t7_group_name_details
+    ON t7_group_name_details.conversation_id = t1_messages_details.conversation_id
+      AND t3_private_conversations.is_group = 1
+      AND (t3_private_conversations.group_title IS NULL OR t3_private_conversations.group_title = '')
     LEFT JOIN (
       SELECT conversation_id, user_id, all_read
       FROM x_qod_chat_all_read
       where user_id = ${user_id}
-    ) t8
-    ON t8.conversation_id = t1.conversation_id
+    ) t8_conversation_status
+    ON t8_conversation_status.conversation_id = t1_messages_details.conversation_id
     ${search_keyword
-      ? `WHERE t2.all_texts LIKE '%${search_keyword}%'
-        OR CONCAT(t4.first_name, ' ', t4.last_name) LIKE '%${search_keyword}%'
-        OR t3.group_title LIKE '%${search_keyword}%'`
+      ? `WHERE t2_conversation_latest_message.all_texts LIKE '%${search_keyword}%'
+        OR CONCAT(t4_user_details.first_name, ' ', t4_user_details.last_name) LIKE '%${search_keyword}%'
+        OR t3_private_conversations.group_title LIKE '%${search_keyword}%'`
       : ''}
-    ORDER BY t1.sent_at DESC
+    ORDER BY t1_messages_details.sent_at DESC
     LIMIT 11
     OFFSET ${offset || 0}
   `
@@ -374,6 +395,27 @@ export const formatChatData = ({
 })
 
 export const getSuggestedUsersList = async ({ user_id, conversation_id, offset, search_keyword }) => {
+  /*
+    Table/Join Alias - Description of details fetched
+
+    - Used to fetch initial list of suggested users based on the recent activities (follow, rate, like status)
+    t1_user_activities - all the required user activities from x_user_activities table
+    t2_client_users - client_id for clients from x_client_users
+    t3_status_activities - all the 'status' activities of the user
+    t4_user_data - activity details along with the user_id and clilent_id of the other user involved in the activity
+    t5_suggested_user_data - suggested user data in ordered form (latest to oldest)
+    t6_users - user details from x_users table
+    t7_user_details - user details from x_user_details table
+    t8_clients - client details from x_clients table
+
+    - Used to fetch all users to search by name
+    ut1_users - user details from x_users table
+    ut2_user_details - user details from x_user_details table
+    ut3_client_users - client_id for clients from x_client_users
+    ut4_clients - client details from x_clients table
+    union_result - union result of both the queries (suggestions and search)
+  */
+
   const sqlQuery = `
     SELECT * FROM (
     SELECT t5_suggested_user_data.suggested_user_id, t6_users.user_code, t6_users.full_name,
@@ -403,33 +445,33 @@ export const getSuggestedUsersList = async ({ user_id, conversation_id, offset, 
         WHEN t4_user_data.record_type = 'activity' AND t4_user_data.user_id != ${user_id}
           THEN t4_user_data.user_id
         END AS suggested_user_id
-        FROM (
-          SELECT t1_user_activities.*, t2_client_users.user_id user_id_client,
-            t3_status_activities.user_id user_id_like, t2_client_users.client_id
-          FROM x_user_activities t1_user_activities
-          LEFT JOIN x_client_users t2_client_users
-          ON t1_user_activities.record_id = t2_client_users.client_id AND t1_user_activities.record_type = 'client'
-          LEFT JOIN x_user_activities t3_status_activities
-          ON t1_user_activities.record_id = t3_status_activities.user_activity_id
-            AND t1_user_activities.record_type = 'activity' AND t1_user_activities.activity_type = 'like'
-            AND t3_status_activities.record_type = 'activity' AND t3_status_activities.activity_type = 'status'
-          WHERE (
-            t1_user_activities.user_id = ${user_id}
-            OR (t1_user_activities.record_id = ${user_id} AND t1_user_activities.record_type = 'user')
-            OR (t2_client_users.user_id = ${user_id} AND t1_user_activities.record_type = 'client')
-            OR (t3_status_activities.user_id = ${user_id} AND t1_user_activities.record_type = 'activity')
-          )
-          AND (
-            (t1_user_activities.activity_type = 'connection' AND t1_user_activities.activity_value != 'blocked')
-            OR
-            (t1_user_activities.activity_type like 'rating_%' AND t1_user_activities.record_type IN ('user', 'client'))
-            OR
-            (t1_user_activities.activity_type = 'like' AND t1_user_activities.record_type = 'activity')
-          )
-        ) t4_user_data
-        GROUP BY suggested_user_id
-        ORDER BY updated_on desc
-      ) t5_suggested_user_data
+      FROM (
+        SELECT t1_user_activities.*, t2_client_users.user_id user_id_client,
+          t3_status_activities.user_id user_id_like, t2_client_users.client_id
+        FROM x_user_activities t1_user_activities
+        LEFT JOIN x_client_users t2_client_users
+        ON t1_user_activities.record_id = t2_client_users.client_id AND t1_user_activities.record_type = 'client'
+        LEFT JOIN x_user_activities t3_status_activities
+        ON t1_user_activities.record_id = t3_status_activities.user_activity_id
+          AND t1_user_activities.record_type = 'activity' AND t1_user_activities.activity_type = 'like'
+          AND t3_status_activities.record_type = 'activity' AND t3_status_activities.activity_type = 'status'
+        WHERE (
+          t1_user_activities.user_id = ${user_id}
+          OR (t1_user_activities.record_id = ${user_id} AND t1_user_activities.record_type = 'user')
+          OR (t2_client_users.user_id = ${user_id} AND t1_user_activities.record_type = 'client')
+          OR (t3_status_activities.user_id = ${user_id} AND t1_user_activities.record_type = 'activity')
+        )
+        AND (
+          (t1_user_activities.activity_type = 'connection' AND t1_user_activities.activity_value != 'blocked')
+          OR
+          (t1_user_activities.activity_type like 'rating_%' AND t1_user_activities.record_type IN ('user', 'client'))
+          OR
+          (t1_user_activities.activity_type = 'like' AND t1_user_activities.record_type = 'activity')
+        )
+      ) t4_user_data
+      GROUP BY suggested_user_id
+      ORDER BY updated_on desc
+    ) t5_suggested_user_data
     LEFT JOIN x_users t6_users
     ON t5_suggested_user_data.suggested_user_id = t6_users.user_id
     LEFT JOIN x_user_details t7_user_details
