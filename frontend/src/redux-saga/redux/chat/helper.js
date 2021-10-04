@@ -327,17 +327,21 @@ export const chatDataFailureHelper = ({ conversations, payload }) => {
     : item))
 }
 
-export const updateChatPopupsHelper = ({ chatPopupIds, payload }) => {
+export const updateChatPopupsHelper = ({ chatPopupIds, payload, maxCount }) => {
   const { requestType, conversationId } = payload
 
   switch (requestType) {
     case 'DELETE': return chatPopupIds && chatPopupIds.filter((item) => item !== conversationId)
 
     case 'ADD': {
-      return [
-        conversationId,
-        ...chatPopupIds.filter((item) => item !== conversationId),
-      ]
+      const popupIndex = chatPopupIds && chatPopupIds.findIndex((id) => id === conversationId)
+      if (popupIndex === -1 || popupIndex >= maxCount) {
+        return [
+          conversationId,
+          ...chatPopupIds.filter((item) => item !== conversationId),
+        ]
+      }
+      return chatPopupIds
     }
 
     default: return chatPopupIds
@@ -398,16 +402,16 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
         return true
       })
 
-      return [
+      return latestChat ? [
         {
           ...latestChat,
           dateTime: payload.dateTime,
           latestMessage: payload.latestMessage,
           isImage: payload.isImage,
-          allRead: payload.fromSelf === false ? false : latestChat.allRead,
+          allRead: payload.fromSelf === false ? false : latestChat?.allRead,
         },
         ...filteredChatsList,
-      ]
+      ] : chatsList
     }
 
     case 'change-group-name': {

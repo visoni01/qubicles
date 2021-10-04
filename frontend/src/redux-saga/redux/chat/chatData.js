@@ -7,7 +7,8 @@ import {
 const initialState = {
   conversations: [],
   currentChatId: null,
-  chatPopupIds: [ 1, 2 ], // WIP - remove static data
+  chatPopupIds: [],
+  maxCount: 0,
 }
 
 const {
@@ -16,6 +17,7 @@ const {
     chatDataRequestSuccess,
     chatDataRequestFailed,
     updateChatPopups,
+    updatePopupsCount,
     updateConversations,
     updateCurrentChatId,
     resetConversations,
@@ -50,7 +52,12 @@ const {
       chatPopupIds: updateChatPopupsHelper({
         chatPopupIds: state.chatPopupIds,
         payload: action.payload,
+        maxCount: state.maxCount,
       }),
+    }),
+    updatePopupsCount: (state, action) => ({
+      ...state,
+      maxCount: action.payload.maxCount,
     }),
     updateConversations: (state, action) => ({
       ...state,
@@ -80,6 +87,7 @@ export {
   chatDataRequestSuccess,
   chatDataRequestFailed,
   updateChatPopups,
+  updatePopupsCount,
   updateConversations,
   updateCurrentChatId,
   resetConversations,

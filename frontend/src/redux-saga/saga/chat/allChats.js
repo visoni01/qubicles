@@ -87,6 +87,7 @@ function* allChatsWorker(action) {
               getFormattedChatNotificationMessage({
                 senderId: userId,
                 type: 'add-people',
+                addOneMillisecond: true,
                 payload: {
                   userId,
                   userName: userDetails && userDetails.full_name,

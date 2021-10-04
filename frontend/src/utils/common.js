@@ -333,13 +333,15 @@ export const getChatNotificationMessage = ({ type, payload }) => {
   }
 }
 
-export const getFormattedChatNotificationMessage = ({ senderId, type, payload }) => ({
+export const getFormattedChatNotificationMessage = ({
+  senderId, type, payload, addOneMillisecond,
+}) => ({
   messageId: getUniqueId(),
   senderId,
   text: getChatNotificationMessage({ type, payload }),
   isNotification: true,
   isRead: true,
-  sentAt: Date.now(),
+  sentAt: addOneMillisecond ? new Date(Date.now() + 1) : Date.now(),
 })
 
 export const formatConversationRoomId = (conversationId) => `c-${ conversationId }`

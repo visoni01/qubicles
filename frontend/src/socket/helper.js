@@ -1,6 +1,9 @@
+/* eslint-disable complexity */
 import _ from 'lodash'
 import store from '../redux-saga/store'
-import { chatDataRequestStart, updateAllChats, updateConversations } from '../redux-saga/redux/chat'
+import {
+  chatDataRequestStart, updateAllChats, updateChatPopups, updateConversations,
+} from '../redux-saga/redux/chat'
 import { CHAT_ROUTE } from '../routes/routesPath'
 
 const fetchAndAddChatData = ({ conversationId }) => {
@@ -36,6 +39,13 @@ const addMessagesInChatReducers = ({ messages, conversationId, fromSelf }) => {
       fromSelf,
     }))
   }
+}
+
+const addChatPopup = ({ conversationId }) => {
+  store.dispatch(updateChatPopups({
+    requestType: 'ADD',
+    conversationId,
+  }))
 }
 
 const chatNewGroupHandler = ({ payload }) => {
@@ -189,12 +199,25 @@ export const receiveMessageEventCallback = ({
         break
       }
 
+      case 'new-message': {
+        if (!conversationData) {
+          fetchAndAddChatData({ conversationId })
+        }
+        break
+      }
+
       default:
     }
   }
 
-  if (messages && conversationData) {
-    addMessagesInChatReducers({ messages, conversationId, fromSelf })
+  if (messages) {
+    if (conversationData) {
+      addMessagesInChatReducers({ messages, conversationId, fromSelf })
+    }
+
+    if (window.location.pathname !== CHAT_ROUTE) {
+      addChatPopup({ conversationId })
+    }
   }
 
   if (!conversationData) {

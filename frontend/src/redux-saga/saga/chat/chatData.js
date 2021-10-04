@@ -47,31 +47,29 @@ function* chatDataWorker(action) {
               yield put(updateCurrentChatId({ conversationId }))
             }
 
-            if (updateAllChat) {
-              if (conversationData && window.location.pathname === CHAT_ROUTE) {
-                const {
-                  isGroup, groupName, candidatesInfo, chatData, allRead, isRemoved,
-                } = conversationData
-                const lastMessage = chatData?.chats && chatData?.chats[chatData?.chats?.length - 1]
+            if (updateAllChat && conversationData && window.location.pathname === CHAT_ROUTE) {
+              const {
+                isGroup, groupName, candidatesInfo, chatData, allRead, isRemoved,
+              } = conversationData
+              const lastMessage = chatData?.chats && chatData?.chats[chatData?.chats?.length - 1]
 
-                yield put(updateAllChats({
-                  dataType: 'new-chat',
-                  newChat: {
-                    id: conversationId,
-                    name: isGroup
-                      ? groupName || candidatesInfo?.map((item) => item.name).join(', ')
-                      : candidatesInfo && candidatesInfo[ 0 ].name,
-                    isGroup,
-                    allRead,
-                    isRemoved,
-                    imageUrl: isGroup ? null : candidatesInfo && candidatesInfo[ 0 ].profilePic,
-                    dateTime: lastMessage?.sentAt,
-                    latestMessage: lastMessage?.text,
-                    isNotification: lastMessage?.isNotification,
-                    isImage: !!lastMessage?.imageUrl,
-                  },
-                }))
-              }
+              yield put(updateAllChats({
+                dataType: 'new-chat',
+                newChat: {
+                  id: conversationId,
+                  name: isGroup
+                    ? groupName || candidatesInfo?.map((item) => item.name).join(', ')
+                    : candidatesInfo && candidatesInfo[ 0 ].name,
+                  isGroup,
+                  allRead,
+                  isRemoved,
+                  imageUrl: isGroup ? null : candidatesInfo && candidatesInfo[ 0 ].profilePic,
+                  dateTime: lastMessage?.sentAt,
+                  latestMessage: lastMessage?.text,
+                  isNotification: lastMessage?.isNotification,
+                  isImage: !!lastMessage?.imageUrl,
+                },
+              }))
             }
             break
           }
