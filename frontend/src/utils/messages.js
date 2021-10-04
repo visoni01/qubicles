@@ -16,8 +16,8 @@ export const EVENTS = {
   LEAVE_CHAT_ROOM: 'leave-chat-room',
   JOIN_CHAT_ROOM_FOR_OTHER_USERS: 'join-chat-room-for-other-users',
   LEAVE_CHAT_ROOM_FOR_OTHER_USER: 'leave-chat-room-for-other-user',
-  JOIN_CHAT_ROOM_FOR_SELF: 'join-chat-room-for-self',
   LEAVE_CHAT_ROOM_FOR_SELF: 'leave-chat-room-for-self',
+  SEND_MESSSAGE_TO_ROOM: 'send-message-to-room',
 }
 
 export const SUBJECTS = {

@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     text: DataTypes.TEXT,
     image_url: DataTypes.STRING,
     is_notification: DataTypes.BOOLEAN,
-    sent_at: DataTypes.DATE
+    sent_at: DataTypes.DATE(3)
   },
   {
     tableName: 'x_qod_chat_messages'

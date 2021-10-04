@@ -1,6 +1,7 @@
 /* eslint-disable complexity */
 import _ from 'lodash'
 import { takeEvery, put, select } from 'redux-saga/effects'
+import { CHAT_ROUTE } from '../../../routes/routesPath'
 import WebSocket from '../../../socket'
 import { formatConversationRoomId, getFormattedChatNotificationMessage } from '../../../utils/common'
 import {
@@ -11,6 +12,7 @@ import {
   updateAllChats,
   updateConversations,
   showSuccessMessage,
+  updateCurrentChatId,
 } from '../../redux/actions'
 import Chat from '../../service/chat'
 
@@ -22,6 +24,7 @@ function* chatDataWorker(action) {
   try {
     const {
       requestType, dataType, conversationId, members, candidateId, name, newGroupName, oldGroupName, offset,
+      updateAllChat,
     } = action.payload
 
     switch (requestType) {
@@ -33,6 +36,43 @@ function* chatDataWorker(action) {
             yield put(chatDataRequestSuccess({
               requestType, dataType, conversationId, conversationData: data,
             }))
+
+            const { conversations } = yield select((state) => state.chatData)
+            const currentCoversation = conversations.find((conversation) => (
+            conversation?.data?.conversationId === conversationId
+            ))
+            const conversationData = currentCoversation?.data
+
+            if (conversations?.length === 1) {
+              yield put(updateCurrentChatId({ conversationId }))
+            }
+
+            if (updateAllChat) {
+              if (conversationData && window.location.pathname === CHAT_ROUTE) {
+                const {
+                  isGroup, groupName, candidatesInfo, chatData, allRead, isRemoved,
+                } = conversationData
+                const lastMessage = chatData?.chats && chatData?.chats[chatData?.chats?.length - 1]
+
+                yield put(updateAllChats({
+                  dataType: 'new-chat',
+                  newChat: {
+                    id: conversationId,
+                    name: isGroup
+                      ? groupName || candidatesInfo?.map((item) => item.name).join(', ')
+                      : candidatesInfo && candidatesInfo[ 0 ].name,
+                    isGroup,
+                    allRead,
+                    isRemoved,
+                    imageUrl: isGroup ? null : candidatesInfo && candidatesInfo[ 0 ].profilePic,
+                    dateTime: lastMessage?.sentAt,
+                    latestMessage: lastMessage?.text,
+                    isNotification: lastMessage?.isNotification,
+                    isImage: !!lastMessage?.imageUrl,
+                  },
+                }))
+              }
+            }
             break
           }
 
@@ -83,19 +123,19 @@ function* chatDataWorker(action) {
             WebSocket.joinChatRoomForOtherUsers({
               userIds: members?.map((user) => user.id?.toString()),
               roomId,
-            })
-
-            WebSocket.sendMessage({
-              to: roomId,
-              from: userId,
-              messages: [ { ...newMessage, isRead: false } ],
-              dataType: 'add-people',
-              payload: {
-                userIds: [
-                  ...conversationData.candidatesInfo,
-                  ...members,
-                ].map((user) => user.id).filter((id) => id !== userId),
-                newMembers: members,
+              senderId: userId?.toString,
+              messageToBeSent: {
+                to: roomId,
+                from: userId,
+                messages: [ { ...newMessage, isRead: false } ],
+                dataType: 'add-people',
+                payload: {
+                  userIds: [
+                    ...conversationData.candidatesInfo,
+                    ...members,
+                  ].map((user) => user.id).filter((id) => id !== userId),
+                  newMembers: members,
+                },
               },
             })
 

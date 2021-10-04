@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     conversation_id: DataTypes.INTEGER,
     user_id: DataTypes.INTEGER,
     all_read: DataTypes.BOOLEAN,
-    deleted_on: DataTypes.DATE
+    deleted_on: DataTypes.DATE(3)
   },
   {
     tableName: 'x_qod_user_conversations_status'

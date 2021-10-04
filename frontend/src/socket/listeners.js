@@ -23,13 +23,6 @@ const receiveMessage = {
   callback: receiveMessageEventCallback,
 }
 
-const joinChatRoomForSelf = {
-  event: EVENTS.JOIN_CHAT_ROOM_FOR_SELF,
-  callback: (roomId) => {
-    WebSocket.joinChatRoom(roomId)
-  },
-}
-
 const leaveChatRoomForSelf = {
   event: EVENTS.LEAVE_CHAT_ROOM_FOR_SELF,
   callback: (roomId) => {
@@ -37,4 +30,13 @@ const leaveChatRoomForSelf = {
   },
 }
 
-export default [ receiveNotification, removeNotification, receiveMessage, joinChatRoomForSelf, leaveChatRoomForSelf ]
+const sendMessageToRoom = {
+  event: EVENTS.SEND_MESSSAGE_TO_ROOM,
+  callback: (messageToBeSent) => {
+    WebSocket.sendMessage(messageToBeSent)
+  },
+}
+
+export default [
+  receiveNotification, removeNotification, receiveMessage, leaveChatRoomForSelf, sendMessageToRoom,
+]

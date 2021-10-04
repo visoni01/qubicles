@@ -5,41 +5,11 @@ import { CHAT_ROUTE } from '../routes/routesPath'
 
 const fetchAndAddChatData = ({ conversationId }) => {
   store.dispatch(chatDataRequestStart({
-    requestType: 'UPDATE',
+    requestType: 'FETCH',
     dataType: 'current-chat',
     conversationId,
+    updateAllChat: true,
   }))
-
-  const conversations = store.getState().chatData
-  const currentCoversation = conversations.find((conversation) => (
-    conversation?.data?.conversationId === conversationId
-  ))
-  const conversationData = currentCoversation?.data
-
-  if (conversationData && window.location.pathname === CHAT_ROUTE) {
-    const {
-      isGroup, groupName, candidatesInfo, chatData, allRead, isRemoved,
-    } = conversationData
-    const lastMessage = chatData?.chats && chatData?.chats[chatData?.chats?.length - 1]
-
-    store.dispatch(updateAllChats({
-      dataType: 'new-chat',
-      newChat: {
-        id: conversationId,
-        name: isGroup
-          ? groupName || candidatesInfo?.map((item) => item.name).join(', ')
-          : candidatesInfo && candidatesInfo[ 0 ].name,
-        isGroup,
-        allRead,
-        isRemoved,
-        imageUrl: isGroup ? null : candidatesInfo && candidatesInfo[ 0 ].profilePic,
-        dateTime: lastMessage?.sentAt,
-        latestMessage: lastMessage?.text,
-        isNotification: lastMessage?.isNotification,
-        isImage: !!lastMessage?.imageUrl,
-      },
-    }))
-  }
 }
 
 const addMessagesInChatReducers = ({ messages, conversationId, fromSelf }) => {
@@ -225,5 +195,9 @@ export const receiveMessageEventCallback = ({
 
   if (messages && conversationData) {
     addMessagesInChatReducers({ messages, conversationId, fromSelf })
+  }
+
+  if (!conversationData) {
+    fetchAndAddChatData({ conversationId })
   }
 }

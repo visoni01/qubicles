@@ -68,6 +68,12 @@ function* allChatsWorker(action) {
               id: userId,
               userCode: userDetails && userDetails.user_code,
             }
+
+            const { data } = yield Chat.createNewGroup({
+              group_title: title,
+              user_ids: [ loggedInUser, ...members ].map((item) => item.id),
+            })
+
             const newMessages = [
               getFormattedChatNotificationMessage({
                 senderId: userId,
@@ -111,11 +117,6 @@ function* allChatsWorker(action) {
               }
             }
 
-            const { data } = yield Chat.createNewGroup({
-              group_title: title,
-              user_ids: [ loggedInUser, ...members ].map((item) => item.id),
-            })
-
             const roomId = formatConversationRoomId(data)
             const newChat = {
               id: data,
@@ -148,27 +149,27 @@ function* allChatsWorker(action) {
             WebSocket.joinChatRoomForOtherUsers({
               userIds: members?.map((user) => user.id?.toString()),
               roomId,
-            })
-
-            WebSocket.sendMessage({
-              to: roomId,
-              from: userId,
-              messages: newMessages?.map((message) => ({
-                ...message,
-                isRead: false,
-              })),
-              dataType: 'new-group',
-              payload: {
-                userIds: members?.map((user) => user.id),
-                newChat: {
-                  ...newChat,
-                  allRead: false,
-                },
-                newConversation: {
-                  ...newConversation,
+              senderId: userId?.toString(),
+              messageToBeSent: {
+                to: roomId,
+                from: userId,
+                messages: newMessages?.map((message) => ({
+                  ...message,
+                  isRead: false,
+                })),
+                dataType: 'new-group',
+                payload: {
+                  userIds: members?.map((user) => user.id),
                   newChat: {
-                    ...newConversation.newChat,
+                    ...newChat,
                     allRead: false,
+                  },
+                  newConversation: {
+                    ...newConversation,
+                    newChat: {
+                      ...newConversation.newChat,
+                      allRead: false,
+                    },
                   },
                 },
               },
