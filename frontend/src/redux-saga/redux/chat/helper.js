@@ -3,7 +3,7 @@ import _ from 'lodash'
 /* eslint-disable complexity */
 export const updateConversationsHelper = ({ payload, conversations, result = {} }) => {
   const {
-    requestType, conversationId, newMessage, dataType,
+    requestType, conversationId, newMessage, dataType, isImageUploading, messageToBeSent,
   } = payload
 
   switch (requestType) {
@@ -96,6 +96,21 @@ export const updateConversationsHelper = ({ payload, conversations, result = {} 
                 data: {
                   ...item.data,
                   groupName: payload.newGroupName,
+                },
+              }
+              : item
+          ))
+        }
+
+        case 'change-current-message': {
+          return conversations && conversations.map((item) => (
+            item.data && item.data.conversationId === conversationId
+              ? {
+                ...item,
+                data: {
+                  ...item.data,
+                  isImageUploading,
+                  messageToBeSent: messageToBeSent || null,
                 },
               }
               : item

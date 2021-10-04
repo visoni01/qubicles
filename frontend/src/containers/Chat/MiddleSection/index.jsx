@@ -67,6 +67,8 @@ const MiddleCard = ({
               setImageUrl={ setImageUrl }
               isLoading={ isLoading || currentConversation?.isLoading }
               candidatesInfo={ conversationData?.candidatesInfo }
+              isImageUploading={ conversationData?.isImageUploading }
+              messageToBeSent={ conversationData?.messageToBeSent }
             />
           </div>
         )}

@@ -558,7 +558,14 @@
 .static-small-loader {
   position: inherit;
   margin: 2px 10px 0px 20px;
+
   .MuiCircularProgress-colorPrimary {
     color: $color-primary;
   }
+}
+
+.static-small-loader.text-field-loader {
+  align-self: start;
+  margin: 0px !important;
+  margin-left: 5px !important;
 }

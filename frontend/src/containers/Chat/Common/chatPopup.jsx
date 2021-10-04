@@ -117,6 +117,8 @@ const ChatPopup = ({ conversationData, isLoading }) => {
                   imageUrl={ imageUrl }
                   setImageUrl={ setImageUrl }
                   isLoading={ isLoading }
+                  isImageUploading={ conversationData?.isImageUploading }
+                  messageToBeSent={ conversationData?.messageToBeSent }
                 />
               )}
           </div>
@@ -138,6 +140,11 @@ ChatPopup.propTypes = {
     isGroup: PropTypes.bool,
     allRead: PropTypes.bool,
     chatData: chatDataPropTypes,
+    isImageUploading: PropTypes.bool,
+    messageToBeSent: PropTypes.shape({
+      messageText: PropTypes.string,
+      imageUrl: PropTypes.string,
+    }),
   }).isRequired,
   isLoading: PropTypes.bool,
 }
