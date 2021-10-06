@@ -5,7 +5,7 @@ import { AvatarGroup } from '@material-ui/lab'
 import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import {
-  Box, Avatar, Button, IconButton, TextField, ClickAwayListener,
+  Box, Avatar, Button, IconButton, TextField, ClickAwayListener, CircularProgress,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faPen, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
@@ -29,10 +29,15 @@ const RightCard = ({ changeGroupName }) => {
   const members = chat?.candidatesInfo
   const isGroup = chat?.isGroup
   const otherUser = members && members.length > 0 && members[ 0 ]
+  const isGroupLoading = chatData?.isLoading && _.isEqual(chatData?.dataType, 'change-group-name')
 
   useEffect(() => setGroupNameValue(chat?.groupName), [ chat ])
 
-  useEffect(() => () => setShowGroupNameField(false), [ chatData ])
+  useEffect(() => {
+    if (!(chatData?.isLoading && _.isEqual(chatData?.dataType, 'change-group-name'))) {
+      setShowGroupNameField(false)
+    }
+  }, [ chatData ])
 
   const stripHtml = useCallback((html) => {
     const temporalDivElement = document.createElement('div')
@@ -44,19 +49,19 @@ const RightCard = ({ changeGroupName }) => {
     setShowGroupNameField(true)
   }, [])
 
-  const handleOnChange = useCallback((event) => {
-    setGroupNameValue(event.target.value)
-  }, [])
+  const handleOnChange = useCallback((event) => setGroupNameValue(event.target.value), [])
 
   const handleCheck = useCallback(() => {
-    const newGroupName = stripHtml(groupNameValue && groupNameValue.trim())
-    setGroupNameValue(newGroupName)
-    setShowGroupNameField(false)
-    changeGroupName({
-      newGroupName,
-      oldGroupName: chat && chat.groupName,
-    })
-  }, [ changeGroupName, groupNameValue, chat, stripHtml ])
+    const newGroupName = groupNameValue && stripHtml(groupNameValue.trim())
+    const oldGroupName = chat && stripHtml(chat.groupName)
+
+    if (_.isEqual(newGroupName, oldGroupName)) {
+      setShowGroupNameField(false)
+    } else {
+      changeGroupName({ newGroupName, oldGroupName })
+    }
+  },
+  [ changeGroupName, groupNameValue, chat ])
 
   const handleKeyDown = useCallback((event) => {
     if (event.key === 'Enter') { handleCheck() }
@@ -116,28 +121,40 @@ const RightCard = ({ changeGroupName }) => {
                     value={ groupNameValue }
                     onChange={ handleOnChange }
                     onKeyDown={ handleKeyDown }
+                    disabled={ isGroupLoading }
                     multiline
                     InputProps={ {
                       endAdornment: (
                         <>
-                          <IconButton
-                            onClick={ handleCheck }
-                            className='no-padding check-button'
-                          >
-                            <FontAwesomeIcon
-                              icon={ faCheck }
-                              className='custom-fa-icon sz-md'
+                          {isGroupLoading && (
+                            <CircularProgress
+                              size={ 15 }
+                              className='group-name-loader'
                             />
-                          </IconButton>
-                          <IconButton
-                            onClick={ handleCancelEdit }
-                            className='no-padding'
-                          >
-                            <FontAwesomeIcon
-                              icon={ faTimesCircle }
-                              className='custom-fa-icon sz-md'
-                            />
-                          </IconButton>
+                          )}
+
+                          {!isGroupLoading && (
+                            <>
+                              <IconButton
+                                onClick={ handleCheck }
+                                className='no-padding check-button'
+                              >
+                                <FontAwesomeIcon
+                                  icon={ faCheck }
+                                  className='custom-fa-icon sz-md'
+                                />
+                              </IconButton>
+                              <IconButton
+                                onClick={ handleCancelEdit }
+                                className='no-padding'
+                              >
+                                <FontAwesomeIcon
+                                  icon={ faTimesCircle }
+                                  className='custom-fa-icon sz-md'
+                                />
+                              </IconButton>
+                            </>
+                          )}
                         </>
                       ),
                     } }
@@ -149,13 +166,18 @@ const RightCard = ({ changeGroupName }) => {
                   <div className='h4 sz-xl mr-10 short-message'>
                     {groupNameValue || members.map((member) => member.name).join(', ')}
                   </div>
-                  {!chat?.isRemoved && (
+
+                  {!chat?.isRemoved && !isGroupLoading && (
                     <IconButton
                       className='no-padding'
                       onClick={ handleEdit }
                     >
                       <FontAwesomeIcon className='custom-fa-icon pointer' icon={ faPen } />
                     </IconButton>
+                  )}
+
+                  {isGroupLoading && (
+                    <CircularProgress size={ 15 } />
                   )}
                 </>
               )}

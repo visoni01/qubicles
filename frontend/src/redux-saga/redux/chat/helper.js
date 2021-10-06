@@ -15,7 +15,7 @@ export const updateConversationsHelper = ({ payload, conversations, result = {} 
               ...item,
               data: {
                 ...item.data,
-                allRead: payload.fromSelf ? item.data.allRead : false,
+                allRead: _.isEqual(payload.fromSelf, false) ? false : item.data.allRead,
                 chatData: {
                   ...item.data.chatData,
                   chats: payload.fromSelf
