@@ -106,7 +106,10 @@ UserCard.propTypes = {
   imageUrl: PropTypes.string,
   allRead: PropTypes.bool,
   latestMessage: PropTypes.string,
-  dateTime: PropTypes.string,
+  dateTime: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   isGroup: PropTypes.bool,
   isRemoved: PropTypes.bool,
   isNotification: PropTypes.bool,

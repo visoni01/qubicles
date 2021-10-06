@@ -87,9 +87,8 @@ const ViewMembers = ({
       <DialogContent>
         <div>
           {sortedMembersList && sortedMembersList.map((person, index) => (
-            <>
+            <div key={ person.id }>
               <PersonCard
-                key={ person.id }
                 id={ person.id }
                 clientId={ person.clientId }
                 name={ person.name }
@@ -102,7 +101,7 @@ const ViewMembers = ({
                 loading={ isLoading && _.isEqual(dataType, 'remove-person') }
               />
               {index !== sortedMembersList.length - 1 && <Divider className='user-list-divider' />}
-            </>
+            </div>
           ))}
         </div>
       </DialogContent>

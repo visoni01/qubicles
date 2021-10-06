@@ -222,7 +222,7 @@ function* chatDataWorker(action) {
             }
 
             yield put(updateAllChats({
-              dataType, conversationId, newMessage, newGroupName: groupName,
+              dataType, conversationId, newMessage: newMessage?.text, newGroupName: groupName,
             }))
             break
           }

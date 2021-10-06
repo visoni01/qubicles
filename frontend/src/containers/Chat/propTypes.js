@@ -2,13 +2,19 @@ import PropTypes from 'prop-types'
 
 export const chatsPropTypes = PropTypes.arrayOf(
   PropTypes.shape({
-    messageId: PropTypes.number,
+    messageId: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
     senderId: PropTypes.number,
     profilePic: PropTypes.string,
     isNotification: PropTypes.bool,
     imageUrl: PropTypes.string,
     text: PropTypes.string,
-    sentAt: PropTypes.string,
+    sentAt: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
     isRead: PropTypes.bool,
   }),
 )

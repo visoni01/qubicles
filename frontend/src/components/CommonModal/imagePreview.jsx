@@ -4,7 +4,7 @@ import {
   Dialog, DialogActions, DialogContent, IconButton,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 
 const ImagePreview = ({ open, handleClose, imageUrl }) => (
   <Dialog
@@ -16,7 +16,7 @@ const ImagePreview = ({ open, handleClose, imageUrl }) => (
   >
     <DialogActions className='cross-button'>
       <IconButton onClick={ handleClose }>
-        <FontAwesomeIcon className='custom-fa-icon pointer sz-xl' icon={ faTimes } />
+        <FontAwesomeIcon className='custom-fa-icon pointer sz-xl' icon={ faTimesCircle } />
       </IconButton>
     </DialogActions>
 

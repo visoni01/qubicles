@@ -74,15 +74,19 @@ const UserMessage = ({
 }
 
 UserMessage.defaultProps = {
+  profilePic: '',
   imageUrl: '',
 }
 
 UserMessage.propTypes = {
   senderId: PropTypes.number.isRequired,
   message: PropTypes.string.isRequired,
-  profilePic: PropTypes.string.isRequired,
+  profilePic: PropTypes.string,
   imageUrl: PropTypes.string,
-  sentAt: PropTypes.string.isRequired,
+  sentAt: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
 }
 
 export default UserMessage

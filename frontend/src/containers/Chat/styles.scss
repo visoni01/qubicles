@@ -528,14 +528,21 @@
   }
 
   .MuiIconButton-root {
-    padding: 0px;
-    top: -2px;
-    right: 2px;
+    padding: 1px;
+    top: 3px;
+    right: 5px;
+    background-color: white;
+    border-radius: 50%;
+    border: 1px #4877F4 solid;
+
+    &:hover {
+      background-color: white;
+    }
   }
 
   .MuiDialogContent-root {
     overflow: hidden;
-    padding: 10px 10px 0px 0px;
+    padding: 15px 15px 0px 0px;
     height: 100%;
     width: 100%;
   }
