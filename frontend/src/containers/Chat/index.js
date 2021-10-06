@@ -7,10 +7,9 @@ import RightSection from './RightSection'
 import MiddleSection from './MiddleSection'
 import NoConversationBox from './MiddleSection/noConversationBox'
 import { chatDataRequestStart, resetAllChatsReducer, resetConversations } from '../../redux-saga/redux/chat'
-import RightSectionSkeleton from '../../components/Chat/Skeletons/rightSectionSkeleton'
 
 const ChatSection = () => {
-  const { isLoading } = useSelector((state) => state.allChats)
+  const { isLoading, initialFetchDone } = useSelector((state) => state.allChats)
   const { currentChatId } = useSelector((state) => state.chatData)
   const dispatch = useDispatch()
 
@@ -62,9 +61,7 @@ const ChatSection = () => {
         </Grid>
 
         <Grid item xl={ 3 } lg={ 3 } md={ 9 } sm={ 12 } xs={ 12 }>
-          {(_.isNull(isLoading) || isLoading) && !currentChatId
-            ? <RightSectionSkeleton />
-            : <RightSection changeGroupName={ handleGroupNameChange } />}
+          {(currentChatId || !initialFetchDone) && <RightSection changeGroupName={ handleGroupNameChange } />}
         </Grid>
       </Grid>
     </div>

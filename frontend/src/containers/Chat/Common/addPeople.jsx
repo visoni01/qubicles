@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable complexity */
 import React, {
   useCallback, useEffect, useRef, useState,
 } from 'react'
@@ -19,6 +16,7 @@ import {
 } from '../../../redux-saga/redux/chat'
 import SuggestedUsersSkeleton from '../../../components/Chat/Skeletons/suggestedUsersSkeleton'
 
+// eslint-disable-next-line complexity
 const AddPeople = ({
   open, handleCancel, actionType, conversationId, loading,
 }) => {
@@ -226,6 +224,8 @@ const AddPeople = ({
 
         <div>
           <div className='h4 mt-20 mb-10'>Suggestions</div>
+          {/* eslint-disable jsx-a11y/no-static-element-interactions */}
+          {/* eslint-disable jsx-a11y/click-events-have-key-events */}
           <div
             className={ `suggestion-cards ${ actionType === 'NEW_GROUP' ? 'new-group' : '' }` }
             onClick={ actionType === 'NEW_CHAT' ? createNewChat : addPerson }

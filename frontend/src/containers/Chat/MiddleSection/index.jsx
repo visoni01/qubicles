@@ -14,6 +14,7 @@ const MiddleCard = ({
   conversationId, messageText, setMessageText, imageUrl, setImageUrl, isLoading,
 }) => {
   const { conversations, currentChatId } = useSelector((state) => state.chatData)
+  const { initialFetchDone } = useSelector((state) => state.allChats)
   const dispatch = useDispatch()
 
   const currentConversation = conversations.find((conversation) => conversation.data.conversationId === currentChatId)
@@ -34,7 +35,7 @@ const MiddleCard = ({
 
       {/* Chat Body */}
       <div className='chat-section-body padding-20'>
-        {isLoading
+        {!initialFetchDone
         || (currentConversation?.isLoading && _.isEqual(currentConversation?.dataType, 'current-chat'))
           ? <MiddleSectionChatSkeletons />
           : (

@@ -1,5 +1,3 @@
-/* eslint-disable no-constant-condition */
-/* eslint-disable complexity */
 import React, { useCallback, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -15,6 +13,7 @@ import { groupChatIcon, MaximizeIcon } from '../../../assets/images/chat'
 import { chatDataPropTypes } from '../propTypes'
 import MiddleSectionChatSkeletons from '../../../components/Chat/Skeletons/middleSectionChatSkeletons'
 
+// eslint-disable-next-line complexity
 const ChatPopup = ({ conversationData, isLoading }) => {
   const [ popupOpen, setPopupOpen ] = useState(false)
   const [ messageText, setMessageText ] = useState('')
@@ -88,7 +87,8 @@ const ChatPopup = ({ conversationData, isLoading }) => {
           <div className='is-fullheight chat-section'>
             {/* Chat Body */}
             <div className='chat-section-body padding-10'>
-              {false && isLoading // WIP
+              {/* eslint-disable-next-line no-constant-condition */}
+              {false && isLoading // WIP - check after integrating WebSockets
                 ? <MiddleSectionChatSkeletons />
                 : (
                   <ChatView

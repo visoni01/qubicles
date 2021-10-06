@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { updateAllChatsReducer } from './helper'
 
 const initialState = {
+  initialFetchDone: false,
   isLoading: null,
   error: null,
   success: null,
@@ -38,6 +39,7 @@ const {
     }),
     allChatsRequestSuccess: (state, action) => ({
       ...state,
+      initialFetchDone: true,
       isLoading: false,
       success: true,
       error: false,

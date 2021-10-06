@@ -1,10 +1,5 @@
-/* eslint-disable no-unused-vars */
-import {
-  chats, members as suggestions, popupChats, userList,
-} from '../../containers/Chat/testData'
 import apiClient from '../../utils/apiClient'
 
-// WIP - Call APIs
 const Chat = class {
   static getAllChats = async (payload) => {
     const response = await apiClient.getRequest('/chat', null, payload)

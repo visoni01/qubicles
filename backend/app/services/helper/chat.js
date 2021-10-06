@@ -207,6 +207,7 @@ export const getChatsList = async ({ user_id, offset, search_keyword }) => {
         OR CONCAT(t4_user_details.first_name, ' ', t4_user_details.last_name) LIKE '%${search_keyword}%'
         OR t3_private_conversations.group_title LIKE '%${search_keyword}%'`
       : ''}
+    GROUP BY conversation_id
     ORDER BY t1_messages_details.sent_at DESC
     LIMIT 11
     OFFSET ${offset || 0}
@@ -489,7 +490,8 @@ export const getSuggestedUsersList = async ({ user_id, conversation_id, offset, 
           t3_status_activities.user_id user_id_like, t2_client_users.client_id
         FROM x_user_activities t1_user_activities
         LEFT JOIN x_client_users t2_client_users
-        ON t1_user_activities.record_id = t2_client_users.client_id AND t1_user_activities.record_type = 'client'
+        ON (t1_user_activities.record_id = t2_client_users.client_id AND t1_user_activities.record_type = 'client')
+            OR t1_user_activities.user_id = t2_client_users.user_id
         LEFT JOIN x_user_activities t3_status_activities
         ON t1_user_activities.record_id = t3_status_activities.user_activity_id
           AND t1_user_activities.record_type = 'activity' AND t1_user_activities.activity_type = 'like'

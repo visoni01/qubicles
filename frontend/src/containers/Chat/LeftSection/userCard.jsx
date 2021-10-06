@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { Avatar } from '@material-ui/core'
@@ -58,6 +56,8 @@ const UserCard = ({
   }, [ isNotification, isRemoved, isImage, latestMessage, stripHtml, allRead ])
 
   return (
+    /* eslint-disable jsx-a11y/no-static-element-interactions */
+    /* eslint-disable jsx-a11y/click-events-have-key-events */
     <div
       className={ `is-flex user-card-item ${ selectedConversationId === id ? 'selected' : '' }` }
       onClick={ () => handleOpenChat(id) }
