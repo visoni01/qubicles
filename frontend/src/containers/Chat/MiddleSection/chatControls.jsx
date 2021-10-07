@@ -70,6 +70,7 @@ const ChatControls = ({
       profilePic: userDetails && _.isEqual(userDetails.user_code, 'agent')
         ? agentSettings.profilePic
         : clientSettings.profilePic,
+      senderName: userDetails && userDetails.full_name,
       text: messageText && messageText.trim(),
       imageUrl: newImageUrl,
       isNotification: false,

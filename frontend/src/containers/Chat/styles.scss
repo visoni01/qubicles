@@ -574,3 +574,24 @@
   align-self: baseline;
   margin-left: 5px;
 }
+
+.profile-popover {
+  max-width: 180px !important;
+  border-radius: 8px !important;
+
+  .profile-card {
+    border: 1px solid #DBDBDB;
+    border-radius: 8px !important;
+
+    .profile-picture {
+      width: 180px;
+      height: 150px;
+      background-size: cover;
+      background-position: center;
+    }
+  }
+}
+
+.profile-popover.margin-left-reverse-10 {
+  margin-left: -10px;
+}

@@ -86,6 +86,7 @@ const ChatView = ({
                 senderId={ item.senderId }
                 message={ item.text }
                 profilePic={ item.profilePic }
+                senderName={ item.senderName }
                 imageUrl={ item.imageUrl }
                 sentAt={ item.sentAt }
               />

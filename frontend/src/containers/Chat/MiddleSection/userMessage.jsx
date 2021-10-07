@@ -1,19 +1,33 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable complexity */
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import _ from 'lodash'
-import { Avatar } from '@material-ui/core'
+import { Avatar, IconButton } from '@material-ui/core'
 import { formatDate } from '../../../utils/common'
 import ImagePreview from '../../../components/CommonModal/imagePreview'
+import ProfilePreview from '../../../components/Chat/profilePreview'
 
 const UserMessage = ({
-  senderId, message, profilePic, imageUrl, sentAt,
+  senderId, message, profilePic, senderName, imageUrl, sentAt,
 }) => {
   const { userDetails } = useSelector((state) => state.login)
+
   const [ openImagePreview, setOpenImagePreview ] = useState(false)
+  const [ openProfilePreview, setOpenProfilePreview ] = useState(false)
+  const [ isSelfMessage, setIsSelfMessage ] = useState(false)
+  const [ anchorEl, setAnchorEl ] = useState(null)
+
+  const handleOpen = useCallback((event, self) => {
+    setOpenProfilePreview(true)
+    setAnchorEl(event.currentTarget)
+    setIsSelfMessage(!!self)
+  }, [])
+
+  const handleClose = useCallback(() => {
+    setOpenProfilePreview(false)
+    setAnchorEl(null)
+  }, [])
 
   return (
     <>
@@ -23,10 +37,15 @@ const UserMessage = ({
       >
         {/* Profile Picture for Other User Message */}
         {(userDetails && _.isEqual(senderId, userDetails.user_id)) || (
-          <Avatar
-            src={ profilePic }
-            className='profile-picture'
-          />
+          <IconButton
+            className='no-padding'
+            onClick={ handleOpen }
+          >
+            <Avatar
+              src={ profilePic }
+              className='profile-picture'
+            />
+          </IconButton>
         )}
 
         {/* Message Body */}
@@ -36,6 +55,7 @@ const UserMessage = ({
             ${ userDetails && _.isEqual(senderId, userDetails.user_id) ? 'self-message' : 'other-user-message' }` }
           >
             {imageUrl && (
+              // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
               <img
                 alt={ message }
                 src={ imageUrl }
@@ -55,10 +75,15 @@ const UserMessage = ({
 
         {/* Profile Picture for Self message */}
         {userDetails && _.isEqual(senderId, userDetails.user_id) && (
-          <Avatar
-            src={ profilePic }
-            className='profile-picture'
-          />
+          <IconButton
+            className='no-padding'
+            onClick={ (e) => handleOpen(e, true) }
+          >
+            <Avatar
+              src={ profilePic }
+              className='profile-picture'
+            />
+          </IconButton>
         )}
       </div>
 
@@ -67,6 +92,17 @@ const UserMessage = ({
           open={ openImagePreview }
           handleClose={ () => setOpenImagePreview(false) }
           imageUrl={ imageUrl }
+        />
+      )}
+
+      {openProfilePreview && (
+        <ProfilePreview
+          open={ openProfilePreview }
+          anchorEl={ anchorEl }
+          handleClose={ handleClose }
+          profilePic={ profilePic }
+          name={ senderName }
+          selfMessage={ isSelfMessage }
         />
       )}
     </>
@@ -82,6 +118,7 @@ UserMessage.propTypes = {
   senderId: PropTypes.number.isRequired,
   message: PropTypes.string.isRequired,
   profilePic: PropTypes.string,
+  senderName: PropTypes.string.isRequired,
   imageUrl: PropTypes.string,
   sentAt: PropTypes.oneOfType([
     PropTypes.string,

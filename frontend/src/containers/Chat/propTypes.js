@@ -8,6 +8,7 @@ export const chatsPropTypes = PropTypes.arrayOf(
     ]),
     senderId: PropTypes.number,
     profilePic: PropTypes.string,
+    senderName: PropTypes.string,
     isNotification: PropTypes.bool,
     imageUrl: PropTypes.string,
     text: PropTypes.string,

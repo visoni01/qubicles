@@ -31,7 +31,7 @@ const leaveChatRoomForSelf = {
 }
 
 const sendMessageToRoom = {
-  event: EVENTS.SEND_MESSSAGE_TO_ROOM,
+  event: EVENTS.SEND_MESSAGE_TO_ROOM,
   callback: (messageToBeSent) => {
     WebSocket.sendMessage(messageToBeSent)
   },

@@ -19,12 +19,12 @@ export const EVENTS = {
   RECEIVE_NOTIFICATION: 'receive-notification',
   DELETE_NOTIFICATION: 'delete-notification',
   REMOVE_NOTIFICATION: 'remove-notification',
-  SEND_MESSSAGE: 'send-message',
+  SEND_MESSAGE: 'send-message',
   RECEIVE_MESSAGE: 'receive-message',
   JOIN_CHAT_ROOM: 'join-chat-room',
   LEAVE_CHAT_ROOM: 'leave-chat-room',
   JOIN_CHAT_ROOM_FOR_OTHER_USERS: 'join-chat-room-for-other-users',
   LEAVE_CHAT_ROOM_FOR_OTHER_USER: 'leave-chat-room-for-other-user',
   LEAVE_CHAT_ROOM_FOR_SELF: 'leave-chat-room-for-self',
-  SEND_MESSSAGE_TO_ROOM: 'send-message-to-room'
+  SEND_MESSAGE_TO_ROOM: 'send-message-to-room'
 }

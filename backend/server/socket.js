@@ -78,7 +78,7 @@ const createSocketConnection = (server) => {
         }
 
         if (senderId && messageToBeSent) {
-          io.to(senderId).emit(EVENTS.SEND_MESSSAGE_TO_ROOM, messageToBeSent)
+          io.to(senderId).emit(EVENTS.SEND_MESSAGE_TO_ROOM, messageToBeSent)
           displayLoggerMessageForSocket('Send message to room from', senderId)
         }
       })
@@ -130,7 +130,7 @@ const createSocketConnection = (server) => {
         }
       })
 
-      socket.on(EVENTS.SEND_MESSSAGE, async ({ to, messages, from, dataType, payload }) => {
+      socket.on(EVENTS.SEND_MESSAGE, async ({ to, messages, from, dataType, payload }) => {
         displayLoggerMessageForSocket('Send message', to)
 
         try {

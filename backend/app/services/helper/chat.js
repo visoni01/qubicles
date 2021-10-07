@@ -45,7 +45,7 @@ export const createOrFindChat = async ({ user_id, candidate_id }) => {
             {
               model: UserDetail,
               as: 'senderDetails',
-              attributes: ['profile_image']
+              attributes: ['profile_image', 'first_name', 'last_name']
             }
           ]
         },
@@ -79,6 +79,8 @@ export const formatChatMessage = ({ message }) => ({
   text: message.text,
   imageUrl: message.image_url,
   profilePic: (message.senderDetails && message.senderDetails.profile_image) || message.profile_image,
+  senderName: (message.senderDetails && message.senderDetails.first_name + ' ' + message.senderDetails.last_name) ||
+    (message.first_name + ' ' + message.last_name),
   isNotification: !!message.is_notification,
   sentAt: message.sent_at,
   isRead: !_.isUndefined(message.is_read)
@@ -284,7 +286,8 @@ export const getChatData = async ({ conversation_id, user_id, deleted_on }) => {
       groupStatus.updated_on
     FROM x_qod_conversations conversationDetails
     LEFT JOIN (
-      SELECT messages.*, senderDetails.profile_image, messageReadStatus.is_read
+      SELECT messages.*, senderDetails.profile_image, senderDetails.first_name, senderDetails.last_name,
+        messageReadStatus.is_read
       FROM x_qod_chat_messages messages
       LEFT JOIN (
         SELECT conversation_id, is_removed, updated_on
@@ -293,7 +296,7 @@ export const getChatData = async ({ conversation_id, user_id, deleted_on }) => {
       ) groupMemberStatus
       ON messages.conversation_id = groupMemberStatus.conversation_id
       LEFT JOIN (
-        SELECT userDetails.user_id, userDetails.profile_image
+        SELECT userDetails.user_id, userDetails.profile_image, userDetails.first_name, userDetails.last_name
         FROM x_user_details userDetails
       ) senderDetails
       ON messages.sender_id = senderDetails.user_id
@@ -342,7 +345,7 @@ export const getReadMessages = ({ conversation_id, user_id, is_group, is_removed
   **/
 
   return `
-    SELECT messages.*, senderDetails.profile_image
+    SELECT messages.*, senderDetails.profile_image, senderDetails.first_name, senderDetails.last_name
     FROM x_qod_chat_messages messages
     JOIN (
       SELECT x_qod_chat_messages.message_id
@@ -353,7 +356,7 @@ export const getReadMessages = ({ conversation_id, user_id, is_group, is_removed
     ) readMessageData
     ON messages.message_id = readMessageData.message_id
     LEFT JOIN (
-      SELECT user_id, profile_image
+      SELECT user_id, profile_image, first_name, last_name
       FROM x_user_details
     ) senderDetails
     ON messages.sender_id = senderDetails.user_id
