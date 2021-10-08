@@ -3,7 +3,9 @@ import _ from 'lodash'
 import { takeEvery, put, select } from 'redux-saga/effects'
 import { CHAT_ROUTE } from '../../../routes/routesPath'
 import WebSocket from '../../../socket'
-import { formatConversationRoomId, getFormattedChatNotificationMessage } from '../../../utils/common'
+import {
+  formatConversationRoomId, getFormattedChatNotificationMessage, playNotificationAudio,
+} from '../../../utils/common'
 import {
   chatDataRequestStart,
   chatDataRequestSuccess,
@@ -11,6 +13,7 @@ import {
   showErrorMessage,
   updateAllChats,
   updateConversations,
+  updateChatPopups,
   showSuccessMessage,
   updateCurrentChatId,
 } from '../../redux/actions'
@@ -47,29 +50,40 @@ function* chatDataWorker(action) {
               yield put(updateCurrentChatId({ conversationId }))
             }
 
-            if (updateAllChat && conversationData && window.location.pathname === CHAT_ROUTE) {
-              const {
-                isGroup, groupName, candidatesInfo, chatData, allRead, isRemoved,
-              } = conversationData
-              const lastMessage = chatData?.chats && chatData?.chats[chatData?.chats?.length - 1]
+            if (updateAllChat) {
+              if (conversationData && window.location.pathname === CHAT_ROUTE) {
+                const {
+                  isGroup, groupName, candidatesInfo, chatData, allRead, isRemoved,
+                } = conversationData
+                const lastMessage = chatData?.chats && chatData?.chats[chatData?.chats?.length - 1]
 
-              yield put(updateAllChats({
-                dataType: 'new-chat',
-                newChat: {
-                  id: conversationId,
-                  name: isGroup
-                    ? groupName || candidatesInfo?.map((item) => item.name).join(', ')
-                    : candidatesInfo && candidatesInfo[ 0 ].name,
-                  isGroup,
-                  allRead,
-                  isRemoved,
-                  imageUrl: isGroup ? null : candidatesInfo && candidatesInfo[ 0 ].profilePic,
-                  dateTime: lastMessage?.sentAt,
-                  latestMessage: lastMessage?.text,
-                  isNotification: lastMessage?.isNotification,
-                  isImage: !!lastMessage?.imageUrl,
-                },
-              }))
+                yield put(updateAllChats({
+                  dataType: 'new-chat',
+                  newChat: {
+                    id: conversationId,
+                    name: isGroup
+                      ? groupName || candidatesInfo?.map((item) => item.name).join(', ')
+                      : candidatesInfo && candidatesInfo[ 0 ].name,
+                    isGroup,
+                    allRead,
+                    isRemoved,
+                    imageUrl: isGroup ? null : candidatesInfo && candidatesInfo[ 0 ].profilePic,
+                    dateTime: lastMessage?.sentAt,
+                    latestMessage: lastMessage?.text,
+                    isNotification: lastMessage?.isNotification,
+                    isImage: !!lastMessage?.imageUrl,
+                  },
+                }))
+              }
+
+              if (window.location.pathname !== CHAT_ROUTE) {
+                yield put(updateChatPopups({
+                  requestType: 'ADD',
+                  conversationId,
+                }))
+              }
+
+              playNotificationAudio()
             }
             break
           }
@@ -121,7 +135,7 @@ function* chatDataWorker(action) {
             WebSocket.joinChatRoomForOtherUsers({
               userIds: members?.map((user) => user.id?.toString()),
               roomId,
-              senderId: userId?.toString,
+              senderId: userId?.toString(),
               messageToBeSent: {
                 to: roomId,
                 from: userId,

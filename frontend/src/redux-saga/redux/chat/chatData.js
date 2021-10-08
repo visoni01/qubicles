@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {
   chatDataStartHelper, chatDataSuccessHelper, chatDataFailureHelper, updateChatPopupsHelper,
-  updateConversationsHelper, resetConversationsHelper,
+  updateConversationsHelper, resetConversationsHelper, resetPopupFlagsHelper, changePopupOpenStateHelper,
 } from './helper'
 
 const initialState = {
   conversations: [],
   currentChatId: null,
-  chatPopupIds: [],
+  chatPopups: [],
   maxCount: 0,
 }
 
@@ -18,9 +18,11 @@ const {
     chatDataRequestFailed,
     updateChatPopups,
     updatePopupsCount,
+    changePopupOpenState,
     updateConversations,
     updateCurrentChatId,
     resetConversations,
+    resetPopupFlags,
   }, reducer,
 } = createSlice({
   name: 'chatData',
@@ -49,8 +51,8 @@ const {
     }),
     updateChatPopups: (state, action) => ({
       ...state,
-      chatPopupIds: updateChatPopupsHelper({
-        chatPopupIds: state.chatPopupIds,
+      chatPopups: updateChatPopupsHelper({
+        chatPopups: state.chatPopups,
         payload: action.payload,
         maxCount: state.maxCount,
       }),
@@ -58,6 +60,13 @@ const {
     updatePopupsCount: (state, action) => ({
       ...state,
       maxCount: action.payload.maxCount,
+    }),
+    changePopupOpenState: (state, action) => ({
+      ...state,
+      chatPopups: changePopupOpenStateHelper({
+        chatPopups: state.chatPopups,
+        conversationId: action.payload.conversationId,
+      }),
     }),
     updateConversations: (state, action) => ({
       ...state,
@@ -75,7 +84,14 @@ const {
       currentChatId: null,
       conversations: resetConversationsHelper({
         conversations: state.conversations,
-        chatPopupIds: state.chatPopupIds,
+        chatPopups: state.chatPopups,
+      }),
+    }),
+    resetPopupFlags: (state, action) => ({
+      ...state,
+      chatPopups: resetPopupFlagsHelper({
+        chatPopups: state.chatPopups,
+        conversationId: action.payload.conversationId,
       }),
     }),
   },
@@ -88,7 +104,9 @@ export {
   chatDataRequestFailed,
   updateChatPopups,
   updatePopupsCount,
+  changePopupOpenState,
   updateConversations,
   updateCurrentChatId,
   resetConversations,
+  resetPopupFlags,
 }

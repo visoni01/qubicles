@@ -455,9 +455,30 @@
       }
 
       .header-avatar {
-        background-color: $color-white;
+        background-color: #bdbdbd;
         height: 35px;
         width: 35px;
+      }
+    }
+
+    &.new-notification {
+      .header {
+        background-color: $color-primary-dark;
+        animation-name: color;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+
+      @keyframes color {
+        0% {
+          background-color: $color-primary-dark;
+        }
+        50% {
+          background-color: $color-primary;
+        }
+        100% {
+          background-color: $color-primary-dark;
+        }
+      }
       }
     }
 

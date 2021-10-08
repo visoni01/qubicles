@@ -8,14 +8,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faMinus } from '@fortawesome/free-solid-svg-icons'
 import ChatView from '../MiddleSection/chatView'
 import ChatControls from '../MiddleSection/chatControls'
-import { updateChatPopups, updateConversations } from '../../../redux-saga/redux/chat'
+import {
+  changePopupOpenState, chatDataRequestStart, resetPopupFlags, updateChatPopups, updateConversations,
+} from '../../../redux-saga/redux/chat'
 import { groupChatIcon, MaximizeIcon } from '../../../assets/images/chat'
 import { chatDataPropTypes } from '../propTypes'
 import MiddleSectionChatSkeletons from '../../../components/Chat/Skeletons/middleSectionChatSkeletons'
 
 // eslint-disable-next-line complexity
-const ChatPopup = ({ conversationData, isLoading }) => {
-  const [ popupOpen, setPopupOpen ] = useState(false)
+const ChatPopup = ({
+  conversationData, isLoading, newNotification, isMaximized,
+}) => {
   const [ messageText, setMessageText ] = useState('')
   const [ imageUrl, setImageUrl ] = useState('')
 
@@ -26,11 +29,19 @@ const ChatPopup = ({ conversationData, isLoading }) => {
   const otherUser = members && members.length > 0 && members[ 0 ]
 
   const togglePopup = useCallback(() => {
-    setPopupOpen((state) => !state)
-  }, [])
+    dispatch(changePopupOpenState({ conversationId: conversationData?.conversationId }))
+    dispatch(resetPopupFlags({ conversationId: conversationData?.conversationId }))
+  }, [ conversationData, dispatch ])
 
   const closePopup = useCallback((event) => {
     event.stopPropagation()
+    if (conversationData && !conversationData.allRead) {
+      dispatch(chatDataRequestStart({
+        requestType: 'UPDATE',
+        dataType: 'mark-as-read',
+        conversationId: conversationData?.conversationId,
+      }))
+    }
     dispatch(updateChatPopups({
       requestType: 'DELETE',
       conversationId: conversationData && conversationData.conversationId,
@@ -42,7 +53,7 @@ const ChatPopup = ({ conversationData, isLoading }) => {
   }, [ dispatch, conversationData ])
 
   return (
-    <Card className='chat-popup-card' variant='outlined'>
+    <Card className={ `chat-popup-card ${ newNotification ? 'new-notification' : '' }` } variant='outlined'>
       <CardHeader
         onClick={ togglePopup }
         className='header'
@@ -64,7 +75,7 @@ const ChatPopup = ({ conversationData, isLoading }) => {
         action={ (
           <>
             <IconButton>
-              {popupOpen ? (
+              {isMaximized ? (
                 <FontAwesomeIcon
                   className='custom-fa-icon white'
                   icon={ faMinus }
@@ -82,7 +93,7 @@ const ChatPopup = ({ conversationData, isLoading }) => {
         ) }
       />
 
-      <Collapse in={ popupOpen }>
+      <Collapse in={ isMaximized }>
         <CardContent className='message-section no-padding'>
           <div className='is-fullheight chat-section'>
             {/* Chat Body */}
@@ -119,6 +130,7 @@ const ChatPopup = ({ conversationData, isLoading }) => {
                   isLoading={ isLoading }
                   isImageUploading={ conversationData?.isImageUploading }
                   messageToBeSent={ conversationData?.messageToBeSent }
+                  allRead={ conversationData?.allRead }
                 />
               )}
           </div>
@@ -130,6 +142,8 @@ const ChatPopup = ({ conversationData, isLoading }) => {
 
 ChatPopup.defaultProps = {
   isLoading: false,
+  newNotification: false,
+  isMaximized: false,
 }
 
 ChatPopup.propTypes = {
@@ -147,6 +161,8 @@ ChatPopup.propTypes = {
     }),
   }).isRequired,
   isLoading: PropTypes.bool,
+  newNotification: PropTypes.bool,
+  isMaximized: PropTypes.bool,
 }
 
 export default ChatPopup

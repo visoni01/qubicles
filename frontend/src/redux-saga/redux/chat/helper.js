@@ -342,24 +342,29 @@ export const chatDataFailureHelper = ({ conversations, payload }) => {
     : item))
 }
 
-export const updateChatPopupsHelper = ({ chatPopupIds, payload, maxCount }) => {
+export const updateChatPopupsHelper = ({ chatPopups, payload, maxCount }) => {
   const { requestType, conversationId } = payload
 
   switch (requestType) {
-    case 'DELETE': return chatPopupIds && chatPopupIds.filter((item) => item !== conversationId)
+    case 'DELETE': return chatPopups && chatPopups.filter((item) => item.conversationId !== conversationId)
 
     case 'ADD': {
-      const popupIndex = chatPopupIds && chatPopupIds.findIndex((id) => id === conversationId)
+      const popupIndex = chatPopups && chatPopups.findIndex((item) => item.conversationId === conversationId)
       if (popupIndex === -1 || popupIndex >= maxCount) {
         return [
-          conversationId,
-          ...chatPopupIds.filter((item) => item !== conversationId),
+          { conversationId, newNotification: true, isMaximized: true },
+          ...chatPopups.filter((item) => item.conversationId !== conversationId),
         ]
       }
-      return chatPopupIds
+      return chatPopups.map((item) => (
+        item.conversationId === conversationId ? {
+          ...item,
+          newNotification: true,
+        } : item
+      ))
     }
 
-    default: return chatPopupIds
+    default: return chatPopups
   }
 }
 
@@ -379,7 +384,10 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
     }
 
     case 'new-chat': {
-      return payload.newChat ? [ payload.newChat, ...chatsList ] : chatsList
+      return payload.newChat ? [
+        payload.newChat,
+        ...chatsList.filter((item) => item.id !== payload.newChat.id),
+      ] : chatsList
     }
 
     case 'mark-as-unread': {
@@ -494,6 +502,24 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
   }
 }
 
-export const resetConversationsHelper = ({ conversations, chatPopupIds }) => (
-  conversations.filter((item) => chatPopupIds.includes(item.data.conversationId))
+export const resetConversationsHelper = ({ conversations, chatPopups }) => (
+  conversations.filter((item) => chatPopups.find((popup) => item.data.conversationId === popup.conversationId))
+)
+
+export const resetPopupFlagsHelper = ({ chatPopups, conversationId }) => (
+  chatPopups.map((item) => (
+    item.conversationId === conversationId ? {
+      ...item,
+      newNotification: false,
+    } : item
+  ))
+)
+
+export const changePopupOpenStateHelper = ({ chatPopups, conversationId }) => (
+  chatPopups.map((item) => (
+    item.conversationId === conversationId ? {
+      ...item,
+      isMaximized: !item.isMaximized,
+    } : item
+  ))
 )

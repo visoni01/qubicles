@@ -5,8 +5,11 @@ import '../styles.scss'
 import { updatePopupsCount } from '../../../redux-saga/redux/chat'
 
 const ChatPopupWrapper = () => {
-  const { conversations, chatPopupIds } = useSelector((state) => state.chatData)
+  const { conversations, chatPopups } = useSelector((state) => state.chatData)
   const dispatch = useDispatch()
+
+  // To store the count of maximum number of popups that can fit on the screen
+  const maxCount = useRef(0)
 
   // 80px is the width of the left bar
   const leftBarWidth = 80
@@ -21,23 +24,24 @@ const ChatPopupWrapper = () => {
     return totalPopups
   }, [])
 
-  // To store the count of maximum number of popups that can fit on the screen
-  const maxCount = useRef(calculateNumberOfPopups())
-
   // To get the conversation data of the popups visible on the screen
   const getOpenedPopupsData = useCallback(() => {
     const openedPopups = []
 
-    chatPopupIds.forEach((id) => {
-      const conversationData = conversations?.find((item) => item.data.conversationId === id)
+    chatPopups.forEach((chatPopup) => {
+      const conversationData = conversations?.find((item) => item.data.conversationId === chatPopup.conversationId)
 
       if (conversationData) {
-        openedPopups.push(conversationData)
+        openedPopups.push({
+          ...conversationData,
+          newNotification: chatPopup.newNotification,
+          isMaximized: chatPopup.isMaximized,
+        })
       }
     })
 
     return openedPopups.slice(0, maxCount.current)
-  }, [ chatPopupIds, conversations ])
+  }, [ chatPopups, conversations ])
 
   // To re-calculate the number of popups when the screen width changes
   const updateNumberOfPopups = useCallback(() => {
@@ -52,6 +56,7 @@ const ChatPopupWrapper = () => {
   }, [ dispatch, calculateNumberOfPopups ])
 
   useEffect(() => {
+    updateNumberOfPopups()
     window.addEventListener('resize', updateNumberOfPopups)
     window.addEventListener('load', updateNumberOfPopups)
 
@@ -67,9 +72,11 @@ const ChatPopupWrapper = () => {
     <div className='chat-popup-root'>
       {openedPopups && openedPopups.map((item) => (
         <ChatPopup
-          key={ item.data.conversationId }
-          isLoading={ item.isLoading }
-          conversationData={ item.data }
+          key={ item?.data?.conversationId }
+          isLoading={ item?.isLoading }
+          conversationData={ item?.data }
+          newNotification={ item?.newNotification }
+          isMaximized={ item?.isMaximized }
         />
       ))}
     </div>

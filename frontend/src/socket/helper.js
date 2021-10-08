@@ -5,6 +5,7 @@ import {
   chatDataRequestStart, updateAllChats, updateChatPopups, updateConversations,
 } from '../redux-saga/redux/chat'
 import { CHAT_ROUTE } from '../routes/routesPath'
+import { playNotificationAudio } from '../utils/common'
 
 const fetchAndAddChatData = ({ conversationId }) => {
   store.dispatch(chatDataRequestStart({
@@ -39,6 +40,10 @@ const addMessagesInChatReducers = ({ messages, conversationId, fromSelf }) => {
       fromSelf,
     }))
   }
+
+  if (!fromSelf) {
+    playNotificationAudio()
+  }
 }
 
 const addChatPopup = ({ conversationId }) => {
@@ -48,11 +53,11 @@ const addChatPopup = ({ conversationId }) => {
   }))
 }
 
-const chatNewGroupHandler = ({ payload }) => {
+const chatNewGroupHandler = ({ payload, fromSelf, conversationId }) => {
   store.dispatch(updateConversations({
-    requestType: 'UPDATE',
+    requestType: 'CREATE',
     dataType: 'add-conversation',
-    newChat: payload.newChat,
+    newChat: payload?.newConversation?.newChat,
   }))
 
   if (window.location.pathname === CHAT_ROUTE) {
@@ -60,6 +65,14 @@ const chatNewGroupHandler = ({ payload }) => {
       dataType: 'new-group',
       newChat: payload.newChat,
     }))
+  }
+
+  if (!fromSelf && window.location.pathname !== CHAT_ROUTE) {
+    addChatPopup({ conversationId })
+  }
+
+  if (!fromSelf) {
+    playNotificationAudio()
   }
 }
 
@@ -164,6 +177,41 @@ const chatChangeGroupNameHandler = ({ payload, conversationData, conversationId 
 
 const getConversationIdFromRoomId = (roomId) => parseInt(roomId?.replace('c-', ''), 10)
 
+const receiveMessageCasesHandler = ({
+  dataType, payload, conversationData, conversationId, fromSelf,
+}) => {
+  switch (dataType) {
+    case 'new-group': {
+      chatNewGroupHandler({ payload, fromSelf, conversationId })
+      break
+    }
+
+    case 'remove-person': {
+      chatRemovePersonHandler({ payload, conversationData, conversationId })
+      break
+    }
+
+    case 'add-people': {
+      chatAddPeopleHandler({ payload, conversationData, conversationId })
+      break
+    }
+
+    case 'change-group-name': {
+      chatChangeGroupNameHandler({ payload, conversationData, conversationId })
+      break
+    }
+
+    case 'new-message': {
+      if (!conversationData) {
+        fetchAndAddChatData({ conversationId })
+      }
+      break
+    }
+
+    default:
+  }
+}
+
 // eslint-disable-next-line import/prefer-default-export
 export const receiveMessageEventCallback = ({
   to, messages, from, dataType, payload,
@@ -178,49 +226,16 @@ export const receiveMessageEventCallback = ({
   const conversationData = currentCoversation?.data
 
   if (!fromSelf) {
-    switch (dataType) {
-      case 'new-group': {
-        chatNewGroupHandler({ payload })
-        break
-      }
-
-      case 'remove-person': {
-        chatRemovePersonHandler({ payload, conversationData, conversationId })
-        break
-      }
-
-      case 'add-people': {
-        chatAddPeopleHandler({ payload, conversationData, conversationId })
-        break
-      }
-
-      case 'change-group-name': {
-        chatChangeGroupNameHandler({ payload, conversationData, conversationId })
-        break
-      }
-
-      case 'new-message': {
-        if (!conversationData) {
-          fetchAndAddChatData({ conversationId })
-        }
-        break
-      }
-
-      default:
-    }
+    receiveMessageCasesHandler({
+      dataType, payload, conversationData, conversationId, fromSelf,
+    })
   }
 
-  if (messages) {
-    if (conversationData) {
-      addMessagesInChatReducers({ messages, conversationId, fromSelf })
-    }
+  if (messages && conversationData) {
+    addMessagesInChatReducers({ messages, conversationId, fromSelf })
 
-    if (window.location.pathname !== CHAT_ROUTE) {
+    if (!fromSelf && window.location.pathname !== CHAT_ROUTE) {
       addChatPopup({ conversationId })
     }
-  }
-
-  if (!conversationData) {
-    fetchAndAddChatData({ conversationId })
   }
 }

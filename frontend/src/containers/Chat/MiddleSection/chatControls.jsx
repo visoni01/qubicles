@@ -13,13 +13,16 @@ import { showErrorMessage } from '../../../redux-saga/redux/utils'
 import { formatConversationRoomId, getUniqueId } from '../../../utils/common'
 import { acceptedImageFormats, maxImageFileSize } from '../../People/ContactCenter/constants'
 import ImagePreview from '../../../components/CommonModal/imagePreview'
-import { chatDataRequestStart, updateAllChats, updateConversations } from '../../../redux-saga/redux/chat'
+import {
+  chatDataRequestStart, resetPopupFlags, updateAllChats, updateConversations,
+} from '../../../redux-saga/redux/chat'
 import WebSocket from '../../../socket'
 import Forum from '../../../redux-saga/service/forum'
+import { CHAT_ROUTE } from '../../../routes/routesPath'
 
 const ChatControls = ({
   conversationId, messageText, setMessageText, imageUrl, setImageUrl, isLoading, candidatesInfo, isImageUploading,
-  messageToBeSent,
+  messageToBeSent, allRead,
 }) => {
   const { userDetails } = useSelector((state) => state.login)
   const { settings: clientSettings } = useSelector((state) => state.clientDetails)
@@ -92,6 +95,10 @@ const ChatControls = ({
       conversationId,
     }))
 
+    if (window.location.pathname !== CHAT_ROUTE) {
+      dispatch(resetPopupFlags({ conversationId }))
+    }
+
     WebSocket.sendMessage({
       to: formatConversationRoomId(conversationId),
       from: userId,
@@ -102,7 +109,7 @@ const ChatControls = ({
       },
     })
 
-    if (currentChat && !currentChat.allRead) {
+    if (!allRead || (currentChat && !currentChat.allRead)) {
       dispatch(chatDataRequestStart({
         requestType: 'UPDATE',
         dataType: 'mark-as-read',
@@ -113,7 +120,7 @@ const ChatControls = ({
     setMessageText('')
     setImageUrl('')
   }, [ messageText, userDetails, agentSettings, clientSettings, setImageUrl, setMessageText,
-    conversationId, currentChat, dispatch, candidatesInfo ])
+    conversationId, currentChat, dispatch, candidatesInfo, allRead ])
 
   const handleSendClick = useCallback(() => {
     if (imageUrl) {
@@ -239,6 +246,7 @@ ChatControls.defaultProps = {
   messageText: '',
   imageUrl: '',
   isLoading: false,
+  allRead: true,
   candidatesInfo: [],
   isImageUploading: false,
   messageToBeSent: null,
@@ -251,6 +259,7 @@ ChatControls.propTypes = {
   setMessageText: PropTypes.func.isRequired,
   setImageUrl: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
+  allRead: PropTypes.bool,
   candidatesInfo: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
   })),
