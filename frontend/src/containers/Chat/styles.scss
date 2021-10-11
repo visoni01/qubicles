@@ -75,6 +75,16 @@
         -webkit-line-clamp: 2;
         margin-top: 3px;
       }
+
+      .error-symbol {
+        margin-left: 5px;
+        margin-top: 5px;
+        color: red;
+
+        path:hover {
+          color: red;
+        }
+      }
     }
 
     .user-card-item:last-child {
@@ -148,9 +158,10 @@
       .text-message-body {
         border-radius: 6px;
         opacity: 1;
-        padding: 12px;
+        padding: 8px 12px 8px;
         text-align: left;
         white-space: pre-line;
+        width: fit-content;
 
         img {
           border-radius: 6px;
@@ -172,6 +183,27 @@
       .other-user-message {
         border: 1px solid #DBDBDB;
       }
+
+      .message-buttons {
+        justify-content: space-between;
+        max-width: 150px;
+        margin-left: auto;
+      }
+
+      .error-symbol {
+        color: red;
+        margin-right: 5px;
+        margin-top: 3px;
+        margin-left: auto;
+
+        path:hover {
+          color: red;
+        }
+      }
+    }
+
+    .opacity-5 {
+      opacity: 0.5 !important;
     }
   }
 

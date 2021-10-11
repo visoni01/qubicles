@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { Avatar } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircle } from '@fortawesome/free-solid-svg-icons'
+import { faCircle, faExclamation } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from 'react-redux'
 import _ from 'lodash'
 import { groupChatIcon } from '../../../assets/images/chat'
@@ -10,7 +10,7 @@ import { formatDate, formatDateTime } from '../../../utils/common'
 
 const UserCard = ({
   id, name, imageUrl, allRead, latestMessage, dateTime, selectedConversationId,
-  isGroup, isRemoved, isNotification, isImage, handleOpenChat,
+  isGroup, isRemoved, isNotification, isImage, handleOpenChat, error,
 }) => {
   const { userDetails } = useSelector((state) => state.login)
 
@@ -56,8 +56,7 @@ const UserCard = ({
   }, [ isNotification, isRemoved, isImage, latestMessage, stripHtml, allRead ])
 
   return (
-    /* eslint-disable jsx-a11y/no-static-element-interactions */
-    /* eslint-disable jsx-a11y/click-events-have-key-events */
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div
       className={ `is-flex user-card-item ${ selectedConversationId === id ? 'selected' : '' }` }
       onClick={ () => handleOpenChat(id) }
@@ -74,7 +73,11 @@ const UserCard = ({
         </div>
 
         <div className='is-flex is-between align-items-flex-end'>
-          {getLatestMessage()}
+          <div className='is-flex'>
+            {getLatestMessage()}
+            {error && <FontAwesomeIcon className='custom-fa-icon sz-sm error-symbol' icon={ faExclamation } />}
+          </div>
+
           {!allRead ? (
             <div>
               <FontAwesomeIcon icon={ faCircle } className='custom-fa-icon sz-xs' />
@@ -98,6 +101,7 @@ UserCard.defaultProps = {
   isNotification: false,
   isImage: false,
   selectedConversationId: null,
+  error: false,
 }
 
 UserCard.propTypes = {
@@ -116,6 +120,7 @@ UserCard.propTypes = {
   isImage: PropTypes.bool,
   selectedConversationId: PropTypes.number,
   handleOpenChat: PropTypes.func.isRequired,
+  error: PropTypes.bool,
 }
 
 export default UserCard

@@ -29,6 +29,7 @@ export const chatDataPropTypes = PropTypes.shape({
 export const groupMembersPropTypes = PropTypes.arrayOf(
   PropTypes.shape({
     id: PropTypes.number,
+    clientId: PropTypes.number,
     location: PropTypes.string,
     name: PropTypes.string,
     profilePic: PropTypes.string,

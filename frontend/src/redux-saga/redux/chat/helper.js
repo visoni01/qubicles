@@ -1,9 +1,37 @@
 import _ from 'lodash'
 
+const handleSendMessageFromSelf = ({ chats, newMessage }) => {
+  if (_.isEqual(newMessage.error, false) && chats) {
+    const messageToBeChanged = chats.find((message) => message.messageId === newMessage.messageId)
+
+    if (messageToBeChanged) {
+      const newChats = chats.filter((message) => message.messageId !== newMessage.messageId)
+      return [
+        ...newChats,
+        {
+          ...messageToBeChanged,
+          messageId: newMessage.newMessageId,
+          error: newMessage.error,
+        },
+      ]
+    }
+  }
+
+  return chats.map((message) => (
+    message.messageId === newMessage.messageId
+      ? {
+        ...message,
+        messageId: newMessage.newMessageId,
+        error: newMessage.error,
+      }
+      : message
+  ))
+}
+
 /* eslint-disable complexity */
 export const updateConversationsHelper = ({ payload, conversations, result = {} }) => {
   const {
-    requestType, conversationId, newMessage, dataType, isImageUploading, messageToBeSent,
+    requestType, conversationId, newMessage, dataType, isImageUploading, messageToBeSent, messageId, fromSelf,
   } = payload
 
   switch (requestType) {
@@ -15,18 +43,11 @@ export const updateConversationsHelper = ({ payload, conversations, result = {} 
               ...item,
               data: {
                 ...item.data,
-                allRead: _.isEqual(payload.fromSelf, false) ? false : item.data.allRead,
+                allRead: _.isEqual(fromSelf, false) ? false : item.data.allRead,
                 chatData: {
                   ...item.data.chatData,
-                  chats: payload.fromSelf
-                    ? item.data.chatData.chats.map((message) => (
-                      message.messageId === newMessage.messageId
-                        ? {
-                          ...message,
-                          messageId: newMessage.newMessageId,
-                        }
-                        : message
-                    ))
+                  chats: fromSelf
+                    ? handleSendMessageFromSelf({ chats: item.data.chatData.chats, newMessage })
                     : [
                       ...item.data.chatData.chats,
                       {
@@ -60,7 +81,7 @@ export const updateConversationsHelper = ({ payload, conversations, result = {} 
                 ...result,
                 data: {
                   ...item.data,
-                  isRemoved: payload.fromSelf ? true : item.data.isRemoved,
+                  isRemoved: fromSelf ? true : item.data.isRemoved,
                   candidatesInfo: item.data.candidatesInfo.filter((person) => person.id !== payload.removedPersonId),
                 },
               }
@@ -76,7 +97,7 @@ export const updateConversationsHelper = ({ payload, conversations, result = {} 
                 ...result,
                 data: {
                   ...item.data,
-                  isRemoved: payload.fromSelf ? false : item.data.isRemoved,
+                  isRemoved: fromSelf ? false : item.data.isRemoved,
                   candidatesInfo: [
                     ...item.data.candidatesInfo,
                     ...payload.newMembers,
@@ -117,12 +138,55 @@ export const updateConversationsHelper = ({ payload, conversations, result = {} 
           ))
         }
 
+        case 'update-error-flag': {
+          return conversations && conversations.map((item) => (
+            item.data && item.data.conversationId === conversationId
+              ? {
+                ...item,
+                data: {
+                  ...item.data,
+                  chatData: {
+                    ...item.data.chatData,
+                    chats: item.data.chatData.chats?.map((message) => {
+                      if (_.isEqual(message.messageId, messageId)) {
+                        return {
+                          ...message,
+                          error: payload.error,
+                          sentAt: payload.sentAt || message.sentAt,
+                        }
+                      }
+                      return message
+                    }),
+                  },
+                },
+              }
+              : item
+          ))
+        }
+
+        case 'remove-message': {
+          return conversations && conversations.map((item) => (
+            item.data && item.data.conversationId === conversationId
+              ? {
+                ...item,
+                data: {
+                  ...item.data,
+                  chatData: {
+                    ...item.data.chatData,
+                    chats: item.data.chatData.chats?.filter((message) => message.messageId !== messageId),
+                  },
+                },
+              }
+              : item
+          ))
+        }
+
         default: return conversations
       }
     }
 
     case 'CREATE': {
-      switch (payload.dataType) {
+      switch (dataType) {
         case 'add-conversation': {
           const currentConversation = conversations
             && conversations.find((item) => item.data && item.data.conversationId === conversationId)
@@ -147,7 +211,7 @@ export const updateConversationsHelper = ({ payload, conversations, result = {} 
     }
 
     case 'DELETE': {
-      return conversations.filter((item) => item.data.conversationId !== payload.conversationId)
+      return conversations.filter((item) => item.data.conversationId !== conversationId)
     }
 
     default: return conversations
@@ -188,7 +252,9 @@ export const chatDataStartHelper = ({ conversations, payload }) => {
 }
 
 export const chatDataSuccessHelper = ({ conversations, payload }) => {
-  const { conversationId, requestType, dataType } = payload
+  const {
+    conversationId, requestType, dataType, conversationData,
+  } = payload
 
   const result = {
     isLoading: false,
@@ -210,7 +276,7 @@ export const chatDataSuccessHelper = ({ conversations, payload }) => {
                 ...result,
                 requestType,
                 dataType,
-                data: payload.conversationData,
+                data: conversationData,
               },
             ]
           }
@@ -219,7 +285,7 @@ export const chatDataSuccessHelper = ({ conversations, payload }) => {
             ? {
               ...item,
               ...result,
-              data: payload.conversationData,
+              data: conversationData,
             }
             : item))
         }
@@ -369,18 +435,23 @@ export const updateChatPopupsHelper = ({ chatPopups, payload, maxCount }) => {
 }
 
 export const updateAllChatsReducer = ({ payload, chatsList }) => {
-  switch (payload.dataType) {
+  const {
+    dataType, chats, offset, newChat, conversationId, latestMessage, dateTime, isImage, fromSelf, newGroupName,
+    isNotification, newMessage, error,
+  } = payload
+
+  switch (dataType) {
     case 'chats-list': {
-      return payload.offset === 0
-        ? payload.chats
+      return offset === 0
+        ? chats
         : [
           ...chatsList,
-          ...payload.chats,
+          ...chats,
         ]
     }
 
     case 'new-group': {
-      return [ payload.newChat, ...chatsList ]
+      return [ newChat, ...chatsList ]
     }
 
     case 'new-chat': {
@@ -392,7 +463,7 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
 
     case 'mark-as-unread': {
       return chatsList.map((chat) => {
-        if (payload.conversationId === chat.id) {
+        if (conversationId === chat.id) {
           return {
             ...chat,
             allRead: false,
@@ -404,7 +475,7 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
 
     case 'mark-as-read': {
       return chatsList.map((chat) => {
-        if (payload.conversationId === chat.id) {
+        if (conversationId === chat.id) {
           return {
             ...chat,
             allRead: true,
@@ -418,7 +489,7 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
       let latestChat
 
       const filteredChatsList = chatsList.filter((chat) => {
-        if (chat.id === payload.conversationId) {
+        if (chat.id === conversationId) {
           latestChat = chat
           return false
         }
@@ -428,10 +499,10 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
       return latestChat ? [
         {
           ...latestChat,
-          dateTime: payload.dateTime,
-          latestMessage: payload.latestMessage,
-          isImage: payload.isImage,
-          allRead: payload.fromSelf === false ? false : latestChat?.allRead,
+          dateTime,
+          latestMessage,
+          isImage,
+          allRead: fromSelf === false ? false : latestChat?.allRead,
         },
         ...filteredChatsList,
       ] : chatsList
@@ -439,12 +510,12 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
 
     case 'change-group-name': {
       return chatsList.map((chat) => {
-        if (payload.conversationId === chat.id) {
+        if (conversationId === chat.id) {
           return {
             ...chat,
-            name: payload.newGroupName,
-            latestMessage: payload.latestMessage ? payload.latestMessage : chat.latestMessage,
-            isNotification: payload.isNotification ? payload.isNotification : chat.isNotification,
+            name: newGroupName,
+            latestMessage: latestMessage || chat.latestMessage,
+            isNotification: isNotification || chat.isNotification,
           }
         }
         return chat
@@ -452,25 +523,24 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
     }
 
     case 'leave-group': {
-      return chatsList.map((chat) => {
-        if (payload.conversationId === chat.id) {
-          return {
+      return chatsList.map((chat) => (
+        conversationId === chat.id
+          ? {
             ...chat,
-            name: payload.newGroupName || chat.name,
-            latestMessage: payload.newMessage || chat.latestMessage,
+            name: newGroupName || chat.name,
+            latestMessage: newMessage || chat.latestMessage,
             dateTime: Date.now(),
             allRead: true,
             isRemoved: true,
             isNotification: true,
           }
-        }
-        return chat
-      })
+          : chat
+      ))
     }
 
     case 'delete-chat': {
       return chatsList.map((chat) => (
-        payload.conversationId === chat.id
+        conversationId === chat.id
           ? {
             ...chat,
             latestMessage: '',
@@ -484,15 +554,55 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
 
     case 'add-people': {
       return chatsList.map((chat) => (
-        payload.conversationId === chat.id
+        conversationId === chat.id
           ? {
             ...chat,
-            name: payload.newGroupName || chat.name,
-            latestMessage: payload.latestMessage || chat.latestMessage,
+            name: newGroupName || chat.name,
+            latestMessage: latestMessage || chat.latestMessage,
             isRemoved: false,
             allRead: false,
             isImage: false,
             isNotification: true,
+          }
+          : chat
+      ))
+    }
+
+    case 'cancel-message': {
+      return chatsList.map((chat) => (
+        conversationId === chat.id
+          ? {
+            ...chat,
+            latestMessage,
+            isImage,
+            isNotification,
+            dateTime,
+            error,
+          }
+          : chat
+      ))
+    }
+
+    case 'retry-message': {
+      return chatsList.map((chat) => (
+        conversationId === chat.id
+          ? {
+            ...chat,
+            latestMessage,
+            isImage,
+            isNotification,
+            dateTime,
+          }
+          : chat
+      ))
+    }
+
+    case 'update-error-flag': {
+      return chatsList.map((chat) => (
+        conversationId === chat.id
+          ? {
+            ...chat,
+            error,
           }
           : chat
       ))

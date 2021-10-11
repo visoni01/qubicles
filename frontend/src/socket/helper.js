@@ -25,6 +25,18 @@ const addMessagesInChatReducers = ({ messages, conversationId, fromSelf }) => {
       newMessage: message,
       fromSelf,
     }))
+
+    if (_.isEqual(message.error, false)) {
+      store.dispatch(updateAllChats({
+        requestType: 'UDPATE',
+        dataType: 'retry-message',
+        conversationId,
+        latestMessage: message.text,
+        isImage: !!message.imageUrl,
+        isNotification: message.isNotification,
+        dateTime: message.sentAt,
+      }))
+    }
   })
 
   if (!fromSelf && window.location.pathname === CHAT_ROUTE) {
@@ -175,7 +187,7 @@ const chatChangeGroupNameHandler = ({ payload, conversationData, conversationId 
   }
 }
 
-const getConversationIdFromRoomId = (roomId) => parseInt(roomId?.replace('c-', ''), 10)
+export const getConversationIdFromRoomId = (roomId) => parseInt(roomId?.replace('c-', ''), 10)
 
 const receiveMessageCasesHandler = ({
   dataType, payload, conversationData, conversationId, fromSelf,

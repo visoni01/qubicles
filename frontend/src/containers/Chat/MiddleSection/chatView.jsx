@@ -11,10 +11,10 @@ import { chatDataRequestStart } from '../../../redux-saga/redux/chat'
 import UserNotification from './userNotification'
 import { ThreeDotLoader } from '../../loaders'
 import { NoMessagesIcon } from '../../../assets/images/chat'
-import { chatsPropTypes } from '../propTypes'
+import { chatsPropTypes, groupMembersPropTypes } from '../propTypes'
 
 const ChatView = ({
-  conversationId, chats, more, offset, isLoading,
+  conversationId, chats, more, offset, isLoading, candidatesInfo,
 }) => {
   const [ hasIntersect, setHasIntersect ] = useState(false)
   const messagesEndRef = useRef(null)
@@ -83,12 +83,16 @@ const ChatView = ({
             ? (<UserNotification message={ item.text } />)
             : (
               <UserMessage
+                conversationId={ conversationId }
+                messageId={ item.messageId }
                 senderId={ item.senderId }
                 message={ item.text }
                 profilePic={ item.profilePic }
                 senderName={ item.senderName }
                 imageUrl={ item.imageUrl }
                 sentAt={ item.sentAt }
+                error={ item.error }
+                candidatesInfo={ candidatesInfo }
               />
             )}
         </div>
@@ -105,6 +109,7 @@ ChatView.defaultProps = {
   more: false,
   offset: 0,
   isLoading: false,
+  candidatesInfo: [],
 }
 
 ChatView.propTypes = {
@@ -113,6 +118,7 @@ ChatView.propTypes = {
   more: PropTypes.bool,
   offset: PropTypes.number,
   isLoading: PropTypes.bool,
+  candidatesInfo: groupMembersPropTypes,
 }
 
 export default ChatView

@@ -18,6 +18,7 @@ export const EVENTS = {
   LEAVE_CHAT_ROOM_FOR_OTHER_USER: 'leave-chat-room-for-other-user',
   LEAVE_CHAT_ROOM_FOR_SELF: 'leave-chat-room-for-self',
   SEND_MESSAGE_TO_ROOM: 'send-message-to-room',
+  SEND_MESSAGE_ERROR: 'send-message-error',
 }
 
 export const SUBJECTS = {

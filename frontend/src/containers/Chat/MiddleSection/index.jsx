@@ -44,6 +44,7 @@ const MiddleCard = ({
               chats={ conversationData?.chatData?.chats }
               more={ conversationData?.chatData?.more }
               offset={ conversationData?.chatData?.offset }
+              candidatesInfo={ conversationData?.candidatesInfo }
               isLoading={ currentConversation?.isLoading }
             />
           )}

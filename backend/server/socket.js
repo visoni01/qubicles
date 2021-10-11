@@ -51,43 +51,6 @@ const createSocketConnection = (server) => {
         displayLoggerMessageForSocket('Join room', id)
       })
 
-      socket.on(EVENTS.JOIN_CHAT_ROOM, (roomId) => {
-        socket.join(roomId)
-        displayLoggerMessageForSocket('Join chat room', roomId)
-      })
-
-      socket.on(EVENTS.LEAVE_CHAT_ROOM, (roomId) => {
-        socket.leave(roomId)
-        displayLoggerMessageForSocket('Leave chat room', roomId)
-      })
-
-      socket.on(EVENTS.JOIN_CHAT_ROOM_FOR_OTHER_USERS, ({ userIds, roomId, messageToBeSent, senderId }) => {
-        displayLoggerMessageForSocket('Join chat room for others', roomId)
-
-        for (const userId of userIds) {
-          const clientSet = io.sockets.adapter.rooms.get(userId)
-
-          if (clientSet && clientSet.size) {
-            const iterator = clientSet.values()
-            const firstValue = iterator && iterator.next()
-            const clientSocket = io.sockets.sockets.get(firstValue && firstValue.value)
-            clientSocket.join(roomId)
-
-            displayLoggerMessageForSocket(`Join chat room ${roomId} for user id`, userId)
-          }
-        }
-
-        if (senderId && messageToBeSent) {
-          io.to(senderId).emit(EVENTS.SEND_MESSAGE_TO_ROOM, messageToBeSent)
-          displayLoggerMessageForSocket('Send message to room from', senderId)
-        }
-      })
-
-      socket.on(EVENTS.LEAVE_CHAT_ROOM_FOR_OTHER_USER, ({ userId, roomId }) => {
-        displayLoggerMessageForSocket('Leave chat room for others', roomId)
-        io.to(userId).emit(EVENTS.LEAVE_CHAT_ROOM_FOR_SELF, roomId)
-      })
-
       socket.on(EVENTS.SEND_NOTIFICATION, async ({ to, message, from, notifyEmail, subject, smsText }) => {
         displayLoggerMessageForSocket('Send notification', message)
 
@@ -130,8 +93,46 @@ const createSocketConnection = (server) => {
         }
       })
 
+      socket.on(EVENTS.JOIN_CHAT_ROOM, (roomId) => {
+        socket.join(roomId)
+        displayLoggerMessageForSocket('Join chat room', roomId)
+      })
+
+      socket.on(EVENTS.LEAVE_CHAT_ROOM, (roomId) => {
+        socket.leave(roomId)
+        displayLoggerMessageForSocket('Leave chat room', roomId)
+      })
+
+      socket.on(EVENTS.JOIN_CHAT_ROOM_FOR_OTHER_USERS, ({ userIds, roomId, messageToBeSent, senderId }) => {
+        displayLoggerMessageForSocket('Join chat room for others', roomId)
+
+        for (const userId of userIds) {
+          const clientSet = io.sockets.adapter.rooms.get(userId)
+
+          if (clientSet && clientSet.size) {
+            const iterator = clientSet.values()
+            const firstValue = iterator && iterator.next()
+            const clientSocket = io.sockets.sockets.get(firstValue && firstValue.value)
+            clientSocket.join(roomId)
+
+            displayLoggerMessageForSocket(`Join chat room ${roomId} for user id`, userId)
+          }
+        }
+
+        if (senderId && messageToBeSent) {
+          io.to(senderId).emit(EVENTS.SEND_MESSAGE_TO_ROOM, messageToBeSent)
+          displayLoggerMessageForSocket('Send message to room from', senderId)
+        }
+      })
+
+      socket.on(EVENTS.LEAVE_CHAT_ROOM_FOR_OTHER_USER, ({ userId, roomId }) => {
+        displayLoggerMessageForSocket('Leave chat room for others', roomId)
+        io.to(userId).emit(EVENTS.LEAVE_CHAT_ROOM_FOR_SELF, roomId)
+      })
+
       socket.on(EVENTS.SEND_MESSAGE, async ({ to, messages, from, dataType, payload }) => {
         displayLoggerMessageForSocket('Send message', to)
+        let messagesAdded = false
 
         try {
           let newMessages = []
@@ -139,6 +140,7 @@ const createSocketConnection = (server) => {
             const conversation_id = parseInt(to && to.slice(2))
 
             newMessages = await addUserMessages({ messages, conversation_id })
+            messagesAdded = true
 
             const promiseArray = [
               () => updateXQodUserConversationsStatus({
@@ -158,6 +160,15 @@ const createSocketConnection = (server) => {
           io.in(to).emit(EVENTS.RECEIVE_MESSAGE, { to, messages: newMessages, from, dataType, payload })
         } catch (e) {
           logger.error(getErrorMessageForSocket('adding user message'), e)
+
+          if (!messagesAdded && _.isEqual(dataType, 'new-message')) {
+            io.to(from.toString()).emit(EVENTS.SEND_MESSAGE_ERROR, {
+              to,
+              messageId: messages[0] && messages[0].messageId,
+              error: messages[0] && messages[0].error,
+              isLatestMessage: payload.isLatestMessage
+            })
+          }
         }
       })
     })

@@ -241,6 +241,7 @@ const LeftCard = ({ conversationId }) => {
               isRemoved={ item.isRemoved }
               isNotification={ item.isNotification }
               isImage={ item.isImage }
+              error={ item.error }
               selectedConversationId={ conversationId }
               handleOpenChat={ handleOpenChat }
             />
