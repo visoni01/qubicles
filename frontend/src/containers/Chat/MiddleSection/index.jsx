@@ -34,7 +34,7 @@ const MiddleCard = ({
     <Box className='custom-box no-padding chat-section'>
 
       {/* Chat Body */}
-      <div className='chat-section-body padding-20'>
+      <div className='chat-section-body pb-10 padding-20'>
         {!initialFetchDone
         || (currentConversation?.isLoading && _.isEqual(currentConversation?.dataType, 'current-chat'))
           ? <MiddleSectionChatSkeletons />
@@ -45,6 +45,7 @@ const MiddleCard = ({
               more={ conversationData?.chatData?.more }
               offset={ conversationData?.chatData?.offset }
               candidatesInfo={ conversationData?.candidatesInfo }
+              activeUsers={ conversationData?.activeUsers }
               isLoading={ currentConversation?.isLoading }
             />
           )}

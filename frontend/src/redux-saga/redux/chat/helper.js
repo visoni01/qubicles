@@ -31,7 +31,8 @@ const handleSendMessageFromSelf = ({ chats, newMessage }) => {
 /* eslint-disable complexity */
 export const updateConversationsHelper = ({ payload, conversations, result = {} }) => {
   const {
-    requestType, conversationId, newMessage, dataType, isImageUploading, messageToBeSent, messageId, fromSelf,
+    requestType, conversationId, newMessage, dataType, isImageUploading, messageToBeSent, messageId, newActiveUser,
+    removedUserId, fromSelf,
   } = payload
 
   switch (requestType) {
@@ -175,6 +176,39 @@ export const updateConversationsHelper = ({ payload, conversations, result = {} 
                     ...item.data.chatData,
                     chats: item.data.chatData.chats?.filter((message) => message.messageId !== messageId),
                   },
+                },
+              }
+              : item
+          ))
+        }
+
+        case 'add-typing-user': {
+          return conversations && conversations.map((item) => (
+            item.data && item.data.conversationId === conversationId
+              ? {
+                ...item,
+                data: {
+                  ...item.data,
+                  activeUsers: item.data.activeUsers
+                    ? [
+                      ...item.data.activeUsers,
+                      newActiveUser,
+                    ]
+                    : [ newActiveUser ],
+                },
+              }
+              : item
+          ))
+        }
+
+        case 'remove-typing-user': {
+          return conversations && conversations.map((item) => (
+            item.data && item.data.conversationId === conversationId
+              ? {
+                ...item,
+                data: {
+                  ...item.data,
+                  activeUsers: item.data.activeUsers?.filter((user) => user.id !== removedUserId),
                 },
               }
               : item

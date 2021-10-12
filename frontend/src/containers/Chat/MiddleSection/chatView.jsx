@@ -11,10 +11,10 @@ import { chatDataRequestStart } from '../../../redux-saga/redux/chat'
 import UserNotification from './userNotification'
 import { ThreeDotLoader } from '../../loaders'
 import { NoMessagesIcon } from '../../../assets/images/chat'
-import { chatsPropTypes, groupMembersPropTypes } from '../propTypes'
+import { activeUsersPropTypes, chatsPropTypes, groupMembersPropTypes } from '../propTypes'
 
 const ChatView = ({
-  conversationId, chats, more, offset, isLoading, candidatesInfo,
+  conversationId, chats, more, offset, isLoading, candidatesInfo, activeUsers,
 }) => {
   const [ hasIntersect, setHasIntersect ] = useState(false)
   const messagesEndRef = useRef(null)
@@ -53,6 +53,20 @@ const ChatView = ({
     observer.current = new IntersectionObserver(handleObserver, option)
     if (node) observer.current.observe(node)
   }, [ handleObserver ])
+
+  const getTypingMessage = useCallback(() => {
+    let message = activeUsers[ 0 ].name
+
+    if (activeUsers.length === 1) {
+      message += ' is typing'
+    } else if (activeUsers.length === 2) {
+      message += ` and ${ activeUsers[ 1 ].name } are typing`
+    } else {
+      message += `, ${ activeUsers[ 1 ].name } and others are typing`
+    }
+
+    return message
+  }, [ activeUsers ])
 
   return (
     <>
@@ -98,6 +112,13 @@ const ChatView = ({
         </div>
       ))}
 
+      {activeUsers && activeUsers.length > 0 && (
+        <div className='is-flex'>
+          <ThreeDotLoader isSmall />
+          <p className='para italic'>{ getTypingMessage() }</p>
+        </div>
+      )}
+
       <div ref={ messagesEndRef } />
     </>
   )
@@ -110,6 +131,7 @@ ChatView.defaultProps = {
   offset: 0,
   isLoading: false,
   candidatesInfo: [],
+  activeUsers: [],
 }
 
 ChatView.propTypes = {
@@ -119,6 +141,7 @@ ChatView.propTypes = {
   offset: PropTypes.number,
   isLoading: PropTypes.bool,
   candidatesInfo: groupMembersPropTypes,
+  activeUsers: activeUsersPropTypes,
 }
 
 export default ChatView

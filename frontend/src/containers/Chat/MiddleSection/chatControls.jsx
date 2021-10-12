@@ -6,7 +6,7 @@ import _ from 'lodash'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  Button, CircularProgress, IconButton, TextField,
+  Button, CircularProgress, debounce, IconButton, TextField,
 } from '@material-ui/core'
 import { ImageIcon } from '../../../assets/images/common'
 import { showErrorMessage } from '../../../redux-saga/redux/utils'
@@ -30,14 +30,42 @@ const ChatControls = ({
   const { chatsList } = useSelector((state) => state.allChats)
 
   const [ openImagePreview, setOpenImagePreview ] = useState(false)
+  const [ isTyping, setIsTyping ] = useState(false)
 
   const dispatch = useDispatch()
 
   const currentChat = _.find(chatsList, { id: conversationId })
 
+  const handleStopTyping = useCallback(debounce(() => {
+    const userId = userDetails && userDetails.user_id
+    setIsTyping(false)
+    WebSocket.stopTyping({
+      to: formatConversationRoomId(conversationId),
+      payload: {
+        userIds: candidatesInfo?.filter((user) => user.id !== userId)?.map((user) => user.id.toString()),
+        removedUserId: userId,
+      },
+    })
+  }, 1000), [ conversationId, userDetails, candidatesInfo ])
+
   const handleOnChange = useCallback((event) => {
     setMessageText(event.target.value)
-  }, [ setMessageText ])
+
+    if (!isTyping) {
+      const userId = userDetails && userDetails.user_id
+      setIsTyping(true)
+      WebSocket.startTyping({
+        to: formatConversationRoomId(conversationId),
+        payload: {
+          userIds: candidatesInfo?.filter((user) => user.id !== userId)?.map((user) => user.id.toString()),
+          newActiveUser: {
+            id: userId,
+            name: userDetails && userDetails.full_name && userDetails.full_name.split(' ')[ 0 ],
+          },
+        },
+      })
+    }
+  }, [ isTyping, conversationId, candidatesInfo, userDetails, setMessageText ])
 
   const handleFileInputChange = useCallback((event) => {
     event.preventDefault()
@@ -170,6 +198,7 @@ const ChatControls = ({
           className='is-fullwidth'
           value={ isImageUploading ? messageToBeSent.messageText : messageText }
           onChange={ handleOnChange }
+          onKeyUpCapture={ handleStopTyping }
           placeholder='Write a message...'
           multiline
           margin='dense'

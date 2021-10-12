@@ -8,7 +8,8 @@ import SendNotificationMailService from '../app/services/email/sendNotificationM
 import SendSmsNotificationService from '../app/services/sms/sendSmsNotification'
 import {
   addUserNotification, deleteNotification, getUserDetailsByUserId, addUserMessages, fetchAllConversationRoomIds,
-  getErrorMessageForSocket, displayLoggerMessageForSocket, updateXQodUserConversationsStatus, markMessagesAsUnread
+  getErrorMessageForSocket, displayLoggerMessageForSocket, updateXQodUserConversationsStatus, markMessagesAsUnread,
+  getConversationIdFromRoomId
 } from '../app/services/helper'
 
 const createSocketConnection = (server) => {
@@ -137,7 +138,7 @@ const createSocketConnection = (server) => {
         try {
           let newMessages = []
           if (messages && messages.length) {
-            const conversation_id = parseInt(to && to.slice(2))
+            const conversation_id = to && getConversationIdFromRoomId(to)
 
             newMessages = await addUserMessages({ messages, conversation_id })
             messagesAdded = true
@@ -170,6 +171,18 @@ const createSocketConnection = (server) => {
             })
           }
         }
+      })
+
+      socket.on(EVENTS.START_TYPING, ({ to, payload }) => {
+        io.to(payload.userIds).emit(EVENTS.START_TYPING, {
+          conversationId: to && getConversationIdFromRoomId(to), newActiveUser: payload.newActiveUser
+        })
+      })
+
+      socket.on(EVENTS.STOP_TYPING, ({ to, payload }) => {
+        io.to(payload.userIds).emit(EVENTS.STOP_TYPING, {
+          conversationId: to && getConversationIdFromRoomId(to), removedUserId: payload.removedUserId
+        })
       })
     })
 

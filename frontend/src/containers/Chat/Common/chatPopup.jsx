@@ -12,7 +12,7 @@ import {
   changePopupOpenState, chatDataRequestStart, resetPopupFlags, updateChatPopups, updateConversations,
 } from '../../../redux-saga/redux/chat'
 import { groupChatIcon, MaximizeIcon } from '../../../assets/images/chat'
-import { chatDataPropTypes } from '../propTypes'
+import { activeUsersPropTypes, chatDataPropTypes } from '../propTypes'
 import MiddleSectionChatSkeletons from '../../../components/Chat/Skeletons/middleSectionChatSkeletons'
 
 // eslint-disable-next-line complexity
@@ -108,6 +108,7 @@ const ChatPopup = ({
                     chats={ conversationData?.chatData?.chats }
                     more={ conversationData?.chatData?.more }
                     offset={ conversationData?.chatData?.offset }
+                    activeUsers={ conversationData?.activeUsers }
                     isLoading={ isLoading }
                   />
                 )}
@@ -159,6 +160,7 @@ ChatPopup.propTypes = {
       messageText: PropTypes.string,
       imageUrl: PropTypes.string,
     }),
+    activeUsers: activeUsersPropTypes,
   }).isRequired,
   isLoading: PropTypes.bool,
   newNotification: PropTypes.bool,

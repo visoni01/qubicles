@@ -187,3 +187,8 @@ export const asyncForEach = async (array, callback) => {
 export const formatConversationRoomId = (conversationId) => {
   return `c-${conversationId}`
 }
+
+// This method is used to get conversation id from chat room Id
+export const getConversationIdFromRoomId = (roomId) => {
+  return parseInt(roomId.slice(2))
+}

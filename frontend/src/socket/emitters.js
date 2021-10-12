@@ -40,7 +40,17 @@ const leaveChatRoomForOtherUser = {
   event: EVENTS.LEAVE_CHAT_ROOM_FOR_OTHER_USER,
 }
 
+const startTyping = {
+  method: 'startTyping',
+  event: EVENTS.START_TYPING,
+}
+
+const stopTyping = {
+  method: 'stopTyping',
+  event: EVENTS.STOP_TYPING,
+}
+
 export default [
   joinRoom, sendNotification, deleteNotification, sendMessage, joinChatRoom, leaveChatRoom, joinChatRoomForOtherUsers,
-  leaveChatRoomForOtherUser,
+  leaveChatRoomForOtherUser, startTyping, stopTyping,
 ]

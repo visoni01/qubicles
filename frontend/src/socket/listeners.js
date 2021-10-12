@@ -65,6 +65,31 @@ const sendMessageError = {
   },
 }
 
+const startTyping = {
+  event: EVENTS.START_TYPING,
+  callback: ({ conversationId, newActiveUser }) => {
+    store.dispatch(updateConversations({
+      requestType: 'UPDATE',
+      dataType: 'add-typing-user',
+      conversationId,
+      newActiveUser,
+    }))
+  },
+}
+
+const stopTyping = {
+  event: EVENTS.STOP_TYPING,
+  callback: ({ conversationId, removedUserId }) => {
+    store.dispatch(updateConversations({
+      requestType: 'UPDATE',
+      dataType: 'remove-typing-user',
+      conversationId,
+      removedUserId,
+    }))
+  },
+}
+
 export default [
   receiveNotification, removeNotification, receiveMessage, leaveChatRoomForSelf, sendMessageToRoom, sendMessageError,
+  startTyping, stopTyping,
 ]

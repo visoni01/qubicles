@@ -37,3 +37,10 @@ export const groupMembersPropTypes = PropTypes.arrayOf(
     userCode: PropTypes.string,
   }),
 )
+
+export const activeUsersPropTypes = PropTypes.arrayOf(
+  PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+  }),
+)
