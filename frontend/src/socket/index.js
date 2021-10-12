@@ -1,4 +1,5 @@
 import { io } from 'socket.io-client'
+import { getToken } from '../utils/common'
 import configEnv from '../utils/config'
 import emitters from './emitters'
 
@@ -23,7 +24,7 @@ const WebSocket = class {
 
     emitters.forEach(({ method, event }) => {
       WebSocket[ method ] = (data) => {
-        WebSocket.socket.emit(event, data)
+        WebSocket.socket.emit(event, data, getToken())
       }
     })
   }

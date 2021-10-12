@@ -224,7 +224,6 @@ const receiveMessageCasesHandler = ({
   }
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export const receiveMessageEventCallback = ({
   to, messages, from, dataType, payload,
 }) => {

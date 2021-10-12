@@ -21,6 +21,7 @@ export const EVENTS = {
   SEND_MESSAGE_ERROR: 'send-message-error',
   START_TYPING: 'start-typing',
   STOP_TYPING: 'stop-typing',
+  AUTHENTICATION_FAILURE: 'authentication-failure',
 }
 
 export const SUBJECTS = {

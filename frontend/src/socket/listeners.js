@@ -89,7 +89,14 @@ const stopTyping = {
   },
 }
 
+const authenticationFailure = {
+  event: EVENTS.AUTHENTICATION_FAILURE,
+  callback: () => {
+    window.location = `/login?return_url=${ window.location.pathname }`
+  },
+}
+
 export default [
   receiveNotification, removeNotification, receiveMessage, leaveChatRoomForSelf, sendMessageToRoom, sendMessageError,
-  startTyping, stopTyping,
+  startTyping, stopTyping, authenticationFailure,
 ]

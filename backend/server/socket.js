@@ -11,6 +11,8 @@ import {
   getErrorMessageForSocket, displayLoggerMessageForSocket, updateXQodUserConversationsStatus, markMessagesAsUnread,
   getConversationIdFromRoomId
 } from '../app/services/helper'
+import jwt from 'jsonwebtoken'
+import { User } from '../app/db/models'
 
 const createSocketConnection = (server) => {
   try {
@@ -43,6 +45,21 @@ const createSocketConnection = (server) => {
 
         if (reason === 'io server disconnect') {
           socket.connect()
+        }
+      })
+
+      socket.use(async (packet, next) => {
+        try {
+          const token = packet && packet[2]
+          const payload = jwt.verify(token, config.get('jwt.loginTokenSecret'))
+          const user = await User.findOne({ where: { user_id: payload.user_id }, raw: true })
+          if (user) {
+            return next()
+          }
+          throw new Error('User not found')
+        } catch (e) {
+          socket.emit(EVENTS.AUTHENTICATION_FAILURE)
+          logger.error(getErrorMessageForSocket('authenticating user'), e)
         }
       })
 
