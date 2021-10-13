@@ -100,6 +100,7 @@ const ChatView = ({
                 conversationId={ conversationId }
                 messageId={ item.messageId }
                 senderId={ item.senderId }
+                clientId={ item.clientId }
                 message={ item.text }
                 profilePic={ item.profilePic }
                 senderName={ item.senderName }

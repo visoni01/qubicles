@@ -14,7 +14,8 @@ import { groupMembersPropTypes } from '../propTypes'
 import WebSocket from '../../../socket'
 
 const UserMessage = ({
-  conversationId, messageId, senderId, message, profilePic, senderName, imageUrl, sentAt, error, candidatesInfo,
+  conversationId, messageId, senderId, clientId, message, profilePic, senderName, imageUrl, sentAt, error,
+  candidatesInfo,
 }) => {
   const { userDetails } = useSelector((state) => state.login)
   const { conversations, currentChatId } = useSelector((state) => state.chatData)
@@ -213,6 +214,8 @@ const UserMessage = ({
           open={ openProfilePreview }
           anchorEl={ anchorEl }
           handleClose={ handleClose }
+          userId={ senderId }
+          clientId={ clientId }
           profilePic={ profilePic }
           name={ senderName }
           selfMessage={ isSelfMessage }
@@ -224,6 +227,7 @@ const UserMessage = ({
 
 UserMessage.defaultProps = {
   profilePic: '',
+  clientId: null,
   imageUrl: '',
   error: false,
 }
@@ -232,6 +236,7 @@ UserMessage.propTypes = {
   conversationId: PropTypes.number.isRequired,
   messageId: PropTypes.number.isRequired,
   senderId: PropTypes.number.isRequired,
+  clientId: PropTypes.number,
   message: PropTypes.string.isRequired,
   profilePic: PropTypes.string,
   senderName: PropTypes.string.isRequired,

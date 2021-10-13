@@ -76,10 +76,12 @@ export const createOrFindChat = async ({ user_id, candidate_id }) => {
 export const formatChatMessage = ({ message }) => ({
   messageId: message.message_id,
   senderId: message.sender_id,
+  clientId: message.client_id,
   text: message.text,
   imageUrl: message.image_url,
   profilePic: (message.senderDetails && message.senderDetails.profile_image) || message.profile_image,
-  senderName: (message.senderDetails && message.senderDetails.first_name + ' ' + message.senderDetails.last_name) ||
+  senderName: message.client_name ||
+    (message.senderDetails && message.senderDetails.first_name + ' ' + message.senderDetails.last_name) ||
     (message.first_name + ' ' + message.last_name),
   isNotification: !!message.is_notification,
   sentAt: message.sent_at,
@@ -286,8 +288,7 @@ export const getChatData = async ({ conversation_id, user_id, deleted_on }) => {
       groupStatus.updated_on
     FROM x_qod_conversations conversationDetails
     LEFT JOIN (
-      SELECT messages.*, senderDetails.profile_image, senderDetails.first_name, senderDetails.last_name,
-        messageReadStatus.is_read
+      SELECT messages.*, senderDetails.*, messageReadStatus.is_read
       FROM x_qod_chat_messages messages
       LEFT JOIN (
         SELECT conversation_id, is_removed, updated_on
@@ -296,8 +297,19 @@ export const getChatData = async ({ conversation_id, user_id, deleted_on }) => {
       ) groupMemberStatus
       ON messages.conversation_id = groupMemberStatus.conversation_id
       LEFT JOIN (
-        SELECT userDetails.user_id, userDetails.profile_image, userDetails.first_name, userDetails.last_name
+        SELECT userDetails.user_id, userDetails.profile_image, userDetails.first_name, userDetails.last_name,
+          clientUserData.client_id, clientUserData.client_name
         FROM x_user_details userDetails
+        LEFT JOIN (
+          SELECT clientUsers.user_id, clientData.client_id, clientData.client_name
+          FROM x_client_users clientUsers
+          JOIN (
+            SELECT clients.client_id, clients.client_name
+            FROM x_clients clients
+          ) clientData
+          ON clientUsers.client_id = clientData.client_id
+        ) clientUserData
+        ON userDetails.user_id = clientUserData.user_id
       ) senderDetails
       ON messages.sender_id = senderDetails.user_id
       JOIN (
@@ -345,7 +357,7 @@ export const getReadMessages = ({ conversation_id, user_id, is_group, is_removed
   **/
 
   return `
-    SELECT messages.*, senderDetails.profile_image, senderDetails.first_name, senderDetails.last_name
+    SELECT messages.*, senderDetails.*
     FROM x_qod_chat_messages messages
     JOIN (
       SELECT x_qod_chat_messages.message_id
@@ -356,8 +368,19 @@ export const getReadMessages = ({ conversation_id, user_id, is_group, is_removed
     ) readMessageData
     ON messages.message_id = readMessageData.message_id
     LEFT JOIN (
-      SELECT user_id, profile_image, first_name, last_name
-      FROM x_user_details
+      SELECT userDetails.user_id, userDetails.profile_image, userDetails.first_name, userDetails.last_name,
+        clientUserData.client_id, clientUserData.client_name
+      FROM x_user_details userDetails
+      LEFT JOIN (
+        SELECT clientUsers.user_id, clientData.client_id, clientData.client_name
+        FROM x_client_users clientUsers
+        JOIN (
+          SELECT clients.client_id, clients.client_name
+          FROM x_clients clients
+        ) clientData
+        ON clientUsers.client_id = clientData.client_id
+      ) clientUserData
+      ON userDetails.user_id = clientUserData.user_id
     ) senderDetails
     ON messages.sender_id = senderDetails.user_id
     WHERE messages.sent_at > '${formatDate(deleted_on)}' AND messages.sent_at <=
@@ -422,7 +445,7 @@ export const formatCandidateInfoData = ({ candidateInfo }) => {
   return candidateInfo.map((user) => ({
     id: user.user_id,
     clientId: user.client_id,
-    name: user.full_name,
+    name: user.client_name || user.full_name,
     profilePic: user.profile_image,
     location: `${user.city || user.client_city || ''}${
       (user.city || user.client_city) && (user.state || user.client_state) ? ', ' : ''}${

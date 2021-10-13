@@ -7,6 +7,7 @@ export const chatsPropTypes = PropTypes.arrayOf(
       PropTypes.number,
     ]),
     senderId: PropTypes.number,
+    clientId: PropTypes.number,
     profilePic: PropTypes.string,
     senderName: PropTypes.string,
     isNotification: PropTypes.bool,
