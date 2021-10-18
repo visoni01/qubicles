@@ -46,7 +46,7 @@ function* allChatsWorker(action) {
         switch (dataType) {
           case 'mark-as-unread': {
             yield Chat.markChatAsUnread({ conversationId })
-            yield put(allChatsRequestSuccess({ conversationId }))
+            yield put(allChatsRequestSuccess({ conversationId, allRead: false }))
             yield put(updateConversations({ requestType, dataType, conversationId }))
             break
           }

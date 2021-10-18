@@ -107,7 +107,7 @@ function* chatDataWorker(action) {
           case 'mark-as-read': {
             yield Chat.markChatAsRead({ conversationId })
             yield put(chatDataRequestSuccess({ conversationId, requestType, dataType }))
-            yield put(updateAllChats({ dataType, conversationId }))
+            yield put(updateAllChats({ dataType, conversationId, allRead: true }))
             break
           }
 
@@ -164,7 +164,7 @@ function* chatDataWorker(action) {
                 ...conversationData.candidatesInfo,
                 ...members,
               ].map((member) => member.name).join(', '),
-              latestMessage: newMessage?.text,
+              latestMessage: newMessage.text,
             }))
 
             break
@@ -332,10 +332,14 @@ function* chatDataWorker(action) {
             yield put(updateAllChats({
               dataType,
               conversationId,
-              newMessage: newMessage?.text,
+              latestMessage: newMessage.text,
               newGroupName: _.isEmpty(conversationData.groupName)
                 && conversationData.candidatesInfo?.filter((user) => user.id !== userId)
                   .map((member) => member.name).join(', '),
+              dateTime: Date.now(),
+              allRead: true,
+              isRemoved: true,
+              isNotification: true,
             }))
             break
           }
@@ -356,6 +360,10 @@ function* chatDataWorker(action) {
               yield put(updateAllChats({
                 dataType: 'delete-chat',
                 conversationId,
+                latestMessage: '',
+                allRead: true,
+                isImage: false,
+                isNotification: false,
               }))
 
               yield put(showSuccessMessage({ msg: 'Chat deleted successfully!' }))

@@ -471,7 +471,7 @@ export const updateChatPopupsHelper = ({ chatPopups, payload, maxCount }) => {
 export const updateAllChatsReducer = ({ payload, chatsList }) => {
   const {
     dataType, chats, offset, newChat, conversationId, latestMessage, dateTime, isImage, fromSelf, newGroupName,
-    isNotification, newMessage, error,
+    isNotification, error, isRemoved, allRead,
   } = payload
 
   switch (dataType) {
@@ -489,34 +489,10 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
     }
 
     case 'new-chat': {
-      return payload.newChat ? [
-        payload.newChat,
-        ...chatsList.filter((item) => item.id !== payload.newChat.id),
-      ] : chatsList
-    }
-
-    case 'mark-as-unread': {
-      return chatsList.map((chat) => {
-        if (conversationId === chat.id) {
-          return {
-            ...chat,
-            allRead: false,
-          }
-        }
-        return chat
-      })
-    }
-
-    case 'mark-as-read': {
-      return chatsList.map((chat) => {
-        if (conversationId === chat.id) {
-          return {
-            ...chat,
-            allRead: true,
-          }
-        }
-        return chat
-      })
+      return payload.newChat
+        ? [ payload.newChat,
+          ...chatsList.filter((item) => item.id !== payload.newChat.id) ]
+        : chatsList
     }
 
     case 'new-message': {
@@ -542,101 +518,27 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
       ] : chatsList
     }
 
-    case 'change-group-name': {
-      return chatsList.map((chat) => {
-        if (conversationId === chat.id) {
-          return {
-            ...chat,
-            name: newGroupName,
-            latestMessage: latestMessage || chat.latestMessage,
-            isNotification: isNotification || chat.isNotification,
-          }
-        }
-        return chat
-      })
-    }
-
-    case 'leave-group': {
-      return chatsList.map((chat) => (
-        conversationId === chat.id
-          ? {
-            ...chat,
-            name: newGroupName || chat.name,
-            latestMessage: newMessage || chat.latestMessage,
-            dateTime: Date.now(),
-            allRead: true,
-            isRemoved: true,
-            isNotification: true,
-          }
-          : chat
-      ))
-    }
-
-    case 'delete-chat': {
-      return chatsList.map((chat) => (
-        conversationId === chat.id
-          ? {
-            ...chat,
-            latestMessage: '',
-            allRead: true,
-            isImage: false,
-            isNotification: false,
-          }
-          : chat
-      ))
-    }
-
-    case 'add-people': {
-      return chatsList.map((chat) => (
-        conversationId === chat.id
-          ? {
-            ...chat,
-            name: newGroupName || chat.name,
-            latestMessage: latestMessage || chat.latestMessage,
-            isRemoved: false,
-            allRead: false,
-            isImage: false,
-            isNotification: true,
-          }
-          : chat
-      ))
-    }
-
-    case 'cancel-message': {
-      return chatsList.map((chat) => (
-        conversationId === chat.id
-          ? {
-            ...chat,
-            latestMessage,
-            isImage,
-            isNotification,
-            dateTime,
-            error,
-          }
-          : chat
-      ))
-    }
-
-    case 'retry-message': {
-      return chatsList.map((chat) => (
-        conversationId === chat.id
-          ? {
-            ...chat,
-            latestMessage,
-            isImage,
-            isNotification,
-            dateTime,
-          }
-          : chat
-      ))
-    }
-
+    case 'mark-as-unread':
+    case 'mark-as-read':
+    case 'change-group-name':
+    case 'leave-group':
+    case 'delete-chat':
+    case 'add-people':
+    case 'cancel-message':
+    case 'retry-message':
     case 'update-error-flag': {
       return chatsList.map((chat) => (
         conversationId === chat.id
           ? {
             ...chat,
-            error,
+            name: newGroupName || chat.name,
+            latestMessage: _.isUndefined(latestMessage) ? chat.latestMessage : latestMessage,
+            isRemoved: _.isUndefined(isRemoved) ? chat.isRemoved : isRemoved,
+            allRead: _.isUndefined(allRead) ? chat.allRead : allRead,
+            isImage: _.isUndefined(isImage) ? chat.isImage : isImage,
+            isNotification: _.isUndefined(isNotification) ? chat.isNotification : isNotification,
+            dateTime: _.isUndefined(dateTime) ? chat.dateTime : dateTime,
+            error: _.isUndefined(error) ? chat.error : error,
           }
           : chat
       ))

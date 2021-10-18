@@ -112,6 +112,10 @@ const chatRemovePersonHandler = ({ payload, conversationData, conversationId }) 
           dataType: 'leave-group',
           conversationId,
           newGroupName: _.isEmpty(conversationData.groupName) && groupName,
+          dateTime: Date.now(),
+          allRead: true,
+          isRemoved: true,
+          isNotification: true,
         }))
       } else if (_.isEmpty(conversationData.groupName)) {
         store.dispatch(updateAllChats({
