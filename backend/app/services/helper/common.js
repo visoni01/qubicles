@@ -73,6 +73,10 @@ export const formatDate = (date) => {
   return moment(date).format('YYYY-MM-DD HH:mm:ss')
 }
 
+export const formatDatePrecisely = (date) => {
+  return moment(date).format('YYYY-MM-DD HH:mm:ss.SSS')
+}
+
 export const isSameDate = (firstDate, secondDate) => {
   return moment(firstDate).isSame(secondDate)
 }

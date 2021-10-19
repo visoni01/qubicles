@@ -1,7 +1,7 @@
 import Sequelize, { Op } from 'sequelize'
 import _ from 'lodash'
 import { SqlHelper } from '../../utils/sql'
-import { formatDate, isSameDate, formatConversationRoomId } from './common'
+import { formatDatePrecisely, isSameDate, formatConversationRoomId } from './common'
 import {
   XQodConversations, XQodChatMessage, XQodChatMessagesReadStatus, XQodUserConversationsStatus, XQodChatGroupMembers,
   UserDetail
@@ -330,7 +330,7 @@ export const getChatData = async ({ conversation_id, user_id, deleted_on }) => {
         WHERE chatMessageRead.user_id = ${user_id}
       ) messageReadStatus
       ON messages.message_id = messageReadStatus.message_id
-      WHERE sent_at > '${formatDate(deleted_on)}' AND sent_at <=
+      WHERE sent_at > '${formatDatePrecisely(deleted_on)}' AND sent_at <=
       CASE
         WHEN groupMemberStatus.is_removed = 1
         THEN groupMemberStatus.updated_on
@@ -395,10 +395,10 @@ export const getReadMessages = ({ conversation_id, user_id, is_group, is_removed
       ON userDetails.user_id = clientUserData.user_id
     ) senderDetails
     ON messages.sender_id = senderDetails.user_id
-    WHERE messages.sent_at > '${formatDate(deleted_on)}' AND messages.sent_at <=
+    WHERE messages.sent_at > '${formatDatePrecisely(deleted_on)}' AND messages.sent_at <=
     CASE
       WHEN ${is_group} AND ${is_removed}
-      THEN '${formatDate(updated_on)}'
+      THEN '${formatDatePrecisely(updated_on)}'
       ELSE messages.sent_at
     END
     ORDER BY messages.sent_at DESC

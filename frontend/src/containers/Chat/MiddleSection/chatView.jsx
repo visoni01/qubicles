@@ -70,48 +70,52 @@ const ChatView = ({
 
   return (
     <>
-      {!isLoading && chats && chats.length === 0 && (
-        <div className='no-messages'>
-          <NoMessagesIcon />
-          <h2 className='h2 text-center'>No messages yet</h2>
-        </div>
-      )}
+      <div>
+        {!isLoading && chats && chats.length === 0 && (
+          <div className='no-messages'>
+            <NoMessagesIcon />
+            <h2 className='h2 text-center'>No messages yet</h2>
+          </div>
+        )}
 
-      {isLoading && more && <ThreeDotLoader />}
+        {isLoading && more && <ThreeDotLoader />}
 
-      {chats && chats.map((item, index) => (
-        <div key={ item.messageId } ref={ !index ? startRef : null }>
-          {index > 0 && chats[ index - 1 ] && chats[ index - 1 ].isRead && item && !item.isRead && (
-            <div className='new-message-separator'>
-              <Divider className='new-message-divider' />
-              <p className='para light sz-sm text-center new-message-box'>New Messages</p>
-            </div>
-          )}
-
-          {(index === 0 || (item && chats[ index - 1 ]
-            && formatDate(item.sentAt, 'L') !== formatDate(chats[ index - 1 ].sentAt, 'L')))
-            ? (<p className='para light text-center mb-20'>{ item.sentAt && formatDateTime(item.sentAt) }</p>)
-            : ''}
-
-          {(item.isNotification)
-            ? (<UserNotification message={ item.text } />)
-            : (
-              <UserMessage
-                conversationId={ conversationId }
-                messageId={ item.messageId }
-                senderId={ item.senderId }
-                clientId={ item.clientId }
-                message={ item.text }
-                profilePic={ item.profilePic }
-                senderName={ item.senderName }
-                imageUrl={ item.imageUrl }
-                sentAt={ item.sentAt }
-                error={ item.error }
-                candidatesInfo={ candidatesInfo }
-              />
+        {chats && chats.map((item, index) => (
+          <div key={ item.messageId } ref={ !index ? startRef : null }>
+            {index > 0 && chats[ index - 1 ] && chats[ index - 1 ].isRead && item && !item.isRead && (
+              <div className='new-message-separator'>
+                <Divider className='new-message-divider' />
+                <p className='para light sz-sm text-center new-message-box'>New Messages</p>
+              </div>
             )}
-        </div>
-      ))}
+
+            {(index === 0 || (item && chats[ index - 1 ]
+              && formatDate(item.sentAt, 'L') !== formatDate(chats[ index - 1 ].sentAt, 'L')))
+              ? (<p className='para light text-center mb-20'>{ item.sentAt && formatDateTime(item.sentAt) }</p>)
+              : ''}
+
+            {(item.isNotification)
+              ? (<UserNotification message={ item.text } />)
+              : (
+                <UserMessage
+                  conversationId={ conversationId }
+                  messageId={ item.messageId }
+                  senderId={ item.senderId }
+                  clientId={ item.clientId }
+                  message={ item.text }
+                  profilePic={ item.profilePic }
+                  senderName={ item.senderName }
+                  imageUrl={ item.imageUrl }
+                  sentAt={ item.sentAt }
+                  error={ item.error }
+                  candidatesInfo={ candidatesInfo }
+                />
+              )}
+          </div>
+        ))}
+
+        <div ref={ messagesEndRef } />
+      </div>
 
       {activeUsers && activeUsers.length > 0 && (
         <div className='is-flex'>
@@ -119,8 +123,6 @@ const ChatView = ({
           <p className='para italic'>{ getTypingMessage() }</p>
         </div>
       )}
-
-      <div ref={ messagesEndRef } />
     </>
   )
 }

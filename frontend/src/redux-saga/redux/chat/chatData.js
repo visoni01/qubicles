@@ -70,6 +70,10 @@ const {
     }),
     updateConversations: (state, action) => ({
       ...state,
+      currentChatId: action.payload?.dataType === 'add-conversation' && state.conversations?.length === 0
+        && action.payload?.newChat?.conversationId
+        ? action.payload.newChat.conversationId
+        : state.currentChatId,
       conversations: updateConversationsHelper({
         conversations: state.conversations,
         payload: action.payload,

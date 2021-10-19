@@ -13,7 +13,6 @@ export const regExpPhone = /^[+](\d{1,4})?\s(\d{10})$/
 export const regExpSSN = /^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$/
 export const regExpZip = /^([a-zA-Z][0-9][a-zA-Z])\s*([0-9][a-zA-Z][0-9])$/
 export const regSplChar = /^[^!@#$%^&*(),.?":{}|<>]*$/
-// export const regSplChar = /^[^<>'\"/;`%]*$/
 
 export const formatDate = (date, format = 'DD MMM') => moment(date).format(format)
 
@@ -65,6 +64,7 @@ export const getUserDetails = () => {
 }
 
 export const getToken = () => Cookies.get('access_token')
+
 export const getPostSignUpStatus = () => {
   const postSignUpStatus = Cookies.get('is_post_signup_completed')
   if (postSignUpStatus === '1') {

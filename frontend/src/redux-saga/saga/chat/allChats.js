@@ -58,6 +58,7 @@ function* allChatsWorker(action) {
         break
       }
 
+      /* eslint-disable camelcase */
       case 'CREATE': {
         switch (dataType) {
           case 'new-group': {
@@ -65,10 +66,10 @@ function* allChatsWorker(action) {
             const { settings: agentSettings } = yield select((state) => state.agentDetails)
             const { settings: clientSettings } = yield select((state) => state.clientDetails)
 
-            const userId = userDetails && userDetails.user_id
+            const userId = userDetails?.user_id
             let loggedInUser = {
               id: userId,
-              userCode: userDetails && userDetails.user_code,
+              userCode: userDetails?.user_code,
             }
 
             const { data } = yield Chat.createNewGroup({
@@ -82,7 +83,7 @@ function* allChatsWorker(action) {
                 type: dataType,
                 payload: {
                   userId,
-                  userName: userDetails && userDetails.full_name,
+                  userName: clientSettings?.companyName || userDetails?.full_name,
                   groupName: title || '',
                 },
               }),
@@ -92,7 +93,7 @@ function* allChatsWorker(action) {
                 addOneMillisecond: true,
                 payload: {
                   userId,
-                  userName: userDetails && userDetails.full_name,
+                  userName: clientSettings?.companyName || userDetails?.full_name,
                   usersName: members?.map((item) => item.name).join(', '),
                 },
               }),
@@ -124,11 +125,13 @@ function* allChatsWorker(action) {
             const newChat = {
               id: data,
               name: title || (members && [ loggedInUser, ...members ].map((item) => item.name).join(', ')),
-              imageUrl: '',
-              dateTime: Date.now(),
               isGroup: true,
-              latestMessage: null,
+              imageUrl: '',
+              latestMessage: newMessages[ 1 ]?.text,
               allRead: true,
+              isImage: false,
+              isNotification: true,
+              dateTime: Date.now(),
             }
             const newConversation = {
               requestType,

@@ -9,7 +9,7 @@ import SendSmsNotificationService from '../app/services/sms/sendSmsNotification'
 import {
   addUserNotification, deleteNotification, getUserDetailsByUserId, addUserMessages, fetchAllConversationRoomIds,
   getErrorMessageForSocket, displayLoggerMessageForSocket, updateXQodUserConversationsStatus, markMessagesAsUnread,
-  getConversationIdFromRoomId
+  getConversationIdFromRoomId, markMessagesAsRead
 } from '../app/services/helper'
 import jwt from 'jsonwebtoken'
 import { User } from '../app/db/models'
@@ -122,7 +122,7 @@ const createSocketConnection = (server) => {
       })
 
       socket.on(EVENTS.JOIN_CHAT_ROOM_FOR_OTHER_USERS, ({ userIds, roomId, messageToBeSent, senderId }) => {
-        displayLoggerMessageForSocket('Join chat room for others', roomId)
+        displayLoggerMessageForSocket(`Join chat room ${roomId} for others`, userIds)
 
         for (const userId of userIds) {
           const clientSet = io.sockets.adapter.rooms.get(userId)
@@ -139,7 +139,7 @@ const createSocketConnection = (server) => {
 
         if (senderId && messageToBeSent) {
           io.to(senderId).emit(EVENTS.SEND_MESSAGE_TO_ROOM, messageToBeSent)
-          displayLoggerMessageForSocket('Send message to room from', senderId)
+          displayLoggerMessageForSocket(`Send message to room ${roomId} from userId`, senderId)
         }
       })
 
@@ -161,6 +161,10 @@ const createSocketConnection = (server) => {
             messagesAdded = true
 
             const promiseArray = [
+              () => markMessagesAsRead({
+                user_id: from,
+                conversation_id
+              }),
               () => updateXQodUserConversationsStatus({
                 conversation_id,
                 user_id: payload.userIds,

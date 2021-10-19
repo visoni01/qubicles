@@ -102,6 +102,7 @@ function* chatDataWorker(action) {
         break
       }
 
+      /* eslint-disable camelcase */
       case 'UPDATE': {
         switch (dataType) {
           case 'mark-as-read': {
@@ -120,14 +121,14 @@ function* chatDataWorker(action) {
             const currentCoversation = conversations.find((conversation) => conversation?.data?.conversationId
               === conversationId)
             const conversationData = currentCoversation?.data
-            const userId = userDetails && userDetails.user_id
+            const userId = userDetails?.user_id
             const roomId = formatConversationRoomId(conversationId)
             const newMessage = getFormattedChatNotificationMessage({
               senderId: userId,
               type: dataType,
               payload: {
                 userId,
-                userName: userDetails && userDetails.full_name,
+                userName: userDetails?.full_name,
                 usersName: members?.map((item) => item.name).join(', '),
               },
             })
@@ -179,14 +180,14 @@ function* chatDataWorker(action) {
             const currentCoversation = conversations.find((conversation) => conversation?.data?.conversationId
               === conversationId)
             const conversationData = currentCoversation?.data
-            const userId = userDetails && userDetails.user_id
+            const userId = userDetails?.user_id
             const roomId = formatConversationRoomId(conversationId)
             const newMessage = getFormattedChatNotificationMessage({
               senderId: userId,
               type: dataType,
               payload: {
                 userId,
-                userName: userDetails && userDetails.full_name,
+                userName: userDetails?.full_name,
                 otherUserId: candidateId,
                 otherUserName: name,
               },
@@ -242,7 +243,7 @@ function* chatDataWorker(action) {
             const currentCoversation = conversations.find((conversation) => conversation?.data?.conversationId
               === conversationId)
             const conversationData = currentCoversation?.data
-            const userId = userDetails && userDetails.user_id
+            const userId = userDetails?.user_id
 
             if (_.isEmpty(newGroupName)) {
               type = 'remove-group-name'
@@ -257,7 +258,7 @@ function* chatDataWorker(action) {
               type,
               payload: {
                 userId,
-                userName: userDetails && userDetails.full_name,
+                userName: userDetails?.full_name,
                 newGroupName,
                 oldGroupName,
               },
@@ -299,7 +300,7 @@ function* chatDataWorker(action) {
             const currentCoversation = conversations.find((conversation) => conversation?.data?.conversationId
               === conversationId)
             const conversationData = currentCoversation?.data
-            const userId = userDetails && userDetails.user_id
+            const userId = userDetails?.user_id
 
             yield Chat.removePerson({ conversationId, candidateId: userId })
 
@@ -309,7 +310,7 @@ function* chatDataWorker(action) {
               type: 'leave-group',
               payload: {
                 userId,
-                userName: userDetails && userDetails.full_name,
+                userName: userDetails?.full_name,
               },
             })
 
