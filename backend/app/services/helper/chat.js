@@ -147,13 +147,15 @@ export const getChatsList = async ({ user_id, offset, search_keyword }) => {
    * t9_messages - id and sent_at of latest message in each convesation
    * t10_all_user_conversations - both private and group chats of user
    * t11_deleted_conversation_status - deleted_on status of each conversation
+   * t12_client_users - client id in case of client
+   * t13_client_data - client data in case of client
   **/
 
   const sqlQuery = `
     SELECT t1_messages_details.*, t3_private_conversations.is_group, t3_private_conversations.group_title,
       t4_user_details.first_name, t4_user_details.last_name, t4_user_details.profile_image,
       t7_group_name_details.group_name, t8_conversation_status.all_read, t2_conversation_latest_message.is_removed,
-      t2_conversation_latest_message.all_texts, t2_conversation_latest_message.deleted_on
+      t2_conversation_latest_message.all_texts, t2_conversation_latest_message.deleted_on, t13_client_data.client_name
     FROM x_qod_chat_messages t1_messages_details
     JOIN (
       SELECT t9_messages.conversation_id, max(sent_at) sent_at, t10_all_user_conversations.is_removed,
@@ -217,6 +219,16 @@ export const getChatsList = async ({ user_id, offset, search_keyword }) => {
       where user_id = ${user_id}
     ) t8_conversation_status
     ON t8_conversation_status.conversation_id = t1_messages_details.conversation_id
+    LEFT JOIN (
+      SELECT user_id, client_id
+      FROM x_client_users
+    ) t12_client_users
+    ON t3_private_conversations.candidate_id = t12_client_users.user_id AND t3_private_conversations.is_group = 0
+    LEFT JOIN (
+      SELECT client_id, client_name
+      FROM x_clients
+    ) t13_client_data
+    ON t13_client_data.client_id = t12_client_users.client_id AND t3_private_conversations.is_group = 0
     ${search_keyword
       ? `WHERE t2_conversation_latest_message.all_texts LIKE '%${search_keyword}%'
         OR CONCAT(t4_user_details.first_name, ' ', t4_user_details.last_name) LIKE '%${search_keyword}%'
@@ -236,11 +248,11 @@ export const getChatsList = async ({ user_id, offset, search_keyword }) => {
 export const formatChatListItem = ({ chatListItem }) => {
   const {
     conversation_id, is_group, first_name, last_name, group_title, group_name, profile_image,
-    sent_at, text, all_read, is_removed, is_notification, image_url, deleted_on
+    sent_at, text, all_read, is_removed, is_notification, image_url, deleted_on, client_name
   } = chatListItem
   const formattedChatListItem = {
     id: conversation_id,
-    name: !is_group ? `${first_name} ${last_name}` : (group_title || group_name),
+    name: !is_group ? (client_name || `${first_name} ${last_name}`) : (group_title || group_name),
     imageUrl: profile_image,
     dateTime: sent_at,
     isGroup: !!is_group,
@@ -495,8 +507,12 @@ export const getSuggestedUsersList = async ({ user_id, conversation_id, offset, 
 
   const sqlQuery = `
     SELECT * FROM (
-    SELECT t5_suggested_user_data.suggested_user_id, t6_users.user_code, t6_users.full_name,
+    SELECT t5_suggested_user_data.suggested_user_id, t6_users.user_code,
       t7_user_details.profile_image, t5_suggested_user_data.client_id,
+      CASE WHEN t6_users.user_code = 'employer'
+        THEN t8_clients.client_name
+        ELSE t6_users.full_name
+      END AS full_name,
       CASE WHEN t6_users.user_code = 'agent'
         THEN t7_user_details.city
         ELSE t8_clients.city
@@ -559,8 +575,12 @@ export const getSuggestedUsersList = async ({ user_id, conversation_id, offset, 
     ${search_keyword
     ? `
         UNION
-        SELECT ut1_users.user_id, ut1_users.user_code, ut1_users.full_name, ut2_user_details.profile_image,
+        SELECT ut1_users.user_id, ut1_users.user_code, ut2_user_details.profile_image,
           ut4_clients.client_id,
+          CASE WHEN ut1_users.user_code = 'employer'
+          THEN ut4_clients.client_name
+          ELSE ut1_users.full_name
+        END AS full_name,
         CASE WHEN ut1_users.user_code = 'agent'
           THEN ut2_user_details.city
           ELSE ut4_clients.city
