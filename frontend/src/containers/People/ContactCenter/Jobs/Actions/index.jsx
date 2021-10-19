@@ -1,17 +1,21 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Box } from '@material-ui/core'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import AppliedInvitedActions from './appliedInvitedActions'
 import ScreeningActions from './screeningActions'
 import LeftJobActions from './leftJobActions'
 import TrainingActions from './trainingActions'
 import OfferedActions from './offeredActions'
-import { jobApplicationRequestStart } from '../../../../../redux-saga/redux/actions'
+import { jobApplicationRequestStart, allChatsRequestStart } from '../../../../../redux-saga/redux/actions'
 import HiredActions from './hiredActions'
 import '../../styles.scss'
 
-const ClientJobApplicationActions = ({ application }) => {
+const ClientJobApplicationActions = ({
+  application, candidateId, candidateName, profileName, profileImage, location,
+}) => {
+  const [ isNewChatLoading, setIsNewChatLoading ] = useState(false)
+  const { isLoading, dataType } = useSelector((state) => state.allChats)
   const dispatch = useDispatch()
 
   const handleUpdateStatus = useCallback((status) => {
@@ -25,6 +29,29 @@ const ClientJobApplicationActions = ({ application }) => {
     }))
   }, [ dispatch, application ])
 
+  const handleSendMessage = useCallback(() => {
+    setIsNewChatLoading(true)
+    dispatch(allChatsRequestStart({
+      requestType: 'CREATE',
+      dataType: 'new-chat',
+      candidate: {
+        id: candidateId,
+        name: candidateName,
+        profilePic: profileImage,
+        location,
+        title: profileName,
+        userCode: 'agent',
+      },
+      onlyPopup: true,
+    }))
+  }, [ dispatch, candidateId, candidateName, profileName, profileImage, location ])
+
+  useEffect(() => {
+    if (!isLoading && dataType === 'new-chat') {
+      setIsNewChatLoading(false)
+    }
+  }, [ isLoading, dataType ])
+
   return (
     <>
       <Box className='custom-box actions-box'>
@@ -33,24 +60,32 @@ const ClientJobApplicationActions = ({ application }) => {
         <AppliedInvitedActions
           key={ application.applicationId }
           handleUpdateStatus={ handleUpdateStatus }
+          handleSendMessage={ handleSendMessage }
+          isNewChatLoading={ isNewChatLoading }
         />
         ) }
         { application.status === ('screening') && (
         <ScreeningActions
           key={ application.applicationId }
           handleUpdateStatus={ handleUpdateStatus }
+          handleSendMessage={ handleSendMessage }
+          isNewChatLoading={ isNewChatLoading }
         />
         ) }
         { application.status === ('training') && (
         <TrainingActions
           key={ application.applicationId }
           handleUpdateStatus={ handleUpdateStatus }
+          handleSendMessage={ handleSendMessage }
+          isNewChatLoading={ isNewChatLoading }
         />
         ) }
         { application.status === ('offered') && (
         <OfferedActions
           key={ application.applicationId }
           handleUpdateStatus={ handleUpdateStatus }
+          handleSendMessage={ handleSendMessage }
+          isNewChatLoading={ isNewChatLoading }
         />
         ) }
         { application.status === ('hired') && (
@@ -64,6 +99,8 @@ const ClientJobApplicationActions = ({ application }) => {
           key={ application.applicationId }
           application={ application }
           handleUpdateStatus={ handleUpdateStatus }
+          handleSendMessage={ handleSendMessage }
+          isNewChatLoading={ isNewChatLoading }
         />
         ) }
       </Box>
@@ -82,6 +119,19 @@ ClientJobApplicationActions.propTypes = {
     createdOn: PropTypes.string,
     updateOn: PropTypes.string,
   }).isRequired,
+  candidateId: PropTypes.number,
+  candidateName: PropTypes.string,
+  location: PropTypes.string,
+  profileName: PropTypes.string,
+  profileImage: PropTypes.string,
+}
+
+ClientJobApplicationActions.defaultProps = {
+  candidateId: null,
+  candidateName: '',
+  location: '',
+  profileName: '',
+  profileImage: '',
 }
 
 export default ClientJobApplicationActions

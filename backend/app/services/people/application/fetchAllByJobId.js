@@ -42,7 +42,10 @@ export class PeopleFetchJobApplicationsByJobIdService extends ServiceBase {
           fullName: `${application.UserDetail.first_name} ${application.UserDetail.last_name}`,
           title: application.UserDetail.work_title,
           summary: application.UserDetail.work_overview,
-          profileImage: application.UserDetail.profile_image
+          profileImage: application.UserDetail.profile_image,
+          rating: application.UserDetail.rating,
+          location: `${application.UserDetail.city || ''}${application.UserDetail.city && application.UserDetail.state
+            ? ', ' : ''}${application.UserDetail.state || ''}`
         }
       }))
       return jobApplications

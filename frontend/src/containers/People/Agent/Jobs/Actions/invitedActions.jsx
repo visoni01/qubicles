@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import MessageButton from './messageButton'
 
 const InvitedActions = ({
-  updateApplicationStatus,
+  updateApplicationStatus, handleSendMessage, isNewChatLoading,
 }) => (
   <div>
     <Button
@@ -17,7 +17,7 @@ const InvitedActions = ({
     >
       Accept
     </Button>
-    <MessageButton />
+    <MessageButton handleSendMessage={ handleSendMessage } isLoading={ isNewChatLoading } />
     <Button
       className='wide-button'
       classes={ {
@@ -31,9 +31,14 @@ const InvitedActions = ({
   </div>
 )
 
+InvitedActions.defaultProps = {
+  isNewChatLoading: false,
+}
+
 InvitedActions.propTypes = {
   updateApplicationStatus: PropTypes.func.isRequired,
-
+  handleSendMessage: PropTypes.func.isRequired,
+  isNewChatLoading: PropTypes.bool,
 }
 
 export default InvitedActions

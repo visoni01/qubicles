@@ -1,3 +1,5 @@
+@import '../../../../customStyles/scss/partials/variables';
+
 .contact-center-info-root {
   .job-post-stats {
     display: inline-flex;
@@ -119,4 +121,10 @@
       margin-right: 5px;
     }
   }
+}
+
+.small-message-button-loader {
+  position: absolute;
+  left: -30px;
+  color: $color-primary;
 }

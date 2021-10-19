@@ -20,6 +20,7 @@ const {
     allChatsRequestSuccess,
     allChatsRequestFailed,
     resetAllChatsReducer,
+    resetAllChatsReducerFlags,
     updateAllChats,
   }, reducer,
 } = createSlice({
@@ -58,6 +59,15 @@ const {
     resetAllChatsReducer: () => ({
       ...initialState,
     }),
+    resetAllChatsReducerFlags: (state) => ({
+      ...state,
+      initialFetchDone: false,
+      isLoading: null,
+      error: null,
+      success: null,
+      requestType: '',
+      dataType: '',
+    }),
     updateAllChats: (state, action) => ({
       ...state,
       chatsList: updateAllChatsReducer({ payload: action.payload, chatsList: state.chatsList }),
@@ -71,5 +81,6 @@ export {
   allChatsRequestSuccess,
   allChatsRequestFailed,
   resetAllChatsReducer,
+  resetAllChatsReducerFlags,
   updateAllChats,
 }

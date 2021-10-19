@@ -1,6 +1,8 @@
 /* eslint-disable complexity */
-import React, { useCallback, useState } from 'react'
-import { Box, Divider, Button } from '@material-ui/core'
+import React, { useCallback, useEffect, useState } from 'react'
+import {
+  Box, Divider, Button, CircularProgress,
+} from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,7 +10,7 @@ import { faAward } from '@fortawesome/free-solid-svg-icons'
 import _ from 'lodash'
 import Introduction from '../../../../components/CommonModal/Introduction'
 import EditProfileModal from './editProfileModal'
-import { fetchAgentResumeStart } from '../../../../redux-saga/redux/actions'
+import { fetchAgentResumeStart, allChatsRequestStart } from '../../../../redux-saga/redux/actions'
 import { formatCount } from '../../../../utils/common'
 
 const AgentEditProfile = ({
@@ -34,7 +36,9 @@ const AgentEditProfile = ({
   hasBlockedUser,
 }) => {
   const [ openEditProfileModal, setOpenEditProfileModal ] = useState(false)
+  const [ isNewChatLoading, setIsNewChatLoading ] = useState(false)
   const { userDetails } = useSelector((state) => state.login)
+  const { isLoading, dataType } = useSelector((state) => state.allChats)
   const dispatch = useDispatch()
 
   const handleFollow = useCallback(() => {
@@ -44,6 +48,29 @@ const AgentEditProfile = ({
       isFollowing: !isFollowing,
     }))
   }, [ dispatch, candidateId, isFollowing ])
+
+  const handleSendMessage = useCallback(() => {
+    setIsNewChatLoading(true)
+    dispatch(allChatsRequestStart({
+      requestType: 'CREATE',
+      dataType: 'new-chat',
+      candidate: {
+        id: candidateId,
+        name,
+        profilePic,
+        location,
+        title,
+        userCode: 'agent',
+      },
+      onlyPopup: true,
+    }))
+  }, [ dispatch, candidateId, location, profilePic, title, name ])
+
+  useEffect(() => {
+    if (!isLoading && dataType === 'new-chat') {
+      setIsNewChatLoading(false)
+    }
+  }, [ isLoading, dataType ])
 
   return (
     <Box className='custom-box contact-center-info-root'>
@@ -80,8 +107,11 @@ const AgentEditProfile = ({
               root: 'button-primary-small',
               label: 'button-primary-small-label',
             } }
+            onClick={ handleSendMessage }
+            disabled={ isNewChatLoading }
           >
             Message
+            {isNewChatLoading && <CircularProgress size={ 20 } className='message-button-loader' />}
           </Button>
         )}
       </div>

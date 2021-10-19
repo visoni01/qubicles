@@ -53,6 +53,10 @@ const ViewResume = () => {
         <InviteAgentActions
           key={ candidateId }
           candidateId={ candidateId }
+          candidateName={ agentResume.candidateName }
+          location={ agentResume.location }
+          profileName={ agentResume.profileName }
+          profileImage={ agentResume.profileImage }
         />
       </Grid>
     </Grid>

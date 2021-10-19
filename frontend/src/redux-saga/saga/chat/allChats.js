@@ -10,6 +10,8 @@ import {
   showErrorMessage,
   updateCurrentChatId,
   updateConversations,
+  updateChatPopups,
+  resetAllChatsReducerFlags,
 } from '../../redux/actions'
 import Chat from '../../service/chat'
 
@@ -20,7 +22,7 @@ function* allChatsWatcher() {
 function* allChatsWorker(action) {
   try {
     const {
-      requestType, dataType, title, members, conversationId, candidate, offset, searchKeyword,
+      requestType, dataType, title, members, conversationId, candidate, offset, searchKeyword, onlyPopup,
     } = action.payload
 
     switch (requestType) {
@@ -189,7 +191,7 @@ function* allChatsWorker(action) {
             const newConversationId = data?.conversationId
             const exists = _.findIndex(chatsList, { id: newConversationId }) !== -1
 
-            if (!exists) {
+            if (!onlyPopup && !exists) {
               const roomId = formatConversationRoomId(newConversationId)
 
               WebSocket.joinChatRoom(roomId)
@@ -229,7 +231,19 @@ function* allChatsWorker(action) {
                 allRead: data?.allRead,
               },
             }))
-            yield put(updateCurrentChatId({ conversationId: newConversationId }))
+
+            if (!onlyPopup) {
+              yield put(updateCurrentChatId({ conversationId: newConversationId }))
+            } else {
+              yield put(updateChatPopups({
+                requestType: 'ADD',
+                conversationId: newConversationId,
+                noNotification: true,
+              }))
+
+              yield put(resetAllChatsReducerFlags())
+            }
+
             break
           }
 

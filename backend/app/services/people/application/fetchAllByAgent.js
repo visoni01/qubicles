@@ -58,7 +58,8 @@ export class PeopleFetchJobApplicationsByAgentService extends ServiceBase {
 
             return {
               ...application,
-              profilePicture
+              profilePicture,
+              clientUserId: clientUserId.user_id
             }
           })
         }

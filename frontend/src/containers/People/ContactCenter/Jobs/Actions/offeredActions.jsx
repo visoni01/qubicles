@@ -1,11 +1,11 @@
 import React from 'react'
 import {
-  Button,
+  Button, CircularProgress,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import TextDivider from '../../../../../components/CommonModal/textDivider'
 
-const OfferedActions = ({ handleUpdateStatus }) => (
+const OfferedActions = ({ handleUpdateStatus, handleSendMessage, isNewChatLoading }) => (
   <>
     <Button
       className='wide-button'
@@ -23,8 +23,11 @@ const OfferedActions = ({ handleUpdateStatus }) => (
         root: 'button-secondary-small',
         label: 'button-secondary-small-label',
       } }
+      onClick={ handleSendMessage }
+      disabled={ isNewChatLoading }
     >
       Message
+      {isNewChatLoading && <CircularProgress size={ 20 } className='message-button-loader' />}
     </Button>
     <div className='mt-30 mb-10'>
       <TextDivider message='Evaluating' />
@@ -66,6 +69,12 @@ const OfferedActions = ({ handleUpdateStatus }) => (
 
 OfferedActions.propTypes = {
   handleUpdateStatus: PropTypes.func.isRequired,
+  handleSendMessage: PropTypes.func.isRequired,
+  isNewChatLoading: PropTypes.bool,
+}
+
+OfferedActions.defaultProps = {
+  isNewChatLoading: false,
 }
 
 export default OfferedActions

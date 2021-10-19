@@ -1,6 +1,8 @@
 /* eslint-disable complexity */
-import React, { useCallback, useEffect } from 'react'
-import { Box, Divider, Button } from '@material-ui/core'
+import React, { useCallback, useEffect, useState } from 'react'
+import {
+  Box, Divider, Button, CircularProgress,
+} from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import _ from 'lodash'
@@ -8,15 +10,19 @@ import Introduction from '../../../../components/CommonModal/Introduction'
 import PrimaryContact from '../../Company/LeftRightSection/primaryContact'
 import ContactCenterSkeleton from
   '../../../../components/People/ContactCenter/SkeletonLoader/Jobs/contactCenterSkeleton'
-import { jobPostCompanyDetailsFetchStart, resetCompanyDetails } from '../../../../redux-saga/redux/actions'
+import {
+  jobPostCompanyDetailsFetchStart, resetCompanyDetails, allChatsRequestStart,
+} from '../../../../redux-saga/redux/actions'
 import { formatCount } from '../../../../utils/common'
 
 const OtherCompanyIntro = ({
   clientId,
   imageName,
 }) => {
+  const [ isNewChatLoading, setIsNewChatLoading ] = useState(false)
   const { companyDetails, success, isCompanyDetailsLoading } = useSelector((state) => state.companyDetailsForProfile)
   const { userDetails } = useSelector((state) => state.login)
+  const { isLoading, dataType } = useSelector((state) => state.allChats)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -35,6 +41,30 @@ const OtherCompanyIntro = ({
       isFollowing: companyDetails && !companyDetails.isFollowing,
     }))
   }, [ dispatch, clientId, companyDetails ])
+
+  const handleSendMessage = useCallback(() => {
+    setIsNewChatLoading(true)
+    dispatch(allChatsRequestStart({
+      requestType: 'CREATE',
+      dataType: 'new-chat',
+      candidate: {
+        id: companyDetails?.userId,
+        clientId: companyDetails?.clientId,
+        name: companyDetails?.companyName,
+        profilePic: companyDetails?.companyImg,
+        location: companyDetails?.location,
+        title: companyDetails?.title,
+        userCode: 'employer',
+      },
+      onlyPopup: true,
+    }))
+  }, [ dispatch, companyDetails ])
+
+  useEffect(() => {
+    if (!isLoading && dataType === 'new-chat') {
+      setIsNewChatLoading(false)
+    }
+  }, [ isLoading, dataType ])
 
   if ((_.isNull(isCompanyDetailsLoading) || isCompanyDetailsLoading) && !success) {
     return (
@@ -55,15 +85,20 @@ const OtherCompanyIntro = ({
           date={ companyDetails.registrationDate }
         />
         <div className=' mt-20 mb-20'>
+          {userDetails && userDetails.user_id !== companyDetails?.userId && (
           <Button
             className='wide-button'
             classes={ {
               root: 'button-primary-small',
               label: 'button-primary-small-label',
             } }
+            onClick={ handleSendMessage }
+            disabled={ isNewChatLoading }
           >
             Message
+            {isNewChatLoading && <CircularProgress size={ 20 } className='message-button-loader' />}
           </Button>
+          )}
         </div>
         <div className=' mt-20 mb-20'>
           {userDetails && !_.isEqual(userDetails.user_code, 'employer') && (

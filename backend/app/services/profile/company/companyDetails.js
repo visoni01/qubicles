@@ -35,6 +35,7 @@ export class CompanyDetailsService extends ServiceBase {
       ]
       const [userDetails, connectionType, followData, jobData] = await Promise.all(promises.map(promise => promise()))
       const companyDetails = {
+        userId: userDetails.user_id,
         registrationDate: clientDetails.registration_date,
         companyName: clientDetails.client_name,
         clientId: clientDetails.client_id,

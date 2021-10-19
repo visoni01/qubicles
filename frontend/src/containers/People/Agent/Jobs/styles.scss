@@ -1,0 +1,8 @@
+@import '../../../../customStyles/scss/partials/variables';
+
+.message-button-loader {
+  position: absolute;
+  right: 20px;
+  left: unset;
+  color: $color-primary;
+}

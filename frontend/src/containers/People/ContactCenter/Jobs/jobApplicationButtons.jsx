@@ -1,17 +1,21 @@
 /* eslint-disable complexity */
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Button } from '@material-ui/core'
+import { Button, CircularProgress } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   startLoader,
   stopLoader,
   jobApplicationListRequestStart,
+  allChatsRequestStart,
 } from '../../../../redux-saga/redux/actions'
 
-const JobApplicationButtons = ({ application }) => {
-  const dispatch = useDispatch()
+const JobApplicationButtons = ({ application, userDetails }) => {
+  const [ isNewChatLoading, setIsNewChatLoading ] = useState(false)
+  const { isLoading: isChatLoading, dataType } = useSelector((state) => state.allChats)
   const { isLoading } = useSelector((state) => state.jobApplication)
+  const dispatch = useDispatch()
+
   const handleUpdateStatus = useCallback((status) => {
     dispatch(jobApplicationListRequestStart({
       applicationListData: {
@@ -65,6 +69,30 @@ const JobApplicationButtons = ({ application }) => {
       }
     }
   }, [ handleUpdateStatus ])
+
+  const handleSendMessage = useCallback(() => {
+    setIsNewChatLoading(true)
+    dispatch(allChatsRequestStart({
+      requestType: 'CREATE',
+      dataType: 'new-chat',
+      candidate: {
+        id: application.agentUserId,
+        name: userDetails?.fullName,
+        profilePic: userDetails?.profileImage,
+        location: userDetails?.location,
+        title: userDetails?.title,
+        userCode: 'agent',
+      },
+      onlyPopup: true,
+    }))
+  }, [ dispatch, userDetails, application ])
+
+  useEffect(() => {
+    if (!isChatLoading && dataType === 'new-chat') {
+      setIsNewChatLoading(false)
+    }
+  }, [ isChatLoading, dataType ])
+
   return (
     <>
       {/* Button for Negative Actions */}
@@ -93,7 +121,10 @@ const JobApplicationButtons = ({ application }) => {
               root: 'button-secondary-small',
               label: 'button-secondary-small-label',
             } }
+            onClick={ handleSendMessage }
+            disabled={ isNewChatLoading }
           >
+            {isNewChatLoading && <CircularProgress size={ 20 } className='small-message-button-loader' />}
             Message
           </Button>
 
@@ -123,12 +154,30 @@ const JobApplicationButtons = ({ application }) => {
   )
 }
 
+JobApplicationButtons.defaultProps = {
+  userDetails: {
+    fullName: '',
+    profileImage: '',
+    title: '',
+    summary: '',
+    rating: 0,
+  },
+}
+
 JobApplicationButtons.propTypes = {
   application: PropTypes.shape({
     applicationId: PropTypes.number.isRequired,
     jobId: PropTypes.number.isRequired,
     status: PropTypes.string.isRequired,
+    agentUserId: PropTypes.number,
   }).isRequired,
+  userDetails: PropTypes.shape({
+    fullName: PropTypes.string,
+    profileImage: PropTypes.string,
+    title: PropTypes.string,
+    summary: PropTypes.string,
+    rating: PropTypes.number,
+  }),
 }
 
 export default JobApplicationButtons

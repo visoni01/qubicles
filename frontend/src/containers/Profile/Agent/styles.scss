@@ -1,3 +1,5 @@
+@import '../../../customStyles/scss/partials/variables';
+
 .skills-endorsements-box {
   display: inline-flex;
   position: relative;
@@ -14,7 +16,7 @@
 }
 
 .rating-star-color {
-  color: #4877F4
+  color: $color-primary;
 }
 
 .hourly-rate-input {
@@ -25,4 +27,10 @@
   .MuiPaper-root {
     border-radius: 8px;
   }
+}
+
+.message-button-loader {
+  position: absolute;
+  right: 20px;
+  color: $color-primary;
 }

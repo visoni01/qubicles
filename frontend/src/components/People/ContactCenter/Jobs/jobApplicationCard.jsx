@@ -51,6 +51,7 @@ const JobApplicationCard = ({ application, userDetails }) => (
 
     <JobApplicationButtons
       application={ application }
+      userDetails={ userDetails }
     />
   </div>
 )

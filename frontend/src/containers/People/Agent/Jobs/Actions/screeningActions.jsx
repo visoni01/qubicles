@@ -7,7 +7,7 @@ import WithdrawApplication from './withdrawApplication'
 import { VIEW_COURSE_ROUTE } from '../../../../../routes/routesPath'
 
 const ScreeningActions = ({
-  updateApplicationStatus, application,
+  updateApplicationStatus, application, handleSendMessage, isNewChatLoading,
 }) => {
   const history = useHistory()
   return (
@@ -36,7 +36,7 @@ const ScreeningActions = ({
         Go To Training
       </Button>
       )}
-      <MessageButton />
+      <MessageButton handleSendMessage={ handleSendMessage } isLoading={ isNewChatLoading } />
       <WithdrawApplication
         updateApplicationStatus={ updateApplicationStatus }
         application={ application }
@@ -46,8 +46,13 @@ const ScreeningActions = ({
   )
 }
 
+ScreeningActions.defaultProps = {
+  isNewChatLoading: false,
+}
+
 ScreeningActions.propTypes = {
   updateApplicationStatus: PropTypes.func.isRequired,
+  handleSendMessage: PropTypes.func.isRequired,
   application: PropTypes.shape({
     applicationId: PropTypes.number.isRequired,
     agentUserId: PropTypes.number.isRequired,
@@ -58,6 +63,7 @@ ScreeningActions.propTypes = {
     createdOn: PropTypes.string.isRequired,
     updateOn: PropTypes.string.isRequired,
   }).isRequired,
+  isNewChatLoading: PropTypes.bool,
 }
 
 export default ScreeningActions

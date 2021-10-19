@@ -161,7 +161,7 @@ export const fetchAllJobApplications = async ({ applicationId, clientId, agentUs
     where: query,
     include: [{
       model: UserDetail,
-      attributes: ['profile_image', 'first_name', 'last_name', 'work_title', 'work_overview']
+      attributes: ['profile_image', 'first_name', 'last_name', 'work_title', 'work_overview', 'city', 'state', 'rating']
     }]
   })
   return applications.map(application => application.get({ plain: true }))
@@ -174,6 +174,7 @@ export const fetchAgentJobApplicationList = async ({ agentUserId, limit, offset,
 
   if (!_.isEmpty(statusTypes)) {
     applicationQuery = {
+      ...applicationQuery,
       status: statusTypes
     }
   }
@@ -185,7 +186,7 @@ export const fetchAgentJobApplicationList = async ({ agentUserId, limit, offset,
     include: [
       {
         model: XClient,
-        attributes: ['client_id', 'client_name', 'rating']
+        attributes: ['client_id', 'client_name', 'rating', 'title']
       },
       {
         model: XQodJob,

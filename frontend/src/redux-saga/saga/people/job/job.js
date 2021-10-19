@@ -54,6 +54,7 @@ function* jobDetailsWorker(action) {
           })
           yield put(jobDetailsFetchSuccessful({
             jobDetails: {
+              userId: data.jobDetails.user_id,
               jobId: data.jobDetails.job_id,
               categoryId: data.jobDetails.category_id,
               categoryName: data.jobDetails.XQodCategory.category_name,

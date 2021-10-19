@@ -72,6 +72,11 @@ const ClientViewApplication = ({
         <ClientJobApplicationActions
           key={ application.applicationId }
           application={ application }
+          candidateId={ agentResume.candidateId }
+          candidateName={ agentResume.candidateName }
+          location={ agentResume.location }
+          profileName={ agentResume.profileName }
+          profileImage={ agentResume.profileImage }
         />
       </Grid>
     </Grid>

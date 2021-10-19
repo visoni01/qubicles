@@ -1,3 +1,5 @@
+@import '../../../../customStyles/scss/partials/variables';
+
 .top-talent-root{
   .top-talent {
     width: 100%;
@@ -223,4 +225,10 @@
     border-radius: 20px 20px 20px 20px ;
   }
 
+}
+
+.small-message-button-loader {
+  position: absolute;
+  left: -30px;
+  color: $color-primary;
 }

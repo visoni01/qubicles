@@ -112,10 +112,12 @@ export const formatAgentApplicationCards = ({ applications }) => {
         payAmount: XQodJob.pay_amount,
       },
       clientDetails: {
+        userId: application.clientUserId,
         clientId: XClient.client_id,
         clientName: XClient.client_name,
         profileImage: profilePicture,
         rating: XClient.rating,
+        title: XClient.title,
       },
     })
   })

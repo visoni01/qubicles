@@ -443,7 +443,7 @@ export const chatDataFailureHelper = ({ conversations, payload }) => {
 }
 
 export const updateChatPopupsHelper = ({ chatPopups, payload, maxCount }) => {
-  const { requestType, conversationId } = payload
+  const { requestType, conversationId, noNotification } = payload
 
   switch (requestType) {
     case 'DELETE': return chatPopups && chatPopups.filter((item) => item.conversationId !== conversationId)
@@ -452,7 +452,7 @@ export const updateChatPopupsHelper = ({ chatPopups, payload, maxCount }) => {
       const popupIndex = chatPopups && chatPopups.findIndex((item) => item.conversationId === conversationId)
       if (popupIndex === -1 || popupIndex >= maxCount) {
         return [
-          { conversationId, newNotification: true, isMaximized: true },
+          { conversationId, newNotification: !noNotification, isMaximized: true },
           ...chatPopups.filter((item) => item.conversationId !== conversationId),
         ]
       }

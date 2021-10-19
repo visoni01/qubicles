@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Box } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -10,14 +10,17 @@ import MessageButton from './messageButton'
 import ScreeningActions from './screeningActions'
 import HiredActions from './hiredActions'
 import OfferedActions from './offeredActions'
-import { jobApplicationRequestStart } from '../../../../../redux-saga/redux/actions'
+import { jobApplicationRequestStart, allChatsRequestStart } from '../../../../../redux-saga/redux/actions'
 
 const ActionsBox = ({
   application, jobId, clientId, agentUserId,
 }) => {
+  const [ isNewChatLoading, setIsNewChatLoading ] = useState(false)
   const dispatch = useDispatch()
   const { isLoading } = useSelector((state) => state.jobApplication)
   const { applicationFilter } = useSelector((state) => state.agentJobApplications)
+  const { jobDetails } = useSelector((state) => state.jobDetails)
+  const { isLoading: isChatLoading, dataType } = useSelector((state) => state.allChats)
 
   const getApplicationCategoryId = useCallback(() => parseInt(Object.keys(applicationFilter).filter(
     (key) => applicationFilter[ key ].statusTypes.includes(application.status),
@@ -44,6 +47,32 @@ const ActionsBox = ({
     isLoading,
     getApplicationCategoryId,
   ])
+
+  /* eslint-disable camelcase */
+  const handleSendMessage = useCallback(() => {
+    setIsNewChatLoading(true)
+    dispatch(allChatsRequestStart({
+      requestType: 'CREATE',
+      dataType: 'new-chat',
+      candidate: {
+        id: jobDetails?.userId,
+        clientId: jobDetails?.clientId,
+        name: jobDetails?.companyDetails?.client_name,
+        profilePic: jobDetails?.companyDetails?.profile_image,
+        location: `${ jobDetails?.companyDetails?.city }, ${ jobDetails?.companyDetails?.state }`,
+        title: jobDetails?.companyDetails?.title,
+        userCode: 'employer',
+      },
+      onlyPopup: true,
+    }))
+  }, [ dispatch, jobDetails ])
+
+  useEffect(() => {
+    if (!isChatLoading && dataType === 'new-chat') {
+      setIsNewChatLoading(false)
+    }
+  }, [ isChatLoading, dataType ])
+
   return (
     <Box className='custom-box actions-box'>
       <h3 className=' h3 mb-10'> Actions </h3>
@@ -73,15 +102,19 @@ const ActionsBox = ({
             {[ 'invited' ].includes(application.status) && (
             <InvitedActions
               updateApplicationStatus={ updateApplicationStatus }
+              handleSendMessage={ handleSendMessage }
+              isNewChatLoading={ isNewChatLoading }
             />
             )}
             {[ 'declined', 'rejected', 'resigned', 'terminated' ].includes(application.status) && (
-            <MessageButton />
+            <MessageButton handleSendMessage={ handleSendMessage } isLoading={ isNewChatLoading } />
             )}
             {[ 'screening', 'training' ].includes(application.status) && (
             <ScreeningActions
-              updateApplicationStatus={ updateApplicationStatus }
               application={ application }
+              updateApplicationStatus={ updateApplicationStatus }
+              handleSendMessage={ handleSendMessage }
+              isNewChatLoading={ isNewChatLoading }
             />
             )}
             {[ 'hired' ].includes(application.status) && (

@@ -1,17 +1,21 @@
 /* eslint-disable complexity */
-import React, { useCallback } from 'react'
-import { Grid, Button } from '@material-ui/core'
+import React, { useCallback, useEffect, useState } from 'react'
+import { Grid, Button, CircularProgress } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { agentJobApplicationsRequestStart } from '../../../../redux-saga/redux/actions'
+import { agentJobApplicationsRequestStart, allChatsRequestStart } from '../../../../redux-saga/redux/actions'
 import { VIEW_COURSE_ROUTE } from '../../../../routes/routesPath'
+import { applicationPropTypes, clientDetailsPropTypes, jobDetailsPropTypes } from './propTypes'
 
 const ApplicationCardActions = ({
-  application, applicationCategoryId,
+  application, applicationCategoryId, jobDetails, clientDetails,
 }) => {
+  const [ isNewChatLoading, setIsNewChatLoading ] = useState(false)
+  const { isLoading, dataType } = useSelector((state) => state.allChats)
   const dispatch = useDispatch()
   const history = useHistory()
+
   const handleUpdateStatus = useCallback((status) => {
     dispatch(agentJobApplicationsRequestStart({
       applicationListData: {
@@ -52,6 +56,31 @@ const ApplicationCardActions = ({
       }
     }
   }, [ handleUpdateStatus, history ])
+
+  const handleSendMessage = useCallback(() => {
+    setIsNewChatLoading(true)
+    dispatch(allChatsRequestStart({
+      requestType: 'CREATE',
+      dataType: 'new-chat',
+      candidate: {
+        id: clientDetails?.userId,
+        clientId: clientDetails?.clientId,
+        name: clientDetails?.clientName,
+        profilePic: clientDetails?.profileImage,
+        location: jobDetails?.location,
+        title: clientDetails?.title,
+        userCode: 'employer',
+      },
+      onlyPopup: true,
+    }))
+  }, [ dispatch, jobDetails, clientDetails ])
+
+  useEffect(() => {
+    if (!isLoading && dataType === 'new-chat') {
+      setIsNewChatLoading(false)
+    }
+  }, [ isLoading, dataType ])
+
   return (
     <Grid container spacing={ 3 } justify='space-between'>
       <Grid item xs={ 6 }>
@@ -79,7 +108,10 @@ const ApplicationCardActions = ({
               root: 'button-secondary-small',
               label: 'button-secondary-small-label',
             } }
+            onClick={ handleSendMessage }
+            disabled={ isNewChatLoading }
           >
+            {isNewChatLoading && <CircularProgress size={ 20 } className='small-message-button-loader' />}
             Message
           </Button>
         </Grid>
@@ -106,16 +138,9 @@ const ApplicationCardActions = ({
 }
 
 ApplicationCardActions.propTypes = {
-  application: PropTypes.shape({
-    applicationId: PropTypes.number.isRequired,
-    agentUserId: PropTypes.number.isRequired,
-    clientId: PropTypes.number.isRequired,
-    jobId: PropTypes.number.isRequired,
-    coverLetter: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
-    createdOn: PropTypes.string.isRequired,
-    updateOn: PropTypes.string.isRequired,
-  }).isRequired,
+  application: applicationPropTypes.isRequired,
+  jobDetails: jobDetailsPropTypes.isRequired,
+  clientDetails: clientDetailsPropTypes.isRequired,
   applicationCategoryId: PropTypes.number.isRequired,
 }
 
