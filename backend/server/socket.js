@@ -160,11 +160,22 @@ const createSocketConnection = (server) => {
             newMessages = await addUserMessages({ messages, conversation_id })
             messagesAdded = true
 
-            const promiseArray = [
+            // Mark all the messages as read and change the allread status to true for the sender
+            let promiseArray = [
+              () => updateXQodUserConversationsStatus({
+                conversation_id,
+                user_id: from,
+                all_read: true
+              }),
               () => markMessagesAsRead({
                 user_id: from,
                 conversation_id
-              }),
+              })
+            ]
+            await Promise.all(promiseArray.map(promise => promise()))
+
+            // Mark the messages as unread and change the allread status to false for the users other than sender
+            promiseArray = [
               () => updateXQodUserConversationsStatus({
                 conversation_id,
                 user_id: payload.userIds,
@@ -175,7 +186,6 @@ const createSocketConnection = (server) => {
                 messageIds: newMessages && newMessages.map((message) => message.newMessageId)
               })
             ]
-
             await Promise.all(promiseArray.map(promise => promise()))
           }
 

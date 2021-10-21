@@ -8,7 +8,10 @@ const constraints = {
     presence: { allowEmpty: false }
   },
   candidate_id: {
-    presence: { allowEmpty: true }
+    presence: { allowEmpty: false }
+  },
+  updated_on: {
+    presence: { allowEmpty: false }
   }
 }
 
@@ -19,12 +22,13 @@ export class ChatRemoveGroupMemberService extends ServiceBase {
 
   async run () {
     try {
-      const { conversation_id, candidate_id } = this.filteredArgs
+      const { conversation_id, candidate_id, updated_on } = this.filteredArgs
 
       await changeGroupMembersStatus({
         conversation_id,
         user_ids: [candidate_id],
-        is_removed: true
+        is_removed: true,
+        updated_on
       })
     } catch (e) {
       logger.error(getErrorMessageForService('ChatRemoveGroupMemberService'), e)

@@ -127,7 +127,7 @@ function* allChatsWorker(action) {
               name: title || (members && [ loggedInUser, ...members ].map((item) => item.name).join(', ')),
               isGroup: true,
               imageUrl: '',
-              latestMessage: newMessages[ 1 ]?.text,
+              latestMessage: newMessages[ 1 ].text,
               allRead: true,
               isImage: false,
               isNotification: true,

@@ -1,7 +1,9 @@
 import ServiceBase from '../../common/serviceBase'
 import { ERRORS } from '../../utils/errors'
 import logger from '../../common/logger'
-import { getLatestMessageDetails, updateXQodUserConversationsStatus, getErrorMessageForService, markMessagesAsRead } from '../helper'
+import {
+  getLatestMessageDetails, updateXQodUserConversationsStatus, getErrorMessageForService, markMessagesAsRead
+} from '../helper'
 
 const constraints = {
   user_id: {

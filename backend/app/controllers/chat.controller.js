@@ -63,7 +63,7 @@ export default class ChatController {
   }
 
   static async removeGroupMember (req, res) {
-    const response = await ChatRemoveGroupMemberService.execute({ ...req.params })
+    const response = await ChatRemoveGroupMemberService.execute({ ...req.params, ...req.body })
     if (response.successful) {
       Responder.success(res, response.result)
     } else {

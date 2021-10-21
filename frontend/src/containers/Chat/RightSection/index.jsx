@@ -2,7 +2,7 @@
 import React, { useCallback, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { AvatarGroup } from '@material-ui/lab'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import {
   Box, Avatar, Button, IconButton, TextField, ClickAwayListener, CircularProgress,
@@ -15,6 +15,7 @@ import { COMPANY_PROFILE_ROUTE, PROFILE_ROUTE } from '../../../routes/routesPath
 import ChatOptions from './chatOptions'
 import ViewMembers from './viewMembers'
 import RightSectionSkeleton from '../../../components/Chat/Skeletons/rightSectionSkeleton'
+import { stopLoader } from '../../../redux-saga/redux/utils'
 
 const RightCard = ({ changeGroupName }) => {
   const { initialFetchDone } = useSelector((state) => state.allChats)
@@ -23,6 +24,8 @@ const RightCard = ({ changeGroupName }) => {
   const [ openViewMembersModal, setOpenViewMembersModal ] = useState(false)
   const [ showGroupNameField, setShowGroupNameField ] = useState(false)
   const [ groupNameValue, setGroupNameValue ] = useState('')
+
+  const dispatch = useDispatch()
 
   const chatData = conversations.find((conversation) => conversation.data.conversationId === currentChatId)
   const chat = chatData?.data
@@ -45,15 +48,19 @@ const RightCard = ({ changeGroupName }) => {
     return temporalDivElement.textContent || temporalDivElement.innerText || ''
   }, [])
 
-  const handleEdit = useCallback(() => {
-    setShowGroupNameField(true)
-  }, [])
+  useEffect(() => {
+    if (!chatData?.isLoading && chatData?.success && _.isEqual(chatData?.dataType, 'delete-chat')) {
+      dispatch(stopLoader())
+    }
+  }, [ chatData, dispatch ])
+
+  const handleEdit = useCallback(() => setShowGroupNameField(true), [])
 
   const handleOnChange = useCallback((event) => setGroupNameValue(event.target.value), [])
 
   const handleCheck = useCallback(() => {
-    const newGroupName = groupNameValue && stripHtml(groupNameValue.trim())
-    const oldGroupName = chat && stripHtml(chat.groupName)
+    const newGroupName = stripHtml(groupNameValue?.trim())
+    const oldGroupName = stripHtml(chat?.groupName)
 
     if (_.isEqual(newGroupName, oldGroupName)) {
       setShowGroupNameField(false)

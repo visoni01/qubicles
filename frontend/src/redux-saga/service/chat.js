@@ -31,8 +31,9 @@ const Chat = class {
     return response
   }
 
-  static removePerson = async ({ conversationId, candidateId }) => {
-    const response = await apiClient.deleteRequest(`/chat/${ conversationId }/candidate/${ candidateId }`)
+  static removePerson = async ({ conversationId, candidateId, updatedOn }) => {
+    const response = await apiClient.deleteRequest(`/chat/${ conversationId }/candidate/${ candidateId }`,
+      { updated_on: updatedOn })
     return response
   }
 

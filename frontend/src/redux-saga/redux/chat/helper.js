@@ -352,8 +352,27 @@ export const chatDataSuccessHelper = ({ conversations, payload }) => {
       switch (dataType) {
         case 'add-people':
         case 'remove-person':
-        case 'change-group-name':
-          return updateConversationsHelper({ payload, conversations, result })
+        case 'change-group-name': {
+          const updatedConversations = conversations?.map((item) => (
+            item.data && item.data.conversationId === conversationId
+              ? {
+                ...item,
+                data: {
+                  ...item.data,
+                  allRead: true,
+                  chatData: {
+                    ...item.data.chatData,
+                    chats: item.data.chatData.chats?.map((message) => ({
+                      ...message,
+                      isRead: true,
+                    })),
+                  },
+                },
+              }
+              : item
+          ))
+          return updateConversationsHelper({ payload, conversations: updatedConversations, result })
+        }
 
         case 'mark-as-read': return conversations && conversations.map((item) => (
           item.data && item.data.conversationId === conversationId
@@ -384,12 +403,16 @@ export const chatDataSuccessHelper = ({ conversations, payload }) => {
                 ...result,
                 data: {
                   ...item.data,
+                  allRead: true,
                   isRemoved: true,
                   candidatesInfo: item.data.candidatesInfo.filter((user) => user.id !== payload.userId),
                   chatData: {
                     ...item.data.chatData,
                     chats: [
-                      ...item.data.chatData.chats,
+                      ...item.data.chatData.chats?.map((message) => ({
+                        ...message,
+                        isRead: true,
+                      })),
                       payload.newMessage,
                     ],
                   },

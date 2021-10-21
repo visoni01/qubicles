@@ -166,14 +166,12 @@ function* chatDataWorker(action) {
                 ...members,
               ].map((member) => member.name).join(', '),
               latestMessage: newMessage.text,
+              allRead: true,
             }))
-
             break
           }
 
           case 'remove-person': {
-            yield Chat.removePerson({ conversationId, candidateId })
-
             const { userDetails } = yield select((state) => state.login)
             const { conversations } = yield select((state) => state.chatData)
 
@@ -192,6 +190,8 @@ function* chatDataWorker(action) {
                 otherUserName: name,
               },
             })
+
+            yield Chat.removePerson({ conversationId, candidateId, updatedOn: newMessage.sentAt })
 
             WebSocket.sendMessage({
               to: roomId,
@@ -225,6 +225,13 @@ function* chatDataWorker(action) {
                 conversationId,
                 newGroupName: conversationData.candidatesInfo?.filter((user) => user.id !== candidateId)
                   .map((member) => member.name).join(', '),
+                allRead: true,
+              }))
+            } else {
+              yield put(updateAllChats({
+                dataType: 'mark-as-read',
+                conversationId,
+                allRead: true,
               }))
             }
             break
@@ -288,6 +295,7 @@ function* chatDataWorker(action) {
               newGroupName: newGroupName
                 || (conversationData?.candidatesInfo.map((member) => member.name).join(', ')),
               latestMessage: newMessage?.text,
+              allRead: true,
               isNotification: true,
             }))
             break
@@ -302,8 +310,6 @@ function* chatDataWorker(action) {
             const conversationData = currentCoversation?.data
             const userId = userDetails?.user_id
 
-            yield Chat.removePerson({ conversationId, candidateId: userId })
-
             const roomId = formatConversationRoomId(conversationId)
             const newMessage = getFormattedChatNotificationMessage({
               senderId: userId,
@@ -313,6 +319,8 @@ function* chatDataWorker(action) {
                 userName: userDetails?.full_name,
               },
             })
+
+            yield Chat.removePerson({ conversationId, candidateId: userId, updatedOn: newMessage.sentAt })
 
             WebSocket.sendMessage({
               to: roomId,
