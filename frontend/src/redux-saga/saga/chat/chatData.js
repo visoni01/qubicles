@@ -65,13 +65,13 @@ function* chatDataWorker(action) {
                       ? groupName || candidatesInfo?.map((item) => item.name).join(', ')
                       : candidatesInfo && candidatesInfo[ 0 ].name,
                     isGroup,
-                    allRead,
-                    isRemoved,
                     imageUrl: isGroup ? null : candidatesInfo && candidatesInfo[ 0 ].profilePic,
-                    dateTime: lastMessage?.sentAt,
                     latestMessage: lastMessage?.text,
-                    isNotification: lastMessage?.isNotification,
+                    isRemoved,
+                    allRead,
                     isImage: !!lastMessage?.imageUrl,
+                    isNotification: lastMessage?.isNotification,
+                    dateTime: lastMessage?.sentAt,
                   },
                 }))
               }
@@ -159,7 +159,7 @@ function* chatDataWorker(action) {
               newMessage, dataType: 'new-message', requestType, conversationId,
             }))
             yield put(updateAllChats({
-              dataType: 'add-people',
+              dataType,
               conversationId,
               newGroupName: _.isEmpty(conversationData.groupName) && [
                 ...conversationData.candidatesInfo,
@@ -167,6 +167,9 @@ function* chatDataWorker(action) {
               ].map((member) => member.name).join(', '),
               latestMessage: newMessage.text,
               allRead: true,
+              isImage: false,
+              isNotification: true,
+              dateTime: newMessage.sentAt,
             }))
             break
           }
@@ -219,21 +222,18 @@ function* chatDataWorker(action) {
               msg: `You have successfully removed ${ name }!`,
             }))
 
-            if (_.isEmpty(conversationData.groupName)) {
-              yield put(updateAllChats({
-                dataType: 'change-group-name',
-                conversationId,
-                newGroupName: conversationData.candidatesInfo?.filter((user) => user.id !== candidateId)
-                  .map((member) => member.name).join(', '),
-                allRead: true,
-              }))
-            } else {
-              yield put(updateAllChats({
-                dataType: 'mark-as-read',
-                conversationId,
-                allRead: true,
-              }))
-            }
+            yield put(updateAllChats({
+              dataType,
+              conversationId,
+              newGroupName: _.isEmpty(conversationData.groupName)
+                && conversationData.candidatesInfo?.filter((user) => user.id !== candidateId)
+                .map((member) => member.name).join(', '),
+              latestMessage: newMessage.text,
+              allRead: true,
+              isImage: false,
+              isNotification: true,
+              dateTime: newMessage.sentAt,
+            }))
             break
           }
 
@@ -294,9 +294,11 @@ function* chatDataWorker(action) {
               conversationId,
               newGroupName: newGroupName
                 || (conversationData?.candidatesInfo.map((member) => member.name).join(', ')),
-              latestMessage: newMessage?.text,
+              latestMessage: newMessage.text,
               allRead: true,
+              isImage: false,
               isNotification: true,
+              dateTime: newMessage.sentAt,
             }))
             break
           }
@@ -341,14 +343,15 @@ function* chatDataWorker(action) {
             yield put(updateAllChats({
               dataType,
               conversationId,
-              latestMessage: newMessage.text,
               newGroupName: _.isEmpty(conversationData.groupName)
                 && conversationData.candidatesInfo?.filter((user) => user.id !== userId)
-                  .map((member) => member.name).join(', '),
-              dateTime: Date.now(),
-              allRead: true,
+                .map((member) => member.name).join(', '),
+              latestMessage: newMessage.text,
               isRemoved: true,
+              allRead: true,
+              isImage: false,
               isNotification: true,
+              dateTime: newMessage.sentAt,
             }))
             break
           }
@@ -367,7 +370,7 @@ function* chatDataWorker(action) {
 
             if (conversationData?.data?.chatData?.chats?.length === 0) {
               yield put(updateAllChats({
-                dataType: 'delete-chat',
+                dataType,
                 conversationId,
                 latestMessage: '',
                 allRead: true,

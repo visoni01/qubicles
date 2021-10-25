@@ -112,10 +112,11 @@ const chatRemovePersonHandler = ({ payload, conversationData, conversationId }) 
           dataType: 'leave-group',
           conversationId,
           newGroupName: _.isEmpty(conversationData.groupName) && groupName,
-          dateTime: Date.now(),
-          allRead: true,
           isRemoved: true,
+          allRead: true,
+          isImage: false,
           isNotification: true,
+          dateTime: Date.now(),
         }))
       } else if (_.isEmpty(conversationData.groupName)) {
         store.dispatch(updateAllChats({
@@ -151,19 +152,14 @@ const chatAddPeopleHandler = ({ payload, conversationData, conversationId }) => 
       const updatedconversationData = currentCoversation?.data
       const groupName = updatedconversationData.candidatesInfo?.map((member) => member.name).join(', ')
 
-      if (isUserBelongsToGroup) {
-        store.dispatch(updateAllChats({
-          dataType: 'add-people',
-          conversationId,
-          newGroupName: _.isEmpty(conversationData.groupName) && groupName,
-        }))
-      } else if (_.isEmpty(conversationData.groupName)) {
-        store.dispatch(updateAllChats({
-          dataType: 'change-group-name',
-          conversationId,
-          newGroupName: groupName,
-        }))
-      }
+      store.dispatch(updateAllChats({
+        dataType: 'add-people',
+        conversationId,
+        newGroupName: _.isEmpty(conversationData.groupName) && groupName,
+        isRemoved: false,
+        isImage: false,
+        isNotification: true,
+      }))
     }
   } else {
     fetchAndAddChatData({ conversationId })

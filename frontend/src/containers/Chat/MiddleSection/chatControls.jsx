@@ -36,8 +36,9 @@ const ChatControls = ({
 
   const currentChat = _.find(chatsList, { id: conversationId })
 
+  /* eslint-disable camelcase */
   const handleStopTyping = useCallback(debounce(() => {
-    const userId = userDetails && userDetails.user_id
+    const userId = userDetails?.user_id
     setIsTyping(false)
     WebSocket.stopTyping({
       to: formatConversationRoomId(conversationId),
@@ -52,18 +53,22 @@ const ChatControls = ({
     setMessageText(event.target.value)
 
     if (!isTyping) {
-      const userId = userDetails && userDetails.user_id
-      setIsTyping(true)
-      WebSocket.startTyping({
-        to: formatConversationRoomId(conversationId),
-        payload: {
-          userIds: candidatesInfo?.filter((user) => user.id !== userId)?.map((user) => user.id.toString()),
-          newActiveUser: {
-            id: userId,
-            name: userDetails && userDetails.full_name && userDetails.full_name.split(' ')[ 0 ],
+      const userId = userDetails?.user_id
+      const userIds = candidatesInfo?.filter((user) => user.id !== userId)?.map((user) => user.id.toString())
+
+      if (userIds?.length) {
+        setIsTyping(true)
+        WebSocket.startTyping({
+          to: formatConversationRoomId(conversationId),
+          payload: {
+            userIds,
+            newActiveUser: {
+              id: userId,
+              name: userDetails?.full_name.split(' ')[ 0 ],
+            },
           },
-        },
-      })
+        })
+      }
     }
   }, [ isTyping, conversationId, candidatesInfo, userDetails, setMessageText ])
 
@@ -94,14 +99,14 @@ const ChatControls = ({
   }, [ dispatch, setImageUrl ])
 
   const sendMessage = useCallback((newImageUrl) => {
-    const userId = userDetails && userDetails.user_id
+    const userId = userDetails?.user_id
     const newMessage = {
       messageId: getUniqueId(),
       senderId: userId,
       profilePic: userDetails && _.isEqual(userDetails.user_code, 'agent')
         ? agentSettings.profilePic
         : clientSettings.profilePic,
-      senderName: userDetails && userDetails.full_name,
+      senderName: userDetails?.full_name,
       text: messageText && messageText.trim(),
       imageUrl: newImageUrl,
       isNotification: false,
@@ -118,9 +123,10 @@ const ChatControls = ({
 
     dispatch(updateAllChats({
       dataType: 'new-message',
-      latestMessage: newMessage.text || 'Sent an image',
-      dateTime: Date.now(),
       conversationId,
+      latestMessage: newMessage.text || 'Sent an image',
+      isNotification: false,
+      dateTime: newMessage.sentAt,
     }))
 
     if (window.location.pathname !== CHAT_ROUTE) {

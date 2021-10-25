@@ -198,7 +198,8 @@ const createSocketConnection = (server) => {
               to,
               messageId: messages[0] && messages[0].messageId,
               error: messages[0] && messages[0].error,
-              isLatestMessage: payload.isLatestMessage
+              isLatestMessage: payload.isLatestMessage,
+              isLatestMessageError: payload.isLatestMessageError
             })
           }
         }

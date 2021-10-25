@@ -61,6 +61,72 @@ function* allChatsWorker(action) {
       /* eslint-disable camelcase */
       case 'CREATE': {
         switch (dataType) {
+          case 'new-chat': {
+            const { data } = yield Chat.createNewChat({ candidate_id: candidate?.id })
+            const { chatsList } = yield select((state) => state.allChats)
+
+            const newConversationId = data?.conversationId
+            const exists = _.findIndex(chatsList, { id: newConversationId }) !== -1
+
+            if (!onlyPopup && !exists) {
+              const roomId = formatConversationRoomId(newConversationId)
+
+              WebSocket.joinChatRoom(roomId)
+
+              WebSocket.joinChatRoomForOtherUsers({
+                userIds: [ candidate?.id?.toString() ],
+                roomId,
+              })
+
+              yield put(allChatsRequestSuccess({
+                newChat: {
+                  id: newConversationId,
+                  name: candidate.name,
+                  isGroup: false,
+                  imageUrl: candidate.profilePic,
+                  latestMessage: data?.messages[data.messages.length - 1]?.text || '',
+                  isRemoved: false,
+                  allRead: data?.allRead,
+                  isImage: !!data?.messages[data.messages.length - 1]?.imageUrl,
+                  isNotification: !!data?.messages[data.messages.length - 1]?.isNotification,
+                  dateTime: data?.messages[data.messages.length - 1]?.sentAt || Date.now(),
+                },
+              }))
+            } else {
+              yield put(allChatsRequestSuccess())
+            }
+
+            yield put(updateConversations({
+              requestType,
+              dataType: 'add-conversation',
+              newChat: {
+                conversationId: newConversationId,
+                isGroup: false,
+                chatData: {
+                  chats: data.messages ? [ ...data.messages ] : [],
+                  more: data?.more,
+                  offset: 0,
+                },
+                candidatesInfo: [ candidate ],
+                allRead: data?.allRead,
+              },
+            }))
+
+            if (!onlyPopup) {
+              yield put(updateCurrentChatId({ conversationId: newConversationId }))
+            } else {
+              yield put(updateChatPopups({
+                requestType: 'ADD',
+                conversationId: newConversationId,
+                noNotification: true,
+              }))
+
+              yield put(resetAllChatsReducerFlags())
+            }
+
+            break
+          }
+
           case 'new-group': {
             const { userDetails } = yield select((state) => state.login)
             const { settings: agentSettings } = yield select((state) => state.agentDetails)
@@ -125,13 +191,14 @@ function* allChatsWorker(action) {
             const newChat = {
               id: data,
               name: title || (members && [ loggedInUser, ...members ].map((item) => item.name).join(', ')),
+              latestMessage: newMessages[ 1 ].text,
               isGroup: true,
               imageUrl: '',
-              latestMessage: newMessages[ 1 ].text,
+              isRemoved: false,
               allRead: true,
               isImage: false,
               isNotification: true,
-              dateTime: Date.now(),
+              dateTime: newMessages[ 1 ].sentAt,
             }
             const newConversation = {
               requestType,
@@ -184,69 +251,6 @@ function* allChatsWorker(action) {
             yield put(allChatsRequestSuccess({ newChat }))
             yield put(updateConversations(newConversation))
             yield put(updateCurrentChatId({ conversationId: data }))
-            break
-          }
-
-          case 'new-chat': {
-            const { data } = yield Chat.createNewChat({ candidate_id: candidate?.id })
-            const { chatsList } = yield select((state) => state.allChats)
-
-            const newConversationId = data?.conversationId
-            const exists = _.findIndex(chatsList, { id: newConversationId }) !== -1
-
-            if (!onlyPopup && !exists) {
-              const roomId = formatConversationRoomId(newConversationId)
-
-              WebSocket.joinChatRoom(roomId)
-
-              WebSocket.joinChatRoomForOtherUsers({
-                userIds: [ candidate?.id?.toString() ],
-                roomId,
-              })
-
-              yield put(allChatsRequestSuccess({
-                newChat: {
-                  id: newConversationId,
-                  name: candidate.name,
-                  imageUrl: candidate.profilePic,
-                  dateTime: data?.messages[data.messages.length - 1]?.sentAt || Date.now(),
-                  isGroup: false,
-                  latestMessage: data?.messages[data.messages.length - 1]?.text,
-                  allRead: data?.allRead,
-                },
-              }))
-            } else {
-              yield put(allChatsRequestSuccess())
-            }
-
-            yield put(updateConversations({
-              requestType,
-              dataType: 'add-conversation',
-              newChat: {
-                conversationId: newConversationId,
-                isGroup: false,
-                chatData: {
-                  chats: data.messages ? [ ...data.messages ] : [],
-                  more: data?.more,
-                  offset: 0,
-                },
-                candidatesInfo: [ candidate ],
-                allRead: data?.allRead,
-              },
-            }))
-
-            if (!onlyPopup) {
-              yield put(updateCurrentChatId({ conversationId: newConversationId }))
-            } else {
-              yield put(updateChatPopups({
-                requestType: 'ADD',
-                conversationId: newConversationId,
-                noNotification: true,
-              }))
-
-              yield put(resetAllChatsReducerFlags())
-            }
-
             break
           }
 

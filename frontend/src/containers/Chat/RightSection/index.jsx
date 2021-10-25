@@ -67,8 +67,7 @@ const RightCard = ({ changeGroupName }) => {
     } else {
       changeGroupName({ newGroupName, oldGroupName })
     }
-  },
-  [ changeGroupName, groupNameValue, chat ])
+  }, [ changeGroupName, groupNameValue, chat, stripHtml ])
 
   const handleKeyDown = useCallback((event) => {
     if (event.key === 'Enter') { handleCheck() }

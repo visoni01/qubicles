@@ -512,14 +512,20 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
     }
 
     case 'new-chat': {
-      return payload.newChat
-        ? [ payload.newChat,
+      return newChat
+        ? [ newChat,
           ...chatsList.filter((item) => item.id !== payload.newChat.id) ]
         : chatsList
     }
 
-    case 'new-message': {
+    case 'new-message':
+    case 'add-people':
+    case 'leave-group':
+    case 'remove-person':
+    case 'retry-message':
+    case 'change-group-name': {
       let latestChat
+      let newAllRead
 
       const filteredChatsList = chatsList.filter((chat) => {
         if (chat.id === conversationId) {
@@ -529,13 +535,25 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
         return true
       })
 
+      if (fromSelf === false) {
+        newAllRead = false
+      } else if (!_.isUndefined(allRead)) {
+        newAllRead = allRead
+      } else {
+        newAllRead = latestChat.allRead
+      }
+
       return latestChat ? [
         {
           ...latestChat,
-          dateTime,
-          latestMessage,
-          isImage,
-          allRead: fromSelf === false ? false : latestChat?.allRead,
+          name: newGroupName || latestChat.name,
+          latestMessage: _.isUndefined(latestMessage) ? latestChat.latestMessage : latestMessage,
+          isRemoved: _.isUndefined(isRemoved) ? latestChat.isRemoved : isRemoved,
+          allRead: newAllRead,
+          isImage: _.isUndefined(isImage) ? latestChat.isImage : isImage,
+          isNotification: _.isUndefined(isNotification) ? latestChat.isNotification : isNotification,
+          dateTime: _.isUndefined(dateTime) ? latestChat.dateTime : dateTime,
+          error: _.isUndefined(error) ? latestChat.error : error,
         },
         ...filteredChatsList,
       ] : chatsList
@@ -543,12 +561,8 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
 
     case 'mark-as-unread':
     case 'mark-as-read':
-    case 'change-group-name':
-    case 'leave-group':
     case 'delete-chat':
-    case 'add-people':
     case 'cancel-message':
-    case 'retry-message':
     case 'update-error-flag': {
       return chatsList.map((chat) => (
         conversationId === chat.id

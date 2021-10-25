@@ -42,7 +42,7 @@ const sendMessageToRoom = {
 const sendMessageError = {
   event: EVENTS.SEND_MESSAGE_ERROR,
   callback: ({
-    to, messageId, error, isLatestMessage,
+    to, messageId, error, isLatestMessage, isLatestMessageError,
   }) => {
     const conversationId = getConversationIdFromRoomId(to)
 
@@ -54,7 +54,7 @@ const sendMessageError = {
       error: true,
     }))
 
-    if (_.isUndefined(error) || (error === false && isLatestMessage)) {
+    if (_.isUndefined(error) || isLatestMessage || isLatestMessageError) {
       store.dispatch(updateAllChats({
         requestType: 'UPDATE',
         dataType: 'update-error-flag',

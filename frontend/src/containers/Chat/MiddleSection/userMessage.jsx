@@ -79,6 +79,7 @@ const UserMessage = ({
       payload: {
         userIds: candidatesInfo?.map((user) => user.id)?.filter((id) => id !== senderId),
         isLatestMessage: _.isEqual(latestMessage?.messageId, messageId),
+        isLatestMessageError: latestMessage?.error,
       },
     })
   }, [ dispatch, conversationId, messageId, senderId, message, profilePic, senderName, imageUrl, candidatesInfo,
