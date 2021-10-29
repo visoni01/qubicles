@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { jobApplicationRequestStart } from '../../../../../redux-saga/redux/actions'
 import ActionsSkeleton from '../../../../../components/People/Agent/Jobs/Actions/Skeletons/actionsSkeleton'
 import ActionsBox from './actionsBox'
+import { REQUEST_TYPES } from '../../../../../utils/constants'
 
 const AgentJobActions = ({
   jobId, clientId,
@@ -21,7 +22,7 @@ const AgentJobActions = ({
         agentUserId: Number(userDetails.user_id),
         testApplicationExist: true,
       },
-      requestType: 'FETCH',
+      requestType: REQUEST_TYPES.FETCH,
     }))
   }, [ dispatch, clientId, jobId, userDetails.user_id ])
 

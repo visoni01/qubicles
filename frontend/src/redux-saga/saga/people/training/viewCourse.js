@@ -1,10 +1,8 @@
 /* eslint-disable complexity */
 import { takeEvery, put } from 'redux-saga/effects'
+import { REQUEST_TYPES } from '../../../../utils/constants'
 import {
-  viewCourseRequestStart,
-  viewCourseRequestSuccess,
-  viewCourseRequestFailed,
-  showErrorMessage,
+  viewCourseRequestStart, viewCourseRequestSuccess, viewCourseRequestFailed, showErrorMessage,
   courseRatingsFetchSuccessful,
 } from '../../../redux/actions'
 import People from '../../../service/people'
@@ -20,7 +18,7 @@ function* viewCourseWorker(action) {
     } = action.payload
 
     switch (requestType) {
-      case 'FETCH': {
+      case REQUEST_TYPES.FETCH: {
         switch (dataType) {
           case 'Course Info': {
             const { data } = yield People.fetchViewCourse({ courseId })
@@ -58,7 +56,7 @@ function* viewCourseWorker(action) {
         break
       }
 
-      case 'UPDATE': {
+      case REQUEST_TYPES.UPDATE: {
         switch (dataType) {
           case 'Course Unit': {
             const { data } = yield People.fetchAndUpdateCourseUnit({ courseId, unitId, status })
@@ -79,7 +77,7 @@ function* viewCourseWorker(action) {
         break
       }
 
-      case 'CREATE': {
+      case REQUEST_TYPES.CREATE: {
         switch (dataType) {
           case 'Assessment Test': {
             const { data } = yield People.submitAssessmentTest({ courseId, questions })

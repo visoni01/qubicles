@@ -11,13 +11,12 @@ import '../../../../User/Signup/PostSignUp/style.scss'
 import { useDispatch } from 'react-redux'
 import { accountSettingInfoDefaultProps, accountSettingInfoPropTypes } from '../settingsProps'
 import {
-  updateCompanyProfileSettingsApiStart,
-  resetUpdateProfileSettingsFlags,
-  agentProfileSettingsApiStart,
+  updateCompanyProfileSettingsApiStart, resetUpdateProfileSettingsFlags, agentProfileSettingsApiStart,
   resetAgentProfileSettingsFlags,
 } from '../../../../../redux-saga/redux/actions'
 import { phoneNumberFormatter } from '../../../../../utils/common'
 import Loader from '../../../../loaders/circularLoader'
+import { REQUEST_TYPES } from '../../../../../utils/constants'
 
 const ChangeNumber = ({
   open, setOpen, accountSettingInfo, isUpdateLoading, isUpdateSuccess, updatedDataType, userType, phoneType,
@@ -51,7 +50,7 @@ const ChangeNumber = ({
             updatedData: {
               mobileNumber: formState.newNumber && formState.newNumber.slice(1),
             },
-            requestType: 'UPDATE',
+            requestType: REQUEST_TYPES.UPDATE,
           }))
         } else if (phoneType === 'phoneDrawer') {
           dispatch(agentProfileSettingsApiStart({
@@ -59,7 +58,7 @@ const ChangeNumber = ({
             updatedData: {
               homePhone: formState.newNumber && formState.newNumber.slice(1),
             },
-            requestType: 'UPDATE',
+            requestType: REQUEST_TYPES.UPDATE,
           }))
         }
       }

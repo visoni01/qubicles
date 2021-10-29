@@ -13,6 +13,7 @@ import PublishedCourseCard from './publishedCourseCard'
 import ROUTE_PATHS, { EDIT_COURSE_ROUTE } from '../../../../../routes/routesPath'
 import { allCoursesRequestStart, resetAllCoursesReducer } from '../../../../../redux-saga/redux/people'
 import MyCoursesSkeleton from '../../../../../components/People/ContactCenter/SkeletonLoader/Training/myCoursesSkeleton'
+import { REQUEST_TYPES } from '../../../../../utils/constants'
 
 const MyCourses = () => {
   const history = useHistory()
@@ -29,7 +30,7 @@ const MyCourses = () => {
   useEffect(() => {
     if (userDetails.user_code === 'employer') {
       dispatch(allCoursesRequestStart({
-        requestType: 'FETCH',
+        requestType: REQUEST_TYPES.FETCH,
       }))
     }
     return () => {
@@ -38,7 +39,7 @@ const MyCourses = () => {
   }, [ dispatch, userDetails.user_code ])
 
   useEffect(() => {
-    if (_.isEqual(requestType, 'UPDATE') && !isLoading && success && !_.isEmpty(courses)) {
+    if (_.isEqual(requestType, REQUEST_TYPES.UPDATE) && !isLoading && success && !_.isEmpty(courses)) {
       history.push({
         pathname: `${ EDIT_COURSE_ROUTE }/${ courses[ courses.length - 1 ].courseId }`,
         isFirstTime: true,

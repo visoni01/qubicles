@@ -5,9 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useLocation, useParams } from 'react-router-dom'
 import _ from 'lodash'
 import {
-  updateTrainingCourseDetails,
-  trainingCourseRequestStart,
-  resetTrainingCourseReducer,
+  updateTrainingCourseDetails, trainingCourseRequestStart, resetTrainingCourseReducer,
 } from '../../../../../redux-saga/redux/people'
 import { startLoader, stopLoader } from '../../../../../redux-saga/redux/utils'
 import PreviewCreateCourse from '../../../../../components/People/ContactCenter/Training/NewCourse/previewCourse'
@@ -15,6 +13,7 @@ import CreateCourse from './createCourse'
 import './styles.scss'
 import checkAndSetErrors from './checkAndSetErrors'
 import AlertPopover from '../../../../../components/CommonModal/alertPopover'
+import { REQUEST_TYPES } from '../../../../../utils/constants'
 
 const EditCoursePage = () => {
   const {
@@ -61,13 +60,13 @@ const EditCoursePage = () => {
       course: {
         courseId,
       },
-      requestType: 'FETCH',
+      requestType: REQUEST_TYPES.FETCH,
     }))
   }, [ dispatch, courseId ])
 
   useEffect(() => {
     if (isLoading) {
-      if ([ 'UPDATE', 'CREATE' ].includes(requestType)) {
+      if ([ REQUEST_TYPES.UPDATE, REQUEST_TYPES.CREATE ].includes(requestType)) {
         dispatch(startLoader({
           type: 'progress',
         }))

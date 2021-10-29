@@ -3,9 +3,8 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent, DialogTitle, IconButton,
-  Avatar, Button, FormControl, Divider,
-  RadioGroup, FormControlLabel, Radio, Grid, Select,
+  Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Avatar, Button, FormControl, Divider, RadioGroup,
+  FormControlLabel, Radio, Grid, Select,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -16,6 +15,7 @@ import SingleSelect from '../../../../Shared/singleSelect'
 import { agentResumeSkillsStart, fetchJobSkillsStart } from '../../../../../redux-saga/redux/people'
 import { agentProfileSettingsApiStart } from '../../../../../redux-saga/redux/actions'
 import Loader from '../../../../loaders/circularLoader'
+import { REQUEST_TYPES } from '../../../../../utils/constants'
 
 const EditSkills = ({
   open, handleClose, agentResumeSkills, languages: agentResumeLanguages, candidateId, isLoading, isLoadingLanguage,
@@ -55,7 +55,7 @@ const EditSkills = ({
   const onSave = useCallback(() => {
     if (!_.isEqual(agentResumeSkills, skills)) {
       dispatch(agentResumeSkillsStart({
-        requestType: 'UPDATE',
+        requestType: REQUEST_TYPES.UPDATE,
         candidateId,
         updatedDataType: 'Skills',
         updatedData: _.sortBy(skills, (skill) => skill.skillId).map((skill) => skill.skillId),
@@ -63,7 +63,7 @@ const EditSkills = ({
     }
     if (!_.isEqual(agentResumeLanguages, [ primaryLanguage, ...otherLanguages ])) {
       dispatch(agentProfileSettingsApiStart({
-        requestType: 'UPDATE',
+        requestType: REQUEST_TYPES.UPDATE,
         updatedDataType: 'Languages',
         updatedData: {
           languages: [

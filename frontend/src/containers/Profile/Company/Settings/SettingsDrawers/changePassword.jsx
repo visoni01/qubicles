@@ -10,12 +10,11 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { useDispatch } from 'react-redux'
 import {
-  updateCompanyProfileSettingsApiStart,
-  resetUpdateProfileSettingsFlags,
-  agentProfileSettingsApiStart,
+  updateCompanyProfileSettingsApiStart, resetUpdateProfileSettingsFlags, agentProfileSettingsApiStart,
   resetAgentProfileSettingsFlags,
 } from '../../../../../redux-saga/redux/actions'
 import Loader from '../../../../loaders/circularLoader'
+import { REQUEST_TYPES } from '../../../../../utils/constants'
 
 const ChangePassword = ({
   open, setOpen, isUpdateLoading, isUpdateSuccess, updatedDataType, userType,
@@ -61,7 +60,7 @@ const ChangePassword = ({
             currentPassword: data.currentPassword,
             newPassword: data.newPassword,
           },
-          requestType: 'UPDATE',
+          requestType: REQUEST_TYPES.UPDATE,
         }))
       }
     }

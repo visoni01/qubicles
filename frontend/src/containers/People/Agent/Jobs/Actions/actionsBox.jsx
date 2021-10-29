@@ -11,6 +11,8 @@ import ScreeningActions from './screeningActions'
 import HiredActions from './hiredActions'
 import OfferedActions from './offeredActions'
 import { jobApplicationRequestStart, allChatsRequestStart } from '../../../../../redux-saga/redux/actions'
+import { REQUEST_TYPES } from '../../../../../utils/constants'
+import { NEW_CHAT } from '../../../../../redux-saga/redux/constants'
 
 const ActionsBox = ({
   application, jobId, clientId, agentUserId,
@@ -37,7 +39,7 @@ const ActionsBox = ({
           jobId: application.jobId,
           status,
         },
-        requestType: 'UPDATE',
+        requestType: REQUEST_TYPES.UPDATE,
       }))
     }
   }, [
@@ -52,8 +54,8 @@ const ActionsBox = ({
   const handleSendMessage = useCallback(() => {
     setIsNewChatLoading(true)
     dispatch(allChatsRequestStart({
-      requestType: 'CREATE',
-      dataType: 'new-chat',
+      requestType: REQUEST_TYPES.CREATE,
+      dataType: NEW_CHAT,
       candidate: {
         id: jobDetails?.userId,
         clientId: jobDetails?.clientId,
@@ -68,7 +70,7 @@ const ActionsBox = ({
   }, [ dispatch, jobDetails ])
 
   useEffect(() => {
-    if (!isChatLoading && dataType === 'new-chat') {
+    if (!isChatLoading && _.isEqual(dataType, NEW_CHAT)) {
       setIsNewChatLoading(false)
     }
   }, [ isChatLoading, dataType ])

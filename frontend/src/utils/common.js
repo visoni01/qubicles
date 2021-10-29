@@ -1,13 +1,14 @@
-/* eslint-disable implicit-arrow-linebreak */
-/* eslint-disable camelcase */
 import moment from 'moment'
 import Cookies from 'js-cookie'
 import jwt from 'jsonwebtoken'
 import _ from 'lodash'
 import config from './config'
-import MESSAGES from './messages'
+import { MESSAGES } from './constants'
 import { COMPANY_PROFILE_ROUTE, JOB_ROUTE, PROFILE_ROUTE } from '../routes/routesPath'
 import { notificationSound } from '../assets/audio'
+import {
+  ADD_GROUP_NAME, ADD_PEOPLE, CHANGE_GROUP_NAME, LEAVE_GROUP, NEW_CHAT, NEW_GROUP, REMOVE_GROUP_NAME, REMOVE_PERSON,
+} from '../redux-saga/redux/constants'
 
 export const regExpPhone = /^[+](\d{1,4})?\s(\d{10})$/
 export const regExpSSN = /^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$/
@@ -48,6 +49,7 @@ export const getUserDetails = () => {
   let userDetails
   if (token) {
     const {
+      // eslint-disable-next-line camelcase
       full_name, user_id, email, is_post_signup_completed, user_code, inviteLink,
     } = jwt.decode(token)
     userDetails = {
@@ -133,6 +135,7 @@ export const phoneNumberFormatter = (number, countryData) => {
 
 export const spreadArgs = (handler) =>
   // Spreading the arguments over the handler.
+  // eslint-disable-next-line implicit-arrow-linebreak
   (args) => handler(...args)
 
 // This method is used for formatting SSN as per e.g. 111-11-2001
@@ -293,40 +296,40 @@ export const getSmsNotificationMessage = ({ type, payload }) => {
 
 export const getChatNotificationMessage = ({ type, payload }) => {
   switch (type) {
-    case 'new-chat': {
+    case NEW_CHAT: {
       return `<span><b class=${ payload.userId }>${ payload.userName }</b> started a new chat</span>`
     }
 
-    case 'new-group': {
+    case NEW_GROUP: {
       return `<span><b class=${ payload.userId }>${ payload.userName }</b> created the group
         <b>${ payload.groupName }</b></span>`
     }
 
-    case 'add-people': {
+    case ADD_PEOPLE: {
       return `<span><b class=${ payload.userId }>${ payload.userName }</b> added <b>${ payload.usersName }</b></span>`
     }
 
-    case 'remove-person': {
+    case REMOVE_PERSON: {
       return `<span><b class=${ payload.userId }>${ payload.userName }</b> removed
         <b class=${ payload.otherUserId }>${ payload.otherUserName }</b></span>`
     }
 
-    case 'add-group-name': {
+    case ADD_GROUP_NAME: {
       return `<span><b class=${ payload.userId }>${ payload.userName }</b> added the group name
         <b>${ payload.newGroupName }</b></span>`
     }
 
-    case 'remove-group-name': {
+    case REMOVE_GROUP_NAME: {
       return `<span><b class=${ payload.userId }>${ payload.userName }</b> removed the group name
         <b>${ payload.oldGroupName }</b></span>`
     }
 
-    case 'change-group-name': {
+    case CHANGE_GROUP_NAME: {
       return `<span><b class=${ payload.userId }>${ payload.userName }</b> changed the group name from
         <b>${ payload.oldGroupName }</b> to <b>${ payload.newGroupName }</b></span>`
     }
 
-    case 'leave-group': {
+    case LEAVE_GROUP: {
       return `<span><b class=${ payload.userId }>${ payload.userName }</b> left the group</span>`
     }
 

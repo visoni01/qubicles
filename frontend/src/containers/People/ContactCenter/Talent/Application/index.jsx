@@ -10,6 +10,7 @@ import ResumeWorkHistory from './resumeWorkHistory'
 import AgentReviews from '../../../../Profile/Agent/Resume/agentReviews'
 import ClientJobApplicationActions from '../../Jobs/Actions'
 import Courses from '../../../../Profile/Agent/Resume/courses'
+import { REQUEST_TYPES } from '../../../../../utils/constants'
 
 const ClientViewApplication = ({
   applicationLoading, application, applicationSuccess,
@@ -19,7 +20,7 @@ const ClientViewApplication = ({
   useEffect(() => {
     if (!applicationLoading && applicationSuccess && application.agentUserId !== agentResume.candidateId) {
       dispatch(fetchAgentResumeStart({
-        requestType: 'FETCH',
+        requestType: REQUEST_TYPES.FETCH,
         candidateId: application.agentUserId,
       }))
     }

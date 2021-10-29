@@ -12,6 +12,7 @@ import '../style.scss'
 import { EDIT_COURSE_ROUTE } from '../../../../../routes/routesPath'
 import ConfirmationModal from '../../../../../components/CommonModal/confirmationModal'
 import { allCoursesRequestStart } from '../../../../../redux-saga/redux/people'
+import { REQUEST_TYPES } from '../../../../../utils/constants'
 
 const DraftCourseCard = ({
   courseId, price, title, sectionsCount, language, thumbnailImage,
@@ -23,7 +24,7 @@ const DraftCourseCard = ({
 
   const handleDelete = useCallback(() => {
     dispatch(allCoursesRequestStart({
-      requestType: 'DELETE',
+      requestType: REQUEST_TYPES.DELETE,
       courseId,
     }))
 

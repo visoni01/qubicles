@@ -1,22 +1,14 @@
 /* eslint-disable complexity */
-import {
-  takeEvery,
-  put,
-  select,
-} from 'redux-saga/effects'
+import { takeEvery, put, select } from 'redux-saga/effects'
 import _ from 'lodash'
 import {
-  jobApplicationRequestStart,
-  jobApplicationRequestSuccess,
-  jobApplicationRequestFailed,
-  showErrorMessage,
-  showSuccessMessage,
-  updateAgentApplicationInList,
+  jobApplicationRequestStart, jobApplicationRequestSuccess, jobApplicationRequestFailed, showErrorMessage,
+  showSuccessMessage, updateAgentApplicationInList,
 } from '../../../redux/actions'
 import People from '../../../service/people'
 import { getNotificationMessage, getSmsNotificationMessage, getUserDetails } from '../../../../utils/common'
 import WebSocket from '../../../../socket'
-import { SUBJECTS } from '../../../../utils/messages'
+import { REQUEST_TYPES, SUBJECTS } from '../../../../utils/constants'
 
 function* jobApplicationWatcherStart() {
   yield takeEvery(jobApplicationRequestStart.type, jobApplicationWorker)
@@ -27,7 +19,7 @@ function* jobApplicationWorker(action) {
   try {
     const { applicationData, requestType } = action.payload
     switch (requestType) {
-      case 'CREATE': {
+      case REQUEST_TYPES.CREATE: {
         const { data } = yield People.createJobApplication(applicationData)
         yield put(jobApplicationRequestSuccess({
           application: {
@@ -116,7 +108,7 @@ function* jobApplicationWorker(action) {
         }
         break
       }
-      case 'FETCH': {
+      case REQUEST_TYPES.FETCH: {
         const { data } = yield People.fetchJobApplicationById(applicationData)
         if (_.isEmpty(data)) {
           yield put(jobApplicationRequestSuccess({
@@ -139,7 +131,7 @@ function* jobApplicationWorker(action) {
         }
         break
       }
-      case 'UPDATE': {
+      case REQUEST_TYPES.UPDATE: {
         const { data } = yield People.updateJobApplication(applicationData)
         const updatedApplication = {
           applicationId: data.application_id,

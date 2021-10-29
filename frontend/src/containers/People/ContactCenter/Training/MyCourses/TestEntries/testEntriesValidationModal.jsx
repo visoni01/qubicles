@@ -1,9 +1,6 @@
 /* eslint-disable complexity */
 import {
-  Avatar,
-  Button,
-  CircularProgress,
-  Dialog, DialogActions, DialogContent, DialogTitle, Grid, IconButton,
+  Avatar, Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, Grid, IconButton,
 } from '@material-ui/core'
 import React, { useCallback, useEffect, useState } from 'react'
 import _ from 'lodash'
@@ -15,6 +12,7 @@ import AnswerValidationCard from './answerValidationCard'
 import { testEntriesRequestStart } from '../../../../../../redux-saga/redux/people'
 import TestEntriesValidationSkeleton from
   '../../../../../../components/People/ContactCenter/SkeletonLoader/Training/testEntriesValidationSkeleton'
+import { REQUEST_TYPES } from '../../../../../../utils/constants'
 
 const TestEntriesValidation = ({
   open, setOpen, candidateName, candidatePic, candidateId, sections, courseId, testType,
@@ -32,7 +30,7 @@ const TestEntriesValidation = ({
 
   const handleDone = useCallback(() => {
     dispatch(testEntriesRequestStart({
-      requestType: 'UPDATE',
+      requestType: REQUEST_TYPES.UPDATE,
       dataType: 'Validate Answers',
       courseId,
       candidateId,
@@ -44,7 +42,7 @@ const TestEntriesValidation = ({
   useEffect(() => {
     if (!sections && open) {
       dispatch(testEntriesRequestStart({
-        requestType: 'FETCH',
+        requestType: REQUEST_TYPES.FETCH,
         dataType: 'Test Entry Answers',
         candidateId,
         courseId,

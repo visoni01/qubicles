@@ -1,20 +1,15 @@
-import React, {
-  useState, useCallback, useEffect,
-} from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent,
-  DialogTitle, Button,
-  IconButton,
+  Dialog, DialogActions, DialogContent, DialogTitle, Button, IconButton,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
 import CKEditor from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import {
-  jobApplicationRequestStart,
-} from '../../../../../redux-saga/redux/actions'
+import { jobApplicationRequestStart } from '../../../../../redux-saga/redux/actions'
+import { REQUEST_TYPES } from '../../../../../utils/constants'
 
 const ApplyJobModal = ({
   open, handleClose, clientId, jobId, agentUserId,
@@ -49,7 +44,7 @@ const ApplyJobModal = ({
           videoPitchUrl: '',
           status: 'applied',
         },
-        requestType: 'CREATE',
+        requestType: REQUEST_TYPES.CREATE,
       }))
     },
     [ dispatch, coverLetterMessage, jobId, clientId, agentUserId ],

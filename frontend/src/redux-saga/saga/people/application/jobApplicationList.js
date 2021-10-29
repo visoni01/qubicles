@@ -1,12 +1,9 @@
 import { takeEvery, put, select } from 'redux-saga/effects'
 import WebSocket from '../../../../socket'
 import { getNotificationMessage, getSmsNotificationMessage, getUserDetails } from '../../../../utils/common'
-import { SUBJECTS } from '../../../../utils/messages'
+import { REQUEST_TYPES, SUBJECTS } from '../../../../utils/constants'
 import {
-  jobApplicationListRequestStart,
-  jobApplicationListRequestSuccess,
-  jobApplicationListRequestFailed,
-  showErrorMessage,
+  jobApplicationListRequestStart, jobApplicationListRequestSuccess, jobApplicationListRequestFailed, showErrorMessage,
   updateJobApplicationInList,
 } from '../../../redux/actions'
 import People from '../../../service/people'
@@ -22,7 +19,7 @@ function* jobApplicationListWorker(action) {
     const { applicationListData, requestType } = action.payload
 
     switch (requestType) {
-      case 'FETCH': {
+      case REQUEST_TYPES.FETCH: {
         const { data } = yield People.fetchJobApplicationListByJobId(applicationListData)
         const jobApplications = jobApplicationListData(data)
         yield put(jobApplicationListRequestSuccess({
@@ -33,7 +30,7 @@ function* jobApplicationListWorker(action) {
         }))
         break
       }
-      case 'UPDATE': {
+      case REQUEST_TYPES.UPDATE: {
         const { data } = yield People.updateJobApplication(applicationListData)
         const updatedApplication = {
           applicationId: data.application_id,

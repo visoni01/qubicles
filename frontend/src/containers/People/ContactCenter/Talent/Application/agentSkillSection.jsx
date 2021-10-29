@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useCallback, useEffect } from 'react'
 import { AvatarGroup } from '@material-ui/lab'
 import { Avatar, Button } from '@material-ui/core'
@@ -9,6 +7,7 @@ import EndorsementsModal from '../../../../../components/People/ContactCenter/Ta
 import AddEndorseModal from './addEndorseModal'
 import { agentResumeSkillsStart } from '../../../../../redux-saga/redux/people'
 import { ThumbUpIcon } from '../../../../../assets/images/icons/endorsementIcons'
+import { REQUEST_TYPES } from '../../../../../utils/constants'
 
 const AgentSkillSection = ({
   agentResumeSkills, canEndorse, candidateId,
@@ -52,7 +51,7 @@ const AgentSkillSection = ({
 
   const handleRemoveEndorse = useCallback((skillId) => {
     dispatch(agentResumeSkillsStart({
-      requestType: 'UPDATE',
+      requestType: REQUEST_TYPES.UPDATE,
       candidateId,
       updatedDataType: 'RemoveEndorse',
       updatedData: {
@@ -109,6 +108,8 @@ const AgentSkillSection = ({
                     })}
                   </AvatarGroup>
                 )}
+                {/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */}
+                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
                 <p
                   className='para light description ml-5'
                   onClick={ () => handleOpenEndorsementModal({

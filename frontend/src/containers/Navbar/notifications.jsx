@@ -7,6 +7,7 @@ import { bellIcon, bellIconWithIndicator } from '../../assets/images/icons/navBa
 import NotificationCard from './notificationCard'
 import { notificationsFetchStart } from '../../redux-saga/redux/user/notifications'
 import NotificationsSkeleton from '../../components/Navbar/Skeletons/notificationsSkeleton'
+import { REQUEST_TYPES } from '../../utils/constants'
 
 const Notifications = () => {
   const {
@@ -19,7 +20,7 @@ const Notifications = () => {
   useEffect(() => {
     if (!(notifications && notifications.length) && !success) {
       dispatch(notificationsFetchStart({
-        requestType: 'FETCH',
+        requestType: REQUEST_TYPES.FETCH,
         offset: 0,
       }))
     }
@@ -32,7 +33,7 @@ const Notifications = () => {
 
   const handleViewMore = useCallback(() => {
     dispatch(notificationsFetchStart({
-      requestType: 'FETCH',
+      requestType: REQUEST_TYPES.FETCH,
       offset: offset + 5,
     }))
   }, [ dispatch, offset ])
@@ -45,7 +46,7 @@ const Notifications = () => {
 
     if (updateNotifications && updateNotifications.length) {
       dispatch(notificationsFetchStart({
-        requestType: 'UPDATE',
+        requestType: REQUEST_TYPES.UPDATE,
         notificationIds: updateNotifications.map((notification) => notification.id),
       }))
     }
@@ -53,7 +54,7 @@ const Notifications = () => {
 
   const handleDelete = useCallback((id) => {
     dispatch(notificationsFetchStart({
-      requestType: 'DELETE',
+      requestType: REQUEST_TYPES.DELETE,
       notificationId: id,
       offset,
     }))
@@ -109,7 +110,7 @@ const Notifications = () => {
             <p className='para sz-xl mt-10 mb-10 text-center'>No notifications found...</p>
           )}
 
-          {(isLoading && _.isEqual(requestType, 'FETCH')) && (
+          {(isLoading && _.isEqual(requestType, REQUEST_TYPES.FETCH)) && (
             <NotificationsSkeleton />
           )}
         </div>

@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import { errorsPropTypes } from './propTypes'
 import { showErrorMessage } from '../../../../../redux-saga/redux/utils'
 import { acceptedImageFormats, maxImageFileSize } from '../../constants'
+import { MESSAGES } from '../../../../../utils/constants'
 
 export default function CourseThumbnail({
   contentSection, setContentSection, errors,
@@ -20,7 +21,7 @@ export default function CourseThumbnail({
 
     if (file) {
       if (file.size > maxImageFileSize) {
-        dispatch(showErrorMessage({ msg: 'File size should not be greater than 1 MB!' }))
+        dispatch(showErrorMessage({ msg: MESSAGES.INVALID_IMAGE_FILE_SIZE }))
         return
       }
 

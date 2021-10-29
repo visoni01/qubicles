@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { ADD_CONVERSATION } from '../constants'
 import {
   chatDataStartHelper, chatDataSuccessHelper, chatDataFailureHelper, updateChatPopupsHelper,
   updateConversationsHelper, resetConversationsHelper, resetPopupFlagsHelper, changePopupOpenStateHelper,
@@ -70,7 +71,7 @@ const {
     }),
     updateConversations: (state, action) => ({
       ...state,
-      currentChatId: action.payload?.dataType === 'add-conversation' && state.conversations?.length === 0
+      currentChatId: action.payload?.dataType === ADD_CONVERSATION && state.conversations?.length === 0
         && action.payload?.newChat?.conversationId
         ? action.payload.newChat.conversationId
         : state.currentChatId,

@@ -14,20 +14,24 @@ import {
   jobPostCompanyDetailsFetchStart, resetCompanyDetails, allChatsRequestStart,
 } from '../../../../redux-saga/redux/actions'
 import { formatCount } from '../../../../utils/common'
+import { REQUEST_TYPES } from '../../../../utils/constants'
+import { NEW_CHAT } from '../../../../redux-saga/redux/constants'
 
 const OtherCompanyIntro = ({
   clientId,
   imageName,
 }) => {
   const [ isNewChatLoading, setIsNewChatLoading ] = useState(false)
+
   const { companyDetails, success, isCompanyDetailsLoading } = useSelector((state) => state.companyDetailsForProfile)
   const { userDetails } = useSelector((state) => state.login)
   const { isLoading, dataType } = useSelector((state) => state.allChats)
+
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(jobPostCompanyDetailsFetchStart({
-      requestType: 'FETCH',
+      requestType: REQUEST_TYPES.FETCH,
       clientId,
     }))
   }, [ dispatch, clientId ])
@@ -36,7 +40,7 @@ const OtherCompanyIntro = ({
 
   const handleFollow = useCallback(() => {
     dispatch(jobPostCompanyDetailsFetchStart({
-      requestType: 'UPDATE',
+      requestType: REQUEST_TYPES.UPDATE,
       clientId,
       isFollowing: companyDetails && !companyDetails.isFollowing,
     }))
@@ -45,8 +49,8 @@ const OtherCompanyIntro = ({
   const handleSendMessage = useCallback(() => {
     setIsNewChatLoading(true)
     dispatch(allChatsRequestStart({
-      requestType: 'CREATE',
-      dataType: 'new-chat',
+      requestType: REQUEST_TYPES.CREATE,
+      dataType: NEW_CHAT,
       candidate: {
         id: companyDetails?.userId,
         clientId: companyDetails?.clientId,
@@ -61,7 +65,7 @@ const OtherCompanyIntro = ({
   }, [ dispatch, companyDetails ])
 
   useEffect(() => {
-    if (!isLoading && dataType === 'new-chat') {
+    if (!isLoading && dataType === NEW_CHAT) {
       setIsNewChatLoading(false)
     }
   }, [ isLoading, dataType ])

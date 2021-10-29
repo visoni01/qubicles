@@ -1,4 +1,10 @@
 import _ from 'lodash'
+import { REQUEST_TYPES } from '../../../utils/constants'
+import {
+  ADD_CONVERSATION, ADD_PEOPLE, ADD_TYPING_USER, CANCEL_MESSAGE, CHANGE_CURRENT_MESSAGE, CHANGE_GROUP_NAME, CHATS_LIST,
+  CHAT_MESSAGES, CURRENT_CHAT, DELETE_CHAT, LEAVE_GROUP, MARK_AS_READ, MARK_AS_UNREAD, NEW_CHAT, NEW_GROUP, NEW_MESSAGE,
+  REMOVE_MESSAGE, REMOVE_PERSON, REMOVE_TYPING_USER, RETRY_MESSAGE, UPDATE_ERROR_FLAG,
+} from '../constants'
 
 const handleSendMessageFromSelf = ({ chats, newMessage }) => {
   if (_.isEqual(newMessage.error, false) && chats) {
@@ -36,9 +42,9 @@ export const updateConversationsHelper = ({ payload, conversations, result = {} 
   } = payload
 
   switch (requestType) {
-    case 'UPDATE': {
+    case REQUEST_TYPES.UPDATE: {
       switch (dataType) {
-        case 'new-message': return conversations && conversations.map((item) => (
+        case NEW_MESSAGE: return conversations && conversations.map((item) => (
           item.data && item.data.conversationId === conversationId
             ? {
               ...item,
@@ -62,7 +68,7 @@ export const updateConversationsHelper = ({ payload, conversations, result = {} 
             : item
         ))
 
-        case 'mark-as-unread': return conversations && conversations.map((item) => (
+        case MARK_AS_UNREAD: return conversations && conversations.map((item) => (
           item.data && item.data.conversationId === conversationId
             ? {
               ...item,
@@ -74,7 +80,7 @@ export const updateConversationsHelper = ({ payload, conversations, result = {} 
             : item
         ))
 
-        case 'remove-person': {
+        case REMOVE_PERSON: {
           return conversations && conversations.map((item) => (
             item.data && item.data.conversationId === conversationId
               ? {
@@ -90,7 +96,7 @@ export const updateConversationsHelper = ({ payload, conversations, result = {} 
           ))
         }
 
-        case 'add-people': {
+        case ADD_PEOPLE: {
           return conversations && conversations.map((item) => (
             item.data && item.data.conversationId === conversationId
               ? {
@@ -109,7 +115,7 @@ export const updateConversationsHelper = ({ payload, conversations, result = {} 
           ))
         }
 
-        case 'change-group-name': {
+        case CHANGE_GROUP_NAME: {
           return conversations && conversations.map((item) => (
             item.data && item.data.conversationId === conversationId
               ? {
@@ -124,7 +130,7 @@ export const updateConversationsHelper = ({ payload, conversations, result = {} 
           ))
         }
 
-        case 'change-current-message': {
+        case CHANGE_CURRENT_MESSAGE: {
           return conversations && conversations.map((item) => (
             item.data && item.data.conversationId === conversationId
               ? {
@@ -139,7 +145,7 @@ export const updateConversationsHelper = ({ payload, conversations, result = {} 
           ))
         }
 
-        case 'update-error-flag': {
+        case UPDATE_ERROR_FLAG: {
           return conversations && conversations.map((item) => (
             item.data && item.data.conversationId === conversationId
               ? {
@@ -165,7 +171,7 @@ export const updateConversationsHelper = ({ payload, conversations, result = {} 
           ))
         }
 
-        case 'remove-message': {
+        case REMOVE_MESSAGE: {
           return conversations && conversations.map((item) => (
             item.data && item.data.conversationId === conversationId
               ? {
@@ -182,7 +188,7 @@ export const updateConversationsHelper = ({ payload, conversations, result = {} 
           ))
         }
 
-        case 'add-typing-user': {
+        case ADD_TYPING_USER: {
           return conversations && conversations.map((item) => (
             item.data && item.data.conversationId === conversationId
               ? {
@@ -201,7 +207,7 @@ export const updateConversationsHelper = ({ payload, conversations, result = {} 
           ))
         }
 
-        case 'remove-typing-user': {
+        case REMOVE_TYPING_USER: {
           return conversations && conversations.map((item) => (
             item.data && item.data.conversationId === conversationId
               ? {
@@ -219,9 +225,9 @@ export const updateConversationsHelper = ({ payload, conversations, result = {} 
       }
     }
 
-    case 'CREATE': {
+    case REQUEST_TYPES.CREATE: {
       switch (dataType) {
-        case 'add-conversation': {
+        case ADD_CONVERSATION: {
           const currentConversation = conversations
             && conversations.find((item) => item.data && item.data.conversationId === conversationId)
 
@@ -244,7 +250,7 @@ export const updateConversationsHelper = ({ payload, conversations, result = {} 
       }
     }
 
-    case 'DELETE': {
+    case REQUEST_TYPES.DELETE: {
       return conversations.filter((item) => item.data.conversationId !== conversationId)
     }
 
@@ -297,9 +303,9 @@ export const chatDataSuccessHelper = ({ conversations, payload }) => {
   }
 
   switch (requestType) {
-    case 'FETCH': {
+    case REQUEST_TYPES.FETCH: {
       switch (dataType) {
-        case 'current-chat': {
+        case CURRENT_CHAT: {
           const currentConversation = conversations
             && conversations.find((item) => item.data && item.data.conversationId === conversationId)
 
@@ -324,7 +330,7 @@ export const chatDataSuccessHelper = ({ conversations, payload }) => {
             : item))
         }
 
-        case 'chat-messages': {
+        case CHAT_MESSAGES: {
           return conversations && conversations.map((item) => (item.data && item.data.conversationId === conversationId
             ? {
               ...item,
@@ -348,11 +354,11 @@ export const chatDataSuccessHelper = ({ conversations, payload }) => {
       }
     }
 
-    case 'UPDATE': {
+    case REQUEST_TYPES.UPDATE: {
       switch (dataType) {
-        case 'add-people':
-        case 'remove-person':
-        case 'change-group-name': {
+        case ADD_PEOPLE:
+        case REMOVE_PERSON:
+        case CHANGE_GROUP_NAME: {
           const updatedConversations = conversations?.map((item) => (
             item.data && item.data.conversationId === conversationId
               ? {
@@ -374,7 +380,7 @@ export const chatDataSuccessHelper = ({ conversations, payload }) => {
           return updateConversationsHelper({ payload, conversations: updatedConversations, result })
         }
 
-        case 'mark-as-read': return conversations && conversations.map((item) => (
+        case MARK_AS_READ: return conversations && conversations.map((item) => (
           item.data && item.data.conversationId === conversationId
             ? {
               ...item,
@@ -395,7 +401,7 @@ export const chatDataSuccessHelper = ({ conversations, payload }) => {
             : item
         ))
 
-        case 'leave-group': {
+        case LEAVE_GROUP: {
           return conversations && conversations.map((item) => (
             item.data && item.data.conversationId === conversationId
               ? {
@@ -422,7 +428,7 @@ export const chatDataSuccessHelper = ({ conversations, payload }) => {
           ))
         }
 
-        case 'delete-chat': {
+        case DELETE_CHAT: {
           return conversations && conversations.map((item) => {
             if (item.data && item.data.conversationId === conversationId) {
               const latestDeletedMessageIndex = item?.data?.chatData?.chats
@@ -469,9 +475,9 @@ export const updateChatPopupsHelper = ({ chatPopups, payload, maxCount }) => {
   const { requestType, conversationId, noNotification } = payload
 
   switch (requestType) {
-    case 'DELETE': return chatPopups && chatPopups.filter((item) => item.conversationId !== conversationId)
+    case REQUEST_TYPES.DELETE: return chatPopups && chatPopups.filter((item) => item.conversationId !== conversationId)
 
-    case 'ADD': {
+    case REQUEST_TYPES.ADD: {
       const popupIndex = chatPopups && chatPopups.findIndex((item) => item.conversationId === conversationId)
       if (popupIndex === -1 || popupIndex >= maxCount) {
         return [
@@ -498,7 +504,7 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
   } = payload
 
   switch (dataType) {
-    case 'chats-list': {
+    case CHATS_LIST: {
       return offset === 0
         ? chats
         : [
@@ -507,23 +513,23 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
         ]
     }
 
-    case 'new-group': {
+    case NEW_GROUP: {
       return [ newChat, ...chatsList ]
     }
 
-    case 'new-chat': {
+    case NEW_CHAT: {
       return newChat
         ? [ newChat,
           ...chatsList.filter((item) => item.id !== payload.newChat.id) ]
         : chatsList
     }
 
-    case 'new-message':
-    case 'add-people':
-    case 'leave-group':
-    case 'remove-person':
-    case 'retry-message':
-    case 'change-group-name': {
+    case NEW_MESSAGE:
+    case ADD_PEOPLE:
+    case LEAVE_GROUP:
+    case REMOVE_PERSON:
+    case RETRY_MESSAGE:
+    case CHANGE_GROUP_NAME: {
       let latestChat
       let newAllRead
 
@@ -559,11 +565,11 @@ export const updateAllChatsReducer = ({ payload, chatsList }) => {
       ] : chatsList
     }
 
-    case 'mark-as-unread':
-    case 'mark-as-read':
-    case 'delete-chat':
-    case 'cancel-message':
-    case 'update-error-flag': {
+    case MARK_AS_UNREAD:
+    case MARK_AS_READ:
+    case DELETE_CHAT:
+    case CANCEL_MESSAGE:
+    case UPDATE_ERROR_FLAG: {
       return chatsList.map((chat) => (
         conversationId === chat.id
           ? {

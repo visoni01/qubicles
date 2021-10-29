@@ -2,39 +2,37 @@
 import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Button,
-  Dialog, DialogActions, DialogContent,
-  DialogTitle, IconButton,
+  Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-// eslint-disable-next-line import/no-cycle
 import { useDispatch } from 'react-redux'
 import _ from 'lodash'
 import CourseContents from '../../../../../components/People/ContactCenter/Training/ViewCourse/CourseContents'
 import {
-  sectionsPropType, isEnrolledPropType, introVideoPropType, courseIdPropType,
-  setOpenCoursePlayerPropType, setCurrentSectionPropType, setCurrentUnitPropType, dataTypePropType,
-  courseTitlePropType, unitPropType, sectionPropType, currentUnitIndexPropType, currentSectionIndexPropType,
-  isIntroVideoActivePropType, isSectionTestActivePropType, courseStatusPropType, isLoadingPropType, isCreatorPropType,
+  sectionsPropType, isEnrolledPropType, introVideoPropType, courseIdPropType, setOpenCoursePlayerPropType,
+  setCurrentSectionPropType, setCurrentUnitPropType, dataTypePropType, courseTitlePropType, unitPropType,
+  sectionPropType, currentUnitIndexPropType, currentSectionIndexPropType, isIntroVideoActivePropType,
+  isSectionTestActivePropType, courseStatusPropType, isLoadingPropType, isCreatorPropType,
 } from './propTypes'
 import { updateCurrentUnitAndSectionIndex, viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
 import SectionTest from './sectionTest'
 import ViewCourseUnitSkeleton from
   '../../../../../components/People/ContactCenter/SkeletonLoader/Training/viewCourseUnitSkeleton'
 import MediaPlayer from './mediaPlayer'
+import { REQUEST_TYPES } from '../../../../../utils/constants'
 
 const CoursePreview = ({
-  open, onClose, sections, courseTitle, currentSection, currentUnit, courseId, setOpenCoursePlayer,
-  isEnrolled, introVideo, setCurrentSection, setCurrentUnit, currentUnitIndex, currentSectionIndex,
-  isIntroVideoActive, isSectionTestActive, courseStatus, isLoading, dataType, isCreator,
+  open, onClose, sections, courseTitle, currentSection, currentUnit, courseId, setOpenCoursePlayer, isEnrolled,
+  introVideo, setCurrentSection, setCurrentUnit, currentUnitIndex, currentSectionIndex, isIntroVideoActive,
+  isSectionTestActive, courseStatus, isLoading, dataType, isCreator,
 }) => {
   const dispatch = useDispatch()
 
   const handlePreviousUnit = useCallback(() => {
     if (currentUnit.status !== 'completed' && currentUnit.unitId > 0 && !isCreator) {
       dispatch(viewCourseRequestStart({
-        requestType: 'UPDATE',
+        requestType: REQUEST_TYPES.UPDATE,
         dataType: 'Course Unit',
         courseId,
         sectionId: currentSection.id,
@@ -55,7 +53,7 @@ const CoursePreview = ({
       || _.isEmpty(sections[ currentSectionIndex ].units[ currentUnitIndex - 1 ].details))
       && !isCreator) {
       dispatch(viewCourseRequestStart({
-        requestType: 'UPDATE',
+        requestType: REQUEST_TYPES.UPDATE,
         dataType: 'Course Unit',
         courseId,
         sectionId: currentSection.id,
@@ -79,7 +77,7 @@ const CoursePreview = ({
     }
     if (currentUnit.status !== 'completed' && currentUnit.unitId > 0 && !isCreator) {
       dispatch(viewCourseRequestStart({
-        requestType: 'UPDATE',
+        requestType: REQUEST_TYPES.UPDATE,
         dataType: 'Course Unit',
         courseId,
         sectionId: currentSection.id,
@@ -98,7 +96,7 @@ const CoursePreview = ({
           || _.isEmpty(sections[ nextSectionIndex ].units[ nextUnitIndex ].details))
         && !isCreator) {
       dispatch(viewCourseRequestStart({
-        requestType: 'UPDATE',
+        requestType: REQUEST_TYPES.UPDATE,
         dataType: 'Course Unit',
         courseId,
         sectionId: sections[ nextSectionIndex ].id,

@@ -3,6 +3,7 @@ import { Box, Button } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import ApplicationCard from './applicationCard'
 import { startLoader, stopLoader, agentJobApplicationsRequestStart } from '../../../../redux-saga/redux/actions'
+import { REQUEST_TYPES } from '../../../../utils/constants'
 
 const ApplicationsPage = () => {
   const {
@@ -34,7 +35,7 @@ const ApplicationsPage = () => {
         statusTypes: applicationFilter[ selectedApplicationCategory ].statusTypes,
         applicationCategoryId: applicationFilter[ selectedApplicationCategory ].id,
       },
-      requestType: 'FETCH',
+      requestType: REQUEST_TYPES.FETCH,
     }))
   }, [ dispatch, userDetails, applicationFilter, selectedApplicationCategory ])
 

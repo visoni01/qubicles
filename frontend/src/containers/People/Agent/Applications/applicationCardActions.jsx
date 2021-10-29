@@ -7,6 +7,8 @@ import { useHistory } from 'react-router-dom'
 import { agentJobApplicationsRequestStart, allChatsRequestStart } from '../../../../redux-saga/redux/actions'
 import { VIEW_COURSE_ROUTE } from '../../../../routes/routesPath'
 import { applicationPropTypes, clientDetailsPropTypes, jobDetailsPropTypes } from './propTypes'
+import { REQUEST_TYPES } from '../../../../utils/constants'
+import { NEW_CHAT } from '../../../../redux-saga/redux/constants'
 
 const ApplicationCardActions = ({
   application, applicationCategoryId, jobDetails, clientDetails,
@@ -24,7 +26,7 @@ const ApplicationCardActions = ({
         status,
         applicationCategoryId,
       },
-      requestType: 'UPDATE',
+      requestType: REQUEST_TYPES.UPDATE,
     }))
   }, [ dispatch, application, applicationCategoryId ])
 
@@ -60,8 +62,8 @@ const ApplicationCardActions = ({
   const handleSendMessage = useCallback(() => {
     setIsNewChatLoading(true)
     dispatch(allChatsRequestStart({
-      requestType: 'CREATE',
-      dataType: 'new-chat',
+      requestType: REQUEST_TYPES.CREATE,
+      dataType: NEW_CHAT,
       candidate: {
         id: clientDetails?.userId,
         clientId: clientDetails?.clientId,
@@ -76,7 +78,7 @@ const ApplicationCardActions = ({
   }, [ dispatch, jobDetails, clientDetails ])
 
   useEffect(() => {
-    if (!isLoading && dataType === 'new-chat') {
+    if (!isLoading && dataType === NEW_CHAT) {
       setIsNewChatLoading(false)
     }
   }, [ isLoading, dataType ])

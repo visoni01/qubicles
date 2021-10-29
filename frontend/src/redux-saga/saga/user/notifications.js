@@ -1,11 +1,8 @@
 import { takeEvery, put } from 'redux-saga/effects'
-import {
-  notificationsFetchStart,
-  notificationsFetchSuccessful,
-  notificationsFetchFailure,
-} from '../../redux/actions'
+import { notificationsFetchStart, notificationsFetchSuccessful, notificationsFetchFailure } from '../../redux/actions'
 import User from '../../service/user'
 import { showErrorMessage } from '../../redux/utils/snackbar'
+import { REQUEST_TYPES } from '../../../utils/constants'
 
 function* notificationsWatcher() {
   yield takeEvery(notificationsFetchStart.type, notificationsWorker)
@@ -18,7 +15,7 @@ function* notificationsWorker(action) {
     } = action.payload
 
     switch (requestType) {
-      case 'FETCH': {
+      case REQUEST_TYPES.FETCH: {
         const { data } = yield User.getAllNotifications({ offset })
         yield put(notificationsFetchSuccessful({
           notifications: data.notifications,
@@ -27,7 +24,7 @@ function* notificationsWorker(action) {
         }))
         break
       }
-      case 'UPDATE': {
+      case REQUEST_TYPES.UPDATE: {
         const { data } = yield User.updateNotificationsReadStatus({ notificationIds })
         yield put(notificationsFetchSuccessful({
           notificationIds,
@@ -35,7 +32,7 @@ function* notificationsWorker(action) {
         }))
         break
       }
-      case 'DELETE': {
+      case REQUEST_TYPES.DELETE: {
         const { data } = yield User.deleteNotification({ notificationId, offset: offset + 4 })
         yield put(notificationsFetchSuccessful({
           notificationId,

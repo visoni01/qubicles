@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getDataForReducer } from '../../../../utils/common'
+import { REQUEST_TYPES } from '../../../../utils/constants'
 import getUpdatedAgentSettings from './helper'
 
 const initialState = {
@@ -38,7 +39,7 @@ const {
       isLoading: false,
       success: true,
       error: false,
-      settings: state.requestType === 'FETCH' && !action.payload.verificationFlow
+      settings: state.requestType === REQUEST_TYPES.FETCH && !action.payload.verificationFlow
         ? getDataForReducer(action, initialState, 'agentDetails')
         : getUpdatedAgentSettings({ state, action }),
     }),

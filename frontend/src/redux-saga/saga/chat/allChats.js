@@ -2,18 +2,16 @@
 import _ from 'lodash'
 import { takeEvery, put, select } from 'redux-saga/effects'
 import WebSocket from '../../../socket'
+import Chat from '../../service/chat'
+import { REQUEST_TYPES } from '../../../utils/constants'
 import { formatConversationRoomId, getFormattedChatNotificationMessage } from '../../../utils/common'
 import {
-  allChatsRequestStart,
-  allChatsRequestSuccess,
-  allChatsRequestFailed,
-  showErrorMessage,
-  updateCurrentChatId,
-  updateConversations,
-  updateChatPopups,
-  resetAllChatsReducerFlags,
+  allChatsRequestStart, allChatsRequestSuccess, allChatsRequestFailed, showErrorMessage, updateCurrentChatId,
+  updateConversations, updateChatPopups, resetAllChatsReducerFlags,
 } from '../../redux/actions'
-import Chat from '../../service/chat'
+import {
+  ADD_CONVERSATION, ADD_PEOPLE, CHATS_LIST, MARK_AS_UNREAD, NEW_CHAT, NEW_GROUP,
+} from '../../redux/constants'
 
 function* allChatsWatcher() {
   yield takeEvery(allChatsRequestStart.type, allChatsWorker)
@@ -26,9 +24,9 @@ function* allChatsWorker(action) {
     } = action.payload
 
     switch (requestType) {
-      case 'FETCH': {
+      case REQUEST_TYPES.FETCH: {
         switch (dataType) {
-          case 'chats-list': {
+          case CHATS_LIST: {
             const { data } = yield Chat.getAllChats({ offset, search_keyword: searchKeyword })
             yield put(allChatsRequestSuccess({ chats: data?.chatsList, more: data?.more, offset }))
 
@@ -44,9 +42,9 @@ function* allChatsWorker(action) {
         break
       }
 
-      case 'UPDATE': {
+      case REQUEST_TYPES.UPDATE: {
         switch (dataType) {
-          case 'mark-as-unread': {
+          case MARK_AS_UNREAD: {
             yield Chat.markChatAsUnread({ conversationId })
             yield put(allChatsRequestSuccess({ conversationId, allRead: false }))
             yield put(updateConversations({ requestType, dataType, conversationId }))
@@ -59,9 +57,9 @@ function* allChatsWorker(action) {
       }
 
       /* eslint-disable camelcase */
-      case 'CREATE': {
+      case REQUEST_TYPES.CREATE: {
         switch (dataType) {
-          case 'new-chat': {
+          case NEW_CHAT: {
             const { data } = yield Chat.createNewChat({ candidate_id: candidate?.id })
             const { chatsList } = yield select((state) => state.allChats)
 
@@ -98,7 +96,7 @@ function* allChatsWorker(action) {
 
             yield put(updateConversations({
               requestType,
-              dataType: 'add-conversation',
+              dataType: ADD_CONVERSATION,
               newChat: {
                 conversationId: newConversationId,
                 isGroup: false,
@@ -116,7 +114,7 @@ function* allChatsWorker(action) {
               yield put(updateCurrentChatId({ conversationId: newConversationId }))
             } else {
               yield put(updateChatPopups({
-                requestType: 'ADD',
+                requestType: REQUEST_TYPES.ADD,
                 conversationId: newConversationId,
                 noNotification: true,
               }))
@@ -127,7 +125,7 @@ function* allChatsWorker(action) {
             break
           }
 
-          case 'new-group': {
+          case NEW_GROUP: {
             const { userDetails } = yield select((state) => state.login)
             const { settings: agentSettings } = yield select((state) => state.agentDetails)
             const { settings: clientSettings } = yield select((state) => state.clientDetails)
@@ -155,7 +153,7 @@ function* allChatsWorker(action) {
               }),
               getFormattedChatNotificationMessage({
                 senderId: userId,
-                type: 'add-people',
+                type: ADD_PEOPLE,
                 addOneMillisecond: true,
                 payload: {
                   userId,
@@ -202,7 +200,7 @@ function* allChatsWorker(action) {
             }
             const newConversation = {
               requestType,
-              dataType: 'add-conversation',
+              dataType: ADD_CONVERSATION,
               newChat: {
                 conversationId: data,
                 isGroup: true,
@@ -230,7 +228,7 @@ function* allChatsWorker(action) {
                   ...message,
                   isRead: false,
                 })),
-                dataType: 'new-group',
+                dataType,
                 payload: {
                   userIds: members?.map((user) => user.id),
                   newChat: {

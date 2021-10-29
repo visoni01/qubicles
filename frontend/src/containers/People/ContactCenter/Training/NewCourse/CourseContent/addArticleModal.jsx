@@ -19,6 +19,7 @@ import { acceptedAudioFormats, acceptedVideoFormats, maxVideoFileSize } from '..
 import { showErrorMessage } from '../../../../../../redux-saga/redux/utils'
 import MyUploadAdapter from '../../../../../../utils/uploadImage'
 import Loader from '../../../../../loaders/circularLoader'
+import { REQUEST_TYPES } from '../../../../../../utils/constants'
 
 // eslint-disable-next-line complexity
 const AddArticleModal = ({
@@ -58,7 +59,7 @@ const AddArticleModal = ({
 
   const uploadMediaFile = useCallback((videoUrl) => {
     dispatch(trainingCourseRequestStart({
-      requestType: 'CREATE',
+      requestType: REQUEST_TYPES.CREATE,
       dataType: unit.type,
       fileUrl: videoUrl,
     }))

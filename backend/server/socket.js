@@ -193,7 +193,7 @@ const createSocketConnection = (server) => {
         } catch (e) {
           logger.error(getErrorMessageForSocket('adding user message'), e)
 
-          if (!messagesAdded && _.isEqual(dataType, 'new-message')) {
+          if (!messagesAdded && _.isEqual(dataType, 'NEW_MESSAGE')) {
             io.to(from.toString()).emit(EVENTS.SEND_MESSAGE_ERROR, {
               to,
               messageId: messages[0] && messages[0].messageId,

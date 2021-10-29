@@ -9,6 +9,7 @@ import ROUTES_PATH, { EDIT_COURSE_ROUTE } from '../../../../../routes/routesPath
 import { courseContentFilterBeforeSave, formatRequiredCoursesData } from './CourseContent/helper'
 import { contentSectionPropType, courseContentPropType, informationSectionPropType } from './propTypes'
 import ConfirmationModal from '../../../../../components/CommonModal/confirmationModal'
+import { REQUEST_TYPES } from '../../../../../utils/constants'
 
 const NewCourseActions = ({
   informationSection,
@@ -52,12 +53,12 @@ const NewCourseActions = ({
     if (course.courseId) {
       dispatch(trainingCourseRequestStart({
         course,
-        requestType: 'UPDATE',
+        requestType: REQUEST_TYPES.UPDATE,
       }))
     } else {
       dispatch(trainingCourseRequestStart({
         course,
-        requestType: 'CREATE',
+        requestType: REQUEST_TYPES.CREATE,
       }))
     }
   }, [ informationSection, contentSection, courseContent, courseId, dispatch ])
@@ -97,12 +98,12 @@ const NewCourseActions = ({
     if (course.courseId) {
       dispatch(trainingCourseRequestStart({
         course,
-        requestType: 'UPDATE',
+        requestType: REQUEST_TYPES.UPDATE,
       }))
     } else {
       dispatch(trainingCourseRequestStart({
         course,
-        requestType: 'CREATE',
+        requestType: REQUEST_TYPES.CREATE,
       }))
     }
   }, [ informationSection, contentSection, courseContent, courseId, dispatch ])
@@ -111,7 +112,7 @@ const NewCourseActions = ({
     if (courseId && courseStatus === 'draft' && history.location.pathname !== `${ EDIT_COURSE_ROUTE }/${ courseId }`) {
       history.push(`${ EDIT_COURSE_ROUTE }/${ courseId }`)
     }
-    if (success && requestType !== 'FETCH' && courseId && courseStatus === 'published') {
+    if (success && requestType !== REQUEST_TYPES.FETCH && courseId && courseStatus === 'published') {
       history.push(`${ ROUTES_PATH.MY_COURSES }`)
       dispatch(resetTrainingCourseReducer())
     }

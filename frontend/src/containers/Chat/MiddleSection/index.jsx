@@ -9,6 +9,8 @@ import ChatControls from './chatControls'
 import { chatDataRequestStart } from '../../../redux-saga/redux/chat'
 import MiddleSectionChatSkeletons from '../../../components/Chat/Skeletons/middleSectionChatSkeletons'
 import '../styles.scss'
+import { REQUEST_TYPES } from '../../../utils/constants'
+import { CURRENT_CHAT } from '../../../redux-saga/redux/constants'
 
 const MiddleCard = ({
   conversationId, messageText, setMessageText, imageUrl, setImageUrl, isLoading,
@@ -23,8 +25,8 @@ const MiddleCard = ({
   useEffect(() => {
     if (currentChatId && !conversationData) {
       dispatch(chatDataRequestStart({
-        requestType: 'FETCH',
-        dataType: 'current-chat',
+        requestType: REQUEST_TYPES.FETCH,
+        dataType: CURRENT_CHAT,
         conversationId,
       }))
     }
@@ -36,7 +38,7 @@ const MiddleCard = ({
       {/* Chat Body */}
       <div className='chat-section-body pb-10 padding-20'>
         {!initialFetchDone
-        || (currentConversation?.isLoading && _.isEqual(currentConversation?.dataType, 'current-chat'))
+        || (currentConversation?.isLoading && _.isEqual(currentConversation?.dataType, CURRENT_CHAT))
           ? <MiddleSectionChatSkeletons />
           : (
             <ChatView

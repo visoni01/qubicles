@@ -16,6 +16,7 @@ import { fetchAgentResumeStart } from '../../../redux-saga/redux/people'
 import LeftSection from './LeftRightSection'
 import IntroductionSkeleton from '../../../components/People/ContactCenter/SkeletonLoader/Jobs/contactCenterSkeleton'
 import PeopleYouMayKnow from './peopleYouMayKnowCard'
+import { REQUEST_TYPES } from '../../../utils/constants'
 
 const OtherAgentProfile = () => {
   const { agentResume, isLoading } = useSelector((state) => state.agentResume)
@@ -35,7 +36,7 @@ const OtherAgentProfile = () => {
   useEffect(() => {
     if (userId !== agentResume.candidateId) {
       dispatch(fetchAgentResumeStart({
-        requestType: 'FETCH',
+        requestType: REQUEST_TYPES.FETCH,
         candidateId: userId,
       }))
     }

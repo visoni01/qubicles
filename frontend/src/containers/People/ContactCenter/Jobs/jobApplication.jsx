@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import './styles.scss'
 import { jobApplicationListRequestStart } from '../../../../redux-saga/redux/actions'
 import JobApplicationBox from '../../../../components/People/ContactCenter/Jobs/jobApplicationBox'
+import { REQUEST_TYPES } from '../../../../utils/constants'
 
 const JobApplication = ({ jobId }) => {
   const { applicationsData, isLoading, success } = useSelector((state) => state.jobApplicationList)
@@ -16,7 +17,7 @@ const JobApplication = ({ jobId }) => {
         applicationListData: {
           jobId,
         },
-        requestType: 'FETCH',
+        requestType: REQUEST_TYPES.FETCH,
         applicationType: 'job',
       }))
     }

@@ -11,6 +11,7 @@ import { courseIdPropType, sectionIdPropType } from './propTypes'
 import TestCompleted from '../../../../../components/People/ContactCenter/Training/ViewCourse/Test/testCompleted'
 import ViewCourseTestSkeleton from
   '../../../../../components/People/ContactCenter/SkeletonLoader/Training/viewCourseTestSkeleton'
+import { REQUEST_TYPES } from '../../../../../utils/constants'
 
 const SectionTest = ({ courseId, sectionId }) => {
   const dispatch = useDispatch()
@@ -27,7 +28,7 @@ const SectionTest = ({ courseId, sectionId }) => {
       courseId,
       sectionId,
       dataType: 'Section Test',
-      requestType: 'FETCH',
+      requestType: REQUEST_TYPES.FETCH,
     }))
   }, [ courseId, sectionId, dispatch ])
 
@@ -40,7 +41,7 @@ const SectionTest = ({ courseId, sectionId }) => {
       courseId,
       sectionId,
       dataType: 'Section Test',
-      requestType: 'UPDATE',
+      requestType: REQUEST_TYPES.UPDATE,
       questions: answers.map((answer) => ({
         id: answer.questionId,
         answer: answer.answer,
@@ -60,7 +61,7 @@ const SectionTest = ({ courseId, sectionId }) => {
     }))
     if (!course.isCreator) {
       dispatch(viewCourseRequestStart({
-        requestType: 'UPDATE',
+        requestType: REQUEST_TYPES.UPDATE,
         dataType: 'Course Unit',
         courseId,
         sectionId: course.courseContent.sections[ currentSectionIndex ].id,
@@ -72,7 +73,7 @@ const SectionTest = ({ courseId, sectionId }) => {
   }, [ dispatch, course.courseContent.sections, sectionIndex, courseId, course.isCreator ])
 
   useEffect(() => {
-    if (requestType === 'UPDATE' && dataType === 'Section Test' && !isLoading) {
+    if (requestType === REQUEST_TYPES.UPDATE && dataType === 'Section Test' && !isLoading) {
       setIsTestCompleted(true)
     } else {
       setIsTestCompleted(false)

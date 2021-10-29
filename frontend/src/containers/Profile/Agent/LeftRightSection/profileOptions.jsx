@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { fetchAgentResumeStart, showSuccessMessage } from '../../../../redux-saga/redux/actions'
 import ConfirmationModal from '../../../../components/CommonModal/confirmationModal'
+import { REQUEST_TYPES } from '../../../../utils/constants'
 
 const ProfileOptions = ({ candidateId, hasBlockedUser }) => {
   const [ openOptions, setOpenOptions ] = useState(false)
@@ -34,7 +35,7 @@ const ProfileOptions = ({ candidateId, hasBlockedUser }) => {
 
   const handleBlockUser = useCallback(() => {
     dispatch(fetchAgentResumeStart({
-      requestType: 'UPDATE',
+      requestType: REQUEST_TYPES.UPDATE,
       candidateId,
       hasBlockedUser: !hasBlockedUser,
     }))

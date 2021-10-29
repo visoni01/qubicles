@@ -1,11 +1,10 @@
 import { takeEvery, put } from 'redux-saga/effects'
 import {
-  agentResumeSkillsStart,
-  agentResumeSkillsSuccess,
-  agentResumeSkillsFailed,
+  agentResumeSkillsStart, agentResumeSkillsSuccess, agentResumeSkillsFailed,
 } from '../../../redux/people/talent/agentResumeSkills'
 import People from '../../../service/people'
 import { showErrorMessage, showSuccessMessage } from '../../../redux/actions'
+import { REQUEST_TYPES } from '../../../../utils/constants'
 
 function* agentResumeSkillsWatcherStart() {
   yield takeEvery(agentResumeSkillsStart.type, agentResumeSkillsWorker)
@@ -17,12 +16,12 @@ function* agentResumeSkillsWorker(action) {
   } = action.payload
   try {
     switch (requestType) {
-      case 'FETCH': {
+      case REQUEST_TYPES.FETCH: {
         const { data } = yield People.getUserSkills({ candidateId })
         yield put(agentResumeSkillsSuccess({ agentResumeSkills: data }))
         break
       }
-      case 'UPDATE': {
+      case REQUEST_TYPES.UPDATE: {
         const { data } = yield People.updateUserSkills({ candidateId, updatedData, updatedDataType })
         yield put(agentResumeSkillsSuccess({
           agentResumeSkills: {

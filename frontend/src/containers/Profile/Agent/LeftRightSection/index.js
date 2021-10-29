@@ -12,38 +12,25 @@ import Introduction from '../../../../components/CommonModal/Introduction'
 import EditProfileModal from './editProfileModal'
 import { fetchAgentResumeStart, allChatsRequestStart } from '../../../../redux-saga/redux/actions'
 import { formatCount } from '../../../../utils/common'
+import { REQUEST_TYPES } from '../../../../utils/constants'
+import { NEW_CHAT } from '../../../../redux-saga/redux/constants'
 
 const AgentEditProfile = ({
-  userName,
-  rating,
-  name,
-  location,
-  registrationDate,
-  title,
-  summary,
-  profilePic,
-  highestEducation,
-  yearsOfExperience,
-  hourlyRate,
-  preferredJob,
-  remoteJobs,
-  onVacation,
-  profileVisible,
-  candidateId,
-  followers,
-  following,
-  isFollowing,
+  userName, rating, name, location, registrationDate, title, summary, profilePic, highestEducation, yearsOfExperience,
+  hourlyRate, preferredJob, remoteJobs, onVacation, profileVisible, candidateId, followers, following, isFollowing,
   hasBlockedUser,
 }) => {
   const [ openEditProfileModal, setOpenEditProfileModal ] = useState(false)
   const [ isNewChatLoading, setIsNewChatLoading ] = useState(false)
+
   const { userDetails } = useSelector((state) => state.login)
   const { isLoading, dataType } = useSelector((state) => state.allChats)
+
   const dispatch = useDispatch()
 
   const handleFollow = useCallback(() => {
     dispatch(fetchAgentResumeStart({
-      requestType: 'UPDATE',
+      requestType: REQUEST_TYPES.UPDATE,
       candidateId,
       isFollowing: !isFollowing,
     }))
@@ -52,8 +39,8 @@ const AgentEditProfile = ({
   const handleSendMessage = useCallback(() => {
     setIsNewChatLoading(true)
     dispatch(allChatsRequestStart({
-      requestType: 'CREATE',
-      dataType: 'new-chat',
+      requestType: REQUEST_TYPES.CREATE,
+      dataType: NEW_CHAT,
       candidate: {
         id: candidateId,
         name,
@@ -67,7 +54,7 @@ const AgentEditProfile = ({
   }, [ dispatch, candidateId, location, profilePic, title, name ])
 
   useEffect(() => {
-    if (!isLoading && dataType === 'new-chat') {
+    if (!isLoading && dataType === NEW_CHAT) {
       setIsNewChatLoading(false)
     }
   }, [ isLoading, dataType ])

@@ -10,6 +10,7 @@ import { showSuccessMessage } from '../../redux-saga/redux/utils'
 import { fetchAgentResumeStart } from '../../redux-saga/redux/people'
 import { BlockIcon, CopyIcon } from '../../assets/images/profile'
 import { LocationIcon } from '../../assets/images/common'
+import { REQUEST_TYPES } from '../../utils/constants'
 // import { formatDate } from '../../utils/common'
 
 const Introduction = ({
@@ -35,7 +36,7 @@ const Introduction = ({
 
   const handleConfirmModal = useCallback(() => {
     dispatch(fetchAgentResumeStart({
-      requestType: 'UPDATE',
+      requestType: REQUEST_TYPES.UPDATE,
       candidateId,
       hasBlockedUser: !hasBlockedUser,
     }))

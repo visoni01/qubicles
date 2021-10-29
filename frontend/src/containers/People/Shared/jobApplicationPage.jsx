@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { jobApplicationRequestStart, startLoader, stopLoader } from '../../../redux-saga/redux/actions'
 import ClientViewApplication from '../ContactCenter/Talent/Application'
 import AgentViewApplication from '../Agent/Applications/agentViewApplication'
+import { REQUEST_TYPES } from '../../../utils/constants'
 
 const JobApplicationPage = () => {
   let { applicationId } = useParams()
@@ -19,7 +20,7 @@ const JobApplicationPage = () => {
       applicationData: {
         applicationId,
       },
-      requestType: 'FETCH',
+      requestType: REQUEST_TYPES.FETCH,
     }))
   }, [ dispatch, applicationId ])
 
@@ -40,7 +41,7 @@ const JobApplicationPage = () => {
     )
   }
 
-  if (!isLoading || requestType === 'UPDATE') {
+  if (!isLoading || requestType === REQUEST_TYPES.UPDATE) {
     if (userDetails.user_code === 'employer') {
       return (
         <ClientViewApplication

@@ -3,29 +3,25 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
-import {
-  faChevronUp, faChevronDown,
-} from '@fortawesome/free-solid-svg-icons'
+import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  List, Button,
-  ListItem, ListItemIcon,
-  ListItemText, Collapse, Divider, ListItemSecondaryAction,
+  List, Button, ListItem, ListItemIcon, ListItemText, Collapse, Divider, ListItemSecondaryAction,
 } from '@material-ui/core'
 import {
-  sectionPropType, isEnrolledPropType, introVideoPropType,
-  setOpenCoursePlayerPropType, isCoursePlayerOpenPropType, unitPropType, courseIdPropType,
-  isIntroVideoActivePropType, sectionIndexPropType, courseStatusPropType, typePropType, isCreatorPropType,
+  sectionPropType, isEnrolledPropType, introVideoPropType, setOpenCoursePlayerPropType, isCoursePlayerOpenPropType,
+  unitPropType, courseIdPropType, isIntroVideoActivePropType, sectionIndexPropType, courseStatusPropType,
+  typePropType, isCreatorPropType,
 } from './propTypes'
 import { viewCourseRequestStart, updateCurrentUnitAndSectionIndex } from '../../../../../redux-saga/redux/people'
 import {
   ArticleIcon, AudioIcon, TestIcon, VideoIcon,
 } from '../../../../../assets/images/training'
+import { REQUEST_TYPES } from '../../../../../utils/constants'
 
 const UnitsList = ({
-  section, setOpenCoursePlayer, isEnrolled, isActive, showIntroVideo, introVideo,
-  isCoursePlayerOpen, currentUnit, courseId, currentSection, sectionIndex,
-  isIntroVideoActive, courseStatus, type, isCreator,
+  section, setOpenCoursePlayer, isEnrolled, isActive, showIntroVideo, introVideo, isCoursePlayerOpen, currentUnit,
+  courseId, currentSection, sectionIndex, isIntroVideoActive, courseStatus, type, isCreator,
 }) => {
   const [ open, setOpen ] = useState(isActive)
   const dispatch = useDispatch()
@@ -65,7 +61,7 @@ const UnitsList = ({
     }))
     if (!_.isEmpty(currentUnit) && currentUnit.unitId > 0 && currentUnit.status !== 'completed' && !isCreator) {
       dispatch(viewCourseRequestStart({
-        requestType: 'UPDATE',
+        requestType: REQUEST_TYPES.UPDATE,
         dataType: 'Course Unit',
         courseId,
         sectionId: currentSection.id,
@@ -76,7 +72,7 @@ const UnitsList = ({
     }
     if ((nextUnit.status !== 'completed' || _.isEmpty(nextUnit.details)) && !isCreator) {
       dispatch(viewCourseRequestStart({
-        requestType: 'UPDATE',
+        requestType: REQUEST_TYPES.UPDATE,
         dataType: 'Course Unit',
         courseId,
         sectionId: nextSection.id,

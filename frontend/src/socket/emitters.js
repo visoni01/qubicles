@@ -1,4 +1,4 @@
-import { EVENTS } from '../utils/messages'
+import { EVENTS } from '../utils/constants'
 
 const joinRoom = {
   method: 'joinRoom',

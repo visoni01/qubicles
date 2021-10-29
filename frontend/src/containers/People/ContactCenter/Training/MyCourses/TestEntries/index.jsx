@@ -11,6 +11,7 @@ import TestEntryCard from './testEntryCard'
 import { resetTestEntriesReducer, testEntriesRequestStart } from '../../../../../../redux-saga/redux/people'
 import TestEntriesSkeleton from
   '../../../../../../components/People/ContactCenter/SkeletonLoader/Training/testEntriesSkeleton'
+import { REQUEST_TYPES } from '../../../../../../utils/constants'
 
 const TestEntries = () => {
   const history = useHistory()
@@ -21,7 +22,7 @@ const TestEntries = () => {
 
   useEffect(() => {
     dispatch(testEntriesRequestStart({
-      requestType: 'FETCH',
+      requestType: REQUEST_TYPES.FETCH,
       dataType: 'All Test Entries',
       courseId,
     }))

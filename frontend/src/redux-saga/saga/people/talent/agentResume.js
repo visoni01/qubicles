@@ -2,13 +2,9 @@ import _ from 'lodash'
 import { takeEvery, put, select } from 'redux-saga/effects'
 import WebSocket from '../../../../socket'
 import { getNotificationMessage, getSmsNotificationMessage, getUserDetails } from '../../../../utils/common'
-import { SUBJECTS } from '../../../../utils/messages'
+import { REQUEST_TYPES, SUBJECTS } from '../../../../utils/constants'
 import {
-  fetchAgentResumeStart,
-  fetchAgentResumeSuccess,
-  fetchAgentResumeFailed,
-  updateAgentResume,
-  showErrorMessage,
+  fetchAgentResumeStart, fetchAgentResumeSuccess, fetchAgentResumeFailed, updateAgentResume, showErrorMessage,
   showSuccessMessage,
 } from '../../../redux/actions'
 import People from '../../../service/people'
@@ -26,12 +22,12 @@ function* agentResumeSkillsWorker(action) {
     } = action.payload
 
     switch (requestType) {
-      case 'FETCH': {
+      case REQUEST_TYPES.FETCH: {
         const { data } = yield People.getAgentResume({ candidateId })
         yield put(fetchAgentResumeSuccess({ agentResume: data }))
         break
       }
-      case 'UPDATE': {
+      case REQUEST_TYPES.UPDATE: {
         if (!_.isUndefined(isFollowing)) {
           yield User.updateFollowingStatus({ candidateId, userCode: 'user' })
           yield put(updateAgentResume({ isFollowing }))

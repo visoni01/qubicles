@@ -4,14 +4,10 @@ import {
   takeEvery, put, delay, take, fork, call,
 } from 'redux-saga/effects'
 import { axiosInst } from '../../../../utils/apiClient'
+import { REQUEST_TYPES } from '../../../../utils/constants'
 import {
-  trainingCourseRequestStart,
-  trainingCourseRequestSuccess,
-  trainingCourseRequestFailed,
-  showErrorMessage,
-  showSuccessMessage,
-  uploadProgress,
-  updateCurrentFileUrl,
+  trainingCourseRequestStart, trainingCourseRequestSuccess, trainingCourseRequestFailed, showErrorMessage,
+  showSuccessMessage, uploadProgress, updateCurrentFileUrl,
 } from '../../../redux/actions'
 import People from '../../../service/people'
 
@@ -99,7 +95,7 @@ function* trainingCourseWorker(action) {
     const { course, requestType, dataType } = action.payload
 
     switch (requestType) {
-      case 'CREATE': {
+      case REQUEST_TYPES.CREATE: {
         switch (dataType) {
           case 'Video':
           case 'Audio': {
@@ -111,11 +107,11 @@ function* trainingCourseWorker(action) {
         }
         break
       }
-      case 'UPDATE': {
+      case REQUEST_TYPES.UPDATE: {
         yield call(uploadSaga, { action, method: 'put' })
         break
       }
-      case 'FETCH': {
+      case REQUEST_TYPES.FETCH: {
         const { data } = yield People.fetchCourse({ courseId: course.courseId, requestType: 'GetCourse' })
         yield put(trainingCourseRequestSuccess({ course: data }))
         break

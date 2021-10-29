@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getDataForReducer } from '../../../../utils/common'
+import { REQUEST_TYPES } from '../../../../utils/constants'
 
 const initialState = {
   isLoading: null,
@@ -38,7 +39,7 @@ const {
       isLoading: false,
       success: true,
       error: false,
-      agentResumeSkills: state.requestType === 'FETCH'
+      agentResumeSkills: state.requestType === REQUEST_TYPES.FETCH
         ? getDataForReducer(action, initialState.agentResumeSkills, 'agentResumeSkills')
         : action.payload.agentResumeSkills,
     }),

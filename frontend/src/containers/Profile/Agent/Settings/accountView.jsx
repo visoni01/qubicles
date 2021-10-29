@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux'
 import { accountSettingInfoPropTypes, accountSettingInfoDefaultProps } from './settingsProps'
 import Loader from '../../../loaders/circularLoader'
 import { agentProfileSettingsApiStart, resetAgentProfileSettingsFlags } from '../../../../redux-saga/redux/actions'
+import { REQUEST_TYPES } from '../../../../utils/constants'
 
 const Accounts = ({
   setOpenDrawer, accountSettingInfo, isUpdateLoading, isUpdateSuccess, updatedDataType,
@@ -21,7 +22,7 @@ const Accounts = ({
       updatedData: {
         active: e.target.checked,
       },
-      requestType: 'UPDATE',
+      requestType: REQUEST_TYPES.UPDATE,
     }))
   }, [ dispatch ])
 
@@ -31,7 +32,7 @@ const Accounts = ({
       updatedData: {
         smsNotification: e.target.checked,
       },
-      requestType: 'UPDATE',
+      requestType: REQUEST_TYPES.UPDATE,
     }))
   }, [ dispatch ])
 
@@ -41,7 +42,7 @@ const Accounts = ({
       updatedData: {
         emailNotification: e.target.checked,
       },
-      requestType: 'UPDATE',
+      requestType: REQUEST_TYPES.UPDATE,
     }))
   }, [ dispatch ])
 
@@ -51,7 +52,7 @@ const Accounts = ({
       updatedData: {
         gender: e.target.value,
       },
-      requestType: 'UPDATE',
+      requestType: REQUEST_TYPES.UPDATE,
     }))
   }, [ dispatch ])
 

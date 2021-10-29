@@ -1,10 +1,11 @@
 import _ from 'lodash'
 import WebSocket from '.'
 import store from '../redux-saga/store'
-import { EVENTS } from '../utils/messages'
+import { EVENTS, REQUEST_TYPES } from '../utils/constants'
 import { getConversationIdFromRoomId, receiveMessageEventCallback } from './helper'
 import { addNewNotification, deleteNotification } from '../redux-saga/redux/user'
 import { updateAllChats, updateConversations } from '../redux-saga/redux/chat'
+import { ADD_TYPING_USER, REMOVE_TYPING_USER, UPDATE_ERROR_FLAG } from '../redux-saga/redux/constants'
 
 const receiveNotification = {
   event: EVENTS.RECEIVE_NOTIFICATION,
@@ -47,8 +48,8 @@ const sendMessageError = {
     const conversationId = getConversationIdFromRoomId(to)
 
     store.dispatch(updateConversations({
-      requestType: 'UPDATE',
-      dataType: 'update-error-flag',
+      requestType: REQUEST_TYPES.UPDATE,
+      dataType: UPDATE_ERROR_FLAG,
       conversationId,
       messageId,
       error: true,
@@ -56,8 +57,8 @@ const sendMessageError = {
 
     if (_.isUndefined(error) || isLatestMessage || isLatestMessageError) {
       store.dispatch(updateAllChats({
-        requestType: 'UPDATE',
-        dataType: 'update-error-flag',
+        requestType: REQUEST_TYPES.UPDATE,
+        dataType: UPDATE_ERROR_FLAG,
         conversationId,
         error: true,
       }))
@@ -69,8 +70,8 @@ const startTyping = {
   event: EVENTS.START_TYPING,
   callback: ({ conversationId, newActiveUser }) => {
     store.dispatch(updateConversations({
-      requestType: 'UPDATE',
-      dataType: 'add-typing-user',
+      requestType: REQUEST_TYPES.UPDATE,
+      dataType: ADD_TYPING_USER,
       conversationId,
       newActiveUser,
     }))
@@ -81,8 +82,8 @@ const stopTyping = {
   event: EVENTS.STOP_TYPING,
   callback: ({ conversationId, removedUserId }) => {
     store.dispatch(updateConversations({
-      requestType: 'UPDATE',
-      dataType: 'remove-typing-user',
+      requestType: REQUEST_TYPES.UPDATE,
+      dataType: REMOVE_TYPING_USER,
       conversationId,
       removedUserId,
     }))

@@ -12,6 +12,8 @@ import UserNotification from './userNotification'
 import { ThreeDotLoader } from '../../loaders'
 import { NoMessagesIcon } from '../../../assets/images/chat'
 import { activeUsersPropTypes, chatsPropTypes, groupMembersPropTypes } from '../propTypes'
+import { REQUEST_TYPES } from '../../../utils/constants'
+import { CHAT_MESSAGES } from '../../../redux-saga/redux/constants'
 
 const ChatView = ({
   conversationId, chats, more, offset, isLoading, candidatesInfo, activeUsers,
@@ -35,8 +37,8 @@ const ChatView = ({
     }
     if (hasIntersect && target?.isIntersecting && more) {
       dispatch(chatDataRequestStart({
-        requestType: 'FETCH',
-        dataType: 'chat-messages',
+        requestType: REQUEST_TYPES.FETCH,
+        dataType: CHAT_MESSAGES,
         conversationId,
         offset: offset + 10,
       }))

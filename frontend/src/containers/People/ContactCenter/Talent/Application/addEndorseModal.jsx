@@ -8,6 +8,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import '../styles.scss'
 import { useDispatch } from 'react-redux'
 import { agentResumeSkillsStart } from '../../../../../redux-saga/redux/people'
+import { REQUEST_TYPES } from '../../../../../utils/constants'
 
 const AddEndorseModal = ({
   open, handleClose, skillId, skillName, candidateId,
@@ -21,7 +22,7 @@ const AddEndorseModal = ({
 
   const handleEndorse = useCallback(() => {
     dispatch(agentResumeSkillsStart({
-      requestType: 'UPDATE',
+      requestType: REQUEST_TYPES.UPDATE,
       candidateId,
       updatedDataType: 'AddEndorse',
       updatedData: {

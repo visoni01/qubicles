@@ -17,6 +17,7 @@ import AssessmentTestSkeleton from
   '../../../../../../components/People/ContactCenter/SkeletonLoader/Training/assessmentTestSkeleton'
 import { assessmentTestPropType } from './propTypes'
 import ConfirmationModal from '../../../../../../components/CommonModal/confirmationModal'
+import { REQUEST_TYPES } from '../../../../../../utils/constants'
 
 const AssessmentTestModal = ({
   open, onClose, courseId, assessmentTest, isLoading, requestType,
@@ -35,7 +36,7 @@ const AssessmentTestModal = ({
 
   const handleStartTest = useCallback(() => {
     dispatch(viewCourseRequestStart({
-      requestType: 'FETCH',
+      requestType: REQUEST_TYPES.FETCH,
       dataType: 'Assessment Test',
       courseId,
     }))
@@ -45,7 +46,7 @@ const AssessmentTestModal = ({
   const handleSubmitTest = useCallback(() => {
     setOpenSubmitConfirmation(false)
     dispatch(viewCourseRequestStart({
-      requestType: 'CREATE',
+      requestType: REQUEST_TYPES.CREATE,
       dataType: 'Assessment Test',
       courseId,
       questions: answers.map((answer) => ({
@@ -58,7 +59,7 @@ const AssessmentTestModal = ({
   }, [ dispatch, courseId, answers ])
 
   useEffect(() => {
-    if (_.isEqual(requestType, 'CREATE') && !isLoading) {
+    if (_.isEqual(requestType, REQUEST_TYPES.CREATE) && !isLoading) {
       setIsTestCompleted(true)
     }
   }, [ setIsTestCompleted, isLoading, requestType ])
@@ -75,7 +76,7 @@ const AssessmentTestModal = ({
         <DialogTitle>
           <div className='display-inline-flex align-items-center'>
             <div className={ `h2 mr-20 ${ !isTestStarted && 'ml-30' }` }>Assessment Test</div>
-            {_.isEqual(requestType, 'CREATE') && isLoading && <CircularProgress size={ 25 } />}
+            {_.isEqual(requestType, REQUEST_TYPES.CREATE) && isLoading && <CircularProgress size={ 25 } />}
           </div>
         </DialogTitle>
         <DialogActions className='cross-button'>
@@ -94,7 +95,7 @@ const AssessmentTestModal = ({
             By accomplishing this assessment test you can skip the content and finish the course immediately.
           </p>
         )}
-        {((_.isEqual(requestType, 'FETCH') && !isLoading) || _.isEqual(requestType, 'CREATE'))
+        {((_.isEqual(requestType, REQUEST_TYPES.FETCH) && !isLoading) || _.isEqual(requestType, REQUEST_TYPES.CREATE))
           && isTestStarted && !isTestCompleted && assessmentTest && assessmentTest.length && (
           <>
             <div className='mb-20'>
@@ -129,7 +130,7 @@ const AssessmentTestModal = ({
             </div>
           </>
         )}
-        {(isTestStarted && _.isEqual(requestType, 'FETCH') && isLoading) && (
+        {(isTestStarted && _.isEqual(requestType, REQUEST_TYPES.FETCH) && isLoading) && (
           <AssessmentTestSkeleton />
         )}
         {isTestCompleted && (

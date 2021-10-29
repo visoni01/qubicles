@@ -3,22 +3,19 @@ import React, {
 } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent, DialogTitle,
-  IconButton, Button, Grid,
-  Select, Avatar, Switch, Box, TextField, FormControlLabel, Radio, RadioGroup,
+  Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Button, Grid, Select, Avatar, Switch, Box, TextField,
+  FormControlLabel, Radio, RadioGroup,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
 import _ from 'lodash'
 import {
-  uploadProfileImageStart,
-  resetAgentProfileSettingsFlags,
-  resetUploadProfileImage,
-  agentProfileSettingsApiStart,
+  uploadProfileImageStart, resetAgentProfileSettingsFlags, resetUploadProfileImage, agentProfileSettingsApiStart,
 } from '../../../../redux-saga/redux/actions'
 import Loader from '../../../loaders/circularLoader'
 import { defaultUser } from '../../../../assets/images/avatar'
+import { REQUEST_TYPES } from '../../../../utils/constants'
 
 const EditProfileModal = ({
   open, handleClose, agentInfo,
@@ -146,7 +143,7 @@ const EditProfileModal = ({
   }
 
   useEffect(() => {
-    if ((success && requestType === 'UPDATE') || uploadSuccess) {
+    if ((success && requestType === REQUEST_TYPES.UPDATE) || uploadSuccess) {
       if (success) {
         dispatch(resetAgentProfileSettingsFlags())
       }
@@ -176,7 +173,7 @@ const EditProfileModal = ({
           onVacation: profileInfo.onVacation,
           profileVisible: profileInfo.profileVisible,
         },
-        requestType: 'UPDATE',
+        requestType: REQUEST_TYPES.UPDATE,
       }))
     }
     if (profileInfo.profilePic !== agentInfo.profilePic) {

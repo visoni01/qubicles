@@ -21,6 +21,7 @@ import CourseActionSkeleton from
   '../../../../../components/People/ContactCenter/SkeletonLoader/Training/courseActionSkeleton'
 import { EDIT_COURSE_ROUTE } from '../../../../../routes/routesPath'
 import IncompleteCoursesList from './incompleteCoursesList'
+import { REQUEST_TYPES } from '../../../../../utils/constants'
 
 const CourseActions = ({
   course, setOpenCoursePlayer, type, isLoading, dataType, continueCourse, setOpenReviewModal, requestType,
@@ -54,7 +55,7 @@ const CourseActions = ({
     if ((course.isEnrolled && course.courseDetails.status === 'enrolled')
     || (!course.isEnrolled && course.informationSection.price === 0)) {
       dispatch(viewCourseRequestStart({
-        requestType: 'FETCH',
+        requestType: REQUEST_TYPES.FETCH,
         dataType: 'Start Course',
         courseId: course.courseId,
       }))
@@ -73,7 +74,7 @@ const CourseActions = ({
         }))
         if (unitIndex !== -1) {
           dispatch(viewCourseRequestStart({
-            requestType: 'UPDATE',
+            requestType: REQUEST_TYPES.UPDATE,
             dataType: 'Course Unit',
             courseId: course.courseId,
             sectionId: course.courseContent.sections[ 0 ].id,
@@ -108,7 +109,7 @@ const CourseActions = ({
           isIntroVideoActive: false,
         }))
         dispatch(viewCourseRequestStart({
-          requestType: 'UPDATE',
+          requestType: REQUEST_TYPES.UPDATE,
           dataType: 'Course Unit',
           courseId: course.courseId,
           sectionId: course.courseContent.sections[ sectionIndex ].id,
@@ -124,7 +125,7 @@ const CourseActions = ({
         isIntroVideoActive: false,
       }))
       dispatch(viewCourseRequestStart({
-        requestType: 'UPDATE',
+        requestType: REQUEST_TYPES.UPDATE,
         dataType: 'Course Unit',
         courseId: course.courseId,
         sectionId: course.courseContent.sections[ 0 ].id,

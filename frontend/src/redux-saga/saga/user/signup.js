@@ -2,14 +2,10 @@
 import { takeEvery, put } from 'redux-saga/effects'
 import apiClient from '../../../utils/apiClient'
 import { getNotificationMessage, getSmsNotificationMessage } from '../../../utils/common'
-import {
-  userSignupStart,
-  userSignupFailure,
-  userSignupSuccessful,
-} from '../../redux/actions'
+import { userSignupStart, userSignupFailure, userSignupSuccessful } from '../../redux/actions'
 import { showErrorMessage } from '../../redux/utils/snackbar'
 import WebSocket from '../../../socket'
-import { SUBJECTS } from '../../../utils/messages'
+import { SUBJECTS } from '../../../utils/constants'
 
 function* signupWatcher() {
   yield takeEvery(userSignupStart.type, signupWorker)

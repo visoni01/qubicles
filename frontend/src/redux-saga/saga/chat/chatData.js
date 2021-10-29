@@ -1,23 +1,21 @@
 /* eslint-disable complexity */
 import _ from 'lodash'
 import { takeEvery, put, select } from 'redux-saga/effects'
-import { CHAT_ROUTE } from '../../../routes/routesPath'
 import WebSocket from '../../../socket'
+import Chat from '../../service/chat'
+import { CHAT_ROUTE } from '../../../routes/routesPath'
+import { REQUEST_TYPES } from '../../../utils/constants'
 import {
   formatConversationRoomId, getFormattedChatNotificationMessage, playNotificationAudio,
 } from '../../../utils/common'
 import {
-  chatDataRequestStart,
-  chatDataRequestSuccess,
-  chatDataRequestFailed,
-  showErrorMessage,
-  updateAllChats,
-  updateConversations,
-  updateChatPopups,
-  showSuccessMessage,
-  updateCurrentChatId,
+  ADD_GROUP_NAME, ADD_PEOPLE, CHANGE_GROUP_NAME, CHAT_MESSAGES, CURRENT_CHAT, DELETE_CHAT, LEAVE_GROUP, MARK_AS_READ,
+  NEW_CHAT, NEW_MESSAGE, REMOVE_GROUP_NAME, REMOVE_PERSON,
+} from '../../redux/constants'
+import {
+  chatDataRequestStart, chatDataRequestSuccess, chatDataRequestFailed, showErrorMessage, updateAllChats,
+  updateConversations, updateChatPopups, showSuccessMessage, updateCurrentChatId,
 } from '../../redux/actions'
-import Chat from '../../service/chat'
 
 function* chatDataWatcher() {
   yield takeEvery(chatDataRequestStart.type, chatDataWorker)
@@ -31,9 +29,9 @@ function* chatDataWorker(action) {
     } = action.payload
 
     switch (requestType) {
-      case 'FETCH': {
+      case REQUEST_TYPES.FETCH: {
         switch (dataType) {
-          case 'current-chat': {
+          case CURRENT_CHAT: {
             const { data } = yield Chat.getChatData({ conversationId })
 
             yield put(chatDataRequestSuccess({
@@ -58,7 +56,7 @@ function* chatDataWorker(action) {
                 const lastMessage = chatData?.chats && chatData?.chats[chatData?.chats?.length - 1]
 
                 yield put(updateAllChats({
-                  dataType: 'new-chat',
+                  dataType: NEW_CHAT,
                   newChat: {
                     id: conversationId,
                     name: isGroup
@@ -78,7 +76,7 @@ function* chatDataWorker(action) {
 
               if (window.location.pathname !== CHAT_ROUTE) {
                 yield put(updateChatPopups({
-                  requestType: 'ADD',
+                  requestType: REQUEST_TYPES.ADD,
                   conversationId,
                 }))
               }
@@ -88,7 +86,7 @@ function* chatDataWorker(action) {
             break
           }
 
-          case 'chat-messages': {
+          case CHAT_MESSAGES: {
             const { data } = yield Chat.getChatMessages({ conversationId, offset })
 
             yield put(chatDataRequestSuccess({
@@ -103,16 +101,16 @@ function* chatDataWorker(action) {
       }
 
       /* eslint-disable camelcase */
-      case 'UPDATE': {
+      case REQUEST_TYPES.UPDATE: {
         switch (dataType) {
-          case 'mark-as-read': {
+          case MARK_AS_READ: {
             yield Chat.markChatAsRead({ conversationId })
             yield put(chatDataRequestSuccess({ conversationId, requestType, dataType }))
             yield put(updateAllChats({ dataType, conversationId, allRead: true }))
             break
           }
 
-          case 'add-people': {
+          case ADD_PEOPLE: {
             yield Chat.addPeople({ conversationId, user_ids: members?.map((user) => user.id) })
 
             const { userDetails } = yield select((state) => state.login)
@@ -141,7 +139,7 @@ function* chatDataWorker(action) {
                 to: roomId,
                 from: userId,
                 messages: [ { ...newMessage, isRead: false } ],
-                dataType: 'add-people',
+                dataType,
                 payload: {
                   userIds: [
                     ...conversationData.candidatesInfo,
@@ -156,7 +154,7 @@ function* chatDataWorker(action) {
               newMembers: members, dataType, requestType, conversationId,
             }))
             yield put(updateConversations({
-              newMessage, dataType: 'new-message', requestType, conversationId,
+              newMessage, dataType: NEW_MESSAGE, requestType, conversationId,
             }))
             yield put(updateAllChats({
               dataType,
@@ -174,7 +172,7 @@ function* chatDataWorker(action) {
             break
           }
 
-          case 'remove-person': {
+          case REMOVE_PERSON: {
             const { userDetails } = yield select((state) => state.login)
             const { conversations } = yield select((state) => state.chatData)
 
@@ -200,7 +198,7 @@ function* chatDataWorker(action) {
               to: roomId,
               from: userId,
               messages: [ { ...newMessage, isRead: false } ],
-              dataType: 'remove-person',
+              dataType,
               payload: {
                 userIds: conversationData?.candidatesInfo?.map((user) => user.id)?.filter((id) => id !== userId),
                 removedPersonId: candidateId,
@@ -216,7 +214,7 @@ function* chatDataWorker(action) {
               removedPersonId: candidateId, dataType, requestType, conversationId,
             }))
             yield put(updateConversations({
-              newMessage, dataType: 'new-message', requestType, conversationId,
+              newMessage, dataType: NEW_MESSAGE, requestType, conversationId,
             }))
             yield put(showSuccessMessage({
               msg: `You have successfully removed ${ name }!`,
@@ -237,7 +235,7 @@ function* chatDataWorker(action) {
             break
           }
 
-          case 'change-group-name': {
+          case CHANGE_GROUP_NAME: {
             yield Chat.changeGroupName({
               conversationId,
               group_title: newGroupName,
@@ -253,11 +251,11 @@ function* chatDataWorker(action) {
             const userId = userDetails?.user_id
 
             if (_.isEmpty(newGroupName)) {
-              type = 'remove-group-name'
+              type = REMOVE_GROUP_NAME
             } else if (_.isEmpty(oldGroupName)) {
-              type = 'add-group-name'
+              type = ADD_GROUP_NAME
             } else {
-              type = 'change-group-name'
+              type = CHANGE_GROUP_NAME
             }
 
             const newMessage = getFormattedChatNotificationMessage({
@@ -275,7 +273,7 @@ function* chatDataWorker(action) {
               to: formatConversationRoomId(conversationId),
               from: userId,
               messages: [ { ...newMessage, isRead: false } ],
-              dataType: 'change-group-name',
+              dataType,
               payload: {
                 userIds: conversationData?.candidatesInfo?.map((user) => user.id)?.filter((id) => id !== userId),
                 newGroupName: newGroupName
@@ -287,7 +285,7 @@ function* chatDataWorker(action) {
               newGroupName, dataType, requestType, conversationId,
             }))
             yield put(updateConversations({
-              newMessage, dataType: 'new-message', requestType, conversationId,
+              newMessage, dataType: NEW_MESSAGE, requestType, conversationId,
             }))
             yield put(updateAllChats({
               dataType,
@@ -303,7 +301,7 @@ function* chatDataWorker(action) {
             break
           }
 
-          case 'leave-group': {
+          case LEAVE_GROUP: {
             const { userDetails } = yield select((state) => state.login)
             const { conversations } = yield select((state) => state.chatData)
 
@@ -315,7 +313,7 @@ function* chatDataWorker(action) {
             const roomId = formatConversationRoomId(conversationId)
             const newMessage = getFormattedChatNotificationMessage({
               senderId: userId,
-              type: 'leave-group',
+              type: LEAVE_GROUP,
               payload: {
                 userId,
                 userName: userDetails?.full_name,
@@ -328,7 +326,7 @@ function* chatDataWorker(action) {
               to: roomId,
               from: userId,
               messages: [ { ...newMessage, isRead: false } ],
-              dataType: 'remove-person',
+              dataType: REMOVE_PERSON,
               payload: {
                 userIds: conversationData?.candidatesInfo?.map((user) => user.id)?.filter((id) => id !== userId),
                 removedPersonId: userId,
@@ -356,7 +354,7 @@ function* chatDataWorker(action) {
             break
           }
 
-          case 'delete-chat': {
+          case DELETE_CHAT: {
             const { data } = yield Chat.deleteChat({ conversationId })
 
             yield put(chatDataRequestSuccess({

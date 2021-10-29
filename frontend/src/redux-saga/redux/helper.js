@@ -1,38 +1,15 @@
 /* eslint-disable complexity */
+import { REQUEST_TYPES } from '../../utils/constants'
 import {
-  ADD_GROUP_TOPIC,
-  UPDATE_TOPIC_STATS,
-  LIKE_POST,
-  UNLIKE_POST,
-  DELETE_POST_STATUS,
-  DELETE_POST_COMMENT,
-  ADD_JOB,
-  ADD_GROUP,
-  ADD_COMMENT_TO_POST,
-  FETCH_COMMENT_FOR_POST,
-  SET_IS_COMMENT_LOADING,
-  POST_TOPIC_COMMENT,
-  DELETE_TOPIC_COMMENT,
-  LOAD_MORE_COMMENTS,
-  TOPIC_ACTIVITY,
-  CREATE_NEW_POST,
-  POST_DATA_FETCH,
-  UPDATE_POST_COMMENT,
-  FETCH_COMMENTS_SUCCESS,
-  UPDATE_JOB,
-  DELETE_JOB,
-  UPDATE_POST,
-  UPDATE_GROUP,
-  DELETE_GROUP,
-  DELETE_GROUP_TOPIC,
-  UPDATE_GROUP_TOPIC,
-  UPDATE_TOPIC_COMMENT,
+  ADD_GROUP_TOPIC, UPDATE_TOPIC_STATS, LIKE_POST, UNLIKE_POST, DELETE_POST_STATUS, DELETE_POST_COMMENT, ADD_JOB,
+  ADD_GROUP, ADD_COMMENT_TO_POST, FETCH_COMMENT_FOR_POST, SET_IS_COMMENT_LOADING, POST_TOPIC_COMMENT,
+  DELETE_TOPIC_COMMENT, LOAD_MORE_COMMENTS, TOPIC_ACTIVITY, CREATE_NEW_POST, POST_DATA_FETCH, UPDATE_POST_COMMENT,
+  FETCH_COMMENTS_SUCCESS, UPDATE_JOB, DELETE_JOB, UPDATE_POST, UPDATE_GROUP, DELETE_GROUP, DELETE_GROUP_TOPIC,
+  UPDATE_GROUP_TOPIC, UPDATE_TOPIC_COMMENT,
 } from './constants'
 
 export const getUpdatedGroups = ({ state, payload }) => {
-  const {
-    newGroup, groupId, updatedGroup,
-  } = payload.data
+  const { newGroup, groupId, updatedGroup } = payload.data
   let updatedState
   switch (payload.type) {
     case ADD_GROUP: {
@@ -433,7 +410,7 @@ export const updateNotificationsData = ({ state, payload }) => {
   let notificationsData
 
   switch (state.requestType) {
-    case 'FETCH': {
+    case REQUEST_TYPES.FETCH: {
       const { notifications } = payload
       notificationsData = [
         ...state.notifications,
@@ -441,7 +418,7 @@ export const updateNotificationsData = ({ state, payload }) => {
       ]
       break
     }
-    case 'UPDATE': {
+    case REQUEST_TYPES.UPDATE: {
       const { notificationIds } = payload
       notificationsData = state.notifications.map((notification) => {
         let result = {
@@ -457,7 +434,7 @@ export const updateNotificationsData = ({ state, payload }) => {
       })
       break
     }
-    case 'DELETE': {
+    case REQUEST_TYPES.DELETE: {
       const { notificationId, newNotification } = payload
       notificationsData = state.notifications.filter((notification) => notification.id !== notificationId)
       if (newNotification) {
@@ -476,15 +453,15 @@ export const updateCountData = ({ state, payload }) => {
   let count
 
   switch (state.requestType) {
-    case 'FETCH': {
+    case REQUEST_TYPES.FETCH: {
       count = payload.count
       break
     }
-    case 'UPDATE': {
+    case REQUEST_TYPES.UPDATE: {
       count = state.count
       break
     }
-    case 'DELETE': {
+    case REQUEST_TYPES.DELETE: {
       count = state.count && state.count - 1
       break
     }

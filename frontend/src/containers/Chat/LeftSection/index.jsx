@@ -17,6 +17,10 @@ import { allChatsRequestStart, chatDataRequestStart, updateCurrentChatId } from 
 import { NewChatIcon, NewGroupIcon } from '../../../assets/images/chat'
 import LeftSectionSkeleton from '../../../components/Chat/Skeletons/leftSectionSkeleton'
 import '../styles.scss'
+import { REQUEST_TYPES } from '../../../utils/constants'
+import {
+  CHATS_LIST, MARK_AS_READ, NEW_CHAT, NEW_GROUP,
+} from '../../../redux-saga/redux/constants'
 
 const LeftCard = ({ conversationId }) => {
   const {
@@ -50,8 +54,8 @@ const LeftCard = ({ conversationId }) => {
       const currentChat = _.find(chatsList, { id: conversationId })
       if (currentChat && !currentChat.allRead) {
         dispatch(chatDataRequestStart({
-          requestType: 'UPDATE',
-          dataType: 'mark-as-read',
+          requestType: REQUEST_TYPES.UPDATE,
+          dataType: MARK_AS_READ,
           conversationId,
         }))
       }
@@ -62,8 +66,8 @@ const LeftCard = ({ conversationId }) => {
   // Search Conversations
   const searchConversations = useCallback(debounce((nextValue) => {
     dispatch(allChatsRequestStart({
-      requestType: 'FETCH',
-      dataType: 'chats-list',
+      requestType: REQUEST_TYPES.FETCH,
+      dataType: CHATS_LIST,
       searchKeyword: nextValue,
       offset: 0,
     }))
@@ -72,8 +76,8 @@ const LeftCard = ({ conversationId }) => {
   useEffect(() => {
     if (_.isNull(isLoading)) {
       dispatch(allChatsRequestStart({
-        requestType: 'FETCH',
-        dataType: 'chats-list',
+        requestType: REQUEST_TYPES.FETCH,
+        dataType: CHATS_LIST,
         offset: 0,
         searchKeyword: '',
       }))
@@ -84,8 +88,8 @@ const LeftCard = ({ conversationId }) => {
     const target = entries[ 0 ]
     if (target?.isIntersecting && more) {
       dispatch(allChatsRequestStart({
-        requestType: 'FETCH',
-        dataType: 'chats-list',
+        requestType: REQUEST_TYPES.FETCH,
+        dataType: CHATS_LIST,
         offset: offset + 10,
         searchKeyword,
       }))
@@ -122,10 +126,10 @@ const LeftCard = ({ conversationId }) => {
   }, [ searchUserField, searchConversations ])
 
   useEffect(() => {
-    if (!isLoading && success && [ 'new-chat', 'new-group' ].includes(dataType)) {
-      if (_.isEqual(dataType, 'new-chat')) {
+    if (!isLoading && success && [ NEW_CHAT, NEW_GROUP ].includes(dataType)) {
+      if (_.isEqual(dataType, NEW_CHAT)) {
         setOpenNewChatModal(false)
-      } else if (_.isEqual(dataType, 'new-group')) {
+      } else if (_.isEqual(dataType, NEW_GROUP)) {
         setOpenNewGroupModal(false)
       }
     }
@@ -206,8 +210,8 @@ const LeftCard = ({ conversationId }) => {
         <NewChat
           open={ openNewChatModal }
           handleCancel={ () => setOpenNewChatModal(false) }
-          actionType='NEW_CHAT'
-          loading={ isLoading && _.isEqual(dataType, 'new-chat') }
+          actionType={ NEW_CHAT }
+          loading={ isLoading && _.isEqual(dataType, NEW_CHAT) }
         />
       )}
 
@@ -216,14 +220,14 @@ const LeftCard = ({ conversationId }) => {
         <NewChat
           open={ openNewGroupModal }
           handleCancel={ () => setOpenNewGroupModal(false) }
-          actionType='NEW_GROUP'
-          loading={ isLoading && _.isEqual(dataType, 'new-group') }
+          actionType={ NEW_GROUP }
+          loading={ isLoading && _.isEqual(dataType, NEW_GROUP) }
         />
       )}
 
       {/* Users List */}
       <div ref={ userListRef } className='user-list'>
-        {(!isLoading || offset !== 0 || !_.isEqual(dataType, 'chats-list')) && chatsList
+        {(!isLoading || offset !== 0 || !_.isEqual(dataType, CHATS_LIST)) && chatsList
         && chatsList.map((item, index) => (
           <div
             key={ item.id }

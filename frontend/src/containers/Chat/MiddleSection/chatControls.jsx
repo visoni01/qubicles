@@ -19,6 +19,8 @@ import {
 import WebSocket from '../../../socket'
 import Forum from '../../../redux-saga/service/forum'
 import { CHAT_ROUTE } from '../../../routes/routesPath'
+import { MESSAGES, REQUEST_TYPES } from '../../../utils/constants'
+import { CHANGE_CURRENT_MESSAGE, MARK_AS_READ, NEW_MESSAGE } from '../../../redux-saga/redux/constants'
 
 const ChatControls = ({
   conversationId, messageText, setMessageText, imageUrl, setImageUrl, isLoading, candidatesInfo, isImageUploading,
@@ -79,7 +81,7 @@ const ChatControls = ({
 
     if (file) {
       if (file.size > maxImageFileSize) {
-        dispatch(showErrorMessage({ msg: 'File size should not be greater than 1 MB!' }))
+        dispatch(showErrorMessage({ msg: MESSAGES.INVALID_IMAGE_FILE_SIZE }))
         return
       }
 
@@ -115,15 +117,15 @@ const ChatControls = ({
     }
 
     dispatch(updateConversations({
-      requestType: 'UPDATE',
-      dataType: 'new-message',
+      requestType: REQUEST_TYPES.UPDATE,
+      dataType: NEW_MESSAGE,
       conversationId,
       newMessage,
     }))
 
     if (window.location.pathname === CHAT_ROUTE) {
       dispatch(updateAllChats({
-        dataType: 'new-message',
+        dataType: NEW_MESSAGE,
         conversationId,
         latestMessage: newMessage.text || 'Sent an image',
         isNotification: false,
@@ -131,8 +133,8 @@ const ChatControls = ({
       }))
     } else {
       dispatch(chatDataRequestStart({
-        requestType: 'UPDATE',
-        dataType: 'mark-as-read',
+        requestType: REQUEST_TYPES.UPDATE,
+        dataType: MARK_AS_READ,
         conversationId,
       }))
     }
@@ -145,7 +147,7 @@ const ChatControls = ({
       to: formatConversationRoomId(conversationId),
       from: userId,
       messages: [ { ...newMessage, isRead: false } ],
-      dataType: 'new-message',
+      dataType: NEW_MESSAGE,
       payload: {
         userIds: candidatesInfo?.map((user) => user.id)?.filter((id) => id !== userId),
       },
@@ -153,8 +155,8 @@ const ChatControls = ({
 
     if (!allRead || (currentChat && !currentChat.allRead)) {
       dispatch(chatDataRequestStart({
-        requestType: 'UPDATE',
-        dataType: 'mark-as-read',
+        requestType: REQUEST_TYPES.UPDATE,
+        dataType: MARK_AS_READ,
         conversationId,
       }))
     }
@@ -169,8 +171,8 @@ const ChatControls = ({
       fetch(imageUrl)
         .then((r) => r.blob()).then((file) => {
           dispatch(updateConversations({
-            requestType: 'UPDATE',
-            dataType: 'change-current-message',
+            requestType: REQUEST_TYPES.UPDATE,
+            dataType: CHANGE_CURRENT_MESSAGE,
             conversationId,
             isImageUploading: true,
             messageToBeSent: {
@@ -186,8 +188,8 @@ const ChatControls = ({
             .then((response) => sendMessage(response?.data?.url))
             .catch(() => dispatch(showErrorMessage({ msg: 'Error while uploading an image!' })))
             .finally(() => dispatch(updateConversations({
-              requestType: 'UPDATE',
-              dataType: 'change-current-message',
+              requestType: REQUEST_TYPES.UPDATE,
+              dataType: CHANGE_CURRENT_MESSAGE,
               conversationId,
               isImageUploading: false,
             })))

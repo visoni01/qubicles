@@ -1,7 +1,8 @@
-const MESSAGES = {
+export const MESSAGES = {
   UNAUTHORIZED: 'You don\'t have permission to perform this action.',
   ERROR: 'An error occurred while processing your request. Please try again later.',
   SUCCESS: 'Request has been processed successfully.',
+  INVALID_IMAGE_FILE_SIZE: 'File size should not be greater than 1 MB!',
 }
 
 export const EVENTS = {
@@ -35,4 +36,10 @@ export const SUBJECTS = {
   REFER_USER: 'Reward Inside',
 }
 
-export default MESSAGES
+export const REQUEST_TYPES = {
+  FETCH: 'FETCH',
+  UPDATE: 'UPDATE',
+  CREATE: 'CREATE',
+  DELETE: 'DELETE',
+  ADD: 'ADD',
+}

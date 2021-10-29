@@ -16,6 +16,7 @@ import ChatOptions from './chatOptions'
 import ViewMembers from './viewMembers'
 import RightSectionSkeleton from '../../../components/Chat/Skeletons/rightSectionSkeleton'
 import { stopLoader } from '../../../redux-saga/redux/utils'
+import { CHANGE_GROUP_NAME, CURRENT_CHAT, DELETE_CHAT } from '../../../redux-saga/redux/constants'
 
 const RightCard = ({ changeGroupName }) => {
   const { initialFetchDone } = useSelector((state) => state.allChats)
@@ -32,12 +33,12 @@ const RightCard = ({ changeGroupName }) => {
   const members = chat?.candidatesInfo
   const isGroup = chat?.isGroup
   const otherUser = members && members.length > 0 && members[ 0 ]
-  const isGroupLoading = chatData?.isLoading && _.isEqual(chatData?.dataType, 'change-group-name')
+  const isGroupLoading = chatData?.isLoading && _.isEqual(chatData?.dataType, CHANGE_GROUP_NAME)
 
   useEffect(() => setGroupNameValue(chat?.groupName), [ chat ])
 
   useEffect(() => {
-    if (!(chatData?.isLoading && _.isEqual(chatData?.dataType, 'change-group-name'))) {
+    if (!(chatData?.isLoading && _.isEqual(chatData?.dataType, CHANGE_GROUP_NAME))) {
       setShowGroupNameField(false)
     }
   }, [ chatData ])
@@ -49,7 +50,7 @@ const RightCard = ({ changeGroupName }) => {
   }, [])
 
   useEffect(() => {
-    if (!chatData?.isLoading && chatData?.success && _.isEqual(chatData?.dataType, 'delete-chat')) {
+    if (!chatData?.isLoading && chatData?.success && _.isEqual(chatData?.dataType, DELETE_CHAT)) {
       dispatch(stopLoader())
     }
   }, [ chatData, dispatch ])
@@ -78,7 +79,7 @@ const RightCard = ({ changeGroupName }) => {
     setGroupNameValue(chat?.groupName)
   }, [ chat ])
 
-  if (((_.isNull(chatData?.isLoading) || chatData?.isLoading) && _.isEqual(chatData?.dataType, 'current-chat'))
+  if (((_.isNull(chatData?.isLoading) || chatData?.isLoading) && _.isEqual(chatData?.dataType, CURRENT_CHAT))
     || (!initialFetchDone)) {
     return (
       <RightSectionSkeleton />

@@ -10,6 +10,8 @@ import OfferedActions from './offeredActions'
 import { jobApplicationRequestStart, allChatsRequestStart } from '../../../../../redux-saga/redux/actions'
 import HiredActions from './hiredActions'
 import '../../styles.scss'
+import { REQUEST_TYPES } from '../../../../../utils/constants'
+import { NEW_CHAT } from '../../../../../redux-saga/redux/constants'
 
 const ClientJobApplicationActions = ({
   application, candidateId, candidateName, profileName, profileImage, location,
@@ -25,15 +27,15 @@ const ClientJobApplicationActions = ({
         jobId: application.jobId,
         status,
       },
-      requestType: 'UPDATE',
+      requestType: REQUEST_TYPES.UPDATE,
     }))
   }, [ dispatch, application ])
 
   const handleSendMessage = useCallback(() => {
     setIsNewChatLoading(true)
     dispatch(allChatsRequestStart({
-      requestType: 'CREATE',
-      dataType: 'new-chat',
+      requestType: REQUEST_TYPES.CREATE,
+      dataType: NEW_CHAT,
       candidate: {
         id: candidateId,
         name: candidateName,
@@ -47,7 +49,7 @@ const ClientJobApplicationActions = ({
   }, [ dispatch, candidateId, candidateName, profileName, profileImage, location ])
 
   useEffect(() => {
-    if (!isLoading && dataType === 'new-chat') {
+    if (!isLoading && dataType === NEW_CHAT) {
       setIsNewChatLoading(false)
     }
   }, [ isLoading, dataType ])

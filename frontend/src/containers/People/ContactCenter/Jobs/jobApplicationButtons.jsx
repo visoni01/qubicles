@@ -4,16 +4,17 @@ import PropTypes from 'prop-types'
 import { Button, CircularProgress } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  startLoader,
-  stopLoader,
-  jobApplicationListRequestStart,
-  allChatsRequestStart,
+  startLoader, stopLoader, jobApplicationListRequestStart, allChatsRequestStart,
 } from '../../../../redux-saga/redux/actions'
+import { REQUEST_TYPES } from '../../../../utils/constants'
+import { NEW_CHAT } from '../../../../redux-saga/redux/constants'
 
 const JobApplicationButtons = ({ application, userDetails }) => {
   const [ isNewChatLoading, setIsNewChatLoading ] = useState(false)
+
   const { isLoading: isChatLoading, dataType } = useSelector((state) => state.allChats)
   const { isLoading } = useSelector((state) => state.jobApplication)
+
   const dispatch = useDispatch()
 
   const handleUpdateStatus = useCallback((status) => {
@@ -23,7 +24,7 @@ const JobApplicationButtons = ({ application, userDetails }) => {
         jobId: application.jobId,
         status,
       },
-      requestType: 'UPDATE',
+      requestType: REQUEST_TYPES.UPDATE,
     }))
   }, [ dispatch, application ])
 
@@ -73,8 +74,8 @@ const JobApplicationButtons = ({ application, userDetails }) => {
   const handleSendMessage = useCallback(() => {
     setIsNewChatLoading(true)
     dispatch(allChatsRequestStart({
-      requestType: 'CREATE',
-      dataType: 'new-chat',
+      requestType: REQUEST_TYPES.CREATE,
+      dataType: NEW_CHAT,
       candidate: {
         id: application.agentUserId,
         name: userDetails?.fullName,
@@ -88,7 +89,7 @@ const JobApplicationButtons = ({ application, userDetails }) => {
   }, [ dispatch, userDetails, application ])
 
   useEffect(() => {
-    if (!isChatLoading && dataType === 'new-chat') {
+    if (!isChatLoading && dataType === NEW_CHAT) {
       setIsNewChatLoading(false)
     }
   }, [ isChatLoading, dataType ])

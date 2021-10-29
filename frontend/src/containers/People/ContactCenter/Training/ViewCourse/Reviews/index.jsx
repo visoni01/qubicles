@@ -21,6 +21,7 @@ import CourseReviewsFilterModal from './courseReviewsFilterModal'
 import { courseReviewsFilterStatus, noOfReviewsPerPage } from '../../../constants'
 import CourseReviewsSkeleton from
   '../../../../../../components/People/ContactCenter/SkeletonLoader/Training/reviewsSkeleton'
+import { REQUEST_TYPES } from '../../../../../../utils/constants'
 
 const CourseReviews = ({ courseId, openReviewModal, setOpenReviewModal }) => {
   const { ratings, addReviewAccess, loading } = useSelector((state) => state.courseRatings)
@@ -54,7 +55,7 @@ const CourseReviews = ({ courseId, openReviewModal, setOpenReviewModal }) => {
 
   useEffect(() => {
     dispatch(courseReviewsRequestStart({
-      requestType: 'FETCH',
+      requestType: REQUEST_TYPES.FETCH,
       courseId,
       reviewFilter,
       offset,

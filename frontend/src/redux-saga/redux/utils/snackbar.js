@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import MESSAGES from '../../../utils/messages'
+import { MESSAGES } from '../../../utils/constants'
 import { getFullMessage } from '../../../utils/common'
 
 const initialState = {

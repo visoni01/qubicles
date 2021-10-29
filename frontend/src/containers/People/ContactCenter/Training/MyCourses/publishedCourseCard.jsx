@@ -11,6 +11,7 @@ import '../style.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { VIEW_COURSE_ROUTE } from '../../../../../routes/routesPath'
 import { allCoursesRequestStart } from '../../../../../redux-saga/redux/people'
+import { REQUEST_TYPES } from '../../../../../utils/constants'
 
 const PublishedCourseCard = ({
   enrolledThisMonth, totalEarned, testEntries,
@@ -22,7 +23,7 @@ const PublishedCourseCard = ({
 
   const handleCopyCourse = useCallback(() => {
     dispatch(allCoursesRequestStart({
-      requestType: 'UPDATE',
+      requestType: REQUEST_TYPES.UPDATE,
       courseId,
     }))
   }, [ dispatch, courseId ])

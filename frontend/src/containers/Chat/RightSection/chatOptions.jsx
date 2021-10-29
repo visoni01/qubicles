@@ -1,8 +1,6 @@
 /* eslint-disable complexity */
 import React, { useState, useCallback, useEffect } from 'react'
-import {
-  Popover, IconButton, Button,
-} from '@material-ui/core'
+import { Popover, IconButton, Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
@@ -14,6 +12,10 @@ import { LogoutIcon } from '../../../assets/images/icons/navBarIcons'
 import { DeleteIcon } from '../../../assets/images/training'
 import { AddPeopleIcon, MarkAsUnreadIcon } from '../../../assets/images/chat'
 import { startLoader } from '../../../redux-saga/redux/utils'
+import { REQUEST_TYPES } from '../../../utils/constants'
+import {
+  ADD_PEOPLE, LEAVE_GROUP, MARK_AS_UNREAD, DELETE_CHAT,
+} from '../../../redux-saga/redux/constants'
 
 const ChatOptions = ({
   isGroup, conversationId, isRemoved, isAllRead, isEmpty,
@@ -55,8 +57,8 @@ const ChatOptions = ({
 
   const handleMarkAsUnread = useCallback(() => {
     dispatch(allChatsRequestStart({
-      requestType: 'UPDATE',
-      dataType: 'mark-as-unread',
+      requestType: REQUEST_TYPES.UPDATE,
+      dataType: MARK_AS_UNREAD,
       conversationId,
     }))
     handleClose()
@@ -64,8 +66,8 @@ const ChatOptions = ({
 
   const handleDeleteChat = useCallback(() => {
     dispatch(chatDataRequestStart({
-      requestType: 'UPDATE',
-      dataType: 'delete-chat',
+      requestType: REQUEST_TYPES.UPDATE,
+      dataType: DELETE_CHAT,
       conversationId,
     }))
     dispatch(startLoader())
@@ -76,8 +78,8 @@ const ChatOptions = ({
 
   const handleLeaveGroup = useCallback(() => {
     dispatch(chatDataRequestStart({
-      requestType: 'UPDATE',
-      dataType: 'leave-group',
+      requestType: REQUEST_TYPES.UPDATE,
+      dataType: LEAVE_GROUP,
       conversationId,
     }))
     setOpenConfirmLeaveModal(false)
@@ -85,7 +87,7 @@ const ChatOptions = ({
   }, [ dispatch, conversationId, handleClose ])
 
   useEffect(() => {
-    if (!isLoading && success && _.isEqual(dataType, 'add-people')) {
+    if (!isLoading && success && _.isEqual(dataType, ADD_PEOPLE)) {
       setOpenAddPeopleModal(false)
     }
   }, [ isLoading, success, dataType ])
@@ -182,9 +184,9 @@ const ChatOptions = ({
         <AddPeople
           open={ openAddPeopleModal }
           handleCancel={ () => setOpenAddPeopleModal(false) }
-          actionType='ADD_PEOPLE'
+          actionType={ ADD_PEOPLE }
           conversationId={ conversationId }
-          loading={ isLoading && _.isEqual(dataType, 'add-people') }
+          loading={ isLoading && _.isEqual(dataType, ADD_PEOPLE) }
         />
       )}
     </>

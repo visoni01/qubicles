@@ -4,14 +4,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
 import { Button, Divider } from '@material-ui/core'
 import {
-  agentResumeSkillsStart,
-  resetAgentResumeSkillsFlags,
+  agentResumeSkillsStart, resetAgentResumeSkillsFlags,
 } from '../../../../../redux-saga/redux/people/talent/agentResumeSkills'
 import AgentSkillSection from './agentSkillSection'
 import SkillsAndEndorsementsSkeleton from
   '../../../../../components/People/ContactCenter/SkeletonLoader/Common/skillsAndEndorsements'
 import EditSkills from './editSkills'
 import { resetAgentProfileSettingsFlags } from '../../../../../redux-saga/redux/actions'
+import { REQUEST_TYPES } from '../../../../../utils/constants'
 
 // eslint-disable-next-line complexity
 const SkillsPage = ({
@@ -29,7 +29,7 @@ const SkillsPage = ({
 
   useEffect(() => {
     if (candidateId !== agentResumeSkills.candidateId) {
-      dispatch(agentResumeSkillsStart({ candidateId, requestType: 'FETCH' }))
+      dispatch(agentResumeSkillsStart({ candidateId, requestType: REQUEST_TYPES.FETCH }))
     }
   }, [ dispatch, agentResumeSkills.candidateId, candidateId ])
 
@@ -38,11 +38,11 @@ const SkillsPage = ({
   }, [])
 
   useEffect(() => {
-    if (!isLoading && success && requestType === 'UPDATE') {
+    if (!isLoading && success && requestType === REQUEST_TYPES.UPDATE) {
       setOpenEditSkillsModal(false)
       dispatch(resetAgentResumeSkillsFlags())
     }
-    if (!isLoadingLanguage && successLanguage && requestTypeLanguage === 'UPDATE') {
+    if (!isLoadingLanguage && successLanguage && requestTypeLanguage === REQUEST_TYPES.UPDATE) {
       setOpenEditSkillsModal(false)
       dispatch(resetAgentProfileSettingsFlags())
     }

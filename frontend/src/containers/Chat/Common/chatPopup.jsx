@@ -14,6 +14,8 @@ import {
 import { groupChatIcon, MaximizeIcon } from '../../../assets/images/chat'
 import { activeUsersPropTypes, chatDataPropTypes } from '../propTypes'
 import MiddleSectionChatSkeletons from '../../../components/Chat/Skeletons/middleSectionChatSkeletons'
+import { REQUEST_TYPES } from '../../../utils/constants'
+import { MARK_AS_READ } from '../../../redux-saga/redux/constants'
 
 // eslint-disable-next-line complexity
 const ChatPopup = ({
@@ -37,17 +39,17 @@ const ChatPopup = ({
     event.stopPropagation()
     if (conversationData && !conversationData.allRead) {
       dispatch(chatDataRequestStart({
-        requestType: 'UPDATE',
-        dataType: 'mark-as-read',
+        requestType: REQUEST_TYPES.UPDATE,
+        dataType: MARK_AS_READ,
         conversationId: conversationData?.conversationId,
       }))
     }
     dispatch(updateChatPopups({
-      requestType: 'DELETE',
+      requestType: REQUEST_TYPES.DELETE,
       conversationId: conversationData && conversationData.conversationId,
     }))
     dispatch(updateConversations({
-      requestType: 'DELETE',
+      requestType: REQUEST_TYPES.DELETE,
       conversationId: conversationData && conversationData.conversationId,
     }))
   }, [ dispatch, conversationData ])

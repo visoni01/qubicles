@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { CHATS_LIST } from '../constants'
 import { updateAllChatsReducer } from './helper'
 
 const initialState = {
@@ -36,7 +37,7 @@ const {
       dataType: action.payload.dataType,
       offset: action.payload.offset || 0,
       searchKeyword: action.payload.searchKeyword || '',
-      more: state.dataType === 'chats-list' ? false : state.more,
+      more: state.dataType === CHATS_LIST ? false : state.more,
     }),
     allChatsRequestSuccess: (state, action) => ({
       ...state,
@@ -48,7 +49,7 @@ const {
         payload: { ...action.payload, dataType: state.dataType },
         chatsList: state.chatsList,
       }),
-      more: state.dataType === 'chats-list' ? action.payload.more : state.more,
+      more: state.dataType === CHATS_LIST ? action.payload.more : state.more,
     }),
     allChatsRequestFailed: (state) => ({
       ...state,

@@ -3,9 +3,7 @@ import React, {
 } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent,
-  DialogTitle, TextField, Button,
-  IconButton,
+  Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, IconButton,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -14,6 +12,7 @@ import {
   jobsWithCategoriesFetchStart, jobApplicationRequestStart,
 } from '../../../../redux-saga/redux/actions'
 import SingleSelect from '../../../Shared/singleSelect'
+import { REQUEST_TYPES } from '../../../../utils/constants'
 
 const InviteAgent = ({
   open, handleClose, candidateId,
@@ -61,7 +60,7 @@ const InviteAgent = ({
           videoPitchUrl: '',
           status: 'invited',
         },
-        requestType: 'CREATE',
+        requestType: REQUEST_TYPES.CREATE,
       }))
     },
     [ dispatch, inviteMessage, selectedJob, candidateId, settings.companyId ],

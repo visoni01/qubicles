@@ -1,6 +1,7 @@
 import { Box, Button } from '@material-ui/core'
 import React, { useCallback, useState } from 'react'
 import { NoMessagesIcon } from '../../../assets/images/chat'
+import { NEW_CHAT, NEW_GROUP } from '../../../redux-saga/redux/constants'
 import NewChat from '../Common/addPeople'
 
 const NoConversationBox = () => {
@@ -49,7 +50,7 @@ const NoConversationBox = () => {
       <NewChat
         open={ openNewChatModal }
         handleCancel={ () => setOpenNewChatModal(false) }
-        actionType='NEW_CHAT'
+        actionType={ NEW_CHAT }
       />
       )}
 
@@ -58,7 +59,7 @@ const NoConversationBox = () => {
       <NewChat
         open={ openNewGroupModal }
         handleCancel={ () => setOpenNewGroupModal(false) }
-        actionType='NEW_GROUP'
+        actionType={ NEW_GROUP }
       />
       )}
     </Box>

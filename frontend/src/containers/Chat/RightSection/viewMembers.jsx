@@ -11,14 +11,17 @@ import Loader from '../../loaders/circularLoader'
 import PersonCard from '../Common/personCard'
 import { chatDataRequestStart } from '../../../redux-saga/redux/chat'
 import { groupMembersPropTypes } from '../propTypes'
+import { REQUEST_TYPES } from '../../../utils/constants'
+import { REMOVE_PERSON, VIEW_MEMBERS } from '../../../redux-saga/redux/constants'
 
 const ViewMembers = ({
   open, handleClose, members, conversationId, isRemoved,
 }) => {
   const { userDetails } = useSelector((state) => state.login)
+  const { conversations } = useSelector((state) => state.chatData)
+
   const [ sortedMembersList, setSortedMembersList ] = useState(members)
 
-  const { conversations } = useSelector((state) => state.chatData)
   const currentConversation = conversations?.find((conversation) => conversation.data.conversationId === conversationId)
   const dataType = currentConversation?.dataType
   const isLoading = currentConversation?.isLoading
@@ -39,8 +42,8 @@ const ViewMembers = ({
 
   const handleRemove = useCallback(({ id, name }) => {
     dispatch(chatDataRequestStart({
-      requestType: 'UPDATE',
-      dataType: 'remove-person',
+      requestType: REQUEST_TYPES.UPDATE,
+      dataType: REMOVE_PERSON,
       conversationId,
       candidateId: id,
       name,
@@ -63,7 +66,7 @@ const ViewMembers = ({
               Members
             </div>
 
-            {isLoading && _.isEqual(dataType, 'remove-person') && (
+            {isLoading && _.isEqual(dataType, REMOVE_PERSON) && (
             <Loader
               className='static-small-loader'
               enableOverlay={ false }
@@ -95,10 +98,10 @@ const ViewMembers = ({
                 title={ person.title }
                 profilePic={ person.profilePic }
                 userCode={ person.userCode }
-                actionType='VIEW_MEMBERS'
+                actionType={ VIEW_MEMBERS }
                 handleRemove={ handleRemove }
                 isRemoved={ isRemoved }
-                loading={ isLoading && _.isEqual(dataType, 'remove-person') }
+                loading={ isLoading && _.isEqual(dataType, REMOVE_PERSON) }
               />
               {index !== sortedMembersList.length - 1 && <Divider className='user-list-divider' />}
             </div>

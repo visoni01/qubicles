@@ -8,12 +8,11 @@ import * as yup from 'yup'
 import { useDispatch } from 'react-redux'
 import { accountSettingInfoDefaultProps, accountSettingInfoPropTypes } from '../settingsProps'
 import {
-  updateCompanyProfileSettingsApiStart,
-  resetUpdateProfileSettingsFlags,
-  agentProfileSettingsApiStart,
+  updateCompanyProfileSettingsApiStart, resetUpdateProfileSettingsFlags, agentProfileSettingsApiStart,
   resetAgentProfileSettingsFlags,
 } from '../../../../../redux-saga/redux/actions'
 import Loader from '../../../../loaders/circularLoader'
+import { REQUEST_TYPES } from '../../../../../utils/constants'
 
 const ChangeEmail = ({
   open, setOpen, accountSettingInfo,
@@ -59,7 +58,7 @@ const ChangeEmail = ({
           updatedData: {
             email: data.newEmail,
           },
-          requestType: 'UPDATE',
+          requestType: REQUEST_TYPES.UPDATE,
         }))
       }
       setNewEmail(data.newEmail)
@@ -85,7 +84,7 @@ const ChangeEmail = ({
           updatedData: {
             email: newEmail,
           },
-          requestType: 'UPDATE',
+          requestType: REQUEST_TYPES.UPDATE,
         }))
       }
     }

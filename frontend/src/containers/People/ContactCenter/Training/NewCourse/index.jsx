@@ -10,6 +10,7 @@ import CreateCourse from './createCourse'
 import './styles.scss'
 import AlertPopover from '../../../../../components/CommonModal/alertPopover'
 import checkAndSetErrors from './checkAndSetErrors'
+import { REQUEST_TYPES } from '../../../../../utils/constants'
 
 const NewCoursePage = () => {
   const {
@@ -48,7 +49,7 @@ const NewCoursePage = () => {
 
   useEffect(() => {
     if (isLoading) {
-      if (_.isEqual(requestType, 'CREATE')) {
+      if (_.isEqual(requestType, REQUEST_TYPES.CREATE)) {
         dispatch(startLoader({
           type: 'progress',
         }))

@@ -1,13 +1,9 @@
 /* eslint-disable complexity */
 import { takeEvery, put } from 'redux-saga/effects'
+import { REQUEST_TYPES } from '../../../../utils/constants'
 import {
-  courseReviewsRequestStart,
-  courseReviewsRequestSuccess,
-  courseReviewsRequestFailure,
-  showErrorMessage,
-  courseRatingsFetchSuccessful,
-  showSuccessMessage,
-  updateCourseRating,
+  courseReviewsRequestStart, courseReviewsRequestSuccess, courseReviewsRequestFailure, showErrorMessage,
+  courseRatingsFetchSuccessful, showSuccessMessage, updateCourseRating,
 } from '../../../redux/actions'
 import People from '../../../service/people'
 
@@ -22,7 +18,7 @@ function* courseReviewsWorker(action) {
     } = action.payload
 
     switch (requestType) {
-      case 'FETCH': {
+      case REQUEST_TYPES.FETCH: {
         const { data } = yield People.fetchCourseReviews({ courseId, reviewFilter, offset })
         yield (put(courseReviewsRequestSuccess({
           count: data.count,
@@ -31,7 +27,7 @@ function* courseReviewsWorker(action) {
         break
       }
 
-      case 'CREATE': {
+      case REQUEST_TYPES.CREATE: {
         const { data } = yield People.addCourseReview({ courseId, reviewData })
         // Update courseRatings reducer
         yield put(courseRatingsFetchSuccessful({

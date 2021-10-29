@@ -4,9 +4,9 @@ import {
 } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import {
-  updateAgentJobApplicationsCategory,
-  agentJobApplicationsRequestStart,
+  updateAgentJobApplicationsCategory, agentJobApplicationsRequestStart,
 } from '../../../../redux-saga/redux/actions'
+import { REQUEST_TYPES } from '../../../../utils/constants'
 
 const ApplicationFilter = () => {
   const {
@@ -29,7 +29,7 @@ const ApplicationFilter = () => {
           statusTypes: selectedCategory.statusTypes,
           applicationCategoryId: selectedCategory.id,
         },
-        requestType: 'FETCH',
+        requestType: REQUEST_TYPES.FETCH,
       }))
     }
     // eslint-disable-next-line

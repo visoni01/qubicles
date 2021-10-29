@@ -8,12 +8,11 @@ import * as yup from 'yup'
 import { useDispatch } from 'react-redux'
 import { accountSettingInfoPropTypes, accountSettingInfoDefaultProps } from '../settingsProps'
 import {
-  updateCompanyProfileSettingsApiStart,
-  resetUpdateProfileSettingsFlags,
-  agentProfileSettingsApiStart,
+  updateCompanyProfileSettingsApiStart, resetUpdateProfileSettingsFlags, agentProfileSettingsApiStart,
   resetAgentProfileSettingsFlags,
 } from '../../../../../redux-saga/redux/actions'
 import Loader from '../../../../loaders/circularLoader'
+import { REQUEST_TYPES } from '../../../../../utils/constants'
 
 const ChangeAddress = ({
   open, setOpen, accountSettingInfo, isUpdateLoading, isUpdateSuccess, updatedDataType, userType,
@@ -54,7 +53,7 @@ const ChangeAddress = ({
             state: data.state,
             zip: data.zip,
           },
-          requestType: 'UPDATE',
+          requestType: REQUEST_TYPES.UPDATE,
         }))
       }
     }

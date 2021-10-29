@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { COMPANY_PROFILE_ROUTE, PROFILE_ROUTE } from '../../../routes/routesPath'
 import ConfirmationModal from '../../../components/CommonModal/confirmationModal'
+import { VIEW_MEMBERS } from '../../../redux-saga/redux/constants'
 
 const PersonCard = ({
   id, clientId, name, title, profilePic, userCode, actionType, handleRemove, isRemoved, loading,
@@ -20,14 +21,14 @@ const PersonCard = ({
   return (
     <div
       className={
-        `person-card ${ actionType !== 'VIEW_MEMBERS' ? 'person-card-hover' : '' } ${ loading ? 'no-hover' : '' }`
+        `person-card ${ actionType !== VIEW_MEMBERS ? 'person-card-hover' : '' } ${ loading ? 'no-hover' : '' }`
       }
       id={ id }
     >
-      <div className={ `is-flex is-vcenter ${ actionType === 'VIEW_MEMBERS' && 'pt-5 pb-5' }` }>
+      <div className={ `is-flex is-vcenter ${ actionType === VIEW_MEMBERS && 'pt-5 pb-5' }` }>
         <Avatar className='profile-pic' alt={ name } src={ profilePic } />
 
-        {actionType !== 'VIEW_MEMBERS'
+        {actionType !== VIEW_MEMBERS
           ? (
             <div>
               <h4 className='h4 mb-5'>{name}</h4>

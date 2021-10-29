@@ -12,6 +12,10 @@ import ProfilePreview from '../../../components/Chat/profilePreview'
 import { updateAllChats, updateConversations } from '../../../redux-saga/redux/chat'
 import { groupMembersPropTypes } from '../propTypes'
 import WebSocket from '../../../socket'
+import { REQUEST_TYPES } from '../../../utils/constants'
+import {
+  CANCEL_MESSAGE, NEW_MESSAGE, REMOVE_MESSAGE, UPDATE_ERROR_FLAG,
+} from '../../../redux-saga/redux/constants'
 
 const UserMessage = ({
   conversationId, messageId, senderId, clientId, message, profilePic, senderName, imageUrl, sentAt, error,
@@ -45,8 +49,8 @@ const UserMessage = ({
     const newSentAtTime = Date.now()
 
     dispatch(updateConversations({
-      requestType: 'UPDATE',
-      dataType: 'update-error-flag',
+      requestType: REQUEST_TYPES.UPDATE,
+      dataType: UPDATE_ERROR_FLAG,
       conversationId,
       messageId,
       error: false,
@@ -54,8 +58,8 @@ const UserMessage = ({
     }))
 
     dispatch(updateAllChats({
-      requestType: 'UPDATE',
-      dataType: 'update-error-flag',
+      requestType: REQUEST_TYPES.UPDATE,
+      dataType: UPDATE_ERROR_FLAG,
       conversationId,
       error: false,
     }))
@@ -75,7 +79,7 @@ const UserMessage = ({
         isRead: false,
         error: false,
       } ],
-      dataType: 'new-message',
+      dataType: NEW_MESSAGE,
       payload: {
         userIds: candidatesInfo?.map((user) => user.id)?.filter((id) => id !== senderId),
         isLatestMessage: _.isEqual(latestMessage?.messageId, messageId),
@@ -93,16 +97,16 @@ const UserMessage = ({
     const newLatestConversationMessage = chats?.length && chats.length > 1 && chats[ chats.length - 2 ]
 
     dispatch(updateConversations({
-      requestType: 'UPDATE',
-      dataType: 'remove-message',
+      requestType: REQUEST_TYPES.UPDATE,
+      dataType: REMOVE_MESSAGE,
       conversationId,
       messageId,
     }))
 
     if (_.isEqual(messageId, latestConversationMessage?.messageId)) {
       dispatch(updateAllChats({
-        requestType: 'UPDATE',
-        dataType: 'cancel-message',
+        requestType: REQUEST_TYPES.UPDATE,
+        dataType: CANCEL_MESSAGE,
         conversationId,
         latestMessage: newLatestConversationMessage?.text || '',
         isImage: !!newLatestConversationMessage?.imageUrl,

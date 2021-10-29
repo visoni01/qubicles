@@ -17,6 +17,7 @@ import {
   chatIcon, walletIcon, settingIcon, logoutIcon,
 } from '../../assets/images/icons/navBarIcons'
 import ROUTE_PATHS, { PROFILE_ROUTE } from '../../routes/routesPath'
+import { REQUEST_TYPES } from '../../utils/constants'
 
 const UserMenu = () => {
   const history = useHistory()
@@ -43,7 +44,7 @@ const UserMenu = () => {
     if (userDetails && userDetails.is_post_signup_completed && userDetails.user_code === 'agent') {
       if (!isLoading && !success && !requestType) {
         dispatch(agentProfileSettingsApiStart({
-          requestType: 'FETCH',
+          requestType: REQUEST_TYPES.FETCH,
         }))
       }
     }

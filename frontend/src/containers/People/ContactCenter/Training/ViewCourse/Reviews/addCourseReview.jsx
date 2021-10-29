@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import ReviewModal from '../../../../../Shared/reviewModal'
 import courseRatingLabels from './ratingLabels'
 import { courseReviewsRequestStart } from '../../../../../../redux-saga/redux/people'
+import { REQUEST_TYPES } from '../../../../../../utils/constants'
 
 const AddCourseReview = ({
   openReviewModal, setOpenReviewModal, courseId, loading, requestType,
@@ -30,7 +31,7 @@ const AddCourseReview = ({
 
   const submitReview = useCallback(() => {
     dispatch(courseReviewsRequestStart({
-      requestType: 'CREATE',
+      requestType: REQUEST_TYPES.CREATE,
       courseId,
       reviewData: {
         value: rating.valueRating,
@@ -43,14 +44,14 @@ const AddCourseReview = ({
   }, [ dispatch, rating, courseId, reviewText ])
 
   useEffect(() => {
-    if (!loading && requestType === 'CREATE') {
+    if (!loading && requestType === REQUEST_TYPES.CREATE) {
       handleOnReviewModalClose()
     }
   }, [ loading, requestType, handleOnReviewModalClose ])
 
   return (
     <ReviewModal
-      loading={ loading && requestType === 'CREATE' }
+      loading={ loading && requestType === REQUEST_TYPES.CREATE }
       open={ openReviewModal }
       onClose={ handleOnReviewModalClose }
       onSubmit={ submitReview }

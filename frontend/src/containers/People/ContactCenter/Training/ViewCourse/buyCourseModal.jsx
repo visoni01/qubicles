@@ -8,6 +8,7 @@ import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { formatDate } from '../../../../../utils/common'
 import { viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
+import { REQUEST_TYPES } from '../../../../../utils/constants'
 
 const BuyCourseModal = ({
   open, onClose, courseId, title, createdOn, price, creatorName,
@@ -16,7 +17,7 @@ const BuyCourseModal = ({
 
   const handleBuyCourse = useCallback(() => {
     dispatch(viewCourseRequestStart({
-      requestType: 'FETCH',
+      requestType: REQUEST_TYPES.FETCH,
       dataType: 'Buy Course',
       courseId,
     }))

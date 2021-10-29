@@ -7,6 +7,8 @@ import RightSection from './RightSection'
 import MiddleSection from './MiddleSection'
 import NoConversationBox from './MiddleSection/noConversationBox'
 import { chatDataRequestStart, resetAllChatsReducer, resetConversations } from '../../redux-saga/redux/chat'
+import { REQUEST_TYPES } from '../../utils/constants'
+import { CHANGE_GROUP_NAME } from '../../redux-saga/redux/constants'
 
 const ChatSection = () => {
   const { isLoading, initialFetchDone } = useSelector((state) => state.allChats)
@@ -19,8 +21,8 @@ const ChatSection = () => {
   const handleGroupNameChange = useCallback(({ newGroupName, oldGroupName }) => {
     if (!_.isEqual(newGroupName, oldGroupName)) {
       dispatch(chatDataRequestStart({
-        requestType: 'UPDATE',
-        dataType: 'change-group-name',
+        requestType: REQUEST_TYPES.UPDATE,
+        dataType: CHANGE_GROUP_NAME,
         conversationId: currentChatId,
         newGroupName,
         oldGroupName,

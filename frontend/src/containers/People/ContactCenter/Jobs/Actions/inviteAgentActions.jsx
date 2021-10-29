@@ -7,6 +7,8 @@ import PropTypes from 'prop-types'
 import InviteAgent from '../inviteAgent'
 import '../styles.scss'
 import { allChatsRequestStart } from '../../../../../redux-saga/redux/chat'
+import { REQUEST_TYPES } from '../../../../../utils/constants'
+import { NEW_CHAT } from '../../../../../redux-saga/redux/constants'
 
 const InviteAgentActions = ({
   candidateId, candidateName, location, profileName, profileImage,
@@ -21,8 +23,8 @@ const InviteAgentActions = ({
   const handleSendMessage = useCallback(() => {
     setIsNewChatLoading(true)
     dispatch(allChatsRequestStart({
-      requestType: 'CREATE',
-      dataType: 'new-chat',
+      requestType: REQUEST_TYPES.CREATE,
+      dataType: NEW_CHAT,
       candidate: {
         id: candidateId,
         name: candidateName,
@@ -36,7 +38,7 @@ const InviteAgentActions = ({
   }, [ dispatch, candidateId, candidateName, profileName, profileImage, location ])
 
   useEffect(() => {
-    if (!isLoading && dataType === 'new-chat') {
+    if (!isLoading && dataType === NEW_CHAT) {
       setIsNewChatLoading(false)
     }
   }, [ isLoading, dataType ])

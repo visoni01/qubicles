@@ -1,5 +1,6 @@
 /* eslint-disable complexity */
 import _ from 'lodash'
+import { REQUEST_TYPES } from '../../../utils/constants'
 
 export const updateApplicationsListHelper = ({
   currentCategoryId, applicationList, updatedApplication, applicationCategoryId,
@@ -43,7 +44,7 @@ const updateUnitOrTestData = ({
 // eslint-disable-next-line complexity
 export const getUpdatedCourse = ({ state, action }) => {
   switch (state.requestType) {
-    case 'FETCH': {
+    case REQUEST_TYPES.FETCH: {
       switch (state.dataType) {
         case 'Course Info': {
           return {
@@ -97,7 +98,7 @@ export const getUpdatedCourse = ({ state, action }) => {
       }
     }
 
-    case 'UPDATE': {
+    case REQUEST_TYPES.UPDATE: {
       switch (state.dataType) {
         case 'Course Unit': {
           return {
@@ -136,7 +137,7 @@ export const getUpdatedCourse = ({ state, action }) => {
       }
     }
 
-    case 'CREATE': {
+    case REQUEST_TYPES.CREATE: {
       switch (state.dataType) {
         case 'Assessment Test': {
           return {
@@ -163,7 +164,7 @@ export const getUpdatedCourse = ({ state, action }) => {
 
 export const updateTestEntriesReducer = ({ state, action }) => {
   switch (state.requestType) {
-    case 'FETCH': {
+    case REQUEST_TYPES.FETCH: {
       switch (state.dataType) {
         case 'All Test Entries': {
           return {
@@ -191,7 +192,7 @@ export const updateTestEntriesReducer = ({ state, action }) => {
       }
     }
 
-    case 'UPDATE': {
+    case REQUEST_TYPES.UPDATE: {
       switch (state.dataType) {
         case 'Validate Answers': {
           const testEntryIndex = _.findIndex(

@@ -1,12 +1,8 @@
 import { takeEvery, put } from 'redux-saga/effects'
+import { REQUEST_TYPES } from '../../../../utils/constants'
 import {
-  allCoursesRequestStart,
-  allCoursesRequestSuccess,
-  allCoursesRequestFailed,
-  showErrorMessage,
-  showSuccessMessage,
-  updateAllCoursesReducer,
-  deleteAllCoursesReducer,
+  allCoursesRequestStart, allCoursesRequestSuccess, allCoursesRequestFailed, showErrorMessage, showSuccessMessage,
+  updateAllCoursesReducer, deleteAllCoursesReducer,
 } from '../../../redux/actions'
 import People from '../../../service/people'
 
@@ -19,13 +15,13 @@ function* allCoursesWorker(action) {
     const { requestType } = action.payload
 
     switch (requestType) {
-      case 'FETCH': {
+      case REQUEST_TYPES.FETCH: {
         const { data } = yield People.fetchAllCourses()
         yield put(allCoursesRequestSuccess({ courses: data }))
         break
       }
 
-      case 'UPDATE': {
+      case REQUEST_TYPES.UPDATE: {
         const { data } = yield People.fetchCourse({ courseId: action.payload.courseId, requestType: 'CopyCourse' })
         const { data: copiedCourse } = yield People.copyCourse({
           course: {
@@ -43,7 +39,7 @@ function* allCoursesWorker(action) {
         break
       }
 
-      case 'DELETE': {
+      case REQUEST_TYPES.DELETE: {
         const { data } = yield People.deleteCourse({ courseId: action.payload.courseId })
         if (data) {
           yield put(deleteAllCoursesReducer({ courseId: action.payload.courseId }))

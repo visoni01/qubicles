@@ -6,6 +6,7 @@ import ChangeEmail from '../../Company/Settings/SettingsDrawers/changeEmail'
 import ChangeNumber from '../../Company/Settings/SettingsDrawers/changeNumber'
 import ChangePassword from '../../Company/Settings/SettingsDrawers/changePassword'
 import ChangeAddress from '../../Company/Settings/SettingsDrawers/changeAddress'
+import { REQUEST_TYPES } from '../../../../utils/constants'
 
 const AccountSection = () => {
   const [ openDrawer, setOpenDrawer ] = useState({
@@ -28,7 +29,7 @@ const AccountSection = () => {
 
   return (
     <div>
-      {(!isUpdateLoading || requestType === 'UPDATE') && (
+      {(!isUpdateLoading || requestType === REQUEST_TYPES.UPDATE) && (
         <>
           <AccountView
             openDrawer={ openDrawer }

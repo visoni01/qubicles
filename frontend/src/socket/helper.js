@@ -6,11 +6,16 @@ import {
 } from '../redux-saga/redux/chat'
 import { CHAT_ROUTE } from '../routes/routesPath'
 import { playNotificationAudio } from '../utils/common'
+import { REQUEST_TYPES } from '../utils/constants'
+import {
+  ADD_CONVERSATION, ADD_PEOPLE, CHANGE_GROUP_NAME, CURRENT_CHAT, LEAVE_GROUP, NEW_GROUP, NEW_MESSAGE, REMOVE_PERSON,
+  RETRY_MESSAGE,
+} from '../redux-saga/redux/constants'
 
 const fetchAndAddChatData = ({ conversationId }) => {
   store.dispatch(chatDataRequestStart({
-    requestType: 'FETCH',
-    dataType: 'current-chat',
+    requestType: REQUEST_TYPES.FETCH,
+    dataType: CURRENT_CHAT,
     conversationId,
     updateAllChat: true,
   }))
@@ -19,8 +24,8 @@ const fetchAndAddChatData = ({ conversationId }) => {
 const addMessagesInChatReducers = ({ messages, conversationId, fromSelf }) => {
   messages.forEach((message) => {
     store.dispatch(updateConversations({
-      requestType: 'UPDATE',
-      dataType: 'new-message',
+      requestType: REQUEST_TYPES.UPDATE,
+      dataType: NEW_MESSAGE,
       conversationId,
       newMessage: message,
       fromSelf,
@@ -28,8 +33,8 @@ const addMessagesInChatReducers = ({ messages, conversationId, fromSelf }) => {
 
     if (_.isEqual(message.error, false)) {
       store.dispatch(updateAllChats({
-        requestType: 'UDPATE',
-        dataType: 'retry-message',
+        requestType: REQUEST_TYPES.UDPATE,
+        dataType: RETRY_MESSAGE,
         conversationId,
         latestMessage: message.text,
         isImage: !!message.imageUrl,
@@ -43,7 +48,7 @@ const addMessagesInChatReducers = ({ messages, conversationId, fromSelf }) => {
     const lastMessage = messages && messages[ messages?.length - 1 ]
 
     store.dispatch(updateAllChats({
-      dataType: 'new-message',
+      dataType: NEW_MESSAGE,
       conversationId,
       dateTime: lastMessage?.sentAt,
       latestMessage: lastMessage?.text,
@@ -60,21 +65,21 @@ const addMessagesInChatReducers = ({ messages, conversationId, fromSelf }) => {
 
 const addChatPopup = ({ conversationId }) => {
   store.dispatch(updateChatPopups({
-    requestType: 'ADD',
+    requestType: REQUEST_TYPES.ADD,
     conversationId,
   }))
 }
 
 const chatNewGroupHandler = ({ payload, fromSelf, conversationId }) => {
   store.dispatch(updateConversations({
-    requestType: 'CREATE',
-    dataType: 'add-conversation',
+    requestType: REQUEST_TYPES.CREATE,
+    dataType: ADD_CONVERSATION,
     newChat: payload?.newConversation?.newChat,
   }))
 
   if (window.location.pathname === CHAT_ROUTE) {
     store.dispatch(updateAllChats({
-      dataType: 'new-group',
+      dataType: NEW_GROUP,
       newChat: payload.newChat,
     }))
   }
@@ -93,8 +98,8 @@ const chatRemovePersonHandler = ({ payload, conversationData, conversationId }) 
     const { userDetails } = store.getState().login
     const userId = userDetails && userDetails.user_id
     store.dispatch(updateConversations({
-      requestType: 'UPDATE',
-      dataType: 'remove-person',
+      requestType: REQUEST_TYPES.UPDATE,
+      dataType: REMOVE_PERSON,
       conversationId,
       removedPersonId: payload.removedPersonId,
       fromSelf: _.isEqual(userId, payload.removedPersonId),
@@ -109,7 +114,7 @@ const chatRemovePersonHandler = ({ payload, conversationData, conversationId }) 
 
       if (_.isEqual(userId, payload.removedPersonId)) {
         store.dispatch(updateAllChats({
-          dataType: 'leave-group',
+          dataType: LEAVE_GROUP,
           conversationId,
           newGroupName: _.isEmpty(conversationData.groupName) && groupName,
           isRemoved: true,
@@ -120,7 +125,7 @@ const chatRemovePersonHandler = ({ payload, conversationData, conversationId }) 
         }))
       } else if (_.isEmpty(conversationData.groupName)) {
         store.dispatch(updateAllChats({
-          dataType: 'change-group-name',
+          dataType: CHANGE_GROUP_NAME,
           conversationId,
           newGroupName: groupName,
         }))
@@ -137,8 +142,8 @@ const chatAddPeopleHandler = ({ payload, conversationData, conversationId }) => 
     const userId = userDetails && userDetails.user_id
     const isUserBelongsToGroup = payload.newMembers?.find((member) => member.id === userId)
     store.dispatch(updateConversations({
-      requestType: 'UPDATE',
-      dataType: 'add-people',
+      requestType: REQUEST_TYPES.UPDATE,
+      dataType: ADD_PEOPLE,
       conversationId,
       newMembers: payload.newMembers,
       fromSelf: isUserBelongsToGroup,
@@ -153,7 +158,7 @@ const chatAddPeopleHandler = ({ payload, conversationData, conversationId }) => 
       const groupName = updatedconversationData.candidatesInfo?.map((member) => member.name).join(', ')
 
       store.dispatch(updateAllChats({
-        dataType: 'add-people',
+        dataType: ADD_PEOPLE,
         conversationId,
         newGroupName: _.isEmpty(conversationData.groupName) && groupName,
         isRemoved: false,
@@ -169,15 +174,15 @@ const chatAddPeopleHandler = ({ payload, conversationData, conversationId }) => 
 const chatChangeGroupNameHandler = ({ payload, conversationData, conversationId }) => {
   if (conversationData) {
     store.dispatch(updateConversations({
-      requestType: 'UPDATE',
-      dataType: 'change-group-name',
+      requestType: REQUEST_TYPES.UPDATE,
+      dataType: CHANGE_GROUP_NAME,
       conversationId,
       newGroupName: payload.newGroupName,
     }))
 
     if (window.location.pathname === CHAT_ROUTE) {
       store.dispatch(updateAllChats({
-        dataType: 'change-group-name',
+        dataType: CHANGE_GROUP_NAME,
         conversationId,
         newGroupName: payload.newGroupName,
       }))
@@ -193,27 +198,27 @@ const receiveMessageCasesHandler = ({
   dataType, payload, conversationData, conversationId, fromSelf,
 }) => {
   switch (dataType) {
-    case 'new-group': {
+    case NEW_GROUP: {
       chatNewGroupHandler({ payload, fromSelf, conversationId })
       break
     }
 
-    case 'remove-person': {
+    case REMOVE_PERSON: {
       chatRemovePersonHandler({ payload, conversationData, conversationId })
       break
     }
 
-    case 'add-people': {
+    case ADD_PEOPLE: {
       chatAddPeopleHandler({ payload, conversationData, conversationId })
       break
     }
 
-    case 'change-group-name': {
+    case CHANGE_GROUP_NAME: {
       chatChangeGroupNameHandler({ payload, conversationData, conversationId })
       break
     }
 
-    case 'new-message': {
+    case NEW_MESSAGE: {
       if (!conversationData) {
         fetchAndAddChatData({ conversationId })
       }

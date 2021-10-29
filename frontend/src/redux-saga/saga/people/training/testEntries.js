@@ -1,10 +1,7 @@
 import { takeEvery, put } from 'redux-saga/effects'
+import { REQUEST_TYPES } from '../../../../utils/constants'
 import {
-  testEntriesRequestStart,
-  testEntriesRequestSuccess,
-  testEntriesRequestFailed,
-  showErrorMessage,
-  showSuccessMessage,
+  testEntriesRequestStart, testEntriesRequestSuccess, testEntriesRequestFailed, showErrorMessage, showSuccessMessage,
 } from '../../../redux/actions'
 import People from '../../../service/people'
 
@@ -19,7 +16,7 @@ function* testEntriesWorker(action) {
     } = action.payload
 
     switch (requestType) {
-      case 'FETCH': {
+      case REQUEST_TYPES.FETCH: {
         switch (dataType) {
           case 'All Test Entries': {
             const { data } = yield People.fetchAllTestEntries({ courseId })
@@ -38,7 +35,7 @@ function* testEntriesWorker(action) {
         break
       }
 
-      case 'UPDATE': {
+      case REQUEST_TYPES.UPDATE: {
         switch (dataType) {
           case 'Validate Answers': {
             yield People.validateTestEntryAnswers({ courseId, candidateId, validatedData })

@@ -15,6 +15,8 @@ import {
   allChatsRequestStart, chatDataRequestStart, chatSuggestionsFetchStart, resetChatSuggestionsReducer,
 } from '../../../redux-saga/redux/chat'
 import SuggestedUsersSkeleton from '../../../components/Chat/Skeletons/suggestedUsersSkeleton'
+import { REQUEST_TYPES } from '../../../utils/constants'
+import { ADD_PEOPLE, NEW_CHAT, NEW_GROUP } from '../../../redux-saga/redux/constants'
 
 // eslint-disable-next-line complexity
 const AddPeople = ({
@@ -49,7 +51,7 @@ const AddPeople = ({
   }, 500), [ dispatch ])
 
   const addPerson = useCallback((event) => {
-    if (!loading && actionType !== 'NEW_CHAT') {
+    if (!loading && actionType !== NEW_CHAT) {
       const personCard = event.target.closest('.person-card')
       if (personCard && personCard.id) {
         const person = _.find(people, { id: parseInt(personCard.id, 10) })
@@ -84,20 +86,20 @@ const AddPeople = ({
 
   const handleDone = useCallback(() => {
     switch (actionType) {
-      case 'NEW_GROUP': {
+      case NEW_GROUP: {
         dispatch(allChatsRequestStart({
-          requestType: 'CREATE',
-          dataType: 'new-group',
+          requestType: REQUEST_TYPES.CREATE,
+          dataType: NEW_GROUP,
           title: !groupTitle || _.isEmpty(groupTitle.trim()) ? '' : groupTitle.trim(),
           members: selectedPeople,
         }))
         break
       }
 
-      case 'ADD_PEOPLE': {
+      case ADD_PEOPLE: {
         dispatch(chatDataRequestStart({
-          requestType: 'UPDATE',
-          dataType: 'add-people',
+          requestType: REQUEST_TYPES.UPDATE,
+          dataType: ADD_PEOPLE,
           members: selectedPeople,
           conversationId,
         }))
@@ -114,8 +116,8 @@ const AddPeople = ({
       if (personCard && personCard.id) {
         const person = _.find(people, { id: parseInt(personCard.id, 10) })
         dispatch(allChatsRequestStart({
-          requestType: 'CREATE',
-          dataType: 'new-chat',
+          requestType: REQUEST_TYPES.CREATE,
+          dataType: NEW_CHAT,
           candidate: person,
         }))
       }
@@ -163,9 +165,9 @@ const AddPeople = ({
           <div className='display-inline-flex align-items-center'>
             <div className='h2'>
               {
-                (actionType === 'ADD_PEOPLE' && 'Add People')
-                || (actionType === 'NEW_CHAT' && 'New Chat')
-                || (actionType === 'NEW_GROUP' && 'New Group')
+                (actionType === ADD_PEOPLE && 'Add People')
+                || (actionType === NEW_CHAT && 'New Chat')
+                || (actionType === NEW_GROUP && 'New Group')
               }
             </div>
             {loading && (
@@ -188,7 +190,7 @@ const AddPeople = ({
         </DialogActions>
       </div>
       <DialogContent>
-        {actionType === 'NEW_GROUP' && (
+        {actionType === NEW_GROUP && (
         <div className='mb-20'>
           <div className='h3'>Group Title</div>
           <TextField
@@ -200,7 +202,7 @@ const AddPeople = ({
           />
         </div>
         )}
-        {actionType === 'NEW_GROUP' && (
+        {actionType === NEW_GROUP && (
           <div className='h3'>Add People</div>
         )}
         <TextField
@@ -227,8 +229,8 @@ const AddPeople = ({
           {/* eslint-disable jsx-a11y/no-static-element-interactions */}
           {/* eslint-disable jsx-a11y/click-events-have-key-events */}
           <div
-            className={ `suggestion-cards ${ actionType === 'NEW_GROUP' ? 'new-group' : '' }` }
-            onClick={ actionType === 'NEW_CHAT' ? createNewChat : addPerson }
+            className={ `suggestion-cards ${ actionType === NEW_GROUP ? 'new-group' : '' }` }
+            onClick={ actionType === NEW_CHAT ? createNewChat : addPerson }
           >
             {(!isLoading || offset !== 0) && people && people.length > 0
             && _.differenceBy(people, selectedPeople, 'id').map((person, index) => (
@@ -255,7 +257,7 @@ const AddPeople = ({
           </div>
         </div>
       </DialogContent>
-      {actionType !== 'NEW_CHAT' && (
+      {actionType !== NEW_CHAT && (
       <DialogActions className='modal-actions'>
         <Button
           classes={ {
@@ -285,7 +287,7 @@ const AddPeople = ({
 
 AddPeople.defaultProps = {
   open: false,
-  actionType: 'ADD_PEOPLE',
+  actionType: ADD_PEOPLE,
   conversationId: null,
   loading: false,
 }
