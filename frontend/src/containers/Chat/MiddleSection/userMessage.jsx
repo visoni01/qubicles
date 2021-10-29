@@ -21,13 +21,13 @@ const UserMessage = ({
   conversationId, messageId, senderId, clientId, message, profilePic, senderName, imageUrl, sentAt, error,
   candidatesInfo,
 }) => {
-  const { userDetails } = useSelector((state) => state.login)
-  const { conversations, currentChatId } = useSelector((state) => state.chatData)
-
   const [ openImagePreview, setOpenImagePreview ] = useState(false)
   const [ openProfilePreview, setOpenProfilePreview ] = useState(false)
   const [ isSelfMessage, setIsSelfMessage ] = useState(false)
   const [ anchorEl, setAnchorEl ] = useState(null)
+
+  const { userDetails } = useSelector((state) => state.login)
+  const { conversations, currentChatId } = useSelector((state) => state.chatData)
 
   const dispatch = useDispatch()
 

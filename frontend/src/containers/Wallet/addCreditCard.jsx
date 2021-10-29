@@ -1,15 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent,
-  DialogTitle, Button, IconButton, TextField,
+  Dialog, DialogActions, DialogContent, DialogTitle, Button, IconButton, TextField,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
-const AddCreditCard = ({
-  open, onClose, onSubmit,
-}) => (
+const AddCreditCard = ({ open, onClose, onSubmit }) => (
   <Dialog
     disableScrollLock
     open={ open }
@@ -21,7 +18,7 @@ const AddCreditCard = ({
   >
     <div className='header'>
       <DialogTitle>
-        <h2 className='h2'>Add Credit Card</h2>
+        <h2 className='h2'>   Add Credit Card  </h2>
       </DialogTitle>
       <DialogActions className='cross-button'>
         <IconButton
@@ -33,11 +30,11 @@ const AddCreditCard = ({
       </DialogActions>
     </div>
     <DialogContent>
-      <h4 className='h4 mt-30'>Credit Card Holder</h4>
+      <h4 className='h4 mt-30'> Credit Card Holder </h4>
       <div className='mt-10'>
-        <para className='para mt-30'> James Barnett</para>
+        <para className='para mt-30'> James Barnett </para>
       </div>
-      <h4 className='h4 mt-30'>Card Number</h4>
+      <h4 className='h4 mt-30'> Card Number </h4>
       <TextField
         className='text-field-para is-fullwidth mt-10'
         InputProps={ { inputProps: { min: 0, step: 1 } } }
@@ -48,7 +45,7 @@ const AddCreditCard = ({
       />
       <div className='display-inline-flex justify-between align-items-center is-fullwidth'>
         <div className='mr-20'>
-          <h4 className='h4 mt-30'>Expiration Date</h4>
+          <h4 className='h4 mt-30'> Expiration Date </h4>
           <TextField
             className='text-field-para is-fullwidth mt-10'
             InputProps={ { inputProps: { min: 0, step: 1 } } }
@@ -59,7 +56,7 @@ const AddCreditCard = ({
           />
         </div>
         <div>
-          <h4 className='h4 mt-30'>CVV</h4>
+          <h4 className='h4 mt-30'> CVV </h4>
           <TextField
             className='text-field-para is-fullwidth mt-10'
             InputProps={ { inputProps: { min: 0, step: 1 } } }

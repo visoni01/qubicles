@@ -5,17 +5,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import {
-  addJob,
-  updateJob,
-  createJobDataFetchSuccessful,
-  resetJobDetails,
-  resetJobData,
-  resetJobPublishStatus,
-  startLoader,
+  addJob, updateJob, createJobDataFetchSuccessful, resetJobDetails, resetJobData, resetJobPublishStatus, startLoader,
 } from '../../../../../redux-saga/redux/actions'
-import '../../styles.scss'
 import ROUTE_PATHS, { JOB_ROUTE } from '../../../../../routes/routesPath'
 import { jobDetailsPropTypes } from '../jobsValidator'
+import '../../styles.scss'
 
 const CreatePreviewActions = ({
   newJobData, isEdit, isPreview, handleErrors,
@@ -26,11 +20,17 @@ const CreatePreviewActions = ({
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const saveDraft = useCallback(() => {
-    if (handleErrors({ status: 'draft' })) {
-      return
+  useEffect(() => {
+    if (jobPublishSuccess && publishedJobId) {
+      history.push(`${ JOB_ROUTE }/${ publishedJobId }`)
+      dispatch(resetJobPublishStatus())
     }
+  }, [ jobPublishSuccess, publishedJobId, dispatch, history ])
+
+  const saveDraft = useCallback(() => {
+    if (handleErrors({ status: 'draft' })) return
     dispatch(startLoader())
+
     if (isEdit) {
       dispatch(updateJob({
         ...newJobData,
@@ -47,18 +47,10 @@ const CreatePreviewActions = ({
     }
   }, [ dispatch, isEdit, newJobData, handleErrors ])
 
-  useEffect(() => {
-    if (jobPublishSuccess && publishedJobId) {
-      history.push(`${ JOB_ROUTE }/${ publishedJobId }`)
-      dispatch(resetJobPublishStatus())
-    }
-  }, [ jobPublishSuccess, publishedJobId, dispatch, history ])
-
   const publishJob = useCallback(() => {
-    if (handleErrors({ status: 'recruiting' })) {
-      return
-    }
+    if (handleErrors({ status: 'recruiting' })) return
     dispatch(startLoader())
+
     if (isEdit) {
       dispatch(updateJob({
         ...newJobData,
@@ -97,8 +89,7 @@ const CreatePreviewActions = ({
 
       {!isPreview && (
         <>
-          {jobDetails && jobDetails.status !== 'recruiting'
-          && (
+          {jobDetails && jobDetails.status !== 'recruiting' && (
             <Button
               className='wide-button mb-15'
               classes={ {

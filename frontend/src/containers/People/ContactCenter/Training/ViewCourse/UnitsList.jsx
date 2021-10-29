@@ -105,35 +105,35 @@ const UnitsList = ({
 
           {/* Intro Video */}
           {showIntroVideo && (
-          <ListItem className='nested-list' disableGutters>
-            <ListItemIcon>
-              <VideoIcon />
-            </ListItemIcon>
-            <ListItemText className='unit-text'>
-              <p className={ `para ${ isCoursePlayerOpen && isIntroVideoActive ? '' : 'light' }` }> Intro </p>
-            </ListItemText>
-            <ListItemSecondaryAction className='unit-action-root'>
-              <Button
-                classes={ {
-                  root: 'button-primary-text',
-                  label: 'button-primary-text-label',
-                } }
-                onClick={ () => handleUnitOpen({
-                  nextSection: section,
-                  nextUnit: {
-                    title: 'Intro', type: 'Video', details: introVideo, unitId: -1, index: -1,
-                  },
-                }) }
-                disabled={ (isCoursePlayerOpen && currentUnit && isIntroVideoActive) }
-              >
-                {
-                (type === 'preview' && ' ')
-                || (isCoursePlayerOpen && currentUnit && isIntroVideoActive && 'Current')
-                || 'Preview'
-              }
-              </Button>
-            </ListItemSecondaryAction>
-          </ListItem>
+            <ListItem className='nested-list' disableGutters>
+              <ListItemIcon>
+                <VideoIcon />
+              </ListItemIcon>
+              <ListItemText className='unit-text'>
+                <p className={ `para ${ isCoursePlayerOpen && isIntroVideoActive ? '' : 'light' }` }> Intro </p>
+              </ListItemText>
+              <ListItemSecondaryAction className='unit-action-root'>
+                <Button
+                  classes={ {
+                    root: 'button-primary-text',
+                    label: 'button-primary-text-label',
+                  } }
+                  onClick={ () => handleUnitOpen({
+                    nextSection: section,
+                    nextUnit: {
+                      title: 'Intro', type: 'Video', details: introVideo, unitId: -1, index: -1,
+                    },
+                  }) }
+                  disabled={ (isCoursePlayerOpen && currentUnit && isIntroVideoActive) }
+                >
+                  {
+                  (type === 'preview' && ' ')
+                  || (isCoursePlayerOpen && currentUnit && isIntroVideoActive && 'Current')
+                  || 'Preview'
+                }
+                </Button>
+              </ListItemSecondaryAction>
+            </ListItem>
           )}
 
           {/* Units */}
@@ -183,45 +183,45 @@ const UnitsList = ({
 
           {/* Test */}
           {((section && section.test && !_.isEmpty(section.test) && type === 'preview') || (type !== 'preview')) && (
-          <ListItem className='nested-list' disableGutters>
-            <ListItemIcon>
-              <TestIcon />
-            </ListItemIcon>
-            <ListItemText className='unit-text'>
-              <p className='para light'> Test </p>
-            </ListItemText>
-            <ListItemSecondaryAction className='unit-action-root'>
-              <Button
-                disabled={ (!isEnrolled && !isCreator)
-                || (isEnrolled && section.status === '' && courseStatus === 'inprogress' && sectionIndex !== 0
-                  && !isActive && !isCoursePlayerOpen)
-                || (isEnrolled && section.status === '' && courseStatus === 'inprogress' && sectionIndex !== 0
-                  && !isActive && section.units[ 0 ].status === '' && isCoursePlayerOpen)
-                || (isEnrolled && section.status === '' && courseStatus === 'enrolled')
-                || (currentUnit.unitId === -2 && section.id === currentSection.id && isCoursePlayerOpen)
-                || section.status === 'completed' }
-                classes={ {
-                  root: 'button-primary-text',
-                  label: 'button-primary-text-label',
-                } }
-                onClick={ () => handleUnitOpen({
-                  nextSection: section,
-                  nextUnit: {
-                    title: 'Test', type: 'Test', details: '', unitId: -2, index: -2,
-                  },
-                }) }
-              >
-                {
-                (type === 'preview' && ' ')
-                || (isCoursePlayerOpen && currentUnit && currentUnit.unitId === -2 && currentSection.id === section.id
-                   && 'Current')
-                || (isCreator && 'View')
-                || (section.status === 'completed' && 'Completed')
-                || 'Start'
-              }
-              </Button>
-            </ListItemSecondaryAction>
-          </ListItem>
+            <ListItem className='nested-list' disableGutters>
+              <ListItemIcon>
+                <TestIcon />
+              </ListItemIcon>
+              <ListItemText className='unit-text'>
+                <p className='para light'> Test </p>
+              </ListItemText>
+              <ListItemSecondaryAction className='unit-action-root'>
+                <Button
+                  disabled={ (!isEnrolled && !isCreator)
+                  || (isEnrolled && section.status === '' && courseStatus === 'inprogress' && sectionIndex !== 0
+                    && !isActive && !isCoursePlayerOpen)
+                  || (isEnrolled && section.status === '' && courseStatus === 'inprogress' && sectionIndex !== 0
+                    && !isActive && section.units[ 0 ].status === '' && isCoursePlayerOpen)
+                  || (isEnrolled && section.status === '' && courseStatus === 'enrolled')
+                  || (currentUnit.unitId === -2 && section.id === currentSection.id && isCoursePlayerOpen)
+                  || section.status === 'completed' }
+                  classes={ {
+                    root: 'button-primary-text',
+                    label: 'button-primary-text-label',
+                  } }
+                  onClick={ () => handleUnitOpen({
+                    nextSection: section,
+                    nextUnit: {
+                      title: 'Test', type: 'Test', details: '', unitId: -2, index: -2,
+                    },
+                  }) }
+                >
+                  {
+                  (type === 'preview' && ' ')
+                  || (isCoursePlayerOpen && currentUnit && currentUnit.unitId === -2 && currentSection.id === section.id
+                    && 'Current')
+                  || (isCreator && 'View')
+                  || (section.status === 'completed' && 'Completed')
+                  || 'Start'
+                }
+                </Button>
+              </ListItemSecondaryAction>
+            </ListItem>
           )}
         </List>
       </Collapse>

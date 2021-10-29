@@ -5,14 +5,15 @@ import {
   Box, Divider, List, ListItem, ListItemText, MenuItem,
 } from '@material-ui/core'
 import _ from 'lodash'
-import './style.scss'
 import ROUTE_PATHS from '../../../../routes/routesPath'
 import JobFilterSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/Jobs/jobsFilterSkeleton'
 import { jobCategoriesOnlyFetchStart, updateViewAllCoursesFilter } from '../../../../redux-saga/redux/people'
+import './style.scss'
 
 const TrainingFilter = () => {
   const { jobCategoriesOnly, isLoading, searchKeyword } = useSelector((state) => state.jobCategoriesOnly)
   const { categoryId, categoryTitle } = useSelector((state) => state.viewAllCourses)
+
   const [ selectedCategory, setSelectedCategory ] = useState(categoryId)
   const [ selectedCategoryTitle, setSelectedCategoryTitle ] = useState(categoryTitle)
 
@@ -47,7 +48,7 @@ const TrainingFilter = () => {
 
   return (
     <Box className='custom-box no-padding side-filter-root'>
-      <h2 className='h2 title'>Training</h2>
+      <h2 className='h2 title'> Training </h2>
       <List className='courses-list-items'>
         <ListItem
           button
@@ -67,8 +68,9 @@ const TrainingFilter = () => {
       </List>
 
       <Divider className='mb-20' />
-      <h3 className='h3 category-heading'>Categories</h3>
-      {isLoading ? (<JobFilterSkeleton />)
+      <h3 className='h3 category-heading'> Categories </h3>
+      {isLoading
+        ? <JobFilterSkeleton />
         : (
           <List className='filter-list-items'>
             <MenuItem
@@ -81,22 +83,18 @@ const TrainingFilter = () => {
               </ListItemText>
             </MenuItem>
 
-            {
-          jobCategoriesOnly.map((courseCategory) => (
-            <MenuItem
-              button
-              onClick={ () => handleCoursesByCategory({ courseCategory }) }
-              selected={ selectedCategory === courseCategory.categoryId }
-              key={ courseCategory.categoryId }
-            >
-              <ListItemText classes={ { primary: 'list-item' } }>
-                <h4 className='h4 light unbold'>
-                  {courseCategory.categoryTitle}
-                </h4>
-              </ListItemText>
-            </MenuItem>
-          ))
-        }
+            {jobCategoriesOnly.map((courseCategory) => (
+              <MenuItem
+                button
+                onClick={ () => handleCoursesByCategory({ courseCategory }) }
+                selected={ selectedCategory === courseCategory.categoryId }
+                key={ courseCategory.categoryId }
+              >
+                <ListItemText classes={ { primary: 'list-item' } }>
+                  <h4 className='h4 light unbold'>{courseCategory.categoryTitle}</h4>
+                </ListItemText>
+              </MenuItem>
+            ))}
           </List>
         )}
     </Box>

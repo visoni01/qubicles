@@ -3,10 +3,9 @@ import { Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import ConfirmationModal from '../../../../../components/CommonModal/confirmationModal'
 
-const HiredActions = ({
-  updateApplicationStatus,
-}) => {
+const HiredActions = ({ updateApplicationStatus }) => {
   const [ openConfirmModal, setOpenConfirmModal ] = useState(false)
+
   return (
     <div>
       <Button
@@ -32,7 +31,6 @@ const HiredActions = ({
 
 HiredActions.propTypes = {
   updateApplicationStatus: PropTypes.func.isRequired,
-
 }
 
 export default HiredActions

@@ -8,13 +8,13 @@ import { paymentCardData } from '../testData'
 const WalletSettings = ({ onClose }) => (
   <div className='wallet-settings'>
     <div className='display-inline-flex justify-between align-items-center is-halfwidth '>
-      <h3 className='h3 bold'>Auto Refill</h3>
+      <h3 className='h3 bold'> Auto Refill </h3>
       <Switch
         className='switches'
         color='primary'
       />
     </div>
-    <h4 className='h4 bold mt-20'>Refill Amount</h4>
+    <h4 className='h4 bold mt-20'> Refill Amount </h4>
     <div className='display-inline-flex justify-between align-items-center is-fullwidth'>
       <span className='para'> Automaticall buy </span>
       <TextField
@@ -36,7 +36,7 @@ const WalletSettings = ({ onClose }) => (
       />
     </div>
     <div className='is-halfwidth mt-20'>
-      <h4 className='h4'>Refill from</h4>
+      <h4 className='h4'> Refill from </h4>
       <FormControl variant='outlined' className='drop-down-bar'>
         <InputLabel margin='dense' variant='outlined' className='mt-10'>
           Choose card

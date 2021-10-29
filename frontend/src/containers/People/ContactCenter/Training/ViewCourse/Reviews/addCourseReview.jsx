@@ -9,7 +9,6 @@ import { REQUEST_TYPES } from '../../../../../../utils/constants'
 const AddCourseReview = ({
   openReviewModal, setOpenReviewModal, courseId, loading, requestType,
 }) => {
-  const dispatch = useDispatch()
   const [ reviewText, setReviewText ] = useState('')
   const [ rating, setRating ] = useState({
     valueRating: 0,
@@ -17,6 +16,8 @@ const AddCourseReview = ({
     contentRating: 0,
     structureRating: 0,
   })
+
+  const dispatch = useDispatch()
 
   const handleOnReviewModalClose = useCallback(() => {
     setOpenReviewModal(false)

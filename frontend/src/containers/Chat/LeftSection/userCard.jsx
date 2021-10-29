@@ -9,8 +9,8 @@ import { groupChatIcon } from '../../../assets/images/chat'
 import { formatDate, formatDateTime } from '../../../utils/common'
 
 const UserCard = ({
-  id, name, imageUrl, allRead, latestMessage, dateTime, selectedConversationId,
-  isGroup, isRemoved, isNotification, isImage, handleOpenChat, error,
+  id, name, imageUrl, allRead, latestMessage, dateTime, selectedConversationId, isGroup, isRemoved, isNotification,
+  isImage, handleOpenChat, error,
 }) => {
   const { userDetails } = useSelector((state) => state.login)
 

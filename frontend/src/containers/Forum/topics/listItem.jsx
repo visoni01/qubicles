@@ -1,11 +1,7 @@
 import React, { useCallback } from 'react'
-import {
-  Button, Avatar,
-} from '@material-ui/core'
+import { Button, Avatar } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faComment, faEye, faHeart,
-} from '@fortawesome/free-solid-svg-icons'
+import { faComment, faEye, faHeart } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import { formatDate } from '../../../utils/common'
@@ -17,8 +13,9 @@ import { EditIcon } from '../../../assets/images/common'
 const ListItem = ({
   topic, index, setSelectedTopic, updateTopicAndToggle,
 }) => {
-  const dispatch = useDispatch()
   const { userDetails } = useSelector((state) => state.login)
+
+  const dispatch = useDispatch()
 
   const childTopicData = () => {
     updateTopicAndToggle(topic)
@@ -61,8 +58,7 @@ const ListItem = ({
                 {topic.title}
               </Button>
             </div>
-            {userDetails.user_id === topic.ownerId
-            && (
+            {userDetails.user_id === topic.ownerId && (
               <MenuOptions
                 handleFirstOptionClick={ childTopicData }
                 handleConfirmModal={ handleConfirmModal }
@@ -77,9 +73,7 @@ const ListItem = ({
           </div>
           <div className='display-inline-flex is-fullwidth'>
             <div className='display-inline-flex is-fullwidth'>
-              <p className='para'>
-                {topic.ownerName}
-              </p>
+              <p className='para'>{topic.ownerName}</p>
               <p className='para light ml-20'>
                 {formatDate(topic.createdAt, 'MMMM DD YYYY, hh:mm a')}
               </p>
@@ -121,14 +115,11 @@ const ListItem = ({
                   classes={ { label: 'para light' } }
                 >
                   <FontAwesomeIcon icon={ faEye } />
-                  {topic.views}
-                  {' '}
-                  Views
+                  {`${ topic.views } Views`}
                 </Button>
               </li>
             </ul>
           </div>
-
         </div>
       </div>
     </>

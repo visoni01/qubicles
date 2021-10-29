@@ -1,7 +1,5 @@
 import * as yup from 'yup'
-import {
-  regExpSSN, regSplChar,
-} from '../../../../../utils/common'
+import { regExpSSN, regSplChar } from '../../../../../utils/common'
 
 const steps = {
   1: {

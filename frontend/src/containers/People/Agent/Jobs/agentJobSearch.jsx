@@ -1,15 +1,15 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { InputBase, debounce } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  updateAgentJobs, fetchAgentJobsStart,
-} from '../../../../redux-saga/redux/actions'
+import { updateAgentJobs, fetchAgentJobsStart } from '../../../../redux-saga/redux/actions'
 import { SearchIcon } from '../../../../assets/images/common'
 
 const AgentJobSearch = () => {
-  const dispatch = useDispatch()
   const { jobFilter } = useSelector((state) => state.jobFilter)
+
   const [ searchField, setSearchField ] = useState(jobFilter.searchKeyword)
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     setSearchField(jobFilter.searchKeyword)

@@ -11,6 +11,7 @@
       width: 70%;
     }
   }
+
   .row-fields {
     padding: 0 20px;
 
@@ -45,7 +46,6 @@
 
 
 .integration-section {
-
   .sub-section {
     margin: 30px 0;
   }
@@ -62,8 +62,8 @@
 }
 
 .left-section {
- position: sticky;
- top: 95px;
+  position: sticky;
+  top: 95px;
 }
 
 .settings-menu {
@@ -80,7 +80,6 @@
   padding-top: 20vh;
 
   .drawer-controller {
-
     #field-controller {
       width: 100%;
       height: 40px !important;

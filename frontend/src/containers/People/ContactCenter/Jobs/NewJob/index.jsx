@@ -7,17 +7,14 @@ import JobData from './jobData'
 import JobRequirements from './jobRequirements'
 import JobDetails from './jobDetails'
 import CreatePreviewActions from './createPreviewActions'
-import '../styles.scss'
-import {
-  getNewJobFields, startLoader, stopLoader,
-} from '../../../../../redux-saga/redux/actions'
+import { getNewJobFields, startLoader, stopLoader } from '../../../../../redux-saga/redux/actions'
 import { jobDetailsPropTypes } from '../jobsValidator'
 import checkAndSetErrors from './checkAndSetErrors'
 import AlertPopover from '../../../../../components/CommonModal/alertPopover'
+import '../styles.scss'
 
 const NewJob = (props) => {
   const { jobsData, jobId, isEdit } = props
-  const dispatch = useDispatch()
   const defaultJobData = {
     jobId: null,
     categoryId: null,
@@ -42,16 +39,15 @@ const NewJob = (props) => {
       bonusCourses: [ ],
     },
   }
-  const { jobFields, isLoading: jobDetailsLoading } = useSelector((state) => state.jobDetails)
-  const { createJobData } = useSelector((state) => state.createJobData)
-  const { loading } = useSelector((state) => state.loader)
 
   const [ newJobData, setNewJobData ] = useState(defaultJobData)
   const [ errors, setErrors ] = useState({})
 
-  const handleErrors = useCallback(({ status }) => (
-    checkAndSetErrors({ setErrors, newJobData, status })
-  ), [ newJobData ])
+  const { jobFields, isLoading: jobDetailsLoading } = useSelector((state) => state.jobDetails)
+  const { createJobData } = useSelector((state) => state.createJobData)
+  const { loading } = useSelector((state) => state.loader)
+
+  const dispatch = useDispatch()
 
   useEffect(() => () => loading && dispatch(stopLoader()), [ loading, dispatch ])
 
@@ -62,16 +58,6 @@ const NewJob = (props) => {
       dispatch(stopLoader())
     }
   }, [ dispatch, jobDetailsLoading ])
-
-  // Setting jobData
-  const setNewJobDataCB = useCallback((event) => {
-    event.persist()
-    const { name, value } = event.target
-    setNewJobData((currentNewJobData) => ({
-      ...currentNewJobData,
-      [ name ]: value,
-    }))
-  }, [ ])
 
   // Fetching job fields i.e. job categories, titles and skills to select.
   useEffect(() => {
@@ -95,6 +81,20 @@ const NewJob = (props) => {
       ...createJobData,
     }))
   }, [ createJobData ])
+
+  const handleErrors = useCallback(({ status }) => (
+    checkAndSetErrors({ setErrors, newJobData, status })
+  ), [ newJobData ])
+
+  // Setting jobData
+  const setNewJobDataCB = useCallback((event) => {
+    event.persist()
+    const { name, value } = event.target
+    setNewJobData((currentNewJobData) => ({
+      ...currentNewJobData,
+      [ name ]: value,
+    }))
+  }, [ ])
 
   return (
     <>
@@ -138,6 +138,7 @@ const NewJob = (props) => {
           />
         </Grid>
       </Grid>
+
       <AlertPopover
         open={ !_.isEmpty(errors) }
         buttonOnClick={ () => setErrors({}) }
@@ -166,11 +167,11 @@ NewJob.defaultProps = {
     languages: 'english',
     jobSkillsData: {
       requiredSkills: [],
-      bonusSkills: [ ],
+      bonusSkills: [],
     },
     jobCoursesData: {
       requiredCourses: [],
-      bonusCourses: [ ],
+      bonusCourses: [],
     },
   },
   jobId: '',

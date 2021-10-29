@@ -5,11 +5,12 @@ import Slider from './slider'
 import {
   Clients, Steps, Header, Footer,
 } from '../../components/Home'
-import './style.scss'
 import { isProductionEnvironment } from '../../utils/common'
+import './style.scss'
 
 const Home = () => {
   const history = useHistory()
+
   // eslint-disable-next-line
   useEffect(() => {
     if (isProductionEnvironment()) {

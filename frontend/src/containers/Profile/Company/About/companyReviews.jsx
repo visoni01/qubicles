@@ -1,8 +1,6 @@
 /* eslint-disable complexity */
 import React, { useState, useEffect } from 'react'
-import {
-  Button, Tabs, Tab,
-} from '@material-ui/core'
+import { Button, Tabs, Tab } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
@@ -11,15 +9,14 @@ import { profileRatingsFetchStart } from '../../../../redux-saga/redux/actions'
 import AddCompanyReview from './addReview'
 import ListReviews from './listReviews'
 import { clientRatingLabels } from '../../../../components/Profile/Reviews/ratingLabels'
-import './styles.scss'
 import CompanyRatingSkeleton from
   '../../../../components/People/ContactCenter/SkeletonLoader/Training/ratingSkeleton'
+import './styles.scss'
 
-const CompanyReviews = ({
-  companyId,
-}) => {
+const CompanyReviews = ({ companyId }) => {
   const [ activeTab, setActivetab ] = useState(0)
   const [ openReviewModal, setOpenReviewModal ] = useState(false)
+
   const {
     viewRatings, addReviewAccess, fetchLoading,
   } = useSelector((state) => state.profileRatings)

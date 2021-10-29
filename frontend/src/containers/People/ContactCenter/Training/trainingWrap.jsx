@@ -19,10 +19,18 @@ const TrainingWrap = () => {
   const {
     courses, count, searchField, currentPage, isLoading, categoryTitle,
   } = useSelector((state) => state.viewAllCourses)
+
   const [ searchCourseField, setSearchCourseField ] = useState(searchField)
+  const [ anchorEl, setAnchorEl ] = useState(null)
 
   const history = useHistory()
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(updateViewAllCoursesFilter({
+      offset: noOfCoursesPerPage * (currentPage - 1),
+    }))
+  }, [ currentPage, dispatch ])
 
   const scrollToTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -52,17 +60,6 @@ const TrainingWrap = () => {
     scrollToTop()
   }, [ dispatch, scrollToTop ])
 
-  useEffect(() => {
-    dispatch(updateViewAllCoursesFilter({
-      offset: noOfCoursesPerPage * (currentPage - 1),
-    }))
-  }, [ currentPage, dispatch ])
-
-  // Course filter popover
-  const [ anchorEl, setAnchorEl ] = useState(null)
-  const open = Boolean(anchorEl)
-  const id = open ? 'simple-popover' : undefined
-
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
   }
@@ -71,6 +68,8 @@ const TrainingWrap = () => {
     setAnchorEl(null)
   }
 
+  const open = Boolean(anchorEl)
+  const id = open ? 'simple-popover' : undefined
   const noOfPages = Math.floor(count / noOfCoursesPerPage) + Math.sign(count % noOfCoursesPerPage)
 
   return (
@@ -101,9 +100,7 @@ const TrainingWrap = () => {
       </div>
       <Box className='custom-box'>
         <div className='all-courses-box mb-20'>
-          {categoryTitle && (
-          <h3 className='h3'>{`${ categoryTitle } Courses`}</h3>
-          )}
+          {categoryTitle && <h3 className='h3'>{`${ categoryTitle } Courses`}</h3>}
           <IconButton
             onClick={ handleClick }
             disabled={ isLoading }
@@ -127,7 +124,7 @@ const TrainingWrap = () => {
               {(courses && courses.length === 0)
                 ? (
                   <div className='mt-10 mb-10 is-fullwidth'>
-                    <h3 className='h3 text-center'>No courses found!</h3>
+                    <h3 className='h3 text-center'> No courses found! </h3>
                   </div>
                 )
                 : courses.map((cardInfo) => (
@@ -148,16 +145,16 @@ const TrainingWrap = () => {
             </Grid>
           )}
         {Boolean(count && count > noOfCoursesPerPage) && (
-        <Pagination
-          count={ noOfPages }
-          shape='round'
-          page={ currentPage }
-          onChange={ changeCurrentPage }
-          classes={ { root: 'courses-pagination' } }
-          hidePrevButton={ currentPage < 2 }
-          hideNextButton={ currentPage === noOfPages }
-          className='is-flex is-center'
-        />
+          <Pagination
+            count={ noOfPages }
+            shape='round'
+            page={ currentPage }
+            onChange={ changeCurrentPage }
+            classes={ { root: 'courses-pagination' } }
+            hidePrevButton={ currentPage < 2 }
+            hideNextButton={ currentPage === noOfPages }
+            className='is-flex is-center'
+          />
         )}
       </Box>
     </div>

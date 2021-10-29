@@ -1,7 +1,5 @@
 import React from 'react'
-import {
-  Button, CircularProgress,
-} from '@material-ui/core'
+import { Button, CircularProgress } from '@material-ui/core'
 import PropTypes from 'prop-types'
 
 const LeftJobActions = ({
@@ -9,28 +7,28 @@ const LeftJobActions = ({
 }) => (
   <>
     {application.status === 'declined' && (
-    <Button
-      className='wide-button'
-      classes={ {
-        root: 'button-primary-small',
-        label: 'button-primary-small-label',
-      } }
-      onClick={ () => handleUpdateStatus('invited') }
-    >
-      Invite
-    </Button>
+      <Button
+        className='wide-button'
+        classes={ {
+          root: 'button-primary-small',
+          label: 'button-primary-small-label',
+        } }
+        onClick={ () => handleUpdateStatus('invited') }
+      >
+        Invite
+      </Button>
     )}
     {application.status === 'terminated' && (
-    <Button
-      className='wide-button'
-      classes={ {
-        root: 'button-primary-small',
-        label: 'button-primary-small-label',
-      } }
-      onClick={ () => handleUpdateStatus('hired') }
-    >
-      Rehire
-    </Button>
+      <Button
+        className='wide-button'
+        classes={ {
+          root: 'button-primary-small',
+          label: 'button-primary-small-label',
+        } }
+        onClick={ () => handleUpdateStatus('hired') }
+      >
+        Rehire
+      </Button>
     )}
     <Button
       className='wide-button'

@@ -8,7 +8,9 @@ import { PEOPLE_YOU_MAY_KNOW } from '../../../redux-saga/redux/constants'
 
 const PeopleYouMayKnow = ({ heading }) => {
   const { agentTopData, isLoading } = useSelector((state) => state.agentTopData)
+
   const dispatch = useDispatch()
+
   useEffect(() => {
     dispatch(fetchAgentTopDataStart({
       dataType: PEOPLE_YOU_MAY_KNOW,

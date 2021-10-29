@@ -67,7 +67,6 @@
 .select-menu-paper{
   max-height: 190px;
   border-radius: 4px;
-  // margin: 10px 30px 0px 0px;
 }
 
 
@@ -97,7 +96,7 @@
 
     .MuiGrid-spacing-xs-3 > .MuiGrid-item {
       padding: 7px;
-  }
+    }
 
     .field {
       padding: 4px 8px 8px 8px;
@@ -121,6 +120,7 @@
         .select-root {
           background-color: white;
         }
+
         .dropdown {
           border: 1px solid #DBDBDB;
           height: 45px;
@@ -263,35 +263,35 @@
   position: relative;
 
   .outer-panel {
-      display: flex;
-      align-items: center;
-      min-height: calc(100vh - 133px);
+    display: flex;
+    align-items: center;
+    min-height: calc(100vh - 133px);
 
-      .outer-panel-inner {
-          width: 100%;
-      }
+    .outer-panel-inner {
+      width: 100%;
+    }
   }
 }
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
   .signup-wrapper {
-      .outer-panel {
-          .outer-panel-inner {
-              max-width: 740px;
-              margin: 0 auto;
+    .outer-panel {
+      .outer-panel-inner {
+        max-width: 740px;
+        margin: 0 auto;
 
-              .columns {
-                  display: flex;
+        .columns {
+          display: flex;
 
-                  .account-type {
-                      padding: 20px;
+          .account-type {
+            padding: 20px;
 
-                      img {
-                          height: 110px;
-                      }
-                  }
-              }
+            img {
+              height: 110px;
+            }
           }
+        }
       }
+    }
   }
 }

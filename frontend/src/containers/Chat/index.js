@@ -11,12 +11,23 @@ import { REQUEST_TYPES } from '../../utils/constants'
 import { CHANGE_GROUP_NAME } from '../../redux-saga/redux/constants'
 
 const ChatSection = () => {
-  const { isLoading, initialFetchDone } = useSelector((state) => state.allChats)
-  const { currentChatId } = useSelector((state) => state.chatData)
-  const dispatch = useDispatch()
-
   const [ messageText, setMessageText ] = useState('')
   const [ imageUrl, setImageUrl ] = useState('')
+
+  const { isLoading, initialFetchDone } = useSelector((state) => state.allChats)
+  const { currentChatId } = useSelector((state) => state.chatData)
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    setMessageText('')
+    setImageUrl('')
+  }, [ currentChatId ])
+
+  useEffect(() => () => {
+    dispatch(resetConversations())
+    dispatch(resetAllChatsReducer())
+  }, [ dispatch ])
 
   const handleGroupNameChange = useCallback(({ newGroupName, oldGroupName }) => {
     if (!_.isEqual(newGroupName, oldGroupName)) {
@@ -29,16 +40,6 @@ const ChatSection = () => {
       }))
     }
   }, [ dispatch, currentChatId ])
-
-  useEffect(() => {
-    setMessageText('')
-    setImageUrl('')
-  }, [ currentChatId ])
-
-  useEffect(() => () => {
-    dispatch(resetConversations())
-    dispatch(resetAllChatsReducer())
-  }, [ dispatch ])
 
   return (
     <div>

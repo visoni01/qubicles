@@ -5,11 +5,7 @@ import ReviewModal from '../../../Shared/reviewModal'
 import { profileReviewPostStart } from '../../../../redux-saga/redux/actions'
 import { agentRatingLabels } from '../../../../components/Profile/Reviews/ratingLabels'
 
-const AddAgentReview = ({
-  agentUserId, openReviewModal, setOpenReviewModal,
-}) => {
-  const dispatch = useDispatch()
-  const { postLoading, postSuccess } = useSelector((state) => state.profileReviews)
+const AddAgentReview = ({ agentUserId, openReviewModal, setOpenReviewModal }) => {
   const [ reviewText, setReviewText ] = useState('')
   const [ rating, setRating ] = useState({
     performanceRating: 0,
@@ -17,6 +13,10 @@ const AddAgentReview = ({
     customerInteractionRating: 0,
     dependabilityRating: 0,
   })
+
+  const { postLoading, postSuccess } = useSelector((state) => state.profileReviews)
+
+  const dispatch = useDispatch()
 
   // Handle post Review
   const handleSubmitReview = useCallback(() => {

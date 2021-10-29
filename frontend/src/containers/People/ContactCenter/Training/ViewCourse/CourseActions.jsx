@@ -31,7 +31,9 @@ const CourseActions = ({
 }) => {
   const [ isAssessmentModalOpen, setIsAssessmentModalOpen ] = useState(false)
   const [ openBuyCoursePopup, setOpenBuyCoursePopup ] = useState(false)
+
   const { addReviewAccess } = useSelector((state) => state.courseRatings)
+
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -155,114 +157,113 @@ const CourseActions = ({
   }
 
   return (
-    <>
-      <Box className='custom-box actions-box'>
-        <div className='mb-20'>
-          <Card className='course-card'>
-            {(_.isEqual(type, 'preview') || !course.isEnrolled) && (
+    <Box className='custom-box actions-box'>
+      <div className='mb-20'>
+        <Card className='course-card'>
+          {(_.isEqual(type, 'preview') || !course.isEnrolled) && (
             <Box className='custom-box no-padding price-overlay'>
               <p className='h3 price-qbe text-center'>
                 { `${ course.informationSection.price } `}
-                <span className='h3 unbold'>QBE</span>
+                <span className='h3 unbold'> QBE </span>
               </p>
               <p className='para light price-usd text-center'>
                 {`$${ course.informationSection.price } USD`}
               </p>
             </Box>
-            )}
-            {_.isEqual(type, 'view') && course.isEnrolled && (
-              <Box className='custom-box no-padding progress-overlay'>
-                <p className='h3 progress-text'>
-                  {course.courseContent.sections && course.courseContent.sections.length > 0
-                  && `${ Math.round((course.sectionsCompleted * 100) / course.courseContent.sections.length) }%`}
-                </p>
-              </Box>
-            )}
-            <CardMedia
-              image={ course.contentSection.thumbnailImage }
-              className='course-image round-border'
-            />
-          </Card>
-        </div>
-        <>
-          {type !== 'preview' && (
+          )}
+          {_.isEqual(type, 'view') && course.isEnrolled && (
+            <Box className='custom-box no-padding progress-overlay'>
+              <p className='h3 progress-text'>
+                {course.courseContent.sections && course.courseContent.sections.length > 0
+                    && `${ Math.round((course.sectionsCompleted * 100) / course.courseContent.sections.length) }%`}
+              </p>
+            </Box>
+          )}
+          <CardMedia
+            image={ course.contentSection.thumbnailImage }
+            className='course-image round-border'
+          />
+        </Card>
+      </div>
+      <>
+        {type !== 'preview' && (
           <div className='mb-10'>
             {!course.isCreator && (
-            <>
-              {!course.isEnrolled && (
-              <Button
-                className='wide-button'
-                classes={ {
-                  root: 'button-primary-small',
-                  label: 'button-primary-small-label',
-                } }
-                onClick={ course.informationSection.price > 0
-                  ? () => setOpenBuyCoursePopup(true) : handleStartOrContinueCourse }
-                disabled={ !course.canBuy }
-              >
-                {course.informationSection.price > 0 ? 'Buy Course' : 'Start Course'}
-              </Button>
-              )}
-              {!course.canBuy && course.informationSection && course.informationSection.requiredCourses
-                .filter((requiredCourse) => requiredCourse.status !== 'completed').length > 0 && (
-                <IncompleteCoursesList
-                  className='mb-15'
-                  requiredCourses={ course.informationSection.requiredCourses }
-                />
-              )}
-              {course.isEnrolled && (
-              <Button
-                className='wide-button'
-                classes={ {
-                  root: 'button-primary-small',
-                  label: 'button-primary-small-label',
-                } }
-                onClick={ handleStartOrContinueCourse }
-              >
-                {
-                (course.courseDetails && course.courseDetails.status === 'enrolled' && 'Start Course')
-                || (course.courseDetails && course.courseDetails.status === 'inprogress' && 'Continue Course')
-                || (course.courseDetails && course.courseDetails.status === 'completed' && 'View Course')
-              }
-              </Button>
-              )}
-              {!course.isEnrolled && (
-              <Button
-                className='wide-button'
-                classes={ {
-                  root: 'button-secondary-small',
-                  label: 'button-secondary-small-label',
-                } }
-                onClick={ handlePreview }
-              >
-                Preview
-              </Button>
-              )}
-              {course.isEnrolled && course.courseDetails.status !== 'completed' && (
-              <Button
-                className='wide-button'
-                classes={ {
-                  root: 'button-secondary-small',
-                  label: 'button-secondary-small-label',
-                } }
-                onClick={ () => setIsAssessmentModalOpen(true) }
-              >
-                Assessment Test
-              </Button>
-              )}
-              {course.courseDetails.status === 'completed' && addReviewAccess && (
-              <Button
-                className='wide-button'
-                classes={ {
-                  root: 'button-secondary-small',
-                  label: 'button-secondary-small-label',
-                } }
-                onClick={ () => setOpenReviewModal(true) }
-              >
-                Write A Review
-              </Button>
-              )}
-            </>
+              <>
+                {!course.isEnrolled && (
+                  <Button
+                    className='wide-button'
+                    classes={ {
+                      root: 'button-primary-small',
+                      label: 'button-primary-small-label',
+                    } }
+                    onClick={ course.informationSection.price > 0
+                      ? () => setOpenBuyCoursePopup(true) : handleStartOrContinueCourse }
+                    disabled={ !course.canBuy }
+                  >
+                    {course.informationSection.price > 0 ? 'Buy Course' : 'Start Course'}
+                  </Button>
+                )}
+                {!course.canBuy && course.informationSection && course.informationSection.requiredCourses
+                  .filter((requiredCourse) => requiredCourse.status !== 'completed').length > 0 && (
+                  <IncompleteCoursesList
+                    className='mb-15'
+                    requiredCourses={ course.informationSection.requiredCourses }
+                  />
+                )}
+                {course.isEnrolled && (
+                  <Button
+                    className='wide-button'
+                    classes={ {
+                      root: 'button-primary-small',
+                      label: 'button-primary-small-label',
+                    } }
+                    onClick={ handleStartOrContinueCourse }
+                  >
+                    {
+                    (course.courseDetails && course.courseDetails.status === 'enrolled' && 'Start Course')
+                    || (course.courseDetails && course.courseDetails.status === 'inprogress' && 'Continue Course')
+                    || (course.courseDetails && course.courseDetails.status === 'completed' && 'View Course')
+                  }
+                  </Button>
+                )}
+                {!course.isEnrolled && (
+                  <Button
+                    className='wide-button'
+                    classes={ {
+                      root: 'button-secondary-small',
+                      label: 'button-secondary-small-label',
+                    } }
+                    onClick={ handlePreview }
+                  >
+                    Preview
+                  </Button>
+                )}
+                {course.isEnrolled && course.courseDetails.status !== 'completed' && (
+                  <Button
+                    className='wide-button'
+                    classes={ {
+                      root: 'button-secondary-small',
+                      label: 'button-secondary-small-label',
+                    } }
+                    onClick={ () => setIsAssessmentModalOpen(true) }
+                  >
+                    Assessment Test
+                  </Button>
+                )}
+                {course.courseDetails.status === 'completed' && addReviewAccess && (
+                  <Button
+                    className='wide-button'
+                    classes={ {
+                      root: 'button-secondary-small',
+                      label: 'button-secondary-small-label',
+                    } }
+                    onClick={ () => setOpenReviewModal(true) }
+                  >
+                    Write A Review
+                  </Button>
+                )}
+              </>
             )}
             {course.isCreator && (
               <>
@@ -277,35 +278,35 @@ const CourseActions = ({
                   View Course
                 </Button>
                 {course.studentsEnrolled === 0 && (
-                <Button
-                  className='wide-button'
-                  classes={ {
-                    root: 'button-secondary-small',
-                    label: 'button-secondary-small-label',
-                  } }
-                  onClick={ () => history.push(`${ EDIT_COURSE_ROUTE }/${ course.courseId }`) }
-                >
-                  Edit Course
-                </Button>
+                  <Button
+                    className='wide-button'
+                    classes={ {
+                      root: 'button-secondary-small',
+                      label: 'button-secondary-small-label',
+                    } }
+                    onClick={ () => history.push(`${ EDIT_COURSE_ROUTE }/${ course.courseId }`) }
+                  >
+                    Edit Course
+                  </Button>
                 )}
               </>
             )}
           </div>
-          )}
+        )}
 
-          {openBuyCoursePopup && (
-            <BuyCourseModal
-              open={ openBuyCoursePopup }
-              onClose={ () => setOpenBuyCoursePopup(false) }
-              courseId={ course.courseId }
-              title={ course.informationSection.title }
-              createdOn={ course.createdOn }
-              price={ course.informationSection.price }
-              creatorName={ course.informationSection.creatorName }
-            />
-          )}
+        {openBuyCoursePopup && (
+          <BuyCourseModal
+            open={ openBuyCoursePopup }
+            onClose={ () => setOpenBuyCoursePopup(false) }
+            courseId={ course.courseId }
+            title={ course.informationSection.title }
+            createdOn={ course.createdOn }
+            price={ course.informationSection.price }
+            creatorName={ course.informationSection.creatorName }
+          />
+        )}
 
-          {isAssessmentModalOpen && (
+        {isAssessmentModalOpen && (
           <AssessmentTestModal
             open={ isAssessmentModalOpen }
             onClose={ () => setIsAssessmentModalOpen(false) }
@@ -314,11 +315,11 @@ const CourseActions = ({
             isLoading={ isLoading }
             requestType={ requestType }
           />
-          )}
+        )}
 
-          {type !== 'preview' && (
+        {type !== 'preview' && (
           <div className='mb-20'>
-            <h4 className='h4'> Rating for this course</h4>
+            <h4 className='h4'> Rating for this course </h4>
             <div className='rating-text'>
               <Rating
                 className='rating-star no-margin-left'
@@ -332,29 +333,28 @@ const CourseActions = ({
               <span className='para light'>{`${ course.studentsEnrolled } students`}</span>
             </div>
           </div>
-          )}
+        )}
 
-          {course.createdOn && (
+        {course.createdOn && (
           <div className='mb-20'>
-            <h4 className='h4'> Last updated</h4>
+            <h4 className='h4'> Last updated </h4>
             <span className='para light'>
               {course.createdOn && `${ formatDate(course.createdOn, 'MMMM DD YYYY, hh:mm a') }`}
             </span>
           </div>
-          )}
-        </>
-        {course.informationSection.category && course.informationSection.categoryTitle && (
+        )}
+      </>
+      {course.informationSection.category && course.informationSection.categoryTitle && (
         <div className='mb-20'>
-          <h4 className='h4'>Category</h4>
+          <h4 className='h4'> Category </h4>
           <span className='para light'>{course.informationSection.categoryTitle}</span>
         </div>
-        )}
-        <div className='mb-20'>
-          <h4 className='h4'>Language(s)</h4>
-          <span className='para light'>{course.informationSection.language}</span>
-        </div>
-      </Box>
-    </>
+      )}
+      <div className='mb-20'>
+        <h4 className='h4'> Language(s) </h4>
+        <span className='para light'>{course.informationSection.language}</span>
+      </div>
+    </Box>
   )
 }
 

@@ -12,9 +12,11 @@ import ContactCenterSkeleton from
 import ActionsSkeleton from '../../../../components/People/Agent/Jobs/Actions/Skeletons/actionsSkeleton'
 
 const AgentJobView = () => {
-  const { jobId } = useParams()
   const { jobDetails, isLoading, success } = useSelector((state) => state.jobDetails)
+
+  const { jobId } = useParams()
   const dispatch = useDispatch()
+
   useEffect(() => {
     dispatch(jobDetailsFetchStart({ jobId }))
 
@@ -40,7 +42,8 @@ const AgentJobView = () => {
               hires={ jobDetails.companyDetails.hires }
               jobsPosted={ jobDetails.companyDetails.jobsPosted }
             />
-          ) : (<ContactCenterSkeleton />
+          ) : (
+            <ContactCenterSkeleton />
           )}
       </Grid>
       <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 4 }>
@@ -59,7 +62,9 @@ const AgentJobView = () => {
               clientId={ jobDetails.clientId }
             />
           </div>
-        ) : (<ActionsSkeleton />)}
+        ) : (
+          <ActionsSkeleton />
+        )}
       </Grid>
     </Grid>
   )

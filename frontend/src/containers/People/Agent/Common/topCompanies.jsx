@@ -7,7 +7,9 @@ import { COMPANY_PROFILE_ROUTE } from '../../../../routes/routesPath'
 
 export default function TopCompanies({ heading }) {
   const { topCompanies, isLoading } = useSelector((state) => state.fetchTopCompanies)
+
   const dispatch = useDispatch()
+
   useEffect(() => {
     dispatch(fetchTopCompaniesStart())
   }, [ dispatch ])

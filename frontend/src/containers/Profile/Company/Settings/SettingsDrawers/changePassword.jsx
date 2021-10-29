@@ -24,6 +24,7 @@ const ChangePassword = ({
     newPassword: false,
     confirmPassword: false,
   })
+
   const dispatch = useDispatch()
 
   const { register, handleSubmit, errors } = useForm({
@@ -42,6 +43,17 @@ const ChangePassword = ({
         .oneOf([ yup.ref('newPassword'), null ], '*Passwords does not match'),
     }),
   })
+
+  useEffect(() => {
+    if (!isUpdateLoading && isUpdateSuccess && updatedDataType === 'password') {
+      setOpen(false)
+      if (userType === 'client') {
+        dispatch(resetUpdateProfileSettingsFlags())
+      } else if (userType === 'agent') {
+        dispatch(resetAgentProfileSettingsFlags())
+      }
+    }
+  }, [ isUpdateSuccess, isUpdateLoading, dispatch, setOpen, updatedDataType, userType ])
 
   const onSubmit = (data) => {
     if (!isUpdateLoading) {
@@ -71,20 +83,8 @@ const ChangePassword = ({
       newPassword: false,
       confirmPassword: false,
     })
-
     setOpen(false)
   }, [ setOpen ])
-
-  useEffect(() => {
-    if (!isUpdateLoading && isUpdateSuccess && updatedDataType === 'password') {
-      setOpen(false)
-      if (userType === 'client') {
-        dispatch(resetUpdateProfileSettingsFlags())
-      } else if (userType === 'agent') {
-        dispatch(resetAgentProfileSettingsFlags())
-      }
-    }
-  }, [ isUpdateSuccess, isUpdateLoading, dispatch, setOpen, updatedDataType, userType ])
 
   return (
     <Drawer
@@ -97,12 +97,12 @@ const ChangePassword = ({
         <div className='display-inline-flex'>
           <h3 className='h3 mb-30'> Change Password </h3>
           {isUpdateLoading && updatedDataType === 'password' && (
-          <Loader
-            className='static-small-loader'
-            enableOverlay={ false }
-            displayLoaderManually
-            size={ 23 }
-          />
+            <Loader
+              className='static-small-loader'
+              enableOverlay={ false }
+              displayLoaderManually
+              size={ 23 }
+            />
           )}
         </div>
         <form className='is-fullwidth' onSubmit={ handleSubmit(onSubmit) }>

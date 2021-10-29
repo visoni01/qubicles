@@ -35,7 +35,7 @@ const BuyCourseModal = ({
     >
       <div className='header'>
         <DialogTitle>
-          <div className='h2'>Buy Course</div>
+          <div className='h2'> Buy Course </div>
         </DialogTitle>
         <DialogActions className='cross-button'>
           <IconButton

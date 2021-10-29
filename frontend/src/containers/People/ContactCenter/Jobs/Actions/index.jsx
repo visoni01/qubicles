@@ -69,7 +69,7 @@ const ClientJobApplicationActions = ({
         />
       )}
 
-      {application.status === ('screening') && (
+      {application.status === 'screening' && (
         <ScreeningActions
           key={ application.applicationId }
           handleUpdateStatus={ handleUpdateStatus }
@@ -78,7 +78,7 @@ const ClientJobApplicationActions = ({
         />
       )}
 
-      {application.status === ('training') && (
+      {application.status === 'training' && (
         <TrainingActions
           key={ application.applicationId }
           handleUpdateStatus={ handleUpdateStatus }
@@ -87,7 +87,7 @@ const ClientJobApplicationActions = ({
         />
       )}
 
-      {application.status === ('offered') && (
+      {application.status === 'offered' && (
         <OfferedActions
           key={ application.applicationId }
           handleUpdateStatus={ handleUpdateStatus }
@@ -96,7 +96,7 @@ const ClientJobApplicationActions = ({
         />
       )}
 
-      {application.status === ('hired') && (
+      {application.status === 'hired' && (
         <HiredActions
           key={ application.applicationId }
           handleUpdateStatus={ handleUpdateStatus }

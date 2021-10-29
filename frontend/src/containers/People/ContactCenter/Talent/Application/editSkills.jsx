@@ -173,12 +173,12 @@ const EditSkills = ({
           <div className='display-inline-flex align-items-center'>
             <div className='h2'>Skills</div>
             {(isLoading || isLoadingLanguage) && (
-            <Loader
-              className='static-small-loader'
-              enableOverlay={ false }
-              displayLoaderManually
-              size={ 25 }
-            />
+              <Loader
+                className='static-small-loader'
+                enableOverlay={ false }
+                displayLoaderManually
+                size={ 25 }
+              />
             )}
           </div>
         </DialogTitle>
@@ -245,9 +245,7 @@ const EditSkills = ({
         </div>
 
         <div className='display-inline-flex align-items-center'>
-          <h3 className='h3'>
-            Add Skill
-          </h3>
+          <h3 className='h3'> Add Skill </h3>
           {isLoadingJobSkills && (
             <Loader
               className='static-small-loader no-margin-top'
@@ -287,7 +285,7 @@ const EditSkills = ({
 
       <div className='header'>
         <DialogTitle>
-          <div className='h2'>Languages</div>
+          <div className='h2'> Languages </div>
           <p className='para error-message'>
             { !primaryLanguage ? '*Exactly one primary language must be selected' : '' }
           </p>
@@ -306,16 +304,10 @@ const EditSkills = ({
             spacing={ 1 }
           >
             <Grid item sm={ 1 } xs={ 1 }>
-              <h4 className='h4'>
-                1.
-              </h4>
+              <h4 className='h4'> 1. </h4>
             </Grid>
             <Grid item sm={ 3 } xs={ 3 }>
-              <h4 className='h4'>
-                {' '}
-                { primaryLanguage }
-                {' '}
-              </h4>
+              <h4 className='h4'>{ primaryLanguage }</h4>
             </Grid>
             <Grid item sm={ 6 } xs={ 6 }>
               <RadioGroup
@@ -362,18 +354,10 @@ const EditSkills = ({
               spacing={ 1 }
             >
               <Grid item sm={ 1 } xs={ 1 }>
-                <h4 className='h4'>
-                  {' '}
-                  {index + 1 + !!primaryLanguage}
-                  {'.'}
-                </h4>
+                <h4 className='h4'>{`${ index + 1 + !!primaryLanguage }.`}</h4>
               </Grid>
               <Grid item sm={ 3 } xs={ 3 }>
-                <h4 className='h4'>
-                  {' '}
-                  {language}
-                  {' '}
-                </h4>
+                <h4 className='h4'>{language}</h4>
               </Grid>
               <Grid item sm={ 6 } xs={ 6 }>
                 <RadioGroup
@@ -419,11 +403,7 @@ const EditSkills = ({
             spacing={ 1 }
           >
             <Grid item sm={ 1 } xs={ 1 }>
-              <h4 className='h4'>
-                {' '}
-                {otherLanguages.length + 1 + !!primaryLanguage}
-                {'.'}
-              </h4>
+              <h4 className='h4'>{`${ otherLanguages.length + 1 + !!primaryLanguage }.`}</h4>
             </Grid>
             <Grid item sm={ 3 } xs={ 11 }>
               <Select

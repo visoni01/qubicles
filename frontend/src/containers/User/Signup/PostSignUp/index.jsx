@@ -1,15 +1,16 @@
 import React, { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import './style.scss'
 import { Button, Grid } from '@material-ui/core'
 import { userUpdateStart } from '../../../../redux-saga/redux/actions'
 import AgentMultipartForm from './AgentMultipartForm'
 import ContactCenterMultipartForm from './ContactCenterMultipartForm'
 import agent from '../../../../assets/images/agent-registration.svg'
 import contactCenter from '../../../../assets/images/contactcenter-registration.svg'
+import './style.scss'
 
 const RoleSetup = () => {
   const dispatch = useDispatch()
+
   const updateEmpployeeRoleCB = useCallback(() => {
     dispatch(userUpdateStart({ role: 'employer' }))
   }, [ dispatch ])
@@ -31,10 +32,9 @@ const RoleSetup = () => {
             <Grid item>
               <div className='account-type'>
                 <img src={ contactCenter } alt='Center logo' className='intro-logo' />
-                <h3 className='h3'>For a Contact Center</h3>
+                <h3 className='h3'> For a Contact Center </h3>
                 <p className='para'>
-                  Operating inbound,  outbound,  blended or multi-channel programs for a new or existing contact
-                  center
+                  Operating inbound,  outbound,  blended or multi-channel programs for a new or existing contact center
                 </p>
                 <Button
                   classes={ {
@@ -50,7 +50,7 @@ const RoleSetup = () => {
             <Grid item>
               <div className='account-type'>
                 <img src={ agent } alt='Agent logo' className='intro-logo' />
-                <h3 className='h3'>As an Agent or Manager</h3>
+                <h3 className='h3'> As an Agent or Manager </h3>
                 <p className='para'>
                   Handle customer interactions, quality assurance, training or support for contact center
                   {'\n'}
@@ -76,23 +76,17 @@ const RoleSetup = () => {
 
 const PostSignUp = () => {
   const userData = useSelector((state) => state.login)
+
   const userCode = userData && userData.userDetails && userData.userDetails.user_code
+
   return (
     <div className='signup-wrapper'>
       <div className='fake-nav'>
         <img className='qubicles-logo' src='https://i.imgur.com/Ap2GB30.png' width={ 180 } height={ 28 } alt='' />
       </div>
-      {
-        !(userCode) && <RoleSetup />
-      }
-      {
-        userCode === 'agent'
-        && <AgentMultipartForm />
-      }
-      {
-        userCode === 'employer'
-        && <ContactCenterMultipartForm />
-      }
+      {!userCode && <RoleSetup />}
+      {userCode === 'agent' && <AgentMultipartForm />}
+      {userCode === 'employer' && <ContactCenterMultipartForm />}
     </div>
   )
 }

@@ -1,9 +1,7 @@
 import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
-import {
-  RadioGroup, FormControlLabel, Radio,
-} from '@material-ui/core'
+import { RadioGroup, FormControlLabel, Radio } from '@material-ui/core'
 import { answersPropTypes, testQuestionPropType } from './propTypes'
 
 const MultipleChoiceTestQuestion = ({

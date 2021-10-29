@@ -19,22 +19,18 @@ const Slide = ({
           <div className='columns is-gapless is-vcentered'>
             <div className='column is-5'>
               <div className='caption-inner'>
-                <h1>
-                  {heading}
-                </h1>
+                <h1>{heading}</h1>
                 <div className='caption-divider' />
                 <div className='caption-text'>
-                  <span>
-                    {detail}
-                  </span>
+                  <span>{detail}</span>
                   <div className='action'>
                     {!isLoggedin && (
-                    <CustomLink
-                      to='/signup'
-                      className='button button-cta primary-btn rounded raised steps-button-color'
-                    >
-                      {buttonName}
-                    </CustomLink>
+                      <CustomLink
+                        to='/signup'
+                        className='button button-cta primary-btn rounded raised steps-button-color'
+                      >
+                        {buttonName}
+                      </CustomLink>
                     )}
                   </div>
                 </div>

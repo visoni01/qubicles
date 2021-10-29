@@ -5,18 +5,11 @@ import '../styles.scss'
 
 const Wallet = () => (
   <Box className='custom-box wallet-root'>
-    <h3 className='h3'>
-      Wallet
-    </h3>
-    <h2 className='h2 mt-10'>
-      1864 QBE
-    </h2>
-    <p className='para'>
-      $1864 USD
-    </p>
-    <p className='para mt-20 mb-10'>
-      Recent Activities
-    </p>
+    <h3 className='h3'> Wallet </h3>
+    <h2 className='h2 mt-10'> 1864 QBE </h2>
+    <p className='para'> $1864 USD </p>
+    <p className='para mt-20 mb-10'> Recent Activities </p>
+
     <Grid container>
       <Grid item container justify='space-between' spacing={ 2 }>
         <Grid item xl={ 2 } lg={ 2 } sm={ 2 } xs={ 2 }>

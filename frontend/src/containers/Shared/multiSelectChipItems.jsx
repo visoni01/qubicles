@@ -1,7 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react'
-import {
-  FormControl, TextField, Chip,
-} from '@material-ui/core'
+import { FormControl, TextField, Chip } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
@@ -11,6 +9,10 @@ const MultiSelectChipItems = ({
 }) => {
   const [ inputValue, setInputValue ] = useState('')
   const [ selectedItems, setSelectedItems ] = useState(initialData || [])
+
+  useEffect(() => {
+    setSelectedItems(initialData)
+  }, [ initialData ])
 
   const setSelectedItemsCB = useCallback((event, value) => {
     if (value) {
@@ -26,10 +28,6 @@ const MultiSelectChipItems = ({
     setSelectedItems(updatedState)
     onChange(updatedState)
   }, [ onChange, selectedItems ])
-
-  useEffect(() => {
-    setSelectedItems(initialData)
-  }, [ initialData ])
 
   return (
     <div>
@@ -89,7 +87,6 @@ MultiSelectChipItems.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
   })),
-
   label: PropTypes.string,
   smallTag: PropTypes.bool,
   initialData: PropTypes.arrayOf(PropTypes.shape({

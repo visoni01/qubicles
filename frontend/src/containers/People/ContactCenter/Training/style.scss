@@ -105,6 +105,7 @@
 .courses-pagination {
   height: 32px;
   margin: 30px 0 10px;
+
   ul {
     float: right;
   }
@@ -135,6 +136,7 @@
     height: 20px;
     width: 20px;
     margin-left: -10px;
+
     &:hover {
       color: $color-primary;
     }

@@ -18,6 +18,7 @@ const RequiredCoursesField = ({
     allCourses, searchKeyword, count, offset, isLoading: coursesLoading,
   } = useSelector((state) => state[ coursesType ])
   const { success } = useSelector((state) => state.trainingCourse)
+
   const dispatch = useDispatch()
 
   // Fetch courses initially

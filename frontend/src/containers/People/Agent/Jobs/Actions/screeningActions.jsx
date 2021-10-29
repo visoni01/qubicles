@@ -13,28 +13,28 @@ const ScreeningActions = ({
   return (
     <div>
       {application.status === 'screening' && (
-      <Button
-        className='wide-button'
-        classes={ {
-          root: 'button-primary-small',
-          label: 'button-primary-small-label',
-        } }
-        onClick={ () => updateApplicationStatus('training') }
-      >
-        Training
-      </Button>
+        <Button
+          className='wide-button'
+          classes={ {
+            root: 'button-primary-small',
+            label: 'button-primary-small-label',
+          } }
+          onClick={ () => updateApplicationStatus('training') }
+        >
+          Training
+        </Button>
       )}
       {application.status === 'training' && (
-      <Button
-        className='wide-button'
-        classes={ {
-          root: 'button-primary-small',
-          label: 'button-primary-small-label',
-        } }
-        onClick={ () => history.push(`${ VIEW_COURSE_ROUTE }/1`) }
-      >
-        Go To Training
-      </Button>
+        <Button
+          className='wide-button'
+          classes={ {
+            root: 'button-primary-small',
+            label: 'button-primary-small-label',
+          } }
+          onClick={ () => history.push(`${ VIEW_COURSE_ROUTE }/1`) }
+        >
+          Go To Training
+        </Button>
       )}
       <MessageButton handleSendMessage={ handleSendMessage } isLoading={ isNewChatLoading } />
       <WithdrawApplication

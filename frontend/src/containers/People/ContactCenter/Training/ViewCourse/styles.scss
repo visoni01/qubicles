@@ -249,6 +249,7 @@
 
     .progress-slider-track {
       height: 5px;
+
       &:hover {
         color: inherit;
       }
@@ -256,6 +257,7 @@
 
     .progress-slider-rail {
       height: 5px;
+
       &:hover {
         color: inherit;
       }
@@ -264,6 +266,7 @@
     .progress-slider-thumb {
       height: 13px;
       width: 13px;
+
       &:hover {
         color: inherit;
       }
@@ -273,6 +276,7 @@
       position: absolute;
       top: -13px;
       color: #939393;
+
       &:hover {
         color: inherit;
       }
@@ -282,6 +286,7 @@
       display: flex;
       align-items: center;
       margin: 10px;
+
       &.small {
         margin: 2px;
       }
@@ -293,6 +298,7 @@
       .timestamp {
         color: $color-primary;
         padding: 12px;
+
         &.small {
           padding: 2px;
         }
@@ -303,6 +309,7 @@
       display: flex;
       align-items: center;
       margin: 10px;
+
       &.small {
         margin: 2px;
       }
@@ -319,6 +326,7 @@
           width: 100px;
           color: $color-primary;
           margin-right: 5px;
+
           &.small {
             width: 50px;
           }

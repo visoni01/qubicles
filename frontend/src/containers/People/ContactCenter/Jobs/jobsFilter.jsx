@@ -1,20 +1,18 @@
 import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Radio,
-  Popover,
-  RadioGroup,
-  FormControlLabel,
+  Radio, Popover, RadioGroup, FormControlLabel,
 } from '@material-ui/core'
-import '../styles.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateJobsFilter } from '../../../../redux-saga/redux/actions'
 import { jobFilterStatus } from '../constants'
+import '../styles.scss'
 
 const JobFilterModal = ({
   open, handleClose, anchorEl, setAnchorEl, id,
 }) => {
   const { selectedCategoryId, searchField, status } = useSelector((state) => state.jobsWithCategories)
+
   const dispatch = useDispatch()
 
   const setStatusCB = useCallback((event) => {

@@ -114,6 +114,5 @@ const transactionDetails = [
 ]
 
 export {
-  paymentCardData,
-  transactionDetails,
+  paymentCardData, transactionDetails,
 }

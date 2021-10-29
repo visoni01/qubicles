@@ -1,8 +1,6 @@
 /* eslint-disable complexity */
 import React from 'react'
-import {
-  Grid, Tabs, Tab,
-} from '@material-ui/core'
+import { Grid, Tabs, Tab } from '@material-ui/core'
 import { useLocation, Link } from 'react-router-dom'
 import ROUTE_PATHS from '../../../routes/routesPath'
 import TrainingFilter from '../ContactCenter/Training/trainingFilter'
@@ -33,24 +31,14 @@ const AgentContactCenter = () => {
       <Grid container spacing={ 3 }>
         <Grid item xl={ 3 } lg={ 3 } md={ 4 } sm={ 12 } xs={ 12 }>
           <div>
-            { currentPath === jobsRoute && (<AgentJobsFilter />)}
+            { currentPath === jobsRoute && <AgentJobsFilter />}
             { currentPath === applicationRoute && <ApplicationFilter />}
             { currentPath === trainingRoute && <TrainingFilter />}
           </div>
         </Grid>
-        <Grid
-          item
-          xl={ spacingMid }
-          lg={ spacingMid }
-          md={ 8 }
-          sm={ 12 }
-          xs={ 12 }
-          className='custom-active-tabs'
-        >
+        <Grid item xl={ spacingMid } lg={ spacingMid } md={ 8 } sm={ 12 } xs={ 12 } className='custom-active-tabs'>
           <Grid item xl={ spacingTab } lg={ spacingTab } md={ 12 } sm={ 12 } xs={ 12 }>
-            <Tabs
-              value={ temp.indexOf(currentPath) }
-            >
+            <Tabs value={ temp.indexOf(currentPath) }>
               <Tab
                 component={ Link }
                 label='Jobs'
@@ -73,7 +61,7 @@ const AgentContactCenter = () => {
           </Grid>
           <Grid item xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 }>
             <div>
-              { currentPath === jobsRoute && (<AgentJobsPage />)}
+              { currentPath === jobsRoute && <AgentJobsPage />}
               { currentPath === applicationRoute && <ApplicationsPage />}
               { currentPath === trainingRoute && <TrainingWrap />}
             </div>

@@ -1,13 +1,9 @@
 import {
-  breifcaseIcon, searchProperty, mediaIcon, chatIcon, networkIcon,
-  megaphoneIcon, acdQueueIcon, phoneCallDialerIcon, censusIcon,
-  flowScriptsIcon, mobileTouchIcon, emailTemplateIcon, openingTimesIcon, liveChatQueueIcon,
-  realtimeStatsIcon, reportsIcon, qaIcon, scorecardsIcon, stationsIcon, soundwaveIcon,
-  filterIcon,
-  addUsersIcon,
+  breifcaseIcon, searchProperty, mediaIcon, chatIcon, networkIcon, megaphoneIcon, acdQueueIcon, phoneCallDialerIcon,
+  censusIcon, flowScriptsIcon, mobileTouchIcon, emailTemplateIcon, openingTimesIcon, liveChatQueueIcon,
+  realtimeStatsIcon, reportsIcon, qaIcon, scorecardsIcon, stationsIcon, soundwaveIcon, filterIcon, addUsersIcon,
   syncDevicesIcon,
 } from '../../assets/images/icons/peopleNavigationIcons'
-
 import ROUTE_PATHS from '../../routes/routesPath'
 
 const companyPeopleNavigations = [
@@ -224,6 +220,5 @@ const settingsNavigations = [
 ]
 
 export {
-  companyPeopleNavigations, agentPeopleNavigations, programsNavigations,
-  insightsNavigations, settingsNavigations,
+  companyPeopleNavigations, agentPeopleNavigations, programsNavigations, insightsNavigations, settingsNavigations,
 }

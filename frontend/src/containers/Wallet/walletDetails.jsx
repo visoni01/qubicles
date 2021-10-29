@@ -203,52 +203,59 @@ const WalletDetails = () => {
           </div>
         </div>
       </Box>
+
       {openSendQBEModal && (
-      <SendQBETokenModal
-        open={ openSendQBEModal }
-        onClose={ () => setOpenSendQBE(false) }
-        onSubmit={ () => setOpenSendQBE(false) }
-      />
+        <SendQBETokenModal
+          open={ openSendQBEModal }
+          onClose={ () => setOpenSendQBE(false) }
+          onSubmit={ () => setOpenSendQBE(false) }
+        />
       )}
+
       {openAddToSavingsModal && (
-      <AddToSavingsModal
-        open={ openAddToSavingsModal }
-        onClose={ () => setOpenAddToSavingsModal(false) }
-        onSubmit={ () => setOpenAddToSavingsModal(false) }
-      />
+        <AddToSavingsModal
+          open={ openAddToSavingsModal }
+          onClose={ () => setOpenAddToSavingsModal(false) }
+          onSubmit={ () => setOpenAddToSavingsModal(false) }
+        />
       )}
+
       {openRemoveFromSavingsModal && (
-      <RemoveFromSavingsModal
-        open={ openRemoveFromSavingsModal }
-        onClose={ () => setOpenRemoveFromSavingsModal(false) }
-        onSubmit={ () => setOpenRemoveFromSavingsModal(false) }
-      />
+        <RemoveFromSavingsModal
+          open={ openRemoveFromSavingsModal }
+          onClose={ () => setOpenRemoveFromSavingsModal(false) }
+          onSubmit={ () => setOpenRemoveFromSavingsModal(false) }
+        />
       )}
+
       {openAddFundsModal && (
-      <AddFundsModal
-        open={ openAddFundsModal }
-        onClose={ () => setOpenAddFundsModal(false) }
-        onSubmit={ () => setOpenAddFundsModal(false) }
-      />
+        <AddFundsModal
+          open={ openAddFundsModal }
+          onClose={ () => setOpenAddFundsModal(false) }
+          onSubmit={ () => setOpenAddFundsModal(false) }
+        />
       )}
+
       {openWithdrawFundsModal && (
-      <WithdrawFundsModal
-        open={ openWithdrawFundsModal }
-        onClose={ () => setOpenWithdrawFundsModal(false) }
-        onSubmit={ () => setOpenWithdrawFundsModal(false) }
-      />
+        <WithdrawFundsModal
+          open={ openWithdrawFundsModal }
+          onClose={ () => setOpenWithdrawFundsModal(false) }
+          onSubmit={ () => setOpenWithdrawFundsModal(false) }
+        />
       )}
+
       {openWalletSettingsModal && (
-      <WalletSettingsModal
-        open={ openWalletSettingsModal }
-        onClose={ () => setOpenWalletSettingsModal(false) }
-      />
+        <WalletSettingsModal
+          open={ openWalletSettingsModal }
+          onClose={ () => setOpenWalletSettingsModal(false) }
+        />
       )}
+
       {openOrderPaymentCardModal && (
-      <OrderPaymentCardModal
-        open={ openOrderPaymentCardModal }
-        onClose={ () => setOpenOrderPaymentCardModal(false) }
-      />
+        <OrderPaymentCardModal
+          open={ openOrderPaymentCardModal }
+          onClose={ () => setOpenOrderPaymentCardModal(false) }
+        />
       )}
     </>
   )

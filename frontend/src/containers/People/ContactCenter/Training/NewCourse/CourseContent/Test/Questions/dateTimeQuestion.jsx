@@ -1,13 +1,9 @@
 import React, { useCallback } from 'react'
-import {
-  Grid, TextField, Switch,
-} from '@material-ui/core'
+import { Grid, TextField, Switch } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { testQuestionPropType } from '../../../propTypes'
 
-const DateTimeQuestion = ({
-  questionDetails, setQuestionDetails,
-}) => {
+const DateTimeQuestion = ({ questionDetails, setQuestionDetails }) => {
   const getDateAndTime = useCallback(({ type }) => questionDetails.dateTime[ type ], [ questionDetails ])
 
   const setDateAndTime = useCallback(({ type, val }) => {
@@ -43,26 +39,26 @@ const DateTimeQuestion = ({
     return (
       <div className='ml-15 display-inline-flex align-items-center'>
         {questionDetails.dateTime.isDate && (
-        <div className='mr-10'>
-          <p className='para bold'>Date</p>
-          <TextField
-            margin='dense'
-            variant='outlined'
-            value={ getDateAndTime({ type: 'date' }) }
-            disabled
-          />
-        </div>
+          <div className='mr-10'>
+            <p className='para bold'> Date </p>
+            <TextField
+              margin='dense'
+              variant='outlined'
+              value={ getDateAndTime({ type: 'date' }) }
+              disabled
+            />
+          </div>
         )}
         {questionDetails.dateTime.isTime && (
-        <div>
-          <p className='para bold'>Time</p>
-          <TextField
-            margin='dense'
-            variant='outlined'
-            value={ getDateAndTime({ type: 'time' }) }
-            disabled
-          />
-        </div>
+          <div>
+            <p className='para bold'>Time</p>
+            <TextField
+              margin='dense'
+              variant='outlined'
+              value={ getDateAndTime({ type: 'time' }) }
+              disabled
+            />
+          </div>
         )}
       </div>
     )
@@ -77,9 +73,7 @@ const DateTimeQuestion = ({
       </Grid>
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 } xs={ 3 }>
         <div className='display-inline-flex is-fullwidth justify-between align-items-center'>
-          <p className='para bold'>
-            Date
-          </p>
+          <p className='para bold'> Date </p>
           <Switch
             className='switches'
             color='primary'
@@ -99,9 +93,7 @@ const DateTimeQuestion = ({
       </Grid>
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 } xs={ 3 }>
         <div className='display-inline-flex is-fullwidth justify-between align-items-center'>
-          <p className='para bold'>
-            Time
-          </p>
+          <p className='para bold'> Time </p>
           <Switch
             className='switches'
             color='primary'

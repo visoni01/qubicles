@@ -5,7 +5,9 @@ import { sliderData } from './data'
 
 const Slider = () => {
   const [ currentSlide, setCurrentSlide ] = useState(0)
+
   const interval = useRef(null)
+
   useEffect(() => {
     interval.current = setTimeout(() => setCurrentSlide((currentSlide + 1) % 4), 5000)
     return () => clearTimeout(interval.current)
@@ -15,6 +17,7 @@ const Slider = () => {
     clearTimeout(interval.current)
     setCurrentSlide(index)
   }
+
   const dotButton = (name, index) => (
     <button
       type='button'
@@ -32,7 +35,7 @@ const Slider = () => {
         <SliderComponent { ...sliderData[ currentSlide ] } slideBg={ currentSlide + 1 } />
       </div>
       <div className='Wallop-pagination'>
-        { sliderData.map((element, index) => (dotButton(element.dotName, index)))}
+        {sliderData.map((element, index) => (dotButton(element.dotName, index)))}
       </div>
     </div>
   )

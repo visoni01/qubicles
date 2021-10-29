@@ -3,8 +3,8 @@ import { Grid } from '@material-ui/core'
 import WalletDetails from './walletDetails'
 import PaymentCardDetails from './paymentCardDetails'
 import Invoices from './invoices'
-import './styles.scss'
 import Referral from './referral'
+import './styles.scss'
 
 const Wallet = () => (
   <Grid container spacing={ 3 }>

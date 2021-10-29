@@ -28,8 +28,20 @@ const AddArticleModal = ({
   const [ isImageUploading, setIsImageUploading ] = useState(false)
   const [ currentFileUrl, setCurrentFileUrl ] = useState('')
   const [ currentFileName, setCurrentFileName ] = useState('')
+
   const { currentFileUrl: uploadedFileUrl, dataType } = useSelector((state) => state.trainingCourse)
+
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (uploadedFileUrl && [ 'Audio', 'Video' ].includes(dataType)) {
+      setUnitDetails((current) => ({
+        ...current,
+        details: uploadedFileUrl,
+      }))
+      setCurrentFileUrl(uploadedFileUrl)
+    }
+  }, [ dataType, setUnitDetails, uploadedFileUrl ])
 
   const handleUnitTypeChange = useCallback((selectedType) => {
     setUnitDetails((current) => ({
@@ -110,16 +122,6 @@ const AddArticleModal = ({
     onSubmit()
   }, [ onSubmit, dispatch ])
 
-  useEffect(() => {
-    if (uploadedFileUrl && [ 'Audio', 'Video' ].includes(dataType)) {
-      setUnitDetails((current) => ({
-        ...current,
-        details: uploadedFileUrl,
-      }))
-      setCurrentFileUrl(uploadedFileUrl)
-    }
-  }, [ dataType, setUnitDetails, uploadedFileUrl ])
-
   return (
     <Dialog
       disableScrollLock
@@ -145,7 +147,7 @@ const AddArticleModal = ({
         <div className='mb-10 is-fullwidth'>
           <Grid container justify='space-between' alignItems='center' spacing={ 3 }>
             <Grid item xs={ 8 } sm={ 8 } md={ 8 } lg={ 8 } xl={ 8 }>
-              <p className='para bold'>Title for this unit</p>
+              <p className='para bold'> Title for this unit </p>
               <TextField
                 className='is-fullwidth'
                 value={ unit.title }
@@ -155,7 +157,7 @@ const AddArticleModal = ({
               />
             </Grid>
             <Grid item xs={ 4 } sm={ 4 } md={ 4 } lg={ 4 } xl={ 4 }>
-              <p className='para bold'>Choose what type of unit this is</p>
+              <p className='para bold'> Choose what type of unit this is </p>
               <Select
                 margin='dense'
                 variant='outlined'
@@ -178,25 +180,25 @@ const AddArticleModal = ({
             <div>
               {/* Article */}
               {unit.type === 'Article' && (
-              <CKEditor
-                editor={ ClassicEditor }
-                data={ unit.details }
-                onChange={ (event, editor) => handleChangeArticleText(editor.getData()) }
-                onInit={ (editor) => {
-                  editor.editing.view.change((writer) => {
-                    writer.setStyle(
-                      'height',
-                      '350px',
-                      editor.editing.view.document.getRoot(),
-                    )
-                  })
-                  editor.setData(unit.details)
-                  // eslint-disable-next-line
-                  editor.plugins.get('FileRepository').createUploadAdapter = function (loader) {
-                    return new MyUploadAdapter(loader, setIsImageUploading, dispatch)
-                  }
-                } }
-              />
+                <CKEditor
+                  editor={ ClassicEditor }
+                  data={ unit.details }
+                  onChange={ (event, editor) => handleChangeArticleText(editor.getData()) }
+                  onInit={ (editor) => {
+                    editor.editing.view.change((writer) => {
+                      writer.setStyle(
+                        'height',
+                        '350px',
+                        editor.editing.view.document.getRoot(),
+                      )
+                    })
+                    editor.setData(unit.details)
+                    // eslint-disable-next-line
+                    editor.plugins.get('FileRepository').createUploadAdapter = function (loader) {
+                      return new MyUploadAdapter(loader, setIsImageUploading, dispatch)
+                    }
+                  } }
+                />
               )}
 
               {/* Audio File */}
@@ -269,7 +271,7 @@ const AddArticleModal = ({
               )}
             </div>
           ) : (
-            <h3 className='mt-30 mb-10 text-center is-fullwidth h3'>Please select content type</h3>
+            <h3 className='mt-30 mb-10 text-center is-fullwidth h3'> Please select content type </h3>
           )}
           <input
             type='file'
@@ -288,10 +290,10 @@ const AddArticleModal = ({
             style={ { display: 'none' } }
           />
           {isImageUploading && (
-          <Loader
-            displayLoaderManually={ isImageUploading }
-            size={ 50 }
-          />
+            <Loader
+              displayLoaderManually={ isImageUploading }
+              size={ 50 }
+            />
           )}
         </div>
       </DialogContent>

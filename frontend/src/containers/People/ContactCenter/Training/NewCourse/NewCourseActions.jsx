@@ -12,20 +12,23 @@ import ConfirmationModal from '../../../../../components/CommonModal/confirmatio
 import { REQUEST_TYPES } from '../../../../../utils/constants'
 
 const NewCourseActions = ({
-  informationSection,
-  contentSection,
-  courseContent,
-  isPreview,
-  setIsPreview,
-  courseId,
-  courseStatus,
-  handleErrors,
-  requestType,
-  success,
+  informationSection, contentSection, courseContent, isPreview, setIsPreview, courseId, courseStatus, handleErrors,
+  requestType, success,
 }) => {
+  const [ publishConfirmationOpen, setPublishConfirmationOpen ] = useState(false)
+
   const dispatch = useDispatch()
   const history = useHistory()
-  const [ publishConfirmationOpen, setPublishConfirmationOpen ] = useState(false)
+
+  useEffect(() => {
+    if (courseId && courseStatus === 'draft' && history.location.pathname !== `${ EDIT_COURSE_ROUTE }/${ courseId }`) {
+      history.push(`${ EDIT_COURSE_ROUTE }/${ courseId }`)
+    }
+    if (success && requestType !== REQUEST_TYPES.FETCH && courseId && courseStatus === 'published') {
+      history.push(`${ ROUTES_PATH.MY_COURSES }`)
+      dispatch(resetTrainingCourseReducer())
+    }
+  }, [ courseId, history, courseStatus, dispatch, requestType, success ])
 
   const saveDraft = useCallback(() => {
     // Check course content before send
@@ -107,16 +110,6 @@ const NewCourseActions = ({
       }))
     }
   }, [ informationSection, contentSection, courseContent, courseId, dispatch ])
-
-  useEffect(() => {
-    if (courseId && courseStatus === 'draft' && history.location.pathname !== `${ EDIT_COURSE_ROUTE }/${ courseId }`) {
-      history.push(`${ EDIT_COURSE_ROUTE }/${ courseId }`)
-    }
-    if (success && requestType !== REQUEST_TYPES.FETCH && courseId && courseStatus === 'published') {
-      history.push(`${ ROUTES_PATH.MY_COURSES }`)
-      dispatch(resetTrainingCourseReducer())
-    }
-  }, [ courseId, history, courseStatus, dispatch, requestType, success ])
 
   return (
     <>

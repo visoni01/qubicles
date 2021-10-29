@@ -11,6 +11,7 @@ const ContactCenterFeed = ({ userId }) => {
     <>
       {/* Create new post */}
       {userId === userDetails.user_id && <CreatePost />}
+
       {/* Render Posts */}
       <RenderPosts
         ownerId={ userId }

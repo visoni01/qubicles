@@ -2,20 +2,23 @@
   .navigation-card {
     border-color: #DBDBDB;
     border-width: 2px;
-    .card-content-root {
-      padding: 10px;
-    }
     height: 280px;
     padding: 10px;
     padding-top: 35px;
     border-radius: 10px;
     box-shadow: none;
     cursor: pointer;
+
+    .card-content-root {
+      padding: 10px;
+    }
+
     .image {
       height: 70px;
       margin: auto;
     }
   }
+
   :hover {
     border-color: #4877F4;
   }
@@ -24,9 +27,11 @@
 .people-navigation-actions {
   .people-info {
     margin: 10px 0px;
+
     .icon {
       vertical-align: bottom;
     }
+
     span {
       margin-left: 12px;
     }

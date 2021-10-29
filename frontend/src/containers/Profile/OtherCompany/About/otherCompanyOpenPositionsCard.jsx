@@ -1,5 +1,3 @@
-/* eslint-disable react/no-danger */
-/* eslint-disable camelcase */
 import React, { useCallback, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -16,23 +14,20 @@ const OpenJobPositionCard = ({
   categoryTitle, jobs, inNeed, categoryId,
 }) => {
   const [ currentJobId, setCurrentJobId ] = useState(null)
-
   const [ openJobPostModal, setOpenJobPostModal ] = useState(false)
-  const handleOpenJobPostModal = useCallback(
-    (job_id) => {
-      setOpenJobPostModal((currentState) => !currentState)
-      if (!openJobPostModal) {
-        setCurrentJobId(job_id)
-      }
-    }, [ openJobPostModal ],
-  )
 
+  const handleOpenJobPostModal = useCallback((jobId) => {
+    setOpenJobPostModal((currentState) => !currentState)
+    if (!openJobPostModal) {
+      setCurrentJobId(jobId)
+    }
+  }, [ openJobPostModal ])
+
+  /* eslint-disable camelcase */
   return (
     <div className='job-category-card list-divider pb-10' key={ categoryId }>
       <div className='section-heading display-inline-flex is-fullwidth'>
-        <h3 className='h3 light'>
-          { categoryTitle }
-        </h3>
+        <h3 className='h3 light'>{ categoryTitle }</h3>
       </div>
 
       <div className='mt-5'>
@@ -47,9 +42,7 @@ const OpenJobPositionCard = ({
             <div className='job-info'>
               <div className='job-details is-fullwidth '>
                 <div className='other-company-title display-inline-flex justify-between'>
-                  <h4 className='h4'>
-                    { title }
-                  </h4>
+                  <h4 className='h4'>{ title }</h4>
                   <Button
                     classes={ {
                       root: 'button-primary-text',
@@ -61,6 +54,7 @@ const OpenJobPositionCard = ({
                   </Button>
                 </div>
                 <div className='mt-5'>
+                  {/* eslint-disable-next-line react/no-danger */}
                   <p className='para short-description' dangerouslySetInnerHTML={ { __html: description } } />
                 </div>
                 <div className='mt-10'>
@@ -68,7 +62,7 @@ const OpenJobPositionCard = ({
                     <li>
                       <FontAwesomeIcon className='custom-fa-icon light' icon={ faUserFriends } />
                       <span className='para bold'>{`${ fulfilled || 0 }/${ needed || inNeed }`}</span>
-                      <span className='para light ml-5'>Hired</span>
+                      <span className='para light ml-5'> Hired </span>
                     </li>
                     <li>
                       <FontAwesomeIcon className='custom-fa-icon light' icon={ faBriefcase } />
@@ -84,10 +78,7 @@ const OpenJobPositionCard = ({
                     </li>
                     <li>
                       <FontAwesomeIcon className='custom-fa-icon light' icon={ faDollarSign } />
-                      <span className='para bold'>
-                        {pay_amount}
-                        /hr
-                      </span>
+                      <span className='para bold'>{`${ pay_amount }/hr`}</span>
                     </li>
                   </ul>
                 </div>

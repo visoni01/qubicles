@@ -1,7 +1,5 @@
 import React from 'react'
-import {
-  Button, CircularProgress,
-} from '@material-ui/core'
+import { Button, CircularProgress } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import TextDivider from '../../../../../components/CommonModal/textDivider'
 

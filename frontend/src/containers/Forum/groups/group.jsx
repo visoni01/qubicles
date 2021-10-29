@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import {
-  Box, InputBase, Button,
-} from '@material-ui/core'
+import { Box, InputBase, Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -21,7 +19,7 @@ const SelectedGroup = ({ group }) => {
   const {
     id, title, description, ownerId,
   } = group
-  const dispatch = useDispatch()
+
   const [ selectedTopic, setSelectedTopic ] = useState('')
   const [ selectedUpdateTopic, setSelectedUpdateTopic ] = useState(null)
   const [ openUpdateGroup, setUpdateOpenGroup ] = useState(false)
@@ -30,9 +28,9 @@ const SelectedGroup = ({ group }) => {
   const { userDetails } = useSelector((state) => state.login)
   const { topics } = useSelector((state) => state.groupTopics)
 
-  useEffect(() => {
-    setSelectedTopic('')
-  }, [ id ])
+  const dispatch = useDispatch()
+
+  useEffect(() => { setSelectedTopic('') }, [ id ])
 
   // eslint-disable-next-line
   const changeTopicFormStatus = useCallback((status) => setSelectedTopic(status),
@@ -143,9 +141,7 @@ const SelectedGroup = ({ group }) => {
       <div>
         <Box className='custom-box padding-20 mb-20'>
           <div className='section-heading display-inline-flex is-fullwidth'>
-            <h3 className='h3 group-title'>
-              {title}
-            </h3>
+            <h3 className='h3 group-title'>{title}</h3>
             {userDetails.user_id === ownerId && (
               <MenuOptions
                 handleFirstOptionClick={ handleUpdateGroupToggle }
@@ -159,9 +155,7 @@ const SelectedGroup = ({ group }) => {
               />
             )}
           </div>
-          <p className='para'>
-            {description}
-          </p>
+          <p className='para'>{description}</p>
         </Box>
         <div className='display-inline-flex is-fullwidth mb-20'>
           <div className='display-inline-flex search-input mr-10'>

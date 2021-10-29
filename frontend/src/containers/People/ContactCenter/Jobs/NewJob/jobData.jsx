@@ -1,8 +1,6 @@
 /* eslint-disable complexity */
 import React, { useState, useCallback } from 'react'
-import {
-  Button, TextField,
-} from '@material-ui/core'
+import { Button, TextField } from '@material-ui/core'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CKEditor from '@ckeditor/ckeditor5-react'
@@ -11,20 +9,16 @@ import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import MyUploadAdapter from '../../../../../utils/uploadImage'
 import Loader from '../../../../loaders/circularLoader'
-import '../styles.scss'
 import SingleSelect from '../../../../Shared/singleSelect'
 import { jobDetailsPropTypes } from '../jobsValidator'
 import errorsPropTypes from './errorsPropTypes'
+import '../styles.scss'
 
 const NewJobData = ({
-  newJobData,
-  setNewJobData,
-  jobFields,
-  setNewJobDataCB,
-  isEdit,
-  errors,
+  newJobData, setNewJobData, jobFields, setNewJobDataCB, isEdit, errors,
 }) => {
   const [ isImageUploading, setIsImageUploading ] = useState(false)
+
   const dispatch = useDispatch()
 
   const handleDescriptionData = useCallback((event, editor) => {

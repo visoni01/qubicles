@@ -5,11 +5,7 @@ import ReviewModal from '../../../Shared/reviewModal'
 import { profileReviewPostStart } from '../../../../redux-saga/redux/actions'
 import { clientRatingLabels } from '../../../../components/Profile/Reviews/ratingLabels'
 
-const AddCompanyReview = ({
-  clientId, openReviewModal, setOpenReviewModal,
-}) => {
-  const dispatch = useDispatch()
-  const { postLoading, postSuccess } = useSelector((state) => state.profileReviews)
+const AddCompanyReview = ({ clientId, openReviewModal, setOpenReviewModal }) => {
   const [ reviewText, setReviewText ] = useState('')
   const [ rating, setRating ] = useState({
     cultureRating: 0,
@@ -17,6 +13,10 @@ const AddCompanyReview = ({
     careerAdvancementRating: 0,
     compensationRating: 0,
   })
+
+  const { postLoading, postSuccess } = useSelector((state) => state.profileReviews)
+
+  const dispatch = useDispatch()
 
   // Handle post Review
   const handleSubmitReview = useCallback(() => {

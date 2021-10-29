@@ -16,29 +16,12 @@ import { REQUEST_TYPES } from '../../../../../../utils/constants'
 import { TEST_ENTRY_ANSWERS, VALIDATE_ANSWERS } from '../../../../../../redux-saga/redux/constants'
 
 const TestEntriesValidation = ({
-  open, setOpen, candidateName, candidatePic, candidateId, sections, courseId, testType,
-  isLoading, dataType,
+  open, setOpen, candidateName, candidatePic, candidateId, sections, courseId, testType, isLoading, dataType,
 }) => {
-  const dispatch = useDispatch()
   const [ validatedData, setValidatedData ] = useState([])
   const [ currentSectionIndex, setCurrentSectionIndex ] = useState(0)
 
-  const handleClose = useCallback(() => {
-    setValidatedData([])
-    setCurrentSectionIndex(0)
-    setOpen(false)
-  }, [ setOpen ])
-
-  const handleDone = useCallback(() => {
-    dispatch(testEntriesRequestStart({
-      requestType: REQUEST_TYPES.UPDATE,
-      dataType: VALIDATE_ANSWERS,
-      courseId,
-      candidateId,
-      validatedData,
-      testType,
-    }))
-  }, [ dispatch, courseId, candidateId, validatedData, testType ])
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (!sections && open) {
@@ -58,6 +41,23 @@ const TestEntriesValidation = ({
       setCurrentSectionIndex(0)
     }
   }, [ dataType, isLoading ])
+
+  const handleClose = useCallback(() => {
+    setValidatedData([])
+    setCurrentSectionIndex(0)
+    setOpen(false)
+  }, [ setOpen ])
+
+  const handleDone = useCallback(() => {
+    dispatch(testEntriesRequestStart({
+      requestType: REQUEST_TYPES.UPDATE,
+      dataType: VALIDATE_ANSWERS,
+      courseId,
+      candidateId,
+      validatedData,
+      testType,
+    }))
+  }, [ dispatch, courseId, candidateId, validatedData, testType ])
 
   return (
     <Dialog
@@ -95,9 +95,7 @@ const TestEntriesValidation = ({
           {`Section ${ sections[ currentSectionIndex ].sectionNum }: ${ sections[ currentSectionIndex ].sectionTitle }`}
         </h3>
         )}
-        {_.isEqual(dataType, TEST_ENTRY_ANSWERS) && isLoading && (
-          <TestEntriesValidationSkeleton />
-        )}
+        {_.isEqual(dataType, TEST_ENTRY_ANSWERS) && isLoading && <TestEntriesValidationSkeleton />}
         {(!isLoading || _.isEqual(dataType, VALIDATE_ANSWERS)) && (
           <Grid container spacing={ 3 }>
             {sections && sections.length > 0 && sections[ currentSectionIndex ]

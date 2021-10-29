@@ -1,15 +1,12 @@
 import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent,
-  DialogTitle, Button, IconButton, Switch, TextField,
+  Dialog, DialogActions, DialogContent, DialogTitle, Button, IconButton, Switch, TextField,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faExchangeAlt } from '@fortawesome/free-solid-svg-icons'
 
-const RemoveFromSavings = ({
-  open, onClose, onSubmit,
-}) => {
+const RemoveFromSavings = ({ open, onClose, onSubmit }) => {
   const [ savingsAmount, setSavingsAmount ] = useState(0)
 
   const setSavingsAmountCB = useCallback((event) => {
@@ -32,7 +29,7 @@ const RemoveFromSavings = ({
     >
       <div className='header'>
         <DialogTitle>
-          <h2 className='h2'>Remove from Savings</h2>
+          <h2 className='h2'> Remove from Savings </h2>
         </DialogTitle>
         <DialogActions className='cross-button'>
           <IconButton
@@ -54,7 +51,7 @@ const RemoveFromSavings = ({
           on the amount you want to remove from your savings.
         </p>
 
-        <h4 className='h4 mt-30'>Amount</h4>
+        <h4 className='h4 mt-30'> Amount </h4>
         <div className='display-inline-flex justify-between align-items-center is-fullwidth'>
           <TextField
             className='text-field-para is-fullwidth mt-10'
@@ -77,7 +74,7 @@ const RemoveFromSavings = ({
           />
         </div>
         <div className='display-inline-flex justify-between align-items-center is-halfwidth mt-30'>
-          <h4 className='h4'>Instant(1% fee)</h4>
+          <h4 className='h4'> Instant(1% fee) </h4>
           <Switch
             className='switches'
             color='primary'

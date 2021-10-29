@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  Box, Divider, Grid,
-} from '@material-ui/core'
+import { Box, Divider, Grid } from '@material-ui/core'
 import _ from 'lodash'
 import JobPostDetails from '../../../../components/People/ContactCenter/Jobs/jobPostDetails'
 import CreatePreviewActions from './NewJob/createPreviewActions'
@@ -11,12 +9,12 @@ import AlertPopover from '../../../../components/CommonModal/alertPopover'
 import { stopLoader } from '../../../../redux-saga/redux/utils'
 
 const JobPreview = () => {
+  const [ errors, setErrors ] = useState({})
+
   const { createJobData, isUpdatedData, isLoading } = useSelector((state) => state.createJobData)
   const { loading } = useSelector((state) => state.loader)
 
   const dispatch = useDispatch()
-
-  const [ errors, setErrors ] = useState({})
 
   useEffect(() => () => loading && dispatch(stopLoader()), [ loading, dispatch ])
 
@@ -31,9 +29,7 @@ const JobPreview = () => {
           <Box className='custom-box job-post-root'>
             <h2 className='h2'> Preview </h2>
             <div className='display-inline-flex is-fullwidth'>
-              <h3 className='h3 job-post-heading'>
-                {createJobData.title}
-              </h3>
+              <h3 className='h3 job-post-heading'>{createJobData.title}</h3>
             </div>
             <Divider className='divider' />
             <JobPostDetails
@@ -42,6 +38,7 @@ const JobPreview = () => {
             />
           </Box>
         </Grid>
+
         <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 3 }>
           <CreatePreviewActions
             newJobData={ createJobData }
@@ -51,6 +48,7 @@ const JobPreview = () => {
           />
         </Grid>
       </Grid>
+
       <AlertPopover
         open={ !_.isEmpty(errors) }
         buttonOnClick={ () => setErrors({}) }

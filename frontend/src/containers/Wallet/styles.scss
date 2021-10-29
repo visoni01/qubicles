@@ -19,6 +19,7 @@
     &:last-child {
       border: none !important;
     }
+
     .transaction-price {
       text-align-last: right;
     }
@@ -56,6 +57,7 @@
 
   .referral-list {
     list-style-type: disc;
+
     li {
       margin-bottom: 5px;
     }
@@ -112,5 +114,4 @@
       margin-top: 0px;
     }
   }
-
 }

@@ -1,8 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import {
-  Box, Divider, FormControl,
-  RadioGroup, FormControlLabel, Radio,
-  Checkbox, TextareaAutosize, Button, Grid,
+  Box, Divider, FormControl, RadioGroup, FormControlLabel, Radio, Checkbox, TextareaAutosize, Button, Grid,
 } from '@material-ui/core'
 import { Rating } from '@material-ui/lab'
 import _ from 'lodash'
@@ -14,7 +12,6 @@ import {
 import { initialState } from '../../../../redux-saga/redux/people/talent/talentFilter'
 
 const TalentFilter = () => {
-  const dispatch = useDispatch()
   const { jobSkills } = useSelector((state) => state.jobSkills)
   const { talentFilter } = useSelector((state) => state.talentFilter)
 
@@ -26,6 +23,8 @@ const TalentFilter = () => {
   const [ selectedVerifications, setVerifications ] = useState(talentFilter.selectedVerifications)
   const [ selectedAvailability, setAvailability ] = useState(talentFilter.selectedAvailability)
   const [ selectedLocation, setLocation ] = useState(talentFilter.selectedLocation)
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     // Update Talent Filter in Store
@@ -54,12 +53,7 @@ const TalentFilter = () => {
     // To prevent maximum depth warning in dependency array
     // eslint-disable-next-line
   }, [
-    dispatch,
-    selectedSkill,
-    selectedLanguage,
-    selectedHourlyRate,
-    selectedRating,
-    selectedAvailability,
+    dispatch, selectedSkill, selectedLanguage, selectedHourlyRate, selectedRating, selectedAvailability,
     selectedTalentType,
   ])
 
@@ -71,6 +65,12 @@ const TalentFilter = () => {
   }, [ dispatch, jobSkills ])
 
   const { talentFilter: talentFilterInitial } = initialState
+  const availableLanguages = [
+    { id: 1, title: 'english' },
+    { id: 2, title: 'french' },
+    { id: 3, title: 'spanish' },
+  ]
+
   const handleResetFilter = useCallback(() => {
     setSkill(talentFilterInitial.selectedSkill)
     setLanguage(talentFilterInitial.selectedLanguage)
@@ -81,13 +81,6 @@ const TalentFilter = () => {
 
     dispatch(resetTalentFilter())
   }, [ dispatch, talentFilterInitial ])
-
-  // Languages
-  const availableLanguages = [
-    { id: 1, title: 'english' },
-    { id: 2, title: 'french' },
-    { id: 3, title: 'spanish' },
-  ]
 
   // Talent Type
   const setTalentTypeCB = useCallback((e) => {
@@ -192,7 +185,7 @@ const TalentFilter = () => {
 
   return (
     <Box className='custom-box no-padding side-filter-root talent-filter'>
-      <h2 className='h2 title talent-title'>Talent</h2>
+      <h2 className='h2 title talent-title'> Talent </h2>
 
       <Grid container justify='space-between' className='filter-buttons'>
         <Grid item>

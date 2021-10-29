@@ -15,12 +15,13 @@ import Loader from '../../../../loaders/circularLoader'
 import { REQUEST_TYPES } from '../../../../../utils/constants'
 
 const ChangeEmail = ({
-  open, setOpen, accountSettingInfo,
-  isUpdateLoading, isUpdateSuccess, userType, updatedDataType,
+  open, setOpen, accountSettingInfo, isUpdateLoading, isUpdateSuccess, userType, updatedDataType,
 }) => {
   const [ newEmail, setNewEmail ] = useState('')
   const [ resetClosed, setResetClosed ] = useState(true)
+
   const dispatch = useDispatch()
+
   const { register, handleSubmit, errors } = useForm({
     defaultValues: {
       newEmail: '',
@@ -110,12 +111,12 @@ const ChangeEmail = ({
         <div className='display-inline-flex'>
           <h3 className='h3 mb-30'> Change Email </h3>
           {isUpdateLoading && updatedDataType === 'email' && (
-          <Loader
-            className='static-small-loader'
-            enableOverlay={ false }
-            displayLoaderManually
-            size={ 23 }
-          />
+            <Loader
+              className='static-small-loader'
+              enableOverlay={ false }
+              displayLoaderManually
+              size={ 23 }
+            />
           )}
         </div>
         {resetClosed && (
@@ -170,9 +171,9 @@ const ChangeEmail = ({
         )}
         {!resetClosed && (
           <div className='mt-30 mr-20'>
-            <p className='para sz-lg bold'>Please verify your new email</p>
+            <p className='para sz-lg bold'> Please verify your new email </p>
             <div className='mt-10 mb-5'>
-              <span className='para'>A Verification mail is sent to </span>
+              <span className='para'> A Verification mail is sent to </span>
               <span className='para primary'>
                 {`${ newEmail } .`}
               </span>

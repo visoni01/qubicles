@@ -5,23 +5,16 @@ import { Redirect } from 'react-router-dom'
 import _ from 'lodash'
 import moment from 'moment'
 import { POST_SIGNUP_AGENT_PREVIOUS_DATA_FETCH } from '../../../../../redux-saga/redux/constants'
-
 import StepperComponent from '../../../../../components/User/Stepper'
 import MultipartForm from './multipartForm'
 import {
-  postSignUpStepStart,
-  handleBackStep,
-  handleNextStep,
-  postSignUpPreviousDataFetch,
+  postSignUpStepStart, handleBackStep, handleNextStep, postSignUpPreviousDataFetch,
 } from '../../../../../redux-saga/redux/user/postSignup'
 
 const AgentMultipartForm = () => {
+  const { stepsData, currentStep, isLoading } = useSelector((state) => state.postSignUp)
+
   const dispatch = useDispatch()
-  const {
-    stepsData, currentStep, isLoading,
-  } = useSelector(
-    (state) => state.postSignUp,
-  )
 
   useEffect(() => {
     dispatch(postSignUpPreviousDataFetch({ type: POST_SIGNUP_AGENT_PREVIOUS_DATA_FETCH }))

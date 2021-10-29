@@ -7,11 +7,18 @@ import _ from 'lodash'
 import './styles.scss'
 
 const AnswerValidationCard = ({
-  candidatePic, candidateName, questionId, questionText, candidateAnswer, correctAnswer,
-  validatedData, setValidatedData, isLoading,
+  candidatePic, candidateName, questionId, questionText, candidateAnswer, correctAnswer, validatedData,
+  setValidatedData, isLoading,
 }) => {
   const [ showReferenceAnswer, setShowReferenceAnswer ] = useState(false)
   const [ isCorrect, setIsCorrect ] = useState(null)
+
+  useEffect(() => {
+    const validatedAnswerIndex = _.findIndex(validatedData, { questionId })
+    if (!_.isEqual(validatedAnswerIndex, -1)) {
+      setIsCorrect(validatedData[ validatedAnswerIndex ].correct)
+    }
+  }, [ questionId, validatedData ])
 
   const validateAnswer = useCallback((correct) => {
     const answerIndex = _.findIndex(validatedData, { questionId })
@@ -30,13 +37,6 @@ const AnswerValidationCard = ({
     setIsCorrect(correct)
   }, [ questionId, setValidatedData, validatedData ])
 
-  useEffect(() => {
-    const validatedAnswerIndex = _.findIndex(validatedData, { questionId })
-    if (!_.isEqual(validatedAnswerIndex, -1)) {
-      setIsCorrect(validatedData[ validatedAnswerIndex ].correct)
-    }
-  }, [ questionId, validatedData ])
-
   return (
     <Card
       variant='outlined'
@@ -46,21 +46,15 @@ const AnswerValidationCard = ({
       } }
     >
       <CardContent classes={ { root: 'card-content-root' } }>
-        <div className='h4'>
-          {questionText}
-        </div>
+        <div className='h4'>{questionText}</div>
         <div className='display-inline-flex align-items-start is-fullwidth mt-10 mb-20'>
           <Avatar className='user-pic' alt={ candidateName } src={ candidatePic } />
-          <p className='para answer-text'>
-            {candidateAnswer}
-          </p>
+          <p className='para answer-text'>{candidateAnswer}</p>
         </div>
         {showReferenceAnswer && (
-        <div className='mb-20'>
-          <p className='para reference-answer-text'>
-            {correctAnswer}
-          </p>
-        </div>
+          <div className='mb-20'>
+            <p className='para reference-answer-text'>{correctAnswer}</p>
+          </div>
         )}
         <div className='display-inline-flex is-fullwidth justify-end'>
           <Button

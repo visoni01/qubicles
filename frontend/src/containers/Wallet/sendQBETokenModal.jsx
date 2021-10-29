@@ -1,17 +1,12 @@
 import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent,
-  DialogTitle, TextField, Button,
-  IconButton,
-  InputBase,
+  Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, IconButton, InputBase,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faExchangeAlt } from '@fortawesome/free-solid-svg-icons'
 
-const SendQBEToken = ({
-  open, onClose, onSubmit,
-}) => {
+const SendQBEToken = ({ open, onClose, onSubmit }) => {
   const [ sendQBETokenData, setSendQBETokenData ] = useState({
     recipientAddress: '',
     amount: '',
@@ -38,7 +33,7 @@ const SendQBEToken = ({
     >
       <div className='header'>
         <DialogTitle>
-          <h2 className='h2'>Send</h2>
+          <h2 className='h2'> Send </h2>
         </DialogTitle>
         <DialogActions className='cross-button'>
           <IconButton
@@ -59,7 +54,7 @@ const SendQBEToken = ({
           placeholder='example.qbe'
           className='search-input mt-10'
         />
-        <h4 className='h4 mt-30'>Amount</h4>
+        <h4 className='h4 mt-30'> Amount </h4>
         <div className='display-inline-flex justify-between align-items-center is-fullwidth'>
           <InputBase
             InputProps={ { inputProps: { min: 0, step: 1 } } }
@@ -75,7 +70,7 @@ const SendQBEToken = ({
             className='search-input mt-10'
           />
         </div>
-        <h4 className='h4 mt-30'>Memo</h4>
+        <h4 className='h4 mt-30'> Memo </h4>
         <TextField
           margin='dense'
           id='name'

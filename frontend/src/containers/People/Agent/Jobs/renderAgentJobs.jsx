@@ -6,6 +6,7 @@ import AgentJobsSkeleton from '../../../../components/People/ContactCenter/Skele
 
 const RenderAgentJobs = () => {
   const { agentJobsData, isLoading, success } = useSelector((state) => state.fetchAgentJobs)
+
   if (isLoading && !success) {
     return (
       <Box className='custom-box'>
@@ -19,9 +20,10 @@ const RenderAgentJobs = () => {
       </Box>
     )
   }
+
   return (
     <Box className='custom-box'>
-      { agentJobsData.map((job) => (
+      {agentJobsData.map((job) => (
         <AgentJobCard
           key={ job.jobId }
           job={ job }
@@ -30,7 +32,7 @@ const RenderAgentJobs = () => {
       {((!agentJobsData) || (agentJobsData.length === 0)) && (
       <div className='mt-10 mb-10'>
         <div className='text-align-last-center'>
-          <h3 className=' h3'>No jobs found!</h3>
+          <h3 className=' h3'> No jobs found! </h3>
         </div>
       </div>
       )}

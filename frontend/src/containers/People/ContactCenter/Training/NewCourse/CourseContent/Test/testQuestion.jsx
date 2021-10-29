@@ -79,7 +79,7 @@ const TestQuestion = ({ question, testDetails, setTestDetails }) => {
           {/* Question Text */}
           {!questionDetails.isSaved && (
           <Grid item xl={ 8 } lg={ 8 } md={ 8 } sm={ 8 } xs={ 12 }>
-            <p className='para bold mt-10'>Your Question</p>
+            <p className='para bold mt-10'> Your Question </p>
             <TextField
               className='is-fullwidth'
               margin='dense'
@@ -95,7 +95,7 @@ const TestQuestion = ({ question, testDetails, setTestDetails }) => {
           {/* Question Type */}
           {!questionDetails.isSaved && (
           <Grid item xl={ 4 } lg={ 4 } md={ 4 } sm={ 4 } xs={ 12 }>
-            <p className='para bold mt-10'>Question Type</p>
+            <p className='para bold mt-10'> Question Type </p>
             <Select
               margin='dense'
               variant='outlined'
@@ -123,75 +123,75 @@ const TestQuestion = ({ question, testDetails, setTestDetails }) => {
 
           {/* Question text on saved */}
           {questionDetails.isSaved && (
-          <Grid item xl={ 11 } lg={ 11 } md={ 11 } sm={ 11 } xs={ 11 }>
-            <p className='para bold sz-lg mt-10 p-word-break'>{`${ question.questionText }`}</p>
-          </Grid>
+            <Grid item xl={ 11 } lg={ 11 } md={ 11 } sm={ 11 } xs={ 11 }>
+              <p className='para bold sz-lg mt-10 p-word-break'>{ question.questionText }</p>
+            </Grid>
           )}
 
           {/* Question text on saved */}
           {questionDetails.isSaved && (
-          <Grid item xl={ 1 } lg={ 1 } md={ 1 } sm={ 1 } xs={ 1 }>
-            <IconButton
-              onClick={ handleEditQuestion }
-              classes={ {
-                root: 'pt-5 pb-5 pl-5 pr-5',
-              } }
-            >
-              <FontAwesomeIcon
-                icon={ faPen }
-                className='custom-fa-icon sz-sm'
-              />
-            </IconButton>
-          </Grid>
+            <Grid item xl={ 1 } lg={ 1 } md={ 1 } sm={ 1 } xs={ 1 }>
+              <IconButton
+                onClick={ handleEditQuestion }
+                classes={ {
+                  root: 'pt-5 pb-5 pl-5 pr-5',
+                } }
+              >
+                <FontAwesomeIcon
+                  icon={ faPen }
+                  className='custom-fa-icon sz-sm'
+                />
+              </IconButton>
+            </Grid>
           )}
 
           {/* Multiple Choice question */}
           {questionDetails.questionType === 'multiple' && (
-          <MultipleChoiceQuestion
-            questionDetails={ questionDetails }
-            setQuestionDetails={ setQuestionDetails }
-          />
+            <MultipleChoiceQuestion
+              questionDetails={ questionDetails }
+              setQuestionDetails={ setQuestionDetails }
+            />
           )}
 
           {/* Checkbox question */}
           {questionDetails.questionType === 'checkbox' && (
-          <CheckboxQuestion
-            questionDetails={ questionDetails }
-            setQuestionDetails={ setQuestionDetails }
-          />
+            <CheckboxQuestion
+              questionDetails={ questionDetails }
+              setQuestionDetails={ setQuestionDetails }
+            />
           )}
 
           {/* Text type question */}
           { [ 'paragraph', 'text' ].includes(questionDetails.questionType) && (
-          <TextQuestion
-            questionDetails={ questionDetails }
-            setQuestionDetails={ setQuestionDetails }
-          />
+            <TextQuestion
+              questionDetails={ questionDetails }
+              setQuestionDetails={ setQuestionDetails }
+            />
           )}
 
           {/* Scale question */}
           {questionDetails.questionType === 'scale' && (
-          <ScaleQuestion
-            questionDetails={ questionDetails }
-            setQuestionDetails={ setQuestionDetails }
-          />
+            <ScaleQuestion
+              questionDetails={ questionDetails }
+              setQuestionDetails={ setQuestionDetails }
+            />
           )}
 
           {/* Date Time question */}
           {questionDetails.questionType === 'date' && (
-          <DateTimeQuestion
-            questionDetails={ questionDetails }
-            setQuestionDetails={ setQuestionDetails }
-          />
+            <DateTimeQuestion
+              questionDetails={ questionDetails }
+              setQuestionDetails={ setQuestionDetails }
+            />
           )}
 
         </Grid>
         {!questionDetails.isSaved && (
-        <TestQuestionOptions
-          questionDetails={ questionDetails }
-          handleDeleteQuestion={ handleDeleteQuestion }
-          handleSaveQuestion={ handleSaveQuestion }
-        />
+          <TestQuestionOptions
+            questionDetails={ questionDetails }
+            handleDeleteQuestion={ handleDeleteQuestion }
+            handleSaveQuestion={ handleSaveQuestion }
+          />
         )}
       </div>
     </div>

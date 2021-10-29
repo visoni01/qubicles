@@ -150,8 +150,6 @@ const agentResumeSkills = [
   },
 ]
 
-const workHistory = {
-
-}
+const workHistory = {}
 
 export { agentResumeSkills, workHistory }

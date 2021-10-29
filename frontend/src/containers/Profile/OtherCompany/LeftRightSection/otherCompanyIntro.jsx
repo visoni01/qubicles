@@ -68,9 +68,7 @@ const OtherCompanyIntro = ({ clientId, imageName }) => {
   }, [ dispatch, companyDetails ])
 
   if ((_.isNull(isCompanyDetailsLoading) || isCompanyDetailsLoading) && !success) {
-    return (
-      <ContactCenterSkeleton />
-    )
+    return <ContactCenterSkeleton />
   }
 
   return (
@@ -115,34 +113,22 @@ const OtherCompanyIntro = ({ clientId, imageName }) => {
             </Button>
           )}
         </div>
-        <h4 className='h4 margin-top-bottom-10'>
-          {companyDetails.title}
-        </h4>
-        <p className='para'>
-          {companyDetails.summary}
-        </p>
+        <h4 className='h4 margin-top-bottom-10'>{companyDetails.title}</h4>
+        <p className='para'>{companyDetails.summary}</p>
         <Divider className='divider' />
         <div className='display-inline-flex justify-between is-fullwidth'>
           <div>
-            <h4 className='h4'>
-              { formatCount(companyDetails.followers || 0) }
-            </h4>
-            <p className='para'> Followers</p>
-            <h4 className='h4 mt-20'>
-              { formatCount(companyDetails.hires || 0) }
-            </h4>
+            <h4 className='h4'>{ formatCount(companyDetails.followers || 0) }</h4>
+            <p className='para'> Followers </p>
+            <h4 className='h4 mt-20'>{ formatCount(companyDetails.hires || 0) }</h4>
             <p className='para'> Hires </p>
             <h4 className='h4 mt-20'> 2M+ </h4>
             <p className='para'> Total Calss </p>
           </div>
           <div>
-            <h4 className='h4'>
-              { formatCount(companyDetails.following || 0) }
-            </h4>
+            <h4 className='h4'>{ formatCount(companyDetails.following || 0) }</h4>
             <p className='para'> Following </p>
-            <h4 className='h4 mt-20'>
-              { formatCount(companyDetails.jobsPosted || 0) }
-            </h4>
+            <h4 className='h4 mt-20'>{ formatCount(companyDetails.jobsPosted || 0) }</h4>
             <p className='para'> Jobs Posted </p>
           </div>
         </div>

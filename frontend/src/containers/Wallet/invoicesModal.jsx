@@ -1,18 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent,
-  DialogTitle, IconButton, FormControl, Select,
-  InputLabel, Divider,
+  Dialog, DialogActions, DialogContent, DialogTitle, IconButton, FormControl, Select, InputLabel, Divider,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
 const Year = [ 2020, 2019, 2018, 2016, 2015, 2014, 2013, 2012 ]
 
-const InvoicesModal = ({
-  open, onClose,
-}) => (
+const InvoicesModal = ({ open, onClose }) => (
   <Dialog
     disableScrollLock
     open={ open }
@@ -23,7 +19,7 @@ const InvoicesModal = ({
   >
     <div className='header'>
       <DialogTitle>
-        <h2 className='h2'>Invoices</h2>
+        <h2 className='h2'> Invoices </h2>
       </DialogTitle>
       <DialogActions className='cross-button'>
         <IconButton

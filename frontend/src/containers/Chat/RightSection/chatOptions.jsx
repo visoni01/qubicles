@@ -35,6 +35,12 @@ const ChatOptions = ({
   const success = currentConversation?.success
   const isLoading = currentConversation?.isLoading
 
+  useEffect(() => {
+    if (!isLoading && success && _.isEqual(dataType, ADD_PEOPLE)) {
+      setOpenAddPeopleModal(false)
+    }
+  }, [ isLoading, success, dataType ])
+
   const handleClose = useCallback(() => {
     setOpenOptions(false)
     setAnchorEl(null)
@@ -87,12 +93,6 @@ const ChatOptions = ({
     handleClose()
   }, [ dispatch, conversationId, handleClose ])
 
-  useEffect(() => {
-    if (!isLoading && success && _.isEqual(dataType, ADD_PEOPLE)) {
-      setOpenAddPeopleModal(false)
-    }
-  }, [ isLoading, success, dataType ])
-
   return (
     <>
       <IconButton
@@ -129,7 +129,7 @@ const ChatOptions = ({
               onClick={ handleOpenAddPeopleModal }
               startIcon={ <AddPeopleIcon className='mr-5' /> }
             >
-              <p className='para'>Add People</p>
+              <p className='para'> Add People </p>
             </Button>
           )}
 
@@ -141,7 +141,7 @@ const ChatOptions = ({
               onClick={ handleMarkAsUnread }
               startIcon={ <MarkAsUnreadIcon className='mr-5' /> }
             >
-              <p className='para'>Mark as unread</p>
+              <p className='para'> Mark as unread </p>
             </Button>
           )}
 
@@ -153,7 +153,7 @@ const ChatOptions = ({
               onClick={ () => setOpenConfirmDeleteModal(true) }
               startIcon={ <DeleteIcon className='custom-svg-icon color-red mr-5' /> }
             >
-              <p className='para red'>Delete Chat</p>
+              <p className='para red'> Delete Chat </p>
             </Button>
           )}
 
@@ -165,7 +165,7 @@ const ChatOptions = ({
               onClick={ () => setOpenConfirmLeaveModal(true) }
               startIcon={ <LogoutIcon className='mr-5' /> }
             >
-              <p className='para red'>Leave Group</p>
+              <p className='para red'> Leave Group </p>
             </Button>
           )}
         </div>

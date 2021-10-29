@@ -7,10 +7,9 @@ import PrimaryContact from './primaryContact'
 import EditProfileModal from './editProfileModal'
 import { formatCount } from '../../../../utils/common'
 
-const ContactCenterEditProfile = ({
-  clientId,
-}) => {
+const ContactCenterEditProfile = ({ clientId }) => {
   const [ openEditProfileModal, setOpenEditProfileModal ] = useState(false)
+
   const { settings } = useSelector((state) => state.clientDetails)
 
   return (
@@ -37,34 +36,26 @@ const ContactCenterEditProfile = ({
             Edit Profile
           </Button>
         </div>
-        <h4 className='h4 margin-top-bottom-10'>
-          {settings.title}
-        </h4>
-        <p className='para'>
-          {settings.summary}
-        </p>
+        <h4 className='h4 margin-top-bottom-10'>{settings.title}</h4>
+        <p className='para'>{settings.summary}</p>
         <Divider className='divider' />
         <div className='display-inline-flex justify-between is-fullwidth'>
           <div>
             <h4 className='h4'>
               { formatCount(settings.followers || 0) }
             </h4>
-            <p className='para'> Followers</p>
+            <p className='para'> Followers </p>
             <h4 className='h4 mt-20'>
               { formatCount(settings.hires || 0) }
             </h4>
             <p className='para'> Hires </p>
             <h4 className='h4 mt-20'> 2M+ </h4>
-            <p className='para'> Total Calss </p>
+            <p className='para'> Total Class </p>
           </div>
           <div>
-            <h4 className='h4'>
-              { formatCount(settings.following || 0) }
-            </h4>
-            <p className='para'> Following</p>
-            <h4 className='h4 mt-20'>
-              { formatCount(settings.jobsPosted || 0) }
-            </h4>
+            <h4 className='h4'>{ formatCount(settings.following || 0) }</h4>
+            <p className='para'> Following </p>
+            <h4 className='h4 mt-20'>{ formatCount(settings.jobsPosted || 0) }</h4>
             <p className='para'> Jobs Posted </p>
           </div>
         </div>

@@ -6,9 +6,10 @@ import '../styles.scss'
 import { jobDetailsFetchStart } from '../../../../redux-saga/redux/actions'
 
 const EditJob = () => {
-  const dispatch = useDispatch()
   const { jobDetails } = useSelector((state) => state.jobDetails)
   const { isUpdatedData } = useSelector((state) => state.createJobData)
+
+  const dispatch = useDispatch()
   const { jobId } = useParams()
 
   useEffect(() => {

@@ -3,10 +3,7 @@ import { Avatar } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { Rating } from '@material-ui/lab'
 
-const CompaniesSuggestionsCard = ({
-  companyName,
-  companyRating,
-}) => (
+const CompaniesSuggestionsCard = ({ companyName, companyRating }) => (
   <div className='suggested-company list-divider'>
     <div className='display-inline-flex mb-10'>
       <Avatar className='profile-pic' alt={ companyName } src={ companyName[ 0 ].toUpperCase() } />

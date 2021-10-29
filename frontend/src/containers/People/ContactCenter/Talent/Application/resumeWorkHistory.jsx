@@ -29,7 +29,7 @@ const ResumeWorkHistory = () => (
       <div className='feedback-section'>
         <Avatar className='profile-pic' alt='carolin' src={ carolin } />
         <div className='middle-part'>
-          <p className='para bold'>Jasmine Palmer</p>
+          <p className='para bold'> Jasmine Palmer </p>
           <p className='para light'> Customer Service Manager at Microsoft </p>
         </div>
         <div className='right-part'>
@@ -110,7 +110,6 @@ const ResumeWorkHistory = () => (
       </div>
     </div>
   </div>
-
 )
 
 export default ResumeWorkHistory

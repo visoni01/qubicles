@@ -4,11 +4,9 @@ import { Link } from 'react-router-dom'
 import { formatDate } from '../../../../../utils/common'
 import { VIEW_COURSE_ROUTE } from '../../../../../routes/routesPath'
 
-const IncompleteCoursesList = ({
-  className, requiredCourses,
-}) => (
+const IncompleteCoursesList = ({ className, requiredCourses }) => (
   <div className={ `${ className } incomplete-courses-list-root` }>
-    <div className='para mb-10'>This course requires to complete the following course(s) first:</div>
+    <div className='para mb-10'> This course requires to complete the following course(s) first: </div>
     {requiredCourses.filter((requiredCourse) => requiredCourse.status !== 'completed')
       .map((requiredCourse) => (
         <div key={ requiredCourse.courseId } className='incomplete-courses-list-item'>

@@ -7,11 +7,14 @@ import { useSelector } from 'react-redux'
 import menuItems from './menuList'
 
 const SideBar = () => {
-  const location = useLocation()
   const [ selectedNav, setSelectedNav ] = useState(0)
   const [ userMenuApps, setUserMenuApps ] = useState([])
+
   const { userDetails } = useSelector((state) => state.login)
+
+  const location = useLocation()
   const history = useHistory()
+
   useEffect(() => {
     const currentMenu = menuItems.filter((item) => {
       if (item.link) {

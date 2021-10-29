@@ -6,23 +6,25 @@ import CourseTrainerIntro from './CourseTrainerIntro'
 import CourseDescription from './CourseDescription'
 import CourseOverview from '../../../../../components/People/ContactCenter/Training/ViewCourse/CourseOverview'
 import CourseReviews from './Reviews'
-import './styles.scss'
 import CourseActions from './CourseActions'
 import { resetViewCourseReducer, viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
 import { resetUserData } from '../../../../../redux-saga/redux/user'
 import { REQUEST_TYPES } from '../../../../../utils/constants'
 import { COURSE_INFO } from '../../../../../redux-saga/redux/constants'
+import './styles.scss'
 
 const ViewCourse = () => {
-  const location = useLocation()
-  let { courseId } = useParams()
-  courseId = parseInt(courseId, 10)
+  const [ openCoursePlayer, setOpenCoursePlayer ] = useState(false)
+  const [ openReviewModal, setOpenReviewModal ] = useState(false)
+
   const {
     course, dataType, isLoading, requestType,
   } = useSelector((state) => state.viewCourse)
+
   const dispatch = useDispatch()
-  const [ openCoursePlayer, setOpenCoursePlayer ] = useState(false)
-  const [ openReviewModal, setOpenReviewModal ] = useState(false)
+  const location = useLocation()
+  let { courseId } = useParams()
+  courseId = parseInt(courseId, 10)
 
   useEffect(() => {
     dispatch(viewCourseRequestStart({
@@ -43,16 +45,7 @@ const ViewCourse = () => {
           creatorId={ course.informationSection.creatorId }
         />
       </Grid>
-      <Grid
-        container
-        direction='column'
-        item
-        spacing={ 3 }
-        xl={ 6 }
-        lg={ 6 }
-        md={ 6 }
-        sm={ 4 }
-      >
+      <Grid container direction='column' item spacing={ 3 } xl={ 6 } lg={ 6 } md={ 6 } sm={ 4 }>
         <Grid item>
           <CourseDescription
             title={ course.informationSection.title }

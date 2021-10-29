@@ -1,20 +1,18 @@
 import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Radio,
-  Popover,
-  RadioGroup,
-  FormControlLabel,
+  Radio, Popover, RadioGroup, FormControlLabel,
 } from '@material-ui/core'
-import '../styles.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { courseReviewsFilterStatus } from '../../../constants'
 import { updateCourseReviewsFilterOrPage } from '../../../../../../redux-saga/redux/people'
+import '../styles.scss'
 
 const CourseReviewsFilterModal = ({
   open, handleClose, anchorEl, setAnchorEl, id,
 }) => {
   const { reviewFilter } = useSelector((state) => state.courseReviews)
+
   const dispatch = useDispatch()
 
   const setStatus = useCallback((event) => {
@@ -58,9 +56,7 @@ const CourseReviewsFilterModal = ({
             control={ <Radio /> }
             labelPlacement='start'
             label={ (
-              <h4 className='h4'>
-                {courseReviewsFilterStatus[ item ]}
-              </h4>
+              <h4 className='h4'>{courseReviewsFilterStatus[ item ]}</h4>
             ) }
           />
         ))}

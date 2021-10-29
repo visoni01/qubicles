@@ -15,11 +15,12 @@ import { REQUEST_TYPES } from '../../../../../../utils/constants'
 import { ALL_TEST_ENTRIES } from '../../../../../../redux-saga/redux/constants'
 
 const TestEntries = () => {
+  const { courseTestEntries, isLoading, dataType } = useSelector((state) => state.testEntries)
+
   const history = useHistory()
   const dispatch = useDispatch()
   let { courseId } = useParams()
   courseId = parseInt(courseId, 10)
-  const { courseTestEntries, isLoading, dataType } = useSelector((state) => state.testEntries)
 
   useEffect(() => {
     dispatch(testEntriesRequestStart({
@@ -52,13 +53,11 @@ const TestEntries = () => {
       {!([ '', ALL_TEST_ENTRIES ].includes(dataType) && (_.isNull(isLoading) || isLoading)) && (
         <>
           <div className='mb-20'>
-            <h2 className='h2 mb-30'>
-              {courseTestEntries.courseTitle}
-            </h2>
+            <h2 className='h2 mb-30'>{courseTestEntries.courseTitle}</h2>
             <h3 className='h3 mb-10'>{`Test Entries (${ courseTestEntries.testEntries.length })`}</h3>
             <p className='para light'>
               {'Some answers in your tests need manual validation.'
-          + ' Please check the test entries of the following participants.'}
+              + ' Please check the test entries of the following participants.'}
             </p>
           </div>
           <div>
@@ -88,9 +87,9 @@ const TestEntries = () => {
             </Grid>
             )}
             {courseTestEntries && courseTestEntries.testEntries && courseTestEntries.testEntries.length === 0 && (
-            <p className='para sz-xl bold'>
-              No test entries found for this course...
-            </p>
+              <p className='para sz-xl bold'>
+                No test entries found for this course...
+              </p>
             )}
           </div>
         </>

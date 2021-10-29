@@ -4,6 +4,7 @@ import AddArticleModal from './addArticleModal'
 
 const InitialContent = () => {
   const [ openAddUnit, setOpenAddUnit ] = useState(false)
+
   return (
     <div className='list-item'>
       <Grid container spacing={ 2 } justify='space-between'>
@@ -26,6 +27,7 @@ const InitialContent = () => {
           </Button>
         </Grid>
       </Grid>
+
       <AddArticleModal
         open={ openAddUnit }
         onClose={ () => setOpenAddUnit(false) }

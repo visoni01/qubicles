@@ -1,20 +1,20 @@
 import React, { useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent,
-  DialogTitle, Button, IconButton, TextField, CircularProgress,
+  Dialog, DialogActions, DialogContent, DialogTitle, Button, IconButton, TextField, CircularProgress,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import ViewSetSubRatings from '../../components/CommonModal/viewSubRatings'
-import './styles.scss'
 import ConfirmationModal from '../../components/CommonModal/confirmationModal'
+import './styles.scss'
 
 const ReviewModal = ({
-  loading, open, onClose, reviewHeading, onSubmit, ratingLabels,
-  rating, setRating, reviewText, setReviewText, reviewRequired,
+  loading, open, onClose, reviewHeading, onSubmit, ratingLabels, rating, setRating, reviewText, setReviewText,
+  reviewRequired,
 }) => {
   const [ openConfirmation, setOpenConfirmation ] = useState(false)
+
   const handleSubmitReview = useCallback(() => {
     setOpenConfirmation(false)
     onSubmit()
@@ -31,10 +31,8 @@ const ReviewModal = ({
       <div className='header'>
         <DialogTitle>
           <div className='display-inline-flex align-items-center'>
-            <h2 className='h2 review-modal-heading'>Review</h2>
-            {loading && (
-            <CircularProgress size={ 25 } />
-            )}
+            <h2 className='h2 review-modal-heading'> Review </h2>
+            {loading && <CircularProgress size={ 25 } />}
           </div>
         </DialogTitle>
         <DialogActions className='cross-button'>
@@ -47,16 +45,14 @@ const ReviewModal = ({
         </DialogActions>
       </div>
       <DialogContent>
-        <h4 className='h4 light'>
-          {reviewHeading}
-        </h4>
+        <h4 className='h4 light'>{reviewHeading}</h4>
         <ViewSetSubRatings
           rating={ rating }
           setRating={ setRating }
           ratingLabels={ ratingLabels }
         />
         <h4 className='h4 mt-30'>
-          <span>Review</span>
+          <span> Review </span>
           <span className='para light ml-5'>
             {`(${ !reviewRequired ? 'Optional, ' : '' }${ 255 - reviewText.length } characters)`}
           </span>
@@ -108,7 +104,6 @@ const ReviewModal = ({
         confirmButtonText='Confirm'
         message='You can submit the review only once. Do you want to continue?'
       />
-
     </Dialog>
   )
 }

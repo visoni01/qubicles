@@ -89,9 +89,11 @@
             .clip-icon {
               padding: 2px;
               cursor: pointer;
+
               &:hover {
                 color: $color-white;
               }
+
               path {
                 &:hover {
                   color: $color-white;

@@ -1,14 +1,12 @@
 import React, { useState, useCallback } from 'react'
-import {
-  Popover, IconButton, Button,
-} from '@material-ui/core'
+import { Popover, IconButton, Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { MenuIcon } from '../../assets/images/common'
 import ConfirmationModal from '../../components/CommonModal/confirmationModal'
 
 const MenuOptions = ({
-  id, handleFirstOptionClick, handleConfirmModal, confirmButtonText, firstOption,
-  secondOption, FirstIcon, SecondIcon, message,
+  id, handleFirstOptionClick, handleConfirmModal, confirmButtonText, firstOption, secondOption, FirstIcon, SecondIcon,
+  message,
 }) => {
   const [ openOptions, setOpenOptions ] = useState(false)
   const [ anchorEl, setAnchorEl ] = useState(null)
@@ -42,9 +40,7 @@ const MenuOptions = ({
 
   return (
     <>
-      <IconButton
-        onClick={ handleOptionClick }
-      >
+      <IconButton onClick={ handleOptionClick }>
         <MenuIcon />
       </IconButton>
 

@@ -14,6 +14,7 @@ import { COMPANY_PROFILE_ROUTE, PROFILE_ROUTE } from '../../../../../routes/rout
 
 const CourseTrainerIntro = ({ creatorId }) => {
   const { isLoading, userData } = useSelector((state) => state.userData)
+
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -35,46 +36,44 @@ const CourseTrainerIntro = ({ creatorId }) => {
     return <IntroductionSkeleton />
   }
   return (
-    <>
-      <Box className='custom-box contact-center-info-root'>
-        <div className='mb-20'>
-          <Button
-            onClick={ () => window.history.back() }
-            classes={ {
-              root: 'MuiButtonBase-root button-primary-small',
-              label: 'MuiButton-label button-primary-small-label',
-            } }
-          >
-            <FontAwesomeIcon icon={ faChevronLeft } className='mr-10' />
-            Back
-          </Button>
-        </div>
-        <Introduction
-          key={ userData.name }
-          imageName={ userData.imageName }
-          rating={ userData.rating }
-          imageSrc={ userData.companyImg }
-          name={ userData.name }
-          location={ userData.location }
-          date={ userData.registrationDate }
-        />
-        <h4 className='h4 margin-top-bottom-10'>
-          {userData.title}
-        </h4>
-        <p className='para mb-10'>
-          {userData.summary}
-        </p>
+    <Box className='custom-box contact-center-info-root'>
+      <div className='mb-20'>
         <Button
+          onClick={ () => window.history.back() }
           classes={ {
-            root: 'button-primary-text mt-10',
-            label: 'button-primary-text-label',
+            root: 'MuiButtonBase-root button-primary-small',
+            label: 'MuiButton-label button-primary-small-label',
           } }
-          onClick={ handleClick }
         >
-          View Profile
+          <FontAwesomeIcon icon={ faChevronLeft } className='mr-10' />
+          Back
         </Button>
-      </Box>
-    </>
+      </div>
+
+      <Introduction
+        key={ userData.name }
+        imageName={ userData.imageName }
+        rating={ userData.rating }
+        imageSrc={ userData.companyImg }
+        name={ userData.name }
+        location={ userData.location }
+        date={ userData.registrationDate }
+      />
+
+      <h4 className='h4 margin-top-bottom-10'>{userData.title}</h4>
+
+      <p className='para mb-10'>{userData.summary}</p>
+
+      <Button
+        classes={ {
+          root: 'button-primary-text mt-10',
+          label: 'button-primary-text-label',
+        } }
+        onClick={ handleClick }
+      >
+        View Profile
+      </Button>
+    </Box>
   )
 }
 

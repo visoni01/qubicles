@@ -15,12 +15,13 @@ const PostComment = ({
 }) => {
   const [ comment, setComment ] = useState(commentDetails.comment)
   const [ imageFile, setImageFile ] = useState()
+
   const { userDetails } = useSelector((state) => state.login)
   const { settings } = useSelector((state) => (
     state[ userDetails.user_code === 'employer' ? 'clientDetails' : 'agentDetails' ]
   ))
-  const fileInput = useRef()
 
+  const fileInput = useRef()
   const dispatch = useDispatch()
 
   const changeCommentData = (event) => {
@@ -75,12 +76,12 @@ const PostComment = ({
             rowsMin={ 2 }
           />
           {imageFile && (
-          <div className='post-image'>
-            <img alt='post' src={ imageFile } height='300px' />
-            <IconButton onClick={ handleDelete }>
-              <FontAwesomeIcon icon={ faTimesCircle } />
-            </IconButton>
-          </div>
+            <div className='post-image'>
+              <img alt='post' src={ imageFile } height='300px' />
+              <IconButton onClick={ handleDelete }>
+                <FontAwesomeIcon icon={ faTimesCircle } />
+              </IconButton>
+            </div>
           )}
         </div>
         <p className='galley-icon'>
@@ -105,15 +106,15 @@ const PostComment = ({
       }
       >
         {isEdit && (
-        <Button
-          classes={ {
-            root: 'MuiButtonBase-root button-primary-small',
-            label: 'MuiButton-label button-primary-small-label',
-          } }
-          onClick={ closeEditModal }
-        >
-          Cancel
-        </Button>
+          <Button
+            classes={ {
+              root: 'MuiButtonBase-root button-primary-small',
+              label: 'MuiButton-label button-primary-small-label',
+            } }
+            onClick={ closeEditModal }
+          >
+            Cancel
+          </Button>
         )}
         <Button
           classes={ {

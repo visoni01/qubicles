@@ -1,12 +1,8 @@
+/* eslint-disable react/jsx-child-element-spacing */
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faChartBar,
-  faCoins,
-  faUniversity,
-  faTabletAlt,
-  faUsers,
-  faAngleRight,
+  faChartBar, faCoins, faUniversity, faTabletAlt, faUsers, faAngleRight,
 } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
@@ -47,7 +43,7 @@ const Steps = () => {
                       className='LP-step-1-icons'
                     />
                   </div>
-                  <div className='box-title'>On-Demand Staffing</div>
+                  <div className='box-title'> On-Demand Staffing </div>
                   <p className='box-content is-tablet-padded'>
                     A network that matches experienced agents with new or
                     established contact centers looking for talent.
@@ -60,7 +56,7 @@ const Steps = () => {
                   <div className='is-icon-reveal'>
                     <FontAwesomeIcon icon={ faCoins } className='LP-step-1-icons' />
                   </div>
-                  <div className='box-title'>Cryptocurrency Rewards</div>
+                  <div className='box-title'> Cryptocurrency Rewards </div>
                   <p className='box-content is-tablet-padded'>
                     Agents earn passive income in the form of Qubicle (QBE) crypto
                     tokens by exceeding performance goals.
@@ -76,7 +72,7 @@ const Steps = () => {
                       className='LP-step-1-icons mt-10 mb-10'
                     />
                   </div>
-                  <div className='box-title'>Contact Center Univeristy</div>
+                  <div className='box-title'> Contact Center Univeristy </div>
                   <p className='box-content is-tablet-padded'>
                     Our built-in university offers candidates support, service and
                     sales training to help them qualify for open positions.
@@ -92,7 +88,7 @@ const Steps = () => {
                       className='LP-step-1-icons mt-10 mb-10'
                     />
                   </div>
-                  <div className='box-title'>Contact Center Software</div>
+                  <div className='box-title'> Contact Center Software </div>
                   <p className='box-content is-tablet-padded'>
                     Includes an easy to use cloud contact center software for
                     inbound, outbound and blended operations of all sizes.
@@ -498,7 +494,7 @@ const Steps = () => {
                   </div>
                   {/* Content */}
                   <div className='card-title'>
-                    <h4>Ongoing Updates</h4>
+                    <h4> Ongoing Updates </h4>
                   </div>
                   <div className='card-feature-description'>
                     <span>
@@ -520,7 +516,7 @@ const Steps = () => {
                   </div>
                   {/* Content */}
                   <div className='card-title'>
-                    <h4>Unlimited Use</h4>
+                    <h4> Unlimited Use </h4>
                   </div>
                   <div className='card-feature-description'>
                     <span>
@@ -591,8 +587,8 @@ const Steps = () => {
                       <div className='user-id'>
                         <img src={ chatUser } alt='' />
                         <div className='info'>
-                          <div className='name'>Abhishek Verma</div>
-                          <div className='position'>IT Manager</div>
+                          <div className='name'> Abhishek Verma </div>
+                          <div className='position'> IT Manager </div>
                         </div>
                       </div>
                     </div>
@@ -610,8 +606,8 @@ const Steps = () => {
                       <div className='user-id'>
                         <img src={ chatUser } alt='' />
                         <div className='info'>
-                          <div className='name'>Bella Martin</div>
-                          <div className='position'>Appointment Setter</div>
+                          <div className='name'> Bella Martin </div>
+                          <div className='position'> Appointment Setter </div>
                         </div>
                       </div>
                     </div>
@@ -628,8 +624,8 @@ const Steps = () => {
                       <div className='user-id'>
                         <img src={ chatUser } alt='' />
                         <div className='info'>
-                          <div className='name'>Carlo Angelo Pablo</div>
-                          <div className='position'>Sr. Project Manager</div>
+                          <div className='name'> Carlo Angelo Pablo </div>
+                          <div className='position'> Sr. Project Manager </div>
                         </div>
                       </div>
                     </div>

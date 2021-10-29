@@ -3,9 +3,9 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import _ from 'lodash'
-import './style.scss'
 import classNames from 'classnames'
 import CircularProgressWithLabel from '../../components/loaders/circularLoaderWithLabel'
+import './style.scss'
 
 // Note: Generic component for displaying the loader in the center of the screen
 // enableOverlay: Used for display the background color with medium opacity
@@ -30,19 +30,16 @@ const Loader = ({
 
   return (
     <>
-      {
-        (loading || displayLoaderManually)
-        && (
-          <>
-            <div className={ enableOverlay ? 'overlay' : '' } />
-            <div className={ loaderRootClasses }>
-              {_.isEmpty(type)
-                ? <CircularProgress size={ size } />
-                : <CircularProgressWithLabel size={ size } value={ uploadProgressData } />}
-            </div>
-          </>
-        )
-      }
+      {(loading || displayLoaderManually) && (
+        <>
+          <div className={ enableOverlay ? 'overlay' : '' } />
+          <div className={ loaderRootClasses }>
+            {_.isEmpty(type)
+              ? <CircularProgress size={ size } />
+              : <CircularProgressWithLabel size={ size } value={ uploadProgressData } />}
+          </div>
+        </>
+      )}
     </>
   )
 }

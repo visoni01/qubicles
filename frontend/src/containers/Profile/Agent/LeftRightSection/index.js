@@ -117,12 +117,8 @@ const AgentEditProfile = ({
           </Button>
         )}
       </div>
-      <h4 className='h4 margin-top-bottom-10'>
-        {title}
-      </h4>
-      <p className='para'>
-        {summary}
-      </p>
+      <h4 className='h4 margin-top-bottom-10'>{title}</h4>
+      <p className='para'>{summary}</p>
       <Divider className='divider' />
       <div className='display-inline-flex justify-between is-fullwidth'>
         <div>
@@ -134,9 +130,7 @@ const AgentEditProfile = ({
           <p className='para'> Total Calls </p>
         </div>
         <div>
-          <h4 className='h4'>
-            { formatCount(following) }
-          </h4>
+          <h4 className='h4'>{ formatCount(following) }</h4>
           <p className='para'> Following</p>
           <h4 className='h4 mt-20'> 124 </h4>
           <p className='para'>Hours Worked </p>
@@ -160,44 +154,44 @@ const AgentEditProfile = ({
       />
       <Divider className='divider' />
       {highestEducation && (
-      <div className='mt-20'>
-        <h4 className='h4 mb-5'> Highest level of Education </h4>
-        <p className='para'>{ highestEducation }</p>
-      </div>
+        <div className='mt-20'>
+          <h4 className='h4 mb-5'> Highest level of Education </h4>
+          <p className='para'>{ highestEducation }</p>
+        </div>
       )}
       {yearsOfExperience && (
-      <div className='mb-20 mt-20'>
-        <h4 className='h4 mb-5'> Years of Experience </h4>
-        <p className='para'>{`${ yearsOfExperience } years`}</p>
-      </div>
+        <div className='mb-20 mt-20'>
+          <h4 className='h4 mb-5'> Years of Experience </h4>
+          <p className='para'>{`${ yearsOfExperience } years`}</p>
+        </div>
       )}
       {(highestEducation || yearsOfExperience) && <Divider className='divider' />}
       {!candidateId && (
-      <div>
-        <div className='mt-20 mb-10'>
-          <Button
-            classes={ {
-              root: 'button-secondary-small',
-              label: 'button-secondary-small-label',
-            } }
-            fullWidth
-          >
-            Verify ID
-          </Button>
+        <div>
+          <div className='mt-20 mb-10'>
+            <Button
+              classes={ {
+                root: 'button-secondary-small',
+                label: 'button-secondary-small-label',
+              } }
+              fullWidth
+            >
+              Verify ID
+            </Button>
 
+          </div>
+          <div className='mt-10'>
+            <Button
+              classes={ {
+                root: 'button-secondary-small',
+                label: 'button-secondary-small-label',
+              } }
+              fullWidth
+            >
+              Start Background Check
+            </Button>
+          </div>
         </div>
-        <div className='mt-10'>
-          <Button
-            classes={ {
-              root: 'button-secondary-small',
-              label: 'button-secondary-small-label',
-            } }
-            fullWidth
-          >
-            Start Background Check
-          </Button>
-        </div>
-      </div>
       )}
       {candidateId && <FontAwesomeIcon className='custom-fa-icon sz-xxl' icon={ faAward } />}
     </Box>

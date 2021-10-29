@@ -8,33 +8,30 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
-import {
-  jobsWithCategoriesFetchStart, jobApplicationRequestStart,
-} from '../../../../redux-saga/redux/actions'
+import { jobsWithCategoriesFetchStart, jobApplicationRequestStart } from '../../../../redux-saga/redux/actions'
 import SingleSelect from '../../../Shared/singleSelect'
 import { REQUEST_TYPES } from '../../../../utils/constants'
 
-const InviteAgent = ({
-  open, handleClose, candidateId,
-}) => {
+const InviteAgent = ({ open, handleClose, candidateId }) => {
   const [ inviteMessage, setInviteMessage ] = useState('')
   const [ selectedJob, setSelectedJob ] = useState(null)
 
-  const dispatch = useDispatch()
   const { jobsWithCategories } = useSelector((state) => state.jobsWithCategories)
   const { success } = useSelector((state) => state.jobApplication)
   const { settings } = useSelector((state) => state.clientDetails)
 
-  const allJobs = useMemo(() => jobsWithCategories.map((category) => category.jobs.map((job) => ({
-    id: job.job_id,
-    title: `${ job.title } (${ category.categoryTitle })`,
-  }))), [ jobsWithCategories ])
+  const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(jobsWithCategoriesFetchStart({
       status: 'recruiting',
     }))
   }, [ dispatch ])
+
+  const allJobs = useMemo(() => jobsWithCategories.map((category) => category.jobs.map((job) => ({
+    id: job.job_id,
+    title: `${ job.title } (${ category.categoryTitle })`,
+  }))), [ jobsWithCategories ])
 
   const closeAndResetInputFields = useCallback(() => {
     handleClose()
@@ -78,7 +75,7 @@ const InviteAgent = ({
     >
       <div className='header'>
         <DialogTitle>
-          <p className='h2'>Invitation</p>
+          <p className='h2'> Invitation </p>
         </DialogTitle>
         <DialogActions className='cross-button'>
           <IconButton
@@ -90,7 +87,7 @@ const InviteAgent = ({
         </DialogActions>
       </div>
       <DialogContent>
-        <h4 className='h4'>Invite for following position</h4>
+        <h4 className='h4'> Invite for following position </h4>
         <div>
           <SingleSelect
             items={ allJobs.flat() }
@@ -102,7 +99,7 @@ const InviteAgent = ({
             label='Select Job'
           />
         </div>
-        <h4 className='h4 mt-20'>Message</h4>
+        <h4 className='h4 mt-20'> Message </h4>
         <TextField
           margin='dense'
           id='name'

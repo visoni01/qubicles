@@ -1,17 +1,14 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent,
-  DialogTitle, Button, IconButton,
+  Dialog, DialogActions, DialogContent, DialogTitle, Button, IconButton,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faUniversity, faCreditCard } from '@fortawesome/free-solid-svg-icons'
 import AddBankAccountModal from './addBankAccount'
 import AddCreditCard from './addCreditCard'
 
-const AddPaymentMethod = ({
-  open, onClose,
-}) => {
+const AddPaymentMethod = ({ open, onClose }) => {
   const [ openAddBankAccountModal, setOpenAddBankAccountModal ] = useState(false)
   const [ openCreditCardModal, setOpenCreditCardModal ] = useState(false)
 
@@ -38,7 +35,7 @@ const AddPaymentMethod = ({
       >
         <div className='header'>
           <DialogTitle>
-            <h2 className='h2'>Add Payment Method</h2>
+            <h2 className='h2'> Add Payment Method </h2>
           </DialogTitle>
           <DialogActions className='cross-button'>
             <IconButton
@@ -78,13 +75,15 @@ const AddPaymentMethod = ({
           </div>
         </DialogContent>
       </Dialog>
+
       {openAddBankAccountModal && (
-      <AddBankAccountModal
-        open={ openAddBankAccountModal }
-        onClose={ () => setOpenAddBankAccountModal(false) }
-        onSubmit={ () => setOpenAddBankAccountModal(false) }
-      />
+        <AddBankAccountModal
+          open={ openAddBankAccountModal }
+          onClose={ () => setOpenAddBankAccountModal(false) }
+          onSubmit={ () => setOpenAddBankAccountModal(false) }
+        />
       )}
+
       {openCreditCardModal && (
       <AddCreditCard
         open={ openCreditCardModal }

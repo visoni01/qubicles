@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import {
-  Drawer, Button, form,
-} from '@material-ui/core'
+import { Drawer, Button, form } from '@material-ui/core'
 import { Controller, useForm } from 'react-hook-form'
 import IntlTelInput from 'react-intl-tel-input'
 import 'react-intl-tel-input/dist/main.css'
@@ -21,18 +19,30 @@ import { REQUEST_TYPES } from '../../../../../utils/constants'
 const ChangeNumber = ({
   open, setOpen, accountSettingInfo, isUpdateLoading, isUpdateSuccess, updatedDataType, userType, phoneType,
 }) => {
-  const dispatch = useDispatch()
   const [ formState, setFormState ] = useState({
     isValid: false,
     newNumber: false,
   })
-  const {
-    handleSubmit, control,
-  } = useForm({
+
+  const dispatch = useDispatch()
+
+  const { handleSubmit, control } = useForm({
     defaultValues: {
       newNumber: '',
     },
   })
+
+  useEffect(() => {
+    if (!isUpdateLoading && isUpdateSuccess
+      && (updatedDataType === 'number' || updatedDataType === 'mobile phone' || updatedDataType === 'home phone')) {
+      setOpen(false)
+      if (userType === 'client') {
+        dispatch(resetUpdateProfileSettingsFlags())
+      } else if (userType === 'agent') {
+        dispatch(resetAgentProfileSettingsFlags())
+      }
+    }
+  }, [ isUpdateSuccess, isUpdateLoading, dispatch, setOpen, updatedDataType, userType ])
 
   const onSubmit = () => {
     if (!isUpdateLoading && formState.isValid) {
@@ -64,18 +74,6 @@ const ChangeNumber = ({
       }
     }
   }
-
-  useEffect(() => {
-    if (!isUpdateLoading && isUpdateSuccess
-      && (updatedDataType === 'number' || updatedDataType === 'mobile phone' || updatedDataType === 'home phone')) {
-      setOpen(false)
-      if (userType === 'client') {
-        dispatch(resetUpdateProfileSettingsFlags())
-      } else if (userType === 'agent') {
-        dispatch(resetAgentProfileSettingsFlags())
-      }
-    }
-  }, [ isUpdateSuccess, isUpdateLoading, dispatch, setOpen, updatedDataType, userType ])
 
   const handleCancelNumberChange = useCallback(() => {
     setOpen(false)
@@ -123,7 +121,9 @@ const ChangeNumber = ({
               <div className='mt-10 mb-10'>
                 <p className='para primary'>
                   {/*eslint-disable*/
-                  (userType === 'client') ? accountSettingInfo.phoneNumber : ((phoneType === 'phoneDrawer') ? accountSettingInfo.homePhone : accountSettingInfo.mobileNumber)
+                  (userType === 'client')
+                    ? accountSettingInfo.phoneNumber : ((phoneType === 'phoneDrawer')
+                    ? accountSettingInfo.homePhone : accountSettingInfo.mobileNumber)
                   /*eslint-disable*/
                   }
                 </p>

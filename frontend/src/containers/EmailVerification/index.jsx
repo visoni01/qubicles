@@ -4,16 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as yup from 'yup'
 import classNames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faPaperPlane,
-} from '@fortawesome/free-solid-svg-icons'
-
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { useHistory, Link } from 'react-router-dom'
-import {
-  sendVerificationMailStart,
-  sendVerificationMailReset,
-  setIsSocialLogin,
-} from '../../redux-saga/redux/actions'
+import { sendVerificationMailStart, sendVerificationMailReset, setIsSocialLogin } from '../../redux-saga/redux/actions'
 import '../User/Signup/SignUp/style.scss'
 
 const schema = yup.object().shape({
@@ -24,8 +17,11 @@ const VerifyEmail = () => {
   const { register, errors, handleSubmit } = useForm({
     validationSchema: schema,
   })
+
   const { success } = useSelector((state) => state.verification)
+
   const [ email, setEmail ] = useState('')
+
   const history = useHistory()
   const dispatch = useDispatch()
 
@@ -61,9 +57,9 @@ const VerifyEmail = () => {
         <FontAwesomeIcon icon={ icon } />
       </span>
       {errors && errors[ name ] && (
-      <div className='error-message'>
-        {errors[ name ].message}
-      </div>
+        <div className='error-message'>
+          {errors[ name ].message}
+        </div>
       )}
     </div>
   )

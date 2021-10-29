@@ -29,7 +29,14 @@ const AssessmentTestModal = ({
   const [ answers, setAnswers ] = useState([])
   const [ openSubmitConfirmation, setOpenSubmitConfirmation ] = useState(false)
   const [ openCancelConfirmation, setOpenCancelConfirmation ] = useState(false)
+
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (_.isEqual(requestType, REQUEST_TYPES.CREATE) && !isLoading) {
+      setIsTestCompleted(true)
+    }
+  }, [ setIsTestCompleted, isLoading, requestType ])
 
   const getTotalQuestions = useCallback(() => (
     assessmentTest.reduce((total, section) => total + section.questions.length, 0)
@@ -59,12 +66,6 @@ const AssessmentTestModal = ({
     }))
   }, [ dispatch, courseId, answers ])
 
-  useEffect(() => {
-    if (_.isEqual(requestType, REQUEST_TYPES.CREATE) && !isLoading) {
-      setIsTestCompleted(true)
-    }
-  }, [ setIsTestCompleted, isLoading, requestType ])
-
   return (
     <Dialog
       disableScrollLock
@@ -76,7 +77,7 @@ const AssessmentTestModal = ({
       <div className='header'>
         <DialogTitle>
           <div className='display-inline-flex align-items-center'>
-            <div className={ `h2 mr-20 ${ !isTestStarted && 'ml-30' }` }>Assessment Test</div>
+            <div className={ `h2 mr-20 ${ !isTestStarted && 'ml-30' }` }> Assessment Test </div>
             {_.isEqual(requestType, REQUEST_TYPES.CREATE) && isLoading && <CircularProgress size={ 25 } />}
           </div>
         </DialogTitle>
@@ -131,9 +132,7 @@ const AssessmentTestModal = ({
             </div>
           </>
         )}
-        {(isTestStarted && _.isEqual(requestType, REQUEST_TYPES.FETCH) && isLoading) && (
-          <AssessmentTestSkeleton />
-        )}
+        {isTestStarted && _.isEqual(requestType, REQUEST_TYPES.FETCH) && isLoading && <AssessmentTestSkeleton />}
         {isTestCompleted && (
           <TestCompleted
             totalAnswered={ answers.length }
@@ -206,7 +205,6 @@ const AssessmentTestModal = ({
         handleClose={ () => setOpenCancelConfirmation(false) }
         handleConfirm={ onClose }
       />
-
     </Dialog>
   )
 }

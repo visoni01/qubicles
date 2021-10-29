@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent,
-  DialogTitle, IconButton,
+  Dialog, DialogActions, DialogContent, DialogTitle, IconButton,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -11,16 +10,17 @@ import JobPostDetails from '../../../../components/People/ContactCenter/Jobs/job
 import { jobDetailsFetchStart } from '../../../../redux-saga/redux/actions'
 import '../styles.scss'
 
-const JobPostModal = ({
-  open, handleClose, jobId,
-}) => {
+const JobPostModal = ({ open, handleClose, jobId }) => {
   const { jobDetails, isLoading } = useSelector((state) => state.jobDetails)
+
   const dispatch = useDispatch()
+
   useEffect(() => {
     if (jobId) {
       dispatch(jobDetailsFetchStart({ jobId }))
     }
   }, [ dispatch, jobId ])
+
   return (
     <Dialog
       open={ open }
@@ -33,8 +33,9 @@ const JobPostModal = ({
     >
       <div className='header'>
         <DialogTitle>
-          <div className='h2'>Job Post</div>
+          <div className='h2'> Job Post </div>
         </DialogTitle>
+
         <DialogActions className='cross-button'>
           <IconButton
             className='is-size-6'
@@ -44,6 +45,7 @@ const JobPostModal = ({
           </IconButton>
         </DialogActions>
       </div>
+
       <DialogContent>
         <JobPostDetails
           jobDetails={ jobDetails }

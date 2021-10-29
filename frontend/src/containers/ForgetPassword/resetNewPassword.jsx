@@ -4,17 +4,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as yup from 'yup'
 import classNames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faLock,
-} from '@fortawesome/free-solid-svg-icons'
-
+import { faLock } from '@fortawesome/free-solid-svg-icons'
 import { useHistory, Link } from 'react-router-dom'
-import {
-  resetPasswordStart,
-} from '../../redux-saga/redux/actions'
-import '../User/Signup/SignUp/style.scss'
-
+import { resetPasswordStart } from '../../redux-saga/redux/actions'
 import ROUTE_PATHS from '../../routes/routesPath'
+import '../User/Signup/SignUp/style.scss'
 
 const schema = yup.object().shape({
   password: yup.string().required('*Required'),
@@ -25,22 +19,24 @@ const ResetNewPassword = () => {
   const { register, errors, handleSubmit } = useForm({
     validationSchema: schema,
   })
+
   const { email, success: verifySuccess, tokenType } = useSelector((state) => state.emailVerification)
   const { success } = useSelector((state) => state.resetPassword)
+
   const history = useHistory()
   const dispatch = useDispatch()
-
-  const onSubmit = (data) => {
-    if (data.password === data.confirmPassword) {
-      dispatch(resetPasswordStart({ email, pass: data.password }))
-    }
-  }
 
   useEffect(() => {
     if (!verifySuccess && tokenType !== 'forgetPassword') {
       history.push(ROUTE_PATHS.LOG_IN)
     }
   }, [ verifySuccess, tokenType, history ])
+
+  const onSubmit = (data) => {
+    if (data.password === data.confirmPassword) {
+      dispatch(resetPasswordStart({ email, pass: data.password }))
+    }
+  }
 
   const inputField = (
     name,

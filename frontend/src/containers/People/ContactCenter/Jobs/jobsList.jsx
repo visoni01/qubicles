@@ -4,22 +4,22 @@ import {
 } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
-import {
-  jobCategoriesOnlyFetchStart, updateJobsFilter,
-} from '../../../../redux-saga/redux/actions'
+import { jobCategoriesOnlyFetchStart, updateJobsFilter } from '../../../../redux-saga/redux/actions'
 import JobsFilterSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/Jobs/jobsFilterSkeleton'
-import './styles.scss'
 import JobsFilterModal from './jobsFilter'
 import { FilterIcon } from '../../../../assets/images/training'
 import { SearchIcon } from '../../../../assets/images/common'
+import './styles.scss'
 
 const JobsList = () => {
-  const [ displaySearchCategories, setDisplaySearchCategories ] = useState(true)
   const { jobCategoriesOnly, isLoading, searchKeyword } = useSelector((state) => state.jobCategoriesOnly)
-  const [ searchCategory, setSearchCategory ] = useState(searchKeyword)
-
   const { searchField, selectedCategoryId, status } = useSelector((state) => state.jobsWithCategories)
+
+  const [ displaySearchCategories, setDisplaySearchCategories ] = useState(true)
+  const [ searchCategory, setSearchCategory ] = useState(searchKeyword)
   const [ selectedCategory, setSelectedCategory ] = useState(selectedCategoryId)
+  const [ anchorEl, setAnchorEl ] = useState(null)
+
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -57,12 +57,7 @@ const JobsList = () => {
   // Reset selectedCategory to set list item to 'ALL'
   const handleResetJobs = useCallback(() => {
     setSelectedCategory(0)
-  }, [ ])
-
-  // Job filter popover
-  const [ anchorEl, setAnchorEl ] = useState(null)
-  const open = Boolean(anchorEl)
-  const id = open ? 'simple-popover' : undefined
+  }, [])
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
@@ -70,6 +65,10 @@ const JobsList = () => {
   const handleClose = () => {
     setAnchorEl(null)
   }
+
+  // Job filter popover
+  const open = Boolean(anchorEl)
+  const id = open ? 'simple-popover' : undefined
 
   return (
     <Box className='custom-box no-padding side-filter-root job-list'>
@@ -97,20 +96,21 @@ const JobsList = () => {
       </div>
 
       {displaySearchCategories && (
-      <div className='is-flex search-input mb-10'>
-        <SearchIcon className='ml-10 mr-10 align-self-center' />
-        <InputBase
-          type='text'
-          placeholder='Search Categories'
-          autoComplete='off'
-          className='input-field'
-          name='searchCategories'
-          onChange={ handleSearch }
-          value={ searchCategory }
-        />
-      </div>
+        <div className='is-flex search-input mb-10'>
+          <SearchIcon className='ml-10 mr-10 align-self-center' />
+          <InputBase
+            type='text'
+            placeholder='Search Categories'
+            autoComplete='off'
+            className='input-field'
+            name='searchCategories'
+            onChange={ handleSearch }
+            value={ searchCategory }
+          />
+        </div>
       )}
-      {isLoading ? (<JobsFilterSkeleton />)
+      {isLoading
+        ? <JobsFilterSkeleton />
         : (
           <List className='filter-list-items'>
             <MenuItem
@@ -123,25 +123,20 @@ const JobsList = () => {
               </ListItemText>
             </MenuItem>
 
-            {
-          jobCategoriesOnly.map((jobCategory) => (
-            <MenuItem
-              button
-              onClick={ () => handleJobsByCategory({ jobCategory }) }
-              selected={ selectedCategory === jobCategory.categoryId }
-              key={ jobCategory.categoryId }
-            >
-              <ListItemText classes={ { primary: 'list-item' } }>
-                <h4 className='h4 light unbold'>
-                  {jobCategory.categoryTitle}
-                </h4>
-              </ListItemText>
-            </MenuItem>
-          ))
-        }
+            {jobCategoriesOnly.map((jobCategory) => (
+              <MenuItem
+                button
+                onClick={ () => handleJobsByCategory({ jobCategory }) }
+                selected={ selectedCategory === jobCategory.categoryId }
+                key={ jobCategory.categoryId }
+              >
+                <ListItemText classes={ { primary: 'list-item' } }>
+                  <h4 className='h4 light unbold'>{jobCategory.categoryTitle}</h4>
+                </ListItemText>
+              </MenuItem>
+            ))}
           </List>
         )}
-
     </Box>
   )
 }

@@ -1,20 +1,15 @@
 import React, { useState, useCallback } from 'react'
 import {
-  TextField, Select, MenuItem,
-  FormControl, RadioGroup,
-  FormControlLabel, Radio,
+  TextField, Select, MenuItem, FormControl, RadioGroup, FormControlLabel, Radio,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import '../styles.scss'
 import { availableLanguages } from '../../constants'
 import { jobDetailsPropTypes } from '../jobsValidator'
 import errorsPropTypes from './errorsPropTypes'
+import '../styles.scss'
 
 const NewJobDetails = ({
-  newJobData,
-  setNewJobData,
-  setNewJobDataCB,
-  errors,
+  newJobData, setNewJobData, setNewJobDataCB, errors,
 }) => {
   // eslint-disable-next-line no-unused-vars
   const [ languages, setLanguages ] = useState([ 'english', 'spanish' ])
@@ -185,7 +180,6 @@ const NewJobDetails = ({
               />
             </div>
           </RadioGroup>
-
         </div>
       </div>
     </div>

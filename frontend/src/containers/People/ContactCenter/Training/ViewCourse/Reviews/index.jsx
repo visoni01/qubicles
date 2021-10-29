@@ -25,18 +25,32 @@ import { REQUEST_TYPES } from '../../../../../../utils/constants'
 
 const CourseReviews = ({ courseId, openReviewModal, setOpenReviewModal }) => {
   const { ratings, addReviewAccess, loading } = useSelector((state) => state.courseRatings)
-  const [ anchorEl, setAnchorEl ] = useState(null)
   const {
     count, currentPage, offset, reviewFilter, reviews, isLoading: reviewLoading, requestType,
   } = useSelector((state) => state.courseReviews)
+
+  const [ anchorEl, setAnchorEl ] = useState(null)
+
+  const dispatch = useDispatch()
+
   const open = Boolean(anchorEl)
   const id = open ? 'simple-popover' : undefined
-  const dispatch = useDispatch()
   const noOfPages = Math.floor(count / noOfReviewsPerPage) + Math.sign(count % noOfReviewsPerPage)
+
+  useEffect(() => () => dispatch(resetCourseReviewsReducer()), [ dispatch ])
 
   useEffect(() => {
     dispatch(courseRatingsFetchStart({ courseId }))
   }, [ dispatch, courseId ])
+
+  useEffect(() => {
+    dispatch(courseReviewsRequestStart({
+      requestType: REQUEST_TYPES.FETCH,
+      courseId,
+      reviewFilter,
+      offset,
+    }))
+  }, [ dispatch, reviewFilter, offset, courseId ])
 
   const onFilterClick = useCallback((event) => {
     setAnchorEl(event.currentTarget)
@@ -53,22 +67,11 @@ const CourseReviews = ({ courseId, openReviewModal, setOpenReviewModal }) => {
     }))
   }, [ dispatch ])
 
-  useEffect(() => {
-    dispatch(courseReviewsRequestStart({
-      requestType: REQUEST_TYPES.FETCH,
-      courseId,
-      reviewFilter,
-      offset,
-    }))
-  }, [ dispatch, reviewFilter, offset, courseId ])
-
-  useEffect(() => () => dispatch(resetCourseReviewsReducer()), [ dispatch ])
-
   return (
     <>
       <Box className='custom-box course-reviews-root'>
         <div className='heading-section'>
-          <h3 className='h3'>Reviews</h3>
+          <h3 className='h3'> Reviews </h3>
           {addReviewAccess && (
           <Button
             disabled={ reviewLoading || _.isNull(reviewLoading) || loading || _.isNull(loading) }
@@ -87,17 +90,17 @@ const CourseReviews = ({ courseId, openReviewModal, setOpenReviewModal }) => {
         {/* Ratings */}
         {(loading || _.isNull(loading)) && <CourseRatingSkeleton />}
         {!loading && (
-        <ViewAllRatings
-          subRatingLabels={ courseRatingLabels }
-          subRatingValues={ {
-            valueRating: ratings.value,
-            clarityRating: ratings.clarity,
-            contentRating: ratings.content,
-            structureRating: ratings.structure,
-          } }
-          totalAverageRating={ Number(ratings.totalAverageRating).toFixed(2) }
-          totalAverageRaters={ ratings.totalAverageRaters }
-        />
+          <ViewAllRatings
+            subRatingLabels={ courseRatingLabels }
+            subRatingValues={ {
+              valueRating: ratings.value,
+              clarityRating: ratings.clarity,
+              contentRating: ratings.content,
+              structureRating: ratings.structure,
+            } }
+            totalAverageRating={ Number(ratings.totalAverageRating).toFixed(2) }
+            totalAverageRaters={ ratings.totalAverageRaters }
+          />
         )}
 
         {/* Reviews */}
@@ -123,20 +126,20 @@ const CourseReviews = ({ courseId, openReviewModal, setOpenReviewModal }) => {
         {!reviewLoading && reviews && !_.isEmpty(reviews) && <ReviewsList reviews={ reviews } />}
         {!reviewLoading && (reviews && reviews.length === 0) && (
           <div className='mt-10 mb-10 is-fullwidth'>
-            <h3 className='h3 text-center'>No reviews found!</h3>
+            <h3 className='h3 text-center'> No reviews found! </h3>
           </div>
         )}
 
         {/* Pagination */}
         {!reviewLoading && !loading && !!count && count > noOfReviewsPerPage && (
-        <Pagination
-          count={ noOfPages }
-          shape='round'
-          page={ currentPage }
-          onChange={ changeCurrentPage }
-          classes={ { root: 'mb-10' } }
-          className='is-flex is-center'
-        />
+          <Pagination
+            count={ noOfPages }
+            shape='round'
+            page={ currentPage }
+            onChange={ changeCurrentPage }
+            classes={ { root: 'mb-10' } }
+            className='is-flex is-center'
+          />
         )}
       </Box>
 

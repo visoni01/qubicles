@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import '../styles.scss'
 import RenderPosts from '../../../Dashboard/ClientDashboard/Posts/renderPosts'
+import '../styles.scss'
 
 const OtherContactCenterFeed = ({ companyId }) => (
   <>

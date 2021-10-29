@@ -1,8 +1,7 @@
 /* eslint-disable complexity */
 import React, { useState, useCallback, useEffect } from 'react'
 import {
-  Grid, FormControl,
-  RadioGroup, FormControlLabel, Radio, TextField, Select,
+  Grid, FormControl, RadioGroup, FormControlLabel, Radio, TextField, Select,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
@@ -10,20 +9,18 @@ import _ from 'lodash'
 import SingleSelect from '../../../../Shared/singleSelect'
 import RequiredCoursesField from '../../../Shared/requiredCoursesField'
 import { jobCategoriesOnlyFetchStart, resetRequiredCoursesReducer } from '../../../../../redux-saga/redux/actions'
-
 import { errorsPropTypes, informationSectionPropType } from './propTypes'
 
 export default function InformationTab({
   informationSection, setInformationSection, errors, courseId, isEdit,
 }) {
   const [ priceType, setPriceType ] = useState('price')
-  const { jobCategoriesOnly, isLoading, error } = useSelector((state) => state.jobCategoriesOnly)
   const [ selectedCategory, setSelectedCategory ] = useState(null)
 
+  const { jobCategoriesOnly, isLoading, error } = useSelector((state) => state.jobCategoriesOnly)
+
   const dispatch = useDispatch()
-  const availableLanguages = [
-    'English', 'French', 'Spanish',
-  ]
+  const availableLanguages = [ 'English', 'French', 'Spanish' ]
 
   useEffect(() => () => dispatch(resetRequiredCoursesReducer()), [ dispatch ])
 

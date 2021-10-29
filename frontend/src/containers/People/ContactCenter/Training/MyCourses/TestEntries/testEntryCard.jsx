@@ -3,13 +3,12 @@ import {
   Avatar, Button, Card, CardContent,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import './styles.scss'
 import _ from 'lodash'
 import TestEntriesValidationModal from './testEntriesValidationModal'
+import './styles.scss'
 
 const TestEntryCard = ({
-  candidateName, candidatePic, candidateId, testType, sections, courseId,
-  isLoading, dataType,
+  candidateName, candidatePic, candidateId, testType, sections, courseId, isLoading, dataType,
 }) => {
   const [ openValidation, setOpenValidation ] = useState(false)
 
@@ -34,6 +33,7 @@ const TestEntryCard = ({
           </Button>
         </div>
       </CardContent>
+
       <TestEntriesValidationModal
         open={ openValidation }
         setOpen={ setOpenValidation }

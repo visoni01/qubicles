@@ -1,6 +1,4 @@
-import {
-  terry,
-} from '../../../../assets/images/avatar'
+import { terry } from '../../../../assets/images/avatar'
 
 const courseCategories = [
   'Accounting',

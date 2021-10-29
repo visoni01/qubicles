@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import {
@@ -7,10 +5,9 @@ import {
 } from '@material-ui/core'
 import TransactionReceiptModal from './transactionReceipt'
 
-const TransactionDetails = ({
-  transaction,
-}) => {
+const TransactionDetails = ({ transaction }) => {
   const [ openTransactionReceiptModal, setOpenTransactionReceiptModal ] = useState(false)
+
   return (
     <>
       <div className='wallet-details no-margin pb-10'>
@@ -28,6 +25,8 @@ const TransactionDetails = ({
                 </p>
               </TableCell>
               <TableCell>
+                {/* eslint-disable jsx-a11y/click-events-have-key-events */}
+                {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
                 <p
                   className='para text-link shorten-transaction-id'
                   onClick={ () => setOpenTransactionReceiptModal(true) }
@@ -41,14 +40,13 @@ const TransactionDetails = ({
                 </span>
               </TableCell>
               <TableCell className='transaction-price text-center'>
-                <span className='para light'>
-                  {transaction.price}
-                </span>
+                <span className='para light'>{transaction.price}</span>
               </TableCell>
             </TableRow>
           </TableBody>
         </TableContainer>
       </div>
+
       <TransactionReceiptModal
         open={ openTransactionReceiptModal }
         onClose={ () => setOpenTransactionReceiptModal(false) }

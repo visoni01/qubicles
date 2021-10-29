@@ -12,9 +12,7 @@ const RenderJobs = () => {
   if (isLoading) {
     return (
       <Box className='custom-box'>
-        <h3 className='h3 mb-20'>
-          {`${ statusTitle }`}
-        </h3>
+        <h3 className='h3 mb-20'>{ statusTitle }</h3>
         <JobsSkeleton />
       </Box>
     )
@@ -22,9 +20,7 @@ const RenderJobs = () => {
 
   return (
     <Box className='custom-box'>
-      <h3 className='h3 mb-20'>
-        {`${ statusTitle }`}
-      </h3>
+      <h3 className='h3 mb-20'>{ statusTitle }</h3>
 
       {jobsWithCategories.map((jobCategory) => (
         jobCategory.jobs.length > 0 && (
@@ -40,7 +36,7 @@ const RenderJobs = () => {
       {((jobsWithCategories && jobsWithCategories.length === 0) || (jobsWithCategories[ 0 ].jobs.length === 0)) && (
         <div className='mt-10 mb-10'>
           <div className='text-align-last-center'>
-            <h3 className=' h3'>No jobs found!</h3>
+            <h3 className=' h3'> No jobs found! </h3>
           </div>
         </div>
       )}

@@ -6,13 +6,7 @@ import {
 import { TwitterIcon, LinkedinIcon } from 'react-share'
 import { useSelector } from 'react-redux'
 import {
-  marlonJudWarren,
-  teamMarlon,
-  teamJudson,
-  teamRob,
-  teamWarren,
-  teamTerpin,
-  teamKate,
+  marlonJudWarren, teamMarlon, teamJudson, teamRob, teamWarren, teamTerpin, teamKate,
 } from '../../assets/images/landingPage'
 import {
   Header, Footer, ClientReviews, CustomLink,
@@ -117,7 +111,7 @@ const AboutUs = () => {
                   <FontAwesomeIcon icon={ faHeadset } className='color-blue LP-step-1-icons mb-20' />
                 </div>
                 <div className='card-title'>
-                  <h4>Global Network of Talented Professionals</h4>
+                  <h4> Global Network of Talented Professionals </h4>
                 </div>
                 <div className='card-feature-description'>
                   <span>
@@ -133,7 +127,7 @@ const AboutUs = () => {
                   <FontAwesomeIcon icon={ faDollarSign } className='color-blue LP-step-1-icons mb-20' />
                 </div>
                 <div className='card-title'>
-                  <h4>Cryptocurrency Rewards and Incentives</h4>
+                  <h4> Cryptocurrency Rewards and Incentives </h4>
                 </div>
                 <div className='card-feature-description'>
                   <span>
@@ -149,7 +143,7 @@ const AboutUs = () => {
                   <FontAwesomeIcon icon={ faLaptop } className='color-blue LP-step-1-icons mb-20' />
                 </div>
                 <div className='card-title'>
-                  <h4>All in One Cloud-based Contact Center Software</h4>
+                  <h4> All in One Cloud-based Contact Center Software </h4>
                 </div>
                 <div className='card-feature-description'>
                   <span>
@@ -178,7 +172,7 @@ const AboutUs = () => {
           {/* Title */}
           <div className='section-title-wrapper'>
             <div className='bg-number'>2</div>
-            <h2 className='title section-title has-text-centered dark-text'> Meet the Team</h2>
+            <h2 className='title section-title has-text-centered dark-text'> Meet the Team </h2>
             <div className='subtitle has-text-centered is-tablet-padded'>
               Our team consists of experienced contact center, technology, and business professionals who have worked
               together for over a decade.
@@ -215,7 +209,7 @@ const AboutUs = () => {
                     {' '}
                     <strong> Williams</strong>
                   </h3>
-                  <span className='member-position color-blue'>Founder, CEO</span>
+                  <span className='member-position color-blue'> Founder, CEO </span>
                 </div>
               </article>
               {/* Team member */}
@@ -286,7 +280,7 @@ const AboutUs = () => {
                     {' '}
                     <strong> Noel</strong>
                   </h3>
-                  <span className='member-position color-blue'>VP, Customer Success</span>
+                  <span className='member-position color-blue'> VP, Customer Success </span>
                 </div>
               </article>
               {/* Team member */}
@@ -321,7 +315,7 @@ const AboutUs = () => {
                     {' '}
                     <strong> Terpin</strong>
                   </h3>
-                  <span className='member-position color-blue'>Blockchain Advisor</span>
+                  <span className='member-position color-blue'> Blockchain Advisor </span>
                 </div>
               </article>
               {/* Team member */}
@@ -356,7 +350,7 @@ const AboutUs = () => {
                     {' '}
                     <strong> Roberts </strong>
                   </h3>
-                  <span className='member-position color-blue'>VP, Growth Marketing</span>
+                  <span className='member-position color-blue'> VP, Growth Marketing </span>
                 </div>
               </article>
               {/* Team member */}
@@ -391,7 +385,7 @@ const AboutUs = () => {
                     {' '}
                     <strong> Duncan</strong>
                   </h3>
-                  <span className='member-position color-blue'>Industry Advisor</span>
+                  <span className='member-position color-blue'> Industry Advisor </span>
                 </div>
               </article>
             </div>
@@ -404,7 +398,7 @@ const AboutUs = () => {
           {/* Title */}
           <div className='section-title-wrapper'>
             <div className='bg-number'>3</div>
-            <h2 className='title section-title has-text-centered light-text'> Our reach is global</h2>
+            <h2 className='title section-title has-text-centered light-text'> Our reach is global </h2>
             <div className='subtitle has-text-centered light-text is-tablet-padded'>
               We live in a world with no borders. That's why we work with centers
               and customer service, sales and support reps all over the world.
@@ -419,8 +413,8 @@ const AboutUs = () => {
                   <div className='counter-icon'>
                     <FontAwesomeIcon icon={ faGlobe } className='color-blue is-size-2' />
                   </div>
-                  <div className='counter counter-number text-bold'>15</div>
-                  <div className='counter-text'>Countries</div>
+                  <div className='counter counter-number text-bold'> 15 </div>
+                  <div className='counter-text'> Countries </div>
                 </div>
               </div>
               <div className='column is-4'>
@@ -428,8 +422,8 @@ const AboutUs = () => {
                   <div className='counter-icon'>
                     <FontAwesomeIcon icon={ faUsers } className='color-blue is-size-2' />
                   </div>
-                  <div className='counter counter-number text-bold'>8,407</div>
-                  <div className='counter-text'>Users and counting</div>
+                  <div className='counter counter-number text-bold'> 8,407 </div>
+                  <div className='counter-text'> Users and counting </div>
                 </div>
               </div>
               <div className='column is-4'>
@@ -437,8 +431,8 @@ const AboutUs = () => {
                   <div className='counter-icon'>
                     <FontAwesomeIcon icon={ faPhoneAlt } className='color-blue is-size-2' />
                   </div>
-                  <div className='counter counter-number text-bold'>700,000,000</div>
-                  <div className='counter-text'>Customer interactions+</div>
+                  <div className='counter counter-number text-bold'> 700,000,000 </div>
+                  <div className='counter-text'> Customer interactions+ </div>
                 </div>
               </div>
             </div>
@@ -451,7 +445,7 @@ const AboutUs = () => {
           {/* Title */}
           <div className='section-title-wrapper'>
             <div className='bg-number'>4</div>
-            <h2 className='title section-title has-text-centered dark-text'> We love our customers</h2>
+            <h2 className='title section-title has-text-centered dark-text'> We love our customers </h2>
             <div className='subtitle has-text-centered is-tablet-padded'>
               Take a look at what some of our customers have to say about us. We strive to go above and beyond for every
               single one of them.

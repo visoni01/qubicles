@@ -9,9 +9,7 @@ import { showErrorMessage } from '../../../../../redux-saga/redux/utils'
 import { acceptedImageFormats, maxImageFileSize } from '../../constants'
 import { MESSAGES } from '../../../../../utils/constants'
 
-export default function CourseThumbnail({
-  contentSection, setContentSection, errors,
-}) {
+export default function CourseThumbnail({ contentSection, setContentSection, errors }) {
   const dispatch = useDispatch()
 
   const handleFileInputChange = useCallback((event) => {
@@ -51,11 +49,8 @@ export default function CourseThumbnail({
     <div className='content-tab-section list-divider'>
       <div className='content-box'>
         <div className='info'>
-          <h3 className='h3 mb-10'> Course Thumbnail</h3>
-          <p className='para'>
-            {`Choose a thumbnail image for
-          your course (format 16:9) `}
-          </p>
+          <h3 className='h3 mb-10'> Course Thumbnail </h3>
+          <p className='para'> Choose a thumbnail image for your course (format 16:9) </p>
         </div>
 
         {!contentSection.thumbnailImage ? (

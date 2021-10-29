@@ -27,7 +27,7 @@ const TestQuestionModal = ({
     >
       <div className='header'>
         <DialogTitle>
-          <div className='h2'>Questions</div>
+          <div className='h2'> Questions </div>
         </DialogTitle>
         <DialogActions className='cross-button'>
           <IconButton

@@ -1,9 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent,
-  DialogTitle, Button, IconButton, InputBase,
-  InputLabel, FormControl, Select,
+  Dialog, DialogActions, DialogContent, DialogTitle, Button, IconButton, InputBase, InputLabel, FormControl, Select,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -11,9 +9,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 // Temporarily added country names to be displayed.
 const Country = [ 'US', 'France', 'Spain', 'India' ]
 
-const OrderPhysicalCard = ({
-  open, onClose, onSubmit,
-}) => {
+const OrderPhysicalCard = ({ open, onClose, onSubmit }) => {
   const [ address, setAddress ] = useState({
     street: '',
     zip: '',
@@ -42,7 +38,7 @@ const OrderPhysicalCard = ({
     >
       <div className='header'>
         <DialogTitle>
-          <h2 className='h2'>Physical Card</h2>
+          <h2 className='h2'> Physical Card </h2>
         </DialogTitle>
         <DialogActions className='cross-button'>
           <IconButton
@@ -59,7 +55,7 @@ const OrderPhysicalCard = ({
           can start using it online. The physical debit card will arrive 2-5 working days after your purchase.
         </p>
         <h3 className='h3 bold mt-30'> Mailing address </h3>
-        <h4 className='h4 mt-30'>Street</h4>
+        <h4 className='h4 mt-30'> Street </h4>
         <div className='search-input mt-10'>
           <InputBase
             name='street'
@@ -70,7 +66,7 @@ const OrderPhysicalCard = ({
 
         <div className='display-inline-flex justify-between align-items-center is-fullwidth'>
           <div>
-            <h4 className='h4 mt-30'>Zip Code</h4>
+            <h4 className='h4 mt-30'> Zip Code </h4>
             <div className='search-input mt-10'>
               <InputBase
                 name='zip'
@@ -82,7 +78,7 @@ const OrderPhysicalCard = ({
             </div>
           </div>
           <div className='ml-20'>
-            <h4 className='h4 mt-30'>City</h4>
+            <h4 className='h4 mt-30'> City </h4>
             <div className='search-input mt-10'>
               <InputBase
                 name='city'
@@ -92,7 +88,7 @@ const OrderPhysicalCard = ({
             </div>
           </div>
         </div>
-        <h4 className='h4 mt-30'>State</h4>
+        <h4 className='h4 mt-30'> State </h4>
         <div className='search-input mt-10'>
           <InputBase
             name='state'
@@ -100,7 +96,7 @@ const OrderPhysicalCard = ({
             onChange={ setAddressCB }
           />
         </div>
-        <h4 className='h4 mt-30'>Country</h4>
+        <h4 className='h4 mt-30'> Country </h4>
         <FormControl variant='outlined' className='drop-down-bar'>
           <InputLabel margin='dense' variant='outlined' className='mt-10'>
             Choose country
@@ -122,7 +118,7 @@ const OrderPhysicalCard = ({
             ))}
           </Select>
         </FormControl>
-        <h3 className='h3 bold text-center mt-30'>$ 3.00</h3>
+        <h3 className='h3 bold text-center mt-30'> $ 3.00 </h3>
       </DialogContent>
       <DialogActions className='modal-actions'>
         <div className='sendQBEModal-buttons is-fullwidth'>

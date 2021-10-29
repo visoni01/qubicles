@@ -2,10 +2,7 @@ import {
   HomeIcon, SettingIcon, PeopleIcon, ProgramsIcon, InsightsIcon, SupportIcon,
 } from '../../assets/images/icons/navBarIcons'
 import ROUTE_PATHS, {
-  PEOPLE_ROUTE,
-  PROGRAMS_NAVIGATION_ROUTE,
-  INSIGHTS_NAVIGATION_ROUTE,
-  SETTINGS_NAVIGATION_ROUTE,
+  PEOPLE_ROUTE, PROGRAMS_NAVIGATION_ROUTE, INSIGHTS_NAVIGATION_ROUTE, SETTINGS_NAVIGATION_ROUTE,
 } from '../../routes/routesPath'
 
 const menuItems = [

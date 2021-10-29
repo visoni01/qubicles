@@ -10,9 +10,7 @@ import { ThumbUpIcon } from '../../../../../assets/images/icons/endorsementIcons
 import { REQUEST_TYPES } from '../../../../../utils/constants'
 import { REMOVE_ENDORSE } from '../../../../../redux-saga/redux/constants'
 
-const AgentSkillSection = ({
-  agentResumeSkills, canEndorse, candidateId,
-}) => {
+const AgentSkillSection = ({ agentResumeSkills, canEndorse, candidateId }) => {
   const [ skills, setSkills ] = useState(agentResumeSkills.filter((skill, index) => index < 3))
   const [ showAllSkills, setShowAllSkills ] = useState(false)
   const [ openEndorsementModal, setOpenEndorsementModal ] = useState(false)

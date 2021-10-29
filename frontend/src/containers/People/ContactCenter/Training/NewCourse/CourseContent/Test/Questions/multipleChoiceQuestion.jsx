@@ -3,16 +3,12 @@ import {
   Grid, TextField, IconButton, Button, RadioGroup, FormControlLabel, Radio,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faDotCircle, faTrash, faCheckCircle,
-} from '@fortawesome/free-solid-svg-icons'
+import { faDotCircle, faTrash, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import { testQuestionPropType } from '../../../propTypes'
 import { getUniqueId } from '../../../../../../../../utils/common'
 
-const MultipleChoiceQuestion = ({
-  questionDetails, setQuestionDetails,
-}) => {
+const MultipleChoiceQuestion = ({ questionDetails, setQuestionDetails }) => {
   const handleOptionValueChange = useCallback(({ optionId, newValue }) => {
     setQuestionDetails((current) => {
       const updatedOptions = current.options.map((option) => {

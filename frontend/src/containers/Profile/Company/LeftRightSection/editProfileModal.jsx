@@ -3,33 +3,48 @@ import React, {
 } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent, DialogTitle,
-  IconButton, Button, TextareaAutosize, Grid,
-  FormControl, Select, Avatar,
+  Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Button, TextareaAutosize, Grid, FormControl, Select,
+  Avatar,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import '../styles.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import {
-  uploadProfileImageStart,
-  updateCompanyProfileSettingsApiStart,
-  resetUpdateProfileSettingsFlags,
+  uploadProfileImageStart, updateCompanyProfileSettingsApiStart, resetUpdateProfileSettingsFlags,
   resetUploadProfileImage,
 } from '../../../../redux-saga/redux/actions'
 import Loader from '../../../loaders/circularLoader'
 import { defaultUser } from '../../../../assets/images/avatar'
+import '../styles.scss'
 
-const EditProfileModal = ({
-  open, handleClose, companyInfo,
-}) => {
-  const { isUpdateSuccess, isUpdateLoading } = useSelector((state) => state.clientDetails)
+const EditProfileModal = ({ open, handleClose, companyInfo }) => {
   const [ title, setTitle ] = useState(companyInfo.title)
   const [ summary, setSummary ] = useState(companyInfo.summary)
   const [ fileSrc, setFileSrc ] = useState(companyInfo.profilePic)
 
+  const { isUpdateSuccess, isUpdateLoading } = useSelector((state) => state.clientDetails)
+  const { uploadSuccess, uploadingImage } = useSelector((state) => state.uploadProfileImage)
+
   const fileInput = useRef()
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    setTitle(companyInfo.title)
+    setSummary(companyInfo.summary)
+    setFileSrc(companyInfo.profilePic)
+  }, [ companyInfo ])
+
+  useEffect(() => {
+    if (isUpdateSuccess || uploadSuccess) {
+      if (isUpdateSuccess) {
+        dispatch(resetUpdateProfileSettingsFlags())
+      }
+      if (uploadSuccess) {
+        dispatch(resetUploadProfileImage())
+      }
+      handleClose()
+    }
+  }, [ isUpdateSuccess, uploadSuccess, dispatch, handleClose ])
 
   // updating title
   const handleUpdateTitle = useCallback((e) => {
@@ -49,14 +64,6 @@ const EditProfileModal = ({
     handleClose()
   }, [ companyInfo, handleClose ])
 
-  useEffect(() => {
-    setTitle(companyInfo.title)
-    setSummary(companyInfo.summary)
-    setFileSrc(companyInfo.profilePic)
-  }, [ companyInfo ])
-
-  const { uploadSuccess, uploadingImage } = useSelector((state) => state.uploadProfileImage)
-
   // to preview selected image
   const handleFileInputChange = useCallback((event) => {
     event.preventDefault()
@@ -64,9 +71,7 @@ const EditProfileModal = ({
     const reader = new FileReader()
     reader.readAsDataURL(file)
     reader.onloadend = () => {
-      setFileSrc(
-        reader.result,
-      )
+      setFileSrc(reader.result)
     }
     // eslint-disable-next-line
   }, [])
@@ -79,18 +84,6 @@ const EditProfileModal = ({
     fileInput.current.value = ''
     setFileSrc(null)
   }
-
-  useEffect(() => {
-    if (isUpdateSuccess || uploadSuccess) {
-      if (isUpdateSuccess) {
-        dispatch(resetUpdateProfileSettingsFlags())
-      }
-      if (uploadSuccess) {
-        dispatch(resetUploadProfileImage())
-      }
-      handleClose()
-    }
-  }, [ isUpdateSuccess, uploadSuccess, dispatch, handleClose ])
 
   const onSubmit = useCallback(() => {
     const uploadImage = {
@@ -122,7 +115,7 @@ const EditProfileModal = ({
     >
       <div className='header'>
         <DialogTitle>
-          <div className='h2'>Edit Profile</div>
+          <div className='h2'> Edit Profile </div>
         </DialogTitle>
         <DialogActions className='cross-button'>
           <IconButton
@@ -134,9 +127,7 @@ const EditProfileModal = ({
         </DialogActions>
       </div>
       <DialogContent>
-        <h3 className='h3 mb-10'>
-          Profile Picture
-        </h3>
+        <h3 className='h3 mb-10'> Profile Picture </h3>
         <div className='photo-upload'>
           <div className='preview'>
             <Avatar className='profile-pic-preview' alt='' src={ fileSrc || defaultUser } />
@@ -148,17 +139,18 @@ const EditProfileModal = ({
               </span>
             )}
             <div>
-              { uploadingImage && (
-              <Loader
-                className='add-status-loader'
-                displayLoaderManually
-                enableOverlay={ false }
-                size={ 30 }
-              />
+              {uploadingImage && (
+                <Loader
+                  className='add-status-loader'
+                  displayLoaderManually
+                  enableOverlay={ false }
+                  size={ 30 }
+                />
               )}
             </div>
           </div>
         </div>
+
         <div className='choose-image'>
           <Button
             classes={ {
@@ -179,39 +171,36 @@ const EditProfileModal = ({
             onChange={ handleFileInputChange }
           />
         </div>
-        <h3 className='h3 mb-10'>
-          Company Title
-        </h3>
+
+        <h3 className='h3 mb-10'> Company Title </h3>
         <div className='input-box'>
           {!isUpdateLoading && (
-          <TextareaAutosize
-            aria-label='minimum height'
-            autoComplete='off'
-            rowsMin={ 1 }
-            placeholder='Title'
-            defaultValue={ title }
-            onChange={ handleUpdateTitle }
-          />
+            <TextareaAutosize
+              aria-label='minimum height'
+              autoComplete='off'
+              rowsMin={ 1 }
+              placeholder='Title'
+              defaultValue={ title }
+              onChange={ handleUpdateTitle }
+            />
           )}
         </div>
-        <h3 className='h3 mt-20 mb-10'>
-          Bio
-        </h3>
+
+        <h3 className='h3 mt-20 mb-10'> Bio </h3>
         <div className='input-box'>
           {!isUpdateLoading && (
-          <TextareaAutosize
-            aria-label='minimum height'
-            autoComplete='off'
-            rowsMin={ 6 }
-            defaultValue={ summary }
-            onChange={ handleUpdateSummary }
-            placeholder='Add a short description about your company'
-          />
+            <TextareaAutosize
+              aria-label='minimum height'
+              autoComplete='off'
+              rowsMin={ 6 }
+              defaultValue={ summary }
+              onChange={ handleUpdateSummary }
+              placeholder='Add a short description about your company'
+            />
           )}
         </div>
-        <h3 className='h3  mt-20 mb-10'>
-          Primary Contacts
-        </h3>
+
+        <h3 className='h3  mt-20 mb-10'> Primary Contacts </h3>
         <Grid container spacing={ 2 } justify='space-between'>
           <Grid item xl={ 6 } lg={ 6 } sm={ 6 } xs={ 6 }>
             <h4 className='h4'> Billing </h4>
@@ -251,6 +240,7 @@ const EditProfileModal = ({
           </Grid>
         </Grid>
       </DialogContent>
+
       <DialogActions className='modal-actions'>
         <Button
           classes={ {

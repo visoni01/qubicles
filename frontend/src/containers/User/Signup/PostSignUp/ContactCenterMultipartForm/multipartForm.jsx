@@ -13,6 +13,7 @@ const Form = ({
   step, onNext, onBack, onSubmit, stepData,
 }) => {
   const [ formValues, setValues ] = useState(stepData || {})
+
   const {
     register, errors, handleSubmit, control, setValue, unregister, getValues,
   } = useForm({
@@ -44,6 +45,7 @@ const Form = ({
         })
       }
     }
+
     return () => {
       if (steps[ step ]) {
         steps[ step ].fields.map((field) => {
@@ -107,55 +109,52 @@ const Form = ({
     }
     return (
       <div className='control'>
-        {
-            (name === 'phone_number') ? (
-              <>
-                <div>
-                  <label>{label}</label>
-                </div>
-                <Controller
-                  as={ IntlTelInput }
-                  control={ control }
-                  fieldId={ name }
-                  fieldName={ name }
-                  preferredCountries={ [ 'us', 'ca' ] }
-                  containerClassName='control custom-intl-tel-input intl-tel-input'
-                  name={ name }
-                  format
-                  formatInput
-                  onChangeName='onPhoneNumberChange'
-                  onChange={ spreadArgs(handlePhoneNumberChange) }
-                  telInputProps={ {
-                    required: true,
-                  } }
-                  defaultValue={ formValues[ name ] }
-                />
-              </>
-            ) : (
-              <>
-                <div>
-                  <label>{label}</label>
-                </div>
-                <input
-                  onChange={ handleValueChange(name) }
-                  type={ type }
-                  className='input'
-                  placeholder={ placeholder }
-                  name={ name }
-                  autoComplete='off'
-                  ref={ register }
-                  min={ 0 }
-                  defaultValue={ formValues[ name ] }
-                />
-              </>
-            )
-          }
+        {name === 'phone_number' ? (
+          <>
+            <div>
+              <label>{label}</label>
+            </div>
+            <Controller
+              as={ IntlTelInput }
+              control={ control }
+              fieldId={ name }
+              fieldName={ name }
+              preferredCountries={ [ 'us', 'ca' ] }
+              containerClassName='control custom-intl-tel-input intl-tel-input'
+              name={ name }
+              format
+              formatInput
+              onChangeName='onPhoneNumberChange'
+              onChange={ spreadArgs(handlePhoneNumberChange) }
+              telInputProps={ {
+                required: true,
+              } }
+              defaultValue={ formValues[ name ] }
+            />
+          </>
+        ) : (
+          <>
+            <div>
+              <label>{label}</label>
+            </div>
+            <input
+              onChange={ handleValueChange(name) }
+              type={ type }
+              className='input'
+              placeholder={ placeholder }
+              name={ name }
+              autoComplete='off'
+              ref={ register }
+              min={ 0 }
+              defaultValue={ formValues[ name ] }
+            />
+          </>
+        )}
       </div>
     )
   }
 
-  const fields = () => steps
-    && steps[ step ]
+  const fields = () => steps && steps[ step ]
     && steps[ step ].fields.map(({
       name, label, type, placeholder, ...rest
     }) => (
@@ -165,9 +164,7 @@ const Form = ({
             name, label, type, placeholder, ...rest,
           })}
           {errors && errors[ name ] && (
-          <div className='error-message'>
-            {errors[ name ].message}
-          </div>
+            <div className='error-message'>{errors[ name ].message}</div>
           )}
         </div>
       </Grid>

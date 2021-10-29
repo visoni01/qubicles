@@ -4,9 +4,7 @@ import { Divider, IconButton, Grid } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUniversity, faCreditCard, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 
-const RenderPaymentCard = ({
-  paymentCard,
-}) => (
+const RenderPaymentCard = ({ paymentCard }) => (
   <div className='wallet-root'>
     <Grid
       container

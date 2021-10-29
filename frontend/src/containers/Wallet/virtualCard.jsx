@@ -1,15 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent,
-  DialogTitle, Button, IconButton,
+  Dialog, DialogActions, DialogContent, DialogTitle, Button, IconButton,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
-const VirtualCard = ({
-  open, onClose, onSubmit,
-}) => (
+const VirtualCard = ({ open, onClose, onSubmit }) => (
   <Dialog
     disableScrollLock
     open={ open }
@@ -21,7 +18,7 @@ const VirtualCard = ({
   >
     <div className='header'>
       <DialogTitle>
-        <h2 className='h2'>Virtual Card</h2>
+        <h2 className='h2'> Virtual Card </h2>
       </DialogTitle>
       <DialogActions className='cross-button'>
         <IconButton
@@ -33,8 +30,10 @@ const VirtualCard = ({
       </DialogActions>
     </div>
     <DialogContent>
-      <p className='para'>Your credit card details will be visible immediately after you purchase the virtual card.</p>
-      <h3 className='h3 bold text-center mt-30'>$ 0.10</h3>
+      <p className='para'>
+        Your credit card details will be visible immediately after you purchase the virtual card.
+      </p>
+      <h3 className='h3 bold text-center mt-30'> $ 0.10 </h3>
     </DialogContent>
     <DialogActions className='modal-actions'>
       <div className='sendQBEModal-buttons is-fullwidth'>

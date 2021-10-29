@@ -7,13 +7,14 @@ import { REQUEST_TYPES } from '../../../../utils/constants'
 
 const ApplicationsPage = () => {
   const {
-    applicationsList, applicationFilter,
-    selectedApplicationCategory, isLoading,
+    applicationsList, applicationFilter, selectedApplicationCategory, isLoading,
   } = useSelector((state) => state.agentJobApplications)
   const { userDetails } = useSelector((state) => state.login)
 
   const [ applications, setApplications ] = useState(applicationsList[ selectedApplicationCategory ])
+
   const dispatch = useDispatch()
+
   useEffect(() => {
     setApplications(applicationsList[ selectedApplicationCategory ])
   }, [ applicationsList, selectedApplicationCategory ])
@@ -53,19 +54,18 @@ const ApplicationsPage = () => {
           />
         ))}
         {applicationFilter[ selectedApplicationCategory ].more && (
-        <Button
-          className='is-fullwidth'
-          classes={ {
-            root: 'button-primary-text',
-            label: 'button-primary-text-label',
-          } }
-          onClick={ () => handleViewMoreButtons() }
-        >
-          Load more applications
-        </Button>
+          <Button
+            className='is-fullwidth'
+            classes={ {
+              root: 'button-primary-text',
+              label: 'button-primary-text-label',
+            } }
+            onClick={ () => handleViewMoreButtons() }
+          >
+            Load more applications
+          </Button>
         )}
-        {applicationFilter[ selectedApplicationCategory ].initialFetch
-        && applications.length < 1
+        {applicationFilter[ selectedApplicationCategory ].initialFetch && applications.length < 1
         && !applicationFilter[ selectedApplicationCategory ].more && (
           <p className='mt-10 mb-10 is_fullwidth text-center para italic bold light font-size-16x'>
             No Applications in this category...

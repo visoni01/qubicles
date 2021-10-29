@@ -9,6 +9,15 @@ const DateTimeTestQuestion = ({
 }) => {
   const [ dateTimeAnswerObject, setDateTimeAnswerObject ] = useState({})
 
+  useEffect(() => {
+    const answer = _.find(answers, [ 'questionId', question.id ])
+    if (answer && answer.dateTimeAnswer) {
+      setDateTimeAnswerObject(answer.dateTimeAnswer)
+    } else {
+      setDateTimeAnswerObject({})
+    }
+  }, [ answers, question.id ])
+
   const handleAnswerChange = useCallback(({ type, val }) => {
     const newAnswer = {
       ...additionalAnswerFields,
@@ -47,15 +56,6 @@ const DateTimeTestQuestion = ({
       }
     }
   }, [ answers, question.id, question.questionType, setAnswers, additionalAnswerFields ])
-
-  useEffect(() => {
-    const answer = _.find(answers, [ 'questionId', question.id ])
-    if (answer && answer.dateTimeAnswer) {
-      setDateTimeAnswerObject(answer.dateTimeAnswer)
-    } else {
-      setDateTimeAnswerObject({})
-    }
-  }, [ answers, question.id ])
 
   return (
     <>

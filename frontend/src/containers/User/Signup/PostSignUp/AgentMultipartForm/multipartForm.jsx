@@ -21,44 +21,15 @@ const StepForm = ({
   step, onNext, onBack, onSubmit, stepData,
 }) => {
   const [ formValues, setValues ] = useState(stepData || {})
+
   const {
     register, errors, handleSubmit, control, setValue, getValues, unregister,
   } = useForm({
     validationSchema: steps[ step ] && steps[ step ].schema, mode: 'onBlur',
   })
+
   const fileInput = useRef()
-  const handleFileInputChange = useCallback((event) => {
-    event.preventDefault()
-    const file = event.target.files && event.target.files[ 0 ]
-    const reader = new FileReader()
 
-    setValue('id_url', fileInput.current.files && fileInput.current.files[ 0 ])
-
-    reader.onloadend = () => {
-      setValues((data) => ({
-        ...data,
-        id_url: reader.result,
-      }))
-    }
-
-    if (event.target.files[ 0 ]) {
-      reader.readAsDataURL(file)
-    }
-  }, [ setValue ])
-
-  const handleDelete = () => {
-    fileInput.current.value = ''
-    setValues((data) => ({
-      ...data,
-      id_url: null,
-    }))
-    setValue('id_url', null)
-  }
-
-  const handleRadioChange = (name) => (event) => {
-    setValue(name, event.target.value)
-    setValues({ ...formValues, [ name ]: event.target.value })
-  }
   useEffect(() => {
     setValues(stepData)
     if (steps[ step ]) {
@@ -98,6 +69,39 @@ const StepForm = ({
     }
     // eslint-disable-next-line
   }, [ stepData ])
+
+  const handleFileInputChange = useCallback((event) => {
+    event.preventDefault()
+    const file = event.target.files && event.target.files[ 0 ]
+    const reader = new FileReader()
+
+    setValue('id_url', fileInput.current.files && fileInput.current.files[ 0 ])
+
+    reader.onloadend = () => {
+      setValues((data) => ({
+        ...data,
+        id_url: reader.result,
+      }))
+    }
+
+    if (event.target.files[ 0 ]) {
+      reader.readAsDataURL(file)
+    }
+  }, [ setValue ])
+
+  const handleDelete = () => {
+    fileInput.current.value = ''
+    setValues((data) => ({
+      ...data,
+      id_url: null,
+    }))
+    setValue('id_url', null)
+  }
+
+  const handleRadioChange = (name) => (event) => {
+    setValue(name, event.target.value)
+    setValues({ ...formValues, [ name ]: event.target.value })
+  }
 
   const handleValueChange = (name) => (event) => {
     let { value } = event.target
@@ -231,50 +235,48 @@ const StepForm = ({
 
     return (
       <div className='control'>
-        {
-          (name === 'mobile_phone') || (name === 'home_phone') ? (
-            <>
-              <div>
-                <label>{label}</label>
-              </div>
-              <Controller
-                as={ IntlTelInput }
-                control={ control }
-                fieldId={ name }
-                fieldName={ name }
-                preferredCountries={ [ 'us', 'ca' ] }
-                containerClassName='control custom-intl-tel-input intl-tel-input'
-                format
-                formatOnInit
-                name={ name }
-                onChangeName='onPhoneNumberChange'
-                onChange={ (args) => handlePhoneNumberChange({ args, name }) }
-                telInputProps={ {
-                  required: true,
-                } }
-                defaultValue={ formValues[ name ] }
-                placeholder={ placeholder }
-              />
-            </>
-          ) : (
-            <div key={ `${ name }${ label }` }>
-              <div>
-                <label>{label}</label>
-              </div>
-              <input
-                autoComplete='off'
-                placeholder={ placeholder }
-                onChange={ handleValueChange(name) }
-                defaultValue={ value }
-                type={ type }
-                min={ 0 }
-                className='input'
-                name={ name }
-                ref={ register }
-              />
+        {(name === 'mobile_phone') || (name === 'home_phone') ? (
+          <>
+            <div>
+              <label>{label}</label>
             </div>
-          )
-        }
+            <Controller
+              as={ IntlTelInput }
+              control={ control }
+              fieldId={ name }
+              fieldName={ name }
+              preferredCountries={ [ 'us', 'ca' ] }
+              containerClassName='control custom-intl-tel-input intl-tel-input'
+              format
+              formatOnInit
+              name={ name }
+              onChangeName='onPhoneNumberChange'
+              onChange={ (args) => handlePhoneNumberChange({ args, name }) }
+              telInputProps={ {
+                required: true,
+              } }
+              defaultValue={ formValues[ name ] }
+              placeholder={ placeholder }
+            />
+          </>
+        ) : (
+          <div key={ `${ name }${ label }` }>
+            <div>
+              <label>{label}</label>
+            </div>
+            <input
+              autoComplete='off'
+              placeholder={ placeholder }
+              onChange={ handleValueChange(name) }
+              defaultValue={ value }
+              type={ type }
+              min={ 0 }
+              className='input'
+              name={ name }
+              ref={ register }
+            />
+          </div>
+        )}
       </div>
     )
   }
@@ -290,9 +292,7 @@ const StepForm = ({
             name, label, type, placeholder, ...rest,
           })}
           {errors && errors[ name ] && (
-          <div className='error-message'>
-            {errors[ name ].message}
-          </div>
+            <div className='error-message'>{errors[ name ].message}</div>
           )}
         </div>
       </Grid>
@@ -311,11 +311,11 @@ const StepForm = ({
                 alt=''
               />
               {formValues.id_url && (
-              <IconButton onClick={ handleDelete } className='delete-image'>
-                <FontAwesomeIcon className='custom-fa-icon white pointer sz-xl' icon={ faTimesCircle } />
-              </IconButton>
+                <IconButton onClick={ handleDelete } className='delete-image'>
+                  <FontAwesomeIcon className='custom-fa-icon white pointer sz-xl' icon={ faTimesCircle } />
+                </IconButton>
               )}
-              <p className='mt-10'>Upload copy of government identification card</p>
+              <p className='mt-10'> Upload copy of government identification card </p>
               <div className='upload-button text-align-last-center mt-20'>
                 {/* WIP Document Upload */}
                 <input

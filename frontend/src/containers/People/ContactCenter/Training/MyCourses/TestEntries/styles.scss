@@ -21,6 +21,8 @@
 }
 
 .validation-modal-root {
+  scrollbar-color: rgba(72, 119, 244, 0.7) rgb(201, 201, 201);
+
   .user-pic {
     height: 50px;
     width: 50px;
@@ -34,8 +36,6 @@
   .validation-modal-actions {
     margin-top: 20px;
   }
-
-  scrollbar-color: rgba(72, 119, 244, 0.7) rgb(201, 201, 201);
 
   ::-webkit-scrollbar-thumb {
     background-color: rgba(72, 119, 244, 0.7);
@@ -74,9 +74,11 @@
     min-width: 86px;
     height: 30px;
     border-radius: 4px;
+
     &:hover {
       background-color: #32bf99;
     }
+
     &:disabled {
       background-color: #a4d5c8;
     }
@@ -87,9 +89,11 @@
     min-width: 86px;
     height: 30px;
     border-radius: 4px;
+
     &:hover {
       background-color: #d02547;
     }
+
     &:disabled {
       background-color: #c49ba3;
     }

@@ -10,11 +10,13 @@ import NotificationsSkeleton from '../../components/Navbar/Skeletons/notificatio
 import { REQUEST_TYPES } from '../../utils/constants'
 
 const Notifications = () => {
+  const [ isDropDownOpen, setIsDropdownOpen ] = useState(false)
+  const [ anchorEl, setAnchorEl ] = useState(null)
+
   const {
     notifications, count, offset, allRead, isLoading, success, requestType,
   } = useSelector((state) => state.notifications)
-  const [ isDropDownOpen, setIsDropdownOpen ] = useState(false)
-  const [ anchorEl, setAnchorEl ] = useState(null)
+
   const dispatch = useDispatch()
 
   useEffect(() => {

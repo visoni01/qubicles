@@ -1,17 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {
-  Box, List, ListItem,
-} from '@material-ui/core'
+import { Box, List, ListItem } from '@material-ui/core'
 import settingMenuItems from '../../../../components/Profile/Company/SettingsMenu'
 
-const SettingsLeft = ({
-  setSelectedMenuItem, selectedMenuItem,
-}) => (
+const SettingsLeft = ({ setSelectedMenuItem, selectedMenuItem }) => (
   <Box className='custom-box settings-menu'>
-    <h2 className='h2'>Settings </h2>
+    <h2 className='h2'> Settings </h2>
     <List>
-      { settingMenuItems.map((item) => (
+      {settingMenuItems.map((item) => (
         <ListItem
           key={ item.id }
           button

@@ -7,7 +7,7 @@ import { agentsData } from '../../../Dashboard/testData'
 const station = () => (
   <Box className='custom-box'>
     <div className='skills-endorsements-box'>
-      <h2 className='h2 mb-30'>Station</h2>
+      <h2 className='h2 mb-30'> Station </h2>
       <Button
         classes={ {
           root: 'button-primary-small',
@@ -18,11 +18,11 @@ const station = () => (
       </Button>
     </div>
     <div className='settings-section'>
-      <h3 className='h3 mb-10'>General</h3>
+      <h3 className='h3 mb-10'> General </h3>
       <Grid container spacing={ 3 } direction='column'>
         <Grid item container justify='space-between' spacing={ 6 }>
           <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
-            <h4 className='h4'>Station Extension</h4>
+            <h4 className='h4'> Station Extension </h4>
             <TextField
               margin='dense'
               variant='outlined'
@@ -32,7 +32,7 @@ const station = () => (
             />
           </Grid>
           <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
-            <h4 className='h4'>Description</h4>
+            <h4 className='h4'> Description </h4>
             <TextField
               margin='dense'
               variant='outlined'
@@ -45,7 +45,7 @@ const station = () => (
 
         <Grid item container justify='space-between' spacing={ 6 }>
           <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
-            <h4 className='h4'>Caller ID</h4>
+            <h4 className='h4'> Caller ID </h4>
             <TextField
               margin='dense'
               variant='outlined'
@@ -67,7 +67,7 @@ const station = () => (
 
         <Grid item container justify='space-between' spacing={ 6 }>
           <Grid container item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 } direction='column'>
-            <h4 className='h4'>Registration Service</h4>
+            <h4 className='h4'> Registration Service </h4>
             <Select
               margin='dense'
               variant='outlined'
@@ -84,7 +84,7 @@ const station = () => (
             </Select>
           </Grid>
           <Grid container item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 } direction='column'>
-            <h4 className='h4'>Station Type</h4>
+            <h4 className='h4'> Station Type </h4>
             <Select
               margin='dense'
               variant='outlined'
@@ -104,7 +104,7 @@ const station = () => (
 
         <Grid item container justify='space-between' spacing={ 6 }>
           <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
-            <h4 className='h4'>Registration Password</h4>
+            <h4 className='h4'> Registration Password </h4>
             <TextField
               margin='dense'
               variant='outlined'
@@ -114,7 +114,7 @@ const station = () => (
             />
           </Grid>
           <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
-            <h4 className='h4'>Custom Dialplan#</h4>
+            <h4 className='h4'> Custom Dialplan# </h4>
             <TextField
               margin='dense'
               variant='outlined'
@@ -158,7 +158,7 @@ const station = () => (
 
         <Grid item container justify='space-between' spacing={ 6 }>
           <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
-            <h4 className='h4'>Voicemail ID</h4>
+            <h4 className='h4'> Voicemail ID </h4>
             <TextField
               margin='dense'
               variant='outlined'
@@ -168,7 +168,7 @@ const station = () => (
             />
           </Grid>
           <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
-            <h4 className='h4'>Voicemail PIN</h4>
+            <h4 className='h4'> Voicemail PIN </h4>
             <TextField
               margin='dense'
               variant='outlined'
@@ -181,7 +181,7 @@ const station = () => (
 
         <Grid item container justify='space-between' spacing={ 6 }>
           <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
-            <h4 className='h4'>Voicemail Timezone</h4>
+            <h4 className='h4'> Voicemail Timezone </h4>
             <Select
               margin='dense'
               variant='outlined'
@@ -198,7 +198,7 @@ const station = () => (
             </Select>
           </Grid>
           <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
-            <h4 className='h4'>Email</h4>
+            <h4 className='h4'> Email </h4>
             <TextField
               margin='dense'
               variant='outlined'
@@ -213,7 +213,7 @@ const station = () => (
           <Grid container item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 } spacing={ 6 }>
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
               <div className='row-section'>
-                <h4 className='h4'>New Messages</h4>
+                <h4 className='h4'> New Messages </h4>
               </div>
               <div className='row-fields'>
                 <p className='para mt-15'>
@@ -223,12 +223,10 @@ const station = () => (
             </Grid>
             <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 }>
               <div className='row-section'>
-                <h4 className='h4'>Old Messages</h4>
+                <h4 className='h4'> Old Messages </h4>
               </div>
               <div className='row-fields'>
-                <p className='para mt-15'>
-                  {0}
-                </p>
+                <p className='para mt-15'> 0</p>
               </div>
             </Grid>
           </Grid>

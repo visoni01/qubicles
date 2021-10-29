@@ -6,23 +6,26 @@ import ResumeIntro from './Application/resumeIntro'
 import SkillsPage from './Application/skillsPage'
 import ResumeWorkHistory from './Application/resumeWorkHistory'
 import InviteAgentActions from '../Jobs/Actions/inviteAgentActions'
-import './styles.scss'
 import { fetchAgentResumeStart } from '../../../../redux-saga/redux/actions'
 import AgentReviews from '../../../Profile/Agent/Resume/agentReviews'
 import Courses from '../../../Profile/Agent/Resume/courses'
 import { REQUEST_TYPES } from '../../../../utils/constants'
+import './styles.scss'
 
 const ViewResume = () => {
+  const { agentResume } = useSelector((state) => state.agentResume)
+
   const dispatch = useDispatch()
   let { candidateId } = useParams()
   candidateId = parseInt(candidateId, 10)
-  const { agentResume } = useSelector((state) => state.agentResume)
+
   useEffect(() => {
     dispatch(fetchAgentResumeStart({
       requestType: REQUEST_TYPES.FETCH,
       candidateId,
     }))
   }, [ dispatch, candidateId ])
+
   return (
     <Grid container spacing={ 3 } justify='center'>
       <Grid item xl={ 3 } lg={ 3 } md={ 4 } sm={ 12 }>

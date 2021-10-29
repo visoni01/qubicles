@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { Box, Button, Divider } from '@material-ui/core'
-
 import InvoicesModal from './invoicesModal'
 
 const Invoices = () => {
   const [ openInvoicesModal, setOpenInvoicesModal ] = useState(false)
+
   return (
     <>
       <div className='wallet-root mt-30'>

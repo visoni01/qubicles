@@ -1,17 +1,14 @@
 import React, { useCallback } from 'react'
 import { Grid } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import '../styles.scss'
 import MultiSelectChipItems from '../../../../Shared/multiSelectChipItems'
 import RequiredCoursesField from '../../../Shared/requiredCoursesField'
 import { jobDetailsPropTypes } from '../jobsValidator'
 import errorsPropTypes from './errorsPropTypes'
+import '../styles.scss'
 
 const NewJobRequirements = ({
-  newJobData,
-  setNewJobData,
-  jobFields,
-  errors,
+  newJobData, setNewJobData, jobFields, errors,
 }) => {
   const setRequiredSkillsCB = useCallback((items) => {
     setNewJobData((currentNewJobData) => ({
@@ -136,7 +133,7 @@ const NewJobRequirements = ({
             </div>
           </Grid>
           <Grid item xs={ 6 }>
-            <h4 className='h4 mt-10 mb-5'> Bonus Courses</h4>
+            <h4 className='h4 mt-10 mb-5'> Bonus Courses </h4>
             <div className='mr-30 drop-down-field'>
               <RequiredCoursesField
                 selectedCourses={ newJobData.jobCoursesData.bonusCourses }

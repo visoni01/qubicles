@@ -37,74 +37,63 @@ const CourseDescription = ({
   }
 
   return (
-    <>
-      <div className='custom-box course-description-root has-fullwidth'>
-        <h3 className='h3'>
-          {title}
-        </h3>
-        <h4 className='h4 mt-10 '> Description </h4>
-        <p className='para  mb-10'>
-          {description}
-        </p>
+    <div className='custom-box course-description-root has-fullwidth'>
+      <h3 className='h3'>{title}</h3>
+      <h4 className='h4 mt-10 '> Description </h4>
+      <p className='para  mb-10'>{description}</p>
 
-        {showFullDescription && (
+      {showFullDescription && (
         <div>
           <h4 className='h4 mt-10 '> Goals </h4>
-          <p className='para mb-10'>
-            {goals}
-          </p>
+          <p className='para mb-10'>{goals}</p>
           <h4 className='h4 mt-10 '> Outcomes </h4>
-          <p className='para mb-10'>
-            {outcomes}
-          </p>
+          <p className='para mb-10'>{outcomes}</p>
           <h4 className='h4 mt-10 '> Requirements</h4>
           <div className='ml-20'>
-            <p className='para requirements-list-item'>
-              {requirements}
-            </p>
+            <p className='para requirements-list-item'>{requirements}</p>
             {!_.isEmpty(requiredCourses) && (
-            <div className='para requirements-list-item mt-10 mb-10'>
-              Completed following course(s):
-              {requiredCourses.map((requiredCourse) => (
-                <List key={ requiredCourse.courseId } disablePadding>
-                  <ListItem
-                    disableGutters
-                    classes={ { root: 'pt-5 no-padding-bottom' } }
-                  >
-                    <Link
-                      className='para bold mr-5 primary-text-link course-title'
-                      to={ `${ VIEW_COURSE_ROUTE }/${ requiredCourse.courseId }` }
-                      target='_blank'
+              <div className='para requirements-list-item mt-10 mb-10'>
+                Completed following course(s):
+                {requiredCourses.map((requiredCourse) => (
+                  <List key={ requiredCourse.courseId } disablePadding>
+                    <ListItem
+                      disableGutters
+                      classes={ { root: 'pt-5 no-padding-bottom' } }
                     >
-                      {requiredCourse.courseTitle}
-                    </Link>
-                    <span className='para light'>
-                      {`(${ requiredCourse.creatorName }, ${ formatDate(requiredCourse.createdAt, 'YYYY') })`}
-                    </span>
-                    {!isCreator && type !== 'preview' && (
-                    <ListItemIcon className='ml-10'>
-                      {requiredCourse.status === 'completed' ? <SuccessIcon /> : <ErrorIcon />}
-                    </ListItemIcon>
-                    )}
-                  </ListItem>
-                </List>
-              ))}
-            </div>
+                      <Link
+                        className='para bold mr-5 primary-text-link course-title'
+                        to={ `${ VIEW_COURSE_ROUTE }/${ requiredCourse.courseId }` }
+                        target='_blank'
+                      >
+                        {requiredCourse.courseTitle}
+                      </Link>
+                      <span className='para light'>
+                        {`(${ requiredCourse.creatorName }, ${ formatDate(requiredCourse.createdAt, 'YYYY') })`}
+                      </span>
+                      {!isCreator && type !== 'preview' && (
+                        <ListItemIcon className='ml-10'>
+                          {requiredCourse.status === 'completed' ? <SuccessIcon /> : <ErrorIcon />}
+                        </ListItemIcon>
+                      )}
+                    </ListItem>
+                  </List>
+                ))}
+              </div>
             )}
           </div>
         </div>
-        )}
-        <Button
-          classes={ {
-            root: 'button-primary-text',
-            label: 'button-primary-text-label',
-          } }
-          onClick={ handleFullDescriptionCB }
-        >
-          { descriptionButtonName }
-        </Button>
-      </div>
-    </>
+      )}
+
+      <Button
+        classes={ {
+          root: 'button-primary-text',
+          label: 'button-primary-text-label',
+        } }
+        onClick={ handleFullDescriptionCB }
+      >
+        { descriptionButtonName }
+      </Button>
+    </div>
   )
 }
 

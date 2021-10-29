@@ -2,16 +2,14 @@ import React, { useCallback } from 'react'
 import { Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import CourseContentSection from './courseContentSection'
-import './styles.scss'
 import {
-  checkDisabledAddSectionButton, addEmptyContentSectionToSections, updateSectionInSections,
-  deleteSectionInSections, checkDeleteSection,
+  checkDisabledAddSectionButton, addEmptyContentSectionToSections, updateSectionInSections, deleteSectionInSections,
+  checkDeleteSection,
 } from './helper'
 import { courseContentPropType } from '../propTypes'
+import './styles.scss'
 
-const ContentSectionRoot = ({
-  courseContent, setCourseContent,
-}) => {
+const ContentSectionRoot = ({ courseContent, setCourseContent }) => {
   const handleAddSectionButton = useCallback(() => {
     setCourseContent((current) => {
       const newSections = addEmptyContentSectionToSections({ sections: current.sections })

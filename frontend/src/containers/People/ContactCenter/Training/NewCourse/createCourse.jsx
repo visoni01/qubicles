@@ -8,23 +8,11 @@ import {
 } from './propTypes'
 
 const CreateCourse = ({
-  informationSection, setInformationSection,
-  contentSection, setContentSection,
-  courseContent, setCourseContent,
-  updateCourseReducer, isPreview, setIsPreview,
-  course, isEdit, handleErrors, errors, requestType, success,
+  informationSection, setInformationSection, contentSection, setContentSection, courseContent, setCourseContent,
+  updateCourseReducer, isPreview, setIsPreview, course, isEdit, handleErrors, errors, requestType, success,
 }) => (
   <Grid container spacing={ 2 }>
-    <Grid
-      container
-      spacing={ 2 }
-      direction='column'
-      item
-      xl={ 9 }
-      lg={ 9 }
-      md={ 9 }
-      sm={ 12 }
-    >
+    <Grid container spacing={ 2 } direction='column' item xl={ 9 } lg={ 9 } md={ 9 } sm={ 12 }>
       <Grid item>
         <NewCourseForm
           course={ course }
@@ -39,16 +27,7 @@ const CreateCourse = ({
         />
       </Grid>
     </Grid>
-    <Grid
-      container
-      spacing={ 2 }
-      direction='column'
-      item
-      xl={ 3 }
-      lg={ 3 }
-      md={ 3 }
-      sm={ 12 }
-    >
+    <Grid container spacing={ 2 } direction='column' item xl={ 3 } lg={ 3 } md={ 3 } sm={ 12 }>
       <Grid item>
         <NewCourseActions
           updateCourseReducer={ updateCourseReducer }

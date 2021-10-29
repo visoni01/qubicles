@@ -9,11 +9,11 @@ import IntroductionSkeleton from '../../../../components/People/ContactCenter/Sk
 import ActionsBox from '../Jobs/Actions/actionsBox'
 import CoverLetter from '../../../../components/People/ContactCenter/Talent/Application/coverLetter'
 
-const AgentViewApplication = ({
-  application, applicationSuccess,
-}) => {
+const AgentViewApplication = ({ application, applicationSuccess }) => {
   const { jobDetails, isLoading, success } = useSelector((state) => state.jobDetails)
+
   const dispatch = useDispatch()
+
   useEffect(() => {
     if (applicationSuccess) {
       dispatch(jobDetailsFetchStart({ jobId: application.jobId }))
@@ -45,9 +45,7 @@ const AgentViewApplication = ({
       </Grid>
       <Grid container item xl={ 6 } lg={ 6 } md={ 6 } sm={ 4 } spacing={ 3 } direction='column'>
         <Grid item>
-          <CoverLetter
-            application={ application }
-          />
+          <CoverLetter application={ application } />
         </Grid>
         <Grid item>
           <JobPost

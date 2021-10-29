@@ -1,27 +1,15 @@
 import React from 'react'
-import {
-  faChevronLeft, faAward,
-} from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft, faAward } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  Box, Button, Divider,
-} from '@material-ui/core'
-import '../styles.scss'
+import { Box, Button, Divider } from '@material-ui/core'
 import Introduction from '../../../../../components/CommonModal/Introduction'
 import { testResumeIntroduction } from '../../testData'
+import '../styles.scss'
 
 const ResumeIntro = ({
-  candidateId,
-  candidateName,
-  candidateRating,
-  location,
-  profileName,
-  profileImage,
-  profileDescription,
-  ratePerHourDollar,
-  highestEducation,
-  yearsOfExpirience,
+  candidateId, candidateName, candidateRating, location, profileName, profileImage, profileDescription,
+  ratePerHourDollar, highestEducation, yearsOfExpirience,
 }) => (
   <>
     <Box className='custom-box resume-intro-root'>
@@ -46,12 +34,8 @@ const ResumeIntro = ({
         location={ location }
         date={ testResumeIntroduction.date }
       />
-      <h4 className='h4 margin-top-bottom-10'>
-        {profileName}
-      </h4>
-      <p className='para'>
-        {profileDescription}
-      </p>
+      <h4 className='h4 margin-top-bottom-10'>{profileName}</h4>
+      <p className='para'>{profileDescription}</p>
       <Divider className='divider' />
       <div className='display-inline-flex justify-between is-fullwidth'>
         <div>
@@ -72,15 +56,9 @@ const ResumeIntro = ({
 
       <Divider className='divider' />
       <div className='agent-specifications'>
-        <h4 className='h4 mt-10'>
-          Highest Level of Education
-        </h4>
-        <p className='para personal-details'>
-          {highestEducation}
-        </p>
-        <h4 className='h4 mt-20'>
-          Years of Experience
-        </h4>
+        <h4 className='h4 mt-10'> Highest Level of Education </h4>
+        <p className='para personal-details'>{highestEducation}</p>
+        <h4 className='h4 mt-20'> Years of Experience </h4>
         <p className='para personal-details'>{` ${ yearsOfExpirience } years`}</p>
       </div>
       <Divider className='divider' />
@@ -101,6 +79,7 @@ ResumeIntro.defaultProps = {
   highestEducation: '',
   yearsOfExpirience: '',
 }
+
 ResumeIntro.propTypes = {
   candidateId: PropTypes.number,
   candidateName: PropTypes.string,

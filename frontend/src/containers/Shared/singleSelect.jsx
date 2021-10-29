@@ -9,6 +9,8 @@ const SingleSelect = ({
   const [ inputValue, setInputValue ] = useState('')
   const [ selectedItem, setSelectedItem ] = useState(value || null)
 
+  useEffect(() => setSelectedItem(() => value), [ value ])
+
   const setSelectedItemsCB = useCallback((event, changedValue) => {
     if (changedValue) {
       onChange(changedValue)
@@ -16,7 +18,6 @@ const SingleSelect = ({
     }
   }, [ onChange ])
 
-  useEffect(() => setSelectedItem(() => value), [ value ])
   return (
     <FormControl variant='outlined' className='drop-down-bar'>
       <Autocomplete

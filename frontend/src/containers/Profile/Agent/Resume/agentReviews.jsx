@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {
-  Button, Tabs, Tab,
-} from '@material-ui/core'
+import { Button, Tabs, Tab } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import ViewAllRatings from '../../../../components/CommonModal/viewAllRatings'
@@ -12,11 +10,10 @@ import ListReviews from '../../Company/About/listReviews'
 import AddAgentReview from './addReview'
 import '../../Company/About/styles.scss'
 
-const AgentReviews = ({
-  agentUserId,
-}) => {
+const AgentReviews = ({ agentUserId }) => {
   const [ activeTab, setActivetab ] = useState(0)
   const [ openReviewModal, setOpenReviewModal ] = useState(false)
+
   const {
     viewRatings, addReviewAccess, fetchLoading, fetchSuccess,
   } = useSelector((state) => state.profileRatings)
@@ -37,15 +34,15 @@ const AgentReviews = ({
           <div className='display-inline-flex is-fullwidth'>
             <h3 className='h3 is-fullwidth'> Reviews </h3>
             {addReviewAccess && (
-            <Button
-              classes={ {
-                root: 'button-secondary-small review-button',
-                label: 'button-secondary-small-label',
-              } }
-              onClick={ () => setOpenReviewModal(true) }
-            >
-              Leave Review
-            </Button>
+              <Button
+                classes={ {
+                  root: 'button-secondary-small review-button',
+                  label: 'button-secondary-small-label',
+                } }
+                onClick={ () => setOpenReviewModal(true) }
+              >
+                Leave Review
+              </Button>
             )}
           </div>
           <div className='custom-active-tabs'>

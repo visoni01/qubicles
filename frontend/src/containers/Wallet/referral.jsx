@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useState } from 'react'
 import { Box } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
@@ -9,7 +6,11 @@ import InviteModal from '../InviteFriendsPage/InviteModal'
 
 const Referral = () => {
   const [ openInviteModal, setOpenInviteModal ] = useState(false)
+
   const history = useHistory()
+
+  /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+  /* eslint-disable jsx-a11y/click-events-have-key-events */
   return (
     <>
       <Box className='custom-box wallet-root mt-30'>
@@ -28,13 +29,14 @@ const Referral = () => {
               </p>
             </li>
             <li>
-              <p className='para'>Earn QBE by getting hired </p>
+              <p className='para'> Earn QBE by getting hired </p>
             </li>
             <li>
-              <p className='para'>Get rewarded for exceeding performance like employer of the week</p>
+              <p className='para'> Get rewarded for exceeding performance like employer of the week </p>
             </li>
             <li>
               <p className='para'>
+                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
                 <span
                   className='primary-text-link'
                   onClick={ () => history.push(ROUTE_PATHS.CREATE_COURSE) }
@@ -46,11 +48,12 @@ const Referral = () => {
               </p>
             </li>
             <li>
-              <p className='para'>Add funds to your savings and earn interest rates</p>
+              <p className='para'> Add funds to your savings and earn interest rates </p>
             </li>
           </ul>
         </div>
       </Box>
+
       <InviteModal
         open={ openInviteModal }
         handleClose={ () => setOpenInviteModal(false) }

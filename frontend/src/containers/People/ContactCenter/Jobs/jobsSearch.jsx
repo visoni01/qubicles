@@ -5,9 +5,11 @@ import { updateJobsFilter } from '../../../../redux-saga/redux/actions'
 import { SearchIcon } from '../../../../assets/images/common'
 
 const JobsSearch = () => {
-  const dispatch = useDispatch()
   const { selectedCategoryId, status, searchField } = useSelector((state) => state.jobsWithCategories)
+
   const [ searchJobsField, setSearchJobsField ] = useState(searchField)
+
+  const dispatch = useDispatch()
 
   const searchJobsApi = useCallback(debounce((nextValue) => {
     dispatch(updateJobsFilter({

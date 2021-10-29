@@ -2,7 +2,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Button, LinearProgress } from '@material-ui/core'
 import _ from 'lodash'
-import './Test/styles.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import RenderTestQuestion from
   '../../../../../components/People/ContactCenter/Training/ViewCourse/Test/renderTestQuestion'
@@ -13,6 +12,7 @@ import ViewCourseTestSkeleton from
   '../../../../../components/People/ContactCenter/SkeletonLoader/Training/viewCourseTestSkeleton'
 import { REQUEST_TYPES } from '../../../../../utils/constants'
 import { COURSE_UNIT, SECTION_TEST } from '../../../../../redux-saga/redux/constants'
+import './Test/styles.scss'
 
 const SectionTest = ({ courseId, sectionId }) => {
   const [ questions, setQuestions ] = useState([])
@@ -85,9 +85,7 @@ const SectionTest = ({ courseId, sectionId }) => {
   }, [ dispatch, course.courseContent.sections, sectionIndex, courseId, course.isCreator ])
 
   if (isLoading && _.isEqual(dataType, SECTION_TEST)) {
-    return (
-      <ViewCourseTestSkeleton />
-    )
+    return <ViewCourseTestSkeleton />
   }
 
   return (

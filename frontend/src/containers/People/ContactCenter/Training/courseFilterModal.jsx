@@ -1,22 +1,18 @@
 import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Radio,
-  Popover,
-  RadioGroup,
-  FormControlLabel,
+  Radio, Popover, RadioGroup, FormControlLabel,
 } from '@material-ui/core'
-import '../styles.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateViewAllCoursesFilter } from '../../../../redux-saga/redux/actions'
 import { courseFilterStatus } from '../constants'
+import '../styles.scss'
 
 const CourseFilterModal = ({
   open, handleClose, anchorEl, setAnchorEl, id,
 }) => {
-  const {
-    courseFilter,
-  } = useSelector((state) => state.viewAllCourses)
+  const { courseFilter } = useSelector((state) => state.viewAllCourses)
+
   const dispatch = useDispatch()
 
   const setStatus = useCallback((event) => {

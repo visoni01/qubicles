@@ -18,6 +18,7 @@ const CustomSnackbar = () => {
   const { open, msg, error } = useSelector((state) => state.snackbar)
 
   const dispatch = useDispatch()
+
   const hideSnackbar = useCallback(() => {
     dispatch(hideMessage())
   }, [ dispatch ])

@@ -60,7 +60,7 @@ const ApplyJobModal = ({
     >
       <div className='header'>
         <DialogTitle>
-          <div className='h2'>Application</div>
+          <div className='h2'> Application </div>
         </DialogTitle>
 
         <DialogActions className='cross-button'>
@@ -75,7 +75,7 @@ const ApplyJobModal = ({
 
       <DialogContent>
         <div className='mb-10 is-fullwidth display-inline-flex justify-between align-items-center'>
-          <h3 className='h3'>Cover Letter</h3>
+          <h3 className='h3'> Cover Letter </h3>
           <Button
             classes={ {
               root: 'button-secondary-small',

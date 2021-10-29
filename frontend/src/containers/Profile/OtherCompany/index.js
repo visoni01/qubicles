@@ -1,9 +1,7 @@
 /* eslint-disable complexity */
 import React, { useEffect } from 'react'
 import { Grid, Tabs, Tab } from '@material-ui/core'
-import {
-  useParams, useLocation, useHistory,
-} from 'react-router-dom'
+import { useParams, useLocation, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import OtherCompanyIntro from './LeftRightSection/otherCompanyIntro'
 import SimilarCompanies from './LeftRightSection/similarCompanies'
@@ -14,20 +12,17 @@ import { COMPANY_PROFILE_ROUTE } from '../../../routes/routesPath'
 import { jobsWithCategoriesFetchStart } from '../../../redux-saga/redux/actions'
 
 const OtherContactCenterProfile = () => {
+  const dispatch = useDispatch()
+  const history = useHistory()
   const location = useLocation()
-  const currentPath = location.pathname
   let { companyId } = useParams()
-  companyId = parseInt(companyId, 10)
 
+  const currentPath = location.pathname
+  companyId = parseInt(companyId, 10)
   const feedRoute = `${ COMPANY_PROFILE_ROUTE }/${ companyId }/feed`
   const aboutRoute = `${ COMPANY_PROFILE_ROUTE }/${ companyId }/about`
 
-  const temp = [
-    feedRoute, aboutRoute,
-  ]
-
-  const dispatch = useDispatch()
-  const history = useHistory()
+  const temp = [ feedRoute, aboutRoute ]
 
   useEffect(() => {
     dispatch(jobsWithCategoriesFetchStart({
@@ -47,18 +42,9 @@ const OtherContactCenterProfile = () => {
             <OtherCompanyIntro key={ companyId } clientId={ companyId } />
           </div>
         </Grid>
-        <Grid
-          item
-          xl={ 6 }
-          lg={ 6 }
-          md={ 6 }
-          sm={ 6 }
-          className='custom-active-tabs'
-        >
+        <Grid item xl={ 6 } lg={ 6 } md={ 6 } sm={ 6 } className='custom-active-tabs'>
           <Grid item xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 }>
-            <Tabs
-              value={ temp.indexOf(currentPath) }
-            >
+            <Tabs value={ temp.indexOf(currentPath) }>
               <Tab
                 onClick={ () => history.push(feedRoute) }
                 className={ currentPath === feedRoute ? 'active-tab' : 'inactive-tab' }
@@ -73,14 +59,14 @@ const OtherContactCenterProfile = () => {
           </Grid>
           <Grid item xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 }>
             <div>
-              { currentPath === feedRoute && (<OtherContactCenterFeed companyId={ companyId } />)}
-              { currentPath === aboutRoute && (<OtherCompanyAbout companyId={ companyId } />)}
+              {currentPath === feedRoute && <OtherContactCenterFeed companyId={ companyId } />}
+              {currentPath === aboutRoute && <OtherCompanyAbout companyId={ companyId } />}
             </div>
           </Grid>
         </Grid>
 
         <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>
-          { currentPath === feedRoute && (<OpenPosition companyId={ companyId } />)}
+          {currentPath === feedRoute && <OpenPosition companyId={ companyId } />}
           <SimilarCompanies heading='Similar Companies' />
         </Grid>
       </Grid>

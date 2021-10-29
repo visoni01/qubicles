@@ -1,7 +1,5 @@
 import React, { useState, useCallback } from 'react'
-import {
-  Popover, IconButton, Button,
-} from '@material-ui/core'
+import { Popover, IconButton, Button } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBan, faCopy, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from 'react-redux'
@@ -51,9 +49,7 @@ const ProfileOptions = ({ candidateId, hasBlockedUser }) => {
 
   return (
     <>
-      <IconButton
-        onClick={ handleProfileOptionsClick }
-      >
+      <IconButton onClick={ handleProfileOptionsClick }>
         <FontAwesomeIcon icon={ faEllipsisV } className='custom-fa-icon sz-md dark' />
       </IconButton>
       <Popover

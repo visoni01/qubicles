@@ -4,7 +4,7 @@ import { workHistory } from './mockData'
 
 const WorkHistory = () => (
   <Box className='custom-box mb-30'>
-    <h3 className='h3 mb-20'>Work History</h3>
+    <h3 className='h3 mb-20'> Work History </h3>
     <div>
       {workHistory.map((work, index) => (
         <div key={ work.company }>
@@ -15,9 +15,7 @@ const WorkHistory = () => (
             {work.skills && work.skills.map((skill) => (
               <Chip
                 label={ (
-                  <p className='para'>
-                    { skill }
-                  </p>
+                  <p className='para'>{ skill }</p>
                 ) }
                 variant='outlined'
                 key={ skill }
@@ -25,7 +23,7 @@ const WorkHistory = () => (
               />
             ))}
           </div>
-          { workHistory.length !== (index + 1) && <Divider />}
+          {workHistory.length !== (index + 1) && <Divider />}
         </div>
       ))}
     </div>

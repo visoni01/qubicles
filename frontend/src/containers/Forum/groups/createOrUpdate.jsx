@@ -42,13 +42,11 @@ const CreateOrUpdate = ({
         <Grid container spacing={ 3 }>
           <Grid item md={ 12 } sm={ 12 } xs={ 12 } className='mb-10'>
             <h2 className='h2'>
-              {isUpdate ? 'Update' : 'Create'}
-              {' '}
-              new group
+              {`${ isUpdate ? 'Update' : 'Create' } new group`}
             </h2>
           </Grid>
           <Grid item md={ 6 } xs={ 12 }>
-            <h3 className='h3'>Title</h3>
+            <h3 className='h3'> Title </h3>
             <input
               className='custom-text-input-field mt-10 is-fullwidth'
               placeholder='Name of your group'
@@ -58,7 +56,7 @@ const CreateOrUpdate = ({
             />
           </Grid>
           <Grid item md={ 6 } xs={ 12 }>
-            <h3 className='h3'>Permission</h3>
+            <h3 className='h3'> Permission </h3>
             <RadioGroup
               name='permission'
               label='Permission'
@@ -81,17 +79,13 @@ const CreateOrUpdate = ({
             </RadioGroup>
           </Grid>
           <Grid item md={ 12 } sm={ 12 } xs={ 12 }>
-            <h3 className='h3'>
-              Description
-            </h3>
+            <h3 className='h3'> Description </h3>
             <TextareaAutosize
               className='custom-text-input-field is-fullwidth mt-10 mb-10'
               rowsMin={ 6 }
               value={ groupData.description }
-
               name='description'
               onChange={ updateData }
-
             />
           </Grid>
         </Grid>

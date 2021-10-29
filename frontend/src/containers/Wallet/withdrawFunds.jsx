@@ -1,17 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent,
-  DialogTitle, Button, IconButton,
-  FormControl, Select, InputLabel, TextField,
+  Dialog, DialogActions, DialogContent, DialogTitle, Button, IconButton, FormControl, Select, InputLabel, TextField,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faExchangeAlt } from '@fortawesome/free-solid-svg-icons'
 import { paymentCardData } from './testData'
 
-const WithdrawFunds = ({
-  open, onClose, onSubmit,
-}) => (
+const WithdrawFunds = ({ open, onClose, onSubmit }) => (
   <Dialog
     disableScrollLock
     open={ open }
@@ -23,7 +19,7 @@ const WithdrawFunds = ({
   >
     <div className='header'>
       <DialogTitle>
-        <h2 className='h2'>Withdraw</h2>
+        <h2 className='h2'> Withdraw </h2>
       </DialogTitle>
       <DialogActions className='cross-button'>
         <IconButton
@@ -59,7 +55,7 @@ const WithdrawFunds = ({
           ))}
         </Select>
       </FormControl>
-      <h4 className='h4 mt-30'>Amount</h4>
+      <h4 className='h4 mt-30'> Amount </h4>
       <div className='display-inline-flex justify-between align-items-center is-fullwidth'>
         <TextField
           className='text-field-para is-fullwidth mt-10'

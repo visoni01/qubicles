@@ -5,7 +5,9 @@ import CompanyProfile from './Company'
 
 const Profile = () => {
   const { userDetails } = useSelector((state) => state.login)
+
   if (userDetails && userDetails.user_code === 'employer') return <CompanyProfile />
+
   return <AgentProfile />
 }
 

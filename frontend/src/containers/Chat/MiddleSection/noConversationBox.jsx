@@ -20,8 +20,8 @@ const NoConversationBox = () => {
     <Box className='custom-box new-conversation-box'>
       <NoMessagesIcon />
       <div className='message-text'>
-        <h2 className='h2 text-center'>No messages yet</h2>
-        <h4 className='h4 text-center'>Start a chat or create a group</h4>
+        <h2 className='h2 text-center'> No messages yet </h2>
+        <h4 className='h4 text-center'> Start a chat or create a group </h4>
       </div>
       <div className='action-buttons'>
         <Button

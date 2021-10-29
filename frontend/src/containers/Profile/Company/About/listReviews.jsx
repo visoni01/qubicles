@@ -7,14 +7,14 @@ import { profileReviewsFetchStart, resetReviews } from '../../../../redux-saga/r
 import CompanyReviewsSkeleton from
   '../../../../components/People/ContactCenter/SkeletonLoader/Training/reviewsSkeleton'
 
-const ListReviews = ({
-  profileType, reviewType, id,
-}) => {
-  const dispatch = useDispatch()
+const ListReviews = ({ profileType, reviewType, id }) => {
   const [ reviewsList, setReviewsList ] = useState([])
+
   const {
     fetchLoading, recievedReviews, givenReviews,
   } = useSelector((state) => state.profileReviews)
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (reviewType === 'received') {
@@ -62,7 +62,7 @@ const ListReviews = ({
       ) : (
         <>
           <div className='padding-10 mt-10'>
-            <h3 className='h3'>No reviews yet...</h3>
+            <h3 className='h3'> No reviews yet... </h3>
           </div>
         </>
       )}
@@ -71,7 +71,6 @@ const ListReviews = ({
 }
 
 ListReviews.propTypes = {
-
   id: PropTypes.number.isRequired,
   profileType: PropTypes.string.isRequired,
   reviewType: PropTypes.string.isRequired,

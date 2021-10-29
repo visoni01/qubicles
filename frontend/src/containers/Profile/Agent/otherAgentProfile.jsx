@@ -1,12 +1,9 @@
 /* eslint-disable complexity */
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  useParams, useLocation, useHistory,
-} from 'react-router-dom'
+import { useParams, useLocation, useHistory } from 'react-router-dom'
 import { Grid, Tabs, Tab } from '@material-ui/core'
 import Feed from './Feed'
-import './styles.scss'
 import { PROFILE_ROUTE } from '../../../routes/routesPath'
 import SkillsPage from '../../People/ContactCenter/Talent/Application/skillsPage'
 import WorkHistory from './Resume/workHistory'
@@ -17,17 +14,19 @@ import LeftSection from './LeftRightSection'
 import IntroductionSkeleton from '../../../components/People/ContactCenter/SkeletonLoader/Jobs/contactCenterSkeleton'
 import PeopleYouMayKnow from './peopleYouMayKnowCard'
 import { REQUEST_TYPES } from '../../../utils/constants'
+import './styles.scss'
 
 const OtherAgentProfile = () => {
   const { agentResume, isLoading } = useSelector((state) => state.agentResume)
   const { settings } = useSelector((state) => state.agentDetails)
   const { userDetails } = useSelector((state) => state.login)
-  const location = useLocation()
-  const currentPath = location.pathname
+
   const dispatch = useDispatch()
   const history = useHistory()
-
+  const location = useLocation()
   let { userId } = useParams()
+
+  const currentPath = location.pathname
   userId = parseInt(userId, 10)
   const feedRoute = `${ PROFILE_ROUTE }/${ userId }/feed`
   const resumeRoute = `${ PROFILE_ROUTE }/${ userId }/resume`
@@ -70,19 +69,9 @@ const OtherAgentProfile = () => {
             )}
           </div>
         </Grid>
-        <Grid
-          item
-          xl={ 6 }
-          lg={ 6 }
-          md={ 9 }
-          sm={ 12 }
-          xs={ 12 }
-          className='custom-active-tabs'
-        >
+        <Grid item xl={ 6 } lg={ 6 } md={ 9 } sm={ 12 } xs={ 12 } className='custom-active-tabs'>
           <Grid item xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 } xs={ 12 }>
-            <Tabs
-              value={ temp.indexOf(currentPath) }
-            >
+            <Tabs value={ temp.indexOf(currentPath) }>
               <Tab
                 onClick={ () => history.push(feedRoute) }
                 className={ currentPath === feedRoute ? 'active-tab' : 'inactive-tab' }
@@ -97,8 +86,8 @@ const OtherAgentProfile = () => {
           </Grid>
           <Grid item xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 }>
             <div>
-              { currentPath === feedRoute && (<Feed userId={ userId } />)}
-              { currentPath === resumeRoute && (
+              {currentPath === feedRoute && <Feed userId={ userId } />}
+              {currentPath === resumeRoute && (
                 <>
                   <SkillsPage
                     candidateId={ userId }

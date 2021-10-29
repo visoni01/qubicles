@@ -16,10 +16,11 @@ import {
 } from './propTypes'
 
 const NewCourseForm = ({
-  course, informationSection, setInformationSection, contentSection, setContentSection,
-  courseContent, setCourseContent, isEdit, errors,
+  course, informationSection, setInformationSection, contentSection, setContentSection, courseContent, setCourseContent,
+  isEdit, errors,
 }) => {
   const [ activeTab, setActiveTab ] = useState(0)
+
   const history = useHistory()
 
   // eslint-disable-next-line complexity
@@ -59,10 +60,8 @@ const NewCourseForm = ({
       {isEdit ? (
         <div>
           <div className='display-inline-flex align-items-center'>
-            <h2 className='h2 mr-10'>
-              Edit Course
-            </h2>
-            <span className='para light font-size-18x mt-5'>(Draft)</span>
+            <h2 className='h2 mr-10'> Edit Course </h2>
+            <span className='para light font-size-18x mt-5'> (Draft) </span>
           </div>
           <p className='para light'>
             Last updated on:
@@ -70,9 +69,7 @@ const NewCourseForm = ({
           </p>
         </div>
       ) : (
-        <h2 className='h2'>
-          New Course
-        </h2>
+        <h2 className='h2'> New Course </h2>
       )}
       <div className='custom-active-tabs'>
         <Tabs
@@ -83,24 +80,23 @@ const NewCourseForm = ({
           <Tab label='Content' className={ activeTab === 1 ? 'active-tab' : 'inactive-tab' } />
         </Tabs>
       </div>
-      { activeTab === 0
-      && (
-      <InformationTab
-        informationSection={ informationSection }
-        setInformationSection={ setInformationSection }
-        errors={ errors }
-        courseId={ course.courseId }
-        isEdit={ isEdit }
-      />
-      ) }
-      { activeTab === 1 && (
-      <ContentTab
-        contentSection={ contentSection }
-        setContentSection={ setContentSection }
-        courseContent={ courseContent }
-        setCourseContent={ setCourseContent }
-        errors={ errors }
-      />
+      {activeTab === 0 && (
+        <InformationTab
+          informationSection={ informationSection }
+          setInformationSection={ setInformationSection }
+          errors={ errors }
+          courseId={ course.courseId }
+          isEdit={ isEdit }
+        />
+      )}
+      {activeTab === 1 && (
+        <ContentTab
+          contentSection={ contentSection }
+          setContentSection={ setContentSection }
+          courseContent={ courseContent }
+          setCourseContent={ setCourseContent }
+          errors={ errors }
+        />
       )}
     </Box>
   )

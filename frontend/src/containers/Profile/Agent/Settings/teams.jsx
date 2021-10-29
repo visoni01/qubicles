@@ -5,7 +5,7 @@ import {
 
 const Teams = () => (
   <Box className='custom-box'>
-    <h2 className='h2 mb-30'>Teams</h2>
+    <h2 className='h2 mb-30'> Teams </h2>
     <div className='settings-section'>
       <p className='para mb-10'>
         Justin Barnett is assigned to following teams
@@ -13,14 +13,14 @@ const Teams = () => (
       <Grid container spacing={ 0 } direction='column'>
         <Grid item container justify='space-between' spacing={ 6 }>
           <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 } className='display-inline-flex'>
-            <h4 className='h4 margin-auto ml-0'>Customer Service</h4>
+            <h4 className='h4 margin-auto ml-0'> Customer Service </h4>
             <Switch
               className='switches setting-switch'
               color='primary'
             />
           </Grid>
           <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 } className='display-inline-flex'>
-            <h4 className='h4 margin-auto ml-0'>Spanish Representatives</h4>
+            <h4 className='h4 margin-auto ml-0'> Spanish Representatives </h4>
             <Switch
               className='switches setting-switch'
               color='primary'
@@ -30,7 +30,7 @@ const Teams = () => (
 
         <Grid item container justify='space-between' spacing={ 6 }>
           <Grid item xl={ 6 } lg={ 6 } sm={ 12 } xs={ 12 } className='display-inline-flex'>
-            <h4 className='h4 margin-auto ml-0'>Outbound</h4>
+            <h4 className='h4 margin-auto ml-0'> Outbound </h4>
             <Switch
               className='switches setting-switch'
               color='primary'

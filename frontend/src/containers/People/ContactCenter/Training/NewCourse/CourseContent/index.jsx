@@ -3,9 +3,7 @@ import PropTypes from 'prop-types'
 import ContentSectionRoot from './contentSectionRoot'
 import { courseContentPropType, errorsPropTypes } from '../propTypes'
 
-export default function CourseContent({
-  courseContent, setCourseContent, errors,
-}) {
+export default function CourseContent({ courseContent, setCourseContent, errors }) {
   return (
     <div className='content-tab-section'>
       <div className='content-box'>
@@ -13,12 +11,10 @@ export default function CourseContent({
           <h3 className='h3 mb-10'> Course Content </h3>
           <span className='para red'>{errors && errors.sections && errors.sections.message}</span>
           <p className='para'>
-            {`Start building your course
-            by creating Sections, Units and Tests`}
+            Start building your course by creating Sections, Units and Tests
           </p>
           <p className='para mt-10'>
-            {`A section must have minimum one
-            Unit and exactly one Test`}
+            A section must have minimum one Unit and exactly one Test
           </p>
         </div>
         <ContentSectionRoot

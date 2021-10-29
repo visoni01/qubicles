@@ -3,17 +3,13 @@ import {
   Grid, TextField, IconButton, Button, FormControlLabel, Checkbox, FormGroup,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faDotCircle, faTrash, faCheckSquare,
-} from '@fortawesome/free-solid-svg-icons'
+import { faDotCircle, faTrash, faCheckSquare } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import { testQuestionPropType } from '../../../propTypes'
 import { getUniqueId } from '../../../../../../../../utils/common'
 
-const CheckboxQuestion = ({
-  questionDetails, setQuestionDetails,
-}) => {
+const CheckboxQuestion = ({ questionDetails, setQuestionDetails }) => {
   const handleOptionValueChange = useCallback(({ optionId, newValue }) => {
     setQuestionDetails((current) => {
       const updatedOptions = current.options.map((option) => {
@@ -96,7 +92,7 @@ const CheckboxQuestion = ({
   return (
     <>
       <Grid item xl={ 8 } lg={ 8 } md={ 8 } sm={ 8 } xs={ 8 }>
-        <p className='para bold'>Possible Answers</p>
+        <p className='para bold'> Possible Answers </p>
         {questionDetails.options.map((option, index) => (
           <div className='is-fullwidth display-inline-flex align-items-center' key={ option.id }>
             <FontAwesomeIcon icon={ faDotCircle } className='custom-fa-icon mr-10' />
@@ -122,19 +118,19 @@ const CheckboxQuestion = ({
         ))}
 
         {questionDetails.options.length < 5 && (
-        <Button
-          classes={ {
-            root: 'button-primary-text',
-            label: 'button-primary-text-label margin-10',
-          } }
-          onClick={ handleAddOptionButton }
-        >
-          Add option
-        </Button>
+          <Button
+            classes={ {
+              root: 'button-primary-text',
+              label: 'button-primary-text-label margin-10',
+            } }
+            onClick={ handleAddOptionButton }
+          >
+            Add option
+          </Button>
         )}
       </Grid>
       <Grid item xl={ 4 } lg={ 4 } md={ 4 } sm={ 4 } xs={ 4 } className='multiple-question'>
-        <p className='para bold'>Right Answers</p>
+        <p className='para bold'> Right Answers </p>
         <FormGroup
           className='radio-buttons'
           name='visibility'

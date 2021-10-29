@@ -5,15 +5,18 @@ import { getInviterDetailsStart } from '../../redux-saga/redux/actions'
 import ROUTE_PATHS from '../../routes/routesPath'
 
 const HandleInvite = () => {
+  const { isLoading } = useSelector((state) => state.signupWithInvite)
+
   const { walletId } = useParams()
   const dispatch = useDispatch()
+
   useEffect(() => {
     dispatch(getInviterDetailsStart({ walletId }))
   }, [ dispatch, walletId ])
-  const { isLoading } = useSelector((state) => state.signupWithInvite)
+
   return (
     <>
-      { !isLoading && <Redirect to={ ROUTE_PATHS.SIGN_UP } />}
+      {!isLoading && <Redirect to={ ROUTE_PATHS.SIGN_UP } />}
     </>
   )
 }

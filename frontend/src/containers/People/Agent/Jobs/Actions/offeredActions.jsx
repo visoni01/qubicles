@@ -3,9 +3,7 @@ import { Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import MessageButton from './messageButton'
 
-const OfferedActions = ({
-  updateApplicationStatus,
-}) => (
+const OfferedActions = ({ updateApplicationStatus }) => (
   <div>
     <Button
       className='wide-button'

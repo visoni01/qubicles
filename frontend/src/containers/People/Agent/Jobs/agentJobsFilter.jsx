@@ -1,8 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import {
-  Box, Divider,
-  RadioGroup, FormControlLabel, Radio,
-  TextareaAutosize, Button, Grid,
+  Box, Divider, RadioGroup, FormControlLabel, Radio, TextareaAutosize, Button, Grid,
 } from '@material-ui/core'
 import { Rating } from '@material-ui/lab'
 import _ from 'lodash'
@@ -12,12 +10,10 @@ import {
   fetchJobSkillsStart, jobCategoriesOnlyFetchStart, fetchAgentJobsStart,
 } from '../../../../redux-saga/redux/actions'
 import {
-  jobFilterInitialState,
-  resetJobFilter, updateJobFilter,
+  jobFilterInitialState, resetJobFilter, updateJobFilter,
 } from '../../../../redux-saga/redux/people/agent/job/jobFilter'
 
 const AgentJobsFilter = () => {
-  const dispatch = useDispatch()
   const { jobSkills } = useSelector((state) => state.jobSkills)
   const { jobCategoriesOnly, success: jobCategoryFetchSuccess } = useSelector((state) => state.jobCategoriesOnly)
   const { jobFilter } = useSelector((state) => state.jobFilter)
@@ -29,6 +25,8 @@ const AgentJobsFilter = () => {
   const [ selectedHourlyRate, setHourlyRate ] = useState(jobFilter.selectedHourlyRate)
   const [ selectedRating, setRating ] = useState(jobFilter.selectedRating)
   const [ selectedLocation, setLocation ] = useState(jobFilter.selectedLocation)
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     // Update Talent Filter in Store
@@ -57,14 +55,8 @@ const AgentJobsFilter = () => {
     // To prevent maximum depth warning in dependency array
     // eslint-disable-next-line
   }, [
-    dispatch,
-    selectedCategory,
-    selectedSkill,
-    selectedLanguage,
-    selectedHourlyRate,
-    selectedRating,
-    selectedEmploymentType,
-    selectedLocation,
+    dispatch, selectedCategory, selectedSkill, selectedLanguage, selectedHourlyRate, selectedRating,
+    selectedEmploymentType, selectedLocation,
   ])
 
   useEffect(() => {
@@ -170,7 +162,7 @@ const AgentJobsFilter = () => {
 
   return (
     <Box className='custom-box no-padding side-filter-root talent-filter'>
-      <h2 className='h2 title talent-title'>Jobs</h2>
+      <h2 className='h2 title talent-title'> Jobs </h2>
 
       <Grid container justify='space-between' className='filter-buttons'>
         <Grid item>

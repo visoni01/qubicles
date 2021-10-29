@@ -9,8 +9,8 @@ const CoursesSection = () => (
         <Grid key={ key } item xs={ 12 } sm={ 6 } md={ 4 } lg={ 4 }>
           <div>
             <h4 className='h4 primary'> How to talk to clients </h4>
-            <p className='para light mb-5'>Good Call Center, 2020 </p>
-            <p className='para'>7 Feb 2020 - 24 Feb 2020 </p>
+            <p className='para light mb-5'> Good Call Center, 2020 </p>
+            <p className='para'> 7 Feb 2020 - 24 Feb 2020 </p>
           </div>
         </Grid>
       ))}

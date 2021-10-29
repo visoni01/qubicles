@@ -1,17 +1,14 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent,
-  DialogTitle, Button, IconButton,
+  Dialog, DialogActions, DialogContent, DialogTitle, Button, IconButton,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import VirtualCardModal from './virtualCard'
 import OrderPhysicalCard from './orderPhysicalCard'
 
-const OrderPaymentCard = ({
-  open, onClose,
-}) => {
+const OrderPaymentCard = ({ open, onClose }) => {
   const [ openVirtualCardModal, setOpenVirtualCardModal ] = useState(false)
   const [ openOrderPhysicalCard, setOpenOrderPhysicalCard ] = useState(false)
 
@@ -38,7 +35,7 @@ const OrderPaymentCard = ({
       >
         <div className='header'>
           <DialogTitle>
-            <h2 className='h2'>Choose Card Type</h2>
+            <h2 className='h2'> Choose Card Type </h2>
           </DialogTitle>
           <DialogActions className='cross-button'>
             <IconButton
@@ -62,7 +59,7 @@ const OrderPaymentCard = ({
               <div className='display-inline-flex align-items-center direction-column'>
                 <p className='para bold primary'> Virtual Card </p>
                 <span className='para bold heading-color'> $ 0.10 </span>
-                <span className='para light'> One Time Payment</span>
+                <span className='para light'> One Time Payment </span>
               </div>
             </Button>
           </div>
@@ -78,25 +75,26 @@ const OrderPaymentCard = ({
               <div className='display-inline-flex align-items-center direction-column'>
                 <p className='para bold primary'> Physical Card </p>
                 <span className='para bold heading-color'> $ 3.00 </span>
-                <span className='para light'> One Time Payment</span>
+                <span className='para light'> One Time Payment </span>
               </div>
             </Button>
           </div>
         </DialogContent>
       </Dialog>
+
       {openVirtualCardModal && (
-      <VirtualCardModal
-        open={ openVirtualCardModal }
-        onClose={ () => setOpenVirtualCardModal(false) }
-        onSubmit={ () => setOpenVirtualCardModal(false) }
-      />
+        <VirtualCardModal
+          open={ openVirtualCardModal }
+          onClose={ () => setOpenVirtualCardModal(false) }
+          onSubmit={ () => setOpenVirtualCardModal(false) }
+        />
       )}
       {openOrderPhysicalCard && (
-      <OrderPhysicalCard
-        open={ openOrderPhysicalCard }
-        onClose={ () => setOpenOrderPhysicalCard(false) }
-        onSubmit={ () => setOpenOrderPhysicalCard(false) }
-      />
+        <OrderPhysicalCard
+          open={ openOrderPhysicalCard }
+          onClose={ () => setOpenOrderPhysicalCard(false) }
+          onSubmit={ () => setOpenOrderPhysicalCard(false) }
+        />
       )}
     </>
   )

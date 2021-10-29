@@ -14,28 +14,25 @@ import { resetAgentProfileSettingsFlags } from '../../../../../redux-saga/redux/
 import { REQUEST_TYPES } from '../../../../../utils/constants'
 
 // eslint-disable-next-line complexity
-const SkillsPage = ({
-  candidateId, languages, userType,
-}) => {
-  const dispatch = useDispatch()
+const SkillsPage = ({ candidateId, languages, userType }) => {
+  const [ openEditSkillsModal, setOpenEditSkillsModal ] = useState(false)
+
   const {
     isLoading, agentResumeSkills, success, requestType,
   } = useSelector((state) => state.agentResumeSkills)
-  const [ openEditSkillsModal, setOpenEditSkillsModal ] = useState(false)
   const {
     isLoading: isLoadingLanguage,
-    requestType: requestTypeLanguage, success: successLanguage,
+    requestType: requestTypeLanguage,
+    success: successLanguage,
   } = useSelector((state) => state.agentDetails)
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (candidateId !== agentResumeSkills.candidateId) {
       dispatch(agentResumeSkillsStart({ candidateId, requestType: REQUEST_TYPES.FETCH }))
     }
   }, [ dispatch, agentResumeSkills.candidateId, candidateId ])
-
-  const handleOpenEditSkillsModal = useCallback(() => {
-    setOpenEditSkillsModal(true)
-  }, [])
 
   useEffect(() => {
     if (!isLoading && success && requestType === REQUEST_TYPES.UPDATE) {
@@ -48,10 +45,14 @@ const SkillsPage = ({
     }
   }, [ isLoading, success, requestType, isLoadingLanguage, successLanguage, requestTypeLanguage, dispatch ])
 
+  const handleOpenEditSkillsModal = useCallback(() => {
+    setOpenEditSkillsModal(true)
+  }, [])
+
   return (
     <div className='mb-25 custom-box resume-root skills-page-root has-fullwidth'>
       <div className='skills-endorsements-box'>
-        <h3 className='h3 mb-10'>Skills & Endorsements</h3>
+        <h3 className='h3 mb-10'> Skills & Endorsements </h3>
         {(userType === 'self') && (
           <Button
             classes={ {
@@ -67,7 +68,7 @@ const SkillsPage = ({
       </div>
 
       {/* Edit Skills Modal */}
-      { openEditSkillsModal && (
+      {openEditSkillsModal && (
         <EditSkills
           open={ openEditSkillsModal }
           handleClose={ () => setOpenEditSkillsModal(false) }
@@ -110,7 +111,7 @@ const SkillsPage = ({
                 {`${ _.capitalize(language) } (${ index === 0 ? 'Primary' : 'Other' }) `}
               </p>
             ))
-            : <p className='para sz-xl mt-20 text-center'>No Languages Present</p>}
+            : <p className='para sz-xl mt-20 text-center'> No Languages Present </p>}
         </>
       )}
     </div>

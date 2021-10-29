@@ -7,20 +7,24 @@ import OpenPositionsCard from '../../../../components/Profile/OtherCompany/LeftR
 import { COMPANY_PROFILE_ROUTE } from '../../../../routes/routesPath'
 
 const OpenPosition = ({ companyId }) => {
-  const history = useHistory()
   let { jobsWithCategories } = useSelector((state) => state.jobsWithCategories)
+
+  const history = useHistory()
   jobsWithCategories = jobsWithCategories.filter((job, index) => index < 3)
+
   return (
     <Box className='custom-box'>
-      <h3 className='h3'> Open Positions</h3>
-      { jobsWithCategories.map((jobCategory) => (
+      <h3 className='h3'> Open Positions </h3>
+
+      {jobsWithCategories.map((jobCategory) => (
         jobCategory.jobs.length && (
-        <OpenPositionsCard
-          key={ jobCategory.categoryId }
-          categoryTitle={ jobCategory.categoryTitle }
-          jobs={ jobCategory.jobs }
-        />
+          <OpenPositionsCard
+            key={ jobCategory.categoryId }
+            categoryTitle={ jobCategory.categoryTitle }
+            jobs={ jobCategory.jobs }
+          />
         )))}
+
       <div className='mb-20 is-flex is-center'>
         <Button
           classes={ {

@@ -1,17 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent,
-  DialogTitle, Button, IconButton,
-  FormControl, Select, InputLabel, TextField,
+  Dialog, DialogActions, DialogContent, DialogTitle, Button, IconButton, FormControl, Select, InputLabel, TextField,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { paymentCardData } from './testData'
 
-const AddFunds = ({
-  open, onClose, onSubmit,
-}) => (
+const AddFunds = ({ open, onClose, onSubmit }) => (
   <Dialog
     disableScrollLock
     open={ open }
@@ -23,7 +19,7 @@ const AddFunds = ({
   >
     <div className='header'>
       <DialogTitle>
-        <h2 className='h2'>Add Funds</h2>
+        <h2 className='h2'> Add Funds </h2>
       </DialogTitle>
       <DialogActions className='cross-button'>
         <IconButton
@@ -35,7 +31,7 @@ const AddFunds = ({
       </DialogActions>
     </div>
     <DialogContent>
-      <h4 className='h4 mt-30'>Choose payment option</h4>
+      <h4 className='h4 mt-30'> Choose payment option </h4>
       <FormControl variant='outlined' className='drop-down-bar'>
         <InputLabel margin='dense' variant='outlined' className='mt-10'>
           Choose card
@@ -55,7 +51,7 @@ const AddFunds = ({
           ))}
         </Select>
       </FormControl>
-      <h4 className='h4 mt-30'>Choose amount</h4>
+      <h4 className='h4 mt-30'> Choose amount </h4>
       <TextField
         className='text-field-para is-fullwidth mt-10'
         InputProps={ { inputProps: { min: 0, step: 1 } } }

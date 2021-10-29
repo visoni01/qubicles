@@ -1,7 +1,5 @@
 import React, { useState, useCallback } from 'react'
-import {
-  Grid, IconButton, Button,
-} from '@material-ui/core'
+import { Grid, IconButton, Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import TestQuestionModal from './testQuestionModal'
 import ConfirmationModal from '../../../../../../../components/CommonModal/confirmationModal'
@@ -71,6 +69,7 @@ const TestSection = ({
           </Grid>
         </Grid>
       </div>
+
       <TestQuestionModal
         open={ openTest }
         onClose={ handleCancelUnitChanges }
@@ -78,14 +77,15 @@ const TestSection = ({
         testDetails={ testDetails }
         setTestDetails={ setTestDetails }
       />
+
       {openConfirmDelete && (
-      <ConfirmationModal
-        open={ openConfirmDelete }
-        handleClose={ () => setOpenConfirmDelete(false) }
-        message='Are you sure you want to delete this test ?'
-        confirmButtonText='Delete'
-        handleConfirm={ () => handleDeleteTestButton() }
-      />
+        <ConfirmationModal
+          open={ openConfirmDelete }
+          handleClose={ () => setOpenConfirmDelete(false) }
+          message='Are you sure you want to delete this test ?'
+          confirmButtonText='Delete'
+          handleConfirm={ () => handleDeleteTestButton() }
+        />
       )}
     </>
   )

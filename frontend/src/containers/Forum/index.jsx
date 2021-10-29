@@ -5,13 +5,15 @@ import GroupsList from './groups/list'
 import CreateGroup from './groups/createOrUpdate'
 import SelectedGroup from './groups/group'
 import TrendingTopics from './trendingTopics'
-import './styles.scss'
 import { addNewGroup } from '../../redux-saga/redux/actions'
+import './styles.scss'
 
 const Groups = () => {
-  const dispatch = useDispatch()
-  const { groups, isLoading } = useSelector((state) => state.groups)
   const [ selectedGroup, setSelectedGroup ] = useState(0)
+
+  const { groups, isLoading } = useSelector((state) => state.groups)
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (selectedGroup === groups.length) {

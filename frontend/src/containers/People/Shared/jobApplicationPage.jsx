@@ -7,13 +7,14 @@ import AgentViewApplication from '../Agent/Applications/agentViewApplication'
 import { REQUEST_TYPES } from '../../../utils/constants'
 
 const JobApplicationPage = () => {
-  let { applicationId } = useParams()
-  applicationId = parseInt(applicationId, 10)
-  const dispatch = useDispatch()
   const {
     application, isLoading, success, error, requestType,
   } = useSelector((state) => state.jobApplication)
   const { userDetails } = useSelector((state) => state.login)
+
+  const dispatch = useDispatch()
+  let { applicationId } = useParams()
+  applicationId = parseInt(applicationId, 10)
 
   useEffect(() => {
     dispatch(jobApplicationRequestStart({
@@ -35,7 +36,7 @@ const JobApplicationPage = () => {
   if (error) {
     return (
       <div className='is-fullwidth'>
-        <h1 className='h1 text-center'> 404 Error</h1>
+        <h1 className='h1 text-center'> 404 Error </h1>
         <h1 className='h1 text-center'> Application not found </h1>
       </div>
     )

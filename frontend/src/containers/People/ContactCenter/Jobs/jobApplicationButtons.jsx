@@ -130,10 +130,8 @@ const JobApplicationButtons = ({ application, userDetails }) => {
           </Button>
 
           {/* Button for Primary Actions */}
-          {[ 'applied', 'invited',
-            'screening', 'training', 'offered',
-            'terminated', 'declined' ].includes(application.status)
-            && (
+          {[ 'applied', 'invited', 'screening', 'training', 'offered', 'terminated', 'declined' ]
+            .includes(application.status) && (
             <Button
               classes={ {
                 root: 'button-primary-small',
@@ -148,7 +146,7 @@ const JobApplicationButtons = ({ application, userDetails }) => {
               {application.status === 'terminated' && 'Rehire'}
               {application.status === 'declined' && 'Invite'}
             </Button>
-            )}
+          )}
         </div>
       </div>
     </>

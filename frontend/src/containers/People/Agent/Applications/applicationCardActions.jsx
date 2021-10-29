@@ -14,10 +14,17 @@ const ApplicationCardActions = ({
   application, applicationCategoryId, jobDetails, clientDetails,
 }) => {
   const [ isNewChatLoading, setIsNewChatLoading ] = useState(false)
+
   const { isLoading, dataType } = useSelector((state) => state.allChats)
 
   const dispatch = useDispatch()
   const history = useHistory()
+
+  useEffect(() => {
+    if (!isLoading && dataType === NEW_CHAT) {
+      setIsNewChatLoading(false)
+    }
+  }, [ isLoading, dataType ])
 
   const handleUpdateStatus = useCallback((status) => {
     dispatch(agentJobApplicationsRequestStart({
@@ -78,29 +85,22 @@ const ApplicationCardActions = ({
     }))
   }, [ dispatch, jobDetails, clientDetails ])
 
-  useEffect(() => {
-    if (!isLoading && dataType === NEW_CHAT) {
-      setIsNewChatLoading(false)
-    }
-  }, [ isLoading, dataType ])
-
   return (
     <Grid container spacing={ 3 } justify='space-between'>
       <Grid item xs={ 6 }>
         {/* Negative Action */}
-        {[ 'applied', 'screening', 'training', 'offered', 'invited', 'hired' ].includes(application.status)
-        && (
-        <Button
-          classes={ {
-            root: 'button-secondary-small-red',
-            label: 'button-secondary-small-label',
-          } }
-          onClick={ () => handleActionButton({ status: application.status, actionType: 'negative' }) }
-        >
-          {[ 'applied', 'screening', 'training', 'offered' ].includes(application.status) && 'Withdraw'}
-          {application.status === 'invited' && 'Reject'}
-          {application.status === 'hired' && 'Resign'}
-        </Button>
+        {[ 'applied', 'screening', 'training', 'offered', 'invited', 'hired' ].includes(application.status) && (
+          <Button
+            classes={ {
+              root: 'button-secondary-small-red',
+              label: 'button-secondary-small-label',
+            } }
+            onClick={ () => handleActionButton({ status: application.status, actionType: 'negative' }) }
+          >
+            {[ 'applied', 'screening', 'training', 'offered' ].includes(application.status) && 'Withdraw'}
+            {application.status === 'invited' && 'Reject'}
+            {application.status === 'hired' && 'Resign'}
+          </Button>
         )}
       </Grid>
       <Grid item xs={ 6 } container spacing={ 3 } justify='flex-end'>
@@ -120,19 +120,18 @@ const ApplicationCardActions = ({
         </Grid>
         <Grid item>
           {/* Primary Action */}
-          {[ 'invited', 'screening', 'training', 'offered' ].includes(application.status)
-          && (
-          <Button
-            classes={ {
-              root: 'button-primary-small',
-              label: 'button-primary-small-label',
-            } }
-            onClick={ () => handleActionButton({ status: application.status, actionType: 'primary' }) }
-          >
-            {[ 'invited', 'offered' ].includes(application.status) && 'Accept'}
-            {application.status === 'screening' && 'Training'}
-            {application.status === 'training' && 'Go to Training'}
-          </Button>
+          {[ 'invited', 'screening', 'training', 'offered' ].includes(application.status) && (
+            <Button
+              classes={ {
+                root: 'button-primary-small',
+                label: 'button-primary-small-label',
+              } }
+              onClick={ () => handleActionButton({ status: application.status, actionType: 'primary' }) }
+            >
+              {[ 'invited', 'offered' ].includes(application.status) && 'Accept'}
+              {application.status === 'screening' && 'Training'}
+              {application.status === 'training' && 'Go to Training'}
+            </Button>
           )}
         </Grid>
       </Grid>

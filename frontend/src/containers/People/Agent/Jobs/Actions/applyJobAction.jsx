@@ -3,10 +3,9 @@ import { Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import ApplyJobModal from './applyJobModal'
 
-const ApplyJobAction = ({
-  clientId, jobId, agentUserId,
-}) => {
+const ApplyJobAction = ({ clientId, jobId, agentUserId }) => {
   const [ openApplyJobModal, setOpenApplyJobModal ] = useState(false)
+
   return (
     <div>
       <Button

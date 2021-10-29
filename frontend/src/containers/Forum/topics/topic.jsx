@@ -4,9 +4,7 @@ import {
   faChevronLeft, faComment, faEye, faHeart,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  Avatar, Box, Button,
-} from '@material-ui/core'
+import { Avatar, Box, Button } from '@material-ui/core'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
@@ -16,6 +14,7 @@ import { topicActivity } from '../../../redux-saga/redux/actions'
 
 const SelectedTopic = ({ backToGroup, topicDetails }) => {
   const backButton = useCallback(() => backToGroup(''), [ backToGroup ])
+
   const dispatch = useDispatch()
 
   const handleLikeButton = useCallback(() => {
@@ -42,16 +41,12 @@ const SelectedTopic = ({ backToGroup, topicDetails }) => {
         </div>
         <div className='display-inline-flex is-fullwidth topic-owner'>
           <Avatar className='mr-10' src={ topicDetails.profilePic } />
-          <p className='para bold margin-auto-5'>
-            {topicDetails.ownerName}
-          </p>
+          <p className='para bold margin-auto-5'>{topicDetails.ownerName}</p>
           <p className='para light margin-auto-5'>
             {moment(topicDetails.createdAt).format('MMMM DD YY hh:mm a')}
           </p>
         </div>
-        <h3 className='h2 mb-20 mt-10'>
-          {topicDetails.title}
-        </h3>
+        <h3 className='h2 mb-20 mt-10'>{topicDetails.title}</h3>
         <p className='para' dangerouslySetInnerHTML={ { __html: topicDetails.description } } />
         <div className='section-stats mt-20'>
           <ul className='display-inline-flex mb-15'>
@@ -82,18 +77,14 @@ const SelectedTopic = ({ backToGroup, topicDetails }) => {
                 classes={ { label: 'para light' } }
               >
                 <FontAwesomeIcon icon={ faEye } />
-                {topicDetails.views}
-                {' '}
-                Views
+                {`${ topicDetails.views } Views`}
               </Button>
             </li>
           </ul>
         </div>
       </Box>
 
-      <PostComment
-        topicId={ topicDetails.id }
-      />
+      <PostComment topicId={ topicDetails.id } />
 
       <Comments topicId={ topicDetails.id } commentsCount={ topicDetails.commentsCount } />
     </>

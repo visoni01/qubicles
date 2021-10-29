@@ -4,25 +4,17 @@ import { useSelector, useDispatch } from 'react-redux'
 import * as yup from 'yup'
 import classNames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faPaperPlane,
-  faLock,
-  faEnvelope,
-} from '@fortawesome/free-solid-svg-icons'
+import { faPaperPlane, faLock, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { Button } from '@material-ui/core'
 import {
   Redirect, useHistory, useLocation, Link,
 } from 'react-router-dom'
-import {
-  FacebookIcon,
-  LinkedinIcon,
-  TwitterIcon,
-} from 'react-share'
+import { FacebookIcon, LinkedinIcon, TwitterIcon } from 'react-share'
 import { userLoginStart, clearStore, resetShowVerifyMailButton } from '../../redux-saga/redux/user/login'
 import VerificationPageButton from '../EmailVerification/verificationPageButton'
 import ForgottenPasswordButton from '../ForgetPassword/forgottonPasswordButton'
-import './style.scss'
 import config from '../../utils/config'
+import './style.scss'
 
 const schema = yup.object().shape({
   email: yup.string().required('*Required'),
@@ -33,20 +25,25 @@ const Login = () => {
   const { register, errors, handleSubmit } = useForm({
     validationSchema: schema,
   })
+
+  const { socialLogin, showVerifyMailButton } = useSelector((state) => state.login)
+  const { success, error } = useSelector((state) => state.login)
+
+  const [ isSocialLogin, setIsSocialLogin ] = useState(socialLogin)
+
+  const dispatch = useDispatch()
   const history = useHistory()
   const location = useLocation()
   const isReturnTo = location.search.split('?return_url=')
-  const { socialLogin, showVerifyMailButton } = useSelector((state) => state.login)
-  const [ isSocialLogin, setIsSocialLogin ] = useState(socialLogin)
-  const dispatch = useDispatch()
-  const onSubmit = (data) => dispatch(userLoginStart(data))
-  const { success, error } = useSelector((state) => state.login)
+
   useEffect(() => {
     dispatch(clearStore())
     return (() => {
       dispatch(resetShowVerifyMailButton())
     })
   }, [ dispatch ])
+
+  const onSubmit = (data) => dispatch(userLoginStart(data))
 
   const inputField = (
     name,
@@ -73,9 +70,7 @@ const Login = () => {
         <FontAwesomeIcon icon={ icon } />
       </span>
       {errors && errors[ name ] && (
-      <div className='error-message'>
-        {errors[ name ].message}
-      </div>
+        <div className='error-message'>{errors[ name ].message}</div>
       )}
     </div>
   )
@@ -134,7 +129,6 @@ const Login = () => {
             <div className='container'>
               <div className='columns'>
                 <div className='column is-8 is-offset-2'>
-
                   <>
                     {isSocialLogin && (
                       <div className='mb-30'>
@@ -175,7 +169,6 @@ const Login = () => {
                             )}
                           </div>
                           <p className='control login'>
-
                             <button
                               type='submit'
                               id='sendVerificationCode'

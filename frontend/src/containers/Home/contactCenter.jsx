@@ -57,11 +57,10 @@ const ContactCenter = () => {
           {/* Title */}
           <div className='section-title-wrapper'>
             <div className='bg-number'>1</div>
-            <h2 className='title section-title has-text-centered dark-text'> Great people, solid technology</h2>
+            <h2 className='title section-title has-text-centered dark-text'> Great people, solid technology </h2>
             <div className='subtitle has-text-centered is-tablet-padded'>
               Focus your team's energy and company resources on what makes you unique. Leave the people and technology
-              up
-              to us.
+              up to us.
             </div>
           </div>
           <div className='content-wrapper'>
@@ -72,7 +71,7 @@ const ContactCenter = () => {
                   <div>
                     <FontAwesomeIcon icon={ faUserGraduate } className='LP-step-1-icons' />
                   </div>
-                  <div className='box-title'>Instant access to talent</div>
+                  <div className='box-title'> Instant access to talent </div>
                   <p className='box-content is-tablet-padded'>
                     Using our global network of contact center professionals gives you access to a massive pool of
                     proven and vetted talent 24x7x365.
@@ -83,7 +82,7 @@ const ContactCenter = () => {
                   <div>
                     <FontAwesomeIcon icon={ faCertificate } className='LP-step-1-icons' />
                   </div>
-                  <div className='box-title'>Training and development</div>
+                  <div className='box-title'> Training and development </div>
                   <p className='box-content is-tablet-padded'>
                     Contact center agents are required to complete specific training before qualifying for work, as well
                     as ongoing development for personal growth.
@@ -96,7 +95,7 @@ const ContactCenter = () => {
                   <div>
                     <FontAwesomeIcon icon={ faChartBar } className='LP-step-1-icons' />
                   </div>
-                  <div className='box-title'>Reporting, QA and analytics</div>
+                  <div className='box-title'> Reporting, QA and analytics </div>
                   <p className='box-content is-tablet-padded'>
                     Reporting and analytics are key to running a successful contact center. Plus, quality auditing and
                     monitoring comes standard.
@@ -107,7 +106,7 @@ const ContactCenter = () => {
                   <div>
                     <FontAwesomeIcon icon={ faLaptop } className='LP-step-1-icons' />
                   </div>
-                  <div className='box-title'>Integrated contact center software</div>
+                  <div className='box-title'> Integrated contact center software </div>
                   <p className='box-content is-tablet-padded'>
                     Powerful contact center software serves as the core to our platform, with support for inbound,
                     outbound and blended campaigns.
@@ -118,12 +117,12 @@ const ContactCenter = () => {
             {/* CTA */}
             <div className='has-text-centered pt-40 pb-40'>
               {!isLoggedin && (
-              <CustomLink
-                to='/signup'
-                className='button button-cta primary-btn rounded raised is-title-reveal steps-button-color'
-              >
-                Get started for Free
-              </CustomLink>
+                <CustomLink
+                  to='/signup'
+                  className='button button-cta primary-btn rounded raised is-title-reveal steps-button-color'
+                >
+                  Get started for Free
+                </CustomLink>
               )}
             </div>
           </div>
@@ -135,7 +134,7 @@ const ContactCenter = () => {
           {/* Title */}
           <div className='section-title-wrapper'>
             <div className='bg-number'>2</div>
-            <h2 className='title section-title has-text-centered dark-text'> Built for contact centers</h2>
+            <h2 className='title section-title has-text-centered dark-text'> Built for contact centers </h2>
             <div className='subtitle has-text-centered is-tablet-padded'>
               We've combined our 20+ years of experience in contact center software to deliver something beautiful, yet
               powerful.
@@ -161,24 +160,24 @@ const ContactCenter = () => {
                 <br />
                 <div className='content section-feature-description'>
                   <ul>
-                    <li className='mb-10'>Acquire DIDs from almost anywhere in the world</li>
-                    <li className='mb-10'>Build simple or advanced inbound IVRs</li>
-                    <li className='mb-10'>Click-to-dial, manual, and predictive options</li>
-                    <li className='mb-10'>Configure inbound queues in a matter of minutes</li>
-                    <li className='mb-10'>Create scripts for almost all interaction types</li>
-                    <li className='mb-10'>Powerful lead management at your fingertips</li>
-                    <li className='mb-10'>Support more than calls with live chat aueues</li>
-                    <li>And lots of other features to run your business</li>
+                    <li className='mb-10'> Acquire DIDs from almost anywhere in the world </li>
+                    <li className='mb-10'> Build simple or advanced inbound IVRs </li>
+                    <li className='mb-10'> Click-to-dial, manual, and predictive options </li>
+                    <li className='mb-10'> Configure inbound queues in a matter of minutes </li>
+                    <li className='mb-10'> Create scripts for almost all interaction types </li>
+                    <li className='mb-10'> Powerful lead management at your fingertips </li>
+                    <li className='mb-10'> Support more than calls with live chat aueues </li>
+                    <li> And lots of other features to run your business </li>
                   </ul>
                 </div>
                 <div className='pt-20 pb-20'>
                   {!isLoggedin && (
-                  <CustomLink
-                    to='/signup'
-                    className='button button-cta primary-btn rounded raised steps-button-color'
-                  >
-                    Try it now
-                  </CustomLink>
+                    <CustomLink
+                      to='/signup'
+                      className='button button-cta primary-btn rounded raised steps-button-color'
+                    >
+                      Try it now
+                    </CustomLink>
                   )}
                 </div>
               </div>
@@ -200,7 +199,7 @@ const ContactCenter = () => {
             {/* Content */}
             <div className='column is-5 '>
               <div className='content padding-20'>
-                <h2 className='parallax-title light-text text-bold'>Always on visibility</h2>
+                <h2 className='parallax-title light-text text-bold'> Always on visibility </h2>
                 <p className='light-text'>
                   We provide detailed insight and analytics in your operations while you focus on the core competencies
                   of your business. With over 30 standard reports and the ability to request custom reports, never miss
@@ -208,12 +207,12 @@ const ContactCenter = () => {
                 </p>
                 <div className='pb-10 pt-10'>
                   {!isLoggedin && (
-                  <CustomLink
-                    to='/signup'
-                    className='button button-cta light-btn btn-outlined rounded is-bold is-title-reveal'
-                  >
-                    Take a look
-                  </CustomLink>
+                    <CustomLink
+                      to='/signup'
+                      className='button button-cta light-btn btn-outlined rounded is-bold is-title-reveal'
+                    >
+                      Take a look
+                    </CustomLink>
                   )}
                 </div>
               </div>
@@ -231,7 +230,7 @@ const ContactCenter = () => {
           {/* Title */}
           <div className='section-title-wrapper'>
             <div className='bg-number'>3</div>
-            <h2 className='title section-title has-text-centered dark-text'>Turn idle into profit</h2>
+            <h2 className='title section-title has-text-centered dark-text'> Turn idle into profit </h2>
             <div className='subtitle has-text-centered is-tablet-padded'>
               According to Aberdeen, agents spend 25% of their time in idle. Convert this cost into a profit center by
               leasing agent idle time to the network.
@@ -277,7 +276,7 @@ const ContactCenter = () => {
         <div className='container'>
           <div className='section-title-wrapper'>
             <div className='bg-number'>4</div>
-            <h2 className='title section-title has-text-centered dark-text'> Pay-per-use Pricing</h2>
+            <h2 className='title section-title has-text-centered dark-text'> Pay-per-use Pricing </h2>
             <div className='subtitle has-text-centered is-tablet-padded'>
               Relieve your company from long-term contracts. Our pay-per-use pricing allows the most flexibility by
               paying as you grow.
@@ -288,65 +287,65 @@ const ContactCenter = () => {
               <div className='pricing-table'>
                 {/* Pricing Plan */}
                 <div className='pricing-plan is-rounded'>
-                  <div className='plan-header'>Free Support</div>
+                  <div className='plan-header'> Free Support </div>
                   <div className='plan-price'>
                     <span className='plan-price-amount'>
-                      <span className='plan-price-currency'>$</span>
+                      <span className='plan-price-currency'> $ </span>
                       0
                     </span>
                     /month
                   </div>
                   <div className='plan-items'>
-                    <div className='plan-item'>$0.02 cents per minute</div>
-                    <div className='plan-item'>-</div>
-                    <div className='plan-item'>Core features available</div>
-                    <div className='plan-item'>Unlimited users</div>
-                    <div className='plan-item'>Self-service knowledgebase</div>
-                    <div className='plan-item'>Self service support</div>
-                    <div className='plan-item'>-</div>
-                    <div className='plan-item'>-</div>
+                    <div className='plan-item'> $0.02 cents per minute </div>
+                    <div className='plan-item'> - </div>
+                    <div className='plan-item'> Core features available </div>
+                    <div className='plan-item'> Unlimited users </div>
+                    <div className='plan-item'> Self-service knowledgebase </div>
+                    <div className='plan-item'> Self service support </div>
+                    <div className='plan-item'> - </div>
+                    <div className='plan-item'> - </div>
                   </div>
                 </div>
                 {/* Pricing Plan */}
                 <div className='pricing-plan is-primary'>
-                  <div className='plan-header color-blue'>Silver Support</div>
+                  <div className='plan-header color-blue'> Silver Support </div>
                   <div className='plan-price'>
                     <span className='plan-price-amount color-blue'>
-                      <span className='plan-price-currency color-blue'>$</span>
+                      <span className='plan-price-currency color-blue'> $ </span>
                       249
                     </span>
                     /month
                   </div>
                   <div className='plan-items'>
-                    <div className='plan-item'>$0.02 cents per minute</div>
-                    <div className='plan-item'>250 Qubicle (QBE) tokens</div>
-                    <div className='plan-item'>All features available</div>
-                    <div className='plan-item'>Unlimited users</div>
-                    <div className='plan-item'>One-time onboarding &amp; live training</div>
-                    <div className='plan-item'>Chat, email &amp; phone support</div>
-                    <div className='plan-item'>1 professional service hour</div>
-                    <div className='plan-item'>4 hour response time guarantee</div>
+                    <div className='plan-item'> $0.02 cents per minute </div>
+                    <div className='plan-item'> 250 Qubicle (QBE) tokens </div>
+                    <div className='plan-item'> All features available </div>
+                    <div className='plan-item'> Unlimited users </div>
+                    <div className='plan-item'> One-time onboarding &amp; live training </div>
+                    <div className='plan-item'> Chat, email &amp; phone support </div>
+                    <div className='plan-item'> 1 professional service hour </div>
+                    <div className='plan-item'> 4 hour response time guarantee </div>
                   </div>
                 </div>
                 {/* Pricing Plan */}
                 <div className='pricing-plan is-secondary is-active'>
-                  <div className='plan-header'>Gold Support</div>
+                  <div className='plan-header'> Gold Support </div>
                   <div className='plan-price'>
                     <span className='plan-price-amount'>
-                      <span className='plan-price-currency'>$</span>
+                      <span className='plan-price-currency'> $ </span>
                       999
                     </span>
                     /month
                   </div>
                   <div className='plan-items'>
-                    <div className='plan-item'>$0.02 cents per minute</div>
-                    <div className='plan-item'>1000 Qubicle (QBE) tokens</div>
-                    <div className='plan-item'>All features available</div>
-                    <div className='plan-item'>Unlimited users</div>
-                    <div className='plan-item'>Onboarding &amp; on-demand training</div>
-                    <div className='plan-item'>Silver support &amp; in-person option*</div>
-                    <div className='plan-item'>2 professional service hours</div>
-                    <div className='plan-item'>2 hour response time guarantee</div>
+                    <div className='plan-item'> $0.02 cents per minute </div>
+                    <div className='plan-item'> 1000 Qubicle (QBE) tokens </div>
+                    <div className='plan-item'> All features available </div>
+                    <div className='plan-item'> Unlimited users </div>
+                    <div className='plan-item'> Onboarding &amp; on-demand training </div>
+                    <div className='plan-item'> Silver support &amp; in-person option* </div>
+                    <div className='plan-item'> 2 professional service hours </div>
+                    <div className='plan-item'> 2 hour response time guarantee </div>
                   </div>
                 </div>
               </div>

@@ -12,9 +12,11 @@ import UserCoursesSkeleton from '../../../../components/Profile/Agent/Resume/Ske
 import CourseBadge from './courseBadge'
 
 const Courses = ({ candidateId }) => {
-  const { courses, isLoading } = useSelector((state) => state.agentResumeCourses)
   const [ showAllCourses, setShowAllCourses ] = useState(false)
   const [ currentCourses, setCurrentCourses ] = useState([])
+
+  const { courses, isLoading } = useSelector((state) => state.agentResumeCourses)
+
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -42,7 +44,7 @@ const Courses = ({ candidateId }) => {
 
   return (
     <Box className='custom-box mb-30'>
-      <h3 className='h3 mb-20'>Courses</h3>
+      <h3 className='h3 mb-20'> Courses </h3>
 
       {/* All Courses */}
       <div>
@@ -67,7 +69,7 @@ const Courses = ({ candidateId }) => {
               </div>
               {course.grade && <CourseBadge grade={ course.grade } />}
             </div>
-            { currentCourses.length !== (index + 1) && <Divider />}
+            {currentCourses.length !== (index + 1) && <Divider />}
           </div>
         ))}
         {isLoading === false && currentCourses && !currentCourses.length && (

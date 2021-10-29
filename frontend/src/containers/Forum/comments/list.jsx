@@ -9,17 +9,10 @@ import ListSkeleton from '../../../components/Forum/Skeletons/commentsList'
 import Comment from './listItem'
 
 const Comments = ({ topicId, commentsCount }) => {
-  const dispatch = useDispatch()
   const { comments, isLoading } = useSelector((state) => state.topicComments)
-  const noOfCommentsPerReq = 10
 
-  const handleMoreComments = () => (
-    dispatch(loadMoreComments({
-      topicId,
-      limit: noOfCommentsPerReq,
-      offset: comments.length,
-    }))
-  )
+  const dispatch = useDispatch()
+  const noOfCommentsPerReq = 10
 
   useEffect(() => {
     dispatch(topicCommentsFetchingStart({
@@ -28,6 +21,14 @@ const Comments = ({ topicId, commentsCount }) => {
       offset: 0,
     }))
   }, [ dispatch, topicId ])
+
+  const handleMoreComments = () => (
+    dispatch(loadMoreComments({
+      topicId,
+      limit: noOfCommentsPerReq,
+      offset: comments.length,
+    }))
+  )
 
   if (isLoading) {
     return (
@@ -39,9 +40,7 @@ const Comments = ({ topicId, commentsCount }) => {
 
   return (
     <Box className='custom-box comments-list'>
-      <h3 className='h3'>
-        Comments
-      </h3>
+      <h3 className='h3'> Comments </h3>
       <div>
         {comments.length ? comments.map((comment, index) => (
           <div key={ comment.id }>
@@ -49,19 +48,17 @@ const Comments = ({ topicId, commentsCount }) => {
             { (index + 1 < comments.length) && <Divider />}
           </div>
         )) : (
-          <h4 className='h4 text-center padding-20'>
-            No comments to show
-          </h4>
+          <h4 className='h4 text-center padding-20'> No comments to show </h4>
         )}
       </div>
       {(comments.length < commentsCount) && (
-      <Button
-        classes={ { root: 'text-link-underlined' } }
-        onClick={ handleMoreComments }
-        fullWidth
-      >
-        Load more comments
-      </Button>
+        <Button
+          classes={ { root: 'text-link-underlined' } }
+          onClick={ handleMoreComments }
+          fullWidth
+        >
+          Load more comments
+        </Button>
       )}
     </Box>
   )

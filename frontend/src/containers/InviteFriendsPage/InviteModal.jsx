@@ -15,23 +15,17 @@ import { showSuccessMessage, resetInviteRequest, inviteRequestStart } from '../.
 import invitePopup from '../../assets/images/popup.png'
 import InviteManual from './InviteManual'
 
-const InviteModal = ({
-  open, handleClose,
-}) => {
-  const dispatch = useDispatch()
+const InviteModal = ({ open, handleClose }) => {
+  const [ manualEmails, setManualEmails ] = useState([])
+
   const inviteReducerStore = useSelector((state) => state.invitePage)
   const { userDetails } = useSelector((state) => state.login)
-  const inviteLink = userDetails && userDetails.inviteLink
-  const [ manualEmails, setManualEmails ] = useState([ ])
 
+  const dispatch = useDispatch()
+  const inviteLink = userDetails && userDetails.inviteLink
   const {
     isLoading, success, result, type,
   } = inviteReducerStore
-
-  const handleCopyToClipboard = () => {
-    dispatch(showSuccessMessage({ msg: 'Link copied' }))
-    navigator.clipboard.writeText(inviteLink || 'invite link')
-  }
 
   useEffect(() => {
     if (!isLoading && success) {
@@ -43,6 +37,11 @@ const InviteModal = ({
     }
     dispatch(resetInviteRequest())
   }, [ isLoading, dispatch, type, success, result ])
+
+  const handleCopyToClipboard = () => {
+    dispatch(showSuccessMessage({ msg: 'Link copied' }))
+    navigator.clipboard.writeText(inviteLink || 'invite link')
+  }
 
   const handleManualEmails = useCallback(() => {
     dispatch(inviteRequestStart({ type: 'invite-manual', body: { emails: manualEmails } }))
@@ -76,23 +75,22 @@ const InviteModal = ({
             <h2 className='h2 pt-30 pb-20 text-center'>
               Invite friends &amp; earn up to
               {' '}
-              <span className='price'>$100</span>
+              <span className='price'> $100 </span>
               {' '}
               in free tokens
             </h2>
           </div>
           <p className='para pt-10 pb-30 text-center'>
-            <b>Earn $5 for inviting friends, plus 1 QBE token ($1 each)</b>
+            <b> Earn $5 for inviting friends, plus 1 QBE token ($1 each) </b>
             {' '}
             for every
             person that signs up using your link, up to $100. Your friend
+            {/* eslint-disable-next-line react/jsx-child-element-spacing */}
             <br />
             also receives $5 credit to use toward the service.
           </p>
           <div>
-            <p className='h3'>
-              Add emails
-            </p>
+            <p className='h3'> Add emails </p>
             {/* Manual Invite */}
             <div className='email-align mt-10'>
               <InviteManual
@@ -110,9 +108,7 @@ const InviteModal = ({
                 Send
               </Button>
             </div>
-            <p className='para bold light pt-10 pb-10 text-center'>
-              or
-            </p>
+            <p className='para bold light pt-10 pb-10 text-center'> or </p>
             <div>
               <Button
                 className='mt-10 mb-30 wide-button'

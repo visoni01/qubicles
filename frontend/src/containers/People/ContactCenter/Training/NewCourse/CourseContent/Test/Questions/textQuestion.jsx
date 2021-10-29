@@ -1,15 +1,11 @@
 import React from 'react'
-import {
-  Grid, TextField,
-} from '@material-ui/core'
+import { Grid, TextField } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { testQuestionPropType } from '../../../propTypes'
 
-const TextQuestion = ({
-  questionDetails, setQuestionDetails,
-}) => {
+const TextQuestion = ({ questionDetails, setQuestionDetails }) => {
   if (questionDetails.isSaved) {
     return (
       <div className='ml-10 pb-10'>

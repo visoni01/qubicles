@@ -5,6 +5,7 @@ import invitePopup from '../../assets/images/popup.png'
 
 export default function InviteSuccess({ inviteSuccess }) {
   const [ timer, setTimer ] = useState(4)
+
   useEffect(() => {
     if (inviteSuccess) {
       setTimeout(() => {
@@ -15,6 +16,7 @@ export default function InviteSuccess({ inviteSuccess }) {
       }
     }
   })
+
   if (inviteSuccess) {
     return (
       <Box className='custom-box invite-success-box'>
@@ -23,10 +25,8 @@ export default function InviteSuccess({ inviteSuccess }) {
             <img src={ invitePopup } alt='popup' />
           </div>
           <div>
-            <h2 className='h2'> Contacts invited successfully!</h2>
-            <h3 className='h3'>
-              {`Closing window in ${ timer } seconds...`}
-            </h3>
+            <h2 className='h2'> Contacts invited successfully! </h2>
+            <h3 className='h3'>{`Closing window in ${ timer } seconds...`}</h3>
           </div>
         </div>
       </Box>
@@ -36,7 +36,7 @@ export default function InviteSuccess({ inviteSuccess }) {
     <Box className='custom-box'>
       <div className='text-align-last-center'>
         <div>
-          <h2 className='h2'>Oops! 400 Bad request</h2>
+          <h2 className='h2'> Oops! 400 Bad request </h2>
         </div>
       </div>
     </Box>

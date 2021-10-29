@@ -1,51 +1,40 @@
 /* eslint-disable complexity */
 import React, { useEffect, useState } from 'react'
-import {
-  Grid, Card, CardContent,
-} from '@material-ui/core'
+import { Grid, Card, CardContent } from '@material-ui/core'
 import { Link, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import './styles.scss'
 import {
   programsQuicklinks, insightsQuicklinks, settingsQuicklinks, peopleClientQuicklinks,
 } from './navigationActionsList'
 import NavigationActions from './navigationActions'
 import {
-  companyPeopleNavigations,
-  agentPeopleNavigations,
-  programsNavigations,
-  insightsNavigations,
-  settingsNavigations,
-
+  companyPeopleNavigations, agentPeopleNavigations, programsNavigations, insightsNavigations, settingsNavigations,
 } from './navigationLinksList'
 import {
-  PEOPLE_ROUTE,
-  PROGRAMS_NAVIGATION_ROUTE,
-  INSIGHTS_NAVIGATION_ROUTE,
-  SETTINGS_NAVIGATION_ROUTE,
+  PEOPLE_ROUTE, PROGRAMS_NAVIGATION_ROUTE, INSIGHTS_NAVIGATION_ROUTE, SETTINGS_NAVIGATION_ROUTE,
 } from '../../routes/routesPath'
 import PeopleNavStats from './peopleNavStats'
+import './styles.scss'
 
 const navCard = (card) => (
   <Card className='navigation-card border-1'>
     <img src={ card.icon } alt='Chat Icon' className='image' />
     <CardContent classes={ { root: 'card-content-root' } }>
-      <h3 className='h3 text-center mt-10 mb-10'>
-        {card.title}
-      </h3>
-      <p className='para text-center'>
-        {card.description}
-      </p>
+      <h3 className='h3 text-center mt-10 mb-10'>{card.title}</h3>
+      <p className='para text-center'>{card.description}</p>
     </CardContent>
   </Card>
 )
 
 function NavigationPage() {
-  const { userDetails } = useSelector((state) => state.login)
   const [ navigationCardsList, setNavigationCardsList ] = useState([])
   const [ navigationQuickLinks, setNavigationQuickLink ] = useState([])
   const [ navigationTitle, setNavigationTitle ] = useState('')
+
+  const { userDetails } = useSelector((state) => state.login)
+
   const location = useLocation()
+
   useEffect(() => {
     switch (location.pathname) {
       case PEOPLE_ROUTE: {
@@ -80,6 +69,7 @@ function NavigationPage() {
       default: break
     }
   }, [ userDetails, location ])
+
   return (
     <div>
       <Grid container spacing={ 4 }>

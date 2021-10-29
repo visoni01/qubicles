@@ -5,9 +5,11 @@ import { fetchTalentCardsStart, updateTalentFilter } from '../../../../redux-sag
 import { SearchIcon } from '../../../../assets/images/common'
 
 export default function TalentSearch() {
-  const dispatch = useDispatch()
   const { talentFilter } = useSelector((state) => state.talentFilter)
+
   const [ searchField, setSearchField ] = useState(talentFilter.searchKeyword)
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     setSearchField(talentFilter.searchKeyword)

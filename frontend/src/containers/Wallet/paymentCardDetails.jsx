@@ -6,6 +6,7 @@ import AddPaymentMethod from './addPaymentMethod'
 
 const PaymentCardDetails = () => {
   const [ openAddPaymentMethodModal, setOpenAddPaymentMethodModal ] = useState(false)
+
   return (
     <>
       <div>
@@ -30,6 +31,7 @@ const PaymentCardDetails = () => {
           </div>
         </Box>
       </div>
+
       <AddPaymentMethod
         open={ openAddPaymentMethodModal }
         onClose={ () => setOpenAddPaymentMethodModal(false) }

@@ -9,12 +9,13 @@ import {
 import { REQUEST_TYPES } from '../../../../utils/constants'
 
 const ApplicationFilter = () => {
-  const {
-    applicationFilter, selectedApplicationCategory,
-  } = useSelector((state) => state.agentJobApplications)
+  const { applicationFilter, selectedApplicationCategory } = useSelector((state) => state.agentJobApplications)
   const { userDetails } = useSelector((state) => state.login)
-  const dispatch = useDispatch()
+
   const [ selectedCategory, setSelectedCategory ] = useState(applicationFilter[ selectedApplicationCategory ])
+
+  const dispatch = useDispatch()
+
   useEffect(() => {
     dispatch(updateAgentJobApplicationsCategory({ category: selectedCategory.id }))
   }, [ dispatch, selectedCategory ])
@@ -38,10 +39,10 @@ const ApplicationFilter = () => {
   return (
     <Box className='custom-box no-padding side-filter-root job-list'>
       <div className='mb-20'>
-        <h2 className='h2 title'>Applications</h2>
+        <h2 className='h2 title'> Applications </h2>
       </div>
       <List className='filter-list-items'>
-        { Object.keys(applicationFilter).map((categoryId) => (
+        {Object.keys(applicationFilter).map((categoryId) => (
           <MenuItem
             button
             onClick={ () => setSelectedCategory(applicationFilter[ categoryId ]) }

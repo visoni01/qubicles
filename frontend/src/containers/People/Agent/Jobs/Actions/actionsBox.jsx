@@ -26,6 +26,12 @@ const ActionsBox = ({
 
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    if (!isChatLoading && _.isEqual(dataType, NEW_CHAT)) {
+      setIsNewChatLoading(false)
+    }
+  }, [ isChatLoading, dataType ])
+
   const getApplicationCategoryId = useCallback(() => parseInt(Object.keys(applicationFilter).filter(
     (key) => applicationFilter[ key ].statusTypes.includes(application.status),
   )[ 0 ], 10),
@@ -64,12 +70,6 @@ const ActionsBox = ({
       onlyPopup: true,
     }))
   }, [ dispatch, jobDetails ])
-
-  useEffect(() => {
-    if (!isChatLoading && _.isEqual(dataType, NEW_CHAT)) {
-      setIsNewChatLoading(false)
-    }
-  }, [ isChatLoading, dataType ])
 
   return (
     <Box className='custom-box actions-box'>

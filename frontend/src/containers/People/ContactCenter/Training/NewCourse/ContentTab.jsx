@@ -6,8 +6,7 @@ import CourseContent from './CourseContent/index'
 import { contentSectionPropType, courseContentPropType, errorsPropTypes } from './propTypes'
 
 export default function ContentTab({
-  contentSection, setContentSection,
-  courseContent, setCourseContent, errors,
+  contentSection, setContentSection, courseContent, setCourseContent, errors,
 }) {
   return (
     <div className='mt-30'>

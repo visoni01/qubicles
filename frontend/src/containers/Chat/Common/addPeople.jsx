@@ -192,7 +192,7 @@ const AddPeople = ({
       <DialogContent>
         {actionType === NEW_GROUP && (
         <div className='mb-20'>
-          <div className='h3'>Group Title</div>
+          <div className='h3'> Group Title </div>
           <TextField
             variant='outlined'
             margin='dense'
@@ -203,7 +203,7 @@ const AddPeople = ({
         </div>
         )}
         {actionType === NEW_GROUP && (
-          <div className='h3'>Add People</div>
+          <div className='h3'> Add People </div>
         )}
         <TextField
           className='is-fullwidth search-text-field'
@@ -252,7 +252,7 @@ const AddPeople = ({
             {isLoading && <SuggestedUsersSkeleton />}
             {!isLoading && people
               && (people.length === 0 || _.differenceBy(people, selectedPeople, 'id').length === 0) && (
-              <div className='para'>No suggestions available...</div>
+              <div className='para'> No suggestions available... </div>
             )}
           </div>
         </div>

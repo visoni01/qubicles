@@ -16,17 +16,14 @@ import MyCoursesSkeleton from '../../../../../components/People/ContactCenter/Sk
 import { REQUEST_TYPES } from '../../../../../utils/constants'
 
 const MyCourses = () => {
-  const history = useHistory()
-  const handleCreateCourseButton = useCallback(() => {
-    history.push(ROUTE_PATHS.CREATE_COURSE)
-  }, [ history ])
-
   const {
     courses, isLoading, requestType, success,
   } = useSelector((state) => state.allCourses)
   const { userDetails } = useSelector((state) => state.login)
 
+  const history = useHistory()
   const dispatch = useDispatch()
+
   useEffect(() => {
     if (userDetails.user_code === 'employer') {
       dispatch(allCoursesRequestStart({
@@ -46,6 +43,10 @@ const MyCourses = () => {
       })
     }
   }, [ courses, history, isLoading, requestType, success ])
+
+  const handleCreateCourseButton = useCallback(() => {
+    history.push(ROUTE_PATHS.CREATE_COURSE)
+  }, [ history ])
 
   if (_.isEqual(userDetails.user_code, 'employer') && (_.isNull(isLoading) || isLoading)) {
     return (
@@ -79,7 +80,7 @@ const MyCourses = () => {
 
       {courses.filter((course) => course.status === 'published').length > 0 && (
       <div className='mb-30'>
-        <h3 className='h3 mb-20'>My Courses</h3>
+        <h3 className='h3 mb-20'> My Courses </h3>
         <Grid container spacing={ 3 }>
           {courses.filter((course) => course.status === 'published').map((course) => (
             <PublishedCourseCard key={ course.courseId } { ...course } creatorName={ userDetails.full_name } />
@@ -89,14 +90,13 @@ const MyCourses = () => {
       )}
 
       {courses && !_.isUndefined(courses.find((course) => course.status === 'published'))
-      && !_.isUndefined(courses.find((course) => course.status === 'draft'))
-      && (
+      && !_.isUndefined(courses.find((course) => course.status === 'draft')) && (
         <Divider className='mb-30' />
       )}
 
       {courses.filter((course) => course.status === 'draft').length > 0 && (
         <div className='mb-30'>
-          <h3 className='h3 mb-20'>Drafts</h3>
+          <h3 className='h3 mb-20'> Drafts </h3>
           <Grid container spacing={ 3 }>
             {courses.filter((course) => course.status === 'draft').map((course) => (
               <DraftCourseCard key={ course.courseId } { ...course } creatorName={ userDetails.full_name } />
@@ -105,9 +105,9 @@ const MyCourses = () => {
         </div>
       )}
       {courses && !courses.length && (
-      <div className='mt-10 mb-10 is-fullwidth'>
-        <h3 className='h3 text-center'>No courses found!</h3>
-      </div>
+        <div className='mt-10 mb-10 is-fullwidth'>
+          <h3 className='h3 text-center'> No courses found! </h3>
+        </div>
       )}
     </Box>
   )

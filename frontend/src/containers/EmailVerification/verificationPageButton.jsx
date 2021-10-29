@@ -4,6 +4,7 @@ import ROUTE_PATHS from '../../routes/routesPath'
 
 const VerificationPageButton = () => {
   const history = useHistory()
+
   const handleCreateAccountLink = useCallback(() => {
     history.push(ROUTE_PATHS.VERIFY_EMAIL)
   }, [ history ])

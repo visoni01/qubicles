@@ -187,8 +187,8 @@
     height: 100%;
     color: $color-dark-grey;
 
-    path{
-    &:hover {
+    path {
+      &:hover {
         color: $color-dark-grey;
       }
     }
@@ -226,7 +226,7 @@
 }
 
 .liked-icon {
-  path{
+  path {
     color: $color-red;
     stroke: $color-red;
 

@@ -17,7 +17,6 @@ import { applicationPropTypes, clientDetailsPropTypes, jobDetailsPropTypes } fro
 const ApplicationCard = ({
   application, jobDetails, clientDetails, applicationCategoryId,
 }) => (
-
   <div className='list-divider pb-30'>
     <div className='display-inline-flex talent-head'>
       <Avatar alt={ clientDetails.clientName } src={ clientDetails.profileImage } classes={ { root: 'avatar-md' } } />
@@ -41,17 +40,13 @@ const ApplicationCard = ({
         <p className='para light languages'>
           <FontAwesomeIcon icon={ faMapMarkerAlt } className='ml-10 custom-fa-icon light' />
           {jobDetails.location}
-          <span className='rate para bold mt-5'>
-            {`$${ jobDetails.payAmount }/hr`}
-          </span>
+          <span className='rate para bold mt-5'>{`$${ jobDetails.payAmount }/hr`}</span>
         </p>
       </div>
     </div>
     <div className='talent-content'>
       <div className='display-inline-flex align-items-center justify-between is-fullwidth'>
-        <h4 className='h4 mt-10'>
-          {jobDetails.jobTitle}
-        </h4>
+        <h4 className='h4 mt-10'>{jobDetails.jobTitle}</h4>
         <Link
           to={ `${ JOB_APPLICATION_ROUTE }/${ application.applicationId }` }
           className='primary-text-link pr-20'
@@ -69,7 +64,7 @@ const ApplicationCard = ({
         <li>
           <FontAwesomeIcon className='custom-fa-icon light' icon={ faUserFriends } />
           <span className='para bold'>{`${ jobDetails.fulfilled }/${ jobDetails.needed }`}</span>
-          <span className='para light ml-5'>Hired</span>
+          <span className='para light ml-5'> Hired </span>
         </li>
         <li>
           <FontAwesomeIcon className='custom-fa-icon light' icon={ faBriefcase } />

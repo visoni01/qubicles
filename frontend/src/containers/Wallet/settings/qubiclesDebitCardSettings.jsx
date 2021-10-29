@@ -1,7 +1,5 @@
 import React, { useState, useCallback } from 'react'
-import {
-  Button, Grid,
-} from '@material-ui/core'
+import { Button, Grid } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye } from '@fortawesome/free-solid-svg-icons'
 import OrderPhysicalCard from '../orderPhysicalCard'
@@ -16,7 +14,7 @@ const QubiclesDebitCardSettings = () => {
   return (
     <>
       <div className='wallet-settings'>
-        <h3 className='h3 bold'>Card Details</h3>
+        <h3 className='h3 bold'> Card Details </h3>
         <div className='mt-20'>
           <Grid
             container
@@ -24,7 +22,7 @@ const QubiclesDebitCardSettings = () => {
           >
             <Grid item xl={ 4 } lg={ 4 } md={ 4 } sm={ 4 } xs={ 12 }>
               <p className='para heading-color'> Card Number </p>
-              <p className='para light'> 4648 0943 3833 3426</p>
+              <p className='para light'> 4648 0943 3833 3426 </p>
             </Grid>
             <Grid item xl={ 2 } lg={ 2 } md={ 2 } sm={ 2 } xs={ 12 }>
               <p className='para heading-color'> Expires </p>
@@ -60,12 +58,13 @@ const QubiclesDebitCardSettings = () => {
           </Button>
         </div>
       </div>
+
       {openOrderPhysicalCard && (
-      <OrderPhysicalCard
-        open={ openOrderPhysicalCard }
-        onClose={ () => setOpenOrderPhysicalCard(false) }
-        onSubmit={ () => setOpenOrderPhysicalCard(false) }
-      />
+        <OrderPhysicalCard
+          open={ openOrderPhysicalCard }
+          onClose={ () => setOpenOrderPhysicalCard(false) }
+          onSubmit={ () => setOpenOrderPhysicalCard(false) }
+        />
       )}
     </>
   )

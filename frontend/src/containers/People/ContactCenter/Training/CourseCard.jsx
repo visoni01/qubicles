@@ -6,15 +6,16 @@ import PropTypes from 'prop-types'
 import { Rating } from '@material-ui/lab'
 import { useHistory } from 'react-router-dom'
 import { faCircle } from '@fortawesome/free-solid-svg-icons'
-import './style.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { VIEW_COURSE_ROUTE } from '../../../../routes/routesPath'
+import './style.scss'
 
 const CourseCard = ({
-  courseId, priceQbe, priceUsd, ratingValue, studentsCount,
-  courseTitle, creatorDetails, sectionsCount, language, imageUrl,
+  courseId, priceQbe, priceUsd, ratingValue, studentsCount, courseTitle, creatorDetails, sectionsCount, language,
+  imageUrl,
 }) => {
   const history = useHistory()
+
   return (
     <Grid xl={ 4 } lg={ 4 } md={ 6 } sm={ 12 } item>
       <Card
@@ -26,9 +27,7 @@ const CourseCard = ({
             { `${ priceQbe } `}
             <span className='h3 unbold'>QBE</span>
           </p>
-          <p className='para light price-usd text-center'>
-            {`$${ priceUsd } USD`}
-          </p>
+          <p className='para light price-usd text-center'>{`$${ priceUsd } USD`}</p>
         </Box>
         <CardMedia
           image={ imageUrl }
@@ -46,9 +45,7 @@ const CourseCard = ({
             />
             <span className='para light margin-left-right-5 text-center'>{`${ studentsCount } students`}</span>
           </div>
-          <b className='h4 card-title'>
-            {courseTitle}
-          </b>
+          <b className='h4 card-title'>{courseTitle}</b>
           <div className='para light'>
             {`${ creatorDetails && creatorDetails.firstName } ${ creatorDetails && creatorDetails.lastName }`}
           </div>

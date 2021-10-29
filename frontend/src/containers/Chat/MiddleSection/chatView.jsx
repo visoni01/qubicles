@@ -76,7 +76,7 @@ const ChatView = ({
         {!isLoading && chats && chats.length === 0 && (
           <div className='no-messages'>
             <NoMessagesIcon />
-            <h2 className='h2 text-center'>No messages yet</h2>
+            <h2 className='h2 text-center'> No messages yet </h2>
           </div>
         )}
 
@@ -87,7 +87,7 @@ const ChatView = ({
             {index > 0 && chats[ index - 1 ] && chats[ index - 1 ].isRead && item && !item.isRead && (
               <div className='new-message-separator'>
                 <Divider className='new-message-divider' />
-                <p className='para light sz-sm text-center new-message-box'>New Messages</p>
+                <p className='para light sz-sm text-center new-message-box'> New Messages </p>
               </div>
             )}
 
@@ -97,7 +97,7 @@ const ChatView = ({
               : ''}
 
             {(item.isNotification)
-              ? (<UserNotification message={ item.text } />)
+              ? <UserNotification message={ item.text } />
               : (
                 <UserMessage
                   conversationId={ conversationId }

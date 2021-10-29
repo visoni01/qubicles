@@ -6,19 +6,13 @@ import { POST_SIGNUP_EMPLOYER_PREVIOUS_DATA_FETCH } from '../../../../../redux-s
 import Form from './multipartForm'
 import StepperComponent from '../../../../../components/User/Stepper'
 import {
-  postSignUpStepStart,
-  handleBackStep,
-  handleNextStep,
-  postSignUpPreviousDataFetch,
+  postSignUpStepStart, handleBackStep, handleNextStep, postSignUpPreviousDataFetch,
 } from '../../../../../redux-saga/redux/user/postSignup'
 
 const ContactCenterMultiPartForm = () => {
+  const { stepsData, currentStep } = useSelector((state) => state.postSignUp)
+
   const dispatch = useDispatch()
-  const {
-    stepsData, currentStep,
-  } = useSelector(
-    (state) => state.postSignUp,
-  )
 
   useEffect(() => {
     dispatch(postSignUpPreviousDataFetch({ type: POST_SIGNUP_EMPLOYER_PREVIOUS_DATA_FETCH }))

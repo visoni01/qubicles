@@ -17,9 +17,7 @@ import Loader from '../../../loaders/circularLoader'
 import { defaultUser } from '../../../../assets/images/avatar'
 import { REQUEST_TYPES } from '../../../../utils/constants'
 
-const EditProfileModal = ({
-  open, handleClose, agentInfo,
-}) => {
+const EditProfileModal = ({ open, handleClose, agentInfo }) => {
   const [ profileInfo, setProfileInfo ] = useState(agentInfo)
 
   const { success, isLoading, requestType } = useSelector((state) => state.agentDetails)
@@ -195,7 +193,7 @@ const EditProfileModal = ({
     >
       <div className='header'>
         <DialogTitle>
-          <div className='h2'>Edit Profile</div>
+          <div className='h2'> Edit Profile </div>
         </DialogTitle>
 
         <DialogActions className='cross-button'>

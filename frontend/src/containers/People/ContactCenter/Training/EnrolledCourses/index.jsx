@@ -15,9 +15,10 @@ import EnrolledCoursesSkeleton from
   '../../../../../components/People/ContactCenter/SkeletonLoader/Training/enrolledCoursesSkeleton'
 
 const EnrolledCourses = () => {
+  const { enrolledCourses, isLoading } = useSelector((state) => state.enrolledCourses)
+
   const history = useHistory()
   const dispatch = useDispatch()
-  const { enrolledCourses, isLoading } = useSelector((state) => state.enrolledCourses)
 
   useEffect(() => {
     dispatch(enrolledCoursesRequestStart())
@@ -40,9 +41,7 @@ const EnrolledCourses = () => {
         </Button>
       </div>
 
-      {(_.isNull(isLoading) || isLoading) && (
-        <EnrolledCoursesSkeleton />
-      )}
+      {(_.isNull(isLoading) || isLoading) && <EnrolledCoursesSkeleton />}
 
       {!isLoading && enrolledCourses && enrolledCourses.filter((course) => (
         (_.isEqual(course.status, 'inprogress') || _.isEqual(course.status, 'enrolled'))
@@ -84,9 +83,9 @@ const EnrolledCourses = () => {
       )}
 
       {!isLoading && (!enrolledCourses || _.isEmpty(enrolledCourses)) && (
-      <div className='mt-10 mb-10 is-fullwidth'>
-        <h3 className='h3 text-center'>No courses found!</h3>
-      </div>
+        <div className='mt-10 mb-10 is-fullwidth'>
+          <h3 className='h3 text-center'> No courses found! </h3>
+        </div>
       )}
     </Box>
   )

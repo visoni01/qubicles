@@ -1,15 +1,12 @@
 import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent,
-  DialogTitle, Button, IconButton, TextField,
+  Dialog, DialogActions, DialogContent, DialogTitle, Button, IconButton, TextField,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faExchangeAlt } from '@fortawesome/free-solid-svg-icons'
 
-const AddTOSavings = ({
-  open, onClose, onSubmit,
-}) => {
+const AddTOSavings = ({ open, onClose, onSubmit }) => {
   const [ savingsAmount, setSavingsAmount ] = useState(0)
 
   const setSavingsAmountCB = useCallback((event) => {
@@ -32,7 +29,7 @@ const AddTOSavings = ({
     >
       <div className='header'>
         <DialogTitle>
-          <h2 className='h2'>Add to Savings</h2>
+          <h2 className='h2'> Add to Savings </h2>
         </DialogTitle>
         <DialogActions className='cross-button'>
           <IconButton
@@ -55,7 +52,7 @@ const AddTOSavings = ({
           hours. You can also skip this time by paying a small fees of 1% of the amount you want to unlock.
         </p>
 
-        <h4 className='h4 mt-30'>Amount</h4>
+        <h4 className='h4 mt-30'> Amount </h4>
         <div className='display-inline-flex justify-between align-items-center is-fullwidth'>
           <TextField
             className='text-field-para is-fullwidth mt-10'

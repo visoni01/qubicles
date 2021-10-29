@@ -7,8 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   Box, Card, CardMedia, CardContent, Grid, Button,
 } from '@material-ui/core'
-import '../style.scss'
 import { VIEW_COURSE_ROUTE } from '../../../../../routes/routesPath'
+import '../style.scss'
 
 const EnrolledCourseCard = ({
   courseId, courseTitle, rating, studentsCount, creatorName, sectionsCount, language, courseImage, courseProgress,
@@ -17,13 +17,9 @@ const EnrolledCourseCard = ({
 
   return (
     <Grid xl={ 3 } lg={ 3 } md={ 6 } sm={ 12 } item>
-      <Card
-        className='course-card'
-      >
+      <Card className='course-card'>
         <Box className='custom-box no-padding progress-overlay'>
-          <p className='h3 progress-text'>
-            {`${ courseProgress }%`}
-          </p>
+          <p className='h3 progress-text'>{`${ courseProgress }%`}</p>
         </Box>
         <CardMedia
           image={ courseImage }
@@ -41,12 +37,8 @@ const EnrolledCourseCard = ({
             />
             <span className='para light margin-left-right-5 text-center'>{`${ studentsCount } students`}</span>
           </div>
-          <b className='h4 card-title'>
-            {courseTitle}
-          </b>
-          <p className='para light creatorName'>
-            {creatorName}
-          </p>
+          <b className='h4 card-title'>{courseTitle}</b>
+          <p className='para light creatorName'>{creatorName}</p>
           <div className='course-sections mt-10'>
             <span className='para light mr-5'>
               {`${ sectionsCount } ${ sectionsCount === 1 ? 'Section' : 'Sections' }`}

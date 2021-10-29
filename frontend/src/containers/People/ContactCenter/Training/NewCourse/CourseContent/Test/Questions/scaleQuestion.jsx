@@ -1,15 +1,11 @@
 import React, { useCallback } from 'react'
-import {
-  Grid, TextField, Slider,
-} from '@material-ui/core'
+import { Grid, TextField, Slider } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import { testQuestionPropType } from '../../../propTypes'
 
 // eslint-disable-next-line complexity
-const ScaleQuestion = ({
-  questionDetails, setQuestionDetails,
-}) => {
+const ScaleQuestion = ({ questionDetails, setQuestionDetails }) => {
   const handleAnswerChange = useCallback((newValue) => {
     setQuestionDetails((current) => ({
       ...current,
@@ -81,7 +77,7 @@ const ScaleQuestion = ({
           <p className='para light mb-10'>
             Please specify the range and set the correct number below
           </p>
-          <p className='para bold'>Scale</p>
+          <p className='para bold'> Scale </p>
           <Slider
             track={ false }
             value={ !_.isEmpty(questionDetails.answerText) ? parseInt(questionDetails.answerText, 10) : null }
@@ -126,7 +122,7 @@ const ScaleQuestion = ({
 
       </Grid>
       <Grid item xl={ 4 } lg={ 4 } md={ 4 } sm={ 4 } xs={ 4 }>
-        <p className='para bold'>Right Answer</p>
+        <p className='para bold'> Right Answer </p>
         <TextField
           type='number'
           margin='dense'

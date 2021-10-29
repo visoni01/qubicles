@@ -12,11 +12,11 @@ import ClientJobApplicationActions from '../../Jobs/Actions'
 import Courses from '../../../../Profile/Agent/Resume/courses'
 import { REQUEST_TYPES } from '../../../../../utils/constants'
 
-const ClientViewApplication = ({
-  applicationLoading, application, applicationSuccess,
-}) => {
-  const dispatch = useDispatch()
+const ClientViewApplication = ({ applicationLoading, application, applicationSuccess }) => {
   const { agentResume } = useSelector((state) => state.agentResume)
+
+  const dispatch = useDispatch()
+
   useEffect(() => {
     if (!applicationLoading && applicationSuccess && application.agentUserId !== agentResume.candidateId) {
       dispatch(fetchAgentResumeStart({
@@ -62,11 +62,11 @@ const ClientViewApplication = ({
           <Courses candidateId={ agentResume.candidateId } />
         </Grid>
         {agentResume && agentResume.candidateId && (
-        <Grid item>
-          <AgentReviews
-            agentUserId={ agentResume.candidateId }
-          />
-        </Grid>
+          <Grid item>
+            <AgentReviews
+              agentUserId={ agentResume.candidateId }
+            />
+          </Grid>
         )}
       </Grid>
       <Grid item xl={ 3 } lg={ 3 } md={ 3 } sm={ 4 }>

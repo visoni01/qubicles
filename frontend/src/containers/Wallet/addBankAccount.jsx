@@ -1,15 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent,
-  DialogTitle, Button, IconButton, TextField,
+  Dialog, DialogActions, DialogContent, DialogTitle, Button, IconButton, TextField,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
-const AddBankAccount = ({
-  open, onClose, onSubmit,
-}) => (
+const AddBankAccount = ({ open, onClose, onSubmit }) => (
   <Dialog
     disableScrollLock
     open={ open }
@@ -21,7 +18,7 @@ const AddBankAccount = ({
   >
     <div className='header'>
       <DialogTitle>
-        <h2 className='h2'>Add Bank Account</h2>
+        <h2 className='h2'>  Add Bank Account  </h2>
       </DialogTitle>
       <DialogActions className='cross-button'>
         <IconButton
@@ -33,11 +30,11 @@ const AddBankAccount = ({
       </DialogActions>
     </div>
     <DialogContent>
-      <h4 className='h4 mt-30'>Account Holder</h4>
+      <h4 className='h4 mt-30'> Account Holder </h4>
       <div className='mt-10'>
-        <para className='para mt-30'> James Barnett</para>
+        <para className='para mt-30'> James Barnett </para>
       </div>
-      <h4 className='h4 mt-30'>Routing Number (ACH or ABA)</h4>
+      <h4 className='h4 mt-30'> Routing Number (ACH or ABA) </h4>
       <TextField
         className='text-field-para is-fullwidth mt-10'
         InputProps={ { inputProps: { min: 0, step: 1 } } }
@@ -46,7 +43,7 @@ const AddBankAccount = ({
         margin='dense'
         placeholder='e.g. 023984284'
       />
-      <h4 className='h4 mt-30'>Account Number</h4>
+      <h4 className='h4 mt-30'> Account Number </h4>
       <TextField
         className='text-field-para is-fullwidth mt-10'
         InputProps={ { inputProps: { min: 0, step: 1 } } }
@@ -55,7 +52,7 @@ const AddBankAccount = ({
         margin='dense'
         placeholder='e.g. 63738283127'
       />
-      <h4 className='h4 mt-30'>Confirm Account Number</h4>
+      <h4 className='h4 mt-30'> Confirm Account Number </h4>
       <TextField
         className='text-field-para is-fullwidth mt-10'
         InputProps={ { inputProps: { min: 0, step: 1 } } }

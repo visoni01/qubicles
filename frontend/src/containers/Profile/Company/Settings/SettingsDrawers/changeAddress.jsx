@@ -19,6 +19,17 @@ const ChangeAddress = ({
 }) => {
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    if (!isUpdateLoading && isUpdateSuccess && updatedDataType === 'address') {
+      setOpen(false)
+      if (userType === 'client') {
+        dispatch(resetUpdateProfileSettingsFlags())
+      } else if (userType === 'agent') {
+        dispatch(resetAgentProfileSettingsFlags())
+      }
+    }
+  }, [ isUpdateSuccess, isUpdateLoading, dispatch, setOpen, updatedDataType, userType ])
+
   const { register, handleSubmit, errors } = useForm({
     validationSchema: yup.object().shape({
       street: yup.string()
@@ -58,17 +69,6 @@ const ChangeAddress = ({
       }
     }
   }
-
-  useEffect(() => {
-    if (!isUpdateLoading && isUpdateSuccess && updatedDataType === 'address') {
-      setOpen(false)
-      if (userType === 'client') {
-        dispatch(resetUpdateProfileSettingsFlags())
-      } else if (userType === 'agent') {
-        dispatch(resetAgentProfileSettingsFlags())
-      }
-    }
-  }, [ isUpdateSuccess, isUpdateLoading, dispatch, setOpen, updatedDataType, userType ])
 
   const handleCancelAddressChange = useCallback(() => {
     setOpen(false)

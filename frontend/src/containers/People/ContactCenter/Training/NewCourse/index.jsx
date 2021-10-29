@@ -1,44 +1,28 @@
-import React, {
-  useCallback, useEffect, useState,
-} from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import _ from 'lodash'
 import { updateTrainingCourseDetails } from '../../../../../redux-saga/redux/people'
 import { startLoader, stopLoader } from '../../../../../redux-saga/redux/utils'
 import PreviewCreateCourse from '../../../../../components/People/ContactCenter/Training/NewCourse/previewCourse'
 import CreateCourse from './createCourse'
-import './styles.scss'
 import AlertPopover from '../../../../../components/CommonModal/alertPopover'
 import checkAndSetErrors from './checkAndSetErrors'
 import { REQUEST_TYPES } from '../../../../../utils/constants'
+import './styles.scss'
 
 const NewCoursePage = () => {
   const {
     course, isLoading, requestType, success,
   } = useSelector((state) => state.trainingCourse)
+  const { userDetails } = useSelector((state) => state.login)
+
   const [ informationSection, setInformationSection ] = useState(course.informationSection)
   const [ contentSection, setContentSection ] = useState(course.contentSection)
   const [ courseContent, setCourseContent ] = useState(course.courseContent)
   const [ isPreview, setIsPreview ] = useState(false)
-  const dispatch = useDispatch()
-  const { userDetails } = useSelector((state) => state.login)
   const [ errors, setErrors ] = useState({})
 
-  const handleErrors = useCallback(() => (
-    checkAndSetErrors({
-      setErrors, informationSection, contentSection, courseContent,
-    })
-  ), [ informationSection, contentSection, courseContent ])
-
-  const updateCourseReducer = useCallback(() => {
-    dispatch(updateTrainingCourseDetails({
-      course: {
-        informationSection,
-        contentSection,
-        courseContent,
-      },
-    }))
-  }, [ informationSection, contentSection, courseContent, dispatch ])
+  const dispatch = useDispatch()
 
   useEffect(() => {
     setInformationSection((current) => ({
@@ -60,6 +44,22 @@ const NewCoursePage = () => {
       dispatch(stopLoader())
     }
   }, [ isLoading, dispatch, requestType ])
+
+  const handleErrors = useCallback(() => (
+    checkAndSetErrors({
+      setErrors, informationSection, contentSection, courseContent,
+    })
+  ), [ informationSection, contentSection, courseContent ])
+
+  const updateCourseReducer = useCallback(() => {
+    dispatch(updateTrainingCourseDetails({
+      course: {
+        informationSection,
+        contentSection,
+        courseContent,
+      },
+    }))
+  }, [ informationSection, contentSection, courseContent, dispatch ])
 
   if (isPreview) {
     return (

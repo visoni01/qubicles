@@ -8,9 +8,7 @@ import '../../components/Navbar/style.scss'
 import User from '../../redux-saga/service/user'
 import InviteModal from '../InviteFriendsPage/InviteModal'
 import {
-  showErrorMessage,
-  getCompanyProfileSettingsApiStart,
-  agentProfileSettingsApiStart,
+  showErrorMessage, getCompanyProfileSettingsApiStart, agentProfileSettingsApiStart,
 } from '../../redux-saga/redux/actions'
 import { userLogoutSuccessful } from '../../redux-saga/redux/user/login'
 import {
@@ -20,9 +18,9 @@ import ROUTE_PATHS, { PROFILE_ROUTE } from '../../routes/routesPath'
 import { REQUEST_TYPES } from '../../utils/constants'
 
 const UserMenu = () => {
-  const history = useHistory()
-  const dispatch = useDispatch()
   const [ isDropdownOpen, setIsDropdownOpen ] = useState(false)
+  const [ anchorEl, setAnchorEl ] = useState(null)
+
   const { userDetails } = useSelector((state) => state.login)
   const {
     settings: clientSettings, isFetchSuccess, isFetchLoading,
@@ -30,7 +28,9 @@ const UserMenu = () => {
   const {
     settings: agentSettings, success, isLoading, requestType,
   } = useSelector((state) => state.agentDetails)
-  const [ anchorEl, setAnchorEl ] = useState(null)
+
+  const history = useHistory()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (userDetails && userDetails.is_post_signup_completed && userDetails.user_code === 'employer') {
@@ -141,6 +141,7 @@ const UserMenu = () => {
         </div>
 
       </Popover>
+
       {openInviteDialog && (
         <InviteModal
           open={ openInviteDialog }

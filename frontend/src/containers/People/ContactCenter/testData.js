@@ -335,13 +335,6 @@ const newReviews = {
 }
 
 export {
-  courseCategories,
-  courseCards,
-  talentCards,
-  topTalents,
-  topCompanies,
-  agentProfileData,
-  testResumeIntroduction,
-  reviews,
-  newReviews,
+  courseCategories, courseCards, talentCards, topTalents, topCompanies, agentProfileData, testResumeIntroduction,
+  reviews, newReviews,
 }

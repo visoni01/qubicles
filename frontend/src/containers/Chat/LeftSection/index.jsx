@@ -36,6 +36,34 @@ const LeftCard = ({ conversationId }) => {
   const userListRef = useRef()
   const observer = useRef()
 
+  useEffect(() => {
+    if (_.isNull(isLoading)) {
+      dispatch(allChatsRequestStart({
+        requestType: REQUEST_TYPES.FETCH,
+        dataType: CHATS_LIST,
+        offset: 0,
+        searchKeyword: '',
+      }))
+    }
+  }, [ dispatch, isLoading ])
+
+  useEffect(() => {
+    if (!isLoading && success && [ NEW_CHAT, NEW_GROUP ].includes(dataType)) {
+      if (_.isEqual(dataType, NEW_CHAT)) {
+        setOpenNewChatModal(false)
+      } else if (_.isEqual(dataType, NEW_GROUP)) {
+        setOpenNewGroupModal(false)
+      }
+    }
+  }, [ isLoading, success, dataType ])
+
+  useEffect(() => {
+    if (openSearchField) {
+      document.getElementById('search').focus()
+      document.getElementById('search').select()
+    }
+  }, [ openSearchField ])
+
   const handleSearchClick = useCallback(() => {
     setOpenSearchField((prevState) => !prevState)
   }, [])
@@ -70,17 +98,6 @@ const LeftCard = ({ conversationId }) => {
       offset: 0,
     }))
   }, 500), [ dispatch ])
-
-  useEffect(() => {
-    if (_.isNull(isLoading)) {
-      dispatch(allChatsRequestStart({
-        requestType: REQUEST_TYPES.FETCH,
-        dataType: CHATS_LIST,
-        offset: 0,
-        searchKeyword: '',
-      }))
-    }
-  }, [ dispatch, isLoading ])
 
   const handleObserver = useCallback((entries) => {
     const target = entries[ 0 ]
@@ -122,23 +139,6 @@ const LeftCard = ({ conversationId }) => {
     setSearchUserField('')
     setOpenSearchField(false)
   }, [ searchUserField, searchConversations ])
-
-  useEffect(() => {
-    if (!isLoading && success && [ NEW_CHAT, NEW_GROUP ].includes(dataType)) {
-      if (_.isEqual(dataType, NEW_CHAT)) {
-        setOpenNewChatModal(false)
-      } else if (_.isEqual(dataType, NEW_GROUP)) {
-        setOpenNewGroupModal(false)
-      }
-    }
-  }, [ isLoading, success, dataType ])
-
-  useEffect(() => {
-    if (openSearchField) {
-      document.getElementById('search').focus()
-      document.getElementById('search').select()
-    }
-  }, [ openSearchField ])
 
   return (
     <Box className='custom-box no-padding chat-left-section'>

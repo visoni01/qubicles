@@ -14,8 +14,6 @@ import {
 import { mediaPlaybackSpeed } from '../../constants'
 
 const MediaPlayer = ({ source, small, type }) => {
-  const mediaRef = useRef()
-  const mediaRootRef = useRef()
   const [ isPlaying, setIsPlaying ] = useState(false)
   const [ currentTime, setCurrentTime ] = useState(0)
   const [ duration, setDuration ] = useState(0)
@@ -28,6 +26,10 @@ const MediaPlayer = ({ source, small, type }) => {
   const [ settingsAnchor, setSettingsAnchor ] = useState(null)
   const [ playbackSpeed, setPlaybackSpeed ] = useState(1)
   const [ bufferedData, setBufferedData ] = useState(0)
+
+  const mediaRef = useRef()
+  const mediaRootRef = useRef()
+
   const open = Boolean(settingsAnchor)
   const id = open ? 'simple-popover' : undefined
 
@@ -151,38 +153,38 @@ const MediaPlayer = ({ source, small, type }) => {
     >
       {/* Video */}
       {_.isEqual(type, 'video') && (
-      <video
-        ref={ mediaRef }
-        onClick={ playOrPause }
-        onTimeUpdate={ updateProgress }
-        onLoadedMetadata={ () => setDuration(mediaRef.current.duration) }
-        onEnded={ () => setIsPlaying(false) }
-        onPause={ () => setIsPlaying(false) }
-        onPlay={ () => setIsPlaying(true) }
-        onWaiting={ () => setShowLoader(true) }
-        onCanPlay={ () => setShowLoader(false) }
-        onProgress={ handleBufferingProgress }
-      >
-        <source src={ source } />
-      </video>
+        <video
+          ref={ mediaRef }
+          onClick={ playOrPause }
+          onTimeUpdate={ updateProgress }
+          onLoadedMetadata={ () => setDuration(mediaRef.current.duration) }
+          onEnded={ () => setIsPlaying(false) }
+          onPause={ () => setIsPlaying(false) }
+          onPlay={ () => setIsPlaying(true) }
+          onWaiting={ () => setShowLoader(true) }
+          onCanPlay={ () => setShowLoader(false) }
+          onProgress={ handleBufferingProgress }
+        >
+          <source src={ source } />
+        </video>
       )}
 
       {/* Audio */}
       {_.isEqual(type, 'audio') && (
-      <audio
-        ref={ mediaRef }
-        onClick={ playOrPause }
-        onTimeUpdate={ updateProgress }
-        onLoadedMetadata={ () => setDuration(mediaRef.current.duration) }
-        onEnded={ () => setIsPlaying(false) }
-        onPause={ () => setIsPlaying(false) }
-        onPlay={ () => setIsPlaying(true) }
-        onWaiting={ () => setShowLoader(true) }
-        onCanPlay={ () => setShowLoader(false) }
-        onProgress={ handleBufferingProgress }
-      >
-        <source src={ source } />
-      </audio>
+        <audio
+          ref={ mediaRef }
+          onClick={ playOrPause }
+          onTimeUpdate={ updateProgress }
+          onLoadedMetadata={ () => setDuration(mediaRef.current.duration) }
+          onEnded={ () => setIsPlaying(false) }
+          onPause={ () => setIsPlaying(false) }
+          onPlay={ () => setIsPlaying(true) }
+          onWaiting={ () => setShowLoader(true) }
+          onCanPlay={ () => setShowLoader(false) }
+          onProgress={ handleBufferingProgress }
+        >
+          <source src={ source } />
+        </audio>
       )}
 
       {/* Loader */}
@@ -193,9 +195,7 @@ const MediaPlayer = ({ source, small, type }) => {
 
       {/* Controls */}
       <Fade in={ showControls } timeout={ { enter: 100, exit: 400 } }>
-        <div
-          className='controls'
-        >
+        <div className='controls'>
           {/* Buffer Progress */}
           <Slider
             classes={ {
@@ -248,9 +248,7 @@ const MediaPlayer = ({ source, small, type }) => {
                 onChange={ handleVolumeChange }
                 aria-labelledby='continuous-slider'
               />
-              <IconButton
-                onClick={ handleMute }
-              >
+              <IconButton onClick={ handleMute }>
                 { isMuted ? <VolumeMutedIcon /> : <VolumeMaxIcon /> }
               </IconButton>
             </div>

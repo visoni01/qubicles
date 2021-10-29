@@ -4,6 +4,7 @@ import ROUTE_PATHS from '../../routes/routesPath'
 
 const ForgottenPasswordButton = () => {
   const history = useHistory()
+
   const handleCreateAccountLink = useCallback(() => {
     history.push(ROUTE_PATHS.FORGET_PASSWORD)
   }, [ history ])

@@ -11,9 +11,9 @@ import { Link } from 'react-router-dom'
 const filterOptions = createFilterOptions()
 
 const MultiSelectLinkItems = ({
-  items, label, onChange, initialData, textLinkBase, onTextChange, loading,
-  bottomActionText, bottomAction, inputText, showThumbnailImage, selectedLabel, notSelectedLabel, disableAutocomplete,
-  placeholderOnBlur, placeholderOnFocus, error, helperText,
+  items, label, onChange, initialData, textLinkBase, onTextChange, loading, bottomActionText, bottomAction, inputText,
+  showThumbnailImage, selectedLabel, notSelectedLabel, disableAutocomplete, placeholderOnBlur, placeholderOnFocus,
+  error, helperText,
 }) => {
   const [ inputValue, setInputValue ] = useState('')
   const [ selectedItems, setSelectedItems ] = useState(initialData || [])
@@ -135,21 +135,19 @@ const MultiSelectLinkItems = ({
           renderOption={ (option) => (
             <>
               <div className='checkboxes'>
-                <Checkbox
-                  checked={ option.status }
-                />
+                <Checkbox checked={ option.status } />
               </div>
               <div
                 key={ option.id }
                 className='display-inline-flex justify-between mt-5 mb-5 align-items-center is-fullwidth'
               >
                 {showThumbnailImage && (
-                <Avatar
-                  variant='square'
-                  className='mr-10 ml-5 item-image'
-                  alt={ option.title }
-                  src={ option.image }
-                />
+                  <Avatar
+                    variant='square'
+                    className='mr-10 ml-5 item-image'
+                    alt={ option.title }
+                    src={ option.image }
+                  />
                 )}
                 <div className='is-fullwidth'>
                   {textLinkBase && (
@@ -203,7 +201,6 @@ MultiSelectLinkItems.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
   })),
-
   label: PropTypes.string,
   textLinkBase: PropTypes.string,
   smallTag: PropTypes.bool,

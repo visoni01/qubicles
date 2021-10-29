@@ -4,16 +4,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import * as yup from 'yup'
 import classNames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faPaperPlane,
-  faUser,
-  faLock,
-} from '@fortawesome/free-solid-svg-icons'
-import {
-  useHistory, useLocation, Link,
-} from 'react-router-dom'
+import { faPaperPlane, faUser, faLock } from '@fortawesome/free-solid-svg-icons'
+import { useHistory, useLocation, Link } from 'react-router-dom'
 import { regSplChar } from '../../../../utils/common'
-
 import { userSignupStart } from '../../../../redux-saga/redux/user/signup'
 import { setIsSocialLogin } from '../../../../redux-saga/redux/actions'
 import './style.scss'
@@ -26,16 +19,21 @@ const schema = yup.object().shape({
 })
 
 const SignUp = () => {
+  const { success } = useSelector((state) => state.signup)
+  const { inviterId, fullName, withInvite } = useSelector((state) => state.signupWithInvite)
+
+  const dispatch = useDispatch()
+  const history = useHistory()
+  const location = useLocation()
+
   const { register, errors, handleSubmit } = useForm({
     validationSchema: schema,
   })
-  const history = useHistory()
-  const location = useLocation()
+
   const isSocialSignupSuccess = location.search && location.search.split('?')[ 1 ] === 'with_social=true' // Temporary set up.
-  const dispatch = useDispatch()
-  const { success } = useSelector((state) => state.signup)
-  const { inviterId, fullName, withInvite } = useSelector((state) => state.signupWithInvite)
+
   const onSubmit = (data) => dispatch(userSignupStart({ ...data, with_invite: withInvite, inviter_id: inviterId }))
+
   const inputField = (
     name,
     id,
@@ -43,9 +41,7 @@ const SignUp = () => {
     icon = faPaperPlane,
     type = 'text',
   ) => (
-    <div
-      className={ classNames('control has-icons-right required', 'input-fields') }
-    >
+    <div className={ classNames('control has-icons-right required', 'input-fields') }>
       <input
         className='input'
         type={ type }
@@ -59,9 +55,7 @@ const SignUp = () => {
         <FontAwesomeIcon icon={ icon } />
       </span>
       {errors && errors[ name ] && (
-      <div className='error-message'>
-        {errors[ name ].message}
-      </div>
+        <div className='error-message'>{errors[ name ].message}</div>
       )}
     </div>
   )
@@ -102,9 +96,7 @@ const SignUp = () => {
                       <>
                         {withInvite && (
                         <p className='signup-with-invite-message'>
-                          <b>
-                            {fullName}
-                          </b>
+                          <b>{fullName}</b>
                           {' has invited you to join Qubicles. Register to get free tokens'}
                         </p>
                         )}

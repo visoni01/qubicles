@@ -8,9 +8,10 @@ import JobsSearch from './jobsSearch'
 import RenderJobs from './renderJobs'
 
 const JobsPage = () => {
+  const { selectedCategoryId, searchField, status } = useSelector((state) => state.jobsWithCategories)
+
   const history = useHistory()
   const dispatch = useDispatch()
-  const { selectedCategoryId, searchField, status } = useSelector((state) => state.jobsWithCategories)
 
   useEffect(() => {
     dispatch(jobsWithCategoriesFetchStart({

@@ -8,7 +8,9 @@ import { TOP_TALENT } from '../../../../redux-saga/redux/constants'
 
 const TopTalent = ({ heading }) => {
   const { agentTopData, isLoading } = useSelector((state) => state.agentTopData)
+
   const dispatch = useDispatch()
+
   useEffect(() => {
     dispatch(fetchAgentTopDataStart({
       dataType: TOP_TALENT,

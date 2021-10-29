@@ -11,15 +11,15 @@ const TalentCardSkills = ({ userSkills }) => {
       {visibleSkillTags.map((skill) => <Chip key={ skill.skillId } label={ skill.skillName } className='tag-chip' />)}
 
       {!showAllTags && userSkills.length > 3 && (
-      <Button
-        className='more'
-        onClick={ () => {
-          setVisibleSkillTags(userSkills)
-          setShowAllTags(true)
-        } }
-      >
-        {`+${ userSkills.length - 3 } more`}
-      </Button>
+        <Button
+          className='more'
+          onClick={ () => {
+            setVisibleSkillTags(userSkills)
+            setShowAllTags(true)
+          } }
+        >
+          {`+${ userSkills.length - 3 } more`}
+        </Button>
       )}
     </div>
   )

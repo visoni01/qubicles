@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import './styles.scss'
 import AccountView from './accountView'
 import ChangeEmail from './SettingsDrawers/changeEmail'
 import ChangeWebsite from './SettingsDrawers/changeWebsite'
 import ChangeNumber from './SettingsDrawers/changeNumber'
 import ChangePassword from './SettingsDrawers/changePassword'
 import ChangeAddress from './SettingsDrawers/changeAddress'
+import './styles.scss'
 
 const AccountSection = () => {
   const [ openDrawer, setOpenDrawer ] = useState({

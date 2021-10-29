@@ -10,9 +10,7 @@ import MediaPlayer from '../ViewCourse/mediaPlayer'
 import { showErrorMessage } from '../../../../../redux-saga/redux/utils'
 import { acceptedVideoFormats, maxVideoFileSize } from '../../constants'
 
-export default function IntroVideo({
-  contentSection, setContentSection, errors,
-}) {
+export default function IntroVideo({ contentSection, setContentSection, errors }) {
   const dispatch = useDispatch()
 
   const handleFileInputChange = useCallback((event) => {
@@ -52,10 +50,9 @@ export default function IntroVideo({
     <div className='content-tab-section list-divider'>
       <div className='content-box'>
         <div className='info'>
-          <h3 className='h3 mb-10'>Introduction Video</h3>
+          <h3 className='h3 mb-10'> Introduction Video </h3>
           <p className='para'>
-            {`Choose an introduction video. This video will be accessible for everyone who is
-            interested in your course `}
+            Choose an introduction video. This video will be accessible for everyone who is interested in your course.
           </p>
         </div>
 

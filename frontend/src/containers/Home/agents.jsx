@@ -55,7 +55,7 @@ const Agents = () => {
           {/* Title */}
           <div className='section-title-wrapper'>
             <div className='bg-number'>1</div>
-            <h2 className='title section-title has-text-centered dark-text'> It's easy to get started</h2>
+            <h2 className='title section-title has-text-centered dark-text'> It's easy to get started </h2>
             <div className='subtitle has-text-centered is-tablet-padded'>
               All you need is a reliable Internet connection and some training to get started on the path of being your
               own boss.
@@ -69,7 +69,7 @@ const Agents = () => {
                   <div>
                     <FontAwesomeIcon icon={ faUserPlus } className='LP-step-1-icons' />
                   </div>
-                  <div className='box-title'>Create an account for Free</div>
+                  <div className='box-title'> Create an account for Free </div>
                   <p
                     className='box-content is-tablet-padded'
                   >
@@ -96,7 +96,7 @@ const Agents = () => {
                   <div>
                     <FontAwesomeIcon icon={ faDollarSign } className='LP-step-1-icons mt-10 mb-10' />
                   </div>
-                  <div className='box-title'>Purchase a Subscription</div>
+                  <div className='box-title'> Purchase a Subscription </div>
                   <p
                     className='box-content is-tablet-padded'
                   >
@@ -109,7 +109,7 @@ const Agents = () => {
                   <div>
                     <FontAwesomeIcon icon={ faSeedling } className='LP-step-1-icons' />
                   </div>
-                  <div className='box-title'>Learn, Earn and Grow</div>
+                  <div className='box-title'> Learn, Earn and Grow </div>
                   <p
                     className='box-content is-tablet-padded'
                   >
@@ -122,12 +122,12 @@ const Agents = () => {
             {/* CTA */}
             <div className='has-text-centered pt-40 pb-40'>
               {!isLoggedin && (
-              <CustomLink
-                to='/signup'
-                className='button button-cta primary-btn rounded raised is-title-reveal steps-button-color'
-              >
-                Sign up for a Free account
-              </CustomLink>
+                <CustomLink
+                  to='/signup'
+                  className='button button-cta primary-btn rounded raised is-title-reveal steps-button-color'
+                >
+                  Sign up for a Free account
+                </CustomLink>
               )}
             </div>
           </div>
@@ -138,8 +138,8 @@ const Agents = () => {
         <div className='container'>
           {/* Title */}
           <div className='section-title-wrapper'>
-            <div className='bg-number'>2</div>
-            <h2 className='title section-title has-text-centered dark-text'> Contact center in a box</h2>
+            <div className='bg-number'> 2 </div>
+            <h2 className='title section-title has-text-centered dark-text'> Contact center in a box </h2>
             <div className='subtitle has-text-centered is-tablet-padded'>
               A paid monthly subscription grants you full access to our all-in-one contact center software in a box,
               with no limits.
@@ -168,12 +168,12 @@ const Agents = () => {
                 </span>
                 <div className='pt-20 pb-20'>
                   {!isLoggedin && (
-                  <CustomLink
-                    to='/signup'
-                    className='button button-cta primary-btn rounded raised steps-button-color'
-                  >
-                    Access portal now
-                  </CustomLink>
+                    <CustomLink
+                      to='/signup'
+                      className='button button-cta primary-btn rounded raised steps-button-color'
+                    >
+                      Access portal now
+                    </CustomLink>
                   )}
                 </div>
               </div>
@@ -210,14 +210,13 @@ const Agents = () => {
                   indicators met; total interactions and positive/negative outcome ratios; plus years of experience.
                 </p>
                 <div className='pb-10 pt-10'>
-                  {!isLoggedin
-                  && (
-                  <a
-                    href='/signup'
-                    className='button button-cta light-btn btn-outlined rounded is-bold is-title-reveal'
-                  >
-                    See how it works
-                  </a>
+                  {!isLoggedin && (
+                    <a
+                      href='/signup'
+                      className='button button-cta light-btn btn-outlined rounded is-bold is-title-reveal'
+                    >
+                      See how it works
+                    </a>
                   )}
                 </div>
               </div>
@@ -235,7 +234,7 @@ const Agents = () => {
           {/* Title */}
           <div className='section-title-wrapper'>
             <div className='bg-number'>3</div>
-            <h2 className='title section-title has-text-centered dark-text'>Detailed analytics</h2>
+            <h2 className='title section-title has-text-centered dark-text'> Detailed analytics </h2>
             <div className='subtitle has-text-centered is-tablet-padded'>
               Reports are available to help you analyze performance, view crypto rewards and increase your overall
               productivity.
@@ -274,7 +273,7 @@ const Agents = () => {
         <div className='container'>
           <div className='section-title-wrapper'>
             <div className='bg-number'>4</div>
-            <h2 className='title section-title has-text-centered dark-text'> Affordable pricing</h2>
+            <h2 className='title section-title has-text-centered dark-text'> Affordable pricing </h2>
             <div className='subtitle has-text-centered is-tablet-padded'>
               We eliminate the middlemen and connect agents directly to contact centers. That's why our prices are
               simple and affordable.
@@ -285,45 +284,45 @@ const Agents = () => {
               <div className='pricing-table'>
                 {/* Pricing Plan */}
                 <div className='pricing-plan is-rounded'>
-                  <div className='plan-header'>Free Spirit</div>
+                  <div className='plan-header'> Free Spirit </div>
                   <div className='plan-price'>
                     <span className='plan-price-amount'>
-                      <span className='plan-price-currency'>$</span>
-                      {/**/}
+                      {/* eslint-disable-next-line react/jsx-child-element-spacing */}
+                      <span className='plan-price-currency'> $ </span>
                       0
+                      {/* eslint-disable-next-line react/jsx-child-element-spacing */}
                     </span>
-                    {/**/}
                     /month
                   </div>
                   <div className='plan-items'>
-                    <div className='plan-item'>Forever free for browsing</div>
-                    <div className='plan-item'>View available courses</div>
-                    <div className='plan-item'>View job openings</div>
-                    <div className='plan-item'>-</div>
-                    <div className='plan-item'>-</div>
-                    <div className='plan-item'>-</div>
+                    <div className='plan-item'> Forever free for browsing </div>
+                    <div className='plan-item'> View available courses </div>
+                    <div className='plan-item'> View job openings </div>
+                    <div className='plan-item'> - </div>
+                    <div className='plan-item'> - </div>
+                    <div className='plan-item'> - </div>
                   </div>
                   <div className='plan-footer' />
                 </div>
                 {/* Pricing Plan */}
                 <div className='pricing-plan is-primary'>
-                  <div className='plan-header color-blue'>Go Getter</div>
+                  <div className='plan-header color-blue'> Go Getter </div>
                   <div className='plan-price'>
                     <span className='plan-price-amount color-blue'>
-                      <span className='plan-price-currency color-blue'>$</span>
-                      {/**/}
+                      {/* eslint-disable-next-line react/jsx-child-element-spacing */}
+                      <span className='plan-price-currency color-blue'> $ </span>
                       19.99
+                      {/* eslint-disable-next-line react/jsx-child-element-spacing */}
                     </span>
                     /month
-                    {/**/}
                   </div>
                   <div className='plan-items'>
-                    <div className='plan-item'>1 free background check</div>
-                    <div className='plan-item'>20 Qubicle (QBE) tokens</div>
-                    <div className='plan-item'>Agent portal and reports</div>
-                    <div className='plan-item'>Create, host or attend courses</div>
-                    <div className='plan-item'>Cryptocurrency rewards</div>
-                    <div className='plan-item'>View and apply to jobs</div>
+                    <div className='plan-item'> 1 free background check </div>
+                    <div className='plan-item'> 20 Qubicle (QBE) tokens </div>
+                    <div className='plan-item'> Agent portal and reports </div>
+                    <div className='plan-item'> Create, host or attend courses </div>
+                    <div className='plan-item'> Cryptocurrency rewards </div>
+                    <div className='plan-item'> View and apply to jobs </div>
                   </div>
                   <div className='plan-footer' />
                 </div>

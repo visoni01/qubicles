@@ -4,9 +4,7 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import PropTypes from 'prop-types'
 
-export default function InviteManual({
-  setManualEmails, manualEmails,
-}) {
+export default function InviteManual({ setManualEmails, manualEmails }) {
   const {
     register, handleSubmit, errors, setValue,
   } = useForm({
@@ -17,12 +15,14 @@ export default function InviteManual({
       email: yup.string().email('*Please enter a valid email').notOneOf(manualEmails, '*Already added that email'),
     }),
   })
+
   const onSubmit = (data) => {
     setManualEmails((current) => (
       [ ...current, data.email ]
     ))
     setValue('email', '')
   }
+
   return (
     <form className='is-fullwidth' onSubmit={ handleSubmit(onSubmit) }>
       <div className='mr-10'>

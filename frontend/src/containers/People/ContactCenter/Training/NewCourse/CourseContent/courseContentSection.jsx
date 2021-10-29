@@ -11,8 +11,8 @@ import SectionOptions from './sectionOptions'
 import AddedContent from './addedContent'
 import TestSection from './Test/testSection'
 import {
-  addNewUnitToSection, addNewTestToSection, deleteUnitFromSection, getArticleUnitsCount,
-  checkDisabledSaveSectionButton, isEmptySection, isEqualSections,
+  addNewUnitToSection, addNewTestToSection, deleteUnitFromSection, getArticleUnitsCount, checkDisabledSaveSectionButton,
+  isEmptySection, isEqualSections,
 } from './helper'
 import ConfirmationModal from '../../../../../../components/CommonModal/confirmationModal'
 import { sectionPropType } from '../propTypes'
@@ -73,9 +73,7 @@ const CourseContentSection = ({
           <Grid container justify='space-between' alignItems='center'>
             <Grid item>
               <span className='para'>
-                <b>
-                  {`${ sectionDetails.title }`}
-                </b>
+                <b>{ sectionDetails.title }</b>
               </span>
               <span className='para sz-sm light ml-10 mr-10'>
                 {`(${ isEmptySection({ section }) ? 'Empty' : sectionDetails.isEdit ? 'Editing' : 'Saved' })`}
@@ -83,12 +81,12 @@ const CourseContentSection = ({
             </Grid>
             <Grid item>
               {!sectionDetails.isEdit && (
-              <IconButton
-                onClick={ handleEditSection }
-                disabled={ sectionDetails.isEdit }
-              >
-                <FontAwesomeIcon icon={ faPen } className='custom-fa-icon' />
-              </IconButton>
+                <IconButton
+                  onClick={ handleEditSection }
+                  disabled={ sectionDetails.isEdit }
+                >
+                  <FontAwesomeIcon icon={ faPen } className='custom-fa-icon' />
+                </IconButton>
               )}
               <span className='para'>
                 {`${ getArticleUnitsCount({ section: sectionDetails }) } Units`}
@@ -112,18 +110,18 @@ const CourseContentSection = ({
               <Grid item>
                 <div className='display-inline-flex align-items-center'>
                   {isEnableDelete && (
-                  <div className='mr-10'>
-                    <Button
-                      classes={ {
-                        root: 'button-secondary-small-red',
-                        label: 'button-secondary-small-label',
-                      } }
-                      onClick={ () => setOpenDeleteConfirmation(true) }
-                      disabled={ !isEnableDelete }
-                    >
-                      Delete Section
-                    </Button>
-                  </div>
+                    <div className='mr-10'>
+                      <Button
+                        classes={ {
+                          root: 'button-secondary-small-red',
+                          label: 'button-secondary-small-label',
+                        } }
+                        onClick={ () => setOpenDeleteConfirmation(true) }
+                        disabled={ !isEnableDelete }
+                      >
+                        Delete Section
+                      </Button>
+                    </div>
                   )}
                   <div className='mr-10'>
                     <Button
@@ -183,36 +181,37 @@ const CourseContentSection = ({
       </div>
 
       {sectionDetails.isEdit && (
-      <SectionOptions
-        units={ sectionDetails.units }
-        test={ sectionDetails.test }
-        handleAddUnitButton={ handleAddUnitButton }
-        handleAddTestButton={ handleAddTestButton }
-      />
+        <SectionOptions
+          units={ sectionDetails.units }
+          test={ sectionDetails.test }
+          handleAddUnitButton={ handleAddUnitButton }
+          handleAddTestButton={ handleAddTestButton }
+        />
       )}
+
       {openDeleteConfirmation && (
-      <ConfirmationModal
-        open={ openDeleteConfirmation }
-        handleClose={ () => setOpenDeleteConfirmation(false) }
-        message={ `All the content of this
-        section will be deleted automatically.` }
-        confirmButtonText='Delete Section'
-        handleConfirm={ () => deleteSection({ section }) }
-      />
+        <ConfirmationModal
+          open={ openDeleteConfirmation }
+          handleClose={ () => setOpenDeleteConfirmation(false) }
+          message={ `All the content of this
+          section will be deleted automatically.` }
+          confirmButtonText='Delete Section'
+          handleConfirm={ () => deleteSection({ section }) }
+        />
       )}
 
       {openDiscardConfirmation && (
-      <ConfirmationModal
-        open={ openDiscardConfirmation }
-        handleClose={ () => setOpenDiscardConfirmation(false) }
-        message={ `New changes will be discarded
-        and section will restore it's previously saved state.` }
-        confirmButtonText='Discard Changes'
-        handleConfirm={ () => {
-          handleDiscardSection()
-          setOpenDiscardConfirmation(false)
-        } }
-      />
+        <ConfirmationModal
+          open={ openDiscardConfirmation }
+          handleClose={ () => setOpenDiscardConfirmation(false) }
+          message={ `New changes will be discarded
+          and section will restore it's previously saved state.` }
+          confirmButtonText='Discard Changes'
+          handleConfirm={ () => {
+            handleDiscardSection()
+            setOpenDiscardConfirmation(false)
+          } }
+        />
       )}
     </div>
   )

@@ -1,7 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import {
-  Box, Button,
-} from '@material-ui/core'
+import { Box, Button } from '@material-ui/core'
 import CKEditor from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { useDispatch } from 'react-redux'
@@ -18,8 +16,10 @@ const CreateAndUpdateTopic = ({
   handleSubmit, handleCancel, isUpdate, topicUpdateData, updateTopic,
 }) => {
   const newInitialData = isUpdate ? topicUpdateData : initialData
+
   const [ topicData, setTopicData ] = useState(newInitialData)
   const [ isImageUploading, setIsImageUploading ] = useState(false)
+
   const dispatch = useDispatch()
 
   const handleChange = useCallback((event) => {
@@ -54,10 +54,9 @@ const CreateAndUpdateTopic = ({
       <form>
         <h2 className='h2 mb-30'>
           {isUpdate ? 'Update Topic' : 'New Topic'}
-
         </h2>
         <div>
-          <h3 className='h3'>Title</h3>
+          <h3 className='h3'> Title </h3>
           <input
             className='custom-text-input-field mt-10 is-fullwidth'
             placeholder='Name of your topic'
@@ -67,9 +66,7 @@ const CreateAndUpdateTopic = ({
           />
         </div>
         <div className='mt-10'>
-          <h3 className='h3 mb-10'>
-            Description
-          </h3>
+          <h3 className='h3 mb-10'> Description </h3>
           <CKEditor
             onChange={ handleDescriptionData }
             editor={ ClassicEditor }

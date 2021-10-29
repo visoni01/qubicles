@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import {
-  Avatar,
-  Box, Divider, Tab, Tabs,
+  Avatar, Box, Divider, Tab, Tabs,
 } from '@material-ui/core'
 import { Rating } from '@material-ui/lab'
 import { reviewsMock } from './mockData'
@@ -13,26 +12,21 @@ const ReviewList = ({ reviews }) => (reviews.map((review, index) => (
       <Avatar className='mr-10' src={ kareem } />
       <div>
         <p className='para bold'>{review.name}</p>
-        <p className='para light'>
-          {review.title}
-          {' '}
-          at
-          {' '}
-          {review.company}
-        </p>
+        <p className='para light'>{`${ review.title } at ${ review.company }`}</p>
         <Rating value={ review.rating } size='small' className='rating-star-color' />
         <p className='para'>{review.description}</p>
       </div>
     </div>
-    { reviews.length !== (index + 1) && <Divider />}
+    {reviews.length !== (index + 1) && <Divider />}
   </>
 )))
 
 const Reviews = () => {
   const [ activeTab, setActiveTab ] = useState(0)
+
   return (
     <Box className='custom-box'>
-      <h3 className='h3'>Reviews</h3>
+      <h3 className='h3'> Reviews </h3>
       <Tabs
         value={ activeTab }
         onChange={ (_, val) => setActiveTab(val) }

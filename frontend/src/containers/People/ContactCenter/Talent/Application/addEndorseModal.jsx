@@ -5,11 +5,11 @@ import {
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import '../styles.scss'
 import { useDispatch } from 'react-redux'
 import { agentResumeSkillsStart } from '../../../../../redux-saga/redux/people'
 import { REQUEST_TYPES } from '../../../../../utils/constants'
 import { ADD_ENDORSE } from '../../../../../redux-saga/redux/constants'
+import '../styles.scss'
 
 const AddEndorseModal = ({
   open, handleClose, skillId, skillName, candidateId,

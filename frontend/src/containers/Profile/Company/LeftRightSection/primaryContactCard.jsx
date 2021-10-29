@@ -5,11 +5,7 @@ import { Rating } from '@material-ui/lab'
 import { terry } from '../../../../assets/images/avatar'
 
 const PrimaryContactCard = ({
-  candidateName,
-  candidateRating,
-  candidatePic,
-  profileName,
-
+  candidateName, candidateRating, candidatePic, profileName,
 }) => (
   <div className='top-talent list-divider'>
     <div className='display-inline-flex mb-10'>
@@ -24,14 +20,8 @@ const PrimaryContactCard = ({
           value={ candidateRating }
           precision={ 0.5 }
         />
-        <p className='para light'>
-          {profileName}
-        </p>
-        <span
-          className='primary-text-link'
-        >
-          View Profile
-        </span>
+        <p className='para light'>{profileName}</p>
+        <span className='primary-text-link'> View Profile </span>
       </div>
     </div>
   </div>

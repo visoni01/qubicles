@@ -1,7 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import {
-  Avatar,
-} from '@material-ui/core'
+import { Avatar } from '@material-ui/core'
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -13,6 +11,7 @@ import { EditIcon } from '../../../assets/images/common'
 
 const Comment = ({ comment }) => {
   const [ openEditComment, setOpenEditComment ] = useState(false)
+
   const { userDetails } = useSelector((state) => state.login)
 
   const dispatch = useDispatch()
@@ -64,9 +63,7 @@ const Comment = ({ comment }) => {
           )}
         </div>
       </div>
-      <p className='para'>
-        {comment.comment}
-      </p>
+      <p className='para'>{comment.comment}</p>
     </div>
   )
 }

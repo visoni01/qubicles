@@ -3,13 +3,10 @@ import { Button, Divider } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import JobPostModal from '../About/jobPostModal'
 
-const JobsCard = ({
-  categoryTitle,
-  job,
-}) => {
+const JobsCard = ({ categoryTitle, job }) => {
   const [ currentJobId, setCurrentJobId ] = useState(null)
-
   const [ openJobPostModal, setOpenJobPostModal ] = useState(false)
+
   const handleOpenJobPostModal = useCallback(
     (jobId) => {
       setOpenJobPostModal((currentState) => !currentState)
@@ -22,12 +19,8 @@ const JobsCard = ({
   return (
     <>
       <div className='right-section-open-position is-fullwidth'>
-        <h4 className='h4'>
-          {job.title }
-        </h4>
-        <p className='para light'>
-          {categoryTitle }
-        </p>
+        <h4 className='h4'>{job.title }</h4>
+        <p className='para light'>{categoryTitle }</p>
         <Button
           classes={ {
             root: 'button-primary-text view-job-post-button',

@@ -1,22 +1,28 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  Box, Button, CircularProgress,
-} from '@material-ui/core'
+import { Box, Button, CircularProgress } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import InviteAgent from '../inviteAgent'
-import '../styles.scss'
 import { allChatsRequestStart } from '../../../../../redux-saga/redux/chat'
 import { REQUEST_TYPES } from '../../../../../utils/constants'
 import { NEW_CHAT } from '../../../../../redux-saga/redux/constants'
+import '../styles.scss'
 
 const InviteAgentActions = ({
   candidateId, candidateName, location, profileName, profileImage,
 }) => {
   const [ openInviteAgentModal, setOpenInviteAgentModal ] = useState(false)
   const [ isNewChatLoading, setIsNewChatLoading ] = useState(false)
+
   const { isLoading, dataType } = useSelector((state) => state.allChats)
+
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (!isLoading && dataType === NEW_CHAT) {
+      setIsNewChatLoading(false)
+    }
+  }, [ isLoading, dataType ])
 
   const handleOpenInviteAgentModal = useCallback(() => setOpenInviteAgentModal((open) => !open), [])
 
@@ -36,12 +42,6 @@ const InviteAgentActions = ({
       onlyPopup: true,
     }))
   }, [ dispatch, candidateId, candidateName, profileName, profileImage, location ])
-
-  useEffect(() => {
-    if (!isLoading && dataType === NEW_CHAT) {
-      setIsNewChatLoading(false)
-    }
-  }, [ isLoading, dataType ])
 
   return (
     <>

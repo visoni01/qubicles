@@ -28,7 +28,7 @@ const OpenPositions = () => {
     // eslint-disable-next-line
   }, [ dispatch ])
 
-  return (<RenderJobs />)
+  return <RenderJobs />
 }
 
 export default OpenPositions

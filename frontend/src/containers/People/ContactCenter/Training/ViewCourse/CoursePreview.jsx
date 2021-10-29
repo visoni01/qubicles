@@ -144,9 +144,7 @@ const CoursePreview = ({
           {open && !isLoading && (
           <div className='display-inline-flex justify-between no-padding-bottom'>
             <DialogTitle className='is-fullwidth'>
-              <p className='h4 mt-10'>
-                {courseTitle}
-              </p>
+              <p className='h4 mt-10'>{courseTitle}</p>
             </DialogTitle>
             <DialogActions className='cross-button'>
               <IconButton className='is-size-6' onClick={ onClose }>
@@ -157,12 +155,12 @@ const CoursePreview = ({
           )}
           <DialogContent>
             {open && !isLoading && (
-            <h3 className='h3 mb-10 light'>
-              {`${ currentSection.title }: `}
-              <span className='h3'>
-                {(currentUnit && currentUnit.title) || (isIntroVideoActive && 'Intro')}
-              </span>
-            </h3>
+              <h3 className='h3 mb-10 light'>
+                {`${ currentSection.title }: `}
+                <span className='h3'>
+                  {(currentUnit && currentUnit.title) || (isIntroVideoActive && 'Intro')}
+                </span>
+              </h3>
             )}
             <div className='course-content-area pr-10'>
               {open && !isLoading && (currentUnit.type === 'Video' || isIntroVideoActive) && (
@@ -171,27 +169,25 @@ const CoursePreview = ({
                 </div>
               )}
               {open && !isLoading && currentUnit.type === 'Article' && (
-              <div
-                className='para sz-xl text-align-justify'
-              // eslint-disable-next-line react/no-danger
-                dangerouslySetInnerHTML={ { __html: currentUnit.details } }
-              />
+                <div
+                  className='para sz-xl text-align-justify'
+                // eslint-disable-next-line react/no-danger
+                  dangerouslySetInnerHTML={ { __html: currentUnit.details } }
+                />
               )}
               {open && !isLoading && currentUnit.type === 'Audio' && (
-              <MediaPlayer
-                source={ currentUnit.details }
-                type='audio'
-              />
+                <MediaPlayer
+                  source={ currentUnit.details }
+                  type='audio'
+                />
               )}
               {currentUnit.type === 'Test' && (
-              <SectionTest
-                courseId={ courseId }
-                sectionId={ currentSection.id }
-              />
+                <SectionTest
+                  courseId={ courseId }
+                  sectionId={ currentSection.id }
+                />
               )}
-              {open && isLoading && _.isEqual(dataType, COURSE_UNIT) && (
-              <ViewCourseUnitSkeleton />
-              )}
+              {open && isLoading && _.isEqual(dataType, COURSE_UNIT) && <ViewCourseUnitSkeleton />}
             </div>
           </DialogContent>
 
@@ -218,23 +214,21 @@ const CoursePreview = ({
                 </Button>
               )}
               {currentUnitIndex > 0 && (
-              <Button
-                classes={ {
-                  root: 'button-secondary-small',
-                  label: 'button-secondary-small-label',
-                } }
-                className='previous-button'
-                onClick={ handlePreviousUnit }
-              >
-                Previous
-              </Button>
+                <Button
+                  classes={ {
+                    root: 'button-secondary-small',
+                    label: 'button-secondary-small-label',
+                  } }
+                  className='previous-button'
+                  onClick={ handlePreviousUnit }
+                >
+                  Previous
+                </Button>
               )}
             </DialogActions>
           )}
-
         </div>
       </div>
-
     </Dialog>
   )
 }

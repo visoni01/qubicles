@@ -3,9 +3,7 @@ import { Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import MessageButton from './messageButton'
 
-const InvitedActions = ({
-  updateApplicationStatus, handleSendMessage, isNewChatLoading,
-}) => (
+const InvitedActions = ({ updateApplicationStatus, handleSendMessage, isNewChatLoading }) => (
   <div>
     <Button
       className='wide-button'

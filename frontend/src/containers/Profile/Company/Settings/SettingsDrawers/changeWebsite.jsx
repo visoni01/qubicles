@@ -1,15 +1,12 @@
 import React, { useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import {
-  Drawer, Button, TextField,
-} from '@material-ui/core'
+import { Drawer, Button, TextField } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { useDispatch } from 'react-redux'
 import { accountSettingInfoDefaultProps, accountSettingInfoPropTypes } from '../settingsProps'
 import {
-  updateCompanyProfileSettingsApiStart,
-  resetUpdateProfileSettingsFlags,
+  updateCompanyProfileSettingsApiStart, resetUpdateProfileSettingsFlags,
 } from '../../../../../redux-saga/redux/actions'
 import Loader from '../../../../loaders/circularLoader'
 
@@ -17,6 +14,7 @@ const ChangeWebsite = ({
   open, setOpen, accountSettingInfo, isUpdateLoading, isUpdateSuccess, updatedDataType,
 }) => {
   const dispatch = useDispatch()
+
   const { register, handleSubmit, errors } = useForm({
     defaultValues: {
       newWebsite: '',
@@ -26,6 +24,13 @@ const ChangeWebsite = ({
         .required('*Required'),
     }),
   })
+
+  useEffect(() => {
+    if (!isUpdateLoading && isUpdateSuccess && updatedDataType === 'website') {
+      setOpen(false)
+      dispatch(resetUpdateProfileSettingsFlags())
+    }
+  }, [ isUpdateSuccess, isUpdateLoading, dispatch, setOpen, updatedDataType ])
 
   const onSubmit = (data) => {
     if (!isUpdateLoading) {
@@ -41,13 +46,6 @@ const ChangeWebsite = ({
   const handleCancelWebsiteChange = useCallback(() => {
     setOpen(false)
   }, [ setOpen ])
-
-  useEffect(() => {
-    if (!isUpdateLoading && isUpdateSuccess && updatedDataType === 'website') {
-      setOpen(false)
-      dispatch(resetUpdateProfileSettingsFlags())
-    }
-  }, [ isUpdateSuccess, isUpdateLoading, dispatch, setOpen, updatedDataType ])
 
   return (
     <Drawer

@@ -4,9 +4,7 @@ import PropTypes from 'prop-types'
 import { formatDate } from '../../../../../utils/common'
 import ConfirmationModal from '../../../../../components/CommonModal/confirmationModal'
 
-const WithdrawApplication = ({
-  updateApplicationStatus, application, applied,
-}) => {
+const WithdrawApplication = ({ updateApplicationStatus, application, applied }) => {
   const [ openConfirmModal, setOpenConfirmModal ] = useState(false)
 
   return (
@@ -22,9 +20,9 @@ const WithdrawApplication = ({
         Withdraw
       </Button>
       {applied && (
-      <p className='para light text-center'>
-        {`Applied at ${ formatDate(application.createdOn, 'hh:mm a, DD/MM/YYYY') }`}
-      </p>
+        <p className='para light text-center'>
+          {`Applied at ${ formatDate(application.createdOn, 'hh:mm a, DD/MM/YYYY') }`}
+        </p>
       )}
       <ConfirmationModal
         open={ openConfirmModal }
@@ -39,6 +37,7 @@ const WithdrawApplication = ({
 WithdrawApplication.defaultProps = {
   applied: true,
 }
+
 WithdrawApplication.propTypes = {
   application: PropTypes.shape({
     applicationId: PropTypes.number.isRequired,

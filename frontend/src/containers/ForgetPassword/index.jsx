@@ -4,15 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as yup from 'yup'
 import classNames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faPaperPlane,
-} from '@fortawesome/free-solid-svg-icons'
-
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
-import {
-  forgetPasswordMailStart,
-  forgetPasswordMailReset,
-} from '../../redux-saga/redux/actions'
+import { forgetPasswordMailStart, forgetPasswordMailReset } from '../../redux-saga/redux/actions'
 import '../User/Signup/SignUp/style.scss'
 
 const schema = yup.object().shape({
@@ -23,8 +17,11 @@ const ForgetPassword = () => {
   const { register, errors, handleSubmit } = useForm({
     validationSchema: schema,
   })
+
   const { success } = useSelector((state) => state.forgetPasswordMail)
+
   const [ email, setEmail ] = useState('')
+
   const dispatch = useDispatch()
 
   useEffect(() => (() => {
@@ -126,12 +123,10 @@ const ForgetPassword = () => {
                   )}
                   <div>
                     {success && (
-                    <>
                       <p className='success-send-email'>
                         {'If you have registered with us, you will get a password reset link on your email '}
                         <b>{`${ email }`}</b>
                       </p>
-                    </>
                     )}
                   </div>
                 </div>

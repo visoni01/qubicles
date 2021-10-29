@@ -5,14 +5,16 @@ import { useSelector, useDispatch } from 'react-redux'
 import ContactCenterIntro from './contactCenterIntro'
 import JobPost from './jobPost'
 import TopTalent from '../Talent/topTalent'
-import './styles.scss'
 import { jobDetailsFetchStart } from '../../../../redux-saga/redux/actions'
+import './styles.scss'
 
 const JobView = () => {
+  const { jobDetails, isLoading } = useSelector((state) => state.jobDetails)
+
+  const dispatch = useDispatch()
   let { jobId } = useParams()
   jobId = parseInt(jobId, 10)
-  const { jobDetails, isLoading } = useSelector((state) => state.jobDetails)
-  const dispatch = useDispatch()
+
   useEffect(() => {
     dispatch(jobDetailsFetchStart({ jobId }))
   }, [ dispatch, jobId ])
