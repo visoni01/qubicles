@@ -9,22 +9,24 @@ import '../styles.scss'
 import { useDispatch } from 'react-redux'
 import { agentResumeSkillsStart } from '../../../../../redux-saga/redux/people'
 import { REQUEST_TYPES } from '../../../../../utils/constants'
+import { ADD_ENDORSE } from '../../../../../redux-saga/redux/constants'
 
 const AddEndorseModal = ({
   open, handleClose, skillId, skillName, candidateId,
 }) => {
   const [ comment, setComment ] = useState('')
+
   const dispatch = useDispatch()
 
   const handleComment = useCallback((e) => {
     setComment(e.target.value)
-  }, [ ])
+  }, [])
 
   const handleEndorse = useCallback(() => {
     dispatch(agentResumeSkillsStart({
       requestType: REQUEST_TYPES.UPDATE,
       candidateId,
-      updatedDataType: 'AddEndorse',
+      updatedDataType: ADD_ENDORSE,
       updatedData: {
         skillId,
         comment,
@@ -57,6 +59,7 @@ const AddEndorseModal = ({
           </IconButton>
         </DialogActions>
       </div>
+
       <DialogContent>
         <h3 className='h3 mb-20 mt-10 mr-20'>{ `You are endorsing for skill ${ skillName }!` }</h3>
         <div className='mb-20'>
@@ -73,6 +76,7 @@ const AddEndorseModal = ({
           />
         </div>
       </DialogContent>
+
       <DialogActions className='modal-actions'>
         <Button
           classes={ {

@@ -28,6 +28,22 @@ const EditProfileModal = ({
   const fileInput = useRef()
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    setProfileInfo(agentInfo)
+  }, [ agentInfo ])
+
+  useEffect(() => {
+    if ((success && _.isEqual(requestType, REQUEST_TYPES.UPDATE)) || uploadSuccess) {
+      if (success) {
+        dispatch(resetAgentProfileSettingsFlags())
+      }
+      if (uploadSuccess) {
+        dispatch(resetUploadProfileImage())
+      }
+      handleClose()
+    }
+  }, [ success, uploadSuccess, requestType, dispatch, handleClose ])
+
   // updating title
   const handleUpdateTitle = useCallback((e) => {
     const data = e.target.value
@@ -114,10 +130,6 @@ const EditProfileModal = ({
     handleClose()
   }, [ agentInfo, handleClose ])
 
-  useEffect(() => {
-    setProfileInfo(agentInfo)
-  }, [ agentInfo ])
-
   // to preview selected image
   const handleFileInputChange = useCallback((event) => {
     event.preventDefault()
@@ -143,18 +155,6 @@ const EditProfileModal = ({
       profilePic: null,
     }))
   }
-
-  useEffect(() => {
-    if ((success && _.isEqual(requestType, REQUEST_TYPES.UPDATE)) || uploadSuccess) {
-      if (success) {
-        dispatch(resetAgentProfileSettingsFlags())
-      }
-      if (uploadSuccess) {
-        dispatch(resetUploadProfileImage())
-      }
-      handleClose()
-    }
-  }, [ success, uploadSuccess, requestType, dispatch, handleClose ])
 
   const onSubmit = useCallback(() => {
     const uploadImage = {
@@ -197,6 +197,7 @@ const EditProfileModal = ({
         <DialogTitle>
           <div className='h2'>Edit Profile</div>
         </DialogTitle>
+
         <DialogActions className='cross-button'>
           <IconButton
             className='is-size-6'
@@ -206,10 +207,9 @@ const EditProfileModal = ({
           </IconButton>
         </DialogActions>
       </div>
+
       <DialogContent>
-        <h3 className='h3 mb-10'>
-          Profile Picture
-        </h3>
+        <h3 className='h3 mb-10'> Profile Picture </h3>
         <div className='photo-upload'>
           <div className='preview'>
             <Avatar className='profile-pic-preview' alt='' src={ profileInfo.profilePic || defaultUser } />
@@ -221,13 +221,13 @@ const EditProfileModal = ({
               </span>
             )}
             <div>
-              { (uploadingImage || isLoading) && (
-              <Loader
-                className='add-status-loader'
-                displayLoaderManually
-                enableOverlay={ false }
-                size={ 30 }
-              />
+              {(uploadingImage || isLoading) && (
+                <Loader
+                  className='add-status-loader'
+                  displayLoaderManually
+                  enableOverlay={ false }
+                  size={ 30 }
+                />
               )}
             </div>
           </div>
@@ -252,9 +252,7 @@ const EditProfileModal = ({
             onChange={ handleFileInputChange }
           />
         </div>
-        <h3 className='h3 mb-10'>
-          Job Title
-        </h3>
+        <h3 className='h3 mb-10'> Job Title </h3>
         <TextField
           className='is-fullwidth'
           autoComplete='off'
@@ -264,9 +262,7 @@ const EditProfileModal = ({
           defaultValue={ profileInfo.title }
           onChange={ handleUpdateTitle }
         />
-        <h3 className='h3 mt-20 mb-10'>
-          Bio
-        </h3>
+        <h3 className='h3 mt-20 mb-10'> Bio </h3>
         <div className='mb-20'>
           <TextField
             className='is-fullwidth'
@@ -320,9 +316,7 @@ const EditProfileModal = ({
             </Select>
           </Grid>
           <Grid item xl={ 12 } lg={ 12 } sm={ 12 } xs={ 12 } className='display-inline-flex'>
-            <p
-              className='para bold margin-auto ml-5'
-            >
+            <p className='para bold margin-auto ml-5'>
               Make profile visible for employers when they search for talent.
             </p>
             <Switch
@@ -372,17 +366,8 @@ const EditProfileModal = ({
                     </div>
                   </RadioGroup>
                 </Grid>
-                <Grid
-                  item
-                  xl={ 6 }
-                  lg={ 6 }
-                  sm={ 6 }
-                  xs={ 6 }
-                  className='display-inline-flex mt-10'
-                >
-                  <p
-                    className='para bold margin-auto ml-5'
-                  >
+                <Grid item xl={ 6 } lg={ 6 } sm={ 6 } xs={ 6 } className='display-inline-flex mt-10'>
+                  <p className='para bold margin-auto ml-5'>
                     Looking for remote jobs only
                   </p>
                   <Switch
@@ -392,17 +377,8 @@ const EditProfileModal = ({
                     onChange={ handleRemoteJobs }
                   />
                 </Grid>
-                <Grid
-                  item
-                  xl={ 6 }
-                  lg={ 6 }
-                  sm={ 6 }
-                  xs={ 6 }
-                  className='display-inline-flex mt-10'
-                >
-                  <p
-                    className='para bold margin-auto ml-5'
-                  >
+                <Grid item xl={ 6 } lg={ 6 } sm={ 6 } xs={ 6 } className='display-inline-flex mt-10'>
+                  <p className='para bold margin-auto ml-5'>
                     On vacation
                   </p>
                   <Switch
@@ -417,6 +393,7 @@ const EditProfileModal = ({
           </Grid>
         </Grid>
       </DialogContent>
+
       <DialogActions className='modal-actions'>
         <Button
           classes={ {

@@ -17,6 +17,20 @@ const JobApplicationButtons = ({ application, userDetails }) => {
 
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(startLoader())
+    } else {
+      dispatch(stopLoader())
+    }
+  }, [ isLoading, dispatch ])
+
+  useEffect(() => {
+    if (!isChatLoading && dataType === NEW_CHAT) {
+      setIsNewChatLoading(false)
+    }
+  }, [ isChatLoading, dataType ])
+
   const handleUpdateStatus = useCallback((status) => {
     dispatch(jobApplicationListRequestStart({
       applicationListData: {
@@ -27,14 +41,6 @@ const JobApplicationButtons = ({ application, userDetails }) => {
       requestType: REQUEST_TYPES.UPDATE,
     }))
   }, [ dispatch, application ])
-
-  useEffect(() => {
-    if (isLoading) {
-      dispatch(startLoader())
-    } else {
-      dispatch(stopLoader())
-    }
-  }, [ isLoading, dispatch ])
 
   const handleActionButton = useCallback(({ status, actionType }) => {
     if (actionType === 'negative') {
@@ -88,29 +94,23 @@ const JobApplicationButtons = ({ application, userDetails }) => {
     }))
   }, [ dispatch, userDetails, application ])
 
-  useEffect(() => {
-    if (!isChatLoading && dataType === NEW_CHAT) {
-      setIsNewChatLoading(false)
-    }
-  }, [ isChatLoading, dataType ])
-
   return (
     <>
       {/* Button for Negative Actions */}
       <div className='pending-application-buttons mt-15'>
         {[ 'applied', 'invited', 'screening', 'training', 'hired', 'offered' ].includes(application.status)
         && (
-        <Button
-          classes={ {
-            root: 'button-secondary-small-red',
-            label: 'button-secondary-small-label',
-          } }
-          onClick={ () => handleActionButton({ status: application.status, actionType: 'negative' }) }
-        >
-          {[ 'applied', 'invited' ].includes(application.status) && 'Reject'}
-          {[ 'screening', 'training', 'offered' ].includes(application.status) && 'Cancel'}
-          {[ 'hired' ].includes(application.status) && 'Terminate'}
-        </Button>
+          <Button
+            classes={ {
+              root: 'button-secondary-small-red',
+              label: 'button-secondary-small-label',
+            } }
+            onClick={ () => handleActionButton({ status: application.status, actionType: 'negative' }) }
+          >
+            {[ 'applied', 'invited' ].includes(application.status) && 'Reject'}
+            {[ 'screening', 'training', 'offered' ].includes(application.status) && 'Cancel'}
+            {[ 'hired' ].includes(application.status) && 'Terminate'}
+          </Button>
         )}
         <div />
 
@@ -133,22 +133,22 @@ const JobApplicationButtons = ({ application, userDetails }) => {
           {[ 'applied', 'invited',
             'screening', 'training', 'offered',
             'terminated', 'declined' ].includes(application.status)
-        && (
-        <Button
-          classes={ {
-            root: 'button-primary-small',
-            label: 'button-primary-small-label',
-          } }
-          onClick={ () => handleActionButton({ status: application.status, actionType: 'primary' }) }
-        >
-            {[ 'applied', 'invited' ].includes(application.status) && 'Evaluate'}
-            {application.status === 'screening' && 'Move to training'}
-            {application.status === 'training' && 'Offer job'}
-            {application.status === 'offered' && 'Hire'}
-            {application.status === 'terminated' && 'Rehire'}
-            {application.status === 'declined' && 'Invite'}
-        </Button>
-        )}
+            && (
+            <Button
+              classes={ {
+                root: 'button-primary-small',
+                label: 'button-primary-small-label',
+              } }
+              onClick={ () => handleActionButton({ status: application.status, actionType: 'primary' }) }
+            >
+              {[ 'applied', 'invited' ].includes(application.status) && 'Evaluate'}
+              {application.status === 'screening' && 'Move to training'}
+              {application.status === 'training' && 'Offer job'}
+              {application.status === 'offered' && 'Hire'}
+              {application.status === 'terminated' && 'Rehire'}
+              {application.status === 'declined' && 'Invite'}
+            </Button>
+            )}
         </div>
       </div>
     </>

@@ -8,6 +8,7 @@ import AddEndorseModal from './addEndorseModal'
 import { agentResumeSkillsStart } from '../../../../../redux-saga/redux/people'
 import { ThumbUpIcon } from '../../../../../assets/images/icons/endorsementIcons'
 import { REQUEST_TYPES } from '../../../../../utils/constants'
+import { REMOVE_ENDORSE } from '../../../../../redux-saga/redux/constants'
 
 const AgentSkillSection = ({
   agentResumeSkills, canEndorse, candidateId,
@@ -19,7 +20,9 @@ const AgentSkillSection = ({
   const [ isAddEndorseModalOpen, setIsAddEndorseModalOpen ] = useState(false)
   const [ hasEndorsed, setHasEndorsed ] = useState(new Set())
   const [ currentSkill, setCurrentSkill ] = useState({ skillId: null, skillName: '' })
+
   const { userDetails } = useSelector((state) => state.login)
+
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -53,7 +56,7 @@ const AgentSkillSection = ({
     dispatch(agentResumeSkillsStart({
       requestType: REQUEST_TYPES.UPDATE,
       candidateId,
-      updatedDataType: 'RemoveEndorse',
+      updatedDataType: REMOVE_ENDORSE,
       updatedData: {
         skillId,
       },
@@ -124,18 +127,20 @@ const AgentSkillSection = ({
           ))}
         </div>
       </div>
-      { agentResumeSkills.length > 3 && (
-      <Button
-        onClick={ handleAllSkillsButton }
-        className='is-fullwidth align-self-center'
-        classes={ {
-          root: 'button-primary-text center bold ',
-          label: 'button-primary-text-label',
-        } }
-      >
-        {showAllSkills ? 'Show Less Skills' : 'Show More Skills'}
-      </Button>
+
+      {agentResumeSkills.length > 3 && (
+        <Button
+          onClick={ handleAllSkillsButton }
+          className='is-fullwidth align-self-center'
+          classes={ {
+            root: 'button-primary-text center bold ',
+            label: 'button-primary-text-label',
+          } }
+        >
+          {showAllSkills ? 'Show Less Skills' : 'Show More Skills'}
+        </Button>
       )}
+
       {endorsementData.endorsements && endorsementData.endorsements.length > 0 && (
         <EndorsementsModal
           open={ openEndorsementModal }
@@ -144,6 +149,7 @@ const AgentSkillSection = ({
           skillName={ endorsementData.skillName }
         />
       )}
+
       {isAddEndorseModalOpen && (
         <AddEndorseModal
           open={ isAddEndorseModalOpen }

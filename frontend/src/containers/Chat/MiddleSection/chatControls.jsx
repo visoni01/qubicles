@@ -26,13 +26,13 @@ const ChatControls = ({
   conversationId, messageText, setMessageText, imageUrl, setImageUrl, isLoading, candidatesInfo, isImageUploading,
   messageToBeSent, allRead,
 }) => {
+  const [ openImagePreview, setOpenImagePreview ] = useState(false)
+  const [ isTyping, setIsTyping ] = useState(false)
+
   const { userDetails } = useSelector((state) => state.login)
   const { settings: clientSettings } = useSelector((state) => state.clientDetails)
   const { settings: agentSettings } = useSelector((state) => state.agentDetails)
   const { chatsList } = useSelector((state) => state.allChats)
-
-  const [ openImagePreview, setOpenImagePreview ] = useState(false)
-  const [ isTyping, setIsTyping ] = useState(false)
 
   const dispatch = useDispatch()
 

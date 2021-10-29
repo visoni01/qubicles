@@ -28,6 +28,12 @@ const AgentEditProfile = ({
 
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    if (!isLoading && dataType === NEW_CHAT) {
+      setIsNewChatLoading(false)
+    }
+  }, [ isLoading, dataType ])
+
   const handleFollow = useCallback(() => {
     dispatch(fetchAgentResumeStart({
       requestType: REQUEST_TYPES.UPDATE,
@@ -53,12 +59,6 @@ const AgentEditProfile = ({
     }))
   }, [ dispatch, candidateId, location, profilePic, title, name ])
 
-  useEffect(() => {
-    if (!isLoading && dataType === NEW_CHAT) {
-      setIsNewChatLoading(false)
-    }
-  }, [ isLoading, dataType ])
-
   return (
     <Box className='custom-box contact-center-info-root'>
       <Introduction
@@ -74,16 +74,16 @@ const AgentEditProfile = ({
       />
       <div className=' mt-20 mb-20'>
         {!candidateId && (
-        <Button
-          className='wide-button'
-          classes={ {
-            root: 'button-primary-small',
-            label: 'button-primary-small-label',
-          } }
-          onClick={ () => setOpenEditProfileModal(true) }
-        >
-          Edit Profile
-        </Button>
+          <Button
+            className='wide-button'
+            classes={ {
+              root: 'button-primary-small',
+              label: 'button-primary-small-label',
+            } }
+            onClick={ () => setOpenEditProfileModal(true) }
+          >
+            Edit Profile
+          </Button>
         )}
       </div>
       <div className=' mt-20 mb-20'>
@@ -138,9 +138,7 @@ const AgentEditProfile = ({
             { formatCount(following) }
           </h4>
           <p className='para'> Following</p>
-          <h4 className='h4 mt-20'>
-            124
-          </h4>
+          <h4 className='h4 mt-20'> 124 </h4>
           <p className='para'>Hours Worked </p>
         </div>
       </div>
@@ -163,13 +161,13 @@ const AgentEditProfile = ({
       <Divider className='divider' />
       {highestEducation && (
       <div className='mt-20'>
-        <h4 className='h4 mb-5'>Highest level of Education</h4>
+        <h4 className='h4 mb-5'> Highest level of Education </h4>
         <p className='para'>{ highestEducation }</p>
       </div>
       )}
       {yearsOfExperience && (
       <div className='mb-20 mt-20'>
-        <h4 className='h4 mb-5'>Years of Experience</h4>
+        <h4 className='h4 mb-5'> Years of Experience </h4>
         <p className='para'>{`${ yearsOfExperience } years`}</p>
       </div>
       )}

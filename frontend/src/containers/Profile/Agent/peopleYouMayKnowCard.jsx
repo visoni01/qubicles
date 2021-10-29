@@ -4,13 +4,14 @@ import PropTypes from 'prop-types'
 import UserCards from '../../../components/CommonModal/userCards'
 import { fetchAgentTopDataStart } from '../../../redux-saga/redux/people'
 import { PROFILE_ROUTE } from '../../../routes/routesPath'
+import { PEOPLE_YOU_MAY_KNOW } from '../../../redux-saga/redux/constants'
 
 const PeopleYouMayKnow = ({ heading }) => {
   const { agentTopData, isLoading } = useSelector((state) => state.agentTopData)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchAgentTopDataStart({
-      dataType: 'people-you-may-know',
+      dataType: PEOPLE_YOU_MAY_KNOW,
     }))
   }, [ dispatch ])
 

@@ -18,11 +18,13 @@ const ActionsBox = ({
   application, jobId, clientId, agentUserId,
 }) => {
   const [ isNewChatLoading, setIsNewChatLoading ] = useState(false)
-  const dispatch = useDispatch()
+
   const { isLoading } = useSelector((state) => state.jobApplication)
   const { applicationFilter } = useSelector((state) => state.agentJobApplications)
   const { jobDetails } = useSelector((state) => state.jobDetails)
   const { isLoading: isChatLoading, dataType } = useSelector((state) => state.allChats)
+
+  const dispatch = useDispatch()
 
   const getApplicationCategoryId = useCallback(() => parseInt(Object.keys(applicationFilter).filter(
     (key) => applicationFilter[ key ].statusTypes.includes(application.status),
@@ -42,13 +44,7 @@ const ActionsBox = ({
         requestType: REQUEST_TYPES.UPDATE,
       }))
     }
-  }, [
-    application.applicationId,
-    application.jobId,
-    dispatch,
-    isLoading,
-    getApplicationCategoryId,
-  ])
+  }, [ application.applicationId, application.jobId, dispatch, isLoading, getApplicationCategoryId ])
 
   /* eslint-disable camelcase */
   const handleSendMessage = useCallback(() => {
@@ -78,60 +74,65 @@ const ActionsBox = ({
   return (
     <Box className='custom-box actions-box'>
       <h3 className=' h3 mb-10'> Actions </h3>
-      {_.isEmpty(application) ? (
-        <>
+      {_.isEmpty(application)
+        ? (
           <ApplyJobAction
             agentUserId={ agentUserId }
             clientId={ clientId }
             jobId={ jobId }
           />
-        </>
-      ) : (
-        <div>
-          {application.status === 'invited' && (
-          <p className='para'>
-            You have been invited for this job by the employer. Accepting the invitation allows you
-            skip the application process.
-          </p>
-          )}
-          <div className='mt-20'>
-            {[ 'applied' ].includes(application.status) && (
-            <WithdrawApplication
-              updateApplicationStatus={ updateApplicationStatus }
-              application={ application }
-            />
+        )
+        : (
+          <div>
+            {application.status === 'invited' && (
+              <p className='para'>
+                You have been invited for this job by the employer. Accepting the invitation allows you
+                skip the application process.
+              </p>
             )}
-            {[ 'invited' ].includes(application.status) && (
-            <InvitedActions
-              updateApplicationStatus={ updateApplicationStatus }
-              handleSendMessage={ handleSendMessage }
-              isNewChatLoading={ isNewChatLoading }
-            />
-            )}
-            {[ 'declined', 'rejected', 'resigned', 'terminated' ].includes(application.status) && (
-            <MessageButton handleSendMessage={ handleSendMessage } isLoading={ isNewChatLoading } />
-            )}
-            {[ 'screening', 'training' ].includes(application.status) && (
-            <ScreeningActions
-              application={ application }
-              updateApplicationStatus={ updateApplicationStatus }
-              handleSendMessage={ handleSendMessage }
-              isNewChatLoading={ isNewChatLoading }
-            />
-            )}
-            {[ 'hired' ].includes(application.status) && (
-            <HiredActions
-              updateApplicationStatus={ updateApplicationStatus }
-            />
-            )}
-            {[ 'offered' ].includes(application.status) && (
-            <OfferedActions
-              updateApplicationStatus={ updateApplicationStatus }
-            />
-            )}
+            <div className='mt-20'>
+              {[ 'applied' ].includes(application.status) && (
+                <WithdrawApplication
+                  updateApplicationStatus={ updateApplicationStatus }
+                  application={ application }
+                />
+              )}
+
+              {[ 'invited' ].includes(application.status) && (
+                <InvitedActions
+                  updateApplicationStatus={ updateApplicationStatus }
+                  handleSendMessage={ handleSendMessage }
+                  isNewChatLoading={ isNewChatLoading }
+                />
+              )}
+
+              {[ 'declined', 'rejected', 'resigned', 'terminated' ].includes(application.status) && (
+                <MessageButton handleSendMessage={ handleSendMessage } isLoading={ isNewChatLoading } />
+              )}
+
+              {[ 'screening', 'training' ].includes(application.status) && (
+                <ScreeningActions
+                  application={ application }
+                  updateApplicationStatus={ updateApplicationStatus }
+                  handleSendMessage={ handleSendMessage }
+                  isNewChatLoading={ isNewChatLoading }
+                />
+              )}
+
+              {[ 'hired' ].includes(application.status) && (
+                <HiredActions
+                  updateApplicationStatus={ updateApplicationStatus }
+                />
+              )}
+
+              {[ 'offered' ].includes(application.status) && (
+                <OfferedActions
+                  updateApplicationStatus={ updateApplicationStatus }
+                />
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
     </Box>
   )
 }

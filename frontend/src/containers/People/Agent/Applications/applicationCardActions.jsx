@@ -15,6 +15,7 @@ const ApplicationCardActions = ({
 }) => {
   const [ isNewChatLoading, setIsNewChatLoading ] = useState(false)
   const { isLoading, dataType } = useSelector((state) => state.allChats)
+
   const dispatch = useDispatch()
   const history = useHistory()
 

@@ -19,10 +19,10 @@ const ChatView = ({
   conversationId, chats, more, offset, isLoading, candidatesInfo, activeUsers,
 }) => {
   const [ hasIntersect, setHasIntersect ] = useState(false)
-  const messagesEndRef = useRef(null)
-  const observer = useRef()
 
   const dispatch = useDispatch()
+  const messagesEndRef = useRef(null)
+  const observer = useRef()
 
   useEffect(() => {
     if (!hasIntersect) {

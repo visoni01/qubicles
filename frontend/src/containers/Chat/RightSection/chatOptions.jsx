@@ -27,12 +27,13 @@ const ChatOptions = ({
   const [ openAddPeopleModal, setOpenAddPeopleModal ] = useState(false)
 
   const { conversations } = useSelector((state) => state.chatData)
+
+  const dispatch = useDispatch()
+
   const currentConversation = conversations?.find((conversation) => conversation.data.conversationId === conversationId)
   const dataType = currentConversation?.dataType
   const success = currentConversation?.success
   const isLoading = currentConversation?.isLoading
-
-  const dispatch = useDispatch()
 
   const handleClose = useCallback(() => {
     setOpenOptions(false)

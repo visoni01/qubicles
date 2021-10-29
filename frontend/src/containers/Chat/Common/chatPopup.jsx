@@ -37,6 +37,7 @@ const ChatPopup = ({
 
   const closePopup = useCallback((event) => {
     event.stopPropagation()
+
     if (conversationData && !conversationData.allRead) {
       dispatch(chatDataRequestStart({
         requestType: REQUEST_TYPES.UPDATE,
@@ -98,6 +99,7 @@ const ChatPopup = ({
       <Collapse in={ isMaximized }>
         <CardContent className='message-section no-padding'>
           <div className='is-fullheight chat-section'>
+
             {/* Chat Body */}
             <div className='chat-section-body padding-10'>
               {/* eslint-disable-next-line no-constant-condition */}

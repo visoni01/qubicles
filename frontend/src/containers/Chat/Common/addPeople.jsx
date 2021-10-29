@@ -24,13 +24,14 @@ const AddPeople = ({
 }) => {
   const [ selectedPeople, setSelectedPeople ] = useState([])
   const [ groupTitle, setGroupTitle ] = useState('')
+
   const {
     users: people, more, offset, searchKeyword, isLoading,
   } = useSelector((state) => state.chatSuggestions)
+
   const dispatch = useDispatch()
   const observer = useRef()
 
-  // Initial Fetch
   useEffect(() => {
     dispatch(chatSuggestionsFetchStart({
       offset: 0,
@@ -41,7 +42,6 @@ const AddPeople = ({
     return () => dispatch(resetChatSuggestionsReducer())
   }, [ dispatch, conversationId ])
 
-  // Search Users
   const searchUsers = useCallback(debounce((nextValue) => {
     dispatch(chatSuggestionsFetchStart({
       offset: 0,

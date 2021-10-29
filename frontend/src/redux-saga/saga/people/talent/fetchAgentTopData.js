@@ -6,6 +6,7 @@ import {
   fetchAgentTopDataFailed,
   showErrorMessage,
 } from '../../../redux/actions'
+import { PEOPLE_YOU_MAY_KNOW, TOP_TALENT } from '../../../redux/constants'
 
 function* fetchAgentTopDataWatcherStart() {
   yield takeEvery(fetchAgentTopDataStart.type, fetchAgentTopDataWorker)
@@ -15,14 +16,14 @@ function* fetchAgentTopDataWorker(action) {
   const { dataType } = action.payload
   try {
     switch (dataType) {
-      case 'top-talent': {
+      case TOP_TALENT: {
         const { data } = yield People.fetchTopTalent()
         yield put(fetchAgentTopDataSuccess({
           agentTopData: data,
         }))
         break
       }
-      case 'people-you-may-know': {
+      case PEOPLE_YOU_MAY_KNOW: {
         const { data } = yield People.fetchPeopleYouMayKnow()
         yield put(fetchAgentTopDataSuccess({
           agentTopData: data,

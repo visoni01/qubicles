@@ -17,6 +17,7 @@ const MiddleCard = ({
 }) => {
   const { conversations, currentChatId } = useSelector((state) => state.chatData)
   const { initialFetchDone } = useSelector((state) => state.allChats)
+
   const dispatch = useDispatch()
 
   const currentConversation = conversations.find((conversation) => conversation.data.conversationId === currentChatId)

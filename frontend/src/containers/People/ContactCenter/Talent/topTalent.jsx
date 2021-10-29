@@ -4,13 +4,14 @@ import PropTypes from 'prop-types'
 import UserCards from '../../../../components/CommonModal/userCards'
 import { fetchAgentTopDataStart } from '../../../../redux-saga/redux/people'
 import { PROFILE_ROUTE } from '../../../../routes/routesPath'
+import { TOP_TALENT } from '../../../../redux-saga/redux/constants'
 
 const TopTalent = ({ heading }) => {
   const { agentTopData, isLoading } = useSelector((state) => state.agentTopData)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchAgentTopDataStart({
-      dataType: 'top-talent',
+      dataType: TOP_TALENT,
     }))
   }, [ dispatch ])
 

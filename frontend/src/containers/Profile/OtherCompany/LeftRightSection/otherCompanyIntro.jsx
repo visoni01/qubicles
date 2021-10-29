@@ -17,10 +17,7 @@ import { formatCount } from '../../../../utils/common'
 import { REQUEST_TYPES } from '../../../../utils/constants'
 import { NEW_CHAT } from '../../../../redux-saga/redux/constants'
 
-const OtherCompanyIntro = ({
-  clientId,
-  imageName,
-}) => {
+const OtherCompanyIntro = ({ clientId, imageName }) => {
   const [ isNewChatLoading, setIsNewChatLoading ] = useState(false)
 
   const { companyDetails, success, isCompanyDetailsLoading } = useSelector((state) => state.companyDetailsForProfile)
@@ -29,6 +26,8 @@ const OtherCompanyIntro = ({
 
   const dispatch = useDispatch()
 
+  useEffect(() => () => dispatch(resetCompanyDetails()), [ dispatch ])
+
   useEffect(() => {
     dispatch(jobPostCompanyDetailsFetchStart({
       requestType: REQUEST_TYPES.FETCH,
@@ -36,7 +35,11 @@ const OtherCompanyIntro = ({
     }))
   }, [ dispatch, clientId ])
 
-  useEffect(() => () => dispatch(resetCompanyDetails()), [ dispatch ])
+  useEffect(() => {
+    if (!isLoading && dataType === NEW_CHAT) {
+      setIsNewChatLoading(false)
+    }
+  }, [ isLoading, dataType ])
 
   const handleFollow = useCallback(() => {
     dispatch(jobPostCompanyDetailsFetchStart({
@@ -64,12 +67,6 @@ const OtherCompanyIntro = ({
     }))
   }, [ dispatch, companyDetails ])
 
-  useEffect(() => {
-    if (!isLoading && dataType === NEW_CHAT) {
-      setIsNewChatLoading(false)
-    }
-  }, [ isLoading, dataType ])
-
   if ((_.isNull(isCompanyDetailsLoading) || isCompanyDetailsLoading) && !success) {
     return (
       <ContactCenterSkeleton />
@@ -90,32 +87,32 @@ const OtherCompanyIntro = ({
         />
         <div className=' mt-20 mb-20'>
           {userDetails && userDetails.user_id !== companyDetails?.userId && (
-          <Button
-            className='wide-button'
-            classes={ {
-              root: 'button-primary-small',
-              label: 'button-primary-small-label',
-            } }
-            onClick={ handleSendMessage }
-            disabled={ isNewChatLoading }
-          >
-            Message
-            {isNewChatLoading && <CircularProgress size={ 20 } className='message-button-loader' />}
-          </Button>
+            <Button
+              className='wide-button'
+              classes={ {
+                root: 'button-primary-small',
+                label: 'button-primary-small-label',
+              } }
+              onClick={ handleSendMessage }
+              disabled={ isNewChatLoading }
+            >
+              Message
+              {isNewChatLoading && <CircularProgress size={ 20 } className='message-button-loader' />}
+            </Button>
           )}
         </div>
         <div className=' mt-20 mb-20'>
           {userDetails && !_.isEqual(userDetails.user_code, 'employer') && (
-          <Button
-            className='wide-button'
-            classes={ {
-              root: 'button-secondary-small',
-              label: 'button-secondary-small-label',
-            } }
-            onClick={ handleFollow }
-          >
-            {companyDetails.isFollowing ? 'Unfollow' : 'Follow'}
-          </Button>
+            <Button
+              className='wide-button'
+              classes={ {
+                root: 'button-secondary-small',
+                label: 'button-secondary-small-label',
+              } }
+              onClick={ handleFollow }
+            >
+              {companyDetails.isFollowing ? 'Unfollow' : 'Follow'}
+            </Button>
           )}
         </div>
         <h4 className='h4 margin-top-bottom-10'>
@@ -142,7 +139,7 @@ const OtherCompanyIntro = ({
             <h4 className='h4'>
               { formatCount(companyDetails.following || 0) }
             </h4>
-            <p className='para'> Following</p>
+            <p className='para'> Following </p>
             <h4 className='h4 mt-20'>
               { formatCount(companyDetails.jobsPosted || 0) }
             </h4>
@@ -150,6 +147,7 @@ const OtherCompanyIntro = ({
           </div>
         </div>
       </Box>
+
       <Box className='mt-20'>
         <PrimaryContact heading='Primary Contacts' />
       </Box>

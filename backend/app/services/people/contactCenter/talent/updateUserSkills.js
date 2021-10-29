@@ -1,6 +1,7 @@
 import logger from '../../../../common/logger'
 import ServiceBase from '../../../../common/serviceBase'
 import { ERRORS } from '../../../../utils/errors'
+import { CONSTANTS } from '../../../../utils/success'
 import { getErrorMessageForService } from '../../../helper'
 import { updateUserSkills, addUserEndorsement, removeUserEndorsement } from '../../../helper/people'
 
@@ -28,12 +29,13 @@ export class PeopleUpdateUserSkillsService extends ServiceBase {
     const { user_id, candidate_id, updatedData, updatedDataType } = this.filteredArgs
 
     try {
-      if (updatedDataType === 'Skills') {
-        const userSkills = await updateUserSkills({ user_id, candidate_id, updatedData })
-        return userSkills
-      } else if (updatedDataType === 'AddEndorse') {
+      const { SKILLS, ADD_ENDORSE, REMOVE_ENDORSE } = CONSTANTS
+
+      if (updatedDataType === SKILLS) {
+        return await updateUserSkills({ user_id, candidate_id, updatedData })
+      } else if (updatedDataType === ADD_ENDORSE) {
         return await addUserEndorsement({ user_id, candidate_id, updatedData })
-      } else if (updatedDataType === 'RemoveEndorse') {
+      } else if (updatedDataType === REMOVE_ENDORSE) {
         return await removeUserEndorsement({ user_id, candidate_id, updatedData })
       }
     } catch (err) {

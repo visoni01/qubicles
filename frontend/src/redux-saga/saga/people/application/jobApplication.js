@@ -34,9 +34,7 @@ function* jobApplicationWorker(action) {
           },
         }))
         yield put(showSuccessMessage({
-          msg: applicationData.status === 'invited'
-            ? 'Invited successfully!'
-            : 'Applied successfully!',
+          msg: applicationData.status === 'invited' ? 'Invited successfully!' : 'Applied successfully!',
         }))
 
         if (data && data.status === 'invited') {

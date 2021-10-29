@@ -23,19 +23,18 @@ import {
 } from '../../../redux-saga/redux/constants'
 
 const LeftCard = ({ conversationId }) => {
-  const {
-    chatsList, isLoading, offset, more, searchKeyword, dataType, success,
-  } = useSelector((state) => state.allChats)
-
   const [ openSearchField, setOpenSearchField ] = useState(false)
   const [ openNewChatModal, setOpenNewChatModal ] = useState(false)
   const [ openNewGroupModal, setOpenNewGroupModal ] = useState(false)
   const [ searchUserField, setSearchUserField ] = useState('')
 
-  const userListRef = useRef()
-  const observer = useRef()
+  const {
+    chatsList, isLoading, offset, more, searchKeyword, dataType, success,
+  } = useSelector((state) => state.allChats)
 
   const dispatch = useDispatch()
+  const userListRef = useRef()
+  const observer = useRef()
 
   const handleSearchClick = useCallback(() => {
     setOpenSearchField((prevState) => !prevState)
@@ -63,7 +62,6 @@ const LeftCard = ({ conversationId }) => {
     }
   }, [ dispatch, chatsList, conversationId ])
 
-  // Search Conversations
   const searchConversations = useCallback(debounce((nextValue) => {
     dispatch(allChatsRequestStart({
       requestType: REQUEST_TYPES.FETCH,
@@ -143,36 +141,27 @@ const LeftCard = ({ conversationId }) => {
   }, [ openSearchField ])
 
   return (
-    <Box
-      className='custom-box no-padding chat-left-section'
-    >
+    <Box className='custom-box no-padding chat-left-section'>
+
       {/* Header */}
       <div className='is-flex is-between align-items-center chat-left-section-header'>
-        <h3 className='h3'>
-          Chats
-        </h3>
+        <h3 className='h3'> Chats </h3>
 
         <div className='is-flex is-between'>
           <Tooltip title='Search'>
-            <IconButton
-              onClick={ handleSearchClick }
-            >
+            <IconButton onClick={ handleSearchClick }>
               <SearchIcon className='search-icon' />
             </IconButton>
           </Tooltip>
 
           <Tooltip title='New Chat'>
-            <IconButton
-              onClick={ handleNewChatClick }
-            >
+            <IconButton onClick={ handleNewChatClick }>
               <NewChatIcon />
             </IconButton>
           </Tooltip>
 
           <Tooltip title='New Group'>
-            <IconButton
-              onClick={ handleNewGroupClick }
-            >
+            <IconButton onClick={ handleNewGroupClick }>
               <NewGroupIcon />
             </IconButton>
           </Tooltip>

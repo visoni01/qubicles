@@ -16,12 +16,11 @@ import { agentResumeSkillsStart, fetchJobSkillsStart } from '../../../../../redu
 import { agentProfileSettingsApiStart } from '../../../../../redux-saga/redux/actions'
 import Loader from '../../../../loaders/circularLoader'
 import { REQUEST_TYPES } from '../../../../../utils/constants'
+import { SKILLS } from '../../../../../redux-saga/redux/constants'
 
 const EditSkills = ({
   open, handleClose, agentResumeSkills, languages: agentResumeLanguages, candidateId, isLoading, isLoadingLanguage,
 }) => {
-  const dispatch = useDispatch()
-  const { jobSkills, isLoading: isLoadingJobSkills } = useSelector((state) => state.jobSkills)
   const [ skills, setSkills ] = useState(agentResumeSkills)
   const [ primaryLanguage, setPrimaryLanguage ] = useState(agentResumeLanguages[ 0 ])
   const [ otherLanguages, setOtherLanguages ] = useState(agentResumeLanguages.slice(1))
@@ -29,10 +28,13 @@ const EditSkills = ({
   const [ newSkill, setNewSkill ] = useState(null)
   const [ addedSkills, setAddedSkills ] = useState(new Set())
   const [ removedSkills, setRemovedSkills ] = useState({})
-  const availableLanguages = [
-    'English', 'French', 'Spanish', 'Arabic', 'Bengali', 'Chinese', 'German',
-    'Hindi', 'Indonesian', 'Japanese', 'Portuguese', 'Russian', 'Urdu',
-  ]
+
+  const { jobSkills, isLoading: isLoadingJobSkills } = useSelector((state) => state.jobSkills)
+
+  const dispatch = useDispatch()
+
+  const availableLanguages = [ 'English', 'French', 'Spanish', 'Arabic', 'Bengali', 'Chinese', 'German', 'Hindi',
+    'Indonesian', 'Japanese', 'Portuguese', 'Russian', 'Urdu' ]
 
   useEffect(() => {
     if (!jobSkills) {
@@ -57,7 +59,7 @@ const EditSkills = ({
       dispatch(agentResumeSkillsStart({
         requestType: REQUEST_TYPES.UPDATE,
         candidateId,
-        updatedDataType: 'Skills',
+        updatedDataType: SKILLS,
         updatedData: _.sortBy(skills, (skill) => skill.skillId).map((skill) => skill.skillId),
       }))
     }
@@ -73,13 +75,10 @@ const EditSkills = ({
         },
       }))
     }
-  }, [
-    dispatch, skills, candidateId, availableLanguages,
-    agentResumeLanguages, agentResumeSkills, primaryLanguage, otherLanguages,
-  ])
+  }, [ dispatch, skills, candidateId, availableLanguages, agentResumeLanguages, agentResumeSkills, primaryLanguage,
+    otherLanguages ])
 
   // Skill Handlers
-
   const addNewSkill = useCallback(() => {
     let newAddedSkill = { skillId: newSkill.id, skillName: newSkill.title, endorsedCount: 0 }
     if (removedSkills[ newSkill.id ]) {
@@ -109,7 +108,6 @@ const EditSkills = ({
   }, [ addedSkills ])
 
   // Language Handlers
-
   const handlePrimaryLanguageChange = useCallback(() => {
     setOtherLanguages((state) => ([
       primaryLanguage,
@@ -184,6 +182,7 @@ const EditSkills = ({
             )}
           </div>
         </DialogTitle>
+
         <DialogActions className='cross-button'>
           <IconButton
             className='is-size-6'
@@ -193,6 +192,7 @@ const EditSkills = ({
           </IconButton>
         </DialogActions>
       </div>
+
       <DialogContent>
         <div className='skills-list mb-25'>
           {skills && skills.map((agentSkill) => (
@@ -284,6 +284,7 @@ const EditSkills = ({
         <Divider />
         {/* Languages */}
       </DialogContent>
+
       <div className='header'>
         <DialogTitle>
           <div className='h2'>Languages</div>
@@ -292,6 +293,7 @@ const EditSkills = ({
           </p>
         </DialogTitle>
       </div>
+
       <DialogContent>
         <div className='mb-25'>
           {/* Primary Language */}
@@ -348,6 +350,7 @@ const EditSkills = ({
             </Grid>
           </Grid>
           )}
+
           {/* Other Languages */}
           {otherLanguages && otherLanguages.map((language, index) => (
             <Grid
@@ -406,6 +409,7 @@ const EditSkills = ({
               </Grid>
             </Grid>
           ))}
+
           {/* Add New Language */}
           <Grid
             container

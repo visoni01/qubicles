@@ -16,14 +16,15 @@ const ApplyJobModal = ({
 }) => {
   const [ coverLetterMessage, setCoverLetterMessage ] = useState('')
 
-  const dispatch = useDispatch()
   const { success } = useSelector((state) => state.jobApplication)
+
+  const dispatch = useDispatch()
 
   const closeAndResetInputFields = useCallback(() => {
     handleClose()
     setCoverLetterMessage('')
     // eslint-disable-next-line
-  }, [ ])
+  }, [])
 
   useEffect(() => {
     if (success) {
@@ -32,23 +33,21 @@ const ApplyJobModal = ({
     // eslint-disable-next-line
   }, [ success ])
 
-  const handleApplyJob = useCallback(
-    () => {
-      dispatch(jobApplicationRequestStart({
-        applicationData: {
-          agentUserId,
-          clientId,
-          jobId,
-          coverLetter: coverLetterMessage,
-          // WIP VIDEO PITCH
-          videoPitchUrl: '',
-          status: 'applied',
-        },
-        requestType: REQUEST_TYPES.CREATE,
-      }))
-    },
-    [ dispatch, coverLetterMessage, jobId, clientId, agentUserId ],
-  )
+  const handleApplyJob = useCallback(() => {
+    dispatch(jobApplicationRequestStart({
+      applicationData: {
+        agentUserId,
+        clientId,
+        jobId,
+        coverLetter: coverLetterMessage,
+        // WIP VIDEO PITCH
+        videoPitchUrl: '',
+        status: 'applied',
+      },
+      requestType: REQUEST_TYPES.CREATE,
+    }))
+  },
+  [ dispatch, coverLetterMessage, jobId, clientId, agentUserId ])
 
   return (
     <Dialog
@@ -58,12 +57,12 @@ const ApplyJobModal = ({
       fullWidth
       maxWidth='md'
       className='custom-modal'
-
     >
       <div className='header'>
         <DialogTitle>
           <div className='h2'>Application</div>
         </DialogTitle>
+
         <DialogActions className='cross-button'>
           <IconButton
             className='is-size-6'
@@ -73,6 +72,7 @@ const ApplyJobModal = ({
           </IconButton>
         </DialogActions>
       </div>
+
       <DialogContent>
         <div className='mb-10 is-fullwidth display-inline-flex justify-between align-items-center'>
           <h3 className='h3'>Cover Letter</h3>
@@ -83,7 +83,6 @@ const ApplyJobModal = ({
             } }
           >
             Add Media
-
           </Button>
         </div>
         <CKEditor
@@ -103,6 +102,7 @@ const ApplyJobModal = ({
           } }
         />
       </DialogContent>
+
       <DialogActions className='modal-actions'>
         <Button
           color='secondary'

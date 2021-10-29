@@ -5,6 +5,7 @@ import {
 import People from '../../../service/people'
 import { showErrorMessage, showSuccessMessage } from '../../../redux/actions'
 import { REQUEST_TYPES } from '../../../../utils/constants'
+import { ADD_ENDORSE, REMOVE_ENDORSE, SKILLS } from '../../../redux/constants'
 
 function* agentResumeSkillsWatcherStart() {
   yield takeEvery(agentResumeSkillsStart.type, agentResumeSkillsWorker)
@@ -30,20 +31,21 @@ function* agentResumeSkillsWorker(action) {
             canEndorse: data.canEndorse,
           },
         }))
+
         switch (updatedDataType) {
-          case 'Skills':
+          case SKILLS: {
             yield put(showSuccessMessage({ msg: 'Skills and Languages updated successfully' }))
             break
-          case 'AddEndorse': {
+          }
+          case ADD_ENDORSE: {
             yield put(showSuccessMessage({ msg: 'Endorsed successfully' }))
             break
           }
-          case 'RemoveEndorse': {
+          case REMOVE_ENDORSE: {
             yield put(showSuccessMessage({ msg: 'Removed endorsement successfully' }))
             break
           }
-          default:
-            break
+          default: break
         }
         break
       }

@@ -19,12 +19,12 @@ import { stopLoader } from '../../../redux-saga/redux/utils'
 import { CHANGE_GROUP_NAME, CURRENT_CHAT, DELETE_CHAT } from '../../../redux-saga/redux/constants'
 
 const RightCard = ({ changeGroupName }) => {
-  const { initialFetchDone } = useSelector((state) => state.allChats)
-  const { conversations, currentChatId } = useSelector((state) => state.chatData)
-
   const [ openViewMembersModal, setOpenViewMembersModal ] = useState(false)
   const [ showGroupNameField, setShowGroupNameField ] = useState(false)
   const [ groupNameValue, setGroupNameValue ] = useState('')
+
+  const { initialFetchDone } = useSelector((state) => state.allChats)
+  const { conversations, currentChatId } = useSelector((state) => state.chatData)
 
   const dispatch = useDispatch()
 

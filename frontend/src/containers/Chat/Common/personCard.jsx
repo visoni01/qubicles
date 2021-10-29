@@ -10,8 +10,9 @@ import { VIEW_MEMBERS } from '../../../redux-saga/redux/constants'
 const PersonCard = ({
   id, clientId, name, title, profilePic, userCode, actionType, handleRemove, isRemoved, loading,
 }) => {
-  const { userDetails } = useSelector((state) => state.login)
   const [ openConfirmBlockModal, setOpenConfirmBlockModal ] = useState(false)
+
+  const { userDetails } = useSelector((state) => state.login)
 
   const handleRemoveUser = useCallback(() => {
     handleRemove({ id, name })
@@ -20,10 +21,10 @@ const PersonCard = ({
 
   return (
     <div
+      id={ id }
       className={
         `person-card ${ actionType !== VIEW_MEMBERS ? 'person-card-hover' : '' } ${ loading ? 'no-hover' : '' }`
       }
-      id={ id }
     >
       <div className={ `is-flex is-vcenter ${ actionType === VIEW_MEMBERS && 'pt-5 pb-5' }` }>
         <Avatar className='profile-pic' alt={ name } src={ profilePic } />
@@ -38,7 +39,7 @@ const PersonCard = ({
           : (
             <>
               {userDetails.user_id === id
-                ? <h4 className='h4 self-name'>You</h4>
+                ? <h4 className='h4 self-name'> You </h4>
                 : (
                   <div className='is-flex is-between is-fullwidth mt-10 mr-15'>
                     <div>
@@ -71,6 +72,7 @@ const PersonCard = ({
             </>
           )}
       </div>
+
       <ConfirmationModal
         open={ openConfirmBlockModal }
         handleClose={ () => setOpenConfirmBlockModal(false) }

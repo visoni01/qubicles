@@ -17,14 +17,10 @@ import { REMOVE_PERSON, VIEW_MEMBERS } from '../../../redux-saga/redux/constants
 const ViewMembers = ({
   open, handleClose, members, conversationId, isRemoved,
 }) => {
-  const { userDetails } = useSelector((state) => state.login)
-  const { conversations } = useSelector((state) => state.chatData)
-
   const [ sortedMembersList, setSortedMembersList ] = useState(members)
 
-  const currentConversation = conversations?.find((conversation) => conversation.data.conversationId === conversationId)
-  const dataType = currentConversation?.dataType
-  const isLoading = currentConversation?.isLoading
+  const { userDetails } = useSelector((state) => state.login)
+  const { conversations } = useSelector((state) => state.chatData)
 
   const dispatch = useDispatch()
 
@@ -50,6 +46,10 @@ const ViewMembers = ({
     }))
   }, [ dispatch, conversationId ])
 
+  const currentConversation = conversations?.find((conversation) => conversation.data.conversationId === conversationId)
+  const dataType = currentConversation?.dataType
+  const isLoading = currentConversation?.isLoading
+
   return (
     <Dialog
       scroll='paper'
@@ -62,9 +62,7 @@ const ViewMembers = ({
       <div className='header'>
         <DialogTitle className='is-fullwidth'>
           <div className='display-inline-flex align-items-center'>
-            <div className='h2'>
-              Members
-            </div>
+            <div className='h2'> Members </div>
 
             {isLoading && _.isEqual(dataType, REMOVE_PERSON) && (
             <Loader

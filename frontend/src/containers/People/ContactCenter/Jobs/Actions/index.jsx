@@ -9,16 +9,24 @@ import TrainingActions from './trainingActions'
 import OfferedActions from './offeredActions'
 import { jobApplicationRequestStart, allChatsRequestStart } from '../../../../../redux-saga/redux/actions'
 import HiredActions from './hiredActions'
-import '../../styles.scss'
 import { REQUEST_TYPES } from '../../../../../utils/constants'
 import { NEW_CHAT } from '../../../../../redux-saga/redux/constants'
+import '../../styles.scss'
 
 const ClientJobApplicationActions = ({
   application, candidateId, candidateName, profileName, profileImage, location,
 }) => {
   const [ isNewChatLoading, setIsNewChatLoading ] = useState(false)
+
   const { isLoading, dataType } = useSelector((state) => state.allChats)
+
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (!isLoading && dataType === NEW_CHAT) {
+      setIsNewChatLoading(false)
+    }
+  }, [ isLoading, dataType ])
 
   const handleUpdateStatus = useCallback((status) => {
     dispatch(jobApplicationRequestStart({
@@ -48,55 +56,54 @@ const ClientJobApplicationActions = ({
     }))
   }, [ dispatch, candidateId, candidateName, profileName, profileImage, location ])
 
-  useEffect(() => {
-    if (!isLoading && dataType === NEW_CHAT) {
-      setIsNewChatLoading(false)
-    }
-  }, [ isLoading, dataType ])
-
   return (
-    <>
-      <Box className='custom-box actions-box'>
-        <h3 className='h3 mb-30'> Actions </h3>
-        { [ 'applied', 'invited' ].includes(application.status) && (
+    <Box className='custom-box actions-box'>
+      <h3 className='h3 mb-30'> Actions </h3>
+
+      {[ 'applied', 'invited' ].includes(application.status) && (
         <AppliedInvitedActions
           key={ application.applicationId }
           handleUpdateStatus={ handleUpdateStatus }
           handleSendMessage={ handleSendMessage }
           isNewChatLoading={ isNewChatLoading }
         />
-        ) }
-        { application.status === ('screening') && (
+      )}
+
+      {application.status === ('screening') && (
         <ScreeningActions
           key={ application.applicationId }
           handleUpdateStatus={ handleUpdateStatus }
           handleSendMessage={ handleSendMessage }
           isNewChatLoading={ isNewChatLoading }
         />
-        ) }
-        { application.status === ('training') && (
+      )}
+
+      {application.status === ('training') && (
         <TrainingActions
           key={ application.applicationId }
           handleUpdateStatus={ handleUpdateStatus }
           handleSendMessage={ handleSendMessage }
           isNewChatLoading={ isNewChatLoading }
         />
-        ) }
-        { application.status === ('offered') && (
+      )}
+
+      {application.status === ('offered') && (
         <OfferedActions
           key={ application.applicationId }
           handleUpdateStatus={ handleUpdateStatus }
           handleSendMessage={ handleSendMessage }
           isNewChatLoading={ isNewChatLoading }
         />
-        ) }
-        { application.status === ('hired') && (
+      )}
+
+      {application.status === ('hired') && (
         <HiredActions
           key={ application.applicationId }
           handleUpdateStatus={ handleUpdateStatus }
         />
-        ) }
-        { [ 'declined', 'terminated', 'rejected', 'resigned' ].includes(application.status) && (
+      )}
+
+      {[ 'declined', 'terminated', 'rejected', 'resigned' ].includes(application.status) && (
         <LeftJobActions
           key={ application.applicationId }
           application={ application }
@@ -104,9 +111,8 @@ const ClientJobApplicationActions = ({
           handleSendMessage={ handleSendMessage }
           isNewChatLoading={ isNewChatLoading }
         />
-        ) }
-      </Box>
-    </>
+      )}
+    </Box>
   )
 }
 

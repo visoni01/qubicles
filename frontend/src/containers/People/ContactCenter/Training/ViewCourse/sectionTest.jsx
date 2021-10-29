@@ -15,14 +15,17 @@ import { REQUEST_TYPES } from '../../../../../utils/constants'
 import { COURSE_UNIT, SECTION_TEST } from '../../../../../redux-saga/redux/constants'
 
 const SectionTest = ({ courseId, sectionId }) => {
-  const dispatch = useDispatch()
-  const {
-    course, isLoading, requestType, dataType,
-  } = useSelector((state) => state.viewCourse)
-  const sectionIndex = _.findIndex(course.courseContent.sections, [ 'id', sectionId ])
   const [ questions, setQuestions ] = useState([])
   const [ answers, setAnswers ] = useState([])
   const [ isTestCompleted, setIsTestCompleted ] = useState(false)
+
+  const {
+    course, isLoading, requestType, dataType,
+  } = useSelector((state) => state.viewCourse)
+
+  const dispatch = useDispatch()
+
+  const sectionIndex = _.findIndex(course.courseContent.sections, [ 'id', sectionId ])
 
   useEffect(() => {
     dispatch(viewCourseRequestStart({
@@ -36,6 +39,14 @@ const SectionTest = ({ courseId, sectionId }) => {
   useEffect(() => {
     setQuestions(course.courseContent.sections[ sectionIndex ].questions)
   }, [ course.courseContent.sections, sectionIndex ])
+
+  useEffect(() => {
+    if (_.isEqual(requestType, REQUEST_TYPES.UPDATE) && _.isEqual(dataType, SECTION_TEST) && !isLoading) {
+      setIsTestCompleted(true)
+    } else {
+      setIsTestCompleted(false)
+    }
+  }, [ dataType, requestType, isLoading ])
 
   const handleSubmit = useCallback(() => {
     dispatch(viewCourseRequestStart({
@@ -73,14 +84,6 @@ const SectionTest = ({ courseId, sectionId }) => {
     }
   }, [ dispatch, course.courseContent.sections, sectionIndex, courseId, course.isCreator ])
 
-  useEffect(() => {
-    if (_.isEqual(requestType, REQUEST_TYPES.UPDATE) && _.isEqual(dataType, SECTION_TEST) && !isLoading) {
-      setIsTestCompleted(true)
-    } else {
-      setIsTestCompleted(false)
-    }
-  }, [ dataType, requestType, isLoading ])
-
   if (isLoading && _.isEqual(dataType, SECTION_TEST)) {
     return (
       <ViewCourseTestSkeleton />
@@ -90,43 +93,46 @@ const SectionTest = ({ courseId, sectionId }) => {
   return (
     <div className='test-modal'>
       {!isLoading && questions && !isTestCompleted && (
-      <div className='mb-20'>
-        <div>
-          <span className='para bold sz-lg'>
-            {`Questions answered ${ answers.length }/${ questions && questions.length }`}
-          </span>
+        <div className='mb-20'>
+          <div>
+            <span className='para bold sz-lg'>
+              {`Questions answered ${ answers.length }/${ questions && questions.length }`}
+            </span>
+          </div>
+          <div className='mt-10'>
+            <LinearProgress
+              variant='determinate'
+              value={ (answers.length * 100) / (questions && questions.length) }
+              classes={ {
+                root: 'progress-root',
+                barColorPrimary: 'progress-bar-color',
+                colorPrimary: 'progress-color',
+              } }
+            />
+          </div>
         </div>
-        <div className='mt-10'>
-          <LinearProgress
-            variant='determinate'
-            value={ (answers.length * 100) / (questions && questions.length) }
-            classes={ {
-              root: 'progress-root',
-              barColorPrimary: 'progress-bar-color',
-              colorPrimary: 'progress-color',
-            } }
-          />
-        </div>
-      </div>
       )}
+
       {!isTestCompleted && (
-      <div>
-        {questions && questions.length && questions.map((question) => (
-          <RenderTestQuestion
-            key={ question.id }
-            question={ question }
-            answers={ answers }
-            setAnswers={ setAnswers }
-          />
-        ))}
-      </div>
+        <div>
+          {questions && questions.length && questions.map((question) => (
+            <RenderTestQuestion
+              key={ question.id }
+              question={ question }
+              answers={ answers }
+              setAnswers={ setAnswers }
+            />
+          ))}
+        </div>
       )}
+
       {isTestCompleted && (
-      <TestCompleted
-        totalAnswered={ answers.length }
-        totalQuestions={ questions && questions.length }
-      />
+        <TestCompleted
+          totalAnswered={ answers.length }
+          totalQuestions={ questions && questions.length }
+        />
       )}
+
       <div className='is-flex is-center mt-40 mb-20'>
         <Button
           classes={ {
