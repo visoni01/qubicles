@@ -21,6 +21,7 @@ import ViewCourseUnitSkeleton from
   '../../../../../components/People/ContactCenter/SkeletonLoader/Training/viewCourseUnitSkeleton'
 import MediaPlayer from './mediaPlayer'
 import { REQUEST_TYPES } from '../../../../../utils/constants'
+import { COURSE_UNIT } from '../../../../../redux-saga/redux/constants'
 
 const CoursePreview = ({
   open, onClose, sections, courseTitle, currentSection, currentUnit, courseId, setOpenCoursePlayer, isEnrolled,
@@ -33,7 +34,7 @@ const CoursePreview = ({
     if (currentUnit.status !== 'completed' && currentUnit.unitId > 0 && !isCreator) {
       dispatch(viewCourseRequestStart({
         requestType: REQUEST_TYPES.UPDATE,
-        dataType: 'Course Unit',
+        dataType: COURSE_UNIT,
         courseId,
         sectionId: currentSection.id,
         unitId: currentUnit.unitId,
@@ -54,7 +55,7 @@ const CoursePreview = ({
       && !isCreator) {
       dispatch(viewCourseRequestStart({
         requestType: REQUEST_TYPES.UPDATE,
-        dataType: 'Course Unit',
+        dataType: COURSE_UNIT,
         courseId,
         sectionId: currentSection.id,
         unitId: sections[ currentSectionIndex ].units[ currentUnitIndex - 1 ].unitId,
@@ -78,7 +79,7 @@ const CoursePreview = ({
     if (currentUnit.status !== 'completed' && currentUnit.unitId > 0 && !isCreator) {
       dispatch(viewCourseRequestStart({
         requestType: REQUEST_TYPES.UPDATE,
-        dataType: 'Course Unit',
+        dataType: COURSE_UNIT,
         courseId,
         sectionId: currentSection.id,
         unitId: currentUnit.unitId,
@@ -97,7 +98,7 @@ const CoursePreview = ({
         && !isCreator) {
       dispatch(viewCourseRequestStart({
         requestType: REQUEST_TYPES.UPDATE,
-        dataType: 'Course Unit',
+        dataType: COURSE_UNIT,
         courseId,
         sectionId: sections[ nextSectionIndex ].id,
         unitId: sections[ nextSectionIndex ].units[ nextUnitIndex ].unitId,
@@ -188,7 +189,7 @@ const CoursePreview = ({
                 sectionId={ currentSection.id }
               />
               )}
-              {open && isLoading && _.isEqual(dataType, 'Course Unit') && (
+              {open && isLoading && _.isEqual(dataType, COURSE_UNIT) && (
               <ViewCourseUnitSkeleton />
               )}
             </div>

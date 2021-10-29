@@ -11,6 +11,7 @@ import CourseActions from './CourseActions'
 import { resetViewCourseReducer, viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
 import { resetUserData } from '../../../../../redux-saga/redux/user'
 import { REQUEST_TYPES } from '../../../../../utils/constants'
+import { COURSE_INFO } from '../../../../../redux-saga/redux/constants'
 
 const ViewCourse = () => {
   const location = useLocation()
@@ -26,7 +27,7 @@ const ViewCourse = () => {
   useEffect(() => {
     dispatch(viewCourseRequestStart({
       requestType: REQUEST_TYPES.FETCH,
-      dataType: 'Course Info',
+      dataType: COURSE_INFO,
       courseId,
     }))
     return () => {

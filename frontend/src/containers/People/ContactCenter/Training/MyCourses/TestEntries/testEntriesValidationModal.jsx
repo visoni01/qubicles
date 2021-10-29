@@ -13,6 +13,7 @@ import { testEntriesRequestStart } from '../../../../../../redux-saga/redux/peop
 import TestEntriesValidationSkeleton from
   '../../../../../../components/People/ContactCenter/SkeletonLoader/Training/testEntriesValidationSkeleton'
 import { REQUEST_TYPES } from '../../../../../../utils/constants'
+import { TEST_ENTRY_ANSWERS, VALIDATE_ANSWERS } from '../../../../../../redux-saga/redux/constants'
 
 const TestEntriesValidation = ({
   open, setOpen, candidateName, candidatePic, candidateId, sections, courseId, testType,
@@ -31,7 +32,7 @@ const TestEntriesValidation = ({
   const handleDone = useCallback(() => {
     dispatch(testEntriesRequestStart({
       requestType: REQUEST_TYPES.UPDATE,
-      dataType: 'Validate Answers',
+      dataType: VALIDATE_ANSWERS,
       courseId,
       candidateId,
       validatedData,
@@ -43,7 +44,7 @@ const TestEntriesValidation = ({
     if (!sections && open) {
       dispatch(testEntriesRequestStart({
         requestType: REQUEST_TYPES.FETCH,
-        dataType: 'Test Entry Answers',
+        dataType: TEST_ENTRY_ANSWERS,
         candidateId,
         courseId,
         testType,
@@ -52,7 +53,7 @@ const TestEntriesValidation = ({
   }, [ dispatch, sections, candidateId, courseId, open, testType ])
 
   useEffect(() => {
-    if (_.isEqual(dataType, 'Validate Answers') && !isLoading) {
+    if (_.isEqual(dataType, VALIDATE_ANSWERS) && !isLoading) {
       setValidatedData([])
       setCurrentSectionIndex(0)
     }
@@ -70,7 +71,7 @@ const TestEntriesValidation = ({
         <DialogTitle>
           <div className='h2 mr-30'>
             Validation
-            {_.isEqual(dataType, 'Validate Answers') && isLoading && (
+            {_.isEqual(dataType, VALIDATE_ANSWERS) && isLoading && (
               <CircularProgress size={ 25 } className='ml-10' />
             )}
           </div>
@@ -94,10 +95,10 @@ const TestEntriesValidation = ({
           {`Section ${ sections[ currentSectionIndex ].sectionNum }: ${ sections[ currentSectionIndex ].sectionTitle }`}
         </h3>
         )}
-        {_.isEqual(dataType, 'Test Entry Answers') && isLoading && (
+        {_.isEqual(dataType, TEST_ENTRY_ANSWERS) && isLoading && (
           <TestEntriesValidationSkeleton />
         )}
-        {(!isLoading || _.isEqual(dataType, 'Validate Answers')) && (
+        {(!isLoading || _.isEqual(dataType, VALIDATE_ANSWERS)) && (
           <Grid container spacing={ 3 }>
             {sections && sections.length > 0 && sections[ currentSectionIndex ]
             && sections[ currentSectionIndex ].questions.map((question) => (

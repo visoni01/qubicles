@@ -13,13 +13,14 @@ import {
 import CourseContentWrap from '../../../../../containers/People/ContactCenter/Training/ViewCourse/CourseContentWrap'
 import CourseOverviewSkeleton from
   '../../SkeletonLoader/Training/courseOverviewSkeleton'
+import { COURSE_INFO } from '../../../../../redux-saga/redux/constants'
 
 const CourseOverview = ({
   sections, courseId, isEnrolled, introVideo, courseTitle, courseStatus, openCoursePlayer, setOpenCoursePlayer,
   currentUnitIndex, currentSectionIndex, isIntroVideoActive, isSectionTestActive, type, isLoading, dataType, isCreator,
 }) => {
   if (_.isEqual(type, 'view')
-  && ((_.isNull(isLoading) || isLoading) && (_.isEmpty(dataType) || _.isEqual(dataType, 'Course Info')))) {
+  && ((_.isNull(isLoading) || isLoading) && (_.isEmpty(dataType) || _.isEqual(dataType, COURSE_INFO)))) {
     return (
       <CourseOverviewSkeleton />
     )

@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux'
 import { formatDate } from '../../../../../utils/common'
 import { viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
 import { REQUEST_TYPES } from '../../../../../utils/constants'
+import { BUY_COURSE } from '../../../../../redux-saga/redux/constants'
 
 const BuyCourseModal = ({
   open, onClose, courseId, title, createdOn, price, creatorName,
@@ -18,7 +19,7 @@ const BuyCourseModal = ({
   const handleBuyCourse = useCallback(() => {
     dispatch(viewCourseRequestStart({
       requestType: REQUEST_TYPES.FETCH,
-      dataType: 'Buy Course',
+      dataType: BUY_COURSE,
       courseId,
     }))
   }, [ dispatch, courseId ])

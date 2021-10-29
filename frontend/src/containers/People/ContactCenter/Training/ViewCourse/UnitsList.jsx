@@ -18,6 +18,7 @@ import {
   ArticleIcon, AudioIcon, TestIcon, VideoIcon,
 } from '../../../../../assets/images/training'
 import { REQUEST_TYPES } from '../../../../../utils/constants'
+import { COURSE_UNIT } from '../../../../../redux-saga/redux/constants'
 
 const UnitsList = ({
   section, setOpenCoursePlayer, isEnrolled, isActive, showIntroVideo, introVideo, isCoursePlayerOpen, currentUnit,
@@ -62,7 +63,7 @@ const UnitsList = ({
     if (!_.isEmpty(currentUnit) && currentUnit.unitId > 0 && currentUnit.status !== 'completed' && !isCreator) {
       dispatch(viewCourseRequestStart({
         requestType: REQUEST_TYPES.UPDATE,
-        dataType: 'Course Unit',
+        dataType: COURSE_UNIT,
         courseId,
         sectionId: currentSection.id,
         unitId: currentUnit.unitId,
@@ -73,7 +74,7 @@ const UnitsList = ({
     if ((nextUnit.status !== 'completed' || _.isEmpty(nextUnit.details)) && !isCreator) {
       dispatch(viewCourseRequestStart({
         requestType: REQUEST_TYPES.UPDATE,
-        dataType: 'Course Unit',
+        dataType: COURSE_UNIT,
         courseId,
         sectionId: nextSection.id,
         unitId: nextUnit.unitId,

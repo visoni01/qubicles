@@ -12,6 +12,7 @@ import TestCompleted from '../../../../../components/People/ContactCenter/Traini
 import ViewCourseTestSkeleton from
   '../../../../../components/People/ContactCenter/SkeletonLoader/Training/viewCourseTestSkeleton'
 import { REQUEST_TYPES } from '../../../../../utils/constants'
+import { COURSE_UNIT, SECTION_TEST } from '../../../../../redux-saga/redux/constants'
 
 const SectionTest = ({ courseId, sectionId }) => {
   const dispatch = useDispatch()
@@ -27,7 +28,7 @@ const SectionTest = ({ courseId, sectionId }) => {
     dispatch(viewCourseRequestStart({
       courseId,
       sectionId,
-      dataType: 'Section Test',
+      dataType: SECTION_TEST,
       requestType: REQUEST_TYPES.FETCH,
     }))
   }, [ courseId, sectionId, dispatch ])
@@ -40,7 +41,7 @@ const SectionTest = ({ courseId, sectionId }) => {
     dispatch(viewCourseRequestStart({
       courseId,
       sectionId,
-      dataType: 'Section Test',
+      dataType: SECTION_TEST,
       requestType: REQUEST_TYPES.UPDATE,
       questions: answers.map((answer) => ({
         id: answer.questionId,
@@ -62,7 +63,7 @@ const SectionTest = ({ courseId, sectionId }) => {
     if (!course.isCreator) {
       dispatch(viewCourseRequestStart({
         requestType: REQUEST_TYPES.UPDATE,
-        dataType: 'Course Unit',
+        dataType: COURSE_UNIT,
         courseId,
         sectionId: course.courseContent.sections[ currentSectionIndex ].id,
         unitId: course.courseContent.sections[ currentSectionIndex ].units[ 0 ].unitId,
@@ -73,14 +74,14 @@ const SectionTest = ({ courseId, sectionId }) => {
   }, [ dispatch, course.courseContent.sections, sectionIndex, courseId, course.isCreator ])
 
   useEffect(() => {
-    if (requestType === REQUEST_TYPES.UPDATE && dataType === 'Section Test' && !isLoading) {
+    if (_.isEqual(requestType, REQUEST_TYPES.UPDATE) && _.isEqual(dataType, SECTION_TEST) && !isLoading) {
       setIsTestCompleted(true)
     } else {
       setIsTestCompleted(false)
     }
   }, [ dataType, requestType, isLoading ])
 
-  if (isLoading && _.isEqual(dataType, 'Section Test')) {
+  if (isLoading && _.isEqual(dataType, SECTION_TEST)) {
     return (
       <ViewCourseTestSkeleton />
     )

@@ -10,6 +10,7 @@ import CourseDescriptionSkeleton from
 import { formatDate } from '../../../../../utils/common'
 import { VIEW_COURSE_ROUTE } from '../../../../../routes/routesPath'
 import { ErrorIcon, SuccessIcon } from '../../../../../assets/images/training'
+import { COURSE_INFO } from '../../../../../redux-saga/redux/constants'
 
 const CourseDescription = ({
   title, description, goals, outcomes, requirements, requiredCourses, dataType, isLoading, type, isCreator,
@@ -29,7 +30,7 @@ const CourseDescription = ({
   )
 
   if (_.isEqual(type, 'view')
-  && ((_.isNull(isLoading) || isLoading) && (_.isEmpty(dataType) || _.isEqual(dataType, 'Course Info')))) {
+  && ((_.isNull(isLoading) || isLoading) && (_.isEmpty(dataType) || _.isEqual(dataType, COURSE_INFO)))) {
     return (
       <CourseDescriptionSkeleton />
     )

@@ -22,6 +22,9 @@ import CourseActionSkeleton from
 import { EDIT_COURSE_ROUTE } from '../../../../../routes/routesPath'
 import IncompleteCoursesList from './incompleteCoursesList'
 import { REQUEST_TYPES } from '../../../../../utils/constants'
+import {
+  BUY_COURSE, COURSE_INFO, COURSE_UNIT, START_COURSE,
+} from '../../../../../redux-saga/redux/constants'
 
 const CourseActions = ({
   course, setOpenCoursePlayer, type, isLoading, dataType, continueCourse, setOpenReviewModal, requestType,
@@ -33,10 +36,10 @@ const CourseActions = ({
   const history = useHistory()
 
   useEffect(() => {
-    if (dataType === 'Buy Course' && isLoading) {
+    if (dataType === BUY_COURSE && isLoading) {
       dispatch(startLoader())
     }
-    if (dataType === 'Buy Course' && isLoading === false) {
+    if (dataType === BUY_COURSE && isLoading === false) {
       setOpenBuyCoursePopup(false)
       dispatch(stopLoader())
     }
@@ -56,7 +59,7 @@ const CourseActions = ({
     || (!course.isEnrolled && course.informationSection.price === 0)) {
       dispatch(viewCourseRequestStart({
         requestType: REQUEST_TYPES.FETCH,
-        dataType: 'Start Course',
+        dataType: START_COURSE,
         courseId: course.courseId,
       }))
       dispatch(updateCurrentUnitAndSectionIndex({
@@ -75,7 +78,7 @@ const CourseActions = ({
         if (unitIndex !== -1) {
           dispatch(viewCourseRequestStart({
             requestType: REQUEST_TYPES.UPDATE,
-            dataType: 'Course Unit',
+            dataType: COURSE_UNIT,
             courseId: course.courseId,
             sectionId: course.courseContent.sections[ 0 ].id,
             unitId: course.courseContent.sections[ 0 ].units[ unitIndex ].unitId,
@@ -110,7 +113,7 @@ const CourseActions = ({
         }))
         dispatch(viewCourseRequestStart({
           requestType: REQUEST_TYPES.UPDATE,
-          dataType: 'Course Unit',
+          dataType: COURSE_UNIT,
           courseId: course.courseId,
           sectionId: course.courseContent.sections[ sectionIndex ].id,
           unitId: course.courseContent.sections[ sectionIndex ].units[ unitIndex ].unitId,
@@ -126,7 +129,7 @@ const CourseActions = ({
       }))
       dispatch(viewCourseRequestStart({
         requestType: REQUEST_TYPES.UPDATE,
-        dataType: 'Course Unit',
+        dataType: COURSE_UNIT,
         courseId: course.courseId,
         sectionId: course.courseContent.sections[ 0 ].id,
         unitId: course.courseContent.sections[ 0 ].units[ 0 ].unitId,
@@ -139,13 +142,13 @@ const CourseActions = ({
 
   useEffect(() => {
     if (continueCourse && _.isEqual(type, 'view')
-    && !(_.isNull(isLoading) || isLoading) && (_.isEmpty(dataType) || _.isEqual(dataType, 'Course Info'))) {
+    && !(_.isNull(isLoading) || isLoading) && (_.isEmpty(dataType) || _.isEqual(dataType, COURSE_INFO))) {
       handleStartOrContinueCourse()
     }
   }, [ continueCourse, dataType, handleStartOrContinueCourse, isLoading, type ])
 
   if (_.isEqual(type, 'view')
-    && (_.isNull(isLoading) || isLoading) && (_.isEmpty(dataType) || _.isEqual(dataType, 'Course Info'))) {
+    && (_.isNull(isLoading) || isLoading) && (_.isEmpty(dataType) || _.isEqual(dataType, COURSE_INFO))) {
     return (
       <CourseActionSkeleton />
     )

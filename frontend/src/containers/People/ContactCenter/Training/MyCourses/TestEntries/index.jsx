@@ -12,6 +12,7 @@ import { resetTestEntriesReducer, testEntriesRequestStart } from '../../../../..
 import TestEntriesSkeleton from
   '../../../../../../components/People/ContactCenter/SkeletonLoader/Training/testEntriesSkeleton'
 import { REQUEST_TYPES } from '../../../../../../utils/constants'
+import { ALL_TEST_ENTRIES } from '../../../../../../redux-saga/redux/constants'
 
 const TestEntries = () => {
   const history = useHistory()
@@ -23,7 +24,7 @@ const TestEntries = () => {
   useEffect(() => {
     dispatch(testEntriesRequestStart({
       requestType: REQUEST_TYPES.FETCH,
-      dataType: 'All Test Entries',
+      dataType: ALL_TEST_ENTRIES,
       courseId,
     }))
     return () => {
@@ -45,10 +46,10 @@ const TestEntries = () => {
           Back
         </Button>
       </div>
-      {[ '', 'All Test Entries' ].includes(dataType) && (_.isNull(isLoading) || isLoading) && (
+      {[ '', ALL_TEST_ENTRIES ].includes(dataType) && (_.isNull(isLoading) || isLoading) && (
         <TestEntriesSkeleton />
       )}
-      {!([ '', 'All Test Entries' ].includes(dataType) && (_.isNull(isLoading) || isLoading)) && (
+      {!([ '', ALL_TEST_ENTRIES ].includes(dataType) && (_.isNull(isLoading) || isLoading)) && (
         <>
           <div className='mb-20'>
             <h2 className='h2 mb-30'>

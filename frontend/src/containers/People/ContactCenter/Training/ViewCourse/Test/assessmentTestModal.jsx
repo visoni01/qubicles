@@ -18,6 +18,7 @@ import AssessmentTestSkeleton from
 import { assessmentTestPropType } from './propTypes'
 import ConfirmationModal from '../../../../../../components/CommonModal/confirmationModal'
 import { REQUEST_TYPES } from '../../../../../../utils/constants'
+import { ASSESSMENT_TEST } from '../../../../../../redux-saga/redux/constants'
 
 const AssessmentTestModal = ({
   open, onClose, courseId, assessmentTest, isLoading, requestType,
@@ -37,7 +38,7 @@ const AssessmentTestModal = ({
   const handleStartTest = useCallback(() => {
     dispatch(viewCourseRequestStart({
       requestType: REQUEST_TYPES.FETCH,
-      dataType: 'Assessment Test',
+      dataType: ASSESSMENT_TEST,
       courseId,
     }))
     setIsTestStarted(true)
@@ -47,7 +48,7 @@ const AssessmentTestModal = ({
     setOpenSubmitConfirmation(false)
     dispatch(viewCourseRequestStart({
       requestType: REQUEST_TYPES.CREATE,
-      dataType: 'Assessment Test',
+      dataType: ASSESSMENT_TEST,
       courseId,
       questions: answers.map((answer) => ({
         id: answer.questionId,

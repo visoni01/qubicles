@@ -3,6 +3,7 @@ import { REQUEST_TYPES } from '../../../../utils/constants'
 import {
   testEntriesRequestStart, testEntriesRequestSuccess, testEntriesRequestFailed, showErrorMessage, showSuccessMessage,
 } from '../../../redux/actions'
+import { ALL_TEST_ENTRIES, TEST_ENTRY_ANSWERS, VALIDATE_ANSWERS } from '../../../redux/constants'
 import People from '../../../service/people'
 
 function* testEntriesWatcher() {
@@ -18,13 +19,13 @@ function* testEntriesWorker(action) {
     switch (requestType) {
       case REQUEST_TYPES.FETCH: {
         switch (dataType) {
-          case 'All Test Entries': {
+          case ALL_TEST_ENTRIES: {
             const { data } = yield People.fetchAllTestEntries({ courseId })
             yield put(testEntriesRequestSuccess({ testEntriesData: data }))
             break
           }
 
-          case 'Test Entry Answers': {
+          case TEST_ENTRY_ANSWERS: {
             const { data } = yield People.fetchTestEntryAnswers({ courseId, candidateId, testType })
             yield put(testEntriesRequestSuccess({ sections: data, candidateId, testType }))
             break
@@ -37,7 +38,7 @@ function* testEntriesWorker(action) {
 
       case REQUEST_TYPES.UPDATE: {
         switch (dataType) {
-          case 'Validate Answers': {
+          case VALIDATE_ANSWERS: {
             yield People.validateTestEntryAnswers({ courseId, candidateId, validatedData })
             yield put(testEntriesRequestSuccess({ candidateId, validatedData, testType }))
             yield put(showSuccessMessage({ msg: 'Answers validated successfully' }))

@@ -1,6 +1,10 @@
 /* eslint-disable complexity */
 import _ from 'lodash'
 import { REQUEST_TYPES } from '../../../utils/constants'
+import {
+  ALL_TEST_ENTRIES, ASSESSMENT_TEST, BUY_COURSE, COURSE_INFO, COURSE_UNIT, SECTION_TEST, START_COURSE,
+  TEST_ENTRY_ANSWERS, VALIDATE_ANSWERS,
+} from '../constants'
 
 export const updateApplicationsListHelper = ({
   currentCategoryId, applicationList, updatedApplication, applicationCategoryId,
@@ -46,7 +50,7 @@ export const getUpdatedCourse = ({ state, action }) => {
   switch (state.requestType) {
     case REQUEST_TYPES.FETCH: {
       switch (state.dataType) {
-        case 'Course Info': {
+        case COURSE_INFO: {
           return {
             ...state.course,
             ...action.payload.course,
@@ -57,7 +61,7 @@ export const getUpdatedCourse = ({ state, action }) => {
           }
         }
 
-        case 'Start Course': {
+        case START_COURSE: {
           return {
             ...state.course,
             isEnrolled: true,
@@ -65,7 +69,7 @@ export const getUpdatedCourse = ({ state, action }) => {
           }
         }
 
-        case 'Section Test': {
+        case SECTION_TEST: {
           return {
             ...state.course,
             courseContent: {
@@ -80,14 +84,14 @@ export const getUpdatedCourse = ({ state, action }) => {
           }
         }
 
-        case 'Buy Course': {
+        case BUY_COURSE: {
           return {
             ...state.course,
             ...action.payload.course,
           }
         }
 
-        case 'Assessment Test': {
+        case ASSESSMENT_TEST: {
           return {
             ...state.course,
             assessmentTest: action.payload.assessmentTest,
@@ -100,7 +104,7 @@ export const getUpdatedCourse = ({ state, action }) => {
 
     case REQUEST_TYPES.UPDATE: {
       switch (state.dataType) {
-        case 'Course Unit': {
+        case COURSE_UNIT: {
           return {
             ...state.course,
             courseContent: {
@@ -115,7 +119,7 @@ export const getUpdatedCourse = ({ state, action }) => {
           }
         }
 
-        case 'Section Test': {
+        case SECTION_TEST: {
           const sectionIndex = _.findIndex(state.course.courseContent.sections, [ 'id', action.payload.sectionId ])
           const updatedSections = _.cloneDeep(state.course.courseContent.sections)
           updatedSections[ sectionIndex ].status = 'completed'
@@ -139,7 +143,7 @@ export const getUpdatedCourse = ({ state, action }) => {
 
     case REQUEST_TYPES.CREATE: {
       switch (state.dataType) {
-        case 'Assessment Test': {
+        case ASSESSMENT_TEST: {
           return {
             ...state.course,
             sectionsCompleted: state.course.courseContent.sections.length,
@@ -166,13 +170,13 @@ export const updateTestEntriesReducer = ({ state, action }) => {
   switch (state.requestType) {
     case REQUEST_TYPES.FETCH: {
       switch (state.dataType) {
-        case 'All Test Entries': {
+        case ALL_TEST_ENTRIES: {
           return {
             ...action.payload.testEntriesData,
           }
         }
 
-        case 'Test Entry Answers': {
+        case TEST_ENTRY_ANSWERS: {
           const testEntryIndex = _.findIndex(
             state.courseTestEntries.testEntries,
             { testType: action.payload.testType, candidateId: action.payload.candidateId },
@@ -194,7 +198,7 @@ export const updateTestEntriesReducer = ({ state, action }) => {
 
     case REQUEST_TYPES.UPDATE: {
       switch (state.dataType) {
-        case 'Validate Answers': {
+        case VALIDATE_ANSWERS: {
           const testEntryIndex = _.findIndex(
             state.courseTestEntries.testEntries,
             { testType: action.payload.testType, candidateId: action.payload.candidateId },

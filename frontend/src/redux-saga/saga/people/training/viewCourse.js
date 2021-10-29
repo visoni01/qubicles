@@ -5,6 +5,9 @@ import {
   viewCourseRequestStart, viewCourseRequestSuccess, viewCourseRequestFailed, showErrorMessage,
   courseRatingsFetchSuccessful,
 } from '../../../redux/actions'
+import {
+  ASSESSMENT_TEST, BUY_COURSE, COURSE_INFO, COURSE_UNIT, SECTION_TEST, START_COURSE,
+} from '../../../redux/constants'
 import People from '../../../service/people'
 
 function* viewCourseWatcher() {
@@ -20,32 +23,32 @@ function* viewCourseWorker(action) {
     switch (requestType) {
       case REQUEST_TYPES.FETCH: {
         switch (dataType) {
-          case 'Course Info': {
+          case COURSE_INFO: {
             const { data } = yield People.fetchViewCourse({ courseId })
             yield put(viewCourseRequestSuccess({ course: data }))
             break
           }
 
-          case 'Start Course': {
+          case START_COURSE: {
             const { data } = yield People.startCourse({ courseId })
             yield put(viewCourseRequestSuccess({ courseDetails: data }))
             yield put(courseRatingsFetchSuccessful({ addReviewAccess: true }))
             break
           }
 
-          case 'Section Test': {
+          case SECTION_TEST: {
             const { data } = yield People.fetchSectionTest({ courseId, sectionId })
             yield put(viewCourseRequestSuccess({ sectionTest: data, sectionId }))
             break
           }
 
-          case 'Buy Course': {
+          case BUY_COURSE: {
             const { data } = yield People.buyCourse({ courseId })
             yield put(viewCourseRequestSuccess({ course: data }))
             break
           }
 
-          case 'Assessment Test': {
+          case ASSESSMENT_TEST: {
             const { data } = yield People.fetchAssessmentTest({ courseId })
             yield put(viewCourseRequestSuccess({ assessmentTest: data }))
             break
@@ -58,13 +61,13 @@ function* viewCourseWorker(action) {
 
       case REQUEST_TYPES.UPDATE: {
         switch (dataType) {
-          case 'Course Unit': {
+          case COURSE_UNIT: {
             const { data } = yield People.fetchAndUpdateCourseUnit({ courseId, unitId, status })
             yield put(viewCourseRequestSuccess({ unit: data, sectionId }))
             break
           }
 
-          case 'Section Test': {
+          case SECTION_TEST: {
             const { data } = yield People.submitSectionTest({
               courseId, sectionId, questions, courseStatus,
             })
@@ -79,7 +82,7 @@ function* viewCourseWorker(action) {
 
       case REQUEST_TYPES.CREATE: {
         switch (dataType) {
-          case 'Assessment Test': {
+          case ASSESSMENT_TEST: {
             const { data } = yield People.submitAssessmentTest({ courseId, questions })
             yield put(viewCourseRequestSuccess({ assessmentTest: data }))
             break
