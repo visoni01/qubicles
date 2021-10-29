@@ -1434,7 +1434,7 @@ export const formatCourseCard = ({ course, totalRaters }) => {
   }
 }
 
-export async function getAllViewCourses ({ searchField, categoryId, courseFilter, offset }) {
+export async function getAllViewCourses ({ searchField, categoryId, courseFilter, offset, creatorIds }) {
   let query = {
     status: 'published'
   }
@@ -1457,6 +1457,13 @@ export async function getAllViewCourses ({ searchField, categoryId, courseFilter
     query = {
       ...query,
       category_id: categoryId
+    }
+  }
+
+  if (!_.isEmpty(creatorIds)) {
+    query = {
+      ...query,
+      creator_id: creatorIds
     }
   }
 

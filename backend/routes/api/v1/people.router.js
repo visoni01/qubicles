@@ -115,6 +115,9 @@ peopleRouter.route('/course/:course_id/reviews')
 peopleRouter.route('/course/:course_id/reviews')
   .post(isAuthenticated, trainingController.addCourseReview)
 
+peopleRouter.route('/courses/company-courses')
+  .get(isAuthenticated, trainingController.getCompanyCourses)
+
 peopleRouter.route('/required-courses')
   .get(isAuthenticated, trainingController.getAllCourses)
 

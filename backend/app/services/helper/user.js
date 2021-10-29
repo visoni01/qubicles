@@ -484,3 +484,16 @@ export const formatCompaniesList = ({ clientDetails }) => {
     companyName: company.client_name
   }))
 }
+
+export const fetchCompaniesUsers = async ({ clientIds }) => {
+  const companiesUsers = await XQodApplication.findAll({
+    raw: true,
+    attributes: ['user_id'],
+    where: {
+      client_id: clientIds,
+      status: 'hired'
+    }
+  })
+
+  return companiesUsers && companiesUsers.map((company) => company.user_id)
+}
