@@ -3,7 +3,9 @@ import Sequelize, { Op } from 'sequelize'
 import _ from 'lodash'
 import config from '../../../config/app'
 import { getOne } from './crud'
-import { User, XClientUser, UserDetail, XClient, XUserActivity, XUserNotification } from '../../db/models'
+import {
+  User, XClientUser, UserDetail, XClient, XUserActivity, XUserNotification, XQodApplication
+} from '../../db/models'
 
 export const getUserById = ({ user_id }) => {
   return User.findOne({ where: { user_id }, raw: true })
@@ -449,4 +451,36 @@ export const getUserDetailsByUserId = async ({ user_id }) => {
 
     return result
   }
+}
+
+export const fetchUserCompanies = async ({ user_id }) => {
+  const companiesList = await XQodApplication.findAll({
+    raw: true,
+    attributes: ['client_id'],
+    where: {
+      user_id,
+      status: 'hired'
+    }
+  })
+
+  return companiesList && companiesList.map((company) => company.client_id)
+}
+
+export const fetchClientDetails = async ({ clientIds }) => {
+  const clientDetails = await XClient.findAll({
+    raw: true,
+    attributes: ['client_id', 'client_name'],
+    where: {
+      client_id: clientIds
+    }
+  })
+
+  return clientDetails
+}
+
+export const formatCompaniesList = ({ clientDetails }) => {
+  return clientDetails.map((company) => ({
+    companyId: company.client_id,
+    companyName: company.client_name
+  }))
 }

@@ -75,7 +75,7 @@ const CompanyFilter = () => {
               </ListItemText>
             </MenuItem>
 
-            { companiesList?.map((company) => (
+            {companiesList?.map((company) => (
               <MenuItem
                 button
                 key={ company.companyId }

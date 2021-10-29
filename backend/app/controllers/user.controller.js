@@ -15,7 +15,8 @@ import {
   UserBlockService,
   UserGetNotificationsService,
   UserReadNotificationsService,
-  UserDeleteNotificationService
+  UserDeleteNotificationService,
+  GetUserCompaniesService
 } from '../services/user'
 import { getNewTokenAfterUserCodeChanged } from '../services/helper'
 import config from '../../config/app'
@@ -181,6 +182,15 @@ export default class UserController {
       Responder.success(res, notification.result)
     } else {
       Responder.failed(res, notification.errors)
+    }
+  }
+
+  static async getUserCompanies (req, res) {
+    const companiesList = await GetUserCompaniesService.execute({ ...req.params, ...req.body })
+    if (companiesList.successful) {
+      Responder.success(res, companiesList.result)
+    } else {
+      Responder.failed(res, companiesList.errors)
     }
   }
 }
