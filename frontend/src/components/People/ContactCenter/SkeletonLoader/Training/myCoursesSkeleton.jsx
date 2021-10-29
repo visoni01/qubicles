@@ -1,8 +1,8 @@
 import React from 'react'
 import { Skeleton } from '@material-ui/lab'
 import { Box, Grid } from '@material-ui/core'
-import './styles.scss'
 import MyCourseCardSkeleton from './myCourseCardSkeleton'
+import './styles.scss'
 
 const MyCoursesSkeleton = () => (
   <Box className='custom-box my-courses-skeleton-container'>

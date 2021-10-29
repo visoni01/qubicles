@@ -8,6 +8,7 @@ const JobApplicationBox = ({ applicationList, categoryName }) => (
     <h3 className='h3'>
       {`${ categoryName } (${ applicationList.length })`}
     </h3>
+
     {applicationList.map((jobApplication) => (
       <JobApplicationCard
         key={ jobApplication.application.applicationId }
@@ -16,10 +17,11 @@ const JobApplicationBox = ({ applicationList, categoryName }) => (
         categoryName={ categoryName }
       />
     ))}
+
     {(applicationList && applicationList.length === 0) && (
       <div className='mt-10 mb-10'>
         <div className='text-align-last-center'>
-          <h3 className=' h3'>No applications found!</h3>
+          <h3 className=' h3'> No applications found! </h3>
         </div>
       </div>
     ) }

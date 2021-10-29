@@ -13,10 +13,9 @@ export default function IntegrationSection() {
       <div className='integration-section '>
 
         {/* API Section */}
-
         <div className='sub-section'>
-          <h3 className='h3 mb-20'>API </h3>
-          <h4 className='h4 mb-20'>API Token </h4>
+          <h3 className='h3 mb-20'> API </h3>
+          <h4 className='h4 mb-20'> API Token </h4>
           <div className='inline-block'>
             <span className='para mr-30'> JzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ikpva </span>
             <Button
@@ -34,13 +33,13 @@ export default function IntegrationSection() {
 
         {/* FTP Section */}
         <div className='sub-section'>
-          <h3 className='h3 mb-20'>FTP </h3>
+          <h3 className='h3 mb-20'> FTP </h3>
           <p className='para mb-20'>
             Enter your FTP information in the fields below.
             We will use this to push data from us to you, such as call recordings, etc.
           </p>
           <div className='inline-block flex mb-20'>
-            <h4 className='h4 mr-30'>Active </h4>
+            <h4 className='h4 mr-30'> Active </h4>
             <Switch className='switches' color='primary' />
           </div>
           <Grid container spacing={ 3 }>

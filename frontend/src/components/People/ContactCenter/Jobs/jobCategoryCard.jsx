@@ -29,9 +29,7 @@ const JobCategoryCard = ({
   return (
     <div className='job-category-card list-divider pb-15' key={ categoryId }>
       <div className='section-heading display-inline-flex is-fullwidth'>
-        <h3 className='h3 light'>
-          { categoryTitle }
-        </h3>
+        <h3 className='h3 light'>{ categoryTitle }</h3>
       </div>
 
       <div>
@@ -65,24 +63,24 @@ const JobCategoryCard = ({
                       <li>
                         <FontAwesomeIcon className='custom-fa-icon light' icon={ faUserFriends } />
                         <span className='para bold'>{`${ fulfilled }/${ needed || inNeed }`}</span>
-                        <span className='para light ml-5'>Hired</span>
+                        <span className='para light ml-5'> Hired </span>
                       </li>
                       <li>
                         <FontAwesomeIcon className='custom-fa-icon light' icon={ faRedo } />
                         <span className='para bold'>{evaluating}</span>
-                        <span className='para light ml-5'>Evaluating</span>
+                        <span className='para light ml-5'> Evaluating </span>
                       </li>
                       <li>
                         <FontAwesomeIcon className='custom-fa-icon light' icon={ faEnvelope } />
                         <span className='para bold'>{pending}</span>
-                        <span className='para light ml-5'>Pending Applications</span>
+                        <span className='para light ml-5'> Pending Applications </span>
                       </li>
                     </ul>
                   </div>
                   {pending !== 0 && (
-                  <div className='blue-dot-notification'>
-                    <FontAwesomeIcon icon={ faCircle } className='custom-fa-icon sz-xs' />
-                  </div>
+                    <div className='blue-dot-notification'>
+                      <FontAwesomeIcon icon={ faCircle } className='custom-fa-icon sz-xs' />
+                    </div>
                   )}
                 </div>
               </div>

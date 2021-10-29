@@ -3,16 +3,11 @@ import PropTypes from 'prop-types'
 import JobsCard from '../../../../containers/Profile/OtherCompany/LeftRightSection/jobsCard'
 import '../../../../containers/Profile/OtherCompany/styles.scss'
 
-const OpenPositionsCard = ({
-  categoryTitle,
-  jobs,
-}) => (
+const OpenPositionsCard = ({ categoryTitle, jobs }) => (
   <div className='mt-10'>
-    {
-        jobs.map((job) => (
-          <JobsCard key={ job.job_id } categoryTitle={ categoryTitle } job={ job } />
-        ))
-      }
+    {jobs.map((job) => (
+      <JobsCard key={ job.job_id } categoryTitle={ categoryTitle } job={ job } />
+    ))}
   </div>
 )
 

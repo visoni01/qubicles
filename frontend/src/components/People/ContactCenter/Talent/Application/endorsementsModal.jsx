@@ -22,8 +22,9 @@ const Endorsements = ({
   >
     <div className='header'>
       <DialogTitle>
-        <div className='h2'>Endorsements</div>
+        <div className='h2'> Endorsements </div>
       </DialogTitle>
+
       <DialogActions className='cross-button'>
         <IconButton
           className='is-size-6'
@@ -33,10 +34,9 @@ const Endorsements = ({
         </IconButton>
       </DialogActions>
     </div>
+
     <DialogContent>
-      <h3 className='h3 mb-10'>
-        {skillName}
-      </h3>
+      <h3 className='h3 mb-10'>{skillName}</h3>
       {endorsementsList.map((endorsement) => (
         <div key={ endorsement.id } className='endorsement-section list-divider'>
           <Avatar
@@ -46,9 +46,7 @@ const Endorsements = ({
           />
           <div className='middle-part mb-10'>
             <div className='display-inline-flex'>
-              <p className='para bold'>
-                {endorsement.userProfile.name}
-              </p>
+              <p className='para bold'>{endorsement.userProfile.name}</p>
               <Rating
                 className='rating-star'
                 name='read-only'
@@ -58,12 +56,8 @@ const Endorsements = ({
                 precision={ 0.5 }
               />
             </div>
-            <p className='para light'>
-              { endorsement.workTitle }
-            </p>
-            <p className='para mt-10'>
-              { endorsement.comment }
-            </p>
+            <p className='para light'>{ endorsement.workTitle }</p>
+            <p className='para mt-10'>{ endorsement.comment }</p>
           </div>
         </div>
       ))}

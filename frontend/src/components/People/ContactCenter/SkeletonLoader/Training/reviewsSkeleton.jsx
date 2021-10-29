@@ -1,6 +1,6 @@
 import React from 'react'
-import './styles.scss'
 import { Skeleton } from '@material-ui/lab'
+import './styles.scss'
 
 const CourseReviewsSkeleton = () => (
   <div className='course-reviews-skeleton-container'>

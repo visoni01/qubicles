@@ -12,9 +12,7 @@ import _ from 'lodash'
 import { JOB_ROUTE } from '../../../../routes/routesPath'
 import '../../../../containers/People/ContactCenter/Talent/styles.scss'
 
-const AgentJobCard = ({
-  job,
-}) => (
+const AgentJobCard = ({ job }) => (
   <div className='list-divider pb-10'>
     <div className='display-inline-flex talent-head'>
       <Avatar alt={ job.clientName } src={ job.clientPic } classes={ { root: 'avatar-md' } } />
@@ -48,9 +46,7 @@ const AgentJobCard = ({
       </div>
     </div>
     <div className='talent-content'>
-      <h4 className='mt-10 h4'>
-        {job.title}
-      </h4>
+      <h4 className='mt-10 h4'>{job.title}</h4>
       <div className='mb-10 mt-5 para short-description'>
         <p className='para' dangerouslySetInnerHTML={ { __html: job.description } } />
       </div>
@@ -60,7 +56,7 @@ const AgentJobCard = ({
         <li>
           <FontAwesomeIcon className='custom-fa-icon light' icon={ faUserFriends } />
           <span className='para bold'>{`${ job.fulfilled }/${ job.needed }`}</span>
-          <span className='para light ml-5'>Hired</span>
+          <span className='para light ml-5'> Hired </span>
         </li>
         <li>
           <FontAwesomeIcon className='custom-fa-icon light' icon={ faBriefcase } />

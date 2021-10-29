@@ -3,9 +3,7 @@ import {
   AppBar, Container, IconButton, InputBase,
 } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
-import {
-  chatIcon, walletIcon,
-} from '../../assets/images/icons/navBarIcons'
+import { chatIcon, walletIcon } from '../../assets/images/icons/navBarIcons'
 import UserMenu from '../../containers/Navbar/userMenu'
 import { SearchIcon } from '../../assets/images/common'
 import Notifications from '../../containers/Navbar/notifications'

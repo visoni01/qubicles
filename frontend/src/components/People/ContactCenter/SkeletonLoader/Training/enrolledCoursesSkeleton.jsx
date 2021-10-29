@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid } from '@material-ui/core'
-import './styles.scss'
 import CourseCardSkeleton from './courseCardSkeleton'
+import './styles.scss'
 
 const EnrolledCoursesSkeleton = () => (
   <div className='all-courses-skeleton-container'>

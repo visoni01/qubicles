@@ -24,6 +24,7 @@ const ConfirmationModal = ({
           <div className='h3'>{message}</div>
         </DialogTitle>
       </Grid>
+
       <Grid item xs={ 1 } sm={ 1 } md={ 1 } lg={ 1 } xl={ 1 }>
         <DialogActions className='cross-button'>
           <IconButton
@@ -35,6 +36,7 @@ const ConfirmationModal = ({
         </DialogActions>
       </Grid>
     </Grid>
+
     <DialogActions className='modal-actions'>
       <Button
         classes={ {

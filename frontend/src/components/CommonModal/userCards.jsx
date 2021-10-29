@@ -7,32 +7,30 @@ import TopCompanySkeleton from '../People/ContactCenter/SkeletonLoader/Common/to
 const UserCards = ({ isLoading, heading, userData }) => {
   if (isLoading) {
     return (
-      <>
-        <TopCompanySkeleton />
-      </>
+      <TopCompanySkeleton />
     )
   }
 
   return (
     <Box className='custom-box top-talent-root'>
-      <h3 className='h3'>
-        {heading}
-      </h3>
-      {userData && userData.length > 0 ? userData.map((user) => (
-        <UserCardItems
-          key={ user.itemId }
-          itemHeading={ user.itemHeading }
-          itemPic={ user.itemPic }
-          itemRating={ user.itemRating }
-          itemLink={ user.itemLink }
-          itemRoute={ user.itemRoute }
-          itemSubHeading={ user.itemSubHeading ? user.itemSubHeading : '' }
-        />
-      )) : (
-        <p className='para sz-lg mt-20'>
-          No users available...
-        </p>
-      )}
+      <h3 className='h3'>{heading}</h3>
+      {userData && userData.length > 0
+        ? userData.map((user) => (
+          <UserCardItems
+            key={ user.itemId }
+            itemHeading={ user.itemHeading }
+            itemPic={ user.itemPic }
+            itemRating={ user.itemRating }
+            itemLink={ user.itemLink }
+            itemRoute={ user.itemRoute }
+            itemSubHeading={ user.itemSubHeading ? user.itemSubHeading : '' }
+          />
+        ))
+        : (
+          <p className='para sz-lg mt-20'>
+            No users available...
+          </p>
+        )}
     </Box>
   )
 }

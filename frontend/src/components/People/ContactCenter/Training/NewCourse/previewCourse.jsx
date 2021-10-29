@@ -10,21 +10,11 @@ import CourseOverview from '../ViewCourse/CourseOverview'
 import CourseActions from '../../../../../containers/People/ContactCenter/Training/ViewCourse/CourseActions'
 
 const PreviewCreateCourse = ({
-  informationSection, contentSection, courseContent,
-  isPreview, setIsPreview, updateCourseReducer, course, handleErrors, isLoading, requestType, success, isCreator,
+  informationSection, contentSection, courseContent, isPreview, setIsPreview, updateCourseReducer, course,
+  handleErrors, isLoading, requestType, success, isCreator,
 }) => (
   <Grid container spacing={ 2 }>
-    <Grid
-      container
-      spacing={ 2 }
-      direction='column'
-      item
-      xl={ 9 }
-      lg={ 9 }
-      md={ 12 }
-      sm={ 12 }
-      xs={ 12 }
-    >
+    <Grid container spacing={ 2 } direction='column' item xl={ 9 } lg={ 9 } md={ 12 } sm={ 12 } xs={ 12 }>
       <Grid item>
         <CourseDescription
           title={ informationSection.title }
@@ -55,17 +45,8 @@ const PreviewCreateCourse = ({
         />
       </Grid>
     </Grid>
-    <Grid
-      container
-      spacing={ 2 }
-      direction='column'
-      item
-      xl={ 3 }
-      lg={ 3 }
-      md={ 12 }
-      sm={ 12 }
-      xs={ 12 }
-    >
+
+    <Grid container spacing={ 2 } direction='column' item xl={ 3 } lg={ 3 } md={ 12 } sm={ 12 } xs={ 12 }>
       <Grid item>
         <NewCourseActions
           isPreview={ isPreview }

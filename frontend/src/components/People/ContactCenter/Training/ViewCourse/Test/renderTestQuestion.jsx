@@ -40,45 +40,44 @@ const TestQuestion = ({
 
           {/* Checkbox question */}
           {question.questionType === 'checkbox' && (
-          <CheckboxTestQuestion
-            question={ question }
-            answers={ answers }
-            setAnswers={ setAnswers }
-            additionalAnswerFields={ additionalAnswerFields }
-          />
+            <CheckboxTestQuestion
+              question={ question }
+              answers={ answers }
+              setAnswers={ setAnswers }
+              additionalAnswerFields={ additionalAnswerFields }
+            />
           )}
 
           {/* Text type question */}
           { [ 'paragraph', 'text' ].includes(question.questionType) && (
-          <TextTestQuestion
-            question={ question }
-            answers={ answers }
-            setAnswers={ setAnswers }
-            additionalAnswerFields={ additionalAnswerFields }
-          />
+            <TextTestQuestion
+              question={ question }
+              answers={ answers }
+              setAnswers={ setAnswers }
+              additionalAnswerFields={ additionalAnswerFields }
+            />
           )}
 
           {/* Date Time question */}
           { question.questionType === 'date' && (
-          <DateTimeTestQuestion
-            question={ question }
-            answers={ answers }
-            setAnswers={ setAnswers }
-            additionalAnswerFields={ additionalAnswerFields }
-          />
+            <DateTimeTestQuestion
+              question={ question }
+              answers={ answers }
+              setAnswers={ setAnswers }
+              additionalAnswerFields={ additionalAnswerFields }
+            />
           )}
 
           {/* Scale question */}
           {question.questionType === 'scale' && (
-          <ScaleTestQuestion
-            question={ question }
-            answers={ answers }
-            setAnswers={ setAnswers }
-            additionalAnswerFields={ additionalAnswerFields }
-          />
+            <ScaleTestQuestion
+              question={ question }
+              answers={ answers }
+              setAnswers={ setAnswers }
+              additionalAnswerFields={ additionalAnswerFields }
+            />
           )}
         </Grid>
-
       </Grid>
     </div>
   </div>

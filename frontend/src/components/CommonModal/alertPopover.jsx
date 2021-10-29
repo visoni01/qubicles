@@ -22,20 +22,17 @@ const AlertPopover = ({
         <Button
           color='inherit'
           size='small'
-          classes={ {
-            label: 'para bold sz-xl',
-          } }
+          classes={ { label: 'para bold sz-xl' } }
           onClick={ buttonOnClick }
         >
           OK
         </Button>
-        ) }
+      ) }
     >
       <AlertTitle>
-        <div>
-          <h3 className='h3'>{alertTitle}</h3>
-        </div>
+        <div className='h3'>{alertTitle}</div>
       </AlertTitle>
+
       <p className='para bold'>{alertBody}</p>
     </Alert>
   </Popover>

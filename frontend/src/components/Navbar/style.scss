@@ -21,14 +21,17 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-content: space-around;
+
     .option {
       display: flex;
       justify-content: flex-start;
       background-color: $color-white;
+
       .option-icon {
         flex: 1;
         margin: auto;
       }
+
       .option-name {
         flex: 2;
         margin: 5px;
@@ -56,6 +59,7 @@
     min-height: 100vh;
 		float: right;
     width: calc(100% - 80px);
+
     .route-component {
       margin-top: 84px;
       padding: 10px 30px 30px;
@@ -66,9 +70,11 @@
 .topbar-root {
   width: inherit !important;
   background-color: $color-background !important;
+
   .topbar-toolbar {
     padding: 12px 30px;
   }
+
   .search-input {
     background: $color-white 0% 0% no-repeat padding-box;
     border: 1px solid $color-border;
@@ -76,10 +82,11 @@
     opacity: 1;
     height: 45px;
     margin: auto;
-      .input-field {
-        height: 100%;
-        width: calc(100% - 36px);
-      }
+
+    .input-field {
+      height: 100%;
+      width: calc(100% - 36px);
+    }
   }
 
   .topbar-icons {
@@ -98,6 +105,7 @@
   .topbar-avatar {
     margin: auto 0px auto 0px;
     background-color: $color-background;
+
     .avatar {
       margin: auto
     }
@@ -108,9 +116,10 @@
   .qubicles-logo{
     text-align: center;
     margin-bottom: 20px;
+
     img {
-        max-width: 80px !important;
-      }
+      max-width: 80px !important;
+    }
   }
 
   .menu-list {
@@ -121,19 +130,23 @@
 
       .menu-item-icon-root {
         margin: 5px 0px;
+
         svg {
           margin: auto;
         }
       }
+
       .menu-item-title {
         font-size: 14px;
         text-align: center;
       }
     }
+
     .menu-item-gutter {
       padding: 10px 0px;
       margin: auto;
     }
+
     a {
       padding: 0;
     }

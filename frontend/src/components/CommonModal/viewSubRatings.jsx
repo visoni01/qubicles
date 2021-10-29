@@ -13,27 +13,28 @@ const ViewSetSubRatings = ({
           <img src={ item.icon } alt={ item.label } />
           <div className='ml-10 text-align-start'>
             <h3 className='h3 font-size-16x ml-10'>{ item.label }</h3>
-            { onlyView ? (
-              <Rating
-                name={ item.name }
-                className='rating-star'
-                classes={ { label: 'rating-star-label' } }
-                size='large'
-                readOnly
-                precision={ 0.5 }
-                value={ Number(rating[ item.name ]) }
-              />
-            ) : (
-              <Rating
-                name={ item.name }
-                className='rating-star mt-5'
-                classes={ { label: 'rating-star-label' } }
-                size='large'
-                precision={ 1 }
-                value={ Number(rating[ item.name ]) }
-                onChange={ (_, val) => setRating((current) => ({ ...current, [ item.name ]: val })) }
-              />
-            )}
+            {onlyView
+              ? (
+                <Rating
+                  name={ item.name }
+                  className='rating-star'
+                  classes={ { label: 'rating-star-label' } }
+                  size='large'
+                  readOnly
+                  precision={ 0.5 }
+                  value={ Number(rating[ item.name ]) }
+                />
+              ) : (
+                <Rating
+                  name={ item.name }
+                  className='rating-star mt-5'
+                  classes={ { label: 'rating-star-label' } }
+                  size='large'
+                  precision={ 1 }
+                  value={ Number(rating[ item.name ]) }
+                  onChange={ (_, val) => setRating((current) => ({ ...current, [ item.name ]: val })) }
+                />
+              )}
           </div>
         </div>
       </Grid>

@@ -14,14 +14,7 @@ import { REQUEST_TYPES } from '../../utils/constants'
 // import { formatDate } from '../../utils/common'
 
 const Introduction = ({
-  imageName,
-  rating,
-  imageSrc,
-  name,
-  location,
-  userDetails,
-  candidateId,
-  hasBlockedUser,
+  imageName, rating, imageSrc, name, location, userDetails, candidateId, hasBlockedUser,
   // date,
 }) => {
   const dispatch = useDispatch()
@@ -29,9 +22,7 @@ const Introduction = ({
   const handleCopyProfileUrl = useCallback(() => {
     navigator.clipboard.writeText(window.location.href)
 
-    dispatch(showSuccessMessage({
-      msg: 'Url copied successfully!',
-    }))
+    dispatch(showSuccessMessage({ msg: 'Url copied successfully!' }))
   }, [ dispatch ])
 
   const handleConfirmModal = useCallback(() => {

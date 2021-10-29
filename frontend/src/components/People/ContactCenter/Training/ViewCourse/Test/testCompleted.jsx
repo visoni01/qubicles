@@ -3,9 +3,7 @@ import PropTypes from 'prop-types'
 import { Grid, LinearProgress } from '@material-ui/core'
 import { TestDoneIcon } from '../../../../../../assets/images/training'
 
-const TestCompleted = ({
-  totalAnswered, totalQuestions,
-}) => (
+const TestCompleted = ({ totalAnswered, totalQuestions }) => (
   <div>
     <div className='mb-20'>
       <div className='para bold sz-lg'>
@@ -29,7 +27,7 @@ const TestCompleted = ({
           <TestDoneIcon />
         </Grid>
         <Grid item className='align-self-center'>
-          <h2 className='h2'>Well Done!</h2>
+          <h2 className='h2'> Well Done! </h2>
         </Grid>
         <Grid item className='align-self-center'>
           <p className='para sz-xl text-center ml-30 mr-30'>

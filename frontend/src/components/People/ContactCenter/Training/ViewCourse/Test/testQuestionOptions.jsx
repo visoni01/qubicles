@@ -5,9 +5,7 @@ import { checkDisabledSaveQuestionButton } from
   '../../../../../../containers/People/ContactCenter/Training/NewCourse/CourseContent/helper'
 import { testQuestionPropType } from '../../../../../../containers/People/ContactCenter/Training/NewCourse/propTypes'
 
-const TestQuestionOptions = ({
-  handleDeleteQuestion, handleSaveQuestion, questionDetails,
-}) => (
+const TestQuestionOptions = ({ handleDeleteQuestion, handleSaveQuestion, questionDetails }) => (
   <div className='display-inline-flex is-fullwidth justify-center mt-10'>
     <div className='margin-10'>
       <Button
@@ -33,7 +31,6 @@ const TestQuestionOptions = ({
         Save Question
       </Button>
     </div>
-
   </div>
 )
 

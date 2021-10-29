@@ -30,7 +30,9 @@ const ProfilePreview = ({
         image={ profilePic || defaultUser }
         className='profile-picture'
       />
+
       <h4 className='h4 ml-10 mt-10'>{name || 'N/A'}</h4>
+
       <Link
         className='text-link ml-10'
         to={ `${ clientId ? COMPANY_PROFILE_ROUTE : PROFILE_ROUTE }/${ clientId || userId }/feed` }

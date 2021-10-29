@@ -195,28 +195,33 @@ export const setDoumentTitle = ({ location }) => {
 export const getUniqueId = () => (Date.now() + Math.random()).toString()
 
 export const getNotificationMessage = ({ type, payload }) => {
+  const {
+    FOLLOW, CANCEL_APPLICATION, INVITE_FOR_JOB, HIRE_FOR_JOB, JOB_APPLIED, ACCEPT_JOB_INVITATION, RESIGN_JOB,
+    REFERRAL_SIGNUP,
+  } = NOTIFICATION_MESSAGES
+
   switch (type) {
-    case NOTIFICATION_MESSAGES.FOLLOW: {
+    case FOLLOW: {
       return `<span>Hi <a href="${ config.APP_BASE_URL }${ PROFILE_ROUTE }/${ payload.userId }/resume"
         target="_blank">${ payload.userName }</a>, <a href="
         ${ config.APP_BASE_URL }${ PROFILE_ROUTE }/${ payload.id }/resume" target="_blank">${ payload.name }
         </a> has started following you.</span>`
     }
 
-    case NOTIFICATION_MESSAGES.CANCEL_APPLICATION: {
+    case CANCEL_APPLICATION: {
       return `<span>We're sorry <a href="${ config.APP_BASE_URL }${ PROFILE_ROUTE }/${
         payload.id }/resume" target="_blank">${ payload.name }</a>, but your application for <a href="
         ${ config.APP_BASE_URL }${ JOB_ROUTE }/${ payload.jobId }" target="_blank">${ payload.jobTitle }
         </a> has been cancelled.</span>`
     }
 
-    case NOTIFICATION_MESSAGES.INVITE_FOR_JOB: {
+    case INVITE_FOR_JOB: {
       return `<span>Hi <a href="${ config.APP_BASE_URL }${ PROFILE_ROUTE }/${ payload.id }/resume" target="_blank">${
         payload.name }</a>. You have been invited to join <a href="
         ${ config.APP_BASE_URL }${ JOB_ROUTE }/${ payload.jobId }" target="_blank">${ payload.jobTitle }</a>!</span>`
     }
 
-    case NOTIFICATION_MESSAGES.HIRE_FOR_JOB: {
+    case HIRE_FOR_JOB: {
       return `<span>Congratulations, <a href="${ config.APP_BASE_URL }${ PROFILE_ROUTE }/${
         payload.id }/resume" target="_blank">${ payload.name }</a>! You have been hired for the position <a href="
         ${ config.APP_BASE_URL }${ JOB_ROUTE }/${ payload.jobId }" target="_blank">${ payload.jobTitle }
@@ -224,25 +229,25 @@ export const getNotificationMessage = ({ type, payload }) => {
         target="_blank">${ payload.companyName }</a>!</span>`
     }
 
-    case NOTIFICATION_MESSAGES.JOB_APPLIED: {
+    case JOB_APPLIED: {
       return `<span><a href="${ config.APP_BASE_URL }${ PROFILE_ROUTE }/${ payload.userId }/resume" target="_blank">${
         payload.userName }</a> just applied to your job <a href="
         ${ config.APP_BASE_URL }${ JOB_ROUTE }/${ payload.jobId }" target="_blank">${ payload.jobTitle }</a>.</span>`
     }
 
-    case NOTIFICATION_MESSAGES.ACCEPT_JOB_INVITATION: {
+    case ACCEPT_JOB_INVITATION: {
       return `<span><a href="${ config.APP_BASE_URL }${ PROFILE_ROUTE }/${ payload.userId }/resume" target="_blank">${
         payload.userName }</a> has accepted your invitation <a href="
         ${ config.APP_BASE_URL }${ JOB_ROUTE }/${ payload.jobId }" target="_blank">${ payload.jobTitle }</a>.</span>`
     }
 
-    case NOTIFICATION_MESSAGES.RESIGN_JOB: {
+    case RESIGN_JOB: {
       return `<span><a href="${ config.APP_BASE_URL }${ PROFILE_ROUTE }/${ payload.userId }/resume" target="_blank">${
         payload.userName }</a> has resigned from your job <a href="
         ${ config.APP_BASE_URL }${ JOB_ROUTE }/${ payload.jobId }" target="_blank">${ payload.jobTitle }</a>.</span>`
     }
 
-    case NOTIFICATION_MESSAGES.REFERRAL_SIGNUP: {
+    case REFERRAL_SIGNUP: {
       return `<span>Congrats - you’ve just earned free crypto! <a href="${ config.APP_BASE_URL }${ PROFILE_ROUTE }/${
         payload.id }/feed" target="_blank">${ payload.name }</a> has accepted your invitation to sign up!</span>`
     }
@@ -252,37 +257,42 @@ export const getNotificationMessage = ({ type, payload }) => {
 }
 
 export const getSmsNotificationMessage = ({ type, payload }) => {
+  const {
+    FOLLOW, CANCEL_APPLICATION, INVITE_FOR_JOB, HIRE_FOR_JOB, JOB_APPLIED, ACCEPT_JOB_INVITATION, RESIGN_JOB,
+    REFERRAL_SIGNUP,
+  } = NOTIFICATION_MESSAGES
+
   switch (type) {
-    case NOTIFICATION_MESSAGES.FOLLOW: {
+    case FOLLOW: {
       return `Hi ${ payload.userName }, ${ payload.name } has started following you.`
     }
 
-    case NOTIFICATION_MESSAGES.CANCEL_APPLICATION: {
+    case CANCEL_APPLICATION: {
       return `We're sorry ${ payload.name }, but your application for ${ payload.jobTitle } has been cancelled.`
     }
 
-    case NOTIFICATION_MESSAGES.INVITE_FOR_JOB: {
+    case INVITE_FOR_JOB: {
       return `Hi ${ payload.name }, you have been invited to join ${ payload.jobTitle }!`
     }
 
-    case NOTIFICATION_MESSAGES.HIRE_FOR_JOB: {
+    case HIRE_FOR_JOB: {
       return `Congratulations, ${ payload.name }! You have been hired for the position ${ payload.jobTitle }
         with Company ${ payload.companyName }!`
     }
 
-    case NOTIFICATION_MESSAGES.JOB_APPLIED: {
+    case JOB_APPLIED: {
       return `${ payload.userName } just applied to your job ${ payload.jobTitle }.`
     }
 
-    case NOTIFICATION_MESSAGES.ACCEPT_JOB_INVITATION: {
+    case ACCEPT_JOB_INVITATION: {
       return `${ payload.userName } has accepted your invitation for ${ payload.jobTitle }.`
     }
 
-    case NOTIFICATION_MESSAGES.RESIGN_JOB: {
+    case RESIGN_JOB: {
       return `${ payload.userName } has resigned from your job ${ payload.jobTitle }.`
     }
 
-    case NOTIFICATION_MESSAGES.REFERRAL_SIGNUP: {
+    case REFERRAL_SIGNUP: {
       return `Congrats - you’ve just earned free crypto! ${ payload.name } has accepted your invitation to sign up!`
     }
 
@@ -291,41 +301,46 @@ export const getSmsNotificationMessage = ({ type, payload }) => {
 }
 
 export const getChatNotificationMessage = ({ type, payload }) => {
+  const {
+    NEW_CHAT, NEW_GROUP, ADD_PEOPLE, REMOVE_PERSON, ADD_GROUP_NAME, REMOVE_GROUP_NAME, CHANGE_GROUP_NAME,
+    LEAVE_GROUP,
+  } = CHAT_NOTIFICATION_MESSAGES
+
   switch (type) {
-    case CHAT_NOTIFICATION_MESSAGES.NEW_CHAT: {
+    case NEW_CHAT: {
       return `<span><b class=${ payload.userId }>${ payload.userName }</b> started a new chat</span>`
     }
 
-    case CHAT_NOTIFICATION_MESSAGES.NEW_GROUP: {
+    case NEW_GROUP: {
       return `<span><b class=${ payload.userId }>${ payload.userName }</b> created the group
         <b>${ payload.groupName }</b></span>`
     }
 
-    case CHAT_NOTIFICATION_MESSAGES.ADD_PEOPLE: {
+    case ADD_PEOPLE: {
       return `<span><b class=${ payload.userId }>${ payload.userName }</b> added <b>${ payload.usersName }</b></span>`
     }
 
-    case CHAT_NOTIFICATION_MESSAGES.REMOVE_PERSON: {
+    case REMOVE_PERSON: {
       return `<span><b class=${ payload.userId }>${ payload.userName }</b> removed
         <b class=${ payload.otherUserId }>${ payload.otherUserName }</b></span>`
     }
 
-    case CHAT_NOTIFICATION_MESSAGES.ADD_GROUP_NAME: {
+    case ADD_GROUP_NAME: {
       return `<span><b class=${ payload.userId }>${ payload.userName }</b> added the group name
         <b>${ payload.newGroupName }</b></span>`
     }
 
-    case CHAT_NOTIFICATION_MESSAGES.REMOVE_GROUP_NAME: {
+    case REMOVE_GROUP_NAME: {
       return `<span><b class=${ payload.userId }>${ payload.userName }</b> removed the group name
         <b>${ payload.oldGroupName }</b></span>`
     }
 
-    case CHAT_NOTIFICATION_MESSAGES.CHANGE_GROUP_NAME: {
+    case CHANGE_GROUP_NAME: {
       return `<span><b class=${ payload.userId }>${ payload.userName }</b> changed the group name from
         <b>${ payload.oldGroupName }</b> to <b>${ payload.newGroupName }</b></span>`
     }
 
-    case CHAT_NOTIFICATION_MESSAGES.LEAVE_GROUP: {
+    case LEAVE_GROUP: {
       return `<span><b class=${ payload.userId }>${ payload.userName }</b> left the group</span>`
     }
 

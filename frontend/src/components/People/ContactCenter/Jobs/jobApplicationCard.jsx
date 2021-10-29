@@ -20,9 +20,7 @@ const JobApplicationCard = ({ application, userDetails }) => (
       <div className='candidate-info'>
         <div className='head-with-link'>
           <div className='candidate-head'>
-            <h4 className='h4'>
-              {userDetails.fullName}
-            </h4>
+            <h4 className='h4'>{userDetails.fullName}</h4>
             <Rating
               className='rating-star'
               name='read-only'
@@ -36,18 +34,12 @@ const JobApplicationCard = ({ application, userDetails }) => (
             <span className='primary-text-link float-right'> View full application </span>
           </Link>
         </div>
-        <p className='para light  sz-sm '>
-          {userDetails.title}
-        </p>
+        <p className='para light sz-sm '>{userDetails.title}</p>
       </div>
     </div>
-    <p className='para light mt-15 mb-5'>
-      {`Received ${ getTimeFromNow(application.createdOn) }`}
-    </p>
+    <p className='para light mt-15 mb-5'>{`Received ${ getTimeFromNow(application.createdOn) }`}</p>
 
-    <p className='para short-description'>
-      {userDetails.summary}
-    </p>
+    <p className='para short-description'>{userDetails.summary}</p>
 
     <JobApplicationButtons
       application={ application }

@@ -27,20 +27,19 @@ const CourseOverview = ({
   }
 
   return (
-    <>
-      <Box className='custom-box course-overview-root'>
-        <div className='heading-section mb-20'>
-          <h3 className='h3'>Overview</h3>
-          <p className='contents para mt-10'>
-            {`${ sections && !_.isEmpty(sections) && !_.isEmpty(sections[ 0 ].units) ? sections.length : 0 } sections`}
-            <FontAwesomeIcon className='custom-fa-icon' icon={ faCircle } />
-            {`${ sections.reduce(
-              (totalUnits, section) => totalUnits + section.units.length,
-              introVideo ? 1 : 0,
-            ) } units`}
-          </p>
-        </div>
-        {sections && !_.isEmpty(sections) && !_.isEmpty(sections[ 0 ].units) && !_.isEmpty(sections[ 0 ].units) && (
+    <Box className='custom-box course-overview-root'>
+      <div className='heading-section mb-20'>
+        <h3 className='h3'> Overview </h3>
+        <p className='contents para mt-10'>
+          {`${ sections && !_.isEmpty(sections) && !_.isEmpty(sections[ 0 ].units) ? sections.length : 0 } sections`}
+          <FontAwesomeIcon className='custom-fa-icon' icon={ faCircle } />
+          {`${ sections.reduce(
+            (totalUnits, section) => totalUnits + section.units.length,
+            introVideo ? 1 : 0,
+          ) } units`}
+        </p>
+      </div>
+      {sections && !_.isEmpty(sections) && !_.isEmpty(sections[ 0 ].units) && !_.isEmpty(sections[ 0 ].units) && (
         <CourseContentWrap
           sections={ sections }
           courseId={ courseId }
@@ -59,9 +58,8 @@ const CourseOverview = ({
           type={ type }
           isCreator={ isCreator }
         />
-        )}
-      </Box>
-    </>
+      )}
+    </Box>
   )
 }
 

@@ -9,65 +9,42 @@ const TodayActivity = () => (
         Today's Activity
         <MenuIcon className='pull-right mt-5' />
       </h3>
+
       <Grid container spacing={ 1 } justify='space-between'>
         <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 12 }>
           <li>
-            <p className=' h3 green'>
-              3.282
-            </p>
-            <p className='h4'>
-              Calls
-            </p>
+            <p className='h3 green'> 3.282 </p>
+            <p className='h4'> Calls </p>
           </li>
         </Grid>
         <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 12 }>
           <li>
-            <p className=' h3 green'>
-              680
-            </p>
-            <p className='h4'>
-              Sales
-            </p>
+            <p className=' h3 green'> 680 </p>
+            <p className='h4'> Sales </p>
           </li>
         </Grid>
         <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 12 }>
           <li>
-            <p className=' h3 yellow'>
-              558
-            </p>
-            <p className='h4'>
-              Working
-            </p>
+            <p className=' h3 yellow'> 558 </p>
+            <p className='h4'> Working </p>
           </li>
         </Grid>
         <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 12 }>
           <li>
-            <p className=' h3 green'>
-              754
-            </p>
-            <p className='h4'>
-              Live
-            </p>
+            <p className=' h3 green'> 754 </p>
+            <p className='h4'> Live </p>
           </li>
         </Grid>
         <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 12 }>
           <li>
-            <p className=' h3 red'>
-              599
-            </p>
-            <p className='h4'>
-              Online
-            </p>
+            <p className=' h3 red'> 599 </p>
+            <p className='h4'> Online </p>
           </li>
         </Grid>
         <Grid item xl={ 4 } lg={ 4 } md={ 6 } sm={ 12 }>
           <li>
-            <p className=' h3 yellow'>
-              260
-            </p>
-            <p className='h4'>
-              On a Call
-            </p>
+            <p className=' h3 yellow'> 260 </p>
+            <p className='h4'> On a Call </p>
           </li>
         </Grid>
       </Grid>

@@ -10,10 +10,8 @@ import { VIEW_RESUME_ROUTE } from '../../../../routes/routesPath'
 import TalentCardSkills from '../../../../containers/People/ContactCenter/Talent/talentCardSkills'
 
 const TalentCard = ({
-  candidateId, candidateName, candidatePic, availability,
-  candidateRating, location, languages,
-  ratePerHourDollar, profileName,
-  profileDescription, skills,
+  candidateId, candidateName, candidatePic, availability, candidateRating, location, languages, ratePerHourDollar,
+  profileName, profileDescription, skills,
 }) => (
   <div className='list-divider mt-10 mb-20'>
     <div className='display-inline-flex talent-head'>
@@ -39,38 +37,40 @@ const TalentCard = ({
             View Resume
           </Link>
         </div>
+
         <p className='para light location'>
           {location !== 'null, null' && (
-          <FontAwesomeIcon icon={ faMapMarkerAlt } className='ml-10 custom-fa-icon light' />
+            <FontAwesomeIcon icon={ faMapMarkerAlt } className='ml-10 custom-fa-icon light' />
           )}
-          { location !== 'null, null' && location }
+          {location !== 'null, null' && location}
           <span className='ml-20 para italic'>
             {_.startCase(_.toLower(availability))}
           </span>
         </p>
+
         <p className='para light languages'>
           <FontAwesomeIcon icon={ faLanguage } className='ml-10 custom-fa-icon light' />
           {_.capitalize(languages)}
           {ratePerHourDollar && (
-          <span className='rate para bold'>
-            {`$${ ratePerHourDollar }/hr`}
-          </span>
+            <span className='rate para bold'>
+              {`$${ ratePerHourDollar }/hr`}
+            </span>
           )}
         </p>
       </div>
     </div>
+
     <div className='talent-content'>
       {profileName && (
-      <h4 className='mt-10 h4'>
-        {profileName}
-      </h4>
+        <h4 className='mt-10 h4'>{profileName}</h4>
       )}
       {profileDescription && (
-      <div className='mb-10 mt-5 para short-description'>
-        {`${ profileDescription }`}
-      </div>
+        <div className='mb-10 mt-5 para short-description'>
+          { profileDescription }
+        </div>
       )}
     </div>
+
     <TalentCardSkills
       userSkills={ skills }
     />

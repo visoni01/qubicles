@@ -1,9 +1,9 @@
 // Activity Section
 .activity-section {
-
   li {
     list-style: none;
     text-align: center;
+
     p {
       &:first-child {
         color: $color-white;
@@ -15,18 +15,22 @@
         align-items: center;
         justify-content: center;
       }
+
       &:nth-child(2) {
         text-align: center;
         color: $color-dark-grey;
         margin-top: 5px;
       }
     }
+
     p.green {
       background-color: $color-green;
     }
+
     p.yellow {
       background-color: $color-yellow;
     }
+
     p.red {
       background-color: $color-red;
     }
