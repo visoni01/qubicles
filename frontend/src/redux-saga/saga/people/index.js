@@ -23,6 +23,8 @@ import courseRatings from './training/courseRatings'
 import courseReviews from './training/courseReviews'
 import requiredCourses from './training/requiredCourses'
 import bonusCourses from './training/bonusCourses'
+import companyCourses from './training/companyCourses'
+import companiesList from './training/companiesList'
 
 const peopleWatcherFunctions = [
   () => peopleTalentCards(),
@@ -50,6 +52,8 @@ const peopleWatcherFunctions = [
   () => courseReviews(),
   () => requiredCourses(),
   () => bonusCourses(),
+  () => companyCourses(),
+  () => companiesList(),
 ]
 
 export default peopleWatcherFunctions

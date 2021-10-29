@@ -92,6 +92,11 @@ class User {
     const response = await apiClient.deleteRequest(`/user/notifications/${ notificationId }`, { offset })
     return response
   }
+
+  static async fetchCompaniesList() {
+    const response = await apiClient.getRequest('/user/companies')
+    return response
+  }
 }
 
 export default User

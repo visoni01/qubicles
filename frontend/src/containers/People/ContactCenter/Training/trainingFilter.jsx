@@ -13,6 +13,7 @@ import './style.scss'
 const TrainingFilter = () => {
   const { jobCategoriesOnly, isLoading, searchKeyword } = useSelector((state) => state.jobCategoriesOnly)
   const { categoryId, categoryTitle } = useSelector((state) => state.viewAllCourses)
+  const { userDetails } = useSelector((state) => state.login)
 
   const [ selectedCategory, setSelectedCategory ] = useState(categoryId)
   const [ selectedCategoryTitle, setSelectedCategoryTitle ] = useState(categoryTitle)
@@ -54,11 +55,18 @@ const TrainingFilter = () => {
           button
           onClick={ () => history.push(ROUTE_PATHS.MY_COURSES) }
         >
-          <ListItemText
-            primary='My Courses'
-            className='h4 bold-filter-item'
-          />
+          <ListItemText primary='My Courses' className='h4 bold-filter-item' />
         </ListItem>
+
+        {userDetails && [ 'agent', 'trainer', 'supervisor', 'qa-support' ].includes(userDetails.user_code) && (
+          <ListItem
+            button
+            onClick={ () => history.push(ROUTE_PATHS.COMPANY_COURSES) }
+          >
+            <ListItemText primary='Company Courses' className='h4 bold-filter-item' />
+          </ListItem>
+        )}
+
         <ListItem
           button
           onClick={ () => history.push(ROUTE_PATHS.ENROLLED_COURSES) }

@@ -340,7 +340,6 @@ class People {
     return response
   }
 
-  // Course Reviews and Ratings APIs
   static async fetchCourseRatings({ courseId }) {
     const response = await apiClient.getRequest(`/people/course/${ courseId }/rating`)
     return response
@@ -355,6 +354,25 @@ class People {
 
   static async addCourseReview({ courseId, reviewData }) {
     const response = await apiClient.postRequest(`/people/course/${ courseId }/reviews`, { review_data: reviewData })
+    return response
+  }
+
+  static async fetchCompanyCourses({ companyId, courseFilter, offset }) {
+    const queryParams = {}
+
+    if (companyId) {
+      queryParams.companyId = companyId
+    }
+
+    if (courseFilter) {
+      queryParams.courseFilter = courseFilter
+    }
+
+    if (!_.isUndefined(offset)) {
+      queryParams.offset = offset
+    }
+
+    const response = await apiClient.getRequest('/people/courses/company-courses', null, queryParams)
     return response
   }
 }

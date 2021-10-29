@@ -11,6 +11,7 @@ import ViewJobApplication from '../../containers/People/Shared/jobApplicationPag
 import RouteRenderer from './featureSubRoutes'
 import PeopleViewJobs from '../../containers/People/viewJobsIndex'
 import MyCourses from '../../containers/People/ContactCenter/Training/MyCourses'
+import CompanyCourses from '../../containers/People/ContactCenter/Training/CompanyCourses'
 import EditCoursePage from '../../containers/People/ContactCenter/Training/NewCourse/editCoursePage'
 import TestEntries from '../../containers/People/ContactCenter/Training/MyCourses/TestEntries'
 import EnrolledCourses from '../../containers/People/ContactCenter/Training/EnrolledCourses'
@@ -69,6 +70,11 @@ const List = [
   {
     path: ROUTE_PATHS.MY_COURSES,
     component: MyCourses,
+    exact: true,
+  },
+  {
+    path: ROUTE_PATHS.COMPANY_COURSES,
+    component: CompanyCourses,
     exact: true,
   },
   {
