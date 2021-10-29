@@ -2,7 +2,7 @@ import _ from 'lodash'
 import { takeEvery, put, select } from 'redux-saga/effects'
 import WebSocket from '../../../../socket'
 import { getNotificationMessage, getSmsNotificationMessage, getUserDetails } from '../../../../utils/common'
-import { REQUEST_TYPES, SUBJECTS } from '../../../../utils/constants'
+import { NOTIFICATION_MESSAGES, REQUEST_TYPES, SUBJECTS } from '../../../../utils/constants'
 import {
   fetchAgentResumeStart, fetchAgentResumeSuccess, fetchAgentResumeFailed, updateAgentResume, showErrorMessage,
   showSuccessMessage,
@@ -38,7 +38,7 @@ function* agentResumeSkillsWorker(action) {
           const userDetails = getUserDetails()
           const { agentResume } = yield select((state) => state.agentResume)
           const message = getNotificationMessage({
-            type: 'follow',
+            type: NOTIFICATION_MESSAGES.FOLLOW,
             payload: {
               id: userDetails && userDetails.user_id,
               name: userDetails && userDetails.full_name,
@@ -49,7 +49,7 @@ function* agentResumeSkillsWorker(action) {
 
           if (isFollowing) {
             const smsText = getSmsNotificationMessage({
-              type: 'follow',
+              type: NOTIFICATION_MESSAGES.FOLLOW,
               payload: {
                 name: userDetails && userDetails.full_name,
                 userName: agentResume && agentResume.candidateName,

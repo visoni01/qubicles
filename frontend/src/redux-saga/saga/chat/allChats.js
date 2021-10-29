@@ -3,14 +3,14 @@ import _ from 'lodash'
 import { takeEvery, put, select } from 'redux-saga/effects'
 import WebSocket from '../../../socket'
 import Chat from '../../service/chat'
-import { REQUEST_TYPES } from '../../../utils/constants'
+import { REQUEST_TYPES, CHAT_NOTIFICATION_MESSAGES } from '../../../utils/constants'
 import { formatConversationRoomId, getFormattedChatNotificationMessage } from '../../../utils/common'
 import {
   allChatsRequestStart, allChatsRequestSuccess, allChatsRequestFailed, showErrorMessage, updateCurrentChatId,
   updateConversations, updateChatPopups, resetAllChatsReducerFlags,
 } from '../../redux/actions'
 import {
-  ADD_CONVERSATION, ADD_PEOPLE, CHATS_LIST, MARK_AS_UNREAD, NEW_CHAT, NEW_GROUP,
+  ADD_CONVERSATION, CHATS_LIST, MARK_AS_UNREAD, NEW_CHAT, NEW_GROUP,
 } from '../../redux/constants'
 
 function* allChatsWatcher() {
@@ -144,7 +144,7 @@ function* allChatsWorker(action) {
             const newMessages = [
               getFormattedChatNotificationMessage({
                 senderId: userId,
-                type: dataType,
+                type: CHAT_NOTIFICATION_MESSAGES.NEW_GROUP,
                 payload: {
                   userId,
                   userName: clientSettings?.companyName || userDetails?.full_name,
@@ -153,7 +153,7 @@ function* allChatsWorker(action) {
               }),
               getFormattedChatNotificationMessage({
                 senderId: userId,
-                type: ADD_PEOPLE,
+                type: CHAT_NOTIFICATION_MESSAGES.ADD_PEOPLE,
                 addOneMillisecond: true,
                 payload: {
                   userId,

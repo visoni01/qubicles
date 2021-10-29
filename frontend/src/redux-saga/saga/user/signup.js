@@ -5,7 +5,7 @@ import { getNotificationMessage, getSmsNotificationMessage } from '../../../util
 import { userSignupStart, userSignupFailure, userSignupSuccessful } from '../../redux/actions'
 import { showErrorMessage } from '../../redux/utils/snackbar'
 import WebSocket from '../../../socket'
-import { SUBJECTS } from '../../../utils/constants'
+import { NOTIFICATION_MESSAGES, SUBJECTS } from '../../../utils/constants'
 
 function* signupWatcher() {
   yield takeEvery(userSignupStart.type, signupWorker)
@@ -18,7 +18,7 @@ function* signupWorker(action) {
 
     if (data && data.inviter_id) {
       const message = getNotificationMessage({
-        type: 'referral-signup',
+        type: NOTIFICATION_MESSAGES.REFERRAL_SIGNUP,
         payload: {
           id: userData && userData.user_id,
           name: userData && userData.full_name,
@@ -26,7 +26,7 @@ function* signupWorker(action) {
       })
 
       const smsText = getSmsNotificationMessage({
-        type: 'referral-signup',
+        type: NOTIFICATION_MESSAGES.REFERRAL_SIGNUP,
         payload: {
           name: userData && userData.full_name,
         },

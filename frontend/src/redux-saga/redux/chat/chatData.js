@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { ADD_CONVERSATION } from '../constants'
 import {
-  chatDataStartHelper, chatDataSuccessHelper, chatDataFailureHelper, updateChatPopupsHelper,
-  updateConversationsHelper, resetConversationsHelper, resetPopupFlagsHelper, changePopupOpenStateHelper,
+  chatDataStartHelper, chatDataSuccessHelper, chatDataFailureHelper, updateChatPopupsHelper, updateConversationsHelper,
+  resetConversationsHelper, resetPopupFlagsHelper, changePopupOpenStateHelper,
 } from './helper'
 
 const initialState = {

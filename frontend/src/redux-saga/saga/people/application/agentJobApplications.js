@@ -2,7 +2,7 @@
 import { takeEvery, put, select } from 'redux-saga/effects'
 import WebSocket from '../../../../socket'
 import { getNotificationMessage, getSmsNotificationMessage, getUserDetails } from '../../../../utils/common'
-import { REQUEST_TYPES, SUBJECTS } from '../../../../utils/constants'
+import { NOTIFICATION_MESSAGES, REQUEST_TYPES, SUBJECTS } from '../../../../utils/constants'
 import {
   agentJobApplicationsRequestStart, agentJobApplicationsRequestSuccess, agentJobApplicationsRequestFailed,
   showErrorMessage, updateAgentApplicationInList,
@@ -56,12 +56,12 @@ function* jobApplicationListWorker(action) {
           let subject
 
           if (data.status === 'screening') {
-            type = 'accept-job-invitation'
+            type = NOTIFICATION_MESSAGES.ACCEPT_JOB_INVITATION
             subject = SUBJECTS.ACCEPT_JOB_INVITATION
             application = applicationsList && applicationsList[ 0 ]
               && applicationsList[ 0 ].find((item) => item.jobDetails && (item.jobDetails.jobId === data.job_id))
           } else if (data.status === 'resigned') {
-            type = 'resign-job'
+            type = NOTIFICATION_MESSAGES.RESIGN_JOB
             subject = SUBJECTS.RESIGN_JOB
             application = applicationsList && applicationsList[ 3 ]
               && applicationsList[ 3 ].find((item) => item.jobDetails && (item.jobDetails.jobId === data.job_id))

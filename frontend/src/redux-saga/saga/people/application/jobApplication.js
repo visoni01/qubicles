@@ -8,7 +8,7 @@ import {
 import People from '../../../service/people'
 import { getNotificationMessage, getSmsNotificationMessage, getUserDetails } from '../../../../utils/common'
 import WebSocket from '../../../../socket'
-import { REQUEST_TYPES, SUBJECTS } from '../../../../utils/constants'
+import { NOTIFICATION_MESSAGES, REQUEST_TYPES, SUBJECTS } from '../../../../utils/constants'
 
 function* jobApplicationWatcherStart() {
   yield takeEvery(jobApplicationRequestStart.type, jobApplicationWorker)
@@ -51,7 +51,7 @@ function* jobApplicationWorker(action) {
           })
 
           const message = getNotificationMessage({
-            type: 'invite-for-job',
+            type: NOTIFICATION_MESSAGES.INVITE_FOR_JOB,
             payload: {
               id: data && data.user_id,
               name: agentResume && agentResume.candidateName,
@@ -61,7 +61,7 @@ function* jobApplicationWorker(action) {
           })
 
           const smsText = getSmsNotificationMessage({
-            type: 'invite-for-job',
+            type: NOTIFICATION_MESSAGES.INVITE_FOR_JOB,
             payload: {
               name: agentResume && agentResume.candidateName,
               jobTitle: jobDetails && jobDetails.title,
@@ -81,7 +81,7 @@ function* jobApplicationWorker(action) {
           const userDetails = getUserDetails()
           const { jobDetails } = yield select((state) => state.jobDetails)
           const message = getNotificationMessage({
-            type: 'job-applied',
+            type: NOTIFICATION_MESSAGES.JOB_APPLIED,
             payload: {
               userId: userDetails && userDetails.user_id,
               userName: userDetails && userDetails.full_name,
@@ -91,7 +91,7 @@ function* jobApplicationWorker(action) {
           })
 
           const smsText = getSmsNotificationMessage({
-            type: 'job-applied',
+            type: NOTIFICATION_MESSAGES.JOB_APPLIED,
             payload: {
               userName: userDetails && userDetails.full_name,
               jobTitle: jobDetails && jobDetails.title,
@@ -156,7 +156,7 @@ function* jobApplicationWorker(action) {
           const { agentResume } = yield select((state) => state.agentResume)
           const { application } = yield select((state) => state.jobApplication)
           const message = getNotificationMessage({
-            type: 'hire-for-job',
+            type: NOTIFICATION_MESSAGES.HIRE_FOR_JOB,
             payload: {
               id: data && data.user_id,
               name: agentResume && agentResume.candidateName,
@@ -168,7 +168,7 @@ function* jobApplicationWorker(action) {
           })
 
           const smsText = getSmsNotificationMessage({
-            type: 'hire-for-job',
+            type: NOTIFICATION_MESSAGES.HIRE_FOR_JOB,
             payload: {
               name: agentResume && agentResume.candidateName,
               jobTitle: application && application.jobTitle,
@@ -193,9 +193,9 @@ function* jobApplicationWorker(action) {
           const { jobDetails } = yield select((state) => state.jobDetails)
 
           const message = getNotificationMessage({
-            type: (data.status === 'declined' && 'job-applied')
-            || (data.status === 'screening' && 'accept-job-invitation')
-            || (data.status === 'resigned' && 'resign-job'),
+            type: (data.status === 'declined' && NOTIFICATION_MESSAGES.JOB_APPLIED)
+            || (data.status === 'screening' && NOTIFICATION_MESSAGES.ACCEPT_JOB_INVITATION)
+            || (data.status === 'resigned' && NOTIFICATION_MESSAGES.RESIGN_JOB),
             payload: {
               userId: userDetails && userDetails.user_id,
               userName: userDetails && userDetails.full_name,
@@ -212,8 +212,8 @@ function* jobApplicationWorker(action) {
             })
           } else {
             const smsText = getSmsNotificationMessage({
-              type: (data.status === 'screening' && 'accept-job-invitation')
-              || (data.status === 'resigned' && 'resign-job'),
+              type: (data.status === 'screening' && NOTIFICATION_MESSAGES.ACCEPT_JOB_INVITATION)
+              || (data.status === 'resigned' && NOTIFICATION_MESSAGES.RESIGN_JOB),
               payload: {
                 userName: userDetails && userDetails.full_name,
                 jobTitle: jobDetails && jobDetails.title,
@@ -236,8 +236,8 @@ function* jobApplicationWorker(action) {
           const { application } = yield select((state) => state.jobApplication)
           const { agentResume } = yield select((state) => state.agentResume)
           const message = getNotificationMessage({
-            type: (data.status === 'declined' && 'cancel-application')
-            || (data.status === 'invited' && 'invite-for-job'),
+            type: (data.status === 'declined' && NOTIFICATION_MESSAGES.CANCEL_APPLICATION)
+            || (data.status === 'invited' && NOTIFICATION_MESSAGES.INVITE_FOR_JOB),
             payload: {
               id: data && data.user_id,
               name: agentResume && agentResume.candidateName,
@@ -247,8 +247,8 @@ function* jobApplicationWorker(action) {
           })
 
           const smsText = getSmsNotificationMessage({
-            type: (data.status === 'declined' && 'cancel-application')
-            || (data.status === 'invited' && 'invite-for-job'),
+            type: (data.status === 'declined' && NOTIFICATION_MESSAGES.CANCEL_APPLICATION)
+            || (data.status === 'invited' && NOTIFICATION_MESSAGES.INVITE_FOR_JOB),
             payload: {
               name: agentResume && agentResume.candidateName,
               jobTitle: application && application.jobTitle,

@@ -1,7 +1,7 @@
 import { takeEvery, put, select } from 'redux-saga/effects'
 import WebSocket from '../../../../socket'
 import { getNotificationMessage, getSmsNotificationMessage, getUserDetails } from '../../../../utils/common'
-import { REQUEST_TYPES, SUBJECTS } from '../../../../utils/constants'
+import { NOTIFICATION_MESSAGES, REQUEST_TYPES, SUBJECTS } from '../../../../utils/constants'
 import {
   jobApplicationListRequestStart, jobApplicationListRequestSuccess, jobApplicationListRequestFailed, showErrorMessage,
   updateJobApplicationInList,
@@ -50,9 +50,9 @@ function* jobApplicationListWorker(action) {
           const { applicationsData } = yield select((state) => state.jobApplicationList)
           const application = getApplicationData({ userId: data.user_id, status: data.status, applicationsData })
           const message = getNotificationMessage({
-            type: (data.status === 'declined' && 'cancel-application')
-            || (data.status === 'invited' && 'invite-for-job')
-            || (data.status === 'hired' && 'hire-for-job'),
+            type: (data.status === 'declined' && NOTIFICATION_MESSAGES.CANCEL_APPLICATION)
+            || (data.status === 'invited' && NOTIFICATION_MESSAGES.INVITE_FOR_JOB)
+            || (data.status === 'hired' && NOTIFICATION_MESSAGES.HIRE_FOR_JOB),
             payload: {
               id: data && data.user_id,
               name: application && application.userDetails && application.userDetails.fullName,
@@ -64,9 +64,9 @@ function* jobApplicationListWorker(action) {
           })
 
           const smsText = getSmsNotificationMessage({
-            type: (data.status === 'declined' && 'cancel-application')
-            || (data.status === 'invited' && 'invite-for-job')
-            || (data.status === 'hired' && 'hire-for-job'),
+            type: (data.status === 'declined' && NOTIFICATION_MESSAGES.CANCEL_APPLICATION)
+            || (data.status === 'invited' && NOTIFICATION_MESSAGES.INVITE_FOR_JOB)
+            || (data.status === 'hired' && NOTIFICATION_MESSAGES.HIRE_FOR_JOB),
             payload: {
               name: application && application.userDetails && application.userDetails.fullName,
               jobTitle: jobDetails && jobDetails.title,

@@ -21,8 +21,10 @@ const EditProfileModal = ({
   open, handleClose, agentInfo,
 }) => {
   const [ profileInfo, setProfileInfo ] = useState(agentInfo)
+
   const { success, isLoading, requestType } = useSelector((state) => state.agentDetails)
   const { uploadSuccess, uploadingImage } = useSelector((state) => state.uploadProfileImage)
+
   const fileInput = useRef()
   const dispatch = useDispatch()
 
@@ -143,7 +145,7 @@ const EditProfileModal = ({
   }
 
   useEffect(() => {
-    if ((success && requestType === REQUEST_TYPES.UPDATE) || uploadSuccess) {
+    if ((success && _.isEqual(requestType, REQUEST_TYPES.UPDATE)) || uploadSuccess) {
       if (success) {
         dispatch(resetAgentProfileSettingsFlags())
       }

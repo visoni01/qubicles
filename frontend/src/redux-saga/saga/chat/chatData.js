@@ -4,13 +4,13 @@ import { takeEvery, put, select } from 'redux-saga/effects'
 import WebSocket from '../../../socket'
 import Chat from '../../service/chat'
 import { CHAT_ROUTE } from '../../../routes/routesPath'
-import { REQUEST_TYPES } from '../../../utils/constants'
+import { REQUEST_TYPES, CHAT_NOTIFICATION_MESSAGES } from '../../../utils/constants'
 import {
   formatConversationRoomId, getFormattedChatNotificationMessage, playNotificationAudio,
 } from '../../../utils/common'
 import {
-  ADD_GROUP_NAME, ADD_PEOPLE, CHANGE_GROUP_NAME, CHAT_MESSAGES, CURRENT_CHAT, DELETE_CHAT, LEAVE_GROUP, MARK_AS_READ,
-  NEW_CHAT, NEW_MESSAGE, REMOVE_GROUP_NAME, REMOVE_PERSON,
+  ADD_PEOPLE, CHANGE_GROUP_NAME, CHAT_MESSAGES, CURRENT_CHAT, DELETE_CHAT, LEAVE_GROUP, MARK_AS_READ, NEW_CHAT,
+  NEW_MESSAGE, REMOVE_PERSON,
 } from '../../redux/constants'
 import {
   chatDataRequestStart, chatDataRequestSuccess, chatDataRequestFailed, showErrorMessage, updateAllChats,
@@ -123,7 +123,7 @@ function* chatDataWorker(action) {
             const roomId = formatConversationRoomId(conversationId)
             const newMessage = getFormattedChatNotificationMessage({
               senderId: userId,
-              type: dataType,
+              type: CHAT_NOTIFICATION_MESSAGES.ADD_PEOPLE,
               payload: {
                 userId,
                 userName: userDetails?.full_name,
@@ -183,7 +183,7 @@ function* chatDataWorker(action) {
             const roomId = formatConversationRoomId(conversationId)
             const newMessage = getFormattedChatNotificationMessage({
               senderId: userId,
-              type: dataType,
+              type: CHAT_NOTIFICATION_MESSAGES.REMOVE_PERSON,
               payload: {
                 userId,
                 userName: userDetails?.full_name,
@@ -251,11 +251,11 @@ function* chatDataWorker(action) {
             const userId = userDetails?.user_id
 
             if (_.isEmpty(newGroupName)) {
-              type = REMOVE_GROUP_NAME
+              type = CHAT_NOTIFICATION_MESSAGES.REMOVE_GROUP_NAME
             } else if (_.isEmpty(oldGroupName)) {
-              type = ADD_GROUP_NAME
+              type = CHAT_NOTIFICATION_MESSAGES.ADD_GROUP_NAME
             } else {
-              type = CHANGE_GROUP_NAME
+              type = CHAT_NOTIFICATION_MESSAGES.CHANGE_GROUP_NAME
             }
 
             const newMessage = getFormattedChatNotificationMessage({
@@ -313,7 +313,7 @@ function* chatDataWorker(action) {
             const roomId = formatConversationRoomId(conversationId)
             const newMessage = getFormattedChatNotificationMessage({
               senderId: userId,
-              type: LEAVE_GROUP,
+              type: CHAT_NOTIFICATION_MESSAGES.LEAVE_GROUP,
               payload: {
                 userId,
                 userName: userDetails?.full_name,
