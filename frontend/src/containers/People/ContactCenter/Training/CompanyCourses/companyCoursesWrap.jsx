@@ -15,7 +15,7 @@ const CompanyCoursesWrap = () => {
   const [ anchorEl, setAnchorEl ] = useState(null)
 
   const {
-    isLoading, courses, count, currentPage, companyName,
+    isLoading, courses, count, currentPage, companyName, courseFilter,
   } = useSelector((state) => state.companyCourses)
 
   const dispatch = useDispatch()
@@ -59,6 +59,8 @@ const CompanyCoursesWrap = () => {
           setAnchorEl={ setAnchorEl }
           open={ open }
           handleClose={ () => setAnchorEl(null) }
+          courseFilter={ courseFilter }
+          type='company'
         />
       </div>
 

@@ -1,7 +1,7 @@
 import { takeEvery, put } from 'redux-saga/effects'
-import { companyDetails } from '../../../../containers/People/ContactCenter/Training/CompanyCourses/testData'
 import { companiesListFetchStart, companiesListFetchSuccessful } from '../../../redux/actions'
 import { showErrorMessage } from '../../../redux/utils/snackbar'
+import User from '../../../service/user'
 
 function* jobCategoriesDataFetchingWatcherStart() {
   yield takeEvery(companiesListFetchStart.type, jobCategoriesDataFetchingWorker)
@@ -9,7 +9,7 @@ function* jobCategoriesDataFetchingWatcherStart() {
 
 function* jobCategoriesDataFetchingWorker() {
   try {
-    const data = companyDetails
+    const { data } = yield User.fetchCompaniesList()
     yield put(companiesListFetchSuccessful({ companiesList: data }))
   } catch (e) {
     yield put(showErrorMessage({ msg: e.errMsg }))

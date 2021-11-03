@@ -5,7 +5,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
 import { jobCategoriesOnlyFetchStart, updateJobsFilter } from '../../../../redux-saga/redux/actions'
-import JobsFilterSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/Jobs/jobsFilterSkeleton'
+import JobsFilterSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/Common/listSkeleton'
 import JobsFilterModal from './jobsFilter'
 import { FilterIcon } from '../../../../assets/images/training'
 import { SearchIcon } from '../../../../assets/images/common'

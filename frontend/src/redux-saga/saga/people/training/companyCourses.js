@@ -1,18 +1,17 @@
 import { takeEvery, put } from 'redux-saga/effects'
-import { companyCoursesData } from '../../../../containers/People/ContactCenter/Training/CompanyCourses/testData'
-import {
-  companyCoursesFetchStart,
-  companyCoursesFetchSuccessful,
-} from '../../../redux/actions'
+import { companyCoursesFetchStart, companyCoursesFetchSuccessful } from '../../../redux/actions'
 import { showErrorMessage } from '../../../redux/utils/snackbar'
+import People from '../../../service/people'
 
 function* companyCoursesWatcherStart() {
   yield takeEvery([ companyCoursesFetchStart.type ], companyCoursesWorker)
 }
 
-function* companyCoursesWorker() {
+function* companyCoursesWorker(action) {
   try {
-    const data = companyCoursesData
+    const { companyId, courseFilter, offset } = action.payload
+
+    const { data } = yield People.fetchCompanyCourses({ companyId, courseFilter, offset })
 
     yield put(companyCoursesFetchSuccessful({
       courses: data.courses,

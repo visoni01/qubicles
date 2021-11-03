@@ -6,7 +6,7 @@ import {
 } from '@material-ui/core'
 import _ from 'lodash'
 import ROUTE_PATHS from '../../../../routes/routesPath'
-import JobFilterSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/Jobs/jobsFilterSkeleton'
+import CategoriesListSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/Common/listSkeleton'
 import { jobCategoriesOnlyFetchStart, updateViewAllCoursesFilter } from '../../../../redux-saga/redux/people'
 import './style.scss'
 
@@ -78,7 +78,7 @@ const TrainingFilter = () => {
       <Divider className='mb-20' />
       <h3 className='h3 category-heading'> Categories </h3>
       {isLoading
-        ? <JobFilterSkeleton />
+        ? <CategoriesListSkeleton />
         : (
           <List className='filter-list-items'>
             <MenuItem

@@ -3,28 +3,33 @@ import PropTypes from 'prop-types'
 import {
   Radio, Popover, RadioGroup, FormControlLabel,
 } from '@material-ui/core'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import _ from 'lodash'
 import { updateViewAllCoursesFilter } from '../../../../redux-saga/redux/actions'
+import { updateCompanyCoursesFilter } from '../../../../redux-saga/redux/people'
 import { courseFilterStatus } from '../constants'
 import '../styles.scss'
 
 const CourseFilterModal = ({
-  open, handleClose, anchorEl, setAnchorEl, id,
+  open, handleClose, anchorEl, setAnchorEl, id, courseFilter, type,
 }) => {
-  const { courseFilter } = useSelector((state) => state.viewAllCourses)
-
   const dispatch = useDispatch()
 
   const setStatus = useCallback((event) => {
     const checkedStatus = event.target.value
-    dispatch(updateViewAllCoursesFilter({
+    const args = {
       courseFilter: checkedStatus,
       currentPage: 1,
-    }))
-    setTimeout(() => {
-      setAnchorEl(null)
-    }, 400)
-  }, [ dispatch, setAnchorEl ])
+    }
+
+    if (_.isEqual(type, 'all')) {
+      dispatch(updateViewAllCoursesFilter(args))
+    } else if (_.isEqual(type, 'company')) {
+      dispatch(updateCompanyCoursesFilter(args))
+    }
+
+    setTimeout(() => { setAnchorEl(null) }, 400)
+  }, [ dispatch, setAnchorEl, type ])
 
   return (
     <Popover
@@ -69,6 +74,8 @@ const CourseFilterModal = ({
 CourseFilterModal.defaultProps = {
   anchorEl: null,
   id: null,
+  type: 'all',
+  courseFilter: 'most-popular',
 }
 
 CourseFilterModal.propTypes = {
@@ -77,6 +84,8 @@ CourseFilterModal.propTypes = {
   anchorEl: PropTypes.instanceOf(Element),
   setAnchorEl: PropTypes.func.isRequired,
   id: PropTypes.string,
+  type: PropTypes.string,
+  courseFilter: PropTypes.string,
 }
 
 export default CourseFilterModal

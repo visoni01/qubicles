@@ -361,7 +361,7 @@ class People {
     const queryParams = {}
 
     if (companyId) {
-      queryParams.companyId = companyId
+      queryParams.clientId = companyId
     }
 
     if (courseFilter) {

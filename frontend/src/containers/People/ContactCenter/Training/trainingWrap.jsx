@@ -17,7 +17,7 @@ import { SearchIcon } from '../../../../assets/images/common'
 
 const TrainingWrap = () => {
   const {
-    courses, count, searchField, currentPage, isLoading, categoryTitle,
+    courses, count, searchField, currentPage, isLoading, categoryTitle, courseFilter,
   } = useSelector((state) => state.viewAllCourses)
 
   const [ searchCourseField, setSearchCourseField ] = useState(searchField)
@@ -115,6 +115,7 @@ const TrainingWrap = () => {
             setAnchorEl={ setAnchorEl }
             open={ open }
             handleClose={ handleClose }
+            courseFilter={ courseFilter }
           />
         </div>
         {_.isNull(isLoading) || isLoading

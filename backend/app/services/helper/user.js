@@ -463,7 +463,7 @@ export const fetchUserCompanies = async ({ user_id }) => {
     }
   })
 
-  return companiesList && companiesList.map((company) => company.client_id)
+  return companiesList && _.uniqBy(companiesList, 'client_id').map((company) => company.client_id)
 }
 
 export const fetchClientDetails = async ({ clientIds }) => {
@@ -495,5 +495,5 @@ export const fetchCompaniesUsers = async ({ clientIds }) => {
     }
   })
 
-  return companiesUsers && companiesUsers.map((company) => company.user_id)
+  return companiesUsers && _.uniqBy(companiesUsers, 'user_id').map((company) => company.user_id)
 }

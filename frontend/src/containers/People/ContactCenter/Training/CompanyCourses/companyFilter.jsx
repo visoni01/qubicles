@@ -8,7 +8,7 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
 import ROUTE_PATHS from '../../../../../routes/routesPath'
-import JobFilterSkeleton from '../../../../../components/People/ContactCenter/SkeletonLoader/Jobs/jobsFilterSkeleton'
+import CompanyFilterSkeleton from '../../../../../components/People/ContactCenter/SkeletonLoader/Common/listSkeleton'
 import { companiesListFetchStart, updateCompanyCoursesFilter } from '../../../../../redux-saga/redux/people'
 
 const CompanyFilter = () => {
@@ -61,8 +61,8 @@ const CompanyFilter = () => {
 
       <h3 className='h3 category-heading'>Company Courses</h3>
 
-      {isLoading
-        ? <JobFilterSkeleton />
+      {_.isNull(isLoading) || isLoading
+        ? <CompanyFilterSkeleton />
         : (
           <List className='filter-list-items'>
             <MenuItem
