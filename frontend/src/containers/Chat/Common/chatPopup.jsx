@@ -88,7 +88,7 @@ const ChatPopup = ({ conversationData, isLoading }) => {
             {/* Chat Body */}
             <div className='chat-section-body padding-10'>
               {/* eslint-disable-next-line no-constant-condition */}
-              {false && isLoading // WIP - check after integrating WebSockets
+              {isLoading
                 ? <MiddleSectionChatSkeletons />
                 : (
                   <ChatView

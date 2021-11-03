@@ -45,38 +45,38 @@ export default class ChatController {
   }
 
   static async getOlderChats (req, res) {
-    const conversation = await GetOlderChatsService.execute({ ...req.params, ...req.body, ...req.query })
-    if (conversation.successful) {
-      Responder.success(res, conversation.result)
+    const response = await GetOlderChatsService.execute({ ...req.params, ...req.body, ...req.query })
+    if (response.successful) {
+      Responder.success(res, response.result)
     } else {
-      Responder.failed(res, conversation.errors)
+      Responder.failed(res, response.errors)
     }
   }
 
   static async addNewGroupMembers (req, res) {
-    const group = await ChatAddNewGroupMembersService.execute({ ...req.params, ...req.body })
-    if (group.successful) {
-      Responder.success(res, group.result)
+    const response = await ChatAddNewGroupMembersService.execute({ ...req.params, ...req.body })
+    if (response.successful) {
+      Responder.success(res, response.result)
     } else {
-      Responder.failed(res, group.errors)
+      Responder.failed(res, response.errors)
     }
   }
 
   static async removeGroupMember (req, res) {
-    const group = await ChatRemoveGroupMemberService.execute({ ...req.params })
-    if (group.successful) {
-      Responder.success(res, group.result)
+    const response = await ChatRemoveGroupMemberService.execute({ ...req.params })
+    if (response.successful) {
+      Responder.success(res, response.result)
     } else {
-      Responder.failed(res, group.errors)
+      Responder.failed(res, response.errors)
     }
   }
 
   static async changeGroupName (req, res) {
-    const group = await ChatChangeGroupNameService.execute({ ...req.params, ...req.body })
-    if (group.successful) {
-      Responder.success(res, group.result)
+    const response = await ChatChangeGroupNameService.execute({ ...req.params, ...req.body })
+    if (response.successful) {
+      Responder.success(res, response.result)
     } else {
-      Responder.failed(res, group.errors)
+      Responder.failed(res, response.errors)
     }
   }
 
@@ -99,20 +99,20 @@ export default class ChatController {
   }
 
   static async markChatAsUnread (req, res) {
-    const conversation = await ChatMarkAsUnreadService.execute({ ...req.params, ...req.body })
-    if (conversation.successful) {
-      Responder.success(res, conversation.result)
+    const response = await ChatMarkAsUnreadService.execute({ ...req.params, ...req.body })
+    if (response.successful) {
+      Responder.success(res, response.result)
     } else {
-      Responder.failed(res, conversation.errors)
+      Responder.failed(res, response.errors)
     }
   }
 
   static async deleteChat (req, res) {
-    const conversation = await DeleteChatService.execute({ ...req.params, ...req.body })
-    if (conversation.successful) {
-      Responder.success(res, conversation.result)
+    const response = await DeleteChatService.execute({ ...req.params, ...req.body })
+    if (response.successful) {
+      Responder.success(res, response.result)
     } else {
-      Responder.failed(res, conversation.errors)
+      Responder.failed(res, response.errors)
     }
   }
 }

@@ -153,7 +153,7 @@ export const getChatsList = async ({ user_id, offset, search_keyword }) => {
     FROM x_qod_chat_messages t1_messages_details
     JOIN (
       SELECT t9_messages.conversation_id, max(sent_at) sent_at, t10_all_user_conversations.is_removed,
-        t10_all_user_conversations.updated_on, t11_deleted_conversation_status.deleted_on
+        t10_all_user_conversations.updated_on, t11_deleted_conversation_status.deleted_on,
         group_concat((
           CASE WHEN sent_at > deleted_on THEN t9_messages.text END
         ) SEPARATOR ' ') AS all_texts
