@@ -12,7 +12,7 @@ import Introduction from '../../../../components/CommonModal/Introduction'
 import EditProfileModal from './editProfileModal'
 import { fetchAgentResumeStart, allChatsRequestStart } from '../../../../redux-saga/redux/actions'
 import { formatCount } from '../../../../utils/common'
-import { REQUEST_TYPES } from '../../../../utils/constants'
+import { REQUEST_TYPES, USERS } from '../../../../utils/constants'
 import { NEW_CHAT } from '../../../../redux-saga/redux/constants'
 
 const AgentEditProfile = ({
@@ -53,7 +53,7 @@ const AgentEditProfile = ({
         profilePic,
         location,
         title,
-        userCode: 'agent',
+        userCode: USERS.AGENT,
       },
       onlyPopup: true,
     }))
@@ -103,7 +103,7 @@ const AgentEditProfile = ({
         )}
       </div>
       <div className=' mt-20 mb-20'>
-        {userDetails && !_.isEqual(userDetails.user_code, 'employer')
+        {userDetails && !_.isEqual(userDetails.user_code, USERS.EMPLOYER)
         && candidateId && candidateId !== userDetails.user_id && !hasBlockedUser && (
           <Button
             className='wide-button'

@@ -19,7 +19,7 @@ import {
 import WebSocket from '../../../socket'
 import Forum from '../../../redux-saga/service/forum'
 import { CHAT_ROUTE } from '../../../routes/routesPath'
-import { MESSAGES, REQUEST_TYPES } from '../../../utils/constants'
+import { MESSAGES, REQUEST_TYPES, USERS } from '../../../utils/constants'
 import { CHANGE_CURRENT_MESSAGE, MARK_AS_READ, NEW_MESSAGE } from '../../../redux-saga/redux/constants'
 
 const ChatControls = ({
@@ -105,7 +105,7 @@ const ChatControls = ({
     const newMessage = {
       messageId: getUniqueId(),
       senderId: userId,
-      profilePic: userDetails && _.isEqual(userDetails.user_code, 'agent')
+      profilePic: userDetails && _.isEqual(userDetails.user_code, USERS.AGENT)
         ? agentSettings.profilePic
         : clientSettings.profilePic,
       senderName: userDetails?.full_name,

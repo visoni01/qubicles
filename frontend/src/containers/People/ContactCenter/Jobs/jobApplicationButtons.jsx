@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   startLoader, stopLoader, jobApplicationListRequestStart, allChatsRequestStart,
 } from '../../../../redux-saga/redux/actions'
-import { REQUEST_TYPES } from '../../../../utils/constants'
+import { REQUEST_TYPES, USERS } from '../../../../utils/constants'
 import { NEW_CHAT } from '../../../../redux-saga/redux/constants'
 
 const JobApplicationButtons = ({ application, userDetails }) => {
@@ -88,7 +88,7 @@ const JobApplicationButtons = ({ application, userDetails }) => {
         profilePic: userDetails?.profileImage,
         location: userDetails?.location,
         title: userDetails?.title,
-        userCode: 'agent',
+        userCode: USERS.AGENT,
       },
       onlyPopup: true,
     }))

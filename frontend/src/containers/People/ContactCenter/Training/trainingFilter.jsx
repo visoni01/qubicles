@@ -8,6 +8,7 @@ import _ from 'lodash'
 import ROUTE_PATHS from '../../../../routes/routesPath'
 import CategoriesListSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/Common/listSkeleton'
 import { jobCategoriesOnlyFetchStart, updateViewAllCoursesFilter } from '../../../../redux-saga/redux/people'
+import { USERS } from '../../../../utils/constants'
 import './style.scss'
 
 const TrainingFilter = () => {
@@ -51,14 +52,17 @@ const TrainingFilter = () => {
     <Box className='custom-box no-padding side-filter-root'>
       <h2 className='h2 title'> Training </h2>
       <List className='courses-list-items'>
-        <ListItem
-          button
-          onClick={ () => history.push(ROUTE_PATHS.MY_COURSES) }
-        >
-          <ListItemText primary='My Courses' className='h4 bold-filter-item' />
-        </ListItem>
+        {userDetails && [ USERS.EMPLOYER, USERS.TRAINER ].includes(userDetails.user_code) && (
+          <ListItem
+            button
+            onClick={ () => history.push(ROUTE_PATHS.MY_COURSES) }
+          >
+            <ListItemText primary='My Courses' className='h4 bold-filter-item' />
+          </ListItem>
+        )}
 
-        {userDetails && [ 'agent', 'trainer', 'supervisor', 'qa-support' ].includes(userDetails.user_code) && (
+        {userDetails && [ USERS.AGENT, USERS.TRAINER, USERS.SUPERVISOR, USERS.QA_SUPPORT ]
+          .includes(userDetails.user_code) && (
           <ListItem
             button
             onClick={ () => history.push(ROUTE_PATHS.COMPANY_COURSES) }
@@ -76,6 +80,7 @@ const TrainingFilter = () => {
       </List>
 
       <Divider className='mb-20' />
+
       <h3 className='h3 category-heading'> Categories </h3>
       {isLoading
         ? <CategoriesListSkeleton />

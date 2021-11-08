@@ -11,6 +11,7 @@ import ListReviews from './listReviews'
 import { clientRatingLabels } from '../../../../components/Profile/Reviews/ratingLabels'
 import CompanyRatingSkeleton from
   '../../../../components/People/ContactCenter/SkeletonLoader/Training/ratingSkeleton'
+import { USERS } from '../../../../utils/constants'
 import './styles.scss'
 
 const CompanyReviews = ({ companyId }) => {
@@ -26,7 +27,7 @@ const CompanyReviews = ({ companyId }) => {
 
   useEffect(() => {
     dispatch(profileRatingsFetchStart({
-      profileType: 'employer',
+      profileType: USERS.EMPLOYER,
       id: companyId,
     }))
   }, [ dispatch, companyId ])
@@ -78,7 +79,7 @@ const CompanyReviews = ({ companyId }) => {
         {/* List Reviews */}
         <ListReviews
           id={ companyId }
-          profileType='employer'
+          profileType={ USERS.EMPLOYER }
           reviewType={ activeTab === 0 ? 'received' : 'given' }
         />
       </div>

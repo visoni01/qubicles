@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import ReviewModal from '../../../Shared/reviewModal'
 import { profileReviewPostStart } from '../../../../redux-saga/redux/actions'
 import { agentRatingLabels } from '../../../../components/Profile/Reviews/ratingLabels'
+import { USERS } from '../../../../utils/constants'
 
 const AddAgentReview = ({ agentUserId, openReviewModal, setOpenReviewModal }) => {
   const [ reviewText, setReviewText ] = useState('')
@@ -21,7 +22,7 @@ const AddAgentReview = ({ agentUserId, openReviewModal, setOpenReviewModal }) =>
   // Handle post Review
   const handleSubmitReview = useCallback(() => {
     dispatch(profileReviewPostStart({
-      profileType: 'agent',
+      profileType: USERS.AGENT,
       id: agentUserId,
       reviewData: {
         performanceRating: rating.performanceRating,

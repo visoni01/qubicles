@@ -14,6 +14,7 @@ import {
   PEOPLE_ROUTE, PROGRAMS_NAVIGATION_ROUTE, INSIGHTS_NAVIGATION_ROUTE, SETTINGS_NAVIGATION_ROUTE,
 } from '../../routes/routesPath'
 import PeopleNavStats from './peopleNavStats'
+import { USERS } from '../../utils/constants'
 import './styles.scss'
 
 const navCard = (card) => (
@@ -38,10 +39,10 @@ function NavigationPage() {
   useEffect(() => {
     switch (location.pathname) {
       case PEOPLE_ROUTE: {
-        if (userDetails && userDetails.is_post_signup_completed && userDetails.user_code === 'employer') {
+        if (userDetails && userDetails.is_post_signup_completed && userDetails.user_code === USERS.EMPLOYER) {
           setNavigationCardsList(companyPeopleNavigations)
         }
-        if (userDetails && userDetails.is_post_signup_completed && userDetails.user_code !== 'employer') {
+        if (userDetails && userDetails.is_post_signup_completed && userDetails.user_code !== USERS.EMPLOYER) {
           setNavigationCardsList(agentPeopleNavigations)
         }
         setNavigationQuickLink(peopleClientQuicklinks)

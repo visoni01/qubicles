@@ -14,7 +14,7 @@ import {
   resetAgentProfileSettingsFlags,
 } from '../../../../../redux-saga/redux/actions'
 import Loader from '../../../../loaders/circularLoader'
-import { REQUEST_TYPES } from '../../../../../utils/constants'
+import { REQUEST_TYPES, USERS } from '../../../../../utils/constants'
 
 const ChangePassword = ({
   open, setOpen, isUpdateLoading, isUpdateSuccess, updatedDataType, userType,
@@ -49,7 +49,7 @@ const ChangePassword = ({
       setOpen(false)
       if (userType === 'client') {
         dispatch(resetUpdateProfileSettingsFlags())
-      } else if (userType === 'agent') {
+      } else if (userType === USERS.AGENT) {
         dispatch(resetAgentProfileSettingsFlags())
       }
     }
@@ -65,7 +65,7 @@ const ChangePassword = ({
             newPassword: data.newPassword,
           },
         }))
-      } else if (userType === 'agent') {
+      } else if (userType === USERS.AGENT) {
         dispatch(agentProfileSettingsApiStart({
           updatedDataType: 'password',
           updatedData: {

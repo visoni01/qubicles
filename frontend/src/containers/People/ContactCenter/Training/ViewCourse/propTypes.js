@@ -49,6 +49,7 @@ export const viewCoursePropType = PropTypes.shape({
     courseId: PropTypes.number.isRequired,
     isEnrolled: PropTypes.bool.isRequired,
     studentsEnrolled: PropTypes.number.isRequired,
+    canEdit: PropTypes.bool,
     updatedOn: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
     informationSection: PropTypes.shape({

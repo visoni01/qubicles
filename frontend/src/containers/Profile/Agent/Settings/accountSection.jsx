@@ -5,7 +5,7 @@ import ChangeEmail from '../../Company/Settings/SettingsDrawers/changeEmail'
 import ChangeNumber from '../../Company/Settings/SettingsDrawers/changeNumber'
 import ChangePassword from '../../Company/Settings/SettingsDrawers/changePassword'
 import ChangeAddress from '../../Company/Settings/SettingsDrawers/changeAddress'
-import { REQUEST_TYPES } from '../../../../utils/constants'
+import { REQUEST_TYPES, USERS } from '../../../../utils/constants'
 import '../../Company/Settings/styles.scss'
 
 const AccountSection = () => {
@@ -46,7 +46,7 @@ const AccountSection = () => {
             isUpdateLoading={ isUpdateLoading }
             isUpdateSuccess={ isUpdateSuccess }
             updatedDataType={ updatedDataType }
-            userType='agent'
+            userType={ USERS.AGENT }
           />
           <ChangeAddress
             open={ openDrawer.addressDrawer }
@@ -55,7 +55,7 @@ const AccountSection = () => {
             isUpdateLoading={ isUpdateLoading }
             isUpdateSuccess={ isUpdateSuccess }
             updatedDataType={ updatedDataType }
-            userType='agent'
+            userType={ USERS.AGENT }
           />
           <ChangeEmail
             open={ openDrawer.emailDrawer }
@@ -66,7 +66,7 @@ const AccountSection = () => {
             isUpdateError={ isUpdateError }
             updatedDataType={ updatedDataType }
             requestType={ requestType }
-            userType='agent'
+            userType={ USERS.AGENT }
           />
           <ChangeNumber
             open={ openDrawer.phoneDrawer }
@@ -75,7 +75,7 @@ const AccountSection = () => {
             isUpdateLoading={ isUpdateLoading }
             isUpdateSuccess={ isUpdateSuccess }
             updatedDataType={ updatedDataType }
-            userType='agent'
+            userType={ USERS.AGENT }
             phoneType='phoneDrawer'
           />
           <ChangeNumber
@@ -85,7 +85,7 @@ const AccountSection = () => {
             isUpdateLoading={ isUpdateLoading }
             isUpdateSuccess={ isUpdateSuccess }
             updatedDataType={ updatedDataType }
-            userType='agent'
+            userType={ USERS.AGENT }
             phoneType='numberDrawer'
           />
         </>

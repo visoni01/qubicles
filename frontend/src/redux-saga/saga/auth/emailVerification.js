@@ -1,5 +1,6 @@
 import { takeEvery, put } from 'redux-saga/effects'
 import apiClient from '../../../utils/apiClient'
+import { USERS } from '../../../utils/constants'
 import {
   emailVerificationStart,
   emailVerificationFailure,
@@ -21,7 +22,7 @@ function* emailVerificationWorker(action) {
     const response = yield apiClient.emailVerification(token)
     yield put(emailVerificationSuccessful(response.data))
     if (userType) {
-      if (userType === 'agent') {
+      if (userType === USERS.AGENT) {
         yield put(agentProfileSettingsApiSuccess({
           updatedData: {
             email: response.data.email,

@@ -1,4 +1,5 @@
 import { put, takeLatest } from 'redux-saga/effects'
+import { USERS } from '../../../../utils/constants'
 import {
   profileReviewsFetchStart,
   showSuccessMessage,
@@ -25,10 +26,10 @@ function* profileReviewsWorker(action) {
       case profileReviewsFetchStart.type: {
         const { reviewType, profileType, id } = action.payload
         let reviews
-        if (profileType === 'employer') {
+        if (profileType === USERS.EMPLOYER) {
           reviews = yield CompanyProfile.fetchCompanyReviews({ clientId: id, type: reviewType })
         }
-        if (profileType === 'agent') {
+        if (profileType === USERS.AGENT) {
           // WIP: Will move to agent Profile Service
           reviews = yield CompanyProfile.fetchAgentReviews({ agentUserId: id, type: reviewType })
         }
@@ -42,7 +43,7 @@ function* profileReviewsWorker(action) {
       }
       case profileReviewPostStart.type: {
         const { profileType, reviewData, id } = action.payload
-        if (profileType === 'employer') {
+        if (profileType === USERS.EMPLOYER) {
           const { data } = yield CompanyProfile.postCompanyReview({ clientId: id, reviewData })
           yield put(profileRatingsFetchSuccessful({
             totalAverageRating: data.ratings.totalAverageRating,
@@ -56,7 +57,7 @@ function* profileReviewsWorker(action) {
           // Update rating and reviews
           yield put(profileReviewPostSuccessful({ reviews: data.reviews }))
         }
-        if (profileType === 'agent') {
+        if (profileType === USERS.AGENT) {
           // WIP: Will move to agent Profile Service
           const { data } = yield CompanyProfile.postAgentReview({ agentUserId: id, reviewData })
           yield put(profileRatingsFetchSuccessful({

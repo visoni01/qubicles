@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { jobApplicationRequestStart, startLoader, stopLoader } from '../../../redux-saga/redux/actions'
 import ClientViewApplication from '../ContactCenter/Talent/Application'
 import AgentViewApplication from '../Agent/Applications/agentViewApplication'
-import { REQUEST_TYPES } from '../../../utils/constants'
+import { REQUEST_TYPES, USERS } from '../../../utils/constants'
 
 const JobApplicationPage = () => {
   const {
@@ -43,7 +43,7 @@ const JobApplicationPage = () => {
   }
 
   if (!isLoading || requestType === REQUEST_TYPES.UPDATE) {
-    if (userDetails.user_code === 'employer') {
+    if (userDetails.user_code === USERS.EMPLOYER) {
       return (
         <ClientViewApplication
           applicationLoading={ isLoading }

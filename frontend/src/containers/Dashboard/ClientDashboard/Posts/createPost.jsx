@@ -13,6 +13,7 @@ import _ from 'lodash'
 import { createStatusPostStart, startLoader, stopLoader } from '../../../../redux-saga/redux/actions'
 import { postStatusPermissions } from '../../../People/ContactCenter/constants'
 import { ImageIcon } from '../../../../assets/images/common'
+import { USERS } from '../../../../utils/constants'
 
 const CreatePost = ({ initialPostData }) => {
   const [ postText, setPostText ] = useState(initialPostData.postText)
@@ -114,7 +115,9 @@ const CreatePost = ({ initialPostData }) => {
         <Avatar
           className='comment-avatar'
           alt={ userDetails.full_name }
-          src={ _.isEqual(userDetails.user_code, 'employer') ? clientSettings.profilePic : agentSettings.profilePic }
+          src={ _.isEqual(userDetails.user_code, USERS.EMPLOYER)
+            ? clientSettings.profilePic
+            : agentSettings.profilePic }
         />
         <div className='create-post'>
           <div className='post-content'>

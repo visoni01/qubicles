@@ -1,4 +1,5 @@
 import { takeEvery, put } from 'redux-saga/effects'
+import { USERS } from '../../../utils/constants'
 import {
   uploadProfileImageStart,
   uploadProfileImageFailed,
@@ -22,7 +23,7 @@ function* uploadProfileImageWorker(action) {
     formData.append('file', file)
     const { data } = yield User.uploadProfileImage({ data: formData })
     yield put(uploadProfileImageSuccess())
-    if (userType === 'agent') {
+    if (userType === USERS.AGENT) {
       yield put(agentProfileSettingsApiSuccess({
         updatedDataType: 'profileImage',
         updatedData: { profilePic: data.profilePicUrl || null },

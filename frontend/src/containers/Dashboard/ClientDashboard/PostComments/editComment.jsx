@@ -1,19 +1,20 @@
 import React, { useState, useCallback } from 'react'
-import {
-  Avatar, TextareaAutosize, Button,
-} from '@material-ui/core'
+import { Avatar, TextareaAutosize, Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { updatePostComment } from '../../../../redux-saga/redux/actions'
+import { USERS } from '../../../../utils/constants'
 
 const EditComment = ({
   postId, commentId, setIsEditing, oldComment,
 }) => {
   const [ commentText, setCommentText ] = useState(oldComment)
+
   const { userDetails } = useSelector((state) => state.login)
   const { settings } = useSelector((state) => (
-    state[ userDetails.user_code === 'employer' ? 'clientDetails' : 'agentDetails' ]
+    state[ userDetails.user_code === USERS.EMPLOYER ? 'clientDetails' : 'agentDetails' ]
   ))
+
   const dispatch = useDispatch()
 
   const handleCommentChange = (e) => {

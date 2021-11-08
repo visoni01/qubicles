@@ -6,17 +6,18 @@ import AgentMultipartForm from './AgentMultipartForm'
 import ContactCenterMultipartForm from './ContactCenterMultipartForm'
 import agent from '../../../../assets/images/agent-registration.svg'
 import contactCenter from '../../../../assets/images/contactcenter-registration.svg'
+import { USERS } from '../../../../utils/constants'
 import './style.scss'
 
 const RoleSetup = () => {
   const dispatch = useDispatch()
 
   const updateEmpployeeRoleCB = useCallback(() => {
-    dispatch(userUpdateStart({ role: 'employer' }))
+    dispatch(userUpdateStart({ role: USERS.EMPLOYER }))
   }, [ dispatch ])
 
   const updateAgentRoleCB = useCallback(() => {
-    dispatch(userUpdateStart({ role: 'agent' }))
+    dispatch(userUpdateStart({ role: USERS.AGENT }))
   }, [ dispatch ])
 
   return (
@@ -85,8 +86,8 @@ const PostSignUp = () => {
         <img className='qubicles-logo' src='https://i.imgur.com/Ap2GB30.png' width={ 180 } height={ 28 } alt='' />
       </div>
       {!userCode && <RoleSetup />}
-      {userCode === 'agent' && <AgentMultipartForm />}
-      {userCode === 'employer' && <ContactCenterMultipartForm />}
+      {userCode === USERS.AGENT && <AgentMultipartForm />}
+      {userCode === USERS.EMPLOYER && <ContactCenterMultipartForm />}
     </div>
   )
 }

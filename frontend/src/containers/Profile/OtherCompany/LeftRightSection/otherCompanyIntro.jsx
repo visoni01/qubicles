@@ -14,7 +14,7 @@ import {
   jobPostCompanyDetailsFetchStart, resetCompanyDetails, allChatsRequestStart,
 } from '../../../../redux-saga/redux/actions'
 import { formatCount } from '../../../../utils/common'
-import { REQUEST_TYPES } from '../../../../utils/constants'
+import { REQUEST_TYPES, USERS } from '../../../../utils/constants'
 import { NEW_CHAT } from '../../../../redux-saga/redux/constants'
 
 const OtherCompanyIntro = ({ clientId, imageName }) => {
@@ -61,7 +61,7 @@ const OtherCompanyIntro = ({ clientId, imageName }) => {
         profilePic: companyDetails?.companyImg,
         location: companyDetails?.location,
         title: companyDetails?.title,
-        userCode: 'employer',
+        userCode: USERS.EMPLOYER,
       },
       onlyPopup: true,
     }))
@@ -100,7 +100,7 @@ const OtherCompanyIntro = ({ clientId, imageName }) => {
           )}
         </div>
         <div className=' mt-20 mb-20'>
-          {userDetails && !_.isEqual(userDetails.user_code, 'employer') && (
+          {userDetails && !_.isEqual(userDetails.user_code, USERS.EMPLOYER) && (
             <Button
               className='wide-button'
               classes={ {

@@ -4,7 +4,7 @@ import { Box, Button, CircularProgress } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import InviteAgent from '../inviteAgent'
 import { allChatsRequestStart } from '../../../../../redux-saga/redux/chat'
-import { REQUEST_TYPES } from '../../../../../utils/constants'
+import { REQUEST_TYPES, USERS } from '../../../../../utils/constants'
 import { NEW_CHAT } from '../../../../../redux-saga/redux/constants'
 import '../styles.scss'
 
@@ -37,7 +37,7 @@ const InviteAgentActions = ({
         profilePic: profileImage,
         location,
         title: profileName,
-        userCode: 'agent',
+        userCode: USERS.AGENT,
       },
       onlyPopup: true,
     }))

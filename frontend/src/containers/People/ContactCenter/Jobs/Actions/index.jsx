@@ -9,7 +9,7 @@ import TrainingActions from './trainingActions'
 import OfferedActions from './offeredActions'
 import { jobApplicationRequestStart, allChatsRequestStart } from '../../../../../redux-saga/redux/actions'
 import HiredActions from './hiredActions'
-import { REQUEST_TYPES } from '../../../../../utils/constants'
+import { REQUEST_TYPES, USERS } from '../../../../../utils/constants'
 import { NEW_CHAT } from '../../../../../redux-saga/redux/constants'
 import '../../styles.scss'
 
@@ -50,7 +50,7 @@ const ClientJobApplicationActions = ({
         profilePic: profileImage,
         location,
         title: profileName,
-        userCode: 'agent',
+        userCode: USERS.AGENT,
       },
       onlyPopup: true,
     }))

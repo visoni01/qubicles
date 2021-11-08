@@ -5,6 +5,7 @@ import {
 import { useHistory, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import menuItems from './menuList'
+import { USERS } from '../../utils/constants'
 
 const SideBar = () => {
   const [ selectedNav, setSelectedNav ] = useState(0)
@@ -31,7 +32,7 @@ const SideBar = () => {
   }, [ location ])
 
   useEffect(() => {
-    if (userDetails.user_code === 'employer') {
+    if (userDetails.user_code === USERS.EMPLOYER) {
       setUserMenuApps(menuItems)
     } else {
       setUserMenuApps(menuItems.filter((item) => [ 0, 1, 3, 5 ].includes(item.id)))

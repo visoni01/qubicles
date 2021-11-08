@@ -10,6 +10,7 @@ import MultipartForm from './multipartForm'
 import {
   postSignUpStepStart, handleBackStep, handleNextStep, postSignUpPreviousDataFetch,
 } from '../../../../../redux-saga/redux/user/postSignup'
+import { USERS } from '../../../../../utils/constants'
 
 const AgentMultipartForm = () => {
   const { stepsData, currentStep, isLoading } = useSelector((state) => state.postSignUp)
@@ -29,7 +30,7 @@ const AgentMultipartForm = () => {
       return dispatch(handleNextStep())
     }
 
-    return dispatch(postSignUpStepStart({ type: 'agent', step: currentStep, data }))
+    return dispatch(postSignUpStepStart({ type: USERS.AGENT, step: currentStep, data }))
   }
 
   const handleOnBack = () => dispatch(handleBackStep())

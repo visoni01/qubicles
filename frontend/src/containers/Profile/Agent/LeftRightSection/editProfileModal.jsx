@@ -15,7 +15,7 @@ import {
 } from '../../../../redux-saga/redux/actions'
 import Loader from '../../../loaders/circularLoader'
 import { defaultUser } from '../../../../assets/images/avatar'
-import { REQUEST_TYPES } from '../../../../utils/constants'
+import { REQUEST_TYPES, USERS } from '../../../../utils/constants'
 
 const EditProfileModal = ({ open, handleClose, agentInfo }) => {
   const [ profileInfo, setProfileInfo ] = useState(agentInfo)
@@ -157,7 +157,7 @@ const EditProfileModal = ({ open, handleClose, agentInfo }) => {
   const onSubmit = useCallback(() => {
     const uploadImage = {
       file: fileInput.current.files && fileInput.current.files[ 0 ],
-      userType: 'agent',
+      userType: USERS.AGENT,
     }
     if (!_.isEqual(profileInfo, agentInfo)) {
       dispatch(agentProfileSettingsApiStart({

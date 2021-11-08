@@ -10,7 +10,7 @@ import { showSuccessMessage } from '../../redux-saga/redux/utils'
 import { fetchAgentResumeStart } from '../../redux-saga/redux/people'
 import { BlockIcon, CopyIcon } from '../../assets/images/profile'
 import { LocationIcon } from '../../assets/images/common'
-import { REQUEST_TYPES } from '../../utils/constants'
+import { REQUEST_TYPES, USERS } from '../../utils/constants'
 // import { formatDate } from '../../utils/common'
 
 const Introduction = ({
@@ -66,7 +66,7 @@ const Introduction = ({
         </div>
       </div>
 
-      {userDetails && !_.isEqual(userDetails.user_code, 'employer')
+      {userDetails && !_.isEqual(userDetails.user_code, USERS.EMPLOYER)
         && candidateId && candidateId !== userDetails.user_id && (
         <div className='other-agent-menu mt-5'>
           <MenuOptions

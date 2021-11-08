@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -14,11 +15,13 @@ import { noOfCoursesPerPage } from '../constants'
 import AllCoursesSkeleton from '../../../../components/People/ContactCenter/SkeletonLoader/Training/allCoursesSkeleton'
 import { FilterIcon } from '../../../../assets/images/training'
 import { SearchIcon } from '../../../../assets/images/common'
+import { USERS } from '../../../../utils/constants'
 
 const TrainingWrap = () => {
   const {
     courses, count, searchField, currentPage, isLoading, categoryTitle, courseFilter,
   } = useSelector((state) => state.viewAllCourses)
+  const { userDetails } = useSelector((state) => state.login)
 
   const [ searchCourseField, setSearchCourseField ] = useState(searchField)
   const [ anchorEl, setAnchorEl ] = useState(null)
@@ -87,16 +90,18 @@ const TrainingWrap = () => {
             value={ searchCourseField }
           />
         </div>
-        <Button
-          className='search-button'
-          classes={ {
-            root: 'button-primary-small',
-            label: 'button-primary-small-label pl-10 pr-10',
-          } }
-          onClick={ handleCreateCourseButton }
-        >
-          Create Course
-        </Button>
+        {userDetails && [ USERS.EMPLOYER, USERS.TRAINER ].includes(userDetails.user_code) && (
+          <Button
+            className='search-button'
+            classes={ {
+              root: 'button-primary-small',
+              label: 'button-primary-small-label pl-10 pr-10',
+            } }
+            onClick={ handleCreateCourseButton }
+          >
+            Create Course
+          </Button>
+        )}
       </div>
       <Box className='custom-box'>
         <div className='all-courses-box mb-20'>

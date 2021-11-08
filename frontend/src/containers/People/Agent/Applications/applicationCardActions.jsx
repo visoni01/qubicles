@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom'
 import { agentJobApplicationsRequestStart, allChatsRequestStart } from '../../../../redux-saga/redux/actions'
 import { VIEW_COURSE_ROUTE } from '../../../../routes/routesPath'
 import { applicationPropTypes, clientDetailsPropTypes, jobDetailsPropTypes } from './propTypes'
-import { REQUEST_TYPES } from '../../../../utils/constants'
+import { REQUEST_TYPES, USERS } from '../../../../utils/constants'
 import { NEW_CHAT } from '../../../../redux-saga/redux/constants'
 
 const ApplicationCardActions = ({
@@ -79,7 +79,7 @@ const ApplicationCardActions = ({
         profilePic: clientDetails?.profileImage,
         location: jobDetails?.location,
         title: clientDetails?.title,
-        userCode: 'employer',
+        userCode: USERS.EMPLOYER,
       },
       onlyPopup: true,
     }))

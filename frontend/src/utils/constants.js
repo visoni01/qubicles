@@ -5,6 +5,14 @@ export const MESSAGES = {
   INVALID_IMAGE_FILE_SIZE: 'File size should not be greater than 1 MB!',
 }
 
+export const USERS = {
+  EMPLOYER: 'employer',
+  AGENT: 'agent',
+  TRAINER: 'trainer',
+  SUPERVISOR: 'supervisor',
+  QA_SUPPORT: 'qa-support',
+}
+
 export const EVENTS = {
   JOIN_ROOM: 'join-room',
   SEND_NOTIFICATION: 'send-notification',

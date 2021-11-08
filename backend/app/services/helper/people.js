@@ -1,7 +1,7 @@
 import {
   XQodResourceDef, XQodUserSkill, XQodSkill, XQodUserCourse, XQodCourseUnitsUser, XQodCategory, XQodCourseUserQA,
   UserDetail, XQodApplication, XUserActivity, User, XQodCourse, XQodCourseSection, XQodCourseUnit, XQodCourseSectionQA,
-  XQodCoursePrereqs
+  XQodCoursePrereqs, XQodJobCourse
 } from '../../db/models'
 import { createNewEntity, formatDate } from './common'
 import { getOne } from './crud'
@@ -739,7 +739,12 @@ export async function getCourseById ({ course_id, user_id }) {
     where: {
       course_id,
       creator_id: user_id
-    }
+    },
+    order: [
+      [{ model: XQodCourseSection, as: 'sections' }, 'order', 'ASC'],
+      [{ model: XQodCourseSection, as: 'sections' }, { model: XQodCourseUnit, as: 'units' }, 'order', 'ASC'],
+      [{ model: XQodCourseSection, as: 'sections' }, { model: XQodCourseSectionQA, as: 'questions' }, 'order', 'ASC']
+    ]
   })
 
   if (course && course.length) {
@@ -971,7 +976,8 @@ export const formatViewCourseData = ({
   courseDetails,
   creatorDetails,
   totalRaters,
-  requiredCourses
+  requiredCourses,
+  isCourseTakenInJob
 }) => {
   return {
     isEnrolled,
@@ -983,6 +989,7 @@ export const formatViewCourseData = ({
     studentsEnrolled,
     rating: course.rating,
     totalRaters,
+    canEdit: isCreator && studentsEnrolled === 0 && !isCourseTakenInJob,
     informationSection: {
       creatorId: course.creator_id,
       creatorName: creatorDetails.full_name,
@@ -1038,7 +1045,11 @@ export async function getViewCourseById ({ course_id, user_id }) {
       where: {
         course_id,
         status: 'published'
-      }
+      },
+      order: [
+        [{ model: XQodCourseSection, as: 'sections' }, 'order', 'ASC'],
+        [{ model: XQodCourseSection, as: 'sections' }, { model: XQodCourseUnit, as: 'units' }, 'order', 'ASC']
+      ]
     }),
     () => XQodUserCourse.count({
       raw: true,
@@ -1163,8 +1174,18 @@ export const checkIsCourseCreator = async ({ course_id, user_id }) => {
   return isCreator
 }
 
+export const getCourseUsageInJob = async ({ course_id }) => {
+  const isCourseTakenInJob = await XQodJobCourse.findOne({
+    raw: true,
+    attributes: ['job_id'],
+    where: { course_id }
+  })
+
+  return isCourseTakenInJob
+}
+
 export const getCreatorViewCourseById = async ({ course_id, user_id }) => {
-  const promiseArray = [
+  let promiseArray = [
     () => User.findOne({
       attributes: ['full_name'],
       where: { user_id }
@@ -1186,7 +1207,11 @@ export const getCreatorViewCourseById = async ({ course_id, user_id }) => {
       where: {
         course_id,
         status: 'published'
-      }
+      },
+      order: [
+        [{ model: XQodCourseSection, as: 'sections' }, 'order', 'ASC'],
+        [{ model: XQodCourseSection, as: 'sections' }, { model: XQodCourseUnit, as: 'units' }, 'order', 'ASC']
+      ]
     }),
     () => XQodUserCourse.count({
       raw: true,
@@ -1211,8 +1236,13 @@ export const getCreatorViewCourseById = async ({ course_id, user_id }) => {
   if (course && course.length) {
     course = course.map(item => item.get({ plain: true }))[0]
 
-    const categoryTitle = await getCategoryTitleById({ category_id: course.category_id })
-    const requiredCourses = await getRequiredCoursesById({ course_id })
+    promiseArray = [
+      () => getCategoryTitleById({ category_id: course.category_id }),
+      () => getRequiredCoursesById({ course_id }),
+      () => getCourseUsageInJob({ course_id })
+    ]
+
+    const [categoryTitle, requiredCourses, isCourseTakenInJob] = await Promise.all(promiseArray.map(promise => promise()))
 
     let requiredCoursesData = []
 
@@ -1231,7 +1261,8 @@ export const getCreatorViewCourseById = async ({ course_id, user_id }) => {
       courseDetails: {},
       creatorDetails,
       totalRaters: totalRaters && totalRaters.length && totalRaters[0].totalAverageRaters,
-      requiredCourses: requiredCoursesData
+      requiredCourses: requiredCoursesData,
+      isCourseTakenInJob
     })
 
     return formattedViewCourse
@@ -1449,7 +1480,10 @@ export async function getAllViewCourses ({ searchField, categoryId, courseFilter
   if (!_.isEmpty(searchField)) {
     query = {
       ...query,
-      title: { [Op.substring]: searchField }
+      [Op.or]: [
+        { description: { [Op.substring]: searchField } },
+        { title: { [Op.substring]: searchField } }
+      ]
     }
   }
 

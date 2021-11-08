@@ -277,7 +277,7 @@ const CourseActions = ({
                 >
                   View Course
                 </Button>
-                {course.studentsEnrolled === 0 && (
+                {course.canEdit && (
                   <Button
                     className='wide-button'
                     classes={ {

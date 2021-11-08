@@ -3,7 +3,7 @@ import _ from 'lodash'
 import { takeEvery, put, select } from 'redux-saga/effects'
 import WebSocket from '../../../socket'
 import Chat from '../../service/chat'
-import { REQUEST_TYPES, CHAT_NOTIFICATION_MESSAGES } from '../../../utils/constants'
+import { REQUEST_TYPES, CHAT_NOTIFICATION_MESSAGES, USERS } from '../../../utils/constants'
 import { formatConversationRoomId, getFormattedChatNotificationMessage } from '../../../utils/common'
 import {
   allChatsRequestStart, allChatsRequestSuccess, allChatsRequestFailed, showErrorMessage, updateCurrentChatId,
@@ -163,7 +163,7 @@ function* allChatsWorker(action) {
               }),
             ]
 
-            if (userDetails && _.isEqual(userDetails.user_code, 'agent')) {
+            if (userDetails && _.isEqual(userDetails.user_code, USERS.AGENT)) {
               let location = agentSettings.city || ''
               location = location + agentSettings.state || ''
               loggedInUser = {

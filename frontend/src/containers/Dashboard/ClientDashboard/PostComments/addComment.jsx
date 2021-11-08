@@ -6,6 +6,7 @@ import {
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import PostCommentSkeleton from './postCommentSkeleton'
+import { USERS } from '../../../../utils/constants'
 
 const AddComment = ({ postComment, isCommentLoading }) => {
   const [ commentText, setCommentText ] = useState('')
@@ -36,7 +37,9 @@ const AddComment = ({ postComment, isCommentLoading }) => {
         <Avatar
           className='comment-avatar'
           alt={ userDetails.full_name }
-          src={ _.isEqual(userDetails.user_code, 'employer') ? clientSettings.profilePic : agentSettings.profilePic }
+          src={ _.isEqual(userDetails.user_code, USERS.EMPLOYER)
+            ? clientSettings.profilePic
+            : agentSettings.profilePic }
         />
         <div className='create-comment'>
           <div className='comment-content'>

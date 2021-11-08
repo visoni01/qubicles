@@ -17,6 +17,7 @@ import ViewMembers from './viewMembers'
 import RightSectionSkeleton from '../../../components/Chat/Skeletons/rightSectionSkeleton'
 import { stopLoader } from '../../../redux-saga/redux/utils'
 import { CHANGE_GROUP_NAME, CURRENT_CHAT, DELETE_CHAT } from '../../../redux-saga/redux/constants'
+import { USERS } from '../../../utils/constants'
 
 const RightCard = ({ changeGroupName }) => {
   const [ openViewMembersModal, setOpenViewMembersModal ] = useState(false)
@@ -229,8 +230,8 @@ const RightCard = ({ changeGroupName }) => {
       ) : (
         <Link
           className='text-link'
-          to={ `${ otherUser && otherUser.userCode === 'agent'
-            ? PROFILE_ROUTE : COMPANY_PROFILE_ROUTE }/${ otherUser?.userCode === 'agent'
+          to={ `${ otherUser && otherUser.userCode === USERS.AGENT
+            ? PROFILE_ROUTE : COMPANY_PROFILE_ROUTE }/${ otherUser?.userCode === USERS.AGENT
               ? otherUser?.id : otherUser?.clientId }/feed` }
           target='_blank'
         >

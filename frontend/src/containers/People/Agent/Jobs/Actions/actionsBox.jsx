@@ -11,7 +11,7 @@ import ScreeningActions from './screeningActions'
 import HiredActions from './hiredActions'
 import OfferedActions from './offeredActions'
 import { jobApplicationRequestStart, allChatsRequestStart } from '../../../../../redux-saga/redux/actions'
-import { REQUEST_TYPES } from '../../../../../utils/constants'
+import { REQUEST_TYPES, USERS } from '../../../../../utils/constants'
 import { NEW_CHAT } from '../../../../../redux-saga/redux/constants'
 
 const ActionsBox = ({
@@ -43,7 +43,7 @@ const ActionsBox = ({
         applicationData: {
           applicationId: application.applicationId,
           applicationCategoryId: getApplicationCategoryId(),
-          userType: 'agent',
+          userType: USERS.AGENT,
           jobId: application.jobId,
           status,
         },
@@ -65,7 +65,7 @@ const ActionsBox = ({
         profilePic: jobDetails?.companyDetails?.profile_image,
         location: `${ jobDetails?.companyDetails?.city }, ${ jobDetails?.companyDetails?.state }`,
         title: jobDetails?.companyDetails?.title,
-        userCode: 'employer',
+        userCode: USERS.EMPLOYER,
       },
       onlyPopup: true,
     }))

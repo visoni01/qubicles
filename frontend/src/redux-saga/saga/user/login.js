@@ -16,6 +16,7 @@ import { getUserDetails } from '../../../utils/common'
 import { showSuccessMessage, showErrorMessage } from '../../redux/utils/snackbar'
 import { startLoader, stopLoader } from '../../redux/utils/loader'
 import WebSocket from '../../../socket'
+import { USERS } from '../../../utils/constants'
 
 function* loginWatcher() {
   yield takeLatest(
@@ -50,7 +51,7 @@ function* loginWorker(action) {
       }
       case userLogoutSuccessful.type: {
         const { userType } = action.payload
-        if (userType === 'agent') {
+        if (userType === USERS.AGENT) {
           yield put(resetAgentProfileSettingsData())
         } else {
           yield put(resetCompanyProfileSettingsData())

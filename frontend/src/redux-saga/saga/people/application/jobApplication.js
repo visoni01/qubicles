@@ -8,7 +8,9 @@ import {
 import People from '../../../service/people'
 import { getNotificationMessage, getSmsNotificationMessage, getUserDetails } from '../../../../utils/common'
 import WebSocket from '../../../../socket'
-import { NOTIFICATION_MESSAGES, REQUEST_TYPES, SUBJECTS } from '../../../../utils/constants'
+import {
+  NOTIFICATION_MESSAGES, REQUEST_TYPES, SUBJECTS, USERS,
+} from '../../../../utils/constants'
 
 function* jobApplicationWatcherStart() {
   yield takeEvery(jobApplicationRequestStart.type, jobApplicationWorker)
@@ -18,6 +20,7 @@ function* jobApplicationWatcherStart() {
 function* jobApplicationWorker(action) {
   try {
     const { applicationData, requestType } = action.payload
+
     switch (requestType) {
       case REQUEST_TYPES.CREATE: {
         const { data } = yield People.createJobApplication(applicationData)
@@ -142,7 +145,7 @@ function* jobApplicationWorker(action) {
           updateOn: data.updatedAt,
         }
         yield put(jobApplicationRequestSuccess({ application: updatedApplication }))
-        if (applicationData.userType && applicationData.userType === 'agent') {
+        if (applicationData.userType && applicationData.userType === USERS.AGENT) {
           yield put(updateAgentApplicationInList({
             updatedApplication,
             applicationCategoryId: applicationData.applicationCategoryId,
@@ -186,7 +189,7 @@ function* jobApplicationWorker(action) {
 
         const userDetails = getUserDetails()
 
-        if (userDetails && _.isEqual(userDetails.user_code, 'agent')
+        if (userDetails && _.isEqual(userDetails.user_code, USERS.AGENT)
           && data && [ 'declined', 'screening', 'resigned' ].includes(data.status)) {
           const { jobDetails } = yield select((state) => state.jobDetails)
 
@@ -229,7 +232,7 @@ function* jobApplicationWorker(action) {
           }
         }
 
-        if (userDetails && _.isEqual(userDetails.user_code, 'employer')
+        if (userDetails && _.isEqual(userDetails.user_code, USERS.EMPLOYER)
           && data && [ 'declined', 'invited' ].includes(data.status)) {
           const { application } = yield select((state) => state.jobApplication)
           const { agentResume } = yield select((state) => state.agentResume)

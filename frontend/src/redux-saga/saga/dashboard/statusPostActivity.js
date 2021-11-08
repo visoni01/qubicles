@@ -1,6 +1,7 @@
 import {
   takeLatest, put, select,
 } from 'redux-saga/effects'
+import { USERS } from '../../../utils/constants'
 import {
   updatePostData,
   showErrorMessage,
@@ -43,7 +44,7 @@ function* statusPostActivityFetchingWorker(action) {
 
         const { userDetails } = yield select((state) => state.login)
         const { settings } = yield select((state) => (
-          state[ userDetails.user_code === 'employer' ? 'clientDetails' : 'agentDetails' ]
+          state[ userDetails.user_code === USERS.EMPLOYER ? 'clientDetails' : 'agentDetails' ]
         ))
         const newCommentData = {
           post_id: commentData.userActivityId,

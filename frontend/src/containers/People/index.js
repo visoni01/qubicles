@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import _ from 'lodash'
 import PeopleContactCenter from './ContactCenter'
 import AgentContactCenter from './Agent'
 import { viewAllCoursesFetchStart, resetViewAllCoursesReducer } from '../../redux-saga/redux/people'
+import { USERS } from '../../utils/constants'
 
 export default function PeopleTabs() {
   const { userDetails } = useSelector((state) => state.login)
@@ -24,14 +26,12 @@ export default function PeopleTabs() {
     }
   }, [ dispatch, categoryId, searchField, courseFilter, offset ])
 
-  if (userDetails && userDetails.is_post_signup_completed && userDetails.user_code === 'employer') {
-    return (
-      <PeopleContactCenter />
-    )
+  if (userDetails && userDetails.is_post_signup_completed && _.isEqual(userDetails.user_code, USERS.EMPLOYER)) {
+    return <PeopleContactCenter />
   }
-  if (userDetails && userDetails.is_post_signup_completed && userDetails.user_code === 'agent') {
-    return (
-      <AgentContactCenter />
-    )
+
+  if (userDetails && userDetails.is_post_signup_completed
+    && [ USERS.AGENT, USERS.TRAINER, USERS.SUPERVISOR, USERS.QA_SUPPORT ].includes(userDetails.user_code)) {
+    return <AgentContactCenter />
   }
 }

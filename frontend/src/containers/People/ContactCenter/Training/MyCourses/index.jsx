@@ -13,7 +13,7 @@ import PublishedCourseCard from './publishedCourseCard'
 import ROUTE_PATHS, { EDIT_COURSE_ROUTE } from '../../../../../routes/routesPath'
 import { allCoursesRequestStart, resetAllCoursesReducer } from '../../../../../redux-saga/redux/people'
 import MyCoursesSkeleton from '../../../../../components/People/ContactCenter/SkeletonLoader/Training/myCoursesSkeleton'
-import { REQUEST_TYPES } from '../../../../../utils/constants'
+import { REQUEST_TYPES, USERS } from '../../../../../utils/constants'
 
 const MyCourses = () => {
   const {
@@ -25,7 +25,7 @@ const MyCourses = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (userDetails.user_code === 'employer') {
+    if (userDetails.user_code === USERS.EMPLOYER) {
       dispatch(allCoursesRequestStart({
         requestType: REQUEST_TYPES.FETCH,
       }))
@@ -48,7 +48,7 @@ const MyCourses = () => {
     history.push(ROUTE_PATHS.CREATE_COURSE)
   }, [ history ])
 
-  if (_.isEqual(userDetails.user_code, 'employer') && (_.isNull(isLoading) || isLoading)) {
+  if (_.isEqual(userDetails.user_code, USERS.EMPLOYER) && (_.isNull(isLoading) || isLoading)) {
     return (
       <MyCoursesSkeleton />
     )

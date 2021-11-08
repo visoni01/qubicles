@@ -12,7 +12,7 @@ import {
   resetAgentProfileSettingsFlags,
 } from '../../../../../redux-saga/redux/actions'
 import Loader from '../../../../loaders/circularLoader'
-import { REQUEST_TYPES } from '../../../../../utils/constants'
+import { REQUEST_TYPES, USERS } from '../../../../../utils/constants'
 
 const ChangeEmail = ({
   open, setOpen, accountSettingInfo, isUpdateLoading, isUpdateSuccess, userType, updatedDataType,
@@ -38,7 +38,7 @@ const ChangeEmail = ({
       setResetClosed(false)
       if (userType === 'client') {
         dispatch(resetUpdateProfileSettingsFlags())
-      } else if (userType === 'agent') {
+      } else if (userType === USERS.AGENT) {
         dispatch(resetAgentProfileSettingsFlags())
       }
     }
@@ -53,7 +53,7 @@ const ChangeEmail = ({
             email: data.newEmail,
           },
         }))
-      } else if (userType === 'agent') {
+      } else if (userType === USERS.AGENT) {
         dispatch(agentProfileSettingsApiStart({
           updatedDataType: 'email',
           updatedData: {
@@ -79,7 +79,7 @@ const ChangeEmail = ({
             email: newEmail,
           },
         }))
-      } else if (userType === 'agent') {
+      } else if (userType === USERS.AGENT) {
         dispatch(agentProfileSettingsApiStart({
           updatedDataType: 'email',
           updatedData: {
@@ -94,7 +94,7 @@ const ChangeEmail = ({
   const handleReset = useCallback(() => {
     if (userType === 'client') {
       dispatch(resetUpdateProfileSettingsFlags())
-    } else if (userType === 'agent') {
+    } else if (userType === USERS.AGENT) {
       dispatch(resetAgentProfileSettingsFlags())
     }
     setResetClosed(true)

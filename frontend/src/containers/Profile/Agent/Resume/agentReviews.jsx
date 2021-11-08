@@ -8,6 +8,7 @@ import Loader from '../../../loaders/circularLoader'
 import { agentRatingLabels } from '../../../../components/Profile/Reviews/ratingLabels'
 import ListReviews from '../../Company/About/listReviews'
 import AddAgentReview from './addReview'
+import { USERS } from '../../../../utils/constants'
 import '../../Company/About/styles.scss'
 
 const AgentReviews = ({ agentUserId }) => {
@@ -22,7 +23,7 @@ const AgentReviews = ({ agentUserId }) => {
 
   useEffect(() => {
     dispatch(profileRatingsFetchStart({
-      profileType: 'agent',
+      profileType: USERS.AGENT,
       id: agentUserId,
     }))
   }, [ dispatch, agentUserId ])
@@ -82,7 +83,7 @@ const AgentReviews = ({ agentUserId }) => {
           {/* List Reviews */}
           <ListReviews
             id={ agentUserId }
-            profileType='agent'
+            profileType={ USERS.AGENT }
             reviewType={ activeTab === 0 ? 'received' : 'given' }
           />
         </div>

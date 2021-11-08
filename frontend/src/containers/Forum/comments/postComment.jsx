@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import classNames from 'classnames'
 import { postTopicComment, updateTopicComment } from '../../../redux-saga/redux/actions'
 import { ImageIcon } from '../../../assets/images/common'
+import { USERS } from '../../../utils/constants'
 
 const PostComment = ({
   topicId, isEdit, closeEditModal, commentDetails,
@@ -18,7 +19,7 @@ const PostComment = ({
 
   const { userDetails } = useSelector((state) => state.login)
   const { settings } = useSelector((state) => (
-    state[ userDetails.user_code === 'employer' ? 'clientDetails' : 'agentDetails' ]
+    state[ userDetails.user_code === USERS.EMPLOYER ? 'clientDetails' : 'agentDetails' ]
   ))
 
   const fileInput = useRef()

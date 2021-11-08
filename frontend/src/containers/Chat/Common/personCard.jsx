@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import { COMPANY_PROFILE_ROUTE, PROFILE_ROUTE } from '../../../routes/routesPath'
 import ConfirmationModal from '../../../components/CommonModal/confirmationModal'
 import { VIEW_MEMBERS } from '../../../redux-saga/redux/constants'
+import { USERS } from '../../../utils/constants'
 
 const PersonCard = ({
   id, clientId, name, title, profilePic, userCode, actionType, handleRemove, isRemoved, loading,
@@ -47,8 +48,8 @@ const PersonCard = ({
                       <p className='para light'>{title}</p>
                       <Link
                         className='primary-text-link'
-                        to={ `${ userCode === 'agent'
-                          ? PROFILE_ROUTE : COMPANY_PROFILE_ROUTE }/${ userCode === 'agent' ? id : clientId }/feed` }
+                        to={ `${ userCode === USERS.AGENT ? PROFILE_ROUTE : COMPANY_PROFILE_ROUTE }/
+                        ${ userCode === USERS.AGENT ? id : clientId }/feed` }
                         target='_blank'
                       >
                         View Profile

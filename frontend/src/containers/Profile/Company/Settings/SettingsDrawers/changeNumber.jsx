@@ -14,7 +14,7 @@ import {
 } from '../../../../../redux-saga/redux/actions'
 import { phoneNumberFormatter } from '../../../../../utils/common'
 import Loader from '../../../../loaders/circularLoader'
-import { REQUEST_TYPES } from '../../../../../utils/constants'
+import { REQUEST_TYPES, USERS } from '../../../../../utils/constants'
 
 const ChangeNumber = ({
   open, setOpen, accountSettingInfo, isUpdateLoading, isUpdateSuccess, updatedDataType, userType, phoneType,
@@ -38,7 +38,7 @@ const ChangeNumber = ({
       setOpen(false)
       if (userType === 'client') {
         dispatch(resetUpdateProfileSettingsFlags())
-      } else if (userType === 'agent') {
+      } else if (userType === USERS.AGENT) {
         dispatch(resetAgentProfileSettingsFlags())
       }
     }
@@ -53,7 +53,7 @@ const ChangeNumber = ({
             phoneNumber: formState.newNumber && formState.newNumber.slice(1),
           },
         }))
-      } else if (userType === 'agent') {
+      } else if (userType === USERS.AGENT) {
         if (phoneType === 'numberDrawer') {
           dispatch(agentProfileSettingsApiStart({
             updatedDataType: 'mobile phone',

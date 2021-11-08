@@ -10,6 +10,7 @@ import JobPostSkeleton from '../../../../components/People/ContactCenter/Skeleto
 import JobPostDetails from '../../../../components/People/ContactCenter/Jobs/jobPostDetails'
 import { resetJobApplicationListFlags } from '../../../../redux-saga/redux/actions'
 import { jobDetailsPropTypes } from './jobsValidator'
+import { USERS } from '../../../../utils/constants'
 import './styles.scss'
 
 const JobPost = ({ jobId, jobDetails, isLoading }) => {
@@ -58,9 +59,7 @@ const JobPost = ({ jobId, jobDetails, isLoading }) => {
         />
       </Box>
 
-      {userDetails && userDetails.user_code === 'employer' && (
-        <JobsApplication jobId={ jobId } />
-      )}
+      {userDetails && userDetails.user_code === USERS.EMPLOYER && <JobsApplication jobId={ jobId } />}
     </>
   )
 }

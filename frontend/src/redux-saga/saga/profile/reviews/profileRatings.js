@@ -1,9 +1,7 @@
 import { put, takeEvery } from 'redux-saga/effects'
+import { USERS } from '../../../../utils/constants'
 import {
-  showErrorMessage,
-  profileRatingsFetchFailure,
-  profileRatingsFetchStart,
-  profileRatingsFetchSuccessful,
+  showErrorMessage, profileRatingsFetchFailure, profileRatingsFetchStart, profileRatingsFetchSuccessful,
 } from '../../../redux/actions'
 import CompanyProfile from '../../../service/profile/company'
 
@@ -14,7 +12,7 @@ function* profileRatingsWatcher() {
 function* profileRatingsWorker(action) {
   try {
     const { profileType, id } = action.payload
-    if (profileType === 'employer') {
+    if (profileType === USERS.EMPLOYER) {
       const { data } = yield CompanyProfile.fetchCompanyRatings({ clientId: id })
       yield put(profileRatingsFetchSuccessful({
         totalAverageRating: data.ratings.totalAverageRating,
@@ -26,7 +24,7 @@ function* profileRatingsWorker(action) {
         addReviewAccess: data.addReviewAccess,
       }))
     }
-    if (profileType === 'agent') {
+    if (profileType === USERS.AGENT) {
       // WIP: Will move to agent Profile Service
       const { data } = yield CompanyProfile.fetchAgentRatings({ agentUserId: id })
       yield put(profileRatingsFetchSuccessful({

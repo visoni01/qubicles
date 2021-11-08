@@ -7,7 +7,7 @@ import EndorsementsModal from '../../../../../components/People/ContactCenter/Ta
 import AddEndorseModal from './addEndorseModal'
 import { agentResumeSkillsStart } from '../../../../../redux-saga/redux/people'
 import { ThumbUpIcon } from '../../../../../assets/images/icons/endorsementIcons'
-import { REQUEST_TYPES } from '../../../../../utils/constants'
+import { REQUEST_TYPES, USERS } from '../../../../../utils/constants'
 import { REMOVE_ENDORSE } from '../../../../../redux-saga/redux/constants'
 
 const AgentSkillSection = ({ agentResumeSkills, canEndorse, candidateId }) => {
@@ -85,7 +85,7 @@ const AgentSkillSection = ({ agentResumeSkills, canEndorse, candidateId }) => {
                 <h4 className='h4'>
                   {skill.skillName}
                 </h4>
-                {canEndorse && userDetails.user_code === 'agent' && (
+                {canEndorse && userDetails.user_code === USERS.AGENT && (
                   <ThumbUpIcon
                     className={ `custom-svg-icon ml-10 like-button
                       ${ hasEndorsed.has(skill.skillId) ? 'color-primary' : '' }` }

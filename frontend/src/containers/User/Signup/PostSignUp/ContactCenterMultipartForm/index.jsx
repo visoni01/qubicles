@@ -8,6 +8,7 @@ import StepperComponent from '../../../../../components/User/Stepper'
 import {
   postSignUpStepStart, handleBackStep, handleNextStep, postSignUpPreviousDataFetch,
 } from '../../../../../redux-saga/redux/user/postSignup'
+import { USERS } from '../../../../../utils/constants'
 
 const ContactCenterMultiPartForm = () => {
   const { stepsData, currentStep } = useSelector((state) => state.postSignUp)
@@ -24,7 +25,7 @@ const ContactCenterMultiPartForm = () => {
       return dispatch(handleNextStep())
     }
 
-    return dispatch(postSignUpStepStart({ type: 'employer', step: currentStep, data }))
+    return dispatch(postSignUpStepStart({ type: USERS.EMPLOYER, step: currentStep, data }))
   }
 
   const handleOnBack = () => dispatch(handleBackStep())

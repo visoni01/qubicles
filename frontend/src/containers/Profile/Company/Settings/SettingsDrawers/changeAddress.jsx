@@ -12,7 +12,7 @@ import {
   resetAgentProfileSettingsFlags,
 } from '../../../../../redux-saga/redux/actions'
 import Loader from '../../../../loaders/circularLoader'
-import { REQUEST_TYPES } from '../../../../../utils/constants'
+import { REQUEST_TYPES, USERS } from '../../../../../utils/constants'
 
 const ChangeAddress = ({
   open, setOpen, accountSettingInfo, isUpdateLoading, isUpdateSuccess, updatedDataType, userType,
@@ -24,7 +24,7 @@ const ChangeAddress = ({
       setOpen(false)
       if (userType === 'client') {
         dispatch(resetUpdateProfileSettingsFlags())
-      } else if (userType === 'agent') {
+      } else if (userType === USERS.AGENT) {
         dispatch(resetAgentProfileSettingsFlags())
       }
     }
@@ -55,7 +55,7 @@ const ChangeAddress = ({
             zip: data.zip,
           },
         }))
-      } else if (userType === 'agent') {
+      } else if (userType === USERS.AGENT) {
         dispatch(agentProfileSettingsApiStart({
           updatedDataType: 'address',
           updatedData: {

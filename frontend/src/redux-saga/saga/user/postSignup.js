@@ -2,23 +2,18 @@
 import { takeLatest, put } from 'redux-saga/effects'
 import apiClient from '../../../utils/apiClient'
 import {
-  postSignUpStepStart,
-  postSignUpStepSuccessful,
-  postSignUpPreviousDataSuccess,
-  postSignUpStepFailure,
-  postSignUpPreviousDataFetch,
-  resetUserDetails, showInvitePopup,
+  postSignUpStepStart, postSignUpStepSuccessful, postSignUpPreviousDataSuccess, postSignUpStepFailure,
+  postSignUpPreviousDataFetch, resetUserDetails, showInvitePopup,
 } from '../../redux/actions'
 import {
-  POST_SIGNUP_EMPLOYER_PREVIOUS_DATA_FETCH,
-  POST_SIGNUP_AGENT_PREVIOUS_DATA_FETCH,
+  POST_SIGNUP_EMPLOYER_PREVIOUS_DATA_FETCH, POST_SIGNUP_AGENT_PREVIOUS_DATA_FETCH,
 } from '../../redux/constants'
 import { startLoader, stopLoader } from '../../redux/utils/loader'
 import { showErrorMessage } from '../../redux/utils/snackbar'
 import SignUp from '../../service/signup'
 import { getPostSignUpStepsData } from '../helper'
-
 import User from '../../service/user'
+import { USERS } from '../../../utils/constants'
 
 function* postSignupStepWatcher() {
   yield takeLatest([
@@ -34,7 +29,7 @@ function* postSignupStepWorker(action) {
         yield put(startLoader())
         const { type, step, data } = action.payload
         if (step === 1) data.user_code = type
-        if (step === 4 && type !== 'employer') {
+        if (step === 4 && type !== USERS.EMPLOYER) {
           const formData = new FormData()
           formData.append('file', data.id_url)
           const uploadResult = yield User.uploadDocumentId({ userType: type, step, data: formData })
@@ -43,7 +38,7 @@ function* postSignupStepWorker(action) {
           yield apiClient.postSignUp(type, step, data)
           yield put(postSignUpStepSuccessful({ step, data }))
         }
-        if ((type === 'employer' && step === 3) || (type !== 'employer' && step === 5)) {
+        if ((type === USERS.EMPLOYER && step === 3) || (type !== USERS.EMPLOYER && step === 5)) {
           yield put(resetUserDetails())
           yield put(showInvitePopup())
         }

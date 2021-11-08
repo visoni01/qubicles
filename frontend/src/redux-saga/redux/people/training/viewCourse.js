@@ -18,6 +18,7 @@ const initialState = {
     updatedOn: '',
     sectionsCompleted: 0,
     studentsEnrolled: null,
+    canEdit: false,
     rating: null,
     totalRaters: 0,
     informationSection: {

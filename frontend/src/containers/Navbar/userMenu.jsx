@@ -4,7 +4,7 @@ import {
 } from '@material-ui/core'
 import { useHistory, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import '../../components/Navbar/style.scss'
+import _ from 'lodash'
 import User from '../../redux-saga/service/user'
 import InviteModal from '../InviteFriendsPage/InviteModal'
 import {
@@ -15,7 +15,8 @@ import {
   chatIcon, walletIcon, settingIcon, logoutIcon,
 } from '../../assets/images/icons/navBarIcons'
 import ROUTE_PATHS, { PROFILE_ROUTE } from '../../routes/routesPath'
-import { REQUEST_TYPES } from '../../utils/constants'
+import { REQUEST_TYPES, USERS } from '../../utils/constants'
+import '../../components/Navbar/style.scss'
 
 const UserMenu = () => {
   const [ isDropdownOpen, setIsDropdownOpen ] = useState(false)
@@ -33,7 +34,7 @@ const UserMenu = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (userDetails && userDetails.is_post_signup_completed && userDetails.user_code === 'employer') {
+    if (userDetails && userDetails.is_post_signup_completed && _.isEqual(userDetails.user_code, USERS.EMPLOYER)) {
       if (!isFetchLoading && !isFetchSuccess) {
         dispatch(getCompanyProfileSettingsApiStart())
       }
@@ -41,7 +42,8 @@ const UserMenu = () => {
   }, [ dispatch, userDetails, isFetchLoading, isFetchSuccess ])
 
   useEffect(() => {
-    if (userDetails && userDetails.is_post_signup_completed && userDetails.user_code === 'agent') {
+    if (userDetails && userDetails.is_post_signup_completed
+      && [ USERS.AGENT, USERS.TRAINER, USERS.SUPERVISOR, USERS.QA_SUPPORT ].includes(userDetails.user_code)) {
       if (!isLoading && !success && !requestType) {
         dispatch(agentProfileSettingsApiStart({
           requestType: REQUEST_TYPES.FETCH,
@@ -95,7 +97,7 @@ const UserMenu = () => {
           <Avatar
             className='profile-pic'
             alt={ userDetails && userDetails.full_name }
-            src={ userDetails && userDetails.user_code === 'agent'
+            src={ userDetails && userDetails.user_code === USERS.AGENT
               ? (agentSettings && agentSettings.profilePic)
               : (clientSettings && clientSettings.profilePic) }
           />
