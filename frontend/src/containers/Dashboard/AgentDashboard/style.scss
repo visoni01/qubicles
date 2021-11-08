@@ -7,7 +7,6 @@
   }
 }
 
-
 .agent-stats-cards {
   .stat-card {
     height: 200px;
@@ -16,8 +15,8 @@
     border-radius: 10px;
     box-shadow: none;
     text-align: center;
-
     cursor: pointer;
+
     .image {
       height: 60px;
       margin: auto;
@@ -31,9 +30,11 @@
         &.color-red {
           color: $color-red;
         }
+
         &.color-green {
           color: $color-green;
         }
+
         &.color-yellow {
           color: $color-yellow;
         }
@@ -57,6 +58,7 @@
     padding: 0px 5px;
     text-align: center;
     color: $color-white;
+
     &:hover {
       color: $color-white;
     }
@@ -64,6 +66,7 @@
 
   .wait-btn-active {
     background-color: $color-green;
+
     &:hover {
       background-color: $color-green;
     }
@@ -80,6 +83,7 @@
     font-size: 15px;
     padding: 0px 5px;
     text-align: center;
+
     &:hover {
       color: $color-primary;
     }
@@ -91,8 +95,8 @@
 }
 
 .call-center-agent-tab-root {
- min-width: unset;
- margin: 15px 10px 0px 10px;
+  min-width: unset;
+  margin: 15px 10px 0px 10px;
 }
 
 .agent-lg-btn-label {
@@ -112,6 +116,7 @@
 
 .volume-slider-thumb {
   color:  $color-primary;
+
   &:hover {
     color:  $color-primary;
   }
@@ -123,15 +128,13 @@
   margin: 15px 0 15px 6px;
 }
 
-
 .contact-search-modal {
   min-height: 60vh;
+
   .dialog-content {
     overflow-y: hidden;
   }
 }
-
-
 
 .agent-root {
   .agent-modals {
@@ -141,6 +144,7 @@
 
   .control {
     width: 100%;
+
     input {
       border: 1px solid #DBDBDB;
       height: 45px;
@@ -156,6 +160,7 @@
     &.custom-intl-tel-input {
       input {
         font: normal normal normal 15px/20px $pro-font;
+
         &:hover, &:focus {
           outline: none;
         }
@@ -165,12 +170,12 @@
     &.intl-tel-input .country-list {
       width: 100%;
 
-    .country.highlight {
-      margin-bottom: 0px!important;
+      .country.highlight {
+        margin-bottom: 0px!important;
       }
 
       .divider {
-      margin-top: 0px!important;
+        margin-top: 0px!important;
       }
     }
   }
@@ -208,13 +213,16 @@
       min-width: unset;
       width: 55px;
       height: 55px;
+
       &:hover {
         background-color: $color-white;
         color: $color-primary;
       }
     }
+
     .dial-button-label {
       font-size: 25px;
+
       &:hover {
         color: $color-primary;
       }

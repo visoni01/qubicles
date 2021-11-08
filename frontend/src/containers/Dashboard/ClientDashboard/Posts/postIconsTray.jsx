@@ -1,8 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faHeart, faComment, faShareAlt,
-} from '@fortawesome/free-solid-svg-icons'
+import { faHeart, faComment, faShareAlt } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import { IconButton, Button } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
@@ -12,10 +10,13 @@ const PostStatusLikeComment = ({
   userActivityId, isPostLiked, likesCount, commentsCount, toggleShowComments,
 }) => {
   const [ postLiked, setPostLiked ] = useState(isPostLiked)
+
   const dispatch = useDispatch()
+
   const data = {
     userActivityId,
   }
+
   const changePostLikeStatus = useCallback(() => {
     setPostLiked(!postLiked)
     if (isPostLiked) {

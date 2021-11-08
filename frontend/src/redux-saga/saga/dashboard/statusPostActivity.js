@@ -1,19 +1,11 @@
-import {
-  takeLatest, put, select,
-} from 'redux-saga/effects'
+import { takeLatest, put, select } from 'redux-saga/effects'
 import { USERS } from '../../../utils/constants'
 import {
-  updatePostData,
-  showErrorMessage,
-  showSuccessMessage,
-  fetchCommentsStart,
+  updatePostData, showErrorMessage, showSuccessMessage, fetchCommentsStart,
 } from '../../redux/actions'
 import {
-  UNLIKE_POST,
-  LIKE_POST,
-  CREATE_POST_COMMENT_START,
-  DELETE_POST_COMMENT,
-  ADD_COMMENT_TO_POST, FETCH_COMMENT_FOR_POST, UPDATE_POST_COMMENT,
+  UNLIKE_POST, LIKE_POST, CREATE_POST_COMMENT_START, DELETE_POST_COMMENT, ADD_COMMENT_TO_POST, FETCH_COMMENT_FOR_POST,
+  UPDATE_POST_COMMENT,
 } from '../../redux/constants'
 import Dashboard from '../../service/dashboard'
 

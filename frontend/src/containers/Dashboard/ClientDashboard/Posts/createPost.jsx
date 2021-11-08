@@ -3,8 +3,7 @@ import React, {
 } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  Button, Avatar, IconButton,
-  Radio, Popover, TextareaAutosize, Box, RadioGroup, FormControlLabel, Grid,
+  Button, Avatar, IconButton, Radio, Popover, TextareaAutosize, Box, RadioGroup, FormControlLabel, Grid,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
@@ -20,13 +19,32 @@ const CreatePost = ({ initialPostData }) => {
   const [ permission, setPermission ] = useState(initialPostData.permission)
   const [ fileSrc, setFileSrc ] = useState(initialPostData.fileSrc)
   const [ anchorEl, setAnchorEl ] = useState(null)
+
   const { isLoading, success } = useSelector((state) => state.createPost)
   const { userDetails } = useSelector((state) => state.login)
   const { settings: clientSettings } = useSelector((state) => state.clientDetails)
   const { settings: agentSettings } = useSelector((state) => state.agentDetails)
 
-  const open = Boolean(anchorEl)
-  const id = open ? 'simple-popover' : undefined
+  const fileInput = useRef()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (success) {
+      setPostText('')
+      setPermission('public')
+      fileInput.current.value = ''
+      setFileSrc('')
+    }
+  }, [ success, isLoading ])
+
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(startLoader())
+    } else {
+      dispatch(stopLoader())
+    }
+  }, [ dispatch, isLoading ])
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
   }
@@ -34,9 +52,6 @@ const CreatePost = ({ initialPostData }) => {
   const handleClose = () => {
     setAnchorEl(null)
   }
-
-  const fileInput = useRef()
-  const dispatch = useDispatch()
 
   const post = useCallback(() => {
     if (!(postText && postText.trim())) {
@@ -71,23 +86,6 @@ const CreatePost = ({ initialPostData }) => {
     setFileSrc('')
   }
 
-  useEffect(() => {
-    if (success) {
-      setPostText('')
-      setPermission('public')
-      fileInput.current.value = ''
-      setFileSrc('')
-    }
-  }, [ success, isLoading ])
-
-  useEffect(() => {
-    if (isLoading) {
-      dispatch(startLoader())
-    } else {
-      dispatch(stopLoader())
-    }
-  }, [ dispatch, isLoading ])
-
   const handleFileInputChange = useCallback((event) => {
     event.preventDefault()
     const file = event.target.files && event.target.files[ 0 ]
@@ -105,6 +103,9 @@ const CreatePost = ({ initialPostData }) => {
       }
     }
   }, [])
+
+  const open = Boolean(anchorEl)
+  const id = open ? 'simple-popover' : undefined
 
   return (
     <Box className='custom-box mb-25'>

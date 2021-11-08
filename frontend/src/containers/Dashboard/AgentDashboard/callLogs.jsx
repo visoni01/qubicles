@@ -1,19 +1,15 @@
 import React from 'react'
 import {
-  DialogTitle, Dialog, DialogActions, IconButton, DialogContent, Grid, TextField, Button,
-  TableContainer, TableHead, TableRow, TableCell, TableBody,
+  DialogTitle, Dialog, DialogActions, IconButton, DialogContent, Grid, TextField, Button, TableContainer, TableHead,
+  TableRow, TableCell, TableBody,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faTimes, faPhoneAlt, faInfoCircle,
-} from '@fortawesome/free-solid-svg-icons'
+import { faTimes, faPhoneAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { dummyCallLogsData } from '../testData'
 import './style.scss'
 
-const CallLogs = ({
-  open, onClose,
-}) => (
+const CallLogs = ({ open, onClose }) => (
   <Dialog
     disableScrollLock
     open={ open }
@@ -23,7 +19,7 @@ const CallLogs = ({
   >
     <div className='header'>
       <DialogTitle>
-        <div className='h2'>Call Logs</div>
+        <div className='h2'> Call Logs </div>
       </DialogTitle>
       <DialogActions className='cross-button'>
         <IconButton
@@ -38,7 +34,7 @@ const CallLogs = ({
       <div className='out-div'>
         <Grid container spacing={ 3 } justify='flex-start' alignItems='flex-end'>
           <Grid item xl={ 2 } lg={ 2 } md={ 3 } sm={ 6 } xs={ 6 }>
-            <h4 className='h4 mb-5'> Start Date</h4>
+            <h4 className='h4 mb-5'> Start Date </h4>
             <TextField
               className='text-field-para is-fullwidth'
               type='date'
@@ -47,7 +43,7 @@ const CallLogs = ({
             />
           </Grid>
           <Grid item xl={ 2 } lg={ 2 } md={ 3 } sm={ 6 } xs={ 6 }>
-            <h4 className='h4 mb-5'> End Date</h4>
+            <h4 className='h4 mb-5'> End Date </h4>
             <TextField
               className='text-field-para is-fullwidth'
               type='date'
@@ -73,13 +69,12 @@ const CallLogs = ({
       <TableContainer className='mt-20 no-padding'>
         <TableHead>
           <TableRow>
-            {[ '#', 'Date/Time', 'Length', 'Status',
-              'Phone', 'Name', 'Campaign', 'In/Out', 'Alt', 'Hangup',
-            ].map((rowItem) => (
-              <TableCell key={ rowItem }>
-                <h4 className='h4'>{rowItem}</h4>
-              </TableCell>
-            ))}
+            {[ '#', 'Date/Time', 'Length', 'Status', 'Phone', 'Name', 'Campaign', 'In/Out', 'Alt', 'Hangup' ]
+              .map((rowItem) => (
+                <TableCell key={ rowItem }>
+                  <h4 className='h4'>{rowItem}</h4>
+                </TableCell>
+              ))}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -121,7 +116,6 @@ const CallLogs = ({
           ))}
         </TableBody>
       </TableContainer>
-
     </DialogContent>
   </Dialog>
 )

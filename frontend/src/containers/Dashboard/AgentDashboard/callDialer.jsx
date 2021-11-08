@@ -9,9 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { useForm } from 'react-hook-form'
 import PropTypes from 'prop-types'
-import {
-  dialPadIcon, outboundCallIcon, greenPhoneIcon,
-} from '../../../assets/images/agentDashboard'
+import { dialPadIcon, outboundCallIcon, greenPhoneIcon } from '../../../assets/images/agentDashboard'
 import { carolin } from '../../../assets/images/avatar'
 
 const CallDialer = ({
@@ -19,6 +17,7 @@ const CallDialer = ({
 }) => {
   const [ openManualDial, setOpenManualDial ] = useState(false)
   const [ isInputFocused, setInputFocused ] = useState(true)
+
   const dialInputFieldRef = useRef()
 
   const {
@@ -53,7 +52,7 @@ const CallDialer = ({
 
   const toggleOpenManualDial = useCallback(() => {
     setOpenManualDial((current) => !current)
-  }, [ ])
+  }, [])
 
   const onSubmit = () => {
     // Dial Phone WIP
@@ -70,7 +69,7 @@ const CallDialer = ({
     >
       <div className='header'>
         <DialogTitle>
-          <div className='h3'>My Web Phone</div>
+          <div className='h3'> My Web Phone </div>
         </DialogTitle>
         <DialogActions className='cross-button'>
           <IconButton
@@ -88,9 +87,7 @@ const CallDialer = ({
           >
             <img src={ dialPadIcon } alt='Dialpad' />
           </IconButton>
-          <span className='para light sz-lg mt-15'>
-            or
-          </span>
+          <span className='para light sz-lg mt-15'> or </span>
           <div className='dialer-field ml-10'>
             <TextField
               name='dialedNumber'
@@ -146,7 +143,7 @@ const CallDialer = ({
             ) : (
               <div className='call-history pl-10'>
                 <div className='display-inline-flex justify-between align-items-center is-fullwidth'>
-                  <h4 className='h4'>Call History</h4>
+                  <h4 className='h4'> Call History </h4>
                   <IconButton>
                     <FontAwesomeIcon icon={ faTrash } className='custom-fa-icon sz-md' />
                   </IconButton>
@@ -159,12 +156,8 @@ const CallDialer = ({
                         <div className='display-inline-flex align-items-center'>
                           <Avatar className='profile-pic no-margin' alt='Carolin' src={ carolin } />
                           <div className='ml-10'>
-                            <h4 className='h4 sz-sm'>
-                              Marilyn Pearson
-                            </h4>
-                            <p className='para light sz-sm mt-5'>
-                              11:31 AM, 26 Oct, 2020
-                            </p>
+                            <h4 className='h4 sz-sm'> Marilyn Pearson </h4>
+                            <p className='para light sz-sm mt-5'> 11:31 AM, 26 Oct, 2020 </p>
                           </div>
                         </div>
                       </div>

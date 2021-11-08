@@ -63,11 +63,7 @@ const HistoryTab = () => {
                 </h4>
               </div>
               <div>
-                {historyItem.hasDuration && (
-                <h4 className='h4 light unbold'>
-                  {historyItem.duration}
-                </h4>
-                ) }
+                {historyItem.hasDuration && <h4 className='h4 light unbold'>{historyItem.duration}</h4>}
               </div>
             </div>
             <div className='display-inline-flex align-items-center'>
@@ -78,12 +74,8 @@ const HistoryTab = () => {
             </div>
             {historyItem.hasNotes && (
             <div>
-              <h4 className='h4 unbold'>
-                Notes
-              </h4>
-              <p className='para light'>
-                {historyItem.notes}
-              </p>
+              <h4 className='h4 unbold'> Notes </h4>
+              <p className='para light'>{historyItem.notes}</p>
             </div>
             )}
           </div>

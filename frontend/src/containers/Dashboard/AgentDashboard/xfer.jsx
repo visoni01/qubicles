@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent,
-  DialogTitle, Button, IconButton,
-  Switch, Grid, FormControl, InputLabel, Select, TextField,
+  Dialog, DialogActions, DialogContent, DialogTitle, Button, IconButton, Switch, Grid, FormControl, InputLabel, Select,
+  TextField,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -11,10 +10,9 @@ import { agentsData } from '../testData'
 import XferOnHoldModal from './xferOnHold'
 import './style.scss'
 
-const Xfer = ({
-  open, onClose, onSubmit,
-}) => {
+const Xfer = ({ open, onClose, onSubmit }) => {
   const [ openXferOnHoldModal, setOpenXferOnHoldModal ] = useState(false)
+
   return (
     <>
       <Dialog
@@ -28,7 +26,7 @@ const Xfer = ({
       >
         <div className='header'>
           <DialogTitle>
-            <div className='h2'>X-fer</div>
+            <div className='h2'> X-fer </div>
           </DialogTitle>
           <DialogActions className='cross-button'>
             <IconButton
@@ -40,7 +38,7 @@ const Xfer = ({
           </DialogActions>
         </div>
         <DialogContent classes={ { root: 'xfer-modal-content' } }>
-          <h4 className='h4 mt-20'>Phone Number</h4>
+          <h4 className='h4 mt-20'> Phone Number </h4>
           <TextField
             className='text-field-para is-fullwidth'
             variant='outlined'
@@ -50,7 +48,7 @@ const Xfer = ({
           />
 
           <div className='display-inline-flex justify-between align-items-center is-halfwidth mt-10'>
-            <h4 className='h4'>Internal Warm X-fer</h4>
+            <h4 className='h4'> Internal Warm X-fer </h4>
             <Switch
               className='switches'
               color='primary'
@@ -145,6 +143,7 @@ const Xfer = ({
           </div>
         </DialogContent>
       </Dialog>
+
       <XferOnHoldModal
         open={ openXferOnHoldModal }
         onClose={ () => setOpenXferOnHoldModal(false) }

@@ -7,6 +7,7 @@ import HistoryTab from './ActiveCallTabs/historyTab'
 
 const ContactMainTabsWrapper = () => {
   const [ activeTab, setActiveTab ] = useState(2)
+
   return (
     <Box className='custom-box no-padding'>
       <ContactMainActiveTabs

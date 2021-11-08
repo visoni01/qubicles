@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react'
 import {
   TableContainer, TableHead, TableRow, TableCell, TableBody, Button,
@@ -26,9 +24,7 @@ const ContactsSearch = ({ setActivePage }) => (
     <h3 className='h3'>
       Search Results
       {' '}
-      <span className='para light sz-lg'>
-        (4 matches)
-      </span>
+      <span className='para light sz-lg'> (4 matches) </span>
     </h3>
     <TableContainer>
       <TableHead>
@@ -48,6 +44,8 @@ const ContactsSearch = ({ setActivePage }) => (
             </TableCell>
             <TableCell>
               <FontAwesomeIcon icon={ faInfoCircle } className='custom-fa-icon mr-5' />
+              {/* eslint-disable jsx-a11y/no-static-element-interactions */}
+              {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
               <span className='para primary text-link' onClick={ () => setActivePage(2) }>{rowItem.name}</span>
             </TableCell>
             <TableCell>

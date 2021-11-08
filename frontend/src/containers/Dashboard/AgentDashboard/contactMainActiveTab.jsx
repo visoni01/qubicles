@@ -5,9 +5,7 @@ import {
   flowIcon, webFormIcon, notesIcon, callbackIcon, historyIcon,
 } from '../../../assets/images/agentDashboard'
 
-const ContactMainActiveTabs = ({
-  activeTab, setActiveTab,
-}) => (
+const ContactMainActiveTabs = ({ activeTab, setActiveTab }) => (
   <Tabs
     value={ activeTab }
     classes={ {
@@ -20,7 +18,7 @@ const ContactMainActiveTabs = ({
       label={ (
         <div className='display-inline-flex align-items-center'>
           <img src={ flowIcon } alt='' />
-          <h4 className='h4 font-size-16x light ml-10'>Flow</h4>
+          <h4 className='h4 font-size-16x light ml-10'> Flow </h4>
         </div>
     ) }
       classes={ { root: 'call-center-agent-tab-root' } }
@@ -29,7 +27,7 @@ const ContactMainActiveTabs = ({
       label={ (
         <div className='display-inline-flex align-items-center'>
           <img src={ webFormIcon } alt='' />
-          <h4 className='h4 font-size-16x light ml-10'>Web Form</h4>
+          <h4 className='h4 font-size-16x light ml-10'> Web Form </h4>
         </div>
     ) }
       classes={ { root: 'call-center-agent-tab-root' } }
@@ -38,7 +36,7 @@ const ContactMainActiveTabs = ({
       label={ (
         <div className='display-inline-flex align-items-center'>
           <img src={ notesIcon } alt='' />
-          <h4 className='h4 font-size-16x light ml-10'>Notes</h4>
+          <h4 className='h4 font-size-16x light ml-10'> Notes </h4>
         </div>
     ) }
       classes={ { root: 'call-center-agent-tab-root' } }
@@ -47,7 +45,7 @@ const ContactMainActiveTabs = ({
       label={ (
         <div className='display-inline-flex align-items-center'>
           <img src={ callbackIcon } alt='' />
-          <h4 className='h4 font-size-16x light ml-10'>Callback</h4>
+          <h4 className='h4 font-size-16x light ml-10'> Callback </h4>
         </div>
     ) }
       classes={ { root: 'call-center-agent-tab-root' } }
@@ -56,7 +54,7 @@ const ContactMainActiveTabs = ({
       label={ (
         <div className='display-inline-flex align-items-center'>
           <img src={ historyIcon } alt='' />
-          <h4 className='h4 font-size-16x light ml-10'>History</h4>
+          <h4 className='h4 font-size-16x light ml-10'> History </h4>
         </div>
     ) }
       classes={ { root: 'call-center-agent-tab-root' } }

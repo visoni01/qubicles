@@ -1,16 +1,8 @@
-import {
-  takeLatest, put, select,
-} from 'redux-saga/effects'
+import { takeLatest, put, select } from 'redux-saga/effects'
 import { USERS } from '../../../utils/constants'
 import {
-  postDataFetchingStart,
-  postDataFetchingFailed,
-  createStatusPostStart,
-  updatePostData,
-  showErrorMessage,
-  showSuccessMessage,
-  createStatusPostFailed,
-  createStatusPostSuccess,
+  postDataFetchingStart, postDataFetchingFailed, createStatusPostStart, updatePostData, showErrorMessage,
+  showSuccessMessage, createStatusPostFailed, createStatusPostSuccess,
 } from '../../redux/actions'
 import {
   DELETE_POST_STATUS, UPDATE_POST, CREATE_NEW_POST, POST_DATA_FETCH,

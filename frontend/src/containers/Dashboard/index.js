@@ -22,9 +22,7 @@ const DashboardMain = () => {
   if (userDetails && userDetails.is_post_signup_completed) {
     return (
       <>
-        {_.isEqual(userDetails.user_code, USERS.EMPLOYER) && (
-          <ClientDashboard />
-        )}
+        {_.isEqual(userDetails.user_code, USERS.EMPLOYER) && <ClientDashboard />}
 
         {[ USERS.AGENT, USERS.TRAINER, USERS.SUPERVISOR, USERS.QA_SUPPORT ].includes(userDetails.user_code) && (
           <AgentDashboard />
@@ -37,7 +35,8 @@ const DashboardMain = () => {
       </>
     )
   }
-  return (<> </>)
+
+  return <> </>
 }
 
 export default DashboardMain

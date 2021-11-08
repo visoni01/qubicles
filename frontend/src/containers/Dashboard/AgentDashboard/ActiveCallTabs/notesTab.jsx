@@ -17,6 +17,7 @@ const NotesTab = () => {
       standard dummy text ever since the 1500s, when an unknown printer took`,
     },
   ]
+
   return (
     <div className='display-inline-flex is-fullwidth'>
       <Avatar className='profile-pic no-margin-top no-margin-left' alt='Terry' src={ terry } />
@@ -35,9 +36,7 @@ const NotesTab = () => {
         <div className='mt-30'>
           {dummyNotes.map((note) => (
             <div key={ note.id } className='list-divider'>
-              <p className='para'>
-                {note.noteText}
-              </p>
+              <p className='para'>{note.noteText}</p>
               <div className='display-inline-flex align-items-center mb-5'>
                 <Avatar className='profile-pic small no-margin-left' alt='Terry' src={ carolin } />
                 <p className='para light sz-sm'>

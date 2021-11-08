@@ -4,9 +4,7 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 import { formatDate } from '../../../../utils/common'
 
-const PostHead = ({
-  owner, createdAt, updatedAt,
-}) => (
+const PostHead = ({ owner, createdAt, updatedAt }) => (
   <div className='post-head'>
     <div className='display-inline-flex'>
       <Avatar className='profile-pic' alt={ owner.fullName } src={ owner.profilePic } />

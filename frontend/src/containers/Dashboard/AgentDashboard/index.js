@@ -1,18 +1,19 @@
 import React, { useState } from 'react'
 import { Grid } from '@material-ui/core'
 import CallButtons from './callButtons'
-import './style.scss'
 import AgentActiveCallPage from './agentActiveCallPage'
 import AgentInactiveCallPage from './agentInactiveCallPage'
 import CallbackModal from './callback'
 import CallLogsModal from './callLogs'
 import ContactsModal from './contact/index'
+import './style.scss'
 
 const AgentDashboard = () => {
   const [ openContactsModal, setOpenContactsModal ] = useState(false)
   const [ openCallbackModal, setOpenCallbackModal ] = useState(false)
   const [ openCallLogsModal, setOpenCallLogsModal ] = useState(false)
   const [ activeCall, setActiveCall ] = useState(false)
+
   return (
     <div>
       <Grid container>
@@ -25,11 +26,8 @@ const AgentDashboard = () => {
         />
       </Grid>
       {activeCall
-        ? (
-          <AgentInactiveCallPage />)
-        : (
-          <AgentActiveCallPage />
-        )}
+        ? <AgentInactiveCallPage />
+        : <AgentActiveCallPage />}
       <ContactsModal
         open={ openContactsModal }
         onClose={ () => setOpenContactsModal(false) }

@@ -5,22 +5,19 @@ import PostIconsTray from './postIconsTray'
 import PostCommentsWrap from '../PostComments/postCommentsWrap'
 import AddComment from '../PostComments/addComment'
 import config from '../../../../utils/config'
-import {
-  addCommentToPost, fetchCommentForPost, updatePostData,
-} from '../../../../redux-saga/redux/actions'
+import { addCommentToPost, fetchCommentForPost, updatePostData } from '../../../../redux-saga/redux/actions'
 import { commentsArrayValidator } from '../postValidators'
 import { SET_IS_COMMENT_LOADING } from '../../../../redux-saga/redux/constants'
 
 const PostBody = ({
   userActivityId, activityValue, activityCustom, isPostLiked, likesCount, commentsCount, comments, commentLoading,
 }) => {
-  const dispatch = useDispatch()
   const [ showComments, setShowComments ] = useState(false)
   const [ loadInitialComments, setLoadInitalComments ] = useState(false)
-
-  // Fetch Comments for post
   const [ limit, setLimit ] = useState(1) // Initial Limit of 1 comment
   const [ offsetCount, changeOffsetCount ] = useState(0)
+
+  const dispatch = useDispatch()
 
   const setIsLoading = useCallback(() => {
     dispatch(updatePostData({
@@ -77,21 +74,16 @@ const PostBody = ({
     }
 
     setShowComments(!showComments)
-  }, [
-    showComments, commentsCount, dispatch, limit, loadInitialComments,
-    offsetCount, setIsLoading, userActivityId,
-  ])
+  }, [ showComments, commentsCount, dispatch, limit, loadInitialComments, offsetCount, setIsLoading, userActivityId ])
 
   return (
     // Post Body
     <div className='post-body'>
-      <p className='para post-text'>
-        { activityValue}
-      </p>
+      <p className='para post-text'>{ activityValue}</p>
       {activityCustom && (
-      <div className='render-post-image-container'>
-        <img className='post-image' src={ activityCustom } alt='Helen' />
-      </div>
+        <div className='render-post-image-container'>
+          <img className='post-image' src={ activityCustom } alt='Helen' />
+        </div>
       )}
 
       {/* Post Like and comment */}

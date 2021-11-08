@@ -22,7 +22,7 @@ const EditPostModal = ({
   >
     <div className='header'>
       <DialogTitle>
-        <div className='h2'>Edit Post</div>
+        <div className='h2'> Edit Post </div>
       </DialogTitle>
       <DialogActions className='cross-button'>
         <IconButton
@@ -34,9 +34,7 @@ const EditPostModal = ({
       </DialogActions>
     </div>
     <DialogContent
-      classes={ {
-        root: 'edit-post-content',
-      } }
+      classes={ { root: 'edit-post-content' } }
     >
       <EditPost
         initialPostData={ {

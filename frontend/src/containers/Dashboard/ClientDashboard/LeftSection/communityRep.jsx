@@ -9,21 +9,21 @@ import { kareem, sally, thomas } from '../../../../assets/images/avatar'
 import { communityRepDataFechingStart } from '../../../../redux-saga/redux/actions'
 
 const CommunityRep = () => {
+  const { isLoading, communityRep } = useSelector((state) => state.communityRep)
+  const { settings } = useSelector((state) => state.clientDetails)
+
   const dispatch = useDispatch()
+
   useEffect(() => {
     dispatch(communityRepDataFechingStart())
   }, [ dispatch ])
 
-  const { isLoading, communityRep } = useSelector((state) => state.communityRep)
   const likeMsg = communityRep.likes === 1 ? 'person likes your company' : 'people liked your company'
   const followMsg = communityRep.subscribers === 1 ? 'person is following you' : 'people are following you'
-  const { settings } = useSelector((state) => state.clientDetails)
 
   return (
     <Box className='custom-box mb-25 community-rep'>
-      <h3 className='h3 mb-15'>
-        Your Community Reputation
-      </h3>
+      <h3 className='h3 mb-15'> Your Community Reputation </h3>
 
       {/* Rating */}
       <div className='rating'>
@@ -37,9 +37,7 @@ const CommunityRep = () => {
             precision={ 0.5 }
           />
         )}
-        <span className='h3 rating-text'>
-          {settings.rating}
-        </span>
+        <span className='h3 rating-text'>{settings.rating}</span>
         <FontAwesomeIcon icon={ faInfoCircle } className='rating-info' />
       </div>
 
@@ -70,7 +68,6 @@ const CommunityRep = () => {
           <span className='text'>{followMsg}</span>
         </p>
       </div>
-
     </Box>
   )
 }

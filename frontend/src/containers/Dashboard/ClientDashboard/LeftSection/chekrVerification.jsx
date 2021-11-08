@@ -8,17 +8,21 @@ import { useSelector, useDispatch } from 'react-redux'
 import { checkrInvitationFetchingStart } from '../../../../redux-saga/redux/actions'
 
 const CheckrVerification = () => {
-  const { isLoading, invitationLink } = useSelector((state) => state.checkr)
   const [ isClosed, setIsClosed ] = useState(false)
+
+  const { isLoading, invitationLink } = useSelector((state) => state.checkr)
+
   const dispatch = useDispatch()
-  const handleClickButton = useCallback(() => {
-    dispatch(checkrInvitationFetchingStart())
-  }, [ dispatch ])
+
   useEffect(() => {
     if (!isLoading && invitationLink) {
       window.open(invitationLink, '_blank')
     }
   }, [ isLoading, invitationLink ])
+
+  const handleClickButton = useCallback(() => {
+    dispatch(checkrInvitationFetchingStart())
+  }, [ dispatch ])
 
   return (
     <Box className='custom-box mb-25 background-check' display={ isClosed ? 'none' : 'block' }>
@@ -26,9 +30,7 @@ const CheckrVerification = () => {
         <IconButton size='small' className='pull-right' onClick={ () => setIsClosed(true) }>
           <FontAwesomeIcon icon={ faTimes } />
         </IconButton>
-        <h3 className='h3 mb-15'>
-          Background Screening
-        </h3>
+        <h3 className='h3 mb-15'> Background Screening </h3>
         <p className='para text'>
           Companies are more likely to hire applicants that passed a background screening test.
         </p>
@@ -63,7 +65,6 @@ const CheckrVerification = () => {
         </Grid>
       </Grid>
     </Box>
-
   )
 }
 

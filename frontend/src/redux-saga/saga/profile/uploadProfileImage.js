@@ -1,15 +1,9 @@
 import { takeEvery, put } from 'redux-saga/effects'
 import { USERS } from '../../../utils/constants'
 import {
-  uploadProfileImageStart,
-  uploadProfileImageFailed,
-  uploadProfileImageSuccess,
-  showErrorMessage,
-  showSuccessMessage,
-  updateCompanyProfileSettingsApiSuccess,
-  agentProfileSettingsApiSuccess,
+  uploadProfileImageStart, uploadProfileImageFailed, uploadProfileImageSuccess, showErrorMessage, showSuccessMessage,
+  updateCompanyProfileSettingsApiSuccess, agentProfileSettingsApiSuccess,
 } from '../../redux/actions'
-
 import User from '../../service/user'
 
 function* uploadProfileImageWatcher() {

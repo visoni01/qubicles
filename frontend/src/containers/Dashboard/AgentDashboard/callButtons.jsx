@@ -1,7 +1,5 @@
 import React from 'react'
-import {
-  Grid, Button, Box,
-} from '@material-ui/core'
+import { Grid, Button, Box } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -26,9 +24,7 @@ const CallButtons = ({
               {activeCall ? 'Active Call' : 'Waiting For A Call'}
             </span>
             <div>
-              <span className='para wait-btn-label'>
-                2:43
-              </span>
+              <span className='para wait-btn-label'> 2:43 </span>
               <FontAwesomeIcon icon={ faChevronDown } className='ml-20 custom-fa-icon white' />
             </div>
           </div>

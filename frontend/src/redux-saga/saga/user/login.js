@@ -1,15 +1,7 @@
 import { takeLatest, put } from 'redux-saga/effects'
 import {
-  resetCompanyProfileSettingsData,
-  setShowVerifyMailButton,
-  userLoginStart,
-  userLoginSuccessful,
-  userUpdateStart,
-  userUpdateSuccess,
-  userLoginFailure,
-  userLogoutSuccessful,
-  resetAgentProfileSettingsData,
-  clearStore,
+  resetCompanyProfileSettingsData, setShowVerifyMailButton, userLoginStart, userLoginSuccessful, userUpdateStart,
+  userUpdateSuccess, userLoginFailure, userLogoutSuccessful, resetAgentProfileSettingsData, clearStore,
 } from '../../redux/actions'
 import User from '../../service/user'
 import { getUserDetails } from '../../../utils/common'

@@ -4,8 +4,6 @@ import { Drawer, Button, form } from '@material-ui/core'
 import { Controller, useForm } from 'react-hook-form'
 import IntlTelInput from 'react-intl-tel-input'
 import 'react-intl-tel-input/dist/main.css'
-import '../styles.scss'
-import '../../../../User/Signup/PostSignUp/style.scss'
 import { useDispatch } from 'react-redux'
 import { accountSettingInfoDefaultProps, accountSettingInfoPropTypes } from '../settingsProps'
 import {
@@ -15,6 +13,8 @@ import {
 import { phoneNumberFormatter } from '../../../../../utils/common'
 import Loader from '../../../../loaders/circularLoader'
 import { REQUEST_TYPES, USERS } from '../../../../../utils/constants'
+import '../../../../User/Signup/PostSignUp/style.scss'
+import '../styles.scss'
 
 const ChangeNumber = ({
   open, setOpen, accountSettingInfo, isUpdateLoading, isUpdateSuccess, updatedDataType, userType, phoneType,

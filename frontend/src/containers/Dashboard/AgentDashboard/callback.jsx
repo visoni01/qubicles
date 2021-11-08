@@ -1,17 +1,15 @@
 import React from 'react'
 import {
-  DialogTitle, Dialog, DialogActions, IconButton, DialogContent,
-  TableContainer, TableHead, TableRow, TableCell, TableBody,
+  DialogTitle, Dialog, DialogActions, IconButton, DialogContent, TableContainer, TableHead, TableRow, TableCell,
+  TableBody,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faPhoneAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
-import './style.scss'
 import { dummyCallbackData } from '../testData'
+import './style.scss'
 
-const Callback = ({
-  open, onClose,
-}) => (
+const Callback = ({ open, onClose }) => (
   <Dialog
     disableScrollLock
     open={ open }
@@ -21,7 +19,7 @@ const Callback = ({
   >
     <div className='header'>
       <DialogTitle>
-        <div className='h2'>Callbacks</div>
+        <div className='h2'> Callbacks</div>
       </DialogTitle>
       <DialogActions className='cross-button'>
         <IconButton
@@ -36,13 +34,12 @@ const Callback = ({
       <TableContainer>
         <TableHead>
           <TableRow>
-            {[ '#', 'Callback Date/Time', 'Name', 'Phone',
-              'Status', 'Campaign', 'Last Call Date/Time', 'Timezone',
-            ].map((rowItem) => (
-              <TableCell key={ rowItem }>
-                <h4 className='h4'>{rowItem}</h4>
-              </TableCell>
-            ))}
+            {[ '#', 'Callback Date/Time', 'Name', 'Phone', 'Status', 'Campaign', 'Last Call Date/Time', 'Timezone' ]
+              .map((rowItem) => (
+                <TableCell key={ rowItem }>
+                  <h4 className='h4'>{rowItem}</h4>
+                </TableCell>
+              ))}
           </TableRow>
         </TableHead>
         <TableBody>

@@ -12,9 +12,8 @@ import EditPostModal from './editPostModal'
 import { EditIcon } from '../../../../assets/images/common'
 
 const PostWrap = ({
-  userActivityId, activityValue, activityCustom,
-  createdAt, updatedAt, owner, userId, isPostLiked,
-  likesCount, commentsCount, comments, commentLoading, permission,
+  userActivityId, activityValue, activityCustom, createdAt, updatedAt, owner, userId, isPostLiked, likesCount,
+  commentsCount, comments, commentLoading, permission,
 }) => {
   const { userDetails } = useSelector((state) => state.login)
   const [ openEditPostModal, setOpenEditPostModal ] = useState(false)
@@ -35,8 +34,7 @@ const PostWrap = ({
           createdAt={ createdAt }
           updatedAt={ updatedAt }
         />
-        {owner.userId === userDetails.user_id
-        && (
+        {owner.userId === userDetails.user_id && (
           <MenuOptions
             handleFirstOptionClick={ () => setOpenEditPostModal(true) }
             handleConfirmModal={ handleConfirmModal }

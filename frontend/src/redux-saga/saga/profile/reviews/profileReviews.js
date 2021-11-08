@@ -1,15 +1,8 @@
 import { put, takeLatest } from 'redux-saga/effects'
 import { USERS } from '../../../../utils/constants'
 import {
-  profileReviewsFetchStart,
-  showSuccessMessage,
-  showErrorMessage,
-  profileReviewPostStart,
-  profileReviewPostSuccessful,
-  profileReviewsFetchSuccessful,
-  profileReviewsFetchFailure,
-  profileReviewPostFailure,
-  profileRatingsFetchSuccessful,
+  profileReviewsFetchStart, showSuccessMessage, showErrorMessage, profileReviewPostStart, profileReviewPostSuccessful,
+  profileReviewsFetchSuccessful, profileReviewsFetchFailure, profileReviewPostFailure, profileRatingsFetchSuccessful,
 } from '../../../redux/actions'
 import CompanyProfile from '../../../service/profile/company'
 

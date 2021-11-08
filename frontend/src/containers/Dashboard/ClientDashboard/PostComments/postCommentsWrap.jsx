@@ -12,6 +12,7 @@ const PostCommentsWrap = ({
     <div className='mb-10'>
       <Divider />
     </div>
+
     {comments.length < commentsCount && (
       <div className='view-more-comments-section'>
         <Button
@@ -21,12 +22,12 @@ const PostCommentsWrap = ({
           View More Comments
         </Button>
         {isCommentLoading && (
-        <Loader
-          className='static-small-loader mr-10'
-          enableOverlay={ false }
-          displayLoaderManually
-          size={ 23 }
-        />
+          <Loader
+            className='static-small-loader mr-10'
+            enableOverlay={ false }
+            displayLoaderManually
+            size={ 23 }
+          />
         )}
       </div>
     )}

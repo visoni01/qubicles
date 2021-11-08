@@ -1,18 +1,16 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent,
-  DialogTitle, Button, IconButton, Switch, TextField,
+  Dialog, DialogActions, DialogContent, DialogTitle, Button, IconButton, Switch, TextField,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import XferConferenceModal from './xferConference'
 import './style.scss'
 
-const XferOnHold = ({
-  open, onClose,
-}) => {
+const XferOnHold = ({ open, onClose }) => {
   const [ openXferConferenceModal, setOpenXferConferenceModal ] = useState(false)
+
   return (
     <>
       <Dialog
@@ -40,7 +38,7 @@ const XferOnHold = ({
           </DialogActions>
         </div>
         <DialogContent>
-          <h4 className='h4 mt-30'>Phone Number</h4>
+          <h4 className='h4 mt-30'> Phone Number </h4>
           <TextField
             className='text-field-para is-fullwidth'
             variant='outlined'
@@ -50,7 +48,7 @@ const XferOnHold = ({
           />
 
           <div className='display-inline-flex justify-between align-items-center is-halfwidth mt-30'>
-            <h4 className='h4'>Internal Warm X-fer</h4>
+            <h4 className='h4'> Internal Warm X-fer </h4>
             <Switch
               className='switches'
               color='primary'
@@ -84,6 +82,7 @@ const XferOnHold = ({
           </div>
         </DialogContent>
       </Dialog>
+
       <XferConferenceModal
         open={ openXferConferenceModal }
         onClose={ () => setOpenXferConferenceModal(false) }

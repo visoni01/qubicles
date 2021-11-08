@@ -8,7 +8,9 @@ import PostSkeleton from './postSkeleton'
 
 const RenderPosts = ({ ownerId }) => {
   const { posts, isLoading } = useSelector((state) => state.statusPosts)
+
   const dispatch = useDispatch()
+
   useEffect(() => {
     dispatch(postDataFetchingStart({ ownerId }))
   }, [ dispatch, ownerId ])
@@ -46,7 +48,7 @@ const RenderPosts = ({ ownerId }) => {
       ))
     ) : (
       <Box className='custom-box'>
-        <h3 className='h3 text-center'>No Posts Yet</h3>
+        <h3 className='h3 text-center'> No Posts Yet </h3>
       </Box>
     )
   )

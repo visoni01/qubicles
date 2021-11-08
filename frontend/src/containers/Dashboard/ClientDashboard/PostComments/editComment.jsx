@@ -39,9 +39,7 @@ const EditComment = ({
 
   return (
     <>
-      <div
-        className='post-add-new-comment'
-      >
+      <div className='post-add-new-comment'>
         <Avatar className='comment-avatar' alt={ userDetails.full_name } src={ settings.profilePic } />
         <div className='create-comment'>
           <div className='comment-content'>

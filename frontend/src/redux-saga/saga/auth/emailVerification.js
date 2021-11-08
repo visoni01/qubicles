@@ -2,10 +2,7 @@ import { takeEvery, put } from 'redux-saga/effects'
 import apiClient from '../../../utils/apiClient'
 import { USERS } from '../../../utils/constants'
 import {
-  emailVerificationStart,
-  emailVerificationFailure,
-  emailVerificationSuccessful,
-  agentProfileSettingsApiSuccess,
+  emailVerificationStart, emailVerificationFailure, emailVerificationSuccessful, agentProfileSettingsApiSuccess,
   updateCompanyProfileSettingsApiSuccess,
 } from '../../redux/actions'
 import { startLoader, stopLoader } from '../../redux/utils/loader'

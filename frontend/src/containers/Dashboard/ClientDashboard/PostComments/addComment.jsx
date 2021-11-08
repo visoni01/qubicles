@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import {
-  Avatar, TextareaAutosize, Button,
-} from '@material-ui/core'
+import { Avatar, TextareaAutosize, Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import PostCommentSkeleton from './postCommentSkeleton'
@@ -10,6 +8,7 @@ import { USERS } from '../../../../utils/constants'
 
 const AddComment = ({ postComment, isCommentLoading }) => {
   const [ commentText, setCommentText ] = useState('')
+
   const { userDetails } = useSelector((state) => state.login)
   const { settings: clientSettings } = useSelector((state) => state.clientDetails)
   const { settings: agentSettings } = useSelector((state) => state.agentDetails)
@@ -29,11 +28,9 @@ const AddComment = ({ postComment, isCommentLoading }) => {
 
   return (
     <>
-      {isCommentLoading
-      && <PostCommentSkeleton />}
-      <div
-        className='post-add-new-comment pl-5'
-      >
+      {isCommentLoading && <PostCommentSkeleton />}
+
+      <div className='post-add-new-comment pl-5'>
         <Avatar
           className='comment-avatar'
           alt={ userDetails.full_name }
@@ -54,29 +51,29 @@ const AddComment = ({ postComment, isCommentLoading }) => {
             />
           </div>
 
-          { commentText && (
-          <div className='comment-actions'>
-            <Button
-              color='secondary'
-              className='cancel-button'
-              onClick={ clearCommentText }
-
-            >
-              Cancel
-            </Button>
-
-            <div>
+          {commentText && (
+            <div className='comment-actions'>
               <Button
-                variant='contained'
-                className='button-primary-small post-button'
-                classes={ { label: 'primary-label' } }
-                onClick={ onCommentButtonClicked }
-                disabled={ isCommentLoading }
+                color='secondary'
+                className='cancel-button'
+                onClick={ clearCommentText }
+
               >
-                Comment
+                Cancel
               </Button>
+
+              <div>
+                <Button
+                  variant='contained'
+                  className='button-primary-small post-button'
+                  classes={ { label: 'primary-label' } }
+                  onClick={ onCommentButtonClicked }
+                  disabled={ isCommentLoading }
+                >
+                  Comment
+                </Button>
+              </div>
             </div>
-          </div>
           )}
         </div>
       </div>

@@ -8,9 +8,7 @@ import {
 } from '../../../assets/images/agentDashboard'
 import XferModal from './xfer'
 
-const ActiveCallPanel = ({
-  setOpenContactsModal,
-}) => {
+const ActiveCallPanel = ({ setOpenContactsModal }) => {
   const [ openXferModal, setOpenXferModal ] = useState(false)
   const [ volumeLevel, setVolumeLevel ] = useState(30)
   const [ anchorEl, setAnchorEl ] = useState(null)
@@ -64,7 +62,7 @@ const ActiveCallPanel = ({
             >
               <div className='text-align-last-center'>
                 <img src={ holdIcon } alt='Chat Icon' />
-                <p className='para'> Hold</p>
+                <p className='para'> Hold </p>
               </div>
             </IconButton>
           </Grid>
@@ -75,7 +73,7 @@ const ActiveCallPanel = ({
             >
               <div className='text-align-last-center'>
                 <img src={ transferIcon } alt='Chat Icon' />
-                <p className='para'> X-Fer</p>
+                <p className='para'> X-Fer </p>
               </div>
             </IconButton>
           </Grid>
@@ -86,7 +84,7 @@ const ActiveCallPanel = ({
             >
               <div className='text-align-last-center'>
                 <img src={ volumeIcon } alt='Chat Icon' />
-                <p className='para' id='volume-slider'>Volume</p>
+                <p className='para' id='volume-slider'> Volume </p>
               </div>
             </IconButton>
           </Grid>
@@ -96,7 +94,7 @@ const ActiveCallPanel = ({
             >
               <div className='text-align-last-center'>
                 <img src={ muteIcon } alt='Chat Icon' />
-                <p className='para'> Mute</p>
+                <p className='para'> Mute </p>
               </div>
             </IconButton>
           </Grid>
@@ -106,7 +104,7 @@ const ActiveCallPanel = ({
             >
               <div className='text-align-last-center'>
                 <img src={ endCallIcon } alt='Chat Icon' />
-                <p className='para'> End Call</p>
+                <p className='para'> End Call </p>
               </div>
             </IconButton>
           </Grid>
@@ -150,7 +148,6 @@ const ActiveCallPanel = ({
 
 ActiveCallPanel.defaultProps = {
   setOpenContactsModal: () => {},
-
 }
 
 ActiveCallPanel.propTypes = {

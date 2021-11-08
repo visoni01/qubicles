@@ -6,6 +6,7 @@ const PostSkeleton = () => {
   function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max))
   }
+
   const isPhotoPost = getRandomInt(2) === 1
 
   return (

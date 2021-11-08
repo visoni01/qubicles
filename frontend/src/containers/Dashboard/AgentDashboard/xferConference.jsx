@@ -1,16 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent,
-  DialogTitle, Button, IconButton, Switch, TextField,
+  Dialog, DialogActions, DialogContent, DialogTitle, Button, IconButton, Switch, TextField,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import './style.scss'
 
-const XferOnConference = ({
-  open, onClose,
-}) => (
+const XferOnConference = ({ open, onClose }) => (
   <Dialog
     disableScrollLock
     open={ open }
@@ -22,7 +19,7 @@ const XferOnConference = ({
     <div className='header'>
       <DialogTitle>
         <div className='display-inline-flex justify-between align-items-center is-fullwidth'>
-          <h2 className='h2'>X-fer</h2>
+          <h2 className='h2'> X-fer </h2>
           <h4 className='h4 light text-center ml-20'> Conference 0:34 Min </h4>
         </div>
       </DialogTitle>
@@ -36,7 +33,7 @@ const XferOnConference = ({
       </DialogActions>
     </div>
     <DialogContent>
-      <h4 className='h4 mt-30'>Phone Number</h4>
+      <h4 className='h4 mt-30'> Phone Number </h4>
       <TextField
         className='text-field-para is-fullwidth'
         variant='outlined'
@@ -46,7 +43,7 @@ const XferOnConference = ({
       />
 
       <div className='display-inline-flex justify-between align-items-center is-halfwidth mt-30'>
-        <h4 className='h4'>Internal Warm X-fer</h4>
+        <h4 className='h4'> Internal Warm X-fer </h4>
         <Switch
           className='switches'
           color='primary'

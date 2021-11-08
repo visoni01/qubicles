@@ -13,6 +13,7 @@ const RenderPostComments = ({
   ownerId, postId, commentId, commentText, ownerName, profilePic, createdAt, updatedAt,
 }) => {
   const [ isEditing, setIsEditing ] = useState(false)
+
   const { userDetails } = useSelector((state) => state.login)
 
   const dispatch = useDispatch()
@@ -27,49 +28,44 @@ const RenderPostComments = ({
   return (
     <>
       {!isEditing && (
-      <div className='comment-body'>
-        <div className='profile-head-info'>
-          <Avatar className='avatar' alt={ ownerName } src={ profilePic } />
-          <div className='pt-5'>
-            <div className='comment-box'>
-              <h4 className='h4 sz-sm'>
-                {ownerName}
-              </h4>
-              <p className='para mt-5'>
-                {commentText}
-              </p>
-            </div>
-            <div className='display-inline-flex pl-10'>
-              <p className='para light sz-sm'>
-                {getTimeFromNow(createdAt)}
-              </p>
-              <p className='para sz-sm light ml-5'>
-                {updatedAt && updatedAt !== createdAt && '(edited)'}
-              </p>
+        <div className='comment-body'>
+          <div className='profile-head-info'>
+            <Avatar className='avatar' alt={ ownerName } src={ profilePic } />
+            <div className='pt-5'>
+              <div className='comment-box'>
+                <h4 className='h4 sz-sm'>{ownerName}</h4>
+                <p className='para mt-5'>{commentText}</p>
+              </div>
+              <div className='display-inline-flex pl-10'>
+                <p className='para light sz-sm'>{getTimeFromNow(createdAt)}</p>
+                <p className='para sz-sm light ml-5'>
+                  {updatedAt && updatedAt !== createdAt && '(edited)'}
+                </p>
+              </div>
             </div>
           </div>
+          {userDetails.user_id === ownerId && (
+            <MenuOptions
+              handleFirstOptionClick={ () => setIsEditing(true) }
+              handleConfirmModal={ handleConfirmModal }
+              confirmButtonText='Delete'
+              firstOption='Edit'
+              secondOption='Delete'
+              FirstIcon={ EditIcon }
+              SecondIcon={ DeleteIcon }
+              message='Are you sure you want to delete this comment ?'
+            />
+          )}
         </div>
-        {userDetails.user_id === ownerId && (
-          <MenuOptions
-            handleFirstOptionClick={ () => setIsEditing(true) }
-            handleConfirmModal={ handleConfirmModal }
-            confirmButtonText='Delete'
-            firstOption='Edit'
-            secondOption='Delete'
-            FirstIcon={ EditIcon }
-            SecondIcon={ DeleteIcon }
-            message='Are you sure you want to delete this comment ?'
-          />
-        )}
-      </div>
       )}
+
       {isEditing && (
-      <EditComment
-        oldComment={ commentText }
-        setIsEditing={ setIsEditing }
-        postId={ postId }
-        commentId={ commentId }
-      />
+        <EditComment
+          oldComment={ commentText }
+          setIsEditing={ setIsEditing }
+          postId={ postId }
+          commentId={ commentId }
+        />
       )}
     </>
   )

@@ -3,8 +3,7 @@ import React, {
 } from 'react'
 import { useDispatch } from 'react-redux'
 import {
-  Button, IconButton,
-  Radio, Popover, TextareaAutosize, RadioGroup, FormControlLabel, Grid,
+  Button, IconButton, Radio, Popover, TextareaAutosize, RadioGroup, FormControlLabel, Grid,
 } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
@@ -23,14 +22,15 @@ const EditPost = ({
   const [ fileSrc, setFileSrc ] = useState(initialPostData.postImage)
   const [ anchorEl, setAnchorEl ] = useState(null)
 
+  const fileInput = useRef()
+  const dispatch = useDispatch()
+
   useEffect(() => {
     setPostText(initialPostData.postText)
     setPermission(initialPostData.permission)
     setFileSrc(initialPostData.postImage)
   }, [ initialPostData ])
 
-  const open = Boolean(anchorEl)
-  const id = open ? 'simple-popover' : undefined
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
   }
@@ -39,12 +39,9 @@ const EditPost = ({
     setAnchorEl(null)
   }
 
-  const fileInput = useRef()
-  const dispatch = useDispatch()
   const updatePost = useCallback(() => {
-    if (!(postText && postText.trim())) {
-      return
-    }
+    if (!(postText && postText.trim())) return
+
     const postData = {
       userActivityId: postId,
       file: fileSrc,
@@ -91,6 +88,9 @@ const EditPost = ({
       }
     }
   }, [])
+
+  const open = Boolean(anchorEl)
+  const id = open ? 'simple-popover' : undefined
 
   return (
     <>
@@ -150,48 +150,47 @@ const EditPost = ({
             />
 
             {fileSrc && (
-            <div className='post-image-container'>
-              <div className='post-image'>
-                <div className='image-container'>
-                  <img alt='post' src={ fileSrc } height='300px' />
-                  <IconButton onClick={ handleDelete }>
-                    <FontAwesomeIcon className='custom-fa-icon white pointer sz-xl' icon={ faTimesCircle } />
-                  </IconButton>
+              <div className='post-image-container'>
+                <div className='post-image'>
+                  <div className='image-container'>
+                    <img alt='post' src={ fileSrc } height='300px' />
+                    <IconButton onClick={ handleDelete }>
+                      <FontAwesomeIcon className='custom-fa-icon white pointer sz-xl' icon={ faTimesCircle } />
+                    </IconButton>
+                  </div>
                 </div>
               </div>
-            </div>
             )}
           </div>
 
-          { postText && (
-          <div className='postButtons'>
-            <Button
-              classes={ {
-                root: 'button-secondary-small-red',
-                label: 'button-secondary-small-red-label',
-              } }
-              onClick={ clear }
-            >
-              Cancel
-            </Button>
-            <Button
-              variant='contained'
-              classes={ {
-                root: 'button-primary-small',
-                label: 'button-primary-small-label',
-              } }
-              disabled={
-                (postText === initialPostData.postText
-                  && fileSrc === initialPostData.postImage
-                  && permission === initialPostData.permission
-                  )
-                }
-              onClick={ updatePost }
-            >
-              Save Post
-            </Button>
-
-          </div>
+          {postText && (
+            <div className='postButtons'>
+              <Button
+                classes={ {
+                  root: 'button-secondary-small-red',
+                  label: 'button-secondary-small-red-label',
+                } }
+                onClick={ clear }
+              >
+                Cancel
+              </Button>
+              <Button
+                variant='contained'
+                classes={ {
+                  root: 'button-primary-small',
+                  label: 'button-primary-small-label',
+                } }
+                disabled={
+                  (postText === initialPostData.postText
+                    && fileSrc === initialPostData.postImage
+                    && permission === initialPostData.permission
+                    )
+                  }
+                onClick={ updatePost }
+              >
+                Save Post
+              </Button>
+            </div>
           )}
         </div>
         <Popover

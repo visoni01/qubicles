@@ -6,10 +6,9 @@ import {
 } from '../../../assets/images/agentDashboard'
 import ManualDialModal from './manualDial'
 
-const InactiveCallPanel = ({
-  setOpenContactsModal, setOpenCallbackModal, setOpenCallLogsModal,
-}) => {
+const InactiveCallPanel = ({ setOpenContactsModal, setOpenCallbackModal, setOpenCallLogsModal }) => {
   const [ openManualDialModal, setOpenManualDialModal ] = useState(false)
+
   return (
     <>
       <Grid item container justify='flex-start' spacing={ 3 } lg={ 9 }>
@@ -21,7 +20,7 @@ const InactiveCallPanel = ({
             } }
             startIcon={
               <img src={ dialPadIcon } alt='Chat Icon' />
-        }
+            }
             onClick={ () => setOpenManualDialModal(true) }
           >
             Manual Dial
@@ -35,7 +34,7 @@ const InactiveCallPanel = ({
             } }
             startIcon={
               <img src={ dialNextIcon } alt='Chat Icon' />
-        }
+            }
           >
             Dial Next
           </Button>
@@ -48,7 +47,7 @@ const InactiveCallPanel = ({
             } }
             startIcon={
               <img src={ contactsIcon } alt='Chat Icon' />
-        }
+            }
             onClick={ () => setOpenContactsModal(true) }
           >
             Contacts
@@ -62,7 +61,7 @@ const InactiveCallPanel = ({
             } }
             startIcon={
               <img src={ callLogsIcon } alt='Chat Icon' />
-        }
+            }
             onClick={ () => setOpenCallLogsModal(true) }
           >
             Call Logs
@@ -76,13 +75,14 @@ const InactiveCallPanel = ({
             } }
             startIcon={
               <img src={ callbacksBlueIcon } alt='Chat Icon' />
-        }
+            }
             onClick={ () => setOpenCallbackModal(true) }
           >
             Callbacks
           </Button>
         </Grid>
       </Grid>
+
       <ManualDialModal
         open={ openManualDialModal }
         onClose={ () => setOpenManualDialModal(false) }

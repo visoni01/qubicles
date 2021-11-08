@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  Dialog, DialogActions, DialogContent,
-  DialogTitle, Button, IconButton, Switch,
+  Dialog, DialogActions, DialogContent, DialogTitle, Button, IconButton, Switch,
 } from '@material-ui/core'
 import IntlTelInput from 'react-intl-tel-input'
 import 'react-intl-tel-input/dist/main.css'
@@ -10,9 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import './style.scss'
 
-const ManualDial = ({
-  open, onClose, onSubmit,
-}) => (
+const ManualDial = ({ open, onClose, onSubmit }) => (
   <Dialog
     disableScrollLock
     open={ open }
@@ -24,7 +21,7 @@ const ManualDial = ({
   >
     <div className='header'>
       <DialogTitle>
-        <div className='h2'>Manual Dial</div>
+        <div className='h2'> Manual Dial </div>
       </DialogTitle>
       <DialogActions className='cross-button'>
         <IconButton
@@ -36,7 +33,7 @@ const ManualDial = ({
       </DialogActions>
     </div>
     <DialogContent>
-      <h4 className='h4 mt-10'>Phone Number</h4>
+      <h4 className='h4 mt-10'> Phone Number </h4>
       <div className='mt-10 is-fullwidth'>
         <IntlTelInput
           preferredCountries={ [ 'us', 'ca' ] }
@@ -45,7 +42,7 @@ const ManualDial = ({
       </div>
 
       <div className='display-inline-flex justify-between align-items-center is-fullwidth mt-30'>
-        <h4 className='h4'>Lookup contact by phone number</h4>
+        <h4 className='h4'> Lookup contact by phone number </h4>
         <Switch
           className='switches'
           color='primary'
@@ -87,7 +84,6 @@ const ManualDial = ({
           </Button>
         </div>
       </div>
-
     </DialogContent>
   </Dialog>
 )
