@@ -21,7 +21,7 @@ import logger from '../common/logger'
 
 export const SqlHelper = {
   select: async (queryString) => {
-    logger.info(`Select query ${queryString}`)
+    // logger.info(`Select query ${queryString}`)
     return sequelize.query(queryString,
       { raw: true, type: sequelize.QueryTypes.SELECT })
   },

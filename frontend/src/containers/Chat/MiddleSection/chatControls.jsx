@@ -64,7 +64,7 @@ const ChatControls = ({
             userIds,
             newActiveUser: {
               id: userId,
-              name: userDetails?.full_name.split(' ')[ 0 ],
+              name: userDetails?.full_name.split(' ')[0],
             },
           },
         })
@@ -121,13 +121,21 @@ const ChatControls = ({
       newMessage,
     }))
 
-    dispatch(updateAllChats({
-      dataType: 'new-message',
-      conversationId,
-      latestMessage: newMessage.text || 'Sent an image',
-      isNotification: false,
-      dateTime: newMessage.sentAt,
-    }))
+    if (window.location.pathname === CHAT_ROUTE) {
+      dispatch(updateAllChats({
+        dataType: 'new-message',
+        conversationId,
+        latestMessage: newMessage.text || 'Sent an image',
+        isNotification: false,
+        dateTime: newMessage.sentAt,
+      }))
+    } else {
+      dispatch(chatDataRequestStart({
+        requestType: 'UPDATE',
+        dataType: 'mark-as-read',
+        conversationId,
+      }))
+    }
 
     if (window.location.pathname !== CHAT_ROUTE) {
       dispatch(resetPopupFlags({ conversationId }))

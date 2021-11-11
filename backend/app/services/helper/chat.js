@@ -424,18 +424,18 @@ export const getCandidatesInfo = ({ user_ids }) => {
   return `
     SELECT userDetails.user_id, userDetails.profile_image, userDetails.city, userDetails.state, userDetails.work_title,
       userClientData.client_id , userClientData.full_name, userClientData.user_code, userClientData.title,
-      userClientData.client_city, userClientData.client_state
+      userClientData.client_city, userClientData.client_state, userClientData.client_name
     FROM x_user_details userDetails
     JOIN (
       SELECT users.user_id, users.full_name, users.user_code, clientData.client_id, clientData.title,
-        clientData.client_city, clientData.client_state
+      clientData.client_name, clientData.client_city, clientData.client_state
       FROM x_users users
       LEFT JOIN (
         SELECT clientUsers.user_id, clientDetails.client_id, clientDetails.title, clientDetails.client_city,
-          clientDetails.client_state
+          clientDetails.client_state, clientDetails.client_name
         FROM x_client_users clientUsers
         JOIN (
-          SELECT clients.client_id, clients.title, clients.city AS client_city, clients.state AS client_state
+          SELECT clients.client_id, clients.client_name, clients.title, clients.city AS client_city, clients.state AS client_state
           FROM x_clients clients
         ) clientDetails
         ON clientUsers.client_id = clientDetails.client_id
