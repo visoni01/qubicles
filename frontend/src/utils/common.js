@@ -366,3 +366,6 @@ const notificationAudio = new Audio(notificationSound)
 export const playNotificationAudio = () => {
   notificationAudio.play()
 }
+
+export const showInstantResult = ({ questions }) => !questions
+  ?.find((question) => [ 'paragraph', 'text' ].includes(question.questionType))

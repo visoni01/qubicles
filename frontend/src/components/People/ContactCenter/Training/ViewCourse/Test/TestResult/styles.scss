@@ -1,0 +1,40 @@
+@import '../../../../../../../customStyles/scss/partials/variables';
+
+.test-result-header {
+  .result-inner * {
+    flex: 1 0 0;
+  }
+
+  .progress-root {
+    height: 20px;
+    border-radius: 5px;
+  }
+
+  .progress-bar-color {
+    background-color: $color-primary;
+  }
+
+  .progress-color {
+    background-color: $color-primary-light;
+  }
+}
+
+.mti-20 {
+  margin-top: 20px !important;
+}
+
+.answer-card-root {
+  border-radius: 8px;
+
+  &.correct-answer {
+    border: 1px solid #23E8B5;
+  }
+
+  &.incorrect-answer {
+    border: 1px solid #F14667;
+  }
+}
+
+.answer-card-root .MuiCardContent-root:last-child {
+  padding-bottom: 16px !important;
+}

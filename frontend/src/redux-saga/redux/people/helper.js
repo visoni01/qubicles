@@ -123,6 +123,8 @@ export const getUpdatedCourse = ({ state, action }) => {
           const sectionIndex = _.findIndex(state.course.courseContent.sections, [ 'id', action.payload.sectionId ])
           const updatedSections = _.cloneDeep(state.course.courseContent.sections)
           updatedSections[ sectionIndex ].status = 'completed'
+          updatedSections[ sectionIndex ].isTestCompleted = true
+
           return {
             ...state.course,
             sectionsCompleted: state.course.sectionsCompleted + 1,

@@ -1,0 +1,33 @@
+@import '../../../../../../../../customStyles/scss/partials/variables';
+
+.correct-answer {
+  .MuiSvgIcon-root {
+    color: #23E8B5 !important;
+  }
+}
+
+.wrong-answer {
+  .MuiSvgIcon-root {
+    color: #F14667 !important;
+  }
+}
+
+// WIP
+.correct-parent {
+  .MuiSlider-thumb {
+    color: #23E8B5 !important;
+  }
+}
+
+.wrong-parent {
+  .MuiSlider-thumb {
+    color: #F14667 !important;
+  }
+}
+// WIP
+
+.reference-answer-text {
+  padding: 5px;
+  border-left: 5px solid $color-primary;
+  background-color: $color-primary-light;
+}

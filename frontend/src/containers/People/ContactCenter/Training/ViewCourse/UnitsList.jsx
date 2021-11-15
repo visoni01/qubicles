@@ -11,7 +11,7 @@ import {
 import {
   sectionPropType, isEnrolledPropType, introVideoPropType, setOpenCoursePlayerPropType, isCoursePlayerOpenPropType,
   unitPropType, courseIdPropType, isIntroVideoActivePropType, sectionIndexPropType, courseStatusPropType,
-  typePropType, isCreatorPropType,
+  typePropType, isCreatorPropType, isTestCompletedPropType,
 } from './propTypes'
 import { viewCourseRequestStart, updateCurrentUnitAndSectionIndex } from '../../../../../redux-saga/redux/people'
 import {
@@ -22,7 +22,7 @@ import { COURSE_UNIT } from '../../../../../redux-saga/redux/constants'
 
 const UnitsList = ({
   section, setOpenCoursePlayer, isEnrolled, isActive, showIntroVideo, introVideo, isCoursePlayerOpen, currentUnit,
-  courseId, currentSection, sectionIndex, isIntroVideoActive, courseStatus, type, isCreator,
+  courseId, currentSection, sectionIndex, isIntroVideoActive, courseStatus, type, isCreator, isTestCompleted,
 }) => {
   const [ open, setOpen ] = useState(isActive)
   const dispatch = useDispatch()
@@ -198,8 +198,7 @@ const UnitsList = ({
                   || (isEnrolled && section.status === '' && courseStatus === 'inprogress' && sectionIndex !== 0
                     && !isActive && section.units[ 0 ].status === '' && isCoursePlayerOpen)
                   || (isEnrolled && section.status === '' && courseStatus === 'enrolled')
-                  || (currentUnit.unitId === -2 && section.id === currentSection.id && isCoursePlayerOpen)
-                  || section.status === 'completed' }
+                  || (currentUnit.unitId === -2 && section.id === currentSection.id && isCoursePlayerOpen) }
                   classes={ {
                     root: 'button-primary-text',
                     label: 'button-primary-text-label',
@@ -215,8 +214,7 @@ const UnitsList = ({
                   (type === 'preview' && ' ')
                   || (isCoursePlayerOpen && currentUnit && currentUnit.unitId === -2 && currentSection.id === section.id
                     && 'Current')
-                  || (isCreator && 'View')
-                  || (section.status === 'completed' && 'Completed')
+                  || ((isCreator || (section.status === 'completed' && isTestCompleted)) && 'View')
                   || 'Start'
                 }
                 </Button>
@@ -233,6 +231,7 @@ UnitsList.defaultProps = {
   isIntroVideoActive: null,
   type: 'view',
   isCreator: false,
+  isTestCompleted: false,
 }
 
 UnitsList.propTypes = {
@@ -251,6 +250,7 @@ UnitsList.propTypes = {
   courseStatus: courseStatusPropType.isRequired,
   type: typePropType,
   isCreator: isCreatorPropType,
+  isTestCompleted: isTestCompletedPropType,
 }
 
 export default UnitsList

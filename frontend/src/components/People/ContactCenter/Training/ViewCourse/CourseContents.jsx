@@ -48,6 +48,7 @@ const CourseContents = ({
             courseStatus={ courseStatus }
             type={ type }
             isCreator={ isCreator }
+            isTestCompleted={ section.isTestCompleted }
           />
         </div>
       ))}

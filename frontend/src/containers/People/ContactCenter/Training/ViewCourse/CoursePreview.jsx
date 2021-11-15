@@ -1,5 +1,5 @@
 /* eslint-disable complexity */
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
 import {
   Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton,
@@ -22,12 +22,17 @@ import ViewCourseUnitSkeleton from
 import MediaPlayer from './mediaPlayer'
 import { REQUEST_TYPES } from '../../../../../utils/constants'
 import { COURSE_UNIT } from '../../../../../redux-saga/redux/constants'
+import AfterTest from '../../../../../components/People/ContactCenter/Training/ViewCourse/Test/afterTest'
 
 const CoursePreview = ({
   open, onClose, sections, courseTitle, currentSection, currentUnit, courseId, setOpenCoursePlayer, isEnrolled,
   introVideo, setCurrentSection, setCurrentUnit, currentUnitIndex, currentSectionIndex, isIntroVideoActive,
   isSectionTestActive, courseStatus, isLoading, dataType, isCreator,
 }) => {
+  const [ showInstantResult, setShowInstantResult ] = useState(false)
+  const [ totalQuestions, setTotalQuestions ] = useState(0)
+  const [ totalAnswered, setTotalAnswered ] = useState(0)
+
   const dispatch = useDispatch()
 
   const handlePreviousUnit = useCallback(() => {
@@ -171,7 +176,7 @@ const CoursePreview = ({
               {open && !isLoading && currentUnit.type === 'Article' && (
                 <div
                   className='para sz-xl text-align-justify'
-                // eslint-disable-next-line react/no-danger
+                  // eslint-disable-next-line react/no-danger
                   dangerouslySetInnerHTML={ { __html: currentUnit.details } }
                 />
               )}
@@ -182,11 +187,29 @@ const CoursePreview = ({
                 />
               )}
               {currentUnit.type === 'Test' && (
-                <SectionTest
-                  courseId={ courseId }
-                  sectionId={ currentSection.id }
-                />
+                <>
+                  {currentSection.isTestCompleted
+                    ? (
+                      <AfterTest
+                        courseId={ courseId }
+                        sectionId={ currentSection.id }
+                        showInstantResult={ showInstantResult }
+                        totalQuestions={ totalQuestions }
+                        totalAnswered={ totalAnswered }
+                      />
+                    )
+                    : (
+                      <SectionTest
+                        courseId={ courseId }
+                        sectionId={ currentSection.id }
+                        setShowInstantResult={ setShowInstantResult }
+                        setTotalQuestions={ setTotalQuestions }
+                        setTotalAnswered={ setTotalAnswered }
+                      />
+                    )}
+                </>
               )}
+
               {open && isLoading && _.isEqual(dataType, COURSE_UNIT) && <ViewCourseUnitSkeleton />}
             </div>
           </DialogContent>

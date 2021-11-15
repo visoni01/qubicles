@@ -929,7 +929,7 @@ export const formatViewUnitData = ({ units, unitsStatus, isCreator }) => {
   })
 }
 
-export const formatViewSectionData = ({ sections, sectionsCompleted, unitsStatus, isCreator }) => {
+export const formatViewSectionData = ({ sections, sectionsCompleted, unitsStatus, isCreator, userTestEntries }) => {
   return sections.map((section) => {
     const units = formatViewUnitData({ units: section.units, unitsStatus, isCreator })
 
@@ -945,7 +945,8 @@ export const formatViewSectionData = ({ sections, sectionsCompleted, unitsStatus
       units,
       status: isSectionCompleted
         ? 'completed'
-        : (isSectionInProgress ? 'inprogress' : '')
+        : (isSectionInProgress ? 'inprogress' : ''),
+      isTestCompleted: userTestEntries && !!userTestEntries.find((section_id) => section_id === section.section_id)
     }
   })
 }
@@ -977,6 +978,7 @@ export const formatViewCourseData = ({
   creatorDetails,
   totalRaters,
   requiredCourses,
+  userTestEntries,
   isCourseTakenInJob
 }) => {
   return {
@@ -1012,7 +1014,9 @@ export const formatViewCourseData = ({
       introductionVideo: course.video_url
     },
     courseContent: {
-      sections: formatViewSectionData({ sections: course.sections, sectionsCompleted, unitsStatus, isCreator })
+      sections: formatViewSectionData({
+        sections: course.sections, sectionsCompleted, unitsStatus, isCreator, userTestEntries
+      })
     },
     courseDetails
   }
@@ -1073,6 +1077,16 @@ export async function getViewCourseById ({ course_id, user_id }) {
       where: {
         course_id
       }
+    }),
+    () => XQodCourseUserQA.findAll({
+      raw: true,
+      attributes: ['section_id'],
+      where: {
+        user_id,
+        course_id,
+        test_type: 'section_wise'
+      },
+      group: ['XQodCourseUserQA.section_id']
     })
   ]
 
@@ -1081,7 +1095,8 @@ export async function getViewCourseById ({ course_id, user_id }) {
     course,
     studentsEnrolled,
     totalRaters,
-    requiredCourses
+    requiredCourses,
+    userTestEntries
   ] = await Promise.all(promiseArray.map(promise => promise()))
 
   if (course) {
@@ -1147,7 +1162,8 @@ export async function getViewCourseById ({ course_id, user_id }) {
       creatorDetails,
       totalRaters: totalRaters && totalRaters.length && totalRaters[0].totalAverageRaters,
       isCreator: false,
-      requiredCourses: requiredCoursesData
+      requiredCourses: requiredCoursesData,
+      userTestEntries: userTestEntries && userTestEntries.map((item) => item.section_id)
     })
 
     if (formattedViewCourse.informationSection.requiredCourses) {

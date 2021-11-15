@@ -1,5 +1,6 @@
 /* eslint-disable complexity */
 import React, { useCallback, useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import { Button, LinearProgress } from '@material-ui/core'
 import _ from 'lodash'
 import { useDispatch, useSelector } from 'react-redux'
@@ -7,14 +8,16 @@ import RenderTestQuestion from
   '../../../../../components/People/ContactCenter/Training/ViewCourse/Test/renderTestQuestion'
 import { updateCurrentUnitAndSectionIndex, viewCourseRequestStart } from '../../../../../redux-saga/redux/people'
 import { courseIdPropType, sectionIdPropType } from './propTypes'
-import TestCompleted from '../../../../../components/People/ContactCenter/Training/ViewCourse/Test/testCompleted'
 import ViewCourseTestSkeleton from
   '../../../../../components/People/ContactCenter/SkeletonLoader/Training/viewCourseTestSkeleton'
 import { REQUEST_TYPES } from '../../../../../utils/constants'
 import { COURSE_UNIT, SECTION_TEST } from '../../../../../redux-saga/redux/constants'
+import { showInstantResult } from '../../../../../utils/common'
 import './Test/styles.scss'
 
-const SectionTest = ({ courseId, sectionId }) => {
+const SectionTest = ({
+  courseId, sectionId, setShowInstantResult, setTotalQuestions, setTotalAnswered,
+}) => {
   const [ questions, setQuestions ] = useState([])
   const [ answers, setAnswers ] = useState([])
   const [ isTestCompleted, setIsTestCompleted ] = useState(false)
@@ -49,6 +52,10 @@ const SectionTest = ({ courseId, sectionId }) => {
   }, [ dataType, requestType, isLoading ])
 
   const handleSubmit = useCallback(() => {
+    setShowInstantResult(showInstantResult({ questions: answers }))
+    setTotalQuestions(questions?.length)
+    setTotalAnswered(answers.length)
+
     dispatch(viewCourseRequestStart({
       courseId,
       sectionId,
@@ -61,7 +68,8 @@ const SectionTest = ({ courseId, sectionId }) => {
       })),
       courseStatus: sectionIndex === course.courseContent.sections.length - 1 ? 'completed' : 'inprogress',
     }))
-  }, [ dispatch, answers, courseId, sectionId, course.courseContent.sections.length, sectionIndex ])
+  }, [ dispatch, answers, courseId, sectionId, course.courseContent.sections.length, sectionIndex,
+    setShowInstantResult, questions, setTotalAnswered, setTotalQuestions ])
 
   const handleGoToNextSection = useCallback(() => {
     const currentSectionIndex = sectionIndex < course.courseContent.sections.length - 1 ? sectionIndex + 1 : 0
@@ -124,13 +132,6 @@ const SectionTest = ({ courseId, sectionId }) => {
         </div>
       )}
 
-      {isTestCompleted && (
-        <TestCompleted
-          totalAnswered={ answers.length }
-          totalQuestions={ questions && questions.length }
-        />
-      )}
-
       <div className='is-flex is-center mt-40 mb-20'>
         <Button
           classes={ {
@@ -150,6 +151,9 @@ const SectionTest = ({ courseId, sectionId }) => {
 SectionTest.propTypes = {
   courseId: courseIdPropType.isRequired,
   sectionId: sectionIdPropType.isRequired,
+  setShowInstantResult: PropTypes.func.isRequired,
+  setTotalQuestions: PropTypes.func.isRequired,
+  setTotalAnswered: PropTypes.func.isRequired,
 }
 
 export default SectionTest
