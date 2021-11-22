@@ -8,6 +8,7 @@ import { getOne } from './crud'
 import Sequelize, { Op } from 'sequelize'
 import _ from 'lodash'
 import { generateRandomUniqueIdString } from '../../utils/generateId'
+import config from '../../../config/app'
 
 export async function createAgentJobProfile ({
   user_id,
@@ -2477,4 +2478,87 @@ export const getCourseDetails = async ({ courseIds }) => {
   })
 
   return courses && courses.map(item => item.get({ plain: true }))
+}
+
+export const checkTestEvaluation = async ({ user_id, course_id, section_id }) => {
+  const isTestNotEvaluated = await XQodCourseUserQA.findOne({
+    raw: true,
+    where: {
+      user_id,
+      course_id,
+      section_id,
+      test_type: 'section_wise',
+      verified: false
+    }
+  })
+
+  return !isTestNotEvaluated
+}
+
+export const getUsetTestAnswers = async ({ user_id, course_id, section_id }) => {
+  const userTestAnswers = await XQodCourseUserQA.findAll({
+    raw: true,
+    attributes: ['section_qa_id', 'answer', 'correct', 'updated_on'],
+    where: {
+      user_id,
+      course_id,
+      section_id,
+      test_type: 'section_wise'
+    }
+  })
+
+  return userTestAnswers
+}
+
+export const formatTestResultData = ({ questions, userTestAnswers }) => {
+  const correctAnswers = userTestAnswers.filter((question) => question.correct).length
+
+  return {
+    gradingDate: _.max(userTestAnswers.map((answer) => answer.updated_on)),
+    result: ((correctAnswers * 100) / questions.length) > config.get('passingPercentage') ? 'Passed' : 'Failed',
+    correctAnswers,
+    questions: formatTestResultQuestions({ questions, userTestAnswers })
+  }
+}
+
+export const formatTestResultQuestions = ({ questions, userTestAnswers }) => {
+  return questions.map((question) => {
+    let options, correctOptions, userOptions, scale
+    const userAnswerData = userTestAnswers.find((answer) => answer.section_qa_id === question.section_qa_id)
+    if (_.isEqual(question.question_type, 'scale')) {
+      scale = {
+        minRange: question.option1,
+        maxRange: question.option2
+      }
+    }
+
+    if (['multiple', 'checkbox'].includes(question.question_type)) {
+      options = formatOptionsData({ question })
+    }
+
+    if (_.isEqual(question.question_type, 'checkbox')) {
+      const correctAnswers = JSON.parse(question.answer)
+      const userAnswers = userAnswerData && JSON.parse(userAnswerData.answer)
+      correctOptions = options.filter((option) => correctAnswers.includes(option.value))
+        .map((correctAnswer) => correctAnswer.id)
+      userOptions = options.filter((option) => userAnswers.includes(option.value))
+        .map((userAnswer) => userAnswer.id)
+    }
+
+    return {
+      id: question.section_qa_id,
+      questionType: question.question_type,
+      questionText: question.question,
+      answerText: question.answer,
+      options,
+      correctOptions,
+      correctOption: _.isEqual(question.question_type, 'multiple')
+        ? options.find((option) => option.value === question.answer).id
+        : null,
+      userAnswer: userAnswerData && userAnswerData.answer,
+      userOptions,
+      isCorrect: !!(userAnswerData && userAnswerData.correct),
+      scale
+    }
+  })
 }

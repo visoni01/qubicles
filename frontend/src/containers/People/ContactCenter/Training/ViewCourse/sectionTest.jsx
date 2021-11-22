@@ -12,11 +12,10 @@ import ViewCourseTestSkeleton from
   '../../../../../components/People/ContactCenter/SkeletonLoader/Training/viewCourseTestSkeleton'
 import { REQUEST_TYPES } from '../../../../../utils/constants'
 import { COURSE_UNIT, SECTION_TEST } from '../../../../../redux-saga/redux/constants'
-import { showInstantResult } from '../../../../../utils/common'
 import './Test/styles.scss'
 
 const SectionTest = ({
-  courseId, sectionId, setShowInstantResult, setTotalQuestions, setTotalAnswered,
+  courseId, sectionId, setTotalQuestions, setTotalAnswered,
 }) => {
   const [ questions, setQuestions ] = useState([])
   const [ answers, setAnswers ] = useState([])
@@ -52,7 +51,6 @@ const SectionTest = ({
   }, [ dataType, requestType, isLoading ])
 
   const handleSubmit = useCallback(() => {
-    setShowInstantResult(showInstantResult({ questions: answers }))
     setTotalQuestions(questions?.length)
     setTotalAnswered(answers.length)
 
@@ -69,7 +67,7 @@ const SectionTest = ({
       courseStatus: sectionIndex === course.courseContent.sections.length - 1 ? 'completed' : 'inprogress',
     }))
   }, [ dispatch, answers, courseId, sectionId, course.courseContent.sections.length, sectionIndex,
-    setShowInstantResult, questions, setTotalAnswered, setTotalQuestions ])
+    questions, setTotalAnswered, setTotalQuestions ])
 
   const handleGoToNextSection = useCallback(() => {
     const currentSectionIndex = sectionIndex < course.courseContent.sections.length - 1 ? sectionIndex + 1 : 0
@@ -151,7 +149,6 @@ const SectionTest = ({
 SectionTest.propTypes = {
   courseId: courseIdPropType.isRequired,
   sectionId: sectionIdPropType.isRequired,
-  setShowInstantResult: PropTypes.func.isRequired,
   setTotalQuestions: PropTypes.func.isRequired,
   setTotalAnswered: PropTypes.func.isRequired,
 }

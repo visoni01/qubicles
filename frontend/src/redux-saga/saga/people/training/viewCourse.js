@@ -6,7 +6,7 @@ import {
   courseRatingsFetchSuccessful,
 } from '../../../redux/actions'
 import {
-  ASSESSMENT_TEST, BUY_COURSE, COURSE_INFO, COURSE_UNIT, SECTION_TEST, START_COURSE,
+  ASSESSMENT_TEST, BUY_COURSE, COURSE_INFO, COURSE_UNIT, SECTION_TEST, SECTION_TEST_RESULT, START_COURSE,
 } from '../../../redux/constants'
 import People from '../../../service/people'
 
@@ -51,6 +51,14 @@ function* viewCourseWorker(action) {
           case ASSESSMENT_TEST: {
             const { data } = yield People.fetchAssessmentTest({ courseId })
             yield put(viewCourseRequestSuccess({ assessmentTest: data }))
+            break
+          }
+
+          case SECTION_TEST_RESULT: {
+            const { data } = yield People.fetchSectionTestResult({ courseId, sectionId })
+            yield put(viewCourseRequestSuccess({
+              dataType, sectionId, isTestEvaluated: data.isTestEvaluated, testResult: data.testResult,
+            }))
             break
           }
 

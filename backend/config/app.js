@@ -326,6 +326,10 @@ const config = convict({
       default: '',
       env: 'TWILIO_MOBILE_NUMBER'
     }
+  },
+  passingPercentage: {
+    default: 30,
+    env: 'PASSING_PERCENTAGE'
   }
 })
 config.validate({ allowed: 'strict' })

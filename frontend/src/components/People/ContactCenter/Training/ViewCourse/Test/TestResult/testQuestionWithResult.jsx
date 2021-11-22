@@ -62,7 +62,7 @@ const TestQuestionWithResult = ({ question }) => (
         <DateTimeQuestionWithResult
           isCorrect={ question.isCorrect }
           answerText={ question.answerText && JSON.parse(question.answerText) }
-          userAnswer={ question.answerText && JSON.parse(question.userAnswer) }
+          userAnswer={ question.userAnswer && JSON.parse(question.userAnswer) }
         />
       )}
     </CardContent>

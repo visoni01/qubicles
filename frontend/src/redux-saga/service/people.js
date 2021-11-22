@@ -375,6 +375,11 @@ class People {
     const response = await apiClient.getRequest('/people/courses/company-courses', null, queryParams)
     return response
   }
+
+  static async fetchSectionTestResult({ courseId, sectionId }) {
+    const response = await apiClient.getRequest(`/people/course/${ courseId }/test-result`, null, { sectionId })
+    return response
+  }
 }
 
 export default People

@@ -29,7 +29,6 @@ const CoursePreview = ({
   introVideo, setCurrentSection, setCurrentUnit, currentUnitIndex, currentSectionIndex, isIntroVideoActive,
   isSectionTestActive, courseStatus, isLoading, dataType, isCreator,
 }) => {
-  const [ showInstantResult, setShowInstantResult ] = useState(false)
   const [ totalQuestions, setTotalQuestions ] = useState(0)
   const [ totalAnswered, setTotalAnswered ] = useState(0)
 
@@ -193,7 +192,6 @@ const CoursePreview = ({
                       <AfterTest
                         courseId={ courseId }
                         sectionId={ currentSection.id }
-                        showInstantResult={ showInstantResult }
                         totalQuestions={ totalQuestions }
                         totalAnswered={ totalAnswered }
                       />
@@ -202,7 +200,6 @@ const CoursePreview = ({
                       <SectionTest
                         courseId={ courseId }
                         sectionId={ currentSection.id }
-                        setShowInstantResult={ setShowInstantResult }
                         setTotalQuestions={ setTotalQuestions }
                         setTotalAnswered={ setTotalAnswered }
                       />

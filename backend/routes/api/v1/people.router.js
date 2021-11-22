@@ -103,9 +103,6 @@ peopleRouter.route('/course/:course_id/test-entries/:candidate_id')
 peopleRouter.route('/course/:course_id/test-entries/:candidate_id')
   .put(isAuthenticated, trainingController.updateTestEntry)
 
-peopleRouter.route('/enrolled-courses')
-  .get(isAuthenticated, trainingController.getAllEnrolledCourses)
-
 peopleRouter.route('/course/:course_id/rating')
   .get(isAuthenticated, trainingController.getCourseRating)
 
@@ -115,8 +112,14 @@ peopleRouter.route('/course/:course_id/reviews')
 peopleRouter.route('/course/:course_id/reviews')
   .post(isAuthenticated, trainingController.addCourseReview)
 
+peopleRouter.route('/course/:course_id/test-result')
+  .get(isAuthenticated, trainingController.getTestResult)
+
 peopleRouter.route('/courses/company-courses')
   .get(isAuthenticated, trainingController.getCompanyCourses)
+
+peopleRouter.route('/enrolled-courses')
+  .get(isAuthenticated, trainingController.getAllEnrolledCourses)
 
 peopleRouter.route('/required-courses')
   .get(isAuthenticated, trainingController.getAllCourses)

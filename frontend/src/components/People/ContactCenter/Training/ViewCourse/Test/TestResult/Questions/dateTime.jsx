@@ -7,7 +7,7 @@ const DateTime = ({ dateTime }) => {
 
   return (
     <>
-      {dateTime.date && (
+      {dateTime?.date && (
         <div>
           <p className='para bold'> Date </p>
           <TextField
@@ -18,7 +18,7 @@ const DateTime = ({ dateTime }) => {
           />
         </div>
       )}
-      {dateTime.time && (
+      {dateTime?.time && (
         <div className='ml-20'>
           <p className='para bold'> Time </p>
           <TextField

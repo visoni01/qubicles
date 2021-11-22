@@ -1,6 +1,12 @@
 @import '../../../../../../../customStyles/scss/partials/variables';
 
 .test-result-header {
+  .test-result-inner {
+    .para {
+      min-width: 150px;
+    }
+  }
+
   .result-inner * {
     flex: 1 0 0;
   }

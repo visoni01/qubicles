@@ -5,22 +5,25 @@ import { TestDoneIcon } from '../../../../../../assets/images/training'
 
 const TestCompleted = ({ totalAnswered, totalQuestions }) => (
   <div>
-    <div className='mb-20'>
-      <div className='para bold sz-lg'>
-        {`Questions answered ${ totalAnswered }/${ totalQuestions }`}
+    {!!totalQuestions && (
+      <div className='mb-20'>
+        <div className='para bold sz-lg'>
+          {`Questions answered ${ totalAnswered }/${ totalQuestions }`}
+        </div>
+        <div className='mt-10'>
+          <LinearProgress
+            variant='determinate'
+            value={ (totalAnswered * 100) / totalQuestions }
+            classes={ {
+              root: 'progress-root',
+              barColorPrimary: 'progress-bar-color',
+              colorPrimary: 'progress-color',
+            } }
+          />
+        </div>
       </div>
-      <div className='mt-10'>
-        <LinearProgress
-          variant='determinate'
-          value={ (totalAnswered * 100) / totalQuestions }
-          classes={ {
-            root: 'progress-root',
-            barColorPrimary: 'progress-bar-color',
-            colorPrimary: 'progress-color',
-          } }
-        />
-      </div>
-    </div>
+    )}
+
     <div className='mt-50'>
       <Grid container justify='center' direction='column' spacing={ 3 }>
         <Grid item className='align-self-center'>
@@ -40,9 +43,14 @@ const TestCompleted = ({ totalAnswered, totalQuestions }) => (
   </div>
 )
 
+TestCompleted.defaultProps = {
+  totalQuestions: null,
+  totalAnswered: null,
+}
+
 TestCompleted.propTypes = {
-  totalAnswered: PropTypes.number.isRequired,
-  totalQuestions: PropTypes.number.isRequired,
+  totalAnswered: PropTypes.number,
+  totalQuestions: PropTypes.number,
 }
 
 export default TestCompleted

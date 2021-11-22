@@ -3,7 +3,7 @@ import _ from 'lodash'
 import { REQUEST_TYPES } from '../../../utils/constants'
 import {
   ALL_TEST_ENTRIES, ASSESSMENT_TEST, BUY_COURSE, COURSE_INFO, COURSE_UNIT, SECTION_TEST, START_COURSE,
-  TEST_ENTRY_ANSWERS, VALIDATE_ANSWERS,
+  TEST_ENTRY_ANSWERS, VALIDATE_ANSWERS, SECTION_TEST_RESULT,
 } from '../constants'
 
 export const updateApplicationsListHelper = ({
@@ -95,6 +95,22 @@ export const getUpdatedCourse = ({ state, action }) => {
           return {
             ...state.course,
             assessmentTest: action.payload.assessmentTest,
+          }
+        }
+
+        case SECTION_TEST_RESULT: {
+          return {
+            ...state.course,
+            courseContent: {
+              ...state.course.courseContent,
+              sections: state.course.courseContent.sections.map((section) => (section.id === action.payload.sectionId
+                ? {
+                  ...section,
+                  isTestEvaluated: action.payload.isTestEvaluated,
+                  testResult: action.payload.testResult,
+                }
+                : section)),
+            },
           }
         }
 
