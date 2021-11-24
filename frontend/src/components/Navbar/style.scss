@@ -91,6 +91,7 @@
 
   .topbar-icons {
     display: inline-flex;
+    gap: 10px;
 
     img {
       width: 24px;
@@ -226,5 +227,51 @@
   .MuiPaper-root::-webkit-scrollbar-thumb {
     background-color: rgba(72, 119, 244, 0.7);
     border-radius: 20px 20px 20px 20px ;
+  }
+}
+
+.MuiAutocomplete-listbox::-webkit-scrollbar-thumb {
+  background-color: rgba(72, 119, 244, 0.7);
+  border-radius: 20px 20px 20px 20px ;
+}
+
+.universal-search {
+  .MuiAutocomplete-option {
+    padding: 0;
+  }
+
+  .actions {
+    margin: 5px auto;
+    width: fit-content;
+  }
+
+  &-input-field {
+    background-color: $color-white;
+    margin-left: 5px
+  }
+
+  &-popper {
+    box-shadow: 0px 7px 13px 0px #0000006e;
+
+    .MuiAutocomplete-paper {
+      margin: 0 !important;
+      box-shadow: none !important;
+    }
+  }
+
+  &-user-details {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .sz-8x {
+      font-size: 8px !important;
+    }
+  }
+
+  &-details-box {
+    display: flex;
+    align-items: center;
+    width: 100%;
   }
 }

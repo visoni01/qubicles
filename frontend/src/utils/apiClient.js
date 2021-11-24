@@ -49,6 +49,15 @@ class ApiClient {
     })
     return user
   }
+
+  searchUsers = async ({ searchString, offset }) => {
+    const response = await this.axios({
+      url: `user/search?search_string=${ searchString }&offset=${ offset }`,
+      method: 'get',
+    })
+
+    return response
+  }
 }
 
 const axiosInst = axios.create({

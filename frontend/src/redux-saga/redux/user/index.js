@@ -4,6 +4,7 @@ import postSignUpReducer from './postSignup'
 import invitePageReducer from './invitePage'
 import userDataReducer from './userData'
 import notificationsReducer from './notifications'
+import searchUsersReducer from './searchUsers'
 
 const userReducers = {
   login: loginReducer,
@@ -12,6 +13,7 @@ const userReducers = {
   invitePage: invitePageReducer,
   userData: userDataReducer,
   notifications: notificationsReducer,
+  searchUsers: searchUsersReducer,
 }
 
 export default userReducers
@@ -21,3 +23,4 @@ export * from './postSignup'
 export * from './invitePage'
 export * from './userData'
 export * from './notifications'
+export * from './searchUsers'
