@@ -19,8 +19,8 @@ const CheckBoxQuestionWithResult = ({
             <Checkbox
               checked={ correctOptions.includes(option.id) || userOptions.includes(option.id) }
               className={ `
-                ${ correctOptions.includes(option.id) ? 'correct-answer' : '' }
-                ${ !isCorrect && _.difference(userOptions, correctOptions).includes(option.id) ? 'wrong-answer' : '' }
+                ${ correctOptions.includes(option.id) ? 'correct-option' : '' }
+                ${ !isCorrect && _.difference(userOptions, correctOptions).includes(option.id) ? 'wrong-option' : '' }
               ` }
             />
             ) }

@@ -21,7 +21,10 @@ const TestQuestionWithResult = ({ question }) => (
     } }
   >
     <CardContent>
-      <p className='para bold mb-5'>{question.questionText}</p>
+      <div className='is-flex is-between'>
+        <p className='para bold mb-5'>{question.questionText}</p>
+        {!question.isAttempted && <p className='para light ml-10 mw-110'> (Not attempted) </p>}
+      </div>
 
       {_.isEqual(question.questionType, 'multiple') && (
         <MultipleChoiceQuestionWithResult

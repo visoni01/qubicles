@@ -1,8 +1,9 @@
 import React from 'react'
 import { Skeleton } from '@material-ui/lab'
+import PropTypes from 'prop-types'
 import './styles.scss'
 
-const ViewCourseTestSkeleton = () => (
+const ViewCourseTestSkeleton = ({ type }) => (
   <div className='course-test-skeleton-container'>
     <Skeleton
       animation='wave'
@@ -49,11 +50,21 @@ const ViewCourseTestSkeleton = () => (
         classes={ { root: 'answer-box' } }
       />
     </div>
-    <Skeleton
-      animation='wave'
-      classes={ { root: 'button' } }
-    />
+    {type === 'test' && (
+      <Skeleton
+        animation='wave'
+        classes={ { root: 'button' } }
+      />
+    )}
   </div>
 )
+
+ViewCourseTestSkeleton.defaultProps = {
+  type: 'test',
+}
+
+ViewCourseTestSkeleton.propTypes = {
+  type: PropTypes.string,
+}
 
 export default ViewCourseTestSkeleton

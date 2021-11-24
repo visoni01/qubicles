@@ -37,7 +37,8 @@ const ScaleQuestionWithResult = ({
         markLabel: 'custom-slider-mark-label',
       } }
       className='ml-5'
-      value={ isCorrect ? userAnswer : [ userAnswer, answerText ] }
+      // eslint-disable-next-line no-nested-ternary
+      value={ isCorrect ? (userAnswer || '') : (userAnswer ? [ userAnswer, answerText ] : answerText) }
       min={ scale.minRange }
       max={ scale.maxRange }
       step={ 1 }

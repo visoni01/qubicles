@@ -17,7 +17,7 @@ const TestResult = ({ testResult, creatorName }) => (
         <div className='is-flex result-inner mt-7'>
           <h4 className='h4'>  Grading Date  </h4>
           <p className='para light pl-10'>
-            {testResult.gradingDate && formatDate(testResult.gradingDate, 'MM-DD-YY hh:mm A')}
+            {testResult.gradingDate && formatDate(testResult.gradingDate, 'MM/DD/YY hh:mm A')}
           </p>
         </div>
       </Grid>

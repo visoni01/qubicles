@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
+import _ from 'lodash'
 import TestCompleted from './testCompleted'
 import {
   courseIdPropType, sectionIdPropType,
@@ -9,15 +10,23 @@ import TestResult from './TestResult/testResult'
 import { viewCourseRequestStart } from '../../../../../../redux-saga/redux/people'
 import { REQUEST_TYPES } from '../../../../../../utils/constants'
 import { SECTION_TEST_RESULT } from '../../../../../../redux-saga/redux/constants'
+import ViewCourseTestSkeleton from '../../../SkeletonLoader/Training/viewCourseTestSkeleton'
 
 const AfterTest = ({
   courseId, sectionId, totalQuestions, totalAnswered,
 }) => {
   const [ isFetched, setIsFetched ] = useState(false)
 
-  const { course, isLoading } = useSelector((state) => state.viewCourse)
+  const { isLoading, course } = useSelector((state) => state.viewCourse)
 
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (!_.isUndefined(course?.courseContent?.sections?.find((section) => section.id === sectionId)?.isTestEvaluated)) {
+      setIsFetched(true)
+    }
+    return () => setIsFetched(false)
+  }, [ course, sectionId ])
 
   useEffect(() => {
     if (!isFetched && !course?.courseContent?.sections?.find((section) => section.id === sectionId)?.isTestEvaluated) {
@@ -32,7 +41,7 @@ const AfterTest = ({
   }, [ dispatch, isFetched, course, courseId, sectionId ])
 
   if (isLoading) {
-    return <></>
+    return <ViewCourseTestSkeleton type='result' />
   }
 
   return (

@@ -2523,12 +2523,14 @@ export const formatTestResultData = ({ questions, userTestAnswers }) => {
 
 export const formatTestResultQuestions = ({ questions, userTestAnswers }) => {
   return questions.map((question) => {
-    let options, correctOptions, userOptions, scale
+    let options, correctOption, correctOptions, userOptions, scale
     const userAnswerData = userTestAnswers.find((answer) => answer.section_qa_id === question.section_qa_id)
+    let userAnswer = userAnswerData && userAnswerData.answer
+
     if (_.isEqual(question.question_type, 'scale')) {
       scale = {
-        minRange: question.option1,
-        maxRange: question.option2
+        minRange: question.option1 && parseInt(question.option1),
+        maxRange: question.option2 && parseInt(question.option2)
       }
     }
 
@@ -2536,13 +2538,20 @@ export const formatTestResultQuestions = ({ questions, userTestAnswers }) => {
       options = formatOptionsData({ question })
     }
 
+    if (_.isEqual(question.question_type, 'multiple')) {
+      const availableCorrectOption = options && options.find((option) => option.value === question.answer)
+      const availableUserAnswer = options && options.find((option) => userAnswerData && option.value === userAnswerData.answer)
+      correctOption = availableCorrectOption && availableCorrectOption.id
+      userAnswer = availableUserAnswer && availableUserAnswer.id
+    }
+
     if (_.isEqual(question.question_type, 'checkbox')) {
       const correctAnswers = JSON.parse(question.answer)
       const userAnswers = userAnswerData && JSON.parse(userAnswerData.answer)
-      correctOptions = options.filter((option) => correctAnswers.includes(option.value))
-        .map((correctAnswer) => correctAnswer.id)
-      userOptions = options.filter((option) => userAnswers.includes(option.value))
-        .map((userAnswer) => userAnswer.id)
+      correctOptions = options && options.filter((option) => correctAnswers && correctAnswers.includes(option.value))
+        .map((correctAnswer) => correctAnswer && correctAnswer.id)
+      userOptions = options && options.filter((option) => userAnswers && userAnswers.includes(option.value))
+        .map((userAnswer) => userAnswer && userAnswer.id)
     }
 
     return {
@@ -2552,13 +2561,12 @@ export const formatTestResultQuestions = ({ questions, userTestAnswers }) => {
       answerText: question.answer,
       options,
       correctOptions,
-      correctOption: _.isEqual(question.question_type, 'multiple')
-        ? options.find((option) => option.value === question.answer).id
-        : null,
-      userAnswer: userAnswerData && userAnswerData.answer,
+      correctOption,
+      userAnswer,
       userOptions,
       isCorrect: !!(userAnswerData && userAnswerData.correct),
-      scale
+      scale,
+      isAttempted: !!userAnswer
     }
   })
 }

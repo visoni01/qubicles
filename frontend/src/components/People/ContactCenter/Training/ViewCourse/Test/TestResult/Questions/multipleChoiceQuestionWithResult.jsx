@@ -25,8 +25,8 @@ const MultipleChoiceQuestionWithResult = ({
           control={ (
             <Radio
               className={ `
-                ${ _.isEqual(option.id, correctOption) ? 'correct-answer' : '' }
-                ${ !isCorrect && _.isEqual(option.id, userAnswer) ? 'wrong-answer' : '' }
+                ${ _.isEqual(option.id, correctOption) ? 'correct-option' : '' }
+                ${ !isCorrect && _.isEqual(option.id, userAnswer) ? 'wrong-option' : '' }
               ` }
             />
           ) }

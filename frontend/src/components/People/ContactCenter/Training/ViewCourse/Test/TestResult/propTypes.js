@@ -20,6 +20,7 @@ const testQuestionWithResultPropType = PropTypes.shape({
   options: optionsPropType,
   correctOptions: PropTypes.arrayOf(optionPropType),
   correctOption: optionPropType,
+  isAttempted: PropTypes.bool.isRequired,
   dateTime: PropTypes.shape({
     date: PropTypes.string,
     time: PropTypes.string,
