@@ -87,4 +87,7 @@ userRouter.route('/notifications/:notification_id')
 userRouter.route('/companies')
   .get(isAuthenticated, userController.getUserCompanies)
 
+userRouter.route('/search')
+  .get(isAuthenticated, userController.getUsers)
+
 export { userRouter }

@@ -497,3 +497,47 @@ export const fetchCompaniesUsers = async ({ clientIds }) => {
 
   return companiesUsers && _.uniqBy(companiesUsers, 'user_id').map((company) => company.user_id)
 }
+
+export const searchUsers = ({ searchString, offset }) => {
+  return `
+      SELECT count(*) over() as count, userDetails.profile_image, userDetails.work_title,
+        userClientData.user_id, userClientData.client_id,
+        userClientData.full_name, userClientData.user_code, userClientData.title, userClientData.client_name,
+        IF(userClientData.user_code = "employer", userClientData.client_name, userClientData.full_name) as user_name
+      FROM x_user_details userDetails
+      JOIN (
+        SELECT users.user_id, users.full_name, users.user_code, clientData.client_id, clientData.title,
+          clientData.client_name
+        FROM x_users users
+        LEFT JOIN (
+          SELECT clientUsers.user_id, clientDetails.client_id, clientDetails.title, clientDetails.client_name
+          FROM x_client_users clientUsers
+          JOIN (
+            SELECT clients.client_id, clients.title, clients.client_name
+            FROM x_clients clients
+          ) clientDetails
+          ON clientUsers.client_id = clientDetails.client_id
+        ) clientData
+        ON users.user_id = clientData.user_id
+      ) userClientData
+      ON userDetails.user_id = userClientData.user_id
+      WHERE
+        userDetails.is_post_signup_completed = 1 AND
+        ((userClientData.user_code = "employer" AND userClientData.client_name like "%${searchString}%") OR
+        (userClientData.user_code != "employer" AND userClientData.full_name like "%${searchString}%"))
+      LIMIT 5
+      OFFSET ${offset || 0}
+  `
+}
+
+export const formatUserSearchResults = ({ users }) => (
+  users.map((user) => ({
+    userId: user.user_id,
+    clientId: user.client_id,
+    name: user.user_name,
+    profileImage: user.profile_image,
+    userType: user.user_code,
+    title: user.user_code === 'employer' ? user.title : user.work_title,
+    groupName: 'results'
+  }))
+)

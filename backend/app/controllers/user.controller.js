@@ -16,7 +16,8 @@ import {
   UserGetNotificationsService,
   UserReadNotificationsService,
   UserDeleteNotificationService,
-  GetUserCompaniesService
+  GetUserCompaniesService,
+  SearchUsersService
 } from '../services/user'
 import { getNewTokenAfterUserCodeChanged } from '../services/helper'
 import config from '../../config/app'
@@ -191,6 +192,15 @@ export default class UserController {
       Responder.success(res, companiesList.result)
     } else {
       Responder.failed(res, companiesList.errors)
+    }
+  }
+
+  static async getUsers (req, res) {
+    const searchResults = await SearchUsersService.execute({ ...req.body, ...req.query })
+    if (searchResults.successful) {
+      Responder.success(res, searchResults.result)
+    } else {
+      Responder.failed(res, searchResults.errors)
     }
   }
 }
