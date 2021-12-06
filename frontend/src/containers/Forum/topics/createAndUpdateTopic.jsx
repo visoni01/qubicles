@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react'
 import { Box, Button } from '@material-ui/core'
 import CKEditor from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import DOMPurify from 'dompurify'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import MyUploadAdapter from '../../../utils/uploadImage'
@@ -36,7 +37,7 @@ const CreateAndUpdateTopic = ({
     // eslint-disable-next-line
     setTopicData((topicData) => ({
       ...topicData,
-      description: editor.getData(),
+      description: DOMPurify.sanitize(editor.getData()),
     }))
   }, [ setTopicData ])
 

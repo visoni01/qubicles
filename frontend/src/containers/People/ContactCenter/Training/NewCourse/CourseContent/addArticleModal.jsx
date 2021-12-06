@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import CKEditor from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import DOMPurify from 'dompurify'
 import { checkDisabledUnitSaveButton } from './helper'
 import { unitPropType } from '../propTypes'
 import { DeleteIcon, UploadIcon } from '../../../../../../assets/images/training'
@@ -57,7 +58,7 @@ const AddArticleModal = ({
   const handleChangeArticleText = useCallback((selectedValue) => {
     setUnitDetails((current) => ({
       ...current,
-      details: selectedValue,
+      details: DOMPurify.sanitize(selectedValue),
     }))
   }, [ setUnitDetails ])
 

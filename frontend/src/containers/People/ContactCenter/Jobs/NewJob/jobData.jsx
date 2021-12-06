@@ -5,6 +5,7 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CKEditor from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import DOMPurify from 'dompurify'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import MyUploadAdapter from '../../../../../utils/uploadImage'
@@ -25,7 +26,7 @@ const NewJobData = ({
     // eslint-disable-next-line
     setNewJobData((jobData) => ({
       ...jobData,
-      description: editor.getData(),
+      description: DOMPurify.sanitize(editor.getData()),
     }))
   }, [ setNewJobData ])
 
