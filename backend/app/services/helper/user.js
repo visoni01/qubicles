@@ -525,6 +525,7 @@ export const searchUsers = ({ searchString, offset }) => {
         userDetails.is_post_signup_completed = 1 AND
         ((userClientData.user_code = "employer" AND userClientData.client_name like "%${searchString}%") OR
         (userClientData.user_code != "employer" AND userClientData.full_name like "%${searchString}%"))
+      ORDER BY userClientData.user_id
       LIMIT 5
       OFFSET ${offset || 0}
   `
