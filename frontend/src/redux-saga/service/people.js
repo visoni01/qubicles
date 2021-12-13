@@ -326,11 +326,14 @@ class People {
   }
 
   static async validateTestEntryAnswers({
-    courseId, candidateId, validatedData,
+    courseId, candidateId, validatedData, testType,
   }) {
     const response = await apiClient.putRequest(
       `/people/course/${ courseId }/test-entries/${ candidateId }`,
-      { validated_data: validatedData },
+      {
+        validated_data: validatedData,
+        test_type: testType,
+      },
     )
     return response
   }

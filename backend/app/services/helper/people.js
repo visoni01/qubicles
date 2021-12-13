@@ -1821,10 +1821,10 @@ export const createUserTestBulkData = ({ user_id, course_id, sectionIds, questio
         : question.sectionId,
       section_qa_id: question.id,
       answer: question.answer,
-      correct: ['multiple', 'checkbox', 'scale', 'date'].includes(question.questionType)
+      correct: ['multiple', 'checkbox', 'scale', 'date'].includes(question.questionType) || _.isEmpty(question.answer)
         ? _.isEqual(correctAnswers.find((item) => item.section_qa_id === question.id).answer, question.answer)
         : null,
-      verified: ['multiple', 'checkbox', 'scale', 'date'].includes(question.questionType),
+      verified: ['multiple', 'checkbox', 'scale', 'date'].includes(question.questionType) || _.isEmpty(question.answer),
       test_type: testType
     }
   })
@@ -1842,10 +1842,11 @@ export const addTestEntries = async ({ user_id, course_id, sectionIds, questions
   }
 }
 
-export const updateCourseStatus = async ({ user_id, course_id }) => {
+export const updateCourseStatus = async ({ user_id, course_id, grade }) => {
   await XQodUserCourse.update({
     status: 'completed',
-    date_completed: Date.now()
+    date_completed: Date.now(),
+    grade
   }, {
     where: {
       user_id,
@@ -2480,19 +2481,77 @@ export const getCourseDetails = async ({ courseIds }) => {
   return courses && courses.map(item => item.get({ plain: true }))
 }
 
-export const checkTestEvaluation = async ({ user_id, course_id, section_id }) => {
-  const isTestNotEvaluated = await XQodCourseUserQA.findOne({
+export const checkCourseStatus = async ({ user_id, course_id }) => {
+  const courseStatus = await XQodUserCourse.findOne({
     raw: true,
     where: {
       user_id,
-      course_id,
-      section_id,
-      test_type: 'section_wise',
-      verified: false
+      course_id
     }
   })
 
+  return courseStatus
+}
+
+export const checkTestEvaluation = async ({ user_id, course_id, section_id, testType }) => {
+  let queryParams = {
+    user_id,
+    course_id,
+    test_type: testType,
+    verified: false
+  }
+
+  if (section_id) {
+    queryParams = {
+      ...queryParams,
+      section_id
+    }
+  }
+
+  const isTestNotEvaluated = await XQodCourseUserQA.findOne({
+    raw: true,
+    where: queryParams
+  })
+
   return !isTestNotEvaluated
+}
+
+export const calculateCourseGradesSectionWise = async ({ user_id, course_id }) => {
+  const courseResult = await XQodCourse.findOne({
+    attributes: [
+      [Sequelize.literal('COUNT(DISTINCT(`sections->questions`.`section_qa_id`))'), 'questionsCount'],
+      [Sequelize.literal('COUNT(DISTINCT(CASE WHEN `userTest`.`correct` = true AND ' +
+        '`userTest`.`test_type` = "section_wise" AND `userTest`.`user_id` = ' + user_id +
+        ' THEN `userTest`.`user_qa_id` END))'), 'correctQuestionsCount']
+    ],
+    include: [
+      {
+        model: XQodCourseSection,
+        as: 'sections',
+        attributes: [],
+        include: [{
+          model: XQodCourseSectionQA,
+          as: 'questions',
+          attributes: []
+        }]
+      },
+      {
+        model: XQodCourseUserQA,
+        as: 'userTest',
+        attributes: []
+      }
+    ],
+    group: ['XQodCourse.course_id'],
+    subquery: false,
+    required: false,
+    where: { course_id }
+  })
+
+  if (courseResult) {
+    const { questionsCount, correctQuestionsCount } = courseResult.get({ plain: true })
+    const grade = (correctQuestionsCount / questionsCount) * 100
+    return grade && grade.toFixed(2)
+  }
 }
 
 export const getUsetTestAnswers = async ({ user_id, course_id, section_id }) => {
@@ -2569,4 +2628,18 @@ export const formatTestResultQuestions = ({ questions, userTestAnswers }) => {
       isAttempted: !!userAnswer
     }
   })
+}
+
+export const calculateCourseGradesAssessmentWise = async ({ user_id, course_id }) => {
+  const courseGrade = await XQodCourseUserQA.findOne({
+    raw: true,
+    attributes: [[Sequelize.literal('AVG(`correct`)'), 'grade']],
+    where: {
+      course_id,
+      user_id,
+      test_type: 'assessment'
+    }
+  })
+
+  return courseGrade && courseGrade.grade && courseGrade.grade * 100
 }

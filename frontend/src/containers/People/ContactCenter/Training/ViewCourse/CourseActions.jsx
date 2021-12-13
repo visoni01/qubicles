@@ -25,6 +25,7 @@ import { REQUEST_TYPES } from '../../../../../utils/constants'
 import {
   BUY_COURSE, COURSE_INFO, COURSE_UNIT, START_COURSE,
 } from '../../../../../redux-saga/redux/constants'
+import CourseBadge from '../../../../../components/CommonModal/courseBadge'
 
 const CourseActions = ({
   course, setOpenCoursePlayer, type, isLoading, dataType, continueCourse, setOpenReviewModal, requestType,
@@ -141,6 +142,22 @@ const CourseActions = ({
     setOpenCoursePlayer(true)
   }, [ course.isEnrolled, course.courseDetails, course.courseId, dispatch, setOpenCoursePlayer,
     course.informationSection.price, course.courseContent.sections ])
+
+  const getCourseGradingStatus = useCallback(({ grade }) => {
+    let status = 'Poor'
+
+    if (grade > 90) {
+      status = 'Excellent'
+    } else if (grade > 75 && grade <= 90) {
+      status = 'Good'
+    } else if (grade > 60 && grade <= 75) {
+      status = 'Above average'
+    } else if (grade > 33 && grade <= 60) {
+      status = 'Average'
+    }
+
+    return status
+  }, [])
 
   useEffect(() => {
     if (continueCourse && _.isEqual(type, 'view')
@@ -315,6 +332,35 @@ const CourseActions = ({
             isLoading={ isLoading }
             requestType={ requestType }
           />
+        )}
+
+        {type !== 'preview' && !course.isCreator && course.courseDetails
+        && _.isEqual(course.courseDetails.status, 'completed')
+        && (_.isNull(course.courseDetails.grade) || _.isUndefined(course.courseDetails.grade)) && (
+          <p className='para mb-20'> Your result is being evaluated. Please wait for your result. Thanks! </p>
+        )}
+
+        {type !== 'preview' && !course.isCreator && course.courseDetails
+        && _.isEqual(course.courseDetails.status, 'completed')
+        && !(_.isNull(course.courseDetails.grade) || _.isUndefined(course.courseDetails.grade)) && (
+          <div className='is-flex is-between align-items-start mb-20'>
+            <div>
+              <h4 className='h4'> Your Certificate </h4>
+              <span className='para light'>{ getCourseGradingStatus({ grade: course.courseDetails.grade }) }</span>
+            </div>
+            <div className='is-flex is-between align-items-center'>
+              <CourseBadge grade={ course.courseDetails.grade } />
+              <Button
+                className='ml-20'
+                classes={ {
+                  root: 'button-secondary-small',
+                  label: 'button-secondary-small-label',
+                } }
+              >
+                View
+              </Button>
+            </div>
+          </div>
         )}
 
         {type !== 'preview' && (

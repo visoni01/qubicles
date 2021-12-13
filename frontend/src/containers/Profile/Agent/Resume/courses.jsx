@@ -9,7 +9,7 @@ import { fetchAgentResumeCoursesStart } from '../../../../redux-saga/redux/peopl
 import { formatDate } from '../../../../utils/common'
 import { VIEW_COURSE_ROUTE } from '../../../../routes/routesPath'
 import UserCoursesSkeleton from '../../../../components/Profile/Agent/Resume/Skeletons/userCoursesSkeleton'
-import CourseBadge from './courseBadge'
+import CourseBadge from '../../../../components/CommonModal/courseBadge'
 
 const Courses = ({ candidateId }) => {
   const [ showAllCourses, setShowAllCourses ] = useState(false)

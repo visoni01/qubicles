@@ -138,12 +138,14 @@ export const getUpdatedCourse = ({ state, action }) => {
         case SECTION_TEST: {
           const sectionIndex = _.findIndex(state.course.courseContent.sections, [ 'id', action.payload.sectionId ])
           const updatedSections = _.cloneDeep(state.course.courseContent.sections)
+          const sectionsCompleted = _.isEqual(updatedSections[ sectionIndex ].status, 'completed')
+            ? state.course.sectionsCompleted : state.course.sectionsCompleted + 1
           updatedSections[ sectionIndex ].status = 'completed'
           updatedSections[ sectionIndex ].isTestCompleted = true
 
           return {
             ...state.course,
-            sectionsCompleted: state.course.sectionsCompleted + 1,
+            sectionsCompleted,
             courseContent: {
               ...state.course.courseContent,
               sections: updatedSections,
@@ -151,6 +153,7 @@ export const getUpdatedCourse = ({ state, action }) => {
             courseDetails: {
               ...state.course.courseDetails,
               status: action.payload.courseStatus === 'completed' ? 'completed' : state.course.courseDetails.status,
+              grade: action.payload.grade,
             },
           }
         }
@@ -172,6 +175,7 @@ export const getUpdatedCourse = ({ state, action }) => {
             courseDetails: {
               ...state.course.courseDetails,
               status: 'completed',
+              grade: _.isUndefined(action.payload.grade) ? state.course.courseDetails.grade : action.payload.grade,
             },
           }
         }

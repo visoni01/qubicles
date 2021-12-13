@@ -27,7 +27,7 @@ export class PeopleGetTestResultService extends ServiceBase {
     try {
       const { user_id, course_id, sectionId: section_id } = this.filteredArgs
 
-      const isTestEvaluated = await checkTestEvaluation({ user_id, course_id, section_id })
+      const isTestEvaluated = await checkTestEvaluation({ user_id, course_id, section_id, testType: 'section_wise' })
 
       if (isTestEvaluated) {
         const promiseArray = [

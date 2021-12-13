@@ -22,7 +22,7 @@ import ViewCourseUnitSkeleton from
 import MediaPlayer from './mediaPlayer'
 import { REQUEST_TYPES } from '../../../../../utils/constants'
 import { COURSE_UNIT } from '../../../../../redux-saga/redux/constants'
-import AfterTest from '../../../../../components/People/ContactCenter/Training/ViewCourse/Test/afterTest'
+import AfterTest from './Test/afterTest'
 
 const CoursePreview = ({
   open, onClose, sections, courseTitle, currentSection, currentUnit, courseId, setOpenCoursePlayer, isEnrolled,

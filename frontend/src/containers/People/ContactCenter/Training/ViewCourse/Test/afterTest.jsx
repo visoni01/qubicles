@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
-import TestCompleted from './testCompleted'
-import {
-  courseIdPropType, sectionIdPropType,
-} from '../../../../../../containers/People/ContactCenter/Training/ViewCourse/propTypes'
-import TestResult from './TestResult/testResult'
 import { viewCourseRequestStart } from '../../../../../../redux-saga/redux/people'
 import { REQUEST_TYPES } from '../../../../../../utils/constants'
 import { SECTION_TEST_RESULT } from '../../../../../../redux-saga/redux/constants'
-import ViewCourseTestSkeleton from '../../../SkeletonLoader/Training/viewCourseTestSkeleton'
+import { courseIdPropType, sectionIdPropType } from '../propTypes'
+import TestCompleted from '../../../../../../components/People/ContactCenter/Training/ViewCourse/Test/testCompleted'
+import ViewCourseTestSkeleton
+  from '../../../../../../components/People/ContactCenter/SkeletonLoader/Training/viewCourseTestSkeleton'
+import TestResult
+  from '../../../../../../components/People/ContactCenter/Training/ViewCourse/Test/TestResult/testResult'
 
 const AfterTest = ({
   courseId, sectionId, totalQuestions, totalAnswered,

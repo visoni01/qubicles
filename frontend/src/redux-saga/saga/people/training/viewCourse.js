@@ -79,7 +79,9 @@ function* viewCourseWorker(action) {
             const { data } = yield People.submitSectionTest({
               courseId, sectionId, questions, courseStatus,
             })
-            yield put(viewCourseRequestSuccess({ sectionTest: data, sectionId, courseStatus }))
+            yield put(viewCourseRequestSuccess({
+              sectionTest: data, sectionId, courseStatus, grade: data.grade,
+            }))
             break
           }
 
@@ -92,7 +94,7 @@ function* viewCourseWorker(action) {
         switch (dataType) {
           case ASSESSMENT_TEST: {
             const { data } = yield People.submitAssessmentTest({ courseId, questions })
-            yield put(viewCourseRequestSuccess({ assessmentTest: data }))
+            yield put(viewCourseRequestSuccess({ grade: data && data.grade }))
             break
           }
 

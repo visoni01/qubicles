@@ -57,14 +57,18 @@ const AssessmentTestModal = ({
       requestType: REQUEST_TYPES.CREATE,
       dataType: ASSESSMENT_TEST,
       courseId,
-      questions: answers.map((answer) => ({
-        id: answer.questionId,
-        answer: answer.answer,
-        questionType: answer.questionType,
-        sectionId: answer.sectionId,
-      })),
+      questions: _.flatten(assessmentTest?.map((section) => section?.questions?.map((question) => {
+        const questionAttempted = answers.find((answer) => answer.questionId === question.id)
+
+        return {
+          id: question.id,
+          answer: questionAttempted ? questionAttempted.answer : '',
+          questionType: question.questionType,
+          sectionId: section.sectionId,
+        }
+      }))),
     }))
-  }, [ dispatch, courseId, answers ])
+  }, [ dispatch, courseId, answers, assessmentTest ])
 
   return (
     <Dialog

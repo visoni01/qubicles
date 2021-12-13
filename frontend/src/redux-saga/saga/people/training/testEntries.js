@@ -39,7 +39,9 @@ function* testEntriesWorker(action) {
       case REQUEST_TYPES.UPDATE: {
         switch (dataType) {
           case VALIDATE_ANSWERS: {
-            yield People.validateTestEntryAnswers({ courseId, candidateId, validatedData })
+            yield People.validateTestEntryAnswers({
+              courseId, candidateId, validatedData, testType,
+            })
             yield put(testEntriesRequestSuccess({ candidateId, validatedData, testType }))
             yield put(showSuccessMessage({ msg: 'Answers validated successfully' }))
             break

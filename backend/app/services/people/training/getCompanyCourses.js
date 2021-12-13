@@ -26,8 +26,11 @@ export class PeopleGetCompanyCoursesService extends ServiceBase {
   async run () {
     try {
       const { user_id, clientId, courseFilter, offset } = this.filteredArgs
-
       let clientIds = [clientId]
+      let response = {
+        courses: [],
+        count: 0
+      }
 
       if (!clientId) {
         clientIds = await fetchUserCompanies({ user_id })
@@ -35,15 +38,10 @@ export class PeopleGetCompanyCoursesService extends ServiceBase {
 
       if (clientIds && clientIds.length > 0) {
         const companiesUsers = await fetchCompaniesUsers({ clientIds })
-        const allCourses = await getAllViewCourses({ courseFilter, offset, creatorIds: companiesUsers })
-
-        return allCourses
+        response = await getAllViewCourses({ courseFilter, offset, creatorIds: companiesUsers })
       }
 
-      return {
-        courses: [],
-        count: 0
-      }
+      return response
     } catch (e) {
       logger.error(getErrorMessageForService('PeopleGetCompanyCoursesService'), e)
       this.addError(ERRORS.INTERNAL)
